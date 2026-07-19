@@ -32,7 +32,7 @@ const config: GatsbyConfig = {
         // ignore it.
 
         // eslint-disable-next-line turbo/no-undeclared-env-vars
-        generateStatsFile: process.env.CI
+        generateStatsFile: false
       }
     },
     'gatsby-plugin-react-helmet',
