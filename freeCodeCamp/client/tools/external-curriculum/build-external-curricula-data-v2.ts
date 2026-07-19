@@ -393,6 +393,9 @@ export function buildExtCurriculumDataV2(
                   .map(block => {
                     const blockData = blocksWithData[block];
                     const blockIntro = superBlockIntros.blocks[block];
+                    if (!blockIntro) {
+                      console.log("Missing block:", block);
+                    }
                     return {
                       intro: blockIntro.intro,
                       // Keep `meta.name` for backward compatibility with
