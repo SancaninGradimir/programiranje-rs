@@ -1,0 +1,137 @@
+---
+id: 62a23d1c5f1c93161f3582ae
+title: Hatua 19
+challengeType: 0
+dashedName: step-19
+---
+
+# --description--
+
+Kama vile kipengele chako cha `#stats`, kipengele chako cha `#monsterStats` kinahitaji vipengele viwili vya `span`. Wape darasa la vitu la `stat` na mpe kipengele cha kwanza maandishi ya `Monster Name: ` na kipengele cha pili maandishi ya `Health: `. Baada ya maandishi katika kila kipengele, ongeza kipengele cha `strong` chenye kipengele kilichopangwa ndani cha `span` kisicho na maudhui. Mpe kipengele cha kwanza cha ndani cha `span` `id` ya `monsterName` na kipengele cha pili cha ndani cha `span` `id` ya `monsterHealth`.
+
+# --hints--
+
+Kipengele chako cha `#monsterStats` kinapaswa kuwa na vipengele viwili vya `span`.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+assert.equal(spans.length, 2);
+```
+
+Vipengele vyako vipya vya `span` vyote vinapaswa kuwa na thamani ya `class` ya `stat`.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+assert.equal(spans[0].className, 'stat');
+assert.equal(spans[1].className, 'stat');
+```
+
+Kipengele chako cha kwanza cha `span` kinapaswa kuwa na kipengele cha `strong` chenye kipengele kilichopangwa ndani cha `span` kisicho na maudhui.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+const strong = spans[0]?.querySelector('strong');
+const span = strong?.querySelector('span');
+assert.exists(strong);
+assert.exists(span);
+```
+
+Kipengele chako cha pili cha `span` kinapaswa kuwa na kipengele cha `strong` chenye kipengele kilichopangwa ndani cha `span` kisicho na maudhui.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+const strong = spans[1]?.querySelector('strong');
+const span = strong?.querySelector('span');
+assert.exists(strong);
+assert.exists(span);
+```
+
+Kipengele chako cha kwanza cha `span` kinapaswa kuwa na maandishi ya `Monster Name: `. Hakikisha nafasi ni sahihi.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+assert.match(spans[0].innerHTML, /Monster Name:\s+/);
+```
+
+Kipengele chako cha pili cha `span` kinapaswa kuwa na maandishi ya `Health: `. Hakikisha nafasi ni sahihi.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+assert.match(spans[1].innerHTML, /Health:\s+/);
+```
+
+Vipengele vyako vya `strong` na `span` vinapaswa kuja baada ya maandishi.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+assert.match(spans[0].innerHTML, /Monster Name:\s+<strong>/);
+assert.match(spans[1].innerHTML, /Health:\s+<strong>/);
+```
+
+Kipengele chako cha kwanza cha ndani cha `span` kinapaswa kuwa na `id` ya `monsterName`.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+const span = spans[0]?.querySelector('span');
+const spanId = span?.id;
+assert.equal(spanId, 'monsterName');
+```
+
+Kipengele chako cha pili cha ndani cha `span` kinapaswa kuwa na `id` ya `monsterHealth`.
+
+```js
+const spans = document.querySelectorAll(`#monsterStats > span`);
+const span = spans[1]?.querySelector('span');
+const spanId = span?.id;
+assert.equal(spanId, 'monsterHealth');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles.css">
+    <title>RPG - Dragon Repeller</title>
+  </head>
+  <body>
+    <div id="game">
+      <div id="stats">
+        <span class="stat">XP: <strong><span id="xpText">0</span></strong></span>
+        <span class="stat">Health: <strong><span id="healthText">100</span></strong></span>
+        <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span>
+      </div>
+      <div id="controls">
+        <button id="button1">Go to store</button>
+        <button id="button2">Go to cave</button>
+        <button id="button3">Fight dragon</button>
+      </div>
+--fcc-editable-region--
+      <div id="monsterStats">
+
+      </div>
+--fcc-editable-region--
+      <div id="text"></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```js
+let xp = 0;
+let health = 100;
+let gold = 50;
+let currentWeaponIndex = 0;
+let fighting;
+let monsterHealth;
+let inventory = ["stick"];
+
+const button1 = document.querySelector("#button1");
+const button2 = document.querySelector("#button2");
+const button3 = document.querySelector("#button3");
+```

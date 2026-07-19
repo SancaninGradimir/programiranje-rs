@@ -1,0 +1,127 @@
+---
+id: 587d7db0367417b2b2512b84
+title: Urithi wa tabia kutoka kwa supertype
+challengeType: 1
+forumTopicId: 301319
+dashedName: inherit-behaviors-from-a-supertype
+---
+
+# --description--
+
+Katika changamoto iliyopita, uliunda `supertype` iitwayo `Animal` ambayo ilibainisha tabia zinazoshirikiwa na wanyama wote:
+
+```js
+function Animal() { }
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+};
+```
+
+Changamoto hii na ile inayofuata zitashughulikia jinsi ya kutumia tena njia za `Animal` ndani ya `Bird` na `Dog` bila kuzitengeneza tena. Inatumia mbinu inayoitwa urithi. Changamoto hii inahusu hatua ya kwanza: tengeneza mfano wa `supertype` (au mzazi). Tayari unajua njia moja ya kutengeneza mfano wa `Animal` kwa kutumia opereta `new`:
+
+```js
+let animal = new Animal();
+```
+
+Kuna hasara fulani wakati wa kutumia sintaksia hii kwa urithi, ambazo ni ngumu sana kwa wigo wa changamoto hii. Badala yake, hapa kuna mbinu mbadala isiyo na hasara hizo:
+
+```js
+let animal = Object.create(Animal.prototype);
+```
+
+`Object.create(obj)` hutengeneza kitu kipya, na kuweka `obj` kama `prototype` ya kitu kipya hicho. Kumbuka kuwa `prototype` ni kama "mapishi" ya kutengeneza kitu. Kwa kuweka `prototype` ya `animal` kuwa `prototype` ya `Animal`, unampa mfano wa `animal` "mapishi" sawa na mfano mwingine wowote wa `Animal`.
+
+```js
+animal.eat();
+animal instanceof Animal;
+```
+
+Njia ya `instanceof` hapa itarudisha `true`.
+
+# --instructions--
+
+Tumia `Object.create` kutengeneza mifano miwili ya `Animal` iitwayo `duck` na `beagle`.
+
+# --hints--
+
+Kigezo cha `duck` kinapaswa kufafanuliwa.
+
+```js
+assert(typeof duck !== 'undefined');
+```
+
+Kigezo cha `beagle` kinapaswa kufafanuliwa.
+
+```js
+assert(typeof beagle !== 'undefined');
+```
+
+Kigezo cha `duck` kinapaswa kuanzishwa na `Object.create`.
+
+```js
+assert(
+  /(let|const|var)\s{1,}duck\s*=\s*Object\.create\s*\(\s*Animal\.prototype\s*\)\s*/.test(
+    __helpers.removeJSComments(code)
+  )
+);
+```
+
+Kigezo cha `beagle` kinapaswa kuanzishwa na `Object.create`.
+
+```js
+assert(
+  /(let|const|var)\s{1,}beagle\s*=\s*Object\.create\s*\(\s*Animal\.prototype\s*\)\s*/.test(
+    __helpers.removeJSComments(code)
+  )
+);
+```
+
+`duck` inapaswa kuwa na `prototype` ya `Animal`.
+
+```js
+assert(duck instanceof Animal);
+```
+
+`beagle` inapaswa kuwa na `prototype` ya `Animal`.
+
+```js
+assert(beagle instanceof Animal);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+// Only change code below this line
+
+let duck; // Change this line
+let beagle; // Change this line
+```
+
+# --solutions--
+
+```js
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+let duck = Object.create(Animal.prototype);
+let beagle = Object.create(Animal.prototype);
+
+duck.eat();
+beagle.eat();
+```

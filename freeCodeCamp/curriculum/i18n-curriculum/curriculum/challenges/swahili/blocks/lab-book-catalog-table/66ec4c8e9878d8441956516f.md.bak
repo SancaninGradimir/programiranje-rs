@@ -1,0 +1,200 @@
+---
+id: 66ec4c8e9878d8441956516f
+title: Jenga jedwali la orodha ya vitabu
+challengeType: 25
+dashedName: build-a-book-catalog-table
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kipengele cha `table` kinachoonyesha taarifa za vitabu.
+1. Jedwali lako linapaswa kuwa na kipengele cha kichwa cha jedwali chenye safu moja ndani yake.
+1. Safu katika kipengele cha kichwa cha jedwali inapaswa kuwa na vipengele vinne vya kichwa cha jedwali, vyenye maandishi ya `Title`, `Author`, `Genre`, na `Publication Year`, kwa mpangilio huo.
+1. Jedwali lako linapaswa kuwa na kipengele cha mwili wa jedwali chenye angalau safu tano ndani yake.
+1. Kila safu katika mwili wa jedwali inapaswa kuwa na vipengele vinne vya data ya jedwali vinavyoonyesha Jina la Kitabu, Mwandishi, Aina, na Mwaka wa Kuchapishwa.
+1. Jedwali lako linapaswa kuwa na kipengele cha kijachini cha jedwali chenye safu moja ndani yake.
+1. Safu katika kijachini cha jedwali inapaswa kuwa na kipengele cha data ya jedwali kinachochukua safu nne na kuwa na maandishi ya `Total Books: N` ambapo `N` inapaswa kubadilishwa na nambari ya vitabu katika jedwali lako.
+
+# --hints--
+
+Unapaswa kuwa na kipengele kimoja cha `table`.
+
+```js
+assert.lengthOf(document.querySelectorAll('table'), 1);
+```
+
+Unapaswa kuwa na kipengele kimoja cha `thead` ndani ya kipengele chako cha `table`.
+
+```js
+assert.lengthOf(document.querySelectorAll('table thead'), 1);
+```
+
+Unapaswa kuwa na kipengele kimoja cha `tr` ndani ya kipengele chako cha `thead`.
+
+```js
+assert.lengthOf(document.querySelectorAll('thead tr'), 1);
+```
+
+Unapaswa kuwa na vipengele vinne vya `th` ndani ya safu ya kipengele chako cha `thead`.
+
+```js
+assert.lengthOf(document.querySelectorAll('thead tr th'), 4);
+```
+
+Vipengele vyako vinne vya `th` vinapaswa kuwa na maandishi ya `Title`, `Author`, `Genre`, na `Publication Year`, kwa mpangilio huo.
+
+```js
+const ths = document.querySelectorAll('thead tr th');
+assert.equal(ths[0]?.textContent.trim(), 'Title');
+assert.equal(ths[1]?.textContent.trim(), 'Author');
+assert.equal(ths[2]?.textContent.trim(), 'Genre');
+assert.equal(ths[3]?.textContent.trim(), 'Publication Year');
+```
+
+Unapaswa kuwa na kipengele kimoja cha `tbody` ndani ya kipengele chako cha `table`.
+
+```js
+assert.lengthOf(document.querySelectorAll('table tbody'), 1);
+```
+
+Kipengele chako cha `tbody` kinapaswa kuwa na safu angalau tano.
+
+```js
+assert.isAtLeast(document.querySelectorAll('tbody tr').length, 5);
+```
+
+Kila safu katika kipengele chako cha `tbody` inapaswa kuwa na vipengele vinne vya `td` kama watoto.
+
+```js
+const rows = document.querySelectorAll('tbody tr');
+assert.isAtLeast(rows.length, 1);
+
+rows.forEach(row => {
+  assert.lengthOf(row.querySelectorAll('td'), 4);
+  assert.lengthOf(row.children, 4);
+});
+```
+
+Kila kipengele cha `td` katika mwili wa jedwali linapaswa kuwa na maandishi yenye taarifa za kitabu.
+
+```js
+const tds = document.querySelectorAll('tbody tr td');
+assert.isAtLeast(tds.length, 1);
+
+tds.forEach(td => {
+  assert.isAtLeast(td.textContent.trim().length, 1);
+});
+```
+
+Unapaswa kuwa na kipengele kimoja cha `tfoot` ndani ya kipengele chako cha `table`.
+
+```js
+assert.lengthOf(document.querySelectorAll('table tfoot'), 1);
+```
+
+Unapaswa kuwa na kipengele kimoja cha `tr` katika kipengele chako cha `tfoot`.
+
+```js
+assert.lengthOf(document.querySelectorAll('tfoot tr'), 1);
+```
+
+Kipengele cha `td` katika safu ya kipengele chako cha `tfoot` kinapaswa kuwa na sifa ya `colspan` iliyowekwa kuwa `4`.
+
+```js
+assert.equal(document.querySelector('tfoot tr td')?.colSpan, 4);
+```
+
+Kipengele cha `td` katika safu ya kipengele chako cha `tfoot` kinapaswa kuwa na maandishi ya `Total Books: N` ambapo `N` ni nambari ya vitabu katika jedwali lako.
+
+```js
+const numberOfBooks = document.querySelectorAll('tbody tr')?.length;
+assert.equal(document.querySelector('tfoot tr td').textContent.trim(), `Total Books: ${numberOfBooks}`);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Catalog</title>
+</head>
+
+<body>
+</body>
+
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalog</title>
+</head>
+<body>
+    <h1>Book Catalog</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Publication Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>How to Contribute to Open-Source Projects – A Handbook for Beginners</td>
+        <td>Hillary Nyakundi</td>
+        <td>Open Source</td>
+        <td>2023</td>
+      </tr>
+      <tr>
+        <td>Learn Linux for Beginners: From Basics to Advanced Techniques</td>
+        <td>Zaira Hira</td>
+        <td>Linux</td>
+        <td>2024</td>
+      </tr>
+      <tr>
+        <td>How to Learn to Code and Get a Developer Job</td>
+        <td>Quincy Larson</td>
+        <td>Learn To Code</td>
+        <td>2024</td>
+      </tr>
+      <tr>
+        <td>The Regular Expressions Book – RegEx for JavaScript Developers</td>
+        <td>Kolade Chris</td>
+        <td>Regular Expressions</td>
+        <td>2023</td>
+      </tr>
+      <tr>
+        <td>The Python Code Example Handbook</td>
+        <td>Farhan Hasin Chowdhury</td>
+        <td>Python</td>
+        <td>2023</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">Total Books: 5</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
+```

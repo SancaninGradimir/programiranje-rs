@@ -1,0 +1,110 @@
+---
+id: 5a24c314108439a4d4036172
+title: Onyesha hali katika kiolesura cha mtumiaji kwa njia nyingine
+challengeType: 6
+forumTopicId: 301408
+dashedName: render-state-in-the-user-interface-another-way
+---
+
+# --description--
+
+Kuna njia nyingine ya kupata upatikanaji wa `state` katika sehemu. Katika njia ya `render()`, kabla ya taarifa ya `return`, unaweza kuandika JavaScript moja kwa moja. Kwa mfano, unaweza kutangaza vitendakazi, kupata data kutoka `state` au `props`, kufanya mahesabu kwenye data hii, na kadhalika. Kisha, unaweza kuweka thamani yoyote kwa vigezo, ambavyo una upatikanaji katika taarifa ya `return`.
+
+# --instructions--
+
+Katika njia ya `MyComponent` render, fafanua `const` inayoitwa `name` na weka sawa na thamani ya jina katika `state` ya sehemu. Kwa sababu unaweza kuandika JavaScript moja kwa moja katika sehemu hii ya msimbo, huna haja ya kufunga rejea hii katika mabano ya mviringo.
+
+Ifuatayo, katika taarifa ya return, onyesha thamani hii katika lebo ya `h1` ukitumia kigezo `name`. Kumbuka, unahitaji kutumia sintaksia ya JSX (mabano ya mviringo kwa JavaScript) katika taarifa ya return.
+
+# --hints--
+
+`MyComponent` inapaswa kuwa na ufunguo `name` wenye thamani `freeCodeCamp` iliyohifadhiwa katika hali yake.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(MyComponent)).state('name') ===
+    'freeCodeCamp'
+);
+```
+
+`MyComponent` inapaswa kuonyesha kichwa cha sehemu cha `h1` kilichozungushwa na `div` moja.
+
+```js
+assert(
+  /<div><h1>.*<\/h1><\/div>/.test(
+    Enzyme.mount(React.createElement(MyComponent)).html()
+  )
+);
+```
+
+Lebo ya `h1` iliyochorwa inapaswa kujumuisha rejea ya `{name}`.
+
+```js
+assert(/<h1>\n*\s*\{\s*name\s*\}\s*\n*<\/h1>/.test(code));
+```
+
+Kichwa cha sehemu cha `h1` kilichochorwa kinapaswa kuwa na maandishi yanayoonyeshwa kutoka katika hali ya sehemu.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ name: 'TestName' });
+    return waitForIt(() => mockedComponent.html());
+  };
+  const firstValue = await first();
+  assert(firstValue === '<div><h1>TestName</h1></div>');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    // Change code below this line
+
+    // Change code above this line
+    return (
+      <div>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    // Change code below this line
+    const name = this.state.name;
+    // Change code above this line
+    return (
+      <div>
+        { /* Change code below this line */ }
+        <h1>{name}</h1>
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```

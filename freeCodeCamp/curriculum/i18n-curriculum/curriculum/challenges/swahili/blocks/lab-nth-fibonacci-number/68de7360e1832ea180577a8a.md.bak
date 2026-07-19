@@ -1,0 +1,115 @@
+---
+id: 68de7360e1832ea180577a8a
+title: Tengeneza kalkuleta ya nambari ya Nth Fibonacci
+challengeType: 27
+dashedName: build-an-nth-fibonacci-number-calculator
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi chenye jina `fibonacci`.
+2. Unapaswa kufafanua orodha yenye jina `sequence` ndani ya kitendakazi `fibonacci`, na inapaswa kuanzishwa na thamani za `[0, 1]`.
+3. Kitendakazi `fibonacci` kinapaswa kupokea kigezo kimoja, nambari kamili isiyo hasi `n`.  
+4. Kufanya wito wa `fibonacci(n)` kunapaswa kutumia mbinu ya programu inayobadilika (dynamic programming) kuhesabu na kurudisha nambari ya `n`-th kutoka kwenye mfululizo wa Fibonacci, ambapo kila nambari ni jumla ya nambari mbili zilizotangulia.
+5. Kila nambari ya Fibonacci iliyohesabiwa inapaswa kuongezwa kwenye orodha ya `sequence`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi chenye jina `fibonacci`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).has_function("fibonacci")`) })
+```
+
+Kitendakazi chako cha `fibonacci` kinapaswa kuchukua kigezo kimoja.
+
+```js
+({ test: () => runPython(`
+from inspect import signature
+sig = signature(fibonacci)
+assert len(sig.parameters) == 1
+`) })
+```
+
+Unapaswa kuwa na orodha yenye jina `sequence` ndani ya kitendakazi cha `fibonacci` iliyozinduliwa kwa `[0, 1]`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_function("fibonacci").has_stmt("sequence = [0, 1]")`) })
+```
+
+`fibonacci(0)` inapaswa kurudisha `0`.
+
+```js
+({ test: () => runPython(`assert fibonacci(0) == 0`) })
+```
+
+`fibonacci(1)` inapaswa kurudisha `1`.
+
+```js
+({ test: () => runPython(`assert fibonacci(1) == 1`) })
+```
+
+`fibonacci(2)` inapaswa kurudisha `1`.
+
+```js
+({ test: () => runPython(`assert fibonacci(2) == 1`) })
+```
+
+`fibonacci(3)` inapaswa kurudisha `2`.
+
+```js
+({ test: () => runPython(`assert fibonacci(3) == 2`) })
+```
+
+`fibonacci(5)` inapaswa kurudisha `5`.
+
+```js
+({ test: () => runPython(`assert fibonacci(5) == 5`) })
+```
+
+`fibonacci(10)` inapaswa kurudisha `55`.
+
+```js
+({ test: () => runPython(`assert fibonacci(10) == 55`) })
+```
+
+`fibonacci(15)` inapaswa kurudisha `610`.
+
+```js
+({ test: () => runPython(`assert fibonacci(15) == 610`) })
+```
+
+Hauruhusiwi kutumia kurudia (recursion) katika msimbo wako.
+
+```js
+({ test: () => runPython(`
+assert not _Node(_code).find_function("fibonacci").find_body().block_has_call("fibonacci")
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+def fibonacci(n):
+    sequence = [0, 1]
+    
+    if n < 2:
+        return sequence[n]
+    
+    for i in range(2, n + 1):
+        sequence.append(sequence[i - 1] + sequence[i - 2])
+    
+    return sequence[n]
+```

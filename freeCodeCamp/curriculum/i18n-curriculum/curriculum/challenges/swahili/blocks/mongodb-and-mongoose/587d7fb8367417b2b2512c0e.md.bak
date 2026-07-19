@@ -1,0 +1,47 @@
+---
+id: 587d7fb8367417b2b2512c0e
+title: 'Fanya masasisho ya kawaida kwa kuendesha Tafuta, Hariri, kisha Hifadhi'
+challengeType: 2
+forumTopicId: 301541
+dashedName: perform-classic-updates-by-running-find-edit-then-save
+---
+
+# --description--
+
+Hapo zamani, hili ndilo ulilohitaji kufanya ikiwa ungependa kuhariri hati, na uweze kuitumia kwa namna fulani (mfano, kuituma tena katika jibu la seva). Mongoose ina njia maalum ya kusasisha: `Model.update()`. Inahusishwa na dereva wa mongo wa ngazi ya chini. Inaweza kuhariri kwa wingi hati nyingi zinazokidhi vigezo fulani, lakini haisitumi tena hati iliyosasishwa, bali tu ujumbe wa 'hali'. Zaidi ya hayo, inafanya uthibitisho wa mfano kuwa mgumu, kwa sababu inaita moja kwa moja dereva wa mongo.
+
+# --instructions--
+
+Badilisha kitendakazi cha `findEditThenSave` ili kutafuta mtu kwa `_id` (tumia yoyote ya njia zilizo juu) kwa kutumia kigezo cha `personId` kama ufunguo wa utafutaji. Ongeza `"hamburger"` kwenye orodha ya `favoriteFoods` ya mtu huyo (unaweza kutumia `Array.push()`). Kisha - ndani ya wito wa tafuta - `save()` `Person` iliyosasishwa.
+
+**Kumbuka:** Hii inaweza kuwa ngumu, ikiwa katika Mchoro wako (Schema), ulitangaza `favoriteFoods` kama Safu ya data, bila kubainisha aina (yaani `[String]`). Katika hali hiyo, `favoriteFoods` hutumika kama aina Mchanganyiko (Mixed), na lazima uweke alama ya kuhariri kwa mkono kwa kutumia `document.markModified('edited-field')`. Angalia <a href="https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/" target="_blank" rel="noopener noreferrer nofollow">makala yetu ya Mongoose</a>.
+
+# --hints--
+
+Tafuta-hariri-sasisha kipengee kinapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/find-edit-save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Poldo',
+      age: 40,
+      favoriteFoods: ['spaghetti']
+    })
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.name, 'Poldo', 'item.name is not what is expected');
+  assert.equal(data.age, 40, 'item.age is not what expected');
+  assert.deepEqual(
+    data.favoriteFoods,
+    ['spaghetti', 'hamburger'],
+    'item.favoriteFoods is not what expected'
+  );
+  assert.equal(data.__v, 1, 'The item should be previously edited');
+```

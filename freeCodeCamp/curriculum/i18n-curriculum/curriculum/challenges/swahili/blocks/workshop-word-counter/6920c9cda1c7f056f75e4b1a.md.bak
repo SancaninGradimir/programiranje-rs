@@ -1,0 +1,53 @@
+---
+id: 6920c9cda1c7f056f75e4b1a
+title: Hatua 2
+challengeType: 1
+dashedName: step-2
+---
+
+# --description--
+
+Sasa ni wakati wa kuandika mzunguko wako wa kwanza wa `for...of`. Katika mafundisho yaliyopita, ulijifunza kwamba unaweza kutumia mzunguko wa `for...of` kurudia juu ya thamani kutoka kwa kitu kinachoweza kurudiwa (kama vile mfuatano wa herufi au safu za data).
+
+Hapa kuna mfano wa mzunguko wa `for...of`:
+
+```js
+for (const num of [1, 2, 3]) {
+  // code block to be executed
+}
+```
+
+Ongeza mzunguko wa `for...of` wenye sehemu tupu ya msimbo ndani ya kitendakazi chako. Unapaswa kurudia juu ya kila herufi katika hoja ya `str`.
+
+# --hints--
+
+Kitendakazi chako cha `printCharacters` kinapaswa kuwa na mzunguko wa `for...of` ndani ya sehemu yake ya msimbo.
+
+```js
+const codeWithoutJSComments = __helpers.removeJSComments(code); 
+const normalizedCode = __helpers.removeWhiteSpace(codeWithoutJSComments);
+
+assert.match(normalizedCode, /functionprintCharacters\(str\)\{for\(\S+of\S+\)\{\S*?\}\}/);
+```
+
+Mzunguko wako wa `for...of` unapaswa kurudia juu ya hoja ya `str` ya kitendakazi chako.
+
+```js
+const codeWithoutJSComments = __helpers.removeJSComments(code); 
+const forLoopRegex = /function printCharacters\(str\) \{\s*for\s*\(([\S\s]*?)\)\s*\{[\S\s]*?\}\s*\}/;
+const forLoopCode = codeWithoutJSComments.match(forLoopRegex)[1];
+
+assert.match(forLoopCode, /(const|let|var)\s+\w+\s+of\s+str/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function printCharacters(str) {
+--fcc-editable-region--
+  
+--fcc-editable-region--
+}
+```

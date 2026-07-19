@@ -1,0 +1,123 @@
+---
+id: 699c8e045ee7cb94ed2322d6
+title: "Challenge 215: Parking Fee Calculator"
+challengeType: 29
+dashedName: challenge-215
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi miwili unaowakilisha wakati uliweka gari lako maegesho na wakati uliuchukua, hesabu ada ya maegesho.
+
+- Mfuatano wa herufi uliotolewa utakuwa katika muundo `"HH:MM"` ukitumia saa 24. Kwa mfano `"14:00"` ni saa 2 asubuhi.
+- Mfuatano wa kwanza utakuwa wakati uliweka gari lako maegesho, na wa pili utakuwa wakati uliuchukua.
+- Ikiwa wakati wa kuchukua ni mapema kuliko wakati wa kuingia, ina maana maegesho yalidumu hadi baada ya saa sita usiku hadi siku inayofuata.
+
+Fee rules:
+
+- Kila saa ya maegesho inagharimu $3.
+- Saa zisizokamilika zinarundikwa hadi saa kamili inayofuata.
+- Ikiwa maegesho yalidumu usiku kucha (baada ya saa sita usiku), ada ya ziada ya $10 ya usiku inatozwa.
+- Kuna ada ya kiwango cha chini ya $5 (inatumika tu ikiwa jumla ingekuwa chini ya $5).
+
+Rudisha gharama jumla katika muundo `"$cost"`, `"$5"` kwa mfano.
+
+# --hints--
+
+`calculate_parking_fee("09:00", "11:00")` should return `"$6"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("09:00", "11:00"), "$6")`)
+}})
+```
+
+`calculate_parking_fee("10:00", "10:30")` should return `"$5"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("10:00", "10:30"), "$5")`)
+}})
+```
+
+`calculate_parking_fee("08:10", "10:45")` should return `"$9"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("08:10", "10:45"), "$9")`)
+}})
+```
+
+`calculate_parking_fee("14:40", "23:10")` should return `"$27"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("14:40", "23:10"), "$27")`)
+}})
+```
+
+`calculate_parking_fee("18:15", "01:30")` should return `"$34"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("18:15", "01:30"), "$34")`)
+}})
+```
+
+`calculate_parking_fee("11:11", "11:10")` should return `"$82"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(calculate_parking_fee("11:11", "11:10"), "$82")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def calculate_parking_fee(park_time, pickup_time):
+
+    return park_time
+```
+
+# --solutions--
+
+```py
+import math
+
+def calculate_parking_fee(park_time, pickup_time):
+    def to_minutes(time_str):
+        hours, minutes = map(int, time_str.split(":"))
+        return hours * 60 + minutes
+
+    entry_minutes = to_minutes(park_time)
+    exit_minutes = to_minutes(pickup_time)
+
+    overnight = False
+
+    if exit_minutes < entry_minutes:
+        overnight = True
+        total_minutes = (24 * 60 - entry_minutes) + exit_minutes
+    else:
+        total_minutes = exit_minutes - entry_minutes
+
+    hours = math.ceil(total_minutes / 60)
+
+    cost = hours * 3
+
+    if overnight:
+        cost += 10
+
+    if cost < 5:
+        cost = 5
+
+    return f"${cost}"
+```

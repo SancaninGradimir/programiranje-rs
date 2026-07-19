@@ -1,0 +1,174 @@
+---
+id: 68829116a80ecd73681261b1
+title: Ni Mambo Gani Mazuri ya Kufanya Ili Kubaki Katika Mlingano na Wenzako wa Mbali?
+challengeType: 19
+dashedName: what-are-good-practices-for-remaining-in-sync-with-your-remote-counterparts
+---
+
+# --description--
+
+Tumezungumza kidogo kuhusu kutumia matawi kufanya mabadiliko yaliyotengwa ili kuepuka kuchafua tawi lako la `main`. Lakini hiyo inamaanisha nini, na kwa nini ni muhimu?
+
+Kama unafanya mabadiliko moja kwa moja kwenye tawi lako la `main`, na hifadhidata ya juu (upstream) inakubali mabadiliko mengine ambayo si yako, utapata kile kinachoitwa "historia inayotofautiana". Hii inamaanisha kuwa commits kwenye tawi lako la `main` hayako sawa tena na commits kwenye tawi la `main` la hifadhidata ya juu. Na hii inafanya kusawazisha mabadiliko ya hifadhidata ya juu kuwa tatizo kubwa.
+
+Kwa hiyo, tuseme umefuata mbinu nzuri za matawi, na hili si tatizo kwako. Kama umefuata mafundisho yetu ya awali, unapaswa kuwa na fork ya hifadhidata ambayo umeikopa (clone) kwa ndani, na unapaswa kuwa na remote ya upstream inayorejelea hifadhidata ya asili.
+
+Kama hukufanya hivi, hapa kuna ukumbusho mfupi. Utataka kufork hifadhidata, ukapeleka fork yako kwa ndani, na kisha utumie amri hii:
+
+```sh
+git remote add upstream <url>
+```
+
+Badilisha `<url>` na URL ya SSH ya hifadhidata ya asili, SI fork yako.
+
+Kwa kuwa na upstream iliyosanidiwa vizuri, unaweza kutumia mfululizo wa amri hizi kuvuta mabadiliko ya hivi karibuni kutoka upstream:
+
+```sh
+git checkout main
+git fetch upstream
+git merge upstream/main
+```
+
+Hizi hufanya nini? Vizuri, umejifunza kuhusu `git checkout`, kwa hivyo amri ya kwanza inahakikisha uko kwenye tawi lako la `main` kwa ndani.
+
+Amri ya pili, `git fetch upstream`, inaambia Git iende ichukue mabadiliko ya hivi karibuni yaliyoko kwenye remote yako ya upstream (ambayo ni hifadhidata ya asili). Hata hivyo, tofauti na pull, Git haitasasisha tawi lako moja kwa moja. Hii ni muhimu, kwa sababu tawi lako la `main` kwa ndani limeunganishwa na tawi la `main` kwenye fork yako - si tawi la `main` kwenye hifadhidata ya asili! Kutumia git pull kunaweza kusababisha matokeo yasiyotegemewa.
+
+Amri ya mwisho, `git merge upstream/main`, inaambia Git kuunganisha mabadiliko ya hivi karibuni kutoka tawi la `main` kwenye remote ya upstream kwenye tawi lako la sasa - ambalo ni tawi lako la `main` kwa ndani, kwa sababu ndio tulilochagua.
+
+Lakini vipi kama kuunganisha hakufanikiwa? Vipi kama kwa bahati mbaya umefanya commit kwenye `main`, na Git haiwezi kuunganisha historia zinazotofautiana? Vizuri... ukizingatia kuwa hujafanya ombi la kuvuta mabadiliko kutoka tawi lako la `main`, unaweza kufanya reset kali ili kulazimisha Git kusasisha tawi lako.
+
+```sh
+git reset --hard upstream/main
+```
+
+Amri ya `git reset` inakuwezesha kuweka upya hali ya sasa ya tawi. Kupitisha bendera ya `--hard` inaambia Git kulazimisha mafaili ya ndani yaendane na hali ya tawi. Hii inahakikisha unaanza na hali safi ya kazi. Na kupitisha `upstream/main` inaambia Git unataka tawi lako la sasa (ambalo ni `main`) lifanane na tawi la `main` la remote ya upstream. Kuwa mwangalifu na amri hii - kila unapobadilisha historia ya Git kwa nguvu, mambo ya kushangaza na yasiyotarajiwa yanaweza kutokea.
+
+Mara tu unapopata tawi lako la `main` la ndani likisasaishwa ipasavyo, ni muhimu kusukuma hali hiyo kwenye fork yako ya mbali (ambayo inapaswa kuwa `origin`, kama umefuata mafundisho yetu). Ili kufanya hivyo, unaweza kutumia:
+
+```sh
+git push
+```
+
+Hii itasukuma hali ya sasa kwenye fork yako ya mbali. Lakini kama umehitaji kufanya reset kali kusafisha historia, inawezekana fork yako ya mbali pia ina historia inayotofautiana na kusukuma kutashindwa.
+
+Unaweza kurekebisha hilo kwa kulazimisha kusukuma:
+
+```sh
+git push --force
+```
+
+**Kuwa mwangalifu na amri hii**. Kufanya kusukuma kwa nguvu kunarekebisha historia yako ya mbali, na kama umefanya makosa basi kusukuma kwa nguvu kutakuwa tatizo kubwa kuirekebisha.
+
+Kusukuma mabadiliko yaliyosawazishwa kwenye fork yako ya mbali ni muhimu kwa sababu inakusaidia kuhakikisha unaweza kwa usalama kukopa fork hiyo na mabadiliko ya hivi karibuni ikiwa umepoteza hifadhidata yako ya ndani iliyopo.
+
+Na mara tu unapopata tawi lako la `main` likisawazishwa, unaweza kuunda tawi jipya kutoka hali hiyo kuanza kufanya mchango mwingine - ukiwa na toleo la hivi karibuni la msimbo wa asili!
+
+# --questions--
+
+## --text--
+
+Sababu kuu ni ipi unapaswa kuepuka kufanya commits moja kwa moja kwenye tawi lako la `main` wakati unafanya kazi na hifadhidata zilizoforkiwa?
+
+## --answers--
+
+Inasababisha commits rudufu.
+
+### --feedback--
+
+Fikiria kinachotokea wakati tawi lako na hifadhidata ya asili zinabadilika tofauti.
+
+---
+
+Inasababisha "historia inayotofautiana" ambayo inafanya iwe vigumu kusawazisha na upstream.
+
+---
+
+Git hairuhusu commits kwenye tawi kuu.
+
+### --feedback--
+
+Fikiria kinachotokea wakati tawi lako na hifadhidata ya asili zinabadilika tofauti.
+
+---
+
+Inafuta mabadiliko yako ya ndani moja kwa moja.
+
+### --feedback--
+
+Fikiria kinachotokea wakati tawi lako na hifadhidata ya asili zinabadilika tofauti.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni mfululizo gani wa amri utakayosahihisha tawi lako la `main` la ndani kwa mabadiliko kutoka hifadhidata ya asili?
+
+## --answers--
+
+`git checkout main`; `git pull upstream`
+
+### --feedback--
+
+Fikiria mchakato wa hatua kwa hatua unaohitajika kupata mabadiliko ya upstream bila kuathiri fork yako.
+
+---
+
+`git pull upstream main`
+
+### --feedback--
+
+Fikiria mchakato wa hatua kwa hatua unaohitajika kupata mabadiliko ya upstream bila kuathiri fork yako.
+
+---
+
+`git checkout main`; `git fetch upstream`; `git merge upstream/main`
+
+---
+
+`git fetch upstream/main`; `git merge`
+
+### --feedback--
+
+Fikiria mchakato wa hatua kwa hatua unaohitajika kupata mabadiliko ya upstream bila kuathiri fork yako.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kama kwa bahati mbaya umefanya commit kwenye tawi lako la `main` na huwezi kuunganisha mabadiliko ya upstream, ni amri gani unaweza kutumia kulazimisha reset ya tawi lako la `main` ili lifanane na upstream (ukizingatia hujafanya ombi la kuvuta mabadiliko)?
+
+## --answers--
+
+`git checkout upstream/main`
+
+### --feedback--
+
+Ni amri gani inayoweka upya kabisa tawi lako ili lifanane na hali ya tawi lingine?
+
+---
+
+`git reset --hard upstream/main`
+
+---
+
+`git rebase upstream/main`
+
+### --feedback--
+
+Ni amri gani inayoweka upya kabisa tawi lako ili lifanane na hali ya tawi lingine?
+
+---
+
+`git clean upstream/main`
+
+### --feedback--
+
+Ni amri gani inayoweka upya kabisa tawi lako ili lifanane na hali ya tawi lingine?
+
+## --video-solution--
+
+2

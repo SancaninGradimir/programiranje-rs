@@ -1,0 +1,134 @@
+---
+id: 698367b9d1c6914a22095aec
+title: Tekeleza algoriti ya bubble sort
+challengeType: 26
+dashedName: implement-the-bubble-sort-algorithm
+---
+
+# --description--
+
+Kwa mazoezi haya, utatekeleza algoriti ya bubble sort. Huanza mwanzoni mwa safu ya data isiyo pangiliwa na "huinua" thamani zisizopangiliwa kuelekea mwisho, ikirudia kupitia safu ya data hadi ipangiliwe kabisa. Hufanya hivi kwa kulinganisha vitu viwili vinavyopakana na kubadilisha nafasi zao ikiwa ziko nje ya mpangilio. Njia hii inaendelea kurudia kupitia safu ya data hadi hakuna mabadiliko yanayotokea, wakati huo safu ya data imeshapangwa.
+
+Njia hii inahitaji kurudia mara nyingi kupitia safu ya data na kwa hali za wastani na mbaya ina ugumu wa wakati wa mduara wa mraba. Ingawa ni rahisi, kawaida haifai katika hali nyingi.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili kumaliza mazoezi.
+
+**Hadithi za mtumizi:**
+
+1. Andika kitendakazi `bubbleSort` kinachopokea safu ya nambari kamili kama ingizo na kurudisha safu ya nambari hizi zikiwa zimepangwa kutoka ndogo hadi kubwa.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `bubbleSort`.
+
+```js
+assert.isFunction(bubbleSort);
+```
+
+`bubbleSort` inapaswa kurudisha safu ya data iliyopangwa (kutoka ndogo hadi kubwa).
+
+```js
+function isSorted(a){
+  for(let i = 0; i < a.length - 1; i++)
+    if(a[i] > a[i + 1])
+      return false;
+  return true;
+}
+assert.isTrue(
+  isSorted(
+    bubbleSort([
+      1,
+      4,
+      2,
+      8,
+      345,
+      123,
+      43,
+      32,
+      5643,
+      63,
+      123,
+      43,
+      2,
+      55,
+      1,
+      234,
+      92
+    ])
+  )
+);
+```
+
+`bubbleSort([1,4,2,8,345,123,43,32,5643,63,123,43,2,55,1,234,92])` inapaswa kurudisha safu ya data isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  bubbleSort([
+    1,
+    4,
+    2,
+    8,
+    345,
+    123,
+    43,
+    32,
+    5643,
+    63,
+    123,
+    43,
+    2,
+    55,
+    1,
+    234,
+    92
+  ]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`bubbleSort` haipaswi kutumia njia iliyo jengwa ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    bubbleSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function bubbleSort(array) {
+  for (let i = 0; i < array.length; i++) {
+    let swapped = false;
+    for (let j = 1; j < array.length; j++) {
+      if (array[j - 1] > array[j]) {
+        let temp = array[j-1];
+        array[j-1] =  array[j];
+        array[j] = temp;
+        swapped = true;
+      }
+    }
+    if (swapped === false) {
+      break;
+    }
+  }
+  return array;
+}
+```

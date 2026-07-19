@@ -1,0 +1,85 @@
+---
+id: 69c918841987bf16c1d1bac7
+title: Hatua 16
+challengeType: 1
+dashedName: step-16
+---
+
+# --description--
+
+Sasa baada ya nodi ya sasa kutangazwa kuwa imetembelewa, unahitaji kuangalia majirani zake wote kuona kama unaweza kuwafikia kwa ufanisi zaidi kupitia nodi ya sasa.
+
+Baada ya `visited[current] = true`, ongeza mzunguko wa majirani `for` unaorudia kupitia kila `nodeNo` kutoka `0` hadi `n`. Kumbuka hii ni mzunguko mwingine wa ndani katika ngazi ile ile kama ule wa kwanza.
+
+Ndani ya mzunguko huo, tangaza kigezo kinachoitwa `distance` na kimupe thamani ya `matrix[current][nodeNo]`. Hii inakupa uzito wa kivuko kati ya nodi ya sasa na jirani yake.
+
+# --hints--
+
+Unapaswa kuongeza mzunguko wa majirani `for` baada ya kutangaza nodi ya sasa kuwa imetembelewa.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /visited\s*\[\s*current\s*\]\s*=\s*true[\s\S]*?for\s*\(/
+);
+```
+
+Mzunguko wa majirani `for` unapaswa kurudia kutoka `0` hadi `n`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /visited\s*\[\s*current\s*\]\s*=\s*true[\s\S]*?for\s*\(\s*(var|let)\s+\w+\s*=\s*0\s*;\s*\w+\s*<\s*n\s*;\s*\w+\+\+\s*\)/
+);
+```
+
+Unapaswa kuwa na kigezo `distance` kilichopewa thamani ya `matrix[current][nodeNo]` ndani ya mzunguko wa majirani.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /(const|let|var)\s+distance\s*=\s*matrix\s*\[\s*current\s*\]\s*\[\s*\w+\s*\]/
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INF = Infinity;
+const adjMatrix = [
+  [0, 5, 3, INF, 11, INF],
+  [5, 0, 1, INF, INF, 2],
+  [3, 1, 0, 1, 5, INF],
+  [INF, INF, 1, 0, 9, 3],
+  [11, INF, 5, 9, 0, INF],
+  [INF, 2, INF, 3, INF, 0],
+];
+
+function shortestPath(matrix, startNode, targetNode = null) {
+  const n = matrix.length;
+  const distances = new Array(n).fill(INF);
+  distances[startNode] = 0;
+  const paths = Array.from({ length: n }, (_, i) => [i]);
+  const visited = new Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    let minDistance = INF;
+    let current = -1;
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {
+        minDistance = distances[nodeNo];
+        current = nodeNo;
+      }
+    }
+    if (current === -1) {
+      break;
+    }
+    visited[current] = true;
+--fcc-editable-region--
+
+--fcc-editable-region--
+  }
+}
+```

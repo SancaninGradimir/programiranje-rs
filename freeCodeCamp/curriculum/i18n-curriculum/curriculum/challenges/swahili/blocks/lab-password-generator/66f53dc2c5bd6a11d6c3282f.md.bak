@@ -1,0 +1,129 @@
+---
+id: 66f53dc2c5bd6a11d6c3282f
+title: Tengeneza programu ya kizalishaji nywila
+challengeType: 26
+dashedName: lab-password-generator
+---
+
+# --description--
+
+Katika maabara hii, utazoeza kutumia vitendakazi kwa kutengeneza kizalishaji cha nywila kisichopangwa.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi kinachoitwa `generatePassword` kinachopokea kigezo, kinachoonyesha urefu wa nywila inayozalishwa. Unaweza kumtaja kigezo kwa jina lolote unalotaka.
+2. Kitendakazi chako kinapaswa kurudisha mfuatano wa herufi unaowakilisha nywila iliyozalishwa kwa bahati nasibu. Unapaswa kutumia mfuatano wa herufi ufuatao na njia tofauti za `Math` kusaidia kurudisha mfuatano mpya wenye herufi za bahati nasibu ndani yake: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()`.
+3. Unapaswa kufafanua kigezo kinachoitwa `password` na kuweka thamani yake kuwa matokeo ya wito wa kitendakazi cha `generatePassword` kwa hoja ya nambari inayowakilisha urefu unaotakiwa wa nywila.
+4. Unapaswa kuwa na `console.log` inayochapisha mfuatano mmoja uliounganishwa kwa ujumbe wa `Generated password:` na kigezo cha `password` kilichotenganishwa kwa nafasi.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `generatePassword` chenye kigezo. Unaweza kumtaja kigezo kwa jina lolote unalotaka.
+
+```js
+assert.isFunction(generatePassword);
+assert.lengthOf(generatePassword, 1);
+```
+
+Kitendakazi chako cha `generatePassword` kinapaswa kurudisha mfuatano wa herufi.
+
+```js
+const result = generatePassword(5);
+assert.isString(result);
+```
+
+Kitendakazi chako cha `generatePassword` kinapaswa kurudisha mfuatano mpya wenye urefu sahihi.
+
+```js
+const length = 8;
+const password = generatePassword(length);
+assert.lengthOf(password, length);
+```
+
+Kitendakazi chako kinapaswa kurudisha nywila iliyozalishwa kwa bahati nasibu yenye herufi halali.
+
+```js
+const validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+const password = generatePassword(10);
+for (let char of password) {
+    assert.include(validChars, char);
+}
+```
+
+Kitendakazi chako kinapaswa kurudisha nywila iliyozalishwa kwa bahati nasibu yenye zaidi ya herufi moja tofauti.
+
+```js
+const passwordSetSize1 = new Set(generatePassword(12)).size;
+const passwordSetSize2 = new Set(generatePassword(12)).size;
+const passwordSetSize3 = new Set(generatePassword(12)).size;
+assert.isAbove(passwordSetSize1 + passwordSetSize2 + passwordSetSize3, 3);
+```
+
+Kitendakazi chako kinapaswa kurudisha mfuatano mpya wa bahati nasibu kila mara kinapoitwa.
+
+```js
+const password1 = generatePassword(10);
+const password2 = generatePassword(10);
+assert.notStrictEqual(password1, password2);
+```
+
+Unapaswa kuwa na kigezo cha `password`.
+
+```js
+assert.isDefined(password);
+```
+
+Kigezo chako cha `password` kinapaswa kuwa mfuatano wa herufi.
+
+```js
+assert.isString(password);
+```
+
+Unapaswa kuita kitendakazi cha `generatePassword` kwa hoja ya nambari na kuhifadhi nywila iliyorejeshwa katika kigezo cha `password`.
+
+```js
+assert.isDefined(password);
+assert.isString(password);
+assert.match(password, /^[A-Za-z0-9!@#$%^&*()]+$/);
+const length2 = 10;
+const password3 = generatePassword(length2);
+assert.lengthOf(password3, length2);
+assert.equal(password3.length, generatePassword(length2).length);
+assert.match(__helpers.removeJSComments(code), /(let|const|var)\s+password\s*=\s*generatePassword\(\d+\)\;?/);
+```
+
+Unapaswa kuchapisha mfuatano mmoja unaounganisha `Generated password:` na `password` kutenganishwa kwa nafasi moja kwa kutumia `+` au template literal.
+
+```js
+const cleanCode = __helpers.removeJSComments(code);
+const condition1 = /console\.log\(\s*["']Generated\s+password:\s*["']\s*\+\s*password\s*\);?/gm.test(cleanCode);
+const condition2 = /console\.log\(\s*`Generated\s+password:\s*\$\{password\}`\s*\);?/gm.test(cleanCode);
+assert.isTrue(condition1 || condition2);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const generatePassword = (length) => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
+    }
+    return password;
+};
+
+const password = generatePassword(12);
+console.log(`Generated password: ${password}`);
+```

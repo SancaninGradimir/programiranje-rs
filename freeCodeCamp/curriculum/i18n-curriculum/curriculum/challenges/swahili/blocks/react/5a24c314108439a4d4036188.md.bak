@@ -1,0 +1,301 @@
+---
+id: 5a24c314108439a4d4036188
+title: Onyesha kwa masharti kutoka kwa vigezo vinavyopitishwa
+challengeType: 6
+forumTopicId: 301405
+dashedName: render-conditionally-from-props
+---
+
+# --description--
+
+Hadi sasa, umeona jinsi ya kutumia `if/else`, `&&`, na opereta ya ternary (`condition ? expressionIfTrue : expressionIfFalse`) kufanya maamuzi ya masharti kuhusu nini cha kuonyesha na lini. Hata hivyo, kuna mada moja muhimu iliyobaki kujadiliwa inayokuruhusu kuunganisha yoyote au yote ya dhana hizi na kipengele kingine chenye nguvu cha React: vigezo vinavyopitishwa (props). Kutumia vigezo vinavyopitishwa kuonyesha msimbo kwa masharti ni jambo la kawaida sana kwa wasanidi programu wa React — yaani, hutumia thamani ya prop fulani kufanya maamuzi moja kwa moja kuhusu nini cha kuonyesha.
+
+Katika changamoto hii, utaandaa sehemu ya mtoto kufanya maamuzi ya kuonyesha kulingana na vigezo vinavyopitishwa. Pia utatumia opereta ya ternary, lakini utaona jinsi baadhi ya dhana zingine zilizojadiliwa katika changamoto zilizopita zinaweza kuwa na manufaa sawa katika muktadha huu.
+
+# --instructions--
+
+Mhariri wa msimbo una sehemu mbili zilizofafanuliwa kwa sehemu kwako: mzazi anayeitwa `GameOfChance`, na mtoto anayeitwa `Results`. Zinatumika kuunda mchezo rahisi ambapo mtumizi anabofya kitufe kuona kama ameshinda au kupoteza.
+
+Kwanza, utahitaji usemi wa kihesabu rahisi unaorudisha thamani tofauti kwa bahati kila mara unapoendeshwa. Unaweza kutumia `Math.random()`. Njia hii inarudisha thamani kati ya `0` (ikiwa ni pamoja) na `1` (isipokuwa) kila mara inapoitwa. Kwa hivyo kwa nafasi ya 50/50, tumia `Math.random() >= .5` katika usemi wako wa kihesabu. Kihesabu, usemi huu utarudisha `true` mara 50% ya wakati, na `false` mara nyingine 50%. Katika njia ya onyesha (render), badilisha `null` na usemi ulioelezwa hapo juu ili kukamilisha tamko la mabadiliko.
+
+Sasa una usemi wa kihesabu unaoweza kutumia kufanya uamuzi wa bahati katika msimbo. Ifuatayo ni kutekeleza hili. Onyesha sehemu ya `Results` kama mtoto wa `GameOfChance`, na pitisha `expression` kama prop iitwayo `fiftyFifty`. Katika sehemu ya `Results`, andika usemi wa ternary kuonyesha kipengele cha `h1` chenye maandishi `You Win!` au `You Lose!` kulingana na prop ya `fiftyFifty` inayopitishwa kutoka `GameOfChance`. Mwishowe, hakikisha njia ya `handleClick()` inahesabu kila zamu ipasavyo ili mtumizi ajue ni mara ngapi ameshacheza. Hii pia inahakikisha mtumizi anajua sehemu imebadilika kweli ikiwa atashinda au kupoteza mara mbili mfululizo.
+
+# --hints--
+
+Sehemu ya `GameOfChance` inapaswa kuwepo na kuonyesha kwenye ukurasa.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(GameOfChance)).find('GameOfChance').length,
+  1
+);
+```
+
+`GameOfChance` inapaswa kurudisha kipengele kimoja cha `button`.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(GameOfChance)).find('button').length,
+  1
+);
+```
+
+`GameOfChance` inapaswa kurudisha mfano mmoja wa sehemu ya `Results`, ambayo ina prop iitwayo `fiftyFifty`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(GameOfChance)).find('Results').length ===
+    1 &&
+    Enzyme.mount(React.createElement(GameOfChance))
+      .find('Results')
+      .props()
+      .hasOwnProperty('fiftyFifty') === true
+);
+```
+
+Hali ya `GameOfChance` inapaswa kuanzishwa na sifa ya `counter` ikiwa na thamani ya `1`.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(GameOfChance)).state().counter,
+  1
+);
+```
+
+Wakati sehemu ya `GameOfChance` inaonyeshwa kwa mara ya kwanza kwenye DOM, kipengele cha `p` kinapaswa kurudishwa chenye maandishi ya ndani ya `Turn: 1`.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(GameOfChance)).find('p').text(),
+  'Turn: 1'
+);
+```
+
+Kila mara kitufe kinapobofyanwa, hali ya kiongeza inapaswa kuongezwa kwa thamani ya 1, na kipengele kimoja cha `p` kinaonyeshwa kwenye DOM chenye maandishi ya `Turn: N`, ambapo `N` ni thamani ya hali ya kiongeza.
+
+```js
+(() => {
+  const comp = Enzyme.mount(React.createElement(GameOfChance));
+  const simulate = () => {
+    comp.find('button').simulate('click');
+  };
+  const result = () => ({
+    count: comp.state('counter'),
+    text: comp.find('p').text()
+  });
+  const _1 = () => {
+    simulate();
+    return result();
+  };
+  const _2 = () => {
+    simulate();
+    return result();
+  };
+  const _3 = () => {
+    simulate();
+    return result();
+  };
+  const _4 = () => {
+    simulate();
+    return result();
+  };
+  const _5 = () => {
+    simulate();
+    return result();
+  };
+  const _1_val = _1();
+  const _2_val = _2();
+  const _3_val = _3();
+  const _4_val = _4();
+  const _5_val = _5();
+  assert(
+    _1_val.count === 2 &&
+      _1_val.text === 'Turn: 2' &&
+      _2_val.count === 3 &&
+      _2_val.text === 'Turn: 3' &&
+      _3_val.count === 4 &&
+      _3_val.text === 'Turn: 4' &&
+      _4_val.count === 5 &&
+      _4_val.text === 'Turn: 5' &&
+      _5_val.count === 6 &&
+      _5_val.text === 'Turn: 6'
+  );
+})();
+```
+
+Wakati sehemu ya `GameOfChance` inapoanzishwa kwenye DOM kwa mara ya kwanza na kila mara kitufe kinapobofyanwa baadaye, kipengele kimoja cha `h1` kinapaswa kurudishwa kinachoonyesha kwa bahati moja kati ya `You Win!` au `You Lose!`. Kumbuka: hii inaweza kushindwa kwa bahati. Ikiwa hilo litafanyika, tafadhali jaribu tena.
+
+```js
+(() => {
+  const comp = Enzyme.mount(React.createElement(GameOfChance));
+  const simulate = () => {
+    comp.find('button').simulate('click');
+  };
+  const result = () => ({
+    h1: comp.find('h1').length,
+    text: comp.find('h1').text()
+  });
+  const _1 = result();
+  const _2 = () => {
+    simulate();
+    return result();
+  };
+  const _3 = () => {
+    simulate();
+    return result();
+  };
+  const _4 = () => {
+    simulate();
+    return result();
+  };
+  const _5 = () => {
+    simulate();
+    return result();
+  };
+  const _6 = () => {
+    simulate();
+    return result();
+  };
+  const _7 = () => {
+    simulate();
+    return result();
+  };
+  const _8 = () => {
+    simulate();
+    return result();
+  };
+  const _9 = () => {
+    simulate();
+    return result();
+  };
+  const _10 = () => {
+    simulate();
+    return result();
+  };
+  const _2_val = _2();
+  const _3_val = _3();
+  const _4_val = _4();
+  const _5_val = _5();
+  const _6_val = _6();
+  const _7_val = _7();
+  const _8_val = _8();
+  const _9_val = _9();
+  const _10_val = _10();
+  const __text = new Set([
+    _1.text,
+    _2_val.text,
+    _3_val.text,
+    _4_val.text,
+    _5_val.text,
+    _6_val.text,
+    _7_val.text,
+    _8_val.text,
+    _9_val.text,
+    _10_val.text
+  ]);
+  const __h1 = new Set([
+    _1.h1,
+    _2_val.h1,
+    _3_val.h1,
+    _4_val.h1,
+    _5_val.h1,
+    _6_val.h1,
+    _7_val.h1,
+    _8_val.h1,
+    _9_val.h1,
+    _10_val.h1
+  ]);
+  assert(__text.size === 2 && __h1.size === 1);
+})();
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    {/* Change code below this line */}
+    return <h1></h1>;
+    {/* Change code above this line */}
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState(prevState => {
+      // Complete the return statement:
+      return {
+        counter: prevState
+      }
+    });
+  }
+  render() {
+    const expression = null; // Change this line
+    return (
+      <div>
+        <button onClick={this.handleClick}>Play Again</button>
+        {/* Change code below this line */}
+
+        {/* Change code above this line */}
+        <p>{'Turn: ' + this.state.counter}</p>
+      </div>
+    );
+  }
+}
+```
+
+# --solutions--
+
+```jsx
+// We want this to be deterministic for testing purposes.
+const randomSequence = [true, false, false, true, true, false, false, true, true, false];
+let index = 0;
+const fiftyFifty = () => randomSequence[index++ % randomSequence.length];
+
+class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h1>{this.props.fiftyFifty ? 'You Win!' : 'You Lose!'}</h1>;
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState(prevState => {
+      return {
+        counter: prevState.counter + 1
+      }
+    });
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Play Again</button>
+        <Results fiftyFifty={fiftyFifty()} />
+        <p>{'Turn: ' + this.state.counter}</p>
+      </div>
+    );
+  }
+}
+```

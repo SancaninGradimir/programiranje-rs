@@ -1,0 +1,187 @@
+---
+id: 69945fc2cd3160713372860e
+title: Ni nini type aliases na zinafanya kazi vipi?
+challengeType: 19
+dashedName: what-are-type-aliases-and-how-do-they-work
+---
+
+# --description--
+
+Katika funzo lililopita, ulijifunza jinsi ya kufanya kazi na aina za muungano. Njia moja ya kawaida ya kufanya kazi na aina za muungano ni kutumia type alias.
+
+Type alias ni jina la aina. Hapa kuna mfano wa kutoa jina kwa aina ya muungano:
+
+```ts
+type ID = number | string;
+```
+
+Mara nyingi katika miradi yako, utaunda type aliases na kuzitumia kote katika programu yako kama hii:
+
+```ts
+type ID = number | string;
+
+type User = {
+  id: ID;
+  name: string;
+};
+
+function getUserId(user: User): ID {
+  return user.id;
+}
+```
+
+Mfano huu unatumia aina mbili zilizoitwa `ID` na `User`. `ID` itakuwa aina ya muungano kwa `number` au `string` wakati `User` ni aina ya kitu chenye sifa za `id` na `name`. `id` imetajwa kwa aina ya `ID` wakati `name` ina aina ya `string`.
+
+Kitendakazi cha `getUserId` kina kigezo kimoja kinachoitwa `user` na aina yake ni `User`. Aina ya kurudisha ya kitendakazi cha `getUserId` itakuwa `ID`.
+
+Type aliases ni njia nzuri ya kuelezea muundo wa kitu. Ni kawaida kuunda aina za vitu na kuzitumia katika safu za data kama hii:
+
+```ts
+type User = {
+  id: number | string;
+  name: string;
+};
+
+const users: User[] = [
+  { id: 101, name: "Alice" },
+  { id: "A102", name: "Bob" },
+  { id: 103, name: "Charlie" }
+];
+```
+
+Katika mfano huu, safu ya `users` lazima ijazwe na vitu vya aina ya `User` pekee. Ikiwa utasahau sifa moja katika mojawapo ya vitu, basi TypeScript itatupa kosa kama hili:
+
+```ts
+type User = {
+  id: number | string;
+  name: string;
+};
+
+const users: User[] = [
+  // Property 'name' is missing in type '{ id: number; }' but required in type 'User'.
+  { id: 101 },
+  { id: "A102", name: "Bob" },
+  { id: 103, name: "Charlie" }
+];
+```
+
+Huenda umeona matumizi ya PascalCase wakati wa kutoa majina ya type aliases. Hii ni kwa sababu kwa mkataba, kutumia PascalCase husaidia kutofautisha aina na vigezo. Pia husaidia kwa usomaji. Unapomuona `User[]`, utajua ni safu ya vitu vya aina ya `User`.
+
+# --questions--
+
+## --text--
+
+Ni nini type alias katika TypeScript?
+
+## --answers--
+
+Neno la msingi la TypeScript lililotengenezwa kwa ajili ya safu za data pekee.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+Darasa la vitu maalum linalohifadhi maadili mengi.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+Jina linalotolewa kwa aina, kama aina ya muungano au aina ya kitu.
+
+---
+
+Kitendakazi kinachobadilisha aina moja kuwa nyingine moja moja kwa moja.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni aina gani ya `id` ndani ya aina ya `User` hapa?
+
+```ts
+type ID = number | string;
+
+type User = {
+  id: ID;
+  name: string;
+};
+```
+
+## --answers--
+
+`number`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`string`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`number | string`
+
+---
+
+`null`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini PascalCase hutumika sana wakati wa kutoa majina ya type aliases katika TypeScript?
+
+## --answers--
+
+Kwa sababu inahitajika na TypeScript.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Kusaidia kutofautisha aina na vigezo na kuboresha usomaji.
+
+---
+
+Kufanya msimbo uendeshwe kwa kasi zaidi.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Kuruhusu aina itumike katika safu za data.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+## --video-solution--
+
+2

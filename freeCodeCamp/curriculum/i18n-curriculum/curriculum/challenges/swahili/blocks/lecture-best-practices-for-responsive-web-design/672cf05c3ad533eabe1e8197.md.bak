@@ -1,0 +1,251 @@
+---
+id: 672cf05c3ad533eabe1e8197
+title: "Media query zinafanya kazi vipi, na ni aina gani za kawaida za media na vipengele?"
+challengeType: 19
+dashedName: how-do-media-queries-work
+---
+
+# --interactive--
+
+Media query ni sehemu muhimu ya ubunifu wa tovuti unaojibadilisha kulingana na kifaa, ikiruhusu wasanidi programu kutumia mitindo tofauti kulingana na sifa za kifaa cha mtumizi au kivinjari. Zinatoa njia ya kubinafsisha uwasilishaji wa maudhui kwa vifaa mbalimbali bila kubadilisha maudhui yenyewe.
+
+Kwa msingi wake, media query inajumuisha aina ya media na usemi wa kihesabu mmoja au zaidi unaokagua masharti maalum. Ikiwa masharti haya ni kweli, mitindo inayolingana inatumika. Mfumo huu unaruhusu kuunda miundo inayojibadilisha kulingana na ukubwa wa skrini, azimio, na uwezo wa kifaa tofauti.
+
+Sintaksia ya msingi ya media query katika CSS ni kama ifuatavyo:
+
+```css
+@media mediatype and (feature: value) {
+  /* CSS rules go here */
+}
+```
+
+Katika muundo huu, mediatype inaelezea aina ya media ambayo hoja ya utafutaji inahusu, na jozi ya kipengele: thamani inaelezea sharti ambalo lazima litimizwe ili mitindo itumike.
+
+Aina za media zinaelezea kundi la jumla la kifaa. Tuchunguze aina za media zinazotumika sana:
+
+- `all` inafaa kwa vifaa vyote. Hii ni chaguo-msingi ikiwa hakuna aina ya media iliyotajwa.
+
+- `print` inakusudiwa kwa nyaraka zilizo na kurasa na nyaraka zinazotazamwa kwenye skrini katika hali ya mapitio ya kuchapisha.
+
+- `screen` inakusudiwa hasa kwa skrini.
+
+Hapo zamani, kulikuwa na aina zaidi za media kama `handheld` na `tv`, lakini nyingi ya hizi zimeachwa kutumika na badala yake hutumika vipengele ili kulenga vifaa kwa usahihi zaidi.
+
+Vipengele vya media vinaelezea sifa maalum za wakala wa mtumiaji, kifaa cha pato, au mazingira. Tuchunguze baadhi ya vipengele vya media vinavyotumika sana. `width` na `height` vinahusu upana na urefu wa eneo la kuona, na mara nyingi hutumika pamoja na viambishi awali vya `min-` au `max-` kwa hoja za anuwai. Hapa kuna mfano:
+
+```css
+@media screen and (min-width: 768px) {
+  /* Styles for screens at least 768px wide */
+}
+```
+
+`aspect-ratio` inaelezea uwiano kati ya upana na urefu wa eneo la kuona. Hapa kuna mfano:
+
+```css
+@media screen and (aspect-ratio: 16/9) {
+  /* Styles for screens with a 16:9 aspect ratio */
+}
+```
+
+Kipengele cha `orientation` kinaonyesha kama kifaa kiko katika mwelekeo wa usawa au wima. Hapa kuna mfano:
+
+```css
+@media screen and (orientation: landscape) {
+  /* Styles for landscape orientation */
+}
+```
+
+Kipengele cha `resolution` kinaelezea azimio la kifaa cha pato kwa nukta kwa inchi (dpi) au nukta kwa sentimita (dpcm). Hapa kuna mfano:
+
+```css
+@media screen and (min-resolution: 300dpi) {
+  /* Styles for high-resolution screens */
+}
+```
+
+Kipengele cha `hover` kinajaribu kama njia kuu ya ingizo inaweza kuangalia vitu kwa kuvinjari juu yao. Hapa kuna mfano:
+
+```css
+@media (hover: hover) {
+  /* Styles for devices that support hover */
+}
+```
+
+Kipengele cha `prefers-color-scheme` kinagundua kama mtumizi ameomba mandhari ya rangi nyepesi au giza. Hapa kuna mfano:
+
+```css
+@media (prefers-color-scheme: dark) {
+  /* Styles for dark mode */
+}
+```
+
+Media query pia zinaweza kuunganisha masharti mengi kwa kutumia opereta za kimantiki. Opereta ya `and` hutumika kuunganisha vipengele vingi vya media, wakati `not` na `only` zinaweza kutumika kupinga au kutenganisha media query. Hapa kuna mfano unaounganisha vipengele vingi:
+
+```css
+@media screen and (min-width: 768px) and (orientation: landscape) {
+  /* Styles for landscape screens at least 768px wide */
+}
+```
+
+Pia inawezekana kulenga hoja nyingi katika orodha iliyo na koma, ambayo hufanya kazi kama opereta ya "au":
+
+```css
+@media screen and (min-width: 768px), print {
+  /* Styles for screens at least 768px wide OR for print */
+}
+```
+
+Unapofanya kazi na media query, ni muhimu kuzingatia mtiririko wa mitindo. Media query haziongezi umahiri wa uteuzi – zinakusanya tu sheria za masharti. Sheria za kawaida za mtiririko wa CSS bado zinatumika ndani ya kila media query.
+
+Katika matumizi, media query mara nyingi hutumika kuunda mipangilio inayojibadilisha kulingana na kifaa. Mfano wa kawaida ni kufafanua mtindo wa msingi kwa vifaa vya simu kisha kutumia media query kuboresha mpangilio kwa skrini kubwa:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="container">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+  <p>Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
+  <p>Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+</div>
+```
+
+```css
+/* Base styles for mobile */
+.container {
+  width: 100%;
+  padding: 15px;
+}
+
+/* Styles for tablets */
+@media screen and (min-width: 768px) {
+  .container {
+    width: 750px;
+    margin: 0 auto;
+  }
+}
+
+/* Styles for desktops */
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 960px;
+  }
+}
+```
+
+:::
+
+Njia hii, inayojulikana kama muundo unaobadilika wa "simu kwanza", inahakikisha mitindo ya msingi inafaa kwa vifaa vya simu, na maboresho huongezwa kwa skrini kubwa.
+
+Kwa kumalizia, media query ni chombo chenye nguvu katika CSS kinachoruhusu kuunda miundo ya mtandao inayojibadilisha na kubadilika. Kwa kuelewa jinsi ya kutumia aina tofauti za media na vipengele, wasanidi programu wanaweza kuunda tovuti zinazotoa uzoefu bora kwa watumiaji katika vifaa na mapendeleo mbalimbali. Kadiri teknolojia za mtandao zinavyoendelea, kusasisha maarifa kuhusu vipengele vipya vya media kunaweza kusaidia kuunda miundo inayojibadilisha kwa undani zaidi na rafiki kwa mtumiaji.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya hizi si aina ya kawaida ya media inayotumika katika CSS ya kisasa?
+
+## --answers--
+
+`all`
+
+### --feedback--
+
+Fikiria ni aina gani za media bado zina umuhimu katika mbinu za sasa za ukuzaji wa mtandao.
+
+---
+
+`print`
+
+### --feedback--
+
+Fikiria ni aina gani za media bado zina umuhimu katika mbinu za sasa za ukuzaji wa mtandao.
+
+---
+
+`screen`
+
+### --feedback--
+
+Fikiria ni aina gani za media bado zina umuhimu katika mbinu za sasa za ukuzaji wa mtandao.
+
+---
+
+`handheld`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Kipengele cha media cha mwelekeo kinaangalia nini?
+
+## --answers--
+
+Mwelekeo halisi wa kifaa.
+
+### --feedback--
+
+Fikiria jinsi kipengele hiki kinavyohusiana na jinsi maudhui yanavyoonyeshwa kwenye skrini.
+
+---
+
+Je, eneo la kuona ni pana zaidi kuliko lilivyo ndefu, au kinyume chake.
+
+---
+
+Mwelekeo wa maandishi kwenye ukurasa.
+
+### --feedback--
+
+Fikiria jinsi kipengele hiki kinavyohusiana na jinsi maudhui yanavyoonyeshwa kwenye skrini.
+
+---
+
+Mwelekeo wa kijiografia wa mtumizi.
+
+### --feedback--
+
+Fikiria jinsi kipengele hiki kinavyohusiana na jinsi maudhui yanavyoonyeshwa kwenye skrini.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika media query, ni kwa nini hutumika opereta ya `and`?
+
+## --answers--
+
+Kuunganisha mali nyingi za CSS.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kukagua masharti mengi katika media query moja.
+
+---
+
+Kuongeza thamani mbili za nambari pamoja.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kukagua masharti mengi katika media query moja.
+
+---
+
+Kuunganisha vipengele au aina nyingi za media.
+
+---
+
+Kuunda sharti la kimantiki la `or`.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kukagua masharti mengi katika media query moja.
+
+## --video-solution--
+
+3

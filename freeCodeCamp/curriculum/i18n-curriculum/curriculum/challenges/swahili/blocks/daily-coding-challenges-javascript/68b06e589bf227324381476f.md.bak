@@ -1,0 +1,66 @@
+---
+id: 68b06e589bf227324381476f
+title: "Zoezi la 35: Mara ya Kutokea kwa Maneno"
+challengeType: 28
+dashedName: challenge-35
+---
+
+# --description--
+
+Ukichukulia aya, rudisha safu ya data yenye maneno matatu yanayotokea mara nyingi zaidi.
+
+- Maneno katika aya yatatengwa na nafasi.
+- Puuza tofauti za herufi ndogo na kubwa katika aya iliyotolewa. Kwa mfano, chukulia `Hello` na `hello` kama neno moja.
+- Puuza alama za uandishi katika aya iliyotolewa. Alama za uandishi ni kama vile koma (`,`), nukta (`.`), na alama za mshangao (`!`).
+- Safu ya data inayorudishwa inapaswa kuwa na maneno yote yenye herufi ndogo.
+- Safu ya data inayorudishwa inapaswa kuwa katika mpangilio wa kushuka kwa mara ya kutokea, neno linalotokea mara nyingi zaidi likiwa la kwanza.
+
+# --hints--
+
+`getWords("Coding in Python is fun because coding Python allows for coding in Python easily while coding")` inapaswa kurudisha `["coding", "python", "in"]`.
+
+```js
+assert.deepEqual(getWords("Coding in Python is fun because coding Python allows for coding in Python easily while coding"), ["coding", "python", "in"]);
+```
+
+`getWords("I like coding. I like testing. I love debugging!")` inapaswa kurudisha `["i", "like", "coding"]`.
+
+```js
+assert.deepEqual(getWords("I like coding. I like testing. I love debugging!"), ["i", "like", "coding"]);
+```
+
+`getWords("Debug, test, deploy. Debug, debug, test, deploy. Debug, test, test, deploy!")` inapaswa kurudisha `["debug", "test", "deploy"]`.
+
+```js
+assert.deepEqual(getWords("Debug, test, deploy. Debug, debug, test, deploy. Debug, test, test, deploy!"), ["debug", "test", "deploy"]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getWords(paragraph) {
+
+  return paragraph;
+}
+```
+
+# --solutions--
+
+```js
+function getWords(paragraph) {
+  const cleaned = paragraph.replace(/[.,!]/g, "").toLowerCase();
+  const words = cleaned.split(/\s+/);
+
+  const freq = {};
+  for (const word of words) {
+    if (word) {
+      freq[word] = (freq[word] || 0) + 1;
+    }
+  }
+
+  const sorted = Object.keys(freq).sort((a, b) => freq[b] - freq[a]);
+  return sorted.slice(0, 3);
+}
+```

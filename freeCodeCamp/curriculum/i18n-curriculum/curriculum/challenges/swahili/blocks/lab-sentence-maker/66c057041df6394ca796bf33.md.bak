@@ -1,0 +1,257 @@
+---
+id: 66c057041df6394ca796bf33
+title: Tengeneza mtengenezaji wa sentensi
+challengeType: 26
+dashedName: build-a-sentence-maker
+---
+
+# --description--
+
+Katika maabara hii, utaunda hadithi mbili tofauti kwa kutumia kiolezo cha sentensi. Utatumia vigezo kuhifadhi sehemu tofauti za hadithi kisha utoe hadithi hizo kwenye konsoli.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kutangaza vigezo vifuatavyo kwa kutumia `let`:
+   
+    - `adjective`
+    - `noun`
+    - `verb`
+    - `place`
+    - `adjective2`
+    - `noun2`
+
+1. Unapaswa kuweka thamani za mfuatano wa herufi kwa vigezo vilivyotajwa hapo juu kulingana na uchaguzi wako.
+
+1. Unapaswa kutangaza kigezo cha `firstStory`.
+   
+1. Unapaswa kutumia kiolezo cha hadithi kilicho hapa chini kuunda hadithi ya kwanza na kuiweka kwenye kigezo cha `firstStory`: `"Once upon a time, there was a(n) [adjective] [noun] who loved to eat [noun2]. The [noun] lived in a [place] and had [adjective2] nostrils that blew fire when it was [verb]."`;
+
+1. Unapaswa kutoa hadithi yako ya kwanza kwenye konsoli kwa kutumia ujumbe `"First story: [firstStory]"`.
+
+1. Unapaswa kuweka thamani mpya kwa vigezo vyako vya `adjective`, `noun`, `verb`, `place`, `adjective2`, na `noun2`.
+
+1. Unapaswa kutangaza kigezo cha `secondStory`.
+
+1. Unda hadithi nyingine kwa kutumia kiolezo kile kile na uiweke kwenye kigezo cha `secondStory`.
+
+1. Unapaswa kutoa hadithi yako ya pili kwenye konsoli kwa kutumia ujumbe `"Second story: [secondStory]"`.
+
+
+# --hints--
+
+Unapaswa kutangaza kigezo cha `adjective`.
+
+```js
+assert.isNotNull(adjective);
+```
+
+Unapaswa kutangaza kigezo cha `noun`.
+
+```js
+assert.isNotNull(noun);
+```
+
+Unapaswa kutangaza kigezo cha `verb`.
+
+```js
+assert.isNotNull(verb);
+```
+
+Unapaswa kutangaza kigezo cha `place`.
+
+```js
+assert.isNotNull(place);
+```
+
+Unapaswa kutangaza kigezo cha `adjective2`.
+
+```js
+assert.isNotNull(adjective2);
+```
+
+Unapaswa kutangaza kigezo cha `noun2`.
+
+```js
+assert.isNotNull(noun2);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `adjective`.
+
+```js
+assert.isString(adjective);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `noun`.
+
+```js
+assert.isString(noun);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `verb`.
+
+```js
+assert.isString(verb);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `place`.
+
+```js
+assert.isString(place);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `adjective2`.
+
+```js
+assert.isString(adjective2);
+```
+
+Unapaswa kuweka thamani ya mfuatano wa herufi kwa kigezo cha `noun2`.
+
+```js
+assert.isString(noun2);
+```
+
+Unapaswa kutangaza kigezo cha `firstStory`.
+
+```js
+assert.isNotNull(firstStory);
+```
+
+Unapaswa kutumia muundo sahihi wa hadithi kwa hadithi ya kwanza: `"Once upon a time, there was a(n) [adjective] [noun] who loved to eat [noun2]. The [noun] lived in a [place] and had [adjective2] nostrils that blew fire when it was [verb]."`. Zingatia nafasi.
+
+```js
+const _initialValues = {}
+for (const name of ['adjective', 'noun', 'noun2', 'place', 'verb', 'adjective2']) {
+    const match = code.match(new RegExp(String.raw`${name}\s*=\s*('|"|${'`'})(?<${name}>.*?)\1(?:,|;|\s|$)`, 'm'));
+    _initialValues[name] = match ? match.groups[name] : null;
+}
+
+const expected = `Once upon a time, there was a(n) ${_initialValues['adjective']} ${_initialValues['noun']} who loved to eat ${_initialValues['noun2']}. The ${_initialValues['noun']} lived in a ${_initialValues['place']} and had ${_initialValues['adjective2']} nostrils that blew fire when it was ${_initialValues['verb']}.`;
+
+assert.strictEqual(firstStory, expected);
+```
+
+Unapaswa kuunganisha hadithi yako ya kwanza kwa kutumia vigezo ulivyovitangaza kwa mpangilio sahihi.
+
+```js
+assert.match(
+  __helpers.removeJSComments(code),
+  /firstStory\s*=\s*.*?adjective.*?noun.*?noun2.*?noun.*?place.*?adjective2.*?verb/
+);
+```
+
+Unapaswa kuandika hadithi yako ya kwanza kwa kutumia ujumbe `"First story: [firstStory]"`.
+
+```js
+const condition1 = /console\.log\(\s*["']First\s+story:\s+["']\s*\+\s*firstStory\s*\);?/gm.test(code);
+const condition2 = /console\.log\(\s*`First\s+story:\s+\$\{firstStory\}`\s*\);?/gm.test(code);
+assert.isTrue(condition1 || condition2);
+```
+
+Unapaswa kutangaza kigezo cha `secondStory`.
+
+```js
+assert.isNotNull(secondStory);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `adjective` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/adjective\s*=\s*/g), 2);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `noun` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/noun\s*=\s*/g), 2);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `verb` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/verb\s*=\s*/g), 2);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `place` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/place\s*=\s*/g), 2);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `adjective2` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/adjective2\s*=\s*/g), 2);
+```
+
+Unapaswa kuweka thamani mpya kwa kigezo cha `noun2` kwa hadithi ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/noun2\s*=\s*/g), 2);
+```
+
+Unapaswa kutumia muundo sahihi wa hadithi kwa hadithi ya pili: `"Once upon a time, there was a(n) [adjective] [noun] who loved to eat [noun2]. The [noun] lived in a [place] and had [adjective2] nostrils that blew fire when it was [verb]."`. Zingatia nafasi.
+
+```js
+const expected = `Once upon a time, there was a(n) ${adjective} ${noun} who loved to eat ${noun2}. The ${noun} lived in a ${place} and had ${adjective2} nostrils that blew fire when it was ${verb}.`;
+assert.strictEqual(secondStory, expected);
+```
+
+Unapaswa kuunganisha hadithi yako ya pili kwa kutumia vigezo ulivyovitangaza kwa mpangilio sahihi.
+
+```js
+assert.match(
+  __helpers.removeJSComments(code),
+  /secondStory\s*=\s*.*?adjective.*?noun.*?noun2.*?noun.*?place.*?adjective2.*?verb/
+);
+```
+
+Unapaswa kuandika hadithi yako ya pili kwa kutumia muundo `"Second story: [secondStory]"`.
+
+```js
+const condition1 = /console\.log\(\s*["']Second\s+story:\s+["']\s*\+\s*secondStory\s*\);?/gm.test(code);
+const condition2 = /console\.log\(\s*`Second\s+story:\s+\$\{secondStory\}`\s*\);?/gm.test(code);
+assert.isTrue(condition1 || condition2);
+```
+
+`firstStory` haipaswi kuwa sawa na `secondStory`.
+
+```js
+assert.notEqual(firstStory, secondStory);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+let adjective = "funny";
+let noun = "dragon";
+let verb = "jumping";
+let place = "garden";
+let adjective2 = "sparkling";
+let noun2 = "cakes";
+
+const firstStory = `Once upon a time, there was a(n) ${adjective} ${noun} who loved to eat ${noun2}. The ${noun} lived in a ${place} and had ${adjective2} nostrils that blew fire when it was ${verb}.`;
+
+console.log("First story: " + firstStory);
+
+adjective = "cute";
+noun = "puppy";
+verb = "barking";
+place = "park";
+adjective2 = "colorful";
+noun2 = "flower";
+
+const secondStory = `Once upon a time, there was a(n) ${adjective} ${noun} who loved to eat ${noun2}. The ${noun} lived in a ${place} and had ${adjective2} nostrils that blew fire when it was ${verb}.`;
+
+console.log("Second story: " + secondStory);
+```

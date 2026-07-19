@@ -1,0 +1,241 @@
+---
+id: 6724e46581a1742244e45b59
+title: Kagua bash na SQL
+challengeType: 31
+dashedName: review-bash-and-sql
+---
+
+# --description--
+
+## Kurekebisha hifadhidata
+
+Hii ni mchakato wa kupanga hifadhidata ya uhusiano ili kupunguza rudufu ya data na kuboresha uadilifu.
+
+Manufaa yake ni pamoja na:
+
+- Kupunguza data rudufu, ambayo huokoa hifadhi na kupunguza kutokubaliana.
+- Kuweka uadilifu wa data kwa kutumia funguo kuu na funguo za kigeni.
+- Kufanya hifadhidata ziwe rahisi kudumishwa na kueleweka.
+
+### Fomu za kawaida
+
+- **1NF (Fomu ya Kwanza ya Kawaida)**
+  - Kila seli ina thamani moja (atomiki).
+  - Kila rekodi ni ya kipekee (inahakikishwa na funguo kuu).
+  - Mpangilio wa safu/nguzo hauna umuhimu.
+  - Mfano: Hamisha nambari nyingi za simu kutoka kwenye jedwali la `students` kwenda kwenye jedwali tofauti la `student_phones`.
+
+- **2NF (Fomu ya Pili ya Kawaida)**
+  - Inakidhi mahitaji ya 1NF.
+  - Hakuna **utegemezi wa sehemu**: kila sifa isiyo ya funguo lazima itegemee funguo kuu kamili yenye vipengele vingi.
+  - Mfano: Gawanya jedwali la `orders` kuwa `order_header` na `order_items` ili kuepuka sifa kutegemea sehemu tu ya funguo.
+
+- **3NF (Fomu ya Tatu ya Kawaida)**
+  - Inakidhi mahitaji ya 2NF.
+  - Hakuna **utegemezi wa mpito**: sifa zisizo za funguo haziwezi kutegemea sifa nyingine zisizo za funguo.
+  - Mfano: Hamisha `city_postal_code` kwenda kwenye jedwali la `cities` badala ya kuihifadhi kwa kila oda.
+
+- **BCNF (Fomu ya Kawaida ya Boyce-Codd)**
+  - Inakidhi mahitaji ya 3NF.
+  - Kila kinachoamua (upande wa kushoto wa utegemezi wa kitendakazi) lazima kiwe funguo kuu.
+
+**Kidokezo**: Lenga 3NF katika muundo mwingi kwa usawa mzuri wa uadilifu na utendaji.
+
+## Dhana kuu za SQL
+
+- SQL ni kifupi cha Structured Query Language, lugha ya kuwasiliana na hifadhidata za uhusiano.
+- **Amri za msingi** → `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE TABLE`, `ALTER TABLE`, n.k.
+- **Joins** → Inachanganya data kutoka kwenye jedwali nyingi (`INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL JOIN`).
+
+## Kuendesha amri za SQL katika Bash
+
+Unaweza kuendesha amri za SQL moja kwa moja kutoka mstari wa amri kwa kutumia mteja wa kiolesura cha mstari wa amri wa `psql` kwa PostgreSQL au zana zinazofanana kwa hifadhidata nyingine.
+
+Kwa mfano, kuendesha faili la SQL katika PostgreSQL:
+
+```bash
+psql -U username -d database_name -c "SELECT * FROM students;"
+```
+
+Unaweza pia kutekeleza amri za MySQL moja kwa moja:
+
+```bash
+mysql -u username -p database_name -e "SELECT * FROM students;"
+```
+
+### Kuendesha SQL kutoka faili
+
+```bash
+# PostgreSQL
+psql -U username -d database_name -f script.sql
+
+# MySQL
+mysql -u username -p database_name < script.sql
+```
+
+### Kuingiza SQL katika script ya Bash
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Insert student data
+psql -U "$DB_USER" -d "$DB_NAME" -c \
+"INSERT INTO students (name, age, major) VALUES ('Alice', 20, 'CS');"
+```
+
+### Matumizi ya vigezo katika SQL
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+STUDENT_NAME="Bob"
+AGE=21
+
+psql -U "$DB_USER" -d "$DB_NAME" -c \
+"INSERT INTO students (name, age) VALUES ('$STUDENT_NAME', $AGE);"
+```
+
+**Kidokezo**: Safisha vigezo ili kuepuka sindano ya SQL.
+
+## Kupata na kutumia matokeo ya hoja za SQL katika Bash
+
+Unapotekeleza hoja za SQL kupitia `psql`, unaweza **kushika** na **kusindika** thamani zinazorejeshwa katika script zako za Bash.
+
+### Kushika thamani moja
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get total student count
+STUDENT_COUNT=$(psql -U "$DB_USER" -d "$DB_NAME" -t -A -c \
+"SELECT COUNT(*) FROM students;")
+
+echo "Total students: $STUDENT_COUNT"
+```
+
+Matokeo → 42
+
+### Kupata nguzo nyingi
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get top 3 students' names and ages
+RESULTS=$(psql -U "$DB_USER" -d "$DB_NAME" -t -A -F"," -c \
+"SELECT name, age FROM students LIMIT 3;")
+
+echo "Top 3 students:"
+echo "$RESULTS"
+```
+
+Matokeo
+
+```bash
+Alice,20
+Bob,21
+Charlie,22
+```
+
+### Kucheza mzunguko kupitia matokeo ya hoja
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get student names and majors
+psql -U "$DB_USER" -d "$DB_NAME" -t -A -F"," -c \
+"SELECT name, major FROM students;" | while IFS="," read -r name major
+do
+    echo "Student: $name | Major: $major"
+done
+```
+
+Muundo wa matokeo
+
+```bash
+Student: Alice | Major: CS
+Student: Bob   | Major: Math
+Student: Carol | Major: Physics
+```
+
+## Sindano ya SQL
+
+Ni udhaifu wa usalama wa mtandao ambapo wadukuzi huingiza msimbo wa SQL wenye madhara katika sehemu za ingizo ili kudhibiti hifadhidata.
+
+Hii inaweza kusababisha vitendo hatari kama:
+
+- Kupita uthibitisho wa utambulisho.
+- Kunyakua data nyeti.
+- Kubadilisha au kufuta rekodi.
+
+Mfano wa shambulio la sindano ya SQL:
+
+```sql
+SELECT * FROM users WHERE username = ' " " OR "1"="1" -- ' AND password = 'anything';
+```
+
+Hoja hii itarejesha watumiaji wote kwa sababu sharti la `OR "1"="1"` daima ni kweli, ikiruhusu wadukuzi kupita ukaguzi wa kuingia.
+
+### Kuzuia sindano ya SQL
+
+1. **Tumia taarifa zilizotayarishwa**: Hizi hutenganisha msimbo wa SQL na data, kuzuia sindano. Hapa kuna mfano (Node.js na pg):
+
+    ```js
+    client.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password]);
+    ```
+
+2. **Uthibitisho wa ingizo**: Safisha na thibitisha ingizo zote za mtumizi kuhakikisha zinaendana na muundo unaotarajiwa.
+
+3. **Idhini ya chini kabisa**: Tumia akaunti za hifadhidata zenye ruhusa za kiwango cha chini kinachohitajika kwa programu.
+
+**Kumbuka**: Kamwe usitoe haki za msimamizi kwa akaunti za programu.
+
+## Tatizo la N+1
+
+Tatizo la N+1 hutokea wakati programu inafanya hoja moja kupata orodha ya vitu (N) kisha inafanya hoja nyingine kwa kila kipengele kupata data zinazohusiana, na kusababisha hoja N+1.
+
+**Kwa nini ni mbaya**
+
+- Kila hoja huongeza mzigo wa mtandao na usindikaji.
+- Hoja ndogo ndogo nyingi ni polepole kuliko hoja moja iliyoboreshwa.
+
+### Mfano wa muundo wa N+1
+
+```sql
+-- 1: Get list of orders
+SELECT * FROM orders LIMIT 50;
+
+-- N: For each order, get customer
+SELECT * FROM customers WHERE customer_id = ...;
+```
+
+**Suluhisho**: Tumia `JOINs` au operesheni nyingine za seti.
+
+```sql
+SELECT 
+  orders.order_id,
+  orders.product,
+  orders.quantity,
+  customers.customer_id,
+  customers.name,
+  customers.email,
+  customers.address
+FROM orders
+JOIN customers 
+  ON orders.customer_id = customers.customer_id
+WHERE orders.order_id IN (SELECT order_id FROM orders LIMIT 50);
+```
+
+Daima tafuta fursa za kuunganisha data zinazohusiana katika hoja moja.
+
+# --assignment--
+
+Kagua mada na dhana za Bash na SQL.

@@ -1,0 +1,184 @@
+---
+id: 6732808f3221720adc833e81
+title: Njia za parseFloat() na parseInt() zinafanya kazi vipi?
+challengeType: 19
+dashedName: how-do-the-parsefloat-and-parseint-methods-work
+---
+
+# --interactive--
+
+`parseFloat()` na `parseInt()` ni njia mbili muhimu katika JavaScript za kubadilisha mfuatano wa herufi kuwa nambari. Njia hizi ni muhimu hasa unaposhughulika na ingizo la mtumizi au kuchakata data inayokuja katika muundo wa mfuatano wa herufi lakini inahitaji kutendewa kama thamani za nambari.
+
+Tuanze na `parseFloat()`. Njia hii changanuzi mfuatano wa herufi wa hoja na inarudisha nambari ya aina ya floating-point. Imeundwa kutoa nambari kutoka mwanzo wa mfuatano wa herufi, hata kama mfuatano huo una herufi zisizo za nambari baadaye. Kumbuka kuwa nambari za float ni zile zilizo na alama za desimali. Hivi ndivyo `parseFloat()` inavyofanya kazi:
+
+:::interactive_editor
+
+```js
+console.log(parseFloat("3.14"));     // 3.14
+console.log(parseFloat("3.14 abc")); // 3.14
+console.log(parseFloat("3.14.5"));   // 3.14
+console.log(parseFloat("abc 3.14")); // NaN
+```
+
+:::
+
+Kama unavyoona, `parseFloat()` huanza kuchanganua kutoka mwanzo wa mfuatano wa herufi na kuendelea hadi itakapokutana na herufi ambayo haiwezi kuwa sehemu ya nambari ya floating-point. Ikiwa haiwezi kupata nambari halali mwanzoni mwa mfuatano, inarudisha `NaN` (Sio Nambari).
+
+`parseInt()`, kwa upande mwingine, inachanganua mfuatano wa herufi wa hoja na inarudisha nambari kamili. Kama `parseFloat()`, huanza kutoka mwanzo wa mfuatano wa herufi, lakini inasimama kwa herufi ya kwanza isiyo ya nambari. Hivi ndivyo `parseInt()` inavyofanya kazi:
+
+:::interactive_editor
+
+```js
+console.log(parseInt("42"));       // 42
+console.log(parseInt("42px"));     // 42
+console.log(parseInt("3.14"));     // 3
+console.log(parseInt("abc123"));   // NaN
+```
+
+:::
+
+`parseInt()` inasimama kuchanganua kwa herufi ya kwanza isiyo ya nambari inayokutana nayo. Kwa nambari za floating-point, inarudisha sehemu ya nambari kamili tu. Ikiwa haiwezi kupata nambari kamili halali mwanzoni mwa mfuatano, inarudisha `NaN`.
+
+Njia zote mbili zina tabia kadhaa za kuzingatia. Zinapuuzia nafasi tupu mwanzoni:
+
+:::interactive_editor
+
+```js
+console.log(parseFloat("  3.14"));  // 3.14
+console.log(parseInt("  42"));      // 42
+```
+
+:::
+
+Zinashughulikia alama za kuongeza na kutoa mwanzoni mwa mfuatano:
+
+:::interactive_editor
+
+```js
+console.log(parseFloat("+3.14"));  // 3.14
+console.log(parseInt("-42"));      // -42
+```
+
+:::
+
+Ni vyema kutambua kuwa ingawa njia hizi ni zenye nguvu, zina vizingiti fulani. Kwa mfano, hazishughulikii aina zote za nambari, kama vile noti ya kisayansi, moja kwa moja. Kwa mahitaji ya changanuzi tata zaidi, huenda ukahitaji kutumia mbinu au maktaba za ziada.
+
+Kwa kumalizia, `parseFloat()` na `parseInt()` ni zana muhimu za kubadilisha mfuatano wa herufi kuwa nambari katika JavaScript. Kuelewa jinsi zinavyofanya kazi na tabia zao maalum kunakuwezesha kushughulikia data za nambari kwa ufanisi zaidi katika programu zako, hasa unaposhughulika na ingizo la watumiaji au vyanzo vya data vya nje.
+
+# --questions--
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+console.log(parseInt("10.99"));
+```
+
+## --answers--
+
+`10.99`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia alama za desimali.
+
+---
+
+`10`
+
+---
+
+`11`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia alama za desimali.
+
+---
+
+`NaN`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia alama za desimali.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+console.log(parseInt("  -42abc"));
+```
+
+## --answers--
+
+`-42`
+
+---
+
+`NaN`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia nafasi tupu mwanzoni na herufi zisizo za nambari.
+
+---
+
+`42`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia nafasi tupu mwanzoni na herufi zisizo za nambari.
+
+---
+
+`"-42abc"`
+
+### --feedback--
+
+Fikiria jinsi `Number.parseInt()` inavyoshughulikia nafasi tupu mwanzoni na herufi zisizo za nambari.
+
+## --video-solution--
+
+1
+
+## --text--
+
+`parseFloat("3.14.15")` itarudisha nini?
+
+## --answers--
+
+`3.1415`
+
+### --feedback--
+
+Fikiria jinsi `parseFloat()` inavyoshughulikia alama nyingi za desimali katika mfuatano wa herufi.
+
+---
+
+`3.14`
+
+---
+
+`NaN`
+
+### --feedback--
+
+Fikiria jinsi `parseFloat()` inavyoshughulikia alama nyingi za desimali katika mfuatano wa herufi.
+
+---
+
+`3`
+
+### --feedback--
+
+Fikiria jinsi `parseFloat()` inavyoshughulikia alama nyingi za desimali katika mfuatano wa herufi.
+
+## --video-solution--
+
+2

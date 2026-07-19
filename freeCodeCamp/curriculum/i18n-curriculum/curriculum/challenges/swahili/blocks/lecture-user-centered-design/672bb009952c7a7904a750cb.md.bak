@@ -1,0 +1,429 @@
+---
+id: 672bb009952c7a7904a750cb
+title: Ni mbinu bora gani za kubuni kuvinjari bila mwisho?
+challengeType: 19
+dashedName: what-are-best-practices-for-designing-infinite-scrolls
+---
+
+# --interactive--
+
+**KUMBUKA**: Baadhi ya mifano ya mwingiliano inaweza kutumia CSS na JavaScript ambazo bado hujajifunza. Usijali kuhusu kuelewa msimbo wote. Lengo la mifano ni kukuonyesha mapitio ya dhana hizi za kubuni ili uelewe vyema jinsi mambo yanavyofanya kazi. Ili kuona mapitio, utahitaji kuwezesha mhariri wa mwingiliano.
+
+Kuvinjari bila mwisho ni mtindo wa kubuni unaopakia maudhui zaidi wakati mtumizi anapovinjari chini kwenye ukurasa. Mara nyingi, hii hutumika kwenye tovuti za mitandao ya kijamii kama Twitter. Kwa mfano, ikiwa umeingia na unataka kuona tweet zaidi, unaweza kuvinjari chini na tweet zaidi zitapakiwa. Hii ni mfano wa kuvinjari bila mwisho.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="infinite-scroll">
+  <div class="post">Post 1</div>
+  <div class="post">Post 2</div>
+  <div class="post">Post 3</div>
+  <div class="post">Post 4</div>
+  <div class="post">Post 5</div>
+  <div class="post">Post 6</div>
+  <div class="post">Post 7</div>
+  <div class="post">Post 8</div>
+  <div class="post">Post 9</div>
+  <div class="post">Post 10</div>
+  <!-- More posts will load here as the user scrolls down -->
+</div>
+
+<script src="index.js"></script>
+```
+
+```css
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+```
+
+```js
+// Simulate loading more content as the user scrolls
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    loadMorePosts();
+  }
+});
+
+function loadMorePosts() {
+  const container = document.querySelector('.infinite-scroll');
+  for (let i = 0; i < 3; i++) {
+    const post = document.createElement('div');
+    post.className = 'post';
+    post.textContent = `Post ${container.children.length + 1}`;
+    container.appendChild(post);
+  }
+}
+```
+
+:::
+
+Kuvinjari bila mwisho pia hutumika badala ya kugawanya maudhui katika kurasa. Kugawanya kurasa ni mtindo wa kubuni unaogawanya maudhui katika kurasa tofauti. Hii hutumika mara nyingi wakati kuna maudhui mengi ya kuonyesha. Mfano wa kugawanya kurasa ni unapotafuta kitu Google na kuona matokeo ya utafutaji kwenye kurasa nyingi. Kwa kugawanya kurasa, unalazimika kubofya kitufe ili kwenda kwenye ukurasa unaofuata. Kwa kuvinjari bila mwisho, unaendelea tu kuvinjari chini na maudhui zaidi yatapakiwa.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="pagination">
+  <div class="post">Post 1</div>
+  <div class="post">Post 2</div>
+  <div class="post">Post 3</div>
+  <!-- More posts will be on the next pages -->
+</div>
+<div class="pagination-controls">
+  <button class="prev" disabled>Previous</button>
+  <button class="next">Next</button>
+</div>
+<script src="index.js"></script>
+```
+
+```css
+.pagination {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination-controls {
+  margin-top: 12px;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  margin-right: 8px;
+}
+```
+
+```js
+let currentPage = 1;
+const postsPerPage = 3;
+const totalPosts = 9; 
+const totalPages = Math.ceil(totalPosts / postsPerPage);
+const container = document.querySelector('.pagination');
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next'); 
+
+function renderPosts() {
+  container.innerHTML = '';
+  const start = (currentPage - 1) * postsPerPage;
+  const end = start + postsPerPage;
+  for (let i = start; i < end && i < totalPosts; i++) {
+    const post = document.createElement('div');
+    post.className = 'post';
+    post.textContent = `Post ${i + 1}`;
+    container.appendChild(post);
+  }
+  prevButton.disabled = currentPage === 1;
+  nextButton.disabled = currentPage === totalPages;
+}
+
+prevButton.addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPosts();
+  }
+});
+
+nextButton.addEventListener('click', () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderPosts();
+  }
+});
+
+renderPosts();
+```
+
+:::
+
+Unapoingiza kuvinjari bila mwisho katika muundo wako, kuna mbinu bora chache za kuzingatia. Kitu cha kwanza ni kutoa kitufe cha "Pakia Zaidi" kinachopakia seti inayofuata ya matokeo mtumizi anapobofya. Hii ni njia nzuri ya kumpa mtumizi udhibiti wa kuona maudhui zaidi anapopenda.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="infinite-scroll">
+  <div class="post">Post 1</div>
+  <div class="post">Post 2</div>
+  <div class="post">Post 3</div>
+  <!-- More posts will load when the user clicks "Load More" -->
+</div>
+<button class="load-more">Load More</button>
+<script src="index.js"></script>
+```
+
+```css
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.load-more {
+  margin-top: 12px;
+  padding: 8px 16px;
+}
+```
+
+```js
+const loadMoreButton = document.querySelector('.load-more');
+const container = document.querySelector('.infinite-scroll');   
+loadMoreButton.addEventListener('click', () => {
+  loadMorePosts();
+});
+
+function loadMorePosts() {
+  for (let i = 0; i < 3; i++) {
+    const post = document.createElement('div');
+    post.className = 'post';
+    post.textContent = `Post ${container.children.length + 1}`;
+    container.appendChild(post);
+  }
+}
+```
+
+:::
+
+Jukumu lingine ni kuongeza kitufe cha "Rudi". Hii inampa mtumizi uwezo wa kurudi kwenye ukurasa uliopita bila kuvinjari tena kutoka juu kabisa. Hii huunda uzoefu bora wa mtumizi na huwapa udhibiti zaidi juu ya jinsi wanavyovinjari.
+
+Wakati mwingine utaona miundo yenye kitufe cha "Rudi juu" kinachoelekeza watumizi kurudi juu kabisa ya ukurasa wa matokeo. Jukumu lingine ni kutoa kiashiria cha upakiaji. Watumizi wanapaswa kuwa na dalili wazi kwamba maudhui zaidi yanapakiwa; vinginevyo, wanaweza kufikiri ukurasa umevunjika.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="infinite-scroll">
+  <div class="post">Post 1</div>
+  <div class="post">Post 2</div>
+  <div class="post">Post 3</div>
+  <div class="post">Post 4</div>
+  <div class="post">Post 5</div>
+  <div class="post">Post 6</div>
+  <div class="post">Post 7</div>
+  <div class="post">Post 8</div>
+  <div class="post">Post 9</div>
+  <div class="post">Post 10</div>
+  <!-- More posts will load here as the user scrolls down -->
+</div>
+
+<div class="loading-indicator" style="display: none;">Loading...</div>
+
+<button id="back-to-top" class="back-to-top">↑ Back to Top</button>
+
+<script src="index.js"></script>
+
+```
+
+```css
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.loading-indicator {
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: none;
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top:hover {
+  background-color: #0056b3;
+}
+```
+
+```js
+const container = document.querySelector('.infinite-scroll');
+const loadingIndicator = document.querySelector('.loading-indicator');
+const backToTopBtn = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    backToTopBtn.style.display = 'block';
+  } else {
+    backToTopBtn.style.display = 'none';
+  }
+
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    loadMorePosts();
+  }
+});
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function loadMorePosts() {
+  loadingIndicator.style.display = 'block';
+  setTimeout(() => {
+    for (let i = 0; i < 3; i++) {
+      const post = document.createElement('div');
+      post.className = 'post';
+      post.textContent = `Post ${container.children.length + 1}`;
+      container.appendChild(post);
+    }
+    loadingIndicator.style.display = 'none';
+  }, 1000);
+}
+``` 
+
+:::
+
+Jukumu la mwisho ni kuhakikisha kijachini kinapatikana kwa mtumizi. Ikiwa kijachini kina taarifa muhimu, basi kinapaswa kupatikana kwa mtumizi wakati wote.
+
+Kwa kumalizia, kuvinjari bila mwisho ni njia nzuri ya kuonyesha maudhui kwenye tovuti yako. Hata hivyo, unapaswa kuzingatia mbinu bora wakati wa kubuni kuvinjari bila mwisho ili uweze kutoa uzoefu bora zaidi kwa mtumizi.
+
+# --questions--
+
+## --text--
+
+Kuvinjari bila mwisho ni nini?
+
+## --answers--
+
+Mtindo wa kubuni unaobadilisha rula ya kuvinjari kwenye ukurasa.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo dhana hii ilianzishwa.
+
+---
+
+Mtindo wa kubuni unaobadilisha ukubwa wa ukurasa.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo dhana hii ilianzishwa.
+
+---
+
+Mtindo wa kubuni wa kubadilisha rangi ya nyuma ya ukurasa.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo dhana hii ilianzishwa.
+
+---
+
+Mtindo wa kubuni unaopakia maudhui zaidi wakati mtumizi anapovinjari chini kwenye ukurasa
+
+## --video-solution--
+
+4
+
+## --text--
+
+Jukumu la kitufe cha "pakia zaidi" katika kuvinjari bila mwisho ni lipi?
+
+## --answers--
+
+Hurejesha upya ukurasa.
+
+### --feedback--
+
+Jina linadhihirisha jukumu lake.
+
+---
+
+Kumpa mtumizi udhibiti wa kuona maudhui zaidi anapopenda.
+
+---
+
+Huiruhusu watumizi kurudi kwenye maudhui yaliyopakiwa awali.
+
+### --feedback--
+
+Jina linadhihirisha jukumu lake.
+
+---
+
+Huzuia kiasi cha data kinachoweza kupakiwa.
+
+### --feedback--
+
+Jina linadhihirisha jukumu lake.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kwa nini ni muhimu kuweka kijachini kinapatikana wakati wa kutumia kuvinjari bila mwisho?
+
+## --answers--
+
+Husaidia kufanya rangi zionekane zaidi kwenye ukurasa.
+
+### --feedback--
+
+Fikiria ni taarifa gani mtumizi anapaswa kupata upatikanaji wake
+
+---
+
+Husaidia kurahisisha upakiaji wa ukurasa.
+
+### --feedback--
+
+Fikiria ni taarifa gani mtumizi anapaswa kupata upatikanaji wake
+
+---
+
+Sio muhimu kuweka kijachini kinapatikana.
+
+### --feedback--
+
+Fikiria ni taarifa gani mtumizi anapaswa kupata upatikanaji wake
+
+---
+
+Ili mtumizi aweze kupata viungo na taarifa muhimu kutoka kwenye kijachini wakati wote.
+
+## --video-solution--
+
+4

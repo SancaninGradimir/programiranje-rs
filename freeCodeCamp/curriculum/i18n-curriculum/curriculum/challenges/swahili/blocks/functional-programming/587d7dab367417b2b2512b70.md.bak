@@ -1,0 +1,102 @@
+---
+id: 587d7dab367417b2b2512b70
+title: Utangulizi wa Kuringa na Matumizi Sehemu-sehemu
+challengeType: 1
+forumTopicId: 301232
+dashedName: introduction-to-currying-and-partial-application
+---
+
+# --description--
+
+<dfn>Arity</dfn> ya kitendakazi ni idadi ya hoja zinazohitajika. <dfn>Kuringa</dfn> kitendakazi inamaanisha kubadilisha kitendakazi chenye arity N kuwa vitendakazi N vyenye arity 1.
+
+Kwa maneno mengine, inapanga upya kitendakazi ili kichukue hoja moja, kisha kirudishe kitendakazi kingine kinachochukua hoja inayofuata, na kadhalika.
+
+Hapa kuna mfano:
+
+```js
+function unCurried(x, y) {
+  return x + y;
+}
+
+function curried(x) {
+  return function(y) {
+    return x + y;
+  }
+}
+
+const curried = x => y => x + y
+
+curried(1)(2)
+```
+
+`curried(1)(2)` ingetumia `3`.
+
+Hii ni muhimu katika programu yako ikiwa huwezi kutoa hoja zote kwa kitendakazi kwa wakati mmoja. Unaweza kuhifadhi kila wito la kitendakazi katika kigezo, ambacho kitashikilia rejea ya kitendakazi kilichorejeshwa kinachochukua hoja inayofuata wakati itakapopatikana. Hapa kuna mfano ukitumia kitendakazi kilichokuringwa katika mfano hapo juu:
+
+```js
+const funcForY = curried(1);
+console.log(funcForY(2)); // 3
+```
+
+Vivyo hivyo, <dfn>matumizi sehemu-sehemu</dfn> yanaweza kuelezwa kama kutumia hoja chache kwa kitendakazi kwa wakati mmoja na kurudisha kitendakazi kingine kinachotumiwa na hoja zaidi. Hapa kuna mfano:
+
+```js
+function impartial(x, y, z) {
+  return x + y + z;
+}
+
+const partialFn = impartial.bind(this, 1, 2);
+partialFn(10); // 13
+```
+
+# --instructions--
+
+Jaza mwili wa kitendakazi cha `add` ili kitumie kuringa kuongeza vigezo `x`, `y`, na `z`.
+
+# --hints--
+
+`add(10)(20)(30)` inapaswa kurudisha `60`.
+
+```js
+assert(add(10)(20)(30) === 60);
+```
+
+`add(1)(2)(3)` inapaswa kurudisha `6`.
+
+```js
+assert(add(1)(2)(3) === 6);
+```
+
+`add(11)(22)(33)` inapaswa kurudisha `66`.
+
+```js
+assert(add(11)(22)(33) === 66);
+```
+
+Msimbo wako unapaswa kujumuisha tamko la mwisho linalorudisha `x + y + z`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/[xyz]\s*?\+\s*?[xyz]\s*?\+\s*?[xyz]/g));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function add(x) {
+  // Only change code below this line
+
+
+  // Only change code above this line
+}
+
+add(10)(20)(30);
+```
+
+# --solutions--
+
+```js
+const add = x => y => z => x + y + z
+```

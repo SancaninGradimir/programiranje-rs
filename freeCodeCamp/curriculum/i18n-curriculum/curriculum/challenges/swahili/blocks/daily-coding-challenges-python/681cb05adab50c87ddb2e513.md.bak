@@ -1,0 +1,193 @@
+---
+id: 681cb05adab50c87ddb2e513
+title: "Challenge 2: Base Check"
+challengeType: 29
+dashedName: challenge-2
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi unaowakilisha nambari, na msingi wa nambari kamili kutoka 2 hadi 36, amua kama nambari hiyo ni halali katika msingi huo.
+
+- Mfuatano wa herufi unaweza kuwa na nambari kamili, na herufi kubwa au ndogo.
+- Ukaguzi unapaswa kuwa usiozingatia tofauti ya herufi kubwa na ndogo.
+- Msingi unaweza kuwa nambari yoyote kati ya 2-36.
+- Nambari ni halali ikiwa kila herufi ni tarakimu halali katika msingi uliotolewa.
+- Mfano wa tarakimu halali kwa misingi:
+  - Msingi 2: 0-1
+  - Msingi 8: 0-7
+  - Msingi 10: 0-9
+  - Msingi 16: 0-9 na A-F
+  - Msingi 36: 0-9 na A-Z
+
+# --hints--
+
+`is_valid_number("10101", 2)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("10101", 2), True)`);
+}})
+```
+
+`is_valid_number("10201", 2)` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("10201", 2), False)`)
+}})
+```
+
+`is_valid_number("76543210", 8)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("76543210", 8), True)`)
+}})
+```
+
+`is_valid_number("9876543210", 8)` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("9876543210", 8), False)`)
+}})
+```
+
+`is_valid_number("9876543210", 10)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("9876543210", 10), True)`)
+}})
+```
+
+`is_valid_number("ABC", 10)` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("ABC", 10), False)`)
+}})
+```
+
+`is_valid_number("ABC", 16)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("ABC", 16), True)`)
+}})
+```
+
+`is_valid_number("Z", 36)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("Z", 36), True)`)
+}})
+```
+
+`is_valid_number("ABC", 20)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("ABC", 20), True)`)
+}})
+```
+
+`is_valid_number("4B4BA9", 16)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("4B4BA9", 16), True)`)
+}})
+```
+
+`is_valid_number("5G3F8F", 16)` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("5G3F8F", 16), False)`)
+}})
+```
+
+`is_valid_number("5G3F8F", 17)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("5G3F8F", 17), True)`)
+}})
+```
+
+`is_valid_number("abc", 10)` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("abc", 10), False)`)
+}})
+```
+
+`is_valid_number("abc", 16)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("abc", 16), True)`)
+}})
+```
+
+`is_valid_number("AbC", 16)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("AbC", 16), True)`)
+}})
+```
+
+`is_valid_number("z", 36)` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_number("z", 36), True)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def is_valid_number(n, base):
+
+    return n
+```
+
+# --solutions--
+
+```py
+def is_valid_number(n, base):
+    allChars = "0123456789abcdefghijklmnopqrstuvwxyz"
+    newN = n.lower()
+
+    availableChars = allChars[0:base]
+
+    for char in newN:
+        if char not in availableChars:
+            return False
+
+    return True
+```

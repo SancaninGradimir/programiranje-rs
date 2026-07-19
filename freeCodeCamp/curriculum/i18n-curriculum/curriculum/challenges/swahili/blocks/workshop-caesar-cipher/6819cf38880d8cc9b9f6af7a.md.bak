@@ -1,0 +1,51 @@
+---
+id: 6819cf38880d8cc9b9f6af7a
+title: Hatua 21
+challengeType: 20
+dashedName: step-21
+---
+
+# --description--
+
+Python inakuwezesha kuweka thamani ya msingi kwa vigezo katika kitendakazi, kuunda kitendakazi ambacho kinaweza kuitwa kwa hoja chache au bila hoja kabisa. Hapa kuna jinsi ya kuunda kitendakazi chenye kigezo cha `name` chenye thamani ya msingi:
+
+```py
+def greet(name='Polly'):
+    return 'Hello ' + name
+    
+print(greet()) # Hello Polly
+```
+
+Ongeza kigezo cha tatu kinachoitwa `encrypt` kwenye kitendakazi chako na kipa thamani ya msingi ya `True`. 
+
+# --hints--
+
+Unapaswa kuongeza kigezo cha tatu kinachoitwa `encrypt` chenye thamani ya msingi ya `True` kwenye kitendakazi chako. Usibadilishe vigezo vilivyopo.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").has_args("text, shift, encrypt=True")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+def caesar(text, shift):
+--fcc-editable-region--
+
+    if not isinstance(shift, int):
+        return 'Shift must be an integer value.'
+
+    if shift < 1 or shift > 25:
+        return 'Shift must be an integer between 1 and 25.'
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    return text.translate(translation_table)
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

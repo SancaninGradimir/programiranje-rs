@@ -1,0 +1,44 @@
+---
+id: 587d7fb1367417b2b2512bf3
+title: Tekeleza programu ya kati ya kuandika kumbukumbu ya ombi ngazi ya mzizi
+challengeType: 2
+forumTopicId: 301514
+dashedName: implement-a-root-level-request-logger-middleware
+---
+
+# --description--
+
+Hapo awali, ulianzishwa na kitendakazi cha programu ya kati `express.static()`. Sasa ni wakati wa kuona ni nini programu ya kati, kwa undani zaidi. Vitendakazi vya programu ya kati ni vitendakazi vinavyopokea hoja 3: kitu cha ombi, kitu cha jibu, na kitendakazi kinachofuata katika mzunguko wa ombi-jibu wa programu. Vitendakazi hivi hufanya msimbo fulani ambao unaweza kuwa na athari kwa programu, na kawaida huongeza taarifa kwenye vitu vya ombi au jibu. Pia vinaweza kumaliza mzunguko kwa kutuma jibu wakati hali fulani inatimizwa. Ikiwa havitumi jibu baada ya kumaliza, huanzisha utekelezaji wa kitendakazi kinachofuata kwenye safu. Hii husababisha wito wa hoja ya tatu, `next()`.
+
+Tazama mfano ufuatao:
+
+```js
+function(req, res, next) {
+  console.log("I'm a middleware...");
+  next();
+}
+```
+
+Tuchukulie umeweka kitendakazi hiki kwenye njia ya data. Wakati ombi linapolingana na njia hiyo, linaonyesha mfuatano wa herufi “I’m a middleware…”, kisha hufanya kitendakazi kinachofuata kwenye safu. Katika zoezi hili, utajenga programu ya kati ngazi ya mzizi. Kama ulivyoona katika changamoto ya 4, kuweka kitendakazi cha programu ya kati ngazi ya mzizi, unaweza kutumia njia ya `app.use(<mware-function>)`. Katika kesi hii, kitendakazi kitaendeshwa kwa maombi yote, lakini pia unaweza kuweka masharti maalum zaidi. Kwa mfano, ikiwa unataka kitendakazi kiendeshwe kwa maombi ya POST tu, unaweza kutumia `app.post(<mware-function>)`. Njia zinazofanana zipo kwa vitenzi vyote vya HTTP (GET, DELETE, PUT, …).
+
+# --instructions--
+
+Jenga programu rahisi ya kuandika kumbukumbu. Kwa kila ombi, inapaswa kuandika kwenye konsoli mfuatano wa herufi wenye muundo ufuatao: `method path - ip`. Mfano ungeonekana hivi: `GET /json - ::ffff:127.0.0.1`. Kumbuka kuna nafasi kati ya `method` na `path` na kwamba dashi inayotenganisha `path` na `ip` imezungukwa na nafasi pande zote mbili. Unaweza kupata kitenzi cha ombi (kitenzi cha http), njia ya data ya uhusiano, na anwani ya ip ya mtumaji kutoka kwenye kitu cha ombi kwa kutumia `req.method`, `req.path` na `req.ip`. Kumbuka kuita `next()` baada ya kumaliza, au seva yako itakaa imekwama milele. Hakikisha 'Logs' zimefunguliwa, na uone kinachotokea wakati ombi linapofika.
+
+**Kumbuka:** Express hutathmini vitendakazi kwa mpangilio vinavyoonekana kwenye msimbo. Hii ni kweli pia kwa programu ya kati. Ikiwa unataka ifanye kazi kwa njia zote za data, inapaswa kuwekwa kabla yao.
+
+# --hints--
+
+Programu ya kati ya kuandika kumbukumbu ngazi ya mzizi inapaswa kuwa hai
+
+```js
+  const response = await fetch(code + '/_api/root-middleware-logger');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.isTrue(
+    data.passed,
+    'root-level logger is not working as expected'
+  );
+```

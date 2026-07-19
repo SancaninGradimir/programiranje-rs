@@ -1,0 +1,272 @@
+---
+id: 67d301a5f536d1a9e5df1a8c
+title: "Je, Ni Nini Upunguzaji wa Aina, na Hufanya Kazi Vipi?"
+challengeType: 19
+dashedName: what-is-type-narrowing-and-how-does-it-work
+---
+
+# --description--
+
+Kutakuwa na nyakati ambapo una thamani yenye aina pana na unahitaji kuipunguza kuwa aina maalum zaidi. Kwa mfano, labda unahitaji kuhakikisha kitu kinakidhi kiolesura (interface) ulichokitengeneza. Au mfuatano wa herufi uko ndani ya orodha maalum ya thamani. Kuna njia kadhaa za kufanikisha hili.
+
+Njia ya kwanza ni kupunguza kwa kutumia thamani ya kweli. Fikiria mfano wetu kutoka funzo la mwisho:
+
+```js
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email.value);
+```
+
+Tunapata kosa la mkusanyaji wa msimbo tunapojaribu kupata sifa ya `value` ya `email`, kwa sababu `email` inaweza kuwa `null`. Hata hivyo, tunaweza kutumia taarifa ya masharti kuthibitisha `email` ni thamani ya kweli kabla ya kupata sifa hiyo:
+
+```js
+const email = document.querySelector<HTMLInputElement>("#email");
+if (email) {
+  console.log(email.value);
+}
+```
+
+Katika mfano huu uliosasishwa, kwa sababu `null` si thamani ya kweli, TypeScript inaweza kubaini kwamba `email` LAZIMA iwe kipengele cha `input` ndani ya sehemu ya masharti. Hivyo haizidi kutoa kosa la mkusanyaji wa msimbo.
+
+Ukaguzi wa thamani ya kweli unaweza pia kufanya kazi kwa mwelekeo wa kinyume:
+
+```js
+const email = document.querySelector<HTMLInputElement>("#email");
+if (!email) {
+  throw new ReferenceError("Could not find email element!")
+}
+console.log(email.value);
+```
+
+Kwa njia hii, tunatupa kosa ikiwa `email` ni thamani ya uongo. `null` ni thamani ya uongo. Kutupa kosa kunamaliza utekelezaji wa mantiki ya msimbo huu, ambayo inamaanisha tunapofikia wito wa `console.log()` TypeScript inajua `email` haiwezi kuwa `null`.
+
+Uunganishaji wa mfululizo pia ni aina ya upunguzaji wa aina, chini ya dhana ile ile kwamba upatikanaji wa sifa hauwezi kutokea ikiwa thamani ya `email` ni `null`.
+
+```js
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email?.value);
+```
+
+Lakini vipi kuhusu aina nyingine? Naam, unaweza pia kupunguza aina kwa kutumia kigezo cha `typeof`. Tazama mfano wa kigezo ambacho tumeonyesha kinaweza kuwa mfuatano wa herufi AU nambari:
+
+```js
+const myVal = Math.random() > 0.5 ? 222 : "222";
+console.log(myVal / 10)
+```
+
+Katika mfano huu, tunaona kosa la mkusanyaji wa msimbo kwa sababu hatuwezi kufanya hesabu kwenye thamani ya mfuatano wa herufi. Lakini tunaweza kutumia taarifa ya masharti kuangalia `typeof` ya kigezo cha `myVal`:
+
+```js
+const myVal = Math.random() > 0.5 ? 222 : "222";
+if (typeof myVal === "number") {
+  console.log(myVal / 10);
+}
+```
+
+Kwa sababu tumetumia neno kuu la `typeof`, TypeScript sasa inajua kwamba `myVal` lazima iwe nambari, na tunaweza kufanya hesabu kwa usalama nayo.
+
+Lakini vipi kuhusu aina za vitu tata zaidi? Ikiwa kitu kinachozungumziwa kinatoka kwenye darasa la vitu, unaweza kutumia neno kuu la `instanceof` kupunguza aina. Tukirudi kwenye mfano wetu wa `querySelector()`:
+
+```js
+const email = document.querySelector("#email");
+```
+
+Badala ya kupitisha aina ya jumla na kusema kwa TypeScript ni kipengele gani, tunaweza kutumia `instanceof` kupunguza aina na kuandika msimbo salama zaidi:
+
+```js
+const email = document.querySelector("#email");
+
+if (email instanceof HTMLInputElement) {
+    console.log(email.value);
+}
+```
+
+Njia hii inaweza kuonekana sawa na ile ya awali, lakini `instanceof` ni uthibitisho wa wakati wa utekelezaji - ambayo inamaanisha, ikiwa kwa namna fulani tulikosea aina ya TypeScript, msimbo wetu wa JavaScript bado utathibitisha kwamba `email` ni kipengele cha `input`.
+
+Sasa, tazama mfano ambapo tunapata kitu cha `User` kutoka kwa API na kujaribu kuchapisha taarifa:
+
+```js
+interface User {
+    name: string;
+    age: number;
+}
+
+const printAge = (user: User) => 
+  console.log(`${user.name} is ${user.age} years old!`)
+
+const request = await fetch("url")
+const myUser = await request.json();
+printAge(myUser);
+```
+
+Tutapata kosa la mkusanyaji wa msimbo tunapojaribu kupitisha `myUser` kwenye kitendakazi kwa sababu, ingawa tunajua API inarudisha kitu sahihi, TypeScript haijui. Na njia ya `.json()` haina aina ya jumla.
+
+Njia "rahisi" ya kutatua tatizo hili itakuwa kubadilisha aina:
+
+```js
+interface User {
+    name: string;
+    age: number;
+}
+
+const printAge = (user: User) => 
+  console.log(`${user.name} is ${user.age} years old!`)
+
+const request = await fetch("url")
+const myUser = await request.json() as User;
+printAge(myUser);
+```
+
+Lakini kila unapobadilisha aina, kwa msingi unadhoofisha uwezo wa TypeScript kugundua makosa yanayoweza kutokea. Hivyo badala ya kubadilisha aina, unaweza kuandika mlinzi wa aina:
+
+```js
+interface User {
+    name: string;
+    age: number;
+}
+
+const isValidUser = (user: unknown): user is User => {
+  return !!user && 
+    typeof user === "object" &&
+    "name" in user &&
+    "age" in user;
+}
+```
+
+Aina ya kurudisha hapa ni sehemu muhimu ya ufafanuzi wa kitendakazi hiki. Sintaksia ya `user is User` inaonyesha kwamba kitendakazi chetu hurudisha thamani ya kweli au siyo kweli, ambayo wakati `true` inamaanisha thamani ya `user` inakidhi kiolesura cha `User`. Kisha tunafanya ukaguzi wa msingi kuhakikisha muundo wa kitu cha `user` unalingana - kumbuka matumizi ya upunguzaji wa thamani ya kweli (`!!user`) na upunguzaji wa `typeof`. Lazima tufanye hivi kwa sababu `typeof null` hurudisha `"object"`:
+
+```js
+interface User {
+    name: string;
+    age: number;
+}
+
+const isValidUser = (user: unknown): user is User => {
+  return !!user && 
+    typeof user === "object" &&
+    "name" in user &&
+    "age" in user;
+}
+
+const printAge = (user: User) => 
+  console.log(`${user.name} is ${user.age} years old!`)
+
+const request = await fetch("url")
+const myUser = await request.json() as User;
+if (isValidUser(myUser)) {
+    printAge(myUser);
+}
+```
+
+Sasa, tukichanganya mantiki yetu yote pamoja, hatupati tena makosa ya mkusanyaji wa msimbo na tunaweza kufanikisha kujenga msimbo wetu.
+
+Upunguzaji wa aina ni kipengele chenye nguvu kinachokusaidia kuandika msimbo salama zaidi, usio na makosa mengi - lakini kumbuka kwamba aina za TypeScript si ngumu kabisa, hivyo epuka tabia kama kubadilisha aina ya thamani bila kuipunguza.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo SI njia ya upunguzaji wa aina iliyojadiliwa katika funzo?
+
+## --answers--
+
+Ukaguzi wa thamani ya kweli.
+
+### --feedback--
+
+Wote hawa wanaweza kutumika kupunguza aina, lakini mmoja hakutajwa.
+
+---
+
+Uunganishaji wa mfululizo.
+
+### --feedback--
+
+Wote hawa wanaweza kutumika kupunguza aina, lakini mmoja hakutajwa.
+
+---
+
+Kigezo cha `typeof`.
+
+### --feedback--
+
+Wote hawa wanaweza kutumika kupunguza aina, lakini mmoja hakutajwa.
+
+---
+
+Taarifa za kubadilisha.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Nini kusudi la sintaksia ya `user is User` katika kitendakazi cha mlinzi wa aina?
+
+## --answers--
+
+Inabadilisha kigezo cha `user` kuwa aina ya `User`.
+
+### --feedback--
+
+Fikiria kuhusu neno `is`, na jinsi msemo wa `user is User` unavyofanya kazi.
+
+---
+
+Inaonyesha kwamba kitendakazi hurudisha thamani ya kweli au siyo kweli.
+
+### --feedback--
+
+Fikiria kuhusu neno `is`, na jinsi msemo wa `user is` User unavyofanya kazi.
+
+---
+
+Ilionyesha kwamba `user` anakidhi kiolesura cha `User`.
+
+---
+
+Inaunda mfano mpya wa kiolesura cha `User`.
+
+### --feedback--
+
+Fikiria kuhusu neno `is`, na jinsi msemo wa `user is` User unavyofanya kazi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya zifuatazo ni kweli kuhusu kubadilisha aina katika TypeScript?
+
+## --answers--
+
+Ni njia inayopendekezwa kutatua matatizo ya aina.
+
+### --feedback--
+
+Kubadilisha aina inapaswa kufanywa kama suluhisho la mwisho.
+
+---
+
+Inaimarisha uwezo wa TypeScript kugundua makosa.
+
+### --feedback--
+
+Kubadilisha aina inapaswa kufanywa kama suluhisho la mwisho.
+
+---
+
+Hufanywa kwa kutumia neno kuu la `as`.
+
+---
+
+Inapaswa kila mara kutumika badala ya walinzi wa aina.
+
+### --feedback--
+
+Kubadilisha aina inapaswa kufanywa kama suluhisho la mwisho.
+
+## --video-solution--
+
+3

@@ -1,0 +1,88 @@
+---
+id: 68e6172975008fea742a63d0
+title: Hatua 10
+challengeType: 1
+dashedName: step-10
+---
+
+# --description--
+
+Unaweza kutumia `slice()` kutoa kutoka mwanzo wa mfuatano wa herufi.
+
+Tengeneza kigezo kinachoitwa `greetingWord`. Kisha weka thamani yake kuwa matokeo ya kutumia `message.slice(0, 7)` kutoa neno la kwanza `"Welcome"`.
+
+Kisha tumia au mfuatano wa maandishi wa template au muunganiko wa mfuatano wa herufi kuandika ujumbe `The first word is "<greetingWord>".` kwenye konsoli. Badilisha `<greetingWord>` na thamani halisi ya kigezo.
+
+# --before-each--
+
+```js
+const spy = __helpers.spyOn(console, 'log');
+```
+
+# --hints--
+
+Unapaswa kutangaza kigezo kinachoitwa `greetingWord`.
+
+```js
+assert.exists(greetingWord);
+```
+
+Kigezo chako cha `greetingWord` kinapaswa kuwa mfuatano wa herufi.
+
+```js
+assert.isString(greetingWord);
+```
+
+Unapaswa kutumia `message.slice(0, 7)`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /message\.slice\(\s*0\s*,\s*7\s*\)/);
+```
+
+Unapaswa kuweka thamani ya matokeo ya `message.slice(0, 7)` kwenye kigezo chako cha `greetingWord`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /greetingWord\s*=\s*message\.slice\(\s*0\s*,\s*7\s*\)/);
+```
+
+Kigezo chako cha `greetingWord` kinapaswa kuwa sawa na `"Welcome"`.
+
+```js
+assert.strictEqual(greetingWord, "Welcome");
+```
+
+Unapaswa kuandika ujumbe `The first word is "<greetingWord>".`, ambapo `<greetingWord>` inapaswa kubadilishwa na thamani halisi ya kigezo.
+
+```js
+assert.deepInclude(spy.calls, ['The first word is "Welcome".']);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const fccSentence = "freeCodeCamp is a great place to learn web development.";
+
+console.log("Here are some examples of the includes() method:");
+
+const hasFreeCodeCamp = fccSentence.includes("freeCodeCamp");
+console.log(`fccSentence.includes("freeCodeCamp") returns ${hasFreeCodeCamp} because the word "freeCodeCamp" is in the sentence.`);
+
+const hasJavaScript = fccSentence.includes("JavaScript");
+console.log(`fccSentence.includes("JavaScript") returns ${hasJavaScript} because the word "JavaScript" is not in the sentence.`);
+
+const hasLowercaseFCC = fccSentence.includes("freecodecamp");
+console.log(`fccSentence.includes("freecodecamp") returns ${hasLowercaseFCC} because includes is case-sensitive.`);
+
+const message = "Welcome to freeCodeCamp!";
+
+console.log("Here are some examples of the slice() method:");
+
+const platform = message.slice(11, 23);
+console.log(`The word "${platform}" was sliced from the message.`);
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

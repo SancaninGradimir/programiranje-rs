@@ -1,0 +1,200 @@
+---
+id: 6734061fe116df617a564a37
+title: "Kuringa ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-currying-and-how-does-it-work
+---
+
+# --interactive--
+
+Kuringa ni mbinu ambapo tunabadilisha kitendakazi kinachochukua hoja nyingi kuwa mfululizo wa vitendakazi, kila kikiwa kinachukua hoja moja.
+
+Tuanze na mfano wa msingi. Fikiria tuna kitendakazi kinachoongeza nambari mbili:
+
+:::interactive_editor
+
+```js
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(3, 4)); // 7
+```
+
+:::
+
+Hiki ni kitendakazi kinachochukua hoja mbili na kurudisha jumla yao. Sasa, tuchunguze jinsi tunavyoweza kuringa kitendakazi hiki:
+
+:::interactive_editor
+
+```js
+function curriedAdd(a) {
+  return function(b) {
+    return a + b;
+  }
+}
+
+console.log(curriedAdd(3)(4)); // 7
+```
+
+:::
+
+Katika msimbo huu uliobadilishwa kuwa kuringa, badala ya kuchukua hoja mbili kwa wakati mmoja, tuna kitendakazi kinachochukua hoja ya kwanza na kurudisha kitendakazi kingine. Kitendakazi hiki kilichorudishwa kisha kinachukua hoja ya pili na kufanya ongezeko. Tunakitaja kama `curriedAdd(3)(4)`, ambapo kila jozi ya mabano ya kawaida inawakilisha wito wa kitendakazi.
+
+Lakini kwa nini tungependa kufanya hivi?
+
+Kuringa hutuwezesha kuunda baadhi ya vitendakazi maalum kwa urahisi. Kwa mfano, tunaweza kuunda kitendakazi kinachoongeza tano kila mara kwa nambari yoyote:
+
+:::interactive_editor
+
+```js
+function curriedAdd(a) {
+  return function(b) {
+    return a + b;
+  }
+}
+
+const addFive = curriedAdd(5);
+console.log(addFive(10)); // 15
+console.log(addFive(20)); // 25
+```
+
+:::
+
+Hapa, `addFive` ni kitendakazi ambacho kila mara kiko tayari kuongeza tano kwa nambari yoyote tunayompa. Hii ni mfano rahisi wa matumizi ya sehemu, ambapo tunafunga idadi fulani ya hoja kwa kitendakazi, na kuunda kitendakazi kingine kinachochukua hoja chache.
+
+Ingawa mifano yetu imezingatia vitendakazi vyenye hoja mbili, kuringa inaweza kutumika kwa vitendakazi vyenye idadi yoyote ya hoja.
+
+Unapoendelea na safari yako katika JavaScript, utagundua mara nyingi ambapo kuringa kunaweza kufanya msimbo wako kuwa safi zaidi na wenye dhihirisho bora.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la kuringa katika programu utendaji?
+
+## --answers--
+
+Kufanya vitendakazi vifanye kazi kwa kasi zaidi.
+
+### --feedback--
+
+Fikiria jinsi kuringa inavyobadilisha njia tunavyowasilisha hoja kwa kitendakazi.
+
+---
+
+Kubadilisha kitendakazi chenye hoja nyingi kuwa mfululizo wa vitendakazi vyenye hoja moja.
+
+---
+
+Kuondoa haja ya vigezo vya kitendakazi.
+
+### --feedback--
+
+Fikiria jinsi kuringa inavyobadilisha njia tunavyowasilisha hoja kwa kitendakazi.
+
+---
+
+Kuchanganya vitendakazi vingi kuwa kimoja.
+
+### --feedback--
+
+Fikiria jinsi kuringa inavyobadilisha njia tunavyowasilisha hoja kwa kitendakazi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika muktadha wa kuringa, matumizi ya sehemu ni nini?
+
+## --answers--
+
+Kutumia kitendakazi kwa baadhi tu ya hoja zake.
+
+---
+
+Kutumia kitendakazi kwa hoja zake zote kwa wakati mmoja.
+
+### --feedback--
+
+Kumbuka tulivyosema kuhusu "kufunga" baadhi ya hoja kwa kitendakazi.
+
+---
+
+Kuunda kitendakazi kipya kutoka mwanzo.
+
+### --feedback--
+
+Kumbuka tulivyosema kuhusu "kufunga" baadhi ya hoja kwa kitendakazi.
+
+---
+
+Kugawanya kitendakazi kuwa vitendakazi vidogo vidogo.
+
+### --feedback--
+
+Kumbuka tulivyosema kuhusu "kufunga" baadhi ya hoja kwa kitendakazi.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya zifuatazo ni mfano wa kitendakazi kilichokuringwa katika JavaScript?
+
+## --answers--
+
+```js
+function add(a, b, c) {
+  return a + b + c;
+}
+```
+
+### --feedback--
+
+Hiki ni kitendakazi cha kawaida kinachochukua vigezo vyote kwa wakati mmoja.
+
+---
+
+```js
+function add(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+```
+
+---
+
+```js
+function add(a, b, c) {
+  return a() + b() + c();
+}
+```
+
+### --feedback--
+
+Kitendakazi hiki kinakubali vigezo vyote kwa wakati mmoja na kuvitaja kama vitendakazi, jambo ambalo halifuati ufafanuzi wa kitendakazi kilichokuringwa.
+
+---
+
+```js
+function add(a) {
+  function inner(b) {
+    return a + b;
+  }
+}
+```
+
+### --feedback--
+
+Kitendakazi cha ndani hakirudishiwi kamwe, hivyo `add(2)` itarudisha `undefined` na `add(2)(3)` itatupa kosa.
+
+## --video-solution--
+
+2

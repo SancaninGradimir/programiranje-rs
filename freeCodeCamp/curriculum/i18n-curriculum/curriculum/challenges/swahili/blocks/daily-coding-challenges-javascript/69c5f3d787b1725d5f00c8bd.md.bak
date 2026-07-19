@@ -1,0 +1,103 @@
+---
+id: 69c5f3d787b1725d5f00c8bd
+title: "Zoezi la 259: Mlipuko wa FizzBuzz"
+challengeType: 28
+dashedName: challenge-259
+---
+
+# --description--
+
+Ukitoa nambari kamili, rudisha idadi ya hatua zinazohitajika kubadilisha neno `"fizzbuzz"` kuwa mfuatano wa herufi wenye angalau idadi ya `"z"` kama ilivyoainishwa kwa kutumia sheria zifuatazo:
+
+- Anza na mfuatano wa herufi `"fizzbuzz"`.
+- Kila hatua, tumia sheria za kawaida za FizzBuzz kwa kutumia nafasi ya herufi katika mfuatano (herufi ya kwanza `"f"` iko katika nafasi ya 1).
+  - Ikiwa nafasi ya herufi inagawika kwa 3, badilisha herufi hiyo na `"fizz"`
+  - Ikiwa inagawika kwa 5, badilisha herufi hiyo na `"buzz"`
+  - Ikiwa inagawika kwa 3 na 5, badilisha herufi hiyo na `"fizzbuzz"`
+
+Hivyo baada ya hatua 1, `"fizzbuzz"` hubadilika kuwa `"fifizzzbuzzfizzzz"`, ambayo ina `"z"` tisa.
+
+# --hints--
+
+`explodeFizzbuzz(9)` inapaswa kurudisha `1`.
+
+```js
+assert.equal(explodeFizzbuzz(9), 1);
+```
+
+`explodeFizzbuzz(15)` inapaswa kurudisha `2`.
+
+```js
+assert.equal(explodeFizzbuzz(15), 2);
+```
+
+`explodeFizzbuzz(51)` inapaswa kurudisha `3`.
+
+```js
+assert.equal(explodeFizzbuzz(51), 3);
+```
+
+`explodeFizzbuzz(52)` inapaswa kurudisha `4`.
+
+```js
+assert.equal(explodeFizzbuzz(52), 4);
+```
+
+`explodeFizzbuzz(359)` inapaswa kurudisha `5`.
+
+```js
+assert.equal(explodeFizzbuzz(359), 5);
+```
+
+`explodeFizzbuzz(789)` inapaswa kurudisha `6`.
+
+```js
+assert.equal(explodeFizzbuzz(789), 6);
+```
+
+`explodeFizzbuzz(54482)` inapaswa kurudisha `11`.
+
+```js
+assert.equal(explodeFizzbuzz(54482), 11);
+```
+
+`explodeFizzbuzz(1000000)` inapaswa kurudisha `14`.
+
+```js
+assert.equal(explodeFizzbuzz(1000000), 14);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function explodeFizzbuzz(targetZCount) {
+
+  return targetZCount;
+}
+```
+
+# --solutions--
+
+```js
+function explodeFizzbuzz(targetZCount) {
+  let str = "fizzbuzz";
+  let steps = 0;
+
+  while ((str.match(/z/g) || []).length < targetZCount) {
+    let next = "";
+    for (let i = 0; i < str.length; i++) {
+      const pos = i + 1;
+      if (pos % 15 === 0) next += "fizzbuzz";
+      else if (pos % 3 === 0) next += "fizz";
+      else if (pos % 5 === 0) next += "buzz";
+      else next += str[i];
+    }
+    str = next;
+    steps++;
+  }
+
+  return steps;
+}
+```

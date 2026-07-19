@@ -1,0 +1,47 @@
+---
+id: 660ef5105b8ba095307a0e50
+title: Hatua 7
+challengeType: 1
+dashedName: step-7
+---
+
+# --description--
+
+Sasa andika tena thamani ya mabadiliko `character` kwenye konsoli. Unapaswa kuona mfuatano wa herufi `"Hello"`, kisha mfuatano wa herufi `"World"`, kwenye konsoli.
+
+# --hints--
+
+Unapaswa kutumia `console.log` mara ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/console\.log/g), 2);
+```
+
+Unapaswa andika thamani ya `character` kwenye konsoli mara ya pili.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/console\.log\(\s*character\s*\)/g), 2);
+```
+
+
+`console.log()` mpya inapaswa kuja baada ya kuweka thamani upya.
+
+```js
+const lines = __helpers.removeJSComments(code).split(/\n+/)
+const reassign = lines.findIndex(l => l.match(/character\s+=\s+("|')World\1/));
+const secondLog = lines.findLastIndex(l => l.match(/console\.log/));
+assert.isBelow(reassign, secondLog);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+--fcc-editable-region--
+let character = 'Hello';
+console.log(character);
+character = "World";
+
+--fcc-editable-region--
+```

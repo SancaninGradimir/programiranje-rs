@@ -1,0 +1,261 @@
+---
+id: 695b93cb572125a6fb19f39e
+title: Faili la package-lock.json ni nini?
+challengeType: 19
+dashedName: what-is-the-package-lock-json-file
+---
+
+# --description--
+
+Unapoweka utegemezi kwa kutumia npm, hasa katika mradi uliopo, npm huangalia faili lako la `package.json` kuona ni vifurushi gani mradi wako unahitaji.
+
+Kila utegemezi katika `package.json` una nambari ya toleo kama hii:
+
+```bash
+"lodash": "^4.17.21"
+```
+
+Kama ulivyojifunza awali, **ishara ya caret (^)** huruhusu npm kuweka toleo jipya la kidogo na la marekebisho kama `4.18.0` au `4.17.22`. Uwezo huu ni msaada, lakini pia unaweza kusababisha matatizo.
+
+Ikiwa wasanidi programu wawili watakimbia `npm install` kwa nyakati tofauti, npm inaweza kuweka matoleo tofauti kidogo ya kifurushi hicho hicho. Tofauti ndogo ndogo zinaweza kusababisha hitilafu au tabia zisizotarajiwa.
+
+Faili la `package-lock.json` linatatua hili. Linaundwa moja kwa moja mara ya kwanza unapoendesha `npm install`, na linaweka vifungo vya toleo halisi la kila utegemezi uliowekwa—pamoja na utegemezi wote wa watoto, ambao ni utegemezi wa utegemezi.
+
+Hii inahakikisha kuwa kila mtu anayefanya kazi kwenye mradi anapata matoleo sawa ya vifurushi kila wakati.
+
+Hapa kuna faili rahisi la `package.json` lenye `lodash` kama utegemezi:
+
+```bash
+{
+  "name": "package-lock-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
+```
+
+Na hapa ni sehemu inayolingana kutoka kwenye `package-lock.json`:
+
+```bash
+"node_modules/lodash": {
+  "version": "4.17.21",
+  "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz",
+  "integrity": "sha512-v2kDEe57..."
+}
+```
+
+Angalia tofauti:
+
+* Katika `package.json`, `lodash` imeorodheshwa kama `^4.17.21` — kanuni yenye ufanisi.
+    
+* Katika `package-lock.json`, `lodash` imefungwa kwa toleo `4.17.21`.
+    
+
+Haijalishi mtu anapokimbia `npm install`, atapata toleo hilo halisi.
+
+Kwa njia hii, haijalishi mtu anapokimbia `npm install`, atapata toleo sawa la Lodash kila wakati.
+
+Kumbuka hili pia linahusu utegemezi wa watoto, ambao ni utegemezi wa utegemezi wowote unaotumia kwa mradi wako.
+
+Kwa mfano, hapa ni sehemu ya faili la `package-lock.json` kwa mradi unaotumia Express:
+
+```json
+{
+  "name": "package-lock-json-file",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "package-lock-json-file",
+      "version": "1.0.0",
+      "license": "ISC",
+      "dependencies": {
+        "express": "^5.2.1"
+      }
+    },
+    ...
+    "node_modules/etag": {
+      "version": "1.8.1",
+      "resolved": "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz",
+      "integrity": "sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==",
+      "license": "MIT",
+      "engines": {
+        "node": ">= 0.6"
+      }
+    },
+    "node_modules/express": {
+      "version": "5.2.1",
+      "resolved": "https://registry.npmjs.org/express/-/express-5.2.1.tgz",
+      "integrity": "sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==",
+      "license": "MIT",
+      "dependencies": {
+        "accepts": "^2.0.0",
+        "body-parser": "^2.2.1",
+        "content-disposition": "^1.0.0",
+        "content-type": "^1.0.5",
+        "cookie": "^0.7.1",
+        "cookie-signature": "^1.2.1",
+        "debug": "^4.4.0",
+        "depd": "^2.0.0",
+        "encodeurl": "^2.0.0",
+        "escape-html": "^1.0.3",
+        "etag": "^1.8.1",
+        "finalhandler": "^2.1.0",
+        "fresh": "^2.0.0",
+        "http-errors": "^2.0.0",
+        "merge-descriptors": "^2.0.0",
+        "mime-types": "^3.0.0",
+        "on-finished": "^2.4.1",
+        "once": "^1.4.0",
+        "parseurl": "^1.3.3",
+        "proxy-addr": "^2.0.7",
+        "qs": "^6.14.0",
+        "range-parser": "^1.2.1",
+        "router": "^2.2.0",
+        "send": "^1.1.0",
+        "serve-static": "^2.2.0",
+        "statuses": "^2.0.1",
+        "type-is": "^2.0.1",
+        "vary": "^1.1.2"
+      },
+      "engines": {
+        "node": ">= 18"
+      },
+      "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/express"
+      }
+    },
+    ...others
+  }
+}
+```
+
+Unaweza kuona kwamba mbali na Express yenyewe, kuna vifurushi vingine kama `accepts`, `mime-types`, na `negotiator`. Hivi ni utegemezi wa watoto, ambayo ni vifurushi ambavyo Express hutegemea ndani yake ili kufanya kazi.
+
+Pia angalia kwamba, ingawa `dependencies` katika `node_modules/express` hutumia ishara za caret kwa anuwai, lakini ukipata kipengele cha kila utegemezi wa mtoto kama `node_modules/etags`, zimefungwa kwa toleo maalum.
+
+Kwa kifupi, faili la `package-lock.json` linahakikisha kila mtu yuko kwenye ukurasa mmoja na linahakikisha uthabiti kati ya mashine za wasanidi programu, seva za CI, usambazaji wa programu, na mazingira mengine.
+
+Ni muhimu kila mara kuingiza faili lako la `package-lock.json` kwenye Git ili timu yako ishiriki usanidi sawa. Pia, usihariri faili la `package-lock.json` kwa mkono—npm italiboresha moja kwa moja kila wakati utegemezi utabadilika.
+
+# --questions--
+
+## --text--
+
+Faili la `package-lock.json` linatatua vipi matatizo ya kutokufanana kwa matoleo kati ya mazingira tofauti?
+
+## --answers--
+
+Kwa kusasisha moja kwa moja utegemezi wote hadi matoleo yao ya hivi karibuni.
+
+### --feedback--
+
+Fikiria jinsi linavyohakikisha kila mtu anaweka matoleo sawa ya utegemezi.
+
+---
+
+Kwa kufuta utegemezi wa zamani kabla ya kuweka mpya.
+
+### --feedback--
+
+Fikiria jinsi linavyohakikisha kila mtu anaweka matoleo sawa ya utegemezi.
+
+---
+
+Kwa kufunga matoleo halisi ya utegemezi uliowekwa.
+
+---
+
+Kwa kuhifadhi tu nambari za toleo kuu za kila utegemezi.
+
+### --feedback--
+
+Fikiria jinsi linavyohakikisha kila mtu anaweka matoleo sawa ya utegemezi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini unapaswa kila mara kuingiza faili lako la `package-lock.json` kwenye Git?
+
+## --answers--
+
+Ili kufanya npm ikimbie kwa haraka zaidi kwenye mashine yako.
+
+### --feedback--
+
+Fikiria kuhifadhi mazingira sawa kwa kila msanidi programu.
+
+---
+
+Ili kuruhusu timu yako kushiriki matoleo na usanidi sawa wa utegemezi.
+
+---
+
+Ili kusasisha moja kwa moja utegemezi uliokosa uhalisi.
+
+### --feedback--
+
+Fikiria kuhifadhi mazingira sawa kwa kila msanidi programu.
+
+---
+
+Ili kupunguza ukubwa wa hifadhidata yako ya Git.
+
+### --feedback--
+
+Fikiria kuhifadhi mazingira sawa kwa kila msanidi programu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Utegemezi wa watoto ni nini?
+
+## --answers--
+
+Vifurushi vilivyowekwa lakini havitumiki katika mradi.
+
+### --feedback--
+
+Fikiria utegemezi ambao utegemezi wako mkuu unategemea.
+
+---
+
+Vifurushi vinavyotegemea faili kuu za mradi wako kuendesha.
+
+### --feedback--
+
+Fikiria utegemezi ambao utegemezi wako mkuu unategemea.
+
+---
+
+Vifurushi vinavyotumika tu wakati wa ukuzaji.
+
+### --feedback--
+
+Fikiria utegemezi ambao utegemezi wako mkuu unategemea.
+
+---
+
+Vifurushi ambavyo utegemezi wako hutegemea ndani yake kufanya kazi.
+
+## --video-solution--
+
+4

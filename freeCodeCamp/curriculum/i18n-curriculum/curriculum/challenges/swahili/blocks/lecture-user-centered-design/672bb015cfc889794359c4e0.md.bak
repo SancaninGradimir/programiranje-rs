@@ -1,0 +1,255 @@
+---
+id: 672bb015cfc889794359c4e0
+title: Ni mbinu bora gani za kubuni mazungumzo ya modal?
+challengeType: 19
+dashedName: what-are-best-practices-for-designing-modal-dialogs
+---
+
+# --interactive--
+
+**KUMBUKA**: Baadhi ya mifano ya mwingiliano inaweza kutumia CSS na JavaScript ambazo bado hujajifunza. Usijali kuhusu kuelewa msimbo wote. Lengo la mifano ni kukuonyesha mapitio ya dhana hizi za kubuni ili uelewe vyema jinsi vitu vinavyofanya kazi. Ili kuona mapitio, utahitaji kuwezesha mhariri wa mwingiliano.
+
+Modal ni nini? Ni aina ya dirisha la pop-up ambalo tovuti inaweza kukuonyesha juu ya yaliyomo yake. HTML ina kipengele cha `dialog` ambacho unaweza kutumia kuunda modals.
+
+Yaliyomo nyuma ya modal kawaida huwa na mwangaza mdogo. Hii husaidia mtumizi kuwa makini kwa kuona eneo unalotaka wafanye kazi nalo – katika kesi hii, modal.
+
+Daima ni wazo zuri kuruhusu mtumizi kubofya nje ya modal kufunga dirisha hilo.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<button id="open-modal">Open Modal</button>
+<dialog>
+  <h2>Subscribe to our Newsletter!</h2>
+  <p>Get the latest updates and offers.</p>
+  <button>Subscribe</button>
+  <button>Close</button>
+</dialog>
+
+<script src="index.js"></script>
+```
+
+```css
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+```
+
+```js
+const dialog = document.querySelector('dialog');
+const closeButton = dialog.querySelector('button:last-of-type');
+const openModalButton = document.getElementById('open-modal');
+
+closeButton.addEventListener('click', () => {
+  dialog.close();
+});
+
+openModalButton.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+// Close the modal when clicking outside of it
+dialog.addEventListener('click', (event) => {
+  const rect = dialog.getBoundingClientRect();
+  const isInDialog = (
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+  );
+  if (!isInDialog) {
+    dialog.close();
+  }
+}); 
+
+```
+
+:::
+
+Mara nyingi utaona vifungo vinavyoonekana sana kwenye modals. Hivi huitwa CTAs, au call-to-action. Unataka vifahamike kwa urahisi kwa sababu kusitisha mtiririko wa mtumizi kwa modal ni kumshawishi kuchukua hatua fulani.
+
+Modals pia zinapaswa kuwa na kitufe cha kufunga. Ingawa unaweza kweli kutaka mtumizi kubofya CTAs zako, ni muhimu kuwapa chaguo la kutoka kwenye modal na kuendelea na kile walichokuwa wakifanya awali.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<button id="open-modal">Open Modal</button>
+<dialog>
+  <h2>Subscribe to our Newsletter!</h2>
+  <p>Get the latest updates and offers.</p>
+  <button class="cta">Subscribe</button>
+  <button class="close">Close</button>
+</dialog>
+<script src="index.js"></script>
+```
+
+```css
+.cta {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close {
+  background-color: transparent;
+  color: #007BFF;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+```
+
+```js
+const dialog = document.querySelector('dialog');
+const closeButton = dialog.querySelector('.close');
+const openModalButton = document.getElementById('open-modal');
+
+closeButton.addEventListener('click', () => {
+  dialog.close();
+});
+
+openModalButton.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+// Close the modal when clicking outside of it
+dialog.addEventListener('click', (event) => {
+  const rect = dialog.getBoundingClientRect();
+  const isInDialog = (
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+  );
+  if (!isInDialog) {
+    dialog.close();
+  }
+});
+
+```
+
+:::
+
+Kuna, bila shaka, masuala ya ufikikaji kuhusu modals, kama kusimamia makini kwa vipengele ipasavyo. Hata hivyo, ukitumia mbinu hizi za jumla kama msingi wako, utakuwa na msingi imara wa kujenga juu yake.
+
+# --questions--
+
+## --text--
+
+Lengo la kupunguza mwangaza wa yaliyomo nyuma ya mazungumzo ya modal ni nini?
+
+## --answers--
+
+Kuhifadhi betri kwenye vifaa vya mkononi.
+
+### --feedback--
+
+Funzo linataja sababu maalum ya athari hii ya kuona.
+
+---
+
+Kusaidia watumizi kutambua kwa macho eneo wanapaswa kufanya kazi nalo.
+
+---
+
+Kufanya tovuti ipakie haraka zaidi.
+
+### --feedback--
+
+Funzo linataja sababu maalum ya athari hii ya kuona.
+
+---
+
+Kuzuia watumizi kuona taarifa nyeti.
+
+### --feedback--
+
+Funzo linataja sababu maalum ya athari hii ya kuona.
+
+## --video-solution--
+
+2
+
+## --text--
+
+CTA inasimama kwa nini katika muktadha wa kubuni modal?
+
+## --answers--
+
+Click To Activate.
+
+### --feedback--
+
+Funzo linatoa neno kamili la kifupi hiki linapozungumzia vifungo vinavyoonekana sana kwenye modals.
+
+---
+
+Complete The Action.
+
+### --feedback--
+
+Funzo linatoa neno kamili la kifupi hiki linapozungumzia vifungo vinavyoonekana sana kwenye modals.
+
+---
+
+Call-to-Action.
+
+---
+
+Close The Application.
+
+### --feedback--
+
+Funzo linatoa neno kamili la kifupi hiki linapozungumzia vifungo vinavyoonekana sana kwenye modals.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini ni muhimu kujumuisha kitufe cha kufunga katika mazungumzo ya modal?
+
+## --answers--
+
+Inahitajika kisheria katika baadhi ya nchi.
+
+### --feedback--
+
+Funzo linaeleza umuhimu wa kuruhusu watumizi kutoka kwenye modal.
+
+---
+
+Kuzuia modal kusababisha kivinjari kuanguka.
+
+### --feedback--
+
+Funzo linaeleza umuhimu wa kuruhusu watumizi kutoka kwenye modal.
+
+---
+
+Kuwawezesha watumizi chaguo la kutoka kwenye modal na kuendelea na shughuli walizokuwa wakifanya awali.
+
+---
+
+Kufanya modal ionekane kitaalamu zaidi.
+
+### --feedback--
+
+Funzo linaeleza umuhimu wa kuruhusu watumizi kutoka kwenye modal.
+
+## --video-solution--
+
+3

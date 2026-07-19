@@ -1,0 +1,129 @@
+---
+id: 5a24c314108439a4d4036157
+title: Andika kielekezi na Redux
+challengeType: 6
+forumTopicId: 301453
+dashedName: write-a-counter-with-redux
+---
+
+# --description--
+
+Sasa umejifunza kanuni zote msingi za Redux! Umeona jinsi ya kuunda vitendo na watengenezaji wa vitendo, kuunda hifadhi ya Redux, kutuma vitendo vyako dhidi ya hifadhi, na kubuni masasisho ya hali kwa kutumia reducers safi. Hata umeona jinsi ya kusimamia hali tata kwa muundo wa reducers na kushughulikia vitendo isivyo ya wakati mmoja. Mifano hii ni rahisi, lakini dhana hizi ndizo kanuni msingi za Redux. Ukizielewa vizuri, uko tayari kuanza kujenga programu yako mwenyewe ya Redux. Changamoto zinazofuata zinahusu baadhi ya maelezo kuhusu kutokubadilika (immutability) ya `state`, lakini kwanza, hapa kuna ukaguzi wa kila kitu ulichojifunza hadi sasa.
+
+# --instructions--
+
+Katika funzo hili, utaweka kielekezi rahisi kwa kutumia Redux kutoka mwanzo. Misingi imetolewa katika mhariri wa msimbo, lakini utalazimika kujaza maelezo! Tumia majina yaliyotolewa na fafanua watengenezaji wa vitendo `incAction` na `decAction`, aina za vitendo `counterReducer()`, `INCREMENT` na `DECREMENT`, na hatimaye hifadhi ya Redux `store`. Ukimaliza, unapaswa kuwa na uwezo wa kutuma vitendo vya `INCREMENT` au `DECREMENT` kuongeza au kupunguza hali iliyohifadhiwa katika `store`. Bahati njema katika kujenga programu yako ya kwanza ya Redux!
+
+# --hints--
+
+Mtengenezaji wa kitendo `incAction` anapaswa kurudisha kitu cha kitendo chenye `type` sawa na thamani ya `INCREMENT`
+
+```js
+assert(incAction().type === INCREMENT);
+```
+
+Mtengenezaji wa kitendo `decAction` anapaswa kurudisha kitu cha kitendo chenye `type` sawa na thamani ya `DECREMENT`
+
+```js
+assert(decAction().type === DECREMENT);
+```
+
+Kukimbia `store.getState()` kunapaswa kurudisha nambari
+
+```js
+assert(typeof store.getState() === 'number');
+```
+
+Hifadhi ya Redux inapaswa kuanzishwa na `state` ya 0.
+
+```js
+assert(
+  (function () {
+    const _store = Redux.createStore(counterReducer);
+    return _store.getState() === 0;
+  })()
+);
+```
+
+Kutuma `incAction` kwenye hifadhi ya Redux kunapaswa kuongeza `state` kwa 1.
+
+```js
+assert(
+  (function () {
+    const _store = Redux.createStore(counterReducer);
+    const initialState = _store.getState();
+    _store.dispatch(incAction());
+    const incState = _store.getState();
+    return initialState + 1 === incState;
+  })()
+);
+```
+
+Kutuma `decAction` kwenye hifadhi ya Redux kunapaswa kupunguza `state` kwa 1.
+
+```js
+assert(
+  (function () {
+    const _store = Redux.createStore(counterReducer);
+    const initialState = _store.getState();
+    _store.dispatch(decAction());
+    const decState = _store.getState();
+    return initialState - 1 === decState;
+  })()
+);
+```
+
+`counterReducer` inapaswa kuwa kitendakazi
+
+```js
+assert(typeof counterReducer === 'function');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INCREMENT = null; // Define a constant for increment action types
+const DECREMENT = null; // Define a constant for decrement action types
+
+const counterReducer = null; // Define the counter reducer which will increment or decrement the state based on the action it receives
+
+const incAction = null; // Define an action creator for incrementing
+
+const decAction = null; // Define an action creator for decrementing
+
+const store = null; // Define the Redux store here, passing in your reducers
+```
+
+# --solutions--
+
+```js
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+const counterReducer = (state = 0, action) => {
+  switch(action.type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const incAction = () => {
+  return {
+    type: INCREMENT
+  }
+};
+
+const decAction = () => {
+  return {
+    type: DECREMENT
+  }
+};
+
+const store = Redux.createStore(counterReducer);
+```

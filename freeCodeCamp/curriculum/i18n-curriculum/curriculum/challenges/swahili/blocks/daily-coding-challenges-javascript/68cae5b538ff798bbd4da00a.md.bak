@@ -1,0 +1,76 @@
+---
+id: 68cae5b538ff798bbd4da00a
+title: "Zoezi la 72: Kirekebishaji cha Thermostat 2"
+challengeType: 28
+dashedName: challenge-72
+---
+
+# --description--
+
+Ukizingatia joto la sasa la chumba kwa Fahrenheit na joto lengwa kwa Celsius, rudisha mfuatano wa herufi unaoelezea jinsi ya kurekebisha joto la chumba kulingana na masharti haya:
+
+- Rudisha `"Heat: X degrees Fahrenheit"` ikiwa joto la sasa liko chini ya lengwa. Ambapo `X` ni idadi ya nyuzi za Fahrenheit za kupasha joto chumba kufikia lengwa, zilikwisha kuzungushwa hadi sehemu moja ya desimali.
+- Rudisha `"Cool: X degrees Fahrenheit"` ikiwa joto la sasa liko juu ya lengwa. Ambapo `X` ni idadi ya nyuzi za Fahrenheit za kupooza chumba kufikia lengwa, zilikwisha kuzungushwa hadi sehemu moja ya desimali.
+- Rudisha `"Hold"` ikiwa joto la sasa ni sawa na lengwa.
+
+Ili kubadilisha Celsius kuwa Fahrenheit, zidisha joto la Celsius kwa 1.8 kisha ongeza 32 kwa matokeo (`F = (C * 1.8) + 32`).
+
+# --hints--
+
+`adjustThermostat(32, 0)` inapaswa kurudisha `"Hold"`.
+
+```js
+assert.equal(adjustThermostat(32, 0), "Hold");
+```
+
+`adjustThermostat(70, 25)` inapaswa kurudisha `"Heat: 7.0 degrees Fahrenheit"`.
+
+```js
+assert.equal(adjustThermostat(70, 25), "Heat: 7.0 degrees Fahrenheit");
+```
+
+`adjustThermostat(72, 18)` inapaswa kurudisha `"Cool: 7.6 degrees Fahrenheit"`.
+
+```js
+assert.equal(adjustThermostat(72, 18), "Cool: 7.6 degrees Fahrenheit");
+```
+
+`adjustThermostat(212, 100)` inapaswa kurudisha `"Hold"`.
+
+```js
+assert.equal(adjustThermostat(212, 100), "Hold");
+```
+
+`adjustThermostat(59, 22)` inapaswa kurudisha `"Heat: 12.6 degrees Fahrenheit"`.
+
+```js
+assert.equal(adjustThermostat(59, 22), "Heat: 12.6 degrees Fahrenheit");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function adjustThermostat(currentF, targetC) {
+
+  return currentF;
+}
+```
+
+# --solutions--
+
+```js
+function adjustThermostat(currentF, targetC) {
+  const targetF = targetC * 1.8 + 32;
+  const diff = Math.abs(targetF - currentF).toFixed(1);
+
+  if (currentF < targetF) {
+    return `Heat: ${diff} degrees Fahrenheit`;
+  } else if (currentF > targetF) {
+    return `Cool: ${diff} degrees Fahrenheit`;
+  } else {
+    return "Hold"
+  }
+}
+```

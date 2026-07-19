@@ -1,0 +1,117 @@
+---
+id: 5a23c84252665b21eecc7e7b
+title: kizalishaji/nambari za mwinuko
+challengeType: 1
+forumTopicId: 302275
+dashedName: generatorexponential
+---
+
+# --description--
+
+Kizalishaji ni kiumbe kinachotekelezwa (kama kitendakazi au utaratibu) chenye msimbo unaotoa mfululizo wa thamani, moja kwa moja, ili kila unapofanya wito wa kizalishaji, thamani inayofuata katika mfululizo itolewe.
+
+Vizalishaji mara nyingi hujengwa juu ya coroutines au vitu ili hali ya ndani ya kitu hicho isimamiwe "kwa asili".
+
+Vizalishaji hutumika mara nyingi katika hali ambapo mfululizo unaweza kuwa usio na kikomo, na ambapo inawezekana kutengeneza thamani inayofuata ya mfululizo kwa kutumia hali ndogo tu.
+
+# --instructions--
+
+Andika kitendakazi kinachotumia vizalishaji kuzalisha mraba na nambari za mwinuko. Tengeneza kizalishaji kipya kinachochuja nambari zote za mwinuko kutoka kwa kizalishaji cha mraba.
+
+Kitendakazi kinapaswa kurudisha thamani ya \\( n^{th} \\) kutoka kwa kizalishaji kilichochujwa.
+
+Kwa mfano kwa \\(n=7\\), kitendakazi kinapaswa kurudisha 81 kwa sababu mfululizo ungekuwa 4, 9, 16, 25, 36, 49, 81. Hapa 64 imechujwa, kwa sababu ni nambari ya mwinuko.
+
+# --hints--
+
+`exponentialGenerator` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof exponentialGenerator == 'function');
+```
+
+`exponentialGenerator()` inapaswa kurudisha nambari.
+
+```js
+assert(typeof exponentialGenerator(10) == 'number');
+```
+
+`exponentialGenerator(10)` inapaswa kurudisha `144`.
+
+```js
+assert.equal(exponentialGenerator(10), 144);
+```
+
+`exponentialGenerator(12)` inapaswa kurudisha `196`.
+
+```js
+assert.equal(exponentialGenerator(12), 196);
+```
+
+`exponentialGenerator(14)` inapaswa kurudisha `256`.
+
+```js
+assert.equal(exponentialGenerator(14), 256);
+```
+
+`exponentialGenerator(20)` inapaswa kurudisha `484`.
+
+```js
+assert.equal(exponentialGenerator(20), 484);
+```
+
+`exponentialGenerator(25)` inapaswa kurudisha `784`.
+
+```js
+assert.equal(exponentialGenerator(25), 784);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function exponentialGenerator(n) {
+
+}
+```
+
+# --solutions--
+
+```js
+function exponentialGenerator(n){
+  function* PowersGenerator(m) {
+    var n=0;
+    while(1) {
+        yield Math.pow(n, m);
+        n += 1;
+    }
+  }
+
+  function* FilteredGenerator(g, f){
+    var value = g.next().value;
+    var filter = f.next().value;
+    while(1) {
+        if( value < filter ) {
+            yield value;
+            value = g.next().value;
+        } else if ( value > filter ) {
+            filter = f.next().value;
+        } else {
+            value = g.next().value;
+            filter = f.next().value;
+        }
+    }
+  }
+
+  var squares = PowersGenerator(2);
+  var cubes = PowersGenerator(3);
+
+  var filtered = FilteredGenerator(squares, cubes);
+
+  var curr=0;
+  for(var i=0;i<n;i++) curr=filtered.next();
+
+  return curr.value;
+}
+```

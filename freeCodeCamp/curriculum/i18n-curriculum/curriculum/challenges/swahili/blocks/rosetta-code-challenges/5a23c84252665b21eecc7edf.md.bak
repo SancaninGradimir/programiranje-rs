@@ -1,0 +1,91 @@
+---
+id: 5a23c84252665b21eecc7edf
+title: Nambari ndogo kabisa inayogawanyika kwa wote
+challengeType: 1
+forumTopicId: 302301
+dashedName: least-common-multiple
+---
+
+# --description--
+
+Nambari ndogo kabisa inayogawanyika kwa 12 na 18 ni 36, kwa sababu 12 ni mgawanyiko (12 × 3 = 36), na 18 ni mgawanyiko (18 × 2 = 36), na hakuna nambari kamili chanya ndogo kuliko 36 ambayo ina mgawanyiko wote wawili. Kama kesi maalum, ikiwa m au n ni sifuri, basi nambari ndogo kabisa inayogawanyika kwa wote ni sifuri. Njia moja ya kuhesabu nambari ndogo kabisa inayogawanyika kwa wote ni kurudia mara kwa mara marudio ya m, hadi upate moja ambayo pia ni marudio ya n. Ikiwa tayari una gcd kwa <a href="https://rosettacode.org/wiki/Greatest_common_divisor" target="_blank" rel="noopener noreferrer nofollow">mgawanyiko mkubwa kabisa</a>, basi fomula hii huhesabu lcm.
+
+$$
+\\operatorname{lcm}(m, n) = \\frac{|m \\times n|}{\\operatorname{gcd}(m, n)}
+$$
+
+# --instructions--
+
+Hesabu nambari ndogo kabisa inayogawanyika kwa wote katika safu ya nambari kamili. Ukipata *m* na *n*, nambari ndogo kabisa inayogawanyika kwa wote ni nambari kamili chanya ndogo kabisa ambayo ina *m* na *n* kama mgawanyiko.
+
+# --hints--
+
+`LCM` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof LCM == 'function');
+```
+
+`LCM([2, 4, 8])` inapaswa kurudisha nambari.
+
+```js
+assert(typeof LCM([2, 4, 8]) == 'number');
+```
+
+`LCM([2, 4, 8])` inapaswa kurudisha `8`.
+
+```js
+assert.equal(LCM([2, 4, 8]), 8);
+```
+
+`LCM([4, 8, 12])` inapaswa kurudisha `24`.
+
+```js
+assert.equal(LCM([4, 8, 12]), 24);
+```
+
+`LCM([3, 4, 5, 12, 40])` inapaswa kurudisha `120`.
+
+```js
+assert.equal(LCM([3, 4, 5, 12, 40]), 120);
+```
+
+`LCM([11, 33, 90])` inapaswa kurudisha `990`.
+
+```js
+assert.equal(LCM([11, 33, 90]), 990);
+```
+
+`LCM([-50, 25, -45, -18, 90, 447])` inapaswa kurudisha `67050`.
+
+```js
+assert.equal(LCM([-50, 25, -45, -18, 90, 447]), 67050);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function LCM(A) {
+
+}
+```
+
+# --solutions--
+
+```js
+function LCM(A) {
+  var n = A.length,
+    a = Math.abs(A[0]);
+  for (var i = 1; i < n; i++) {
+    var b = Math.abs(A[i]),
+      c = a;
+    while (a && b) {
+      a > b ? (a %= b) : (b %= a);
+    }
+    a = Math.abs(c * A[i]) / (a + b);
+  }
+  return a;
+}
+```

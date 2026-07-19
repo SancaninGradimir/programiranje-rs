@@ -1,0 +1,198 @@
+---
+id: 67d2f5dacd5e0c749e5d534c
+title: Unawezaje Kutafuta Makosa Katika Sehemu Zako za React Kwa Kutumia Zana za Msanidi wa React?
+challengeType: 19
+dashedName: how-can-you-debug-your-react-components-using-react-devtools
+---
+
+# --description--
+
+Kivinjari kina zana za msanidi programu zilizojengwa ndani unazoweza kutumia kutafuta makosa katika HTML, CSS, na JavaScript.
+
+Hata hivyo, si nzuri sana kwa kutafuta na kurekebisha hitilafu katika programu za React. Kwa hivyo, timu ya React iliunda zana inayoitwa "React Developer Tools" (inayojulikana pia kama React DevTools) ili uweze kuchunguza, kutafuta makosa, na kupima utendaji wa programu za React.
+
+React DevTools inapatikana kama nyongeza ya kivinjari kwa Chrome, Edge, na Firefox. Ikiwa unatumia Chrome au Edge, nenda kwenye duka la wavuti la Chrome, tafuta "React Developer Tools", na uiongeze kwenye kivinjari chako.
+
+Na ikiwa unatumia Firefox, nenda kwenye ukurasa wa Nyongeza za Firefox, tafuta zana hiyo, na uiongeze kwenye kivinjari chako.
+
+Ikiwa unatumia Safari, unaweza kusanidi React DevTools kutoka npm kwa kuendesha `npm install -g react-devtools` au `yarn global add react-devtools`.
+
+Baada ya kusanidi na kuwezesha React DevTools, ukifungua programu ya React kwenye kivinjari chako, kisha ufungue zana za msanidi programu za kivinjari chako, utapata tabo mbili za ziada: Sehemu na Profaili.
+
+Tabo ya Sehemu inaonyesha kila sehemu kwako kwa muundo wa mti. Kwa hiyo, unaweza:
+
+- Kutazama mti wa sehemu za programu.
+- Kukagua na kubadilisha vigezo vinavyopitishwa, hali, na thamani za muktadha kwa wakati halisi.
+- Kukagua msimbo wa chanzo wa kila sehemu iliyochaguliwa.
+- Kurekodi data ya sehemu kwenye konsoli.
+- Kuchunguza vipengele vya DOM vya sehemu.
+
+Kwa upande mwingine, tabo ya Profaili inakusaidia kurekodi na kuchambua utendaji wa sehemu ili uweze kubaini upyaonyeshaji usiohitajika, kuona muda wa kujitolea, na mambo unayoweza kuboresha.
+
+Hapa kuna programu rahisi kukuonyesha jinsi unavyoweza kuchunguza sehemu na vigezo vinavyopitishwa na hali walizozazo. Hii ni sawa na msimbo tuliotumia katika funzo lililopita kuhusu kupitisha vigezo:
+
+```jsx
+import { useState } from "react";
+
+export default function App() {
+  const greeting = "Hello, Prop Drilling!";
+  const response = "I'm not here to play!";
+
+  return <Parent greeting={greeting} response={response} />;
+}
+
+const Parent = ({ greeting, response }) => {
+  return <Child greeting={greeting} response={response} />;
+};
+
+const Child = ({ greeting, response }) => {
+  return <Grandchild greeting={greeting} response={response} />;
+};
+
+const Grandchild = ({ greeting, response }) => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <h1>{greeting}</h1>
+      <h2>{response}</h2>
+
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count - 1)}>Decrease Count</button>
+    </>
+  );
+};
+```
+
+Ukitazama tabo ya Sehemu katika React DevTools, utaona muundo wa mti wa sehemu. Sehemu ya `App` iko juu kabisa, ikifuatiwa na sehemu za `Parent`, `Child`, na `Grandchild`.
+
+Ukichagua sehemu yoyote kati ya hizi, utaona vigezo vinavyopitishwa na hali zilizo ndani yake. Ukichagua sehemu ya `Parent`, utaona vigezo vinavyopitishwa vya `greeting` na `response`, ambavyo ni `Hello, Prop Drilling!` na `I'm not here to play!`, mtawalia.
+
+Unaweza kuona vigezo vinavyopitishwa na kusasisha hali kwa wakati halisi, na kubadilisha ikiwa ni lazima. Kwa mfano, unaweza kuchagua sehemu ya `Grandchild` na kubadilisha kigezo cha `greeting` kutoka `Hello, Prop Drilling!` hadi `Hello, Welcome to Prop Drilling!`, na kuona mabadiliko hayo mara moja kwenye ukurasa.
+
+Ili kurekodi data katika sehemu kwenye konsoli, chunguza vipengele vinavyolingana vya DOM na tazama msimbo wa chanzo wa sehemu hiyo. Ikoni zilizopo kona ya juu kulia zinakuwezesha kufanya hivyo. Ukichagua sehemu ya `Grandchild` na kubofya kitufe cha `Log the component data to the console`, itarekodi vigezo vinavyopitishwa, hali, hooks, nodi, na data nyingine kwenye konsoli.
+
+Hitilafu ya kawaida unayoweza kukutana nayo katika React huitwa kutokufanana kwa vigezo vinavyopitishwa.
+
+Kwa mfano, sema kwamba kwa sehemu ya `Child`, kwa bahati mbaya umepitisha `reply` kama kigezo badala ya `response`:
+
+```jsx
+const Child = ({ greeting, response }) => {
+  return <Grandchild greeting={greeting} reply={response} />;
+};
+```
+
+Kumbuka kwamba `Grandchild` inatarajia kigezo cha `response`. Kwa sababu sehemu inapata kigezo tofauti, haiwezi kuonyesha maandishi hayo kwenye ukurasa, na badala yake inaongeza `h2` tupu kwenye DOM. Badala yake, utaona tu kipengele cha `h1` chenye maandishi ya `Hello, Prop Drilling!`, pamoja na vitufe na maandishi mengine yaliyopo tayari kwenye ukurasa. Kipengele cha `h2` tupu bado kiko, lakini kwa sababu ni tupu, huwezi kukiona bila kuchunguza DOM.
+
+Ili kurekebisha hili, unaweza kuchunguza mchakato wa kupitisha vigezo kutoka sehemu ya `Parent` hadi `Child` na kuhariri jina la kigezo moja kwa moja. Ukifika kwenye tabo ya Sehemu, chagua sehemu ya `Child` na ubadilishe kigezo cha `reply` kuwa `response`, utaona kipengele cha `h2` kwenye ukurasa chenye maandishi ya `I'm not here to play!`.
+
+# --questions--
+
+## --text--
+
+Unawezaje kusanidi React DevTools kwenye Chrome au Edge?
+
+## --answers--
+
+Pakua kutoka kwenye tovuti rasmi ya React.
+
+### --feedback--
+
+Unaweza kuipata mahali pale pale kama nyongeza nyingine za kivinjari.
+
+---
+
+Sanidi kupitia `npm` katika mradi wako.
+
+### --feedback--
+
+Unaweza kuipata mahali pale pale kama nyongeza nyingine za kivinjari.
+
+---
+
+Ongeza kama nyongeza ya kivinjari.
+
+---
+
+Inakuja tayari imewekwa na React.
+
+### --feedback--
+
+Unaweza kuipata mahali pale pale kama nyongeza nyingine za kivinjari.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Baada ya kusanidi React DevTools, ni tabo gani mbili za ziada huonekana katika zana za msanidi programu za kivinjari kwa ajili ya kutafuta makosa katika React?
+
+## --answers--
+
+Sehemu na Profaili.
+
+---
+
+Mtandao na Utendaji.
+
+### --feedback--
+
+Tabo moja husaidia kuchunguza mti wa sehemu, wakati nyingine inachambua utendaji.
+
+---
+
+Vipengele na Konsoli.
+
+### --feedback--
+
+Tabo moja husaidia kuchunguza mti wa sehemu, wakati nyingine inachambua utendaji.
+
+---
+
+Chanzo na Kumbukumbu.
+
+### --feedback--
+
+Tabo moja husaidia kuchunguza mti wa sehemu, wakati nyingine inachambua utendaji.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Tabo ya Profaili katika React DevTools inakusaidia kuchambua nini?
+
+## --answers--
+
+Ombi za mtandao katika programu ya React.
+
+### --feedback--
+
+Inasaidia kufuatilia muda wa kuonyesha na kuboresha sehemu zinazochelewa.
+
+---
+
+Mtoaji wa kumbukumbu wa JavaScript.
+
+### --feedback--
+
+Inasaidia kufuatilia muda wa kuonyesha na kuboresha sehemu zinazochelewa.
+
+---
+
+Masuala ya mtindo wa CSS.
+
+### --feedback--
+
+Inasaidia kufuatilia muda wa kuonyesha na kuboresha sehemu zinazochelewa.
+
+---
+
+Utendaji wa sehemu na upyaonyeshaji.
+
+## --video-solution--
+
+4

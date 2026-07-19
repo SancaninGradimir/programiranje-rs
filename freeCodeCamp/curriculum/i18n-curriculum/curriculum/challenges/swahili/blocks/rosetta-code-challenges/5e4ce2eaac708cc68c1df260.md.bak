@@ -1,0 +1,105 @@
+---
+id: 5e4ce2eaac708cc68c1df260
+title: Umbali wa levenshtein
+challengeType: 1
+forumTopicId: 385264
+dashedName: levenshtein-distance
+---
+
+# --description--
+
+Katika nadharia ya taarifa na sayansi ya kompyuta, **umbali wa Levenshtein** ni kipimo cha kupima kiwango cha tofauti kati ya mfululizo miwili (yaani umbali wa uhariri). Umbali wa Levenshtein kati ya mfuatano wa herufi miwili umefafanuliwa kama idadi ya kiwango cha chini ya uhariri unaohitajika kubadilisha mfuatano mmoja kuwa mwingine, ambapo operesheni zinazoruhusiwa za uhariri ni kuongeza, kufuta, au kubadilisha herufi moja.
+
+Mfano:
+
+Umbali wa Levenshtein kati ya "**kitten**" na "**sitting**" ni 3, kwa sababu uhariri huu tatu unabadilisha mmoja kuwa mwingine, na hakuna njia ya kufanya hivyo kwa uhariri chini ya tatu:
+
+<ul>
+  <li><strong>k</strong>itten   <strong>s</strong>itten    (kubadilisha 'k' na 's')</li>
+  <li>sitt<strong>e</strong>n   sitt<strong>i</strong>n    (kubadilisha 'e' na 'i')</li>
+  <li>sittin   sittin<strong>g</strong>    (kuongeza 'g' mwishoni).</li>
+</ul>
+
+*Umbali wa Levenshtein kati ya "**rosettacode**", "**raisethysword**" ni **8**.*
+
+*Umbali kati ya mfuatano wa herufi miwili ni sawa na ule wakati mfuatano wote umegeuzwa mwelekeo.*
+
+# --instructions--
+
+Andika kitendakazi kinachorejesha umbali wa Levenshtein kati ya mfuatano wa herufi miwili uliotolewa kama vigezo.
+
+# --hints--
+
+`levenshtein` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof levenshtein == 'function');
+```
+
+`levenshtein("mist", "dist")` inapaswa kurejesha nambari.
+
+```js
+assert(typeof levenshtein('mist', 'dist') == 'number');
+```
+
+`levenshtein("mist", "dist")` inapaswa kurejesha `1`.
+
+```js
+assert.equal(levenshtein('mist', 'dist'), 1);
+```
+
+`levenshtein("tier", "tor")` inapaswa kurejesha `2`.
+
+```js
+assert.equal(levenshtein('tier', 'tor'), 2);
+```
+
+`levenshtein("kitten", "sitting")` inapaswa kurejesha `3`.
+
+```js
+assert.equal(levenshtein('kitten', 'sitting'), 3);
+```
+
+`levenshtein("stop", "tops")` inapaswa kurejesha `2`.
+
+```js
+assert.equal(levenshtein('stop', 'tops'), 2);
+```
+
+`levenshtein("rosettacode", "raisethysword")` inapaswa kurejesha `8`.
+
+```js
+assert.equal(levenshtein('rosettacode', 'raisethysword'), 8);
+```
+
+`levenshtein("mississippi", "swiss miss")` inapaswa kurejesha `8`.
+
+```js
+assert.equal(levenshtein('mississippi', 'swiss miss'), 8);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function levenshtein(a, b) {
+
+}
+```
+
+# --solutions--
+
+```js
+function levenshtein(a, b) {
+  var t = [], u, i, j, m = a.length, n = b.length;
+  if (!m) { return n; }
+  if (!n) { return m; }
+  for (j = 0; j <= n; j++) { t[j] = j; }
+  for (i = 1; i <= m; i++) {
+    for (u = [i], j = 1; j <= n; j++) {
+      u[j] = a[i - 1] === b[j - 1] ? t[j - 1] : Math.min(t[j - 1], t[j], u[j - 1]) + 1;
+    } t = u;
+  } return u[n];
+}
+```

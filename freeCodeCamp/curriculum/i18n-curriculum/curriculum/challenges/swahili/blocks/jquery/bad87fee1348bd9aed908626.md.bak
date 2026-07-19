@@ -1,0 +1,142 @@
+---
+id: bad87fee1348bd9aed908626
+title: Lenga kipengele kimoja kwa kutumia vichaguzi vingi vya jQuery
+challengeType: 6
+forumTopicId: 18322
+required:
+  - link: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.css'
+dashedName: target-the-same-element-with-multiple-jquery-selectors
+---
+
+# --description--
+
+Sasa unajua njia tatu za kulenga vipengele: kwa aina: `$("button")`, kwa darasa la vitu: `$(".btn")`, na kwa kitambulisho `$("#target1")`.
+
+Ingawa inawezekana kuongeza madarasa mengi kwa wito mmoja wa `.addClass()`, tuyaongeze kwa kipengele kimoja kwa *njia tatu tofauti*.
+
+Ukitegemea `.addClass()`, ongeza darasa moja tu kwa wakati kwa kipengele kimoja, kwa njia tatu tofauti:
+
+Ongeza darasa la `animated` kwa vipengele vyote vya aina `button`.
+
+Ongeza darasa la `shake` kwa vifungo vyote vyenye darasa la `.btn`.
+
+Ongeza darasa la `btn-primary` kwa kitufe chenye kitambulisho `#target1`.
+
+**Kumbuka:** Unapaswa kulenga kipengele kimoja tu na kuongeza darasa moja tu kwa wakati. Kwa pamoja, vichaguzi vyako vitatu vitakuwa vinaongeza madarasa matatu `shake`, `animated`, na `btn-primary` kwa `#target1`.
+
+# --hints--
+
+Msimbo wako unapaswa kutumia kichaguzi cha `$("button")`.
+
+```js
+assert(code.match(/\$\s*?\(\s*?(?:'|")\s*?button\s*?(?:'|")/gi));
+```
+
+Msimbo wako unapaswa kutumia kichaguzi cha `$(".btn")`.
+
+```js
+assert(code.match(/\$\s*?\(\s*?(?:'|")\s*?\.btn\s*?(?:'|")/gi));
+```
+
+Msimbo wako unapaswa kutumia kichaguzi cha `$("#target1")`.
+
+```js
+assert(code.match(/\$\s*?\(\s*?(?:'|")\s*?#target1\s*?(?:'|")/gi));
+```
+
+Unapaswa kuongeza darasa moja tu kwa kila kichaguzi chako cha tatu.
+
+```js
+assert(
+  code.match(/addClass/g) &&
+    code.match(/addClass\s*?\(\s*?('|")\s*?[\w-]+\s*?\1\s*?\)/g).length > 2
+);
+```
+
+Kipengele chako cha `#target1` kinapaswa kuwa na madarasa `animated`‚ `shake` na `btn-primary`.
+
+```js
+assert(
+  $('#target1').hasClass('animated') &&
+    $('#target1').hasClass('shake') &&
+    $('#target1').hasClass('btn-primary')
+);
+```
+
+Unapaswa kutumia jQuery tu kuongeza madarasa haya kwa kipengele.
+
+```js
+assert(!code.match(/class.*animated/g));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<script>
+  $(document).ready(function() {
+
+  });
+</script>
+
+<!-- Only change code above this line -->
+
+<div class="container-fluid">
+  <h3 class="text-primary text-center">jQuery Playground</h3>
+  <div class="row">
+    <div class="col-xs-6">
+      <h4>#left-well</h4>
+      <div class="well" id="left-well">
+        <button class="btn btn-default target" id="target1">#target1</button>
+        <button class="btn btn-default target" id="target2">#target2</button>
+        <button class="btn btn-default target" id="target3">#target3</button>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <h4>#right-well</h4>
+      <div class="well" id="right-well">
+        <button class="btn btn-default target" id="target4">#target4</button>
+        <button class="btn btn-default target" id="target5">#target5</button>
+        <button class="btn btn-default target" id="target6">#target6</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+# --solutions--
+
+```html
+<script>
+  $(document).ready(function() {
+    $("button").addClass("animated");
+    $(".btn").addClass("shake");
+    $("#target1").addClass("btn-primary");
+  });
+</script>
+
+<!-- Only change code above this line -->
+
+<div class="container-fluid">
+  <h3 class="text-primary text-center">jQuery Playground</h3>
+  <div class="row">
+    <div class="col-xs-6">
+      <h4>#left-well</h4>
+      <div class="well" id="left-well">
+        <button class="btn btn-default target" id="target1">#target1</button>
+        <button class="btn btn-default target" id="target2">#target2</button>
+        <button class="btn btn-default target" id="target3">#target3</button>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <h4>#right-well</h4>
+      <div class="well" id="right-well">
+        <button class="btn btn-default target" id="target4">#target4</button>
+        <button class="btn btn-default target" id="target5">#target5</button>
+        <button class="btn btn-default target" id="target6">#target6</button>
+      </div>
+    </div>
+  </div>
+</div>
+```

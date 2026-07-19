@@ -1,0 +1,65 @@
+---
+id: 587d824b367417b2b2512c48
+title: Tumia Assert.isOK na Assert.isNotOK
+challengeType: 2
+forumTopicId: 301607
+dashedName: use-assert-isok-and-assert-isnotok
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa kuanzia uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+`isOk()` itapima thamani ya kweli, na `isNotOk()` itapima thamani ya uongo.
+
+Ili kujifunza zaidi kuhusu thamani za kweli na uongo, jaribu changamoto yetu ya <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-algorithm-scripting/falsy-bouncer" target="_blank" rel="noopener noreferrer nofollow">Falsy Bouncer</a>.
+
+# --instructions--
+
+Ndani ya `tests/1_unit-tests.js` chini ya jaribio lililo na lebo `#3` katika suite ya `Basic Assertions`, badilisha kila `assert` kuwa `assert.isOk()` au `assert.isNotOk()` ili jaribio lifaulu (linapaswa kutathminiwa kuwa `true`). Usibadilishe hoja zinazopitishwa kwa uthibitisho.
+
+# --hints--
+
+Jaribio zote zinapaswa kupita.
+
+```js
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=2');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.state, 'passed');
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa kwanza - `isOk` dhidi ya `isNotOk`.
+
+```js
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=2');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.assertions[0].method, 'isNotOk', 'Null is falsy');
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa pili - `isOk` dhidi ya `isNotOk`.
+
+```js
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=2');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.assertions[1].method, 'isOk', 'A string is truthy');
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa tatu - `isOk` dhidi ya `isNotOk`.
+
+```js
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=2');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.assertions[2].method, 'isOk', 'true is truthy');
+```

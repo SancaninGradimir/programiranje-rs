@@ -1,0 +1,106 @@
+---
+id: 698a1a73ade5ac0e19180fa4
+title: "Zoezi la 201: Mzunguko wa matrix"
+challengeType: 28
+dashedName: challenge-201
+---
+
+# --description--
+
+Imetolewa matrix (safu ya safu) ya nambari na nambari kamili, badilisha thamani zote katika matrix kwa kiasi kilichotolewa.
+
+- Mzunguko mzuri husogeza thamani kwenda kulia.
+- Mzunguko hasi husogeza thamani kwenda kushoto.
+
+Thamani zinapaswa kuzunguka:
+
+- Chukulia matrix kama mfululizo mmoja wa thamani.
+- Thamani inapopita mwisho wa safu, inaendelea mwanzoni mwa safu inayofuata.
+- Thamani inapopita nafasi ya mwisho katika matrix, inazunguka hadi nafasi ya kwanza.
+- Hali hiyo hiyo inatumika kwa mzunguko wa kushoto.
+
+Kwa mfano, ikitolewa:
+
+```js
+[
+  [1, 2, 3],
+  [4, 5, 6]
+]
+```
+
+na mzunguko wa `1`, hamisha nambari zote kwenda kulia moja:
+
+```js
+[
+  [6, 1, 2],
+  [3, 4, 5]
+]
+```
+
+# --hints--
+
+`shiftMatrix([[1, 2, 3], [4, 5, 6]], 1)` inapaswa kurudisha `[[6, 1, 2], [3, 4, 5]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3], [4, 5, 6]], 1), [[6, 1, 2], [3, 4, 5]]);
+```
+
+`shiftMatrix([[1, 2, 3], [4, 5, 6]], -1)` inapaswa kurudisha `[[2, 3, 4], [5, 6, 1]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3], [4, 5, 6]], -1), [[2, 3, 4], [5, 6, 1]]);
+```
+
+`shiftMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 5)` inapaswa kurudisha `[[5, 6, 7], [8, 9, 1], [2, 3, 4]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 5), [[5, 6, 7], [8, 9, 1], [2, 3, 4]]);
+```
+
+`shiftMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], -6)` inapaswa kurudisha `[[7, 8, 9], [1, 2, 3], [4, 5, 6]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], -6), [[7, 8, 9], [1, 2, 3], [4, 5, 6]]);
+```
+
+`shiftMatrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 7)` inapaswa kurudisha `[[10, 11, 12, 13], [14, 15, 16, 1], [2, 3, 4, 5], [6, 7, 8, 9]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 7), [[10, 11, 12, 13], [14, 15, 16, 1], [2, 3, 4, 5], [6, 7, 8, 9]]);
+```
+
+`shiftMatrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], -54)` inapaswa kurudisha `[[7, 8, 9, 10], [11, 12, 13, 14], [15, 16, 1, 2], [3, 4, 5, 6]]`.
+
+```js
+assert.deepEqual(shiftMatrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], -54), [[7, 8, 9, 10], [11, 12, 13, 14], [15, 16, 1, 2], [3, 4, 5, 6]]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function shiftMatrix(matrix, shift) {
+
+  return matrix;
+}
+```
+
+# --solutions--
+
+```js
+function shiftMatrix(matrix, shift) {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  const flat = matrix.flat();
+  const n = flat.length;
+  const s = ((shift % n) + n) % n;
+  const shifted = flat.slice(-s).concat(flat.slice(0, n - s));
+  const result = [];
+  for (let i = 0; i < rows; i++) {
+    result.push(shifted.slice(i * cols, (i + 1) * cols));
+  }
+
+  return result;
+}
+```

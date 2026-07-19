@@ -1,0 +1,93 @@
+---
+id: 699f4b903bf5427a599f791d
+title: Step 14
+challengeType: 1
+dashedName: step-14
+---
+
+# --description--
+
+Katika hatua chache zilizopita, utaunda kitendakazi kingine ili kuendelea kufanya mazoezi ya maelezo ya aina kwa vitendakazi.
+
+Anza kwa kuunda kitendakazi kinachoitwa `raiseTo` kinachopokea vigezo viwili vinavyoitwa `base` na `exponent`. Vigezo vyote viwili vinapaswa kuwa vya aina `number`. Kitendakazi kinapaswa kurudisha matokeo ya kuinua `base` kwa nguvu ya `exponent`. Aina ya kurudisha ya kitendakazi pia inapaswa kuonyeshwa kama `number`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `raiseTo`.
+
+```js
+assert.isFunction(raiseTo);
+```
+
+Kitendakazi chako cha `raiseTo` kinapaswa kuwa na vigezo viwili, `base` na `exponent`.
+
+```js
+assert.match(
+  code,
+   /function\s+raiseTo\s*\(\s*base\s*(?::\s*number)?\s*,\s*exponent\s*(?::\s*number)?\s*\)\s*|(?:const|let)\s+raiseTo\s*=\s*\(\s*base\s*(?::\s*number)?\s*,\s*exponent\s*(?::\s*number)?\s*\)\s*(?::\s*\w+\s*)?\s*=>/
+);
+```
+
+Vigezo vyako vya `base` na `exponent` vinapaswa vyote kuwa vya aina `number`.
+
+```js
+const explorer = await __helpers.Explorer(code);
+const { parameters } = explorer.allFunctions.raiseTo;
+assert.isTrue(parameters[0].matches("base: number"));
+assert.isTrue(parameters[1].matches("exponent: number"));
+```
+
+Kitendakazi chako cha `raiseTo` kinapaswa kurudisha nambari.
+
+```js
+assert.isNumber(raiseTo(2, 3));
+```
+
+Kitendakazi chako cha `raiseTo` kinapaswa kurudisha matokeo ya kuinua `base` kwa nguvu ya `exponent`.
+
+```js
+assert.strictEqual(raiseTo(2, 3), 8);
+```
+
+Kitendakazi chako cha `raiseTo` kinapaswa kuwa na maelezo ya aina ya kurudisha ya `number`.
+
+```js
+const explorer = await __helpers.Explorer(code);
+const { raiseTo } = explorer.allFunctions;
+assert.isTrue(raiseTo.hasReturnAnnotation("number"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```ts
+function square(num: number) {
+  return num * num;
+}
+
+const result = square(5);
+
+console.log(result);
+
+function getAverage(numbers: number[]): number {
+  const sum = numbers.reduce((acc, n) => acc + n, 0);
+  return sum / numbers.length;
+}
+
+const avgResult = getAverage([2, 14, 26, 8]);
+
+console.log(avgResult);
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```
+
+```json
+{
+  "compilerOptions": {
+    "noCheck": true
+  }
+}
+```

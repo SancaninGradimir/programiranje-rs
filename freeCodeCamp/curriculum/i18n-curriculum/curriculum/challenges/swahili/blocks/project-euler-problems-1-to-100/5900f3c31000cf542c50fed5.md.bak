@@ -1,0 +1,94 @@
+---
+id: 5900f3c31000cf542c50fed5
+title: "'Zoezi la 86: Njia ya mstatili wa pande tatu'"
+challengeType: 1
+forumTopicId: 302200
+dashedName: problem-86-cuboid-route
+---
+
+# --description--
+
+Buibui, S, amekaa kwenye kona moja ya chumba cha mstatili wa pande tatu, chenye vipimo 6 kwa 5 kwa 3, na nzi, F, amekaa kwenye kona inayokabiliana nayo. Kwa kusafiri juu ya uso wa chumba, umbali mfupi zaidi wa "mstari wa moja kwa moja" kutoka S hadi F ni 10 na njia hiyo inaonyeshwa kwenye mchoro.
+
+<img alt="mchoro wa njia ya buibui na nzi kutoka kona moja ya chumba cha mstatili wa pande tatu hadi kona inayokabiliana nayo" src="https://cdn-media-1.freecodecamp.org/project-euler/cuboid-route.png" style="background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;">
+
+Hata hivyo, kuna hadi wagombea watatu wa njia "fupi zaidi" kwa mstatili wowote wa pande tatu na njia fupi zaidi si kila mara ina urefu wa nambari kamili.
+
+Inaweza kuonyeshwa kuwa kuna mstatili wa pande tatu `2060` tofauti kabisa, bila kuzingatia mizunguko, wenye vipimo vya nambari kamili, hadi ukubwa wa juu wa M kwa M kwa M, ambao njia fupi zaidi ina urefu wa nambari kamili wakati M = 100. Hii ni thamani ndogo kabisa ya M ambapo idadi ya suluhisho kwanza inazidi elfu mbili; idadi ya suluhisho wakati M = 99 ni `1975`.
+
+Tafuta thamani ndogo kabisa ya M ili idadi ya suluhisho kwanza izidi `n`.
+
+# --hints--
+
+`cuboidRoute(2000)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof cuboidRoute(2000) === 'number');
+```
+
+`cuboidRoute(2000)` inapaswa kurudisha `100`.
+
+```js
+assert.strictEqual(cuboidRoute(2000), 100);
+```
+
+`cuboidRoute(25000)` inapaswa kurudisha `320`.
+
+```js
+assert.strictEqual(cuboidRoute(25000), 320);
+```
+
+`cuboidRoute(500000)` inapaswa kurudisha `1309`.
+
+```js
+assert.strictEqual(cuboidRoute(500000), 1309);
+```
+
+`cuboidRoute(1000000)` inapaswa kurudisha `1818`.
+
+```js
+assert.strictEqual(cuboidRoute(1000000), 1818);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function cuboidRoute(n) {
+
+  return true;
+}
+
+cuboidRoute(2000);
+```
+
+# --solutions--
+
+```js
+function cuboidRoute(n) {
+  // Based on https://www.mathblog.dk/project-euler-86-shortest-path-cuboid/
+  function getLength(a, b) {
+    return Math.sqrt(a ** 2 + b ** 2);
+  }
+
+  let M = 2;
+  let counter = 0;
+
+  while (counter < n) {
+    M++;
+    for (let baseHeightWidth = 3; baseHeightWidth <= 2 * M; baseHeightWidth++) {
+      const pathLength = getLength(M, baseHeightWidth);
+      if (Number.isInteger(pathLength)) {
+        if (baseHeightWidth <= M) {
+          counter += Math.floor(baseHeightWidth / 2);
+        } else {
+          counter += 1 + M - Math.floor((baseHeightWidth + 1) / 2);
+        }
+      }
+    }
+  }
+
+  return M;
+}
+```

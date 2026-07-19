@@ -1,0 +1,379 @@
+---
+id: 6733d3a33abdd27cd562bdf2
+title: Kusudi la Njia ya preventDefault() ni Nini?
+challengeType: 19
+dashedName: what-is-the-purpose-of-e-preventdefault
+---
+
+# --interactive--
+
+Tujifunze kuhusu kusudi la njia ya `preventDefault()` kwenye matukio.
+
+Kila tukio linalotokea katika DOM lina tabia fulani ya chaguo-msingi. Tukio la `click` kwenye kisanduku cha kuchagua hubadilisha hali ya kisanduku hicho, kwa chaguo-msingi. Kubonyeza kitufe cha nafasi (space bar) kwenye kitufe kilicho na makini huchochea kitufe hicho. Njia ya `preventDefault()` kwenye vitu hivi vya tukio inazuia tabia hiyo isitokee.
+
+Tuchukulie mfano. Tufafanue kipengele cha `input` kwa mtumizi kuandika ndani yake:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<label>Enter some characters:
+  <input type="text">
+</label>
+```
+
+```css
+label {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #0078d4;
+  box-shadow: 0 0 3px rgba(0, 120, 212, 0.5);
+  outline: none;
+}
+
+```
+
+:::
+
+Na tukitazama matokeo, tunaweza kuandika katika sehemu ya ingizo kama ilivyotarajiwa. Lakini labda hatutaki hivyo. Labda, badala yake, tungependa kuonyesha herufi mtumizi anayoandika katika kipengele kingine tofauti. Kwanza, tufafanue kipengele chetu kwa ajili ya hilo:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<label>Enter some characters:
+  <input type="text">
+</label>
+<p id="output"></p>
+```
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF;
+}
+
+#output {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+```
+
+:::
+
+Kisha, tunahitaji kushikilia tukio la `keydown` ili kusikiliza herufi inayoandikwa kwenye kibodi. Kumbuka hatutaki matukio ya `change` au `input` hapa, kwa sababu tunahitaji taarifa ya kibodi.
+
+```js
+const input = document.querySelector("input");
+
+input.addEventListener("keydown", (e) => {
+    
+})
+```
+
+Tukio la `keydown` hufanyika unapo bonyeza kitufe cha kibodi. Tukio hili linapotokea, tutaonyesha herufi katika kipengele chetu cha `p`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<label>Enter some characters:
+  <input type="text">
+</label>
+<p id="output"></p>
+<script src="index.js"></script>
+```
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF;
+}
+
+#output {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+```
+
+```js
+const input = document.querySelector("input");
+const output = document.getElementById("output");
+
+input.addEventListener("keydown", (e) => {
+  output.innerText = `You pressed the ${e.key} key`;
+});
+```
+
+:::
+
+`e.key` inakupa thamani ya kitufe kilichobonyezwa, kama `a` kwa kitufe cha `a` au `Enter` kwa kitufe cha `Enter`.
+
+Kwa msimbo ulio hapo juu, unapoandika katika `input`, herufi unayoandika itaonyeshwa katika kipengele cha `p`.
+
+Hii ni nzuri, lakini hatutaki kuonyesha herufi hizo pia katika `input`. Hapa ndipo njia yetu ya `preventDefault()` inapoingia. Tabia ya chaguo-msingi ya `keydown` ni kuonyesha herufi katika sehemu ya ingizo. Tuzuie hilo kwa kuita `e.preventDefault()`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<label>Enter some characters:
+  <input type="text">
+</label>
+<p id="output"></p>
+<script src="index.js"></script>
+```
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF;
+}
+
+#output {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+```
+
+```js
+const input = document.querySelector("input");
+const output = document.getElementById("output");
+
+input.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  output.innerText = `You pressed the ${e.key} key`;
+});
+```
+
+:::
+
+Na kama hivyo, umezuia tabia ya chaguo-msingi ili uweze kutekeleza usindikaji wako wa tukio ulio maalum.
+
+Mfano mwingine wa kawaida wa kutumia njia ya `e.preventDefault` unahusiana na uwasilishaji wa fomu. Kwa chaguo-msingi, kuwasilisha fomu hutoa data kwa seva na kurudisha ukurasa. Kutumia `e.preventDefault()` kunazuia hili lisitokee.
+
+```js
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // rest of code goes here
+});
+```
+
+Kuzuia tabia ya chaguo-msingi ni nzuri wakati unahitaji udhibiti zaidi juu ya jinsi mtumizi anavyoshirikiana na ukurasa, lakini ni muhimu kuzingatia mambo kama Ufikikaji – tabia yako maalum inapaswa kutoa vipengele sawa na tabia ya chaguo-msingi.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la njia ya `preventDefault()` katika usindikaji wa tukio?
+
+## --answers--
+
+Kuzuia kuenea kwa tukio.
+
+### --feedback--
+
+Funzo linaeleza kile njia hii inachofanya kwa tabia ya chaguo-msingi ya matukio.
+
+---
+
+Kutoa huduma ya kuondoa wasikilizaji wa tukio.
+
+### --feedback--
+
+Funzo linaeleza kile njia hii inachofanya kwa tabia ya chaguo-msingi ya matukio.
+
+---
+
+Kuzuia tabia ya chaguo-msingi ya tukio.
+
+---
+
+Kuchochea matukio maalum.
+
+### --feedback--
+
+Funzo linaeleza kile njia hii inachofanya kwa tabia ya chaguo-msingi ya matukio.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Katika mfano uliotolewa, tabia gani ya chaguo-msingi inazuia kutokea wakati `preventDefault()` inapoitwa kwenye tukio la `keydown` kwa kipengele cha `input`?
+
+## --answers--
+
+Sehemu ya ingizo kupoteza makini.
+
+### --feedback--
+
+Fikiria kinachotokea kawaida unapoandika katika sehemu ya ingizo.
+
+---
+
+Kitufe kuonyeshwa katika sehemu ya ingizo.
+
+---
+
+Fomu kuwasilishwa.
+
+### --feedback--
+
+Fikiria kinachotokea kawaida unapoandika katika sehemu ya ingizo.
+
+---
+
+Ukurasa kusogeza.
+
+### --feedback--
+
+Fikiria kinachotokea kawaida unapoandika katika sehemu ya ingizo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unapotumia `preventDefault()`, ni jambo gani muhimu msanidi programu anapaswa kuzingatia?
+
+## --answers--
+
+Inapaswa kutumika tu kwenye uwasilishaji wa fomu.
+
+### --feedback--
+
+Funzo linataja wasiwasi maalum unaohusiana na mwingiliano wa mtumizi wakati wa kutumia tabia maalum.
+
+---
+
+Itaboresha utendaji kazi moja kwa moja.
+
+### --feedback--
+
+Funzo linataja wasiwasi maalum unaohusiana na mwingiliano wa mtumizi wakati wa kutumia tabia maalum.
+
+---
+
+Inapaswa kudumisha vipengele sawa na tabia ya chaguo-msingi kwa ajili ya Ufikikaji.
+
+---
+
+Itazuia matukio yote ya baadaye kwenye kipengele hicho.
+
+### --feedback--
+
+Funzo linataja wasiwasi maalum unaohusiana na mwingiliano wa mtumizi wakati wa kutumia tabia maalum.
+
+## --video-solution--
+
+3

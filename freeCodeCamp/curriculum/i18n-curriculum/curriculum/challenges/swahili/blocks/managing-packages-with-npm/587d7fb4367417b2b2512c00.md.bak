@@ -1,0 +1,67 @@
+---
+id: 587d7fb4367417b2b2512c00
+title: Panua mradi wako na vifurushi vya nje kutoka npm
+challengeType: 2
+forumTopicId: 301527
+dashedName: expand-your-project-with-external-packages-from-npm
+---
+
+# --description--
+
+Moja ya sababu kubwa za kutumia msimamizi wa vifurushi, ni usimamizi wao wenye nguvu wa utegemezi. Badala ya kuhakikisha kwa mkono kwamba unapata utegemezi wote kila unapoanzisha mradi kwenye kompyuta mpya, npm hujifunga kila kitu kiotomatiki kwa niaba yako. Lakini npm inaweza kujua vipi hasa mradi wako unahitaji nini? Kutana na sehemu ya `dependencies` ya faili yako ya package.json.
+
+Katika sehemu hii, vifurushi vinavyohitajika na mradi wako vinahifadhiwa kwa kutumia muundo ufuatao:
+
+```json
+"dependencies": {
+  "package-name": "version",
+  "express": "4.14.0"
+}
+
+```
+
+# --instructions--
+
+Ongeza toleo la `1.1.0` la kifurushi cha `@freecodecamp/example` kwenye sehemu ya `dependencies` ya faili yako ya `package.json`.
+
+**Kumbuka:** `@freecodecamp/example` ni kifurushi bandia kinachotumika kama chombo cha kujifunzia.
+
+# --hints--
+
+`"dependencies"` inapaswa kujumuisha `"@freecodecamp/example"`.
+
+```js
+fetch(code + '/_api/package.json')
+  .then(response => response.json())
+  .then(
+    data => {
+      assert.property(
+        data.dependencies,
+        '@freecodecamp/example',
+        '"dependencies" does not include "@freecodecamp/example"'
+      );
+    },
+    error => {
+      throw new Error(error.message || error.responseText);
+    }
+  );
+```
+
+Toleo la `"@freecodecamp/example"` linapaswa kuwa `"1.1.0"`.
+
+```js
+fetch(code + '/_api/package.json')
+  .then(response => response.json())
+  .then(
+    data => {
+      assert.match(
+        data.dependencies['@freecodecamp/example'],
+        /^[\^\~]?1\.1\.0/,
+        'Wrong version of "@freecodecamp/example" installed. It should be 1.1.0'
+      );
+    },
+    error => {
+      throw new Error(error.message || error.responseText);
+    }
+  );
+```

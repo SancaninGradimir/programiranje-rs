@@ -1,0 +1,139 @@
+---
+id: 587d7b8e367417b2b2512b5d
+title: Elewa hatari za kutumia msimbo wa amri
+challengeType: 1
+forumTopicId: 301241
+dashedName: understand-the-hazards-of-using-imperative-code
+---
+
+# --description--
+
+Programu utendaji ni tabia nzuri. Hufanya msimbo wako uwe rahisi kusimamia, na hukulinda dhidi ya hitilafu za hila. Lakini kabla hatujaifikia hapo, tuchunguze mtindo wa amri katika programu ili kuonyesha mahali ambapo unaweza kupata matatizo.
+
+Kwa Kiingereza (na lugha nyingine nyingi), wakati wa amri hutumika kutoa maagizo. Vivyo hivyo, mtindo wa amri katika programu ni ule unaompa kompyuta seti ya taarifa za kutekeleza zoezi.
+
+Mara nyingi taarifa hizi hubadilisha hali ya programu, kama kusahisha vigezo vya kimataifa. Mfano wa kawaida ni kuandika mzunguko wa `for` unaotoa maelekezo kamili ya kurudia juu ya viashiria vya safu ya data.
+
+Kinyume chake, programu utendaji ni aina ya programu ya kauli. Unamuambia kompyuta unachotaka kifanyike kwa kuita njia au kitendakazi.
+
+JavaScript hutoa njia nyingi zilizotangazwa tayari zinazoshughulikia kazi za kawaida ili usihitaji kuandika jinsi kompyuta inavyopaswa kuzitekeleza. Kwa mfano, badala ya kutumia mzunguko wa `for` ulioelezwa hapo juu, unaweza kuita njia ya `map` inayoshughulikia maelezo ya kurudia juu ya safu ya data. Hii husaidia kuepuka makosa ya maana, kama "Makosa ya Off By One" yaliyojadiliwa katika sehemu ya Kurekebisha makosa.
+
+Fikiria hali: unavinjari mtandao katika kivinjari chako, na unataka kufuatilia tabo ulizofungua. Tujaribu kuunda mfano huu kwa kutumia msimbo rahisi wa darasa la vitu.
+
+Kipengee cha Window kinaundwa na tabo, na kawaida una Windows zaidi ya moja wazi. Vichwa vya kila tovuti iliyo wazi katika kila kipengee cha Window vinahifadhiwa katika safu ya data. Baada ya kufanya kazi katika kivinjari (kufungua tabo mpya, kuunganisha windows, na kufunga tabo), unataka kuchapisha tabo ambazo bado ziko wazi. Tabo zilizofungwa zinaondolewa kutoka kwenye safu ya data na tabo mpya (kwa urahisi) zinaongezwa mwishoni mwa safu hiyo.
+
+Mhariri wa msimbo unaonyesha utekelezaji wa utendaji huu kwa kutumia vitendakazi vya `tabOpen()`, `tabClose()`, na `join()`. Safu ya data `tabs` ni sehemu ya kipengee cha Window inayohifadhi majina ya kurasa zilizo wazi.
+
+# --instructions--
+
+Chunguza msimbo katika mhariri. Unatumia njia ambayo ina athari za pembeni katika programu, na kusababisha tabia isiyo sahihi. Orodha ya mwisho ya tabo zilizo wazi, zilizohifadhiwa katika `finalTabs.tabs`, inapaswa kuwa `['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium', 'new tab', 'Netflix', 'YouTube', 'Vine', 'GMail', 'Work mail', 'Docs', 'freeCodeCamp', 'new tab']` lakini orodha inayotolewa na msimbo ni tofauti kidogo.
+
+Badilisha `Window.prototype.tabClose` ili iondoe tabo sahihi.
+
+# --hints--
+
+`finalTabs.tabs` inapaswa kuwa `['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium', 'new tab', 'Netflix', 'YouTube', 'Vine', 'GMail', 'Work mail', 'Docs', 'freeCodeCamp', 'new tab']`
+
+```js
+assert.deepEqual(finalTabs.tabs, [
+  'FB',
+  'Gitter',
+  'Reddit',
+  'Twitter',
+  'Medium',
+  'new tab',
+  'Netflix',
+  'YouTube',
+  'Vine',
+  'GMail',
+  'Work mail',
+  'Docs',
+  'freeCodeCamp',
+  'new tab'
+]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+// tabs is an array of titles of each site open within the window
+const Window = function(tabs) {
+  this.tabs = tabs; // We keep a record of the array inside the object
+};
+
+// When you join two windows into one window
+Window.prototype.join = function(otherWindow) {
+  this.tabs = this.tabs.concat(otherWindow.tabs);
+  return this;
+};
+
+// When you open a new tab at the end
+Window.prototype.tabOpen = function(tab) {
+  this.tabs.push('new tab'); // Let's open a new tab for now
+  return this;
+};
+
+// When you close a tab
+Window.prototype.tabClose = function(index) {
+
+  // Only change code below this line
+
+  const tabsBeforeIndex = this.tabs.splice(0, index); // Get the tabs before the tab
+  const tabsAfterIndex = this.tabs.splice(index + 1); // Get the tabs after the tab
+
+  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex); // Join them together
+
+  // Only change code above this line
+
+  return this;
+ };
+
+// Let's create three browser windows
+const workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']); // Your mailbox, drive, and other work sites
+const socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']); // Social sites
+const videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']); // Entertainment sites
+
+// Now perform the tab opening, closing, and other operations
+const finalTabs = socialWindow
+  .tabOpen() // Open a new tab for cat memes
+  .join(videoWindow.tabClose(2)) // Close third tab in video window, and join
+  .join(workWindow.tabClose(1).tabOpen());
+console.log(finalTabs.tabs);
+```
+
+# --solutions--
+
+```js
+const Window = function(tabs) {
+  this.tabs = tabs;
+};
+
+Window.prototype.join = function(otherWindow) {
+  this.tabs = this.tabs.concat(otherWindow.tabs);
+  return this;
+};
+
+Window.prototype.tabOpen = function(tab) {
+  this.tabs.push('new tab');
+  return this;
+};
+
+Window.prototype.tabClose = function(index) {
+  const tabsBeforeIndex = this.tabs.slice(0, index);
+  const tabsAfterIndex = this.tabs.slice(index + 1);
+
+  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex);
+  return this;
+ };
+
+const workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']);
+const socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']);
+const videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']);
+
+const finalTabs = socialWindow
+  .tabOpen()
+  .join(videoWindow.tabClose(2))
+  .join(workWindow.tabClose(1).tabOpen());
+```

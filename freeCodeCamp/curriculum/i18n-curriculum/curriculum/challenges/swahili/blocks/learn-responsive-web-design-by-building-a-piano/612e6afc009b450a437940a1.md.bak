@@ -1,0 +1,134 @@
+---
+id: 612e6afc009b450a437940a1
+title: Hatua 1
+challengeType: 0
+dashedName: step-1
+demoType: onLoad
+---
+
+# --description--
+
+Anza na muundo wa msingi wa HTML. Ongeza tamko la `DOCTYPE` na vipengele vya `html`, `head`, `body`, na `title`.
+
+Weka lugha ya ukurasa huu kuwa Kiingereza. Weka `title` kuwa `Piano`.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na rejea la `DOCTYPE`.
+
+```js
+assert(code.match(/<!DOCTYPE/gi));
+```
+
+Unapaswa kujumuisha nafasi baada ya rejea la `DOCTYPE`.
+
+```js
+assert(code.match(/<!DOCTYPE\s+/gi));
+```
+
+Unapaswa kufafanua aina ya hati kuwa `html`.
+
+```js
+assert(code.match(/<!DOCTYPE\s+html/gi));
+```
+
+Unapaswa kufunga tamko la `DOCTYPE` kwa lebo ya kufunga `>` baada ya aina.
+
+```js
+assert(code.match(/<!DOCTYPE\s+html\s*>/gi));
+```
+
+Kipengele chako cha `html` kinapaswa kuwa na lebo ya kufungua yenye sifa ya kipengele `lang` ya `en`.
+
+```js
+assert(code.match(/<html\s+lang\s*=\s*('|")en\1\s*>/gi));
+```
+
+Kipengele chako cha `html` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert(code.match(/<\/html\s*>/));
+```
+
+Tamko lako la `DOCTYPE` linapaswa kuwa mwanzoni mwa HTML yako.
+
+```js
+assert(__helpers.removeHtmlComments(code).match(/^\s*<!DOCTYPE\s+html\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufungua `head`.
+
+```js
+assert(code.match(/<head\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufunga `head`.
+
+```js
+assert(code.match(/<\/head\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufungua `body`.
+
+```js
+assert(code.match(/<body\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufunga `body`.
+
+```js
+assert(code.match(/<\/body\s*>/i));
+```
+
+Vipengele vya `head` na `body` vinapaswa kuwa ndugu.
+
+```js
+assert(document.querySelector('head')?.nextElementSibling?.localName === 'body');
+```
+
+Kipengele cha `head` kinapaswa kuwa ndani ya kipengele cha `html`.
+
+```js
+assert([...document.querySelector('html')?.children].some(x => x?.localName === 'head'));
+```
+
+Kipengele cha `body` kinapaswa kuwa ndani ya kipengele cha `html`.
+
+```js
+assert([...document.querySelector('html')?.children].some(x => x?.localName === 'body'));
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `title`.
+
+```js
+const title = document.querySelector('title');
+assert.exists(title);
+```
+
+Mradi wako unapaswa kuwa na kichwa cha `Piano`.
+
+```js
+const title = document.querySelector('title');
+assert.equal(title?.text?.trim()?.toLowerCase(), 'piano')
+```
+
+Kumbuka, herufi kubwa na ndogo pamoja na tahajia ni muhimu kwa kichwa.
+
+```js
+const title = document.querySelector('title');
+assert.equal(title?.text?.trim(), 'Piano');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+--fcc-editable-region--
+
+--fcc-editable-region--
+```
+
+```css
+
+```

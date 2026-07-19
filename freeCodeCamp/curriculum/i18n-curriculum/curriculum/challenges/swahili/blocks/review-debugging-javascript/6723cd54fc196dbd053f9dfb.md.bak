@@ -1,0 +1,126 @@
+---
+id: 6723cd54fc196dbd053f9dfb
+title: Kagua kurekebisha makosa ya JavaScript
+challengeType: 31
+dashedName: review-debugging-javascript
+---
+
+# --interactive--
+
+## Aina za kawaida za ujumbe wa hitilafu
+
+- **SyntaxError**: Hitilafu hizi hutokea unaposema kitu kisicho sahihi katika msimbo wako, kama kukosa mabano ya kufunga, au mabano ya kufungua. Fikiria kama hitilafu ya sarufi katika sentensi.
+
+```js
+const arr = ["Beau", "Quincy" "Tom"]
+```
+
+- **ReferenceError**: Kuna aina kadhaa za hitilafu za Rejea, zinazochochewa kwa njia tofauti. Aina ya kwanza ya hitilafu ya rejea ni zile za vigezo visivyoelezwa. Mfano mwingine wa ReferenceError ni kujaribu kupata thamani ya kigezo, kilichotangazwa na `let` au `const`, kabla hajatajwa.
+
+:::interactive_editor
+
+```js
+console.log(num);
+const num = 50;
+```
+
+:::
+
+- **TypeError**: Hitilafu hizi hutokea unapojaribu kufanya operesheni kwa aina isiyo sahihi.
+
+```js
+const developerObj = {
+  name: "Jessica",
+  country: "USA",
+  isEmployed: true
+};
+
+developerObj.map()
+```
+
+- **RangeError**: Hitilafu hizi hutokea wakati msimbo wako unajaribu kutumia thamani ambayo iko nje ya wigo wa kile JavaScript inaweza kushughulikia.
+
+```js
+const arr = [];
+arr.length = -1; 
+```
+
+## Kauli ya `throw`
+
+- **Maana**: Kauli ya `throw` katika JavaScript hutumika kutupa hitilafu iliyotangazwa na mtumizi. Hitilafu katika programu ni tukio lisilotarajiwa linalovuruga mtiririko wa kawaida wa programu.
+
+:::interactive_editor
+
+```js
+function validateNumber(input) {
+  if (typeof input !== "number") {
+    throw new TypeError("Expected a number, but received " + typeof input);
+  }
+  return input * 2;
+}
+
+console.log(validateNumber("Naomi"));   // TypeError: Expected a number, but received string
+```
+
+:::
+
+## `try...catch...finally`
+
+- **Maana**: Kifungu cha `try` hutumika kufunika msimbo ambao unaweza kutupa hitilafu. Hufanya kama sehemu salama ya kujaribu kitu ambacho kinaweza kushindwa. Kifungu cha `catch` huchukua na kushughulikia makosa yanayotokea katika kifungu cha try. Unaweza kutumia kitu cha hitilafu ndani ya catch kuchunguza kilichokwenda vibaya. Kifungu cha `finally` hufanyika baada ya try na catch, bila kujali kama hitilafu ilitokea. Mara nyingi hutumika kwa kazi za kusafisha, kama kufunga mafaili au kuachilia rasilimali.
+
+:::interactive_editor
+
+```js
+function processInput(input) {
+  if (typeof input !== "string") {
+    throw new TypeError("Input must be a string.");
+  }
+
+  return input.toUpperCase();
+}
+
+try {
+  console.log("Starting to process input...");
+  const result1 = processInput("hello");
+  console.log("Processed result:", result1);  // HELLO
+  const result2 = processInput(9);  // throws TypeError
+  console.log("Processed result:", result2);  // not executed
+} catch (error) {
+  console.error("Error occurred:", error.message);
+} 
+```
+
+:::
+
+## Mbinu za kurekebisha makosa
+
+- **Kauli ya `debugger`**: Kauli hii inakuwezesha kusitisha msimbo wako kwenye mstari maalum ili kuchunguza kinachoendelea katika programu.
+
+:::interactive_editor
+
+```js
+let firstNumber = 5;
+let secondNumber = 10;
+
+debugger; // Code execution pauses here
+let sum = firstNumber + secondNumber;
+
+console.log(sum);
+```
+
+:::
+
+- **Breakpoints**: Breakpoints hukuruhusu kusitisha utekelezaji wa msimbo wako kwenye mstari maalum unaouchagua. Baada ya kusitisha, unaweza kuchunguza vigezo, kutathmini usemi wa kihesabu, na kuangalia orodha ya wito.
+- **Watchers**: Watch expressions hukuwezesha kufuatilia thamani za vigezo au usemi wa kihesabu wakati msimbo unatekelezwa hata kama ziko nje ya wigo wa sasa.
+- **Profiling**: Profiling hukusaidia kubaini sehemu zinazochukua muda mwingi kwa kuruhusu kupiga picha za skrini na kurekodi matumizi ya prosesa (CPU), wito za kitendakazi, na muda wa utekelezaji.
+- **`console.dir()`**: Njia hii hutumika kuonyesha orodha ya mwingiliano ya mali za kitu maalum cha JavaScript. Hutolewa kwa mpangilio wa mti ambao unaweza kupanuliwa kuona mali zote zilizopangwa ndani.
+
+```js
+console.dir(document);
+```
+
+- **`console.table()`**: Njia hii huonyesha data ya jedwali kama jedwali katika konsoli. Inachukua hoja moja muhimu, ambayo lazima iwe safu ya data au kitu, na hoja moja ya hiari kuonyesha mali (nguzo) gani kuonyesha.
+
+# --assignment--
+
+Kagua mada na dhana za kurekebisha makosa ya JavaScript.

@@ -1,0 +1,56 @@
+---
+id: 6819ca464db219ab86f37dc4
+title: Hatua 20
+challengeType: 20
+dashedName: step-20
+---
+
+# --description--
+
+Kama ulivyothibitisha tayari, mabadiliko yaliyotumika kuficha maandishi yanapaswa kuwa nambari kamili chanya. Hata hivyo, hayawezi kuzidi `25` (kielezo cha mwisho cha `alphabet`).
+
+Ongeza sharti la pili kwenye usemi wa `if` linalokagua kama `shift` ni kubwa kuliko `25`. Kumbuka kuwa operesheni ya mantiki YA AU katika Python hufanyika kupitia opereta wa `or`.
+
+Pia, sasisha ujumbe unaorudishwa kuwa `Shift must be an integer between 1 and 25.`
+
+# --hints--
+
+Unapaswa kutumia opereta wa `or` kuongeza sharti la pili baada ya `shift < 1` linalokagua kama `shift` ni kubwa kuliko `25`. Hupaswi kubadilisha sharti lililopo.
+
+```js
+({ test: () => runPython(`
+_cond = _Node(_code).find_function("caesar").find_ifs()[1].find_conditions()[0]
+_options = ["shift > 25", "25 < shift", "shift >= 26", "26 =< shift"]
+assert any(_cond.is_equivalent(f"shift < 1 or {option}") for option in _options)
+`) })
+```
+
+Usemi wako wa pili wa `if` unapaswa kurudisha `Shift must be an integer between 1 and 25.`
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").find_ifs()[1].find_bodies()[0].has_return("'Shift must be an integer between 1 and 25.'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def caesar(text, shift):
+
+    if not isinstance(shift, int):
+        return 'Shift must be an integer value.'
+    
+--fcc-editable-region--
+    if shift < 1:
+        return 'Shift must be a positive integer.'
+--fcc-editable-region--
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    return text.translate(translation_table)
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

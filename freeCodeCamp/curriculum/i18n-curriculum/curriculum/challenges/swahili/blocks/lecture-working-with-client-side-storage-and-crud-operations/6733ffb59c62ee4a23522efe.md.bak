@@ -1,0 +1,202 @@
+---
+id: 6733ffb59c62ee4a23522efe
+title: "IndexedDB ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-indexeddb-and-how-does-it-work
+---
+
+# --interactive--
+
+`IndexedDB` ni chombo cha kuhifadhi data iliyopangwa katika kivinjari. Hii imejengwa ndani ya vivinjari vya mtandao vya kisasa, ikiruhusu programu za mtandao kuhifadhi na kupata vitu vya JavaScript kwa ufanisi.
+
+Tofauti na mbinu nyingine za kuhifadhi kama `localStorage`, ambayo inazuia kuhifadhi mfuatano wa herufi tu, `IndexedDB` inaweza kuhifadhi vitu vya JavaScript, mafaili, na karibu aina yoyote ya data. Hii inafanya iwe rahisi kwa programu za mtandao zinazohitaji kufanya kazi na miundo mikubwa na tata ya data.
+
+Sasa, tuchunguze jinsi `IndexedDB` inavyofanya kazi.
+
+Hatua ya kwanza ni kufungua hifadhidata. Hapa kuna mfano:
+
+:::interactive_editor
+
+```js
+let request = indexedDB.open("Sample DB", 1);
+
+request.onerror = function(event) {
+  console.log("Error opening database");
+};
+
+request.onsuccess = function(event) {
+  let db = event.target.result;
+  console.log("Database opened successfully");
+};
+```
+
+:::
+
+Katika msimbo huu, tunafungua hifadhidata yenye jina `"Sample DB"` na toleo 1. Tunatoa vitendakazi viwili vya mwitiko: kimoja cha kushughulikia makosa, na kingine wakati hifadhidata inafunguliwa kwa mafanikio. Kitu cha `db` tunachopata katika mwitiko wa mafanikio ndicho tutakachotumia kuingiliana na hifadhidata.
+
+Ukikagua kiolesura cha programu za zana za mtengenezaji wa kivinjari, utaona `Sample DB` yako katika sehemu ya `IndexedDb` imefunguliwa. Mara tu unapokuwa na hifadhidata yako wazi, unaweza kuanza kufanya kazi na maduka ya vitu.
+
+Maduka ya vitu katika IndexedDB ni sawa na majedwali katika hifadhidata za kawaida. Yanahifadhi data halisi unayotaka kuhifadhi. Hapa ni jinsi ya kuunda duka la vitu:
+
+```js
+let request = indexedDB.open("Sample DB", 1);
+
+request.onupgradeneeded = function(event) {
+  let db = event.target.result;
+  let objectStore = db.createObjectStore("customers", { keyPath: "id" });
+};
+```
+
+Msimbo huu unaunda duka la vitu lenye jina `"customers"` na `"id"` kama njia yake ya kielezo. Njia ya kielezo ni kama ufunguo mkuu katika hifadhidata ya kawaida - hutumika kutambua kila rekodi kwa kipekee.
+
+Ili kuongeza data kwenye duka letu la vitu, tungefanya kitu kama hiki. `db` katika mfano huu inawakilisha mfano wa hifadhidata ya `IndexedDB`.
+
+```js
+let transaction = db.transaction(["customers"], "readwrite");
+let objectStore = transaction.objectStore("customers");
+let request = objectStore.add({ id: 1, name: "John Doe", email: "john@example.com" });
+
+request.onerror = function(event) {
+  console.log("Error adding data");
+};
+
+request.onsuccess = function(event) {
+  console.log("Data added successfully");
+};
+```
+
+Msimbo huu unaongeza mteja mpya kwenye duka letu la vitu la `"customers"`. Tunaanzisha muamala (ambao ni jinsi tunavyokusanya shughuli za hifadhidata), tunapata rejea kwa duka letu la vitu, kisha tunaongeza data yetu.
+
+Kupata data hufanyika kwa njia sawa. Tunaanzisha muamala, tunapata duka letu la vitu, kisha tunatumia njia kama `get` kupata data:
+
+```js
+let transaction = db.transaction(["customers"]);
+let objectStore = transaction.objectStore("customers");
+let request = objectStore.get(1);
+
+request.onerror = function(event) {
+  console.log("Error retrieving data");
+};
+
+request.onsuccess = function(event) {
+  console.log("Customer:", request.result);
+};
+```
+
+Msimbo huu unapata mteja mwenye `id` ya `1` kutoka kwenye duka letu la vitu la `"customers"`.
+
+Moja ya vipengele muhimu vya `IndexedDB` ni kwamba ni isiyo ya wakati mmoja.
+
+Hii inamaanisha kwamba unapoingiliana na `IndexedDB`, shughuli hazizuizi nyuzi kuu za programu ya mtandao. Hii inahakikisha kwamba programu yako ya mtandao inabaki inayojibadilisha kulingana na kifaa hata unapotumia kiasi kikubwa cha data.
+
+Ingawa `IndexedDB` hutoa uwezo mkubwa, ina mteremko mkali wa kujifunza ikilinganishwa na chaguzi nyingine rahisi za API za kuhifadhi ambazo zinaweza kuwa changamoto kwa wanaoanza. Hata hivyo, kwa programu zinazohitaji kushughulikia kiasi kikubwa cha data iliyopangwa upande wa mteja, `IndexedDB` hutoa uwezo usio na kifani.
+
+# --questions--
+
+## --text--
+
+Ni sifa gani kuu ya shughuli za `IndexedDB`?
+
+## --answers--
+
+Daima ni za wakati mmoja.
+
+### --feedback--
+
+Fikiria jinsi shughuli za `IndexedDB` zinavyoingiliana na nyuzi kuu za programu ya mtandao.
+
+---
+
+Daima ni zisizo za wakati mmoja.
+
+---
+
+Hufanya kazi tu na data ya mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria jinsi shughuli za `IndexedDB` zinavyoingiliana na nyuzi kuu za programu ya mtandao.
+
+---
+
+Zinahitaji muunganisho wa mtandao wa kila wakati.
+
+### --feedback--
+
+Fikiria jinsi shughuli za `IndexedDB` zinavyoingiliana na nyuzi kuu za programu ya mtandao.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Faida kuu ya kutumia `IndexedDB` badala ya `localStorage` ni ipi?
+
+## --answers--
+
+`IndexedDB` ni rahisi zaidi kutumia.
+
+### --feedback--
+
+Fikiria aina za data ambazo kila njia ya kuhifadhi inaweza kushughulikia na jinsi hii inavyoathiri matumizi yao.
+
+---
+
+`IndexedDB` inaunga mkono kuhifadhi vitu tata vya JavaScript moja kwa moja.
+
+---
+
+`IndexedDB` ni za wakati mmoja.
+
+### --feedback--
+
+Fikiria aina za data ambazo kila njia ya kuhifadhi inaweza kushughulikia na jinsi hii inavyoathiri matumizi yao.
+
+---
+
+`IndexedDB` inaungwa mkono katika vivinjari vya zamani.
+
+### --feedback--
+
+Fikiria aina za data ambazo kila njia ya kuhifadhi inaweza kushughulikia na jinsi hii inavyoathiri matumizi yao.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika `IndexedDB`, duka la vitu linafananishwaje zaidi katika hifadhidata za uhusiano za kawaida?
+
+## --answers--
+
+Hifadhidata.
+
+### --feedback--
+
+Fikiria jinsi data inavyopangwa katika `IndexedDB` ikilinganishwa na hifadhidata ya SQL ya kawaida.
+
+---
+
+Jedwali.
+
+---
+
+Safu.
+
+### --feedback--
+
+Fikiria jinsi data inavyopangwa katika `IndexedDB` ikilinganishwa na hifadhidata ya SQL ya kawaida.
+
+---
+
+Sura.
+
+### --feedback--
+
+Fikiria jinsi data inavyopangwa katika `IndexedDB` ikilinganishwa na hifadhidata ya SQL ya kawaida.
+
+## --video-solution--
+
+2

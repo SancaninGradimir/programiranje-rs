@@ -1,0 +1,82 @@
+---
+id: 589fc831f9fc0f352b528e75
+title: Wasiliana kwa Kutuma
+challengeType: 2
+forumTopicId: 301550
+dashedName: communicate-by-emitting
+---
+
+# --description--
+
+<dfn>Emit</dfn> ni njia inayotumika zaidi ya kuwasiliana utakayotumia. Unapomtuma kitu kutoka seva kwenda 'io', unatuma jina la tukio na data kwa soketi zote zilizounganishwa. Mfano mzuri wa dhana hii ni kutuma idadi ya watumiaji waliounganishwa kila mara mtumiaji mpya anapounganishwa!
+
+Anza kwa kuongeza kigezo cha kuhesabu watumiaji, kabla kabisa ya sehemu unaposikiliza kwa sasa kwa ajili ya miunganisho.
+
+```js
+let currentUsers = 0;
+```
+
+Sasa, mtu anapounganishwa, unapaswa kuongeza idadi kabla ya kutuma idadi hiyo. Kwa hivyo, utataka kuongeza kipengele cha kuongeza ndani ya msikilizaji wa muunganisho.
+
+```js
+++currentUsers;
+```
+
+Mwishowe, baada ya kuongeza idadi, unapaswa kutuma tukio hilo (bado ndani ya msikilizaji wa muunganisho). Tukio linapaswa kuitwa 'user count', na data inapaswa kuwa `currentUsers` tu.
+
+```js
+io.emit('user count', currentUsers);
+```
+
+Sasa, unaweza kutekeleza njia ya mteja wako kusikiliza tukio hili! Kama vile kusikiliza muunganisho kwenye seva, utatumia neno kuu la `on`.
+
+```js
+socket.on('user count', function(data) {
+  console.log(data);
+});
+```
+
+Sasa, jaribu kufungua programu yako, thibitisha utambulisho, na unapaswa kuona kwenye konsoli ya mteja '1' ikiwakilisha idadi ya watumiaji waliopo sasa! Jaribu kufungua wateja zaidi, na kuthibitisha utambulisho ili kuona nambari ikiongezeka.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#communicate-by-emitting-7" target="_blank" rel="noopener noreferrer nofollow">kuangalia mradi uliofanyika hadi hatua hii</a>.
+
+# --hints--
+
+`currentUsers` inapaswa kufafanuliwa.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /currentUsers/s,
+    'You should have variable currentUsers defined'
+  );
+```
+
+Seva inapaswa kutuma idadi ya watumiaji waliopo kila muunganisho mpya.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /io.emit.*('|")user count('|").*currentUsers/s,
+    'You should emit "user count" with data currentUsers'
+  );
+```
+
+Mteja wako anapaswa kusikiliza tukio la `'user count'`.
+
+```js
+  const url = new URL("/public/client.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /socket.on.*('|")user count('|")/s,
+    'Your client should be connection to server with the connection defined as socket'
+  );
+```

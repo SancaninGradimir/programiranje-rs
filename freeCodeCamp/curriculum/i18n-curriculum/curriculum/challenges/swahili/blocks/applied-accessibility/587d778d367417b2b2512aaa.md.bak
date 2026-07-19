@@ -1,0 +1,248 @@
+---
+id: 587d778d367417b2b2512aaa
+title: Fanya Vitu Kuonekana Kwa Kisomaji cha Skrini Pekee kwa Kutumia CSS Maalum
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cJ8QGkhJ'
+forumTopicId: 301020
+dashedName: make-elements-only-visible-to-a-screen-reader-by-using-custom-css
+---
+
+# --description--
+
+Je, umeona kwamba changamoto zote za ufikikaji zilizotumika hadi sasa hazijatumia CSS yoyote? Hii inaonyesha umuhimu wa kutumia muhtasari wa hati unaoeleweka na lebo zenye maana ya kihisabati karibu na maudhui yako kabla ya kuanzisha kipengele cha muundo wa kuona.
+
+Hata hivyo, uchawi wa CSS pia unaweza kuboresha ufikikaji kwenye ukurasa wako wakati unataka kuficha maudhui kwa macho lakini yanapaswa kuonekana kwa watumiaji wa kisomaji cha skrini. Hii hutokea wakati taarifa iko katika muundo wa kuona (kama chati), lakini watumiaji wa kisomaji cha skrini wanahitaji uwasilishaji mbadala (kama jedwali) kupata data hiyo. CSS hutumika kuweka vitu vya kisomaji cha skrini tu nje ya eneo la kuona la dirisha la kivinjari.
+
+Hapa kuna mfano wa sheria za CSS zinazofanikisha hili:
+
+```css
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+  overflow: hidden;
+}
+```
+
+**Kumbuka:** Mbinu zifuatazo za CSS HAZITAFANYA jambo lile lile:
+
+<ul>
+<li><code>display: none;</code> au <code>visibility: hidden;</code> huficha maudhui kwa kila mtu, ikiwa ni pamoja na watumiaji wa kisomaji cha skrini</li>
+<li>Thamani za sifuri kwa ukubwa wa pikseli, kama <code>width: 0px; height: 0px;</code> huondoa kipengele hicho kutoka kwenye mtiririko wa hati yako, ikimaanisha kisomaji cha skrini kitakikataa</li>
+</ul>
+
+# --instructions--
+
+Camper Cat alitengeneza chati ya mstari iliyopangwa kwa kupendeza kwa ukurasa wake wa mafunzo, na akaweka data kwenye jedwali kwa watumiaji wake wenye ulemavu wa kuona. Jedwali tayari lina darasa la `sr-only`, lakini sheria za CSS bado hazijajazwa. Toa thamani ya `position` kwa `absolute`, thamani ya `left` kwa `-10000px`, na thamani za `width` kwa `height` na `1px` zote mbili.
+
+# --hints--
+
+Msimbo wako unapaswa kuweka sifa ya `position` ya darasa la `sr-only` kuwa na thamani ya `absolute`.
+
+```js
+const srOnly = document.querySelector('.sr-only');
+const position = window.getComputedStyle(srOnly).position; 
+assert.equal(position, 'absolute');
+```
+
+Msimbo wako unapaswa kuweka sifa ya `left` ya darasa la `sr-only` kuwa na thamani ya `-10000px`.
+
+```js
+const srOnly = document.querySelector('.sr-only');
+const left = window.getComputedStyle(srOnly).left;
+assert.equal(left, '-10000px');
+```
+
+Msimbo wako unapaswa kuweka sifa ya `width` ya darasa la `sr-only` kuwa na thamani ya `1` pikseli.
+
+```js
+assert.match(code , /width:\s*?1px/gi);
+```
+
+Msimbo wako unapaswa kuweka sifa ya `height` ya darasa la `sr-only` kuwa na thamani ya `1` pikseli.
+
+```js
+assert.match(code , /height:\s*?1px/gi);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<head>
+  <style>
+  .sr-only {
+    position: ;
+    left: ;
+    width: ;
+    height: ;
+    top: auto;
+    overflow: hidden;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Training</h1>
+    <nav>
+      <ul>
+        <li><a href="#stealth">Stealth &amp; Agility</a></li>
+        <li><a href="#combat">Combat</a></li>
+        <li><a href="#weapons">Weapons</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>Master Camper Cat's Beginner Three Week Training Program</h2>
+    <figure>
+      <!-- Stacked bar chart of weekly training -->
+      <p>[Stacked bar chart]</p>
+      <br />
+      <figcaption>Breakdown per week of time to spend training in stealth, combat, and weapons.</figcaption>
+    </figure>
+    <table class="sr-only">
+      <caption>Hours of Weekly Training in Stealth, Combat, and Weapons</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col">Stealth &amp; Agility</th>
+          <th scope="col">Combat</th>
+          <th scope="col">Weapons</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Week One</th>
+          <td>3</td>
+          <td>5</td>
+          <td>2</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <th scope="row">Week Two</th>
+          <td>4</td>
+          <td>5</td>
+          <td>3</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <th scope="row">Week Three</th>
+          <td>4</td>
+          <td>6</td>
+          <td>3</td>
+          <td>13</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="stealth">
+    <h2>Stealth &amp; Agility Training</h2>
+    <article><h3>Climb foliage quickly using a minimum spanning tree approach</h3></article>
+    <article><h3>No training is NP-complete without parkour</h3></article>
+  </section>
+  <section id="combat">
+    <h2>Combat Training</h2>
+    <article><h3>Dispatch multiple enemies with multithreaded tactics</h3></article>
+    <article><h3>Goodbye, world: 5 proven ways to knock out an opponent</h3></article>
+  </section>
+  <section id="weapons">
+    <h2>Weapons Training</h2>
+    <article><h3>Swords: the best tool to literally divide and conquer</h3></article>
+    <article><h3>Breadth-first or depth-first in multi-weapon training?</h3></article>
+  </section>
+  <footer>&copy; 2018 Camper Cat</footer>
+</body>
+```
+
+# --solutions--
+
+```html
+<head>
+  <style>
+  .sr-only {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Training</h1>
+    <nav>
+      <ul>
+        <li><a href="#stealth">Stealth &amp; Agility</a></li>
+        <li><a href="#combat">Combat</a></li>
+        <li><a href="#weapons">Weapons</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>Master Camper Cat's Beginner Three Week Training Program</h2>
+    <figure>
+      <!-- Stacked bar chart of weekly training -->
+      <p>[Stacked bar chart]</p>
+      <br />
+      <figcaption>Breakdown per week of time to spend training in stealth, combat, and weapons.</figcaption>
+    </figure>
+    <table class="sr-only">
+      <caption>Hours of Weekly Training in Stealth, Combat, and Weapons</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col">Stealth &amp; Agility</th>
+          <th scope="col">Combat</th>
+          <th scope="col">Weapons</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Week One</th>
+          <td>3</td>
+          <td>5</td>
+          <td>2</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <th scope="row">Week Two</th>
+          <td>4</td>
+          <td>5</td>
+          <td>3</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <th scope="row">Week Three</th>
+          <td>4</td>
+          <td>6</td>
+          <td>3</td>
+          <td>13</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="stealth">
+    <h2>Stealth &amp; Agility Training</h2>
+    <article><h3>Climb foliage quickly using a minimum spanning tree approach</h3></article>
+    <article><h3>No training is NP-complete without parkour</h3></article>
+  </section>
+  <section id="combat">
+    <h2>Combat Training</h2>
+    <article><h3>Dispatch multiple enemies with multithreaded tactics</h3></article>
+    <article><h3>Goodbye, world: 5 proven ways to knock out an opponent</h3></article>
+  </section>
+  <section id="weapons">
+    <h2>Weapons Training</h2>
+    <article><h3>Swords: the best tool to literally divide and conquer</h3></article>
+    <article><h3>Breadth-first or depth-first in multi-weapon training?</h3></article>
+  </section>
+  <footer>&copy; 2018 Camper Cat</footer>
+</body>
+```

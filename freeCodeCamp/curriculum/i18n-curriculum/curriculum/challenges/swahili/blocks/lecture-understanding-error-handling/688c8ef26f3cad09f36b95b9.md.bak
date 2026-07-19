@@ -1,0 +1,260 @@
+---
+id: 688c8ef26f3cad09f36b95b9
+title: Mbinu nzuri za kurekebisha makosa katika Python ni zipi?
+challengeType: 19
+dashedName: what-are-some-good-debugging-techniques-in-python
+---
+
+# --description--
+
+Kurekebisha makosa ni ujuzi muhimu kwa msanidi programu yeyote wa Python. Kuelewa mbinu za msingi kunaweza kusaidia kubaini na kurekebisha matatizo kwa ufanisi.
+
+Kurekebisha makosa ni mchakato wa kubaini na kutatua hitilafu au makosa katika msimbo wako. Inahusisha kuchunguza msimbo, kuelewa mtiririko, na kutumia zana ili kubaini chanzo cha matatizo.
+
+Katika funzo hili, tutapitia mbinu za kawaida za kurekebisha makosa unazoweza kutumia katika mradi wako unaofuata wa Python.
+
+## Kutumia kitendakazi cha `print()` na mfuatano wa herufi wa f-strings
+
+Kwanza, kutumia kitendakazi cha `print()` na mfuatano wa herufi wa f-strings katika sehemu mbalimbali za msimbo wako kunaweza kusaidia kuelewa mtiririko na hali ya vigezo. Kwa mfano:
+
+```py
+def add(a, b):
+    result = a + b
+    print(f'Adding {a} and {b} gives {result}')
+    return result
+```
+
+Kwa kuchapisha thamani za `a`, `b`, na `result`, unaweza kuthibitisha kuwa kitendakazi kinatenda kama inavyotarajiwa.
+
+## Kurekebisha makosa kwa ushirikiano na moduli ya `pdb`
+
+Ifuatayo, unaweza kutumia moduli ya `pdb` iliyojengwa ndani ya Python kwa ajili ya kurekebisha makosa kwa ushirikiano:
+
+```py
+import pdb
+
+def divide(a, b):
+    pdb.set_trace()
+    return a / b
+
+print(divide(10, 2))
+```
+
+Kwa kuweka alama ya kufuatilia (trace) kwa kitendakazi cha `set_trace()`, unaweza kupiga hatua kwa hatua kupitia msimbo, kuchunguza vigezo, na kuelewa tabia ya programu.
+
+Ukikimbiza msimbo hapo juu, utaona matokeo yanayoonyesha mahali pa faili unayokimbiza, mstari ulioita kitendakazi cha `set_trace()` na msimbo uliofuata mara moja, pamoja na kiashiria cha `pdb` cha ushirikiano:
+
+```py
+> /Users/fcc/Desktop/debugging.py(5)divide()
+-> return a / b
+(Pdb)
+```
+
+Ukichapa `help` kwenye kiashiria, utaona orodha ya amri unazoweza kutumia:
+
+```py
+(Pdb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF    c          d        h         list      q        rv       undisplay
+a      cl         debug    help      ll        quit     s        unt      
+alias  clear      disable  ignore    longlist  r        source   until    
+args   commands   display  interact  n         restart  step     up       
+b      condition  down     j         next      return   tbreak   w        
+break  cont       enable   jump      p         retval   u        whatis   
+bt     continue   exit     l         pp        run      unalias  where    
+
+Miscellaneous help topics:
+==========================
+exec  pdb
+```
+
+Kisha unaweza kutumia amri hizo kurekebisha makosa ya msimbo wako.
+
+Kwa mfano, ikiwa unataka kuangalia aina za vipengele katika msimbo wako wakati huo, unaweza kutumia amri ya `whatis`:
+
+```py
+(Pdb) whatis a
+<class 'int'>
+(Pdb) whatis divide
+Function divide
+```
+
+Kama unavyoona, wakati unakimbiza `.set_trace()`, aina ya kigezo `a` ni nambari kamili, na `divide` ni kitendakazi.
+
+Kisha ili kuendelea na utekelezaji wa msimbo wako, unaweza kutumia amri ya `continue`, au mojawapo ya majina yake ya mabadiliko, `cont` au `c`:
+
+```py
+(Pdb) continue
+5.0
+```
+
+## Zana za kurekebisha makosa za IDE
+
+Mazingira mengi ya Ukuzaji Yaliyojumuishwa (IDEs) hutoa zana za hali ya juu za kurekebisha makosa, kama vile alama za kusimamisha (breakpoints), utekelezaji hatua kwa hatua, na uchunguzi wa vigezo.
+
+## Kutumia kirekebishaji makosa cha VS Code
+
+Ikiwa unatumia VS Code, unaweza kuweka alama za kusimamisha katika msimbo wako na kuendesha kirekebishaji makosa ili kusimamisha utekelezaji katika sehemu hizo. Hapa ni jinsi ya kurekebisha makosa ya kitendakazi sawa cha `divide`:
+
+**Hatua 1: Andaa msimbo wako**
+
+Tengeneza faili liitwalo `main.py` lenye maudhui yafuatayo:
+
+```py
+def divide(a, b):
+    result = a / b
+    return result
+
+print(divide(10, 2))
+print(divide(15, 3))
+```
+
+**Hatua 2: Weka alama ya kusimamisha**
+
+1. Bofya katika nafasi kati ya safu (ukingo wa kushoto) karibu na mstari wa 2 (`result = a / b`) kuweka alama ya kusimamisha
+
+2. Nukta nyekundu itaonekana, ikionyesha kuwa alama ya kusimamisha imewekwa
+
+**Hatua 3: Anza kurekebisha makosa**
+
+1. Bonyeza `F5` au nenda Run > Start Debugging
+
+2. Chagua "Python File" unapoombwa
+
+3. Kirekebishaji makosa kitasimamisha utekelezaji kwenye alama yako ya kusimamisha
+
+**Hatua 4: Chunguza vigezo**
+
+- Elea juu ya vigezo kuona thamani zao za sasa
+
+- Tumia paneli ya Vigezo upande wa kushoto kuona vigezo vyote vya ndani
+
+- Tumia Konsoli ya Kurekebisha Makosa chini kutathmini usemi wa kihesabu
+
+**Hatua 5: Piga hatua kupitia msimbo**
+
+Tumia zana ya kurekebisha makosa kufanya:
+
+- **Endelea (F5)**: Rudisha utekelezaji hadi alama inayofuata ya kusimamisha
+
+- **Piga hatua juu (F10)**: Tekeleza mstari wa sasa na uende kwenye ufuatao
+
+- **Ingiza ndani (F11)**: Ingia katika wito wa kitendakazi
+
+- **Toka nje (Shift+F11)**: Toka kwenye kitendakazi cha sasa
+
+Zana za kurekebisha makosa za IDE hutoa kiolesura cha kuona hali ya programu yako, na kufanya iwe rahisi kubaini na kurekebisha matatizo ikilinganishwa na kutumia amri za chapisha pekee.
+
+Kwa kumiliki mbinu hizi za msingi za kurekebisha makosa - kutumia amri za `print()`, moduli ya `pdb`, na zana za IDE - unaweza kubaini na kutatua matatizo kwa ufanisi katika msimbo wako wa Python. Kila mbinu ina nafasi yake: amri za `print()` kwa ukaguzi wa haraka, `pdb` kwa uchunguzi wa ushirikiano, na kirekebishaji makosa cha IDE kwa uchunguzi wa kuona.
+
+# --questions--
+
+## --text--
+
+Nini kusudi la kutumia kitendakazi cha `print()` katika kurekebisha makosa?
+
+## --answers--
+
+Kukimbiza msimbo kwa haraka zaidi
+
+### --feedback--
+
+Rejelea sehemu inayojadili `print()`.
+
+---
+
+Kuonyesha thamani za vigezo na mtiririko wa programu
+
+---
+
+Kukusanya msimbo
+
+### --feedback--
+
+Rejelea sehemu inayojadili `print()`.
+
+---
+
+Kumaliza programu
+
+### --feedback--
+
+Rejelea sehemu inayojadili `print()`.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Moduli ya `pdb` katika Python hutoa nini?
+
+## --answers--
+
+Kiolesura cha mtumiaji chenye picha
+
+### --feedback--
+
+Rejelea sehemu inayojadili `pdb`.
+
+---
+
+Njia ya kukusanya msimbo wa Python
+
+### --feedback--
+
+Rejelea sehemu inayojadili `pdb`.
+
+---
+
+Mazingira ya kurekebisha makosa kwa ushirikiano
+
+---
+
+Njia ya kusimbua msimbo
+
+### --feedback--
+
+Rejelea sehemu inayojadili `pdb`.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni faida gani zana za kurekebisha makosa za IDE zina juu ya mbinu nyingine kama amri za `print()`?
+
+## --answers--
+
+Zinakuruhusu kuandika msimbo kwa haraka zaidi.
+
+### --feedback--
+
+Rejelea sehemu inayojadili zana za kurekebisha makosa za IDE.
+
+---
+
+Zinazuia makosa ya sintaksia.
+
+### --feedback--
+
+Rejelea sehemu inayojadili zana za kurekebisha makosa za IDE.
+
+---
+
+Zinarekebisha hitilafu katika msimbo wako moja kwa moja.
+
+### --feedback--
+
+Rejelea sehemu inayojadili zana za kurekebisha makosa za IDE.
+
+---
+
+Zinatoa kiolesura cha kuona kuchunguza hali ya programu yako.
+
+## --video-solution--
+
+4

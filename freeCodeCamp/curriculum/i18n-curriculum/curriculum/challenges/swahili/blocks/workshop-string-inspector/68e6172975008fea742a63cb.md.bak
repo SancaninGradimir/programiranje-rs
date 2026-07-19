@@ -1,0 +1,69 @@
+---
+id: 68e6172975008fea742a63cb
+title: Hatua 5
+challengeType: 1
+dashedName: step-5
+---
+
+# --description--
+
+Sasa ni wakati wa kuona kinachotokea wakati sehemu ndogo ya mfuatano wa herufi HAIPATIKANI.
+
+Tangaza kigezo kinachoitwa `hasJavaScript`. Kisha weka thamani yake kuwa matokeo ya kutumia njia ya `includes()` kuangalia kama `fccSentence` ina `"JavaScript"`.
+
+Kisha tumia au mfuatano wa herufi wa template au muunganiko wa mfuatano wa herufi kuandika ujumbe `fccSentence.includes("JavaScript") returns <hasJavaScript> because the word "JavaScript" is not in the sentence.` kwenye konsoli. Badilisha `<hasJavaScript>` na thamani halisi ya kigezo.
+
+# --before-each--
+
+```js
+const spy = __helpers.spyOn(console, 'log');
+```
+
+# --hints--
+
+Unapaswa kutangaza kigezo kinachoitwa `hasJavaScript`.
+
+```js
+assert.exists(hasJavaScript);
+```
+
+Unapaswa kutumia `fccSentence.includes("JavaScript")`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /fccSentence\.includes\(\s*(['"`])JavaScript\1\s*\)/);
+```
+
+Unapaswa kuweka thamani ya matokeo ya `fccSentence.includes("JavaScript")` kwenye kigezo chako cha `hasJavaScript`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /hasJavaScript\s*=\s*fccSentence\.includes\(\s*(['"`])JavaScript\1\s*\)/);
+```
+
+Matokeo ya `fccSentence.includes("JavaScript")` yanapaswa kuwa `false`. 
+
+```js
+assert.isFalse(hasJavaScript);
+```
+
+Unapaswa kuandika ujumbe `fccSentence.includes("JavaScript") returns <hasJavaScript> because the word "JavaScript" is not in the sentence.`, ambapo `<hasJavaScript>` inapaswa kubadilishwa na thamani halisi ya kigezo.
+
+```js
+assert.deepInclude(spy.calls, ['fccSentence.includes("JavaScript") returns false because the word "JavaScript" is not in the sentence.']);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const fccSentence = "freeCodeCamp is a great place to learn web development.";
+
+console.log("Here are some examples of the includes() method:");
+
+const hasFreeCodeCamp = fccSentence.includes("freeCodeCamp");
+console.log(`fccSentence.includes("freeCodeCamp") returns ${hasFreeCodeCamp} because the word "freeCodeCamp" is in the sentence.`);
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

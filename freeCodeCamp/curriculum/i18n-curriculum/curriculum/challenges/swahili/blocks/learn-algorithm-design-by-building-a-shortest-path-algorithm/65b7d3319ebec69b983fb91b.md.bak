@@ -1,0 +1,56 @@
+---
+id: 65b7d3319ebec69b983fb91b
+title: Hatua 12
+challengeType: 20
+dashedName: step-12
+---
+
+# --description--
+
+Kama unavyoona kutoka kwenye matokeo, `.items()` huunda muundo wa data unaohifadhi kila jozi ya funguo-thamani katika tuple tofauti. Ili kurudia juu ya vipengele katika tuple hizo unaweza kuongeza kigezo cha pili cha mzunguko:
+
+```py
+for i, j in dict.items():
+    print(i, j)
+```
+
+Badilisha mzunguko wako wa `for` ili uchukue vigezo viwili vya mzunguko na uchapishe vyote ndani ya mwili wa mzunguko.
+
+# --hints--
+
+Unapaswa kubadilisha mzunguko wako wa `for` kutumia vigezo viwili.
+
+```js
+({ test: () => assert(runPython(`
+import ast
+var = _Node(_code).find_for_loops()[0].find_for_vars()
+isinstance(var.tree, ast.Tuple)
+`)) })
+```
+
+Unapaswa kuchapisha vigezo vyote vya mzunguko ndani ya mzunguko wako wa `for`.
+
+```js
+({ test: () => assert(runPython(`
+var = _Node(_code).find_for_loops()[0].find_for_vars()
+_Node(_code).find_for_loops()[0].find_bodies()[0].is_equivalent(f"print{var}")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+copper = {
+    'species': 'guinea pig',
+    'age': 2
+}
+copper['food'] = 'hay'
+copper['species'] = 'Cavia porcellus'
+
+for i in copper.items():
+    print(i)
+--fcc-editable-region--
+```

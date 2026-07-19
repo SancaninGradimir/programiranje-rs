@@ -1,0 +1,68 @@
+---
+id: 6977a4306bb3e856690a4890
+title: Hatua 6
+challengeType: 20
+dashedName: step-6
+---
+
+# --description--
+
+Sasa baada ya kuhesabu tip, unahitaji kuiongeza kwenye `running_total` ili kupata jumla ya bili ya mwisho.
+
+Tumia opereta `+=` kuongeza thamani ya `tip` kwenye `running_total` yako. Mwishowe, tumia `print()` kuonyesha mfuatano wa herufi `Total with tip:` ukifuatiwa na nafasi na thamani ya `running_total`.
+
+# --hints--
+
+Unapaswa kutumia opereta `+=` kuongeza thamani ya `tip` kwenye `running_total` yako.
+
+```js
+({
+    test: () => assert(runPython(`
+    _Node(_code).has_stmt('running_total += tip')
+    `))
+})
+```
+
+Unapaswa kuchapisha mfuatano wa herufi `Total with tip:` ukifuatiwa na nafasi na variable ya `running_total`.
+
+```js
+({
+    test: () => runPython(`
+import io, contextlib, re
+
+buffer = io.StringIO()
+with contextlib.redirect_stdout(buffer):
+    exec(_code)
+
+match = re.search(r"Total with tip: ([0-9]+(?:\\.[0-9]+)?)", buffer.getvalue())
+
+assert match
+assert abs(float(match.group(1)) - ((37.89 + 57.34 + 39.39 + 64.21) * 1.25)) < 1e-6
+    `)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+running_total = 0
+
+num_of_friends = 4
+
+appetizers = 37.89
+main_courses = 57.34
+desserts = 39.39
+drinks = 64.21
+
+running_total += appetizers + main_courses + desserts + drinks
+print('Total bill so far:', running_total)
+
+tip = running_total * 0.25
+print('Tip amount:', tip)
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

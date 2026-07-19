@@ -1,0 +1,79 @@
+---
+id: 587d7db1367417b2b2512b85
+title: Weka mfano wa mzazi kuwa mfano wa mtoto
+challengeType: 1
+forumTopicId: 301325
+dashedName: set-the-childs-prototype-to-an-instance-of-the-parent
+---
+
+# --description--
+
+Katika changamoto iliyopita uligundua hatua ya kwanza ya kurithi tabia kutoka kwa supertype (au mzazi) `Animal`: kutengeneza mfano mpya wa `Animal`.
+
+Changamoto hii inahusu hatua inayofuata: weka `prototype` ya subtype (au mtoto)—katika kesi hii, `Bird`—kuwa mfano wa `Animal`.
+
+```js
+Bird.prototype = Object.create(Animal.prototype);
+```
+
+Kumbuka kuwa `prototype` ni kama "mapishi" ya kuunda kitu. Kwa namna fulani, mapishi ya `Bird` sasa yanajumuisha viambato vyote muhimu kutoka `Animal`.
+
+```js
+let duck = new Bird("Donald");
+duck.eat();
+```
+
+`duck` inarithi mali zote za `Animal`, ikiwa ni pamoja na njia ya `eat`.
+
+# --instructions--
+
+Badilisha msimbo ili mifano ya `Dog` irithi kutoka `Animal`.
+
+# --hints--
+
+`Dog.prototype` inapaswa kuwa mfano wa `Animal`.
+
+```js
+assert(Animal.prototype.isPrototypeOf(Dog.prototype));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Dog() { }
+
+// Only change code below this line
+
+
+let beagle = new Dog();
+```
+
+# --solutions--
+
+```js
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Dog() { }
+Dog.prototype = Object.create(Animal.prototype);
+
+let beagle = new Dog();
+beagle.eat();
+```

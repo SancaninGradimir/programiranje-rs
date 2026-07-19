@@ -1,0 +1,600 @@
+---
+id: 6716249b5405164036fd0b0d
+title: Jenga kielelezo cha kupanga (sorting)
+challengeType: 25
+dashedName: build-a-sorting-visualizer
+demoType: onClick
+---
+
+# --description--
+
+Algoriti ya Bubble Sort inapanga mfululizo wa nambari kamili kwa kulinganisha jozi za vipengele vinavyopakana kuanzia mwanzo wa mfululizo. Ikiwa kipengele cha kwanza ni kikubwa kuliko cha pili, hubadilishana nafasi. Kisha, inaendelea na jozi inayofuata. Wakati kipengele cha mwisho cha mfululizo kinapofikiwa, huanza mzunguko mpya kuanzia mwanzo wa mfululizo, na kurudia mchakato hadi vipengele vipangwe. Algoriti inasimama baada ya mzunguko mmoja kukamilika bila kubadilishana nafasi.
+
+Kwa maabara hii, umepewa HTML na CSS zote. Utatumia JavaScript kukamilisha Kielelezo cha Bubble Sort ili kiweze kuonyesha kila hatua inayohitajika na algoriti ya Bubble Sort kupanga safu ya nambari kamili tano.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili ukamilishe maabara.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `generateElement` kinachorejesha nambari kamili ya bahati nasibu kati ya `1` na `100`, ikijumuisha.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `generateArray` kinachotumia kitendakazi cha `generateElement` kurejesha safu ya data yenye nambari kamili tano za bahati nasibu.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `generateContainer` kinachounda na kurejesha kipengele cha `div` tupu.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `fillArrContainer` kinachochukua kipengele cha HTML kama hoja ya kwanza na safu ya data kama hoja ya pili.
+1. `fillArrContainer` inapaswa kuchukua kipengele kama kigezo cha kwanza na safu ya nambari kamili kama kigezo cha pili, kisha kujaza kipengele hicho na vipengele vitano vya `span`, kila `span` ikionyesha moja ya nambari kutoka safu.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `isOrdered` kinachochukua nambari kamili mbili na kurejesha thamani ya kweli au siyo kweli ikionyesha kama nambari ya kwanza ni ndogo au sawa na ya pili.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `swapElements` kinachochukua safu ya nambari kamili na kielezo cha nambari.
+1. Kitendakazi cha `swapElements` kinapaswa kubadilisha safu mahali hapo kwa kubadilishana kipengele kilichoko kwenye kielezo kilichopitishwa na kipengele kinachofuata ikiwa `isOrdered` inarejesha `false`.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `highlightCurrentEls` kinachochukua kipengele cha HTML na kielezo cha nambari.
+1. Kitendakazi cha `highlightCurrentEls` kinapaswa kuweka `border` ya mzao wa kipengele kilichotolewa kwenye kielezo kilichotolewa na mzao wa mara moja baada ya kielezo, kuwa na mtindo wa `dashed`, rangi ya `red`, na upana wa chaguo lako.
+1. Unapobofya `#generate-btn` unapaswa kutumia kitendakazi cha `fillArrContainer` kujaza `#starting-array` na vipengele vitano vya `span`, kila kikiwa na nambari ya bahati nasibu kama maandishi yake. Ikiwa ipo, vipengele vingine vinapaswa kuondolewa kutoka `#array-container`.
+1. Unapaswa kutekeleza algoriti ya Bubble Sort ili baada ya kubofya `#sort-btn`, `#array-container` iwe na kipengele cha `div` kwa kila hatua inayohitajika na algoriti ya Bubble Sort kupanga safu ya kuanzia, ikijumuisha `div` inayowakilisha safu ya kuanzia na `div` inayowakilisha safu iliyopangwa. Vitendakazi ulivyoviumba hadi sasa vinaweza kusaidia hapa.
+1. Kila `div` inapaswa kuwa na vipengele vitano vya `span`, vikionyesha safu katika hali yake ya sasa ya upangaji.
+1. Baada ya kubofya `#sort-btn`, `#starting-array` inapaswa kuwakilisha hatua ya kuanzia na safu ya awali na nambari mbili za kwanza zikiwa zimeangaziwa.
+1. Kwa kila hatua ya upangaji, unapaswa kutumia `highlightCurrentEls` kuangazia nambari mbili zinazolinganishwa, na kubadilishana nafasi katika hatua inayofuata kwa kutumia `swapElements`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `generateElement`.
+
+```js
+assert.isFunction(generateElement);
+```
+
+Kitendakazi chako cha `generateElement` kinapaswa kurejesha nambari kamili ya bahati nasibu kati ya `1` na `100` ikijumuisha.
+
+```js
+const randomMocker = new __helpers.RandomMocker();
+randomMocker.mock();
+try {    
+    assert.strictEqual(generateElement(), 26);
+    assert.strictEqual(generateElement(), 9);
+} finally {
+    randomMocker.restore();
+}
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `generateArray`.
+
+```js
+assert.isFunction(generateArray)
+```
+
+Kitendakazi chako cha `generateArray` kinapaswa kutumia kitendakazi cha `generateElement`.
+
+```js
+let flag = false;
+const temp = generateElement;
+generateElement = () => flag = true;
+try {
+    generateArray();
+    assert.isTrue(flag);
+} finally {
+    generateElement = temp;
+}
+```
+
+Kitendakazi chako cha `generateArray` kinapaswa kurejesha safu ya data yenye nambari kamili tano za bahati nasibu kati ya `1` na `100`.
+
+```js
+const randomMocker = new __helpers.RandomMocker();
+randomMocker.mock();
+try {
+    assert.deepEqual(generateArray(), [26, 9, 58, 23, 38])
+} finally {
+    randomMocker.restore();
+}
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `generateContainer`.
+
+```js
+assert.isFunction(generateContainer);
+```
+
+Kitendakazi chako cha `generateContainer` kinapaswa kurejesha kipengele cha `div` tupu.
+
+```js
+const div = generateContainer();
+assert.equal(div.tagName, "DIV");
+assert.isEmpty(div.children);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `fillArrContainer`.
+
+```js
+assert.isFunction(fillArrContainer);
+```
+
+`fillArrContainer()` inapaswa kuchukua kipengele kama hoja ya kwanza na safu ya nambari kamili kama hoja ya pili, kisha kujaza kipengele hicho na vipengele vitano vya `span`, kila `span` ikionyesha moja ya nambari kutoka safu.
+
+```js
+const testDiv = document.createElement("div");
+const testArr = [15, 98, 17, 5, 63]
+fillArrContainer(testDiv, testArr);
+const children = testDiv.children;
+assert.lengthOf(children, 5);
+Array.from(children).forEach((el, i) => {
+    assert.equal(el.tagName, "SPAN");
+    assert.equal(el.innerText.trim(), testArr[i])
+})
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `isOrdered`.
+
+```js
+assert.isFunction(isOrdered);
+```
+
+Kitendakazi chako cha `isOrdered` kinapaswa kuchukua nambari kamili mbili na kurejesha thamani ya kweli au siyo kweli ikionyesha kama nambari ya kwanza ni ndogo au sawa na ya pili.
+
+```js
+assert.lengthOf(isOrdered, 2);
+assert.isTrue(isOrdered(2, 60));
+assert.isFalse(isOrdered(10, 3));
+assert.isTrue(isOrdered(5, 5));
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `swapElements`.
+
+```js
+assert.isFunction(swapElements);
+```
+
+Kitendakazi chako cha `swapElements` kinapaswa kuchukua safu ya nambari kamili na kielezo cha nambari kama hoja. Kinapaswa kubadilisha safu iliyopitishwa mahali hapo kwa kubadilishana kipengele kilichoko kwenye kielezo kilichotolewa na kipengele kinachofuata ikiwa kipengele cha kwanza ni kikubwa kuliko cha pili.
+
+```js
+const testArr = [22, 4, 87, 47, 33];
+swapElements(testArr, 0);
+assert.deepEqual(testArr, [4, 22, 87, 47, 33]);
+swapElements(testArr, 1);
+assert.deepEqual(testArr, [4, 22, 87, 47, 33]);
+swapElements(testArr, 2);
+assert.deepEqual(testArr, [4, 22, 47, 87, 33]);
+swapElements(testArr, 3);
+assert.deepEqual(testArr, [4, 22, 47, 33, 87]);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `highlightCurrentEls`.
+
+```js
+assert.isFunction(highlightCurrentEls);
+```
+
+Kitendakazi chako cha `highlightCurrentEls` kinapaswa kuwapa mzao wa kipengele kilichotajwa, kilichoko kwenye kielezo kilichotolewa na kielezo kinachofuata, `border` ambayo ni `dashed`, `red`, na kuwekwa na upana wa chaguo lako.
+
+```js
+const testDiv = document.createElement("div");
+document.querySelector("body").appendChild(testDiv)
+for (let i = 0; i < 5; i++) {
+    testDiv.appendChild(document.createElement("span"));
+}
+const redBorderRegex = /dashed (rgb\(255,\s*0,\s*0\)|#FF0000|#F00|hsl\(0,\s*100%,\s*50%\))/;
+const revertBorder = () => {
+    for (const el of children) {
+        el.style.border = "revert";
+    }
+}
+const children = testDiv.children;
+
+for (let i = 0; i < 3; i++) {
+    highlightCurrentEls(testDiv, i);
+    for (let j = 0; j < 5; j++) {
+        let b = getComputedStyle(children[j]).border;
+        if (j == i || j == i + 1) {            
+            assert.match(b, redBorderRegex);
+            assert.isAbove(parseFloat(b), 0);
+        } else {
+            assert.notMatch(b, redBorderRegex);
+        }
+    }
+    revertBorder();
+}
+testDiv.remove();
+```
+
+Unapobofya `#generate-btn` unapaswa kujaza `#starting-array` na vipengele vitano vya `span`, kila kikiwa na nambari ya bahati nasibu kati ya `1` na `100` kama maandishi yake.
+
+```js
+const genBtn = document.querySelector("#generate-btn");
+genBtn.click();
+const children = document.querySelector("#starting-array").querySelectorAll("span");
+assert.lengthOf(children, 5);
+Array.from(children).forEach(el => {
+    assert.equal(el.tagName, "SPAN");
+    const num = Number(el.innerText.trim());
+    assert.isAtMost(num, 100);
+    assert.isAtLeast(num, 1);
+})
+```
+
+Wakati `#starting-array` tayari ina safu iliyotengenezwa, au `#array-container` ina safu iliyopangwa, kubofya `#generate-btn` kunapaswa kuondoa vipengele vingine katika `#array-container`, na kuacha tu `#starting-array` ikiwa na nambari mpya zilizotengenezwa.
+
+```js
+const genBtn = document.querySelector("#generate-btn");
+const sortBtn = document.querySelector("#sort-btn");
+genBtn.dispatchEvent(new Event("click"));
+
+const prevNumbers = Array.from(document.querySelector("#starting-array").querySelectorAll("span")).map(el => Number(el.innerText.trim()));
+
+sortBtn.dispatchEvent(new Event("click"));
+genBtn.dispatchEvent(new Event("click"));
+
+const container = document.querySelector("#array-container");
+assert.lengthOf(container.children, 1);
+const numbers = Array.from(document.querySelector("#starting-array").querySelectorAll("span")).map(el => Number(el.innerText.trim()));
+assert.lengthOf(numbers, 5);
+assert.isTrue(prevNumbers.some((num, index) => num !== numbers[index]))
+```
+
+Baada ya kubofya `#sort-btn`, `#array-container` inapaswa kuwa na idadi ya vipengele vya `div` sawa na idadi ya hatua zinazohitajika na algoriti ya Bubble Sort kupanga safu ya kuanzia, ikijumuisha `div` inayowakilisha safu ya kuanzia na `div` inayowakilisha safu iliyopangwa.
+
+```js
+const genBtn = document.querySelector("#generate-btn");
+const sortBtn = document.querySelector("#sort-btn");
+// using randomMocker to be sure that the starting array requires 13 steps to be sorted
+const randomMocker = new __helpers.RandomMocker();
+randomMocker.mock();
+try {    
+    genBtn.dispatchEvent(new Event("click"));
+    sortBtn.dispatchEvent(new Event("click"));
+    const container = document.querySelector("#array-container");
+    assert.lengthOf(container.children, 13)
+    Array.from(container.children).forEach(el => {assert.equal(el.tagName, "DIV")})
+} finally {
+    randomMocker.restore();
+}
+```
+
+Baada ya kubofya `#sort-btn`, kila `div` ndani ya `#array-container` inapaswa kuwa na vipengele vitano vya `span`, kila kikiwa na nambari kama maandishi, na kuandaliwa kuwakilisha hatua zinazohitajika na algoriti ya Bubble Sort kupanga safu ya kuanzia.
+
+```js
+const finalArr = [9, 23, 26, 38, 58];
+const arrays = [
+    [26, 9, 58, 23, 38],
+    [9, 26, 58, 23, 38],
+    [9, 26, 58, 23, 38],
+    [9, 26, 23, 58, 38],
+    [9, 26, 23, 38, 58],
+    [9, 26, 23, 38, 58],
+    finalArr,
+    finalArr,
+    finalArr,
+    finalArr,
+    finalArr,
+    finalArr,
+    finalArr
+]
+const genBtn = document.querySelector("#generate-btn");
+const sortBtn = document.querySelector("#sort-btn");
+const randomMocker = new __helpers.RandomMocker();
+randomMocker.mock();
+try {    
+    genBtn.dispatchEvent(new Event("click"));
+    sortBtn.dispatchEvent(new Event("click"));
+    const container = document.querySelector("#array-container");
+    assert.isNotEmpty(container.children);
+    Array.from(container.children).forEach((el, i) => {
+        Array.from(el.children).forEach((j, k) => {
+            assert.strictEqual(Number(j.innerText.trim()), arrays[i][k])
+        })
+    })
+} finally {
+    randomMocker.restore();
+}
+```
+
+Unapobofya `#sort-btn`, unapaswa kutumia kitendakazi cha `highlightCurrentEls` kuangazia vipengele vinavyolinganishwa katika kila hatua.
+
+```js
+const genBtn = document.querySelector("#generate-btn");
+const sortBtn = document.querySelector("#sort-btn");
+let flag = false;
+const temp = highlightCurrentEls;
+highlightCurrentEls = () => flag = true;
+try {
+    genBtn.dispatchEvent(new Event("click"));
+    sortBtn.dispatchEvent(new Event("click"));
+    assert.isTrue(flag);
+} finally {
+    highlightCurrentEls = temp;
+}
+```
+
+Baada ya kubofya `#sort-btn`, `#starting-array` inapaswa kuwakilisha hatua ya kuanzia na safu ya awali na nambari mbili za kwanza zikiwa zimeangaziwa kwa kutumia `highlightCurrentEls`.
+
+```js
+const genBtn = document.querySelector("#generate-btn");
+const sortBtn = document.querySelector("#sort-btn");   
+genBtn.dispatchEvent(new Event("click"));
+sortBtn.dispatchEvent(new Event("click"));
+const firstContainer = document.querySelector("#starting-array");
+const children = firstContainer.children
+const redBorderRegex = /dashed (rgb\(255,\s*0,\s*0\)|#FF0000|hsl\(0,\s*100%,\s*50%\))/;
+assert.match(getComputedStyle(children[0]).border, redBorderRegex);
+assert.match(getComputedStyle(children[1]).border, redBorderRegex);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sorting Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main>
+        <div id="array-container">
+            <div id="starting-array"></div>
+        </div>
+        <div id="btn-container">
+            <button id="generate-btn" type="button">Generate Array</button>
+            <button id="sort-btn" type="button">Sort Array</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
+
+```css
+* {
+    box-sizing: border-box;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#array-container {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2px;
+
+}
+
+#array-container>div {
+    min-width: 8rem;
+    height: 2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+    margin-bottom: 0.2rem;
+    border: 2px solid darkgray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#starting-array {
+    border: 4px solid darkblue !important;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    padding: 2px;
+    margin: 5px;
+}
+
+span {
+    border-radius: 2px;
+    padding: 0.5px;
+    margin: 0
+}
+
+@media (min-width: 430px) {
+  #array-container>div {
+    min-width: 12rem;    
+  }
+  span {
+    padding: 1px;
+    margin: 1px;
+  }
+}
+```
+
+```js
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sorting Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main>
+        <div id="array-container">
+            <div id="starting-array"></div>
+        </div>
+        <div id="btn-container">
+            <button id="generate-btn" type="button">Generate Array</button>
+            <button id="sort-btn" type="button">Sort Array</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
+
+```css
+* {
+    box-sizing: border-box;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#array-container {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2px;
+
+}
+
+#array-container>div {
+    min-width: 8rem;
+    height: 2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+    margin-bottom: 0.2rem;
+    border: 2px solid darkgray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#starting-array {
+    border: 4px solid darkblue !important;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    padding: 2px;
+    margin: 5px;
+}
+
+#sort-btn {
+   display: none 
+}
+
+span {
+    border-radius: 2px;
+    padding: 0.5px;
+    margin: 0
+}
+
+@media (min-width: 430px) {
+  #array-container>div {
+    min-width: 12rem;    
+  }
+  span {
+    padding: 1px;
+    margin: 1px;
+  }
+}
+```
+
+```js
+const arrayContainer = document.getElementById("array-container");
+const generateArrayBtn = document.getElementById("generate-btn");
+const sortArrayBtn = document.getElementById("sort-btn");
+const arrayLength = 5;
+const minVal = 1;
+const maxVal = 100;
+const isStart = () => arrayContainer.children.length === 1;
+const clearArrayContainer = () => { arrayContainer.innerHTML = '<div id="starting-array"></div>' };
+const showSortBtn = () => {sortArrayBtn.style.display = "inline-block"};
+const hideSortBtn = () => {sortArrayBtn.style.display = "none"};
+const generateElement = () => Math.floor(Math.random() * maxVal + minVal);
+const generateArray = () => Array.from({ length: arrayLength }, generateElement);
+const fillArrContainer = (container, arr) => {
+    container.innerHTML = "";
+    arr.forEach(i => {
+        const el = document.createElement("span");
+        el.innerText = i;
+        el.id = `number-${i}`
+        container.appendChild(el);
+    })
+}
+const isOrdered = (el1, el2) => el1 <= el2;
+
+const swapElements = (arr, n = 0) => {
+    if (n < arr.length - 1 && !isOrdered(arr[n], arr[n + 1])) {
+        const temp = arr[n];
+        arr[n] = arr[n + 1];
+        arr[n + 1] = temp;
+    }
+}
+const getLastChildren = () => arrayContainer.lastElementChild;
+const getLastArr = () => {
+    const els = Array.from(getLastChildren().children);
+    const arr = els.map(el => Number(el.id.replace("number-", "")));
+    return arr;
+}
+const generateContainer = () => {
+    const container = document.createElement("div");
+    arrayContainer.appendChild(container);
+    return container;
+}
+const highlightCurrentEls = (container, n = 0) => {
+    const children = container.children;
+    children[n].style.border = "2px dashed red";
+    children[n + 1].style.border = "2px dashed red";
+}
+
+const highlightSorted = () => {
+    getLastChildren().style.border = "4px solid green";
+}
+
+const bubbleSort = () => {
+    let swapped = true;
+    while (swapped) {
+        const startingArr = getLastArr();
+        startingArr.forEach((_, i) => {
+            if (i + 1 < arrayLength) {
+                highlightCurrentEls(getLastChildren(), i);
+                const arr = getLastArr();
+                swapElements(arr, i);
+                fillArrContainer(generateContainer(), arr);
+            }
+        })
+        const lastArr = getLastArr()
+        if (startingArr.every((el, i) => el === lastArr[i])) swapped = false;
+    }
+}
+
+
+generateArrayBtn.addEventListener("click", () => {
+    if (!isStart()) {
+        clearArrayContainer();
+    }
+    fillArrContainer(document.getElementById("starting-array"), generateArray());
+    showSortBtn();
+});
+
+sortArrayBtn.addEventListener("click", () => {
+    bubbleSort();
+    highlightSorted();
+    hideSortBtn();
+})
+```

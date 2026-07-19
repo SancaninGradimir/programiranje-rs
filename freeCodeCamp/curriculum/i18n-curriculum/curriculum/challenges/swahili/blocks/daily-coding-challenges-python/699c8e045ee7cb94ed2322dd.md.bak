@@ -1,0 +1,139 @@
+---
+id: 699c8e045ee7cb94ed2322dd
+title: "Challenge 222: Equinox Shadows"
+challengeType: 29
+dashedName: challenge-222
+---
+
+# --description--
+
+Leo ni siku ya equinox, wakati jua liko moja kwa moja juu ya mstari wa katikati ya dunia na likiwa juu kabisa saa sita mchana. Ukipata wakati fulani, amua kivuli kinachotolewa na nguzo wima ya futi 4.
+
+- Muda utakuwa mfuatano wa herufi katika muundo wa saa 24 `"HH:MM"` (kwa mfano, `"15:00"` ni saa 3 asubuhi).
+- Utapewa muda tu kwa nyongeza za dakika 30.
+
+Rules:
+
+- Jua huchomoza saa 6 asubuhi moja kwa moja `"east"`, na linazama saa 6 jioni moja kwa moja `"west"`.
+- Kivuli daima kinaelekea kinyume na jua.
+- Urefu wa kivuli (katika futi) ni idadi ya saa kutoka saa sita mchana, iliyoinuliwa kwa daraja la tatu.
+- Hakuna kivuli kabla ya jua kuchomoza (kabla ya saa 6 asubuhi), baada ya jua kuzama (saa 6 jioni au baadaye), au saa sita mchana.
+
+Return:
+
+- Ikiwa kivuli kipo, rudisha `"(length)ft (direction)"`. Kwa mfano, `"8ft west"`.
+- Vinginevyo, rudisha `"No shadow"`.
+
+Kwa mfano, ukipata `"10:00"`, rudisha `"8ft west"` kwa sababu saa 10 asubuhi ni saa 2 kutoka saa sita mchana, hivyo 2<sup>3</sup> = futi 8, na kivuli kinaelekea magharibi kwa sababu jua liko mashariki saa 10 asubuhi.
+
+# --hints--
+
+`get_shadow("10:00")` should return `"8ft west"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("10:00"), "8ft west")`)
+}})
+```
+
+`get_shadow("15:00")` should return `"27ft east"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("15:00"), "27ft east")`)
+}})
+```
+
+`get_shadow("12:00")` should return `"No shadow"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("12:00"), "No shadow")`)
+}})
+```
+
+`get_shadow("17:30")` should return `"166.375ft east"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("17:30"), "166.375ft east")`)
+}})
+```
+
+`get_shadow("05:00")` should return `"No shadow"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("05:00"), "No shadow")`)
+}})
+```
+
+`get_shadow("06:00")` should return `"216ft west"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("06:00"), "216ft west")`)
+}})
+```
+
+`get_shadow("18:00")` should return `"No shadow"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("18:00"), "No shadow")`)
+}})
+```
+
+`get_shadow("07:30")` should return `"91.125ft west"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("07:30"), "91.125ft west")`)
+}})
+```
+
+`get_shadow("00:00")` should return `"No shadow"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_shadow("00:00"), "No shadow")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_shadow(time):
+
+    return time
+```
+
+# --solutions--
+
+```py
+def get_shadow(time):
+    hour_str, minute_str = time.split(":")
+    hours = int(hour_str)
+    minutes = int(minute_str)
+    time_in_hours = hours + minutes / 60
+
+    if time_in_hours < 6 or time_in_hours >= 18 or time_in_hours == 12:
+        return "No shadow"
+
+    hours_from_noon = abs(12 - time_in_hours)
+    length = hours_from_noon ** 3
+    direction = "west" if time_in_hours < 12 else "east"
+
+    return f"{length:g}ft {direction}"
+```

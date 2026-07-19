@@ -1,0 +1,56 @@
+---
+id: 656709e50ed928da35260276
+title: Hatua 15
+challengeType: 20
+dashedName: step-15
+---
+
+# --description--
+
+Katika hatua iliyopita, uliweka thamani ya kipengele katika `left_part` kwenye orodha ya `array` kwa sababu kilikuwa kidogo. Lakini hili halitakuwa hali kila wakati. Katika baadhi ya kesi za kulinganisha, kipengele kilicho upande wa kulia kinaweza kuwa kidogo.
+
+Tengeneza kifungu cha `else` kitakachotekelezwa wakati kielezo cha `left_part` hakiko chini ya kielezo cha `right_part`.
+
+Ndani ya blokki ya `else`, weka thamani ya `right_part[right_array_index]` kwa `array[sorted_index]`.
+
+# --hints--
+
+Unapaswa kuwa na `array[sorted_index] = right_part[right_array_index]` ndani ya mwili wa kifungu chako cha `else`.
+
+```js
+({
+  test: () => {
+    const transformedCode = code.replace(/\r/g, "");
+    const merge_sort = __helpers.python.getDef("\n" + transformedCode, "merge_sort");
+    const { function_body } = merge_sort;
+
+    assert.match(function_body, /else:\s*[^}]*array\s*\[\s*sorted_index\s*\]\s*=\s*right_part\s*\[\s*right_array_index\s*\]/);
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def merge_sort(array):
+    
+    middle_point = len(array) // 2
+    left_part = array[:middle_point]
+    right_part = array[middle_point:]
+
+    merge_sort(left_part)
+    merge_sort(right_part)
+
+    left_array_index = 0
+    right_array_index = 0
+    sorted_index = 0
+
+    while left_array_index < len(left_part) and right_array_index < len(right_part):
+--fcc-editable-region--
+        if left_part[left_array_index] < right_part[right_array_index]:
+            array[sorted_index] = left_part[left_array_index]
+            left_array_index += 1
+--fcc-editable-region--
+```

@@ -1,0 +1,121 @@
+---
+id: 698a1a73ade5ac0e19180fa4
+title: "Challenge 201: Matrix Shift"
+challengeType: 29
+dashedName: challenge-201
+---
+
+# --description--
+
+Imetolewa matrix (safu ya safu) ya nambari na nambari kamili, badilisha thamani zote katika matrix kwa kiasi kilichotolewa.
+
+- Mzunguko mzuri husogeza thamani kwenda kulia.
+- Mzunguko hasi husogeza thamani kwenda kushoto.
+
+Thamani zinapaswa kuzunguka:
+
+- Chukulia matrix kama mfululizo mmoja wa thamani.
+- Thamani inapopita mwisho wa safu, inaendelea mwanzoni mwa safu inayofuata.
+- Thamani inapopita nafasi ya mwisho katika matrix, inazunguka hadi nafasi ya kwanza.
+- Hali hiyo hiyo inatumika kwa mzunguko wa kushoto.
+
+Kwa mfano, ukipata:
+
+```js
+[
+  [1, 2, 3],
+  [4, 5, 6]
+]
+```
+
+na mzunguko wa `1`, hamisha nambari zote kwenda kulia moja:
+
+```js
+[
+  [6, 1, 2],
+  [3, 4, 5]
+]
+```
+
+# --hints--
+
+`shift_matrix([[1, 2, 3], [4, 5, 6]], 1)` should return `[[6, 1, 2], [3, 4, 5]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3], [4, 5, 6]], 1), [[6, 1, 2], [3, 4, 5]])`)
+}})
+```
+
+`shift_matrix([[1, 2, 3], [4, 5, 6]], -1)` should return `[[2, 3, 4], [5, 6, 1]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3], [4, 5, 6]], -1), [[2, 3, 4], [5, 6, 1]])`)
+}})
+```
+
+`shift_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 5)` should return `[[5, 6, 7], [8, 9, 1], [2, 3, 4]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 5), [[5, 6, 7], [8, 9, 1], [2, 3, 4]])`)
+}})
+```
+
+`shift_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], -6)` should return `[[7, 8, 9], [1, 2, 3], [4, 5, 6]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], -6), [[7, 8, 9], [1, 2, 3], [4, 5, 6]])`)
+}})
+```
+
+`shift_matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 7)` should return `[[10, 11, 12, 13], [14, 15, 16, 1], [2, 3, 4, 5], [6, 7, 8, 9]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 7), [[10, 11, 12, 13], [14, 15, 16, 1], [2, 3, 4, 5], [6, 7, 8, 9]])`)
+}})
+```
+
+`shift_matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], -54)` should return `[[7, 8, 9, 10], [11, 12, 13, 14], [15, 16, 1, 2], [3, 4, 5, 6]]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(shift_matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], -54), [[7, 8, 9, 10], [11, 12, 13, 14], [15, 16, 1, 2], [3, 4, 5, 6]])`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def shift_matrix(matrix, shift):
+
+    return matrix
+```
+
+# --solutions--
+
+```py
+def shift_matrix(matrix, shift):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    flat = [num for row in matrix for num in row]
+    n = len(flat)
+    s = shift % n
+    shifted = flat[-s:] + flat[:-s] if s != 0 else flat[:]
+    result = []
+    for i in range(rows):
+        result.append(shifted[i*cols:(i+1)*cols])
+
+    return result
+```

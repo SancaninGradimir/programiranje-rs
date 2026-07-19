@@ -1,0 +1,151 @@
+---
+id: 671a99394bedfb9a5bc687c4
+title: Ukaguzi wa gridi ya CSS
+challengeType: 31
+dashedName: review-css-grid
+---
+
+# --interactive--
+
+## Misingi ya gridi ya CSS
+
+- **Ufafanuzi**: Gridi ya CSS ni mfumo wa upangaji wa pande mbili unaotumika kuunda mipangilio tata katika kurasa za mtandao. Gridit zina safu na nguzo zenye mapengo kati yao. Ili kufafanua muundo wa gridi, utapanga sifa ya `display` kuwa `grid`.
+
+```css
+.container {
+  display: grid;
+}
+```
+
+- **Kitengo cha `fr` (Sehemu)**: Kitengo hiki kinawakilisha sehemu ya nafasi ndani ya kontena la gridi. Unaweza kutumia kitengo cha `fr` kuunda gridit zinazobadilika.
+- **Kuunda mapengo kati ya njia za gridi**: Kuna njia tatu za kuunda mapengo kati ya njia katika gridi ya CSS. Unaweza kutumia sifa ya `column-gap` kuunda mapengo kati ya nguzo. Unaweza kutumia sifa ya `row-gap` kuunda mapengo kati ya safu. Au unaweza kutumia sifa ya ufupisho ya `gap` kuunda mapengo kati ya safu na nguzo zote mbili.
+- **`grid-template-columns`**: Hii hutumika kuweka majina ya mistari na ukubwa wa nguzo za njia za gridi.
+
+```css
+.container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 30px 1fr;
+}
+```
+
+- **`grid-template-rows`**: Hii hutumika kuweka majina ya mistari na ukubwa wa safu za njia za gridi.
+- **`grid-auto-flow`**: Hii inaamua jinsi vitu vilivyowekwa kiotomatiki vinavyolingana katika gridi.
+
+```css
+.container {
+  display: grid;
+  width: 100%;
+  grid-auto-flow: column;
+}
+```
+
+- **`grid-auto-columns`**: Hii hutumika kuweka ukubwa wa nguzo zilizoundwa kwa njia isiyo ya moja kwa moja.
+
+```css
+.container {
+  display: grid;
+  width: 100%;
+  grid-auto-columns: auto;
+}
+```
+
+- **`place-items`**: Hii hutumika kuoanisha vitu kwa mwelekeo wa block na ndani ya mstari.
+- **`align-items`**: Hii hutumika kuweka ulinganifu wa vitu katika kontena la gridi.
+- **Kitendakazi cha `repeat()`**: Kitendakazi hiki hutumika kurudia sehemu katika orodha ya njia. Badala ya kuandika `grid-template-columns: 1fr 1fr 1fr;` unaweza kutumia kitendakazi cha `repeat()` badala yake.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+```
+
+- **Gridi ya waziwazi**: Unaweza kubainisha idadi ya mistari au njia kwa kutumia sifa za `grid-template-columns` au `grid-template-rows`.
+- **Gridi isiyo waziwazi**: Wakati vitu vimewekwa nje ya gridi, basi safu na nguzo huundwa kiotomatiki kwa vitu hivyo vya nje.
+- **Kitendakazi cha `minmax()`**: Kitendakazi hiki hutumika kuweka viwango vya chini na juu kwa njia.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(150px, auto);
+}
+```
+
+- **Uwekaji wa msingi wa mistari**: Gridit zote zina mistari. Ili kubainisha wapi kipengee kinaanza kwenye mstari, unaweza kutumia sifa za `grid-column-start` na `grid-row-start`. Ili kubainisha wapi kipengee kinaisha kwenye mstari, unaweza kutumia sifa za `grid-column-end` na `grid-row-end`. Pia unaweza kuchagua kutumia sifa za ufupisho za `grid-column` au `grid-row` badala yake.
+
+Hapa kuna mfano wa kutumia sifa ya `grid-column` kufanya kipengee kiene kwenye nguzo zote.
+
+```css
+.element {
+  grid-column: 1 / -1;
+}
+```
+
+- **`grid-template-areas`**: Sifa hii hutumika kutoa jina kwa vitu utakavyoweka nafasi katika gridi.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="container">
+  <div class="header">Header</div>
+  <div class="sidebar">Sidebar</div>
+  <div class="main">Main Content</div>
+  <div class="footer">Footer</div>
+</div>
+
+```
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr; 
+  grid-template-rows: auto 1fr auto; 
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer"; 
+  gap: 20px; 
+}
+
+.header {
+  grid-area: header; 
+  background-color: #4CAF50;
+  padding: 10px;
+  color: white;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+
+.main {
+  grid-area: main; 
+  background-color: #e0e0e0;
+  padding: 10px;
+}
+
+.footer {
+  grid-area: footer; 
+  background-color: #4CAF50;
+  padding: 10px;
+  color: white;
+}
+```
+
+:::
+
+## Kurekebisha makosa ya CSS
+
+- **Zana za msanidi (DevTools)**: Zana za msanidi zinakuwezesha kuchunguza na kubadilisha CSS yako kwa wakati halisi. Sehemu ya Mitindo inaonyesha sheria zote za CSS zilizotumika kwa kipengee kilichochaguliwa, ikiwa ni pamoja na mitindo iliyorithiwa. Unaweza kuwasha au kuzima sifa binafsi, kuhariri thamani, na hata kuongeza sheria mpya moja kwa moja katika kivinjari. Maoni haya ya papo hapo ni muhimu sana kwa kujaribu mitindo tofauti bila kubadilisha msimbo wa chanzo.
+- **Vithibitishaji vya CSS**: Vithibitishaji hutumika kukagua CSS yako kulingana na vipimo rasmi na kuripoti makosa au onyo yoyote. Vithibitishaji maarufu unavyoweza kutumia ni W3C CSS Validator.
+- **Kurekebisha makosa ya muundo unaobadilika**: Zana za msanidi zina chaguo la kuruhusu kuiga jinsi tovuti yako inavyoonekana kwenye ukubwa na vifaa mbalimbali vya skrini. Hii inaweza kusaidia kubaini matatizo ya sehemu za kuvunja au mitindo isiyopimika vizuri kwa ukubwa tofauti wa eneo la kuona.
+
+# --assignment--
+
+Kagua mada na dhana za gridi ya CSS.

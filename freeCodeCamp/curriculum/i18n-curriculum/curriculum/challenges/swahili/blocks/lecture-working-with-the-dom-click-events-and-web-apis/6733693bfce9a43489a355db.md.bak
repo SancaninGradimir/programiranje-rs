@@ -1,0 +1,176 @@
+---
+id: 6733693bfce9a43489a355db
+title: "Tukio la DOMContentLoaded ni nini, na linafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-domcontentloaded-event-and-how-does-it-work
+---
+
+# --interactive--
+
+Tukio la `DOMContentLoaded` hufanyika wakati kila kitu katika hati ya HTML kimepakuliwa na kuchambuliwa. Ikiwa una majalada ya mitindo ya nje, au picha, tukio la `DOMContentLoaded` halitasubiri hayo kupakuliwa. Litangojea tu HTML kupakuliwa.
+
+Hii ni tofauti na tukio la `load`, ambalo hangojea kila kitu kupakuliwa, ikiwa ni pamoja na majalada ya mitindo ya nje, picha, na kadhalika.
+
+Hapa kuna sintaksia ya mfano ya kutumia tukio la `DOMContentLoaded`:
+
+```js
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM is loaded.");
+});
+```
+
+Mara DOM inapopakuliwa, kitendakazi kitaendeshwa na ujumbe wa `DOM is loaded.` utaandikwa kwenye konsoli.
+
+Sasa, tuchunguze mfano mwingine tunapotumia tukio la `DOMContentLoaded`. Katika mfano huu, tuna picha ndani ya HTML. Ili kusasisha picha, tunaweza kuunda kitendakazi kinachobadilisha sifa za `src` na `alt` za picha:
+
+:::interactive_editor
+
+```html
+<h1>Image Change on DOM Loaded</h1>
+<img
+  id="example-img"
+  src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg"
+  alt="Cat relaxing"
+/>
+
+<script src="index.js"></script>
+```
+
+```js
+function changeImg() {
+  const img = document.getElementById("example-img");
+  img.src =
+    "https://cdn.freecodecamp.org/curriculum/responsive-web-design-principles/FCCStickers-CamperBot200x200.jpg";
+  img.alt = "CamperBot sticker";
+  console.log("image was just changed");
+}
+
+changeImg();
+```
+
+:::
+
+Kisha tunaweza kuangalia kama DOM bado inapakia na kuongeza msikilizaji wa tukio la `DOMContentLoaded`. Ikiwa tukio la `DOMContentLoaded` tayari limefanyika, tunaweza kuita kitendakazi cha `changeImg` moja kwa moja:
+
+```js
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", changeImg);
+} else {
+  console.log("DOMContentLoaded has already fired");
+  changeImg();
+}
+```
+
+Ikiwa utaendesha msimbo huu, na kuonyesha upya ukurasa, utaona picha kubadilika kuwa picha mpya baada ya DOM kupakuliwa. Hii hutokea haraka sana, lakini utaona mwangaza mdogo wakati picha inabadilika.
+
+Tukio la `DOMContentLoaded` ni muhimu unapotaka kuendesha msimbo wa JavaScript mara tu DOM inapopakuliwa, lakini kabla ya rasilimali zote za nje kama picha na majalada ya mitindo kupakuliwa.
+
+# --questions--
+
+## --text--
+
+Tukio la `DOMContentLoaded` linaashiria nini?
+
+## --answers--
+
+Rasilimali zote za nje zimepakuliwa kikamilifu.
+
+### --feedback--
+
+Tukio hili halitasubiri picha au majalada ya mitindo.
+
+---
+
+Hati ya HTML imepakuliwa kikamilifu na kuchambuliwa.
+
+---
+
+Kivinjari kimekamilisha kuonyesha ukurasa.
+
+### --feedback--
+
+Tukio hili halitasubiri picha au majalada ya mitindo.
+
+---
+
+Picha zote kwenye ukurasa zimepakuliwa kikamilifu.
+
+### --feedback--
+
+Tukio hili halitasubiri picha au majalada ya mitindo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Tukio la `DOMContentLoaded` lina tofauti gani na tukio la `load`?
+
+## --answers--
+
+`DOMContentLoaded` hangojea picha kupakuliwa, wakati load halihitaji.
+
+### --feedback--
+
+Fikiria rasilimali ambazo kila tukio linasubiri.
+
+---
+
+`DOMContentLoaded` hufanyika kabla ya rasilimali zote kupakuliwa, wakati load hangojea kila kitu.
+
+---
+
+`DOMContentLoaded` inaweza kutumika tu na skiripti za nje.
+
+### --feedback--
+
+Fikiria rasilimali ambazo kila tukio linasubiri.
+
+---
+
+Hakuna tofauti; ni tukio moja.
+
+### --feedback--
+
+Fikiria rasilimali ambazo kila tukio linasubiri.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika mfano uliotolewa, nini hutokea ikiwa tukio la `DOMContentLoaded` tayari limefanyika wakati skiripti inaendeshwa?
+
+## --answers--
+
+Picha haitabadilika kabisa.
+
+### --feedback--
+
+Fikiria kuhusu ukaguzi wa masharti katika msimbo.
+
+---
+
+Hitilafu itatokea.
+
+### --feedback--
+
+Fikiria kuhusu ukaguzi wa masharti katika msimbo.
+
+---
+
+Kitendakazi cha `changeImg` kitaitwa moja kwa moja.
+
+---
+
+Msikilizaji wa tukio ataongezwa tena.
+
+### --feedback--
+
+Fikiria kuhusu ukaguzi wa masharti katika msimbo.
+
+## --video-solution--
+
+3

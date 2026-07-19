@@ -1,0 +1,247 @@
+---
+id: 6732b72961f94324bd6390de
+title: Jinsi ya Kukagua Ikiwa Kitu Kina Sifa Fulani?
+challengeType: 19
+dashedName: how-to-check-if-an-object-has-a-property
+---
+
+# --interactive--
+
+Katika JavaScript, kuna njia kadhaa za kukagua ikiwa kitu kina sifa fulani. Kuelewa njia hizi ni muhimu kwa kufanya kazi kwa ufanisi na vitu, hasa unaposhughulika na data kutoka kwa vyanzo vya nje au unapohitaji kuhakikisha sifa fulani zipo kabla ya kuzitumia.
+
+Tutachunguza baadhi ya mbinu za kawaida: njia ya `hasOwnProperty()`, njia ya `Object.hasOwn()`, kiendeshaji cha `in`, na ukaguzi dhidi ya `undefined`.
+
+Tuanze na njia ya `hasOwnProperty()`. Njia hii inarudisha thamani ya kweli au siyo kweli ikionyesha kama kitu kina sifa iliyotajwa kama sifa yake mwenyewe. Hapa kuna mfano:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(person.hasOwnProperty("name")); // true
+console.log(person.hasOwnProperty("job")); // false
+```
+
+:::
+
+Katika mfano huu, tuna kitu kinachoitwa `person` chenye sifa mbili: `name` na `age`. Ili kukagua kama `name` ni sifa katika kitu cha `person`, tunatumia njia ya `hasOwnProperty()`. Kwa kuwa `name` ni sifa, itarudisha `true`. Lakini tunapotumia `hasOwnProperty()` kukagua kama `job` ni sifa, itarudisha `false` kwa sababu haipo katika kitu hicho.
+
+`Object.hasOwn()` ni njia ya kisasa, inayopendekezwa ya kukagua ikiwa kitu kina sifa kama sifa yake mwenyewe (si ya kurithiwa). Fikiria kama toleo lililoboreshwa, salama zaidi la `hasOwnProperty()`. Sintaksia ni `Object.hasOwn(object, propertyName)` — unapitisha kitu kama hoja ya kwanza na jina la sifa kama ya pili.
+
+Hapa kuna mfano wa msingi:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(Object.hasOwn(person, "name")); // true
+console.log(Object.hasOwn(person, "job")); // false
+```
+
+:::
+
+Katika mfano huu, `Object.hasOwn(person, "name")` inarudisha `true` kwa sababu `name` ipo moja kwa moja kwenye kitu cha `person`. `Object.hasOwn(person, "job")` inarudisha `false` kwa sababu `job` haikuwekwa kamwe kwenye kitu hicho.
+
+Jambo muhimu sana kuelewa ni kwamba `Object.hasOwn()` inakagua tu kama sifa **ipo** — haijalishi thamani ya sifa hiyo. Hii inamaanisha bado inarudisha `true` hata kama thamani ni `0`, `false`, `null`, au `undefined`:
+
+:::interactive_editor
+
+```js
+const user = {
+  username: "coder123",
+  score: 0,
+  isActive: false,
+  nickname: null
+};
+
+// Object.hasOwn() correctly reports these all exist
+console.log(Object.hasOwn(user, "score"));    // true  (value is 0, but property exists)
+console.log(Object.hasOwn(user, "isActive")); // true  (value is false, but property exists)
+console.log(Object.hasOwn(user, "nickname")); // true  (value is null, but property exists)
+console.log(Object.hasOwn(user, "email"));   // false (property was never added)
+
+// Danger! Using if() directly gives wrong results for falsy values
+if (user.score) {
+  console.log("Has score"); // This will NOT print even though score exists!
+}
+
+// Safe! Object.hasOwn() gives correct result
+if (Object.hasOwn(user, "score")) {
+  console.log("Has score:", user.score); // Has score: 0
+}
+```
+
+:::
+
+Njia nyingine ya kukagua uwepo wa sifa katika kitu ni kutumia kiendeshaji cha `in`. Kama `hasOwnProperty()`, kiendeshaji cha `in` kitarudisha `true` ikiwa sifa ipo kwenye kitu. Hapa ni jinsi unavyoweza kuitumia:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Bob",
+  age: 25
+};
+console.log("name" in person);  // true
+```
+
+:::
+
+Katika mfano huu, `"name" in person` inarudisha `true` kwa sababu `name` ni sifa ya `person`.
+
+Njia ya tatu ni kukagua ikiwa sifa ni `undefined`. Njia hii inaweza kuwa na manufaa, lakini ina baadhi ya vikwazo. Hapa kuna mfano:
+
+:::interactive_editor
+
+```js
+const car = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2020
+};
+
+console.log(car.brand !== undefined); // true
+console.log(car.color !== undefined); // false
+```
+
+:::
+
+Katika msimbo huu, tunakagua kama `car.brand` na `car.color` si `undefined`. Hii inafanya kazi kwa sababu kufikia sifa isiyoipo kwenye kitu hurudisha `undefined`. Hata hivyo, njia hii inaweza kutoa majibu ya uongo ikiwa sifa ina thamani ya wazi ya `undefined`.
+
+Katika vitendo, uchaguzi kati ya njia hizi mara nyingi hutegemea mahitaji maalum ya msimbo wako. Kuelewa tofauti kati yao kutakusaidia kufanya uchaguzi sahihi katika hali tofauti.
+
+# --questions--
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let obj = {x: 0, y: null};
+console.log(obj.hasOwnProperty("y"));
+```
+
+## --answers--
+
+`true`
+
+---
+
+`false`
+
+### --feedback--
+
+`hasOwnProperty()` inakagua kama sifa ipo moja kwa moja kwenye kitu, bila kujali thamani yake.
+
+---
+
+`null`
+
+### --feedback--
+
+`hasOwnProperty()` inakagua kama sifa ipo moja kwa moja kwenye kitu, bila kujali thamani yake.
+
+---
+
+`undefined`
+
+### --feedback--
+
+`hasOwnProperty()` inakagua kama sifa ipo moja kwa moja kwenye kitu, bila kujali thamani yake.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let person = {
+    name: "Alice",
+    age: 30
+};
+
+console.log("name" in person);
+```
+
+## --answers--
+
+`true`
+
+---
+
+`false`
+
+### --feedback--
+
+Kiendeshaji cha `in` kinakagua kama sifa ipo katika kitu.
+
+---
+
+`"Alice"`
+
+### --feedback--
+
+Kiendeshaji cha `in` kinakagua kama sifa ipo katika kitu.
+
+---
+
+`undefined`
+
+### --feedback--
+
+Kiendeshaji cha `in` kinakagua kama sifa ipo katika kitu.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let obj = {a: undefined};
+console.log(obj.a !== undefined);
+```
+
+## --answers--
+
+`true`
+
+### --feedback--
+
+Fikiria kinachotokea wakati sifa ipo lakini ina thamani ya `undefined`.
+
+---
+
+`false`
+
+---
+
+`undefined`
+
+### --feedback--
+
+Fikiria kinachotokea wakati sifa ipo lakini ina thamani ya `undefined`.
+
+---
+
+Hii itatupa kosa.
+
+### --feedback--
+
+Fikiria kinachotokea wakati sifa ipo lakini ina thamani ya `undefined`.
+
+## --video-solution--
+
+2

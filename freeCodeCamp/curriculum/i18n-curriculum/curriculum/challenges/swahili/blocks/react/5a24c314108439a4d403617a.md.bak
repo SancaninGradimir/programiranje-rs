@@ -1,0 +1,135 @@
+---
+id: 5a24c314108439a4d403617a
+title: Pitia hali kama vigezo vinavyopitishwa kwa sehemu ndogo
+challengeType: 6
+forumTopicId: 301403
+dashedName: pass-state-as-props-to-child-components
+---
+
+# --description--
+
+Umeona mifano mingi inayopitisha vigezo vinavyopitishwa kwa vipengele vidogo vya JSX na sehemu ndogo za React katika changamoto zilizopita. Huenda unajiuliza vigezo hivyo vinatoka wapi. Mchoro wa kawaida ni kuwa na sehemu yenye hali inayoshikilia `state` muhimu kwa programu yako, ambayo kisha inaonyesha sehemu ndogo. Unataka sehemu hizi ndogo zipate upatikanaji wa baadhi ya vipengele vya `state`, ambavyo hupitishwa kama vigezo vinavyopitishwa.
+
+Kwa mfano, labda una sehemu ya `App` inayonyesha `Navbar`, pamoja na sehemu nyingine. Katika `App` yako, una `state` inayoshikilia taarifa nyingi za mtumizi, lakini `Navbar` inahitaji tu upatikanaji wa jina la mtumiaji ili liweze kuonyesha. Unapitisha kipengele hicho cha `state` kwa sehemu ya `Navbar` kama kigezo.
+
+Mchoro huu unaonyesha baadhi ya kanuni muhimu katika React. Kwanza ni *mtiririko wa data wa mwelekeo mmoja*. Hali huingia kwa mwelekeo mmoja chini ya mti wa sehemu za programu yako, kutoka sehemu yenye hali ya mzazi kwenda sehemu ndogo. Sehemu ndogo hupokea tu data ya hali wanayohitaji. Pili ni kwamba programu changamano zenye hali zinaweza kugawanywa kuwa sehemu chache tu, au labda sehemu moja yenye hali. Sehemu nyingine zote hupokea hali kutoka kwa mzazi kama vigezo vinavyopitishwa, na kuonyesha UI kutoka kwa hali hiyo. Hii huanza kuunda mgawanyiko ambapo usimamizi wa hali unafanyika katika sehemu moja ya msimbo na uonyeshaji wa UI katika sehemu nyingine. Kanuni hii ya kutenganisha mantiki ya hali na mantiki ya UI ni mojawapo ya kanuni kuu za React. Inapotumika kwa usahihi, hufanya muundo wa programu changamano zenye hali kuwa rahisi kusimamia.
+
+# --instructions--
+
+Sehemu ya `MyApp` ni yenye hali na inaonyesha sehemu ya `Navbar` kama sehemu ndogo. Pitisha sifa ya `name` katika `state` yake chini kwa sehemu ndogo, kisha onyesha `name` katika lebo ya `h1` ambayo ni sehemu ya njia ya kuonyesha ya `Navbar`. `name` inapaswa kuonekana baada ya maandishi ya `Hello, my name is:`.
+
+# --hints--
+
+Sehemu ya `MyApp` inapaswa kuonyesha sehemu ya `Navbar` ndani yake.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+    return (
+      mockedComponent.find('MyApp').length === 1 &&
+      mockedComponent.find('Navbar').length === 1
+    );
+  })()
+);
+```
+
+Sehemu ya `Navbar` inapaswa kupokea sifa ya hali ya `MyApp` `name` kama vigezo vinavyopitishwa.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+  const setState = () => {
+    mockedComponent.setState({ name: 'TestName' });
+    return waitForIt(() => mockedComponent.find('Navbar').props());
+  };
+  const navProps = await setState();
+  assert(navProps.name === 'TestName');
+```
+
+Kipengele cha `h1` katika `Navbar` kinapaswa kuonyesha kigezo cha `name`.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+  const navH1Before = mockedComponent.find('Navbar').find('h1').text();
+  const setState = () => {
+    mockedComponent.setState({ name: 'TestName' });
+    return waitForIt(() => mockedComponent.find('Navbar').find('h1').text());
+  };
+  const navH1After = await setState();
+  assert(new RegExp('TestName').test(navH1After) && navH1After !== navH1Before);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'CamperBot'
+    }
+  }
+  render() {
+    return (
+       <div>
+         {/* Change code below this line */}
+         <Navbar />
+         {/* Change code above this line */}
+       </div>
+    );
+  }
+};
+
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+    <div>
+      {/* Change code below this line */}
+      <h1>Hello, my name is: </h1>
+      {/* Change code above this line */}
+    </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'CamperBot'
+    }
+  }
+  render() {
+    return (
+       <div>
+         <Navbar name={this.state.name}/>
+       </div>
+    );
+  }
+};
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+    <div>
+      <h1>Hello, my name is: {this.props.name}</h1>
+    </div>
+    );
+  }
+};
+```

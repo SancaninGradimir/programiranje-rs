@@ -1,0 +1,114 @@
+---
+id: 614385513d91ae5c251c2052
+title: Hatua 2
+challengeType: 0
+dashedName: step-2
+---
+
+# --description--
+
+Ongeza kipengele cha `title` chenye maandishi `Magazine`, kipengele cha `link` kwa fonti ya stylesheet ya `https://fonts.googleapis.com/css?family=Anton%7CBaskervville%7CRaleway&display=swap`, `link` kwa stylesheet ya FontAwesome ya `https://use.fontawesome.com/releases/v5.8.2/css/all.css`, na `link` kwa stylesheet yako ya `./styles.css`.
+
+Stylesheet yako ya fonti itapakia fonti tatu tofauti: `Anton`, `Baskervville`, na `Raleway`.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na vipengele vitatu vya `link`.
+
+```js
+assert.strictEqual(document.querySelectorAll('link')?.length, 3);
+```
+
+Vipengele vyako vya `link` vinapaswa kuwa ndani ya kipengele chako cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.strictEqual(headElement.querySelectorAll('link')?.length, 3);
+```
+
+Vipengele vyako vitatu vya `link` vinapaswa kuwa na sifa ya kipengele ya `rel` yenye thamani `stylesheet`.
+
+```js
+const links = [...document.querySelectorAll('link')];
+assert.isTrue(links.every(link => link.getAttribute('rel') === 'stylesheet'));
+```
+
+Kimoja kati ya vipengele vyako vya kiungo kinapaswa kuwa na `href` iliyowekwa kuwa `https://fonts.googleapis.com/css?family=Anton%7CBaskervville%7CRaleway&display=swap`.
+
+```js
+const links = [...document.querySelectorAll('link')];
+assert.exists(links.find(link => link.getAttribute('href') === 'https://fonts.googleapis.com/css?family=Anton%7CBaskervville%7CRaleway&display=swap'));
+```
+
+Kimoja kati ya vipengele vyako vya kiungo kinapaswa kuwa na `href` iliyowekwa kuwa `https://use.fontawesome.com/releases/v5.8.2/css/all.css`.
+
+```js
+const links = [...document.querySelectorAll('link')];
+assert.exists(links.find(link => link.getAttribute('href') === 'https://use.fontawesome.com/releases/v5.8.2/css/all.css'));
+```
+
+Kimoja kati ya vipengele vyako vya `link` kinapaswa kuwa na `href` iliyowekwa kuwa `styles.css`.
+
+```js
+const styleElement = document.querySelector('[data-href]');
+assert.isNotNull(styleElement);
+assert.strictEqual(styleElement?.getAttribute('data-href'), 'styles.css');
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `title`.
+
+```js
+const title = document.querySelector('title');
+assert.isNotNull(title);
+```
+
+Msimbo wako unapaswa kuwa na kipengele kimoja cha `title`.
+
+```js
+const title = document.querySelectorAll('title');
+assert.strictEqual(title?.length, 1);
+```
+
+Kipengele chako cha `title` kinapaswa kuwa ndani ya kipengele chako cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.isNotNull(headElement.querySelector('title'));
+```
+
+Mradi wako unapaswa kuwa na kichwa cha habari cha `Magazine`. Kumbuka, herufi kubwa na ndogo pamoja na tahajia ni muhimu kwa kichwa cha habari.
+
+```js
+const title = document.querySelector('title');
+assert.equal(title?.text?.trim(), 'Magazine');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+--fcc-editable-region--
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+--fcc-editable-region--
+  <body>
+  </body>
+</html>
+```
+
+```css
+
+```

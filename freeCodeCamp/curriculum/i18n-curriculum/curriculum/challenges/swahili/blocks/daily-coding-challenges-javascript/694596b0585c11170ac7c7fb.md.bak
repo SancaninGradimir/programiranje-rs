@@ -1,0 +1,76 @@
+---
+id: 694596b0585c11170ac7c7fb
+title: "Zoezi la 163: Herufi ndogo za konsonanti"
+challengeType: 28
+dashedName: challenge-163
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi unaowakilisha jina la kigezo, ubadilishe kuwa herufi ndogo za konsonanti kwa kutumia sheria zifuatazo:
+
+- Konsonanti zote zifanyike kuwa herufi kubwa.
+- Vowels zote (`a`, `e`, `i`, `o`, `u` kwa hali yoyote) zifanyike kuwa herufi ndogo.
+- Mistari ya kuunganisha maneno (hyphens) (`-`) ibadilishwe kuwa mistari ya chini (underscores) (`_`).
+
+# --hints--
+
+`toConsonantCase("helloworld")` inapaswa kurudisha `"HeLLoWoRLD"`.
+
+```js
+assert.equal(toConsonantCase("helloworld"), "HeLLoWoRLD");
+```
+
+`toConsonantCase("HELLOWORLD")` inapaswa kurudisha `"HeLLoWoRLD"`.
+
+```js
+assert.equal(toConsonantCase("HELLOWORLD"), "HeLLoWoRLD");
+```
+
+`toConsonantCase("_hElLO-WOrlD-")` inapaswa kurudisha `"_HeLLo_WoRLD_"`.
+
+```js
+assert.equal(toConsonantCase("_hElLO-WOrlD-"), "_HeLLo_WoRLD_");
+```
+
+`toConsonantCase("_~-generic_~-variable_~-name_~-here-~_")` inapaswa kurudisha `"_~_GeNeRiC_~_VaRiaBLe_~_NaMe_~_HeRe_~_"`.
+
+```js
+assert.equal(toConsonantCase("_~-generic_~-variable_~-name_~-here-~_"), "_~_GeNeRiC_~_VaRiaBLe_~_NaMe_~_HeRe_~_");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function toConsonantCase(str) {
+
+  return str;
+}
+```
+
+# --solutions--
+
+```js
+function toConsonantCase(str) {
+  const vowels = "aeiouAEIOU";
+  let result = "";
+
+  for (let char of str) {
+    if (char === "-") {
+      result += "_";
+    } else if (/[a-zA-Z]/.test(char)) {
+      if (vowels.includes(char)) {
+        result += char.toLowerCase();
+      } else {
+        result += char.toUpperCase();
+      }
+    } else {
+      result += char;
+    }
+  }
+
+  return result;
+}
+```

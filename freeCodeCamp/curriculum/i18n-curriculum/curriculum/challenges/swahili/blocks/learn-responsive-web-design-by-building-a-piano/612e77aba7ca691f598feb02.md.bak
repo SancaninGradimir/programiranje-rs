@@ -1,0 +1,64 @@
+---
+id: 612e77aba7ca691f598feb02
+title: Hatua 2
+challengeType: 0
+dashedName: step-2
+---
+
+# --description--
+
+Ongeza lebo mbili za `meta`, moja ili kuboresha ukurasa wako kwa vifaa vya simu, na moja ili kubainisha `charset` inayokubalika kwa ukurasa huo.
+
+# --hints--
+
+Unapaswa kuongeza vipengele viwili vya `meta` kwenye ukurasa wako.
+
+```js
+const meta = document.querySelector('meta');
+assert.exists(meta);
+```
+
+Unapaswa kuwa na vipengele viwili vya `meta`.
+
+```js
+const meta = document.querySelectorAll('meta');
+assert(meta?.length === 2);
+```
+
+Kipengele kimoja cha `meta` kinapaswa kuwa na sifa ya kipengele `name` iliyowekwa kuwa `viewport`, na `content` ikiwa imewekwa kuwa `width=device-width, initial-scale=1.0`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => m?.getAttribute('name') === 'viewport' && m?.getAttribute('content') === 'width=device-width, initial-scale=1.0' && !m?.getAttribute('charset'));
+assert.exists(target);
+```
+
+Kipengele kingine cha `meta` kinapaswa kuwa na sifa ya kipengele `charset` iliyowekwa kuwa `UTF-8`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => !m?.getAttribute('name') && !m?.getAttribute('content') && m?.getAttribute('charset')?.toLowerCase() === 'utf-8');
+assert.exists(target);
+```
+
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Piano</title>
+    --fcc-editable-region--
+
+    --fcc-editable-region--
+  </head>
+  <body></body>
+</html>
+```
+
+```css
+
+```

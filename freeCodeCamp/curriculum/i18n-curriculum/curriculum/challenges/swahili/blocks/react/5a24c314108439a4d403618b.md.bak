@@ -1,0 +1,141 @@
+---
+id: 5a24c314108439a4d403618b
+title: Toa sifa ya kipekee ya lebo kwa vipengele vya ndugu
+challengeType: 6
+forumTopicId: 301394
+dashedName: give-sibling-elements-a-unique-key-attribute
+---
+
+# --description--
+
+Changamoto ya mwisho ilionyesha jinsi njia ya `map` inavyotumika kuonyesha vipengele kadhaa kwa nguvu kulingana na ingizo la mtumizi. Hata hivyo, kulikuwa na kipengele muhimu kilichokosekana katika mfano huo. Unapounda safu ya vipengele, kila kimoja kinahitaji sifa ya `key` kuwekwa kwa thamani ya kipekee. React hutumia funguo hizi kufuatilia ni vipengele gani vimeongezwa, kubadilishwa, au kuondolewa. Hii husaidia kufanya mchakato wa kuonyesha tena uwe na ufanisi zaidi wakati orodha inabadilishwa kwa njia yoyote.
+
+**Kumbuka:** Funguo zinapaswa kuwa za kipekee tu kati ya vipengele vya ndugu, hazihitaji kuwa za kipekee kimataifa katika programu yako.
+
+# --instructions--
+
+Mhariri wa msimbo una safu ya mifumo ya kazi ya mbele na sehemu isiyo na hali ya kitendakazi iitwayo `Frameworks()`. `Frameworks()` inahitaji kuoanisha safu hiyo na orodha isiyopangwa, kama ilivyokuwa katika changamoto ya mwisho. Malizia kuandika wito wa kurudisha wa `map` ili kurudisha kipengele cha `li` kwa kila mfumo katika safu ya `frontEndFrameworks`. Mara hii, hakikisha kila `li` unapata sifa ya `key` iliyowekwa kwa thamani ya kipekee. Vipengele vya `li` pia vinapaswa kuwa na maandishi kutoka `frontEndFrameworks`.
+
+Kwa kawaida, unataka kufanya funguo kuwa kitu kinachotambulisha kipekee kipengele kinachoonyeshwa. Kama njia ya mwisho, kielezo cha safu kinaweza kutumika, lakini kwa kawaida unapaswa kujaribu kutumia kitambulisho cha kipekee.
+
+# --hints--
+
+Sehemu ya `Frameworks` inapaswa kuwepo na kuonyesha kwenye ukurasa.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(Frameworks)).find('Frameworks').length === 1
+);
+```
+
+`Frameworks` inapaswa kuonyesha kipengele cha `h1`.
+
+```js
+assert(Enzyme.mount(React.createElement(Frameworks)).find('h1').length === 1);
+```
+
+`Frameworks` inapaswa kuonyesha kipengele cha `ul`.
+
+```js
+assert(Enzyme.mount(React.createElement(Frameworks)).find('ul').length === 1);
+```
+
+Leboa ya `ul` inapaswa kuonyesha vipengele 6 vya watoto vya `li`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(Frameworks)).find('ul').children().length ===
+    6 &&
+    Enzyme.mount(React.createElement(Frameworks))
+      .find('ul')
+      .childAt(0)
+      .name() === 'li' &&
+    Enzyme.mount(React.createElement(Frameworks)).find('li').length === 6
+);
+```
+
+Kila kipengele cha kipengele cha orodha kinapaswa kuwa na sifa ya `key` ya kipekee.
+
+```js
+assert(
+  (() => {
+    const ul = Enzyme.mount(React.createElement(Frameworks)).find('ul');
+    const keys = new Set([
+      ul.childAt(0).key(),
+      ul.childAt(1).key(),
+      ul.childAt(2).key(),
+      ul.childAt(3).key(),
+      ul.childAt(4).key(),
+      ul.childAt(5).key()
+    ]);
+    return keys.size === 6;
+  })()
+);
+```
+
+Kila kipengele cha kipengele cha orodha kinapaswa kuwa na maandishi kutoka `frontEndFrameworks`.
+
+```js
+assert(
+  (() => {
+    const li = Enzyme.mount(React.createElement(Frameworks))
+      .find('ul')
+      .children();
+    return [...Array(5)].every((_, i) =>
+      frontEndFrameworks.includes(li.at(i).text())
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const frontEndFrameworks = [
+  'React',
+  'Angular',
+  'Ember',
+  'Knockout',
+  'Backbone',
+  'Vue'
+];
+
+function Frameworks() {
+  const renderFrameworks = null; // Change this line
+  return (
+    <div>
+      <h1>Popular Front-End JavaScript Frameworks</h1>
+      <ul>
+        {renderFrameworks}
+      </ul>
+    </div>
+  );
+};
+```
+
+# --solutions--
+
+```jsx
+const frontEndFrameworks = [
+  'React',
+  'Angular',
+  'Ember',
+  'Knockout',
+  'Backbone',
+  'Vue'
+];
+
+function Frameworks() {
+  const renderFrameworks = frontEndFrameworks.map((fw, i) => <li key={i}>{fw}</li>);
+  return (
+    <div>
+      <h1>Popular Front-End JavaScript Frameworks</h1>
+      <ul>
+        {renderFrameworks}
+      </ul>
+    </div>
+  );
+};
+```

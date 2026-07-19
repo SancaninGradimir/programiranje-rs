@@ -1,0 +1,56 @@
+---
+id: 587d824f367417b2b2512c59
+title: Endesha majaribio ya kitendakazi kwenye viishio vya API ukitumia Chai-HTTP II
+challengeType: 2
+forumTopicId: 301592
+dashedName: run-functional-tests-on-api-endpoints-using-chai-http-ii
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochomwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+# --instructions--
+
+Ndani ya `tests/2_functional-tests.js`, badilisha jaribio la `'Test GET /hello with your name'` (`// #2`) kuthibitisha `status` na `text` ya jibu ili jaribio lifaulu.
+
+Tuma jina lako kama hoja ya utafutaji ya URL kwa kuongeza `?name=<your_name>` kwenye njia ya data. Kiishio hutoa jibu la `'hello <your_name>'`.
+
+# --hints--
+
+Majaribio yote yanapaswa kupita
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=1');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.state, 'passed');
+```
+
+Unapaswa kujaribu kwa `res.status` == 200
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=1');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[0].method, 'equal');
+assert.equal(data.assertions[0].args[0], 'res.status');
+assert.equal(data.assertions[0].args[1], '200');
+```
+
+Unapaswa kujaribu kwa `res.text` == `'hello <your_name>'`
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=1');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[1].method, 'equal');
+assert.equal(data.assertions[1].args[0], 'res.text');
+assert.match(data.assertions[1].args[1], /hello [\w\d_-]/);
+```

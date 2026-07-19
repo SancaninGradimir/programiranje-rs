@@ -1,0 +1,92 @@
+---
+id: 5dc2385ff86c76b9248c6eb7
+title: Hatua 5
+challengeType: 0
+dashedName: step-5
+---
+
+# --description--
+
+HTML5 ina vipengele vinavyotambulisha maeneo tofauti ya maudhui. Vipengele hivi hufanya HTML yako iwe rahisi kusoma na husaidia katika Uboreshaji wa Injini za Utafutaji (SEO) na Ufikikaji.
+
+Kipengele cha `main` kinatumika kuwakilisha maudhui kuu ya mwili wa hati ya HTML. Maudhui yaliyomo ndani ya kipengele cha `main` yanapaswa kuwa ya kipekee kwa hati hiyo na yasirudiwe katika sehemu nyingine za hati hiyo.
+
+```html
+<main>
+  <h1>Most important content of the document</h1>
+  <p>Some more important content...</p>
+</main>
+```
+
+Tambua sehemu kuu ya ukurasa huu kwa kuongeza lebo ya kufungua ya `<main>` kabla ya kipengele cha `h1`, na lebo ya kufunga ya `</main>` baada ya kipengele cha `p`.
+
+# --hints--
+
+Kipengele chako cha `main` kinapaswa kuwa na lebo ya kufungua. Lebo za kufungua zina sintaksia hii: `<elementName>`.
+
+```js
+assert(document.querySelector('main'));
+```
+
+Lebos zako za `main` zinapaswa kuwa kwa herufi ndogo. Kwa mkataba, lebo zote za HTML huandikwa kwa herufi ndogo.
+
+```js
+const mainTagMatches = code.matchAll(/<\/?main>/gi);
+for (const match of mainTagMatches) {
+  const tag = match[0];
+  assert.strictEqual(
+    tag,
+    tag.toLowerCase()
+  );
+}
+```
+
+Kipengele chako cha `main` kinapaswa kuwa na lebo ya kufunga. Lebo za kufunga zina `/` mara tu baada ya herufi ya `<`.
+
+```js
+assert(code.match(/<\/main\>/));
+```
+
+Leboa ya kufungua ya kipengele chako cha `main` inapaswa kuwa chini ya lebo ya kufungua ya kipengele cha `body`. Umeziweka kwa mpangilio usio sahihi.
+
+```js
+const main = document.querySelector('main');
+assert.equal(main?.previousElementSibling, null);
+```
+
+Leboa ya kufungua ya kipengele chako cha `main` inapaswa kuwa juu ya kipengele cha `h1`. Umeziweka kwa mpangilio usio sahihi.
+
+```js
+const collection = [...document.querySelectorAll('main,h1')].map(
+  (node) => node.nodeName
+);
+assert(collection.indexOf('MAIN') < collection.indexOf('H1'));
+```
+
+Leboa ya kufunga ya kipengele chako cha `main` inapaswa kuwa chini ya kipengele cha `p`. Umeziweka kwa mpangilio usio sahihi.
+
+```js
+const mainNode = document.querySelector('main');
+const pNode = document.querySelector('p');
+assert.isTrue(mainNode.contains(pNode));
+assert.match(pNode.textContent.toLowerCase(), /everyone loves cute cats online!/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+--fcc-editable-region--
+  
+    <h1>CatPhotoApp</h1>
+    <h2>Cat Photos</h2>
+    <!-- TODO: Add link to cat photos -->
+    <p>Everyone loves cute cats online!</p>
+    
+--fcc-editable-region--
+  </body>
+</html>
+```

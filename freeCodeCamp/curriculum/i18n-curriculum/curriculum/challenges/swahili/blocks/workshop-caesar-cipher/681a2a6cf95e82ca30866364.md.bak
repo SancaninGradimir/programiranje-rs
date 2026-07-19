@@ -1,0 +1,74 @@
+---
+id: 681a2a6cf95e82ca30866364
+title: Hatua 23
+challengeType: 20
+dashedName: step-23
+---
+
+# --description--
+
+Tangaza vitendakazi viwili vinavyoitwa `encrypt` na `decrypt`, vyote viwili vikijumuisha vigezo `text` na `shift`.
+
+Utaitumia `encrypt` kwa mchakato wa usimbaji, na `decrypt` kwa mchakato wa ufumbuzi, ukileta vitendo hivyo viwili kwa jina linaloelezea.
+
+Rudisha wito wa `caesar` ukipitisha `text` na `shift` kutoka kwa vitendakazi vyako vipya vyote viwili, lakini hakikisha pia unapitisha `False` kama hoja ya tatu kwa kitendakazi cha `decrypt`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `encrypt` chenye vigezo viwili, `text` na `shift`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("encrypt").has_args("text, shift")`)) })
+```
+
+Kitendakazi chako cha `encrypt` kinapaswa kurudisha `caesar(text, shift)`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("encrypt").has_return("caesar(text, shift)")`)) })
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `decrypt` chenye vigezo viwili, `text` na `shift`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("decrypt").has_args("text, shift")`)) })
+```
+
+Kitendakazi chako cha `decrypt` kinapaswa kurudisha `caesar(text, shift, False)`.
+
+```js
+({ test: () => runPython(`
+_n = _Node(_code).find_function("decrypt")
+assert _n.has_return("caesar(text, shift, encrypt=False)") or _n.has_return("caesar(text, shift, False)")
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def caesar(text, shift, encrypt=True):
+
+    if not isinstance(shift, int):
+        return 'Shift must be an integer value.'
+
+    if shift < 1 or shift > 25:
+        return 'Shift must be an integer between 1 and 25.'
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    if not encrypt:
+        shift = - shift
+    
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    encrypted_text = text.translate(translation_table)
+    return encrypted_text
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

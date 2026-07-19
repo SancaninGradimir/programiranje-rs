@@ -1,0 +1,80 @@
+---
+id: 68c1a929005bf54d342aa8d3
+title: "Zoezi la 56: Wiki ya Anga la 2: Utafutaji wa Sayari Nje ya Mfumo"
+challengeType: 28
+dashedName: challenge-56
+---
+
+# --description--
+
+Kwa siku ya pili ya Wiki ya Anga, unapewa mfuatano wa herufi ambapo kila herufi inawakilisha kipimo cha mwangaza wa nyota. Tambua kama vipimo vimegundua sayari nje ya mfumo kwa kutumia njia ya usafiri (transit method). Njia ya usafiri ni pale sayari inapopita mbele ya nyota, ikipunguza mwangaza unaoonekana.
+
+- Vipimo vya mwangaza vinajumuisha tu herufi `0-9` na `A-Z` ambapo kila kipimo kinahusiana na thamani za nambari zifuatazo:
+- Herufi `0-9` zinawakilisha viwango vya mwangaza `0-9`.
+- Herufi `A-Z` zinawakilisha viwango vya mwangaza `10-35`.
+
+Nyota inachukuliwa kuwa na sayari nje ya mfumo ikiwa kipimo chochote kimoja ni kidogo au sawa na asilimia 80 ya wastani wa vipimo vyote. Kwa mfano, ikiwa wastani wa mwangaza wa nyota ni 10, itachukuliwa kuwa na sayari nje ya mfumo ikiwa kipimo chochote kimoja ni 8 au chini yake.
+
+# --hints--
+
+`hasExoplanet("665544554")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(hasExoplanet("665544554"));
+```
+
+`hasExoplanet("FGFFCFFGG")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(hasExoplanet("FGFFCFFGG"));
+```
+
+`hasExoplanet("MONOPLONOMONPLNOMPNOMP")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(hasExoplanet("MONOPLONOMONPLNOMPNOMP"));
+```
+
+`hasExoplanet("FREECODECAMP")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(hasExoplanet("FREECODECAMP"));
+```
+
+`hasExoplanet("9AB98AB9BC98A")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(hasExoplanet("9AB98AB9BC98A"));
+```
+
+`hasExoplanet("ZXXWYZXYWYXZEGZXWYZXYGEE")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(hasExoplanet("ZXXWYZXYWYXZEGZXWYZXYGEE"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function hasExoplanet(readings) {
+
+  return readings;
+}
+```
+
+# --solutions--
+
+```js
+function hasExoplanet(readings) {
+  let total = 0;
+  const values = readings.split('').map(c => parseInt(c, 36));
+  
+  total = values.reduce((sum, v) => sum + v, 0);
+  const average = total / values.length;
+  const threshold = average * 0.8;
+
+  return values.some(v => v <= threshold);
+}
+```

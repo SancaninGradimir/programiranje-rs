@@ -1,0 +1,100 @@
+---
+id: 5eaf48389ee512d4d103684b
+title: Nambari zinazojielezea wenyewe
+challengeType: 1
+forumTopicId: 385289
+dashedName: self-describing-numbers
+---
+
+# --description--
+
+Kuna nambari kamili kadhaa zinazojulikana kama "nambari zinazojielezea wenyewe" au "nambari zinazojielezea".
+
+Nambari kamili husemwa kuwa "inajielezea yenyewe" ikiwa ina sifa kwamba, wakati nafasi za tarakimu zinapolebwa kutoka 0 hadi N-1, tarakimu katika kila nafasi ni sawa na idadi ya mara tarakimu hiyo inavyoonekana katika nambari hiyo.
+
+Kwa mfano, **2020** ni nambari yenye tarakimu nne inayojielezea yenyewe:
+
+<ul>
+    <li> nafasi 0 ina thamani 2 na kuna 0 mbili katika nambari; </li>
+    <li> nafasi 1 ina thamani 0 na hakuna 1 katika nambari; </li>
+    <li> nafasi 2 ina thamani 2 na kuna 2 mbili; </li>
+    <li> nafasi 3 ina thamani 0 na hakuna 3 katika nambari; </li>
+</ul>
+
+Nambari zinazojielezea wenyewe &lt; 100,000,000 ni: 1210, 2020, 21200, 3211000, 42101000.
+
+# --instructions--
+
+Andika kitendakazi kinachopokea nambari kamili chanya kama kigezo. Ikiwa ni nambari inayojielezea yenyewe rudisha true. Vinginevyo, rudisha false.
+
+# --hints--
+
+`isSelfDescribing` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof isSelfDescribing == 'function');
+```
+
+`isSelfDescribing()` inapaswa kurudisha thamani ya kweli au siyo kweli.
+
+```js
+assert(typeof isSelfDescribing(2020) == 'boolean');
+```
+
+`isSelfDescribing(2020)` inapaswa kurudisha `true`.
+
+```js
+assert.equal(isSelfDescribing(2020), true);
+```
+
+`isSelfDescribing(3021)` inapaswa kurudisha `false`.
+
+```js
+assert.equal(isSelfDescribing(3021), false);
+```
+
+`isSelfDescribing(3211000)` inapaswa kurudisha `true`.
+
+```js
+assert.equal(isSelfDescribing(3211000), true);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function isSelfDescribing(n) {
+
+}
+```
+
+# --solutions--
+
+```js
+function isSelfDescribing(n) {
+    let digits = String(n).split("");
+    digits = digits.map(function(e) {return parseInt(e)});
+    let count = digits.map((x) => {return 0})
+    digits.forEach((d) =>{
+        if (d >= count.length) {
+            return false
+        }
+        count[d] += 1;
+    });
+
+     if (digits === count) {
+        return true;
+    }
+    if (digits.length != count.length) {
+        return false;
+    }
+    
+    for (let i=0; i< digits.length; i++){
+      if (digits[i] !== count[i]) {
+        return false;
+      }
+    }
+    return true;
+}
+```

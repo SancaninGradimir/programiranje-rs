@@ -1,0 +1,144 @@
+---
+id: 5a24c314108439a4d4036165
+title: Tumia React kuonyesha sehemu zilizopangwa ndani
+challengeType: 6
+forumTopicId: 301420
+dashedName: use-react-to-render-nested-components
+---
+
+# --description--
+
+Changamoto ya mwisho ilionyesha njia rahisi ya kuunganisha sehemu mbili, lakini kuna njia nyingi tofauti unazoweza kuunganisha sehemu kwa React.
+
+Muundo wa sehemu ni mojawapo ya vipengele vyenye nguvu vya React. Unapofanya kazi na React, ni muhimu kuanza kufikiria kuhusu kiolesura chako cha mtumiaji kwa mujibu wa sehemu kama mfano wa App katika changamoto ya mwisho. Unavunja UI yako kuwa vipande vyake vya msingi vya ujenzi, na vipande hivyo vinakuwa sehemu. Hii husaidia kutenganisha msimbo unaohusika na UI kutoka kwa msimbo unaoshughulikia mantiki ya programu yako. Inaweza kurahisisha sana ukuzaji na matengenezo ya miradi tata.
+
+# --instructions--
+
+Kuna sehemu mbili za kitendakazi zimetangazwa katika mhariri wa msimbo, zinaitwa `TypesOfFruit` na `Fruits`. Chukua sehemu ya `TypesOfFruit` na uiunganishe, au *ipange ndani*, ndani ya sehemu ya `Fruits`. Kisha chukua sehemu ya `Fruits` na uiweke ndani ya sehemu ya `TypesOfFood`. Matokeo yanapaswa kuwa sehemu ya mtoto, iliyopangwa ndani ya sehemu ya mzazi, ambayo pia imepangwa ndani ya sehemu ya mzazi wa aina yake!
+
+# --hints--
+
+Sehemu ya `TypesOfFood` inapaswa kurudisha kipengele kimoja cha `div`.
+
+```js
+assert(Enzyme.shallow(React.createElement(TypesOfFood)).type() === 'div');
+```
+
+Sehemu ya `TypesOfFood` inapaswa kurudisha sehemu ya `Fruits`.
+
+```js
+assert(
+  Enzyme.shallow(React.createElement(TypesOfFood)).props().children[1].type
+    .name === 'Fruits'
+);
+```
+
+Sehemu ya `Fruits` inapaswa kurudisha sehemu ya `TypesOfFruit`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(TypesOfFood)).find('h2').html() ===
+    '<h2>Fruits:</h2>'
+);
+```
+
+Sehemu ya `TypesOfFruit` inapaswa kurudisha vipengele vya `h2` na `ul`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(TypesOfFood)).find('ul').text() ===
+    'ApplesBlueberriesStrawberriesBananas'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const TypesOfFruit = () => {
+  return (
+    <div>
+      <h2>Fruits:</h2>
+      <ul>
+        <li>Apples</li>
+        <li>Blueberries</li>
+        <li>Strawberries</li>
+        <li>Bananas</li>
+      </ul>
+    </div>
+  );
+};
+
+const Fruits = () => {
+  return (
+    <div>
+      { /* Change code below this line */ }
+
+      { /* Change code above this line */ }
+    </div>
+  );
+};
+
+class TypesOfFood extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Types of Food:</h1>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const TypesOfFruit = () => {
+  return (
+    <div>
+      <h2>Fruits:</h2>
+      <ul>
+        <li>Apples</li>
+        <li>Blueberries</li>
+        <li>Strawberries</li>
+        <li>Bananas</li>
+      </ul>
+    </div>
+  );
+};
+
+const Fruits = () => {
+  return (
+    <div>
+      { /* Change code below this line */ }
+        <TypesOfFruit />
+      { /* Change code above this line */ }
+    </div>
+  );
+};
+
+class TypesOfFood extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Types of Food:</h1>
+        { /* Change code below this line */ }
+        <Fruits />
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```

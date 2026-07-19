@@ -1,0 +1,77 @@
+---
+id: 660f530d6e33d159e1bf4947
+title: Hatua 115
+challengeType: 1
+dashedName: step-115
+---
+
+# --description--
+
+Kama piramidi yako haijageuzwa, basi utahitaji kuwa na kipande cha `else` kinachojenga piramidi kwa mpangilio wa kawaida.
+
+Katika hatua za awali, ulijifunza jinsi ya kufanya kazi na usemi wa `else` kama huu:
+
+```js
+if (condition) {
+  // if condition is true, run this code
+} else {
+  // if condition is false, run this code
+}
+```
+
+Ongeza kipande cha `else` ndani ya kipande chako cha `if`.
+
+# --hints--
+
+Unapaswa kuongeza kipande cha `else`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /if\s*\(\s*inverted\s*\)\s*\{\s*rows\.unshift\(\s*padRow\(\s*i\s*,\s*count\s*\)\s*\);\s*\}\s*else\s*\{/);
+```
+
+Kipande chako cha `else` kinapaswa kuwa tupu.
+
+```js
+assert.match(__helpers.removeJSComments(code), /if\s*\(\s*inverted\s*\)\s*\{\s*rows\.unshift\(\s*padRow\(\s*i\s*,\s*count\s*\)\s*\);\s*\}\s*else\s*\{\s*\}/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+let inverted = true;
+
+function padRow(rowNumber, rowCount) {
+  return " ".repeat(rowCount - rowNumber) + character.repeat(2 * rowNumber - 1) + " ".repeat(rowCount - rowNumber);
+}
+
+// TODO: use a different type of loop
+--fcc-editable-region--
+for (let i = 1; i <= count; i++) {
+  if (inverted) {
+    rows.unshift(padRow(i, count));
+  }
+
+}
+--fcc-editable-region--
+
+/*while (rows.length < count) {
+  rows.push(padRow(rows.length + 1, count));
+}*/
+
+/*for (let i = count; i > 0; i--) {
+  rows.push(padRow(i, count));
+}*/
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

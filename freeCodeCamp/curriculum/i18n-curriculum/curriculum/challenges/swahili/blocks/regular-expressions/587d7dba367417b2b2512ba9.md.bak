@@ -1,0 +1,122 @@
+---
+id: 587d7dba367417b2b2512ba9
+title: Angalizo chanya na hasi la mbele
+challengeType: 1
+forumTopicId: 301360
+dashedName: positive-and-negative-lookahead
+---
+
+# --description--
+
+<dfn>Lookaheads</dfn> ni mifumo inayowaambia JavaScript kutazama mbele katika mfuatano wako wa herufi ili kuangalia mifumo zaidi mbele. Hii inaweza kuwa na manufaa wakati unataka kutafuta mifumo mingi katika mfuatano mmoja.
+
+Kuna aina mbili za angalizo la mbele: <dfn>angalizo chanya la mbele</dfn> na <dfn>angalizo hasi la mbele</dfn>.
+
+Angalizo chanya la mbele litaangalia kuhakikisha kipengele katika mfumo wa utafutaji kipo, lakini halitafanana nalo moja kwa moja. Angalizo chanya la mbele hutumika kama `(?=...)` ambapo `...` ni sehemu inayohitajika ambayo haifananwi.
+
+Kwa upande mwingine, angalizo hasi la mbele litaangalia kuhakikisha kipengele katika mfumo wa utafutaji hakipo. Angalizo hasi la mbele hutumika kama `(?!...)` ambapo `...` ni mfumo ambao hutaki uwepo wake. Sehemu nyingine ya mfumo hurejeshwa ikiwa sehemu ya angalizo hasi la mbele haipo.
+
+Lookaheads ni ngumu kidogo kuelewa lakini mifano michache itasaidia.
+
+```js
+let quit = "qu";
+let noquit = "qt";
+let quRegex= /q(?=u)/;
+let qRegex = /q(?!u)/;
+quit.match(quRegex);
+noquit.match(qRegex);
+```
+
+Mitoo yote miwili ya `match` itarejesha `["q"]`.
+
+Matumizi ya vitendo zaidi ya lookaheads ni kuangalia mifumo miwili au zaidi katika mfuatano mmoja. Hapa kuna kipimaji nywila rahisi (kwa njia isiyo ngumu) kinachotafuta kati ya herufi 3 na 6 na angalau nambari moja:
+
+```js
+let password = "abc123";
+let checkPass = /(?=\w{3,6})(?=\D*\d)/;
+checkPass.test(password);
+```
+
+# --instructions--
+
+Tumia lookaheads katika `pwRegex` ili kufanana na nywila zenye urefu zaidi ya herufi 5, na zenye nambari mbili mfululizo.
+
+# --hints--
+
+Usemi wako wa kawaida unapaswa kutumia angalizo chanya la mbele mara mbili `lookaheads`.
+
+```js
+assert(pwRegex.source.match(/\(\?=.*?\)\(\?=.*?\)/) !== null);
+```
+
+Usemi wako wa kawaida haupaswi kufanana na mfuatano `astronaut`
+
+```js
+pwRegex.lastIndex = 0;
+assert(!pwRegex.test('astronaut'));
+```
+
+Usemi wako wa kawaida haupaswi kufanana na mfuatano `banan1`
+
+```js
+pwRegex.lastIndex = 0;
+assert(!pwRegex.test('banan1'));
+```
+
+Usemi wako wa kawaida unapaswa kufanana na mfuatano `bana12`
+
+```js
+pwRegex.lastIndex = 0;
+assert(pwRegex.test('bana12'));
+```
+
+Usemi wako wa kawaida unapaswa kufanana na mfuatano `abc123`
+
+```js
+pwRegex.lastIndex = 0;
+assert(pwRegex.test('abc123'));
+```
+
+Usemi wako wa kawaida haupaswi kufanana na mfuatano `12345`
+
+```js
+pwRegex.lastIndex = 0;
+assert(!pwRegex.test('12345'));
+```
+
+Usemi wako wa kawaida unapaswa kufanana na mfuatano `8pass99`
+
+```js
+pwRegex.lastIndex = 0;
+assert(pwRegex.test('8pass99'));
+```
+
+Usemi wako wa kawaida haupaswi kufanana na mfuatano `1a2bcde`
+
+```js
+pwRegex.lastIndex = 0;
+assert(!pwRegex.test('1a2bcde'));
+```
+
+Usemi wako wa kawaida unapaswa kufanana na mfuatano `astr1on11aut`
+
+```js
+pwRegex.lastIndex = 0;
+assert(pwRegex.test('astr1on11aut'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let sampleWord = "astronaut";
+let pwRegex = /change/; // Change this line
+let result = pwRegex.test(sampleWord);
+```
+
+# --solutions--
+
+```js
+let pwRegex =  /(?=\w{6})(?=\w*\d{2})/;
+```

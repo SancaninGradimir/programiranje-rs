@@ -1,0 +1,242 @@
+---
+id: 587d8251367417b2b2512c65
+title: Ondoa vipengele kutoka orodha iliyounganishwa kwa kielezo
+challengeType: 1
+forumTopicId: 301711
+dashedName: remove-elements-from-a-linked-list-by-index
+---
+
+# --description--
+
+Kabla hatujaendelea na muundo mwingine wa data, tufanye mazoezi machache ya mwisho na orodha zilizounganishwa.
+
+Tandaza njia ya `removeAt` ambayo hutoa `element` katika `index` fulani. Njia hiyo inapaswa kuitwa `removeAt(index)`. Ili kuondoa `element` katika `index` fulani, tutahitaji kuhesabu nodi kila tunapopita kwenye orodha iliyounganishwa.
+
+Mbinu inayotumika sana kupita kupitia vipengele vya orodha iliyounganishwa ni kutumia <dfn>'mwendeshaji'</dfn>, au sentinel, ambaye 'anaonyesha' nodi ambazo msimbo wako unazilinganisha. Katika kesi yetu, kuanzia `head` ya orodha yetu, tunaanzisha tofauti ya `currentIndex` ambayo huanza kwenye `0`. `currentIndex` inapaswa kuongezeka kwa moja kwa kila nodi tunayopita.
+
+Kama ilivyo kwa njia yetu ya `remove(element)`, ambayo <a href="/learn/coding-interview-prep/data-structures/remove-elements-from-a-linked-list" target="_blank" rel="noopener noreferrer nofollow">tulijifunza katika funzo lililopita</a>, tunapaswa kuwa waangalifu kutoacha sehemu nyingine ya orodha yetu bila nodi wakati tunapoondoa nodi katika njia yetu ya `removeAt(index)`. Tunahakikisha nodi zetu zinaendelea mfululizo kwa kuhakikisha nodi inayorejea nodi iliyotolewa inarejea nodi inayofuata.
+
+# --instructions--
+
+Andika njia ya `removeAt(index)` ambayo hutoa na kurudisha nodi katika `index` fulani. Njia inapaswa kurudisha `null` ikiwa `index` iliyotolewa ni hasi, au ni kubwa au sawa na `length` ya orodha iliyounganishwa.
+
+**Kumbuka:** Kumbuka kuhesabu `currentIndex`.
+
+# --hints--
+
+Darasa lako la `LinkedList` linapaswa kuwa na njia ya `removeAt`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return typeof test.removeAt === 'function';
+  })()
+);
+```
+
+Njia yako ya `removeAt` inapaswa kupunguza `length` ya orodha iliyounganishwa kwa moja.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    test.removeAt(1);
+    return test.size() === 2;
+  })()
+);
+```
+
+Njia yako ya `removeAt` inapaswa kuondoa kipengele kilichoko kwenye kielezo kilichotajwa kutoka orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    test.add('bird');
+    test.removeAt(1);
+    return (
+      JSON.stringify(test.head()) ===
+      '{"element":"cat","next":{"element":"kitten","next":{"element":"bird","next":null}}}'
+    );
+  })()
+);
+```
+
+Wakati kipengele kimoja tu kipo kwenye orodha iliyounganishwa, njia yako ya `removeAt` inapaswa kuondoa na kurudisha kipengele kilichoko kwenye kielezo kilichotajwa, na kupunguza urefu wa orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    var removedItem = test.removeAt(0);
+    return test.head() === null && test.size() === 0 && removedItem === 'cat';
+  })()
+);
+```
+
+Njia yako ya `removeAt` inapaswa kurudisha kipengele cha nodi iliyotolewa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.removeAt(1) === 'dog';
+  })()
+);
+```
+
+Njia yako ya `removeAt` inapaswa kurudisha `null` na orodha isibadilike ikiwa kielezo kilichotolewa ni kidogo kuliko `0`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    var removedItem = test.removeAt(-1);
+    return (
+      removedItem === null &&
+      JSON.stringify(test.head()) ===
+        '{"element":"cat","next":{"element":"dog","next":{"element":"kitten","next":null}}}'
+    );
+  })()
+);
+```
+
+Njia yako ya `removeAt` inapaswa kurudisha `null` na orodha isibadilike ikiwa kielezo kilichotolewa ni kikubwa au sawa na `length` ya orodha.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    var removedItem = test.removeAt(3);
+    return (
+      removedItem === null &&
+      JSON.stringify(test.head()) ===
+        '{"element":"cat","next":{"element":"dog","next":{"element":"kitten","next":null}}}'
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function(){
+    return length;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.add = function(element){
+    var node = new Node(element);
+    if(head === null){
+      head = node;
+    } else {
+      var currentNode = head;
+
+      while(currentNode.next){
+        currentNode  = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  // Only change code below this line
+
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function (element) {
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function () {
+    return length;
+  };
+
+  this.head = function () {
+    return head;
+  };
+
+  this.add = function (element) {
+    var node = new Node(element);
+    if (head === null) {
+      head = node;
+    } else {
+      var currentNode = head;
+
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  this.removeAt = function (index) {
+    var currentNode = head;
+    var previous = head;
+    var count = 0;
+    if (index >= length || index < 0) {
+      return null;
+    }
+    if (index === 0) {
+      var removed = head.element;
+      head = currentNode.next;
+    } else {
+      while (count < index) {
+        previous = currentNode;
+        currentNode = currentNode.next;
+        count++;
+      }
+      var removed = previous.next.element;
+      previous.next = currentNode.next;
+    }
+    length--;
+    return removed;
+  };
+}
+```

@@ -1,0 +1,107 @@
+---
+id: 69306364df283fcaff2e1ad7
+title: "Zoezi la 146: Kiti cha Mtu Anayeandika Kwa Mkono Wa Kushoto Kwenye Jedwali"
+challengeType: 28
+dashedName: challenge-146
+---
+
+# --description--
+
+Kutolewa jedwali la 4x2 (safu ya safu) linalowakilisha mpangilio wa viti kwa chakula, amua ni viti vingapi mtu anayeandika kwa mkono wa kushoto anaweza kukaa.
+
+- Mtu anayeandika kwa mkono wa kushoto hawezi kukaa mahali ambapo mtu anayeandika kwa mkono wa kulia angekaa kwenye kiti kilicho upande wa kushoto wa mtu huyo.
+
+Katika jedwali lililotolewa:
+
+- `"R"` ni kiti kilichokaliwa na mtu anayeandika kwa mkono wa kulia.
+- `"L"` ni kiti kilichokaliwa na mtu anayeandika kwa mkono wa kushoto.
+- `"U"` ni kiti kisichokaliwa.
+- Ni viti visivyokaliwa tu vinavyopatikana kukaa.
+- Viti katika safu ya juu vinaangalia "chini", na viti katika safu ya chini vinaangalia "juu" (kama jedwali), hivyo kushoto na kulia ni kulingana na mwelekeo wa kiti.
+- Viti vya pembe vina kiti kimoja tu kando yao.
+
+Kwa mfano, katika jedwali lililotolewa:
+
+```json
+[
+  ["U", "R", "U", "L"],
+  ["U", "R", "R", "R"]
+]
+```
+
+Kiti cha juu-kushoto hakiwezi kukaliwa kwa sababu kuna mtu anayeandika kwa mkono wa kulia upande wa kushoto. Viti viwili vingine vilivyo wazi vinaweza kukaliwa kwa sababu hakuna mtu anayeandika kwa mkono wa kulia upande wa kushoto.
+
+# --hints--
+
+`findLeftHandedSeats([["U", "R", "U", "L"], ["U", "R", "R", "R"]])` inapaswa kurudisha `2`.
+
+```js
+assert.equal(findLeftHandedSeats([["U", "R", "U", "L"], ["U", "R", "R", "R"]]), 2);
+```
+
+`findLeftHandedSeats([["U", "U", "U", "U"], ["U", "U", "U", "U"]])` inapaswa kurudisha `8`.
+
+```js
+assert.equal(findLeftHandedSeats([["U", "U", "U", "U"], ["U", "U", "U", "U"]]), 8);
+```
+
+`findLeftHandedSeats([["U", "R", "U", "R"], ["L", "R", "R", "U"]])` inapaswa kurudisha `0`.
+
+```js
+assert.equal(findLeftHandedSeats([["U", "R", "U", "R"], ["L", "R", "R", "U"]]), 0);
+```
+
+`findLeftHandedSeats([["L", "U", "R", "R"], ["L", "U", "R", "R"]])` inapaswa kurudisha `1`.
+
+```js
+assert.equal(findLeftHandedSeats([["L", "U", "R", "R"], ["L", "U", "R", "R"]]), 1);
+```
+
+`findLeftHandedSeats([["U", "R", "U", "U"], ["U", "U", "L", "U"]])` inapaswa kurudisha `5`.
+
+```js
+assert.equal(findLeftHandedSeats([["U", "R", "U", "U"], ["U", "U", "L", "U"]]), 5);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function findLeftHandedSeats(table) {
+
+  return table;
+}
+```
+
+# --solutions--
+
+```js
+function findLeftHandedSeats(table) {
+  let availableSeats = 0;
+
+  const [topRow, bottomRow] = table;
+
+  for (let i=0; i<topRow.length; i++) {
+    if (topRow[i] === 'U') {
+      if (i === 3) {
+        availableSeats++;
+      } else if (topRow[i+1] !== 'R') {
+        availableSeats++;
+      }
+    }
+  }
+
+  for (let i=0; i<bottomRow.length; i++) {
+    if (bottomRow[i] === 'U') {
+      if (i === 0) {
+        availableSeats++;
+      } else if (bottomRow[i-1] !== 'R') {
+        availableSeats++;
+      }
+    }
+  }
+
+  return availableSeats;
+}
+```

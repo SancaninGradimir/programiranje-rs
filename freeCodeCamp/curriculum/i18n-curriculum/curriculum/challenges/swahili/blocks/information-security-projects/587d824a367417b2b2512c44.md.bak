@@ -1,0 +1,111 @@
+---
+id: 587d824a367417b2b2512c44
+title: Kagua bei ya hisa
+challengeType: 4
+forumTopicId: 301572
+dashedName: stock-price-checker
+---
+
+# --description--
+
+Jenga programu kamili ya JavaScript inayofanya kazi kama ifuatavyo: <a href="https://stock-price-checker.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://stock-price-checker.freecodecamp.rocks/</a>.
+
+Kwa kuwa API zote za bei za hisa zinazotegemewa zinahitaji ufunguo wa API, tumetengeneza njia mbadala. Tumia <a href="https://stock-price-checker-proxy.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://stock-price-checker-proxy.freecodecamp.rocks/</a> kupata taarifa za bei za hisa za kisasa bila ya kuhitaji kujiandikisha kwa ufunguo wako mwenyewe.
+
+Kufanya kazi kwenye mradi huu kutahusisha kuandika msimbo wako kwa kutumia mojawapo ya njia zifuatazo:
+
+-   Nakili <a href="https://github.com/freeCodeCamp/boilerplate-project-stockchecker/" target="_blank" rel="noopener noreferrer nofollow">hii repo ya GitHub</a> na ukamilishe mradi wako kwa ndani.
+-   Tumia mtengenezaji wa tovuti unayependelea kukamilisha mradi. Hakikisha unajumuisha mafaili yote kutoka kwenye repo yetu ya GitHub.
+
+# --instructions--
+
+1.  Weka kigezo cha mazingira `NODE_ENV` kuwa `test`, bila nukuu
+2.  Kamilisha mradi katika `routes/api.js` au kwa kuunda mshughulikiaji/kontrolleri
+3.  Utaongeza vipengele vyovyote vya usalama katika `server.js`
+4.  Utaunda majaribio yote ya utendakazi katika `tests/2_functional-tests.js`
+
+**Kumbuka** Mambo ya faragha: Kwa sababu ya hitaji kwamba kupenda moja tu kwa IP ipokelewe, utalazimika kuhifadhi anwani za IP. Ni muhimu kuzingatia sheria za faragha za data kama vile Kanuni ya Ulinzi wa Data ya Jumla (GDPR). Chaguo moja ni kupata ruhusa ya kuhifadhi data ya mtumizi, lakini ni rahisi zaidi kuifanya isijulikane. Kwa changamoto hii, kumbuka kufanya anwani za IP zisijulikane kabla ya kuziweka katika hifadhidata. Ikiwa unahitaji mawazo ya jinsi ya kufanya hivyo, unaweza kuchagua kuzipa hash, kuzifupisha, au kuweka sehemu ya anwani ya IP kuwa 0.
+
+Andika majaribio yafuatayo katika `tests/2_functional-tests.js`:
+
+-   Kuangalia hisa moja: ombi la GET kwa `/api/stock-prices/`
+-   Kuangalia hisa moja na kuipenda: ombi la GET kwa `/api/stock-prices/`
+-   Kuangalia hisa ile ile na kuipenda tena: ombi la GET kwa `/api/stock-prices/`
+-   Kuangalia hisa mbili: ombi la GET kwa `/api/stock-prices/`
+-   Kuangalia hisa mbili na kuzipenda: ombi la GET kwa `/api/stock-prices/`
+
+# --hints--
+
+Unaweza kutumia mradi wako mwenyewe, si lazima URL ya mfano.
+
+```js
+  assert(
+    !/.*\/stock-price-checker\.freecodecamp\.rocks/.test(code)
+  );
+```
+
+Unapaswa kuweka sera za usalama wa maudhui ili kuruhusu kupakia tu skiripti na CSS kutoka seva yako.
+
+```js
+  const data = await fetch(code + '/_api/app-info');
+  const parsed = await data.json();
+  assert.isTrue(
+    parsed.headers['content-security-policy'].includes("script-src 'self'")
+  );
+  assert.isTrue(
+    parsed.headers['content-security-policy'].includes("style-src 'self'")
+  );
+```
+
+Unaweza kutuma ombi la `GET` kwa `/api/stock-prices`, ukipitisha alama ya hisa ya NASDAQ kama kigezo cha hoja ya utafutaji `stock`. Kifaa kilichorejeshwa kitakuwa na sifa iitwayo `stockData`.
+
+```js
+  const data = await fetch(
+    code + '/api/stock-prices?stock=GOOG'
+  );
+  const parsed = await data.json();
+  assert.property(parsed, 'stockData');
+```
+
+Sifa ya `stockData` inajumuisha alama ya `stock` kama mfuatano wa herufi, `price` kama nambari, na `likes` kama nambari.
+
+```js
+  const data = await fetch(
+    code + '/api/stock-prices?stock=GOOG'
+  );
+  const parsed = await data.json();
+  const ticker = parsed.stockData;
+  assert.typeOf(ticker.price, 'number');
+  assert.typeOf(ticker.likes, 'number');
+  assert.typeOf(ticker.stock, 'string');
+```
+
+Pia unaweza kupitisha uwanja wa `like` kama `true` (thamani ya kweli au siyo kweli) ili kupenda hisa hiyo/hizo. Inapaswa kupokelewa kupenda moja tu kwa IP.
+
+```js
+
+```
+
+Ikiwa utapitisha hisa mbili, thamani iliyorejeshwa itakuwa safu ya data yenye taarifa kuhusu hisa zote mbili. Badala ya `likes`, itaonyesha `rel_likes` (tofauti kati ya mapenzi ya hisa zote mbili) kwa vitu vyote vya `stockData`.
+
+```js
+  const data = await fetch(
+    code + '/api/stock-prices?stock=GOOG&stock=MSFT'
+  );
+  const parsed = await data.json();
+  const ticker = parsed.stockData;
+  assert.typeOf(ticker, 'array');
+  assert.property(ticker[0], 'rel_likes');
+  assert.property(ticker[1], 'rel_likes');
+```
+
+Majaribio yote matano ya utendakazi yamekamilika na kupita.
+
+```js
+  const tests = await fetch(code + '/_api/get-tests');
+  const parsed = await tests.json();
+  assert.isTrue(parsed.length >= 5);
+  parsed.forEach((test) => {
+    assert.equal(test.state, 'passed');
+  });
+```

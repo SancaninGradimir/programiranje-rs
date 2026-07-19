@@ -1,0 +1,208 @@
+---
+id: 695cc8f280fef0cc3bed02c7
+title: Moduli ya kihifadhi cha muda ni nini na inafanya kazi vipi?
+challengeType: 19
+dashedName: what-is-the-buffer-module-and-how-does-it-work
+---
+
+# --description--
+
+JavaScript awali iliumbwa ili ifanye kazi katika vivinjari vya mtandao, ambapo jukumu lake kuu lilikuwa kufanya kurasa za mtandao ziwe na mwingiliano. Kwa sababu hii, JavaScript ya mwanzo ilizingatia hasa kushughulikia maandishi katika fomu na kubadilisha Muundo wa Hati (DOM).
+
+Hata hivyo, si data yote kwenye mtandao ni maandishi. Faili, picha, na video ni data za binary, ambazo zinahitaji mbinu tofauti za kushughulikia. Katika vivinjari, aina hizi za data kawaida hushughulikiwa na sehemu maalum za kivinjari badala ya JavaScript yenyewe.
+
+Vivinjari vya kisasa hutumia injini za kuonyesha na injini za JavaScript kusimamia kazi hizi — kwa mfano, Blink (pamoja na V8) katika Chrome, WebKit (pamoja na JavaScriptCore) katika Safari, na Gecko (pamoja na SpiderMonkey) katika Firefox.
+
+Node.js haifanyi kazi katika kivinjari, hivyo ilihitaji njia yake ya kushughulikia data za binary, hasa wakati wa kushughulikia ingizo na matokeo ya faili (I/O) na mfululizo wa TCP, ambapo data huja kwa vipande. Hapo ndipo moduli ya `Buffer` inapoingia.
+
+Moduli ya `Buffer` ya Node.js inakuwezesha kufanya kazi na data za binary kama faili, picha, au mfululizo wa mtandao moja kwa moja. Kwa kutumia hii, unaweza kuhifadhi na kubadilisha binaries moja kwa moja katika kumbukumbu.
+
+Kama moduli ya `fs`, `Buffer` ni mojawapo ya moduli kuu za Node.js, hivyo huna haja ya kuisakinisha tofauti kabla ya kuitumia.
+
+Ili kuitumia, kwanza leta moduli kwa ufumbuzi wa muundo:
+
+```js
+const { Buffer } = require("buffer");
+```
+
+Kisha fanya wito wa `Buffer` kwa njia zinazotolewa. Kwa mfano, `Buffer.from()` inakuwezesha kuunda kihifadhi cha muda kutoka kwa mfuatano wa herufi, safu ya data, au data nyingine ghafi.
+
+Hapa ni jinsi ya kuunda `Buffer` kutoka kwa mfuatano wa herufi na safu ya data:
+
+```js
+// Create a buffer from a string
+const myStrBuffer = Buffer.from("freeCodeCamp");
+console.log(myStrBuffer); // <Buffer 66 72 65 65 43 6f 64 65 43 61 6d 70>
+
+// Create a buffer from an array of numbers
+const myNumBuffer = Buffer.from([
+  70, 82, 69, 69, 67, 79, 68, 69, 67, 65, 77, 80,
+]);
+
+console.log(myNumBuffer); // <Buffer 46 52 45 45 43 4f 44 45 43 41 4d 50>
+```
+
+Ingawa inawezekana kutumia baadhi ya njia kutoka moduli ya `Buffer` bila kuileta kwanza, njia nyingine hazipatikani isipokuwa ulete `Buffer` waziwazi. Kwa hivyo inashauriwa kila wakati ulete Buffer unapotumia katika miradi yako.
+
+Unaweza kupata vipengele vya `buffer` binafsi kama vile safu ya data:
+
+```js
+console.log(myNumBuffer[0]); // 70
+console.log(myStrBuffer[0]); // 102
+```
+
+Pia unaweza kutumia njia ya `toString()` kwenye kihifadhi cha muda kuona jinsi kinavyoonekana kweli:
+
+```js
+console.log(myStrBuffer.toString()); // freeCodeCamp
+console.log(myNumBuffer.toString()); // FREECODECAMP
+```
+
+`Buffer.alloc()` inakuwezesha kuunda kihifadhi kipya cha ukubwa fulani (idadi ya bytes). Kila byte ndani yake hujazwa moja kwa moja na `0`:
+
+```js
+const someBuffer = Buffer.alloc(10);
+console.log(someBuffer); // <Buffer 00 00 00 00 00 00 00 00 00 00>
+```
+
+Unaweza kuona kwamba kihifadhi cha muda kimeanzishwa kwa sifuri, kulingana na ukubwa uliotumwa kwenye njia ya `alloc()`.
+
+Unaweza kuendelea na kutumia njia ya `Buffer.write()` kuandika kwenye kihifadhi hiki cha muda:
+
+```js
+someBuffer.write("Hello fCC");
+
+console.log(someBuffer); // <Buffer 48 65 6c 6c 6f 20 66 43 43 00>
+console.log(someBuffer.toString()); // Hello fCC
+```
+
+Ikiwa utaandika data zaidi kuliko kihifadhi kinaweza kushikilia, itakatwa:
+
+```js
+someBuffer.write("Hello freeCodeCamp");
+
+console.log(someBuffer); // <Buffer 48 65 6c 6c 6f 20 66 72 65 65>
+console.log(someBuffer.toString()); // Hello free
+```
+
+Mwishowe, unaweza kutumia `Buffer.byteLength()` kuonyesha idadi ya bytes zinazohitajika kuhifadhi mfuatano wa herufi kwa usimbaji fulani:
+
+```js
+console.log(Buffer.byteLength("Hello freeCodeCamp")); // 18
+```
+
+Njia nyingine za `Buffer` ni pamoja na:
+
+- `Buffer.isBuffer()`: huthibitisha kama kitu fulani ni kihifadhi cha muda
+- `Buffer.compare()`: inalinganisha kihifadhi cha muda viwili na kurudisha mpangilio wao wa kupanga
+- `Buffer.concat()`: inaunganisha kihifadhi cha muda kadhaa kuwa kimoja
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya hizi **SIYO** njia ya moduli ya `Buffer` ya Node.js?
+
+## --answers--
+
+`Buffer.from()`
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data za binary nje ya vivinjari.
+
+---
+
+`Buffer.alloc()`
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data za binary nje ya vivinjari.
+
+---
+
+`Buffer.concat()`
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data za binary nje ya vivinjari.
+
+---
+
+`Buffer.insert()`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Kwa nini Node.js hutoa moduli ya `Buffer`?
+
+## --answers--
+
+Kuboresha utendaji wa JavaScript katika vivinjari.
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data ambayo si maandishi tu.
+
+---
+
+Kuwa na mtindo wa kurasa za mtandao kwa kutumia CSS za binary.
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data ambayo si maandishi tu.
+
+---
+
+Kushughulikia data za binary kama faili, picha, na mfululizo wa TCP.
+
+---
+
+Kubadilisha msimbo wa JavaScript kuwa msimbo wa mashine.
+
+### --feedback--
+
+Fikiria jinsi Node.js inavyoshughulikia data za binary nje ya vivinjari.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini hutokea ikiwa utaandika data zaidi kuliko kihifadhi cha muda kinaweza kushikilia?
+
+## --answers--
+
+Kihifadhi cha muda kinabadilika ukubwa kiotomatiki ili kufanikisha data yote.
+
+### --feedback--
+
+Fikiria jinsi `"Hello freeCodeCamp"` inavyokuwa `"Hello free"` katika mojawapo ya mifano.
+
+---
+
+Data ya ziada inakatwa, na tu kile kinachofaa ndicho kinahifadhiwa.
+
+---
+
+Node.js hutupa kosa na kusitisha utekelezaji.
+
+### --feedback--
+
+Fikiria jinsi `"Hello freeCodeCamp"` inavyokuwa `"Hello free"` katika mojawapo ya mifano.
+
+---
+
+Kihifadhi cha muda kinaandika juu ya data katika maeneo ya karibu ya kumbukumbu.
+
+### --feedback--
+
+Fikiria jinsi `"Hello freeCodeCamp"` inavyokuwa `"Hello free"` katika mojawapo ya mifano.
+
+## --video-solution--
+
+2

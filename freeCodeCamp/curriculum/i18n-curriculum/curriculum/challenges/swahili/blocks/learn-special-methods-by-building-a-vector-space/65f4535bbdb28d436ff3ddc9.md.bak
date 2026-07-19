@@ -1,0 +1,49 @@
+---
+id: 65f4535bbdb28d436ff3ddc9
+title: Hatua 20
+challengeType: 20
+dashedName: step-20
+---
+
+# --description--
+
+Kama unavyoona kutoka kwenye matokeo, `__dict__` ina thamani za sifa zako za kipengele. Badala ya kuongeza waziwazi mraba wa `self.x` na `self.y`, utarudia juu ya thamani zilizohifadhiwa katika `__dict__` ili kuhesabu thamani ya norm.
+
+Ndani ya mwili wa njia ya `norm`, badilisha yaliyomo ndani ya mabano ya kawaida na usemi wa kizalishi unaoinua kila thamani `val` katika `self.__dict__.values()` kwa nguvu ya `2`. Pia, pita usemi huo wa kizalishi kama hoja kwa kitendakazi cha `sum`, ili mraba zote ziunganishwe pamoja kabla ya kuhesabu mzizi wa mraba.
+
+# --hints--
+
+Unapaswa kurudisha `sum(val**2 for val in self.__dict__.values())**0.5` kutoka kwa njia ya `norm()`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("norm").has_return("sum(val**2 for val in self.__dict__.values())**0.5")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+--fcc-editable-region--
+    def norm(self):
+        return (self.x**2 + self.y**2)**0.5
+--fcc-editable-region--        
+    def __str__(self):
+        return f'{self.x, self.y}'
+
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(v1.__dict__)
+print(v2.__dict__)
+
+```

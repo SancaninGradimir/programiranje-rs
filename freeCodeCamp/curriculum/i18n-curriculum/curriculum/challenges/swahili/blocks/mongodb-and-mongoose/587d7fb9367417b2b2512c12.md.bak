@@ -1,0 +1,64 @@
+---
+id: 587d7fb9367417b2b2512c12
+title: Unganisha Msaidizi wa Hoja ya Utafutaji Kupunguza Matokeo ya Utafutaji
+challengeType: 2
+forumTopicId: 301533
+dashedName: chain-search-query-helpers-to-narrow-search-results
+---
+
+# --description--
+
+Kama hutumi wito wa kurudisha kama hoja ya mwisho kwa `Model.find()` (au kwa njia nyingine za utafutaji), hoja ya utafutaji haitatekelezwa. Unaweza kuhifadhi hoja ya utafutaji katika kigezo kwa matumizi ya baadaye. Aina hii ya kitu inakuwezesha kujenga hoja ya utafutaji kwa kutumia sintaksia ya uunganishaji wa mfululizo. Utafutaji halisi wa hifadhidata hufanyika wakati unapounganisha njia `.exec()` mwisho kabisa. Daima unahitaji kupitisha wito wa kurudisha kwa njia hii ya mwisho. Kuna msaada mwingi wa hoja za utafutaji, hapa tutatumia zile zinazotumika zaidi.
+
+# --instructions--
+
+Badilisha kitendakazi cha `queryChain` ili kutafuta watu wanaopenda chakula kilichobainishwa na kigezo kinachoitwa `foodToSearch`. Waweke kwa mpangilio wa `name`, punguza matokeo hadi hati mbili, na ficha umri wao. Unganisha `.find()`, `.sort()`, `.limit()`, `.select()`, kisha `.exec()`. Pitisha wito wa kurudisha wa `done(err, data)` kwa `exec()`.
+
+# --hints--
+
+Uunganishaji wa msaada wa hoja za utafutaji unapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/query-tools', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify([
+      { name: 'Pablo', age: 26, favoriteFoods: ['burrito', 'hot-dog'] },
+      { name: 'Bob', age: 23, favoriteFoods: ['pizza', 'nachos'] },
+      { name: 'Ashley', age: 32, favoriteFoods: ['steak', 'burrito'] },
+      { name: 'Mario', age: 51, favoriteFoods: ['burrito', 'prosciutto'] }
+    ])
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.isArray(data, 'the response should be an Array');
+  assert.equal(
+    data.length,
+    2,
+    'the data array length is not what expected'
+  );
+  assert.notProperty(
+    data[0],
+    'age',
+    'The returned first item has too many properties'
+  );
+  assert.equal(
+    data[0].name,
+    'Ashley',
+    'The returned first item name is not what expected'
+  );
+  assert.notProperty(
+    data[1],
+    'age',
+    'The returned second item has too many properties'
+  );
+  assert.equal(
+    data[1].name,
+    'Mario',
+    'The returned second item name is not what expected'
+  );
+```

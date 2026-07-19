@@ -1,0 +1,302 @@
+---
+id: 5e44414f903586ffb414c950
+title: Jenga mradi wa kalkuleta ya uwezekano
+challengeType: 23
+saveSubmissionToDB: true
+forumTopicId: 462364
+dashedName: build-a-probability-calculator-project
+---
+
+# --description--
+
+Fikiria kuna kofia yenye mipira 5 ya buluu, mipira 4 ya nyekundu, na mipira 2 ya kijani. Je, ni uwezekano gani kwamba kuchora mipira 4 kwa bahati nasibu kutakuwa na angalau mpira 1 mwekundu na mipira 2 ya kijani? Ingawa inawezekana kukokotoa uwezekano kwa kutumia hisabati ya hali ya juu, njia rahisi ni kuandika programu itakayofanya majaribio mengi ili kukadiria uwezekano wa takriban.
+
+Kwa mradi huu, utaandika programu ya kubaini uwezekano wa takriban wa kuchora mipira fulani kwa bahati nasibu kutoka kwenye kofia.
+
+Kwanza, tengeneza darasa la `Hat` katika `main.py`. Darasa hilo linapaswa kupokea idadi isiyojulikana ya hoja zinazobainisha idadi ya mipira ya kila rangi iliyoko kwenye kofia. Kwa mfano, kitu cha darasa kinaweza kuundwa kwa njia yoyote kati ya hizi:
+
+```py
+hat1 = Hat(yellow=3, blue=2, green=6)
+hat2 = Hat(red=5, orange=4)
+hat3 = Hat(red=5, orange=4, black=1, blue=0, pink=2, striped=9)
+```
+
+Kofia itaundwa daima ikiwa na angalau mpira mmoja. Hoja zitakazopitishwa kwenye kitu cha kofia wakati wa uundaji zinapaswa kubadilishwa kuwa kigezo cha mfano cha `contents`. `contents` inapaswa kuwa orodha ya mfuatano wa herufi zenye kipengele kimoja kwa kila mpira katika kofia. Kila kipengele katika orodha kinapaswa kuwa jina la rangi linalowakilisha mpira mmoja wa rangi hiyo. Kwa mfano, ikiwa kofia yako ni `{'red': 2, 'blue': 1}`, `contents` inapaswa kuwa `['red', 'red', 'blue']`.
+
+Darasa la `Hat` linapaswa kuwa na njia ya `draw` inayokubali hoja inayobainisha idadi ya mipira ya kuchorwa kutoka kwenye kofia. Njia hii inapaswa kuondoa mipira kwa bahati nasibu kutoka `contents` na kurudisha mipira hiyo kama orodha ya mfuatano wa herufi. Mipira haipaswi kurudi kwenye kofia wakati wa kuchora, kama majaribio ya chombo bila kurudisha. Ikiwa idadi ya mipira ya kuchora ni zaidi ya ile iliyopo, rudisha mipira yote.
+
+Ifuatayo, tengeneza kitendakazi cha `experiment` katika `main.py` (si ndani ya darasa la `Hat`). Kitendakazi hiki kinapaswa kupokea hoja zifuatazo:
+
+- `hat`: Kitu cha kofia chenye mipira ambacho kinapaswa kuigwa ndani ya kitendakazi.
+- `expected_balls`: Kitu kinachoonyesha kikundi halisi cha mipira ya kujaribu kuchora kutoka kwenye kofia kwa majaribio. Kwa mfano, ili kubaini uwezekano wa kuchora mipira 2 ya buluu na mpira 1 mwekundu kutoka kwenye kofia, weka `expected_balls` kuwa `{'blue':2, 'red':1}`.
+- `num_balls_drawn`: Idadi ya mipira ya kuchora kutoka kwenye kofia katika kila jaribio.
+- `num_experiments`: Idadi ya majaribio ya kufanya. (Kadri majaribio yanavyoongezeka, ndivyo uwezekano wa takriban unavyokuwa sahihi zaidi.)
+
+Kitendakazi cha `experiment` kinapaswa kurudisha uwezekano.
+
+Kwa mfano, ikiwa unataka kubaini uwezekano wa kupata angalau mipira miwili mwekundu na mpira mmoja wa kijani wakati unachora mipira mitano kutoka kwenye kofia yenye mipira sita ya nyeusi, mipira minne mwekundu, na mipira mitatu ya kijani. Ili kufanya hivyo, utafanya majaribio `N`, kuhesabu mara ngapi `M` unapata angalau mipira miwili mwekundu na mpira mmoja wa kijani, na kukadiria uwezekano kama `M/N`. Kila jaribio linajumuisha kuanza na kofia yenye mipira iliyobainishwa, kuchora mipira kadhaa, na kuangalia kama umepata mipira uliyokuwa ukijaribu kuchora.
+
+Hivi ndivyo ungevita kitendakazi cha `experiment` kulingana na mfano hapo juu na majaribio 2000:
+
+```py
+hat = Hat(black=6, red=4, green=3)
+probability = experiment(hat=hat,
+                  expected_balls={'red':2,'green':1},
+                  num_balls_drawn=5,
+                  num_experiments=2000)
+```
+
+Matokeo yatakuwa kama haya:
+
+```bash
+0.356
+```
+
+Kwa kuwa hii inategemea michoro ya bahati nasibu, uwezekano utakuwa tofauti kidogo kila mara msimbo unapoendeshwa.
+
+_Kibali: Fikiria kutumia moduli ambazo tayari zimeimportiwa juu. Usianze mbegu ya random ndani ya faili._
+
+Kumbuka: fungua konsoli ya kivinjari kwa F12 kuona matokeo ya majaribio kwa undani zaidi.
+
+# --hints--
+
+Uundaji wa kitu cha `hat` unapaswa kuongeza maudhui sahihi.
+
+```js
+({
+  test: () => {
+    pyodide.FS.writeFile("/home/pyodide/probability_calculator.py", code);
+    pyodide.FS.writeFile(
+      "/home/pyodide/test_module.py",
+      `
+import unittest
+import probability_calculator
+from importlib import reload
+
+reload(probability_calculator)
+
+probability_calculator.random.seed(95)
+class UnitTests(unittest.TestCase):
+    maxDiff = None
+    def test_hat_class_contents(self):
+        hat = probability_calculator.Hat(red=3,blue=2)
+        actual = hat.contents
+        expected = ["red","red","red","blue","blue"]
+        self.assertEqual(actual, expected, 'Expected creation of hat object to add correct contents.')
+        `
+    );
+    const testCode = `
+from unittest import main
+import test_module
+from importlib import reload
+
+reload(test_module)
+t = main(module='test_module', exit=False)
+t.result.wasSuccessful()
+`;
+    const out = runPython(testCode);
+    assert(out);
+  },
+});
+```
+
+Njia ya `draw` katika darasa la `hat` inapaswa kupunguza idadi ya vitu katika maudhui.
+
+
+```js
+({
+  test: () => {
+    pyodide.FS.writeFile("/home/pyodide/probability_calculator.py", code);
+    pyodide.FS.writeFile(
+      "/home/pyodide/test_module.py",
+      `
+import unittest
+import probability_calculator
+from importlib import reload
+
+reload(probability_calculator)
+
+probability_calculator.random.seed(95)
+
+class UnitTests(unittest.TestCase):
+    maxDiff = None
+    def test_hat_draw(self):
+        hat = probability_calculator.Hat(red=5,blue=2)
+        actual = hat.draw(2)
+        expected = ['blue', 'red']
+        self.assertEqual(actual, expected, 'Expected hat draw to return two random items from hat contents.')
+        actual = len(hat.contents)
+        expected = 5
+        self.assertEqual(actual, expected, 'Expected hat draw to reduce number of items in contents.')
+        `
+    );
+    const testCode = `
+from unittest import main
+import test_module
+from importlib import reload
+
+reload(test_module)
+t = main(module='test_module', exit=False)
+t.result.wasSuccessful()
+`;
+    const out = runPython(testCode);
+    assert(out);
+  },
+});
+```
+
+Njia ya `draw` inapaswa kufanya kazi ipasavyo wakati idadi ya mipira ya kuchora ni kubwa kuliko idadi ya mipira katika kofia.
+
+```js
+({
+  test: () => {
+    pyodide.FS.writeFile("/home/pyodide/probability_calculator.py", code);
+    pyodide.FS.writeFile(
+      "/home/pyodide/test_module.py",
+      `
+import unittest
+import probability_calculator
+from importlib import reload
+
+reload(probability_calculator)
+
+probability_calculator.random.seed(95)
+class UnitTests(unittest.TestCase):
+    maxDiff = None
+    def test_hat_draw_2(self):
+        hat = probability_calculator.Hat(yellow=5,red=1,green=3,blue=9,test=1)
+        actual = sorted(hat.draw(20))
+        expected = sorted(['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'red', 'green', 'green', 'green', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'test'])
+        self.assertEqual(actual, expected, 'Expected hat draw to return all items from hat contents.')
+        actual = len(hat.contents)
+        expected = 0
+        self.assertEqual(actual, expected, 'Expected hat draw to leave no items in contents.')
+        `
+    );
+    const testCode = `
+from unittest import main
+import test_module
+from importlib import reload
+
+reload(test_module)
+t = main(module='test_module', exit=False)
+t.result.wasSuccessful()
+`;
+    const out = runPython(testCode);
+    assert(out);
+  },
+});
+```
+
+Njia ya `experiment` inapaswa kurudisha uwezekano tofauti.
+
+
+```js
+({
+  test: () => {
+    pyodide.FS.writeFile("/home/pyodide/probability_calculator.py", code);
+    pyodide.FS.writeFile(
+      "/home/pyodide/test_module.py",
+      `
+import unittest
+import probability_calculator
+from importlib import reload
+
+reload(probability_calculator)
+
+probability_calculator.random.seed(95)
+class UnitTests(unittest.TestCase):
+    maxDiff = None
+    def test_prob_experiment(self):
+        hat = probability_calculator.Hat(blue=3,red=2,green=6)
+        probability = probability_calculator.experiment(hat=hat, expected_balls={"blue":2,"green":1}, num_balls_drawn=4, num_experiments=1000)
+        actual = probability
+        expected = 0.272
+        self.assertAlmostEqual(actual, expected, delta = 0.01, msg = 'Expected experiment method to return a different probability.')
+        hat = probability_calculator.Hat(yellow=5,red=1,green=3,blue=9,test=1)
+        probability = probability_calculator.experiment(hat=hat, expected_balls={"yellow":2,"blue":3,"test":1}, num_balls_drawn=20, num_experiments=100)
+        actual = probability
+        expected = 1.0
+        self.assertAlmostEqual(actual, expected, delta = 0.01, msg = 'Expected experiment method to return a different probability.')
+        `
+    );
+    const testCode = `
+from unittest import main
+import test_module
+from importlib import reload
+
+reload(test_module)
+t = main(module='test_module', exit=False)
+t.result.wasSuccessful()
+`;
+    const out = runPython(testCode);
+    assert(out);
+  },
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+import copy
+import random
+
+class Hat:
+    pass
+
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    pass
+```
+
+# --solutions--
+
+```py
+import copy
+import random
+
+class Hat:
+    def __init__(self, **hat):
+        self.hat = hat
+        contents = []
+        for i in hat:
+            for j in range(hat[i]):
+                contents.append(i)           
+        self.contents = contents
+               
+
+    def draw(self, number): 
+        drawn = []
+        if number >= len(self.contents):
+            drawn.extend(self.contents)
+            self.contents = []
+        else:
+            for i in range(number):
+                drawn.append(
+                    self.contents.pop(random.randrange(len(self.contents)))
+                )                
+        return drawn
+
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):    
+    expected_balls_list = []
+    drawn_list = []
+    success = 0
+    for i in expected_balls:
+        for j in range(expected_balls[i]):
+            expected_balls_list.append(i)
+    for j in range(num_experiments):
+        hat_copy = copy.deepcopy(hat)
+        drawn_list.append(hat_copy.draw(num_balls_drawn))        
+        exp_ball_list_copy = expected_balls_list[:]
+        for k in range(len(drawn_list[j])):
+            try:
+                ind = exp_ball_list_copy.index(drawn_list[j][k])
+                exp_ball_list_copy.pop(ind)
+            except:
+                continue
+        if len(exp_ball_list_copy) == 0:
+            success += 1        
+    probability = success/num_experiments    
+    return probability
+```

@@ -1,0 +1,107 @@
+---
+id: 5a24c314108439a4d4036155
+title: Tuma data ya kitendo kwa hifadhi
+challengeType: 6
+forumTopicId: 301448
+dashedName: send-action-data-to-the-store
+---
+
+# --description--
+
+Hadi sasa umejifunza jinsi ya kutuma vitendo kwa hifadhi ya Redux, lakini hadi sasa vitendo hivi havijajumuisha taarifa yoyote zaidi ya `type`. Pia unaweza kutuma data maalum pamoja na vitendo vyako. Kwa kweli, hili ni jambo la kawaida sana kwa sababu vitendo kawaida hutokea kutokana na mwingiliano wa mtumizi na huwa na data fulani pamoja navyo. Hifadhi ya Redux mara nyingi inahitaji kujua kuhusu data hii.
+
+# --instructions--
+
+Kuna kitengeneza kitendo cha msingi cha `notesReducer()` na `addNoteText()` kilichobainishwa katika mhariri wa msimbo. Malizia mwili wa kitendakazi cha `addNoteText()` ili kirudishe kitu cha `action`. Kitu hicho kinapaswa kujumuisha sifa ya `type` yenye thamani ya `ADD_NOTE`, na pia sifa ya `text` iliyowekwa kwa data ya `note` inayopitishwa kwa kitengeneza kitendo. Unapoitisha kitengeneza kitendo, utapitisha taarifa maalum za noti ambazo unaweza kupata kwa ajili ya kitu hicho.
+
+Ifuatayo, malizia kuandika tamko la `switch` katika `notesReducer()`. Unahitaji kuongeza kesi inayoshughulikia vitendo vya `addNoteText()`. Kesi hii inapaswa kuanzishwa kila wakati kunapokuwa na kitendo cha aina ya `ADD_NOTE` na inapaswa kurudisha sifa ya `text` kwenye `action` inayokuja kama `state` mpya.
+
+Kitendo kinatumwa chini ya msimbo. Mara utakapomaliza, endesha msimbo na tazama konsoli. Hicho ndicho kinachohitajika kutuma data maalum ya kitendo kwa hifadhi na kuitumia unaposasisha `state` ya hifadhi.
+
+# --hints--
+
+Kitengeneza kitendo cha `addNoteText` kinapaswa kurudisha kitu chenye funguo `type` na `text`.
+
+```js
+assert(
+  (function () {
+    const addNoteFn = addNoteText('__TEST__NOTE');
+    return addNoteFn.type === ADD_NOTE && addNoteFn.text === '__TEST__NOTE';
+  })()
+);
+```
+
+Kutuma kitendo cha aina ya `ADD_NOTE` kwa kitengeneza kitendo cha `addNoteText` kinapaswa kusasisha `state` kuwa mfuatano wa herufi uliopitishwa kwa kitengeneza kitendo.
+
+```js
+assert(
+  (function () {
+    const initialState = store.getState();
+    store.dispatch(addNoteText('__TEST__NOTE'));
+    const newState = store.getState();
+    return initialState !== newState && newState === '__TEST__NOTE';
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const ADD_NOTE = 'ADD_NOTE';
+
+const notesReducer = (state = 'Initial State', action) => {
+  switch(action.type) {
+    // Change code below this line
+
+    // Change code above this line
+    default:
+      return state;
+  }
+};
+
+const addNoteText = (note) => {
+  // Change code below this line
+
+  // Change code above this line
+};
+
+const store = Redux.createStore(notesReducer);
+
+console.log(store.getState());
+store.dispatch(addNoteText('Hello!'));
+console.log(store.getState());
+```
+
+# --solutions--
+
+```js
+const ADD_NOTE = 'ADD_NOTE';
+
+const notesReducer = (state = 'Initial State', action) => {
+  switch(action.type) {
+    // Change code below this line
+    case ADD_NOTE:
+      return action.text;
+    // Change code above this line
+    default:
+      return state;
+  }
+};
+
+const addNoteText = (note) => {
+  // Change code below this line
+  return {
+    type: ADD_NOTE,
+    text: note
+  }
+  // Change code above this line
+};
+
+const store = Redux.createStore(notesReducer);
+
+console.log(store.getState());
+store.dispatch(addNoteText('Hello Redux!'));
+console.log(store.getState());
+```

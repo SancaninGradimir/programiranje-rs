@@ -1,0 +1,127 @@
+---
+id: 5a24c314108439a4d403615b
+title: Nakili kitu na Object.assign
+challengeType: 6
+forumTopicId: 301437
+dashedName: copy-an-object-with-object-assign
+---
+
+# --description--
+
+Changamoto za hivi karibuni zilihusiana na safu za data, lakini kuna njia za kusaidia kutekeleza hali isiyobadilika hata wakati hali ni `object`. Chombo muhimu kwa kushughulikia vitu ni zana ya `Object.assign()`. `Object.assign()` huchukua kitu lengwa na vitu chanzo na huoanisha sifa kutoka kwa vitu chanzo kwenda kwa kitu lengwa. Sifa zozote zinazolingana hubadilishwa na sifa zilizopo katika vitu chanzo. Tabia hii hutumika sana kutengeneza nakala za kina za vitu kwa kupitisha kitu tupu kama hoja ya kwanza ikifuatiwa na kitu(kituo) unachotaka kunakili. Hapa kuna mfano:
+
+```js
+const newObject = Object.assign({}, obj1, obj2);
+```
+
+Hii huunda `newObject` kama `object` mpya, ambayo ina sifa zinazopo kwa sasa katika `obj1` na `obj2`.
+
+# --instructions--
+
+Hali ya Redux na vitendo vilibadilishwa kushughulikia `object` kwa `state`. Hariri msimbo ili urudishe kitu kipya cha `state` kwa vitendo vyenye aina ya `ONLINE`, ambavyo vinaweka sifa ya `status` kuwa mfuatano wa herufi `online`. Jaribu kutumia `Object.assign()` kukamilisha changamoto.
+
+# --hints--
+
+Hifadhi ya Redux inapaswa kuwepo na kuanzishwa na hali inayolingana na kitu cha `defaultState` kilichotangazwa kwenye mstari wa 1.
+
+```js
+const expectedState = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+const initialState = store.getState();
+assert.deepEqual(expectedState, initialState);
+```
+
+`wakeUp` na `immutableReducer` zote zinapaswa kuwa vitendakazi.
+
+```js
+assert(typeof wakeUp === 'function' && typeof immutableReducer === 'function');
+```
+
+Kutuma kitendo cha aina ya `ONLINE` kunapaswa kusasisha sifa ya `status` katika hali kuwa `online` na HAIPASWI kubadilisha hali moja kwa moja.
+
+```js
+
+const initialState = store.getState();
+const isFrozen = !!DeepFreeze(initialState);
+store.dispatch({ type: 'ONLINE' });
+const finalState = store.getState();
+const expectedState = {
+  user: 'CamperBot',
+  status: 'online',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+assert(isFrozen);
+assert.deepEqual(finalState, expectedState);
+```
+
+`Object.assign` inapaswa kutumika kurudisha hali mpya.
+
+```js
+assert(code.includes('Object.assign'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const defaultState = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+      // Don't mutate state here or the tests will fail
+      return
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store = Redux.createStore(immutableReducer);
+```
+
+# --solutions--
+
+```js
+const defaultState = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+      return Object.assign({}, state, {
+        status: 'online'
+      });
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store = Redux.createStore(immutableReducer);
+```

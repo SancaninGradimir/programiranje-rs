@@ -1,0 +1,178 @@
+---
+id: 698b42492a7f5f737895892e
+title: Jenga Kigeuzi cha Orodha ya Ujirani kwa Matriki ya Ujirani
+challengeType: 26
+dashedName: build-an-adjacency-list-to-matrix-converter
+---
+
+# --description--
+
+Katika maabara hii, utajenga kitendakazi kinachobadilisha uwakilishi wa orodha ya ujirani ya grafu kuwa matriki ya ujirani. Orodha ya ujirani ni kitu ambacho kila ufunguo wake unawakilisha nodi, na thamani inayolingana ni safu ya data ya nodi ambazo nodi ya ufunguo imeunganishwa nazo. Matriki ya ujirani ni safu ya data ya pande mbili ambapo kipengee kilichoko katika nafasi `[i][j]` ni `1` ikiwa kuna kiunganishi kutoka nodi `i` kwenda nodi `j`, na `0` vinginevyo.
+
+Kwa mfano, ikitolewa orodha ya ujirani:
+
+```js
+{
+  0: [1, 2],
+  1: [2],
+  2: [0, 3],
+  3: [2]
+}
+```
+
+Matriki ya ujirani inayolingana itakuwa:
+
+```js
+[
+  [0, 1, 1, 0],
+  [0, 0, 1, 0],
+  [1, 0, 0, 1],
+  [0, 0, 1, 0]
+]
+```
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kufafanua kitendakazi kinachoitwa `adjacencyListToMatrix` kubadilisha orodha ya ujirani kuwa matriki ya ujirani.
+2. Kitendakazi kinapaswa kuchukua kitu kinacho wakilisha orodha ya ujirani ya grafu isiyo na uzito (iwe isiyo na mwelekeo au yenye mwelekeo) kama hoja yake.
+3. Kitendakazi kinapaswa:
+   - Kubadilisha orodha ya ujirani kuwa matriki ya ujirani.
+   - Kuchapisha kila safu katika matriki ya ujirani.
+   - Kurudisha matriki ya ujirani.
+
+Kwa mfano, `adjacencyListToMatrix({0: [2], 1: [2, 3], 2: [0, 1, 3], 3: [1, 2]})` inapaswa kuchapisha:
+
+```md
+[0, 0, 1, 0]
+[0, 0, 1, 1]
+[1, 1, 0, 1]
+[0, 1, 1, 0]
+```
+
+na kurudisha `[[0, 0, 1, 0], [0, 0, 1, 1], [1, 1, 0, 1], [0, 1, 1, 0]]`.
+
+# --hints--
+
+Unapaswa kufafanua kitendakazi kinachoitwa `adjacencyListToMatrix`.
+
+```js
+assert.isFunction(adjacencyListToMatrix);
+```
+
+Kitendakazi `adjacencyListToMatrix` kinapaswa kuwa na kigezo kimoja.
+
+```js
+assert.lengthOf(adjacencyListToMatrix, 1);
+```
+
+Kitendakazi kinapaswa kubaini kwa usahihi idadi ya nodi kutoka orodha ya ujirani.
+
+```js
+const adjList = {0: [1], 1: [0], 2: []};
+const result = adjacencyListToMatrix(adjList);
+assert.lengthOf(result, 3);
+result.forEach(arr => assert.lengthOf(arr, 3));
+```
+
+Kitendakazi kinapaswa kuweka kwa usahihi thamani za matriki kuwa `1` kwa viunganishi vilivyopo.
+
+```js
+const adjList = {0: [1], 1: [0]};
+const result = adjacencyListToMatrix(adjList);
+const expected = [[0, 1], [1, 0]];
+assert.sameDeepOrderedMembers(result, expected);
+```
+
+Kitendakazi kinapaswa kuchapisha kila safu ya matriki.
+
+```js
+const spy = __helpers.spyOn(console, "log");
+try {
+  const adjList = {0: [1], 1: []}
+  adjacencyListToMatrix(adjList);
+  const args = spy.calls;
+  assert.sameDeepOrderedMembers(args[0], [ [0, 1] ]);
+  assert.sameDeepOrderedMembers(args[1], [ [0, 0] ]);
+} catch (e) {
+  assert.fail(e);
+} finally {
+  spy.restore();
+}
+```
+
+Kitendakazi kinapaswa kurudisha matriki ya ujirani.
+
+```js
+const adjList = {0: [1], 1: []};
+const result = adjacencyListToMatrix(adjList);
+assert.sameDeepOrderedMembers(result, [[0, 1], [0, 0]]);
+```
+
+Ukitoa orodha ya ujirani `{0: [1, 2], 1: [2], 2: [0, 3], 3: [2]}`, kitendakazi kinapaswa kurudisha `[[0, 1, 1, 0], [0, 0, 1, 0], [1, 0, 0, 1], [0, 0, 1, 0]]`.
+
+```js
+const adjList = {0: [1, 2], 1: [2], 2: [0, 3], 3: [2]};
+const result = adjacencyListToMatrix(adjList);
+const expected = [[0, 1, 1, 0], [0, 0, 1, 0], [1, 0, 0, 1], [0, 0, 1, 0]];
+assert.sameDeepOrderedMembers(result, expected);
+```
+
+Ukitoa orodha ya ujirani `{0: [1], 1: [0]}`, kitendakazi kinapaswa kurudisha `[[0, 1], [1, 0]]`.
+
+```js
+const adjList = {0: [1], 1: [0]};
+const result = adjacencyListToMatrix(adjList);
+const expected = [[0, 1], [1, 0]];
+assert.sameDeepOrderedMembers(result, expected);
+```
+
+Ukitoa orodha ya ujirani `{0: [], 1: [], 2: []}`, kitendakazi kinapaswa kurudisha `[[0, 0, 0], [0, 0, 0], [0, 0, 0]]`.
+
+```js
+const adjList = {0: [], 1: [], 2: []};
+const result = adjacencyListToMatrix(adjList);
+const expected = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+assert.sameDeepOrderedMembers(result, expected);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function adjacencyListToMatrix(adjList) {
+  const n = Object.keys(adjList).length;
+
+  const adjMatrix = Array.from({ length: n }, () => Array(n).fill(0));
+
+  for (const [srcStr, neighbors] of Object.entries(adjList)) {
+    const srcNode = Number(srcStr);
+    for (const destNode of neighbors) {
+      adjMatrix[srcNode][destNode] = 1;
+    }
+  }
+
+  for (const row of adjMatrix) {
+    console.log(row);
+  }
+
+  return adjMatrix;
+}
+
+const adjList = {
+  0: [1, 2],
+  1: [2],
+  2: [0, 3],
+  3: [2]
+};
+
+const matrix = adjacencyListToMatrix(adjList);
+```

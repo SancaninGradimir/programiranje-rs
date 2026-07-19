@@ -1,0 +1,51 @@
+---
+id: 587d7fb8367417b2b2512c0f
+title: Fanya masasisho mapya kwenye hati kwa kutumia model.findOneAndUpdate()
+challengeType: 2
+forumTopicId: 301542
+dashedName: perform-new-updates-on-a-document-using-model-findoneandupdate
+---
+
+# --description--
+
+Matoleo ya hivi karibuni ya Mongoose yana njia za kurahisisha masasisho ya hati. Baadhi ya vipengele vya hali ya juu zaidi (yaani, pre/post hooks, uthibitisho) hufanya kazi tofauti kwa njia hii, hivyo njia ya kawaida bado ni muhimu katika hali nyingi. `findByIdAndUpdate()` inaweza kutumika wakati wa kutafuta kwa id.
+
+# --instructions--
+
+Badilisha kitendakazi cha `findAndUpdate` ili kutafuta mtu kwa `Name` na kuweka umri wa mtu huyo kuwa `20`. Tumia kigezo cha kitendakazi `personName` kama ufunguo wa kutafuta.
+
+**Kumbuka:** Unapaswa kurudisha hati iliyosasishwa. Ili kufanya hivyo, unahitaji kupitisha chaguo la hati `{ new: true }` kama hoja ya tatu kwa `findOneAndUpdate()`. Kwa chaguo-msingi, njia hizi hurudisha kitu kisichobadilishwa.
+
+# --hints--
+
+findOneAndUpdate kipengele kinapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/find-one-update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Dorian Gray',
+      age: 35,
+      favoriteFoods: ['unknown']
+    })
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.name, 'Dorian Gray', 'item.name is not what expected');
+  assert.equal(data.age, 20, 'item.age is not what expected');
+  assert.deepEqual(
+    data.favoriteFoods,
+    ['unknown'],
+    'item.favoriteFoods is not what expected'
+  );
+  assert.equal(
+    data.__v,
+    0,
+    'findOneAndUpdate does not increment version by design!'
+  );
+```

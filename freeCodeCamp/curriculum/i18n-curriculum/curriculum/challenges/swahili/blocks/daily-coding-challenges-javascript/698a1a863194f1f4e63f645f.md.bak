@@ -1,0 +1,138 @@
+---
+id: 698a1a863194f1f4e63f645f
+title: "Zoezi la 208: Kupitia Njia ya Mfuatano"
+challengeType: 28
+dashedName: challenge-208
+---
+
+# --description--
+
+Kutolewa safu ya data ya mfuatano wa herufi wakilisha ramani ya njia yako, rudisha mfuatano wa herufi unaoonyesha hatua zinazohitajika kufikia lengo lako.
+
+Mfuatano wa herufi uliotolewa utakuwa na maadili:
+
+- `"C"`: Mahali ulipo sasa
+- `"G"`: Lengo lako
+- `"T"`: Sehemu za njia zinazoweza kupitishwa
+- `"-"`: Sehemu za ramani ambazo haziwezi kupitishwa
+
+Rudisha mfuatano wa herufi unaoonyesha hatua zinazohitajika kufuata njia kutoka mahali ulipo hadi lengo lako ambapo:
+
+- `"R"` ni hatua ya kusogea kulia
+- `"D"` ni hatua ya kusogea chini
+- `"L"` ni hatua ya kusogea kushoto
+- `"U"` ni hatua ya kusogea juu
+
+- Daima kutakuwa na njia moja inayounganisha bila matawi yoyote, kutoka mahali ulipo hadi lengo lako.
+- Kila sehemu ya njia itakuwa na sehemu mbili za juu kabisa zinazoweza kupitishwa zinazogusana nayo.
+
+Kwa mfano, ikitolewa:
+
+```js
+[
+  "-CT--",
+  "--T--",
+  "--TT-",
+  "---T-",
+  "---G-"
+]
+```
+
+Rudisha `"RDDRDD"`.
+
+# --hints--
+
+`navigateTrail(["-CT--", "--T--", "--TT-", "---T-", "---G-"])` inapaswa kurudisha `"RDDRDD"`.
+
+```js
+assert.equal(navigateTrail(["-CT--", "--T--", "--TT-", "---T-", "---G-"]), "RDDRDD");
+```
+
+`navigateTrail(["-----", "--TTG", "--T--", "--T--", "CTT--"])` inapaswa kurudisha `"RRUUURR"`.
+
+```js
+assert.equal(navigateTrail(["-----", "--TTG", "--T--", "--T--", "CTT--"]), "RRUUURR");
+```
+
+`navigateTrail(["-C----", "TT----", "T-----", "TTTTT-", "----G-"])` inapaswa kurudisha `"DLDDRRRRD"`.
+
+```js
+assert.equal(navigateTrail(["-C----", "TT----", "T-----", "TTTTT-", "----G-"]), "DLDDRRRRD");
+```
+
+`navigateTrail(["--------", "-CTTT---", "----T---", "---GT---", "--------"])` inapaswa kurudisha `"RRRDDL"`.
+
+```js
+assert.equal(navigateTrail(["--------", "-CTTT---", "----T---", "---GT---", "--------"]), "RRRDDL");
+```
+
+`navigateTrail(["TTTTTTT-", "T-----T-", "T-----T-", "TTTT--TG", "---C----"])` inapaswa kurudisha `"ULLLUUURRRRRRDDDR"`.
+
+```js
+assert.equal(navigateTrail(["TTTTTTT-", "T-----T-", "T-----T-", "TTTT--TG", "---C----"]), "ULLLUUURRRRRRDDDR");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function navigateTrail(map) {
+
+  return map;
+}
+```
+
+# --solutions--
+
+```js
+function navigateTrail(map) {
+  const rows = map.length;
+  const cols = map[0].length;
+
+  const directions = [
+    [0, 1, "R"],
+    [1, 0, "D"],
+    [0, -1, "L"],
+    [-1, 0, "U"],
+  ];
+
+  let row, col;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (map[r][c] === "C") {
+        row = r;
+        col = c;
+      }
+    }
+  }
+
+  let result = "";
+  let prev = null;
+
+  while (map[row][col] !== "G") {
+    for (let [dr, dc, move] of directions) {
+      const newRow = row + dr;
+      const newCol = col + dc;
+
+      if (
+        newRow >= 0 &&
+        newRow < rows &&
+        newCol >= 0 &&
+        newCol < cols &&
+        (map[newRow][newCol] === "T" ||
+          map[newRow][newCol] === "G") &&
+        (!prev || newRow !== prev[0] || newCol !== prev[1])
+      ) {
+        result += move;
+        prev = [row, col];
+        row = newRow;
+        col = newCol;
+        break;
+      }
+    }
+  }
+
+  return result;
+}
+```

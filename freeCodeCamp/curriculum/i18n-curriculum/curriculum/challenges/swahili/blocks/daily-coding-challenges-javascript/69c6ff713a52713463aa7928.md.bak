@@ -1,0 +1,73 @@
+---
+id: 69c6ff713a52713463aa7928
+title: "Zoezi la 262: Mchambuzi wa hoja ya utafutaji ya URL"
+challengeType: 28
+dashedName: challenge-262
+---
+
+# --description--
+
+Ikiwa URL ina mfuatano wa herufi wa hoja ya utafutaji, chambua mfuatano huo wa herufi kuwa kitu (au kamusi) cha jozi za ufunguo-thamani.
+
+- Mfuatano wa herufi wa hoja ya utafutaji huanza baada ya `"?"`,
+- kila kigezo kimegawanywa na `"&"`,
+- kila jozi ya ufunguo/thamani imegawanywa na `"="`
+
+Kwa mfano, ikitolewa `"https://example.com/search?name=Alice&age=30"`, rudisha:
+
+```json
+{
+  "name": "Alice",
+  "age": "30"
+}
+```
+
+Thamani zote zinapaswa kurudishwa kama mfuatano wa herufi.
+
+# --hints--
+
+`parseUrlQuery("https://example.com/search?name=Alice&age=30")` inapaswa kurudisha `{"name": "Alice", "age": "30"}`
+
+```js
+assert.deepEqual(parseUrlQuery("https://example.com/search?name=Alice&age=30"), {"name": "Alice", "age": "30"});
+```
+
+`parseUrlQuery("https://freecodecamp.org/learn?skill=programming&language=python")` inapaswa kurudisha `{"skill": "programming", "language": "python"}`
+
+```js
+assert.deepEqual(parseUrlQuery("https://freecodecamp.org/learn?skill=programming&language=python"), {"skill": "programming", "language": "python"});
+```
+
+`parseUrlQuery("https://freecodecamp.org/items?category=books&sort=asc&page=2")` inapaswa kurudisha `{"category": "books", "sort": "asc", "page": "2"}`
+
+```js
+assert.deepEqual(parseUrlQuery("https://freecodecamp.org/items?category=books&sort=asc&page=2"), {"category": "books", "sort": "asc", "page": "2"});
+```
+
+`parseUrlQuery("https://example.com?redirect=freecodecamp.org/learn&when=now")` inapaswa kurudisha `{"redirect": "freecodecamp.org/learn", "when": "now"}`
+
+```js
+assert.deepEqual(parseUrlQuery("https://example.com?redirect=freecodecamp.org/learn&when=now"), {"redirect": "freecodecamp.org/learn", "when": "now"});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function parseUrlQuery(url) {
+
+  return url;
+}
+```
+
+# --solutions--
+
+```js
+function parseUrlQuery(url) {
+  const queryString = url.split('?')[1];
+  return Object.fromEntries(
+    queryString.split('&').map(param => param.split('='))
+  );
+}
+```

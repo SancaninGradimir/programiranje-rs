@@ -1,0 +1,127 @@
+---
+id: 587d78a8367417b2b2512ae7
+title: Badilisha Muda wa Mchoro wa Miondoko kwa Maneno muhimu
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cJKvwCM'
+forumTopicId: 301045
+dashedName: change-animation-timing-with-keywords
+---
+
+# --description--
+
+Katika michoro ya miondoko ya CSS, sifa ya `animation-timing-function` inasimamia kasi ambayo kipengele kinachochorwa hubadilika kwa muda wa mchoro. Ikiwa mchoro ni gari linalosafiri kutoka sehemu A hadi sehemu B kwa muda fulani (`animation-duration` yako), `animation-timing-function` inasema jinsi gari linavyoongeza na kupunguza kasi katika safari hiyo.
+
+Kuna maneno muhimu mengi yaliyotangazwa tayari kwa chaguzi maarufu. Kwa mfano, thamani ya kawaida ni `ease`, ambayo huanza polepole, huongeza kasi katikati, kisha hupunguza tena mwishoni. Chaguzi nyingine ni pamoja na `ease-out`, ambayo huanza kwa kasi kisha hupunguza, `ease-in`, ambayo huanza polepole kisha huongeza kasi mwishoni, au `linear`, ambayo hutumia kasi thabiti ya mchoro kote.
+
+# --instructions--
+
+Kwa vipengele vyenye kitambulisho cha `ball1` na `ball2`, ongeza sifa ya `animation-timing-function` kwa kila kimoja, na weka `#ball1` kuwa `linear`, na `#ball2` kuwa `ease-out`. Angalia tofauti ya jinsi vipengele vinavyosogea wakati wa mchoro lakini vinamalizika pamoja, kwa sababu vinashiriki `animation-duration` sawa ya sekunde 2.
+
+# --hints--
+
+Thamani ya sifa ya `animation-timing-function` kwa kipengele chenye kitambulisho cha `ball1` inapaswa kuwa `linear`.
+
+```js
+const ballOne =document.querySelector('#ball1'); 
+const ballOneStyle = window.getComputedStyle(ballOne); 
+
+const ball1Animation = __helpers.removeWhiteSpace(ballOneStyle?.animationTimingFunction);
+assert.isTrue(ball1Animation == 'linear' || ball1Animation == 'cubic-bezier(0,0,1,1)');
+```
+
+Thamani ya sifa ya `animation-timing-function` kwa kipengele chenye kitambulisho cha `ball2` inapaswa kuwa `ease-out`.
+
+```js
+const ballTwo = document.querySelector('#ball2'); 
+const ballTwoStyle = window.getComputedStyle(ballTwo); 
+
+const ball2Animation = __helpers.removeWhiteSpace(ballTwoStyle?.animationTimingFunction);
+assert.isTrue(ball2Animation == 'ease-out' || ball2Animation == 'cubic-bezier(0,0,0.58,1)');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style>
+
+  .balls {
+    border-radius: 50%;
+    background: linear-gradient(
+      35deg,
+      #ccffff,
+      #ffcccc
+    );
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  #ball1 {
+    left:27%;
+
+  }
+  #ball2 {
+    left:56%;
+
+  }
+
+  @keyframes bounce {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: 249px;
+    }
+  }
+
+</style>
+
+<div class="balls" id="ball1"></div>
+<div class="balls" id="ball2"></div>
+```
+
+# --solutions--
+
+```html
+<style>
+  .balls {
+    border-radius: 50%;
+    background: linear-gradient(
+      35deg,
+      #ccffff,
+      #ffcccc
+    );
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  #ball1 {
+    left:27%;
+    animation-timing-function: linear;
+  }
+  #ball2 {
+    left:56%;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes bounce {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: 249px;
+    }
+  }
+</style>
+<div class="balls" id="ball1"></div>
+<div class="balls" id="ball2"></div>
+```

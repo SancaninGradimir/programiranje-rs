@@ -1,0 +1,118 @@
+---
+id: 5a24c314108439a4d403616d
+title: Tumia PropTypes kufafanua vigezo unavyotarajia
+challengeType: 6
+forumTopicId: 301419
+dashedName: use-proptypes-to-define-the-props-you-expect
+---
+
+# --description--
+
+React hutoa vipengele vya kuangalia aina vya msaada ili kuthibitisha kuwa sehemu zinapokea vigezo vya aina sahihi. Kwa mfano, programu yako inafanya wito wa API kupata data unayotegemea kuwa katika safu ya data, ambayo kisha hupitishwa kwa sehemu kama kigezo. Unaweza kuweka `propTypes` kwenye sehemu yako ili kuhitaji data kuwa ya aina `array`. Hii itatupa onyo la msaada wakati data ni aina nyingine yoyote.
+
+Inachukuliwa kuwa mbinu bora kuweka `propTypes` wakati unajua aina ya kigezo mapema. Unaweza kufafanua sifa ya `propTypes` kwa sehemu kwa njia ile ile uliyofafanua `defaultProps`. Kufanya hivi kutakagua kuwa vigezo vya ufunguo fulani vipo na aina fulani. Hapa kuna mfano wa kuhitaji aina `function` kwa kigezo kinachoitwa `handleClick`:
+
+```js
+MyComponent.propTypes = { handleClick: PropTypes.func.isRequired }
+```
+
+Katika mfano hapo juu, sehemu ya `PropTypes.func` inakagua kuwa `handleClick` ni kitendakazi. Kuongeza `isRequired` kunaambia React kuwa `handleClick` ni sifa inayohitajika kwa sehemu hiyo. Utaona onyo ikiwa kigezo hicho hakitolewi. Pia angalia kuwa `func` inawakilisha `function`. Kati ya aina saba za msingi za JavaScript, `function` na `boolean` (zinazoandikwa kama `bool`) ndizo pekee zinazotumia tahajia isiyo ya kawaida. Mbali na aina za msingi, kuna aina nyingine zinazopatikana. Kwa mfano, unaweza kukagua kuwa kigezo ni kipengele cha React. Tafadhali rejea <a href="https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes" target="_blank" rel="noopener noreferrer nofollow">nyaraka</a> kwa chaguzi zote.
+
+**Kumbuka:** Kuanzia React v15.5.0, `PropTypes` huletwa tofauti na React, kama hivi: `import PropTypes from 'prop-types';`
+
+# --instructions--
+
+Fafanua `propTypes` kwa sehemu ya `Items` kuhitaji `quantity` kama kigezo na kuthibitisha kuwa ni aina ya `number`.
+
+# --hints--
+
+Sehemu ya `ShoppingCart` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    return mockedComponent.find('ShoppingCart').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Items` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    return mockedComponent.find('Items').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Items` inapaswa kujumuisha ukaguzi wa `propTypes` kuhitaji thamani kwa `quantity` na kuhakikisha kuwa thamani yake ni nambari.
+
+```js
+const noWhiteSpace = __helpers.removeWhiteSpace(code);
+assert(noWhiteSpace.includes('quantity:PropTypes.number.isRequired') && noWhiteSpace.includes('Items.propTypes='));
+```
+
+# --before-all--
+
+```js
+var PropTypes = {
+  number: { isRequired: true }
+};
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+};
+
+// Change code below this line
+
+// Change code above this line
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <Items />
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+};
+
+// Change code below this line
+Items.propTypes = {
+  quantity: PropTypes.number.isRequired
+};
+// Change code above this line
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <Items />
+  }
+};
+```

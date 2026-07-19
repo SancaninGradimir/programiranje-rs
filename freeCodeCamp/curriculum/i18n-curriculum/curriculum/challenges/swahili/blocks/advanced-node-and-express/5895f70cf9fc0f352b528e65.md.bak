@@ -1,0 +1,93 @@
+---
+id: 5895f70cf9fc0f352b528e65
+title: Sanidi Passport
+challengeType: 2
+forumTopicId: 301565
+dashedName: set-up-passport
+---
+
+# --description--
+
+Ni wakati wa kusanidi *Passport* ili uweze kuanza kumruhusu mtumizi kujiandikisha au kuingia katika akaunti. Mbali na Passport, utatumia Express-session kushughulikia vikao. Express-session ina vipengele vingi vya hali ya juu ambavyo unaweza kutumia, lakini kwa sasa utatumia tu msingi. Kutumia programu hii ya kati huhifadhi kitambulisho cha kikao kama cookie kwa mteja, na kutuwezesha kupata data ya kikao kwa kutumia kitambulisho hicho kwenye seva. Kwa njia hii, unahifadhi taarifa binafsi za akaunti nje ya cookie inayotumiwa na mteja kuambia seva yako kuwa wateja wameimethibitishwa na kuhifadhi *funguo* ya kufikia data iliyohifadhiwa kwenye seva.
+
+`passport@~0.4.1` na `express-session@~1.17.1` tayari vimesakinishwa, na vyote vimeorodheshwa kama utegemezi katika faili yako ya `package.json`.
+
+Utahitaji kusanidi mipangilio ya kikao na kuanzisha Passport. Kwanza, tengeneza vigezo `session` na `passport` kuhitaji `express-session` na `passport` mtawalia.
+
+Kisha, sanidi app yako ya Express kutumia kikao kwa kufafanua chaguzi zifuatazo:
+
+```javascript
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+```
+
+Hakikisha unaongeza `SESSION_SECRET` kwenye faili yako ya `.env`, na umpe thamani isiyotarajiwa. Hii hutumika kuhesabu hash inayotumika kuficha cookie yako!
+
+Baada ya kufanya yote hayo, waambie app yako ya express **itumiwe** `passport.initialize()` na `passport.session()`.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#set-up-passport-3" target="_blank" rel="noopener noreferrer nofollow">kagua mradi uliofikia hatua hii</a>.
+
+# --hints--
+
+Passport na Express-session zinapaswa kuwa utegemezi.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'passport',
+    'Your project should list "passport" as a dependency'
+  );
+  assert.property(
+    packJson.dependencies,
+    'express-session',
+    'Your project should list "express-session" as a dependency'
+  );
+```
+
+Utegemezi unapaswa kuhitajika kwa usahihi.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /require.*("|')passport("|')/,
+    'You should have required passport'
+  );
+  assert.match(
+    data,
+    /require.*("|')express-session("|')/,
+    'You should have required express-session'
+  );
+```
+
+App ya Express inapaswa kutumia utegemezi mpya.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(data, /passport\.initialize/, 'Your express app should use "passport.initialize()"');
+  assert.match(data, /passport\.session/, 'Your express app should use "passport.session()"');
+```
+
+Kikao na siri ya kikao vinapaswa kusanidiwa kwa usahihi.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /secret *:\s*process\.env(\.SESSION_SECRET|\[(?<q>"|')SESSION_SECRET\k<q>\])/,
+    'Your express app should have express-session set up with your secret as process.env.SESSION_SECRET'
+  );
+```

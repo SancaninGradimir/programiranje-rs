@@ -1,0 +1,264 @@
+---
+id: 6882913b2b58c2738eaaa2d1
+title: "Faili la .gitignore ni nini, na ni vitu gani vinavyopaswa kuingizwa ndani yake?"
+challengeType: 19
+dashedName: what-is-a-gitignore-file-and-what-are-some-items-that-should-be-included-inside-it
+---
+
+# --description--
+
+Tumezungumzia kwa kifupi faili la `.gitignore` katika funzo lililopita. Lakini faili hili hasa ni nini, na unapaswa kuweka nini ndani yake?
+
+Faili la `.gitignore` ni aina maalum ya faili inayohusiana na shughuli za Git. Jina linaonyesha kuwa faili hili linatumika kuambia Git isizingatie vitu, na hiyo ndilo matumizi ya kawaida. Lakini kinachofanyika kweli ni kwamba linamwambia Git isizuie kufuatilia faili. Tofauti hii ni muhimu, na itafafanuliwa baadaye.
+
+Unapaswa kuweka nini hasa ndani ya faili hili? Vizuri, unapaswa kuorodhesha vitu ambavyo hutaki viwe sehemu ya maelezo yaliyohifadhiwa.
+
+Kwanza ni faili zako za siri. Hii inaweza kuwa kitu kama faili la `.env`, ambapo umehifadhi funguo zako za API kwa ajili ya programu yako kutumia. Inaweza kuwa faili la funguo binafsi la GPG ambalo programu yako inahitaji kwa uthibitisho wa utambulisho. Kitu chochote chenye taarifa nyeti ambacho hutaki kitoke kwa umma kinapaswa kusahaulika kwa `.gitignore`. Hata kama hifadhidata yako ni ya faragha, unapaswa kutenda kana kwamba ni ya umma - itunze kana kwamba mtu yeyote anaweza kuiona, na hakikisha hutoi siri zako.
+
+Tuchunguze sasa jinsi faili yetu inaweza kuonekana kwa sasa:
+
+```sh
+# Secrets
+.env
+github.key
+```
+
+Tumeambia Git isizingatie faili la `.env`, ambapo tunahifadhi siri zetu. Pia tumeambia Git isizingatie faili la `github.key`, ambalo linafunguo binafsi za GPG.
+
+Kitu kingine cha kuzingatia ni vifurushi, au utegemezi, ambavyo mradi wako unatumia. Kwa mfano, unapoendesha mradi wa Node.js, huenda unapakua vifurushi kutoka npm. Vifurushi hivi huenda kwenye folda ya `node_modules` katika mradi wako, ili msimbo wako uweze kuleta na kutumia vifurushi hivyo.
+
+Lakini folda ya `node_modules` huwa kubwa mno, na hakika hutaki kuingiza vifurushi vyote hivyo na kufuatilia mabadiliko kila mara unaposasisha moja. Badala yake, unaingiza faili lako la `package.json` na faili ya kufunga inayohusika (mfano `package-lock.json`, `pnpm-lock.yaml`). Faili hizi zinaambia npm vifurushi na matoleo gani ya kusakinisha, ili mshiriki mwingine aweze kusakinisha utegemezi uleule bila kuingiza vifurushi kwenye hifadhidata.
+
+Tuweke sasa `node_modules` kwenye faili letu la `.gitignore`:
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+```
+
+Sasa, tuchukulie jambo muhimu la sintaksia kwa faili za `.gitignore`. Unapoingiza kipengele kama `node_modules`, Git itasahau chochote kinacholingana na muundo huo. Hii ina maana itasahau folda ya `node_modules` katika mzizi wa mradi wako, lakini pia itasahau `node_modules` katika folda ya `client` ya mradi wako.
+
+Ikiwa unataka kusahau kitu tu katika mzizi, unaweza kuweka mstari na alama ya mbele ya mstari. `node_modules` itakuwa `/node_modules`. Hii itasahau folda ya `node_modules` katika mzizi, lakini si folda ya `client/node_modules`. Hatuhitaji hiyo, kwa hivyo tuache kipengele chetu kuwa `node_modules` tu.
+
+Kitu kingine unachotaka kusahau ni matokeo ya ujenzi. Kwa mfano, kuunda mradi wa TypeScript kunaweza kusababisha folda ya `dist` kwa matokeo ya JavaScript. Hutaki kuingiza matokeo hayo, kwa sababu yanajaza historia ya Git. Badala yake, unataka kusahau matokeo hayo - washiriki wanaweza kuyazalisha wenyewe kwa kuendesha amri ile ile ya ujenzi.
+
+Tuweke sasa folda ya `dist` kuwa isizingatiwe:
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+
+# Outputs
+dist
+```
+
+Wakati mwingine, faili iliyowekwa mahali pasipo sahihi inaweza kusababisha mkusanyaji wa TypeScript kuvunjika, na matokeo yake ni kwamba matokeo ya JavaScript yanatapakaa sehemu mbalimbali. Kwa kuwa tunaandika TypeScript pekee, tuchukue hatua ya kutumia sintaksia ya glob kusahau faili zote za JavaScript:
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+
+# Outputs
+dist
+*.js
+```
+
+Matokeo mengine ya kawaida unayoweza kusahau ni folda ya `coverage`, kwa matokeo ya upimaji wa vipande vya msimbo, folda ya `.angular` ikiwa unatumia Angular, folda ya `.next` ikiwa unatumia NextJS, na kadhalika.
+
+Kwa sasa, tunaweza kubaki na kile tulicho nacho hapa. Ikiwa unatumia mfumo wa kazi unaozalisha faili, unapaswa kuthibitisha katika nyaraka zao kile unachopaswa kuongeza kwenye `.gitignore`.
+
+Kundi la nne la vitu vya kusahau ni faili za IDE. Bidhaa za Jetbrains, kwa mfano, zinaweza kutumia folda ya `.idea` kwa usanidi maalum wa IDE. Visual Studio Code hutumia folda ya `.vscode`.
+
+Hizi mara nyingi ni nzuri kusahau, kwa sababu zitakuwa na faili maalum za mazingira yako ya ndani ambazo washiriki wengine hawatahitaji (kwa sababu wanatumia usanidi wao wenyewe). Tuweke sasa folda ya Visual Studio Code, kwa kuwa ndiyo IDE tunayotumia.
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+
+# Outputs
+dist
+*.js
+
+# IDE
+.vscode
+```
+
+Lakini folda yetu ya `.vscode` ina faili la `settings.json`, ambalo lina vitu maalum vya eneo la kazi ambavyo vinaweza kuwa muhimu kwa washiriki wetu - faili hili linawawezesha kusanidi nyongeza zao na mazingira yao ili kuendana vizuri na yetu.
+
+Kwa hivyo, tuchukue hatua ya kutumia sintaksia ya kukanusha ili "kusahau" faili hilo:
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+
+# Outputs
+dist
+*.js
+
+# IDE
+.vscode
+!.vscode/settings.json
+```
+
+Ikiwa uko kwenye MacOS, huenda unafahamu faili la `.DS_STORE`. Faili hili lina metadata ambayo Finder hutumia kuamua mambo kama jinsi ya kuonyesha folda (mfano, kwa kutumia picha ndogo, au kama orodha). Vivyo hivyo, watumiaji wa Windows wanaweza kuona faili la `Thumbs.db` lililofichwa, ambalo linahifadhi picha ndogo za folda.
+
+Kwa kawaida ni wazo zuri kusahau faili hizi, kwa kuwa ni mipangilio binafsi isiyoathiri mradi. Tuweke zote mbili:
+
+```sh
+# Secrets
+.env
+github.key
+
+# Packages
+node_modules
+
+# Outputs
+dist
+*.js
+
+# IDE
+.vscode
+!.vscode/settings.json
+
+# System Files
+.DS_STORE
+Thumbs.db
+```
+
+Kumbuka haraka kuhusu kusahau faili zilizowahi kuingizwa. Fikiria umeingiza folda ya `dist` kwa bahati mbaya awali, lakini sasa unataka kuifuta na kusahau. Huwezi tu kuiongeza kwenye faili lako la `.gitignore` - hii haitafanya yaliyomo yaliyowahi kuingizwa yatelekeze, inamwambia Git tu asifuatilie faili. Hivyo kama unasahau faili iliyowahi kuingizwa, Git haitafuatilia mabadiliko lakini haitafuatilia pia kufutwa kwa faili.
+
+Badala yake, kwanza unapaswa kufuta faili. Tengeneza maelezo ya kuingiza (commit) yenye kufuta hiyo. Kisha unaweza kuongeza kipengele kwenye `.gitignore` na kutengeneza maelezo ya kuingiza ya pili yenye sasisho hilo. Kuanzia sasa, wakati faili hilo litakapotengenezwa tena, Git litasahau na halitaonekana katika maelezo yako ya kuingiza.
+
+Mwishowe, ikiwa unafanya kazi kwenye mradi wa lugha tofauti, kama Python, vitu unavyopaswa kusahau vitakuwa tofauti na tulivyofunika hapa. GitHub ina hifadhidata yenye templates za `.gitignore` kwa lugha na mifumo mbalimbali. Unaweza kupata orodha hiyo hapa <a href="https://github.com/github/gitignore" target="_blank">https://github.com/github/gitignore</a>.
+
+Kwa hayo, sasa uko tayari kuepuka kuingiza faili usizotaka katika hifadhidata zako!
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la faili la `.gitignore`?
+
+## --answers--
+
+Kufuta faili kutoka kwenye hifadhidata yako.
+
+### --feedback--
+
+Fikiria kile faili la `.gitignore` linazuia kutokea wakati wa shughuli za Git.
+
+---
+
+Kuwaambia Git isizuie kufuatilia faili maalum.
+
+---
+
+Kuficha data nyeti kwa usimbaji fiche.
+
+### --feedback--
+
+Fikiria kile faili la `.gitignore` linazuia kutokea wakati wa shughuli za Git.
+
+---
+
+Kusindika faili kubwa kabla ya kuingiza.
+
+### --feedback--
+
+Fikiria kile faili la `.gitignore` linazuia kutokea wakati wa shughuli za Git.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ikiwa tayari umeingiza faili kwenye Git na baadaye ukaongeza kwenye `.gitignore`, nini kitafanyika?
+
+## --answers--
+
+Faili litaondolewa moja kwa moja kutoka kwenye hifadhidata.
+
+### --feedback--
+
+Fikiria kile funzo lilisema kuhusu kusahau faili zilizowahi kuingizwa.
+
+---
+
+Faili litaendelea kuwepo kwenye hifadhidata lakini mabadiliko ya baadaye hayatatazamwa.
+
+---
+
+Git itatoa kosa hadi utatatua mgongano.
+
+### --feedback--
+
+Fikiria kile funzo lilisema kuhusu kusahau faili zilizowahi kuingizwa.
+
+---
+
+Faili litawekwa fiche lakini bado lifuatiliwe na Git.
+
+### --feedback--
+
+Fikiria kile funzo lilisema kuhusu kusahau faili zilizowahi kuingizwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni sintaksia gani ungetumia katika faili la `.gitignore` kusahau faili zote katika folda, lakini kisha kufanya ubaguzi kwa faili moja maalum?
+
+## --answers--
+
+Tumia alama za glob (`*`) kisha tumia kukanusha (`!`) faili maalum.
+
+---
+
+Tumia maoni (`#`) kuainisha ubaguzi kwa mikono.
+
+### --feedback--
+
+Kumbuka mfano wa folda ya `.vscode` na faili la `settings.json`.
+
+---
+
+Tumia alama ya mstari (`/`) kuonyesha muundo wa folda.
+
+### --feedback--
+
+Kumbuka mfano wa folda ya `.vscode` na faili la `settings.json`.
+
+---
+
+Tumia mabano (`[]`) kuunda ubaguzi wa mifumo.
+
+### --feedback--
+
+Kumbuka mfano wa folda ya `.vscode` na faili la `settings.json`.
+
+## --video-solution--
+
+1

@@ -1,0 +1,134 @@
+---
+id: 66c07238b01053abaf812065
+title: Tengeneza kalkuleta ya faktoria
+challengeType: 26
+dashedName: build-a-factorial-calculator
+---
+
+# --description--
+
+Faktoria ni bidhaa ya nambari kamili na nambari zote kamili zilizo chini yake. Kwa mfano, faktoria ya `5` ni `5 * 4 * 3 * 2 * 1 = 120`. Katika maabara hii, utaunda kalkuleta ya faktoria inayochukua nambari kutoka kwa mtumizi na kuhesabu faktoria ya nambari hiyo.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kutangaza kigezo `num` na kuwekea thamani ya nambari unayotaka. Nambari iliyopewa thamani inapaswa kuwa kati ya `1` na `20` ikijumuisha.
+1. Tengeneza kitendakazi kinachoitwa `factorialCalculator` kinachochukua nambari kama hoja na kurudisha faktoria ya nambari hiyo.
+1. Ndani ya kitendakazi, tangaza kigezo `result` na uweke thamani ya `1`. Kwa kutumia mzunguko, pitia nambari zote kutoka `1` hadi nambari ya ingizo (ikijumuisha) na kwa kila nambari, zidisha kigezo `result` na nambari ya sasa na weka matokeo kwenye kigezo `result`. Unaweza kuchagua kutumia mzunguko wa `for`, `while`, au `do...while` hapa.
+1. Unapaswa kuita kitendakazi cha `factorialCalculator` kwa `num` kama hoja na kuweka matokeo kwenye kigezo `factorial`.
+1. Unapaswa kuhifadhi matokeo ya mwisho kwa muundo wa `Factorial of [num] is [factorial]` na kuuweka kwenye kigezo `resultMsg`.
+1. Unapaswa kutoa thamani ya `resultMsg` kwenye konsoli.
+
+# --hints--
+
+Unapaswa kuwa na kigezo `num`.
+
+```js
+assert.isDefined(num);
+```
+
+Unapaswa kuweka thamani kwenye kigezo `num`
+
+```js
+assert.isNotNull(num);
+```
+
+Thamani ya `num` inapaswa kuwa kati ya `1` na `20`.
+
+```js
+assert.isAtLeast(num, 1);
+assert.isAtMost(num, 20);
+```
+
+Thamani ya `num` inapaswa kuwa nambari.
+
+```js
+assert.isNumber(num);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `factorialCalculator`.
+
+```js
+assert.isFunction(factorialCalculator);
+```
+
+Kitendakazi cha `factorialCalculator` kinapaswa kuchukua nambari kama hoja.
+
+```js
+assert.match(factorialCalculator.toString(), /\s*factorialCalculator\(\s*\w+\s*\)/);
+```
+
+Faktoria ya `5` inapaswa kurudisha `120`.
+
+```js
+assert.strictEqual(factorialCalculator(5), 120);
+```
+
+Faktoria ya `7` inapaswa kurudisha `5040`.
+
+```js
+assert.strictEqual(factorialCalculator(7), 5040);
+```
+
+Unapaswa kuita kitendakazi chako cha `factorialCalculator` kwa kigezo `num` kama hoja.
+
+```js
+assert.match(__helpers.removeJSComments(code), /factorialCalculator\(\s*num\s*\)\s*;?\s*$/m);
+```
+
+Unapaswa kutangaza kigezo `factorial` na kuweka matokeo ya kitendakazi cha `factorialCalculator` ndani yake.
+
+```js
+assert.isDefined(factorial);
+assert.strictEqual(factorial, factorialCalculator(num));
+```
+
+`factorialCalculator` yako inapaswa kutoa matokeo sahihi.
+
+```js
+assert.strictEqual(factorialCalculator(6), 720);
+assert.strictEqual(factorialCalculator(9), 362880);
+assert.strictEqual(factorialCalculator(11), 39916800);
+```
+
+`resultMsg` yako inapaswa kuwa na mfuatano wa herufi katika muundo wa `Factorial of [num] is [factorial]`.
+
+```js
+assert.strictEqual(resultMsg, `Factorial of ${num} is ${factorialCalculator(num)}`);
+assert.notMatch(__helpers.removeJSComments(code), /Factorial of \d{1,2} is \d+/);
+```
+
+Unapaswa kutoa thamani ya `resultMsg` kwenye konsoli.
+
+```js
+assert.match(__helpers.removeJSComments(code), /console\.log\(resultMsg\)\s*;?\s?$/m);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const num = 5;
+
+function factorialCalculator(n) {
+  let result = 1;
+
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+
+  return result;
+}
+
+const factorial = factorialCalculator(num);
+const resultMsg = `Factorial of ${num} is ${factorial}`;
+console.log(resultMsg);
+```

@@ -1,0 +1,97 @@
+---
+id: 68ffb91507a5b645769328c5
+title: "Challenge 102: Longest Word"
+challengeType: 29
+dashedName: challenge-102
+---
+
+# --description--
+
+Ukitoa mfuatano wa herufi wa sentensi, rudisha neno refu zaidi katika sentensi hiyo.
+
+- Maneno yamegawanyika kwa nafasi moja tu.
+- Herufi pekee (`a-z`, isiyoegemea herufi kubwa au ndogo) ndizo zinahesabiwa kwa urefu wa neno.
+- Ikiwa kuna maneno mengi yenye urefu sawa, rudisha lile la kwanza lililoonekana.
+- Rudisha neno kama lilivyo katika mfuatano uliotolewa, bila alama za uandishi.
+
+# --hints--
+
+`longest_word("The quick red fox")` should return `"quick"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("The quick red fox"), "quick")`)
+}})
+```
+
+`longest_word("Hello coding challenge.")` should return `"challenge"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("Hello coding challenge."), "challenge")`)
+}})
+```
+
+`longest_word("Do Try This At Home.")` should return `"This"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("Do Try This At Home."), "This")`)
+}})
+```
+
+`longest_word("This sentence... has commas, ellipses, and an exclamation point!")` should return `"exclamation"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("This sentence... has commas, ellipses, and an exclamation point!"), "exclamation")`)
+}})
+```
+
+`longest_word("A tie? No way!")` should return `"tie"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("A tie? No way!"), "tie")`)
+}})
+```
+
+`longest_word("Wouldn't you like to know.")` should return `"Wouldnt"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(longest_word("Wouldn't you like to know."), "Wouldnt")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def longest_word(sentence):
+
+    return sentence
+```
+
+# --solutions--
+
+```py
+import re
+def longest_word(sentence):
+    words = sentence.split(" ")
+    longest = ""
+
+    for word in words:
+        cleaned = re.sub(r'[^a-zA-Z]', '', word)
+        if len(cleaned) > len(longest):
+            longest = cleaned
+
+    return longest
+```

@@ -1,0 +1,56 @@
+---
+id: 657f0044be09db790b1eb1c5
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Katika pascal case, mfuatano wa herufi huanza na herufi kubwa. Baada ya kubadilisha herufi zote kuwa herufi ndogo na kuongeza alama ya mstari chini, kuna uwezekano wa kuwa na alama ya ziada ya mstari chini mwanzoni mwa mfuatano wako wa herufi.
+
+Njia rahisi ya kurekebisha hili ni kwa kutumia njia ya `.strip()` ya mfuatano wa herufi, ambayo huondoa kutoka kwenye mfuatano wa herufi herufi zozote za mwanzo au mwisho kati ya seti ya herufi zinazotolewa kama hoja yake. Kwa mfano:
+
+```py
+original_string = "_example_string_"
+
+clean_string = original_string.strip('_')
+```
+
+Njia ya `strip()` inatumika kwa `original_string`. Hii huondoa alama yoyote ya mstari chini ya mwanzo na mwisho. Matokeo ya mfano hapo juu yatakuwa mfuatano wa herufi `'example_string'`.
+
+Tangaza kigezo kipya kinachoitwa `clean_snake_cased_string` na weka thamani yake kuwa matokeo ya njia ya `.strip()` inayotumika kwa `snake_cased_string` , ukipitisha `'_'` kama hoja kwa njia hiyo.
+
+# --hints--
+
+Unapaswa kuweka thamani ya mfuatano wa herufi unaopatikana kutoka `snake_cased_string.strip('_')` katika kigezo kinachoitwa `clean_snake_cased_string`.
+
+```js
+({
+    test: () => {
+        const transformedCode = code.replace(/\r/g, "");
+        const convert_to_snake_case = __helpers.python.getDef("\n" + transformedCode, "convert_to_snake_case");
+        const { function_body } = convert_to_snake_case;
+
+        assert.match(function_body, / +clean_snake_cased_string\s*=\s*snake_cased_string.strip\(\s*("|')_\1\s*\)/);
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def convert_to_snake_case(pascal_or_camel_cased_string):
+    snake_cased_char_list = []
+    for char in pascal_or_camel_cased_string:
+        if char.isupper():
+            converted_character = '_' + char.lower()
+            snake_cased_char_list.append(converted_character)
+        else:
+            snake_cased_char_list.append(char)
+--fcc-editable-region--
+    snake_cased_string = ''.join(snake_cased_char_list)
+--fcc-editable-region--
+```

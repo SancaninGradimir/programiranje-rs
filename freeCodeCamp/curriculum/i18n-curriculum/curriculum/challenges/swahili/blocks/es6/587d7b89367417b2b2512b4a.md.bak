@@ -1,0 +1,106 @@
+---
+id: 587d7b89367417b2b2512b4a
+title: Tumia mgawo wa ufumbuzi wa muundo kuwekea vigezo thamani kutoka kwa vitu vilivyopangwa ndani
+challengeType: 1
+forumTopicId: 301214
+dashedName: use-destructuring-assignment-to-assign-variables-from-nested-objects
+---
+
+# --description--
+
+Unaweza kutumia kanuni zile zile kutoka mafundisho mawili yaliyopita kufumbua thamani kutoka kwa vitu vilivyopangwa ndani.
+
+Ukikitumia kitu kinachofanana na mifano ya awali:
+
+```js
+const user = {
+  johnDoe: { 
+    age: 34,
+    email: 'johnDoe@freeCodeCamp.com'
+  }
+};
+```
+
+Hivi ndivyo unavyoweza kutoa thamani za vigezo vya kitu na kuziweka kwenye vigezo vyenye majina sawa:
+
+```js
+const { johnDoe: { age, email }} = user;
+```
+
+Na hivi ndivyo unavyoweza kuweka thamani za vigezo vya kitu kwenye vigezo vyenye majina tofauti:
+
+```js
+const { johnDoe: { age: userAge, email: userEmail }} = user;
+```
+
+# --instructions--
+
+Badilisha mgawo wa thamani wa ES5 uliopo na mgawo wa ufumbuzi wa muundo unaolingana. Bado unapaswa kuweka vigezo `lowToday` na `highToday` thamani za `today.low` na `today.high` kutoka kwa kitu cha `LOCAL_FORECAST`.
+
+# --hints--
+
+Unapaswa kuondoa sintaksia ya mgawo wa thamani ya ES5.
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/lowToday = LOCAL_FORECAST\.today\.low/g) &&
+    !__helpers.removeJSComments(code).match(/highToday = LOCAL_FORECAST\.today.high/g)
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo `lowToday`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(
+    /(var|const|let)\s*{\s*today\s*:\s*{\s*(low\s*:\s*lowToday[^}]*|[^,]*,\s*low\s*:\s*lowToday\s*)},?\s*}\s*=\s*LOCAL_FORECAST(;|\s+|\/\/)/g
+  )
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo `highToday`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(
+    /(var|const|let)\s*{\s*today\s*:\s*{\s*(high\s*:\s*highToday[^}]*|[^,]*,\s*high\s*:\s*highToday,?\s*)},?\s*}\s*=\s*LOCAL_FORECAST(;|\s+|\/\/)/g
+  )
+);
+```
+
+`lowToday` inapaswa kuwa sawa na `64` na `highToday` inapaswa kuwa sawa na `77`.
+
+```js
+assert(lowToday === 64 && highToday === 77);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const LOCAL_FORECAST = {
+  yesterday: { low: 61, high: 75 },
+  today: { low: 64, high: 77 },
+  tomorrow: { low: 68, high: 80 }
+};
+
+// Only change code below this line
+  
+const lowToday = LOCAL_FORECAST.today.low;
+const highToday = LOCAL_FORECAST.today.high;
+
+// Only change code above this line
+```
+
+# --solutions--
+
+```js
+const LOCAL_FORECAST = {
+  yesterday: { low: 61, high: 75 },
+  today: { low: 64, high: 77 },
+  tomorrow: { low: 68, high: 80 }
+};
+ 
+const { today: { low: lowToday, high: highToday }} = LOCAL_FORECAST;
+```

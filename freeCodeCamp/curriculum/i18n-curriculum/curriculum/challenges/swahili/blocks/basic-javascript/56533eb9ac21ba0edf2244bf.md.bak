@@ -1,0 +1,85 @@
+---
+id: 56533eb9ac21ba0edf2244bf
+title: Wigo wa ndani na kitendakazi
+challengeType: 1
+forumTopicId: 18227
+dashedName: local-scope-and-functions
+---
+
+# --description--
+
+Vigezo vinavyotangazwa ndani ya kitendakazi, pamoja na vigezo vya kitendakazi, vina wigo wa <dfn>ndani</dfn>. Hii ina maana kwamba vinaonekana tu ndani ya kitendakazi hicho.
+
+Hapa kuna kitendakazi `myTest` chenye kigezo cha ndani kinachoitwa `loc`.
+
+```js
+function myTest() {
+  const loc = "foo";
+  console.log(loc);
+}
+
+myTest();
+console.log(loc);
+```
+
+Wito wa kitendakazi `myTest()` utaonyesha mfuatano wa herufi `foo` kwenye konsoli. Mstari wa `console.log(loc)` (nje ya kitendakazi cha `myTest`) utatupa kosa, kwa sababu `loc` haijatangazwa nje ya kitendakazi.
+
+# --instructions--
+
+Mhariri ana `console.log` mbili ili kusaidia kuona kinachotokea. Angalia konsoli unavyofanya msimbo kuona mabadiliko. Tangaza kigezo cha ndani `myVar` ndani ya `myLocalScope` na endesha majaribio.
+
+**Kumbuka:** Konsoli bado itaonyesha `ReferenceError: myVar is not defined`, lakini hii haitasababisha majaribio kushindwa.
+
+# --hints--
+
+Msimbo haupaswi kuwa na kigezo cha `myVar` cha kimataifa.
+
+```js
+function declared() {
+  myVar;
+}
+
+assert.throws(declared, ReferenceError);
+```
+
+Unapaswa kuongeza kigezo cha ndani cha `myVar`.
+
+```js
+assert(
+  /functionmyLocalScope\(\)\{.*(var|let|const)myVar[\s\S]*}/.test(
+    __helpers.removeWhiteSpace(__helpers.removeJSComments(code))
+  )
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function myLocalScope() {
+  // Only change code below this line
+
+  console.log('inside myLocalScope', myVar);
+}
+myLocalScope();
+
+// Run and check the console
+// myVar is not defined outside of myLocalScope
+console.log('outside myLocalScope', myVar);
+```
+
+# --solutions--
+
+```js
+function myLocalScope() {
+  // Only change code below this line
+  let myVar;
+  console.log('inside myLocalScope', myVar);
+}
+myLocalScope();
+
+// Run and check the console
+// myVar is not defined outside of myLocalScope
+console.log('outside myLocalScope', myVar);
+```

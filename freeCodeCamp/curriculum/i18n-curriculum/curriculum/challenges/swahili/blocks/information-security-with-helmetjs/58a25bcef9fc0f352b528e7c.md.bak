@@ -1,0 +1,56 @@
+---
+id: 58a25bcef9fc0f352b528e7c
+title: Elewa hash za BCrypt
+challengeType: 2
+forumTopicId: 301586
+dashedName: understand-bcrypt-hashes
+---
+
+# --description--
+
+Kwa changamoto zifuatazo, utakuwa ukifanya kazi na mradi mpya wa kuanzia tofauti na ule wa awali. Unaweza kupata mradi mpya wa kuanzia kwa kunakili kutoka <a href="https://github.com/freeCodeCamp/boilerplate-bcrypt/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Hash za BCrypt ni salama sana. Hash ni kama alama ya vidole ya data ya awali — daima ni ya kipekee. Hii hufanikishwa kwa kuingiza data ya awali katika algoriti na kurudisha matokeo ya urefu thabiti. Ili kufanya mchakato huu kuwa mgumu zaidi na salama zaidi, unaweza pia *kuongeza chumvi* kwenye hash yako. Kuongeza chumvi kwenye hash yako kunahusisha kuongeza data ya nasibu kwenye data ya awali kabla ya mchakato wa kuunda hash, jambo ambalo hufanya iwe vigumu zaidi kuvunja hash hiyo.
+
+Hash za BCrypt daima zinaonekana kama `$2a$13$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm` ambazo zina muundo. Sehemu ndogo ya kwanza ya data `$2a` inaeleza aina gani ya algoriti ya hash ilitumika. Sehemu inayofuata `$13` inaeleza *gharama*. Gharama ni kuhusu ni nguvu kiasi gani inahitajika kuhesabu hash. Iko katika kiwango cha logaritmiki cha 2^gharama na inaamua ni mara ngapi data inapitia algoriti ya hash. Kwa mfano, kwa gharama ya 10 unaweza kuunda hash za nywila 10 kwa sekunde kwenye kompyuta ya wastani, lakini kwa gharama ya 15 inachukua sekunde 3 kwa hash moja... na zaidi, kwa gharama ya 31 ingechukua siku kadhaa kukamilisha hash moja. Gharama ya 12 inachukuliwa kuwa salama sana kwa sasa. Sehemu ya mwisho ya hash yako `$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm`, inaonekana kama mfuatano mkubwa wa nambari, nukta, na herufi lakini ni sehemu mbili tofauti za taarifa. Herufi 22 za kwanza ni chumvi kwa maandishi wazi, na sehemu iliyobaki ni nywila iliyohashiwa!
+
+# --instructions--
+
+Ongeza msimbo wako wote kwa mafundisho haya katika faili la `server.js` kati ya msimbo tuliokuanzishia. Usibadilishe wala kufuta msimbo tuliouongeza kwa ajili yako.
+
+BCrypt tayari imeongezwa kama utegemezi, hivyo itaje kama `bcrypt` katika seva yako.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri.
+
+# --hints--
+
+BCrypt inapaswa kuwa utegemezi.
+
+```js
+const response = await fetch(code + '/_api/package.json');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.text();
+var packJson = JSON.parse(data);
+assert.property(
+  packJson.dependencies,
+  'bcrypt',
+  'Your project should list "bcrypt" as a dependency'
+);
+```
+
+BCrypt inapaswa kuitwa ipasavyo.
+
+```js
+const response = await fetch(code + '/_api/server.js');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.text();
+assert.match(
+  data,
+  /bcrypt.*=.*require.*('|")bcrypt('|")/gi,
+  'You should correctly require and instantiate bcrypt as bcrypt.'
+);
+```

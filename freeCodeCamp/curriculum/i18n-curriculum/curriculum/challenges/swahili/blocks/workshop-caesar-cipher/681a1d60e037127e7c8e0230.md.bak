@@ -1,0 +1,48 @@
+---
+id: 681a1d60e037127e7c8e0230
+title: Hatua 22
+challengeType: 20
+dashedName: step-22
+---
+
+# --description--
+
+Utaitumia kigezo kilichoongezwa katika hatua iliyopita kuamua kama kitendakazi kinapaswa kuficha maandishi yaliyotumwa kwake (tabia ya kawaida, `encrypt=True`), au kama kinapaswa kufungua ujumbe uliotanguliwa kufichwa.
+
+Tengeneza tamko la `if` linalokagua kama `encrypt` si kweli. Ndani ya tamko jipya la `if`, weka `shift` kuwa `- shift`. Hii ni muhimu kuwezesha mabadiliko yafanyike kwa mwelekeo tofauti kuhusiana na mchakato wa kuficha.
+
+# --hints--
+
+Unapaswa kuweka `shift` kuwa `- shift` wakati `encrypt` si kweli.
+
+```js
+({ test: () => assert(runPython(`caesar('Ymnx Nx F Yjxy', 5, False) == 'This Is A Test'`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def caesar(text, shift, encrypt=True):
+
+    if not isinstance(shift, int):
+        return 'Shift must be an integer value.'
+
+    if shift < 1 or shift > 25:
+        return 'Shift must be an integer between 1 and 25.'
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    
+--fcc-editable-region--
+    
+--fcc-editable-region--
+    
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    encrypted_text = text.translate(translation_table)
+    return encrypted_text
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

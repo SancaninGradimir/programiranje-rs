@@ -1,0 +1,128 @@
+---
+id: 5a24c314108439a4d4036174
+title: "Unganisha 'this' na njia ya darasa"
+challengeType: 6
+forumTopicId: 301379
+dashedName: bind-this-to-a-class-method
+---
+
+# --description--
+
+Mbali na kuweka na kusahihisha `state`, unaweza pia kufafanua njia za darasa la sehemu yako. Njia ya darasa kawaida huhitaji kutumia neno kuu la `this` ili iweze kupata vigezo kwenye darasa (kama `state` na `props`) ndani ya wigo wa njia hiyo. Kuna njia chache za kuruhusu njia zako za darasa kupata `this`.
+
+Njia moja ya kawaida ni kuunganisha wazi `this` katika kijenzi ili `this` iwe imeunganishwa na njia za darasa wakati sehemu inapoanzishwa. Huenda umeona changamoto ya mwisho ilitumia `this.handleClick = this.handleClick.bind(this)` kwa njia yake ya `handleClick` katika kijenzi. Kisha, unapofanya wito wa kitendakazi kama `this.setState()` ndani ya njia yako ya darasa, `this` inarejelea darasa na haitakuwa `undefined`.
+
+**Kumbuka:** Neno kuu la `this` ni mojawapo ya mambo yanayochanganya zaidi katika JavaScript lakini lina jukumu muhimu katika React. Ingawa tabia yake hapa ni ya kawaida kabisa, mafundisho haya si mahali pa uhakiki wa kina wa `this` kwa hivyo tafadhali rejea mafundisho mengine ikiwa maelezo haya yanakuchanganya!
+
+# --instructions--
+
+Mhariri wa msimbo una sehemu yenye `state` inayofuatilia maandishi. Pia ina njia inayokuruhusu kuweka maandishi kuwa `You clicked!`. Hata hivyo, njia hiyo haifanyi kazi kwa sababu inatumia neno kuu la `this` ambalo halijafafanuliwa. Rekebisha kwa kuunganisha wazi `this` na njia ya `handleClick()` katika kijenzi cha sehemu hiyo.
+
+Ifuatayo, ongeza mshughulikiaji wa bofya kwenye kipengele cha `button` katika njia ya onyesha. Inapaswa kusababisha njia ya `handleClick()` wakati kitufe kinapopokea tukio la bofya. Kumbuka kuwa njia unayopitisha kwa mshughulikiaji wa `onClick` inahitaji mabano ya mviringo kwa sababu inapaswa kutafsiriwa moja kwa moja kama JavaScript.
+
+Mara utakapokamilisha hatua zilizo juu unapaswa kuweza kubofya kitufe na kuona `You clicked!`.
+
+# --hints--
+
+`MyComponent` inapaswa kurudisha kipengele cha `div` kinachozunguka vipengele viwili, kitufe na kipengele cha `h1`, kwa mpangilio huo.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(MyComponent)).find('div').length === 1 &&
+    Enzyme.mount(React.createElement(MyComponent))
+      .find('div')
+      .childAt(0)
+      .type() === 'button' &&
+    Enzyme.mount(React.createElement(MyComponent))
+      .find('div')
+      .childAt(1)
+      .type() === 'h1'
+);
+```
+
+Hali ya `MyComponent` inapaswa kuanzishwa na jozi ya thamani ya funguo `{ text: "Hello" }`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(MyComponent)).state('text') === 'Hello'
+);
+```
+
+Kubofya kipengele cha `button` kunapaswa kuendesha njia ya `handleClick` na kuweka hali ya `text` kuwa `You clicked!`.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ text: 'Hello' });
+    return waitForIt(() => mockedComponent.state('text'));
+  };
+  const second = () => {
+    mockedComponent.find('button').simulate('click');
+    return waitForIt(() => mockedComponent.state('text'));
+  };
+  const firstValue = await first();
+  const secondValue = await second();
+  assert(firstValue === 'Hello' && secondValue === 'You clicked!');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: "Hello"
+    };
+    // Change code below this line
+
+    // Change code above this line
+  }
+  handleClick() {
+    this.setState({
+      text: "You clicked!"
+    });
+  }
+  render() {
+    return (
+      <div>
+        { /* Change code below this line */ }
+        <button>Click Me</button>
+        { /* Change code above this line */ }
+        <h1>{this.state.text}</h1>
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: "Hello"
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({
+      text: "You clicked!"
+    });
+  }
+  render() {
+    return (
+      <div>
+        <button onClick = {this.handleClick}>Click Me</button>
+        <h1>{this.state.text}</h1>
+      </div>
+    );
+  }
+};
+```

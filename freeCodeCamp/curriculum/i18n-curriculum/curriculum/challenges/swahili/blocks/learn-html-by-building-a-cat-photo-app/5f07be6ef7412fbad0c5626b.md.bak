@@ -1,0 +1,81 @@
+---
+id: 5f07be6ef7412fbad0c5626b
+title: Hatua 18
+challengeType: 0
+dashedName: step-18
+---
+
+# --description--
+
+Kabla ya kuongeza maudhui yoyote mapya, unapaswa kutumia kipengele cha `section` kutenganisha maudhui ya picha za paka na maudhui ya baadaye.
+
+Kipengele cha `section` hutumika kufafanua sehemu katika hati, kama vile sura, vichwa, vijachini, au sehemu nyingine yoyote ya hati. Ni kipengele cha maana kinachosaidia SEO na Ufikikaji.
+
+```html
+<section>
+  <h2>Section Title</h2>
+  <p>Section content...</p>
+</section>
+```
+
+Chukua vipengele vyako vya `h2`, `p`, na tagi ya nanga (`a`) na vipange ndani ya kipengele cha `section`.
+
+# --hints--
+
+Kipengele chako cha `section` kinapaswa kuwa na lebo ya kufungua. Lebo za kufungua zina sintaksia ifuatayo: `<elementName>`.
+
+```js
+assert(document.querySelector('section'));
+```
+
+Kipengele chako cha `section` kinapaswa kuwa na lebo ya kufunga. Lebo za kufunga zina `/` mara tu baada ya herufi ya `<`.
+
+```js
+assert(code.match(/<\/section\s*>/i));
+```
+
+Kipengele kizima cha `section` kinapaswa kuwa kati ya lebo za kufungua na kufunga za kipengele cha `main`.
+
+```js
+assert(document.querySelector('section').parentNode.nodeName === 'MAIN');
+```
+
+Vipengele vilivyopo vya `h2`, vipengele viwili vya `p`, na tagi ya nanga (`a`) vinapaswa kuwa kati ya lebo za kufungua na kufunga za kipengele cha `section`.
+
+```js
+const childrenOfSection = [...document.querySelector('section').childNodes];
+const foundElements = childrenOfSection.filter((child) => {
+  return ['H2', 'A', 'P'].includes(child.nodeName);
+});
+assert.lengthOf(foundElements, 4);
+```
+
+Kipengele cha `h1` hakipaswi kupangwa ndani ya kipengele cha `section`.
+
+```js
+const childrenOfSection = [...document.querySelector('section').childNodes];
+const includesH1 = childrenOfSection.some((child) => child.nodeName === 'H1');
+assert.isFalse(includesH1);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+--fcc-editable-region--
+    <main>
+      <h1>CatPhotoApp</h1>
+
+      <h2>Cat Photos</h2>
+      <p>Everyone loves <a href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">cute cats</a> online!</p>
+      <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
+      <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+    </main>
+--fcc-editable-region--
+  </body>
+</html>
+```

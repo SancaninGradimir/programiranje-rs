@@ -1,0 +1,309 @@
+---
+id: 698f53374f7ad3a078dafbc0
+title: Jinsi Aina Zinavyofanya Kazi na Vitu na Safu za Data?
+challengeType: 19
+dashedName: how-do-types-work-with-objects-and-arrays
+---
+
+# --description--
+
+Katika funzo hili, utafundishwa jinsi ya kuongeza aina kwa vitu na safu za data.
+
+Tuchunguze kwanza safu za data.
+
+Hapa kuna mfano wa safu ya lugha za programu:
+
+```js
+const programmingLanguages = ["Java", "C++", "Python"];
+```
+
+Ikiwa ungependa kuweka aina hiyo ya safu waziwazi kama safu ya mfuatano wa herufi, basi unaweza kuiandika kama `string[]`:
+
+```ts
+const programmingLanguages:string[] = ["Java", "C++", "Python"];
+```
+
+Kama ulivyojifunza awali, TypeScript itakuwa na akili ya kutambua aina kama safu ya mfuatano wa herufi ikiwa utaandika hivi tu:
+
+```js
+const programmingLanguages = ["Java", "C++", "Python"];
+```
+
+Lakini kuweka aina waziwazi kutasaidia katika hali ambapo unajaribu kuongeza aina nyingine kwenye safu kama hii:
+
+```ts
+// Type 'number' is not assignable to type 'string'.(2322)
+const programmingLanguages:string[] = ["Java", 9, "Python"];
+```
+
+Njia nyingine ya kuweka aina kwa safu ni kutumia sintaksia hii:
+
+```ts
+const programmingLanguages:Array<string> = ["Java", "C++", "Python"];
+```
+
+Kwa msingi, sintaksia hizi mbili ni sawa, na uchaguzi kati ya hizo mbili kwa kawaida ni suala la upendeleo.
+
+Sasa, tuchunguze jinsi ya kuweka aina kwa vitu.
+
+Hapa kuna mfano wa kitu cha literal:
+
+```js
+const developer = {
+  firstName: "Jessica",
+  isEmployed: true
+}
+```
+
+Ili kuweka aina za sifa za kitu waziwazi, unaweza kutumia sintaksia hii:
+
+```ts
+const developer: { firstName: string, isEmployed: boolean } = {
+  firstName: "Jessica",
+  isEmployed: true
+}
+```
+
+Ikiwa utajaribu kuongeza au kuondoa sifa kutoka kwa kitu, basi utapata kosa kama hili:
+
+```ts
+// Property 'isEmployed' is missing in type '{ firstName: string; }' but required in type '{ firstName: string; isEmployed: boolean; }'
+const developer: { firstName: string, isEmployed: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+Unaweza kufanya sifa za kitu kuwa hiari kwa kutumia `?` baada ya jina la sifa kama hii:
+
+```ts
+const developer: { firstName: string, isEmployed?: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+TypeScript haitatokea tena kosa kwa sababu sifa ya `isEmployed` imewekwa kama hiari.
+
+Hadi sasa, mifano yote ya vitu ilikuwa na sifa zilizozuiliwa. Hii inamaanisha tuliorodhesha wazi kila sifa ambayo kitu kinaweza kuwa nayo:
+
+```ts
+const developer: { firstName: string, isEmployed: boolean } = {
+  firstName: "Jessica",
+  isEmployed: true
+}
+```
+
+Lakini vipi kama hujui majina yote ya sifa mapema? Vipi kama unataka kitu ambacho kinaweza kuwa na idadi yoyote ya sifa lakini thamani zote lazima zifuate aina maalum?
+
+Kweli, kuna njia mbili za kufanikisha hili. Njia ya kwanza ni kutumia `Record` ambayo ni aina ya utiliti ya generic iliyojengwa ndani ya TypeScript.
+
+Hii ni sintaksia ya msingi:
+
+```ts
+Record<Keys, ValueType>
+```
+
+Aina ya kwanza inawakilisha aina ya funguo wakati aina ya pili inawakilisha aina ya thamani.
+
+Hapa kuna mfano wa kutumia `Record` kwa kitu cha `userRoles`:
+
+```ts
+const userRoles: Record<string, string> = {
+  admin: "full-access",
+  editor: "limited-access",
+  viewer: "read-only"
+};
+```
+
+Kitu hiki cha `userRoles` kinaweza kuwa na funguo zozote za mfuatano wa herufi, na thamani zote lazima ziwe mfuatano wa herufi. Ikiwa utajaribu kuweka thamani isiyo ya mfuatano wa herufi, utapata kosa:
+
+```ts
+// Type 'number' is not assignable to type 'string'
+const userRoles: Record<string, string> = {
+  admin: 1
+};
+```
+
+Njia ya pili ya kuandika wazo lile lile ni kwa kutumia saini ya kielezo:
+
+```ts
+const obj: { [key: string]: string } = {};
+```
+
+Sintaksia hapo juu inasema kuwa sifa yoyote yenye funguo za mfuatano wa herufi lazima iwe na thamani ya mfuatano wa herufi. Hapa kuna mfano wa kitu cha `settings`:
+
+```ts
+const settings: { [key: string]: string } = {
+  theme: "dark",
+  language: "en",
+  layout: "grid"
+};
+```
+
+Kama ilivyokuwa awali, ikiwa una aina za thamani zisizo sahihi, TypeScript itaonyesha ujumbe wa kosa:
+
+```ts
+// Type 'boolean' is not assignable to type 'string'
+const settings: { [key: string]: string } = {
+  darkMode: true
+};
+```
+
+Zote `Record` na saini za kielezo kwa msingi ni sawa. Hivyo kuchagua kati yao kwa kawaida ni suala la upendeleo.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kuweka aina kwa safu ya mfuatano wa herufi?
+
+## --answers--
+
+```ts
+const programmingLanguages:strings[] = ["Java", "C++", "Python"];
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+```ts
+const programmingLanguages:stringArr[] = ["Java", "C++", "Python"];
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+```ts
+const programmingLanguages:string[] = ["Java", "C++", "Python"];
+```
+
+---
+
+```ts
+const programmingLanguages:Record string[] = ["Java", "C++", "Python"];
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kuweka sifa ya kitu kuwa hiari?
+
+## --answers--
+
+```ts
+const developer: { firstName: string, isEmployed<<>>: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+### --feedback--
+
+Rudia sehemu ya awali ya vitu ambapo sifa za hiari zilijadiliwa.
+
+---
+
+```ts
+const developer: { firstName: string, isEmployed:: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+### --feedback--
+
+Rudia sehemu ya awali ya vitu ambapo sifa za hiari zilijadiliwa.
+
+---
+
+```ts
+const developer: { firstName: string, isEmployed?: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+---
+
+```ts
+const developer: { firstName: string, isEmployed[]: boolean } = {
+  firstName: "Jessica",
+}
+```
+
+### --feedback--
+
+Rudia sehemu ya awali ya vitu ambapo sifa za hiari zilijadiliwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kutumia `Record` kwa kitu?
+
+## --answers--
+
+```ts
+const userRoles: Record(string, string) = {
+  admin: "full-access",
+  editor: "limited-access",
+  viewer: "read-only"
+};
+```
+
+### --feedback--
+
+Rudia sehemu ya mwisho ya funzo.
+
+---
+
+```ts
+const userRoles: Record<string, string> = {
+  admin: "full-access",
+  editor: "limited-access",
+  viewer: "read-only"
+};
+```
+
+---
+
+```ts
+const userRoles: Record<<string, string>> = {
+  admin: "full-access",
+  editor: "limited-access",
+  viewer: "read-only"
+};
+```
+
+### --feedback--
+
+Rudia sehemu ya mwisho ya funzo.
+
+---
+
+```ts
+const userRoles: Record[string, string] = {
+  admin: "full-access",
+  editor: "limited-access",
+  viewer: "read-only"
+};
+```
+
+### --feedback--
+
+Rudia sehemu ya mwisho ya funzo.
+
+## --video-solution--
+
+2

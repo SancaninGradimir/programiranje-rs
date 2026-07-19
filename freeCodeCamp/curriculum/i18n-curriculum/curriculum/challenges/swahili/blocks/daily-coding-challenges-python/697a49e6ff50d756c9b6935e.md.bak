@@ -1,0 +1,93 @@
+---
+id: 697a49e6ff50d756c9b6935e
+title: "Challenge 181: 2026 Winter Games Day 2: Snowboarding"
+challengeType: 29
+dashedName: challenge-181
+---
+
+# --description--
+
+Kutolewa mkao wa mwanariadha wa snowboarding anapoanza na mzunguko kwa digrii, amua mkao atakapoangukia.
+
+- Mkao wa mwanariadha wa snowboarding ni `"Regular"` au `"Goofy"`.
+- Mizunguko ya mbinu ni mara nyingi ya digrii 90. Chanya inaonyesha mzunguko wa saa, na hasi inaonyesha mzunguko wa kinyume cha saa.
+- Mkao wa kuangukia hubadilika kila mzunguko wa digrii 180.
+
+Kwa mfano, ukitolewa `"Regular"` na `90`, rudisha `"Regular"`. Ukitolewa `"Regular"` na digrii `180`, rudisha `"Goofy"`.
+
+# --hints--
+
+`get_landing_stance("Regular", 90)` should return `"Regular"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Regular", 90), "Regular")`)
+}})
+```
+
+`get_landing_stance("Regular", 180)` should return `"Goofy"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Regular", 180), "Goofy")`)
+}})
+```
+
+`get_landing_stance("Goofy", -270)` should return `"Regular"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Goofy", -270), "Regular")`)
+}})
+```
+
+`get_landing_stance("Regular", 2340)` should return `"Goofy"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Regular", 2340), "Goofy")`)
+}})
+```
+
+`get_landing_stance("Goofy", 2160)` should return `"Goofy"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Goofy", 2160), "Goofy")`)
+}})
+```
+
+`get_landing_stance("Goofy", -540)` should return `"Regular"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_landing_stance("Goofy", -540), "Regular")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_landing_stance(start_stance, rotation):
+
+    return start_stance
+```
+
+# --solutions--
+
+```py
+def get_landing_stance(start_stance, rotation):
+    flips = abs(rotation) // 180
+    if flips % 2 == 0:
+        return start_stance
+    else:
+        return "Goofy" if start_stance == "Regular" else "Regular"
+```

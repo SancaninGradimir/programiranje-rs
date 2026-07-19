@@ -1,0 +1,86 @@
+---
+id: 587d7daf367417b2b2512b80
+title: Kumbuka Kuweka Sifa ya Kijenzi Unapobadilisha Kielelezo
+challengeType: 1
+forumTopicId: 301323
+dashedName: remember-to-set-the-constructor-property-when-changing-the-prototype
+---
+
+# --description--
+
+Kuna athari moja muhimu ya upande wa kuweka kielelezo kwa mkono kuwa kitu kipya. Inafuta sifa ya `constructor`! Sifa hii inaweza kutumika kuthibitisha ni kitendakazi gani cha kijenzi kilichotengeneza mfano, lakini kwa kuwa sifa hii imeandikwa upya, sasa inatoa matokeo yasiyo sahihi:
+
+```js
+duck.constructor === Bird;
+duck.constructor === Object;
+duck instanceof Bird;
+```
+
+Kwa mpangilio, usemi huu ungehesabiwa kuwa `false`, `true`, na `true`.
+
+Ili kurekebisha hili, kila wakati kielelezo kitawekwa kwa mkono kuwa kitu kipya, kumbuka kufafanua sifa ya `constructor`:
+
+```js
+Bird.prototype = {
+  constructor: Bird,
+  numLegs: 2,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name); 
+  }
+};
+```
+
+# --instructions--
+
+Fafanua sifa ya `constructor` kwenye `Dog` `prototype`.
+
+# --hints--
+
+`Dog.prototype` inapaswa kuweka sifa ya `constructor`.
+
+```js
+assert(Dog.prototype.constructor === Dog);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Dog(name) {
+  this.name = name;
+}
+
+// Only change code below this line
+Dog.prototype = {
+
+  numLegs: 4,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
+
+# --solutions--
+
+```js
+function Dog(name) {
+  this.name = name;
+}
+Dog.prototype = {
+  constructor: Dog,
+  numLegs: 4,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```

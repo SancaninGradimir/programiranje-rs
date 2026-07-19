@@ -1,0 +1,100 @@
+---
+id: 587d7db1367417b2b2512b88
+title: Ghairi njia zilizopokelewa
+challengeType: 1
+forumTopicId: 301322
+dashedName: override-inherited-methods
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, ulijifunza kwamba kitu kinaweza kurithi tabia zake (njia) kutoka kwa kitu kingine kwa kurejelea kitu chake cha `prototype`:
+
+```js
+ChildObject.prototype = Object.create(ParentObject.prototype);
+```
+
+Kisha `ChildObject` ilipokea njia zake mwenyewe kwa kuziunganisha kwenye `prototype` yake:
+
+```js
+ChildObject.prototype.methodName = function() {...};
+```
+
+Inawezekana ghairi njia iliyopokelewa. Hufanywa kwa njia ile ile - kwa kuongeza njia kwenye `ChildObject.prototype` kwa kutumia jina la njia ile ile unayotaka kuighairi. Hapa kuna mfano wa `Bird` ikighairi njia ya `eat()` iliyopokelewa kutoka kwa `Animal`:
+
+```js
+function Animal() { }
+Animal.prototype.eat = function() {
+  return "nom nom nom";
+};
+function Bird() { }
+
+Bird.prototype = Object.create(Animal.prototype);
+
+Bird.prototype.eat = function() {
+  return "peck peck peck";
+};
+```
+
+Ikiwa una mfano wa `let duck = new Bird();` na unaita `duck.eat()`, hivi ndivyo JavaScript inavyotafuta njia kwenye mfululizo wa `prototype` wa `duck`:
+
+1.  `duck` => Je, `eat()` imefafanuliwa hapa? Hapana.
+2.  `Bird` => Je, `eat()` imefafanuliwa hapa? => Ndiyo. Iite na acha kutafuta.
+3.  `Animal` => `eat()` pia imefafanuliwa, lakini JavaScript iliacha kutafuta kabla ya kufikia kiwango hiki.
+4.  Object => JavaScript iliacha kutafuta kabla ya kufikia kiwango hiki.
+
+# --instructions--
+
+Ghairi njia ya `fly()` kwa `Penguin` ili irudishe mfuatano wa herufi `Alas, this is a flightless bird.`
+
+# --hints--
+
+`penguin.fly()` inapaswa kurudisha mfuatano wa herufi `Alas, this is a flightless bird.`
+
+```js
+assert(penguin.fly() === 'Alas, this is a flightless bird.');
+```
+
+Njia ya `bird.fly()` inapaswa kurudisha mfuatano wa herufi `I am flying!`
+
+```js
+assert(new Bird().fly() === 'I am flying!');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Bird() { }
+
+Bird.prototype.fly = function() { return "I am flying!"; };
+
+function Penguin() { }
+Penguin.prototype = Object.create(Bird.prototype);
+Penguin.prototype.constructor = Penguin;
+
+// Only change code below this line
+
+
+
+// Only change code above this line
+
+let penguin = new Penguin();
+console.log(penguin.fly());
+```
+
+# --solutions--
+
+```js
+function Bird() { }
+
+Bird.prototype.fly = function() { return "I am flying!"; };
+
+function Penguin() { }
+Penguin.prototype = Object.create(Bird.prototype);
+Penguin.prototype.constructor = Penguin;
+Penguin.prototype.fly = () => 'Alas, this is a flightless bird.';
+let penguin = new Penguin();
+console.log(penguin.fly());
+```

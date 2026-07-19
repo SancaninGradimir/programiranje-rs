@@ -1,0 +1,87 @@
+---
+id: 68d2ba1468508398389487ce
+title: "Zoezi la 73: Zungumza kwa busara, Lazima Ufanye hivyo"
+challengeType: 28
+dashedName: challenge-73
+---
+
+# --description--
+
+Ukitoa sentensi, rudisha toleo lake ambalo linasikika kama ushauri kutoka kwa mwalimu mwenye busara kwa kutumia sheria zifuatazo:
+
+- Maneno yamegawanyika kwa nafasi moja tu.
+- Tafuta mara ya kwanza ya mojawapo ya maneno yafuatayo katika sentensi: `"have"`, `"must"`, `"are"`, `"will"`, `"can"`.
+- Hamisha maneno yote kabla na pamoja na neno hilo mwishoni mwa sentensi na:
+  - Hifadhi mpangilio wa maneno unapowahamisha.
+  - Yafanya yote kuwa herufi ndogo.
+  - Na ongeza koma na nafasi kabla yao.
+- Andika herufi kubwa ya neno la kwanza jipya la sentensi.
+- Sentensi zote zilizotolewa zitamalizika na alama moja ya uandishi. Hifadhi alama ya uandishi ya awali ya sentensi na uhamishe mwishoni mwa sentensi mpya.
+- Rudisha sentensi mpya, hakikisha kuna nafasi moja kati ya kila neno na hakuna nafasi mwanzoni au mwishoni mwa sentensi.
+
+Kwa mfano, ukipata `"You must speak wisely."` rudisha `"Speak wisely, you must."`
+
+# --hints--
+
+`wiseSpeak("You must speak wisely.")` inapaswa kurudisha `"Speak wisely, you must."`
+
+```js
+assert.equal(wiseSpeak("You must speak wisely."), "Speak wisely, you must.");
+```
+
+`wiseSpeak("You can do it!")` inapaswa kurudisha `"Do it, you can!"`
+
+```js
+assert.equal(wiseSpeak("You can do it!"), "Do it, you can!");
+```
+
+`wiseSpeak("Do you think you will complete this?")` inapaswa kurudisha `"Complete this, do you think you will?"`
+
+```js
+assert.equal(wiseSpeak("Do you think you will complete this?"), "Complete this, do you think you will?");
+```
+
+`wiseSpeak("All your base are belong to us.")` inapaswa kurudisha `"Belong to us, all your base are."`
+
+```js
+assert.equal(wiseSpeak("All your base are belong to us."), "Belong to us, all your base are.");
+```
+
+`wiseSpeak("You have much to learn.")` inapaswa kurudisha `"Much to learn, you have."`
+
+```js
+assert.equal(wiseSpeak("You have much to learn."), "Much to learn, you have.");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function wiseSpeak(sentence) {
+
+  return sentence;
+}
+```
+
+# --solutions--
+
+```js
+function wiseSpeak(sentence) {
+  const triggers = ["have", "must", "are", "will", "can"];
+  const punctuation = sentence[sentence.length - 1];
+  const words = sentence.split(" ");
+
+  const triggerIndex = words.findIndex(w => triggers.includes(w));
+
+  const toMove = words.slice(0, triggerIndex + 1).map(w => w.toLowerCase());
+  const remaining = words.slice(triggerIndex + 1);
+
+  const newStart = remaining.map((w, i) => {
+    return i === 0 ? w[0].toUpperCase() + w.slice(1) :
+      i === remaining.length - 1 ? w.slice(0, w.length - 1) : w;
+  })
+
+  return newStart.join(" ") + ", " + toMove.join(" ") + punctuation;
+}
+```

@@ -1,0 +1,64 @@
+---
+id: 68e5293bd00d2fe134f58982
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Kama ilivyojadiliwa katika funzo lililopita, njia za abstract ni njia ambazo lazima zitekelezwe na darasa lolote linalorithi kutoka darasa la msingi la abstract. Zinatumika kama mkataba, kuhakikisha kwamba mikakati yote ya punguzo itakuwa na njia fulani zinazohitajika.
+
+Ndani ya darasa lako la `DiscountStrategy`, fafanua njia iitwayo `is_applicable`. Tumia dekoreta wa `@abstractmethod` juu ya ufafanuzi wa njia hiyo. Njia hiyo inapaswa kuwa na vigezo vifuatavyo: `self`, `product`, na `user_tier`. Tumia tamko la `pass` ndani ya mwili wa njia hiyo.
+
+Ongeza vidokezo vya aina ili kufanya saini ya njia iwe wazi: `product` inapaswa kuwa ya aina `Product`, `user_tier` inapaswa kuwa ya aina `str`.
+
+
+# --hints--
+
+Darasa lako la `DiscountStrategy` linapaswa kuwa na njia iitwayo `is_applicable`.
+
+```js
+({
+  test: () => runPython(`assert _Node(_code).find_class("DiscountStrategy").has_function("is_applicable")`)
+})
+```
+
+Njia yako ya `is_applicable` inapaswa kuwa na dekoreta wa `@abstractmethod`.
+
+```js
+({
+  test: () => runPython(`assert _Node(_code).find_class("DiscountStrategy").find_function("is_applicable").has_decorators("abstractmethod")`)
+})
+```
+
+Njia yako ya `is_applicable` inapaswa kuwa na vigezo `self`, `product: Product`, na `user_tier: str`.
+
+```js
+({
+  test: () => runPython(`assert _Node(_code).find_class("DiscountStrategy").find_function("is_applicable").has_args("self,product:Product,user_tier:str")`)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+from abc import ABC, abstractmethod
+
+class Product:
+    def __init__(self, name: str, price: float) -> None:
+        self.name = name
+        self.price = price
+
+    def __str__(self) -> str:
+        return f'{self.name} - ${self.price}'
+
+--fcc-editable-region--
+class DiscountStrategy(ABC):
+    pass
+--fcc-editable-region--
+product = Product('Wireless Mouse', 50.0)
+print(product)
+```

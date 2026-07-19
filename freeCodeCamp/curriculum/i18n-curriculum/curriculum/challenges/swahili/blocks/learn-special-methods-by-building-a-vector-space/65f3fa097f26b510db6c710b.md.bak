@@ -1,0 +1,55 @@
+---
+id: 65f3fa097f26b510db6c710b
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Nzuri, `norm` inafanya kazi kama inavyotarajiwa. Sasa, ukijaribu kuchapisha `v1`, utapata uwakilishi wa mfuatano wa herufi wa chombo (kitu kama `<__main__.Vector object at 0x11eb778>`).
+
+Ndani ya darasa la vitu la `Vector`, tangaza njia tupu ya `__str__` ili kutekeleza uwakilishi wa mfuatano wa herufi unaosomeka. Kumbuka kumpa kigezo cha `self`.
+
+Lipa umakini usichapishe `v1` hadi `__str__` irudishe mfuatano wa herufi, vinginevyo utapata `TypeError`, kwa sababu `__str__` lazima daima irudishe mfuatano wa herufi.
+
+# --hints--
+
+Unapaswa kutangaza njia ya `__str__` ndani ya darasa la vitu la `Vector`.
+
+```js
+({
+    test: () => assert(runPython(`
+      _Node(_code).find_class("Vector").has_function("__str__")
+    `))
+})
+```
+
+Njia yako ya `__str__` inapaswa kuwa na kigezo cha `self`.
+
+```js
+({
+    test: () => assert(runPython(`
+      _Node(_code).find_class("Vector").find_function("__str__").has_args("self")
+    `))
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        
+    def norm(self):
+        return (self.x**2 + self.y**2)**0.5
+
+v1 = Vector(2, 3)
+print(v1.norm())
+--fcc-editable-region--
+```

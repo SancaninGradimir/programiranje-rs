@@ -1,0 +1,144 @@
+---
+id: 587d78a6367417b2b2512ade
+title: Tengeneza umbo tata zaidi kwa kutumia CSS na HTML
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cPpz4fr'
+forumTopicId: 301050
+dashedName: create-a-more-complex-shape-using-css-and-html
+---
+
+# --description--
+
+Moja ya maumbo maarufu zaidi duniani ni umbo la moyo, na katika changamoto hii utatengeneza moja kwa kutumia CSS safi. Lakini kwanza, unahitaji kuelewa vipengele vya bandia vya `::before` na `::after`. `::before` huunda kipengele cha bandia ambacho ni mtoto wa kwanza wa kipengele kilichochaguliwa; `::after` huunda kipengele cha bandia ambacho ni mtoto wa mwisho wa kipengele kilichochaguliwa. Katika mfano ufuatao, kipengele cha bandia cha `::before` kinatumika kuongeza mstatili kwenye kipengele chenye darasa la `heart`:
+
+```css
+.heart::before {
+  content: "";
+  background-color: yellow;
+  border-radius: 25%;
+  position: absolute;
+  height: 50px;
+  width: 70px;
+  top: -50px;
+  left: 5px;
+}
+```
+
+Ili vipengele vya bandia vya `::before` na `::after` vitumike ipasavyo, lazima viwe na sifa ya `content` iliyobainishwa. Sifa hii kawaida hutumika kuongeza vitu kama picha au maandishi kwenye kipengele kilichochaguliwa. Wakati vipengele vya bandia vya `::before` na `::after` vinapotumika kutengeneza maumbo, sifa ya `content` bado inahitajika, lakini imewekwa kuwa mfuatano wa herufi tupu. Katika mfano uliotangulia, kipengele chenye darasa la `heart` kina kipengele cha bandia cha `::before` kinachozalisha mstatili wa rangi ya manjano wenye urefu na upana wa `50px` na `70px`, mtawalia. Mstatili huu una pembe za mviringo kutokana na `border-radius` ya 25% na umewekwa kwa usahihi kabisa `5px` kutoka kushoto na `50px` juu ya juu ya kipengele.
+
+# --instructions--
+
+Badilisha kipengele kilicho kwenye skrini kuwa moyo. Katika kichaguzi cha `.heart::after`, badilisha `background-color` kuwa `pink` na `border-radius` kuwa 50%.
+
+Kisha, lenga kipengele chenye darasa la `heart` (tu `heart`) na jaza sifa ya `transform`. Tumia kitendakazi cha `rotate()` kwa -45 digrii.
+
+Mwishowe, katika kichaguzi cha `.heart::before`, weka sifa yake ya `content` kuwa mfuatano wa herufi tupu.
+
+# --hints--
+
+Sifa ya `background-color` ya kichaguzi cha `.heart::after` inapaswa kuwa `pink`.
+
+```js
+const heartAfter = code.match(/\.heart::after\s*{[\s\S]+?[^\}]}/g)?.[0];
+assert.match(heartAfter, /({|;)\s*background-color\s*:\s*pink\s*(;|})/g);
+```
+
+`border-radius` ya kichaguzi cha `.heart::after` inapaswa kuwa 50%.
+
+```js
+assert.lengthOf(code.match(/border-radius\s*?:\s*?50%/gi),2);
+```
+
+Sifa ya `transform` kwa darasa la `heart` inapaswa kutumia kitendakazi cha `rotate()` kilichowekwa kwa -45 digrii.
+
+```js
+assert.match(code,/transform\s*?:\s*?rotate\(\s*?-45deg\s*?\)/gi);
+```
+
+`content` ya kichaguzi cha `.heart::before` inapaswa kuwa mfuatano wa herufi tupu.
+
+```js
+assert.match(code,/\.heart::before\s*?{\s*?content\s*?:\s*?("|')\1\s*?;/gi);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style>
+  .heart {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: pink;
+    height: 50px;
+    width: 50px;
+    transform: ;
+  }
+  .heart::after {
+    background-color: blue;
+    content: "";
+    border-radius: 25%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0px;
+    left: 25px;
+  }
+  .heart::before {
+    content: ;
+    background-color: pink;
+    border-radius: 50%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: 0px;
+  }
+</style>
+<div class="heart"></div>
+```
+
+# --solutions--
+
+```html
+<style>
+  .heart {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: pink;
+    height: 50px;
+    width: 50px;
+    transform: rotate(-45deg);
+  }
+  .heart::after {
+    background-color: pink;
+    content: "";
+    border-radius: 50%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0px;
+    left: 25px;
+  }
+  .heart::before {
+    content: "";
+    background-color: pink;
+    border-radius: 50%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: 0px;
+  }
+</style>
+<div class="heart"></div>
+```

@@ -1,0 +1,113 @@
+---
+id: 5900f4231000cf542c50ff35
+title: "'Zoezi la 182: Usimbaji wa RSA'"
+challengeType: 1
+forumTopicId: 301818
+dashedName: problem-182-rsa-encryption
+---
+
+# --description--
+
+Usimbaji wa RSA unategemea taratibu zifuatazo:
+
+Tengeneza namba msingi mbili tofauti `p` na `q`.
+Hesabu `n=p*q` na `φ=(p-1)(q-1)`.
+Tafuta nambari kamili `e`, `1 < e < φ`, kwa njia kwamba `gcd(e,φ) = 1`
+
+Ujumbe katika mfumo huu ni nambari katika kipindi cha `[0,n-1]`.
+Maandishi ya kusimbwa kisha hubadilishwa kwa namna fulani kuwa ujumbe (nambari katika kipindi cha `[0,n-1]`).
+Ili kusimba maandishi, kwa kila ujumbe, `m`, c=m<sup>e</sup> mod n huhesabiwa.
+
+Ili kufumbua maandishi, taratibu ifuatayo inahitajika: hesabu `d` kwa njia kwamba `ed=1 mod φ`, kisha kwa kila ujumbe uliosimbwa, `c`, hesabu m=c<sup>d</sup> mod n.
+
+Kuna thamani za `e` na `m` kwa njia kwamba m<sup>e</sup> mod n = m.
+Tunaita ujumbe `m` ambao m<sup>e</sup> mod n=m ujumbe usiofichwa.
+
+Tatizo linapotokea wakati wa kuchagua `e` ni kwamba haipaswi kuwa na ujumbe usiofichwa mwingi sana.
+Kwa mfano, chukua `p=19` na `q=37`.
+Kisha `n=19*37=703` na `φ=18*36=648`.
+Ikiwa tuchague `e=181`, basi, ingawa `gcd(181,648)=1` inajitokeza kwamba ujumbe wote unaowezekana
+m `(0≤m≤n-1)` ni ujumbe usiofichwa wakati wa kuhesabu m<sup>e</sup> mod n.
+Kwa uchaguzi wowote halali wa `e` kuna ujumbe fulani usiofichwa.
+Ni muhimu kwamba idadi ya ujumbe usiofichwa iwe kiwango cha chini.
+
+Kwa `p` na `q` zilizotolewa, pata jumla ya thamani zote za `e`, `1 < e < φ(p,q)` na `gcd(e,φ)=1`, ili idadi ya ujumbe usiofichwa kwa thamani hii ya `e` iwe kiwango cha chini.
+
+# --hints--
+
+`RSAEncryption` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(RSAEncryption);
+```
+
+`RSAEncryption` inapaswa kurudisha nambari.
+
+```js
+assert.strictEqual(typeof RSAEncryption(19, 37), 'number');
+```
+
+`RSAEncryption(19, 37)` inapaswa kurudisha `17766`.
+
+```js
+assert.strictEqual(RSAEncryption(19, 37), 17766);
+```
+
+`RSAEncryption(283, 409)` inapaswa kurudisha `466196580`.
+
+```js
+assert.strictEqual(RSAEncryption(283, 409), 466196580);
+```
+
+`RSAEncryption(1009, 3643)` inapaswa kurudisha `399788195976`.
+
+```js
+assert.strictEqual(RSAEncryption(19, 37), 17766);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function RSAEncryption(p, q) {
+
+  return true;
+}
+
+RSAEncryption(19, 37);
+```
+
+# --solutions--
+
+```js
+function gcd(a, b) {
+    if (b)
+        return gcd(b, a % b);
+    else
+        return a;
+}
+
+function RSAEncryption(p, q) {
+    let phi = (p - 1) * (q - 1);
+
+    let best = Number.MAX_SAFE_INTEGER;
+    let sum = 0;
+
+    for (let e = 0; e < phi; ++e) {
+        if (!(gcd(e, phi) == 1))
+            continue;
+
+        let msg = (gcd(p - 1, e - 1) + 1) * (gcd(q - 1, e - 1) + 1);
+
+        if (best == msg) {
+            sum += e;
+        } else if (best > msg) {
+            best = msg;
+            sum = e;
+        }
+    }
+
+    return sum;
+}
+```

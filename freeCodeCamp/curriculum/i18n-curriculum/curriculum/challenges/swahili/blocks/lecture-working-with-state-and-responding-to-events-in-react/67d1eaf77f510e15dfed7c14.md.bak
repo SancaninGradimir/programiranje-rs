@@ -1,0 +1,255 @@
+---
+id: 67d1eaf77f510e15dfed7c14
+title: "Nini State, na `useState` Hook Hufanya Kazi Vipi?"
+challengeType: 19
+dashedName: what-is-state-and-how-does-the-usestate-hook-work
+---
+
+# --description--
+
+State ni mojawapo ya misingi muhimu zaidi ya React na mifumo mingine ya kazi ya mbele (front-end). Ni kama ubongo wa sehemu, ikimaanisha inashikilia taarifa zinazoweza kubadilika kwa muda na kudhibiti jinsi sehemu zinavyoonekana na kufanya kazi.
+
+Tuchunguze nini state ni na jinsi `useState` hook inavyokuwezesha kufanya kazi nayo.
+
+State inawakilisha data inayobadilika katika sehemu yako ya React, kama thamani kutoka kwa ingizo la mtumizi, data inayopatikana kutoka API, au kipengee katika orodha ya kazi za kufanya.
+
+Kila mara state inapotabadilika, React huonyesha tena sehemu hiyo bila kupakia ukurasa upya ili kuonyesha mabadiliko hayo kwenye kiolesura cha mtumizi. Uwezo huu wa mabadiliko hufanya programu yako kuwa ya mwingiliano.
+
+`useState` hook ni kitendakazi kinachokuwezesha kutangaza vigezo vya state katika sehemu za kitendakazi.
+
+Kabla ya hooks, ungeweza kutumia state tu katika sehemu za darasa la vitu. Lakini tangu kuanzishwa kwa hooks tangu React 16.8, unaweza kutumia state katika sehemu za kitendakazi kwa kutumia `useState` hook.
+
+Ili kutumia `useState` hook, unahitaji kuileta (import) kutoka React:
+
+```js
+import { useState } from "react";
+```
+
+Pia unaweza kuleta React yenyewe na kupata upatikanaji wa `useState` hook kama sifa:
+
+```js
+import React from "react";
+```
+
+Hapa ni jinsi unavyoweza kutangaza kigezo cha state unapolleta `useState`:
+
+```js
+const [stateVariable, setStateFunction] = useState(initialValue);
+```
+
+Na hapa ni jinsi unavyoweza kutangaza kigezo cha state unapolleta React:
+
+```js
+const [stateVariable, setStateFunction] = React.useState(initialValue);
+```
+
+Katika kigezo cha state una yafuatayo:
+
+- `stateVariable` inashikilia thamani ya sasa ya state
+- `setStateFunction` (kitendakazi cha kuweka) husahihisha kigezo cha state
+- `initialValue` huweka state ya awali
+
+Kumbuka kuwa state katika sehemu ya React ni ya faragha, na imegawanyika kwa kila mfano wa sehemu. Hii inamaanisha, kama utaonyesha sehemu ile ile mara mbili, state ya sehemu moja haibadilishi ile ya nyingine. Hii pia inamaanisha, kama unataka kushiriki state kati ya sehemu, basi unahitaji kuinua state hadi kwa mzazi wa kawaida na kuipitisha kama vigezo.
+
+Jambo lingine ni kwamba hooks lazima ziitwe katika ngazi ya juu ya sehemu, kabla ya neno kuu la `return`, ili kuweka state na athari kuwa thabiti katika maonyesho yote. Hii inamaanisha huwezi kutumia state ndani ya mizunguko, masharti, au vitendakazi vilivyopangwa ndani.
+
+Hapa kuna mfano wa kusimamia state kwa kutumia `useState` hook katika sehemu ya `Counter`:
+
+```jsx
+// Importing the useState hook
+import { useState } from "react";
+
+function Counter() {
+  const initialValue = 0;
+
+  // The state variable and setter function
+  const [count, setCount] = useState(initialValue);
+
+  return (
+    <div>
+      {/* Display current state value */}
+      <h2>{count}</h2>
+
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+Katika msimbo hapo juu, tuna `useState` hook iliyoletewa kutoka React. Katika sehemu ya `Counter`, `count` inawakilisha state ya sasa wakati `setCount` ni kitendakazi cha kuweka kinachohusika na kusasisha state. Thamani ya sasa ya state ni `0`. Tamko la `return` lina hesabu na vifungo viwili vya kupunguza na kuongeza hesabu kwa `1`.
+
+Unaweza kusimamia vipande vingi vya state kwa kuita `useState` hook mara nyingi. Hii ni muhimu hasa unapokuwa na vigezo vya state visivyohusiana:
+
+```jsx
+function UserProfile() {
+  const [isOnline, setIsOnline] = useState(false);
+  const [notifications, setNotifications] = useState(0);
+
+  // The rest of the component logic
+}
+```
+
+Pia unaweza kuita `useState` hook mara nyingi unapokuwa unasimamia state nyingi zinazosasishwa tofauti, kama vile sehemu za fomu:
+
+```jsx
+function SignUpForm() {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
+  // The rest of the component logic
+}
+```
+
+Lakini katika kesi hii, ni bora kuunganisha state zote kwa kuwa zote ni sehemu ya fomu moja:
+
+```jsx
+function SignUpForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    email: "",
+  });
+
+  // The rest of the component logic
+}
+```
+
+Hivyo ndivyo state ilivyo na jinsi unavyoweza kutumia `useState` hook.
+
+# --questions--
+
+## --text--
+
+Katika toleo gani la React hooks zilianzishwa, kuruhusu state kutumika katika sehemu za kitendakazi?
+
+## --answers--
+
+React 15.6
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+React 16.8
+
+---
+
+React 17.0
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+React 18.2
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+State inawakilisha nini katika sehemu ya React?
+
+## --answers--
+
+Data inayobadilika inayosababisha maonyesho mapya yanapotokea mabadiliko.
+
+---
+
+Data ya kudumu tu ambayo haibadiliki.
+
+### --feedback--
+
+Fikiria data inayofanya kiolesura cha mtumizi kuwa cha mwingiliano na kusasishwa bila kupakia ukurasa upya.
+
+---
+
+Taarifa za mtindo wa sehemu.
+
+### --feedback--
+
+Fikiria data inayofanya kiolesura cha mtumizi kuwa cha mwingiliano na kusasishwa bila kupakia ukurasa upya.
+
+---
+
+Thamani zilizowekwa mwanzoni mwa programu.
+
+### --feedback--
+
+Fikiria data inayofanya kiolesura cha mtumizi kuwa cha mwingiliano na kusasishwa bila kupakia ukurasa upya.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kufanya kazi na `useState` hook?
+
+## --answers--
+
+```js
+const [formData, setFormData] = useState(<
+  name: "",
+  username: "",
+  email: "",
+>);
+```
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+```js
+const ref = useState({
+  name: "",
+  username: "",
+  email: "",
+});
+```
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+```js
+const <formData, setFormData> = useState({
+  name: "",
+  username: "",
+  email: "",
+});
+```
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+```jsx
+const [formData, setFormData] = useState({
+  name: "",
+  username: "",
+  email: "",
+});
+```
+
+## --video-solution--
+
+4

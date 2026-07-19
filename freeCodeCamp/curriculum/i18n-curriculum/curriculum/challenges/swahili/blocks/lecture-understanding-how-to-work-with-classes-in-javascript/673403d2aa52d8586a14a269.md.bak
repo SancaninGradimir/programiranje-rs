@@ -1,0 +1,296 @@
+---
+id: 673403d2aa52d8586a14a269
+title: "Urithi wa darasa la vitu ni nini, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-class-inheritance-and-how-does-it-work
+---
+ 
+# --interactive--
+
+Katika programu, urithi hukuruhusu kufafanua madarasa ya vitu yanayorithi sifa na njia kutoka kwa madarasa mengine.
+
+Kwa mfano, `Car` ni aina ya `Vehicle`, kwa hivyo unaweza kufafanua darasa la `Vehicle` lenye sifa na njia za jumla zaidi zinazoshirikiana na aina zote za magari kisha ufafanue darasa la `Car` linalorithi sifa na njia za darasa la `Vehicle`.
+
+Uhusiano huu wa "ni" ni tabia ya urithi. Katika mfano huu, `Car` ni aina maalum zaidi ya `Vehicle`.
+
+Kuna dhana kuu mbili unazopaswa kujua ili kuanza kufanya kazi na urithi: darasa la mzazi na darasa la mtoto.
+
+Darasa la mzazi ni darasa linalofanya kazi kama ramani ya madarasa mengine. Hufafanua sifa na njia zinazorithiwa na madarasa mengine.
+
+Darasa la mtoto ni darasa linalorithi sifa na njia za darasa lingine. Madarasa ya watoto pia yanaweza kuongeza utendaji wa madarasa yao ya mzazi kwa kuongeza sifa na njia mpya.
+
+Katika mfano wetu wa awali, `Vehicle` itakuwa darasa la mzazi la darasa la `Car` wakati darasa la `Car` litakuwa darasa la mtoto la `Vehicle`.
+
+Darasa la mzazi linaweza kuwa na madarasa mengi ya watoto.
+
+Katika JavaScript, tunatumia neno la `extends` kutekeleza urithi. Neno hili linaonyesha kuwa darasa ni darasa la mtoto la darasa lingine.
+
+Katika mfano huu, ambapo tuna mistari ya kwanza tu ya ufafanuzi wa madarasa, unaweza kuona kuwa darasa la `Car` linaongeza darasa la `Vehicle`, kwa hivyo `Car` inarithi kutoka `Vehicle`.
+
+```js
+class Vehicle {
+  // Implementation of Vehicle...
+}
+
+class Car extends Vehicle {
+  // Implementation of Car...
+}
+```
+
+Tuseme darasa la `Vehicle` lina sifa mbili: `brand` na `year`. Unaweza kuona hili katika msimbo uliosasishwa.
+
+`Car` lina njia inayoitwa `honk`. Hata hivyo, angalia kuwa darasa la `Car` halina kijenzi chake mwenyewe. Tuweze kuona kama linarithi sifa hizo.
+
+```js
+class Vehicle {
+  constructor(brand, year) {
+    this.brand = brand;
+    this.year = year;
+  }
+}
+
+class Car extends Vehicle {
+  honk() {
+    console.log("Honk! Honk!");
+  }
+}
+```
+
+Ili kufafanua mfano wa `Car`, utahitaji kupitisha hoja mbili: `brand` na `year`. Katika kesi hii, chapa ni `freeCodeCamp Motors` na mwaka ni `2019`.
+
+```js
+let myCar = new Car("freeCodeCamp Motors", 2019);
+```
+
+Ikiwa utajaribu kupata sifa hizi na kuita njia kwa kutumia uandishi wa nukta:
+
+```js
+console.log(myCar.brand);
+console.log(myCar.year);
+myCar.honk();
+```
+
+Hapa kuna mfano kamili:
+
+:::interactive_editor
+
+```js
+class Vehicle {
+  constructor(brand, year) {
+    this.brand = brand;
+    this.year = year;
+  }
+}
+
+class Car extends Vehicle {
+  honk() {
+    console.log("Honk! Honk!");
+  }
+}
+
+let myCar = new Car("freeCodeCamp Motors", 2019);
+console.log(myCar.brand);
+console.log(myCar.year);
+myCar.honk();
+```
+
+:::
+
+Kwa kweli, matokeo ni sahihi, kwa hivyo sifa hizi na njia zimefafanuliwa katika mfano wa `Car` na umejiokoa rudia msimbo mwingi kwa kurithi sifa hizi kutoka kwa darasa la `Vehicle`.
+
+Katika mfano huu, darasa la mtoto halikuhitaji sifa zozote za ziada. Ndiyo maana darasa halikuhitaji kijenzi, bali njia tu.
+
+Ikiwa unahitaji kuongeza sifa za ziada, utahitaji kufafanua kijenzi.
+
+Tuweze kuona mfano.
+
+```js
+class Vehicle {
+  constructor(brand, year) {
+    this.brand = brand;
+    this.year = year;
+  }
+}
+
+class Car extends Vehicle {
+  constructor(brand, year, numDoors) {
+    super(brand, year);
+    this.numDoors = numDoors;
+  }
+}
+```
+
+Mara hii, tutaongeza sifa ya `numDoors` kwa darasa la mtoto la `Car`.
+
+Unaweza kuona sasa darasa hili lina kijenzi katika msimbo uliosasishwa. Ndani ya kijenzi, kuna wito wa `super()`, ukipitisha hoja `brand` na `year`.
+
+`super()` huita kijenzi cha superclass, kwa hivyo kwa kutumia `super(brand, year)` utafafanua sifa za superclass katika darasa la mtoto. Hii ni istilahi nyingine unayoweza kutumia—superclass ni darasa la mzazi na subclass ni darasa la mtoto.
+
+Kisha, mstari wa `this.numDoors = numDoors` unafafanua sifa mpya inayomilikiwa pekee na darasa la `Car`, idadi ya milango (`numDoors`).
+
+Hii ni njia ya kuongeza darasa la `Vehicle`, kwa kuongeza sifa ya kipekee kwa mifano ya `Car`.
+
+Hiyo ni mfano wa upanuzi, mojawapo ya faida msingi za urithi.
+
+Sasa, ikiwa utaunda mfano wa darasa la `Car`, utaona kuwa lina sifa tatu: `brand`, `year`, na `numDoors`. Pia utahitaji kupitisha hoja zinazohitajika unapotengeneza mfano.
+
+```js
+let myCar = new Car("freeCodeCamp Motors", 2019, 4);
+```
+
+Ikiwa utachapisha thamani za sifa hizi kwa `console.log()`:
+
+```js
+console.log(myCar.brand);
+console.log(myCar.year);
+console.log(myCar.numDoors);
+```
+
+Hapa kuna mfano kamili:
+
+:::interactive_editor
+
+```js
+class Vehicle {
+  constructor(brand, year) {
+    this.brand = brand;
+    this.year = year;
+  }
+}
+
+class Car extends Vehicle {
+  constructor(brand, year, numDoors) {
+    super(brand, year);
+    this.numDoors = numDoors;
+  }
+}
+
+let myCar = new Car("freeCodeCamp Motors", 2019, 4);
+console.log(myCar.brand);
+console.log(myCar.year);
+console.log(myCar.numDoors);
+```
+
+:::
+
+Faida kuu za urithi ni upitishaji msimbo tena, ugawaji, upanuzi, na muundo bora wa msimbo.
+
+Kwa kutekeleza mlinganyo wa madarasa, unaweza kutumia tena msimbo uliouandika kwa darasa la mzazi katika darasa la mtoto, kuepuka rudia msimbo.
+
+Urithi pia huendeleza ugawaji kwa kugawanya mifumo tata kuwa sehemu rahisi katika mlinganyo.
+
+Pia, uwezo wa kuongeza utendaji wa darasa la mzazi hufanya iwe rahisi kuendana na mahitaji yanayobadilika na kuongeza vipengele vipya baadaye katika mchakato wa ukuzaji.
+
+Mwishowe, muundo wa mlinganyo unaweza kufanya msimbo wako uwe rahisi kuelewa na kudumisha.
+
+Hizo ndizo misingi ya urithi. Kwa kuelewa jinsi urithi unavyofanya kazi, unaweza kubuni programu za vitu zilizo na muundo mzuri, zinazoweza kudumishwa, na zinazopanuka.
+
+# --questions--
+
+## --text--
+
+Nia kuu ya urithi katika programu za vitu ni ipi?
+
+## --answers--
+
+Kuumba vitu vipya.
+
+### --feedback--
+
+Fikiria jinsi urithi unavyosaidia upitishaji msimbo tena na upangaji.
+
+---
+
+Kufafanua njia za darasa.
+
+### --feedback--
+
+Fikiria jinsi urithi unavyosaidia upitishaji msimbo tena na upangaji.
+
+---
+
+Kutumia tena msimbo na kuunda uhusiano wa mlinganyo kati ya madarasa.
+
+---
+
+Kufunga data ndani ya vitu.
+
+### --feedback--
+
+Fikiria jinsi urithi unavyosaidia upitishaji msimbo tena na upangaji.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Neno gani hutumika kurithi kutoka kwa darasa la mzazi katika JavaScript?
+
+## --answers--
+
+`inherit`
+
+### --feedback--
+
+Fikiria neno linaloanzisha uhusiano wa urithi.
+
+---
+
+`extends`
+
+---
+
+`super`
+
+### --feedback--
+
+Fikiria neno linaloanzisha uhusiano wa urithi.
+
+---
+
+`prototype`
+
+### --feedback--
+
+Fikiria neno linaloanzisha uhusiano wa urithi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Tofauti gani kati ya darasa la mzazi na darasa la mtoto?
+
+## --answers--
+
+Darasa la mzazi ni toleo maalum la darasa la mtoto.
+
+### --feedback--
+
+Fikiria uhusiano wa mlinganyo kati ya madarasa.
+
+---
+
+Darasa la mtoto ni toleo maalum la darasa la mzazi.
+
+---
+
+Hakuna tofauti kati ya madarasa ya mzazi na watoto.
+
+### --feedback--
+
+Fikiria uhusiano wa mlinganyo kati ya madarasa.
+
+---
+
+Madarasa ya mzazi huwa makubwa zaidi kuliko madarasa ya watoto.
+
+### --feedback--
+
+Fikiria uhusiano wa mlinganyo kati ya madarasa.
+
+## --video-solution--
+
+2

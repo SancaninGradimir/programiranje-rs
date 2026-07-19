@@ -1,0 +1,77 @@
+---
+id: 65fa9402d1fb5516aa42159d
+title: Hatua 50
+challengeType: 20
+dashedName: step-50
+---
+
+# --description--
+
+Jisikie huru kubadilisha `v3` ili ijumuishe mfano wa `R2Vector` na kitu cha aina tofauti, kama nambari kamili au mfuatano wa herufi. Utaweza kuona ujumbe wa `TypeError` ukichapishwa kwenye konsoli.
+
+Kisha, rejesha mstari wa awali na tengeneza kigezo kipya `v4`. Weka thamani ya tofauti kati ya `v1` na `v2` kwenye kigezo chako kipya na chapisha matokeo ukifuata muundo ule ule wa f-string wa awali.
+
+# --hints--
+
+Unapaswa kutangaza kigezo `v4` na kuweka thamani ya tofauti kati ya `v1` na `v2`.
+
+```js
+({
+    test: () => assert(runPython(`
+      _Node(_code).has_stmt("v4 = v1 - v2")
+    `))
+})
+```
+
+Unapaswa kuchapisha `f'v1 - v2 = {v4}'`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).has_call("print(f'v1 - v2 = {v4}')")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+
+    def __add__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+
+    def __sub__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+--fcc-editable-region--
+v1 = R2Vector(x=2, y=3)
+v2 = R2Vector(x=0.5, y=1.25)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+v3 = v1 + v2
+print(f'v1 + v2 = {v3}')
+--fcc-editable-region--
+```

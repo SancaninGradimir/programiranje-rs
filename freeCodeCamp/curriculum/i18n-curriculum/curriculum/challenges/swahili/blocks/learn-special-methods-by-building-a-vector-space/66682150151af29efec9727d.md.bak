@@ -1,0 +1,61 @@
+---
+id: 66682150151af29efec9727d
+title: Hatua 33
+challengeType: 20
+dashedName: step-33
+---
+
+# --description--
+
+Njia ya `__getattribute__` huitwa chini ya kifuniko kila unapojaribu kupata sifa ya kipengele cha mfano. Ikiwa sifa ya kipengele haipatikani kwenye kiwango cha mfano, njia hiyo itatafuta kwenye kiwango cha darasa la vitu, na hatimaye katika madarasa ya wazazi.
+
+Ndani ya darasa lako la vitu, fafanua njia ya `__getattribute__` yenye vigezo viwili, `self` na `attr`, na ifanye irudishe mfuatano wa herufi `'calling __getattribute__'`. Utaghairi hivi karibuni utekelezaji wa kawaida ili kuona jinsi upatikanaji wa sifa ya kipengele unavyofanya kazi.
+
+# --hints--
+
+Unapaswa kufafanua njia iitwayo `__getattribute__` yenye vigezo viwili, `self` na `attr`, ndani ya darasa la vitu la `R2Vector`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__getattribute__").has_args("self, attr")`)) })
+```
+
+Njia yako ya `__getattribute__` inapaswa kurudisha mfuatano wa herufi `'calling __getattribute__'`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__getattribute__").has_return("'calling __getattribute__'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+--fcc-editable-region--
+    
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+# print(f'v1 = {v1}', f'\nrepr = {repr(v1)}')
+# print(f'v2 = {v2}', f'\nrepr = {repr(v2)}')
+
+```

@@ -1,0 +1,83 @@
+---
+id: 69c918841987bf16c1d1babf
+title: Hatua 8
+challengeType: 1
+dashedName: step-8
+---
+
+# --description--
+
+Pia unahitaji kufuatilia njia halisi iliyochukuliwa kufikia kila nodi. Utahifadhi orodha ya njia ambapo kila kipengee ni safu ya data za viashiria vya nodi zinazo wakilisha njia iliyochukuliwa.
+
+Mwanzo, njia ya kila nodi itakuwa na nodi yenyewe tu. Unaweza kuunda muundo huu ukitumia `Array.from()`:
+
+```js
+Array.from({ length: n }, (_, i) => [i]);
+```
+
+Hii huunda safu ya vipengee `n`, ambapo kipengee kilicho kwenye kielezo `i` ni `[i]`.
+
+Bado ndani ya kitendakazi cha `shortestPath`, unda kigezo kinachoitwa `paths` na weka thamani `Array.from({ length: n }, (_, i) => [i])`.
+
+# --hints--
+
+Unapaswa kuunda kigezo `paths` ndani ya kitendakazi cha `shortestPath`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /(const|let|var)\s+paths\s*=/
+);
+```
+
+Kigezo chako cha `paths` kinapaswa kuanzishwa kwa kutumia `Array.from`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /paths\s*=\s*Array\.from/
+);
+```
+
+Kigezo chako cha `paths` kinapaswa kutumia `{ length: n }` kama hoja ya kwanza kwa `Array.from`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /Array\.from\s*\(\s*\{\s*length\s*:\s*n\s*\}/
+);
+```
+
+Hoja ya pili kwa `Array.from` inapaswa kuwa wito wa kurudisha `(_, i) => [i]`, ambapo `_` ni kiwakilishi cha kipengee kisichotumika na `i` ni kielezo. Inapaswa kurudisha `[i]`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /Array\.from\s*\([\s\S]*?,\s*function\s*\(\s*\w+\s*,\s*(\w+)\s*\)\s*\{[\s\S]*?return\s*\[\s*\1\s*\]|Array\.from\s*\([\s\S]*?,\s*\(\s*\w+\s*,\s*\w+\s*\)\s*=>\s*\[\s*\w+\s*\]/
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INF = Infinity;
+const adjMatrix = [
+  [0, 5, 3, INF, 11, INF],
+  [5, 0, 1, INF, INF, 2],
+  [3, 1, 0, 1, 5, INF],
+  [INF, INF, 1, 0, 9, 3],
+  [11, INF, 5, 9, 0, INF],
+  [INF, 2, INF, 3, INF, 0],
+];
+
+function shortestPath(matrix, startNode, targetNode = null) {
+  const n = matrix.length;
+  const distances = new Array(n).fill(INF);
+  distances[startNode] = 0;
+  --fcc-editable-region--
+
+  --fcc-editable-region--
+}
+```

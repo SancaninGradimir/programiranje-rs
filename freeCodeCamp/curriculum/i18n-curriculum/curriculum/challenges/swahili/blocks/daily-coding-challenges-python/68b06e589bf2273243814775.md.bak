@@ -1,0 +1,83 @@
+---
+id: 68b06e589bf2273243814775
+title: "Challenge 38: Slug Generator"
+challengeType: 29
+dashedName: challenge-38
+---
+
+# --description--
+
+Ukipata mfuatano wa herufi, rudisha toleo linalofaa kwa URL la mfuatano huo kwa kutumia masharti yafuatayo:
+
+- Herufi zote ziwe herufi ndogo.
+- Herufi, nambari, au nafasi zisizo za herufi, nambari, au nafasi zifutwe.
+- Nafasi zote zibadilishwe na msimbo wa nafasi uliokodishwa kwa URL `%20`.
+- Nafasi zinazojirudia zifanyike badiliko la `%20` moja tu.
+- Mfuatano uliorudishwa usiwe na `%20` mwanzoni au mwishoni.
+
+# --hints--
+
+`generate_slug("helloWorld")` should return `"helloworld"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(generate_slug("helloWorld"), "helloworld")`)
+}})
+```
+
+`generate_slug("hello world!")` should return `"hello%20world"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(generate_slug("hello world!"), "hello%20world")`)
+}})
+```
+
+`generate_slug(" hello-world ")` should return `"helloworld"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(generate_slug(" hello-world "), "helloworld")`)
+}})
+```
+
+`generate_slug("hello  world")` should return `"hello%20world"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(generate_slug("hello  world"), "hello%20world")`)
+}})
+```
+
+`generate_slug("  ?H^3-1*1]0! W[0%R#1]D  ")` should return `"h3110%20w0r1d"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(generate_slug("  ?H^3-1*1]0! W[0%R#1]D  "), "h3110%20w0r1d")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def generate_slug(str):
+
+    return str
+```
+
+# --solutions--
+
+```py
+import re
+def generate_slug(s):
+    cleaned = re.sub(r'[^a-zA-Z0-9 ]+', '', s)
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    return cleaned.lower().replace(' ', '%20')
+```

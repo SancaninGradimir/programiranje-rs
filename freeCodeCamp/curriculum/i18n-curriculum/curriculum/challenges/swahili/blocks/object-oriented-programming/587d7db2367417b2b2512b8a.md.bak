@@ -1,0 +1,81 @@
+---
+id: 587d7db2367417b2b2512b8a
+title: >-
+  Tumia ufungaji kulinda sifa ndani ya kitu zisibadilishwe kutoka nje
+challengeType: 1
+forumTopicId: 18234
+dashedName: >-
+  use-closure-to-protect-properties-within-an-object-from-being-modified-externally
+---
+
+# --description--
+
+Katika changamoto iliyopita, `bird` alikuwa na sifa ya umma `name`. Inachukuliwa kuwa ya umma kwa sababu inaweza kufikiliwa na kubadilishwa kutoka nje ya ufafanuzi wa `bird`.
+
+```js
+bird.name = "Duffy";
+```
+
+Kwa hiyo, sehemu yoyote ya msimbo wako inaweza kubadilisha kwa urahisi jina la `bird` kuwa thamani yoyote. Fikiria mambo kama nywila na akaunti za benki kubadilishwa kwa urahisi na sehemu yoyote ya msimbo wako. Hilo linaweza kusababisha matatizo mengi.
+
+Njia rahisi ya kufanya sifa hii ya umma kuwa ya faragha ni kwa kuunda kigezo ndani ya kitendakazi cha kijenzi. Hii hubadilisha wigo wa kigezo hicho kuwa ndani ya kitendakazi cha kijenzi badala ya kupatikana kwa kiwango cha ulimwengu. Kwa njia hii, kigezo kinaweza kufikiliwa na kubadilishwa tu na njia pia zilizo ndani ya kitendakazi cha kijenzi.
+
+```js
+function Bird() {
+  let hatchedEgg = 10;
+
+  this.getHatchedEggCount = function() { 
+    return hatchedEgg;
+  };
+}
+let ducky = new Bird();
+ducky.getHatchedEggCount();
+```
+
+Hapa `getHatchedEggCount` ni njia ya kipekee, kwa sababu ina upatikanaji wa kigezo cha faragha `hatchedEgg`. Hii inawezekana kwa sababu `hatchedEgg` imetangazwa katika muktadha uleule na `getHatchedEggCount`. Katika JavaScript, kitendakazi kila mara kina upatikanaji wa muktadha ambamo kiliumbwa. Hii huitwa `closure`.
+
+# --instructions--
+
+Badilisha jinsi `weight` inavyotangazwa katika kitendakazi cha `Bird` ili iwe kigezo cha faragha. Kisha, unda njia `getWeight` inayorejesha thamani ya `weight` 15.
+
+# --hints--
+
+Sifa ya `weight` inapaswa kuwa kigezo cha faragha na inapaswa kupewa thamani ya `15`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/(var|let|const)\s+weight\s*\=\s*15\;?/g));
+```
+
+Msimbo wako unapaswa kuunda njia katika `Bird` iitwayo `getWeight` inayorejesha thamani ya kigezo cha faragha `weight`.
+
+```js
+assert(new Bird().getWeight() === 15);
+```
+
+Kitendakazi chako cha `getWeight` kinapaswa kurejesha kigezo cha faragha `weight`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/((return\s+)|(\(\s*\)\s*\=\>\s*))weight\;?/g));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Bird() {
+  this.weight = 15;
+
+
+}
+```
+
+# --solutions--
+
+```js
+function Bird() {
+  let weight = 15;
+
+  this.getWeight = () => weight;
+}
+```

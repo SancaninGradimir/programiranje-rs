@@ -1,0 +1,320 @@
+---
+id: 695cc6a5eefd305381ec90bc
+title: Moduli ya fs ni nini na inafanya kazi vipi?
+challengeType: 19
+dashedName: what-is-the-fs-module-and-how-does-it-work
+---
+
+# --description--
+
+Lugha nyingi na mifumo ya kazi ipo inayotoa njia za kufanya kazi na mafaili na folda. Node.js inakuwezesha kufanya hivi kwa kutumia moduli ya `fs` au mfumo wa faili.
+
+Funzo hili litaangazia moduli ya Node `fs`, jinsi inavyofanya kazi, na njia tatu tofauti unazoweza kutumia njia (methods) zinazotolewa na moduli hii.
+
+Moduli ya Node `fs` inakupa njia za kufanya kazi na mafaili na folda, ikiwa ni pamoja na kufungua na kufunga, kusoma na kuandika, na shughuli za kufuta.
+
+Moduli ya `fs` ni moduli ya kawaida ya Node.js, kwa hivyo inapatikana kutumia mradi tu umeweka Node.js katika mazingira yako. Ili kutumia moduli hii, uilete kwa njia hii:
+
+```js
+const fs = require("fs");
+```
+
+Uwezo wa moduli ya `fs` ni kwamba inakuwezesha kutumia njia zake kwa njia ya wakati mmoja na isiyo ya wakati mmoja. Njia za moduli ya `fs` ni isiyo ya wakati mmoja kwa chaguo-msingi, lakini kwa kila njia, kuna toleo la wakati mmoja:
+
+```js
+fs.writeFile() // Asynchronous file writing
+fs.writeFileSync() // Synchronous file writing
+
+fs.readFile() // Asynchronous file reading
+fs.readFileSync() // Synchronous file reading
+
+fs.open() // Opens a file
+fs.openAsBlob() // Opens as blob
+fs.openSync() // Synchronous open
+fs.opendir() // Opens directory
+fs.opendirSync() // Synchronous directory open
+```
+
+Hii haimaliziki hapo. Kulingana na mahitaji yako, unaweza kutumia njia hizi kwa njia tatu:
+
+- kwa wito wa kurudisha, kwa mfano `fs.writeFile()` (isiyo ya wakati mmoja)
+- kwa ahadi ikiwa unapendelea sintaksia ya `async/await`, kwa mfano `fs.promises.writeFile()`
+- kwa wakati mmoja, kwa mfano, `fs.writeFileSync()`
+
+Hii ndiyo sintaksia ya msingi kwa matumizi ya njia isiyo ya wakati mmoja:
+
+```js
+fs.writeFile("filePath", "content", "utf8", (err) => {
+  if (err) {
+    throw err;
+  }
+  console.log("File written to!");
+});
+```
+
+Kwa toleo la ahadi, unaweza kuleta hiyo kutoka `fs/promises` au kuunganisha `promises` kwenye import yako ya `fs`. Hii ndiyo sintaksia:
+
+```js
+async function promisesExample() {
+  try {
+    await fs.promises.writeFile("filePath", "content", "utf8");
+    console.log("File written to!");
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+promisesExample();
+```
+
+Na hii ndiyo toleo la wakati mmoja:
+
+```js
+try {
+  fs.writeFileSync("filePath", "content", "utf8");
+  console.log("File written to!");
+} catch (err) {
+  console.error("Error:", err);
+}
+```
+
+Kumbuka kwamba kutumia njia yoyote kwa wakati mmoja ni kuzuia. Kwa maneno mengine, programu yako itasimama kuendesha na kusubiri hadi shughuli itakapokamilika kabla ya kuendelea kwenye mstari unaofuata wa msimbo.
+
+Kwa maandishi ya haraka, miradi midogo, au mazoezi ya mara moja, njia za wakati mmoja huenda zikafaa. Lakini katika programu halisi, kuzuia I/O (ingizo/utokaji) huwa tatizo kwa sababu inaweza kusimamisha sehemu nyingine za programu yako wakati Node inasubiri mfumo wa faili kumaliza shughuli zake. Hii huchelewesha mambo na kuathiri utendaji na uzoefu wa mtumiaji.
+
+Ndiyo maana njia zisizo za wakati mmoja zipo. Zinakuwezesha sehemu nyingine za programu yako kuendelea kuendesha wakati Node inashughulikia shughuli za faili nyuma ya pazia. Kawaida, hii ilitumia wito wa kurudisha, lakini hizo zinaweza kuwa ngumu haraka kadri programu yako inavyokua.
+
+Ahadi na `async/await` hutatua tatizo hilo. Bado hazizuizi, lakini msimbo unasomeka kama msimbo wa wakati mmoja wa kawaida na ni rahisi zaidi kudumisha.
+
+Kwa sababu hii, njia inayotegemea ahadi kwa ujumla ni inayopendekezwa leo, na ndiyo tutakayoiweka katika funzo hili lote.
+
+Njia ya `writeFile()` inakuwezesha kuandika kwenye faili iliyopo. Ikiwa faili haipo, inaunda katika saraka ya sasa, kisha inaandika yaliyomo yaliyotajwa.
+
+Hivi ndivyo unavyotumia njia ya `writeFile()`:
+
+```js
+const fs = require("fs/promises");
+
+async function writeToFile() {
+  try {
+    await fs.writeFile(
+      "article.md",
+      "## Node `fs` Module: The Complete Guide",
+      "utf8",
+    );
+    console.log("File written to!");
+  } catch (err) {
+    console.error("Error writing to file:", err);
+  }
+}
+
+writeToFile(); // File written to!
+```
+
+Hivi ndivyo yaliyomo kwenye faili ya article.md baada ya hapo:
+
+```md
+## Node `fs` Module: The Complete Guide
+```
+
+Njia ya `appendFile()` inakuwezesha kuongeza kwenye yaliyomo ya faili iliyopo. Hivi ndivyo unavyotumia:
+
+```js
+const fs = require("fs/promises");
+
+async function appendToFile() {
+  try {
+    await fs.appendFile(
+      "article.md",
+      "\nIn this article, you will learn all there is to know about the Node fs module...",
+      "utf8",
+    );
+    console.log("File appended to!");
+  } catch (err) {
+    console.log("Error appending to file:", err);
+  }
+}
+
+appendToFile(); // File appended to!
+```
+
+Njia ya `readFile()` inakuwezesha kuona yaliyomo ya faili:
+
+```js
+const fs = require("fs/promises");
+
+async function readFileContent() {
+  try {
+    const fileContent = await fs.readFile("article.md", "utf8");
+    console.log("File content:", fileContent);
+  } catch (err) {
+    console.log("File read successfully");
+  }
+}
+
+readFileContent();
+
+/*
+File content: ## Node `fs` Module: The Complete Guide
+
+In this article, you will learn all there is to know about the Node fs module...
+*/
+```
+
+Kama hutaja msimbo wa wahusika wa `utf8`, utapokea yaliyomo ya faili kama kihifadhi cha muda:
+
+```js
+async function readFileContent() {
+  try {
+    const fileContent = await fs.readFile("article.md");
+    console.log("File content:", fileContent);
+  } catch (err) {
+    console.log("File read successfully");
+  }
+}
+
+readFileContent();
+
+/*
+File content: <Buffer 23 23 20 4e 6f 64 65 20 60 66 73 60 20 4c 69 62 72 61 72 79 3a 20
+ 54 68 65 20 43 6f 6d 70 6c 65 74 65 20 47 75 69 64 65 0a 0a 49 6e 20 74 68 69 73 20 ... 
+72 more bytes>
+*/
+```
+
+Katika funzo lijalo, utajifunza jinsi ya kushughulikia kihifadhi cha muda kama hiki kwa moduli ya Buffer ya Node.js.
+
+Mwishowe, njia ya `unlink()` inakuwezesha kufuta faili:
+
+```js
+const fs = require("fs/promises");
+
+async function deleteFile() {
+  try {
+    await fs.unlink("article.ts");
+    console.log("File deleted successfully!");
+  } catch (err) {
+    console.error("Error deleting file:", err);
+  }
+}
+
+deleteFile();
+```
+
+Kama faili haipo, utapokea ujumbe wa kosa kama huu:
+
+```bash
+Error deleting file: Error: ENOENT: no such file or directory, unlink 'article.ts'
+```
+
+Kama ipo, faili inafutwa, na unapata ujumbe wa mafanikio ulioweka.
+
+# --questions--
+
+## --text--
+
+Lengo kuu la moduli ya Node `fs` ni lipi?
+
+## --answers--
+
+Kuumba kurasa za HTML zinazobadilika katika kivinjari.
+
+### --feedback--
+
+Fikiria jinsi unavyoshughulikia mafaili kama hati za maandishi au folda moja kwa moja kutoka Node.js.
+
+---
+
+Kuwaunganisha Node.js na hifadhidata.
+
+### --feedback--
+
+Fikiria jinsi unavyoshughulikia mafaili kama hati za maandishi au folda moja kwa moja kutoka Node.js.
+
+---
+
+Kushirikiana na mfumo wa faili kwa shughuli za faili na folda za CRUD.
+
+---
+
+Kusimamia usakinishaji wa vifurushi vya Node.js.
+
+### --feedback--
+
+Fikiria jinsi unavyoshughulikia mafaili kama hati za maandishi au folda moja kwa moja kutoka Node.js.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni njia gani katika moduli ya Node fs inakuwezesha kuandika yaliyomo kwenye faili, na kuunda faili ikiwa haipo?
+
+## --answers--
+
+`writeFile()`
+
+---
+
+`readFile()`
+
+### --feedback--
+
+Fikiria njia inayounda na kuandika yaliyomo kwenye faili.
+
+---
+
+`appendFile()`
+
+### --feedback--
+
+Fikiria njia inayounda na kuandika yaliyomo kwenye faili.
+
+---
+
+`unlink()`
+
+### --feedback--
+
+Fikiria njia inayounda na kuandika yaliyomo kwenye faili.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya hizi **SIYO** mojawapo ya njia tatu unazoweza kutumia katika moduli ya Node `fs`?
+
+## --answers--
+
+Kwa wito wa kurudisha, kwa mfano `fs.writeFile()`.
+
+### --feedback--
+
+Mbili ni isiyo ya wakati mmoja, moja ni ya wakati mmoja, na moja haipo.
+
+---
+
+Kwa ahadi, kwa mfano `fs.promises.writeFile()`.
+
+### --feedback--
+
+Mbili ni isiyo ya wakati mmoja, moja ni ya wakati mmoja, na moja haipo.
+
+---
+
+Kwa wakati mmoja, kwa mfano `fs.writeFileSync()`.
+
+### --feedback--
+
+Mbili ni isiyo ya wakati mmoja, moja ni ya wakati mmoja, na moja haipo.
+
+---
+
+Kwa uchambuzi wa JSON, kwa mfano `fs.parseFile()`.
+
+## --video-solution--
+
+4

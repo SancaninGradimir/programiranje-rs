@@ -1,0 +1,239 @@
+---
+id: 5eb3e4b20aa93c437f9e9717
+title: Seti ya nambari halisi
+challengeType: 1
+forumTopicId: 385322
+dashedName: set-of-real-numbers
+---
+
+# --description--
+
+Nambari zote halisi huunda seti isiyo na kikomo ℝ. Kati ya seti ndogo zake, seti rahisi ni seti za convex, kila moja ikiwakilishwa kama safu kati ya nambari halisi mbili *a* na *b* ambapo *a* ≤ *b*. Kwa kweli kuna matukio manne ya maana ya "kati ya", kulingana na mipaka wazi au iliyofungwa:
+
+<ul>
+  <li>[<i>a</i>, <i>b</i>]: {<i>x</i> | <i>a</i> ≤ <i>x</i> na <i>x</i> ≤ <i>b</i> }</li>
+  <li>(<i>a</i>, <i>b</i>): {<i>x</i> | <i>a</i> < <i>x</i> na <i>x</i> < <i>b</i> }</li>
+  <li>[<i>a</i>, <i>b</i>): {<i>x</i> | <i>a</i> ≤ <i>x</i> na <i>x</i> < <i>b</i> }</li>
+  <li>(<i>a</i>, <i>b</i>]: {<i>x</i> | <i>a</i> < <i>x</i> na <i>x</i> ≤ <i>b</i> }</li>
+</ul>
+
+Kumbuka kwamba ikiwa *a* = *b*, kati ya hizi nne ni \[*a*, *a*] pekee itakayokuwa na maudhui.
+
+**Zoezi**
+
+<ul>
+  <li>Fikiria njia ya kuwakilisha seti yoyote ya nambari halisi, kwa maana ya "yoyote" kama ilivyoelezwa katika maelezo ya utekelezaji hapa chini.</li>
+  <li>Toa njia za kufanya operesheni hizi za kawaida za seti (<i>x</i> ni nambari halisi; <i>A</i> na <i>B</i> ni seti):</li>
+  <ul>
+    <li>
+      <i>x</i> ∈ <i>A</i>: amua kama <i>x</i> ni kipengele cha <i>A</i><br>
+      mfano: 1 iko katika [1, 2), wakati 2, 3, ... siyo.
+    </li>
+    <li>
+      <i>A</i> ∪ <i>B</i>: muungano wa <i>A</i> na <i>B</i>, yaani {<i>x</i> | <i>x</i> ∈ <i>A</i> au <i>x</i> ∈ <i>B</i>}<br>
+      mfano: [0, 2) ∪ (1, 3) = [0, 3); [0, 1) ∪ (2, 3] = sawa, [0, 1) ∪ (2, 3]
+    </li>
+    <li>
+      <i>A</i> ∩ <i>B</i>: mkusanyiko wa <i>A</i> na <i>B</i>, yaani {<i>x</i> | <i>x</i> ∈ <i>A</i> na <i>x</i> ∈ <i>B</i>}<br>
+      mfano: [0, 2) ∩ (1, 3) = (1, 2); [0, 1) ∩ (2, 3] = seti tupu
+    </li>
+    <li>
+      <i>A</i> - <i>B</i>: tofauti kati ya <i>A</i> na <i>B</i>, pia huandikwa kama <i>A</i> \ <i>B</i>, yaani {<i>x</i> | <i>x</i> ∈ <i>A</i> na <i>x</i> ∉ <i>B</i>}<br>
+      mfano: [0, 2) − (1, 3) = [0, 1]
+    </li>
+  </ul>
+</ul>
+
+# --instructions--
+
+Andika kitendakazi kinachopokea vitu 2, mfuatano wa herufi na safu ya data kama vigezo. Vitu hivyo vinawakilisha seti na vina sifa: `low`, `high` na `rangeType`.
+
+`rangeType` inaweza kuwa na thamani 0, 1, 2 na 3 kwa `CLOSED`, `BOTH_OPEN`, `LEFT_OPEN` na `RIGHT_OPEN`, mtawalia. Kitendakazi kinapaswa kutekeleza seti kwa kutumia taarifa hii.
+
+Mfuatano wa herufi unawakilisha operesheni itakayofanywa kwenye seti. Inaweza kuwa: `"union"`, `"intersect"` na `"subtract"` (tofauti).
+
+Baada ya kufanya operesheni, kitendakazi kinapaswa kukagua kama thamani katika safu ya data zipo katika seti iliyopatikana na kuhifadhi thamani ya kweli au siyo kweli katika safu ya data. Kitendakazi kinapaswa kurudisha safu hii ya thamani za kweli au siyo kweli.
+
+# --hints--
+
+`realSet` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof realSet == 'function');
+```
+
+`realSet({"low":0, "high":1, "rangeType":2}, {"low":0, "high":2, "rangeType":3}, "union", [1, 2, 3])` inapaswa kurudisha safu ya data.
+
+```js
+assert(
+  Array.isArray(
+    realSet(
+      { low: 0, high: 1, rangeType: 2 },
+      { low: 0, high: 2, rangeType: 3 },
+      'union',
+      [1, 2, 3]
+    )
+  )
+);
+```
+
+`realSet({"low":0, "high":1, "rangeType":2}, {"low":0, "high":2, "rangeType":3}, "union", [1, 2, 3])` inapaswa kurudisha `[true, false, false]`.
+
+```js
+assert.deepEqual(
+  realSet(
+    { low: 0, high: 1, rangeType: 2 },
+    { low: 0, high: 2, rangeType: 3 },
+    'union',
+    [1, 2, 3]
+  ),
+  [true, false, false]
+);
+```
+
+`realSet({"low":0, "high":2, "rangeType":3}, {"low":1, "high":2, "rangeType":2}, "intersect", [0, 1, 2])` inapaswa kurudisha `[false, false, false]`.
+
+```js
+assert.deepEqual(
+  realSet(
+    { low: 0, high: 2, rangeType: 3 },
+    { low: 1, high: 2, rangeType: 2 },
+    'intersect',
+    [0, 1, 2]
+  ),
+  [false, false, false]
+);
+```
+
+`realSet({"low":0, "high":3, "rangeType":3}, {"low":0, "high":1, "rangeType":1}, "subtract", [0, 1, 2])` inapaswa kurudisha `[true, true, true]`.
+
+```js
+assert.deepEqual(
+  realSet(
+    { low: 0, high: 3, rangeType: 3 },
+    { low: 0, high: 1, rangeType: 1 },
+    'subtract',
+    [0, 1, 2]
+  ),
+  [true, true, true]
+);
+```
+
+`realSet({"low":0, "high":3, "rangeType":3}, {"low":0, "high":1, "rangeType":0}, "subtract", [0, 1, 2])` inapaswa kurudisha `[false, false, true]`.
+
+```js
+assert.deepEqual(
+  realSet(
+    { low: 0, high: 3, rangeType: 3 },
+    { low: 0, high: 1, rangeType: 0 },
+    'subtract',
+    [0, 1, 2]
+  ),
+  [false, false, true]
+);
+```
+
+`realSet({"low":0, "high":33, "rangeType":1}, {"low":30, "high":31, "rangeType":0}, "intersect", [30, 31, 32])` inapaswa kurudisha `[true, true, false]`.
+
+```js
+assert.deepEqual(
+  realSet(
+    { low: 0, high: 33, rangeType: 1 },
+    { low: 30, high: 31, rangeType: 0 },
+    'intersect',
+    [30, 31, 32]
+  ),
+  [true, true, false]
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function realSet(set1, set2, operation, values) {
+
+}
+```
+
+# --solutions--
+
+```js
+function realSet(set1, set2, operation, values) {
+  const RangeType = {
+    CLOSED: 0,
+    BOTH_OPEN: 1,
+    LEFT_OPEN: 2,
+    RIGHT_OPEN: 3
+  };
+
+  function Predicate(test) {
+    this.test = test;
+    this.or = function(other) {
+      return new Predicate(t => this.test(t) || other.test(t));
+    };
+    this.and = function(other) {
+      return new Predicate(t => this.test(t) && other.test(t));
+    };
+    this.negate = function() {
+      return new Predicate(t => !this.test(t));
+    };
+  }
+
+  function RealSet(start, end, rangeType, predF) {
+    this.low = start;
+    this.high = end;
+
+    if (predF) {
+      this.predicate = new Predicate(predF);
+    } else {
+      this.predicate = new Predicate(d => {
+        switch (rangeType) {
+          case RangeType.CLOSED:
+            return start <= d && d <= end;
+          case RangeType.BOTH_OPEN:
+            return start < d && d < end;
+          case RangeType.LEFT_OPEN:
+            return start < d && d <= end;
+          case RangeType.RIGHT_OPEN:
+            return start <= d && d < end;
+        }
+      });
+    }
+
+    this.contains = function(d) {
+      return this.predicate.test(d);
+    };
+
+    this.union = function(other) {
+      var low2 = Math.min(this.low, other.low);
+      var high2 = Math.max(this.high, other.high);
+      return new RealSet(low2, high2, null, d =>
+        this.predicate.or(other.predicate).test(d)
+      );
+    };
+
+    this.intersect = function(other) {
+      var low2 = Math.min(this.low, other.low);
+      var high2 = Math.max(this.high, other.high);
+      return new RealSet(low2, high2, null, d =>
+        this.predicate.and(other.predicate).test(d)
+      );
+    };
+
+    this.subtract = function(other) {
+      return new RealSet(this.low, this.high, null, d =>
+        this.predicate.and(other.predicate.negate()).test(d)
+      );
+    };
+  }
+  set1 = new RealSet(set1.low, set1.high, set1.rangeType);
+  set2 = new RealSet(set2.low, set2.high, set2.rangeType);
+  var result = [];
+  values.forEach(function(value) {
+    result.push(set1[operation](set2).contains(value));
+  });
+  return result;
+}
+```

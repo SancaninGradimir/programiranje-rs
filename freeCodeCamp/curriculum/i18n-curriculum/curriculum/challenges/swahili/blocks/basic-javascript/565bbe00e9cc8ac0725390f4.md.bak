@@ -1,0 +1,214 @@
+---
+id: 565bbe00e9cc8ac0725390f4
+title: Kuhesabu kadi
+challengeType: 1
+forumTopicId: 16809
+dashedName: counting-cards
+---
+
+# --description--
+
+Katika mchezo wa kasino Blackjack, mchezaji anaweza kubaini kama ana faida kwenye mkono unaofuata dhidi ya nyumba kwa kufuatilia idadi ya kadi za juu na za chini zilizobaki kwenye karata. Hii huitwa Kuhesabu kadi.
+
+Kuwa na kadi nyingi za juu zilizobaki kwenye karata kunamfaa mchezaji. Kadi kila moja imepewa thamani kulingana na jedwali lililopo hapa chini. Wakati hesabu ni chanya, mchezaji anapaswa kuweka dau kubwa. Wakati hesabu ni sifuri au hasi, mchezaji anapaswa kuweka dau ndogo.
+
+<table><thead><tr><th>Mabadiliko ya hesabu</th><th>Kadi</th></tr></thead><tbody><tr><td>+1</td><td>2, 3, 4, 5, 6</td></tr><tr><td>0</td><td>7, 8, 9</td></tr><tr><td>-1</td><td>10, 'J', 'Q', 'K', 'A'</td></tr></tbody></table>
+
+Utaandika kitendakazi cha kuhesabu kadi. Kitapokea kigezo cha `card` ambacho kinaweza kuwa nambari au mfuatano wa herufi, na kuongeza au kupunguza thamani ya mabadiliko ya `count` kulingana na thamani ya kadi (angalia jedwali). Kitendakazi kitatuma mfuatano wa herufi unaoonyesha hesabu ya sasa na mfuatano wa herufi `Bet` ikiwa hesabu ni chanya, au `Hold` ikiwa hesabu ni sifuri au hasi. Hesabu ya sasa na uamuzi wa mchezaji (`Bet` au `Hold`) vinapaswa kutenganishwa na nafasi moja tu.
+
+**Matokeo ya mfano:** `-3 Hold` au `5 Bet`
+
+**Kidokezo**  
+Usiweka upya `count` kuwa 0 wakati thamani ni 7, 8, au 9.  
+Usirudishe safu ya data.  
+Usijumuishe nukuu (moja au mbili) kwenye matokeo.
+
+# --hints--
+
+Kitendakazi chako kinapaswa kurudisha thamani ya hesabu na maandishi (`Bet` au `Hold`) yakiwa na nafasi moja kati yao.
+
+```js
+assert(//
+  (function () {
+    count = 0;
+    let out = cc(10);
+    const hasSpace = /-?\d+ (Bet|Hold)/.test('' + out);
+    return hasSpace;
+  })()
+);
+```
+
+Mfululizo wa kadi 2, 3, 4, 5, 6 unapaswa kurudisha mfuatano wa herufi `5 Bet`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(2);
+    cc(3);
+    cc(4);
+    cc(5);
+    var out = cc(6);
+    if (out === '5 Bet') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 7, 8, 9 unapaswa kurudisha mfuatano wa herufi `0 Hold`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(7);
+    cc(8);
+    var out = cc(9);
+    if (out === '0 Hold') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 10, J, Q, K, A unapaswa kurudisha mfuatano wa herufi `-5 Hold`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(10);
+    cc('J');
+    cc('Q');
+    cc('K');
+    var out = cc('A');
+    if (out === '-5 Hold') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 3, 7, Q, 8, A unapaswa kurudisha mfuatano wa herufi `-1 Hold`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(3);
+    cc(7);
+    cc('Q');
+    cc(8);
+    var out = cc('A');
+    if (out === '-1 Hold') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 2, J, 9, 2, 7 unapaswa kurudisha mfuatano wa herufi `1 Bet`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(2);
+    cc('J');
+    cc(9);
+    cc(2);
+    var out = cc(7);
+    if (out === '1 Bet') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 2, 2, 10 unapaswa kurudisha mfuatano wa herufi `1 Bet`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(2);
+    cc(2);
+    var out = cc(10);
+    if (out === '1 Bet') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+Mfululizo wa kadi 3, 2, A, 10, K unapaswa kurudisha mfuatano wa herufi `-1 Hold`
+
+```js
+assert(
+  (function () {
+    count = 0;
+    cc(3);
+    cc(2);
+    cc('A');
+    cc(10);
+    var out = cc('K');
+    if (out === '-1 Hold') {
+      return true;
+    }
+    return false;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let count = 0;
+
+function cc(card) {
+  // Only change code below this line
+
+
+  return "Change Me";
+  // Only change code above this line
+}
+
+cc(2); cc(3); cc(7); cc('K'); cc('A');
+```
+
+# --solutions--
+
+```js
+let count = 0;
+function cc(card) {
+  switch(card) {
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      count++;
+      break;
+    case 10:
+    case 'J':
+    case 'Q':
+    case 'K':
+    case 'A':
+      count--;
+  }
+  if(count > 0) {
+    return count + " Bet";
+  } else {
+    return count + " Hold";
+  }
+}
+```

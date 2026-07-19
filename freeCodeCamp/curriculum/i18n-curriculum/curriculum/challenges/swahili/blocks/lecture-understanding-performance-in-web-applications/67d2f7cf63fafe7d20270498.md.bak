@@ -1,0 +1,200 @@
+---
+id: 67d2f7cf63fafe7d20270498
+title: Unawezaje Kutumia Performance Web APIs Kutengeneza Zana Zako za Kupima Utendaji?
+challengeType: 19
+dashedName: how-can-you-use-performance-web-apis-to-create-your-own-performance-measurement-tools
+---
+
+# --description--
+
+Ingawa zana kama Lighthouse na Chrome DevTools ni nzuri, wakati mwingine unahitaji maarifa maalum yaliyoandaliwa kwa tovuti yako.
+
+Hapo ndipo Performance Web APIs zinapokuja!
+
+Katika funzo hili, tutaeleza jinsi ya kutumia Web APIs tatu muhimu kupima na kuchambua kasi ya tovuti yako.
+
+Lakini kwanza, Performance Web APIs ni nini?
+
+Performance Web APIs huruhusu wasanidi programu kufuatilia ufanisi wa kupakia na kujibu kwa ukurasa wa wavuti, moja kwa moja kutoka kwa msimbo. APIs hizi zinakuwezesha kupima muda wa kupakia ukurasa, kufuatilia ucheleweshaji wa kuonyesha na mwingiliano, na kuchambua muda wa utekelezaji wa JavaScript.
+
+Kwa APIs hizi, unaweza kujenga zana zako za kufuatilia utendaji bila kutegemea programu za watu wengine!
+
+Tuchunguze Web APIs tatu zenye nguvu unazoweza kutumia leo.
+
+Kwanza, `performance.now()`.
+
+API hii inakupa alama za wakati zenye usahihi mkubwa (katika millisekunde) kupima muda sehemu tofauti za tovuti yako zinachukua kupakia.
+
+Tuseme unataka kupima jinsi kitendakazi kinavyofanya kazi kwa haraka:
+
+```js
+const start = performance.now();  
+// Run some code here  
+const end = performance.now();  
+
+console.log(`Execution time: ${end - start}ms`);
+```
+
+Hii ni sahihi zaidi kuliko kutumia `Date.now()` kwa sababu hupima muda kwa millisekunde na usahihi wa microsekunde, ikiepuka matatizo ya mabadiliko ya saa. Unaweza kuitumia kufuatilia muda wa utekelezaji wa script, ucheleweshaji wa majibu ya tukio, na utendaji wa michoro.
+
+Ifuatayo, Performance Timing API.
+
+API hii inakupa muhtasari wa kila hatua ya kupakia ukurasa, kutoka kwa utafutaji wa DNS hadi `DOMContentLoaded`.
+
+Unataka kupima muda gani ukurasa wako unachukua kupakia kikamilifu?
+
+```js
+let [navigationTiming] = performance.getEntriesByType("navigation");
+
+if (navigationTiming instanceof PerformanceNavigationTiming) {
+  // Calculate time from navigation start to DOM content loaded
+  const pageLoadTime =
+    navigationTiming.domContentLoadedEventEnd - navigationTiming.startTime;
+
+  console.log("DOM Content Loaded Time:", pageLoadTime, "ms");
+}
+```
+
+Vipimo muhimu unavyoweza kufuatilia kwa API hii ni muda wa utafutaji wa DNS - au kwa maneno mengine kasi ya muunganisho, Muda wa Byte ya Kwanza (TTFB) - au kasi ya jibu la seva, na `DOMContentLoaded` - au kwa maneno mengine, wakati ukurasa uko tayari kwa mwingiliano.
+
+Kama muda wa kupakia ukurasa wako ni polepole, API hii inaonyesha hasa wapi ucheleweshaji unatokea!
+
+Na mwisho, tuchunguze `PerformanceObserver`.
+
+API hii husikiliza matukio ya utendaji kama vile mabadiliko ya muundo, kazi ndefu, na mwingiliano wa mtumiaji.
+
+Unataka kufuatilia kazi ndefu za JavaScript?
+
+```js
+const observer = new PerformanceObserver((list) => {  
+  list.getEntries().forEach((entry) => {  
+    console.log(`Long task detected: ${entry.duration}ms`);  
+  });  
+});  
+
+observer.observe({ type: "longtask", buffered: true });
+```
+
+Na API hii inaweza kufuatilia nini? Inaweza kufuatilia kazi ndefu - au kwa maneno mengine, JavaScript inayozuia kuonyesha ukurasa, mabadiliko ya muundo kugundua matatizo ya UI, na Ucheleweshaji wa Ingizo la Kwanza (FID) - au jinsi ukurasa unavyojibu haraka kwa ingizo la mtumiaji.
+
+Kama unataka kufuatilia utendaji kwa wakati halisi, API hii ni mabadiliko makubwa.
+
+Basi, ni API gani unapaswa kutumia? Hapa kuna kulinganisha kwa haraka:
+
+| Performance API        | Inafaa Kwa                                         |
+| :--------------------- | :------------------------------------------------- |
+| `performance.now()`    | Kupima kwa usahihi wa kitendakazi na script       |
+| Performance Timing API | Kupima utendaji wa kupakia ukurasa mzima           |
+| Performance Observer   | Kufuatilia kwa wakati halisi mwingiliano na kuonyesha |
+
+Kwa kuunganisha APIs hizi, unaweza kujenga zana zako za kupima utendaji na kufuatilia hasa kile kinachohitaji zaidi kwa tovuti yako.
+
+# --questions--
+
+## --text--
+
+Je, faida kuu ya kutumia `performance.now()` badala ya `Date.now()` ni ipi?
+
+## --answers--
+
+Ni sahihi zaidi na hupima muda kwa millisekunde na usahihi wa microsekunde.
+
+---
+
+Inafanya kazi tu kwenye vifaa vya simu na haitegemezwi kwenye kompyuta za mezani.
+
+### --feedback--
+
+Fikiria kwa nini usahihi ni muhimu wakati wa kupima kasi.
+
+---
+
+Inapima matumizi ya kumbukumbu ya mfumo, ikiwa ni pamoja na kumbukumbu ya kivinjari.
+
+### --feedback--
+
+Fikiria kwa nini usahihi ni muhimu wakati wa kupima kasi.
+
+---
+
+Inasaidia michoro ya CSS.
+
+### --feedback--
+
+Fikiria kwa nini usahihi ni muhimu wakati wa kupima kasi.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni API gani inaweza kufuatilia kazi ndefu za JavaScript zinazochelewesha tovuti yako?
+
+## --answers--
+
+Performance Timing API
+
+### --feedback--
+
+Fikiria API inayosikiliza matukio ya utendaji kwa wakati halisi.
+
+---
+
+`Performance.now()`
+
+### --feedback--
+
+Fikiria API inayosikiliza matukio ya utendaji kwa wakati halisi.
+
+---
+
+Performance Observer
+
+---
+
+PageSpeed Insights
+
+### --feedback--
+
+Fikiria API inayosikiliza matukio ya utendaji kwa wakati halisi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Performance Timing API husaidia kupima nini?
+
+## --answers--
+
+Muda wa utekelezaji wa kitendakazi cha JavaScript binafsi.
+
+### --feedback--
+
+Fikiria API inayofuatilia kila hatua ya kupakia ukurasa.
+
+---
+
+Utendaji wa kupakia ukurasa mzima, ikiwa ni pamoja na utafutaji wa DNS na TTFB.
+
+---
+
+Mwingiliano wa watumiaji kama kubofya vitufe.
+
+### --feedback--
+
+Fikiria API inayofuatilia kila hatua ya kupakia ukurasa.
+
+---
+
+Idadi ya picha kwenye ukurasa wa wavuti.
+
+### --feedback--
+
+Fikiria API inayofuatilia kila hatua ya kupakia ukurasa.
+
+## --video-solution--
+
+2

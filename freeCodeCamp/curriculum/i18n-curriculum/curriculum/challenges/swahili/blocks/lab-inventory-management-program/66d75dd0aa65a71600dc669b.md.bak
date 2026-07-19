@@ -1,0 +1,350 @@
+---
+id: 66d75dd0aa65a71600dc669b
+title: Tengeneza programu ya usimamizi wa hesabu
+challengeType: 26
+dashedName: build-an-inventory-management-program
+---
+
+# --description--
+
+Katika maabara hii, utatengeneza programu ya usimamizi wa hesabu itakayokuwezesha kuongeza, kusahihisha, kutafuta na kuondoa bidhaa kutoka kwenye hesabu. Utatumia safu ya vitu kuwakilisha hesabu yako, ambapo kila kitu kitakuwa na jina na kiasi kama funguo.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kutangaza safu tupu iitwayo `inventory` itakayohifadhi vitu vya bidhaa vyenye ufunguo `name` wenye thamani ya mfuatano wa herufi ndogo, na ufunguo `quantity` wenye thamani ya nambari kamili.
+1. Unapaswa kuunda kitendakazi iitwayo `findProductIndex` kinachopokea jina la bidhaa kama hoja na kurudisha kielezo cha kitu kinacholingana cha bidhaa ndani ya safu ya `inventory`. Kitendakazi kinapaswa kila mara kutumia herufi ndogo za jina la bidhaa kutekeleza utafutaji. Ikiwa bidhaa haipatikani, kitendakazi kinapaswa kurudisha `-1`.
+1. Unapaswa kuunda kitendakazi iitwayo `addProduct` kinachopokea kitu cha bidhaa kama hoja.
+1. Ikiwa bidhaa tayari ipo kwenye hesabu, kitendakazi cha `addProduct` kinapaswa kusahihisha thamani ya `quantity` kwa kuongeza kiasi kilichopitishwa kwenye kitendakazi kwenye `quantity` ya sasa na kuandika kwenye konsoli jina la bidhaa likifuatiwa na nafasi na `quantity updated`.
+1. Ikiwa bidhaa haipo kwenye hesabu, kitendakazi cha `addProduct` kinapaswa kusukuma bidhaa kwenye safu ya `inventory` na kuandika jina la bidhaa kwenye konsoli, likifuatiwa na nafasi na `added to inventory`.
+1. Unapaswa kuunda kitendakazi iitwayo `removeProduct` kinachopokea jina la bidhaa na kiasi kama hoja zake.
+1. Kitendakazi cha `removeProduct` kinapaswa kutoa kiasi kilichopitishwa kutoka kwenye kitu kinacholingana cha bidhaa ndani ya hesabu na kuandika mfuatano wa herufi `Remaining <product-name> pieces: <product-quantity>` kwenye konsoli, ambapo `<product-name>` inapaswa kubadilishwa na jina la bidhaa, na `<product-quantity>` inapaswa kubadilishwa na kiasi cha bidhaa.
+1. Ikiwa kiasi baada ya kutoa ni sifuri, `removeProduct` inapaswa kuondoa kitu cha bidhaa kutoka kwenye hesabu. Ikiwa kiasi kilicho kwenye hesabu hakitoshi kutekeleza utoaji, kitendakazi cha `removeProduct` kinapaswa kuandika mfuatano wa herufi `Not enough <product-name> available, remaining pieces: <product-quantity>` kwenye konsoli.
+1. Ikiwa bidhaa ya kuondoa haipo kwenye hesabu, kitendakazi cha `removeProduct` kinapaswa kuandika `<product-name> not found` kwenye konsoli.
+
+**Kumbuka:** Ili kuzuia migongano, hifadhi tu uandishi uliotajwa katika hadithi za watumizi wakati wa kuendesha vipimo.
+
+# --hints--
+
+Unapaswa kutangaza safu tupu iitwayo `inventory`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /(let|const|var)\s+inventory\s*=\s*\[\s*\]\s*;?/)
+```
+
+Unapaswa kuwa na kitendakazi iitwayo `findProductIndex`.
+
+```js
+assert.isFunction(findProductIndex)
+```
+
+`findProductIndex("flour")` inapaswa kurudisha kielezo cha kitu chenye `name` sawa na `"flour"` ndani ya safu ya `inventory`.
+
+```js
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+assert.strictEqual(findProductIndex("flour"), 0);
+assert.strictEqual(findProductIndex("rice"), 1);
+assert.strictEqual(findProductIndex("sugar"), 2);
+```
+
+`findProductIndex("FloUr")` inapaswa kurudisha kielezo cha kitu chenye `name` sawa na `"flour"` ndani ya safu ya `inventory`.
+
+```js
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+assert.strictEqual(findProductIndex("FLour"), 0);
+assert.strictEqual(findProductIndex("RICE"), 1);
+assert.strictEqual(findProductIndex("suGar"), 2);
+```
+
+`findProductIndex("Flour")` inapaswa kurudisha `-1` wakati hakuna kitu chenye `name` sawa na `"flour"` kinachopatikana ndani ya safu ya `inventory`.
+
+```js
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+assert.strictEqual(findProductIndex("salt"), -1)
+```
+
+Unapaswa kuwa na kitendakazi iitwayo `addProduct`.
+
+```js
+assert.isFunction(addProduct)
+```
+
+`addProduct({name: "FLOUR", quantity: 5})` inapaswa kuongeza `5` kwenye thamani ya `quantity` ya kitu chenye `name` sawa na `"flour"` katika safu ya `inventory`.
+
+```js
+const temp = console.log;
+console.log = () => {};
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+addProduct({name: 'Flour', quantity: 5});
+addProduct({name: 'RICE', quantity: 5});
+addProduct({name: 'SuGar', quantity: 5});
+const expected = JSON.stringify([{name: 'flour', quantity: 20}, {name: 'rice', quantity: 15}, {name: 'sugar', quantity: 10}]);
+console.log = temp;
+assert.equal(JSON.stringify(inventory), expected)
+```
+
+`addProduct({name: "FLOUR", quantity: 5})` inapaswa kuandika `flour quantity updated` wakati kitu chenye `name` sawa na `"flour"` kinapopatikana katika safu ya `inventory`.
+
+```js
+const logArr = [];
+const temp = console.log;
+console.log = function(...args) {
+    for (const arg of args) {
+        logArr.push(arg);
+    }
+}
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+addProduct({name: 'flOur', quantity: 5});
+addProduct({name: 'RICE', quantity: 5});
+addProduct({name: 'sugar', quantity: 5});
+console.log = temp;
+assert.lengthOf(logArr, 3);
+assert.strictEqual(logArr[0], "flour quantity updated")
+assert.strictEqual(logArr[1], "rice quantity updated")
+assert.strictEqual(logArr[2], "sugar quantity updated")
+```
+
+`addProduct({name: "FLOUR", quantity: 5})` inapaswa kusukuma `{name: "flour", quantity: 5}` kwenye safu ya `inventory` wakati hakuna kitu chenye `name` sawa na `"flour"` kinachopatikana kwenye hesabu.
+
+```js
+const temp = console.log;
+console.log = () => {};
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+addProduct({name: 'SALT', quantity: 8});
+addProduct({name: 'Spam', quantity: 1});
+const expected = JSON.stringify([{name: 'flour', quantity: 15}, {name: 'rice', quantity: 10}, {name: 'sugar', quantity: 5}, {name: 'salt', quantity: 8}, {name: 'spam', quantity: 1}]);
+console.log = temp;
+assert.equal(JSON.stringify(inventory), expected);
+```
+
+`addProduct({name: "FLOUR", quantity: 5})` inapaswa kuandika `flour added to inventory` wakati hakuna kitu chenye `name` sawa na `"flour"` kinachopatikana kwenye hesabu.
+
+```js
+const logArr = [];
+const temp = console.log;
+console.log = function(...args) {
+    for (const arg of args) {
+        logArr.push(arg);
+    }
+}
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+addProduct({name: 'SAlt', quantity: 5});
+addProduct({name: 'SPAM', quantity: 1});
+console.log = temp;
+assert.lengthOf(logArr, 2);
+assert.equal(logArr[0], "salt added to inventory");
+assert.equal(logArr[1], "spam added to inventory");
+```
+
+Unapaswa kuunda kitendakazi iitwayo `removeProduct`.
+
+```js
+assert.isFunction(removeProduct);
+```
+
+`removeProduct("FLOUR", 5)` inapaswa kuandika `flour not found` wakati hakuna kitu chenye `name` sawa na `"flour"` kinachopatikana katika safu ya `inventory`.
+
+```js
+const logArr = [];
+const temp = console.log;
+console.log = function(...args) {
+    for (const arg of args) {
+        logArr.push(arg);
+    }
+}
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+removeProduct("SALT", 2);
+removeProduct("Spam", 1);
+console.log = temp;
+assert.lengthOf(logArr, 2);
+assert.equal(logArr[0], "salt not found");
+assert.equal(logArr[1], "spam not found");
+```
+
+`removeProduct("FLOUR", 5)` inapaswa kutoa `5` kutoka kwenye thamani ya `quantity` ya kitu chenye `name` sawa na `"flour"` ndani ya safu ya `inventory`.
+
+```js
+const temp = console.log;
+console.log = () => {};
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+removeProduct("flour", 10);
+removeProduct("RICE", 5);
+removeProduct("Sugar", 2);
+const expected = JSON.stringify([{name: 'flour', quantity: 5}, {name: 'rice', quantity: 5}, {name: 'sugar', quantity: 3}]);
+console.log = temp;
+assert.equal(JSON.stringify(inventory), expected)
+```
+
+`removeProduct("FLOUR", 5)` inapaswa kuandika `Remaining flour pieces: 15` kwenye konsoli, wakati `inventory` ni sawa na `[{name: "flour", quantity: 20}, {name: "rice", quantity: 5}]`.
+
+```js
+const logArr = [];
+const temp = console.log;
+console.log = function(...args) {
+    for (const arg of args) {
+        logArr.push(arg);
+    }
+}
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+removeProduct("Flour", 5);
+removeProduct("RICE", 5);
+removeProduct("Sugar", 2);
+console.log = temp;
+assert.lengthOf(logArr, 3);
+assert.equal(logArr[0], "Remaining flour pieces: 10");
+assert.equal(logArr[1], "Remaining rice pieces: 5");
+assert.equal(logArr[2], "Remaining sugar pieces: 3");
+```
+
+Ikiwa `quantity` baada ya kutoa ni sifuri, `removeProduct` inapaswa kuondoa kitu cha bidhaa kutoka kwenye hesabu.
+
+```js
+const temp = console.log;
+console.log = () => {};
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+removeProduct("flour", 15);
+removeProduct("rice", 10);
+const expected = JSON.stringify([{name: 'sugar', quantity: 5}]);
+console.log = temp;
+assert.equal(JSON.stringify(inventory), expected)
+```
+
+`removeProduct("FLOUR", 10)` inapaswa kuandika `Not enough flour available, remaining pieces: 5` wakati `inventory` ni sawa na `[{name: "flour", quantity: 5}, {name: "rice", quantity: 5}]`.
+
+```js
+const logArr = [];
+const temp = console.log;
+console.log = function(...args) {
+    for (const arg of args) {
+        logArr.push(arg);
+    }
+}
+inventory.length = 0;
+inventory.push({name: 'flour', quantity: 15});
+inventory.push({name: 'rice', quantity: 10});
+inventory.push({name: 'sugar', quantity: 5});
+removeProduct("flour", 20);
+removeProduct("RICE", 20);
+removeProduct("Sugar", 20);
+console.log = temp;
+assert.lengthOf(logArr, 3);
+assert.equal(logArr[0], "Not enough flour available, remaining pieces: 15")
+assert.equal(logArr[1], "Not enough rice available, remaining pieces: 10")
+assert.equal(logArr[2], "Not enough sugar available, remaining pieces: 5")
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const inventory = [];
+
+const findProductIndex = (productName) => {
+    let productIndex = -1;
+    inventory.forEach((element, index) => {
+        if (element.name === productName.toLowerCase()) {
+            productIndex = index;
+        }
+    })
+    return productIndex;
+}
+
+const addProduct = (product) => {
+    product.name = product.name.toLowerCase();
+    const productIndex = findProductIndex(product.name);
+    if (productIndex < 0) {
+        inventory.push(product);
+        console.log(`${product.name} added to inventory`)
+        return;
+    }
+    inventory[productIndex].quantity += product.quantity;
+    console.log(`${product.name} quantity updated`)
+}
+
+const removeProduct = (productName, productQuantity) => {
+    productName = productName.toLowerCase();
+    const productIndex = findProductIndex(productName);
+    if (productIndex < 0) {
+        console.log(`${productName} not found`);
+        return;
+    }
+    const foundProduct = inventory[productIndex];
+    if (foundProduct.quantity >= productQuantity) {
+        foundProduct.quantity -= productQuantity;
+        console.log(`Remaining ${productName} pieces: ${foundProduct.quantity}`)
+        if (!foundProduct.quantity) {
+            inventory.splice(productIndex, 1);
+        }
+        return;
+    }
+    console.log(`Not enough ${productName} available, remaining pieces: ${foundProduct.quantity}`);
+}
+
+// Example usage
+
+const product1 = {
+    name: 'flour',
+    quantity: 15
+}
+const product2 = {
+    name: 'flour',
+    quantity: 10
+}
+const product3 = {
+    name: 'sugar',
+    quantity: 20
+}
+const product4 = {
+    name: 'salt',
+    quantity: 12
+}
+
+addProduct(product1);
+addProduct(product2);
+addProduct(product3);
+addProduct(product4);
+removeProduct('flour', 30);
+removeProduct('flour', 20);
+removeProduct('flour', 5);
+```

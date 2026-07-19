@@ -1,0 +1,162 @@
+---
+id: 688166750663c22e2b1c8e80
+title: "Bash scripting ni nini, na ni faida gani za kuitumia?"
+challengeType: 19
+dashedName: what-is-bash-scripting-and-what-are-some-advantages-to-using-it
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, ulijifunza kuhusu Bash na baadhi ya amri za kawaida unazoweza kutumia. Lakini Bash inaunga mkono lugha kamili ya uandishi wa script, ambayo unaweza kuitumia kutekeleza kazi tata zaidi za kiotomatiki.
+
+Uandishi wa script wa Bash unahusisha kuandika mfululizo wa amri za Bash katika faili, ambayo unaweza kisha kuitekeleza kwa Bash ili kuendesha yaliyomo kwenye faili hiyo.
+
+Tuchunguze jinsi script ya bash inaweza kuonekana:
+
+```bash
+#!/bin/bash
+
+servers=("prod" "dev")
+
+for server in "${servers[@]}"
+do
+  echo "Pulling $server"
+  rsync --archive --verbose $server:/etc/nginx/conf.d/server.conf configs/$server.conf
+done
+```
+
+Script hii inachukua faili za usanidi za NGINX kutoka kwa orodha ya seva za mbali, ambayo inaweza kuwa na manufaa kwa kuhifadhi nakala za usanidi hizo katika hifadhidata ya ndani. NGINX ni seva maarufu ya mtandao na utajifunza zaidi kuhusu kufanya kazi na seva katika moduli ijayo.
+
+Mstari wa kwanza unaitwa "shebang" (`#!`) na unasema mfumo ni tafsiri gani inapaswa kutumika kuendesha script. Thamani za kawaida hapa ni `/usr/bin/bash`, `/bin/bash`, au `/bin/sh`.
+
+Mstari wa kwanza, `servers=("prod" "dev")`, unaanzisha orodha ya mfuatano wa herufi unaowakilisha majina ya seva. `"prod"` mara nyingi hutumika kurejelea tovuti ya uzalishaji, wakati `"dev"` inarejelea tovuti ya ukuzaji, ambayo kawaida hutumika kwa kujaribu vipengele vipya na mabadiliko kabla hayajatolewa katika mazingira ya moja kwa moja ya uzalishaji.
+
+Kisha, orodha inarudiwa kupitia kwa kutumia mzunguko wa `for` - sintaksia ya `servers[@]` inapanua orodha kuwa vipengele binafsi. Kila kipengele kimepewa thamani kwa server katika kila mzunguko.
+
+Kauli ya `do` inaonyesha mwanzo wa sehemu ya mantiki ya mzunguko, au msimbo unaopaswa kuendeshwa katika kila mzunguko.
+
+`echo "Pulling $server"` huingiza thamani ya sasa ya kigezo cha server, ambacho kitakuwa prod au dev katika kesi hii, na kuandika kwenye terminali.
+
+Kisha `rsync` hutumika kuvuta faili halisi kutoka kwa seva na kuihifadhi kwa ndani, kwa kutumia uingizaji wa thamani zaidi kudhibiti amri hiyo.
+
+`done` inaonyesha mwisho wa sehemu ya mantiki ya mzunguko.
+
+Kuna faida kadhaa muhimu za kuelewa na kutumia uandishi wa script wa Bash.
+
+Ya kwanza ni kwamba karibu kila mazingira ya Unix huja na Bash tayari kupatikana, ambayo inamaanisha unaweza kuendesha script yako kama ilivyo bila haja ya kusanidi mazingira ya lugha kama Node.js au Python.
+
+Ya pili ni kwamba una upatikanaji wa programu zote za binary zilizopo kwenye mfumo kwa juhudi ndogo. Ikiwa mfumo wako una doctl imewekwa, script yako inaweza kuendesha binary hiyo. Binary ni programu iliyokusanywa ambayo kompyuta huendesha. Unapokuwa na script ya bash, unaweza kuendesha binary ambayo itazindua programu.
+
+Na hatimaye, sintaksia unayotumia kwa script yako pia inaweza kuendeshwa moja kwa moja kwenye terminali. Hii inamaanisha kwamba kujaribu sehemu ndogo ya script yako kunakuwa rahisi zaidi - unaweza kunakili na kubandika sehemu hiyo moja kwa moja kwenye terminali yako na kuona matokeo!
+
+Kuelewa Bash hakutakuongezea tu ujuzi wa uandishi wa script, bali kutakuifanya kuwa mtaalamu wa mstari wa amri!
+
+# --questions--
+
+## --text--
+
+Nini kusudi la mstari wa "shebang" katika script ya Bash?
+
+## --answers--
+
+Ni maoni yanayoelezea kile script inachofanya.
+
+### --feedback--
+
+Shebang huonekana mwanzoni kabisa wa faili ya script.
+
+---
+
+Inaonyesha tafsiri gani inapaswa kutumika kwa script.
+
+---
+
+Inaeleza vigezo vinavyotumika katika script.
+
+### --feedback--
+
+Shebang huonekana mwanzoni kabisa wa faili ya script.
+
+---
+
+Inaashiria mwanzo wa mzunguko wa for.
+
+### --feedback--
+
+Shebang huonekana mwanzoni kabisa wa faili ya script.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika script ya mfano, mstari `for server in "${servers[@]}"` unafanikisha nini?
+
+## --answers--
+
+Inaunda safu mpya ya seva.
+
+### --feedback--
+
+Fikiria kile mzunguko wa for kawaida hufanya.
+
+---
+
+Inarudia kila kipengele katika safu ya seva.
+
+---
+
+Inahesabu seva ngapi ziko katika safu.
+
+### --feedback--
+
+Fikiria kile mzunguko wa for kawaida hufanya.
+
+---
+
+Inafuta safu ya seva.
+
+### --feedback--
+
+Fikiria kile mzunguko wa for kawaida hufanya.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya zifuatazo HAijatajwa kama faida ya uandishi wa script wa Bash?
+
+## --answers--
+
+Bash inapatikana karibu katika kila mazingira ya Unix.
+
+### --feedback--
+
+Kagua faida zilizoorodheshwa katika funzo.
+
+---
+
+Unaweza kupata programu zote za binary kwenye mfumo.
+
+### --feedback--
+
+Kagua faida zilizoorodheshwa katika funzo.
+
+---
+
+Script za Bash huendesha kwa kasi zaidi kuliko Python au JavaScript.
+
+---
+
+Unaweza kujaribu sehemu za script yako moja kwa moja kwenye terminali.
+
+### --feedback--
+
+Kagua faida zilizoorodheshwa katika funzo.
+
+## --video-solution--
+
+3

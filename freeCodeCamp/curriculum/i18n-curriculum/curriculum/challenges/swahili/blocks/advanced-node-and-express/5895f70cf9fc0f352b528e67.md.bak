@@ -1,0 +1,71 @@
+---
+id: 5895f70cf9fc0f352b528e67
+title: Tekeleza usimbaji wa mtumizi wa Passport
+challengeType: 2
+forumTopicId: 301556
+dashedName: implement-the-serialization-of-a-passport-user
+---
+
+# --description--
+
+Haujapakia kitu halisi cha mtumizi kwa sababu hifadhidata haijaanzishwa. Unganisha na hifadhidata mara moja, unapoanzisha seva, na hifadhi muunganisho wa kudumu kwa mzunguko mzima wa maisha ya programu. Ili kufanya hivi, ongeza mfuatano wa muunganisho wa hifadhidata yako (kwa mfano: `mongodb+srv://<username>:<password>@cluster0-jvwxi.mongodb.net/?retryWrites=true&w=majority`) katika kigezo cha mazingira `MONGO_URI`. Hii inatumika katika faili la `connection.js`.
+
+*Ikiwa unakutana na matatizo ya kuanzisha hifadhidata ya bure kwenye MongoDB Atlas, angalia <a href="https://www.freecodecamp.org/news/get-started-with-mongodb-atlas/" target="_blank" rel="noopener noreferrer nofollow">mafunzo haya</a>.*
+
+Sasa unataka kuunganishwa na hifadhidata yako, kisha anza kusikiliza maombi. Kusudi la hili ni kuto ruhusu maombi kabla ya hifadhidata kuunganishwa au ikiwa kuna hitilafu ya hifadhidata. Ili kufanikisha hili, zingatia usimbaji wako na njia za programu ndani ya msimbo ufuatao:
+
+```javascript
+myDB(async client => {
+  const myDataBase = await client.db('database').collection('users');
+
+  // Be sure to change the title
+  app.route('/').get((req, res) => {
+    // Change the response to render the Pug template
+    res.render('index', {
+      title: 'Connected to Database',
+      message: 'Please login'
+    });
+  });
+
+  // Serialization and deserialization here...
+
+  // Be sure to add this...
+}).catch(e => {
+  app.route('/').get((req, res) => {
+    res.render('index', { title: e, message: 'Unable to connect to database' });
+  });
+});
+// app.listen out here...
+```
+
+Hakikisha umeondoa maoni kwenye msimbo wa `myDataBase` katika `deserializeUser`, na hariri `done(null, null)` yako ili kujumuisha `doc`.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#implement-the-serialization-of-a-passport-user-5" target="_blank" rel="noopener noreferrer nofollow">kuangalia mradi uliofanyika hadi hatua hii</a>.
+
+# --hints--
+
+Muunganisho wa hifadhidata unapaswa kuwepo.
+
+```js
+  const url = new URL("/", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /Connected to Database/gi,
+    'You successfully connected to the database!'
+  );
+```
+
+Usimbaji wa kuondoa usimbaji sasa unapaswa kutumia hifadhidata ipasavyo na `done(null, null)` inapaswa kuitwa na `doc`.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /null,\s*doc/gi,
+    'The callback in deserializeUser of (null, null) should be altered to (null, doc)'
+  );
+```

@@ -1,0 +1,133 @@
+---
+id: 5a24c314108439a4d4036173
+title: Weka state kwa kutumia this.setState
+challengeType: 6
+forumTopicId: 301412
+dashedName: set-state-with-this-setstate
+---
+
+# --description--
+
+Changamoto zilizopita zilijumuisha sehemu ya `state` na jinsi ya kuanzisha `state` katika `constructor`. Pia kuna njia ya kubadilisha `state` ya sehemu. React hutoa njia ya kusasisha `state` ya sehemu inayoitwa `setState`. Unaita njia ya `setState` ndani ya darasa lako la sehemu kama ifuatavyo: `this.setState()`, ukipitisha kitu chenye jozi za ufunguo-thamani. Funguo ni sifa zako za state na thamani ni data mpya ya state. Kwa mfano, kama tunahifadhi `username` katika state na tunataka kuibadilisha, itakuwa kama hii:
+
+```jsx
+this.setState({
+  username: 'Lewis'
+});
+```
+
+React inatarajia usibadilishe `state` moja kwa moja, badala yake tumia `this.setState()` kila wakati state inapotokea mabadiliko. Pia, unapaswa kuelewa kuwa React inaweza kuunganisha masasisho mengi ya state ili kuboresha utendaji. Hii inamaanisha kuwa masasisho ya state kupitia njia ya `setState` yanaweza kuwa isiyo ya wakati mmoja. Kuna sintaksia mbadala ya njia ya `setState` ambayo inatoa njia ya kuepuka tatizo hili. Hii haijatumiwa sana lakini ni vizuri kuikumbuka! Tafadhali angalia <a href="https://www.freecodecamp.org/news/what-is-state-in-react-explained-with-examples/" target="_blank" rel="noopener noreferrer nofollow">makala ya React</a> kwa maelezo zaidi.
+
+# --instructions--
+
+Kuna kipengele cha `button` katika mhariri wa msimbo ambacho kina mshughulikiaji wa `onClick()`. Mshughulikiaji huyu huanzishwa wakati `button` inapopokea tukio la bofya katika kivinjari, na huendesha njia ya `handleClick` iliyofafanuliwa kwenye `MyComponent`. Ndani ya njia ya `handleClick`, sasisha `state` ya sehemu kwa kutumia `this.setState()`. Weka sifa ya `name` katika `state` ili iwe sawa na mfuatano wa herufi `React Rocks!`.
+
+Bofya kitufe na angalia masasisho ya state yanayoonyeshwa. Usijali kama bado hujaelewa kabisa jinsi msimbo wa mshughulikiaji wa bofya unavyofanya kazi kwa sasa. Hii itajadiliwa katika changamoto zijazo.
+
+# --hints--
+
+State ya `MyComponent` inapaswa kuanzishwa na jozi ya ufunguo-thamani `{ name: Initial State }`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(MyComponent)).state('name') ===
+    'Initial State'
+);
+```
+
+`MyComponent` inapaswa kuonyesha kichwa cha sehemu cha `h1`.
+
+```js
+assert(Enzyme.mount(React.createElement(MyComponent)).find('h1').length === 1);
+```
+
+Kichwa cha sehemu cha `h1` kinachoonyeshwa kinapaswa kuwa na maandishi yanayotokana na state ya sehemu.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ name: 'TestName' });
+    return waitForIt(() => mockedComponent.html());
+  };
+  const firstValue = await first();
+  assert(/<h1>TestName<\/h1>/.test(firstValue));
+```
+
+Kuita njia ya `handleClick` kwenye `MyComponent` kunapaswa kuweka sifa ya name katika state kuwa sawa na `React Rocks!`.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ name: 'Before' });
+    return waitForIt(() => mockedComponent.state('name'));
+  };
+  const second = () => {
+    mockedComponent.instance().handleClick();
+    return waitForIt(() => mockedComponent.state('name'));
+  };
+  const firstValue = await first();
+  const secondValue = await second();
+  assert(firstValue === 'Before' && secondValue === 'React Rocks!');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Initial State'
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    // Change code below this line
+
+    // Change code above this line
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Click Me</button>
+        <h1>{this.state.name}</h1>
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Initial State'
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+     // Change code below this line
+    this.setState({
+      name: 'React Rocks!'
+    });
+    // Change code above this line
+  }
+  render() {
+    return (
+      <div>
+        <button onClick = {this.handleClick}>Click Me</button>
+        <h1>{this.state.name}</h1>
+      </div>
+    );
+  }
+};
+```

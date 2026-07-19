@@ -1,0 +1,174 @@
+---
+id: 6733ff6f02dde548ebe4a6d5
+title: "Vidakuzi ni nini, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-cookies-and-how-do-they-work
+---
+
+# --description--
+
+Vidakuzi, vinavyojulikana pia kama vidakuzi vya mtandao au vidakuzi vya kivinjari, ni vipande vidogo vya data ambavyo seva hutuma kwa kivinjari cha mtandao cha mtumizi. Vidakuzi hivi huhifadhiwa kwenye kifaa cha mtumizi na hutumwa tena kwa seva pamoja na maombi yanayofuata. 
+
+Vidakuzi ni muhimu kusaidia programu za mtandao kudumisha hali na kukumbuka taarifa za mtumizi, jambo ambalo ni muhimu hasa kwa kuwa HTTP ni itifaki isiyo na hali.
+
+Vidakuzi vinaweza kuhifadhi aina mbalimbali za taarifa kama vile mapendeleo ya mtumizi, data za kikao, au taarifa za ufuatiliaji.
+
+Vidakuzi huwa daima huhifadhiwa kama jozi za jina-thamani. Hii inamaanisha kila kidakuzi kina jina (funguo) na thamani inayohusiana nalo. 
+
+Kwa mfano, kidakuzi kinaweza kuhifadhi kitambulisho cha kikao cha mtumizi kama hivi: `sessionId=abc123`. Funguo ni `sessionId`, na thamani ni `abc123`. Kila mara kivinjari kinapowasiliana na seva, kivinjari hutuma vidakuzi hivi kwa njia ya jozi za jina-thamani.
+
+Mtumizi anapotembelea tovuti, seva inaweza kutuma kidakuzi kimoja au zaidi kwa kivinjari cha mtumizi kwa kujumuisha kichwa cha Set-Cookie katika jibu la HTTP. Kichwa ni jozi ya funguo-thamani inayotoa taarifa za ziada kuhusu ombi au jibu la HTTP. Utajifunza zaidi kuhusu maombi na majibu ya HTTP katika mafundisho yajayo.
+
+Mara vidakuzi vimewekwa, kivinjari huvihifadhi na kuviingiza moja kwa moja katika kichwa cha Cookie kwa kila ombi linalofuata kwa kikoa hicho hicho. Hii inaruhusu seva kupata vidakuzi vilivyohifadhiwa na kuvitumia kwa mambo kama kudumisha vikao vya watumizi au kufuatilia mapendeleo.
+
+Hapa kuna mfano wa jinsi kidakuzi kinavyowekwa katika jibu la HTTP:
+
+```http
+Set-Cookie: sessionId=abc123; Expires=Wed, 21 Oct 2021 07:28:00 GMT; Secure; HttpOnly
+```
+
+Kivinjari kitahifadhi kidakuzi, na katika maombi yajayo kwa seva hiyo hiyo, kitaingiza kidakuzi katika kichwa cha `Cookie`:
+
+```http
+Cookie: sessionId=abc123
+```
+
+Seva inaweza kusoma kidakuzi na kutumia kitambulisho cha kikao kilichohifadhiwa kupata taarifa kuhusu mtumizi, kama vile kama yuko ameingia kwenye akaunti.
+
+Hapa kuna muhtasari wa aina tofauti za vidakuzi.
+
+- Vidakuzi vya kikao hudumu kwa muda wa kikao cha mtumizi tu kwenye tovuti. Mtumizi anapofunga kivinjari au kichupo, kidakuzi cha kikao hufutwa. Vidakuzi hivi hutumika kwa kawaida kwa kazi kama kumuweka mtumizi akiwa ameingia wakati wa ziara yake.
+
+- Vidakuzi vinavyodumu vina tarehe ya kumalizika na hudumu kwenye kifaa cha mtumizi hadi tarehe hiyo ifikike. Vidakuzi vinavyodumu hutumika mara nyingi kukumbuka mapendeleo ya mtumizi au maelezo ya kuingia akaunti kati ya vikao.
+
+- Vidakuzi salama hutumwa tu kupitia HTTPS, kuhakikisha havitekwa na mshambuliaji wakati wa usafirishaji.
+
+- Vidakuzi vya HttpOnly haviwezi kufikiwa au kubadilishwa na JavaScript inayotumia kivinjari, hivyo vinakuwa salama zaidi dhidi ya mashambulizi ya cross-site scripting (XSS). Mashambulizi ya cross-site scripting hutokea wakati mshambuliaji anaingiza skiripti hatari kwenye ukurasa wa mtandao unaotazamwa na watumizi wengine. Skiripti hizi zinaweza kutekelezwa katika muktadha wa kivinjari cha mwathirika, na kuweza kuiba vidakuzi, data za kikao, au kufanya vitendo vingine vya uovu bila mtumizi kujua au kukubali. Kwa kuweka vidakuzi kama HttpOnly, vinahifadhiwa dhidi ya kufikiwa kupitia JavaScript, hivyo kupunguza hatari ya mashambulizi hayo.
+
+Unaweza kuunda vidakuzi kupitia majibu ya seva kwa kutumia kichwa cha `Set-Cookie` au kupitia JavaScript kwa kutumia `document.cookie`.
+
+Hapa kuna mfano wa kuweka kidakuzi kwa kutumia JavaScript:
+
+```js
+document.cookie = "username=JohnDoe; expires=Fri, 31 Dec 2021 23:59:59 GMT; path=/";
+```
+
+Amri hii inaweka kidakuzi chenye jina `username` na thamani `"JohnDoe"` ambacho kitamalizika mwishoni mwa mwaka 2021. Unaweza kusahihisha kidakuzi kilichopo kwa kuikamilisha tena na thamani mpya.
+
+Ili kufuta kidakuzi, weka tarehe yake ya kumalizika kuwa ya zamani:
+
+```js
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+```
+
+Hii itafuta kidakuzi cha `username` kutoka kwenye kivinjari.
+
+# --questions--
+
+## --text--
+
+Lengo kuu la vidakuzi katika programu za mtandao ni lipi?
+
+## --answers--
+
+Kuhifadhi kiasi kikubwa cha data kwa kudumu.
+
+### --feedback--
+
+Fikiria jinsi vidakuzi vinavyosaidia programu za mtandao kukumbuka data maalum za mtumizi kati ya maombi.
+
+---
+
+Kuhifadhi data inayosaidia kudumisha hali na kukumbuka taarifa za mtumizi kati ya maombi.
+
+---
+
+Kubadilisha hifadhidata za seva.
+
+### --feedback--
+
+Fikiria jinsi vidakuzi vinavyosaidia programu za mtandao kukumbuka data maalum za mtumizi kati ya maombi.
+
+---
+
+Kuboresha utendaji wa JavaScript katika kivinjari.
+
+### --feedback--
+
+Fikiria jinsi vidakuzi vinavyosaidia programu za mtandao kukumbuka data maalum za mtumizi kati ya maombi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni sifa gani kati ya hizi zinahakikisha kidakuzi kinatumwa tu kupitia HTTPS?
+
+## --answers--
+
+`Secure`
+
+---
+
+`HttpOnly`
+
+### --feedback--
+
+Sifa hii inalinda vidakuzi wasitumwe kupitia muunganisho usio salama wa HTTP.
+
+---
+
+`SameSite`
+
+### --feedback--
+
+Sifa hii inalinda vidakuzi wasitumwe kupitia muunganisho usio salama wa HTTP.
+
+---
+
+`Expires`
+
+### --feedback--
+
+Sifa hii inalinda vidakuzi wasitumwe kupitia muunganisho usio salama wa HTTP.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Unawezaje kufuta kidakuzi kwa kutumia JavaScript?
+
+## --answers--
+
+Kwa kuweka thamani yake kuwa `null`.
+
+### --feedback--
+
+Fikiria jinsi kuweka tarehe ya kumalizika kunavyoathiri muda wa kidakuzi.
+
+---
+
+Kwa kuweka tarehe yake ya kumalizika kuwa tarehe ya zamani.
+
+---
+
+Kwa kutumia njia ya `document.cookie.remove()`.
+
+### --feedback--
+
+Fikiria jinsi kuweka tarehe ya kumalizika kunavyoathiri muda wa kidakuzi.
+
+---
+
+Kwa kupakia upya ukurasa.
+
+### --feedback--
+
+Fikiria jinsi kuweka tarehe ya kumalizika kunavyoathiri muda wa kidakuzi.
+
+## --video-solution--
+
+2

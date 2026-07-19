@@ -1,0 +1,258 @@
+---
+id: 6724e296dceca21b82426229
+title: Ukaguzi wa TypeScript
+challengeType: 31
+dashedName: review-typescript
+---
+
+# --description--
+
+## TypeScript ni nini
+
+- **JavaScript**: JavaScript ni lugha yenye aina zinazobadilika wakati wa utekelezaji. Hii ina maana kwamba vigezo vinaweza kupokea thamani yoyote wakati wa kuendesha programu. Changamoto ya lugha yenye aina zinazobadilika ni kwamba ukosefu wa usalama wa aina unaweza kuleta makosa.
+
+Kwa mfano, hata kama kitendakazi chako cha JavaScript kinatarajia safu ya data, bado unaweza kuitaja kwa nambari:
+
+```javascript
+const getRandomValue = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+console.log(getRandomValue(10));
+```
+
+Matokeo ya `console` kwa mfano hapo juu yatakuwa `undefined`.
+
+- **TypeScript**: TypeScript inaongeza lugha ya JavaScript kwa kujumuisha aina za data zisizobadilika (static typing), ambayo husaidia kugundua makosa yanayosababishwa na kutofanana kwa aina kabla hujaendesha msimbo wako.
+
+Kwa mfano, unaweza kufafanua aina ya kigezo cha `array` kama ifuatavyo:
+
+```typescript
+const getRandomValue = (array: string[]) => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+```
+
+Ufafanuzi huu wa aina unaambia TypeScript kwamba kigezo cha `array` lazima kiwe safu ya mfuatano wa herufi. Kisha, unapoitaja `getRandomValue` na kuipatia nambari, unapata kosa linaloitwa kosa la mkusanyaji wa msimbo (compiler error).
+
+- **Mkusanyaji wa msimbo (Compiler)**: Kwanza unahitaji kukusanya msimbo wa TypeScript kuwa JavaScript ya kawaida. Unapoendesha mkusanyaji, TypeScript itapima msimbo wako na itatupa kosa kwa masuala yoyote ambapo aina hazilingani.
+
+## Aina za data katika TypeScript
+
+- **Aina za msingi za data katika TypeScript**: Kwa aina za msingi za data `string`, `null`, `undefined`, `number`, `boolean`, na `bigint`, TypeScript hutoa maneno muhimu yanayolingana na aina hizo.
+
+```typescript
+let str: string = "Naomi";
+let num: number = 42;
+let bool: boolean = true;
+let nope: null = null;
+let nada: undefined = undefined;
+```
+
+- **Safu ya data**: Unaweza kufafanua safu ya aina maalum kwa sintaksia mbili tofauti.
+
+```typescript
+const arrOne: string[] = ["Naomi"];
+const arrTwo: Array<string> = ["Camperchan"];
+```
+
+- **Vitu (Objects)**: Unaweza kufafanua muundo halisi wa kitu.
+
+```typescript
+const obj: { a: string, b: number } = { a: "Naomi", b: 42 };
+```
+
+Ikiwa unataka kitu chenye funguo yoyote, lakini ambapo thamani zote lazima ziwe mfuatano wa herufi, kuna njia mbili za kufafanua:
+
+```typescript
+const objOne: Record<string, string> = {};
+const objTwo: { [key: string]: string } = {};
+```
+
+- **Aina nyingine muhimu katika TypeScript**:
+  - **`any`**: `any` inaonyesha kwamba thamani inaweza kuwa na aina yoyote. Inamwambia mkusanyaji wa msimbo asijali kuhusu aina ya kigezo hicho.
+  - **`unknown`**: `unknown` inamwambia TypeScript kwamba unajali kuhusu aina ya thamani, lakini haujui hasa ni ipi. `unknown` kwa kawaida hupendekezwa zaidi kuliko `any`.
+  - **`void`**: Hii ni aina maalum ambayo kwa kawaida utaitumia tu unapofafanua vitendakazi. Vitendakazi ambavyo havirudishi thamani hutumia aina ya return ya `void`.
+  - **`never`**: Inawakilisha aina ambayo haitawahi kuwepo.
+
+- **Neno muhimu la `type`**: Neno hili muhimu ni kama `const`, lakini badala ya kutangaza kigezo, unaweza kutangaza aina.
+
+Ni muhimu kwa kutangaza aina maalum kama aina za muungano au aina zinazojumuisha thamani maalum tu:
+
+```typescript
+type stringOrNumber = string | number;
+type bot = "camperchan" | "camperbot" | "naomi";
+```
+
+- **`interface`**: Interfaces ni kama madarasa ya aina. Zinaweza kutekeleza au kuendeleza interfaces nyingine, ni aina za vitu hasa, na kwa kawaida hupendekezwa isipokuwa unahitaji kipengele maalum kinachotolewa na tamko la `type`.
+
+```typescript
+interface wowie {
+  zowie: boolean;
+  method: () => void;
+}
+```
+
+- **Kufafanua aina ya return**: Pia unaweza kufafanua aina ya _return_ ya kitendakazi.
+
+Mfano hapa chini unaeleza thamani ya return kama mfuatano wa herufi. Ikiwa utajaribu kurudisha kitu kingine, TypeScript itakupa kosa la mkusanyaji wa msimbo.
+
+```typescript
+const getRandomValue = (array: string[]): string => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+```
+
+## Generics
+
+- **Kufafanua aina ya generic**: Unaweza kufafanua aina ya generic na kuitaja katika kitendakazi chako. Inaweza kufikiriwa kama kigezo maalum unachotoa kwa kitendakazi kudhibiti tabia ya ufafanuzi wa aina ya kitendakazi hicho.
+
+Hapa kuna mfano wa kufafanua aina ya generic kwa kitendakazi:
+
+```typescript
+const getRandomValue = <T>(array: T[]): T => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+const val = getRandomValue([1, 2, 4])
+```
+
+Sintaksia ya `<T>` inamwambia TypeScript kwamba unafafanua aina ya generic `T` kwa kitendakazi. `T` ni jina la kawaida kwa aina za generic, lakini unaweza kutumia jina lolote.
+
+Kisha, unamwambia TypeScript kwamba kigezo cha `array` ni safu ya thamani zinazolingana na aina ya generic, na kwamba thamani inayorejeshwa ni kipengele kimoja cha aina hiyo hiyo.
+
+- **Kutoa hoja ya aina katika wito wa kitendakazi**: Unaweza kupitisha hoja ya aina kwa wito wa kitendakazi kwa kutumia mabano ya pembe kati ya jina la kitendakazi na vigezo vyake.
+
+Hapa kuna mfano wa kutoa hoja ya aina kwa wito wa kitendakazi:
+
+```typescript
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email.value);
+```
+
+Hii inamwambia TypeScript kwamba kipengele unachotarajia kupata kitakuwa kipengele cha ingizo.
+
+## Kupunguza aina (Type narrowing)
+
+- **Kupunguza kwa ukweli**: Katika mfano hapa chini, unapata kosa la mkusanyaji wa msimbo unapojaribu kupata sifa ya `value` ya `email` kwa sababu `email` _inaweza_ kuwa `null`.
+
+```typescript
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email.value);
+```
+
+Unaweza kutumia tamko la masharti kuthibitisha `email` ni _kweli_ kabla ya kupata sifa hiyo:
+
+```typescript
+const email = document.querySelector<HTMLInputElement>("#email");
+if (email) {
+  console.log(email.value);
+}
+```
+
+Ukaguzi wa ukweli pia unaweza kufanya kazi kwa mwelekeo wa kinyume:
+
+```typescript
+const email = document.querySelector<HTMLInputElement>("#email");
+if (!email) {
+  throw new ReferenceError("Could not find email element!")
+}
+console.log(email.value);
+```
+
+Kutupa kosa kunamaliza utekelezaji wa mantiki wa msimbo huu, ambayo ina maana kwamba unapofikia wito wa `console.log()`, TypeScript inajua `email` _haiwezi_ kuwa `null`.
+
+- **Uunganishaji wa hiari (Optional chaining)**: Uunganishaji wa hiari `?.` pia ni aina ya kupunguza aina, chini ya dhana ile ile kwamba upatikanaji wa sifa hauwezi kutokea ikiwa thamani ya `email` ni `null`.
+
+```typescript
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email?.value);
+```
+
+- **Kipengele cha `typeof`**: Unaweza kutumia tamko la masharti kuchunguza aina ya kigezo kwa kutumia kipengele cha `typeof`.
+
+```typescript
+const myVal = Math.random() > 0.5 ? 222 : "222";
+if (typeof myVal === "number") {
+  console.log(myVal / 10);
+}
+```
+
+- **Neno muhimu la `instanceof`**: Ikiwa kitu kinatoka darasa la vitu, unaweza kutumia neno muhimu la `instanceof` kupunguza aina.
+
+```typescript
+const email = document.querySelector("#email");
+
+if (email instanceof HTMLInputElement) {
+    console.log(email.value);
+}
+```
+
+- **Kukandamiza aina (Casting)**: Wakati TypeScript haiwezi kubaini aina ya thamani moja kwa moja, kama matokeo ya njia ya `request.json()` katika mfano hapa chini, utapata kosa la mkusanyaji wa msimbo. Njia moja ya kutatua hili ni kwa kukandamiza aina, lakini kufanya hivyo hupunguza uwezo wa TypeScript kugundua makosa yanayoweza kutokea.
+
+```typescript
+interface User {
+    name: string;
+    age: number;
+}
+
+const printAge = (user: User) => 
+  console.log(`${user.name} is ${user.age} years old!`)
+
+const request = await fetch("url")
+const myUser = await request.json() as User;
+printAge(myUser);
+```
+
+- **Mlinzi wa aina (Type guard)**: Badala ya kukandamiza aina, unaweza kuandika mlinzi wa aina:
+
+```typescript
+interface User {
+    name: string;
+    age: number;
+}
+
+const isValidUser = (user: unknown): user is User => {
+  return !!user && 
+    typeof user === "object" &&
+    "name" in user &&
+    "age" in user;
+}
+```
+
+Sintaksia ya `user is User` inaonyesha kwamba kitendakazi chako hurudisha thamani ya kweli au siyo kweli, ambayo inapokuwa kweli ina maana thamani ya `user` inakidhi interface ya `User`.
+
+## Faili la `tsconfig`
+
+- **`tsconfig.json`**: Mipangilio ya mkusanyaji wa TypeScript iko katika faili la `tsconfig.json` katika saraka kuu ya mradi wako.
+
+```json
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./prod",
+    "lib": ["ES2023"],
+    "target": "ES2023",
+    "module": "ES2022",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "exclude": ["test/"]
+}
+```
+
+Hapa kuna maelezo ya chaguzi za mkusanyaji zilizotumika katika mfano hapo juu:
+
+- **`compilerOptions`**: Sifa ya `compilerOptions` ndiyo unayodhibiti jinsi mkusanyaji wa TypeScript unavyotenda.
+- **`rootDir` na `outDir`**: `rootDir` na `outDir` zinaeleza saraka ambayo ina mafaili yako ya chanzo, na saraka ambayo inapaswa kuwa na msimbo wa JavaScript uliotafsiriwa.
+- **`lib`**: Sifa ya `lib` inaamua ni ufafanuzi gani wa aina mkusanyaji atatumia, na inakuwezesha kujumuisha msaada kwa matoleo maalum ya ES, DOM, na mengine.
+- **`module` na `moduleResolution`**: `module` na `moduleResolution` hufanya kazi pamoja kudhibiti jinsi kifurushi chako kinavyotumia moduli - iwe CommonJS au ECMAScript.
+- **`esModuleInterop`**: `esModuleInterop` inaruhusu ushirikiano mzuri kati ya moduli za CommonJS na ES kwa kuunda moja kwa moja vitu vya namespace kwa imports.
+- **`skipLibCheck`**: Chaguo la `skipLibCheck` linapita kupita uhakiki wa mafaili ya `.d.ts` ambayo hayajatajwa na imports katika msimbo wako.
+- **`strict`**: Bendera ya `strict` inawasha ukaguzi kadhaa, kama kuhakikisha utunzaji sahihi wa aina zinazoweza kuwa na thamani ya null na kutoa onyo wakati TypeScript inarudi kwenye `any`.
+- **`exclude`**: Sifa ya ngazi ya juu ya `exclude` inamwambia mkusanyaji kupuuza mafaili haya ya TypeScript wakati wa ukusanyaji.
+
+# --assignment--
+
+Kagua mada na dhana za TypeScript.

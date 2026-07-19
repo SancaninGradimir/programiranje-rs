@@ -1,0 +1,64 @@
+---
+id: 65f4520e363e2642f8112e33
+title: Hatua 19
+challengeType: 20
+dashedName: step-19
+---
+
+# --description--
+
+Kama unavyoona, kuna jambo lisilo sawa kabisa. Njia za `norm` na `__str__` zilizopatikana kutoka `R2Vector` haziwezi kubadilika kwa vector ya vipimo vitatu. Utekelezaji wake unahitaji kuwa na ufanisi zaidi.
+
+Kila kitu katika Python kina sifa ya kipengele maalum inayoitwa `__dict__`, ambayo ni kamusi inayohifadhi sifa za kipengele cha kitu hicho.
+
+Ondoa wito za `print` zilizopo. Kisha, chapisha sifa ya `__dict__` ya vector zako za `v1` na `v2` ili uone jinsi zinavyoonekana.
+
+# --hints--
+
+Haupaswi kuwa na `print(v2)` na `print(v2.norm())` katika msimbo wako.
+
+```js
+({
+    test: () => {
+      assert.isFalse(runPython(`_Node(_code).has_call("print(v2)")`));
+      assert.isFalse(runPython(`_Node(_code).has_call("print(v2.norm())")`));
+    }
+})
+```
+
+Unapaswa kuchapisha sifa ya `__dict__` ya `v1` na `v2`.
+
+```js
+({ test: () => assert(runPython(`
+(_Node(_code).has_call("print(v1.__dict__)") and _Node(_code).has_call("print(v2.__dict__)")) or _Node(_code).has_call("print(v1.__dict__, v2.__dict__)")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+        
+    def norm(self):
+        return (self.x**2 + self.y**2)**0.5
+        
+    def __str__(self):
+        return f'{self.x, self.y}'
+
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+--fcc-editable-region--
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(v2.norm())
+print(v2)
+--fcc-editable-region--
+```

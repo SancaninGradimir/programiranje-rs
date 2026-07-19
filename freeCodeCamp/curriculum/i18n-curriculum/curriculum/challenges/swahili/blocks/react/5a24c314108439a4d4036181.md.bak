@@ -1,0 +1,97 @@
+---
+id: 5a24c314108439a4d4036181
+title: Utangulizi wa mitindo ndani ya mstari
+challengeType: 6
+forumTopicId: 301395
+dashedName: introducing-inline-styles
+---
+
+# --description--
+
+Kuna dhana nyingine ngumu zinazoongeza uwezo mkubwa kwa msimbo wako wa React. Lakini huenda unajiuliza kuhusu tatizo rahisi zaidi la jinsi ya kupamba vipengele vya JSX unavyotengeneza katika React. Huenda unajua kuwa haitakuwa sawa kabisa na kufanya kazi na HTML kwa sababu ya <a href="/learn/front-end-development-libraries/react/define-an-html-class-in-jsx" target="_blank" rel="noopener noreferrer nofollow">njia unavyotumia darasa kwa vipengele vya JSX</a>.
+
+Ikiwa unaleta mitindo kutoka kwa karatasi ya mitindo, haijalishi sana. Unatumia darasa kwa kipengele chako cha JSX kwa kutumia sifa ya kipengele `className`, na unatumia mitindo kwa darasa hilo katika karatasi yako ya mitindo. Chaguo jingine ni kutumia mitindo ndani ya mstari, ambayo ni ya kawaida sana katika ukuzaji wa ReactJS.
+
+Unatumia mitindo ndani ya mstari kwa vipengele vya JSX kama unavyofanya katika HTML, lakini kwa tofauti chache za JSX. Hapa kuna mfano wa mtindo ndani ya mstari katika HTML:
+
+```jsx
+<div style="color: yellow; font-size: 16px">Mellow Yellow</div>
+```
+
+Vipengele vya JSX vinatumia sifa ya kipengele `style`, lakini kwa sababu ya jinsi JSX inavyotafsiriwa, huwezi kuweka thamani kuwa `string`. Badala yake, unaweka sawa na `object` ya JavaScript. Hapa kuna mfano:
+
+```jsx
+<div style={{color: "yellow", fontSize: 16}}>Mellow Yellow</div>
+```
+
+Angalia jinsi tunavyotumia camelCase kwa sifa ya `fontSize`? Hii ni kwa sababu React haitakubali funguo za kebab-case katika kitu cha mtindo. React itatumia jina sahihi la sifa kwa HTML kwa niaba yetu.
+
+# --instructions--
+
+Ongeza sifa ya kipengele `style` kwa `div` katika mhariri wa msimbo ili kutoa rangi nyekundu kwa maandishi na ukubwa wa fonti wa `72px`.
+
+Kumbuka kuwa unaweza pia kuweka ukubwa wa fonti kuwa nambari, ukiacha vitengo vya `px`, au kuandika kama `"72px"`.
+# --hints--
+
+Sehemu inapaswa kuonyesha kipengele cha `div`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Colorful));
+    return mockedComponent.children().type() === 'div';
+  })()
+);
+```
+
+Kipengele cha `div` kinapaswa kuwa na rangi ya `red`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Colorful));
+    return mockedComponent.children().props().style.color === 'red';
+  })()
+);
+```
+
+Kipengele cha `div` kinapaswa kuwa na ukubwa wa fonti wa `72px`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Colorful));
+    return (
+      mockedComponent.children().props().style.fontSize === 72 ||
+      mockedComponent.children().props().style.fontSize === '72' ||
+      mockedComponent.children().props().style.fontSize === '72px'
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class Colorful extends React.Component {
+  render() {
+    return (
+      <div>Big Red</div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class Colorful extends React.Component {
+  render() {
+    return (
+      <div style={{color: "red", fontSize: 72}}>Big Red</div>
+    );
+  }
+};
+```

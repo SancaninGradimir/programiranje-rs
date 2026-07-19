@@ -1,0 +1,181 @@
+---
+id: 69a9183588765b5a18d20954
+title: Ni njia gani tofauti za majibu katika Express?
+challengeType: 19
+dashedName: what-are-the-different-response-methods-in-express
+---
+
+# --description--
+
+Katika Express, kitu cha `res` (jibu) kinatumika kutuma majibu kurudi kwa mteja baada ya kushughulikia maombi yanayoingia. Express hutoa njia kadhaa zilizojengwa ndani za kutuma aina tofauti za majibu. Kwa mfano, unaweza kutuma maandishi ya kawaida, data ya JSON, kuelekeza mtumiaji kwenye URL nyingine, au kuonyesha kiolezo.
+
+Moja ya njia zinazotumika sana za majibu ni `res.send()`:
+
+```javascript
+app.get("/text", (req, res) => {
+  res.send("Hello, World!");
+});
+```
+
+Njia ya `res.send()` hutuma jibu kurudi kwa mteja. Inaweza kutuma maandishi ya kawaida, HTML, JSON, au hata data ya binary. Katika mfano huu, mteja anapotembelea `/text`, seva inajibu kwa maandishi `Hello, World!`.
+
+Njia nyingine inayotumika sana ya jibu ni `res.json()`.
+
+Njia hii hutuma jibu la JSON kwa mteja. Ni muhimu hasa wakati wa kujenga API, ambapo mara nyingi unahitaji kurudisha data iliyopangwa kama vitu au safu za data. Express hubadilisha moja kwa moja kitu cha JavaScript kuwa mfuatano wa herufi wa JSON:
+
+```javascript
+app.get("/user", (req, res) => {
+  res.json({ name: "John Doe", age: 30 });
+});
+```
+
+Ikiwa mteja atatuma ombi kwa `/user`, seva itajibu kama ifuatavyo:
+
+```json
+{
+  "name": "John Doe",
+  "age": 30
+}
+```
+
+Unapohitaji kudhibiti nambari ya hali ya HTTP ya jibu, unaweza kutumia `res.status()`. Njia hii huweka nambari ya hali na kawaida hutumika pamoja na njia nyingine ya jibu kama `res.send()` au `res.json()`:
+
+```javascript
+app.get("/notfound", (req, res) => {
+  res.status(404).send("Not Found");
+});
+```
+
+Hapa, seva inaweka nambari ya hali kuwa `404` na kutuma ujumbe `Not Found` kurudi kwa mteja.
+
+Ikiwa unataka kumpeleka mtumiaji kwenye URL tofauti, unaweza kutumia `res.redirect()`:
+
+```javascript
+app.get("/oldpage", (req, res) => {
+  res.redirect("/newpage");
+});
+```
+
+Mteja anapotembelea `/oldpage`, anaelekezwa upya moja kwa moja kwenda `/newpage`.
+
+Mwishowe, `res.render()` hutumika wakati wa kufanya kazi na injini za kiolezo kama Pug, EJS, au Handlebars. Inaonyesha kiolezo cha mtazamo na kutuma HTML inayotokana kwa mteja:
+
+```javascript
+app.get("/profile", (req, res) => {
+  res.render("profile", { username: "john_doe" });
+});
+```
+
+Katika mfano huu, seva inaonyesha mtazamo wa `profile` na kupitisha tofauti ya `username` ambayo inaweza kuonyeshwa katika HTML.
+
+Njia hizi za majibu zinakuwezesha kurudisha aina tofauti za data kulingana na asili ya ombi. Iwe unatumia maandishi, data ya JSON, au kuelekeza mteja, Express ina seti rahisi ya zana za kushughulikia hilo.
+
+# --questions--
+
+## --text--
+
+Njia ya `res.json()` hufanya nini?
+
+## --answers--
+
+Hutuma jibu la JSON kwa mteja.
+
+---
+
+Hutuma maandishi ya kawaida kwa mteja.
+
+### --feedback--
+
+Fikiria kuhusu muundo wa data unayotuma kurudi.
+
+---
+
+Huweka nambari ya hali ya jibu.
+
+### --feedback--
+
+Fikiria kuhusu muundo wa data unayotuma kurudi.
+
+---
+
+Huelekeza mteja kwenye URL nyingine.
+
+### --feedback--
+
+Fikiria kuhusu muundo wa data unayotuma kurudi.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Je, ungeweza kutuma nambari ya hali 404 na ujumbe maalum vipi?
+
+## --answers--
+
+`res.send(404, 'Not Found')`
+
+### --feedback--
+
+Ni njia gani unayotumia kuweka nambari ya hali?
+
+---
+
+`res.status(404).send('Not Found')`
+
+---
+
+`res.redirect('/404')`
+
+### --feedback--
+
+Ni njia gani unayotumia kuweka nambari ya hali?
+
+---
+
+`res.status(500).send('Error')`
+
+### --feedback--
+
+Ni njia gani unayotumia kuweka nambari ya hali?
+
+## --video-solution--
+
+2
+
+## --text--
+
+Njia ya `res.redirect()` hufanya nini?
+
+## --answers--
+
+Hutuma faili kwa mteja.
+
+### --feedback--
+
+Fikiria kinachotokea wakati URL inaelekeza upya kwenye URL nyingine.
+
+---
+
+Huelekeza mteja kwenye URL nyingine.
+
+---
+
+Hutuma data ya JSON kwa mteja.
+
+### --feedback--
+
+Fikiria kinachotokea wakati URL inaelekeza upya kwenye URL nyingine.
+
+---
+
+Huweka nambari ya hali ya jibu.
+
+### --feedback--
+
+Fikiria kinachotokea wakati URL inaelekeza upya kwenye URL nyingine.
+
+## --video-solution--
+
+2

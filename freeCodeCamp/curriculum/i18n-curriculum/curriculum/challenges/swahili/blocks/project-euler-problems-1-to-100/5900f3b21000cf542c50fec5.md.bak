@@ -1,0 +1,118 @@
+---
+id: 5900f3b21000cf542c50fec5
+title: "'Zoezi la 70: Permutation ya totient'"
+challengeType: 1
+forumTopicId: 302183
+dashedName: problem-70-totient-permutation
+---
+
+# --description--
+
+Kitendakazi cha Totient cha Euler, ${\phi}(n)$ (mara nyingine huitwa kitendakazi cha phi), hutumika kubaini idadi ya nambari chanya zilizo chini au sawa na `n` ambazo ni namba msingi na `n`. Kwa mfano, kwa kuwa 1, 2, 4, 5, 7, na 8 zote ni chini ya tisa na ni namba msingi na tisa, ${\phi}(9) = 6$. Nambari 1 inachukuliwa kuwa namba msingi na kila nambari chanya, hivyo ${\phi}(1) = 1$.
+
+Kwa kushangaza, ${\phi}(87109) = 79180$, na inaonekana kwamba 87109 ni permutation ya 79180.
+
+Tafuta thamani ya `n`, 1 &lt; `n` &lt; `limit`, ambayo ${\phi}(n)$ ni permutation ya `n` na uwiano $\displaystyle\frac{n}{{\phi}(n)}$ unaleta kiwango cha chini zaidi.
+
+# --hints--
+
+`totientPermutation(10000)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof totientPermutation(10000) === 'number');
+```
+
+`totientPermutation(10000)` inapaswa kurudisha `4435`.
+
+```js
+assert.strictEqual(totientPermutation(10000), 4435);
+```
+
+`totientPermutation(100000)` inapaswa kurudisha `75841`.
+
+```js
+assert.strictEqual(totientPermutation(100000), 75841);
+```
+
+`totientPermutation(500000)` inapaswa kurudisha `474883`.
+
+```js
+assert.strictEqual(totientPermutation(500000), 474883);
+```
+
+`totientPermutation(10000000)` inapaswa kurudisha `8319823`.
+
+```js
+assert.strictEqual(totientPermutation(10000000), 8319823);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function totientPermutation(limit) {
+
+  return true;
+}
+
+totientPermutation(10000);
+```
+
+# --solutions--
+
+```js
+function totientPermutation(limit) {
+  function getSievePrimes(max) {
+    const primes = [];
+    const primesMap = new Array(max).fill(true);
+    primesMap[0] = false;
+    primesMap[1] = false;
+
+    for (let i = 2; i < max; i += 2) {
+      if (primesMap[i]) {
+        primes.push(i);
+        for (let j = i * i; j < max; j += i) {
+          primesMap[j] = false;
+        }
+      }
+      if (i === 2) {
+        i = 1;
+      }
+    }
+    return primes;
+  }
+
+  function sortDigits(number) {
+    return number.toString().split('').sort().join('');
+  }
+
+  function isPermutation(numberA, numberB) {
+    return sortDigits(numberA) === sortDigits(numberB);
+  }
+
+  const MAX_PRIME = 4000;
+  const primes = getSievePrimes(MAX_PRIME);
+
+  let nValue = 1;
+  let minRatio = Infinity;
+
+  for (let i = 1; i < primes.length; i++) {
+    for (let j = i + 1; j < primes.length; j++) {
+      const num = primes[i] * primes[j];
+      if (num > limit) {
+        break;
+      }
+
+      const phi = (primes[i] - 1) * (primes[j] - 1);
+      const ratio = num / phi;
+
+      if (minRatio > ratio && isPermutation(num, phi)) {
+        nValue = num;
+        minRatio = ratio;
+      }
+    }
+  }
+  return nValue;
+}
+```

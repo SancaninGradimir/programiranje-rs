@@ -1,0 +1,74 @@
+---
+id: 5dc17dc8f86c76b9248c6eb5
+title: Hatua 4
+challengeType: 0
+dashedName: step-4
+---
+
+# --description--
+
+Kuweka maoni kunakuwezesha kuacha ujumbe bila kuathiri jinsi kivinjari kinavyoonyesha ukurasa. Pia kunakuwezesha kufanya msimbo usitumike. Maoni katika HTML huanza na `<!--`, yana mistari yoyote ya maandishi, na kumalizika na `-->`. 
+
+Hapa kuna mfano wa maoni yenye `TODO: Remove h1`:
+
+```html
+<!-- TODO: Remove h1 -->
+```
+
+Ongeza maoni juu ya kipengele cha `p` kwa maandishi haya:
+
+`TODO: Add link to cat photos`
+
+# --hints--
+
+Maoni yako yanapaswa kuanza na `<!--`. Unakosa moja au zaidi ya herufi zinazotambulisha mwanzo wa maoni.
+
+```js
+assert.match(code, /<!--/);
+```
+
+Maoni yako yanapaswa kumalizika na `-->`. Unakosa moja au zaidi ya herufi zinazotambulisha mwisho wa maoni.
+
+```js
+assert.match(code, /-->/);
+```
+
+Msimbo wako haupaswi kuwa na herufi za ziada za kufungua/kufunga maoni. Una `<!--` au `-->` ziada zinazoonekana kwenye kivinjari.
+
+```js
+const noSpaces = code.replace(/\s/g, '');
+assert.isBelow(noSpaces.match(/<!--/g)?.length, 2)
+assert.isBelow(noSpaces.match(/-->/g)?.length, 2);
+```
+
+Maoni yako yanapaswa kuwa juu ya kipengele cha `p`. Umeviweka kwa mpangilio usio sahihi.
+
+```js
+assert.match(
+  code.replace(/\s/g, ''),
+  /<!--(.*?)--><p>everyonelovescutecatsonline!<\/p>/i
+);
+```
+
+Maoni yako yanapaswa kuwa na maandishi ya `TODO: Add link to cat photos`.
+
+```js
+assert.match(code, /<!--\s*todo:\s+add\s+link\s+to\s+cat\s+photos\s*-->/i);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+    <h1>CatPhotoApp</h1>
+    <h2>Cat Photos</h2>
+--fcc-editable-region--
+    
+--fcc-editable-region--
+    <p>Everyone loves cute cats online!</p>
+  </body>
+</html>
+```

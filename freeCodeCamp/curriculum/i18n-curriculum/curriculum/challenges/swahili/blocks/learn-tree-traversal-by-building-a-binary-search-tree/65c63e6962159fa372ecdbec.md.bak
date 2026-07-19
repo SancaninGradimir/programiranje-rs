@@ -1,0 +1,80 @@
+---
+id: 65c63e6962159fa372ecdbec
+title: Hatua 22
+challengeType: 20
+dashedName: step-22
+---
+
+# --description--
+
+Ikiwa tamko la pili la `if` si `True`, ina maana kwamba ufunguo lengwa ni kubwa au sawa na ufunguo wa nodi ya sasa.
+
+Katika mti wa utafutaji wa kibainari, ikiwa ufunguo lengwa ni mkubwa kuliko ufunguo wa nodi ya sasa, utafutaji unaendelea katika mti mdogo wa kulia.
+
+Baada ya kipande cha `if`, rudisha matokeo ya wito wa njia ya `_search` kwa mtoto wa kulia wa nodi ya sasa na ufunguo kama hoja.
+
+# --hints--
+
+Unapaswa kuita njia ya `_search` kwa kurudia ukitumia `self._search()`.
+
+```js
+const after_split = code.split('return self._search(node.left, key)')[1];
+assert.match(after_split, /self\._search/);
+```
+
+Unapaswa kupitisha hoja mbili kwa wito wa njia ya `_search`: `node.right` na `key`.
+
+```js
+({ test: () => assert.match(code, /self\._search\(\s*node\.right\s*,\s*key\s*\)/) });
+```
+
+Unapaswa kurudisha matokeo ya wito wa njia ya `_search`.
+
+```js
+({
+  test: () => assert.match(code, /return\s+self\._search\(\s*node\.right\s*,\s*key\s*\)/)
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+class TreeNode:
+
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+
+class BinarySearchTree:
+
+    def __init__(self):
+        self.root = None
+
+    def _insert(self, node, key):
+        if node is None:
+            return TreeNode(key)
+
+        if key < node.key:
+            node.left = self._insert(node.left, key)
+        elif key > node.key:
+
+            node.right = self._insert(node.right, key)
+        return node
+
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
+        
+--fcc-editable-region--
+    def _search(self, node, key):
+        if node is None or node.key == key:
+            return node
+        if key < node.key:
+            return self._search(node.left, key)
+
+--fcc-editable-region--
+```

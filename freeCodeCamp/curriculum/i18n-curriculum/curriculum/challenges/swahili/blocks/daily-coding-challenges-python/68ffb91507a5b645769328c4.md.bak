@@ -1,0 +1,116 @@
+---
+id: 68ffb91507a5b645769328c4
+title: "Challenge 101: Markdown Heading Converter"
+challengeType: 29
+dashedName: challenge-101
+---
+
+# --description--
+
+Ikiwa umepewa mfuatano wa herufi unaowakilisha kichwa cha sehemu cha Markdown, rudisha kichwa cha sehemu kinacholingana cha HTML.
+
+Kichwa cha sehemu halali cha Markdown lazima:
+
+- Kianze na nafasi sifuri au zaidi, ikifuatiwa na
+- Herufi nambari 1 hadi 6 za hash (`#`) mfululizo, kisha
+- Angalau nafasi moja. Na hatimaye,
+- Maandishi ya kichwa cha sehemu.
+
+Idadi ya alama za hash huamua kiwango cha kichwa cha sehemu. Kwa mfano, alama moja ya hash inalingana na lebo ya `h1`, na alama sita za hash zinalingana na lebo ya `h6`.
+
+Ikiwa mfuatano wa herufi uliotolewa hauendani kabisa na muundo huo hapo juu, rudisha `"Invalid format"`.
+
+Kwa mfano, ukipokea `"# My level 1 heading"`, rudisha `"<h1>My level 1 heading</h1>"`.
+
+Kumbuka: Konsoli huenda isionyeshe lebo za HTML ndani ya mfuatano wakati wa kurekodi ujumbe. Angalia konsoli ya kivinjari kuona rekodi zikiwa na lebo zilizoingizwa.
+
+# --hints--
+
+`convert("# My level 1 heading")` should return `"<h1>My level 1 heading</h1>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("# My level 1 heading"), "<h1>My level 1 heading</h1>")`)
+}})
+```
+
+`convert("My heading")` should return `"Invalid format"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("My heading"), "Invalid format")`)
+}})
+```
+
+`convert("##### My level 5 heading")` should return `"<h5>My level 5 heading</h5>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("##### My level 5 heading"), "<h5>My level 5 heading</h5>")`)
+}})
+```
+
+`convert("#My heading")` should return `"Invalid format"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("#My heading"), "Invalid format")`)
+}})
+```
+
+`convert("  ###  My level 3 heading")` should return `"<h3>My level 3 heading</h3>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("  ###  My level 3 heading"), "<h3>My level 3 heading</h3>")`)
+}})
+```
+
+`convert("####### My level 7 heading")` should return `"Invalid format"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("####### My level 7 heading"), "Invalid format")`)
+}})
+```
+
+`convert("## My #2 heading")` should return `"<h2>My #2 heading</h2>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(convert("## My #2 heading"), "<h2>My #2 heading</h2>")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def convert(heading):
+
+    return heading
+```
+
+# --solutions--
+
+```py
+import re
+def convert(heading):
+    trimmed = heading.strip()
+
+    if not re.match(r'^#{1,6}\s+\S+', trimmed):
+        return "Invalid format"
+
+    hash_count = trimmed.find(' ')
+    text = trimmed[hash_count:].lstrip()
+
+    return f"<h{hash_count}>{text}</h{hash_count}>"
+```

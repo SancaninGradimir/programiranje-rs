@@ -1,0 +1,111 @@
+---
+id: 5dc23991f86c76b9248c6eb8
+title: Hatua 6
+challengeType: 0
+dashedName: step-6
+---
+
+# --description--
+
+Katika hatua iliyopita, uliweka vipengele vya `h1`, `h2`, maoni, na `p` ndani ya kipengele cha `main`. Hii inaitwa *kupanga ndani*. Vipengele vilivyopangwa ndani vinapaswa kuwekwa nafasi mbili zaidi upande wa kulia kuliko kipengele ambacho vimepangwa ndani yake. Nafasi hii inaitwa kivunjaji mstari na hutumika kufanya HTML iwe rahisi kusomeka.
+
+Hapa kuna mfano wa kupanga ndani na kivunjaji mstari:
+
+```html
+<main>
+  <h1>Most important content of the document</h1>
+  <p>Some more important content...</p>
+</main>
+```
+
+Kipengele cha `h1`, kipengele cha `h2` na maoni vimevunjwa mstari kwa nafasi mbili zaidi kuliko kipengele cha `main` katika msimbo uliopo hapa chini. Tumia kitufe cha nafasi (space bar) kwenye kibodi yako kuongeza nafasi mbili mbele ya kipengele cha `p` ili kivunjwe mstari ipasavyo pia.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na kipengele cha `h2` chenye maandishi `Cat Photos`. Huenda ulifuta kwa bahati mbaya, kinakosekana lebo za kufungua na kufunga, au maandishi yamebadilika.
+
+```js
+assert(
+  document.querySelector('h2') &&
+    code.match(/<\/h2\>/) &&
+    document.querySelector('h2').innerText.toLowerCase() === 'cat photos'
+);
+```
+
+Haupasi kuongeza vipengele vya `ul` au `li` kutoka kwenye mfano.
+
+```js
+assert(
+  !document.querySelector('ul') && !document.querySelector('li')
+);
+```
+
+Haupasi kubadilisha kivunjaji mstari kwenye mstari wenye kipengele chako cha `h2`. Lebo yake ya kufungua inapaswa kuanza nafasi 6 kutoka mwanzo wa mstari. Unaweza kuanzisha tena hatua hii kurejesha kivunjaji mstari cha awali.
+
+```js
+assert(code.toLowerCase().match(/<\/h1\>\s*\n\s{6}<h2>/));
+```
+
+Msimbo wako unapaswa kuwa na maoni. Umefuta maoni kutoka hatua ya awali.
+
+```js
+assert(code.match(/<!--.*-->/));
+```
+
+Maandishi ya maoni yanapaswa kuwa `TODO: Add link to cat photos`. Usibadilishe maandishi au nafasi za maoni.
+
+```js
+assert(code.match(/<!--\s*todo:\s+add\s+link\s+to\s+cat\s+photos\.?\s*-->/i));
+```
+
+Haupasi kubadilisha kivunjaji mstari kwenye mstari wenye kipengele chako cha maoni. Lebo yake ya kufungua inapaswa kuanza nafasi 6 kutoka mwanzo wa mstari. Unaweza kuanzisha tena hatua hii kurejesha kivunjaji mstari cha awali.
+
+```js
+assert(
+  code
+    .toLowerCase()
+    .match(/<\/h2>\s*\n\s{6}<!--\s*todo:\s+add\s+link\s+to\s+cat\s+photos\s*-->/)
+);
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `p`. Umefuta kipengele cha `p` kutoka hatua ya awali.
+
+```js
+assert(document.querySelector('p'));
+```
+
+Maandishi ya kipengele cha `p` yanapaswa kuwa `Everyone loves cute cats online!`. Usibadilishe maandishi, nafasi, au alama za uandishi za kipengele cha `p`.
+
+```js
+assert.match(
+  document
+    .querySelector('p')
+    .innerText.toLowerCase(),
+    /everyone\s+loves\s+cute\s+cats\s+online!$/
+);
+```
+
+Lebo ya kufungua ya `p` inapaswa kuwa na kivunjaji mstari kinacholingana na vipengele vyako vya `h2` na maoni. Lebo yake ya kufungua inapaswa kuanza nafasi 6 kutoka mwanzo wa mstari.
+
+```js
+assert(code.toLowerCase().match(/-->\s*\n\s{6}<p>/));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+--fcc-editable-region--
+    <main>
+      <h1>CatPhotoApp</h1>
+      <h2>Cat Photos</h2>
+      <!-- TODO: Add link to cat photos -->
+    <p>Everyone loves cute cats online!</p>
+    </main>
+--fcc-editable-region--
+  </body>
+</html>
+```

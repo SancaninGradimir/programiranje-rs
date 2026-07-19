@@ -1,0 +1,207 @@
+---
+id: 5a24c314108439a4d403617b
+title: Pita wito wa kurudisha kama vigezo
+challengeType: 6
+forumTopicId: 301400
+dashedName: pass-a-callback-as-props
+---
+
+# --description--
+
+Unaweza kupitisha `state` kama vigezo kwa sehemu ndogo za watoto, lakini huna kikomo cha kupitisha data tu. Pia unaweza kupitisha njia za mshughulikiaji au njia yoyote iliyobainishwa kwenye sehemu ya React kwa sehemu ndogo ya mtoto. Hii ndiyo njia unayoruhusu sehemu ndogo za watoto kuingiliana na sehemu zao za mzazi. Unapitisha njia kwa mtoto kama vile prop ya kawaida. Inapewa jina na una upatikanaji wa jina hilo la njia chini ya `this.props` katika sehemu ndogo ya mtoto.
+
+# --instructions--
+
+Kuna sehemu tatu zilizobainishwa katika mhariri wa msimbo. Sehemu ya `MyApp` ni mzazi ambayo itaonyesha sehemu ndogo za watoto `GetInput` na `RenderInput`. Ongeza sehemu ya `GetInput` kwenye njia ya onyesha katika `MyApp`, kisha ipitishe prop iitwayo `input` ambayo imepewa thamani ya `inputValue` kutoka `MyApp` katika `state`. Pia tengeneza prop iitwayo `handleChange` na ipitishe mshughulikiaji wa ingizo `handleChange` kwake.
+
+Ifuatayo, ongeza `RenderInput` kwenye njia ya onyesha katika `MyApp`, kisha tengeneza prop iitwayo `input` na ipitishe `inputValue` kutoka `state` kwake. Ukimaliza utaweza kuandika katika uwanja wa `input` katika sehemu ya `GetInput`, ambayo kisha inaita njia ya mshughulikiaji katika mzazi wake kupitia vigezo. Hii inasasisha ingizo katika `state` ya mzazi, ambayo hupitishwa kama vigezo kwa watoto wote wawili. Angalia jinsi data inavyotiririka kati ya sehemu na jinsi chanzo kimoja cha ukweli kinavyobaki kuwa `state` ya sehemu ya mzazi. Hakika, mfano huu ni wa kufikirika kidogo, lakini unapaswa kuonyesha jinsi data na wito wa kurudisha vinaweza kupitishwa kati ya sehemu za React.
+
+# --hints--
+
+Sehemu ya `MyApp` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+    return mockedComponent.find('MyApp').length === 1;
+  })()
+);
+```
+
+Sehemu ya `GetInput` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+    return mockedComponent.find('GetInput').length === 1;
+  })()
+);
+```
+
+Sehemu ya `RenderInput` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+    return mockedComponent.find('RenderInput').length === 1;
+  })()
+);
+```
+
+Sehemu ya `GetInput` inapaswa kupokea sifa ya hali ya `MyApp` `inputValue` kama vigezo na kuwa na kipengele cha `input` kinachobadilisha hali ya `MyApp`.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+  const state_1 = () => {
+    mockedComponent.setState({ inputValue: '' });
+    return waitForIt(() => mockedComponent.state());
+  };
+  const state_2 = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: 'TestInput' } });
+    return waitForIt(() => mockedComponent.state());
+  };
+  const updated_1 = await state_1();
+  const updated_2 = await state_2();
+  assert(updated_1.inputValue === '' && updated_2.inputValue === 'TestInput');
+```
+
+Sehemu ya `RenderInput` inapaswa kupokea sifa ya hali ya `MyApp` `inputValue` kama vigezo.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyApp));
+  const state_1 = () => {
+    mockedComponent.setState({ inputValue: 'TestName' });
+    return waitForIt(() => mockedComponent);
+  };
+  const updated_1 = await state_1();
+  assert(updated_1.find('p').text().includes('TestName'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ''
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      inputValue: event.target.value
+    });
+  }
+  render() {
+    return (
+       <div>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+       </div>
+    );
+  }
+};
+
+class GetInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Get Input:</h3>
+        <input
+          value={this.props.input}
+          onChange={this.props.handleChange}/>
+      </div>
+    );
+  }
+};
+
+class RenderInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Input Render:</h3>
+        <p>{this.props.input}</p>
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ''
+    }
+  this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      inputValue: event.target.value
+    });
+  }
+  render() {
+    return (
+       <div>
+         <GetInput
+           input={this.state.inputValue}
+           handleChange={this.handleChange}/>
+         <RenderInput
+           input={this.state.inputValue}/>
+       </div>
+    );
+  }
+};
+
+class GetInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Get Input:</h3>
+        <input
+          value={this.props.input}
+          onChange={this.props.handleChange}/>
+      </div>
+    );
+  }
+};
+
+class RenderInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Input Render:</h3>
+        <p>{this.props.input}</p>
+      </div>
+    );
+  }
+};
+```

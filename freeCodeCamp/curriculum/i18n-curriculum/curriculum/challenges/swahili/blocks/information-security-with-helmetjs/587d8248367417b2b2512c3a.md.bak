@@ -1,0 +1,31 @@
+---
+id: 587d8248367417b2b2512c3a
+title: Epuka Kubashiri Aina ya MIME ya Jibu kwa helmet.noSniff()
+challengeType: 2
+forumTopicId: 301574
+dashedName: avoid-inferring-the-response-mime-type-with-helmet-nosniff
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-infosec/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Vivinjari vinaweza kutumia udukuzi wa maudhui au MIME kubadili kichwa cha `Content-Type` cha jibu ili kubashiri na kusindika data kwa kutumia aina ya maudhui isiyoelezwa wazi. Ingawa hii inaweza kuwa rahisi katika baadhi ya hali, pia inaweza kusababisha mashambulizi hatari. Programu hii ya kati inaweka kichwa cha `X-Content-Type-Options` kuwa `nosniff`, ikimuagiza kivinjari kutozidi `Content-Type` kilichotolewa.
+
+# --instructions--
+
+Tumia njia ya `helmet.noSniff()` kwenye seva yako.
+
+# --hints--
+
+Programu ya kati helmet.noSniff() inapaswa kuwekwa ipasavyo
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.include(data.appStack, 'nosniff');
+assert.equal(data.headers['x-content-type-options'], 'nosniff');
+```

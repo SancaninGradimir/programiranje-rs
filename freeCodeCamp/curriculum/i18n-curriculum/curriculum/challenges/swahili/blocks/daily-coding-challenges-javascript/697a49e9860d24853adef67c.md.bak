@@ -1,0 +1,122 @@
+---
+id: 697a49e9860d24853adef67c
+title: "Zoezi la 191: Michezo ya Majira ya Baridi 2026 Siku ya 12: Bobsled"
+challengeType: 28
+dashedName: challenge-191
+---
+
+# --description--
+
+Imetolewa safu ya data inayowakilisha uzito wa wanariadha kwenye timu ya bobsled na nambari inayowakilisha uzito wa bobsled, amua kama timu inastahili kushindana.
+
+- Urefu wa safu ya data unaamua ukubwa wa timu: timu za mtu 1, 2 au 4.
+- Thamani zote za uzito zilizotolewa ni kwa kilo (kg).
+
+Bobsled (sled pekee) lazima iwe na kiwango cha chini cha uzito cha:
+
+- 162 kg kwa timu ya mtu 1
+- 170 kg kwa timu ya watu 2
+- 210 kg kwa timu ya watu 4
+
+Jumla ya uzito wa bobsled (wanariadha pamoja na sled) haipaswi kuzidi:
+
+- 247 kg kwa timu ya mtu 1
+- 390 kg kwa timu ya watu 2
+- 630 kg kwa timu ya watu 4
+
+Rudisha `"Eligible"` ikiwa timu inakidhi mahitaji yote, au `"Not Eligible"` ikiwa timu haikutimiza moja au zaidi ya mahitaji hayo.
+
+# --hints--
+
+`checkEligibility([78], 165)` inapaswa kurudisha `"Eligible"`.
+
+```js
+assert.equal(checkEligibility([78], 165), "Eligible");
+```
+
+`checkEligibility([80], 160)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([80], 160), "Not Eligible");
+```
+
+`checkEligibility([80], 170)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([80], 170), "Not Eligible");
+```
+
+`checkEligibility([85, 90], 170)` inapaswa kurudisha `"Eligible"`.
+
+```js
+assert.equal(checkEligibility([85, 90], 170), "Eligible");
+```
+
+`checkEligibility([85, 95], 168)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([85, 95], 168), "Not Eligible");
+```
+
+`checkEligibility([112, 97], 185)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([112, 97], 185), "Not Eligible");
+```
+
+`checkEligibility([110, 102, 90, 106], 222)` inapaswa kurudisha `"Eligible"`.
+
+```js
+assert.equal(checkEligibility([110, 102, 90, 106], 222), "Eligible");
+```
+
+`checkEligibility([106, 99, 90, 88], 205)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([106, 99, 90, 88], 205), "Not Eligible");
+```
+
+`checkEligibility([106, 99, 103, 96], 227)` inapaswa kurudisha `"Not Eligible"`.
+
+```js
+assert.equal(checkEligibility([106, 99, 103, 96], 227), "Not Eligible");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function checkEligibility(athleteWeights, sledWeight) {
+
+  return athleteWeights;
+}
+```
+
+# --solutions--
+
+```js
+function checkEligibility(athleteWeights, sledWeight) {
+  const teamSize = athleteWeights.length;
+
+  const rules = {
+    1: { minSled: 162, maxTotal: 247 },
+    2: { minSled: 170, maxTotal: 390 },
+    4: { minSled: 210, maxTotal: 630 }
+  };
+
+  const { minSled, maxTotal } = rules[teamSize];
+  const athleteTotal = athleteWeights.reduce((sum, w) => sum + w, 0);
+  const totalWeight = athleteTotal + sledWeight;
+
+  if (sledWeight < minSled) {
+    return "Not Eligible";
+  }
+
+  if (totalWeight > maxTotal) {
+    return "Not Eligible";
+  }
+
+  return "Eligible";
+}
+```

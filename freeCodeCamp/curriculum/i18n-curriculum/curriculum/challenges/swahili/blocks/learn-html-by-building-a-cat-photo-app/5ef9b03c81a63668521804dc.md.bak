@@ -1,0 +1,150 @@
+---
+id: 5ef9b03c81a63668521804dc
+title: Hatua 46
+challengeType: 0
+dashedName: step-46
+---
+
+# --description--
+
+Unaweza kutumia vitufe vya radio kwa maswali ambapo unataka jibu moja tu kati ya chaguzi nyingi.
+
+Hapa kuna mfano wa kitufe cha radio chenye maandishi yaliyowekwa kama `cat`:
+
+```html
+<input type="radio"> cat
+```
+
+Kumbuka kuwa kipengele cha `input` ni kipengele kisicho na maudhui.
+
+Kabla ya ingizo la maandishi, ongeza kitufe cha radio chenye maandishi yaliyowekwa kama:
+
+`Indoor`
+
+# --hints--
+
+Unapaswa kuunda kipengele cha `input` kwa kitufe chako cha radio. Angalia sintaksia.
+
+```js
+assert(document.querySelectorAll('form > input').length >= 2);
+```
+
+Kipengele chako cha `input` kinapaswa kuwa na lebo ya kufungua, lakini si lebo ya kufunga.
+
+```js
+assert(document.querySelector('form > input') && !code.match(/<\/input\>/g));
+```
+
+Unapaswa kuwa umeongeza kipengele kimoja tu cha `input` kwa kitufe chako cha radio. Ondoa ziada zozote.
+
+```js
+assert(document.querySelectorAll('form > input'), 2);
+```
+
+Kipengele chako kipya cha `input` kinapaswa kuwa juu ya `input` iliyopo na sifa ya `type` iliyowekwa kuwa `text`. Umeviweka kwa mpangilio usio sahihi.
+
+```js
+const existingInputElem = document.querySelector('form > input[type="text"]');
+assert(
+  existingInputElem &&
+    existingInputElem.previousElementSibling.nodeName === 'INPUT'
+);
+```
+
+Kipengele chako kipya cha `input` hakina sifa ya `type`. Hakikisha kuna nafasi baada ya jina la lebo ya kufungua.
+
+```js
+assert.isTrue(document.querySelector('input')?.hasAttribute('type'));
+```
+
+Kipengele chako kipya cha `input` kinapaswa kuwa na sifa moja tu ya `type`. Ondoa ziada zozote.
+
+```js
+assert(document.querySelector('input')
+  ?.getAttributeNames()
+  .filter(attr => attr === 'type')
+  .length === 1
+);
+```
+
+Kipengele chako kipya cha `input` kinapaswa kuwa na sifa ya `type` yenye thamani ya `radio`. Umeacha thamani au kuna makosa ya tahajia. Kumbuka kuwa thamani za sifa zinapaswa kuzungukwa na alama za nukuu.
+
+```js
+assert.match(
+  document.querySelector('input')?.getAttribute('type'),
+  /^radio$/i
+);
+```
+
+Ingawa umeweka sifa ya `input` ya kipengele kipya cha `type` kuwa `radio`, inashauriwa kila mara kuzunguka thamani ya sifa na alama za nukuu.
+
+```js
+assert(!/\<\s*input\s+type\s*=\s*radio/i.test(code));
+```
+
+Maandishi ya kitufe cha `radio` ya ` Indoor` yanapaswa kuwekwa baada yake badala ya kabla yake.
+
+```js
+const radioInputElem = document.querySelector('input');
+assert.notMatch(radioInputElem?.previousSibling?.nodeValue, /Indoor/i);
+```
+
+Maandishi ya ` Indoor` yanapaswa kuwekwa moja kwa moja kulia ya kitufe chako cha `radio`. Umeacha maandishi au kuna makosa ya tahajia.
+
+```js
+const radioInputElem = document.querySelector('input');
+assert.match(radioInputElem?.nextSibling?.nodeValue?.replace(/\s+/g, ' '), /\s*Indoor/i);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+    <main>
+      <h1>CatPhotoApp</h1>
+      <section>
+        <h2>Cat Photos</h2>
+        <p>Everyone loves <a href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">cute cats</a> online!</p>
+        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
+        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+      </section>
+      <section>
+        <h2>Cat Lists</h2>
+        <h3>Things cats love:</h3>
+        <ul>
+          <li>catnip</li>
+          <li>laser pointers</li>
+          <li>lasagna</li>
+        </ul>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/lasagna.jpg" alt="A slice of lasagna on a plate.">
+          <figcaption>Cats <em>love</em> lasagna.</figcaption>  
+        </figure>
+        <h3>Top 3 things cats hate:</h3>
+        <ol>
+          <li>flea treatment</li>
+          <li>thunder</li>
+          <li>other cats</li>
+        </ol>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" alt="Two tabby kittens sleeping together on a couch.">
+          <figcaption>Cats <strong>hate</strong> other cats.</figcaption>  
+        </figure>
+      </section>
+      <section>
+        <h2>Cat Form</h2>
+        <form action="https://freecatphotoapp.com/submit-cat-photo">
+--fcc-editable-region--
+ 
+          <input type="text" name="catphotourl" placeholder="cat photo URL" required>
+--fcc-editable-region--
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
+```

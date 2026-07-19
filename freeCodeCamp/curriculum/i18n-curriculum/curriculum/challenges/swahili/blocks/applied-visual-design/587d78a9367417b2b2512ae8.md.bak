@@ -1,0 +1,138 @@
+---
+id: 587d78a9367417b2b2512ae8
+title: Jifunze jinsi mkondo wa Bezier unavyofanya kazi
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/c9bDrs8'
+forumTopicId: 301058
+dashedName: learn-how-bezier-curves-work
+---
+
+# --description--
+
+Changamoto ya mwisho ilianzisha sifa ya `animation-timing-function` na maneno muhimu machache yanayobadilisha kasi ya uhuishaji kwa muda wake. CSS inatoa chaguo tofauti na maneno muhimu kinachotoa udhibiti wa kina zaidi juu ya jinsi uhuishaji unavyochezwa, kupitia matumizi ya mikondo wa Bezier.
+
+Katika uhuishaji wa CSS, mikondo ya Bezier hutumika pamoja na kitendakazi cha `cubic-bezier`. Umbo la mkondo linawakilisha jinsi uhuishaji unavyochezwa. Mkondo huo unaishi kwenye mfumo wa kuratibu wa 1 kwa 1. Mhimili wa X wa mfumo huu wa kuratibu ni muda wa uhuishaji (fikiri kama kipimo cha wakati), na mhimili wa Y ni mabadiliko katika uhuishaji.
+
+Kitendakazi cha `cubic-bezier` kina pointi kuu nne zinazokaa kwenye gridi hii ya 1 kwa 1: `p0`, `p1`, `p2`, na `p3`. `p0` na `p3` zimewekwa kwako - ni pointi za mwanzo na mwisho ambazo kila mara ziko kwa mtiririko kwenye asili (0, 0) na (1, 1). Unapanga thamani za x na y kwa pointi nyingine mbili, na mahali unapoziweka kwenye gridi huchagua umbo la mkondo kwa ajili ya uhuishaji kufuata. Hii hufanywa katika CSS kwa kutangaza thamani za x na y za pointi za `p1` na `p2` "tagi za nanga" kwa njia ya: `(x1, y1, x2, y2)`. Kuunganisha yote pamoja, hapa kuna mfano wa mkondo wa Bezier katika msimbo wa CSS:
+
+```css
+animation-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+```
+
+Katika mfano hapo juu, thamani za x na y ni sawa kwa kila pointi (x1 = 0.25 = y1 na x2 = 0.75 = y2), ambayo ukikumbuka kutoka darasa la jiometri, husababisha mstari unaotoka asili hadi pointi (1, 1). Uhuishaji huu ni mabadiliko ya mstari wa kipengele wakati wa uhuishaji, na ni sawa na kutumia neno muhimu la `linear`. Kwa maneno mengine, hubadilika kwa kasi thabiti.
+
+# --instructions--
+
+Kwa kipengele chenye kitambulisho cha `ball1`, badilisha thamani ya sifa ya `animation-timing-function` kutoka `linear` hadi thamani yake sawa ya kitendakazi cha `cubic-bezier`. Tumia thamani za pointi zilizotolewa katika mfano hapo juu.
+
+# --hints--
+
+Thamani ya sifa ya `animation-timing-function` kwa kipengele chenye kitambulisho cha `ball1` inapaswa kuwa kitendakazi cha `cubic-bezier` sawa na mstari.
+
+```js
+const ballOne = document.querySelector('#ball1');
+const ballOneStyle = window.getComputedStyle(ballOne); 
+assert.equal(
+  ballOneStyle?.animationTimingFunction,
+    'cubic-bezier(0.25, 0.25, 0.75, 0.75)'
+);
+```
+
+Thamani ya sifa ya `animation-timing-function` kwa kipengele chenye kitambulisho cha `ball2` haipaswi kubadilika.
+
+```js
+const ballTwoElement = document.querySelector('#ball2');
+const ballTwoStyle = window.getComputedStyle(ballTwoElement); 
+const ball2Animation = __helpers.removeWhiteSpace(ballTwoStyle?.animationTimingFunction);
+assert.isTrue(
+  ball2Animation == 'ease-out' || ball2Animation == 'cubic-bezier(0,0,0.58,1)'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style>
+
+  .balls{
+    border-radius: 50%;
+    background: linear-gradient(
+      35deg,
+      #ccffff,
+      #ffcccc
+    );
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  #ball1 {
+    left: 27%;
+    animation-timing-function: linear;
+  }
+  #ball2 {
+    left: 56%;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes bounce {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: 249px;
+    }
+  }
+
+</style>
+
+<div class="balls" id="ball1"></div>
+<div class="balls" id="ball2"></div>
+```
+
+# --solutions--
+
+```html
+<style>
+
+  .balls{
+    border-radius: 50%;
+    background: linear-gradient(
+      35deg,
+      #ccffff,
+      #ffcccc
+    );
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  #ball1 {
+    left: 27%;
+    animation-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  }
+  #ball2 {
+    left: 56%;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes bounce {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: 249px;
+    }
+  }
+</style>
+<div class="balls" id="ball1"></div>
+<div class="balls" id="ball2"></div>
+```

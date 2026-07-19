@@ -1,0 +1,114 @@
+---
+id: 697a49e9860d24853adef67e
+title: "Zoezi la 193: Michezo ya Majira ya Baridi 2026 Siku ya 14: Kupanda Milima kwa Ski"
+challengeType: 28
+dashedName: challenge-193
+---
+
+# --description--
+
+Kutokana na kina cha theluji na mteremko wa mlima, amua kama kuna hatari ya mafuriko ya theluji.
+
+- Thamani za kina cha theluji ni `"Shallow"`, `"Moderate"`, au `"Deep"`.
+- Thamani za mteremko ni `"Gentle"`, `"Steep"`, au `"Very Steep"`.
+
+Rudisha `"Safe"` au `"Risky"` kulingana na jedwali hili:
+
+| |`"Shallow"`|`"Moderate"`|`"Deep"`|
+|-|-|-|-|
+|`"Gentle"`|`"Safe"`|`"Safe"`|`"Safe"`|
+|`"Steep"`|`"Safe"`|`"Risky"`|`"Risky"`|
+|`"Very Steep"`|`"Safe"`| `"Risky"`|`"Risky"`|
+
+# --hints--
+
+`avalancheRisk("Shallow", "Gentle")` inapaswa kurudisha `"Safe"`.
+
+```js
+assert.equal(avalancheRisk("Shallow", "Gentle"), "Safe");
+```
+
+`avalancheRisk("Shallow", "Steep")` inapaswa kurudisha `"Safe"`.
+
+```js
+assert.equal(avalancheRisk("Shallow", "Steep"), "Safe");
+```
+
+`avalancheRisk("Shallow", "Very Steep")` inapaswa kurudisha `"Safe"`.
+
+```js
+assert.equal(avalancheRisk("Shallow", "Very Steep"), "Safe");
+```
+
+`avalancheRisk("Moderate", "Gentle")` inapaswa kurudisha `"Safe"`.
+
+```js
+assert.equal(avalancheRisk("Moderate", "Gentle"), "Safe");
+```
+
+`avalancheRisk("Moderate", "Steep")` inapaswa kurudisha `"Risky"`.
+
+```js
+assert.equal(avalancheRisk("Moderate", "Steep"), "Risky");
+```
+
+`avalancheRisk("Moderate", "Very Steep")` inapaswa kurudisha `"Risky"`.
+
+```js
+assert.equal(avalancheRisk("Moderate", "Very Steep"), "Risky");
+```
+
+`avalancheRisk("Deep", "Gentle")` inapaswa kurudisha `"Safe"`.
+
+```js
+assert.equal(avalancheRisk("Deep", "Gentle"), "Safe");
+```
+
+`avalancheRisk("Deep", "Steep")` inapaswa kurudisha `"Risky"`.
+
+```js
+assert.equal(avalancheRisk("Deep", "Steep"), "Risky");
+```
+
+`avalancheRisk("Deep", "Very Steep")` inapaswa kurudisha `"Risky"`.
+
+```js
+assert.equal(avalancheRisk("Deep", "Very Steep"), "Risky");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function avalancheRisk(snowDepth, slope) {
+
+  return snowDepth;
+}
+```
+
+# --solutions--
+
+```js
+function avalancheRisk(snowDepth, slope) {
+  const riskTable = {
+    Gentle: {
+      Shallow: "Safe",
+      Moderate: "Safe",
+      Deep: "Safe",
+    },
+    Steep: {
+      Shallow: "Safe",
+      Moderate: "Risky",
+      Deep: "Risky",
+    },
+    "Very Steep": {
+      Shallow: "Safe",
+      Moderate: "Risky",
+      Deep: "Risky",
+    },
+  };
+
+  return riskTable[slope][snowDepth];
+}
+```

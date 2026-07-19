@@ -1,0 +1,600 @@
+---
+id: 66e7ee20b79186306fc12da5
+title: Jenga seti ya kadi za timu ya mpira wa miguu
+challengeType: 25 
+dashedName: lab-football-team-cards
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii, utajenga seti ya kadi za timu ya mpira wa miguu. Mtumizi anapaswa kuwa na uwezo wa kutumia menyu ya kushuka na kuchuja kati ya wachezaji tofauti kulingana na nafasi zao.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitu cha `footballTeam` chenye sifa zifuatazo: `team`, `year`, `headCoach`, `players`.
+1. Sifa ya `team` inapaswa kuwa na jina la timu kama mfuatano wa herufi.
+1. Sifa ya `year` inapaswa kuwa na mwaka kama nambari.
+1. Sifa ya `headCoach` inapaswa kuwa na jina la kocha mkuu kama mfuatano wa herufi.
+1. Sifa ya `players` inapaswa kuwa safu ya data yenye vipengele vinne angalau.
+1. Kila kipengele katika safu ya `players` kinapaswa kuwa kitu chenye sifa `name`, `position`, `isCaptain`.
+1. Sifa ya `name` inapaswa kuwa na jina la mchezaji kama mfuatano wa herufi.
+1. Sifa ya `position` inapaswa kuwa na moja ya thamani zifuatazo: `"forward"`, `"midfielder"`, `"defender"`, au `"goalkeeper"`.
+1. Sifa ya `isCaptain` inapaswa kuwa na thamani ya thamani ya kweli au siyo kweli. Mchezaji mmoja anapaswa kuwa na sifa ya `isCaptain` ikiwa `true`.
+1. Unapaswa kuonyesha thamani za `headCoach`, `team` na `year` kwenye ukurasa. Thamani hizi zinapaswa kuonyeshwa katika vipengele vya HTML vyenye sifa za `id` zenye thamani `head-coach`, `team` na `year`. 
+1. Unapaswa kuonyesha data za wachezaji kwenye ukurasa ndani ya kipengele cha `#player-cards`, kila mchezaji aonyeshwe katika `div` yenye darasa la `player-card`, na ndani yake, `h2` yenye jina la mchezaji, na `(Captain)` ikiwa mchezaji ni nahodha, pamoja na `p` yenye `Position:` na nafasi ya mchezaji.
+
+    Hapa kuna mfano wa jinsi HTML inavyopaswa kuonekana:
+
+    ```html
+    <div class="player-card">
+      <h2>Sergio Batista</h2>
+      <p>Position: midfielder</p>
+    </div>
+    <div class="player-card">
+      <h2>(Captain) Diego Maradona</h2>
+      <p>Position: midfielder</p>
+    </div>
+    ```
+
+1. Wakati menyu ya kushuka inapotumika kuchagua moja ya nafasi, vipengele vya `.player-card` vya wachezaji wa nafasi hiyo pekee vinapaswa kuwepo. Ikiwa chaguo la `"All Players"` litachaguliwa, basi wachezaji wote wanapaswa kuonyeshwa kwenye ukurasa.
+
+# --hints--
+
+Unapaswa kuwa na kigezo cha `footballTeam`.
+
+```js
+assert.exists(footballTeam);
+```
+
+Kigezo cha `footballTeam` kinapaswa kuwa kitu chenye sifa nne: `team`, `year`, `headCoach` na `players`.
+
+```js
+assert.isObject(footballTeam);
+assert.containsAllKeys(footballTeam, ['team', 'year', 'headCoach', 'players']);
+```
+
+Sifa ya `team` inapaswa kuwa mfuatano wa herufi.
+
+```js
+assert.isString(footballTeam.team);
+```
+
+Sifa ya `year` inapaswa kuwa nambari.
+
+```js
+assert.isNumber(footballTeam.year);
+```
+
+Sifa ya `headCoach` inapaswa kuwa mfuatano wa herufi.
+
+```js
+assert.isString(footballTeam.headCoach);
+```
+
+Sifa ya `players` inapaswa kuwa safu ya data yenye vitu vinne angalau, kila kitu kiwe na funguo `name`, `position`, `isCaptain`.
+
+```js
+assert.isArray(footballTeam.players);
+assert.isAtLeast(footballTeam.players.length, 4);
+footballTeam.players.forEach(player => {
+  assert.isObject(player);
+  assert.containsAllKeys(player, ['name', 'position', 'isCaptain']);
+})
+```
+
+Sifa ya `name` inapaswa kuwa mfuatano wa herufi.
+
+```js
+footballTeam.players.forEach(({name}) => assert.isString(name));
+```
+
+Sifa ya `position` inapaswa kuwa moja ya thamani `"forward"`, `"midfielder"`, `"defender"`, au `"goalkeeper"`.
+
+```js
+footballTeam.players.forEach(({position}) => {
+  assert.isString(position);
+  assert.oneOf(position, ["forward", "midfielder", "defender", "goalkeeper"]);
+});
+```
+
+Sifa ya `isCaptain` inapaswa kuwa thamani ya thamani ya kweli au siyo kweli, na nahodha mmoja tu anapaswa kuwepo.
+
+```js
+footballTeam.players.forEach(({isCaptain}) => assert.isBoolean(isCaptain));
+const listOfCaptains = footballTeam.players.filter(({isCaptain}) => isCaptain);
+assert.lengthOf(listOfCaptains, 1);
+```
+
+Unapaswa kuonyesha thamani za `headCoach`, `team` na `year` kutoka kwa kitu cha `footballTeam` katika vipengele vya HTML vyenye sifa za `id` zenye thamani `head-coach`, `team` na `year`. 
+
+```js
+const teamElement = document.querySelector('.team-stats #team');
+const yearElement = document.querySelector('.team-stats #year');
+const headCoachElement = document.querySelector('.team-stats #head-coach');
+assert.equal(teamElement?.innerText.trim(), footballTeam.team);
+assert.equal(yearElement?.innerText.trim(), footballTeam.year);
+assert.equal(headCoachElement?.innerText.trim(), footballTeam.headCoach);
+```
+
+Wakati chaguo la `All Players` litachaguliwa, wachezaji wote wanapaswa kuwepo ndani ya `#player-cards`.
+
+```js
+const select = document.querySelector('#players')
+select.value = 'all';
+select.dispatchEvent(new Event('change'))
+const playerCards = document.querySelectorAll('.player-card');
+const arrayFromPage = Array.from(playerCards).map(el => ({
+    name: el.querySelector('h2').innerText.replace('(Captain)', '').trim(),
+    position: el.querySelector('p').innerText.replace('Position:', '').trim(),
+    isCaptain: /Captain/.test(el.querySelector('h2').innerText)
+  }))
+
+assert.sameDeepMembers(arrayFromPage, footballTeam.players);
+```
+
+Wakati chaguo la `Position Forward` litachaguliwa, wachezaji wa mbele pekee wanapaswa kuwepo ndani ya `#player-cards`.
+
+```js
+const forwards = footballTeam.players.filter(({position}) => position === 'forward')
+const select = document.querySelector('#players')
+select.value = 'forward';
+select.dispatchEvent(new Event('change'))
+const playerCards = document.querySelectorAll('.player-card');
+const arrayFromPage = Array.from(playerCards).map(el => ({
+    name: el.querySelector('h2').innerText.replace('(Captain)', '').trim(),
+    position: el.querySelector('p').innerText.replace('Position:', '').trim(),
+    isCaptain: /Captain/.test(el.querySelector('h2').innerText)
+  }))
+
+assert.sameDeepMembers(arrayFromPage, forwards);
+```
+
+Wakati chaguo la `Position Midfielder` litachaguliwa, wachezaji wa katikati pekee wanapaswa kuwepo ndani ya `#player-cards`.
+
+```js
+const midfielders = footballTeam.players.filter(({position}) => position === 'midfielder')
+const select = document.querySelector('#players')
+select.value = 'midfielder';
+select.dispatchEvent(new Event('change'))
+const playerCards = document.querySelectorAll('.player-card');
+const arrayFromPage = Array.from(playerCards).map(el => ({
+    name: el.querySelector('h2').innerText.replace('(Captain)', '').trim(),
+    position: el.querySelector('p').innerText.replace('Position:', '').trim(),
+    isCaptain: /Captain/.test(el.querySelector('h2').innerText)
+  }))
+
+assert.sameDeepMembers(arrayFromPage, midfielders);
+```
+
+Wakati chaguo la `Position Defender` litachaguliwa, wachezaji wa ulinzi pekee wanapaswa kuwepo ndani ya `#player-cards`.
+
+```js
+const defenders = footballTeam.players.filter(({position}) => position === 'defender')
+const select = document.querySelector('#players')
+select.value = 'defender';
+select.dispatchEvent(new Event('change'))
+const playerCards = document.querySelectorAll('.player-card');
+const arrayFromPage = Array.from(playerCards).map(el => ({
+    name: el.querySelector('h2').innerText.replace('(Captain)', '').trim(),
+    position: el.querySelector('p').innerText.replace('Position:', '').trim(),
+    isCaptain: /Captain/.test(el.querySelector('h2').innerText)
+  }))
+
+assert.sameDeepMembers(arrayFromPage, defenders);
+```
+
+Wakati chaguo la `Position Goalkeeper` litachaguliwa, wachezaji wa mlinda mlango pekee wanapaswa kuwepo.
+
+```js
+const goalkeepers = footballTeam.players.filter(({position}) => position === 'goalkeeper')
+const select = document.querySelector('#players')
+select.value = 'goalkeeper';
+select.dispatchEvent(new Event('change'))
+const playerCards = document.querySelectorAll('.player-card');
+const arrayFromPage = Array.from(playerCards).map(el => ({
+    name: el.querySelector('h2').innerText.replace('(Captain)', '').trim(),
+    position: el.querySelector('p').innerText.replace('Position:', '').trim(),
+    isCaptain: /Captain/.test(el.querySelector('h2').innerText)
+  }))
+
+assert.sameDeepMembers(arrayFromPage, goalkeepers);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Build a Set of Football Team Cards
+    </title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 class="title">Team stats</h1>
+    <main>
+      <div class="team-stats">
+        <p>Team: <span id="team"></span></p>
+        <p>Year: <span id="year"></span></p>
+        <p>Head coach: <span id="head-coach"></span></p>
+      </div>
+      <label class="options-label" for="players">Filter Teammates:</label>
+      <select name="players" id="players">
+        <option value="all">All Players</option>
+        <option value="forward">Position Forward</option>
+        <option value="midfielder">Position Midfielder</option>
+        <option value="defender">Position Defender</option>
+        <option value="goalkeeper">Position Goalkeeper</option>
+      </select>
+      <div class="cards" id="player-cards"></div>
+    </main>
+    <footer>&copy; freeCodeCamp</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
+
+```
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --dark-grey: #0a0a23;
+  --light-grey: #f5f6f7;
+  --white: #ffffff;
+  --black: #000;
+}
+
+body {
+  background-color: var(--dark-grey);
+  text-align: center;
+  padding: 10px;
+}
+
+.title,
+.options-label,
+.team-stats,
+footer {
+  color: var(--white);
+}
+
+.title {
+  margin: 1.3rem 0;
+}
+
+.team-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  margin: 1.2rem 0;
+}
+
+.options-label {
+  font-size: 1.2rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-card {
+  background-color: var(--light-grey);
+  padding: 1.3rem;
+  margin: 1.2rem;
+  width: 300px;
+  border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+  .team-stats {
+    flex-direction: column;
+  }
+}
+
+```
+
+```js
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Build a Set of Football Team Cards
+    </title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 class="title">Team stats</h1>
+    <main>
+      <div class="team-stats">
+        <p>Team: <span id="team"></span></p>
+        <p>Year: <span id="year"></span></p>
+        <p>Head coach: <span id="head-coach"></span></p>
+      </div>
+      <label class="options-label" for="players">Filter Teammates:</label>
+      <select name="players" id="players">
+        <option value="all">All Players</option>
+        <option value="forward">Position Forward</option>
+        <option value="midfielder">Position Midfielder</option>
+        <option value="defender">Position Defender</option>
+        <option value="goalkeeper">Position Goalkeeper</option>
+      </select>
+      <div class="cards" id="player-cards"></div>
+    </main>
+    <footer>&copy; freeCodeCamp</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
+
+```
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --dark-grey: #0a0a23;
+  --light-grey: #f5f6f7;
+  --white: #ffffff;
+  --black: #000;
+}
+
+body {
+  background-color: var(--dark-grey);
+  text-align: center;
+  padding: 10px;
+}
+
+.title,
+.options-label,
+.team-stats,
+footer {
+  color: var(--white);
+}
+
+.title {
+  margin: 1.3rem 0;
+}
+
+.team-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  margin: 1.2rem 0;
+}
+
+.options-label {
+  font-size: 1.2rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-card {
+  background-color: var(--light-grey);
+  padding: 1.3rem;
+  margin: 1.2rem;
+  width: 300px;
+  border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+  .team-stats {
+    flex-direction: column;
+  }
+}
+
+```
+
+```js
+const teamName = document.getElementById("team");
+const worldCupYear = document.getElementById("year");
+const headCoach = document.getElementById("head-coach");
+const playerCards = document.getElementById("player-cards");
+const playersDropdownList = document.getElementById("players");
+const footballTeam = {
+  team: "Argentina",
+  year: 1986,
+  headCoach: "Carlos Bilardo",
+  players: [
+    {
+      name: "Sergio Almirón",
+      position: "forward",
+      isCaptain: false,
+    },
+    {
+      name: "Sergio Batista",
+      position: "midfielder",
+      isCaptain: false,
+    },
+     {
+      name: "Ricardo Bochini",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "Claudio Borghi",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "José Luis Brown",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Daniel Passarella",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Jorge Burruchaga",
+      position: "forward",
+      isCaptain: false,
+    },
+    {
+      name: "Néstor Clausen",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "José Luis Cuciuffo",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Diego Maradona",
+      position: "midfielder",
+      isCaptain: true,
+    },
+    {
+      name: "Jorge Valdano",
+      position: "forward",
+      isCaptain: false,
+    },
+    {
+      name: "Héctor Enrique",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "Oscar Garré",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Ricardo Giusti",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "Luis Islas",
+      position: "goalkeeper",
+      isCaptain: false,
+    },
+    {
+      name: "Julio Olarticoechea",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Pedro Pasculli",
+      position: "forward",
+      isCaptain: false,
+    },
+    {
+      name: "Nery Pumpido",
+      position: "goalkeeper",
+      isCaptain: false,
+    },
+    {
+      name: "Oscar Ruggeri",
+      position: "defender",
+      isCaptain: false,
+    },
+    {
+      name: "Carlos Tapia",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "Marcelo Trobbiani",
+      position: "midfielder",
+      isCaptain: false,
+    },
+    {
+      name: "Héctor Zelada",
+      position: "goalkeeper",
+      isCaptain: false,
+    },
+  ],
+};
+
+const { sport, team, year, players } = footballTeam;
+const coachName = footballTeam.headCoach;
+
+teamName.textContent = team;
+worldCupYear.textContent = year;
+headCoach.textContent = coachName;
+
+const setPlayerCards = (arr = players) => {
+  playerCards.innerHTML += arr
+    .map(
+      ({ name, position, isCaptain }) =>
+        `
+        <div class="player-card">
+          <h2>${isCaptain ? "(Captain)" : ""} ${name}</h2>
+          <p>Position: ${position}</p>
+        </div>
+      `
+    )
+    .join("");
+};
+
+playersDropdownList.addEventListener("change", (e) => {
+  playerCards.innerHTML = "";
+
+  switch (e.target.value) {
+    case "forward":
+      setPlayerCards(players.filter((player) => player.position === "forward"));
+      break;
+    case "midfielder":
+      setPlayerCards(
+        players.filter((player) => player.position === "midfielder")
+      );
+      break;
+    case "defender":
+      setPlayerCards(
+        players.filter((player) => player.position === "defender")
+      );
+      break;
+    case "goalkeeper":
+      setPlayerCards(
+        players.filter((player) => player.position === "goalkeeper")
+      );
+      break;
+    default:
+      setPlayerCards();
+  }
+});
+
+setPlayerCards();
+
+```

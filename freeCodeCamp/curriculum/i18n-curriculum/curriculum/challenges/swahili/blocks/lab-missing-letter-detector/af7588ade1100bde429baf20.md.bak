@@ -1,0 +1,78 @@
+---
+id: af7588ade1100bde429baf20
+title: Jenga Kifuatilia Herufi Iliyokosekana
+challengeType: 26
+dashedName: build-a-missing-letter-detector
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `fearNotLetter`.
+1. Kitendakazi cha `fearNotLetter` kinapaswa kupokea hoja moja: mfuatano wa herufi unaowakilisha safu ya herufi kwa mpangilio wa alfabeti ambayo inaweza kuwa na herufi moja iliyokosekana.
+1. Kitendakazi kinapaswa kutafuta herufi iliyokosekana katika safu ya herufi iliyotumwa na kuirudisha.
+1. Ikiwa herufi zote zipo katika safu, kitendakazi kinapaswa kurudisha `undefined`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `fearNotLetter`.
+
+```js
+assert.isFunction(fearNotLetter);
+```
+
+`fearNotLetter("abce")` inapaswa kurudisha mfuatano wa herufi `d`.
+
+```js
+assert.deepEqual(fearNotLetter('abce'), 'd');
+```
+
+`fearNotLetter("abcdefghjklmno")` inapaswa kurudisha mfuatano wa herufi `i`.
+
+```js
+assert.deepEqual(fearNotLetter('abcdefghjklmno'), 'i');
+```
+
+`fearNotLetter("stvwx")` inapaswa kurudisha mfuatano wa herufi `u`.
+
+```js
+assert.deepEqual(fearNotLetter('stvwx'), 'u');
+```
+
+`fearNotLetter("bcdf")` inapaswa kurudisha mfuatano wa herufi `e`.
+
+```js
+assert.deepEqual(fearNotLetter('bcdf'), 'e');
+```
+
+`fearNotLetter("abcdefghijklmnopqrstuvwxyz")` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(fearNotLetter('abcdefghijklmnopqrstuvwxyz'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function fearNotLetter (str) {
+  for (var i = str.charCodeAt(0); i <= str.charCodeAt(str.length - 1); i++) {
+    let letter = String.fromCharCode(i);
+    if (str.indexOf(letter) === -1) {
+      return letter;
+    }
+  }
+
+  return undefined;
+}
+```

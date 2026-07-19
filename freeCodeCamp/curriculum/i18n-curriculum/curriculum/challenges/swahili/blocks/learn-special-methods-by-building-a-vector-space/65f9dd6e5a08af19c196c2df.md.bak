@@ -1,0 +1,89 @@
+---
+id: 65f9dd6e5a08af19c196c2df
+title: Hatua 45
+challengeType: 20
+dashedName: step-45
+---
+
+# --description--
+
+Vector inayopatikana kutokana na kutoa vector moja kutoka kwa nyingine hupatikana kwa kuhesabu tofauti ya kila sehemu zao. Kwa mfano, kutoa `(2, 4)` kutoka `(7, 3)` huunda vector ya tatu `(5, -1)`, ambapo `5` ni tofauti kati ya `7` na `2` na `-1` ni tofauti kati ya `3` na `4`.
+
+Kama ulivyofanya awali ndani ya njia ya `__add__`, tangaza variable ya `kwargs` baada ya tamko la `if`. Iweke thamani ya dictionary comprehension inayorudia kupitia sifa za kipengele cha kitu na kuunda jozi ya ufunguo-thamani kwa kila ufunguo `i`, ambapo ufunguo ni ufunguo uleule wa mzunguko wa sasa na thamani yake ni tofauti kati ya thamani za sifa za `i` za wapiganaji wawili.
+
+# --hints--
+
+Unapaswa kutangaza variable `kwargs` na kuiweka thamani ya dictionary comprehension inayorudia juu ya sifa za kipengele cha kitu.
+
+```js
+({ test: () => assert(runPython(`
+node = _Node(_code).find_class("R2Vector").find_function("__sub__").find_variable("kwargs").find_comp_iters()[0]
+node.is_equivalent("vars(self)") or node.is_equivalent("self.__dict__")`)) })
+```
+
+Dictionary comprehension iliyopewa `kwargs` inapaswa kutumia variable `i` kurudia juu ya sifa za kipengele cha kitu.
+
+```js
+({
+    test: () => assert(runPython(`
+      _Node(_code).find_class("R2Vector").find_function("__sub__").find_variable("kwargs").find_comp_targets()[0].is_equivalent("i")
+    `))
+})
+```
+
+Dictionary comprehension iliyopewa `kwargs` inapaswa kutumia `i` kama ufunguo.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__sub__").find_variable("kwargs").find_comp_key().is_equivalent("i")`)) })
+```
+
+Dictionary comprehension iliyopewa `kwargs` inapaswa kuweka tofauti kati ya sifa ya `i` ya `self` na sifa ya `i` ya `other` kwa ufunguo wa `i` kwa kila `i`.
+
+```js
+({ test: () => assert(runPython(`
+node = _Node(_code).find_class("R2Vector").find_function("__sub__").find_variable("kwargs").find_comp_expr()
+node.is_equivalent("getattr(self, i) - getattr(other, i)") or node.is_equivalent("self.__getattribute__(i) - other.__getattribute__(i)")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+
+    def __add__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+--fcc-editable-region--
+    def __sub__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+```

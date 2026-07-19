@@ -1,0 +1,101 @@
+---
+id: 587d824f367417b2b2512c5b
+title: Endesha majaribio ya kitendakazi kwenye jibu la API ukitumia Chai-HTTP IV - njia ya PUT
+challengeType: 2
+forumTopicId: 301591
+dashedName: run-functional-tests-on-an-api-response-using-chai-http-iv---put-method
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Zoezi hili ni sawa na lile la awali.
+
+Sasa unajua jinsi ya kujaribu ombi la `PUT`, ni zamu yako kulifanya kutoka mwanzo.
+
+# --instructions--
+
+Ndani ya `tests/2_functional-tests.js`, badilisha jaribio la `'Send {surname: "da Verrazzano"}'` (`// #4`) na tumia njia za `put` na `send` kujaribu kiishio cha `'/travellers'`.
+
+Tuma kitu cha JSON kifuatacho pamoja na ombi lako la PUT:
+
+```json
+{
+  "surname": "da Verrazzano"
+}
+```
+
+Kagua yafuatayo ndani ya wito wa kurudisha wa `request.end`:
+
+1.  `status` inapaswa kuwa `200`
+2.  `type` inapaswa kuwa `application/json`
+3.  `body.name` inapaswa kuwa `Giovanni`
+4.  `body.surname` inapaswa kuwa `da Verrazzano`
+
+Fuata mpangilio wa uthibitisho ulio juu - tunategemea hilo. Pia, hakikisha unaondoa `assert.fail()` mara tu unapomaliza.
+
+# --hints--
+
+Majaribio yote yanapaswa kupita
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=3');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.state, 'passed');
+```
+
+Unapaswa kujaribu `res.status` iwe 200
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=3');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[0].method, 'equal');
+assert.equal(data.assertions[0].args[0], 'res.status');
+assert.equal(data.assertions[0].args[1], '200');
+```
+
+Unapaswa kujaribu `res.type` iwe `'application/json'`
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=3');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[1].method, 'equal');
+assert.equal(data.assertions[1].args[0], 'res.type');
+assert.match(data.assertions[1].args[1], /('|")application\/json\1/);
+```
+
+Unapaswa kujaribu `res.body.name` iwe `'Giovanni'`
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=3');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[2].method, 'equal');
+assert.equal(data.assertions[2].args[0], 'res.body.name');
+assert.match(data.assertions[2].args[1], /('|")Giovanni\1/);
+```
+
+Unapaswa kujaribu `res.body.surname` iwe `'da Verrazzano'`
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=3');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[3].method, 'equal');
+assert.equal(data.assertions[3].args[0], 'res.body.surname');
+assert.match(data.assertions[3].args[1], /('|")da Verrazzano\1/);
+```

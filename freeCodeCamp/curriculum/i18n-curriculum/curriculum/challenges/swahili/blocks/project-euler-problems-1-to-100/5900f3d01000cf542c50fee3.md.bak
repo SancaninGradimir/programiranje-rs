@@ -1,0 +1,87 @@
+---
+id: 5900f3d01000cf542c50fee3
+title: "'Zoezi la 100: uwezekano uliopangwa'"
+challengeType: 1
+forumTopicId: 301724
+dashedName: problem-100-arranged-probability
+---
+
+# --description--
+
+Ikiwa sanduku lina diski ishirini na moja zenye rangi, zikiwa na diski kumi na tano za buluu na diski sita za nyekundu, na diski mbili zikichaguliwa kwa bahati nasibu, inaonekana kuwa uwezekano wa kuchukua diski mbili za buluu ni:
+
+$${P(BB)} = \frac{15}{21}×\frac{14}{20} = \frac{1}{2}$$
+
+Mpangilio unaofuata wa aina hii, ambao kuna uwezekano wa asilimia 50 kabisa wa kuchukua diski mbili za buluu kwa bahati nasibu, ni sanduku lenye diski themanini na tano za buluu na diski thelathini na tano za nyekundu.
+
+Kwa kupata mpangilio wa kwanza wenye diski zaidi ya `limit` kwa jumla, amua idadi ya diski za buluu ambazo sanduku hilo lingekuwa nazo.
+
+# --hints--
+
+`arrangedProbability(20)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof arrangedProbability(10) === 'number');
+```
+
+`arrangedProbability(20)` inapaswa kurudisha `15`.
+
+```js
+assert.strictEqual(arrangedProbability(20), 15);
+```
+
+`arrangedProbability(100)` inapaswa kurudisha `85`.
+
+```js
+assert.strictEqual(arrangedProbability(100), 85);
+```
+
+`arrangedProbability(100000)` inapaswa kurudisha `97513`.
+
+```js
+assert.strictEqual(arrangedProbability(100000), 97513);
+```
+
+`arrangedProbability(1000000000)` inapaswa kurudisha `3822685023`.
+
+```js
+assert.strictEqual(arrangedProbability(1000000000), 3822685023);
+```
+
+`arrangedProbability(1000000000000)` inapaswa kurudisha `756872327473`.
+
+```js
+assert.strictEqual(arrangedProbability(1000000000000), 756872327473);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function arrangedProbability(limit) {
+
+  return true;
+}
+
+arrangedProbability(20);
+```
+
+# --solutions--
+
+```js
+function arrangedProbability(limit) {
+  // Based on https://www.mathblog.dk/project-euler-100-blue-discs-two-blue/
+  let blue = 15;
+  let discs = 21;
+
+  while (discs < limit) {
+    const nextBlue = 3 * blue + 2 * discs - 2;
+    const nextDiscs = 4 * blue + 3 * discs - 3;
+
+    blue = nextBlue;
+    discs = nextDiscs;
+  }
+  return blue;
+}
+```

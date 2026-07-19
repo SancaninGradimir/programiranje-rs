@@ -1,0 +1,207 @@
+---
+id: 672d26809d388621ad1ecd43
+title: Jinsi gani isNaN inavyofanya kazi?
+challengeType: 19
+dashedName: how-does-isnan-work
+---
+
+# --interactive--
+
+Katika JavaScript, `NaN` inawakilisha "Sio Nambari". Ni thamani maalum inayowakilisha matokeo ya nambari ambayo hayawezi kuwakilishwa au hayajafafanuliwa. `NaN` ni sifa ya kitu cha ulimwengu mzima, na pia huchukuliwa kama aina ya nambari katika JavaScript, jambo ambalo linaweza kuonekana kinyume na matarajio mwanzoni.
+
+`NaN` kawaida ni matokeo ya operesheni ambazo zinapaswa kurudisha nambari lakini haziwezi kutoa thamani ya nambari yenye maana. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let result = 0 / 0;
+console.log(result); // NaN
+```
+
+:::
+
+Katika kesi hii, kugawanya sifuri kwa sifuri ni jambo lisilofafanuliwa kihesabu, hivyo JavaScript hurudisha `NaN`. Sifa moja ya kipekee ya `NaN` ni kwamba haifani na kitu chochote, hata yenyewe:
+
+:::interactive_editor
+
+```js
+console.log(NaN === NaN); // false
+```
+
+:::
+
+Tabia hii ya kipekee inafanya iwe changamoto kuangalia kama thamani ni `NaN` kwa kutumia vilinganishi vya kawaida. Ili kushughulikia hili, JavaScript hutoa kitendakazi cha `isNaN()`. Sifa ya kitendakazi cha `isNaN()` hutumika kubaini kama thamani ni `NaN` au la. Hata hivyo, ni muhimu kuelewa jinsi `isNaN()` inavyofanya kazi, kwani inaweza wakati mwingine kutoa matokeo yasiyotarajiwa. Hapa ni jinsi `isNaN()` inavyotenda:
+
+:::interactive_editor
+
+```js
+console.log(isNaN(NaN));       // true
+console.log(isNaN(undefined)); // true
+console.log(isNaN({}));        // true
+
+console.log(isNaN(true));      // false
+console.log(isNaN(null));      // false
+console.log(isNaN(37));        // false
+
+console.log(isNaN("37"));      // false: "37" is converted to 37
+console.log(isNaN("37.37"));   // false: "37.37" is converted to 37.37
+console.log(isNaN(""));        // false: empty string is converted to 0
+console.log(isNaN(" "));       // false: string with a space is converted to 0
+
+console.log(isNaN("blabla"));  // true: "blabla" is not a number
+```
+
+:::
+
+Kama unavyoona, `isNaN()` hujaribu kwanza kubadilisha kigezo kuwa nambari. Ikiwa haiwezi kubadilishwa, hurudisha `true`. Tabia hii inaweza kusababisha matokeo ya kushangaza, hasa wakati wa kushughulikia mfuatano wa herufi ambao unaweza kulazimishwa kuwa nambari.
+
+Kutokana na mabadiliko haya yanayoweza kutokea, ES6 (toleo la sita la JavaScript, lililotolewa mwaka 2015) lilianzisha `Number.isNaN()`. Njia hii haijaribu kubadilisha kigezo kuwa nambari kabla ya kupima. Hurudisha `true` tu ikiwa thamani ni hasa `NaN`:
+
+:::interactive_editor
+
+```js
+console.log(Number.isNaN(NaN));        // true
+console.log(Number.isNaN(Number.NaN)); // true
+console.log(Number.isNaN(0 / 0));      // true
+
+console.log(Number.isNaN("NaN"));      // false
+console.log(Number.isNaN(undefined));  // false
+console.log(Number.isNaN({}));         // false
+console.log(Number.isNaN("blabla"));   // false
+```
+
+:::
+
+`Number.isNaN()` hutoa njia ya kuaminika zaidi ya kuangalia thamani za `NaN`, hasa katika kesi ambapo kulazimisha aina kunaweza kusababisha matokeo yasiyotarajiwa kwa kitendakazi cha ulimwengu mzima cha `isNaN()`. Katika vitendo, wakati wa kushughulikia operesheni za nambari au ingizo la mtumizi ambalo linapaswa kuwa nambari, mara nyingi ni muhimu kuangalia `NaN` ili kushughulikia makosa au ingizo lisilotarajiwa kwa njia nzuri. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 0;
+let b = 0;
+let result = a / b;
+
+if (Number.isNaN(result)) {
+  result = "Error: Division resulted in NaN";
+}
+
+console.log(result); // "Error: Division resulted in NaN"
+```
+
+:::
+
+Katika mfano huu, tunatumia `Number.isNaN()` kushika kesi ambapo operesheni ya kugawanya inasababisha `NaN`, na kutuwezesha kushughulikia hali hii ipasavyo. Kuelewa `NaN` na jinsi ya kuangalia ipasavyo ni muhimu kwa kuandika msimbo imara wa JavaScript, hasa wakati wa kushughulikia operesheni za kihesabu au kuchambua ingizo la mtumizi.
+
+# --questions--
+
+## --text--
+
+Nini matokeo ya msimbo ufuatao?
+
+```js
+console.log(isNaN("123"));
+```
+
+## --answers--
+
+`true`
+
+### --feedback--
+
+Fikiria jinsi `isNaN()` inavyoshughulikia mfuatano wa herufi ambao unaweza kubadilishwa kuwa nambari.
+
+---
+
+`false`
+
+---
+
+`undefined`
+
+### --feedback--
+
+Fikiria jinsi `isNaN()` inavyoshughulikia mfuatano wa herufi ambao unaweza kubadilishwa kuwa nambari.
+
+---
+
+`NaN`
+
+### --feedback--
+
+Fikiria jinsi `isNaN()` inavyoshughulikia mfuatano wa herufi ambao unaweza kubadilishwa kuwa nambari.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya zifuatazo inayoangalia ipasavyo kama thamani ni hasa `NaN`?
+
+## --answers--
+
+`value === NaN`
+
+### --feedback--
+
+Fikiria ni njia gani ambayo haijaribu kubadilisha thamani kabla ya kuangalia.
+
+---
+
+`isNaN(value)`
+
+### --feedback--
+
+Fikiria ni njia gani ambayo haijaribu kubadilisha thamani kabla ya kuangalia.
+
+---
+
+`Number.isNaN(value)`
+
+---
+
+`value.isNaN()`
+
+### --feedback--
+
+Fikiria ni njia gani ambayo haijaribu kubadilisha thamani kabla ya kuangalia.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini matokeo ya `NaN === NaN`?
+
+## --answers--
+
+`true`
+
+### --feedback--
+
+Kumbuka sifa ya kipekee ya `NaN` katika vilinganishi.
+
+---
+
+`false`
+
+---
+
+`undefined`
+
+### --feedback--
+
+Kumbuka sifa ya kipekee ya `NaN` katika vilinganishi.
+
+---
+
+`Error`
+
+### --feedback--
+
+Kumbuka sifa ya kipekee ya `NaN` katika vilinganishi.
+
+## --video-solution--
+
+2

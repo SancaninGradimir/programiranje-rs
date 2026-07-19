@@ -1,0 +1,136 @@
+---
+id: 5a24c314108439a4d4036185
+title: Tumia && kwa Conditional Fupi Zaidi
+challengeType: 6
+forumTopicId: 301413
+dashedName: use--for-a-more-concise-conditional
+---
+
+# --description--
+
+Kauli za `if/else` zilifanya kazi katika changamoto iliyopita, lakini kuna njia fupi zaidi ya kufanikisha matokeo sawa. Fikiria kwamba unafuatilia masharti kadhaa katika sehemu na unataka vipengele tofauti kuonyesha kulingana na kila mojawapo ya masharti haya. Ikiwa utaandika kauli nyingi za `else if` kurudisha UI tofauti kidogo, unaweza kurudia msimbo ambao huacha nafasi ya makosa. Badala yake, unaweza kutumia kigezo cha mantiki cha `&&` kufanya mantiki ya masharti kwa njia fupi zaidi. Hii inawezekana kwa sababu unataka kuangalia kama sharti ni `true`, na ikiwa ni hivyo, rudisha alama za uandishi. Hapa kuna mfano:
+
+```jsx
+{condition && <p>markup</p>}
+```
+
+Ikiwa `condition` ni `true`, alama za uandishi zitarudishwa. Ikiwa sharti ni `false`, operesheni itarudisha mara moja `false` baada ya kutathmini `condition` na haitarudisha chochote. Unaweza kujumuisha kauli hizi moja kwa moja katika JSX yako na kuunganisha masharti mengi kwa kuandika `&&` baada ya kila moja. Hii inakuwezesha kushughulikia mantiki tata zaidi ya masharti katika njia yako ya `render()` bila kurudia msimbo mwingi.
+
+# --instructions--
+
+Tatua tena mfano uliopita, ili `h1` ionyeshwe tu ikiwa `display` ni `true`, lakini tumia kigezo cha mantiki cha `&&` badala ya kauli ya `if/else`.
+
+# --hints--
+
+`MyComponent` inapaswa kuwepo na kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+    return mockedComponent.find('MyComponent').length;
+  })()
+);
+```
+
+Wakati `display` imewekwa kuwa `true`, `div`, `button`, na `h1` zinapaswa kuonyeshwa.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const state_1 = () => {
+    mockedComponent.setState({ display: true });
+    return waitForIt(() => mockedComponent);
+  };
+  const updated = await state_1();
+  assert(
+    updated.find('div').length === 1 &&
+      updated.find('div').children().length === 2 &&
+      updated.find('button').length === 1 &&
+      updated.find('h1').length === 1
+  );
+```
+
+Wakati `display` imewekwa kuwa `false`, ni `div` na `button` tu zinapaswa kuonyeshwa.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const state_1 = () => {
+    mockedComponent.setState({ display: false });
+    return waitForIt(() => mockedComponent);
+  };
+  const updated = await state_1();
+  assert(
+    updated.find('div').length === 1 &&
+      updated.find('div').children().length === 1 &&
+      updated.find('button').length === 1 &&
+      updated.find('h1').length === 0
+  );
+```
+
+Njia ya onyesha inapaswa kutumia kigezo cha mantiki cha `&&` kuangalia sharti la `this.state.display`.
+
+```js
+assert(code.includes('&&'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState(state => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+    return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         <h1>Displayed!</h1>
+       </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+ this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState(state => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+    return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         {this.state.display && <h1>Displayed!</h1>}
+       </div>
+    );
+  }
+};
+```

@@ -1,0 +1,260 @@
+---
+id: 66da326c02141df538f29ba5
+title: Jenga ukurasa wa malipo
+challengeType: 25
+dashedName: build-a-checkout-page
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `h1` chenye maandishi ya `Checkout`.
+1. Unapaswa kuwa na vipengele viwili vya `section` mara moja baada ya kipengele cha `h1`.
+1. Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Your Cart` ndani ya sehemu ya kwanza.
+1. Unapaswa kuwa na picha ya bidhaa katika sehemu ya kwanza yenye maandishi mbadala yanayofaa. Unaweza kutumia picha hii ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/labs/cube.jpg`
+1. Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Payment Information` ndani ya sehemu ya pili.
+1. Unapaswa kuwa na kipengele cha `form` ndani ya sehemu ya pili.
+1. Unapaswa kuwa na ingizo lenye `id` na `name` ya `card-name`, na `type` ya `text` ndani ya fomu yako pamoja na `label` inayohusiana nalo.
+1. Unapaswa kuwa na ingizo lenye `id` na `name` ya `card-number`, na `type` ya `text` ndani ya fomu yako pamoja na `label` inayohusiana nalo.
+1. Unapaswa kuwa na angalau vipengele viwili vya `input` vyenye sifa ya `required`.
+1. Unapaswa kujumuisha kipengele cha `span` chenye maandishi ya `*` na `aria-hidden` kuwekwa kuwa `true` ndani ya kipengele cha `label` kwa kila ingizo linalohitajika, ili sehemu zinazohitajika zionekane wazi.
+1. Unapaswa kuwa na kipengele cha `p` chenye maandishi ya msaada yanayoelezea muundo unaotakiwa wa nambari ya kadi, kikiwa kimewekwa mara moja baada ya ingizo la nambari ya kadi. `p` inapaswa kuwa na `id` ya `card-number-help` na kurejea na ingizo la nambari ya kadi kwa kutumia `aria-describedby`.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `h1` chenye maandishi ya `Checkout`.
+
+```js
+assert.equal(document.querySelector('h1')?.innerText, 'Checkout');
+```
+
+Unapaswa kuwa na kipengele kimoja tu cha `h1` kwenye ukurasa wako.
+
+```js
+assert.lengthOf(document.querySelectorAll('h1'), 1);
+```
+
+Unapaswa kuwa na vipengele vya angalau viwili vya `section` baada ya kipengele cha `h1`.
+
+```js
+const h1 = document.querySelector('h1');
+const firstSibling = h1?.nextElementSibling;
+const secondSibling = firstSibling?.nextElementSibling;
+assert.equal(firstSibling?.tagName, 'SECTION');
+assert.equal(secondSibling?.tagName, 'SECTION');
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Your Cart` ndani ya sehemu ya kwanza.
+
+```js
+const firstSection = document.querySelectorAll('section')?.[0];
+assert.equal(firstSection?.querySelector('h2')?.innerText, 'Your Cart');
+```
+
+Unapaswa kuwa na angalau picha moja yenye maandishi mbadala katika sehemu yako ya kwanza.
+
+```js
+const firstSection = document.querySelectorAll('section')?.[0];
+assert.isAtLeast(firstSection?.querySelector('img')?.alt?.length, 1);
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Payment Information` ndani ya sehemu ya pili.
+
+```js
+const secondSection = document.querySelectorAll('section')?.[1];
+assert.equal(secondSection?.querySelector('h2')?.innerText, 'Payment Information');
+```
+
+Unapaswa kuwa na kipengele cha `form` ndani ya kipengele cha `section` cha pili.
+
+```js
+const secondSection = document.querySelectorAll('section')?.[1];
+assert.exists(secondSection?.querySelector('form'));
+```
+
+Unapaswa kuwa na kipengele cha `input` chenye `id` na `name` ya `card-name` ndani ya fomu yako.
+
+```js
+const secondSection = document.querySelectorAll('section')?.[1];
+assert.exists(secondSection?.querySelector('form input#card-name'));
+assert.exists(secondSection?.querySelector('form input[name="card-name"]'));
+```
+
+Ingizo lako la jina la kadi linapaswa kuwa na `type` ya `text`.
+
+```js
+const cardNameInput = document.getElementById('card-name');
+assert.exists(cardNameInput);
+assert.equal(cardNameInput.getAttribute('type'), 'text');
+```
+
+Unapaswa kuwa na kipengele cha `input` chenye `id` na `name` ya `card-number` ndani ya fomu yako.
+
+```js
+const secondSection = document.querySelectorAll('section')?.[1];
+assert.exists(secondSection?.querySelector('form input#card-number'));
+assert.exists(secondSection?.querySelector('form input[name="card-number"]'));
+```
+
+Ingizo lako la nambari ya kadi linapaswa kuwa na `type` ya `text`.
+
+```js
+const cardNumberInput = document.getElementById('card-number');
+assert.exists(cardNumberInput);
+assert.equal(cardNumberInput.getAttribute('type'), 'text');
+```
+
+Vipengele vyote vya `input` ambavyo si `type` ya `submit` vinapaswa kuwa na kipengele cha `label` kinachohusiana navyo.
+
+```js
+const inputs = document.querySelectorAll('input:not([type="submit"])');
+assert.isAtLeast(inputs.length, 1);
+inputs.forEach(input => {
+  const label = document.querySelector(`label[for="${input.id}"]`) || input.parentElement;
+  assert.exists(label);
+  assert.equal(label.tagName, "LABEL");
+});
+```
+
+Unapaswa kuwa na angalau vipengele viwili vya `input` vyenye sifa ya `required`.
+
+```js
+const inputs = document.querySelectorAll('input');
+const requiredInputs = Array.from(inputs).filter(input => input.required);
+assert.isAtLeast(requiredInputs?.length, 2)
+```
+
+Unapaswa kujumuisha kipengele cha `span` chenye maandishi ya `*` ndani ya kipengele cha `label` kwa kila ingizo linalohitajika.
+
+```js
+const requiredInputs = Array.from(document.querySelectorAll('input'))
+  .filter(input => input.required);
+
+assert.isNotEmpty(requiredInputs);
+
+requiredInputs.forEach(input => {
+  const label = document.querySelector(`label[for="${input.id}"]`) || input.parentElement;
+  assert.exists(label);
+  assert.equal(label.tagName, "LABEL");
+  const span = label?.querySelector('span');
+  assert.equal(span?.textContent.trim(), '*');
+});
+```
+
+Vipengele vyako vya `span` vinapaswa kuwa na `aria-hidden` iliyowekwa kuwa `true`.
+
+```js
+const requiredInputs = Array.from(document.querySelectorAll('input'))
+  .filter(input => input.required);
+
+assert.isNotEmpty(requiredInputs);
+
+requiredInputs.forEach(input => {
+  const label = document.querySelector(`label[for="${input.id}"]`) || input.parentElement;
+  assert.exists(label);
+  assert.equal(label.tagName, "LABEL");
+  const span = label?.querySelector('span');
+  assert.equal(span?.getAttribute('aria-hidden'), 'true');
+});
+```
+
+Unapaswa kuwa na kipengele cha `p` chenye `id` ya `card-number-help` mara moja baada ya ingizo la nambari ya kadi.
+
+```js
+const cardNumberInput = document.getElementById('card-number');
+const cardNumberHelp = document.getElementById('card-number-help');
+
+assert.exists(cardNumberHelp);
+const nextElement = cardNumberInput.parentElement?.tagName === 'LABEL'
+  ? cardNumberInput.parentElement.nextElementSibling
+  : cardNumberInput.nextElementSibling;
+assert.equal(nextElement, cardNumberHelp);
+```
+
+Maandishi yako ya msaada wa nambari ya kadi hayapaswi kuwa tupu.
+
+```js
+const cardNumberHelp = document.getElementById('card-number-help');
+assert.isString(cardNumberHelp?.textContent);
+assert.isAbove(cardNumberHelp?.textContent.trim().length, 0);
+```
+
+Ingizo lako la nambari ya kadi linapaswa kuwa na `aria-describedby` iliyowekwa kuwa `card-number-help`.
+
+```js
+const cardNumberInput = document.getElementById('card-number');
+assert.equal(cardNumberInput.getAttribute('aria-describedby'), 'card-number-help');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Checkout Page</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout</h1>
+
+        <section>
+            <h2>Your Cart</h2>
+            <img src="https://cdn.freecodecamp.org/curriculum/labs/spoon.jpg" alt="Left-handed spoon">
+            <p>Left-handed spoon</p>
+            <p>$29.99</p>
+        </section>
+
+        <section>
+            <h2>Payment Information</h2>
+            <form action="/submit-payment" method="POST">
+                <div>
+                    <label for="card-name">Cardholder Name <span aria-hidden="true">*</span></label>
+                    <input type="text" id="card-name" name="card-name" required>
+                </div>
+                <div>
+                    <label for="card-number">Card Number <span aria-hidden="true">*</span></label>
+                    <input type="text" id="card-number" name="card-number" aria-describedby="card-number-help" required>
+                    <p id="card-number-help">Please enter your 16-digit card number without spaces or dashes.</p>
+                </div>
+                <div>
+                    <label for="expiry-date">Expiry Date <span aria-hidden="true">*</span></label>
+                    <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+                </div>
+                <div>
+                    <label for="cvv">CVV <span aria-hidden="true">*</span></label>
+                    <input type="text" id="cvv" name="cvv" required aria-label="Card Verification Value">
+                </div>
+                <input type="submit" value="Place Order">
+            </form>
+        </section>
+    </div>
+</body>
+</html>
+```

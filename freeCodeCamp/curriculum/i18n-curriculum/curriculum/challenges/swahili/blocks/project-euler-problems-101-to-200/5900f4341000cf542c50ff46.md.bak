@@ -1,0 +1,75 @@
+---
+id: 5900f4341000cf542c50ff46
+title: "'Zoezi la 199: Kufunga mduara kwa mduara kwa mfululizo'"
+challengeType: 1
+forumTopicId: 301837
+dashedName: problem-199-iterative-circle-packing
+---
+
+# --description--
+
+Miduara mitatu yenye mduara sawa imewekwa ndani ya mduara mkubwa zaidi kwa njia kwamba kila jozi ya miduara hugusana na kila mmoja na miduara ya ndani haivukani. Kuna "mapengo" manne yasiyofunikwa ambayo yatatimizwa kwa mfululizo na miduara mingine inayogusana.
+
+<img alt="a diagram of non-overlapping circles" src="https://cdn-media-1.freecodecamp.org/project-euler/199-circles-in-circles.gif" style="background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;">
+
+Kila mzunguko, mduara mkubwa zaidi unaowezekana unawekwa katika kila pengo, ambao huunda mapengo zaidi kwa mzunguko unaofuata. Baada ya mizunguko 3 (kama ilivyo kwenye picha), kuna mapengo 108 na sehemu ya eneo ambalo halijafunikwa na miduara ni 0.06790342, iliyozungushwa hadi sehemu nane za desimali.
+
+Sehemu gani ya eneo haijafunikwa na miduara baada ya mizunguko `n`? Toa jibu lako ukiizungusha hadi sehemu nane za desimali kwa kutumia muundo x.xxxxxxxx .
+
+# --hints--
+
+`iterativeCirclePacking(10)` inapaswa kurudisha nambari.
+
+```js
+assert.isNumber(iterativeCirclePacking(10));
+```
+
+`iterativeCirclePacking(10)` inapaswa kurudisha `0.00396087`.
+
+```js
+assert.strictEqual(iterativeCirclePacking(10), 0.00396087);
+```
+
+`iterativeCirclePacking(3)` inapaswa kurudisha `0.06790342`.
+
+```js
+assert.strictEqual(iterativeCirclePacking(3), 0.06790342);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function iterativeCirclePacking(n) {
+
+  return true;
+}
+
+iterativeCirclePacking(10);
+```
+
+# --solutions--
+
+```js
+function iterativeCirclePacking(n) {
+  let k1 = 1;
+  let k0 = k1 * (3 - 2 * Math.sqrt(3));
+  let a0 = 1 / (k0 * k0);
+  let a1 = 3 / (k1 * k1);
+  a1 += 3 * getArea(k0, k1, k1, n);
+  a1 += getArea(k1, k1, k1, n);
+  let final = ((a0 - a1) / a0).toFixed(8);
+
+  return parseFloat(final);
+  function getArea(k1, k2, k3, depth) {
+      if (depth == 0) return 0.0;
+      let k4 = k1 + k2 + k3 + 2 * Math.sqrt(k1 * k2 + k2 * k3 + k3 * k1);
+      let a = 1 / (k4 * k4);
+      a += getArea(k1, k2, k4, depth - 1);
+      a += getArea(k2, k3, k4, depth - 1);
+      a += getArea(k3, k1, k4, depth - 1);
+      return a;
+  }
+}
+```

@@ -1,0 +1,142 @@
+---
+id: 5a24c314108439a4d4036178
+title: Unda sehemu ya ingizo inayodhibitiwa
+challengeType: 6
+forumTopicId: 301385
+dashedName: create-a-controlled-input
+---
+
+# --description--
+
+Programu yako inaweza kuwa na mwingiliano tata zaidi kati ya `state` na UI inayoonyeshwa. Kwa mfano, sehemu za udhibiti wa fomu kwa ajili ya ingizo la maandishi, kama `input` na `textarea`, zinahifadhi hali zao binafsi katika DOM wakati mtumizi anapochapa. Kwa React, unaweza kuhamisha hali hii inayobadilika ndani ya `state` ya sehemu ya React. Ingizo la mtumizi linakuwa sehemu ya `state` ya programu, hivyo React inadhibiti thamani ya sehemu hiyo ya ingizo. Kawaida, ikiwa una sehemu za React zenye sehemu za ingizo ambazo mtumizi anaweza kuandika ndani yake, itakuwa fomu ya ingizo inayodhibitiwa.
+
+# --instructions--
+
+Mhariri wa msimbo una muundo wa sehemu inayoitwa `ControlledInput` kuunda sehemu ya ingizo inayodhibitiwa `input`. `state` ya sehemu tayari imeanzishwa na sifa ya `input` inayoshikilia mfuatano wa herufi tupu. Thamani hii inawakilisha maandishi mtumizi anayoandika katika sehemu ya ingizo ya `input`.
+
+Kwanza, unda njia inayoitwa `handleChange()` ambayo ina kigezo kinachoitwa `event`. Wakati njia inaitwa, hupokea kitu cha `event` chenye mfuatano wa herufi kutoka sehemu ya `input`. Unaweza kupata mfuatano huu wa herufi kwa kutumia `event.target.value` ndani ya njia hiyo. Sasisha sifa ya `input` ya `state` ya sehemu na mfuatano huu mpya.
+
+Katika njia ya `render`, unda sehemu ya `input` juu ya lebo ya `h4`. Ongeza sifa ya `value` ambayo ni sawa na sifa ya `input` ya `state` ya sehemu. Kisha ongeza sifa ya `onChange` iliyowekwa kwa mshughulikiaji wa tukio wa njia ya `handleChange()`.
+
+Unapochapa kwenye kisanduku cha ingizo, maandishi hayo yanashughulikiwa na njia ya `handleChange()`, yanapewa kama sifa ya `input` katika `state` ya ndani, na yanaonyeshwa kama thamani katika kisanduku cha `input` kwenye ukurasa. `state` ya sehemu ni chanzo kimoja cha ukweli kuhusu data ya ingizo.
+
+Mwisho lakini sio wa mwisho, usisahau kuongeza vifungo vinavyohitajika katika kijenzi.
+
+# --hints--
+
+`ControlledInput` inapaswa kurudisha sehemu ya `div` ambayo ina `input` na lebo ya `p`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(ControlledInput))
+    .find('div')
+    .children()
+    .find('input').length === 1 &&
+    Enzyme.mount(React.createElement(ControlledInput))
+      .find('div')
+      .children()
+      .find('p').length === 1
+);
+```
+
+Hali ya `ControlledInput` inapaswa kuanzishwa na sifa ya `input` iliyowekwa kuwa mfuatano wa herufi tupu.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(ControlledInput)).state('input'),
+  ''
+);
+```
+
+Kuandika katika sehemu ya ingizo kunapaswa kusasisha hali na thamani ya ingizo, na sehemu ya `p` inapaswa kuonyesha hali hii unapoandika.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(ControlledInput));
+  const _1 = () => {
+    mockedComponent.setState({ input: '' });
+    return waitForIt(() => mockedComponent.state('input'));
+  };
+  const _2 = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: 'TestInput' } });
+    return waitForIt(() => ({
+      state: mockedComponent.state('input'),
+      text: mockedComponent.find('p').text(),
+      inputVal: mockedComponent.find('input').props().value
+    }));
+  };
+  const before = await _1();
+  const after = await _2();
+  assert(
+    before === '' &&
+      after.state === 'TestInput' &&
+      after.text === 'TestInput' &&
+      after.inputVal === 'TestInput'
+  );
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class ControlledInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ''
+    };
+    // Change code below this line
+
+    // Change code above this line
+  }
+  // Change code below this line
+
+  // Change code above this line
+  render() {
+    return (
+      <div>
+        { /* Change code below this line */}
+
+        { /* Change code above this line */}
+        <h4>Controlled Input:</h4>
+        <p>{this.state.input}</p>
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class ControlledInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  render() {
+    return (
+      <div>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange} />
+        <h4>Controlled Input:</h4>
+
+        <p>{this.state.input}</p>
+      </div>
+    );
+  }
+};
+```

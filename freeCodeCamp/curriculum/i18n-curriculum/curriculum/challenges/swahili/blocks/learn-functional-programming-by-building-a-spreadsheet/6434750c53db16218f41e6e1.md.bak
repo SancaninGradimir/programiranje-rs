@@ -1,0 +1,107 @@
+---
+id: 6434750c53db16218f41e6e1
+title: Hatua 15
+challengeType: 0
+dashedName: step-15
+---
+
+# --description--
+
+Kumbuka kuwa `range()` hurejesha safu ya data, kwa hivyo unaweza kuunganisha njia za safu ya data moja kwa moja kwenye wito wa kitendakazi.
+
+Fanya wito wa `range()` ukiwa na `1` na `99` kama hoja, na uunganishe njia ya `.forEach()`. Pitia njia ya `.forEach()` kitendakazi cha mwitiko tupu kinachopokea `number` kama kigezo.
+
+# --hints--
+
+Unapaswa kuita kitendakazi chako cha `range()`.
+
+```js
+assert.lengthOf(code.match(/range\(/g), 2);
+```
+
+Unapaswa kupitisha `1` kama hoja ya kwanza kwenye wito wako wa `range()`.
+
+```js
+assert.match(code, /range\(\s*1/);
+```
+
+Unapaswa kupitisha `99` kama hoja ya pili kwenye wito wako wa `range()`.
+
+```js
+assert.match(code, /range\(\s*1\s*,\s*99\s*\)/);
+```
+
+Unapaswa kuunganisha njia ya `.forEach()` kwenye wito wako wa `range()`.
+
+```js
+assert.match(code, /range\(\s*1\s*,\s*99\s*\)\.forEach\(/);
+```
+
+Unapaswa kupitisha kitendakazi cha mwitiko kwa `.forEach()` ukitumia sintaksia ya mshale.
+
+```js
+assert.match(code, /range\(\s*1\s*,\s*99\s*\)\.forEach\(\s*(\([^)]*\)|[^\s()]+)\s*=>/);
+```
+
+Kitendakazi chako cha mwitiko kinapaswa kuwa na `number` kama kigezo pekee.
+
+```js
+assert.match(code, /range\(\s*1\s*,\s*99\s*\)\.forEach\(\s*(\(\s*number\s*\)|number)\s*=>/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Functional Programming Spreadsheet</title>
+  </head>
+  <body>
+    <div id="container">
+      <div></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+#container {
+  display: grid;
+  grid-template-columns: 50px repeat(10, 200px);
+  grid-template-rows: repeat(11, 30px);
+}
+
+.label {
+  background-color: lightgray;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+```
+
+```js
+const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);
+const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));
+
+window.onload = () => {
+  const container = document.getElementById("container");
+  const createLabel = (name) => {
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = name;
+    container.appendChild(label);
+  }
+  const letters = charRange("A", "J");
+  letters.forEach(createLabel);
+--fcc-editable-region--
+
+--fcc-editable-region--
+}
+```

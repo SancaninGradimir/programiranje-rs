@@ -1,0 +1,71 @@
+---
+id: 6610c6541c82551f95e765ab
+title: Hatua 58
+challengeType: 1
+dashedName: step-58
+---
+
+# --description--
+
+Mabadiliko ya thamani yanaweza pia kutangazwa ndani ya kitendakazi. Mabadiliko haya huchukuliwa kuwa katika <dfn>wigo wa ndani</dfn>, au <dfn>wigo wa block</dfn>. Kigezo kilichotangazwa ndani ya kitendakazi kinaweza kutumika tu ndani ya kitendakazi hicho. Ukijaribu kupata upatikanaji wake nje ya kitendakazi, utapata kosa la rejea.
+
+Ili kuona hili likifanyika, tumia `const` kutangaza kigezo cha `test` katika kitendakazi chako cha `padRow`. Kianzishe kwa thamani `"Testing"`.
+
+Kisha, chini ya kitendakazi chako, jaribu kuandika `test` kwenye konsoli. Utaona kosa kwa sababu hakijatangazwa nje ya wigo wa ndani wa kitendakazi. Ondoa `console.log` hiyo ili kupitisha majaribio na kuendelea.
+
+# --hints--
+
+Kitendakazi chako kinapaswa kutangaza kigezo cha `test`.
+
+```js
+assert.match(padRow.toString(), /var\s+test/);
+```
+
+Unapaswa kuanzisha `test` kwa thamani `"Testing"`. Usisahau alama ya nukta.
+
+```js
+assert.match(padRow.toString(), /var\s+test\s*=\s*('|")Testing\1;/)
+```
+
+Kigezo chako cha `test` kinapaswa kuja kabla ya neno kuu la `return`.
+
+```js
+const str = padRow.toString();
+const testIndex = str.indexOf("test");
+const returnLocation = str.indexOf("return");
+const testLocation = testIndex !== -1 ? testIndex : returnLocation
+assert.isBelow(testLocation, returnLocation);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+--fcc-editable-region--
+function padRow(name) {
+
+  return character + name;
+}
+
+--fcc-editable-region--
+const call = padRow("CamperChan");
+console.log(call);
+
+
+for (let i = 0; i < count; i = i + 1) {
+  rows.push(character.repeat(i + 1))
+}
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

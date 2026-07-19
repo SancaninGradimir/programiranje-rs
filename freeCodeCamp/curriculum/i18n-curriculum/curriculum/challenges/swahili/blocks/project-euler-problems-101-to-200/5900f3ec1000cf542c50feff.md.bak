@@ -1,0 +1,117 @@
+---
+id: 5900f3ec1000cf542c50feff
+title: "'Zoezi la 128: Tofauti za vigae vya hexagonal'"
+challengeType: 1
+forumTopicId: 301755
+dashedName: problem-128-hexagonal-tile-differences
+---
+
+# --description--
+
+Kigae cha hexagonal chenye nambari 1 kimezungukwa na pete ya vigae sita vya hexagonal, kuanzia saa "12" na kuhesabu vigae kutoka 2 hadi 7 kwa mwelekeo wa kuzunguka kinyume cha saa.
+
+Pete mpya zinaongezwa kwa njia ile ile, na pete zinazofuata kuhesabiwa kutoka 8 hadi 19, 20 hadi 37, 38 hadi 61, na kadhalika. Mchoro hapa chini unaonyesha pete tatu za kwanza.
+
+<img alt="three first rings of arranged hexagonal tiles with numbers 1 to 37, and with highlighted tiles 8 and 17" src="https://cdn.freecodecamp.org/curriculum/project-euler/hexagonal-tile-differences.png" style="background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;">
+
+Kwa kupata tofauti kati ya kigae $n$ na kila jirani zake sita, tutaeleza $PD(n)$ kuwa idadi ya tofauti hizo ambazo ni namba msingi.
+
+Kwa mfano, tukifanya kazi kwa mwelekeo wa saa kuzunguka kigae 8, tofauti ni 12, 29, 11, 6, 1, na 13. Hivyo $PD(8) = 3$.
+
+Kwa njia ile ile, tofauti zinazozunguka kigae 17 ni 1, 17, 16, 1, 11, na 10, kwa hiyo $PD(17) = 2$.
+
+Inaweza kuonyeshwa kuwa thamani kubwa zaidi ya $PD(n)$ ni $3$.
+
+Ikiwa vigae vyote ambavyo $PD(n) = 3$ vitaorodheshwa kwa mpangilio wa kuongezeka kuunda mfululizo, kigae cha 10 kitakuwa 271.
+
+Tafuta kigae cha 2000 katika mfululizo huu.
+
+# --hints--
+
+`hexagonalTile(10)` inapaswa kurudisha `271`.
+
+```js
+assert.strictEqual(hexagonalTile(10), 271);
+```
+
+`hexagonalTile(2000)` inapaswa kurudisha `14516824220`.
+
+```js
+assert.strictEqual(hexagonalTile(2000), 14516824220);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function hexagonalTile(tileIndex) {
+
+  return true;
+}
+
+hexagonalTile(10);
+```
+
+# --solutions--
+
+```js
+class PrimeSeive {
+  constructor(num) {
+    const seive = Array(Math.floor((num - 1) / 2)).fill(true);
+    const upper = Math.floor((num - 1) / 2);
+    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);
+
+    for (let i = 0; i <= sqrtUpper; i++) {
+      if (seive[i]) {
+        // Mark value in seive array
+        const prime = 2 * i + 3;
+        // Mark all multiples of this number as false (not prime)
+        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;
+        for (let j = primeSquaredIndex; j < upper; j += prime) {
+          seive[j] = false;
+        }
+      }
+    }
+
+    this._seive = seive;
+  }
+
+  isPrime(num) {
+    return num === 2
+      ? true
+      : num % 2 === 0
+        ? false
+        : this.isOddPrime(num);
+  }
+
+  isOddPrime(num) {
+    return this._seive[(num - 3) / 2];
+  }
+};
+
+function hexagonalTile(tileIndex) {
+  const primeSeive = new PrimeSeive(tileIndex * 420);
+  let count = 1;
+  let n = 1;
+  let number = 0;
+
+  while (count < tileIndex) {
+    if (primeSeive.isPrime(6*n - 1) &&
+        primeSeive.isPrime(6*n + 1) &&
+        primeSeive.isPrime(12*n + 5)) {
+      number = 3*n*n - 3*n + 2;
+      count++;
+      if (count >= tileIndex) break;
+    }
+    if (primeSeive.isPrime(6*n + 5) &&
+        primeSeive.isPrime(6*n - 1) &&
+        primeSeive.isPrime(12*n - 7) && n != 1) {
+      number = 3*n*n + 3*n + 1;
+      count++;
+    }
+    n++;
+  }
+  return number;
+}
+```

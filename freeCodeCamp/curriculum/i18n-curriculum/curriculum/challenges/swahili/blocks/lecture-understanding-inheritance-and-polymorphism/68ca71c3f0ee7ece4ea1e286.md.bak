@@ -1,0 +1,224 @@
+---
+id: 68ca71c3f0ee7ece4ea1e286
+title: "Je, ni nini Name Mangling na Inafanya Kazi Vipi?"
+challengeType: 19
+dashedName: what-is-name-mangling-and-how-does-it-work
+---
+
+# --description--
+
+Katika funzo la awali, ulijifunza kuhusu kuweka kiambishi awali cha underscore moja na underscore mbili kwenye sifa za kipengele.
+
+Ili kukukumbusha tofauti kati yao, underscore moja ni mkataba unaomaanisha sifa ya kipengele ni kwa matumizi ya ndani ndani ya darasa la vitu na haipaswi kufikiliwa moja kwa moja kutoka nje ya darasa hilo. Underscore mbili, kwa upande mwingine, huzuia sifa hiyo kufikiliwa moja kwa moja kutoka nje ya darasa.
+
+Hapa kuna mfano unaoonyesha jinsi hizi mbili zinavyofanya kazi:
+
+```py
+class Example:
+    def __init__(self):
+        self._internal = 'I can be accessed from outside the class, but should not'
+        self.__private = 'You cannot access me directly from outside the class'
+
+obj = Example()
+
+print(obj._internal) # I can be accessed from outside the class, but should not
+print(obj.__private)  # AttributeError: 'Example' object has no attribute '__private'
+```
+
+Kuweka kiambishi awali cha underscore mbili kwenye sifa ya kipengele husababisha mchakato wa name mangling wa Python, ambapo Python kwa siri hubadilisha jina la sifa hiyo kwa kuongeza underscore na jina la darasa la vitu kama kiambishi awali, ikibadilisha `__attribute` kuwa `_ClassName__attribute`.
+
+Ili kuona hili likifanyika, unaunda mfano wa darasa la vitu na kutumia sifa maalum ya `__dict__` ya mfano huo, ambayo ni kamusi yenye sifa za kipengele za kitu hicho:
+
+```py
+class Example:
+    def __init__(self, internal, private):
+        self._internal = internal
+        self.__private = private
+
+example1 = Example(
+    'I can be accessed from outside the class, but should not',
+    'I cannot be accessed directly from outside the class'
+)
+
+print(example1.__dict__)
+```
+
+Matokeo yatakuwa:
+
+```py
+{
+  '_internal': 'I can be accessed from outside the class, but should not',
+  '_Example__private': 'I cannot be accessed directly from outside the class'
+}
+```
+
+Kama unavyoona, sifa ya `__private` imehifadhiwa kama `_Example__private`. Hii ina maana bado unaweza kufikilia sifa hiyo kutoka nje ya darasa kwa njia hii:
+
+```py
+class Example:
+    def __init__(self, internal, private):
+        self._internal = internal
+        self.__private = private
+
+example1 = Example(
+    'I can be accessed from outside the class, but should not',
+    'I cannot be accessed directly from outside the class'
+)
+example2 = Example(
+    'I should not be accessed from outside the class',
+    'But I can be accessed from outside the class with name mangling'
+)
+
+print(example1._Example__private) # I cannot be accessed directly from outside the class
+print(example2._Example__private) # But I can be accessed from outside the class with name mangling
+```
+
+Kwa nini basi Python hufanya name mangling?
+
+Madhumuni kuu ya name mangling ni kuzuia kuingiliwa kwa bahati mbaya kwa sifa za kipengele na njia wakati unapotumia urithi. Hapa kuna mfano unaoeleweka wazi:
+
+```py
+class Parent:
+    def __init__(self):
+        self.__data = 'Parent data'
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        self.__data = 'Child data'
+
+c = Child()
+print(c.__dict__) # {'_Parent__data': 'Parent data', '_Child__data': 'Child data'}
+```
+
+Unaweza kuona kuwa darasa la `Parent` na `Child` linalorithi kutoka kwake kila moja lina sifa zake za `_class__data` tofauti. Hii inawezekana kwa name mangling. Vinginevyo, `Child` ingekuwa imetandika data ya Parent kwa bahati mbaya.
+
+Hii ndicho kingetokea kama Python isingeruhusu name mangling, yaani kama hutumii kiambishi awali cha underscore mbili kwenye sifa zote za madarasa yote mawili:
+
+```py
+class Parent:
+   def __init__(self):
+       self.data = 'Parent data'
+
+class Child(Parent):
+   def __init__(self):
+       super().__init__()
+       self.data = 'Child data'
+
+c = Child()
+print(c.__dict__)  # {'data': 'Child data'}
+```
+
+Basi, ni ipi unapaswa kutumia kuweka kiambishi awali cha sifa kati ya underscore moja (`_`) na underscore mbili (`__`)? Inategemea. Ikiwa sifa ni kwa matumizi ya ndani tu ndani ya darasa, tumia underscore moja.
+
+Lakini ikiwa unafanya kazi na darasa litakalorithiwa, unapaswa kutumia underscore mbili ili sifa kutoka kwa mzazi isibadilishwe kwa bahati mbaya.
+
+# --questions--
+
+## --text--
+
+Tofautisha kati ya underscore moja na underscore mbili ni ipi?
+
+## --answers--
+
+Underscore moja na underscore mbili hutendewa sawa na Python.
+
+### --feedback--
+
+Makini jinsi Python inavyoshughulikia sifa za kipengele zinazotangulia na `_` dhidi ya `__`.
+
+---
+
+Underscore moja hufanya sifa za kipengele kuwa za faragha kabisa, wakati underscore mbili hufanya zilinganishwe.
+
+### --feedback--
+
+Makini jinsi Python inavyoshughulikia sifa za kipengele zinazotangulia na `_` dhidi ya `__`.
+
+---
+
+Underscore moja huzuia upatikanaji wa moja kwa moja, wakati underscore mbili huruhusu upatikanaji wa moja kwa moja.
+
+### --feedback--
+
+Makini jinsi Python inavyoshughulikia sifa za kipengele zinazotangulia na `_` dhidi ya `__`.
+
+---
+
+Underscore moja ni mkataba tu, wakati underscore mbili husababisha name mangling.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Je, name mangling ni nini?
+
+## --answers--
+
+Mchakato ambapo Python hubadilisha sifa zote kuwa njia kwa upatikanaji rahisi.
+
+### --feedback--
+
+Fikiria jinsi Python inavyobadilisha majina ya sifa za underscore mbili kwa siri.
+
+---
+
+Mchakato ambapo Python hufuta sifa zilizo na underscore moja ili kuzificha.
+
+### --feedback--
+
+Fikiria jinsi Python inavyobadilisha majina ya sifa za underscore mbili kwa siri.
+
+---
+
+Mchakato ambapo Python hubadilisha `__attribute` kuwa `_ClassName__attribute` ili kuzuia kuingiliwa kwa bahati mbaya katika madarasa yanayorithi.
+
+---
+
+Mchakato ambapo Python huhifadhi data za faragha kwa usimbaji ili zisipatikane kutoka nje ya darasa.
+
+### --feedback--
+
+Fikiria jinsi Python inavyobadilisha majina ya sifa za underscore mbili kwa siri.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini hutokea wakati hutoi kiambishi awali cha underscore mbili kwenye sifa za madarasa mzazi na mtoto?
+
+## --answers--
+
+Madarasa yote mawili huendelea kuwa na nakala zao tofauti za sifa bila kuingiliana.
+
+### --feedback--
+
+Fikiria kile `print(c.__dict__)` kinaonyesha wakati madarasa yote mawili yanatumia jina moja la sifa bila `__`.
+
+---
+
+Darasa la mtoto linabainisha sifa ya darasa la mzazi kabisa, na data za mzazi hupotea.
+
+---
+
+Sifa za darasa la mzazi zinakuwa za kusoma tu na hazinaweza kubadilishwa na darasa la mtoto.
+
+### --feedback--
+
+Fikiria kile `print(c.__dict__)` kinaonyesha wakati madarasa yote mawili yanatumia jina moja la sifa bila `__`.
+
+---
+
+Python hutoa kosa kwa sababu sifa lazima ziwe na kiambishi awali cha underscore mbili kila wakati.
+
+### --feedback--
+
+Fikiria kile `print(c.__dict__)` kinaonyesha wakati madarasa yote mawili yanatumia jina moja la sifa bila `__`.
+
+## --video-solution--
+
+2

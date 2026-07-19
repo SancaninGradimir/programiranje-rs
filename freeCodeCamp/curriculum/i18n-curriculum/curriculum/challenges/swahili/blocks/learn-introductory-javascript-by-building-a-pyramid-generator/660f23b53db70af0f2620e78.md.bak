@@ -1,0 +1,68 @@
+---
+id: 660f23b53db70af0f2620e78
+title: Hatua 43
+challengeType: 1
+dashedName: step-43
+---
+
+# --description--
+
+Sasa nambari zako zote zinaonekana kwenye mstari mmoja. Hii haitafanya kazi kwa ajili ya kuunda piramidi.
+
+Utahitaji kuongeza mstari mpya kwa kila safu. Hata hivyo, kubonyeza kitufe cha return kuingiza mapumziko ya mstari kati ya nukuu katika JavaScript kutaelekea kuwa kosa la uchambuzi. Badala yake, unahitaji kutumia mfuatano maalum wa <dfn>mfuatano wa kutoroka</dfn> `\n`, ambao huchukuliwa kama mstari mpya wakati mfuatano wa herufi unapoandikwa. Kwa mfano:
+
+```js
+lineOne = lineOne + "\n" + lineTwo;
+```
+
+Tumia operator ya kuongeza mara ya pili kuongeza mstari mpya baada ya thamani za `result` na `row`.
+
+# --hints--
+
+Unapaswa kutumia mfuatano wa kutoroka `\n`. Kumbuka kwamba inapaswa kuwa mfuatano wa herufi, kwa hivyo imefungwa kwa nukuu.
+
+```js
+assert.match(__helpers.removeJSComments(code), /('|")\\n\1/);
+```
+
+Unapaswa kuunganisha mabadiliko yako ya `row` na `result`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /result\s*\+\s*row\s*\+\s*('|")\\n\1/);
+```
+
+Unapaswa kuunganisha mfuatano wa kutoroka `\n` na mabadiliko yako ya `row`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /row\s*\+\s*('|")\\n\1/);
+```
+
+Unapaswa kuweka mchanganyiko mzima tena kwenye mabadiliko yako ya `result`.
+
+```js
+assert.strictEqual(result, "0\n1\n2\n3\n4\n5\n6\n7\n");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+for (let i = 0; i < count; i = i + 1) {
+  rows.push(i);
+}
+
+let result = ""
+
+--fcc-editable-region--
+for (const row of rows) {
+  result = result + row;
+}
+--fcc-editable-region--
+
+console.log(result);
+```

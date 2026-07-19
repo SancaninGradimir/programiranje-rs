@@ -1,0 +1,175 @@
+---
+id: 66fe4f33a2cc9b33f4d5cd9b
+title: Jenga kizalishaji cha permutation
+challengeType: 26
+dashedName: build-a-permutation-generator
+---
+
+# --description--
+
+Katika maabara hii, utajenga kizalishaji cha permutation ambacho kitachukua mfuatano wa herufi na kurudisha permutations zote zinazowezekana za herufi katika mfuatano huo. Kwa mfano, permutations zinazowezekana za mfuatano wa herufi `cat` ni `cat`, `cta`, `act`, `atc`, `tac`, na `tca`.
+
+Njia ya kurudia (recursive) ya kuunda permutations za mfuatano wa herufi hufanya kazi kwa kuhifadhi sehemu ya mwanzo ya mfuatano (kiambishi awali), na kuunda permutations za sehemu iliyobaki.
+
+Kwa mfano, tuchukulie neno `machine`. Mzunguko wa kwanza wa kuunda permutations utakuwa kwa kuweka `m` kama kiambishi awali cha mfuatano, kisha kuunda permutations za sehemu iliyobaki ya mfuatano, `achine`.
+
+Kwa sehemu iliyobaki ya mfuatano, permutations zinaendelea kwa njia ile ile. Herufi moja inaongezwa kwenye kiambishi awali, labda `c`, hivyo kiambishi awali kinakuwa `mc`. Kisha, kila permutation ya `ahine` inaunganishwa na kiambishi awali.
+
+Hii inaendelea hadi kiambishi awali kiwe na herufi zote, na sehemu iliyobaki ya mfuatano iwe tupu, ambayo ina maana permutation moja imetengenezwa.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi kinachoitwa `permuteString`.
+2. Kitendakazi `permuteString` kinapaswa kuchukua kigezo kimoja, mfuatano wa herufi, na kisha vigezo viwili vyenye thamani za msingi: thamani ya kiambishi awali na safu ya data tupu kwa kuhifadhi na kurudisha matokeo. Thamani ya kiambishi awali inapaswa kuwa mfuatano wa herufi unaotumika kukusanya herufi kuunda permutation. Kitendakazi kitatumiwa na hoja moja tu, kama `permuteString("cat")`.
+3. Ndani ya kitendakazi, unapaswa kukagua kama urefu wa mfuatano uliotumwa ni `0`. Ikiwa ni hivyo, ongeza kiambishi awali cha sasa kwenye matokeo na urudishe matokeo.
+4. Rudia juu ya kila herufi katika mfuatano wa ingizo na kwa kila kurudia, toa herufi ya sasa kutoka kwenye mfuatano na fanya wito wa kitendakazi `permuteString` kwa njia ya kurudia (recursive) ukiwa na hoja zilizosasishwa ili kujenga permutations zilizobaki.
+5. Unapaswa kurudisha safu ya data ya matokeo ya mwisho.
+6. Unapaswa kuhakikisha kuwa permutations ni za kipekee kwa kuondoa rudufu.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi `permuteString`.
+
+```js
+assert.isFunction(permuteString);
+```
+
+Unapaswa kutumia kurudia (recursion) katika kitendakazi chako cha `permuteString`.
+
+```js
+assert.match(permuteString.toString(), /permuteString\s*\(/);
+```
+
+`permuteString("far")` inapaswa kurudisha `[ "far", "fra", "afr", "arf", "rfa", "raf" ]`.
+
+```js
+assert.sameMembers(permuteString("far"), [ "far", "fra", "afr", "arf", "rfa", "raf" ]);
+```
+
+`permuteString("fcc")` inapaswa kurudisha `[ "fcc", "cfc", "ccf" ]`.
+
+```js
+assert.sameMembers(permuteString("fcc"), [ "fcc", "cfc", "ccf" ]);
+```
+
+`permuteString("p")` inapaswa kurudisha `[ "p" ]`.
+
+```js
+assert.deepStrictEqual(permuteString("p"), ["p"]);
+```
+
+`permuteString("")` inapaswa kurudisha `[""]`.
+
+```js
+let emptyArr= permuteString("");
+
+// 1 because the empty string is being pushed and is a permutation of itself
+assert.lengthOf(emptyArr, 1);
+
+```
+
+`permuteString("walk")` inapaswa kurudisha `["walk", "wakl", "wlak", "wlka", "wkla", "wkal", "awlk", "awkl", "alwk", "alkw", "aklw", "akwl", "lawk", "lakw", "lwak", "lwka", "lkaw", "lkwa", "kawl", "kalw", "kwal", "kwla", "klaw", "klwa"]`.
+`.
+
+```js
+assert.sameMembers(permuteString("walk"), ["walk", "wakl", "wlak", "wlka", "wkla", "wkal", "awlk", "awkl", "alwk", "alkw", "aklw", "akwl", "lawk", "lakw", "lwak", "lwka", "lkaw", "lkwa", "kawl", "kalw", "kwal", "kwla", "klaw", "klwa"]);
+```
+
+`permuteString` inapaswa kurudisha matokeo sahihi.
+
+```js
+// tests to prevent hard coding
+assert.sameMembers(permuteString("road"), [ "road",
+  "roda",
+  "raod",
+  "rado",
+  "rdoa",
+  "rdao",
+  "orad",
+  "orda",
+  "oard",
+  "oadr",
+  "odra",
+  "odar",
+  "arod",
+  "ardo",
+  "aord",
+  "aodr",
+  "adro",
+  "ador",
+  "droa",
+  "drao",
+  "dora",
+  "doar",
+  "daro",
+  "daor" ]);
+
+assert.sameMembers(permuteString("fog"), [ "fog",
+  "fgo",
+  "ofg",
+  "ogf",
+  "gfo",
+  "gof" ]);
+
+assert.sameMembers(permuteString("bird"), [ "bird",
+  "bidr",
+  "brid",
+  "brdi",
+  "bdir",
+  "bdri",
+  "ibrd",
+  "ibdr",
+  "irbd",
+  "irdb",
+  "idbr",
+  "idrb",
+  "rbid",
+  "rbdi",
+  "ribd",
+  "ridb",
+  "rdbi",
+  "rdib",
+  "dbir",
+  "dbri",
+  "dibr",
+  "dirb",
+  "drbi",
+  "drib" ]);
+
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const permuteString = (str, prefix = "", result = []) => {
+  if (str.length === 0) {
+    result.push(prefix);
+    return result;
+  }
+
+  // Sort the string initially to group duplicates
+  const sortedStr = str.split("").sort().join("");
+
+  for (let i = 0; i < sortedStr.length; i++) {
+    if (i > 0 && sortedStr[i] === sortedStr[i - 1]) {
+      // Skip duplicate characters
+      continue;
+    }
+
+    const rem = sortedStr.slice(0, i) + sortedStr.slice(i + 1);
+    permuteString(rem, prefix + sortedStr[i], result);
+  }
+
+  return result;
+};
+```

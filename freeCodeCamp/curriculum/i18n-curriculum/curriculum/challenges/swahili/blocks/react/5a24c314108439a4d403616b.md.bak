@@ -1,0 +1,72 @@
+---
+id: 5a24c314108439a4d403616b
+title: Tumia vigezo vinavyopitishwa vya chaguo-msingi
+challengeType: 6
+forumTopicId: 301418
+dashedName: use-default-props
+---
+
+# --description--
+
+React pia ina chaguo la kuweka vigezo vinavyopitishwa vya chaguo-msingi. Unaweza kuweka vigezo vinavyopitishwa vya chaguo-msingi kwa sehemu kama sifa kwenye sehemu yenyewe na React huweka sifa ya chaguo-msingi ikiwa ni lazima. Hii inakuwezesha kubainisha ni thamani gani ya sifa itakuwa ikiwa thamani haijatolewa waziwazi. Kwa mfano, ikiwa unatangaza `MyComponent.defaultProps = { location: 'San Francisco' }`, umebainisha sifa ya eneo inayowekwa kuwa mfuatano wa herufi `San Francisco`, isipokuwa ukibainisha vinginevyo. React huweka vigezo vinavyopitishwa vya chaguo-msingi ikiwa vigezo havijatangazwa, lakini ikiwa utapita `null` kama thamani ya sifa, itabaki kuwa `null`.
+
+# --instructions--
+
+Mhariri wa msimbo unaonyesha sehemu ya `ShoppingCart`. Tangaza vigezo vinavyopitishwa vya chaguo-msingi kwenye sehemu hii vinavyoeleza sifa `items` yenye thamani ya `0`.
+
+# --hints--
+
+Sehemu ya `ShoppingCart` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    return mockedComponent.find('ShoppingCart').length === 1;
+  })()
+);
+```
+
+Sehemu ya `ShoppingCart` inapaswa kuwa na sifa ya chaguo-msingi ya `{ items: 0 }`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    mockedComponent.setProps({ items: undefined });
+    return mockedComponent.find('ShoppingCart').props().items === 0;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const ShoppingCart = (props) => {
+  return (
+    <div>
+      <h1>Shopping Cart Component</h1>
+    </div>
+  )
+};
+// Change code below this line
+```
+
+# --solutions--
+
+```jsx
+const ShoppingCart = (props) => {
+  return (
+    <div>
+      <h1>Shopping Cart Component</h1>
+    </div>
+  )
+};
+
+// Change code below this line
+ShoppingCart.defaultProps = {
+  items: 0
+}
+```

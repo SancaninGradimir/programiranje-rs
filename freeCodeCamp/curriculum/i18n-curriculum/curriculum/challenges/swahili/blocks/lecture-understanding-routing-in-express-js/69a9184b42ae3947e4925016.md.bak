@@ -1,0 +1,208 @@
+---
+id: 69a9184b42ae3947e4925016
+title: Jinsi gani express.Router inavyofanya kazi?
+challengeType: 19
+dashedName: how-does-expressrouter-work
+---
+
+# --description--
+
+Katika Express, `express.Router()` ni kipengele chenye nguvu kinachokusaidia kupanga njia zako za data katika sehemu ndogo, za moduli. Hii ni muhimu hasa programu yako inapokua.
+
+Badala ya kufafanua njia zako zote za data katika faili moja kubwa, unaweza kuzigawanya katika mafaili tofauti kwa kutumia kipanga-njia. Hii hufanya msimbo wako uwe rahisi kusoma, kudumisha, na kupanua.
+
+Njia ya `express.Router()` huunda kipanga-njia kipya.
+
+Kipanga-njia hufanya kazi kama programu ndogo ya Express. Kinaweza kushughulikia njia zake za data na programu za kati, lakini si programu kamili ya Express. Mara unapofafanua njia za data kwenye kipanga-njia, unaweza kuviunganisha katika programu yako kuu kwa kutumia `app.use()`.
+
+Kwa maneno mengine, kipanga-njia hukuruhusu kuunganisha pamoja njia za data zinazohusiana kisha baadaye kuziongeza katika programu yako kuu.
+
+Kutumia vipanga-njia kuna faida kadhaa:
+
+**Kutenganisha masuala**
+
+Unaweza kufafanua njia za data katika mafaili tofauti, ambayo huongeza mpangilio na urahisi wa kusoma programu yako.
+
+**Matumizi tena ya msimbo**  
+Vipanga-njia vinaweza kutumika tena katika sehemu tofauti za programu au hata katika miradi mingine.
+
+**Faili kuu safi zaidi**  
+Badala ya kujaza faili kuu la `app.js` au `server.js` na ufafanuzi mwingi wa njia za data, unaweza kuhamisha hizo katika vipanga-njia na kuweka faili kuu makini na usanidi na mipangilio.
+
+Tuchukulie mfano rahisi ambapo tunatumia `express.Router()` kufafanua njia za data kwa njia ya `/users`.
+
+Kwanza, hapa ni faili la `app.js`:
+
+```javascript
+const express = require("express");
+const app = express();
+const port = 3000;
+
+// Importing the user routes
+const userRoutes = require("./userRoutes");
+
+// Using the userRoutes router for /users path
+app.use("/users", userRoutes);
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+Na hapa ni `userRoutes.js`:
+
+```javascript
+const express = require("express");
+const router = express.Router();
+
+// GET request for /users
+router.get("/", (req, res) => {
+  res.send("List of users");
+});
+
+// POST request for /users
+router.post("/", (req, res) => {
+  res.send("Creating a new user");
+});
+
+// GET request for /users/:id
+router.get("/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send(`User details for user with id: ${userId}`);
+});
+
+module.exports = router;
+```
+
+Sasa tuchunguze kwa makini jinsi kila kitu kinavyofanya kazi.
+
+Katika `app.js`, tunaleta `express` na kuunda mfano wa programu ya Express na kuuweka katika kigezo kinachoitwa `app`.
+
+Kisha, tunaleta kipanga-njia cha `userRoutes` kutoka `userRoutes.js` na kutumia `app.use("/users", userRoutes)` kuunganisha kipanga-njia hicho. Hii inamwambia Express kwamba, ikiwa ombi linaanza na `/users`, lipe kwa kipanga-njia cha `userRoutes`.
+
+Kisha katika `userRoutes.js`, tunaunda kipanga-njia kipya kwa kutumia `express.Router()` na kufafanua njia za data kwa kutumia `router.get()`, `router.post()`, na `router.get("/:id")`.
+
+Kumbuka kuwa njia za data zilizofafanuliwa hapa ni kwa kuzingatia `/users` kwa sababu hapo ndipo kipanga-njia kimeunganishwa. Hivyo:
+
+*   `router.get("/")` → `GET /users`: Hujibu na orodha ya watumizi
+    
+*   `router.post("/")` → `POST /users`: Hujibu na ujumbe kuhusu kuunda mtumizi mpya
+    
+*   `router.get("/:id")` → `GET /users/:id`: Hujibu na maelezo ya mtumizi kwa nambari ya mtumizi iliyotolewa
+    
+
+Kutumia `express.Router()` hufanya faili kuu iwe safi na makini na usanidi. Njia zote zinazohusiana na watumizi zimekusanywa pamoja katika `userRoutes.js`.
+
+Kadiri programu yako inavyokua, unaweza kuunda vipanga-njia vingine kwa sehemu nyingine, kama `/products`, `/orders`, au `/auth`.
+
+Kila sehemu inabaki kuwa na mpangilio wake katika faili yake, na kufanya programu iwe rahisi kudumisha na kupanua.
+
+# --questions--
+
+## --text--
+
+`express.Router()` hufanya nini?
+
+## --answers--
+
+Huunda mfano mpya wa programu ya Express.
+
+### --feedback--
+
+Fikiria kuhusu kugawanya njia za data katika programu yako.
+
+---
+
+Hufafanua programu ya kati kwa njia maalum ya data.
+
+### --feedback--
+
+Fikiria kuhusu kugawanya njia za data katika programu yako.
+
+---
+
+Huunda kipanga-njia kwa ajili ya kushughulikia njia za data.
+
+---
+
+Huanza seva.
+
+### --feedback--
+
+Fikiria kuhusu kugawanya njia za data katika programu yako.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Unaunganisha vipi kipanga-njia katika programu kuu?
+
+## --answers--
+
+Kwa kuita `app.use()` na kupitisha kipanga-njia.
+
+---
+
+Kwa kuita `app.get()` moja kwa moja ndani ya kipanga-njia.
+
+### --feedback--
+
+Fikiria jinsi `app.js` inavyotumia kipanga-njia kushughulikia maombi ya `/users`.
+
+---
+
+Kwa kutumia `router.listen()`.
+
+### --feedback--
+
+Fikiria jinsi `app.js` inavyotumia kipanga-njia kushughulikia maombi ya `/users`.
+
+---
+
+Kwa kuleta kipanga-njia na kuita `router.start()`.
+
+### --feedback--
+
+Fikiria jinsi `app.js` inavyotumia kipanga-njia kushughulikia maombi ya `/users`.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Faida gani ya kutumia `express.Router()`?
+
+## --answers--
+
+Hukusaidia kushughulikia mafaili ya static.
+
+### --feedback--
+
+Fikiria jinsi vipanga-njia vinavyosaidia kupanga msimbo kwa programu kubwa.
+
+---
+
+Inakuwezesha kuunganisha mshughulikiaji wa njia za data na kutumia programu ya kati kwa njia maalum.
+
+---
+
+Inakuwezesha kushughulikia muunganisho wa hifadhidata.
+
+### --feedback--
+
+Fikiria jinsi vipanga-njia vinavyosaidia kupanga msimbo kwa programu kubwa.
+
+---
+
+Huanza seva ya Express moja kwa moja.
+
+### --feedback--
+
+Fikiria jinsi vipanga-njia vinavyosaidia kupanga msimbo kwa programu kubwa.
+
+## --video-solution--
+
+2

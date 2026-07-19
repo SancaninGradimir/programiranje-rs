@@ -1,0 +1,125 @@
+---
+id: 5d822fd413a79914d39e98cc
+title: Hatua 4
+challengeType: 0
+dashedName: step-4
+---
+
+# --description--
+
+Ndani ya `head`, panga ndani kipengele cha `meta` chenye sifa ya kipengele `charset` yenye thamani `UTF-8`, kipengele cha `title` chenye kichwa cha `City Skyline`, na kipengele cha `link` kinachounganisha faili lako la `styles.css`.
+
+# --hints--
+
+Unapaswa kuunda kipengele cha `meta` ndani ya kipengele cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.isNotNull(headElement.querySelector('meta'));
+```
+
+Unapaswa kumpa lebo ya `meta` sifa ya kipengele ya `charset` yenye thamani `UTF-8`.
+
+```js
+const linkElement = document.querySelector('meta');
+const charset = linkElement?.getAttribute("charset").toLowerCase();
+assert.strictEqual(charset, 'utf-8');
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `title`.
+
+```js
+const title = document.querySelector('title');
+assert.exists(title);
+```
+
+Kipengele cha `title` kinapaswa kuwa ndani ya kipengele cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.isNotNull(headElement.querySelector('title'));
+```
+
+Mradi wako unapaswa kuwa na kichwa cha `City Skyline`.
+
+```js
+const title = document.querySelector('title');
+assert.equal(title.text.toLowerCase(), 'city skyline')
+```
+
+Kumbuka, herufi kubwa na ndogo pamoja na tahajia ni muhimu kwa kichwa.
+
+```js
+const title = document.querySelector('title');
+assert.equal(title.text, 'City Skyline');
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `link`.
+
+```js
+assert.isNotNull(document.querySelector('link'));
+```
+
+Hupaswi kubadilisha lebo zako za `head` zilizopo. Hakikisha hujafuta lebo ya kufunga.
+
+```js
+const headElements = document.querySelectorAll('head');
+assert.strictEqual(headElements?.length, 1);
+```
+
+Unapaswa kuwa na kipengele kimoja cha `link` kisicho na lebo ya kufunga.
+
+```js
+assert.strictEqual(document.querySelectorAll('link')?.length, 1);
+```
+
+Kipengele chako cha `link` kinapaswa kuwa ndani ya kipengele chako cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.isNotNull(headElement.querySelector('link'));
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele ya `rel` yenye thamani `stylesheet`.
+
+```js
+const linkElement = document.querySelector('link');
+const rel = linkElement?.getAttribute("rel");
+assert.strictEqual(rel, "stylesheet");
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele ya `href` yenye thamani `styles.css`.
+
+```js
+const linkElement = document.querySelector('link');
+assert.strictEqual(linkElement?.dataset.href, "styles.css");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+--fcc-editable-region--
+  <head>
+    
+  </head>
+--fcc-editable-region--
+  <body>
+  </body>
+</html>
+```

@@ -1,0 +1,75 @@
+---
+id: 6821ebd4237de8297eaee791
+title: "Zoezi la 15: camelCase"
+challengeType: 28
+dashedName: challenge-15
+---
+
+# --description--
+
+Ukitoa mfuatano wa herufi, rudisha toleo lake la camelcase kwa kutumia sheria zifuatazo:
+
+- Maneno katika hoja ya mfuatano wa herufi yamegawanywa na herufi moja au zaidi kutoka kwenye seti ifuatayo: nafasi (` `), dash (`-`), au underscore (`_`). Chukulia mfululizo wowote wa haya kama mapumziko ya neno.
+- Neno la kwanza linapaswa kuwa herufi ndogo zote.
+- Kila neno linalofuata linapaswa kuanza na herufi kubwa, na sehemu nyingine yake kuwa herufi ndogo.
+- Nafasi zote na viunganishi vinapaswa kuondolewa.
+
+# --hints--
+
+`toCamelCase("hello world")` inapaswa kurudisha `"helloWorld"`.
+
+```js
+assert.equal(toCamelCase("hello world"), "helloWorld");
+```
+
+`toCamelCase("HELLO WORLD")` inapaswa kurudisha `"helloWorld"`.
+
+```js
+assert.equal(toCamelCase("HELLO WORLD"), "helloWorld");
+```
+
+`toCamelCase("secret agent-X")` inapaswa kurudisha `"secretAgentX"`.
+
+```js
+assert.equal(toCamelCase("secret agent-X"), "secretAgentX");
+```
+
+`toCamelCase("FREE cODE cAMP")` inapaswa kurudisha `"freeCodeCamp"`.
+
+```js
+assert.equal(toCamelCase("FREE cODE cAMP"), "freeCodeCamp");
+```
+
+`toCamelCase("ye old-_-sea  faring_buccaneer_-_with a - peg__leg----and a_parrot_ _named- _squawk")` inapaswa kurudisha `"yeOldSeaFaringBuccaneerWithAPegLegAndAParrotNamedSquawk"`.
+
+```js
+assert.equal(toCamelCase("ye old-_-sea  faring_buccaneer_-_with a - peg__leg----and a_parrot_ _named- _squawk"), "yeOldSeaFaringBuccaneerWithAPegLegAndAParrotNamedSquawk");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function toCamelCase(s) {
+
+  return s;
+}
+```
+
+# --solutions--
+
+```js
+function toCamelCase(s) {
+  const words = s.replace(/[_\- ]+/g, ' ').split(' ');
+
+  return words.map((word, i) => {
+    if (i === 0) {
+      return word.toLowerCase();
+    } else {
+      const tempWord = word.split('');
+      return tempWord.shift().toUpperCase() + tempWord.join('').toLowerCase();
+    }
+  }).join('')
+}
+```

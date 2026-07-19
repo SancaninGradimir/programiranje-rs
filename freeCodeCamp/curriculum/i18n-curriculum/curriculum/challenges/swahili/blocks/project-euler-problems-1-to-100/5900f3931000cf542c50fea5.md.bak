@@ -1,0 +1,100 @@
+---
+id: 5900f3931000cf542c50fea5
+title: "'Zoezi la 38: Nambari nyingi yenye tarakimu zote'"
+challengeType: 1
+forumTopicId: 302042
+dashedName: problem-38-pandigital-multiples
+---
+
+# --description--
+
+Chukua nambari 192 na izidishe kwa kila moja ya 1, 2, na 3:
+
+$$\begin{align}
+  192 × 1 = 192\\\\
+  192 × 2 = 384\\\\
+  192 × 3 = 576\\\\
+\end{align}$$
+
+Kwa kuunganisha kila bidhaa tunapata nambari yenye tarakimu zote kutoka 1 hadi 9, 192384576. Tutaita 192384576 kuwa bidhaa iliyounganishwa ya 192 na (1, 2, 3).
+
+Hali kama hiyo inaweza kufanikishwa kwa kuanzia na 9 na kuzidisha kwa 1, 2, 3, 4, na 5, ikitoa nambari yenye tarakimu zote, 918273645, ambayo ni bidhaa iliyounganishwa ya 9 na (1, 2, 3, 4, 5).
+
+Nambari kubwa zaidi yenye tarakimu zote kutoka 1 hadi `k` yenye tarakimu `k` inaweza kuundwa kama bidhaa iliyounganishwa ya nambari kamili na (1, 2, ..., `n`) ambapo `n` > 1?
+
+# --hints--
+
+`pandigitalMultiples(8)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof pandigitalMultiples(8) === 'number');
+```
+
+`pandigitalMultiples(8)` inapaswa kurudisha `78156234`.
+
+```js
+assert.strictEqual(pandigitalMultiples(8), 78156234);
+```
+
+`pandigitalMultiples(9)` inapaswa kurudisha `932718654`.
+
+```js
+assert.strictEqual(pandigitalMultiples(9), 932718654);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function pandigitalMultiples(k) {
+
+  return true;
+}
+
+pandigitalMultiples(8);
+```
+
+# --solutions--
+
+```js
+function pandigitalMultiples(k) {
+  function getKDigitConcatenatedProduct(num, k) {
+    // returns false if concatenated product is not k digits
+    let concatenatedProduct = num.toString();
+    for (let i = 2; concatenatedProduct.length < k; i++) {
+      concatenatedProduct += num * i;
+    }
+    return concatenatedProduct.length === k ? concatenatedProduct : false;
+  }
+
+  function is1toKPandigital(num, k) {
+    const numStr = num.toString();
+
+    // check if length is not k
+    if (numStr.length !== k) {
+      return false;
+    }
+
+    // check if pandigital
+    for (let i = k; i > 0; i--) {
+      if (numStr.indexOf(i.toString()) === -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  let largestNum = 0;
+  for (let i = 10 ** Math.floor(k / 2) + 1; i >= 1; i--) {
+    const concatenatedProduct = getKDigitConcatenatedProduct(i, k);
+    if (is1toKPandigital(concatenatedProduct, k)) {
+      const number = parseInt(concatenatedProduct, 10);
+      if (number > largestNum) {
+        largestNum = number;
+      }
+    }
+  }
+  return largestNum;
+}
+```

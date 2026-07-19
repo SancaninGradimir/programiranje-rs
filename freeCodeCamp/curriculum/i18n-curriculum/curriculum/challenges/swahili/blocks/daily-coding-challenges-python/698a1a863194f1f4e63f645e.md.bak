@@ -1,0 +1,98 @@
+---
+id: 698a1a863194f1f4e63f645e
+title: "Challenge 207: Smallest Gap"
+challengeType: 29
+dashedName: challenge-207
+---
+
+# --description--
+
+Ukitolewa mfuatano wa herufi, rudisha sehemu ndogo ya mfuatano kati ya herufi mbili zinazofanana ambazo zina pengo ndogo zaidi ya herufi kati yao (pengo ndogo zaidi).
+
+- Daima kutakuwa na angalau jozi moja ya herufi zinazolingana.
+- Sehemu ndogo ya mfuatano inayorudishwa haipaswi kujumuisha herufi zinazolingana.
+- Ikiwa pengo mbili au zaidi ni za urefu sawa, rudisha herufi kutoka kwa pengo la kwanza.
+
+Kwa mfano, ukitolewa `"ABCDAC"`, rudisha `"DA"` kwa sababu:
+
+- Ni `"A"` na `"C"` pekee zinazorudiwa katika mfuatano.
+- Idadi ya herufi kati ya herufi mbili za `"A"` ni 3, na kati ya herufi za `"C"` ni 2.
+- Hivyo rudisha mfuatano kati ya herufi mbili za `"C"`.
+
+# --hints--
+
+`smallest_gap("ABCDAC")` should return `"DA"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(smallest_gap("ABCDAC"), "DA")`)
+}})
+```
+
+`smallest_gap("racecar")` should return `"e"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(smallest_gap("racecar"), "e")`)
+}})
+```
+
+`smallest_gap("A{5e^SD*F4i!o#q6e&rkf(po8|we9+kr-2!3}=4")` should return `"#q6e&rkf(p"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(smallest_gap("A{5e^SD*F4i!o#q6e&rkf(po8|we9+kr-2!3}=4"), "#q6e&rkf(p")`)
+}})
+```
+
+`smallest_gap("Hello World")` should return `""`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(smallest_gap("Hello World"), "")`)
+}})
+```
+
+`smallest_gap("The quick brown fox jumps over the lazy dog.")` should return `"fox"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(smallest_gap("The quick brown fox jumps over the lazy dog."), "fox")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def smallest_gap(s):
+
+    return s
+```
+
+# --solutions--
+
+```py
+def smallest_gap(s):
+    min_gap = float("inf")
+    result = ""
+
+    for i in range(len(s)):
+        for j in range(i + 1, len(s)):
+            if s[i] == s[j]:
+                gap = j - i - 1
+
+                if gap < min_gap:
+                    min_gap = gap
+                    result = s[i + 1:j]
+
+                break
+
+    return result
+```

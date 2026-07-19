@@ -1,0 +1,58 @@
+---
+id: 6939b873185d8e00d453563c
+title: "Zoezi la 157: Kuchambua kiungo cha Markdown"
+challengeType: 28
+dashedName: challenge-157
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi wa kiungo katika Markdown, rudisha mfuatano wa herufi sawa wa HTML.
+
+Picha ya Markdown ina muundo ufuatao: `"[link_text](link_url)"`. Rudisha mfuatano wa herufi wa lebo ya HTML `a` ukiwa na `href` kuwekwa kuwa `link_url` na `link_text` kama maudhui ya lebo hiyo.
+
+Kwa mfano, ukipata `"[freeCodeCamp](https://freecodecamp.org/)"` rudisha `'<a href="https://freecodecamp.org/">freeCodeCamp</a>'`;
+
+Kumbuka: Konsoli inaweza isionyeshe lebo za HTML katika mfuatano wa herufi wakati wa kurekodi ujumbe — angalia konsoli ya kivinjari ili kuona rekodi zikiwa na lebo zilizoambatanishwa.
+
+# --hints--
+
+`parseLink("[freeCodeCamp](https://freecodecamp.org/)")` inapaswa kurudisha `'<a href="https://freecodecamp.org/">freeCodeCamp</a>'`.
+
+```js
+assert.equal(parseLink("[freeCodeCamp](https://freecodecamp.org/)"), '<a href="https://freecodecamp.org/">freeCodeCamp</a>');
+```
+
+`parseLink("[Donate to our charity.](https://www.freecodecamp.org/donate/)")` inapaswa kurudisha `'<a href="https://www.freecodecamp.org/donate/">Donate to our charity.</a>'`.
+
+```js
+assert.equal(parseLink("[Donate to our charity.](https://www.freecodecamp.org/donate/)"), '<a href="https://www.freecodecamp.org/donate/">Donate to our charity.</a>');
+```
+
+`parseLink("[Contribute to our repository at https://github.com/freeCodeCamp/freeCodeCamp.](https://github.com/freeCodeCamp/freeCodeCamp/)")` inapaswa kurudisha `'<a href="https://github.com/freeCodeCamp/freeCodeCamp/">Contribute to our repository at https://github.com/freeCodeCamp/freeCodeCamp.</a>'`.
+
+```js
+assert.equal(parseLink("[Contribute to our repository at https://github.com/freeCodeCamp/freeCodeCamp.](https://github.com/freeCodeCamp/freeCodeCamp/)"), '<a href="https://github.com/freeCodeCamp/freeCodeCamp/">Contribute to our repository at https://github.com/freeCodeCamp/freeCodeCamp.</a>');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function parseLink(markdown) {
+
+  return markdown;
+}
+```
+
+# --solutions--
+
+```js
+function parseLink(markdown) {
+  const match = markdown.match(/\[(.*?)\]\((.*?)\)/);
+
+  const [, text, url] = match;
+  return `<a href="${url}">${text}</a>`;
+}
+```

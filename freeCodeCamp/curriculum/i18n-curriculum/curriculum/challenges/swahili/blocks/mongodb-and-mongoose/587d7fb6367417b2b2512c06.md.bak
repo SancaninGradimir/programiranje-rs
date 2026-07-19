@@ -1,0 +1,58 @@
+---
+id: 587d7fb6367417b2b2512c06
+title: Sakinisha na Sanidi Mongoose
+challengeType: 2
+forumTopicId: 301540
+dashedName: install-and-set-up-mongoose
+---
+
+# --description--
+
+Kufanya kazi kwenye changamoto hizi kutahusisha kuandika msimbo wako kwa kutumia mojawapo ya njia zifuatazo:
+
+- Nakili <a href="https://github.com/freeCodeCamp/boilerplate-mongomongoose/" target="_blank" rel="noopener noreferrer nofollow">hii repo ya GitHub</a> na ukamilishe changamoto hizi kwa ndani.
+- Tumia mtengenezaji wa tovuti unayempenda kukamilisha mradi. Hakikisha unajumuisha mafaili yote kutoka kwenye repo yetu ya GitHub.
+
+Katika changamoto hii, utaanzisha hifadhidata ya MongoDB Atlas na kuleta vifurushi vinavyohitajika kuunganishwa nayo.
+
+Fuata <a href='https://www.freecodecamp.org/news/get-started-with-mongodb-atlas/' target="_blank" rel="noopener noreferrer nofollow">mafunzo haya</a> kuanzisha hifadhidata iliyohudumiwa kwenye MongoDB Atlas.
+
+# --instructions--
+
+`mongoose@^5.11.15` imeongezwa kwenye faili la `package.json` la mradi wako. Kwanza, ita mongoose kama `mongoose` katika `myApp.js`. Kisha, tengeneza faili la `.env` na ongeza kigezo cha `MONGO_URI` ndani yake. Thamani yake inapaswa kuwa URI ya hifadhidata yako ya MongoDB Atlas. Hakikisha unazunguka URI na nukuu moja au alama za nukuu maradufu, na kumbuka kwamba huwezi kutumia nafasi karibu na `=` katika vigezo vya mazingira. Kwa mfano, `MONGO_URI='VALUE'`.
+
+Ukipata kazi hii, ungana na hifadhidata kwa kuita njia ya `connect` ndani ya faili lako la `myApp.js` kwa kutumia sintaksia ifuatayo:
+
+```js
+mongoose.connect(<Your URI>, { useNewUrlParser: true, useUnifiedTopology: true });
+```
+
+# --hints--
+
+"mongoose version ^5.11.15" utegemezi unapaswa kuwa katika package.json
+
+```js
+  const response = await fetch(code + '/_api/file/package.json');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.text();
+  var packJson = JSON.parse(data);
+  assert.property(packJson.dependencies, 'mongoose');
+  assert.match(
+    packJson.dependencies.mongoose,
+    /^\^5\.11\.15/,
+    'Wrong version of "mongoose". It should be ^5.11.15'
+  );
+```
+
+"mongoose" inapaswa kuunganishwa na hifadhidata
+
+```js
+  const response = await fetch(code + '/_api/is-mongoose-ok');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.isTrue(data.isMongooseOk, 'mongoose is not connected');
+```

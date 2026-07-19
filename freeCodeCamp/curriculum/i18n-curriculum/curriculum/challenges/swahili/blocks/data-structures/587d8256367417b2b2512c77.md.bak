@@ -1,0 +1,91 @@
+---
+id: 587d8256367417b2b2512c77
+title: Orodha ya uhusiano wa nodes
+challengeType: 1
+forumTopicId: 301620
+dashedName: adjacency-list
+---
+
+# --description--
+
+Grafu zinaweza kuwakilishwa kwa njia tofauti. Hapa tunaelezea njia moja, inayojulikana kama <dfn>orodha ya uhusiano</dfn>. Orodha ya uhusiano ni orodha yenye alama ambapo upande wa kushoto ni nodi na upande wa kulia unaorodhesha nodi zote nyingine zinazounganishwa nayo. Hapo chini ni uwakilishi wa orodha ya uhusiano.
+
+<blockquote>Nodi1: Nodi2, Nodi3<br>Nodi2: Nodi1<br>Nodi3: Nodi1</blockquote>
+
+Juu ni grafu isiyo na mwelekeo kwa sababu `Node1` imeunganishwa na `Node2` na `Node3`, na taarifa hiyo inalingana na muunganisho unaoonyeshwa na `Node2` na `Node3`. Orodha ya uhusiano kwa grafu yenye mwelekeo itamaanisha kila mstari wa orodha unaonyesha mwelekeo. Ikiwa ile hapo juu ingekuwa na mwelekeo, basi `Node2: Node1` itamaanisha kuna mwelekeo wa mkondo unaoelekea kutoka `Node2` kuelekea `Node1`. Tunaweza kuwakilisha grafu isiyo na mwelekeo iliyo juu kama orodha ya uhusiano kwa kuiweka ndani ya kitu cha JavaScript.
+
+```js
+var undirectedG = {
+  Node1: ["Node2", "Node3"],
+  Node2: ["Node1"],
+  Node3: ["Node1"]
+};
+```
+
+Hii pia inaweza kuwakilishwa kwa urahisi zaidi kama safu ya data ambapo nodi zina nambari badala ya lebo za mfuatano wa herufi.
+
+```js
+var undirectedGArr = [
+  [1, 2], // Node1
+  [0],    // Node2
+  [0]     // Node3
+];
+```
+
+# --instructions--
+
+Tengeneza mtandao wa kijamii kama grafu isiyo na mwelekeo yenye nodi 4/watu waliotajwa `James`, `Jill`, `Jenny`, na `Jeff`. Kuna miunganisho/uhusiano kati ya James na Jeff, Jill na Jenny, na Jeff na Jenny.
+
+# --hints--
+
+`undirectedAdjList` inapaswa kuwa na nodi nne tu.
+
+```js
+assert(Object.keys(undirectedAdjList).length === 4);
+```
+
+Kuna inapaswa kuwa na muunganisho kati ya `Jeff` na `James`.
+
+```js
+assert(
+  undirectedAdjList.James.indexOf('Jeff') !== -1 &&
+    undirectedAdjList.Jeff.indexOf('James') !== -1
+);
+```
+
+Kuna inapaswa kuwa na muunganisho kati ya `Jill` na `Jenny`.
+
+```js
+assert(
+  undirectedAdjList.Jill.indexOf('Jenny') !== -1 &&
+    undirectedAdjList.Jenny.indexOf('Jill') !== -1
+);
+```
+
+Kuna inapaswa kuwa na muunganisho kati ya `Jeff` na `Jenny`.
+
+```js
+assert(
+  undirectedAdjList.Jeff.indexOf('Jenny') !== -1 &&
+    undirectedAdjList.Jenny.indexOf('Jeff') !== -1
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var undirectedAdjList = {};
+```
+
+# --solutions--
+
+```js
+var undirectedAdjList = {
+  James: ['Jeff'],
+  Jill: ['Jenny'],
+  Jenny: ['Jill', 'Jeff'],
+  Jeff: ['James', 'Jenny']
+};
+```

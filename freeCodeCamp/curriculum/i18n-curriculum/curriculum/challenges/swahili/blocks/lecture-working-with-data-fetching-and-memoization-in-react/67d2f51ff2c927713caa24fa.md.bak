@@ -1,0 +1,294 @@
+---
+id: 67d2f51ff2c927713caa24fa
+title: Jinsi gani kitufe cha useCallback na React.memo hufanya kazi?
+challengeType: 19
+dashedName: how-do-the-usecallback-hook-and-react-memo-work
+---
+
+# --description--
+
+Katika funzo la mwisho, ulijifunza kuhusu memoization na jinsi kitufe cha `useMemo` kinavyofanya kazi.
+
+Katika funzo hili, utajifunza jinsi kitufe cha `useCallback` na `React.memo` vinavyofanya kazi.
+
+Katika funzo la mwisho, pia tulitaja kwamba `useCallback` ni kwa ajili ya kuandika kumbukumbu za rejea za kitendakazi.
+
+Kwa `React.memo`, inakuwezesha kuandika kumbukumbu sehemu ili kuzuia kuonyeshwa tena bila sababu wakati vigezo vyake havijabadilika.
+
+Hapa kuna sintaksia ya msingi ya kitufe cha `useCallback`:
+
+```js
+const handleClick = useCallback(() => {
+  // code goes here
+}, [dependency]);
+```
+
+Na hapa kuna sintaksia ya msingi ya `React.memo`:
+
+```jsx
+const MemoizedComponent = React.memo(({ prop }) => {
+  return (
+    <>
+      {/* Presentation */}
+    </>
+  )
+});
+```
+
+Tuchunguze mfano wa kitufe cha `useCallback`:
+
+```jsx
+import { useState, useEffect } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  useEffect(() => {
+    console.log("useEffect runs");
+  }, [handleClick]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+Katika sehemu hii, athari huendeshwa kila wakati `handleClick` inabadilika kwa sababu kitendakazi cha `handleClick` kinaundwa upya kila mara kuonyeshwa.
+
+Ili kurekebisha hili, unahitaji kusema kwa React itazame kitendakazi cha `handleClick` kama kitu kimoja katika kuonyeshwa zote kwa kuandika kumbukumbu kwa kitufe cha `useCallback`, ili kisizaundwe upya:
+
+```jsx
+import { useState, useEffect, useCallback } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  // Memoize the handleClick function with useCallback
+  const handleClick = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect runs");
+  }, [handleClick]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+Sasa kitendakazi cha `handleClick` hakinaundwi upya kila kuonyeshwa.
+
+Ili kukuonyesha jinsi kitendakazi cha daraja la juu cha `React.memo` (au `memo`) na kitufe cha `useCallback` vinavyofanya kazi kwa pamoja, hapa kuna sehemu ya `Counter` yenye kitendakazi cha `handleClick` kinachohitaji `useCallback` lakini kwa sasa hakikitumii:
+
+```jsx
+import { useState, useEffect, useCallback } from "react";
+import CounterChild from "./CounterChild";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [timer, setTimer] = useState(new Date().toLocaleTimeString());
+
+  const handleClick = () => {
+    setCount(count + 1);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      <h1>Time: {timer}</h1>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment</button>
+      <CounterChild onClick={handleClick} />
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+Kitendakazi hiki pia kina kielekezi cha muda katika hali kinachosasisha kila sekunde. Hii husababisha sehemu kuonyeshwa tena kila wakati `timer` inabadilika, na kufanya kitendakazi cha `handleClick` kuundwa upya kila kuonyeshwa.
+
+Ndiyo maana `handleClick` inahitaji kuandikwa kumbukumbu kwa `useCallback`.
+
+Hapa kuna sehemu ya `CounterChild`:
+
+```jsx
+const CounterChild = ({ onClick }) => {
+  console.log("CounterChild component rendered");
+  return <button onClick={onClick}>Increment from Child</button>;
+};
+
+export default CounterChild;
+```
+
+Sehemu hii ya `CounterChild` hupokea kigezo cha `onClick`, kikikupa uwezo wa pia kuongeza kielekezi kutoka kwake.
+
+Kwa kuwa sehemu ya `CounterChild` ni mtoto wa sehemu ya `Counter`, pia itaonyeshwa tena kila wakati `Counter` inaonyeshwa tena kutokana na kielekezi kinachobadilika. Hivyo, `CounterChild` pia inahitaji kuandikwa kumbukumbu.
+
+Bila kuandika kumbukumbu, kwa sababu sehemu inaonyeshwa tena kutokana na kielekezi kinachosasishwa kila sekunde, sehemu ya `CounterChild` pia inaonyeshwa tena.
+
+Ili kuzuia hili, unahitaji kuandika kumbukumbu sehemu ya `CounterChild` kwa `React.memo`:
+
+```jsx
+import React from "react";
+
+const CounterChild = React.memo(({ onClick }) => {
+  console.log("CounterChild component rendered");
+  return <button onClick={onClick}>Increment from Child</button>;
+});
+
+export default CounterChild;
+```
+
+Mambo bado hayaendi vizuri hata baada ya kuandika kumbukumbu `CounterChild` kwa `React.memo`.
+
+Hii hutokea kwa sababu kitendakazi cha `handleClick` kinaundwa upya kila kuonyeshwa, hivyo kinahitaji pia kuandikwa kumbukumbu kwa `useCallback`, ili kusema kwa React kwamba unahitaji kitendakazi kashike kuwa kilekile katika kuonyeshwa zote:
+
+```js
+const handleClick = useCallback(() => {
+  setCount((prevCount) => prevCount + 1);
+}, [count]);
+```
+
+Sasa, sehemu inaonyeshwa tena tu wakati hali ya `count` inabadilika.
+
+# --questions--
+
+## --text--
+
+`useCallback` kitufe kinaandika kumbukumbu nini?
+
+## --answers--
+
+Thamani zilizohesabiwa.
+
+### --feedback--
+
+Husaidia kuzuia kuundwa upya kwa mfano mpya wa kitendakazi kila kuonyeshwa.
+
+---
+
+Rejea za kitendakazi.
+
+---
+
+Kuonyeshwa kwa sehemu.
+
+### --feedback--
+
+Husaidia kuzuia kuundwa upya kwa mfano mpya wa kitendakazi kila kuonyeshwa.
+
+---
+
+Mabadiliko ya hali.
+
+### --feedback--
+
+Husaidia kuzuia kuundwa upya kwa mfano mpya wa kitendakazi kila kuonyeshwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya hizi ndiyo sintaksia sahihi ya kitufe cha `useCallback`?
+
+## --answers--
+
+```js
+const handleClick = useCallback(() => { /* code */ });
+```
+
+### --feedback--
+
+Hoja ya pili inapaswa kuwa safu ya utegemezi.
+
+---
+
+```js
+const handleClick = useCallback(() => { /* code */ }, dependency);
+```
+
+### --feedback--
+
+Hoja ya pili inapaswa kuwa safu ya utegemezi.
+
+---
+
+```jsx
+const handleClick = useCallback(() => { /* code */ }, [dependency]);
+```
+
+---
+
+```js
+const handleClick = useCallback(() => { dependency }, {});
+```
+
+### --feedback--
+
+Hoja ya pili inapaswa kuwa safu ya utegemezi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+`React.memo` inaandika kumbukumbu nini?
+
+## --answers--
+
+Rejea za kitendakazi.
+
+### --feedback--
+
+Huzuia kuonyeshwa tena wakati vigezo vinabaki vilevile.
+
+---
+
+Hali ya sehemu.
+
+### --feedback--
+
+Huzuia kuonyeshwa tena wakati vigezo vinabaki vilevile.
+
+---
+
+Kuonyeshwa kwa sehemu kulingana na vigezo visivyobadilika.
+
+---
+
+Vipengele vya DOM.
+
+### --feedback--
+
+Huzuia kuonyeshwa tena wakati vigezo vinabaki vilevile.
+
+## --video-solution--
+
+3

@@ -1,0 +1,112 @@
+---
+id: 68c34ace730ca43e5fa7b8d6
+title: Hatua 9
+challengeType: 0
+dashedName: step-9
+---
+
+# --description--
+
+Sasa ni wakati wa kuongeza safu nyingine kwenye jedwali.
+
+Anza kwa kuongeza kipengele kingine cha `tr`. Ndani ya kipengele hicho cha `tr`, ongeza kipengele cha `th` chenye sifa ya kipengele ya `scope` iliyowekwa kuwa `"row"` na maandishi ya `10:00 AM`.
+
+Kisha, ongeza vipengele vitatu vya `td` vyenye maandishi yafuatayo:
+
+- `Accessibility Deep Dive`
+- `CSS for Beginners`
+- `Inclusive Design Principles`
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `tr` cha pili ndani ya kipengele cha `tbody`.
+
+```js
+assert.lengthOf(document.querySelectorAll("tbody tr"), 2);
+```
+
+Unapaswa kuwa na kipengele cha `th` ndani ya kipengele cha `tr` cha pili.
+
+```js
+assert.isNotNull(document.querySelectorAll("tbody tr")[1].querySelector("th"));
+```
+
+Kipengele chako cha `th` kinapaswa kuwa na maandishi ya `10:00 AM`.
+
+```js
+assert.strictEqual(document.querySelectorAll("tbody tr")[1].querySelector("th")?.textContent.trim(), "10:00 AM");
+```
+
+Kipengele chako cha `th` kinapaswa kuwa na sifa ya kipengele ya `scope` iliyowekwa kuwa `"row"`.
+
+```js
+assert.strictEqual(document.querySelectorAll("tbody tr")[1].querySelector("th")?.getAttribute("scope"), "row");
+```
+
+Kipengele chako cha `tr` cha pili kinapaswa kuwa na vipengele vitatu vya `td`.
+
+```js
+assert.lengthOf(document.querySelectorAll("tbody tr")[1].querySelectorAll("td"), 3);
+```
+
+Kipengele chako cha `td` cha kwanza kinapaswa kuwa na maandishi ya `Accessibility Deep Dive`.
+
+```js
+assert.strictEqual(document.querySelectorAll("tbody tr")[1].querySelectorAll("td")[0]?.textContent.trim(), "Accessibility Deep Dive");
+```
+
+Kipengele chako cha `td` cha pili kinapaswa kuwa na maandishi ya `CSS for Beginners`.
+
+```js
+assert.strictEqual(document.querySelectorAll("tbody tr")[1].querySelectorAll("td")[1]?.textContent.trim(), "CSS for Beginners");
+```   
+
+Kipengele chako cha `td` cha tatu kinapaswa kuwa na maandishi ya `Inclusive Design Principles`.
+
+```js
+assert.strictEqual(document.querySelectorAll("tbody tr")[1].querySelectorAll("td")[2]?.textContent.trim(), "Inclusive Design Principles");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech Conference 2025 Schedule</title>
+</head>
+<body>
+  <h1>Tech Conference 2025 Schedule</h1>
+
+  <table>
+    <caption>Schedule by Track and Time</caption>
+
+    <thead>
+      <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Track A</th>
+        <th scope="col">Track B</th>
+        <th scope="col">Track C</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <th scope="row">9:00 AM</th>
+        <td>Keynote: Tech Future</td>
+        <td>Intro to Web Dev</td>
+        <td>UX for All</td>
+      </tr>
+
+      --fcc-editable-region--
+      
+      --fcc-editable-region--
+    </tbody>
+    
+  </table>
+</body>
+</html>
+```

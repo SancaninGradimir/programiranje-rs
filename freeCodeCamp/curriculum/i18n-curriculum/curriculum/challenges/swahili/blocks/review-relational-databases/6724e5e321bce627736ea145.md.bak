@@ -1,0 +1,1611 @@
+---
+id: 6724e5e321bce627736ea145
+title: Uhakiki wa hifadhidata ya uhusiano
+challengeType: 31
+dashedName: review-relational-databases
+---
+
+# --description--
+
+## Msingi wa terminal, shell, na mstari wa amri
+
+- **Mstari wa amri**: Kiolesura cha maandishi ambapo watumizi wanaandika amri.  
+- **Terminal**: Programu inayotoa upatikanaji wa mstari wa amri.  
+- **Emulator ya terminal**: Inaongeza vipengele vya ziada kwa terminal.  
+- **Shell**: Huelewa amri zilizoandikwa kwenye terminal (mfano, Bash).  
+- **PowerShell / Command Prompt / Microsoft Terminal**: Chaguzi za kupata mstari wa amri kwenye Windows.  
+- **Terminal (macOS)**: Chaguo lililojengwa ndani ya macOS, pamoja na mbadala wa wahusika wa tatu kama iTerm au Ghostty.  
+- **Terminal (Linux)**: Chaguzi zinatofautiana kulingana na usambazaji, na emulator nyingi za wahusika wa tatu kama kitty.  
+- **Nomenklatura**: Ingawa "terminal," "shell," na "mstari wa amri" mara nyingi hutumika kwa maana sawa, zina maana maalum.
+
+## Njia za mkato za mstari wa amri
+
+- **Mshale wa juu/chini**: Pitia amri zilizopita/zinazoendelea katika historia.
+- **Tab**: Kukamilisha amri moja kwa moja.
+- **`Control+L`** (Linux/macOS) au kuandika `cls` (Windows): Futa skrini ya terminal.
+- **`Control+C`**: Zuia amri inayotekelezwa (pia hutumika kunakili katika PowerShell ikiwa maandishi yamechaguliwa).
+- **`Control+Z`** (Linux/macOS pekee): Weka kazi ikifanyika nyuma; tumia `fg` kuirejesha.
+- **`!!`**: Endesha tena mara moja amri ya mwisho iliyotekelezwa.
+
+## Msingi wa Bash
+
+- **Bash** (Bourne Again Shell): Shell inayotumika sana kama Unix.  
+  Amri muhimu:
+
+  - **`pwd`**: Onyesha saraka ya sasa.
+  - **`cd`**: Badilisha saraka.
+    - **`..`** inahusu saraka mama (ngazi moja juu).
+    - **`.`** inahusu saraka ya sasa.
+  - **`ls`**: Orodhesha mafaili na saraka.
+    - **`-a`**: Onyesha mafaili yote, ikiwa ni pamoja na yaliyofichwa.
+    - **`-l`**: Onyesha maelezo ya kina kuhusu mafaili.
+  - **`less`**: Tazama yaliyomo ya faili ukurasa mmoja kwa wakati na chaguzi za kuvinjari, ikiwa ni pamoja na kurudi nyuma na kutafuta.
+  - **`more`**: Onyesha yaliyomo ya faili skrini moja kwa wakati, na kuvinjari nyuma kwa kiwango kidogo na urambazaji wa msingi.
+  - **`cat`**: Onyesha yaliyomo yote ya faili mara moja bila kuvinjari, inafaa kwa mafaili madogo.
+  - **`mkdir`**: Tengeneza saraka mpya.
+  - **`rmdir`**: Futa saraka tupu.
+  - **`touch`**: Tengeneza faili mpya.
+  - **`mv`**: Hamisha au badilisha majina ya mafaili.
+    - Badilisha jina: `mv oldname.txt newname.txt`
+    - Hamisha: `mv filename.txt /path/to/target/`
+  - **`cp`**: Nakili mafaili.
+    - **`-r`**: Nakili saraka na yaliyomo kwa kurudia.
+  - **`rm`**: Futa mafaili.
+    - **`-r`**: Futa saraka na yaliyomo kwa kurudia.
+  - **`echo`**: Onyesha mstari wa maandishi au thamani ya kigezo.
+    - Tumia `>` kuandika upya yaliyomo kwenye faili. (mfano, `echo "text" > file.txt`)
+    - Tumia `>>` kuongeza matokeo kwenye faili **bila kufuta yaliyopo** (mfano, `echo "text" >> file.txt`).
+  - **`exit`**: Toka kwenye kikao cha terminal.
+  - **`clear`**: Futa skrini ya terminal.
+  - **`find`**: Tafuta mafaili na saraka.
+    - **`-name`**: Tafuta mafaili kwa mfano wa jina (mfano, `find . -name "*.txt"`).
+  - Tumia **`man`** ikifuatiwa na amri (mfano, `man ls`) kupata maelezo ya kina ya mwongozo/msaada.
+
+## Chaguzi na bendera za amri
+
+- **Chaguzi** au **bendera**: hubadilisha tabia ya amri na kawaida huanza na alama za msalaba:
+  - **Fomu ndefu (misalaba miwili)**:  
+    - Mfano: `--help`, `--version`
+    - Thamani huambatanishwa kwa ishara ya usawa, mfano `--width=50`.
+  - **Fomu fupi (msalaba mmoja)**:  
+    - Mfano: `-a`, `-l`
+    - Thamani hupitishwa kwa nafasi, mfano `-w 50`.
+    - Chaguzi fupi nyingi zinaweza kuunganishwa, mfano `ls -alh`.
+- **`--help`**: Daima unaweza kutumia amri hii na bendera hii kuelewa chaguzi zinazopatikana kwa amri yoyote.
+
+## Utangulizi wa hifadhidata ya uhusiano
+
+- **Hifadhidata za uhusiano**: Hupanua data katika jedwali zinazohusiana zenye safu na nguzo. Kila safu ni rekodi, kila nguzo ni sifa ya data.
+- **Faida za hifadhidata za uhusiano**: Zinapanuka, zinatumika katika maeneo mengi (mfano, afya, biashara, michezo), na zimepangwa kuhifadhi data kwa usahihi.
+- **Matumizi ya kawaida**: Uendelezaji wa mtandao, mifumo ya hesabu, biashara mtandaoni, afya, na programu za biashara.
+
+## Dhana kuu
+
+- **Schema**: Hifadhidata ya uhusiano inahitaji schema inayobainisha muundo wake—meza, nguzo, aina za data, vikwazo, na uhusiano.
+- **Mfunguo kuu**: Vitambulisho vya kipekee kwa kila safu katika jedwali. Ni muhimu kwa usahihi wa data na hutumika kuhusisha rekodi kati ya meza kupitia funguo za kigeni.
+- **Mfunguo wa kigeni**: Marejeleo kwa funguo kuu katika jedwali jingine, hutumika kuunganisha data zinazohusiana.
+- **Uhusiano**: Kwa kuunganisha meza kupitia funguo kuu na za kigeni, unaweza kupanga data iliyokawaishwa na kufanya hoja za maana.
+- **Michoro ya uhusiano wa vitu (ERDs)**: Inaonyesha jinsi vitu (meza) vinavyohusiana katika schema ya hifadhidata.
+- **Usahihi wa data**: Hutekelezwa kwa kutumia funguo na aina za data. Huhakikisha uthabiti na usahihi wa data iliyohifadhiwa.
+
+## Msingi wa SQL
+
+- **Hoja za utafutaji**: Maombi ya kupata data maalum kutoka hifadhidata.
+
+```sql
+SELECT * FROM dogs WHERE age < 3;
+```
+
+- **Kifungu cha WHERE**: Chuja matokeo kulingana na masharti. Tumia opereta za kulinganisha kama `<`, `=`, `>`, n.k.
+- **Chagua kwa ORDER BY**: Pata na panga matokeo kulingana na nguzo.
+
+```sql
+SELECT columns FROM table_name ORDER BY column_name;
+```
+
+## Operesheni za jedwali
+
+- **Kauli ya `CREATE TABLE`**: Kauli hii hutumika kuunda jedwali jipya katika hifadhidata.
+
+```sql
+CREATE TABLE first_table();
+```
+
+- **Kauli ya `ALTER TABLE ADD COLUMN`**: Kauli hii hutumika kuongeza nguzo kwenye jedwali lililopo.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE;
+```
+
+- **Kauli ya `ALTER TABLE DROP COLUMN`**: Kauli hii hutumika kufuta nguzo kutoka kwenye jedwali lililopo.
+
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+- **Kauli ya `ALTER TABLE RENAME COLUMN`**: Kauli hii hutumika kubadilisha jina la nguzo katika jedwali.
+
+```sql
+ALTER TABLE table_name RENAME COLUMN column_name TO new_name;
+```
+
+- **Kauli ya `DROP TABLE`**: Kauli hii hutumika kufuta jedwali lote kutoka hifadhidata.
+
+```sql
+DROP TABLE table_name;
+```
+
+- **Kauli ya `ALTER DATABASE RENAME`**: Kauli hii hutumika kubadilisha jina la hifadhidata.
+
+```sql
+ALTER DATABASE database_name RENAME TO new_database_name;
+```
+
+- **Kauli ya `DROP DATABASE`**: Kauli hii hutumika kufuta hifadhidata yote.
+
+```sql
+DROP DATABASE database_name;
+```
+
+## Vikwazo na usahihi wa data
+
+- **`ALTER TABLE ADD COLUMN` na kikwazo**: Kauli hii hutumika kuongeza nguzo yenye kikwazo kwenye jedwali lililopo.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINT;
+```
+
+- **Kikwazo cha `NOT NULL`**: Kikwazo hiki kinahakikisha nguzo haiwezi kuwa na thamani za NULL.
+
+```sql
+column_name VARCHAR(50) NOT NULL
+```
+
+- **Kauli ya `ALTER TABLE ADD PRIMARY KEY`**: Kauli hii hutumika kuongeza kikwazo cha mfunguo kuu kwenye jedwali.
+
+```sql
+ALTER TABLE table_name ADD PRIMARY KEY(column_name);
+```
+
+- **Kauli ya `ALTER TABLE DROP CONSTRAINT`**: Kauli hii hutumika kufuta kikwazo kutoka kwenye jedwali.
+
+```sql
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+```
+
+- **`ALTER TABLE ADD COLUMN` na mfunguo wa kigeni**: Kauli hii hutumika kuongeza nguzo ya mfunguo wa kigeni inayorejelea jedwali jingine.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE REFERENCES referenced_table_name(referenced_column_name);
+```
+
+- **Kauli ya `ALTER TABLE ADD UNIQUE`**: Kauli hii hutumika kuongeza kikwazo cha UNIQUE kwenye nguzo.
+
+```sql
+ALTER TABLE table_name ADD UNIQUE(column_name);
+```
+
+- **Kauli ya `ALTER TABLE ALTER COLUMN SET NOT NULL`**: Kauli hii hutumika kuweka kikwazo cha NOT NULL kwenye nguzo iliyopo.
+
+```sql
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+```
+
+- **Kauli ya `INSERT` na thamani za NULL**: Kauli hii inaonyesha jinsi ya kuingiza thamani za NULL kwenye jedwali.
+
+```sql
+INSERT INTO table_name(column_a) VALUES(NULL);
+-- or
+INSERT INTO table_name(column_b) VALUES('value'); -- if column_a allows nulls
+```
+
+- **Mfunguo kuu mchanganyiko**: Kikwazo hiki kinafafanua mfunguo kuu unaojumuisha nguzo nyingi.
+
+```sql
+CREATE TABLE course_enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+);
+```
+
+## Uendeshaji wa data (CRUD)
+
+- **Kauli ya `INSERT`**: Kauli hii hutumika kuingiza safu moja kwenye jedwali.
+
+```sql
+INSERT INTO table_name(column_1, column_2) VALUES(value1, value2);
+```
+
+- **Kauli ya `INSERT` na nguzo zilizopitwa**: Kauli hii inaonyesha jinsi ya kuingiza thamani bila kuorodhesha majina ya nguzo, ikitegemea mpangilio wa chaguo-msingi wa nguzo katika jedwali.
+
+```sql
+INSERT INTO dogs VALUES ('Gino', 3);
+```
+
+- **Kauli ya `INSERT` na safu nyingi**: Kauli hii hutumika kuingiza safu nyingi katika jedwali kwa operesheni moja.
+
+```sql
+INSERT INTO dogs (name, age) VALUES 
+('Gino', 3),
+('Nora', 2);
+```
+
+- **Kauli ya `UPDATE`**: Kauli hii hutumika kusahihisha data iliyopo katika jedwali kulingana na sharti.
+
+```sql
+UPDATE table_name SET column_name=new_value WHERE condition;
+```
+
+- **Kauli ya `DELETE`**: Kauli hii hutumika kufuta safu kutoka kwenye jedwali kulingana na sharti.
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+## Aina za data
+
+- **Aina ya data `NUMERIC`**: Aina hii hutumika kuhifadhi nambari za desimali zenye usahihi maalum na kiwango.
+  
+```sql
+price NUMERIC(10, 2)
+```
+
+- **Aina ya data `TEXT`**: Aina hii hutumika kuhifadhi mfuatano wa herufi wenye urefu wa kubadilika bila kikomo maalum.
+
+```sql
+column_name TEXT
+```
+
+- **Aina ya data `INTEGER`**: Aina hii hutumika kuhifadhi nambari kamili zisizo na sehemu za desimali.
+
+```sql
+units_sold INTEGER
+```
+
+- **Aina za data `SMALLINT` na `BIGINT`**: Hizi ni aina za INTEGER zenye anuwai ndogo na kubwa mtawalia.
+
+- **Aina ya data `SERIAL`**: Aina hii hutumika kuunda nguzo za nambari kamili zinazoongezeka moja moja katika PostgreSQL.
+
+```sql
+id SERIAL
+```
+
+- **Sifa ya `AUTO_INCREMENT`**: Sifa hii hutumika katika MySQL kuunda nguzo za nambari kamili zinazoongezeka moja moja.
+
+```sql
+id INT AUTO_INCREMENT
+```
+
+- **Aina ya data `VARCHAR`**: Aina hii hutumika kuhifadhi mfuatano wa herufi wenye urefu wa kubadilika na kikomo cha juu kilichobainishwa.
+
+```sql
+name VARCHAR(50)
+```
+
+- **Aina ya data `DATE`**: Aina hii hutumika kuhifadhi tarehe (mwaka, mwezi, siku).
+
+```sql
+event_date DATE
+```
+
+- **Aina ya data `TIME`**: Aina hii hutumika kuhifadhi saa (saa, dakika, sekunde).
+
+```sql
+start_time TIME
+```
+
+- **Aina ya data `TIMESTAMP`**: Aina hii hutumika kuhifadhi tarehe na saa, kwa hiari ikiwa na taarifa ya eneo la saa.
+
+```sql
+event_timestamp TIMESTAMP
+event_timestamp TIMESTAMP WITH TIME ZONE
+```
+
+- **Aina ya data `BOOLEAN`**: Aina hii hutumika kuhifadhi thamani za kweli/sikweli.
+
+```sql
+is_active BOOLEAN
+```
+
+## Uhusiano wa hifadhidata
+
+- **Aina za uhusiano**: Hizi ni njia tofauti meza zinavyoweza kuhusiana katika hifadhidata ya uhusiano.
+  - Moja kwa moja
+  - Moja kwa wengi
+  - Wengi kwa moja
+  - Wengi kwa wengi
+  - Kujirejelea mwenyewe (kurudia)
+
+- **Uhusiano moja kwa moja**: Aina hii ya uhusiano ina maana kwamba kila rekodi katika jedwali moja inalingana na rekodi moja tu katika jedwali jingine.
+
+```md
+One employee is assigned exactly one vehicle.
+Tables: employees, vehicles
+```
+
+- **Uhusiano moja kwa wengi**: Aina hii ya uhusiano ina maana kwamba rekodi moja katika jedwali inaweza kuhusishwa na rekodi nyingi katika jedwali jingine.
+
+```md
+One customer can have many orders.
+Tables: customers → orders
+```
+
+- **Uhusiano wengi kwa wengi kupitia jedwali la kiunganishi**: Aina hii ya uhusiano hutekelezwa kwa kutumia jedwali la kiunganishi lenye funguo za kigeni kutoka meza zote mbili zinazohusiana.
+
+```sql
+CREATE TABLE books_authors (
+    author_id INT REFERENCES authors(id),
+    book_id INT REFERENCES books(id)
+);
+```
+
+- **Uhusiano wa kujirejelea mwenyewe**: Aina hii ya uhusiano hutokea wakati jedwali linajirejelea, likiunda muundo wa mlolongo.
+
+```md
+An employee table where each employee may report to another employee.
+```
+
+## SQL ya hali ya juu (Unganisha)
+
+- **Kauli ya `INNER JOIN`**: Unganisha huu hurudisha safu tu zilizo na thamani zinazolingana katika meza zote mbili.
+
+```sql
+SELECT *
+FROM products
+INNER JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kauli ya `FULL OUTER JOIN`**: Unganisha huu hurudisha safu zote kutoka meza zote mbili, ikiwa ni pamoja na safu zisizolingana kutoka meza yoyote.
+
+```sql
+SELECT *
+FROM products
+FULL OUTER JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kauli ya `LEFT OUTER JOIN`**: Unganisha huu hurudisha safu zote kutoka meza ya kushoto na safu zinazolingana kutoka meza ya kulia.
+
+```sql
+SELECT *
+FROM products
+LEFT JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kauli ya `RIGHT OUTER JOIN`**: Unganisha huu hurudisha safu zote kutoka meza ya kulia na safu zinazolingana kutoka meza ya kushoto.
+
+```sql
+SELECT *
+FROM products
+RIGHT JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kauli ya `SELF JOIN`**: Unganisha huu hutumika kuunganisha jedwali na nafsi yake kulinganisha safu ndani ya jedwali hilo.
+
+```sql
+SELECT A.column_name, B.column_name
+FROM table_name A
+JOIN table_name B ON A.related_column = B.related_column;
+```
+
+- **Kauli ya `CROSS JOIN`**: Unganisha huu hurudisha matokeo ya Cartesian ya meza mbili, kuunganisha kila safu kutoka meza ya kwanza na kila safu kutoka meza ya pili.
+
+```sql
+SELECT *
+FROM table1
+CROSS JOIN table2;
+```
+
+## Amri maalum za PostgreSQL
+
+- **Amri ya kuingia `psql`**: Amri hii hutumika kuingia PostgreSQL kwa jina la mtumiaji na hifadhidata maalum.
+
+```bash
+psql --username=freecodecamp --dbname=postgres
+```
+
+- **Amri ya `\l`**: Amri hii inaorodhesha hifadhidata zote katika mfano wa PostgreSQL.
+
+```sql
+\l
+```
+
+- **Amri za `CREATE DATABASE` na `\c`**: Amri hizi hutumika kuunda hifadhidata mpya na kuunganishwa nayo.
+
+```sql
+CREATE DATABASE database_name;
+\c database_name
+```
+
+- **Amri ya `\d`**: Amri hii inaorodhesha meza zote katika hifadhidata ya sasa.
+
+```sql
+\d
+```
+
+- **Amri ya `\d table_name`**: Amri hii inaonyesha schema/muundo wa jedwali maalum.
+
+```sql
+\d table_name
+```
+
+- **Amri ya `\q`**: Amri hii hutoka kwenye mteja wa PostgreSQL.
+
+```bash
+\q
+```
+
+## Hifadhidata za uhusiano dhidi ya zisizo za uhusiano
+
+- **Hifadhidata zisizo za uhusiano (NoSQL)**: Huhifadhi data isiyo na muundo au yenye muundo wa nusu. Hazihitaji schema thabiti na ni rahisi kwa mifano ya data inayobadilika.
+- **Kuchagua kati ya hifadhidata za uhusiano na zisizo za uhusiano**: Inategemea asili ya data yako na mahitaji ya programu.
+- **Hifadhidata za uhusiano dhidi ya zisizo za uhusiano**: Chagua hifadhidata za uhusiano kwa data iliyopangwa na uthabiti; NoSQL kwa unyumbufu na data inayobadilika haraka.
+
+## Mifumo maarufu ya RDBMS
+
+- **MySQL**: Chanzo huria, imara, inatumiwa sana katika uendelezaji wa mtandao, inasaidiwa na jamii kubwa.
+- **PostgreSQL**: Chanzo huria, ya hali ya juu, inayoweza kupanuliwa. Inaunga mkono aina za data maalum na programu za upande wa seva.
+- **SQLite**: Nyepesi, faili-based, isiyo na seva. Inafaa kwa programu ndogo.
+- **Microsoft SQL Server**: Hifadhidata ya biashara yenye leseni.
+- **Oracle Database**: RDBMS ya biashara inayojulikana kwa utendaji mkubwa na uwezo wa kupanuka.
+
+## Mbinu bora
+
+- **Mkataba wa majina**: Tumia `snake_case` (mfano, `delivery_orders`) kwa majina ya meza na nguzo.
+
+## Msingi wa uandishi wa Bash
+
+- **Uandishi wa Bash**: Kuandika mfululizo wa amri za Bash katika faili, ambayo unaweza kuitekeleza kwa Bash kuendesha yaliyomo.
+- **Shebang**: Mstari wa maoni mwanzoni mwa script (mfano, `#!/bin/bash`) unaonyesha tafsiri inayotakiwa kwa script.
+
+  ```bash
+  #!/bin/bash
+  ```
+
+- **Mgawo wa vigezo**: Tengeneza vigezo kwa sintaksia `variable_name=value`.
+
+  ```bash
+  servers=("prod" "dev")
+  ```
+
+- **Sheria za kuunda vigezo**: Unda vigezo kwa sintaksia `VARIABLE_NAME=VALUE`. Hakuna nafasi zinazoruhusiwa karibu na ishara ya usawa (`=`). Tumia alama za nukuu maradufu ikiwa thamani ina nafasi.
+
+  ```bash
+  NAME=John
+  MESSAGE="Hello World"
+  COUNT=5
+  TEXT="The next number is, "
+  ```
+
+- **Matumizi ya vigezo**: Pata thamani za vigezo kwa kuweka `$` mbele ya jina la kigezo.
+
+  ```bash
+  echo $NAME
+  echo "The message is: $MESSAGE"
+  ```
+
+- **Uingizaji wa thamani**: Tumia `$variable_name` kupata thamani ya kigezo ndani ya mfuatano wa herufi na amri.
+
+  ```bash
+  TEXT="The next number is, "
+  NUMBER=42
+  echo $TEXT B:$NUMBER
+  echo $TEXT I:$NUMBER
+  
+  echo "Pulling $server"
+  rsync --archive --verbose $server:/etc/nginx/conf.d/server.conf configs/$server.conf
+  ```
+
+- **Wigo wa vigezo**: Skripti za shell zinaendesha kutoka juu hadi chini, hivyo vigezo vinaweza kutumika tu chini ya mahali vinapotangazwa.
+
+  ```bash
+  NAME="Alice"
+  echo $NAME
+  ```
+
+- **Ingizo la mtumiaji**: Tumia `read` kupokea ingizo kutoka kwa watumiaji na kuhifadhi katika kigezo.
+
+  ```bash
+  read USERNAME
+  echo "Hello $USERNAME"
+  ```
+
+- **Maoni**: Ongeza maoni kwenye skripti zako kwa kutumia `#` ikifuatiwa na maoni yako.
+  - Maoni ya mstari mmoja huanza na `#` na yanaendelea hadi mwisho wa mstari
+  - Maoni hayazingatiwi na shell na hayathiri utekelezaji wa skripti
+
+  ```bash
+  # This is a single-line comment
+  NAME="John"  # Comment at end of line
+  ```
+
+- **Maoni ya mistari mingi**: Toa maoni kwenye sehemu za msimbo kwa kutumia nukuu na alama ya nukuu.
+
+  ```bash
+  : '
+  This is a multi-line comment
+  Everything between the quotes is ignored
+  Useful for debugging or documentation
+  '
+  ```
+
+- **Amri zilizojengwa ndani na msaada**: 
+  - Tumia `help` kuona orodha ya amri za bash zilizojengwa ndani
+  - Tumia `help <command>` kupata taarifa kuhusu amri maalum zilizojengwa ndani
+  - Baadhi ya amri (kama `if`) ni za ndani na hazina kurasa za mwongozo
+  - Amri zilizojengwa ndani zinaendeshwa moja kwa moja na shell badala ya programu za nje
+  - Tumia `help function` kuona taarifa kuhusu kuunda kitendakazi
+
+  ```bash
+  help
+  help if
+  help function
+  ```
+
+- **Kupata mahali pa amri**: Tumia `which` kupata mahali ambapo programu zinawekwa.
+  - Inaonyesha njia kamili ya mafaili ya programu
+  - Inasaidia kupata mahali pa tafsiri (kama bash)
+  - Inasaidia kuthibitisha toleo la amri litakalotekelezwa
+
+  ```bash
+  which bash
+  which python
+  which ls
+  ```
+
+- **Kurasa za mwongozo**: Tumia `man` kupata maelezo ya kina kuhusu amri.
+  - Hutoa taarifa kamili kuhusu matumizi ya amri
+  - Inaonyesha chaguzi zote zinazopatikana na mifano
+  - Tumia mishale ya mwelekeo kuvinjari, 'q' kutoka
+  - Sio amri zote zina kurasa za mwongozo (amri za ndani hutumia `help` badala yake)
+
+  ```bash
+  man echo
+  man ls
+  man bash
+  ```
+
+- **Bendera za msaada**: Amri nyingi zinaunga mkono `--help` kwa msaada wa haraka.
+  - Mbadala wa kurasa za mwongozo kwa rejea ya haraka
+  - Inaonyesha sintaksia ya amri na chaguzi za kawaida
+  - Sio amri zote zinaunga mkono bendera hii (baadhi zinaweza kuonyesha hitilafu)
+
+  ```bash
+  ls --help
+  chmod --help
+  mv --help
+  ```
+
+- **Chaguzi za amri ya echo**: Amri ya `echo` inaunga mkono chaguzi mbalimbali:
+  - Chaguo la `-e` linawezesha tafsiri ya mkwaju wa nyuma
+  - `\n` huunda mstari mpya
+  - Mistari tupu huchapishwa tu wakati thamani ziko ndani ya nukuu
+  - Inafaa kwa kuunda matokeo yaliyopangwa na vichwa vya programu
+
+  ```bash
+  echo -e "Line 1\nLine 2"
+  echo ""
+  echo -e "\n~~ Program Title ~~\n"
+  echo "Line 1\nLine 2"
+  ```
+
+- **Hoja za skripti**: Programu zinaweza kupokea hoja zinazopatikana kwa kutumia vigezo vya `$`.
+  - `$*` huonyesha hoja zote zilizopita kwa skripti
+  - `$@` huonyesha hoja zote kama mfuatano wa nukuu tofauti
+  - `$<number>` hupata hoja maalum kwa nafasi (mfano, `$1`, `$2`, `$3`)
+
+  ```bash
+  echo $*
+  echo $@
+  echo $1
+  echo $2
+  ```
+
+## Usemi wa mabano maradufu `[[ ]]`
+
+- **Sintaksia ya mabano maradufu**: Tumia `[[ ]]` kwa majaribio ya masharti na kulinganisha mifano.
+  - Lazima kuwe na nafasi ndani ya mabano na karibu na opereta
+  - Hurejesha hali ya kutoka 0 (kweli) au 1 (uongo) kulingana na matokeo ya jaribio
+
+  ```bash
+  [[ $variable == "value" ]]
+  [[ $number -gt 10 ]]
+  [[ -f filename.txt ]]
+  ```
+
+- **Opereta za kulinganisha mfuatano wa herufi**: Linganisha mfuatano wa herufi kwa opereta mbalimbali ndani ya `[[ ]]`.
+  - `==` (sawa): Jaribu kama mfuatano miwili ni sawa
+  - `!=` (si sawa): Jaribu kama mfuatano miwili ni tofauti
+  - `<` (chini kwa mpangilio wa alfabeti): Kulinganisha mfuatano kwa mpangilio wa alfabeti
+  - `>` (juu kwa mpangilio wa alfabeti): Kulinganisha mfuatano kwa mpangilio wa alfabeti
+
+  ```bash
+  [[ "apple" == "apple" ]]
+  [[ "apple" != "orange" ]]
+  [[ "apple" < "banana" ]]
+  [[ "zebra" > "apple" ]]
+  ```
+
+- **Opereta za kulinganisha nambari**: Linganisha nambari kwa opereta maalum za nambari.
+  - `-eq` (sawa): Kulinganisha usawa wa nambari
+  - `-ne` (si sawa): Kulinganisha kutofautiana kwa nambari
+  - `-lt` (chini ya): Kulinganisha nambari ndogo kuliko nyingine
+  - `-le` (chini au sawa): Kulinganisha nambari ndogo au sawa
+  - `-gt` (juu ya): Kulinganisha nambari kubwa kuliko nyingine
+  - `-ge` (juu au sawa): Kulinganisha nambari kubwa au sawa
+
+  ```bash
+  [[ $number -eq 5 ]]
+  [[ $count -ne 0 ]]
+  [[ $age -ge 18 ]]
+  [[ $score -lt 100 ]]
+  ```
+
+- **Opereta za kimantiki**: Unganisha masharti mengi kwa opereta za kimantiki.
+  - `&&` (na): Masharti yote mawili lazima yawe kweli
+  - `||` (au): Angalau sharti moja lazima liwe kweli
+  - `!` (si): Kinyume cha sharti (hufanya kweli kuwa uongo, uongo kuwa kweli)
+
+  ```bash
+  [[ $age -ge 18 && $age -le 65 ]]
+  [[ $name == "John" || $name == "Jane" ]]
+  [[ ! -f missing_file.txt ]]
+  ```
+
+- **Opereta za mtihani wa faili**: Jaribu sifa na kuwepo kwa faili.
+  - `-e file`: Kweli ikiwa faili ipo
+  - `-f file`: Kweli ikiwa faili ipo na ni faili ya kawaida
+  - `-d file`: Kweli ikiwa faili ipo na ni saraka
+  - `-r file`: Kweli ikiwa faili ipo na inasomeka
+  - `-w file`: Kweli ikiwa faili ipo na inaandikwa
+  - `-x file`: Kweli ikiwa faili ipo na inaendeshwa
+  - `-s file`: Kweli ikiwa faili ipo na ina ukubwa zaidi ya sifuri
+
+  ```bash
+  [[ -e /path/to/file ]]
+  [[ -f script.sh ]]
+  [[ -d /home/user ]]
+  [[ -x program ]]
+  ```
+
+- **Kulinganisha mifano kwa `=~`**: Tumia usemi wa kawaida kwa kulinganisha mifano ya hali ya juu.
+  - Opereta `=~` huwezesha kulinganisha kwa regex
+  - Mfano haupaswi kuwekwa ndani ya nukuu wakati wa kutumia metacharacters za regex
+  - Inasaidia sintaksia kamili ya usemi wa kawaida
+  - Inazingatia herufi kubwa na ndogo kwa chaguo-msingi
+
+  ```bash
+  [[ "hello123" =~ [0-9]+ ]]
+  [[ "email@domain.com" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]
+  [[ "filename.txt" =~ \.txt$ ]]
+  ```
+
+- **Kujaribu kuwepo kwa vigezo**: Angalia kama vigezo vimewekwa au ni tupu.
+  - Jaribu ikiwa kigezo ni tupu: `[[ ! $variable ]]`
+
+  ```bash
+  [[ ! $undefined_var ]]
+  ```
+
+## Usemi wa mabano ya kawaida `(( ))`
+
+- **Tathmini ya kihesabu**: Tumia `(( ))` kwa mahesabu na kulinganisha nambari.
+  - Hutatua usemi wa kihesabu kwa sintaksia ya mtindo wa C
+  - Vigezo havihitaji kiambishi awali cha `$` ndani ya mabano ya kawaida
+  - Hurejesha hali ya kutoka 0 ikiwa matokeo si sifuri, 1 ikiwa matokeo ni sifuri
+  - Inasaidia opereta zote za kihesabu za kawaida
+
+  ```bash
+  (( result = 10 + 5 ))
+  (( count++ ))
+  (( total += value ))
+  ```
+
+- **Opereta za kihesabu**: Opereta za kihesabu zinazopatikana katika `(( ))`.
+  - `+` (ongeza): Ongeza nambari mbili
+  - `-` (punguza): Punguza nambari ya pili kutoka ya kwanza
+  - `*` (zidisha): Zidisha nambari mbili
+  - `/` (gawanya): Gawanya nambari ya kwanza kwa ya pili (gawanyo la nambari kamili)
+  - `%` (modulo): Mabaki baada ya mgawanyo
+  - `**` (nguvu): Inua nambari ya kwanza kwa nguvu ya ya pili
+
+  ```bash
+  (( sum = a + b ))
+  (( diff = x - y ))
+  (( product = width * height ))
+  (( remainder = num % 10 ))
+  (( power = base ** exponent ))
+  ```
+
+- **Opereta za mgawo wa thamani**: Badilisha vigezo kwa opereta za mgawo wa kihesabu.
+  - `=` (mgawo): Weka thamani kwa kigezo
+  - `+=` (ongeza na weka): Ongeza thamani kwa kigezo
+  - `-=` (punguza na weka): Punguza thamani kutoka kwa kigezo
+  - `*=` (zidisha na weka): Zidisha kigezo kwa thamani
+  - `/=` (gawanya na weka): Gawanya kigezo kwa thamani
+  - `%=` (modulo na weka): Weka kigezo kuwa mabaki
+
+  ```bash
+  (( counter = 0 ))
+  (( counter += 5 ))
+  (( total -= cost ))
+  (( area *= 2 ))
+  (( value /= 3 ))
+  ```
+
+- **Opereta za kuongeza na kupunguza**: Badilisha vigezo kwa moja.
+  - `++variable` (ongeza kabla): Ongeza kabla ya matumizi
+  - `variable++` (ongeza baada): Ongeza baada ya matumizi
+  - `--variable` (punguza kabla): Punguza kabla ya matumizi
+  - `variable--` (punguza baada): Punguza baada ya matumizi
+
+  ```bash
+  (( ++counter ))
+  (( index++ ))
+  (( --remaining ))
+  (( attempts-- ))
+  ```
+
+- **Opereta za kulinganisha**: Linganisha nambari kwa kulinganisha kihesabu.
+  - `==` (sawa): Nambari ni sawa
+  - `!=` (si sawa): Nambari si sawa
+  - `<` (chini ya): Nambari ya kwanza ni ndogo kuliko ya pili
+  - `<=` (chini au sawa): Nambari ya kwanza ni ndogo au sawa na ya pili
+  - `>` (juu ya): Nambari ya kwanza ni kubwa kuliko ya pili
+  - `>=` (juu au sawa): Nambari ya kwanza ni kubwa au sawa na ya pili
+
+  ```bash
+  (( age >= 18 ))
+  (( score < 100 ))
+  (( count == 0 ))
+  (( temperature > freezing ))
+  ```
+
+- **Opereta za kimantiki**: Unganisha masharti ya kihesabu.
+  - `&&` (na): Masharti yote mawili lazima yawe kweli
+  - `||` (au): Angalau sharti moja lazima liwe kweli
+  - `!` (si): Kinyume cha sharti
+
+  ```bash
+  (( age >= 18 && age <= 65 ))
+  (( score >= 90 || extra_credit > 0 ))
+  (( !(count == 0) ))
+  ```
+
+- **Opereta za bitwise**: Fanya operesheni za ngazi ya biti kwenye nambari kamili.
+  - `&` (bitwise AND): Operesheni ya AND kwa kila biti
+  - `|` (bitwise OR): Operesheni ya OR kwa kila biti
+  - `^` (bitwise XOR): Operesheni ya XOR kwa kila biti
+  - `~` (bitwise NOT): Geuza bits zote
+  - `<<` (kuhamisha kushoto): Hamisha bits kushoto
+  - `>>` (kuhamisha kulia): Hamisha bits kulia
+
+  ```bash
+  (( result = a & b ))
+  (( flags |= new_flag ))
+  (( shifted = value << 2 ))
+  ```
+
+- **Opereta wa masharti (ternary)**: Tumia sintaksia ya `condition ? true_value : false_value`.
+  - Hutoa njia fupi ya kuweka thamani kulingana na masharti
+  - Inafanana na opereta ya ternary katika lugha za mtindo wa C
+  - Hutathmini sharti na kurudisha moja ya thamani mbili
+
+  ```bash
+  (( result = (score >= 60) ? 1 : 0 ))
+  (( max = (a > b) ? a : b ))
+  (( sign = (num >= 0) ? 1 : -1 ))
+  ```
+
+- **Ubadilishaji wa amri na kihesabu**: Tumia `$(( ))` kunasa matokeo ya kihesabu.
+  - Hurejesha matokeo ya usemi wa kihesabu kama mfuatano wa herufi
+  - Inaweza kutumika katika mgawo au hoja za amri
+  - Inafaa kwa mahesabu yanayohitaji kutumika sehemu nyingine
+
+  ```bash
+  result=$(( 10 + 5 ))
+  echo "The answer is $(( a * b ))"
+  array_index=$(( RANDOM % array_length ))
+  ```
+
+## Mtiririko wa udhibiti na masharti
+
+- **Kauli za masharti**: Tumia kauli za `if` kutekeleza msimbo kulingana na masharti.
+  - Sintaksia ya msingi: `if [[ CONDITION ]] then STATEMENTS fi`
+  - Sintaksia kamili: `if [[ CONDITION ]] then STATEMENTS elif [[ CONDITION ]] then STATEMENTS else STATEMENTS fi`
+  - Unaweza kutumia `[[ ]]` na `(( ))` kwa aina tofauti za masharti
+  - **elif (else if)**: Hiari, inaweza kurudiwa mara nyingi kujaribu masharti zaidi kwa mfululizo
+  - **else**: Hiari, hufanyika wakati masharti yote ya awali ni uongo
+  - Unaweza kuchanganya mabano maradufu `(( ... ))` na mabano ya kawaida `[[ ... ]]` katika mnyororo mmoja wa masharti
+
+  ```bash
+  if (( NUMBER <= 15 ))
+  then
+      echo "B:$NUMBER"
+  elif [[ $NUMBER -le 30 ]]
+  then
+      echo "I:$NUMBER"
+  elif (( NUMBER < 46 ))
+  then
+      echo "N:$NUMBER"
+  elif [[ $NUMBER -lt 61 ]]
+  then
+      echo "G:$NUMBER"
+  else
+      echo "O:$NUMBER"
+  fi
+  ```
+
+## Utekelezaji wa amri na udhibiti wa michakato
+
+- **Kutenganisha amri**: Tumia nukta ya koma (`;`) kuendesha amri nyingi kwenye mstari mmoja.
+  - Amri zinaendeshwa mfululizo kutoka kushoto kwenda kulia
+  - Kila amri inaweza kuangaliwa hali ya kutoka kando yake
+
+  ```bash
+  [[ 4 -ge 5 ]]; echo $?
+  ls -l; echo "Done"
+  ```
+
+- **Hali ya kutoka**: Kila amri ina hali ya kutoka inayobainisha mafanikio au kushindwa.
+  - Pata hali ya kutoka ya amri ya mwisho kwa `$?`
+  - Hali ya kutoka `0` ina maana mafanikio (kweli/hakuna hitilafu)
+  - Hali yoyote isiyo sifuri ina maana hitilafu (uongo/kunatokea makosa)
+  - Nambari za hitilafu za kawaida: `127` (amri haipatikani), `1` (hitilafu ya jumla)
+
+  ```bash
+  echo $?
+  [[ 4 -le 5 ]]; echo $?
+  ls; echo $?
+  bad_command; echo $?
+  ```
+
+- **Subshells na ubadilishaji wa amri**: Matumizi tofauti ya mabano kwa muktadha wa utekelezaji.
+  - Mabano moja `( ... )` huunda subshell
+  - `$( ... )` hufanya ubadilishaji wa amri
+  - Subshells zinaendesha katika mazingira tofauti na hazibadilishi vigezo vya shell mama
+
+  ```bash
+  ( cd /tmp; echo "Current dir: $(pwd)" )
+  current_date=$(date)
+  file_count=$(ls | wc -l)
+  echo "Today is $current_date"
+  echo "Found $file_count files"
+  ```
+
+- **Amri ya kulala (sleep)**: Simamisha utekelezaji wa skripti kwa sekunde zilizobainishwa.
+  - Inafaa kwa kuunda ucheleweshaji katika skripti
+  - Inaweza kutumika na thamani za desimali kwa ucheleweshaji wa chini ya sekunde
+
+  ```bash
+  sleep 3
+  sleep 0.5
+  sleep 1
+  ```
+
+## Mizunguko
+
+- **Mizunguko ya while**: Tekeleza msimbo kurudia wakati sharti ni kweli.
+  - Sintaksia: `while [[ CONDITION ]] do STATEMENTS done`
+
+  ```bash
+  I=5
+  while [[ $I -ge 0 ]]
+  do
+      echo $I
+      (( I-- ))
+      sleep 1
+  done
+  ```
+
+- **Mizunguko ya until**: Tekeleza msimbo kurudia hadi sharti liwe kweli.
+  - Sintaksia: `until [[ CONDITION ]] do STATEMENTS done`
+
+  ```bash
+  until [[ $QUESTION =~ \?$ ]]
+  do
+      echo "Please enter a question ending with ?"
+      read QUESTION
+  done
+  until [[ $QUESTION =~ \?$ ]]
+  do
+      GET_FORTUNE again
+  done
+  ```
+
+- **Mizunguko ya for**: Pitia safu au orodha kwa kutumia mizunguko ya `for` na `do` na `done` kuainisha sehemu ya mantiki ya mzunguko.
+
+  ```bash
+  for server in "${servers[@]}"
+  do
+      echo "Processing $server"
+  done
+  for (( i = 1; i <= 5; i++ ))
+  do
+      echo "Number: $i"
+  done
+  for (( i = 5; i >= 1; i-- ))
+  do
+      echo "Countdown: $i"
+  done
+  for i in {1..5}
+  do
+      echo "Count: $i"
+  done
+  ```
+
+## Safu za data
+
+- **Safu za data**: Hifadhi thamani nyingi katika kigezo kimoja.
+  - Unda safu kwa mabano: `ARRAY=("value1" "value2" "value3")`
+  - Pata vipengele kwa kielezo: `${ARRAY[0]}`, `${ARRAY[1]}`
+  - Pata vipengele vyote: `${ARRAY[@]}` au `${ARRAY[*]}`
+  - Kielezo cha safu huanzia 0
+
+  ```bash
+  RESPONSES=("Yes" "No" "Maybe" "Ask again later")
+
+  echo ${RESPONSES[0]}     # Yes          
+  echo ${RESPONSES[1]}     # No         
+  echo ${RESPONSES[5]}     # Index 5 doesn't exist; empty string              
+  echo ${RESPONSES[@]}     # Yes No Maybe Ask again later   
+  echo ${RESPONSES[*]}     # Yes No Maybe Ask again later 
+  ```
+
+- **Ukaguzi wa safu kwa declare**: Tumia `declare -p` kuona maelezo ya safu.
+  - Inaonyesha aina ya safu kwa bendera ya `-a`
+  - Inaonyesha vipengele vyote na muundo wa safu
+
+  ```bash
+  ARR=("a" "b" "c")
+  declare -p ARR # ARR=([0]="a" [1]="b" [2]="c")
+  ```
+
+- **Upanuzi wa safu**: Tumia sintaksia ya `"${array_name[@]}"` kupanua safu kuwa vipengele binafsi.
+
+```bash
+for server in "${servers[@]}"
+```
+
+## Kitendakazi
+
+- **Kitendakazi**: Unda sehemu za msimbo zinazoweza kutumika tena.
+  - Tangaza kwa `FUNCTION_NAME() { STATEMENTS }`
+  - Wito kwa kutumia jina la kitendakazi
+  - Inaweza kupokea hoja zinazopatikana kama `$1`, `$2`, n.k.
+
+  ```bash
+  GET_FORTUNE() {
+      echo "Ask a question:"
+      read QUESTION
+  }
+  GET_FORTUNE
+  ```
+
+- **Hoja za kitendakazi**: Kitendakazi kinaweza kupokea hoja kama skripti.
+  - Hoja hupitishwa wakati wa kuita kitendakazi
+  - Pata hoja ndani ya kitendakazi kwa `$1`, `$2`, n.k.
+  - Tumia mantiki ya masharti kushughulikia hoja tofauti
+
+  ```bash
+  GET_FORTUNE() {
+      if [[ ! $1 ]]
+      then
+          echo "Ask a yes or no question:"
+      else
+          echo "Try again. Make sure it ends with a question mark:"
+      fi
+      read QUESTION
+  }
+  GET_FORTUNE
+  GET_FORTUNE again
+  ```
+
+## Nambari za nasibu na operesheni za kihesabu
+
+- **Nambari za nasibu**: Tengeneza thamani za nasibu kwa kutumia kigezo cha `$RANDOM`.
+  - `$RANDOM` hutengeneza nambari kati ya 0 na 32767
+  - Tumia opereta ya modulo kupunguza anuwai: `$RANDOM % 75`
+  - Ongeza 1 kuepuka sifuri: `$(( RANDOM % 75 + 1 ))`
+  - Lazima tumia sintaksia ya `$(( ... ))` kwa mahesabu na `$RANDOM`
+
+  ```bash
+  NUMBER=$(( RANDOM % 6 ))
+  DICE=$(( RANDOM % 6 + 1 ))
+  BINGO=$(( RANDOM % 75 + 1 ))
+  echo $(( RANDOM % 10 ))
+  ```
+
+- **Upatikanaji wa nasibu wa safu**: Tumia nambari za nasibu kupata vipengele vya safu kwa nasibu.
+  - Tengeneza kielezo cha nasibu ndani ya mipaka ya safu
+  - Tumia kielezo cha nasibu kupata vipengele vya safu
+  - Inafaa kwa uchaguzi wa nasibu kutoka kwa chaguzi zilizowekwa awali
+
+  ```bash
+  RESPONSES=("Yes" "No" "Maybe" "Outlook good" "Don't count on it" "Ask again later")
+  N=$(( RANDOM % 6 ))
+  echo ${RESPONSES[$N]}
+  ```
+
+- **Opereta ya modulo**: Tumia `%` kupata mabaki ya mgawanyo.
+  - Muhimu kwa kupunguza anuwai ya nambari za nasibu
+  - Hufanya kazi na `$RANDOM` kuunda thamani za nasibu zilizo na mipaka
+  - `RANDOM % n` hutoa nambari kutoka 0 hadi n-1
+
+  ```bash
+  echo $(( 15 % 4 ))
+  echo $(( RANDOM % 100 ))
+  echo $(( RANDOM % 10 + 1 ))
+  ```
+
+## Mazingira na taarifa za mfumo
+
+- **Vigezo vya mazingira**: Vigezo vilivyowekwa awali vinavyopatikana katika mazingira ya shell.
+  - `$RANDOM`: Hutengeneza nambari za nasibu kati ya 0 na 32767
+  - `$LANG`: Mipangilio ya lugha ya mfumo
+  - `$HOME`: Njia ya saraka ya nyumbani ya mtumiaji
+  - `$PATH`: Saraka zinazotafutwa kwa amri za kutekeleza
+  - Angalia zote kwa `printenv` au `declare -p`
+
+  ```bash
+  echo $RANDOM
+  echo $HOME
+  echo $LANG
+  printenv
+  ```
+
+- **Ukaguzi wa vigezo**: Tumia `declare` kuona na kufanya kazi na vigezo.
+  - `declare -p`: Chapisha vigezo vyote na thamani zao
+  - `declare -p VARIABLE`: Chapisha maelezo ya kigezo maalum
+  - Inaonyesha aina ya kigezo (mfuatano wa herufi, safu, n.k.) na sifa
+
+  ```bash
+  declare -p
+  declare -p RANDOM
+  declare -p MY_ARRAY
+  ```
+
+- **Aina za amri**: Makundi tofauti ya amri zinazopatikana katika bash.
+  - **Amri zilizojengwa ndani**: Zinatumwa moja kwa moja na shell (mfano, `echo`, `read`, `if`)
+  - **Amri za nje**: Mafaili ya binary katika saraka za mfumo (mfano, `ls`, `sleep`, `bash`)
+  - **Maneno muhimu ya shell**: Miundo ya lugha (mfano, `then`, `do`, `done`)
+  - Tumia `type <command>` kuona aina ya amri
+
+  ```bash
+  type echo
+  type ls
+  type if
+  type ./script.sh
+  ```
+
+## Uundaji na usimamizi wa faili
+
+- **Uundaji wa faili**: Tumia `touch` kuunda mafaili mapya tupu.
+  - Unda faili mpya ikiwa haipo
+  - Sasisha tarehe ya mabadiliko ikiwa faili ipo tayari
+  - Hutumika sana kuunda faili za skripti kabla ya kuhariri
+
+  ```bash
+  touch script.sh
+  touch bingo.sh
+  touch filename.txt
+  ```
+
+## Kuunda na kuendesha skripti za Bash
+
+- **Njia za kuendesha skripti za bash**:
+  - **`sh scriptname.sh`**: Endesha kwa tafsiri ya sh shell.
+  - **`bash scriptname.sh`**: Endesha kwa tafsiri ya bash shell.
+  - **`./scriptname.sh`**: Endesha moja kwa moja (inahitaji ruhusa za utekelezaji).
+
+```bash
+sh questionnaire.sh
+bash questionnaire.sh
+./questionnaire.sh
+```
+
+## Ruhusa za faili na utekelezaji wa skripti
+
+- **Hitilafu ya ruhusa imekataliwa**: Unapotumia `./scriptname.sh`, unaweza kupata "ruhusa imekataliwa" ikiwa faili haina ruhusa za utekelezaji.
+- **Kagua ruhusa**: Tumia `ls -l` kuona ruhusa za faili.
+
+  ```bash
+  ls -l questionnaire.sh
+  ```
+
+- **Muundo wa ruhusa**: Matokeo yanaonyesha ruhusa kama `-rw-r--r--` ambapo:
+  - Herufi ya kwanza (`-`): Aina ya faili (- kwa faili ya kawaida, d kwa saraka)
+  - Herufi 9 zinazofuata: Ruhusa kwa mmiliki, kundi, na wengine
+  - `r` = soma, `w` = andika, `x` = tekeleza
+  
+- **Ongeza ruhusa za utekelezaji**: Tumia `chmod +x` kutoa ruhusa za utekelezaji kwa kila mtu.
+
+  ```bash
+  chmod +x questionnaire.sh
+  ```
+
+- **Mpangilio wa skripti**: Mbinu bora za kupanga skripti za bash.
+  - Anza na shebang (`#!/bin/bash`)
+  - Ongeza maoni ya kuelezea kusudi la skripti
+  - Tangaza vigezo juu
+  - Panga vitendakazi vinavyohusiana pamoja
+  - Mantiki kuu ya skripti iwe chini
+
+  ```bash
+  #!/bin/bash
+  NAME="value"
+  ARRAY=("item1" "item2")
+  my_function() {
+      echo "Function code here"
+  }
+  my_function
+  echo "Script complete"
+  ```
+
+- **Utekelezaji wa skripti mfululizo**: Unda skripti kuu zinazoendesha programu nyingi kwa mfululizo.
+  - Inafaa kwa kuendesha kazi za kiotomatiki zinazojumuisha skripti nyingi
+  - Kila skripti inaendesha hadi mwisho kabla ya nyingine kuanza
+  - Inaweza kuunganisha programu tofauti katika mtiririko mmoja wa utekelezaji
+  - Hoja zinaweza kupitishwa kwa skripti binafsi kama inavyohitajika
+  - Inaweza kujumuisha aina tofauti za programu (za mwingiliano, za kiotomatiki, n.k.)
+
+  ```bash
+  #!/bin/bash
+  ./setup.sh
+  ./interactive.sh
+  ./processing.sh
+  ./cleanup.sh
+  ```
+
+## Kawaisha hifadhidata
+
+Huu ni mchakato wa kupanga hifadhidata ya uhusiano ili kupunguza rudufu ya data na kuboresha usahihi.
+
+Faida zake ni:
+
+- Kupunguza data rudufu, ambayo huokoa hifadhi na kupunguza kutokubaliana.
+- Kutekeleza usahihi wa data kwa kutumia funguo kuu na za kigeni.
+- Kufanya hifadhidata ziwe rahisi kudumishwa na kueleweka.
+
+### Fomu za kawaida
+
+- **1NF (Fomu ya Kawaida ya Kwanza)**
+  - Kila seli ina thamani moja (atomiki).
+  - Kila rekodi ni ya kipekee (inathibitishwa na mfunguo kuu).
+  - Mpangilio wa safu/nguzo hauna umuhimu.
+  - Mfano: Hamisha nambari nyingi za simu kutoka kwenye jedwali la `students` kwenda kwenye jedwali tofauti la `student_phones`.
+
+- **2NF (Fomu ya Kawaida ya Pili)**
+  - Inakidhi mahitaji ya 1NF.
+  - Hakuna **utegemezi wa sehemu**: kila sifa isiyo ya mfunguo lazima itegemeze mfunguo kuu mchanganyiko mzima.
+  - Mfano: Gawanya jedwali la `orders` kuwa `order_header` na `order_items` ili kuepuka sifa kutegemea sehemu tu ya mfunguo.
+
+- **3NF (Fomu ya Kawaida ya Tatu)**
+  - Inakidhi mahitaji ya 2NF.
+  - Hakuna **utegemezi wa mpito**: sifa zisizo za mfunguo haziwezi kutegemea sifa nyingine zisizo za mfunguo.
+  - Mfano: Hamisha `city_postal_code` kwenda kwenye jedwali la `cities` badala ya kuhifadhi na kila oda.
+
+- **BCNF (Fomu ya Kawaida ya Boyce-Codd)**
+  - Inakidhi mahitaji ya 3NF.
+  - Kila kigezo cha uamuzi (kushoto kwa utegemezi wa kitendakazi) lazima kiwe superkey.
+
+**Ushauri**: Lenga 3NF katika muundo mwingi kwa usawa mzuri wa usahihi na utendaji.
+
+## Dhana kuu za SQL
+
+- SQL ni lugha ya muundo wa hoja kwa mawasiliano na hifadhidata za uhusiano.
+- **Amri za msingi** → `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE TABLE`, `ALTER TABLE`, n.k.
+- `Joins` → Inachanganya data kutoka meza nyingi (`INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL JOIN`).
+
+## Kuendesha amri za SQL katika Bash
+
+Unaweza kuendesha amri za SQL moja kwa moja kutoka mstari wa amri kwa kutumia mteja wa mstari wa amri wa `psql` kwa PostgreSQL au zana zinazofanana kwa hifadhidata nyingine.
+
+Kwa mfano, kuendesha faili la SQL katika PostgreSQL:
+
+```bash
+psql -U username -d database_name -c "SELECT * FROM students;"
+```
+
+Unaweza pia kuendesha amri za MySQL moja kwa moja:
+
+```bash
+mysql -u username -p database_name -e "SELECT * FROM students;"
+```
+
+### Endesha SQL kutoka faili
+
+```bash
+# PostgreSQL
+psql -U username -d database_name -f script.sql
+
+# MySQL
+mysql -u username -p database_name < script.sql
+```
+
+### Ingiza SQL katika skripti ya Bash
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Insert student data
+psql -U "$DB_USER" -d "$DB_NAME" -c \
+"INSERT INTO students (name, age, major) VALUES ('Alice', 20, 'CS');"
+```
+
+### Matumizi ya vigezo katika SQL
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+STUDENT_NAME="Bob"
+AGE=21
+
+psql -U "$DB_USER" -d "$DB_NAME" -c \
+"INSERT INTO students (name, age) VALUES ('$STUDENT_NAME', $AGE);"
+```
+
+**Ushauri**: Safisha vigezo ili kuepuka sindano ya SQL.
+
+## Kupata na kutumia matokeo ya hoja za SQL katika Bash
+
+Unapotekeleza hoja za SQL kupitia `psql`, unaweza **kunasa** na **kusindika** thamani zilizorejeshwa katika skripti zako za Bash.
+
+### Kunasa thamani moja
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get total student count
+STUDENT_COUNT=$(psql -U "$DB_USER" -d "$DB_NAME" -t -A -c \
+"SELECT COUNT(*) FROM students;")
+
+echo "Total students: $STUDENT_COUNT"
+```
+
+Matokeo → 42
+
+### Kupata nguzo nyingi
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get top 3 students' names and ages
+RESULTS=$(psql -U "$DB_USER" -d "$DB_NAME" -t -A -F"," -c \
+"SELECT name, age FROM students LIMIT 3;")
+
+echo "Top 3 students:"
+echo "$RESULTS"
+```
+
+Matokeo
+
+```bash
+Alice,20
+Bob,21
+Charlie,22
+```
+
+### Kurudia matokeo ya hoja
+
+```bash
+#!/bin/bash
+DB_USER="school_admin"
+DB_NAME="school"
+
+# Get student names and majors
+psql -U "$DB_USER" -d "$DB_NAME" -t -A -F"," -c \
+"SELECT name, major FROM students;" | while IFS="," read -r name major
+do
+    echo "Student: $name | Major: $major"
+done
+```
+
+Muundo wa matokeo
+
+```bash
+Student: Alice | Major: CS
+Student: Bob   | Major: Math
+Student: Carol | Major: Physics
+```
+
+## Sindano ya SQL
+
+Ni udhaifu wa usalama wa mtandao ambapo wadukuzi huingiza msimbo wa SQL hatari katika sehemu za ingizo ili kudhibiti hifadhidata.
+
+Hii inaweza kusababisha vitendo hatari kama:
+
+- Kupita uthibitisho wa utambulisho.
+- Kunyakua data nyeti.
+- Kubadilisha au kufuta rekodi.
+
+Mfano wa shambulio la sindano ya SQL:
+
+```sql
+SELECT * FROM users WHERE username = ' " " OR "1"="1" -- ' AND password = 'anything';
+```
+
+Hoja hii itarudisha watumiaji wote kwa sababu sharti `OR "1"="1"` daima ni kweli, ikiruhusu wadukuzi kupita ukaguzi wa kuingia.
+
+### Kuzuia sindano ya SQL
+
+1. **Tumia Kauli Zilizotayarishwa**: Hizi hutenganisha msimbo wa SQL na data, kuzuia sindano. Mfano (Node.js na pg):
+
+    ```sql
+    client.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password]);
+    ```
+
+2. **Uthibitisho wa ingizo**: Safisha na hakiki ingizo zote za mtumiaji kuhakikisha zinaendana na muundo unaotarajiwa.
+
+3. **Ruhusa za chini kabisa**: Tumia akaunti za hifadhidata zenye ruhusa ndogo zinazohitajika kwa programu.
+
+**Kumbuka**: Kamwe usitoe haki za msimamizi kwa akaunti za programu.
+
+## Tatizo la N+1
+
+Tatizo la N+1 hutokea wakati programu inafanya hoja moja kupata orodha ya vitu (N) kisha inafanya hoja nyingine kwa kila kipengele kupata data inayohusiana, ikisababisha hoja N+1.
+
+**Kwa nini ni mbaya**
+
+- Kila hoja huongeza mzigo wa mtandao na usindikaji.
+- Hoja nyingi ndogo ni polepole kuliko hoja moja iliyoboreshwa.
+
+### Mfano wa muundo wa N+1
+
+```sql
+-- 1: Get list of orders
+SELECT * FROM orders LIMIT 50;
+
+-- N: For each order, get customer
+SELECT * FROM customers WHERE customer_id = ...;
+```
+
+**Suluhisho**: Tumia `JOINs` au operesheni nyingine za seti.
+
+```sql
+SELECT 
+  orders.order_id,
+  orders.product,
+  orders.quantity,
+  customers.customer_id,
+  customers.name,
+  customers.email,
+  customers.address
+FROM orders
+JOIN customers 
+  ON orders.customer_id = customers.customer_id
+WHERE orders.order_id IN (SELECT order_id FROM orders LIMIT 50);
+```
+
+Daima tafuta fursa za kuunganisha data zinazohusiana katika hoja moja.
+
+## Utangulizi wa udhibiti wa toleo
+
+- **Maana**: Mfumo wa udhibiti wa toleo unakuwezesha kufuatilia na kusimamia mabadiliko katika mradi wako. Mifano ya mifumo ya udhibiti wa toleo inayotumika katika programu ni Git, SVN, au Mercurial.
+
+## Watoa huduma wa udhibiti wa toleo wa wingu
+
+- **Orodha ya watoa huduma wa udhibiti wa toleo wa wingu**: GitHub na GitLab ni mifano maarufu ya watoa huduma wa udhibiti wa toleo wa wingu inayowawezesha timu za programu kushirikiana na kusimamia hifadhidata.
+
+## Kusakinisha na kuanzisha Git
+
+- **Kusakinisha Git**: Ili kuangalia kama Git tayari imesakinishwa kwenye mashine yako unaweza kuendesha amri ifuatayo kwenye terminal:
+
+```sh
+git --version
+```
+
+Ikiwa unaona nambari ya toleo, hiyo ina maana Git imesakinishwa. Ikiwa sivyo, utahitaji kuisakinisha.
+
+Kwa mifumo ya Linux, Git mara nyingi huja imewekwa awali na usambazaji wengi. Ikiwa huna Git imewekwa awali, unapaswa kuweza kuisakinisha kwa amri za meneja wa vifurushi kama `sudo apt-get install git` au `sudo pacman -S git`.
+
+Kwa watumiaji wa Mac, unaweza kusakinisha Git kupitia Homebrew kwa `brew install git`, au unaweza kupakua kifurushi cha kusakinisha kutoka tovuti ya Git.
+
+Kwa Windows, unaweza kupakua kifurushi cha kusakinisha kutoka tovuti ya Git. Au, ikiwa umeanzisha Chocolatey, unaweza kuendesha `choco install git.install` katika PowerShell. Kumbuka kwamba kwenye Windows, pia unaweza kupakua Git Bash ili uwe na mazingira ya shell ya mtindo wa Unix.
+
+Ili kuhakikisha usakinishaji umefanikiwa, endesha amri ya `git --version` tena kwenye terminal.
+
+- **Mipangilio ya Git**: `git config` hutumika kuweka vigezo vya usanidi vinavyohusika na jinsi Git inavyofanya kazi kwenye mashine yako. Ili kuona mipangilio yako ya sasa na mahali inahifadhiwa kwenye mfumo wako, unaweza kuendesha amri ifuatayo:
+
+```sh
+git config --list --show-origin
+```
+
+Kwa sasa unapaswa kuona mipangilio ya kiwango cha mfumo tu ikiwa umeweka Git kwa mara ya kwanza.
+
+Ili kuweka jina la mtumiaji, unaweza kuendesha amri ifuatayo:
+
+```sh
+git config --global user.name "Jane Doe"
+```
+
+Bendera ya `--global` hutumika hapa kuweka jina la mtumiaji kwa miradi yote kwenye mfumo wako inayotumia Git. Ikiwa unahitaji kubadilisha jina la mtumiaji kwa mradi maalum, basi unaweza kuendesha amri hiyo katika saraka ya mradi husika bila bendera ya `--global`.
+
+Ili kuweka anwani ya barua pepe ya mtumiaji, unaweza kuendesha amri ifuatayo:
+
+```sh
+git config --global user.email janedoe@example.com
+```
+
+Mipangilio mingine unayoweza kuweka ni mhariri unaotaka Git utumie. Hapa ni mfano wa jinsi ya kuweka mhariri unaopendelea kuwa Emacs:
+
+```sh
+git config --global core.editor emacs
+```
+
+Ikiwa hutaki kuweka mhariri unaopendelea, basi Git itatumia mhariri wa chaguo-msingi wa mfumo wako.
+
+## Programu za chanzo wazi dhidi ya chanzo kilichofungwa
+
+- **Maana**: "Chanzo wazi" ina maana watu wanaweza kuona msimbo unaochapishwa, kupendekeza mabadiliko, kuripoti matatizo, na hata kuendesha toleo lililobadilishwa. "Chanzo kilichofungwa" ina maana watu pekee wanaoweza kuona na kuingiliana na mradi ni wale unaowaidhinisha wazi.
+
+## GitHub
+
+- **Maana**: GitHub ni suluhisho la wingu linalotoa hifadhi ya miradi inayodhibitiwa kwa toleo katika kitu kinachoitwa "repositories", na linawezesha vipengele vya ushirikiano kutumia miradi hiyo.
+- **GitHub CLI**: Zana hii hutumika kufanya kazi maalum za GitHub bila kuondoka mstari wa amri. Ikiwa huna imewekwa, unaweza kupata maelekezo ya jinsi ya kuisakinisha kutoka kwenye nyaraka za GitHub - lakini inapaswa kupatikana katika meneja wa vifurushi wa mfumo wako.
+- **GitHub Pages**: GitHub Pages ni chaguo la kuweka tovuti zisizobadilika, au programu ambazo hazihitaji seva ya nyuma kushughulikia mantiki. Yaani, programu zinazotekelezwa kabisa upande wa mteja, au katika kivinjari cha mtumiaji, zinaweza kuwekwa kikamilifu kwenye jukwaa hili.
+- **GitHub Actions**: GitHub Actions ni kipengele kinachokuwezesha kuendesha mchakato wa kazi moja kwa moja moja kwa moja katika repository yako ya GitHub ikiwa ni pamoja na kujenga, kujaribu, na kuweka msimbo wako.
+
+## Amri za kawaida za Git
+
+- **`git init`**: Hii itaanzisha repository tupu ya Git ili Git ianze kufuatilia mabadiliko kwa mradi huu. Unapoanzisha repository tupu ya Git kwa mradi, saraka mpya ya siri ya `.git` itaongezwa. Saraka hii ya `.git` ina taarifa muhimu kwa Git kusimamia mradi wako.
+- **`git status`**: Amri hii hutumika kuonyesha hali ya saraka yako ya kazi - utatumia amri hii mara nyingi katika mtiririko wako wa kazi.
+- **`git add`**: Amri hii hutumika kuweka mabadiliko yako kwenye eneo la kuandaa. Kila kitu kilicho kwenye eneo la kuandaa kitaongezwa kwa commit inayofuata. Ikiwa unataka kuweka mabadiliko yote yasiyokuwa tayari, basi unaweza kutumia `git add .` Nukta (`.`) ni jina la saraka ya sasa unayopo.
+- **`git commit`**: Amri hii hutumika kufanya commit ya mabadiliko yako. Commit ni picha ya hali ya mradi wako wakati huo. Ukifanya `git commit`, itafungua mhariri ulioweka katika usanidi wa Git. Ukifungua mhariri, unaweza kutoa ujumbe wa kina wa mabadiliko yako. Pia unaweza kutoa ujumbe mfupi kwa kutumia amri ya `git commit -m` kama ifuatavyo:
+
+```sh
+git commit -m "short message goes here"
+```
+
+- **`git log`**: Hii itaorodhesha commits zote zilizopita na taarifa muhimu kama mwandishi, tarehe ya commit, ujumbe wa commit na hash ya commit. Hash ya commit ni mfuatano mrefu unaotumika kama kitambulisho cha kipekee cha commit.
+- **`git remote add`**: Amri hii hutumika kuweka muunganisho wa mbali kwa repository yako ya mbali.
+- **`git push`**: Amri hii hutumika kusukuma mabadiliko yako kwenye repository ya mbali.
+- **`git pull`**: Amri hii hutumika kuvuta mabadiliko ya hivi karibuni kutoka repository yako ya mbali kwenda kwenye repository yako ya ndani.  
+- **`git clone`**: Amri hii itakuchomekea repository. Hii ina maana utakuwa na nakala ya repository. Nakala hii inajumuisha historia ya repository, mafaili/saraka zote na commits kwenye kifaa chako cha ndani.
+- **`git remote -v`**: Amri hii itaonyesha orodha ya repositories za mbali zinazohusiana na repository yako ya Git ya ndani.
+- **`git branch`**: Amri hii itaorodhesha matawi yote ya ndani.
+- **`git fetch upstream`**: Amri hii inawaambia Git kupata mabadiliko ya hivi karibuni yaliyopo kwenye remote upstream (ambayo ni repository halisi).
+- **`git merge upstream/main`**: Amri hii inawaambia Git kuunganisha mabadiliko ya hivi karibuni kutoka tawi la `main` katika remote upstream kwenye tawi lako la sasa.
+- **`git reset`**: Amri hii inakuwezesha kuweka upya hali ya sasa ya tawi. Kupitisha bendera ya `--hard` inawaambia Git kulazimisha mafaili ya ndani kufanana na hali ya tawi. Hii inahakikisha unaanza kazi ukiwa na hali safi.
+- **`git rebase`**: Rebase katika Git ni njia ya kusogeza au kuunganisha mfululizo wa commits kutoka tawi moja hadi jingine. 
+  
+## Kufanya kazi na matawi
+
+- **Maana**: Tawi katika Git ni eneo tofauti la kazi ambapo unaweza kufanya mabadiliko. Tawi la `main` mara nyingi litaonyesha tawi kuu au la uzalishaji katika programu halisi. Timu za wasanidi programu zitaunda matawi mengi kwa vipengele vipya na marekebisho ya hitilafu kisha kuunganisha mabadiliko hayo tena kwenye tawi la `main`.
+- **Kuunda tawi jipya**: Ili kuunda tawi jipya unaweza kuendesha amri ifuatayo:
+
+```sh
+git branch feature
+```
+
+Ili kuhamia tawi hilo, unaweza kuendesha amri ifuatayo:
+
+```sh
+git checkout feature
+```
+
+Wasanidi wengi watatumia amri fupi ya kuunda na kuhamia tawi ambayo ni ifuatayo:
+
+```sh
+git checkout -b new-branch-name
+```
+
+Amri mpya na mbadala ni `git switch`. Hapa ni mfano wa kuunda na kuhamia tawi jipya:
+
+```sh
+git switch -c new-branch-name
+```
+
+- **Mikakati ya matawi**: Tawi lako la `main` ni tawi lako la chaguo-msingi na kawaida huwa thabiti. Hivyo ni bora kuanzisha matawi mapya kutoka hapo kwa ajili ya marekebisho ya hitilafu, vipengele vipya, au kazi nyingine mbalimbali.
+- **Migongano ya mchanganyiko**: Hii hutokea wakati Git inajaribu kuunganisha mabadiliko kutoka matawi tofauti lakini haijui mabadiliko gani ya kuweka. Hii kawaida hutokea wakati kuna mabadiliko yanayopingana kwa sehemu moja ya faili.
+
+## Hali tano za faili zinazoendeshwa na Git
+
+- **"Hazijafuatiliwa"**: Hii ina maana faili ni mpya kwa repository, na Git haijawahi "kuiona" kabla.
+- **"Imebadilishwa"**: Faili hili lilikuwepo katika commit iliyopita, na lina mabadiliko ambayo hayajafanyiwa commit.
+- **"Imepuuzwa"**: Huenda usione mafaili yaliyopuuzwa katika Git, lakini IDE yako inaweza kuwa na kiashiria kwao. Mafaili yaliyopuuzwa hayajumuishwi katika operesheni za Git, kawaida kwa sababu yameorodheshwa katika faili la `.gitignore`.
+- **"Imefutwa"**: Faili lililofutwa ni kinyume cha faili lisilofuatiliwa - ni faili lililokuwepo awali, na limeondolewa.
+- **"Lilibadilishwa jina"**: Faili lililobadilishwa jina ni faili ambalo yaliyomo hayjabadilika, lakini jina au mahali pa faili limebadilika. Katika baadhi ya kesi, faili linaweza kuchukuliwa kubadilishwa jina hata kama lina mabadiliko madogo.
+
+## Mafaili ya `.gitignore`
+
+- **Maana**: Faili la `.gitignore` ni aina maalum ya faili inayohusiana na operesheni za Git. Jina linaonyesha faili hili hutumika kuambia Git kuacha kufuatilia vitu, na hiyo ndiyo matumizi ya kawaida. Lakini kinachofanya ni kuambia Git kuacha kufuatilia faili.
+
+## Kufanya kazi na repositories
+
+- **Maana**: Repository ni kama kontena la mradi - ikiwa unafanya kazi kwenye programu, ungehifadhi mafaili ya programu hiyo pamoja katika repository. Repositories zinaweza kuwa za ndani kwenye kompyuta yako, au za mbali kwenye huduma kama GitHub.
+- **Repositories za umma dhidi ya binafsi**: Repository ya umma inaweza kuangaliwa na kupakuliwa na mtu yeyote. Repository binafsi inaweza kupatikana tu na wewe, na mtu yeyote unayemruhusu wazi.
+- **Kuunda repositories kwenye GitHub**: Kuunda repository mpya kwenye GitHub, unaweza kubofya kitufe cha `"New Repository"` na kufuata hatua za kuanzisha repository mpya kwenye UI ya GitHub.
+- **Kusukuma repositories za ndani kwenda GitHub**: Ikiwa una mradi wa ndani kwenye kompyuta yako, unaweza kusukuma repository hiyo kwenda GitHub. Hapa kuna muhtasari wa hatua kwa hatua:
+
+1. Anzisha repository tupu ya git katika saraka ya mradi (`git init`).
+2. Fanya mabadiliko kwenye mradi wako.
+3. Endesha amri ya `git status` kuona mabadiliko yote yaliyofuatiliwa na git.
+4. Andaa mabadiliko yako (`git add`).
+5. Fanya commit ya mabadiliko yako (`git commit`).
+6. Weka muunganisho wa mbali (`git remote add`).
+7. Sukuma mabadiliko yako kwenda GitHub (`git push`).
+
+## Maombi ya kuvuta mabadiliko (Pull Requests)
+
+- **Maombi ya kuvuta mabadiliko**: Ombi la kuvuta mabadiliko kutoka tawi lako kwenda tawi lengwa. Maombi ya kuvuta mabadiliko ni mtiririko unaotumia unapohitaji kuchangia mabadiliko ya msimbo kwa mradi. Njia hii inawawezesha wasimamizi wa mradi kukagua mabadiliko yako. Wanaweza kuacha maoni, kuuliza maswali, na kupendekeza marekebisho. Kisha baada ya mchakato wa ukaguzi kukamilika, inaweza kuidhinishwa na kuunganishwa kwenye tawi kuu.
+
+## Kuchangia kwa repositories nyingine
+
+- **Mchakato**: Kuna maelfu ya miradi ambayo unaweza kuchangia. Hapa ni mchakato wa msingi wa jinsi ya kuchangia kwa repository nyingine:
+
+1. Soma nyaraka za kuchangia
+2. Tafuta tatizo linalopatikana kufanya kazi
+3. Fanya fork ya repository
+4. Chomeka nakala ya fork yako ya repository
+5. Unda tawi jipya
+6. Fanya mabadiliko kulingana na tatizo
+7. Unda PR (Pull Request)
+8. Subiri ukaguzi wa PR hiyo
+
+## Kufanya kazi na funguo za SSH na GPG
+
+- **Funguo za GPG**: Funguo za GPG, au Gnu Privacy Guard, kawaida hutumika kusaini mafaili au commits. Mtu anaweza kutumia funguo yako ya umma ya GPG kuthibitisha kuwa saini ya faili ni kutoka kwa funguo yako na kwamba yaliyomo hayjabadilishwa au kuharibiwa.
+
+Ili kuunda funguo ya GPG, utahitaji kuendesha:
+
+```sh
+gpg --full-generate-key
+```
+
+- **Funguo za SSH**: Funguo za SSH, au Secure SHell, kawaida hutumika kuthibitisha muunganisho wa mbali kwa seva - kupitia zana ya `ssh`. Unaweza pia kutumia funguo ya SSH kusaini commits.
+
+Kwa funguo ya SSH, utaendesha:
+
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+`ed25519` ni algoriti ya kisasa ya saini ya funguo ya umma.
+
+- **Kusaini commits kwa funguo za GPG**: Ili kusaini commits zako kwa funguo yako ya GPG, utahitaji kupakia funguo yako ya umma, si funguo binafsi, kwenye akaunti yako ya GitHub. Ili kuorodhesha funguo zako za umma, utahitaji kuendesha:
+
+```sh
+gpg --list-secret-keys --keyid-format=long
+```
+
+Kisha, kupata funguo ya umma, tumia:
+
+```sh
+gpg --armor --export "<key id>"
+```
+  
+Kisha, chukua ID fupi uliyopata kutoka kuorodhesha funguo na endesha amri hii kuiweka kama funguo yako ya kusaini git:
+
+```sh
+git config --global user.signingkey <your_gpg_key_id>
+```
+
+Kisha, unaweza kupitisha bendera ya `-S` kwa amri yako ya `git commit` kusaini commit maalum - utahitaji kutoa nenosiri lako. Vinginevyo, ikiwa unataka kusaini kila commit moja kwa moja, unaweza kuweka usanidi wa autosign kuwa `true`:
+
+```sh
+git config --global commit.gpgsign true
+```
+
+- **Kusaini commits kwa funguo za SSH**: Kusaini kwa funguo ya SSH, ambayo ni kipengele kipya kwenye GitHub, unahitaji kuanza kwa kupakia funguo kwenye akaunti yako ya GitHub. Kisha utahitaji kuweka hali ya kusaini kwa git kutumia SSH:
+
+```sh
+git config --global gpg.format ssh
+```
+
+Kisha, kuweka funguo ya kusaini, utapitisha njia ya faili badala ya ID:
+
+```sh
+git config --global user.signingkey <path_to_your_ssh_keys>
+```
+
+# --assignment--
+
+Kagua mada na dhana za Bash, SQL na hifadhidata nyingine za uhusiano.

@@ -1,0 +1,331 @@
+---
+id: 695b93cb572125a6fb19f39c
+title: Unawezaje kusakinisha na kufuta utegemezi?
+challengeType: 19
+dashedName: how-can-you-install-and-remove-dependencies
+---
+
+# --description--
+
+Katika funzo la awali, ulijifunza ni utegemezi gani na jinsi ya kuchagua utegemezi sahihi kwa mradi wako.
+
+Katika funzo hili, utajifunza jinsi ya kusakinisha na kufuta utegemezi kwa kutumia npm.
+
+Ili kusakinisha utegemezi, tumia amri ya `npm install` kama ifuatavyo:
+
+```bash
+npm install dependencyName
+```
+
+Unaweza pia kufupisha `install` kuwa `i` kama ifuatavyo:
+
+```bash
+npm i dependencyName
+```
+
+Baada ya kusakinisha kifurushi, npm huongeza sehemu mpya ya `dependencies` kwenye faili yako ya `package.json` (ikiwa haipo tayari) na kuorodhesha kifurushi ulichosakinisha. Kwa mfano, hivi ndivyo inavyoonekana unapoweka kifurushi cha `chalk`:
+
+```json
+{
+  "name": "install-uninstall-deps",
+  "version": "1.0.0",
+  "description": "a simple demo on how to install and uninstall dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["npm", "deps"],
+  "author": "Kolade Chris",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.6.2"
+  }
+}
+```
+
+Unapoweka utegemezi, vitu viwili vipya vinaonekana kwenye folda kuu ya mradi wako:
+
+* `node_modules/`: folda inayoshikilia msimbo halisi wa vifurushi ulivyoweka.
+    
+* `package-lock.json`: faili inayohifadhi taarifa za kina kuhusu matoleo halisi ya vifurushi hivyo, pamoja na utegemezi wao wenyewe. (Utajifunza zaidi kuhusu faili hii katika funzo lijalo.)
+    
+
+<img src="https://cdn.freecodecamp.org/curriculum/lecture-transcripts/how-can-you-install-and-remove-dependencies-1.png" alt="">
+
+Miradi mingi inahitaji zaidi ya utegemezi mmoja. Badala ya kuvisakinisha moja moja, npm inakuwezesha kusakinisha vifurushi vingi kwa wakati mmoja kwa kuingiza orodha ya majina ya vifurushi iliyotenganishwa kwa nafasi:
+
+```bash
+npm install express lodash bcrypt
+```
+
+Kama ilivyokuwa awali, unapoweka utegemezi mwingi kwa wakati mmoja, npm husasisha faili zako za `package.json` na `package-lock.json` pamoja na `node_modules` ili kuviingiza. Hivi ndivyo `package.json` itakavyoonekana:
+
+```json
+{
+  "name": "install-uninstall-deps",
+  "version": "1.0.0",
+  "description": "a simple demo on how to install and uninstall dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["npm", "deps"],
+  "author": "Kolade Chris",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "chalk": "^5.6.2",
+    "express": "^5.1.0",
+    "lodash": "^4.17.21"
+  }
+}
+```
+
+Ili kusakinisha `devDependency`, ongeza bendera ya `--save-dev` kwenye amri ya `install`. Unaweza pia kutumia toleo fupi la `-D`:
+
+```bash
+npm i nodemon -D
+```
+
+Baada ya kuendesha amri hii, npm husasisha faili yako ya `package.json` na kuongeza kifurushi chini ya sehemu ya `devDependencies`. Hapa kuna mfano wa jinsi inavyoonekana:
+
+```json
+{
+  "name": "install-uninstall-deps",
+  "version": "1.0.0",
+  "description": "a simple demo on how to install and uninstall dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["npm", "deps"],
+  "author": "Kolade Chris",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "chalk": "^5.6.2",
+    "express": "^5.1.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
+```
+
+Kila unapotekeleza amri ya `npm install`, npm itaonyesha ujumbe unaokuambia kama usakinishaji umefanikiwa au la. Ujumbe wa mafanikio kawaida huonekana kama huu:
+
+```bash
+user@Kolade ~/Desktop/fCC/script-code/node/npm/install-uninstall-deps  % npm install express lodash bcrypt
+
+added 72 packages, and audited 74 in 8s
+
+17 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+user@Kolade ~/Desktop/fCC/script-code/node/npm/install-uninstall-deps  % npm install nodemon -D
+
+added 27 packages, and audited 101 in 16s
+
+21 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+Ili kufuta au kuondoa kifurushi, tumia amri ya `npm uninstall`:
+
+```bash
+npm uninstall dependencyName
+```
+
+Kwa mfano, ili kufuta `chalk` kutoka kwenye mradi wako, utatekeleza amri hii:
+
+```bash
+npm uninstall chalk
+```
+
+Unaweza pia kufuta vifurushi vingi kwa wakati mmoja kwa kuorodhesha majina yao na nafasi kati ya kila jina la kifurushi:
+
+```bash
+npm uninstall express lodash bcrypt
+```
+
+Pia utapokea ujumbe unaoonyesha kama amri ya kufuta imefanikiwa au imefeli:
+
+```bash
+user@Kolade ~/Desktop/fCC/script-code/node/npm/install-uninstall-deps  % npm uninstall chalk
+
+added 1 package, removed 1 package, and audited 101 packages in 1s
+
+20 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+user@Kolade ~/Desktop/fCC/script-code/node/npm/install-uninstall-deps  % npm uninstall express lodash bcrypt
+
+removed 70 packages, and audited 31 in 1s
+
+4 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+Na faili yako ya `package.json` itasasishwa moja kwa moja:
+
+```json
+{
+  "name": "install-uninstall-deps",
+  "version": "1.0.0",
+  "description": "a simple demo on how to install and uninstall dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["npm", "deps"],
+  "author": "Kolade Chris",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
+```
+
+Ili kufuta `devDependency`, unaweza tu kuendesha:
+
+```bash
+npm uninstall nodemon
+```
+
+Kumbuka huna haja ya bendera ya `-D` wakati wa kufuta. npm itafuta kifurushi moja kwa moja kutoka sehemu sahihi, yaani `devDependencies` katika kesi hii.
+
+Baada ya kufuta `devDependency`, `package.json` yako itasasishwa tena:
+
+```json
+{
+  "name": "install-uninstall-deps",
+  "version": "1.0.0",
+  "description": "a simple demo on how to install and uninstall dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["npm", "deps"],
+  "author": "Kolade Chris",
+  "license": "ISC"
+}
+```
+
+# --questions--
+
+## --text--
+
+Nini hutokea kwa faili yako ya `package.json` baada ya kusakinisha utegemezi mpya kama `chalk`?
+
+## --answers--
+
+Faili inafutwa na kubadilishwa moja kwa moja.
+
+### --feedback--
+
+Fikiria ni wapi npm huandika vifurushi ambavyo mradi wako unategemea.
+
+---
+
+Kifurushi kinasakinishwa bila kurekodiwa mahali popote.
+
+### --feedback--
+
+Fikiria ni wapi npm huandika vifurushi ambavyo mradi wako unategemea.
+
+---
+
+Kifunguo kipya cha utegemezi kinaongezwa na jina la kifurushi likiwa limeorodheshwa chini yake.
+
+---
+
+Faili ya `package.json` inakuwa ya kusomeka tu.
+
+### --feedback--
+
+Fikiria ni wapi npm huandika vifurushi ambavyo mradi wako unategemea.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni folda gani na faili gani huongezwa moja kwa moja kwenye mradi wako baada ya kusakinisha utegemezi?
+
+## --answers--
+
+Folda ya `src` na faili ya [`readme.md`](http://readme.md)
+
+### --feedback--
+
+Fikiria ni wapi npm huhifadhi vifurushi vilivyowekwa na kufuatilia matoleo yao halisi.
+
+---
+
+Folda ya `node_modules` na faili ya `package-lock.json`
+
+---
+
+Folda ya `public` na faili ya `index.html`
+
+### --feedback--
+
+Fikiria ni wapi npm huhifadhi vifurushi vilivyowekwa na kufuatilia matoleo yao halisi.
+
+---
+
+Folda ya `dist` na faili ya `webpack.config.js`
+
+### --feedback--
+
+Fikiria ni wapi npm huhifadhi vifurushi vilivyowekwa na kufuatilia matoleo yao halisi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni amri gani inayosakinisha `devDependency` kwa usahihi?
+
+## --answers--
+
+`npm install nodemon -D`
+
+---
+
+`npm uninstall nodemon`
+
+### --feedback--
+
+Fikiria bendera inayotumika kusakinisha utegemezi wa ukuzaji pekee.
+
+---
+
+`npm save nodemon --dev`
+
+### --feedback--
+
+Fikiria bendera inayotumika kusakinisha utegemezi wa ukuzaji pekee.
+
+---
+
+`npm install nodemon`
+
+### --feedback--
+
+Fikiria bendera inayotumika kusakinisha utegemezi wa ukuzaji pekee.
+
+## --video-solution--
+
+1

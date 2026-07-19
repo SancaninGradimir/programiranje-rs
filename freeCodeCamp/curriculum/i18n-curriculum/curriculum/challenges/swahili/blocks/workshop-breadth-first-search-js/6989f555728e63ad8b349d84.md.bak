@@ -1,0 +1,65 @@
+---
+id: 6989f555728e63ad8b349d84
+title: Hatua 10
+challengeType: 1
+dashedName: step-10
+---
+
+# --description--
+
+Ikiwa mfuatano wa herufi wa sasa bado haujakamilika, unahitaji kuchunguza hali zinazowezekana zinazofuata. Ongeza kifungu cha `else` kwa taarifa ya sasa ya `if`.
+
+Ndani ya blokki ya `else`, utashughulikia kuongeza mabano ya kawaida ya kufungua. Ongeza taarifa ya `if` ili kukagua kama `opensUsed` iko chini ya `pairs`. Hii inahakikisha haujatumia mabano ya kawaida ya kufungua zaidi ya yaliyoruhusiwa.
+
+Ikiwa hali hii ni `true`, sukuma safu mpya ya data kwenye `queue`: `[current + '(', opensUsed + 1, closesUsed]`. Hii inawakilisha hali baada ya kuongeza mabano ya kawaida ya kufungua.
+
+# --hints--
+
+Unapaswa kuwa na kifungu cha `else` kwa taarifa yako ya `if` ndani ya mzunguko wa `while`.
+
+```js
+assert.match(genParentheses.toString(), /if\s*\(\s*current\.length\s*===?\s*2\s*\*\s*pairs\s*\)\s*\{[\s\S]*?\}\s*else\s*\{/);
+```
+
+Unapaswa kuwa na taarifa ya `if` ndani ya blokki ya `else` yenye hali ya `opensUsed < pairs`.
+
+```js
+assert.match(genParentheses.toString(), /else\s*\{[\s\S]*?if\s*\(\s*opensUsed\s*<\s*pairs\s*\)/);
+```
+
+Unapaswa kusukuma `[current + '(', opensUsed + 1, closesUsed]` kwenye foleni wakati hali ni `true`.
+
+```js
+assert.match(genParentheses.toString(), /queue\.push\s*\(\s*\[\s*current\s*\+\s*['"`]\(['"`]/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function genParentheses(pairs) {
+  if (!Number.isInteger(pairs)) {
+    return 'The number of pairs should be an integer';
+  }
+  if (pairs < 1) {
+    return 'The number of pairs should be at least 1';
+  }
+  
+  let queue = [['', 0, 0]];
+  let result = [];
+  
+  while (queue.length > 0) {
+    console.log(queue);
+    let [current, opensUsed, closesUsed] = queue.shift();
+    if (current.length === 2 * pairs) {
+      result.push(current);
+--fcc-editable-region--
+    } 
+--fcc-editable-region--
+  }
+  return result;
+}
+
+console.log(genParentheses(1));
+```

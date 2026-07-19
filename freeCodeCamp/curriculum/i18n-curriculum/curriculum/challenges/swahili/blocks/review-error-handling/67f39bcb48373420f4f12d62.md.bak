@@ -1,0 +1,142 @@
+---
+id: 67f39bcb48373420f4f12d62
+title: Ukagua wa kushughulikia hitilafu
+challengeType: 31
+dashedName: review-error-handling
+---
+
+# --description--
+
+## Hitilafu za kawaida katika Python
+
+- **SyntaxError**: Hitilafu ambayo Python huibua wakati msimbo wako haufuati sheria zake za sintaksia. Kwa mfano, msimbo `print("Hello there"` utasababisha kosa la sintaksia lenye ujumbe, `SyntaxError: '(' was never closed`, kwa sababu msimbo unakosa mkato wa kufunga mabano.
+- **NameError**: Python huibua `NameError` wakati unajaribu kupata upatikanaji wa kigezo au kitendakazi ambacho hujafafanua. Kwa mfano, ikiwa una mstari `print(username)` katika msimbo wako bila kuwa na kigezo `username` kilichofafanuliwa awali, utapata kosa la jina lenye ujumbe `NameError: name 'username' is not defined`.
+- **TypeError**: Hii ni hitilafu ambayo Python hutupa wakati unafanya operesheni kwa aina mbili au zaidi za data zisizolingana. Kwa mfano, ikiwa utajaribu kuongeza mfuatano wa herufi kwenye nambari, utapata hitilafu `TypeError: can only concatenate str (not "int") to str`.
+- **IndexError**: Utapata `IndexError` ikiwa utapata kielezo ambacho hakipo katika orodha au mfululizo mwingine kama tuple na mfuatano wa herufi. Kwa mfano, katika mfuatano wa herufi `Hello world`, kielezo cha herufi ya mwisho ni `11`. Ikiwa utaendelea na kupata herufi kwa njia hii, `greet = "hello world"; print(greet[12])`, utapata hitilafu yenye ujumbe `IndexError: string index out of range`.
+- **AttributeError**: Python huibua hitilafu hii wakati unajaribu kutumia njia au sifa ambayo haipo katika kitu cha aina hiyo. Kwa mfano, kuitisha `.append()` kwenye mfuatano wa herufi kama `"hello".append("!")` kutaongoza kwa hitilafu yenye ujumbe `AttributeError: 'str' object has no attribute 'append'`.
+
+## Mbinu nzuri za kurekebisha makosa katika Python
+
+- **Kutumia kitendakazi cha `print`**: Kuingiza taarifa za `print()` katika sehemu mbalimbali za msimbo wako wakati wa kurekebisha makosa kunakusaidia kuona thamani za vigezo na jinsi msimbo wako unavyotiririka.
+- **Kutumia Debugger iliyojengwa ndani ya Python (`pdb`)**: Python hutoa moduli ya `pdb` kwa ajili ya kurekebisha makosa. Ni sehemu ya maktaba ya kawaida ya Python, hivyo daima inapatikana kwa matumizi. Kwa `pdb`, unaweza kuweka alama ya kufuatilia kwa kitendakazi cha `set_trace()` ili uanze kupitia msimbo hatua kwa hatua na kuchunguza vigezo kwa njia ya mwingiliano.
+- **Kujitahidi kutumia zana za kurekebisha makosa za IDE**: Mazingira mengi ya ukuzaji yaliyojumuishwa (IDEs) na wahariri wa msimbo kama Pycharm na VS Code hutoa zana za kurekebisha makosa zenye alama za kusimamisha, utekelezaji wa hatua, uchunguzi wa vigezo, na vipengele vingine vya kurekebisha makosa.
+
+## Kushughulikia hitilafu
+
+- **`try...except`**: Hii hutumika kutekeleza kipande cha msimbo ambacho kinaweza kusababisha hitilafu. Kipande cha `try` ndicho unachotarajia hitilafu itokee, wakati kipande cha `except` kinachukua hitilafu maalum na kinatekelezwa ikiwa hitilafu hiyo itatokea. Hapa kuna mfano:
+
+  ```py
+  try:
+    print(22 / 0)
+  except ZeroDivisionError:
+    print('You can\'t divide by zero!')
+    # You can't divide by zero!
+  ```
+
+  Pia unaweza kuunganisha vipande vingi vya `except` ili kushughulikia aina zaidi za hitilafu:
+
+  ```py
+  try:
+    number = int(input('Enter a number: '))
+    print(22 / number)
+  except ZeroDivisionError:
+    print('You cannot divide by zero!')
+    # You cannot divide by zero! prints when you enter 0
+  except ValueError:
+    print('Please enter a valid number!')
+    # Please enter a valid number! prints when you enter a string  
+  ```
+
+- **`else` na `finally`**: Vipande hivi vinaongeza `try...except`. Ikiwa hakuna hitilafu itakayojitokeza, kipande cha `else` hufanya kazi. Kipande cha `finally` hufanya kazi kila wakati bila kujali kama hitilafu zilitokea au la.
+
+  ```py
+  try:
+    result = 100 / 4
+  except ZeroDivisionError:
+    print('You cannot divide by zero!') # This will not run
+  else:
+    print(f'Result is {result}') # Result is 25.0
+  finally:
+    print('Execution complete!') # Execution complete!
+  ```
+
+- **Kitu cha hitilafu (Exception Object)**: Hiki hukuwezesha kupata hitilafu yenyewe kwa ajili ya kurekebisha makosa kwa ufanisi zaidi na kuchapisha ujumbe wa hitilafu moja kwa moja. Ili kupata kitu cha hitilafu, unahitaji kutumia neno kuu la `as`. Hapa kuna mfano:
+
+  ```py
+  try:
+      value = int('This will raise an error')
+  except ValueError as e:
+      print(f'Caught an error: {e}')
+      # Caught an error: invalid literal for int() with base 10: 'This will raise an error'
+  ```
+
+- **Kauli ya `raise`**: Hii inakuwezesha kutupa hitilafu kwa mikono. Unaweza kuitumia kutupa hitilafu wakati hali fulani inatimizwa. Hapa kuna mfano:
+
+  ```py
+  def divide(a, b):
+      if b == 0:
+          raise ZeroDivisionError('You cannot divide by zero')
+      return a / b
+  ```
+  
+## Kuashiria hitilafu
+
+  Kauli ya `raise` pia ni muhimu wakati unaunda hitilafu zako maalum, kwani unaweza kuitumia kutupa hitilafu yenye ujumbe maalum. Hapa kuna mfano wa hilo:
+
+  ```py
+  class InvalidCredentialsError(Exception):
+      def __init__(self, message="Invalid username or password"):
+          self.message = message
+          super().__init__(self.message)
+
+  def login(username, password):
+      stored_username = "admin"
+      stored_password = "password123"
+      
+      if username != stored_username or password != stored_password:
+          raise InvalidCredentialsError()
+      
+      return f"Welcome, {username}!"
+  ```  
+
+  Hapa ni jinsi unavyoweza kutumia kitendakazi cha `login` pamoja na hitilafu ya `InvalidCredentialsError`:
+
+  ```py
+  # failed login attempt
+  try:
+      message = login("user", "wrongpassword")
+  except InvalidCredentialsError as e:
+      print(f"Login failed: {e}")
+  else:
+      print(message)
+
+  # successful login attempt
+  try:
+      message = login("admin", "password123")
+  except InvalidCredentialsError as e:
+      # This block is not executed because the login was successful
+      print(f"Login failed: {e}")
+  else:
+      # The else block runs if the 'try' block completes without an exception
+      print(message)
+  ```
+
+  Kauli ya `raise` pia inaweza kutumika pamoja na neno kuu la `from` kuunganisha hitilafu, kuonyesha uhusiano kati ya makosa tofauti:
+
+  ```py
+  def parse_config(filename):
+    try:
+        with open(filename, 'r') as file:
+            data = file.read()
+            return int(data)
+    except FileNotFoundError:
+        raise ValueError('Configuration file is missing') from None
+    except ValueError as e:
+        raise ValueError('Invalid configuration format') from e
+
+  config = parse_config('config.txt')
+  ```
+
+# --assignment--
+
+Kagua mada na dhana za kushughulikia hitilafu.

@@ -1,0 +1,140 @@
+---
+id: 587d825c367417b2b2512c90
+title: Utafutaji wa upana kwanza
+challengeType: 1
+forumTopicId: 301622
+dashedName: breadth-first-search
+---
+
+# --description--
+
+Hadi sasa, tumekuwa tukijifunza njia tofauti za kuunda uwakilishi wa grafu. Sasa je? Swali la asili ni ni umbali gani kati ya nodi mbili yoyote katika grafu? Hapa ndipo algoriti za <dfn>kutembea kwenye grafu</dfn> zinapoingia.
+
+<dfn>Algoriti za kutembea</dfn> ni algoriti za kutembea au kutembelea nodi katika grafu. Aina moja ya algoriti ya kutembea ni algoriti ya utafutaji wa upana kwanza.
+
+Algoriti hii huanza kwenye nodi moja na kutembelea majirani zake wote walioko umbali wa kingo moja. Kisha huendelea kutembelea majirani wa kila mmoja wao na kadhalika hadi nodi zote zifikwe.
+
+Muundo muhimu wa data utakao kusaidia kutekeleza algoriti ya utafutaji wa upana kwanza ni foleni. Hii ni safu ya data ambapo unaweza kuongeza vipengele upande mmoja na kuondoa vipengele upande mwingine. Hii pia inajulikana kama muundo wa data wa <dfn>FIFO</dfn> au <dfn>First-In-First-Out</dfn>.
+
+Kitaonyesha, hivi ndivyo algoriti inavyofanya kazi:
+<img alt="animation showing the breadth first search algorithm" src='https://cdn.freecodecamp.org/curriculum/coding-interview-prep/breadth-first-search.gif'>
+
+Rangi ya kijivu inaonyesha nodi inayoongezwa kwenye foleni na rangi ya nyeusi inaonyesha nodi inayotolewa kutoka kwenye foleni. Tazama jinsi kila mara nodi inapotolewa kutoka kwenye foleni (nodi inageuka nyeusi), majirani zake wote huongezwa kwenye foleni (nodi inageuka kijivu).
+
+Ili kutekeleza algoriti hii, utahitaji kuingiza muundo wa grafu na lebo ya nodi unayotaka kuanza nayo.
+
+Kwanza, utataka kuwa na ufahamu wa umbali kutoka, au idadi ya kingo kutoka, nodi ya kuanzia. Utataka kuanza umbali wote na nambari kubwa, kama `Infinity`. Hii inazuia matatizo ya kuhesabu wakati nodi haiwezi kufikiwa kutoka nodi ya kuanzia. Kisha, utataka kwenda kutoka nodi ya kuanzia hadi kwa majirani zake. Majirani hawa wako umbali wa kingo moja na kwa wakati huu unapaswa kuongeza kitengo kimoja cha umbali kwa umbali unayohifadhi.
+
+# --instructions--
+
+Andika kitendakazi `bfs()` kinachopokea grafu ya matriki ya ujirani (safu ya data ya vipimo viwili) na lebo ya nodi root kama vigezo. Lebo ya nodi itakuwa tu thamani ya nambari ya nodi kati ya `0` na `n - 1`, ambapo `n` ni jumla ya nodi katika grafu.
+
+Kitendakazi chako kitatoa jozi za ufunguo-thamani za JavaScript zenye nodi na umbali wake kutoka kwa root. Ikiwa nodi haiwezi kufikiwa, inapaswa kuwa na umbali wa `Infinity`.
+
+# --hints--
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]` na nodi ya kuanzia `1` inapaswa kurudisha `{0: 1, 1: 0, 2: 1, 3: 2}`
+
+```js
+var graph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+];
+var results = bfs(graph, 1);
+assert.deepEqual(results, { 0: 1, 1: 0, 2: 1, 3: 2 });
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]` na nodi ya kuanzia `1` inapaswa kurudisha `{0: 1, 1: 0, 2: 1, 3: Infinity}`
+
+```js
+var graph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0]
+];
+var results = bfs(graph, 1);
+ assert.deepEqual(results, { 0: 1, 1: 0, 2: 1, 3: Infinity });
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]` na nodi ya kuanzia `0` inapaswa kurudisha `{0: 0, 1: 1, 2: 2, 3: 3}`
+
+```js
+var graph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+];
+var results = bfs(graph, 0);
+ assert.deepEqual(results, { 0: 0, 1: 1, 2: 2, 3: 3 });
+```
+
+Grafu ya ingizo `[[0, 1], [1, 0]]` na nodi ya kuanzia `0` inapaswa kurudisha `{0: 0, 1: 1}`
+
+```js
+var graph = [
+  [0, 1],
+  [1, 0]
+];
+var results = bfs(graph, 0);
+assert.deepEqual(results, { 0: 0, 1: 1 });
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function bfs(graph, root) {
+  var nodesLen = {};
+
+  return nodesLen;
+};
+
+var exBFSGraph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+];
+console.log(bfs(exBFSGraph, 3));
+```
+
+# --solutions--
+
+```js
+function bfs(graph, root) {
+  var nodesLen = {};
+  // Set all distances to infinity
+  for (var i = 0; i < graph.length; i++) {
+    nodesLen[i] = Infinity;
+  }
+  nodesLen[root] = 0; // ...except root node
+  var queue = [root]; // Keep track of nodes to visit
+  var current; // Current node traversing
+  // Keep on going until no more nodes to traverse
+  while (queue.length !== 0) {
+    current = queue.shift();
+    // Get adjacent nodes from current node
+    var curConnected = graph[current]; // Get layer of edges from current
+    var neighborIdx = []; // List of nodes with edges
+    var idx = curConnected.indexOf(1); // Get first edge connection
+    while (idx !== -1) {
+      neighborIdx.push(idx); // Add to list of neighbors
+      idx = curConnected.indexOf(1, idx + 1); // Keep on searching
+    }
+    // Loop through neighbors and get lengths
+    for (var j = 0; j < neighborIdx.length; j++) {
+      // Increment distance for nodes traversed
+      if (nodesLen[neighborIdx[j]] === Infinity) {
+        nodesLen[neighborIdx[j]] = nodesLen[current] + 1;
+        queue.push(neighborIdx[j]); // Add new neighbors to queue
+      }
+    }
+  }
+  return nodesLen;
+}
+```

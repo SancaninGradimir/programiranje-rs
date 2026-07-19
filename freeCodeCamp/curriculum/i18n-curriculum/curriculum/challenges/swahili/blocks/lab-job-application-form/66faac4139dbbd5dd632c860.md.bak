@@ -1,0 +1,359 @@
+---
+id: 66faac4139dbbd5dd632c860
+title: Jenga fomu ya maombi ya kazi
+challengeType: 25
+dashedName: lab-job-application-form
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `div` chenye darasa la vitu la `container`.
+1. Ndani ya kipengele cha `div`, unapaswa kuwa na kipengele cha `form`.
+1. Fomu inapaswa kuwa na kipengele cha `input` chenye aina ya `text` na kitambulisho cha `name` kwa ajili ya kuingiza jina kamili la mtumizi.
+1. Unapaswa kuwa na kipengele kingine cha `input` chenye aina ya `email` na kitambulisho cha `email` kwa ajili ya kuingiza anwani ya barua pepe ya mtumizi.
+1. Fomu inapaswa kujumuisha kipengele cha `select` chenye kitambulisho cha `position` kinachomruhusu mtumizi kuchagua nafasi ya kazi.
+1. Unapaswa kuwa na kipengele cha `fieldset` chenye darasa la vitu la `radio-group`.
+1. Ndani ya `.radio-group` unapaswa kuwa na seti ya vipengele vya `input` vyenye aina ya `radio` na lebo zinazofaa kwa ajili ya kuchagua chaguzi za upatikanaji (mfano, Muda wote, Muda wa sehemu). Kundi la `name` linapaswa kuwa `availability`.
+1. Unapaswa kuwa na kipengele cha `textarea` chenye kitambulisho cha `message` kwa ajili ya kuingiza ujumbe.
+1. Unapaswa kuhusisha kila kipengele cha `input`, `select`, na `textarea` na kipengele cha `label`.
+1. Unapaswa kuwa na kipengele cha `button` chenye aina ya `submit` kwa ajili ya kuwasilisha fomu.
+1. Ongeza darasa la bandia la `:focus` kwa vipengele vya `input` na `textarea` kubadilisha rangi ya mpaka na kuondoa mstari wa kawaida wakati wa makini.
+1. Vipengele vya `input`, `select` na `textarea` vinapaswa kuwa na darasa la bandia la `:invalid` linalobadilisha rangi ya mpaka kuwa nyekundu wakati ingizo batili linapotambuliwa.
+1. Vipengele vya `input`, `select` na `textarea` vinapaswa kuwa na darasa la bandia la `:valid` linalobadilisha rangi ya mpaka kuwa kijani wakati ingizo halali linaingizwa.
+1. Kipengele cha `button` kinapaswa kuwa na darasa la bandia la `:hover` linalobadilisha rangi ya nyuma wakati kinapopigwa.
+1. Tumia darasa la bandia la `:checked` kwenye `.radio-group input[type="radio"]` kuongeza rangi ya mpaka, rangi ya nyuma na kivuli cha kisanduku wakati kitufe cha radio kimechaguliwa.
+1. Tumia darasa la bandia la `:checked` kwenye vitufe vya radio kubadilisha rangi ya maandishi ya `label` inayohusiana wakati chaguo limechaguliwa.
+1. Ongeza darasa la bandia la `:first-of-type` kwa kipengele cha `input` ili kupamba sehemu ya kwanza ya ingizo kwa njia tofauti. (mfano, pembe zilizozungushwa).
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mitindo katika HTML yako na kutumia CSS yako.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `div` chenye darasa la vitu la `container`.
+
+```js
+assert.exists(document.querySelector("div.container"));
+```
+
+Ndani ya kipengele cha `div`, unapaswa kuwa na kipengele cha `form`.
+
+```js
+assert.exists(document.querySelector("div.container > form"));
+```
+
+Fomu inapaswa kuwa na kipengele cha `input` chenye aina ya `text` na kitambulisho cha `name` kwa ajili ya kuingiza jina kamili la mtumizi.
+
+```js
+assert.exists(document.querySelector("div.container > form input#name[type='text']"));
+```
+
+Unapaswa kuwa na kipengele kingine cha `input` chenye aina ya `email` na kitambulisho cha `email` kwa ajili ya kuingiza anwani ya barua pepe ya mtumizi.
+
+```js
+assert.exists(document.querySelector("div.container > form input#email[type='email']"));
+```
+
+Fomu inapaswa kujumuisha kipengele cha `select` chenye kitambulisho cha `position` chenye vipengele vya `option`.
+
+```js
+assert.exists(document.querySelector("div.container > form select#position"));
+assert.isNotEmpty(document.querySelectorAll("div.container > form select#position > option"))
+```
+
+Unapaswa kuwa na kipengele cha `fieldset` au `section` chenye darasa la vitu la `.radio-group`.
+
+```js
+assert.lengthOf(document.querySelectorAll('form fieldset.radio-group, form section.radio-group'), 1)
+```
+
+Ndani ya `.radio-group` unapaswa kuwa na kundi la vipengele vya `input` vyenye aina ya `radio` kwa ajili ya kuchagua chaguzi za upatikanaji. Kundi la `name` linapaswa kuwa `availability`.
+
+```js
+assert.isAtLeast(document.querySelectorAll("div.container > form .radio-group input[type='radio'][name='availability']").length, 2);
+assert.isEmpty(document.querySelectorAll("div.container > form .radio-group input[type='radio']:not([name='availability'])"))
+```
+
+Unapaswa kuwa na kipengele cha `textarea` chenye kitambulisho cha `message` kwa ajili ya kuingiza ujumbe.
+
+```js
+assert.isNotEmpty(document.querySelectorAll("div.container > form textarea#message"));
+```
+
+Unapaswa kuhusisha kila kipengele cha `input`, `select`, na `textarea` na kipengele cha `label`.
+
+```js
+const els = document.querySelectorAll('input, select, textarea');
+assert.isNotEmpty(els);
+els.forEach(el => {
+  const label = document.querySelector(`label[for="${el.id}"]`) || el.parentElement;
+  assert.exists(label); 
+  assert.equal(label.tagName, "LABEL");
+})
+```
+
+Unapaswa kuwa na kipengele cha `button` chenye aina ya `submit` kwa ajili ya kuwasilisha fomu.
+
+```js
+assert.isNotEmpty(document.querySelectorAll("div.container > form button[type='submit']"));
+```
+
+Unapaswa kuongeza darasa la bandia la `:focus` kwa vipengele vya `input` na `textarea` kubadilisha rangi ya mpaka wakati wa makini. Tumia kichaguzi cha orodha kwa mpangilio uliotolewa.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('input:focus, textarea:focus').getPropertyValue('border-color'));
+```
+
+Unapaswa kutumia kichaguzi cha darasa la bandia la `:focus` kwa `input` na `textarea` pia kuondoa mstari wa kawaida wakati wa makini.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle('input:focus, textarea:focus').getPropertyValue('outline'), 'none');
+```
+
+Vipengele vya `input`, `select` na `textarea` vinapaswa kuwa na darasa la bandia la `:invalid` linalobadilisha rangi ya mpaka kuwa nyekundu wakati ingizo batili linapotambuliwa. Tumia kichaguzi cha orodha kwa mpangilio uliotolewa.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle('input:invalid, select:invalid, textarea:invalid').getPropertyValue('border-color'), 'red')
+```
+
+Vipengele vya `input`, `select` na `textarea` vinapaswa kuwa na darasa la bandia la `:valid` linalobadilisha rangi ya mpaka kuwa kijani wakati ingizo halali linaingizwa. Tumia kichaguzi cha orodha kwa mpangilio uliotolewa.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle('input:valid, select:valid, textarea:valid').getPropertyValue('border-color'), 'green')
+```
+
+Kipengele cha `button` kinapaswa kuwa na darasa la bandia la `:hover` linalobadilisha rangi ya nyuma wakati kinapopigwa.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('button:hover').getPropertyValue('background-color'))
+```
+
+Unapaswa kutumia darasa la bandia la `:checked` kwenye `.radio-group input[type="radio"]` kuongeza rangi ya mpaka wakati kitufe cha radio kimechaguliwa.
+
+```js
+const style = new __helpers.CSSHelp(document).getStyle('.radio-group input[type="radio"]:checked');
+assert.isNotEmpty(style.getPropertyValue('border-color'));
+```
+
+Unapaswa kutumia darasa la bandia la `:checked` kwenye `.radio-group input[type="radio"]` kuongeza rangi ya nyuma wakati kitufe cha radio kimechaguliwa.
+
+```js
+const style = new __helpers.CSSHelp(document).getStyle('.radio-group input[type="radio"]:checked');
+assert.isNotEmpty(style.getPropertyValue('background-color'));
+```
+
+Unapaswa kutumia darasa la bandia la `:checked` kwenye `.radio-group input[type="radio"]` kuongeza kivuli cha kisanduku wakati kitufe cha radio kimechaguliwa.
+
+```js
+const style = new __helpers.CSSHelp(document).getStyle('.radio-group input[type="radio"]:checked');
+assert.isNotEmpty(style.getPropertyValue('box-shadow'));
+```
+
+Unapaswa kutumia darasa la bandia la `:checked` kwenye vitufe vya radio kubadilisha rangi ya maandishi ya `label` inayohusiana wakati chaguo limechaguliwa.
+
+```js
+const els = document.querySelectorAll('input[type="radio"]');
+assert.isNotEmpty(els);
+els.forEach(input => {
+  const label = document.querySelector(`label[for="${input.id}"]`) || input.parentElement;
+  assert.equal(label.tagName, "LABEL");
+  input.checked = false;
+  const colorBefore = getComputedStyle(label).color;
+  input.checked = true;
+  const colorAfter = getComputedStyle(label).color;
+  assert.notEqual(colorAfter, colorBefore);
+})
+```
+
+Ongeza darasa la bandia la `:first-of-type` kwa vipengele vya `input` kupamba sehemu ya kwanza ya ingizo kwa njia tofauti.
+
+```js
+const pseudo = new __helpers.CSSHelp(document).getStyle('input:first-of-type');
+assert.exists(pseudo);
+assert.isNotEmpty([...pseudo]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Application Form</h1>
+        <form id="job-application">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="position">Position:</label>
+            <select id="position" name="position" required>
+                <option value="">Select a position</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+                <option value="manager">Manager</option>
+            </select>
+
+            <fieldset class="radio-group">
+              <legend>Availability:</legend>
+                <input type="radio" id="fullTime" name="availability" value="fullTime" checked>
+                <label for="fullTime">Full-Time</label>
+                <input type="radio" id="partTime" name="availability" value="partTime">
+                <label for="partTime">Part-Time</label>
+            </fieldset>
+
+            <label for="message">Why do you want this job?</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your motivation" required></textarea>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+</body>
+</html>
+```
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.radio-group input[type="radio"] {
+  margin-right: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.radio-group label {
+  margin: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: green;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input:focus, textarea:focus {
+  border-color: blue;
+  outline: none;
+}
+
+input:invalid, select:invalid, textarea:invalid {
+  border-color: red;
+}
+
+input:valid, select:valid, textarea:valid {
+  border-color: green;
+}
+
+.radio-group input[type="radio"]:checked {
+  border-color: green;
+  background-color: green;
+  box-shadow: inset 0 0 0 4px white;
+}
+
+button:hover {
+  background-color: black;
+}
+
+input[type="radio"]:checked + label {
+  color: green;
+}
+
+button:disabled {
+  background-color: grey;
+}
+
+input:first-of-type {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+textarea:nth-child(5) {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+```

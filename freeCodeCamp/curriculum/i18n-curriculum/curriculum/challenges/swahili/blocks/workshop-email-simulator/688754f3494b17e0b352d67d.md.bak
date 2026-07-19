@@ -1,0 +1,71 @@
+---
+id: 688754f3494b17e0b352d67d
+title: Hatua 17
+challengeType: 20
+dashedName: step-17
+---
+
+# --description--
+
+Sasa ni wakati wa kujaribu mfumo kamili wa barua pepe! Tengeneza watumizi wawili na uone jinsi kazi ya barua pepe inavyofanya kazi.
+
+Tengeneza vitu viwili vya Mtumizi: `alice` mwenye jina `"Alice"` na `bob` mwenye jina `"Bob"`. Hii itaonyesha jinsi watumizi wanavyoweza kuundwa na kuingiliana kwa kila mmoja.
+
+# --hints--
+
+Unapaswa kutengeneza kitu cha Mtumizi chenye jina `alice` na jina `"Alice"`.
+
+```js
+({
+    test: () => {
+        assert(runPython(`_Node(_code).find_variable("alice").is_equivalent('alice = User("Alice")')`));
+    }
+})
+```
+
+Unapaswa kutengeneza kitu cha Mtumizi chenye jina `bob` na jina `"Bob"`.
+
+```js
+({
+    test: () => {
+        assert(runPython(`_Node(_code).find_variable("bob").is_equivalent('bob = User("Bob")')`));
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Email:
+    def __init__(self, sender, receiver, subject, body):
+        self.sender = sender
+        self.receiver = receiver
+        self.subject = subject
+        self.body = body
+        self.read = False
+
+    def mark_as_read(self):
+        self.read = True
+
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.inbox = Inbox()
+
+    def send_email(self, receiver, subject, body):
+        email = Email(sender=self, receiver=receiver, subject=subject, body=body)
+        receiver.inbox.receive_email(email)
+
+class Inbox:
+    def __init__(self):
+        self.emails = []
+
+    def receive_email(self, email):
+        self.emails.append(email)
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

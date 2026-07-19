@@ -1,0 +1,115 @@
+---
+id: 587d7789367417b2b2512aa4
+title: Boresha ufikikaji wa maudhui ya sauti kwa kipengele cha audio
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cVJVkcZ'
+forumTopicId: 301014
+dashedName: improve-accessibility-of-audio-content-with-the-audio-element
+---
+
+# --description--
+
+Kipengele cha `audio` cha HTML5 hutoa maana ya kimaelezo wakati kinazunguka sauti au maudhui ya mtiririko wa sauti katika alama zako za uandishi. Maudhui ya sauti pia yanahitaji mbadala wa maandishi ili yafikike kwa watu wasiosikia au wenye ugumu wa kusikia. Hii inaweza kufanywa kwa maandishi yanayokaribu kwenye ukurasa au kiungo cha nakala ya maandishi.
+
+Lebo ya `audio` inaunga mkono sifa ya `controls`. Hii inaonyesha vidhibiti vya kimsingi vya kivinjari vya kucheza, kusitisha, na vinginevyo, na inaunga mkono utendaji wa kibodi. Hii ni sifa ya thamani ya kweli au siyo kweli, ikimaanisha haihitaji thamani, kuwepo kwake kwenye lebo huwasha usanidi huo.
+
+Hapa kuna mfano:
+
+```html
+<audio id="meowClip" controls>
+  <source src="audio/meow.mp3" type="audio/mpeg">
+  <source src="audio/meow.ogg" type="audio/ogg">
+</audio>
+```
+
+**Kumbuka:** Maudhui ya vyombo vya habari mara nyingi huwa na sehemu za kuona na kusikia. Yanahitaji maelezo ya picha yaliyosawazishwa na nakala ya maandishi ili watumizi wenye ulemavu wa kuona na/au kusikia waweze kuyapata. Kwa kawaida, msanidi programu wa mtandao siyo jukumu lake kuunda maelezo ya picha au nakala ya maandishi, lakini anahitaji kujua kuzijumuisha.
+
+# --instructions--
+
+Ni wakati wa kupumzika kutoka kwa Camper Cat na kukutana na msafiri mwenzako Zersiax (@zersiax), bingwa wa ufikikaji na mtumiaji wa kisomaji cha skrini. Ili kusikia kipande cha kisomaji chake cha skrini kinavyofanya kazi, ongeza kipengele cha `audio` baada ya kipengele cha `p`. Jumuisha sifa ya `controls`. Kisha weka kipengele cha `source` ndani ya lebo za `audio` na sifa ya `src` iwe imewekwa kuwa `https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3` na sifa ya `type` iwe imewekwa kuwa `"audio/mpeg"`.
+
+**Kumbuka:** Kipande cha sauti kinaweza kusikika kwa kasi na kuwa kigumu kueleweka, lakini hiyo ni kasi ya kawaida kwa watumiaji wa kisomaji cha skrini.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na lebo moja ya `audio`.
+
+```js
+assert.lengthOf(document.querySelectorAll('audio'),1);
+```
+
+Kipengele chako cha `audio` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert.match(code,/<audio.*>[\s\S]*<\/audio>/g);
+assert.lengthOf(code.match(/<\/audio>/g),1);
+```
+
+Lebo ya `audio` inapaswa kuwa na sifa ya `controls`.
+
+```js
+assert.exists(document.querySelector('audio')?.getAttribute('controls'));
+```
+
+Msimbo wako unapaswa kuwa na lebo moja ya `source`.
+
+```js
+assert.lengthOf(document.querySelectorAll('source'), 1);
+```
+
+Lebo yako ya `source` inapaswa kuwa ndani ya lebo za `audio`.
+
+```js
+const audio = document.querySelector('audio');
+const children = audio.querySelectorAll(`:scope ${'source'}`);
+assert.lengthOf(children,1);
+```
+
+Thamani ya sifa ya `src` kwenye lebo ya `source` inapaswa kuendana kabisa na kiungo kilichoelezwa katika maelekezo.
+
+```js
+assert.equal(
+  document.querySelector('source')?.getAttribute('src'),
+  'https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3'
+);
+```
+
+Msimbo wako unapaswa kujumuisha sifa ya `type` kwenye lebo ya `source` yenye thamani ya audio/mpeg.
+
+```js
+assert.equal(document.querySelector('source')?.getAttribute('type'), 'audio/mpeg');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<body>
+  <header>
+    <h1>Real Coding Ninjas</h1>
+  </header>
+  <main>
+    <p>A sound clip of Zersiax's screen reader in action.</p>
+
+
+
+  </main>
+</body>
+```
+
+# --solutions--
+
+```html
+<body>
+  <header>
+    <h1>Real Coding Ninjas</h1>
+  </header>
+  <main>
+    <p>A sound clip of Zersiax's screen reader in action.</p>
+    <audio controls>
+      <source src="https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3" type="audio/mpeg"/>
+    </audio>
+  </main>
+</body>
+```

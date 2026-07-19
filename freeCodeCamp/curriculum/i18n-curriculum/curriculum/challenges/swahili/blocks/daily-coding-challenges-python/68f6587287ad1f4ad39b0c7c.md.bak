@@ -1,0 +1,65 @@
+---
+id: 68f6587287ad1f4ad39b0c7c
+title: "Challenge 90: Character Limit"
+challengeType: 29
+dashedName: challenge-90
+---
+
+# --description--
+
+Katika changamoto hii, unapewa mfuatano wa herufi na unahitaji kubaini kama unaendana na chapisho la mitandao ya kijamii. Rudisha mfuatano wa herufi ufuatao kulingana na sheria zilizotolewa:
+
+- `"short post"` ikiwa unaendana na kiwango cha herufi 40.
+- `"long post"` ikiwa ni zaidi ya herufi 40 na unaendana na kiwango cha herufi 80.
+- `"invalid post"` ikiwa ni mrefu mno kuendana na viwango vyovyote viwili.
+
+# --hints--
+
+`can_post("Hello world")` should return `"short post"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(can_post("Hello world"), "short post")`)
+}})
+```
+
+`can_post("This is a longer message but still under eighty characters.")` should return `"long post"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(can_post("This is a longer message but still under eighty characters."), "long post")`)
+}})
+```
+
+`can_post("This message is too long to fit into either of the character limits for a social media post.")` should return `"invalid post"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(can_post("This message is too long to fit into either of the character limits for a social media post."), "invalid post")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def can_post(message):
+
+    return message
+```
+
+# --solutions--
+
+```py
+def can_post(message):
+    if len(message) <= 40:
+        return "short post"
+    elif len(message) <= 80:
+        return "long post"
+    else:
+        return "invalid post"
+```

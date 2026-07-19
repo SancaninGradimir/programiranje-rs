@@ -1,0 +1,103 @@
+---
+id: 69bc6cb30c1d112a2e110a07
+title: "Challenge 250: Hidden Key"
+challengeType: 29
+dashedName: challenge-250
+---
+
+# --description--
+
+Karibu kwenye zoezi la 250 la kila siku!
+
+Ukitoa mfuatano wa herufi uliosimbwa, usimbue kwa kutumia ufunguo wa usimbaji na urudishe matokeo.
+
+Ili kupata ufunguo:
+
+- Tazama changamoto zote za kila siku hadi leo ambazo nambari ya changamoto ni sehemu ya 25 (ikiwa ni pamoja na hii).
+- Chukua herufi ya kwanza kutoka kwa kila kichwa cha changamoto hizo na ziunganishe kuwa mfuatano wa herufi. Ikiwa kichwa kinaanza na herufi isiyo ya herufi, tafuta herufi yake ya kwanza.
+
+Ili kusimbua ujumbe, pitia kila herufi katika ujumbe uliosimbwa na:
+
+1. Tazama herufi inayolingana katika ufunguo (jirudia ufunguo ikiwa ujumbe ni mrefu zaidi ya ufunguo).
+  2. Badilisha herufi ya ufunguo kuwa nambari inayolingana: `"A"` = 1, `"B"` = 2, ..., `"Z"` = 26.
+  3. Sukuma herufi iliyosimbwa nyuma katika alfabeti kwa nambari hiyo.
+  4. Ikiwa kusukuma kunakwenda kabla ya `"A"`, zungusha kurudi `"Z"`.
+
+Kwa mfano, ikiwa ujumbe uliosimbwa unaanza na `"Y"` na herufi ya kwanza ya ufunguo ni `"V"` (22), sukuma `"Y"` nyuma kwa nafasi 22 kupata `"C"`. Rudia mchakato huu kwa kila herufi ili kusimbua ujumbe mzima.
+
+- Herufi pekee ndizo husukumwa, nafasi hurudishwa kama zilivyo.
+- Herufi zote zilizotolewa na kurudishwa ni herufi kubwa.
+
+# --hints--
+
+`decode("YAVJYNXE")` should return `"CONGRATS"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(decode("YAVJYNXE"), "CONGRATS")`)
+}})
+```
+
+`decode("YALLUT PQUMJP")` should return `"CODING LEGEND"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(decode("YALLUT PQUMJP"), "CODING LEGEND")`)
+}})
+```
+
+`decode("UAC DYR EISAKYM")` should return `"YOU ARE AWESOME"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(decode("UAC DYR EISAKYM"), "YOU ARE AWESOME")`)
+}})
+```
+
+`decode("GQMS NBMZU")` should return `"KEEP GOING"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(decode("GQMS NBMZU"), "KEEP GOING")`)
+}})
+```
+
+`decode("W IQQURV UG I ZDMDTRV IVW JQDHY TMHSA QB")` should return `"A WINNER IS A DREAMER WHO NEVER GIVES UP"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(decode("W IQQURV UG I ZDMDTRV IVW JQDHY TMHSA QB"), "A WINNER IS A DREAMER WHO NEVER GIVES UP")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def decode(message):
+
+    return message
+```
+
+# --solutions--
+
+```py
+def decode(message):
+    key = "VLHCGMDLNH"
+    result = []
+    key_index = 0
+    for char in message:
+        if char == ' ':
+            result.append(char)
+        else:
+            shift = ord(key[key_index % len(key)]) - 64
+            key_index += 1
+            result.append(chr((ord(char) - 65 - shift) % 26 + 65))
+    return ''.join(result)
+```

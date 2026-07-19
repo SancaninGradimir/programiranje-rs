@@ -1,0 +1,129 @@
+---
+id: 596fd036dc1ab896c5db98b1
+title: Badilisha sekunde kuwa muda mchanganyiko
+challengeType: 1
+forumTopicId: 302236
+dashedName: convert-seconds-to-compound-duration
+---
+
+# --description--
+
+Tekeleza kitendakazi ambacho:
+
+<ul>
+  <li>kinachukua nambari kamili chanya inayowakilisha muda kwa sekunde kama ingizo (mfano, <code>100</code>), na</li>
+  <li>kinarudisha mfuatano wa herufi unaoonyesha muda huo huo ukiwa umegawanywa katika wiki, siku, saa, dakika, na sekunde kama ilivyoelezwa hapa chini (mfano, <code>1 min, 40 sec</code>).</li>
+</ul>
+
+Onyesha kuwa kinapita majaribio matatu yafuatayo:
+
+<div style='font-size:115%; font-weight: bold;'>Majaribio</div>
+
+| Nambari ya ingizo | Nambari ya matokeo                  |
+| ----------------- | ---------------------------------- |
+| 7259              | <code>2 hr, 59 sec</code>          |
+| 86400             | <code>1 d</code>                   |
+| 6000000           | <code>9 wk, 6 d, 10 hr, 40 min</code> |
+
+<div style="font-size:115%; font-weight: bold;">Maelezo</div>
+<ul>
+  <li>
+    Vitengo vitano vifuatavyo vinapaswa kutumika:
+
+| Kifungu | Kiambatisho kinachotumika kwenye matokeo | Ubadilishaji           |
+| ------- | ----------------------------------------- | --------------------- |
+| wiki    | <code>wk</code>                           | 1 wiki = siku 7       |
+| siku    | <code>d</code>                            | 1 siku = saa 24       |
+| saa     | <code>hr</code>                           | 1 saa = dakika 60     |
+| dakika  | <code>min</code>                          | 1 dakika = sekunde 60 |
+| sekunde | <code>sec</code>                          | ---                   |
+
+  </li>
+  <li>
+    Hata hivyo, jumuisha tu kiasi chenye thamani isiyo sifuri kwenye matokeo (mfano, rudisha <code>1 d</code> si <code>0 wk, 1 d, 0 hr, 0 min, 0 sec</code>).
+  </li>
+  <li>
+    Toa kipaumbele kwa vitengo vikubwa zaidi kuliko vidogo kadri inavyowezekana (mfano, rudisha <code>2 min, 10 sec</code> si <code>1 min, 70 sec</code> au <code>130 sec</code>).
+  </li>
+  <li>
+    Fuatilia muundo ulioonyeshwa kwenye majaribio (idadi zimesanifishwa kutoka kitengo kikubwa hadi kidogo na zimegawanywa kwa koma+nafasi; thamani na kitengo cha kila kiasi zimegawanywa kwa nafasi).
+  </li>
+</ul>
+
+# --before-each--
+
+```js
+const testCases = [7259, 86400, 6000000];
+const results = ['2 hr, 59 sec', '1 d', '9 wk, 6 d, 10 hr, 40 min'];
+```
+
+# --hints--
+
+`convertSeconds` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof convertSeconds === 'function');
+```
+
+`convertSeconds(7259)` inapaswa kurudisha `2 hr, 59 sec`.
+
+```js
+assert.equal(convertSeconds(testCases[0]), results[0]);
+```
+
+`convertSeconds(86400)` inapaswa kurudisha `1 d`.
+
+```js
+assert.equal(convertSeconds(testCases[1]), results[1]);
+```
+
+`convertSeconds(6000000)` inapaswa kurudisha `9 wk, 6 d, 10 hr, 40 min`.
+
+```js
+assert.equal(convertSeconds(testCases[2]), results[2]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function convertSeconds(sec) {
+
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+function convertSeconds(sec) {
+  const localNames = ['wk', 'd', 'hr', 'min', 'sec'];
+  // compoundDuration :: [String] -> Int -> String
+  const compoundDuration = (labels, intSeconds) =>
+    weekParts(intSeconds)
+    .map((v, i) => [v, labels[i]])
+    .reduce((a, x) =>
+      a.concat(x[0] ? [`${x[0]} ${x[1] || '?'}`] : []), []
+    )
+    .join(', ');
+
+    // weekParts :: Int -> [Int]
+  const weekParts = intSeconds => [0, 7, 24, 60, 60]
+    .reduceRight((a, x) => {
+      const r = a.rem;
+      const mod = x !== 0 ? r % x : r;
+
+      return {
+        rem: (r - mod) / (x || 1),
+        parts: [mod].concat(a.parts)
+      };
+    }, {
+      rem: intSeconds,
+      parts: []
+    })
+    .parts;
+
+  return compoundDuration(localNames, sec);
+}
+```

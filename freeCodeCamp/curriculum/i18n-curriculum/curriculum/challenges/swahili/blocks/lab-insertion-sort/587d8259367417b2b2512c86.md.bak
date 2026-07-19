@@ -1,0 +1,92 @@
+---
+id: 587d8259367417b2b2512c86
+title: Tekeleza kupanga kwa kuingiza
+challengeType: 26
+dashedName: implement-insertion-sort
+---
+
+# --description--
+
+Katika maabara hii, uta-tekeleza algoriti ya kupanga kwa kuingiza. Njia hii hufanya kazi kwa kujenga safu ya data iliyopangwa mwanzoni mwa orodha. Huanza safu ya data iliyopangwa na kipengele cha kwanza. Kisha huchunguza kipengele kinachofuata na kukibadilisha nyuma ndani ya safu iliyopangwa hadi kiwe katika nafasi iliyopangwa. Inaendelea kupitia orodha na kubadilisha vitu vipya nyuma ndani ya sehemu iliyopangwa hadi ifikie mwisho. Algoriti hii ina ugumu wa wakati wa mraba katika hali ya wastani na mbaya zaidi.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi cha `insertionSort`.
+1. Kitendakazi cha `insertionSort` kinapaswa kuchukua safu ya data ya nambari kamili na kurudisha safu ya data yenye nambari kamili sawa zilizopangwa kutoka ndogo hadi kubwa zaidi.
+
+# --hints--
+
+`insertionSort` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(insertionSort);
+```
+
+`insertionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92])` inapaswa kurudisha safu ya data isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  insertionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`insertionSort` inapaswa kurudisha safu ya data iliyopangwa (kutoka ndogo hadi kubwa zaidi).
+
+```js
+
+assert.sameOrderedMembers(
+  insertionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 1, 2, 2, 4, 8, 32, 43, 43, 55, 63, 92, 123, 123, 234, 345, 5643]
+);
+```
+
+`insertionSort([5, 4, 33, 2, 8])` inapaswa kurudisha `[2, 4, 5, 8, 33]`.
+
+```js
+assert.sameOrderedMembers(insertionSort([5, 4, 33, 2, 8]), [2, 4, 5, 8, 33])
+```
+
+`insertionSort` haipaswi kutumia njia iliyo-jengwa ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    insertionSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function insertionSort (array) {
+  for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
+    let current = array[currentIndex];
+    let j = currentIndex - 1;
+    while (j > -1 && array[j] > current) {
+      array[j + 1] = array[j];
+      j--;
+    }
+    array[j + 1] = current;
+  }
+  return array;
+}
+```

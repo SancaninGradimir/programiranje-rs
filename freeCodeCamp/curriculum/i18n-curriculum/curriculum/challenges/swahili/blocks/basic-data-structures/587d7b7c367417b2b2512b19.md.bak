@@ -1,0 +1,101 @@
+---
+id: 587d7b7c367417b2b2512b19
+title: Badilisha kitu kilichopangwa ndani ya kitu kingine
+challengeType: 1
+forumTopicId: 301164
+dashedName: modify-an-object-nested-within-an-object
+---
+
+# --description--
+
+Sasa tuchunguze kitu kidogo kigumu zaidi. Sifa za kitu zinaweza kupangwa ndani kwa kina chochote, na thamani zao zinaweza kuwa aina yoyote ya data inayoungwa mkono na JavaScript, ikiwa ni pamoja na safu za data na hata vitu vingine. Fikiria yafuatayo:
+
+```js
+let nestedObject = {
+  id: 28802695164,
+  date: 'December 31, 2016',
+  data: {
+    totalUsers: 99,
+    online: 80,
+    onlineStatus: {
+      active: 67,
+      away: 13,
+      busy: 8
+    }
+  }
+};
+```
+
+`nestedObject` ina sifa tatu: `id` (thamani ni nambari), `date` (thamani ni mfuatano wa herufi), na `data` (thamani ni kitu chenye muundo wake uliopangwa ndani). Ingawa miundo inaweza kuwa ngumu haraka, bado tunaweza kutumia uandishi ule ule kupata taarifa tunazohitaji. Ili kuweka thamani `10` kwa sifa ya `busy` ya kitu kilichopangwa ndani cha `onlineStatus`, tunatumia uandishi wa nukta kurejea sifa hiyo:
+
+```js
+nestedObject.data.onlineStatus.busy = 10;
+```
+
+# --instructions--
+
+Hapa tumeunda kitu `userActivity`, ambacho kina kitu kingine kilichopangwa ndani yake. Weka thamani ya ufunguo `online` kuwa `45`.
+
+# --hints--
+
+`userActivity` inapaswa kuwa na sifa za `id`, `date` na `data`.
+
+```js
+assert(
+  'id' in userActivity && 'date' in userActivity && 'data' in userActivity
+);
+```
+
+`userActivity` inapaswa kuwa na ufunguo `data` uliowekwa kuwa kitu chenye funguo za `totalUsers` na `online`.
+
+```js
+assert('totalUsers' in userActivity.data && 'online' in userActivity.data);
+```
+
+Sifa ya `online` iliyopangwa ndani ya ufunguo wa `data` wa `userActivity` inapaswa kuwekwa kuwa `45`
+
+```js
+assert(userActivity.data.online === 45);
+```
+
+Sifa ya `online` inapaswa kuwekwa kwa kutumia uandishi wa nukta au uandishi wa mabano.
+
+```js
+assert.strictEqual(__helpers.removeJSComments(code).search(/online: 45/), -1);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let userActivity = {
+  id: 23894201352,
+  date: 'January 1, 2017',
+  data: {
+    totalUsers: 51,
+    online: 42
+  }
+};
+
+// Only change code below this line
+
+// Only change code above this line
+
+console.log(userActivity);
+```
+
+# --solutions--
+
+```js
+let userActivity = {
+  id: 23894201352,
+  date: 'January 1, 2017',
+  data: {
+    totalUsers: 51,
+    online: 42
+  }
+};
+
+userActivity.data.online = 45;
+```

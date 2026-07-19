@@ -1,0 +1,69 @@
+---
+id: 666827a6fd0dbaafe8330ea6
+title: Hatua 35
+challengeType: 20
+dashedName: step-35
+---
+
+# --description--
+
+`__getattr__` ni njia nyingine maalum inayochukua jukumu katika upatikanaji wa sifa za kipengele.
+
+Utekelezaji wa kawaida wa `__getattribute__` ni kusababisha `AttributeError` wakati sifa ya kipengele inayotakiwa si sifa ya mfano au haipo katika mti wa darasa la vitu.
+
+Katika hali hiyo, `__getattr__` huitwa ikiwa imefafanuliwa na darasa la vitu. Unaweza kuichukulia kama aina ya njia mbadala wakati taratibu za kawaida za upatikanaji wa sifa za kipengele zinashindwa.
+
+Badilisha njia ya `__getattribute__` kuwa `__getattr__` na ubadilishe mfuatano wa herufi unaorejeshwa na njia hiyo kuwa `'calling __getattr__'`.
+
+# --hints--
+
+Unapaswa kufafanua njia iitwayo `__getattr__` yenye vigezo viwili, `self` na `attr`, ndani ya darasa la vitu la `R2Vector`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__getattr__").has_args("self, attr")`)) })
+```
+
+Njia yako ya `__getattr__` inapaswa kurejesha mfuatano wa herufi `'calling __getattr__'`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__getattr__").has_return("'calling __getattr__'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+--fcc-editable-region--
+    def __getattribute__(self, attr):                
+        return 'calling __getattribute__'
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+# print(f'v1 = {v1}', f'\nrepr = {repr(v1)}')
+# print(f'v2 = {v2}', f'\nrepr = {repr(v2)}')
+
+print(v1.x)
+print(getattr(v1, 'x'))
+
+```

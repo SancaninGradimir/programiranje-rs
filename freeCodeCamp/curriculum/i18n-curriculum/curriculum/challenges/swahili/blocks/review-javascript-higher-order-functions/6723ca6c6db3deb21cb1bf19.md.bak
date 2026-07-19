@@ -1,0 +1,175 @@
+---
+id: 6723ca6c6db3deb21cb1bf19
+title: Ukaguzi wa kitendakazi ya daraja la juu ya JavaScript
+challengeType: 31
+dashedName: review-javascript-higher-order-functions
+---
+
+# --interactive--
+
+## Kitendakazi cha mwitiko na njia ya `forEach`
+
+- **Maana**: Katika JavaScript, kitendakazi cha mwitiko ni kitendakazi kinachopitishwa kama hoja kwa kitendakazi kingine na hutekelezwa baada ya kitendakazi kikuu kumaliza utekelezaji wake.
+- **Njia ya `forEach()`**: Njia hii hutumika kupita juu ya kila kipengele katika safu ya data na kufanya operesheni kwa kila kipengele. Kitendakazi cha mwitiko katika `forEach` kinaweza kuchukua hoja tatu: kipengele cha sasa, kielezo cha kipengele cha sasa, na safu ya data ambayo `forEach` ilitumiwa.
+
+:::interactive_editor
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+
+// Result: 2 4 6 8 10
+numbers.forEach((number) => {
+  console.log(number * 2);
+});
+```
+
+:::
+
+## Kitendakazi ya daraja la juu
+
+- **Maana**: Kitendakazi ya daraja la juu huchukua kitendakazi kimoja au zaidi kama hoja na hurudisha kitendakazi au thamani kama matokeo.
+
+:::interactive_editor
+
+```js
+function operateOnArray(arr, operation) {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(operation(arr[i]));
+  }
+  return result;
+}
+
+function double(x) {
+  return x * 2;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const doubledNumbers = operateOnArray(numbers, double);
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]
+```
+
+:::
+
+- **Njia ya `map()`**: Njia hii hutumika kuunda safu mpya kwa kutumia kitendakazi fulani kwa kila kipengele cha safu ya awali. Kitendakazi cha mwitiko kinaweza kupokea hoja tatu: kipengele cha sasa, kielezo cha kipengele cha sasa, na safu ya data ambayo `map` ilitumiwa.
+
+:::interactive_editor
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((num) => num * 2);
+
+console.log(numbers); // [1, 2, 3, 4, 5]
+console.log(doubled); // [2, 4, 6, 8, 10]
+```
+
+:::
+
+- **Njia ya `filter()`**: Njia hii hutumika kuunda safu mpya yenye vipengele vinavyopitisha mtihani maalum, na hivyo ni muhimu kwa kuchuja vitu kulingana na vigezo. Kama njia ya `map`, kitendakazi cha mwitiko kwa njia ya `filter` kinapokea hoja tatu sawa: kipengele kinachosindikwa sasa, kielezo, na safu.
+
+:::interactive_editor
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evenNumbers = numbers.filter((num) => num % 2 === 0);
+
+console.log(evenNumbers); // [2, 4, 6, 8, 10]
+```
+
+:::
+
+- **Njia ya `reduce()`**: Njia hii hutumika kusindika safu na kuipunguza kuwa thamani moja. Thamani hii inaweza kuwa nambari, mfuatano wa herufi, kitu, au hata safu nyingine. Njia ya `reduce()` hufanya kazi kwa kutumia kitendakazi kwa kila kipengele katika safu, kwa mpangilio, na kupeleka matokeo ya kila hesabu kwa ifuatayo. Kitendakazi hiki mara nyingi huitwa kitendakazi cha kupunguza (reducer). Kitendakazi cha kupunguza kinachukua vigezo viwili vikuu: mkusanyaji na thamani ya sasa. Mkusanyaji ni mahali unahifadhi matokeo yanayoendelea ya operesheni zako, na thamani ya sasa ni kipengele cha safu kinachosindikwa.
+
+:::interactive_editor
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  0
+);
+
+console.log(sum); // 15
+```
+
+:::
+
+## Uunganishaji wa njia
+
+- **Maana**: Uunganishaji wa njia ni mbinu ya programu inayokuwezesha kuita njia nyingi kwenye kitu kimoja katika mstari mmoja wa msimbo. Mbinu hii inaweza kufanya msimbo wako kuwa rahisi kusoma na mfupi, hasa unapofanya mfululizo wa operesheni kwenye kitu kimoja.
+
+:::interactive_editor
+
+```js
+const result = "  Hello, World!  "
+  .trim()
+  .toLowerCase()
+  .replace("world", "JavaScript");
+
+console.log(result); // "hello, JavaScript!"
+```
+
+:::
+
+## Kufanya kazi na njia ya `sort`
+
+- **Maana**: Njia ya `sort` hutumika kupanga vipengele vya safu na kurudisha rejea kwa safu iliyopangwa. Hakuna nakala inayotengenezwa kwa sababu vipengele hupangwa mahali pake.
+
+:::interactive_editor
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+
+console.log(fruits); // ["Apple", "Banana", "Mango", "Orange"]
+```
+
+:::
+
+Ikiwa unahitaji kupanga nambari, basi utahitaji kupitisha kitendakazi cha kulinganisha. Njia ya `sort` hubadilisha vipengele kuwa mfuatano wa herufi kisha kulinganisha mfululizo wa thamani za vitengo vya msimbo wa UTF-16. Vitengo vya msimbo wa UTF-16 ni thamani za nambari zinazowakilisha herufi katika mfuatano wa herufi. Mifano ya vitengo vya msimbo wa UTF-16 ni nambari 65, 66, na 67 zinazowakilisha herufi "A", "B", na "C" mtawalia. Hivyo nambari 200 inaonekana kabla ya nambari 3 katika safu, kwa sababu mfuatano wa herufi "200" uko kabla ya mfuatano wa herufi "3" wakati wa kulinganisha vitengo vya msimbo wa UTF-16.
+
+:::interactive_editor
+
+```js
+const numbers = [414, 200, 5, 10, 3];
+
+numbers.sort((a, b) => a - b);
+
+console.log(numbers); // [3, 5, 10, 200, 414]
+```
+
+:::
+
+Vigezo `a` na `b` ni vipengele viwili vinavyolinganishwa. Kitendakazi cha kulinganisha kinapaswa kurudisha thamani hasi ikiwa `a` inapaswa kuja kabla ya `b`, thamani chanya ikiwa `a` inapaswa kuja baada ya `b`, na sifuri ikiwa `a` na `b` ni sawa.
+
+## Kufanya kazi na njia za `every` na `some`
+
+- **Njia ya `every()`**: Njia hii hujaribu kama vipengele vyote katika safu vinapita mtihani uliofanywa na kitendakazi kilichotolewa. Njia ya `every()` hurudisha `true` ikiwa kitendakazi kilichotolewa hurudisha `true` kwa vipengele vyote katika safu. Ikiwa kipengele chochote hakipitishi mtihani, njia hiyo hurudisha mara moja `false` na kuacha kuangalia vipengele vilivyobaki.
+
+:::interactive_editor
+
+```js
+const numbers = [2, 4, 6, 8, 10];
+const hasAllEvenNumbers = numbers.every((num) => num % 2 === 0);
+
+console.log(hasAllEvenNumbers); // true
+```
+
+:::
+
+- **Njia ya `some()`**: Njia hii huangalia kama angalau kipengele kimoja kinapitisha mtihani. Njia ya `some()` hurudisha `true` mara tu inapopata kipengele kinachopitisha mtihani. Ikiwa hakuna kipengele kinachopitisha mtihani, hurudisha `false`.
+
+:::interactive_editor
+
+```js
+const numbers = [1, 3, 5, 7, 8, 9];
+const hasSomeEvenNumbers = numbers.some((num) => num % 2 === 0);
+
+console.log(hasSomeEvenNumbers); // true
+```
+
+:::
+
+# --assignment--
+
+Kagua mada na dhana za kitendakazi ya daraja la juu ya JavaScript.

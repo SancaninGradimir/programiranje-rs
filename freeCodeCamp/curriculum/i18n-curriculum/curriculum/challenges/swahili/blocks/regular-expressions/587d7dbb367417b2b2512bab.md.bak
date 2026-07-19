@@ -1,0 +1,88 @@
+---
+id: 587d7dbb367417b2b2512bab
+title: Tumia makundi ya kunasa kutafuta na kubadilisha
+challengeType: 1
+forumTopicId: 301368
+dashedName: use-capture-groups-to-search-and-replace
+---
+
+# --description--
+
+Utafutaji ni muhimu. Hata hivyo, unaweza kufanya utafutaji kuwa na nguvu zaidi wakati pia unabadilisha (au kubadilisha) maandishi unayoyalinganisha.
+
+Unaweza kutafuta na kubadilisha maandishi katika mfuatano wa herufi kwa kutumia `.replace()` kwenye mfuatano wa herufi. Ingizo la `.replace()` ni kwanza mfano wa usemi wa kawaida unayotaka kutafuta. Kigezo cha pili ni mfuatano wa herufi wa kubadilisha matokeo au kitendakazi cha kufanya kitu fulani.
+
+```js
+let wrongText = "The sky is silver.";
+let silverRegex = /silver/;
+wrongText.replace(silverRegex, "blue");
+```
+
+Wito la `replace` litarudisha mfuatano wa herufi `The sky is blue.`.
+
+Pia unaweza kupata makundi ya kunasa katika mfuatano wa kubadilisha kwa kutumia alama za dola (`$`).
+
+```js
+"Code Camp".replace(/(\w+)\s(\w+)/, '$2 $1');
+```
+
+Wito la `replace` litarudisha mfuatano wa herufi `Camp Code`.
+
+# --instructions--
+
+Andika usemi wa kawaida `fixRegex` ukitumia makundi matatu ya kunasa ambayo yatafuta kila neno katika mfuatano wa herufi `one two three`. Kisha sasisha kigezo `replaceText` kubadilisha `one two three` na mfuatano wa herufi `three two one` na weka matokeo katika kigezo `result`. Hakikisha unatumia makundi ya kunasa katika mfuatano wa kubadilisha kwa kutumia sintaksia ya alama ya dola (`$`).
+
+# --hints--
+
+Unapaswa kutumia `.replace()` kutafuta na kubadilisha.
+
+```js
+assert(__helpers.removeJSComments(code).match(/\.replace\(.*\)/));
+```
+
+Usemi wako wa kawaida unapaswa kubadilisha mfuatano wa herufi `one two three` kuwa mfuatano wa herufi `three two one`
+
+```js
+assert(result === 'three two one');
+```
+
+Hupaswi kubadilisha mstari wa mwisho.
+
+```js
+assert(__helpers.removeJSComments(code).match(/result\s*=\s*str\.replace\(.*?\)/));
+```
+
+`fixRegex` inapaswa kutumia angalau makundi matatu ya kunasa.
+
+```js
+assert(new RegExp(fixRegex.source + '|').exec('').length - 1 >= 3);
+```
+
+`replaceText` inapaswa kutumia mfuatano wa submatch ulio na mabano (yaani submatch ya nth yenye mabano, $n, inahusiana na kundi la nth la kunasa).
+
+```js
+{
+  const re = /(\$\d{1,2})+(?:[\D]|\b)/g;
+  assert(replaceText.match(re).length >= 3);
+}
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let str = "one two three";
+let fixRegex = /change/; // Change this line
+let replaceText = ""; // Change this line
+let result = str.replace(fixRegex, replaceText);
+```
+
+# --solutions--
+
+```js
+let str = "one two three";
+let fixRegex = /(\w+) (\w+) (\w+)/g; // Change this line
+let replaceText = "$3 $2 $1"; // Change this line
+let result = str.replace(fixRegex, replaceText);
+```

@@ -1,0 +1,363 @@
+---
+id: 67e2a4cab99d4e8bc795e99d
+title: "Nini maana ya useActionState hook, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-useactionstate-hook-and-how-does-it-work
+---
+
+# --description--
+
+React 19 ilikuja na vipengele viwili vipya vinavyojulikana kama server components na server actions.
+
+Kuanzia toleo hilo, server components zikawa chaguo-msingi katika mifumo ya kazi kama Next.js inayounga mkono moja kwa moja.
+
+Server actions kwa upande mwingine, ni kitendakazi kinachoendeshwa kwenye seva kuruhusu usimamizi wa fomu moja kwa moja kwenye seva bila haja ya kiishio cha API.
+
+Mfano wa server action ni kama ifuatavyo:
+
+```js
+"use server";
+
+async function submitForm(formData) {
+  const name = formData.get("name");
+  return { message: `Hello, ${name}!` };
+}
+```
+
+Server action hii hutambua uwanja wa `name` kutoka kwenye fomu na kurudisha salamu ya mfuatano wa herufi kwa jina hilo.
+
+Ili kurahisisha usimamizi wa hali kwa server actions na kuondoa haja ya JavaScript upande wa mteja kwa fomu rahisi, timu ya React walianzisha hook ya `useActionState` katika toleo la 19.
+
+Tuchunguze kwa karibu hook hii na tuone jinsi inavyofanya kazi.
+
+Nyaraka za React zinaelezea hook ya `useActionState` kama hook inayoruhusu "kusahihisha hali kulingana na matokeo ya kitendo cha fomu."
+
+Lakini hii haimaanishi kuwa unaweza kutumia hook ya `useActionState` tu kwa fomu. Unaweza pia kuitumia kusimamia bofya za vitufe na matukio mengine, mradi tu una kitendo kilichowekwa.
+
+Na kumbuka, kwa kuwa `useActionState` ni hook, huwezi kuitumia ndani ya server component.
+
+Hapa kuna sintaksia ya msingi ya hook ya `useActionState`:
+
+```js
+const [state, action, isPending] = useActionState(actionFunction, initialState, permalink);
+```
+
+- `state` ni hali ya sasa inayorudishwa na kitendo.
+
+- `action` ni kitendakazi kinachochochea server action.
+
+- `isPending` ni thamani ya kweli au siyo kweli inayoonyesha kama kitendo kinaendelea au la.
+
+- Kigezo cha `actionFunction` ni server action yenyewe.
+
+- `initialState` ni kigezo kinacho wakilisha hali ya mwanzo kabla ya kitendo kuanza.
+
+- `permalink` ni mfuatano wa herufi wa hiari unaoonyesha URL ya kipekee ya ukurasa ambayo fomu inabadilisha.
+
+Ili kutumia hook ya `useActionState`, hakikisha una kitendo kilichowekwa kwanza. Tuchukue kitendo kutoka mfano uliopita kwa hili, na mabadiliko kidogo:
+
+```js
+"use server";
+
+export async function submitForm(_, formData) {
+  const name = formData.get("name");
+
+  const hour = new Date().getHours();
+  let greeting;
+
+  if (hour < 12) {
+    greeting = "Good morning";
+  } else if (hour < 18) {
+    greeting = "Good afternoon";
+  } else {
+    greeting = "Good evening";
+  }
+
+  return { message: `${greeting}, ${name}` };
+}
+```
+
+Katika sehemu yako, unahitaji kuleta hook ya `useActionState` na kuitisha ngazi ya juu ya mwili wa sehemu (kabla ya taarifa ya return) kama hooks zingine. Pia unapaswa kuleta kitendo:
+
+```jsx
+"use client";
+
+// Import the useActionState hook
+import { useActionState } from "react";
+
+// Import the submitForm action
+import { submitForm } from "./actions/submitForm";
+
+const Greeter = () => {
+
+ // Initialize the hook
+ const [state, submit, isPending] = useActionState(submitForm, {
+   message: "",
+ });
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      {/* Rest of component */}
+    </div>
+  );
+};
+
+export default Greeter;
+```
+
+Hapa ni msimbo kamili ulio na upambaji kidogo:
+
+```jsx
+"use client";
+
+import { useActionState } from "react";
+import { submitForm } from "./actions/submitForm";
+
+const Greeter = () => {
+  const [state, submit, isPending] = useActionState(submitForm, {
+    message: "",
+  });
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      <form
+        action={submit}
+        className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md"
+      >
+        <h2 className="text-2xl text-center font-semibold text-gray-700 mb-4">
+          Greet Someone
+        </h2>
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          required
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full mt-4 p-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 disabled:bg-gray-400 transition-all"
+        >
+          {isPending ? "Greeting..." : "Greet"}
+        </button>
+
+        {state.message && (
+          <p className="mt-4 text-green-600 text-center font-medium">
+            {state.message}
+          </p>
+        )}
+      </form>
+    </div>
+  );
+};
+
+export default Greeter;
+```
+
+Kwenye kivinjari, utaona kitufe cha fomu kinabadilika kutoka `Greet` hadi `Greeting...` wakati kitendo kinapokuwa `isPending` - na salamu itaonyesha `Good morning, {name}`, `Good afternoon, {name}`, au `Good evening, {name}`, kulingana na wakati wa siku fomu ilipowasilishwa.
+
+Kumbuka tulivyosema kuwa unaweza pia kutumia hook ya `useActionState` nje ya fomu?
+
+Katika mfano huu, tutachukua watumiaji watano kutoka JSONPlaceholder kwa kubofya kitufe:
+
+```js
+"use server";
+
+export async function getUsers() {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/users?_start=0&_limit=5/"
+  );
+  return await res.json();
+}
+```
+
+Hapa ni UI iliyopambwa:
+
+```jsx
+"use client";
+
+import { useActionState } from "react";
+import { getUsers } from "./actions/getUsers";
+
+export default function FetchUsers() {
+  const [users, fetchAction, isPending] = useActionState(getUsers, []);
+
+  return (
+    <div className="p-6 max-w-lg mx-auto">
+      <button
+        onClick={fetchAction}
+        disabled={isPending}
+        className="px-4 py-2 cursor-pointer bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 font-bold"
+      >
+        {isPending ? "Fetching Users..." : "Fetch Users"}
+      </button>
+
+      <ul className="mt-4 space-y-2">
+        {users.map((user) => (
+          <li key={user.id} className="p-3 bg-gray-100 rounded-lg">
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-gray-600">{user.email}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+Kwenye kivinjari, utaona kuwa maandishi ya kitufe hayajabadilishwa kuwa `Fetching Users...` baada ya kubofya.
+
+Hii hutokea kwa sababu React hutumia upokeaji wa data na kuonyesha kama kipaumbele cha juu kuliko hali ya `isPending`, ambayo inazuia `isPending` na kusababisha kosa.
+
+Ili kutatua tatizo hili, unahitaji kufunika kitendo ndani ya `startTransition`:
+
+```jsx
+"use client";
+
+// import startTransition from React
+import { useActionState, startTransition } from "react";
+import { getUsers } from "./actions/getUsers";
+
+export default function FetchUsers() {
+  const [users, fetchAction, isPending] = useActionState(getUsers, []);
+
+  return (
+    <div className="p-6 max-w-lg mx-auto">
+      <button
+        {/* wrap fetchAction in startTransition */}
+        onClick={() => startTransition(() => fetchAction())}
+        disabled={isPending}
+        className="px-4 py-2 bg-green-500 font-bold cursor-pointer text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400"
+      >
+        {isPending ? 'Fetching Users...' : 'Fetch Users'}
+      </button>
+
+      <ul className="mt-4 space-y-2">
+        {users.map((user) => (
+          <li key={user.id} className="p-3 bg-gray-100 rounded-lg">
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-gray-600">{user.email}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+Ikiwa unajiuliza `startTransition` ni nini, ni kitendakazi kinachoambia React kuwa sasisho la hali ni la kipaumbele cha chini na linaweza kusitishwa. Hii hufanya UI kuendelea kuwa na makini wakati wa kushughulikia masasisho isiyo ya wakati mmoja kama server actions.
+
+Hivyo ndivyo unavyotumia hook ya `useActionState` ndani na nje ya fomu.
+
+# --questions--
+
+## --text--
+
+Nini maana ya hook ya `useActionState` katika React?
+
+## --answers--
+
+Inasimamia hali kulingana na matokeo ya kitendo, ikiwa ni pamoja na uwasilishaji wa fomu, bofya za vitufe, na masasisho mengine yanayotokana na matukio.
+
+---
+
+Inasasisha hali tu wakati fomu inapotumwa na haisaidii aina nyingine za vitendo kama bofya za vitufe au mshughulikiaji wa matukio maalum.
+
+### --feedback--
+
+Inafanya kazi na vitendo, si fomu tu.
+
+---
+
+Inasimamia hali ya jumla katika sehemu nyingi, ikifanya iwe mbadala wa maktaba za usimamizi wa hali kama Redux au Zustand.
+
+### --feedback--
+
+Inafanya kazi na vitendo, si fomu tu.
+
+---
+
+Inachukua nafasi ya hook ya `useState` kabisa kwa kutoa njia iliyojengwa ndani ya kusimamia hali za ndani na za jumla bila utegemezi wa ziada.
+
+### --feedback--
+
+Inafanya kazi na vitendo, si fomu tu.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Kwa nini huwezi kutumia hook ya `useActionState` ndani ya server component?
+
+## --answers--
+
+Kwa sababu server components haziiungi mkono usimamizi wa hali, na hivyo `useActionState` haifanyi kazi.
+
+### --feedback--
+
+Hooks hufanya kazi tu katika aina maalum ya sehemu.
+
+---
+
+Kwa sababu `useActionState` inahitaji muunganisho wa hifadhidata, ambao upo tu katika sehemu za mteja.
+
+### --feedback--
+
+Hooks hufanya kazi tu katika aina maalum ya sehemu.
+
+---
+
+Kwa sababu `useActionState` ni hook ya React, na hooks zinaweza kutumika tu ndani ya sehemu za mteja.
+
+---
+
+Kwa sababu `useActionState` inategemea API za kivinjari ambazo hazipatikani kwenye seva.
+
+### --feedback--
+
+Hooks hufanya kazi tu katika aina maalum ya sehemu.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Toleo gani la React lilianzisha server components na server actions?
+
+## --answers--
+
+React 17
+
+### --feedback--
+
+Toleo hili lililenga kuboresha kuonyesha upande wa seva.
+
+---
+
+React 18
+
+### --feedback--
+
+Toleo hili lililenga kuboresha kuonyesha upande wa seva.
+
+---
+
+React 19
+
+---
+
+React 16
+
+### --feedback--
+
+Toleo hili lililenga kuboresha kuonyesha upande wa seva.
+
+## --video-solution--
+
+3

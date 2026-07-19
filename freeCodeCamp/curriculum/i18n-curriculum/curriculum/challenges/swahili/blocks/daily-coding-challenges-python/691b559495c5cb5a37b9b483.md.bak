@@ -1,0 +1,115 @@
+---
+id: 691b559495c5cb5a37b9b483
+title: "Challenge 123: Roman Numeral Builder"
+challengeType: 29
+dashedName: challenge-123
+---
+
+# --description--
+
+Ukipata nambari kamili, rudisha thamani yake sawa katika nambari za Kirumi.
+
+Nambari za Kirumi hutumia alama hizi:
+
+| Symbol | Value |
+| ------ | ----- |
+| I      | 1     |
+| V      | 5     |
+| X      | 10    |
+| L      | 50    |
+| C      | 100   |
+| D      | 500   |
+| M      | 1000  |
+
+Nambari za Kirumi zinaandikwa kutoka kubwa kwenda ndogo, kutoka kushoto kwenda kulia kwa kutumia sheria zifuatazo:
+
+- Kuongeza hutumika wakati alama inafuatiwa na nyingine yenye thamani sawa au ndogo. Kwa mfano, `18` inaandikwa kama `XVIII` (10 + 5 + 1 + 1 + 1 = 18).
+- Kutoa hutumika wakati alama ndogo inaonekana kabla ya kubwa, kuwakilisha 4 au 9 katika thamani yoyote ya nafasi. Kwa mfano, 19 inaandikwa kama `XIX` (10 + (10 - 1)).
+- Hakuna alama inayorudiwa zaidi ya mara tatu mfululizo. Kutoa hutumika pale unapotakiwa kuandika alama zaidi ya mara tatu mfululizo. Hivyo nambari kubwa zaidi unayoweza kuandika ni 3999.
+
+Hapa kuna mfano mwingine: ukipata `1464`, rudisha `"MCDLXIV"` (1000 + (500 - 100) + 50 + 10 + (5 - 1)).
+
+# --hints--
+
+`to_roman(18)` should return `"XVIII"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_roman(18), "XVIII")`)
+}})
+```
+
+`to_roman(19)` should return `"XIX"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_roman(19), "XIX")`)
+}})
+```
+
+`to_roman(1464)` should return `"MCDLXIV"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_roman(1464), "MCDLXIV")`)
+}})
+```
+
+`to_roman(2025)` should return `"MMXXV"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_roman(2025), "MMXXV")`)
+}})
+```
+
+`to_roman(3999)` should return `"MMMCMXCIX"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_roman(3999), "MMMCMXCIX")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def to_roman(num):
+
+    return num
+```
+
+# --solutions--
+
+```py
+def to_roman(num):
+    symbols = [
+        ("M", 1000),
+        ("CM", 900),
+        ("D", 500),
+        ("CD", 400),
+        ("C", 100),
+        ("XC", 90),
+        ("L", 50),
+        ("XL", 40),
+        ("X", 10),
+        ("IX", 9),
+        ("V", 5),
+        ("IV", 4),
+        ("I", 1)
+    ]
+
+    result = ""
+    for sym, val in symbols:
+        while num >= val:
+            result += sym
+            num -= val
+    return result
+```

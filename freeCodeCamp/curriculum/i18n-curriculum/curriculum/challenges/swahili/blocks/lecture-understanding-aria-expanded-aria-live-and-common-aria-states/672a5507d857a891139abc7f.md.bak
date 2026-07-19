@@ -1,0 +1,341 @@
+---
+id: 672a5507d857a891139abc7f
+title: "Sifa ya kipengele `aria-controls` ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-aria-controls-attribute
+---
+
+# --interactive--
+
+Sifa ya kipengele `aria-controls` hutumika kuunda uhusiano wa kiprogramu kati ya kipengele kinachodhibiti uwepo wa kipengele kingine kwenye ukurasa, na kipengele kinachodhibitiwa. Uhusiano huu unaweza kusaidia watumiaji wa kisomaji cha skrini kuelewa vyema jinsi kidhibiti kinavyofanya kazi. Matumizi ya kawaida ni pamoja na seti ya tabo zinazodhibiti uonekano wa sehemu tofauti za maudhui, au kitufe kinachobadilisha uonekano wa menyu.
+
+Tuchunguze mfano ili kuona jinsi hii inavyofanya kazi. Katika mfano huu wa kiolesura cha tabo, tuna kipengele `div` chenye seti ya vitufe vitatu:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div role="tablist">
+  <button role="tab" id="tab1" aria-controls="section1" aria-selected="true">
+    Tab 1
+  </button>
+  <button role="tab" id="tab2" aria-controls="section2" aria-selected="false">
+    Tab 2
+  </button>
+  <button role="tab" id="tab3" aria-controls="section3" aria-selected="false">
+    Tab 3
+  </button>
+</div>
+```
+
+```css
+[role="tablist"] {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 1em;
+  gap: 4px;
+}
+
+[role="tab"] {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
+}
+
+[role="tab"]:hover,
+[role="tab"]:focus {
+  background: #e8f0fe;
+  outline: none;
+}
+
+[role="tab"][aria-selected="true"] {
+  background: #fff;
+  border-color: #ccc;
+  border-bottom: 2px solid #fff;
+  color: #000;
+  font-weight: 600;
+  position: relative;
+  top: 1px; 
+}
+
+[role="tab"]:focus-visible {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+```
+
+:::
+
+`div` hutumia `role="tablist"` kuonyesha kuwa ni kipengele cha kontena kwa kundi la tabo.
+
+Kila kitufe kinawakilisha tabo na kina sifa ya kipengele `role` iliyowekwa kuwa `tab`. Katika violesura vya tabo nyingi, paneli ya tabo ya kwanza inaonekana kwa chaguo-msingi, hivyo kitufe cha tabo ya kwanza kina sifa ya kipengele `aria-selected` iliyowekwa kuwa `true` kuonyesha kuwa sehemu yake ya maudhui inaonekana kwa sasa. Sifa ya kipengele `aria-controls` hutumika kuhusisha kila kitufe na sehemu ya maudhui kinayodhibiti.
+
+Hapa kuna sehemu tatu za maudhui zinazolingana na tabo:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div role="tablist">
+  <button role="tab" id="tab1" aria-controls="section1" aria-selected="true">
+    Tab 1
+  </button>
+  <button role="tab" id="tab2" aria-controls="section2" aria-selected="false">
+    Tab 2
+  </button>
+  <button role="tab" id="tab3" aria-controls="section3" aria-selected="false">
+    Tab 3
+  </button>
+</div>
+
+<div id="section1" role="tabpanel" aria-labelledby="tab1">
+  Section 1 content
+</div>
+
+<div id="section2" role="tabpanel" aria-labelledby="tab2" hidden>
+  Section 2 content
+</div>
+
+<div id="section3" role="tabpanel" aria-labelledby="tab3" hidden>
+  Section 3 content
+</div>
+<script src="index.js"></script>
+```
+
+```css
+[role="tablist"] {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 1em;
+  gap: 4px;
+  background: #fafafa;
+  padding: 0.25em;
+}
+
+[role="tab"] {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
+}
+
+[role="tab"]:hover,
+[role="tab"]:focus {
+  background: #e8f0fe;
+  outline: none;
+}
+
+[role="tab"][aria-selected="true"] {
+  background: #fff;
+  border-color: #ccc;
+  border-bottom: 2px solid #fff;
+  color: #000;
+  font-weight: 600;
+  position: relative;
+  top: 1px;
+}
+
+[role="tab"]:focus-visible {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+[role="tabpanel"] {
+  border: 1px solid #ccc;
+  border-radius: 0 4px 4px 4px;
+  padding: 16px;
+  background-color: #fff;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+[role="tabpanel"][hidden] {
+  display: none;
+}
+
+```
+
+```js
+const tabs = document.querySelectorAll('[role="tab"]');
+const tabList = document.querySelector('[role="tablist"]');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    activateTab(tab);
+  });
+
+  tab.addEventListener('keydown', (e) => {
+    const key = e.key;
+    const currentIndex = Array.from(tabs).indexOf(tab);
+    let newIndex = null;
+
+    if (key === 'ArrowRight') {
+      newIndex = (currentIndex + 1) % tabs.length;
+    } else if (key === 'ArrowLeft') {
+      newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    } else if (key === 'Home') {
+      newIndex = 0;
+    } else if (key === 'End') {
+      newIndex = tabs.length - 1;
+    }
+
+    if (newIndex !== null) {
+      tabs[newIndex].focus();
+      activateTab(tabs[newIndex]);
+    }
+  });
+});
+
+function activateTab(tab) {
+  const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+  tabs.forEach(t => {
+    t.setAttribute('aria-selected', 'false');
+    t.setAttribute('tabindex', '-1');
+  });
+
+  tabPanels.forEach(panel => panel.hidden = true);
+
+  tab.setAttribute('aria-selected', 'true');
+  tab.removeAttribute('tabindex');
+
+  const panelId = tab.getAttribute('aria-controls');
+  const panel = document.getElementById(panelId);
+  panel.hidden = false;
+  tab.focus();
+}
+
+```
+
+:::
+
+Kila sehemu ya maudhui ina sifa ya kipengele `role` iliyowekwa kuwa `tabpanel` na sifa ya kipengele `aria-labelledby` inayorejelea tabo inayolingana ili kutoa jina linalopatikana kwa paneli. Sifa ya kipengele `hidden` hutumika kuficha sehemu za maudhui ambazo hazijachaguliwa kwa sasa. Kila kitambulisho cha sehemu kinaendana na thamani ya sifa ya kipengele `aria-controls` kwenye kitufe kinacholingana. Kitambulisho cha `section1` kinaendana na sifa ya kipengele `aria-controls` kwenye kitufe cha kwanza, `section2` inaendana na `aria-controls` kwenye kitufe cha pili, na `section3` inaendana na `aria-controls` kwenye kitufe cha tatu. Hivi ndivyo uhusiano kati ya tabo na sehemu zao za maudhui unavyowekwa.
+
+Ili kubadilisha kati ya sehemu tofauti, utahitaji kutumia JavaScript kusahihisha sifa ya kipengele `hidden` kwenye sehemu na sifa ya kipengele `aria-selected` kwenye kitufe kulingana na ni sehemu gani inaonekana kwa sasa. Sehemu moja tu inaweza kuonekana kwa wakati mmoja na haipaswi kuwa na sifa ya kipengele `hidden` na `aria-selected` inapaswa kuwekwa kuwa `true` kwenye kitufe chake. Sehemu zilizofichwa zote zinapaswa kuwa na sifa ya kipengele `hidden` na `aria-selected` inapaswa kuwekwa kuwa `false` kwenye vitufe vyake.
+
+Tabo ni matumizi ya kawaida ya sifa ya kipengele `aria-controls`, lakini inaweza kutumika katika hali nyingine ambapo kipengele kimoja kinadhibiti uonekano au tabia ya kipengele kingine. Mifano mingine ni pamoja na accordions, menyu zinazoshuka, na modali.
+
+Mara nyingine utakapo tengeneza kiolesura cha mtumiaji kinachohusisha kudhibiti uonekano wa vipengele, fikiria kutumia sifa ya kipengele `aria-controls` kuanzisha uhusiano kati ya kipengele kinachodhibiti na kipengele kinachodhibitiwa.
+
+# --questions--
+
+## --text--
+
+Nini kusudi la sifa ya kipengele `aria-controls` katika muktadha wa tabo?
+
+## --answers--
+
+Kuweka ni tabo gani inayofanya kazi kwa sasa.
+
+### --feedback--
+
+Fikiria kuhusu uhusiano kati ya tabo na sehemu za maudhui.
+
+---
+
+Kuficha au kuonyesha sehemu za maudhui.
+
+### --feedback--
+
+Fikiria kuhusu uhusiano kati ya tabo na sehemu za maudhui.
+
+---
+
+Kuhusisha tabo na sehemu inayodhibiti.
+
+---
+
+Kuweka jukumu la kipengele.
+
+### --feedback--
+
+Fikiria kuhusu uhusiano kati ya tabo na sehemu za maudhui.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Sifa ya kipengele `aria-controls` inaathirije sehemu za maudhui katika mfano huu?
+
+## --answers--
+
+Inasasisha maudhui moja kwa moja kulingana na ingizo la mtumiaji.
+
+### --feedback--
+
+Fikiria jinsi sifa ya kipengele inavyotumika kudhibiti uonekano wa sehemu za maudhui.
+
+---
+
+Inaficha au kuonyesha sehemu kulingana na tabo iliyochaguliwa.
+
+---
+
+Inabadilisha mtindo wa tabo kuonyesha kuwa imechaguliwa.
+
+### --feedback--
+
+Fikiria jinsi sifa ya kipengele inavyotumika kudhibiti uonekano wa sehemu za maudhui.
+
+---
+
+Inaelezea muonekano wa tabo.
+
+### --feedback--
+
+Fikiria jinsi sifa ya kipengele inavyotumika kudhibiti uonekano wa sehemu za maudhui.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika mfano uliotolewa, sifa ya kipengele `aria-labelledby` inatumika vipi?
+
+## --answers--
+
+Kuweka ni tabo gani inadhibiti sehemu gani ya maudhui.
+
+### --feedback--
+
+Inahusisha tabo na sehemu ya maudhui inayodhibitiwa.
+
+---
+
+Kutambua sehemu ya maudhui inayodhibitiwa na tabo.
+
+---
+
+Kuweka jukumu la tabo na sehemu za maudhui.
+
+### --feedback--
+
+Inahusisha tabo na sehemu ya maudhui inayodhibitiwa.
+
+---
+
+Kubadilisha sehemu za maudhui moja kwa moja wakati tabo inabofyanwa.
+
+### --feedback--
+
+Inahusisha tabo na sehemu ya maudhui inayodhibitiwa.
+
+## --video-solution--
+
+2

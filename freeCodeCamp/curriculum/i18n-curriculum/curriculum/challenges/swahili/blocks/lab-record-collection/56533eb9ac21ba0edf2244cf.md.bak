@@ -1,0 +1,187 @@
+---
+id: 56533eb9ac21ba0edf2244cf
+title: Jenga mkusanyiko wa rekodi
+challengeType: 26
+dashedName: build-a-record-collection
+---
+
+# --description--
+
+Unaunda kitendakazi kinachosaidia katika matengenezo ya mkusanyiko wa albamu za muziki. Mkusanyiko umeandaliwa kama kitu chenye albamu nyingi ambazo pia ni vitu. Kila albamu inawakilishwa katika mkusanyiko na `id` ya kipekee kama jina la sifa. Ndani ya kila kitu cha albamu, kuna sifa mbalimbali zinazobainisha taarifa kuhusu albamu hiyo. Sio albamu zote zina taarifa kamili.
+
+Kitendakazi cha `updateRecords` kinachukua hoja 4 zinazowakilishwa na vigezo vifuatavyo vya kitendakazi:
+
+-   `records` - kitu chenye albamu kadhaa binafsi
+-   `id` - nambari inayowakilisha albamu maalum katika kitu cha `records`
+-   `prop` - mfuatano wa herufi unaowakilisha jina la sifa ya albamu inayosasishwa
+-   `value` - mfuatano wa herufi unaoelezea taarifa inayotumika kusasisha sifa ya albamu
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za mtumizi:**
+
+1. Kitendakazi chako lazima kila mara kirudishe kitu kizima cha `records`.
+2. Ikiwa `value` ni mfuatano wa herufi tupu, futa sifa ya `prop` iliyotolewa kutoka kwa albamu.
+3. Ikiwa `prop` si `tracks` na `value` si mfuatano wa herufi tupu, weka thamani ya `value` kwa sifa ya `prop` ya albamu hiyo.
+4. Ikiwa `prop` ni `tracks` na `value` si mfuatano wa herufi tupu, lakini albamu haina sifa ya `tracks`, tengeneza safu ya data tupu na ongeza `value` ndani yake.
+5. Ikiwa sifa ni `tracks` na `value` si mfuatano wa herufi tupu, ongeza `value` mwishoni mwa safu ya data ya `tracks` iliyopo ya albamu.
+
+**Kumbuka:** Nakala ya kitu cha `recordCollection` hutumika kwa vipimo. Kitendakazi chako hakipaswi kurejelea moja kwa moja kitu cha `recordCollection`, bali tu kigezo cha kitendakazi.
+
+# --before-each--
+
+```js
+const _recordCollection = {
+  2548: {
+    albumTitle: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: ['Let It Rock', 'You Give Love a Bad Name']
+  },
+  2468: {
+    albumTitle: '1999',
+    artist: 'Prince',
+    tracks: ['1999', 'Little Red Corvette']
+  },
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: []
+  },
+  5439: {
+    albumTitle: 'ABBA Gold'
+  }
+};
+```
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `updateRecords`.
+
+```js
+assert.isFunction(updateRecords);
+```
+
+Baada ya `updateRecords(recordCollection, 5439, "artist", "ABBA")`, `artist` inapaswa kuwa mfuatano wa herufi `ABBA`
+
+```js
+assert.equal(
+  updateRecords(_recordCollection, 5439, 'artist', 'ABBA')[5439]['artist'],
+    'ABBA'
+);
+```
+
+Baada ya `updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me")`, `tracks` inapaswa kuwa na mfuatano wa herufi `Take a Chance on Me` kama kipengele cha mwisho na pekee.
+
+```js
+updateRecords(_recordCollection, 5439, 'tracks', 'Take a Chance on Me');
+assert.lengthOf(_recordCollection[5439]['tracks'], 1);
+assert.equal(_recordCollection[5439]['tracks'].pop(), 'Take a Chance on Me');
+```
+
+Baada ya `updateRecords(recordCollection, 2548, "artist", "")`, `artist` haipaswi kuwekwa
+
+```js
+updateRecords(_recordCollection, 2548, 'artist', '');
+assert.isFalse(_recordCollection[2548].hasOwnProperty('artist'));
+```
+
+Baada ya `updateRecords(recordCollection, 1245, "tracks", "Addicted to Love")`, `tracks` inapaswa kuwa na mfuatano wa herufi `Addicted to Love` kama kipengele cha mwisho.
+
+```js
+assert.equal(
+  updateRecords(_recordCollection, 1245, 'tracks', 'Addicted to Love')[1245][
+    'tracks'
+  ].pop(), 'Addicted to Love'
+);
+```
+
+Baada ya `updateRecords(recordCollection, 2468, "tracks", "Free")`, `tracks` inapaswa kuwa na mfuatano wa herufi `1999` kama kipengele cha kwanza.
+
+```js
+assert.equal(
+  updateRecords(_recordCollection, 2468, 'tracks', 'Free')[2468][
+    'tracks'
+  ][0], '1999'
+);
+```
+
+Baada ya `updateRecords(recordCollection, 2548, "tracks", "")`, `tracks` haipaswi kuwekwa
+
+```js
+updateRecords(_recordCollection, 2548, 'tracks', '');
+assert.isFalse(_recordCollection[2548].hasOwnProperty('tracks'));
+```
+
+Baada ya `updateRecords(recordCollection, 1245, "albumTitle", "Riptide")`, `albumTitle` inapaswa kuwa mfuatano wa herufi `Riptide`
+
+```js
+assert.equal(
+  updateRecords(_recordCollection, 1245, 'albumTitle', 'Riptide')[1245][
+    'albumTitle'
+  ], 'Riptide'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const recordCollection = {
+  2548: {
+    albumTitle: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: ['Let It Rock', 'You Give Love a Bad Name']
+  },
+  2468: {
+    albumTitle: '1999',
+    artist: 'Prince',
+    tracks: ['1999', 'Little Red Corvette']
+  },
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: []
+  },
+  5439: {
+    albumTitle: 'ABBA Gold'
+  }
+};
+
+
+
+```
+
+# --solutions--
+
+```js
+const recordCollection = {
+  2548: {
+    albumTitle: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: ['Let It Rock', 'You Give Love a Bad Name']
+  },
+  2468: {
+    albumTitle: '1999',
+    artist: 'Prince',
+    tracks: ['1999', 'Little Red Corvette']
+  },
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: []
+  },
+  5439: {
+    albumTitle: 'ABBA Gold'
+  }
+};
+
+function updateRecords(records, id, prop, value) {
+  if (value === '') delete records[id][prop];
+  else if (prop === 'tracks') {
+    records[id][prop] = records[id][prop] || [];
+    records[id][prop].push(value);
+  } else {
+    records[id][prop] = value;
+  }
+
+  return records;
+}
+```

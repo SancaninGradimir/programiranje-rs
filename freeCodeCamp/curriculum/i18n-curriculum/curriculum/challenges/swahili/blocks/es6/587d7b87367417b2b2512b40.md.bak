@@ -1,0 +1,134 @@
+---
+id: 587d7b87367417b2b2512b40
+title: Linganisha wigo wa maneno muhimu var na let
+challengeType: 1
+forumTopicId: 301195
+dashedName: compare-scopes-of-the-var-and-let-keywords
+---
+
+# --description--
+
+Kama hujui `let`, tafadhali angalia <a href="/learn/javascript-algorithms-and-data-structures/basic-javascript/explore-differences-between-the-var-and-let-keywords" target="_blank" rel="noopener noreferrer nofollow">changamoto hii kuhusu tofauti kati ya <code>let</code> na <code>var</code></a>.
+
+Unapotangaza kigezo kwa neno muhimu la `var`, kinatangazwa kimataifa, au kwa ndani ikiwa kitatangazwa ndani ya kitendakazi.
+
+Neno muhimu la `let` lina tabia kama hiyo, lakini lina vipengele vya ziada. Unapotangaza kigezo kwa neno muhimu la `let` ndani ya block, tamko, au usemi wa kihesabu, wigo wake unazuiliwa kwa block, tamko, au usemi huo.
+
+Kwa mfano:
+
+```js
+var numArray = [];
+for (var i = 0; i < 3; i++) {
+  numArray.push(i);
+}
+console.log(numArray);
+console.log(i);
+```
+
+Hapa konsoli itaonyesha thamani za `[0, 1, 2]` na `3`.
+
+Kwa neno muhimu la `var`, `i` inatangazwa kimataifa. Hivyo wakati `i++` inatekelezwa, inasasisha kigezo cha kimataifa. Msimbo huu ni sawa na huu:
+
+```js
+var numArray = [];
+var i;
+for (i = 0; i < 3; i++) {
+  numArray.push(i);
+}
+console.log(numArray);
+console.log(i);
+```
+
+Hapa konsoli itaonyesha thamani za `[0, 1, 2]` na `3`.
+
+Tabia hii itasababisha matatizo ikiwa utaunda kitendakazi na kukihifadhi kwa matumizi baadaye ndani ya mzunguko wa `for` unaotumia kigezo cha `i`. Hii ni kwa sababu kitendakazi kilichohifadhiwa kitaendelea kurejelea thamani ya kigezo cha kimataifa cha `i` kilichosasishwa.
+
+```js
+var printNumTwo;
+for (var i = 0; i < 3; i++) {
+  if (i === 2) {
+    printNumTwo = function() {
+      return i;
+    };
+  }
+}
+console.log(printNumTwo());
+```
+
+Hapa konsoli itaonyesha thamani ya `3`.
+
+Kama unavyoona, `printNumTwo()` inachapisha 3 na si 2. Hii ni kwa sababu thamani iliyopewa `i` ilisasishwa na `printNumTwo()` inarudisha `i` wa kimataifa na si thamani iliyokuwa na `i` wakati kitendakazi kilipoundwa katika mzunguko wa for. Neno muhimu la `let` halifuati tabia hii:
+
+```js
+let printNumTwo;
+for (let i = 0; i < 3; i++) {
+  if (i === 2) {
+    printNumTwo = function() {
+      return i;
+    };
+  }
+}
+console.log(printNumTwo());
+console.log(i);
+```
+
+Hapa konsoli itaonyesha thamani ya `2`, na kosa kwamba `i is not defined`.
+
+`i` haijatangazwa kwa sababu haikutangazwa katika wigo wa kimataifa. Inatangazwa tu ndani ya tamko la mzunguko wa `for`. `printNumTwo()` ilirudisha thamani sahihi kwa sababu vigezo tofauti vitatu vya `i` vyenye thamani za kipekee (0, 1, na 2) vilizalishwa na neno muhimu la `let` ndani ya tamko la mzunguko.
+
+# --instructions--
+
+Rekebisha msimbo ili `i` inayotangazwa katika tamko la `if` iwe kigezo tofauti na `i` inayotangazwa katika mstari wa kwanza wa kitendakazi. Hakikisha hutumii neno muhimu la `var` mahali popote katika msimbo wako.
+
+Zoezi hili limetengenezwa kuonyesha tofauti kati ya jinsi maneno muhimu ya `var` na `let` yanavyoweka wigo kwa kigezo kilichotangazwa. Unapoprogramu kitendakazi kama kile kilichotumika katika zoezi hili, mara nyingi ni bora kutumia majina tofauti ya vigezo ili kuepuka mkanganyiko.
+
+# --hints--
+
+`var` haipaswi kuwepo katika msimbo.
+
+```js
+assert(!__helpers.removeJSComments(code).match(/var/g));
+```
+
+Kigezo `i` kinachotangazwa katika tamko la `if` kinapaswa kuwa sawa na mfuatano wa herufi `block scope`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/(i\s*=\s*).*\s*.*\s*.*\1('|")block\s*scope\2/g));
+```
+
+`checkScope()` inapaswa kurudisha mfuatano wa herufi `function scope`
+
+```js
+assert(checkScope() === 'function scope');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function checkScope() {
+  var i = 'function scope';
+  if (true) {
+    i = 'block scope';
+    console.log('Block scope i is: ', i);
+  }
+  console.log('Function scope i is: ', i);
+  return i;
+}
+```
+
+# --solutions--
+
+```js
+function checkScope() {
+  let i = 'function scope';
+  if (true) {
+    let i = 'block scope';
+    console.log('Block scope i is: ', i);
+  }
+ 
+  console.log('Function scope i is: ', i);
+  return i;
+}
+```

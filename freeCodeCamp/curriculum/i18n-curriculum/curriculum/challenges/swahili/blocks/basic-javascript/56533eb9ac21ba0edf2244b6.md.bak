@@ -1,0 +1,89 @@
+---
+id: 56533eb9ac21ba0edf2244b6
+title: Mfuatano wa kutoroka katika mfuatano wa herufi
+challengeType: 1
+forumTopicId: 17567
+dashedName: escape-sequences-in-strings
+---
+
+# --description--
+
+Nukuu siyo herufi pekee zinazoweza <dfn>kutoroka</dfn> ndani ya mfuatano wa herufi. Mfuatano wa kutoroka hukuruhusu kutumia herufi ambazo vinginevyo huwezi kutumia ndani ya mfuatano wa herufi.
+
+<table><thead><tr><th>Msimbo</th><th>Matokeo</th></tr></thead><tbody><tr><td><code>\'</code></td><td>nukuu moja</td></tr><tr><td><code>\"</code></td><td>nukuu mbili</td></tr><tr><td><code>\\</code></td><td>mkwaju wa nyuma</td></tr><tr><td><code>\n</code></td><td>mstari mpya</td></tr><tr><td><code>\t</code></td><td>tabu</td></tr><tr><td><code>\r</code></td><td>kurudi gari</td></tr><tr><td><code>\b</code></td><td>backspace</td></tr><tr><td><code>\f</code></td><td>form feed</td></tr></tbody></table>
+
+*Kumbuka kwamba mkwaju wa nyuma lazima uketoroke ili uonyeshe kama mkwaju wa nyuma.*
+
+# --instructions--
+
+Weka mistari mitatu ifuatayo ya maandishi katika kigezo kimoja `myStr` ukitumia mfuatano wa kutoroka.
+
+<pre>
+FirstLine
+    \SecondLine
+ThirdLine
+</pre>
+
+Utahitaji kutumia mfuatano wa kutoroka kuingiza herufi maalum kwa usahihi. Pia utahitaji kufuata nafasi kama inavyoonekana hapo juu, bila nafasi kati ya mfuatano wa kutoroka au maneno.
+
+**Kumbuka:** Kuingizwa kwa nafasi ya `SecondLine` kunafanikishwa kwa herufi maalum ya tabu, si nafasi.
+
+# --hints--
+
+`myStr` haipaswi kuwa na nafasi yoyote
+
+```js
+assert(!/ /.test(myStr));
+```
+
+`myStr` inapaswa kuwa na mfuatano wa herufi `FirstLine`, `SecondLine` na `ThirdLine` (kumbuka utofauti wa herufi kubwa na ndogo)
+
+```js
+assert(
+  /FirstLine/.test(myStr) && /SecondLine/.test(myStr) && /ThirdLine/.test(myStr)
+);
+```
+
+`FirstLine` inapaswa kufuatwa na herufi ya mstari mpya `\n`
+
+```js
+assert(/FirstLine\n/.test(myStr));
+```
+
+`myStr` inapaswa kuwa na herufi ya tabu `\t` inayofuata herufi ya mstari mpya
+
+```js
+assert(/\n\t/.test(myStr));
+```
+
+`SecondLine` inapaswa kuongozwa na herufi ya mkwaju wa nyuma `\`
+
+```js
+assert(/\\SecondLine/.test(myStr));
+```
+
+Kuna herufi ya mstari mpya kati ya `SecondLine` na `ThirdLine`
+
+```js
+assert(/SecondLine\nThirdLine/.test(myStr));
+```
+
+`myStr` inapaswa kuwa na herufi tu zilizoonyeshwa katika maelekezo
+
+```js
+assert(myStr === 'FirstLine\n\t\\SecondLine\nThirdLine');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const myStr = ""; // Change this line
+```
+
+# --solutions--
+
+```js
+const myStr = "FirstLine\n\t\\SecondLine\nThirdLine";
+```

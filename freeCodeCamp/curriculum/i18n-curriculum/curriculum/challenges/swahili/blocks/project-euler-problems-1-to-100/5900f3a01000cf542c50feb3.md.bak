@@ -1,0 +1,81 @@
+---
+id: 5900f3a01000cf542c50feb3
+title: "'Zoezi la 52: Marudio ya nambari nyingi'"
+challengeType: 1
+forumTopicId: 302163
+dashedName: problem-52-permuted-multiples
+---
+
+# --description--
+
+Inaonekana kuwa nambari 125874, na mara mbili yake, 251748, zina tarakimu sawa kabisa, lakini kwa mpangilio tofauti.
+
+Tafuta nambari kamili chanya ndogo kabisa, ambayo ikizidishwa na nambari kamili $\\{2, 3, \ldots, n\\}$, zitakuwa na tarakimu sawa.
+
+# --hints--
+
+`permutedMultiples(2)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof permutedMultiples(2) === 'number');
+```
+
+`permutedMultiples(2)` inapaswa kurudisha `125874`.
+
+```js
+assert.strictEqual(permutedMultiples(2), 125874);
+```
+
+`permutedMultiples(6)` inapaswa kurudisha `142857`.
+
+```js
+assert.strictEqual(permutedMultiples(6), 142857);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function permutedMultiples(n) {
+
+  return true;
+}
+
+permutedMultiples(2);
+```
+
+# --solutions--
+
+```js
+function permutedMultiples(n) {
+    const isPermutation = (a, b) =>
+        a.length !== b.length
+            ? false
+            : a.split('').sort().join() === b.split('').sort().join();
+
+
+    let start = 1;
+    let found = false;
+    let result = 0;
+
+    while (!found) {
+        start *= 10;
+        for (let i = start; i < start * 10 / n; i++) {
+            found = true;
+            for (let j = 2; j <= n; j++) {
+                if (!isPermutation(i + '', j * i + '')) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                result = i;
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+```

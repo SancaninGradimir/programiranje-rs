@@ -1,0 +1,384 @@
+---
+id: 673226afcd33991dd751937a
+title: Jinsi Sifa za grid-column na grid-row Zinavyofanya Kazi?
+challengeType: 19
+dashedName: how-do-the-grid-column-and-grid-row-properties-work
+---
+
+# --interactive--
+
+Sifa za `grid-column` na `grid-row` zinakuwezesha kubainisha nafasi za usawa na wima za vipande vya gridi ndani ya mpangilio wa gridi.
+
+Kwa maneno mengine, zote mbili zinakuwezesha kudhibiti wapi kipande cha gridi kinaanza na kinamalizika kwa kurejelea mistari ya gridi. Mistari hii ya gridi ni mipaka inayotenganisha safu na nguzo ulizozitaja tayari kwa kutumia sifa za `grid-template-rows` na `grid-template-columns`.
+
+Tuchunguze sintaksia za `grid-row` na `grid-column`, pamoja na mfano wa vitendo.
+
+Hii ndiyo sintaksia ya sifa ya `grid-row`:
+
+```css
+grid-row: <start-line> / <end-line>;
+```
+
+Na ya `grid-column`:
+
+```css
+grid-column: <start-line> / <end-line>;
+```
+
+`<start-line>` ni mstari wa gridi ambapo kipande kinaanza na `<end-line>` ni mstari wa gridi ambapo kipande kinaisha. Zote mbili zinahesabiwa kuanzia 1, si 0.
+
+Kumbuka, mistari ya gridi kwa safu hutengenezwa kulingana na idadi ya safu zilizobainishwa katika sifa ya `grid-template-rows`. Hali hiyo hiyo inahusiana na nguzo kwa sifa ya `grid-template-columns`.
+
+Kwa mfano wa vitendo, tuanze na mistari inayotengenezwa na kivinjari unapoitumia sifa za `grid-template-rows` na `grid-template-columns`.
+
+Huu ni mfano wa gridi yenye nguzo 4 na safu 3:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="grid">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+  <div class="item8">8</div>
+  <div class="item9">9</div>
+  <div class="item10">10</div>
+  <div class="item11">11</div>
+  <div class="item12">12</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-rows: repeat(3, 100px); /* 3 equal rows */
+  gap: 10px;
+}
+
+.grid > div {
+  display: grid;
+  place-items: center;
+  background: crimson;
+  color: white;
+  font-size: 4rem;
+}
+```
+
+:::
+
+Kukagua chombo cha gridi (darasa la `grid`) kunaonyesha kuwa kila safu na nguzo zimezungukwa na mistari miwili – mstari wa kuanzia mwanzoni mwa safu au nguzo, na mstari wa kumalizia mwishoni mwa safu au nguzo.
+
+Unaweza kulenga mistari hii kuanzia kwa kutumia sifa za `grid-row` na `grid-column` ili kubainisha wapi unapaswa kuweka kipande.
+
+Hivi ndivyo unavyoweza kufanya kipande cha kwanza cha gridi kuchukua nguzo mbili za kwanza:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="grid">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+  <div class="item8">8</div>
+  <div class="item9">9</div>
+  <div class="item10">10</div>
+  <div class="item11">11</div>
+  <div class="item12">12</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-rows: repeat(3, 100px); /* 3 equal rows */
+  gap: 10px;
+}
+
+.grid > div {
+  display: grid;
+  place-items: center;
+  background: crimson;
+  color: white;
+  font-size: 4rem;
+}
+
+.item1 {
+  grid-column: 1 / 3;
+}
+```
+
+:::
+
+Kwa hili, unasema kipande cha kwanza cha gridi kinapaswa kuanza kwenye nguzo ya 1 na kumalizika kabla ya nguzo ya 3.
+
+Kipande cha kwanza sasa kitachukua nguzo mbili, na kipande cha nne kitasukumwa kwenda safu ya pili. Poa!
+
+Ikiwa pia unataka kipande cha kwanza kuchukua safu mbili, unaweza kubainisha `grid-row` ya `1 / 3`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="grid">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+  <div class="item8">8</div>
+  <div class="item9">9</div>
+  <div class="item10">10</div>
+  <div class="item11">11</div>
+  <div class="item12">12</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-rows: repeat(3, 100px); /* 3 equal rows */
+  gap: 10px;
+}
+
+.grid > div {
+  display: grid;
+  place-items: center;
+  background: crimson;
+  color: white;
+  font-size: 4rem;
+}
+
+.item1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+```
+
+:::
+
+Unaweza pia kutumia neno kuu la `span` kumwambia kipande cha gridi ni safu gani na nguzo gani kinapaswa kupanua. Kwa mfano, `1 / 3` ni sawa na `1 / span 2`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="grid">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+  <div class="item8">8</div>
+  <div class="item9">9</div>
+  <div class="item10">10</div>
+  <div class="item11">11</div>
+  <div class="item12">12</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-rows: repeat(3, 100px); /* 3 equal rows */
+  gap: 10px;
+}
+
+.grid > div {
+  display: grid;
+  place-items: center;
+  background: crimson;
+  color: white;
+  font-size: 4rem;
+}
+
+.item1 {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
+}
+```
+
+:::
+
+Unaweza kuendelea kutumia mbinu hii kwa kipande chochote kwenye gridi na kuviweka popote unapotaka.
+
+Kuendelea na mchakato, hivi ndivyo tulivyounda mpangilio wa masonry na vipande hivyo.
+
+Huu ni mfano mpya:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="grid">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-rows: repeat(4, 100px); /* 4 equal rows */
+  gap: 10px;
+}
+
+.grid > div {
+  display: grid;
+  place-items: center;
+  background: crimson;
+  color: white;
+  font-size: 4rem;
+}
+
+.item1 {
+  grid-column: 1 / span 2;
+}
+
+.item4 {
+  grid-column: 1 / span 3;
+}
+
+.item6 {
+  grid-column: 1 / span 2;
+}
+
+.item7 {
+  grid-column: 3 / span 2;
+}
+```
+
+:::
+
+# --questions--
+
+## --text--
+
+Sifa za `grid-column` na `grid-row` zinaelezea nini katika mpangilio wa gridi?
+
+## --answers--
+
+Ukubwa wa chombo cha gridi.
+
+### --feedback--
+
+Fikiria sifa zinazobainisha wapi vipande vya gridi vinawekwa ndani ya safu na nguzo.
+
+---
+
+Ulinganifu wa gridi nzima.
+
+### --feedback--
+
+Fikiria sifa zinazobainisha wapi vipande vya gridi vinawekwa ndani ya safu na nguzo.
+
+---
+
+Nafasi za usawa na wima za vipande vya gridi.
+
+---
+
+Ukubwa wa njia za gridi.
+
+### --feedback--
+
+Fikiria sifa zinazobainisha wapi vipande vya gridi vinawekwa ndani ya safu na nguzo.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini kinabainisha idadi ya mistari ya gridi inayotengenezwa kwa safu na nguzo katika mpangilio wa gridi?
+
+## --answers--
+
+Sifa ya `grid-gap`.
+
+### --feedback--
+
+Tafadhali angalia sifa zinazobainisha wazi safu na nguzo.
+
+---
+
+Sifa za `grid-template-rows` na `grid-template-columns`.
+
+---
+
+Sifa za `grid-auto-rows` na `grid-auto-columns`.
+
+### --feedback--
+
+Tafadhali angalia sifa zinazobainisha wazi safu na nguzo.
+
+---
+
+Sifa ya `grid-area`.
+
+### --feedback--
+
+Tafadhali angalia sifa zinazobainisha wazi safu na nguzo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unawezaje kubainisha jinsi vipande vya gridi vinavyopanuka kwa safu au nguzo katika mpangilio wa gridi?
+
+## --answers--
+
+Kwa kutumia sifa ya `grid-template`.
+
+### --feedback--
+
+Fikiria kile kinachokuwezesha kudhibiti ni safu ngapi au nguzo ngapi kipande kitashughulikia, mara nyingi kwa kutumia anuwai au neno kuu.
+
+---
+
+Kwa kubainisha `auto` katika `grid-column` au `grid-row`.
+
+### --feedback--
+
+Fikiria kile kinachokuwezesha kudhibiti ni safu ngapi au nguzo ngapi kipande kitashughulikia, mara nyingi kwa kutumia anuwai au neno kuu.
+
+---
+
+Kwa kutumia neno kuu la `span` au anuwai kama `1 / 3`.
+
+---
+
+Kwa kubainisha ukubwa wa `grid-gap`.
+
+### --feedback--
+
+Fikiria kile kinachokuwezesha kudhibiti ni safu ngapi au nguzo ngapi kipande kitashughulikia, mara nyingi kwa kutumia anuwai au neno kuu.
+
+## --video-solution--
+
+3

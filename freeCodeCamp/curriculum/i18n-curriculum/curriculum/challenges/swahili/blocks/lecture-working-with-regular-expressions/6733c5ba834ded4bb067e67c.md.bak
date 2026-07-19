@@ -1,0 +1,400 @@
+---
+id: 6733c5ba834ded4bb067e67c
+title: Ni Modifaya Gani za Kawaida za Usemi wa Kawaida Zinazotumika kwa Utatafutaji?
+challengeType: 19
+dashedName: what-are-some-common-regular-expression-modifiers-used-for-searching
+---
+
+# --interactive--
+
+Modifaya, mara nyingi huitwa "bendera", hubadilisha tabia ya usemi wa kawaida. Tukumbuke mfano wetu kutoka funzo la awali:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/;
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("freeCodeCamp is great")); // true
+console.log(regex.test("I love freeCodeCamp")); // true
+console.log(regex.test("freecodecamp")); // false
+console.log(regex.test("FREECODECAMP")); // false
+console.log(regex.test("free")); // false
+console.log(regex.test("code")); // false
+console.log(regex.test("camp")); // false
+```
+
+:::
+
+Kama unavyokumbuka, mfuatano wa herufi ndogo kabisa na mfuatano wa herufi kubwa kabisa `freeCodeCamp` haukufanana na muundo. Hii ni kwa sababu, kwa chaguo-msingi, usemi wa kawaida unazingatia herufi kubwa na ndogo.
+
+Lakini je, tungeweza kusema usemi wa kawaida usizingatie herufi kubwa au ndogo? Naam, kuna modifaya ya hilo. Bendera ya `i` hufanya regex isizingatie herufi kubwa au ndogo. Tunawezaje kuitumia? Bendera huandikwa baada ya alama ya slash ya kufunga katika usemi wa kawaida:
+
+```js
+const regex = /freeCodeCamp/i;
+```
+
+Angalia mabadiliko kwenye usemi wa kawaida kwenye mstari wa kwanza. Sasa tunaweza kuona jinsi hii inavyobadilisha mambo:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/i;
+
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("freeCodeCamp is great")); // true
+console.log(regex.test("I love freeCodeCamp")); // true
+console.log(regex.test("freecodecamp")); // true
+console.log(regex.test("FREECODECAMP")); // true
+console.log(regex.test("free")); // false
+console.log(regex.test("code")); // false
+console.log(regex.test("camp")); // false
+```
+
+:::
+
+Kwa sababu usemi wetu wa kawaida sasa hauzingatii herufi kubwa au ndogo, mfuatano wa herufi ndogo kabisa na mfuatano wa herufi kubwa kabisa umefaulu mtihani. Hii pia inaweza kufanya kazi kwa mfuatano wa herufi wenye mchanganyiko wa herufi kubwa na ndogo:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/i;
+
+console.log(regex.test("dO yOu LoVe fReEcOdEcAmP?")); // true
+```
+
+:::
+
+Kuna bendera nyingine nyingi unazoweza kutumia. Bendera ya `g`, au modifaya ya global, inaruhusu usemi wako wa kawaida kufanana na muundo zaidi ya mara moja.
+
+Tuchunguze jinsi hii inavyoathiri msimbo wetu. Utaona tumebaki na bendera ya `i` – usemi wa kawaida unaweza kutumia bendera nyingi (kadri unavyohitaji) kufanikisha tabia unayotaka:
+
+```js
+const regex = /freeCodeCamp/gi;
+```
+
+Subiri kidogo... hii ni nini? Inaonekana modifaya ya global inafanya baadhi ya mfuatano wetu ambao unapaswa kupita kushindwa badala yake:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/gi;
+
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("freeCodeCamp is great")); // false
+console.log(regex.test("I love freeCodeCamp")); // true
+console.log(regex.test("freecodecamp")); // false
+console.log(regex.test("FREECODECAMP")); // true
+console.log(regex.test("free")); // false
+console.log(regex.test("code")); // false
+console.log(regex.test("camp")); // false
+```
+
+:::
+
+Kwa nini? Naam, modifaya ya global hufanya usemi wako wa kawaida kuwa wenye hali. Hii inamaanisha inahifadhi kumbukumbu ya mahali ilipofanikisha muafaka awali. Kwa hivyo inapotambua mfuatano wa kwanza wa `freeCodeCamp`, inakumbuka kuwa ilipata muafaka kuanzia kielezo `0`.
+
+Kisha tunaufanya mtihani dhidi ya `freeCodeCamp is great`, lakini hauanza kwenye kielezo `0`. Usemi wa kawaida "unajua" tayari ulipata muafaka kwenye kielezo `0`, hivyo ingawa huu ni mfuatano tofauti, huanza kutoka mwisho wa muafaka uliopita.
+
+`freeCodeCamp` ina urefu wa herufi `12`, hivyo muafaka ulio kwenye `0` unamalizika kwenye kielezo `11`. Muafaka utaendelea kwenye kielezo `12`. Na kwa kuwa `is great` haifananishi na `freeCodeCamp`, inarudisha `false`.
+
+Kisha, kwa sababu haipati muafaka, "huachilia" hali yake na huanza muafaka unaofuata tena kwenye `0`.
+
+Ikiwa tutabadilisha rekodi zetu ili mfuatano wenye muafaka kwenye `0` ufuatwe mara moja na mfuatano mwingine wenye muafaka baadaye kuliko kielezo `11`:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/gi;
+
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("I loooooooove freeCodeCamp")); // true
+```
+
+:::
+
+Usemi wa kawaida ukiwa global, hupata sifa mpya iitwayo `lastIndex`. Tukichukua msimbo wetu wa awali, tuchunguze jinsi sifa hii inavyofanya kazi:
+
+:::interactive_editor
+
+```js
+const regex = /freeCodeCamp/gi;
+
+console.log(regex.lastIndex); // 0
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.lastIndex); // 12
+console.log(regex.test("freeCodeCamp is great")); // false
+console.log(regex.lastIndex); // 0
+console.log(regex.test("I love freeCodeCamp")); // true
+console.log(regex.lastIndex); // 19
+console.log(regex.test("freecodecamp")); // false
+console.log(regex.lastIndex); // 0
+console.log(regex.test("FREECODECAMP")); // true
+console.log(regex.lastIndex); // 12
+console.log(regex.test("free")); // false
+console.log(regex.lastIndex); // 0
+console.log(regex.test("code")); // false
+console.log(regex.lastIndex); // 0
+console.log(regex.test("camp")); // false
+```
+
+:::
+
+Ukiona mfano huu, unaweza kuona jinsi hali ya usemi wa kawaida inavyobadilika kila wito wa mtihani ukitumia `lastIndex` kufuatilia muafaka wake wa awali.
+
+Bendera ya global ni nzuri unapohitaji kupata muafaka mwingi kutoka kwa mfuatano mmoja. Lakini ikiwa unafanya mtihani kwa mafaili mengi kwa usemi mmoja wa kawaida ni bora kuacha bendera ya `g`.
+
+Kabla ya kujifunza kuhusu bendera inayofuata, unahitaji kujifunza kuhusu tagi za nanga. Ishara ya caret (`^`) kwenye mwanzo wa usemi wa kawaida, inasema "fanana na mwanzo wa mfuatano":
+
+```js
+const start = /^freecodecamp/i;
+```
+
+Ishara ya dola (`$`) kwenye mwisho wa usemi wa kawaida, inasema "fanana na mwisho wa mfuatano":
+
+```js
+const end = /freecodecamp$/i;
+```
+
+Chukua muda kulinganisha matokeo upande wa kulia:
+
+:::interactive_editor
+
+```js
+const start = /^freecodecamp/i;
+const end = /freecodecamp$/i;
+console.log(start.test("freecodecamp")); // true
+console.log(end.test("freecodecamp")); // true
+console.log(start.test("freecodecamp is great")); // true
+console.log(end.test("freecodecamp is great")); // false
+console.log(start.test("i love freecodecamp")); // false
+console.log(end.test("i love freecodecamp")); // true
+console.log(start.test("have met freecodecamp's founder")); // false
+console.log(end.test("have met freecodecamp's founder")); // false
+```
+
+:::
+
+Tazama jinsi tagi ya mwanzo inafanana tu mwanzoni mwa mfuatano, na tagi ya mwisho inafanana tu mwishoni mwa mfuatano? Lakini je, kuhusu kufanana kwenye mistari mingi? Tuchunguze hilo:
+
+:::interactive_editor
+
+```js
+const start = /^freecodecamp/i;
+const end = /freecodecamp$/i;
+const string = `I really love
+freecodecamp
+it's my favorite`;
+console.log(start.test(string)); // false
+console.log(end.test(string)); // false
+```
+
+:::
+
+Ingawa `freecodecamp` ipo peke yake kwenye mstari wake, haifanyi mtihani wowote. Hii ni kwa sababu, kwa chaguo-msingi, tagi za nanga hutafuta mwanzo na mwisho wa mfuatano mzima.
+
+Lakini unaweza kufanya regex ishughulikie mistari mingi kwa bendera ya `m`, au modifaya ya multi-line. Tuweke hiyo kwenye usemi wetu wa kawaida kuona tunapata nini:
+
+:::interactive_editor
+
+```js
+const start = /^freecodecamp/im;
+const end = /freecodecamp$/im;
+const string = `I really love
+freecodecamp
+it's my favorite`;
+console.log(start.test(string)); // true
+console.log(end.test(string)); // true
+```
+
+:::
+
+Sasa zote zinafanana! Kwa sababu `freecodecamp` iko peke yake kwenye mstari wake, tagi ya mwanzo inafanana na mwanzo wa mstari huo, na tagi ya mwisho inafanana na mwisho wa mstari huo.
+
+Mwishowe, una bendera ya `d`, au modifaya ya indices. Kumbuka kuwa bendera ya `i` ni kwa ajili ya kutotambua herufi kubwa na ndogo, hivyo modifaya ya indices ilihitaji bendera tofauti.
+
+Bendera ya `d` inaongeza taarifa unazopata kwenye kitu cha muafaka. Tuweke kwenye usemi wetu wa kawaida:
+
+```js
+const regex = /freecodecamp/di;
+const string = "we love freecodecamp isn't freecodecamp great?";
+console.log(string.match(regex));
+```
+
+Na matokeo ni:
+
+```js
+// [
+//   'freecodecamp',
+//   index: 8,
+//   input: "we love freecodecamp isn't freecodecamp great?",
+//   groups: undefined,
+//   indices: [
+//     0: [8, 20],
+//     groups: undefined
+//   ]
+// ]
+```
+
+Kitu chetu cha muafaka kinapata sifa mpya ya `indices`! Sifa hii ni safu ya nambari mbili, ya kwanza ni kielezo katika mfuatano wa asili ambapo muafaka unaanza, na ya pili ni kielezo baada ya muafaka kumalizika. Safu hii pia ina sifa ya ziada ya `groups`, ambayo ni kwa ajili ya makundi ya kunasa yenye majina.
+
+Kuna bendera nyingine chache unazopaswa kujua zipo, lakini hazitumiki sana katika msimbo wa kawaida.
+
+Ya kwanza ni modifaya ya unicode, au bendera ya `u`. Hii inaongeza uwezo wa usemi wa kawaida kuruhusu kufanana na herufi maalum za unicode.
+
+Utajifunza zaidi kuhusu madarasa ya herufi katika funzo lijalo, lakini bendera ya `u` inakupa upatikanaji wa madarasa maalum kama `Extended_Pictographic` kufanana na emoji nyingi:
+
+:::interactive_editor
+
+```js
+const regex = /🍎/u;
+
+const str = "I have an apple 🍎";
+console.log(regex.test(str)); // true
+```
+
+:::
+
+Pia kuna bendera ya `v`, ambayo inaongeza zaidi uwezo wa kufanana na unicode.
+
+Ya pili ni modifaya ya sticky, au bendera ya `y`. Modifaya ya sticky hufanya kazi kama modifaya ya global, lakini na tofauti chache.
+
+Tofauti kubwa ni kwamba usemi wa kawaida wa global utaanza kutoka `lastIndex` na kutafuta muafaka mwingine katika mabaki yote ya mfuatano, lakini usemi wa kawaida wa sticky utarudisha `null` na kuanzisha upya `lastIndex` hadi `0` ikiwa hakuna muafaka mara moja kwenye `lastIndex` uliopita.
+
+Na ya mwisho ni modifaya ya single-line, au bendera ya `s`. Kumbuka kuwa modifaya ya multiline inaruhusu tagi za mwanzo na mwisho kufanana na mwanzo na mwisho wa mstari, badala ya mfuatano mzima.
+
+Modifaya ya single-line inaruhusu tabia ya wildcard, inayowakilishwa na alama ya kipindi (`.`) katika regex, kufanana na mapumziko ya mstari – kwa maana inachukulia mfuatano kama mstari mmoja wa maandishi.
+
+Kuna modifaya nyingi za aina hii, lakini bendera za `i` na `g` ndizo utakazotumia mara nyingi zaidi, na ni muhimu zaidi kuzikumbuka.
+
+# --questions--
+
+## --text--
+
+Nini msimbo ufuatao utaonyesha?
+
+```js
+const regex = /freecodecamp/i;
+console.log(regex.test("I love FREECODECAMP!"));
+console.log(regex.test("freeCodoCamp"));
+console.log(regex.test("We went freeCodeCamping."));
+```
+
+## --answers--
+
+```js
+true
+true
+true
+```
+
+### --feedback--
+
+Bendera ya `i` hufanya regex isizingatie herufi kubwa au ndogo, hivyo `freeCodeCamp` inafanana bila kujali herufi ni kubwa au ndogo, mradi tu herufi ni sawa.
+
+---
+
+```js
+true
+false
+true
+```
+
+---
+
+```js
+true
+true
+false
+```
+
+### --feedback--
+
+Bendera ya `i` hufanya regex isizingatie herufi kubwa au ndogo, hivyo `freeCodeCamp` inafanana bila kujali herufi ni kubwa au ndogo, mradi tu herufi ni sawa.
+
+---
+
+```js
+false
+false
+false
+```
+
+### --feedback--
+
+Bendera ya `i` hufanya regex isizingatie herufi kubwa au ndogo, hivyo `freeCodeCamp` inafanana bila kujali herufi ni kubwa au ndogo, mradi tu herufi ni sawa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni lini HUTApenda kutumia bendera ya global (`g`) katika usemi wa kawaida?
+
+## --answers--
+
+Unapotaka kufanana na muundo mara nyingi ndani ya mfuatano mmoja.
+
+### --feedback--
+
+Bendera ya `g` ni yenye hali, maana yake inafuatilia muafaka wa mwisho, jambo ambalo linaweza kusababisha matatizo wakati wa kufanya mtihani kwa mafaili mengi.
+
+---
+
+Unapotaka muafaka uanze upya kila mtihani mpya.
+
+### --feedback--
+
+Bendera ya `g` ni yenye hali, maana yake inafuatilia muafaka wa mwisho, jambo ambalo linaweza kusababisha matatizo wakati wa kufanya mtihani kwa mafaili mengi.
+
+---
+
+Unapotaka kufanya regex isizingatie herufi kubwa au ndogo.
+
+### --feedback--
+
+Bendera ya `g` ni yenye hali, maana yake inafuatilia muafaka wa mwisho, jambo ambalo linaweza kusababisha matatizo wakati wa kufanya mtihani kwa mafaili mengi.
+
+---
+
+Unapofanya mtihani kwa mafaili mengi na huna haja ya kufuatilia hali ya muafaka.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Modifaya ya multi-line (`m`) hufanya nini katika usemi wa kawaida?
+
+## --answers--
+
+Inaruhusu tagi za nanga (`^` na `$`) kufanana na mwanzo na mwisho wa kila mstari, siyo tu mfuatano mzima.
+
+---
+
+Inafanya usemi wa kawaida usizingatie herufi kubwa au ndogo.
+
+### --feedback--
+
+Modifaya ya `m` inaruhusu kufanana mwanzoni na mwishoni mwa mistari katika mfuatano wa mistari mingi.
+
+---
+
+Inaruhusu usemi wa kawaida kufanana na mapumziko ya mistari.
+
+### --feedback--
+
+Modifaya ya `m` inaruhusu kufanana mwanzoni na mwishoni mwa mistari katika mfuatano wa mistari mingi.
+
+---
+
+Inafanya usemi wa kawaida ufanye muafaka wa global.
+
+### --feedback--
+
+Modifaya ya `m` inaruhusu kufanana mwanzoni na mwishoni mwa mistari katika mfuatano wa mistari mingi.
+
+## --video-solution--
+
+1

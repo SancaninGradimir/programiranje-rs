@@ -1,0 +1,243 @@
+---
+id: 68816f386bc30d36f59e9563
+title: Ni Nini Kawaisho Katika SQL?
+challengeType: 19
+dashedName: what-is-normalization-in-sql
+---
+
+# --description--
+
+Kawaisho ni mchakato wa kupanga hifadhidata ya uhusiano kwa kutumia fomu za kawaida zilizowekwa ili kupunguza rudufu ya data na kuboresha uadilifu wa data.
+
+Ili kawaisha hifadhidata, unachambua sifa za vipengele na uhusiano katika muundo wa majedwali yako ili kubaini fursa za kurahisisha kulingana na kanuni za kawaisho. Kisha, unagawanya data katika majedwali madogo, yenye makini zaidi na kuanzisha uhusiano kati yao kwa kutumia funguo kuu na funguo za kigeni. Majedwali haya madogo yatahifadhi data zote ulizokuwa nazo awali, lakini yatakuwa rahisi kusimamia, kupanga, na kufanya kazi nayo ikilinganishwa na majedwali makubwa.
+
+Kwa kupunguza rudufu ya data, kawaisho hupunguza nafasi ya kuhifadhi na kuzuia mabadiliko yasiyoendana. Kwa mfano, ikiwa anwani ya mteja inabadilika, unahitaji kuiboresha kwenye jedwali moja la mteja badala ya kila rekodi ya oda.
+
+Pia husaidia kuhifadhi uadilifu wa data kwa kuhakikisha utegemezi unatekelezwa na vizingiti vya funguo kuu na funguo za kigeni. Hii hupunguza uwezekano wa kasoro za kuingiza, kusahihisha, na kufuta data.
+
+Hifadhidata iliyokawaishwa ni rahisi kuelewa na kudumisha, jambo linalochangia mfumo wa hifadhidata ulio na muundo mzuri.
+
+Seti ya kanuni unazopaswa kufuata kupanga majedwali yako huitwa fomu za kawaida. Kila fomu ya kawaida hujengwa juu ya ile ya awali, na kanuni zinazidi kuwa kali unaposonga kwenye fomu za kawaida za juu. Fomu ya Kawaisho la Kwanza (1NF) ni fomu ya msingi, yenye kanuni za msingi zaidi.
+
+Jedwali liko katika Fomu ya Kawaisho la Kwanza (1NF) ikiwa:
+
+- Kila seli inapaswa kuwa na thamani moja tu. Kwa mfano, ikiwa una jedwali la `students`, unaweza kuwa na mwanafunzi mwenye nambari za simu nyingi. Badala ya kuzihifadhi kama orodha iliyotenganishwa kwa koma katika seli moja, unapaswa kuunda jedwali la `phone_numbers` tofauti lenye funguo ya kigeni inayorejelea jedwali la `students` na kuhifadhi thamani moja tu katika kila seli. Hii inahakikisha kila thamani ni atomiki na muundo ni kawaishwa.
+- Kila rekodi (safuwima) lazima iwe ya kipekee. Ingawa funguo kuu hufanya hii, 1NF inasisitiza wazi kwamba hakuna safuwima rudufu katika jedwali.
+- Mpangilio wa safuwima na nguzo haupaswi kuwa na umuhimu. Data haipaswi kutegemea mahali pake kimwili.
+
+Kwa msingi, Fomu ya Kawaisho la Kwanza (1NF) inalenga kufanya thamani kuwa rahisi na atomiki.
+
+Fomu ya Kawaisho la Pili (2NF) hujengwa juu ya 1NF, ikihitaji kwamba mahitaji yote ya 1NF yatimizwe pamoja na vizingiti vya ziada.
+
+Kuelewa 2NF kunahitaji ufahamu wa dhana mbili muhimu: funguo kuu na funguo za mgombea. Funguo kuu ni seti yoyote ya sifa za kipengele zinazotambulisha kipekee kila safuwima katika jedwali, ikimaanisha hakuna safuwima mbili zenye thamani sawa katika nguzo zote za funguo kuu.
+
+Kwa mfano, ikiwa tuna jedwali la `customers` lenye nguzo tatu:
+
+```sql
+customer_id | name | email
+```
+
+Tuseme `customer_id` na `email` lazima ziwe za kipekee kwa kila rekodi. Baadhi ya mifano ya funguo kuu kwa jedwali hili ni:
+
+- `customer_id`
+- `{ customer_id, name }`, mchanganyiko huu unatambulisha safuwima kipekee kwa sababu `customer_id` pekee ni ya kipekee, bila kujali uhalali wa `name`.
+- `{ customer_id, name, email }`
+- `email`, kwa kuwa tunatoa vizingiti vya kipekee pia kwenye nguzo hii, kila rekodi inaweza kutambulika kipekee kwa barua pepe.
+
+Seti yoyote ya sifa zinazotambulisha kila safuwima inaweza kuwa funguo kuu.
+
+Funguo ya mgombea ni sawa lakini tofauti kidogo. Ni seti ya nguzo moja au zaidi katika jedwali inayoweza kutambulisha kipekee kila rekodi. Jedwali linaweza kuwa na funguo nyingi za mgombea lakini lazima uchague moja itumike kama funguo kuu.
+
+Zinasikika sawa, sivyo? Tofauti yao ni kwamba funguo kuu inaweza pia kuwa na sifa za ziada ambazo si lazima kutambulisha safuwima kipekee, wakati funguo ya mgombea ina sifa tu zinazotambulisha safuwima kipekee.
+
+Katika mfano wetu wa `customers`, tulitaja kwamba `customer_id`, `{ customer_id, name }`, `{ customer_id, name, email }`, na `email` zinaweza kuwa funguo kuu. Katika kesi hii, funguo za mgombea ni `customer_id` na `email` pekee kwa sababu funguo za mgombea haziwezi kuwa na sifa zisizotambulisha safuwima kipekee, kama `name`. Hii inaonyesha kanuni ya ufananishaji inayotofautisha funguo za mgombea na funguo kuu.
+
+Sasa umejifunza dhana hizi, turudi kwenye Fomu ya Kawaisho la Pili (2NF).
+
+Fomu ya Kawaisho la Pili (2NF) inahusu kutatua utegemezi wa sehemu. Utegemezi wa sehemu hutokea katika jedwali wakati sifa isiyo sehemu ya funguo kuu inategemea sehemu tu ya funguo kuu ya mchanganyiko (funguo kuu ya mchanganyiko ni funguo kuu iliyotengenezwa na nguzo nyingi). Hii inaweza kusababisha rudufu ya data na kasoro za sasisho.
+
+Kwa mfano, tuseme tuna jedwali la `orders` lenye nguzo hizi:
+
+```sql
+order_id | item_id | order_date | quantity | order_shipping_city
+```
+
+Katika jedwali hili, funguo kuu ni mchanganyiko wa `order_id` na `item_id` kwa sababu ID ya bidhaa inaweza kuwepo katika oda tofauti, lakini mchanganyiko wao utakuwa wa kipekee. Unaona kuna utegemezi wa sehemu kati ya `order_id` na `order_shipping_city`. `order_id` ni sehemu ya funguo kuu. `order_shipping_city` inategemea `order_id` kwa sababu kila oda yenye ID sawa itakuwa na mji wa usafirishaji uleule. Hata hivyo, mji wa usafirishaji hautegemei `item_id`, lakini hii pia ni sehemu ya funguo kuu. Kwa hiyo, `order_shipping_city` haitegemei funguo kuu yote.
+
+Ili kurekebisha hili, unaweza kugawanya jedwali kuwa majedwali madogo mawili, kama `order_header` na `order_items`. Katika jedwali la `order_header`, unaweza kuhifadhi taarifa za ngazi ya juu kuhusu oda:
+
+```sql
+order_id | order_date | order_shipping_city
+```
+
+Katika jedwali la `order_items`, unaweza kuhifadhi taarifa kuhusu bidhaa katika oda tofauti zilizowasilishwa:
+
+```sql
+order_id | item_id | quantity
+```
+
+Kwa mabadiliko haya, majedwali yote mawili yatakuwa katika Fomu ya Kawaisho la Pili (2NF).
+
+Na hii inatupeleka kwenye Fomu ya Kawaisho la Tatu (3NF). Fomu hii hujengwa juu ya fomu ya pili.
+
+Ili jedwali liwe katika Fomu ya Kawaisho la Tatu, linapaswa:
+
+- Kuwa katika Fomu ya Kawaisho la Pili.
+- Kuwa na sifa zote zisizo za funguo zitegemee moja kwa moja funguo kuu, ikimaanisha hakuna sifa isiyo ya funguo inapaswa kutegemea sifa nyingine isiyo ya funguo.
+
+Ili kuelewa Fomu ya Kawaisho la Tatu (3NF), unahitaji kuelewa utegemezi wa mpito. Utegemezi wa mpito hutokea wakati sifa isiyo sehemu ya funguo kuu inategemea sifa nyingine isiyo sehemu ya funguo kuu, ambayo kwa upande wake inategemea funguo kuu.
+
+Kwa mfano, tuchukulie jedwali letu la `orders` lenye nguzo hizi:
+
+```sql
+order_id | customer_id | customer_city | city_postal_code | order_date | quantity
+```
+
+Funguo kuu katika jedwali hili jipya ni `order_id` kwa sababu inatambulisha kipekee kila safuwima.
+
+Kuna utegemezi wa mpito katika jedwali hili:
+
+```sql
+order_id > customer_id > customer_city > city_postal_code
+```
+
+Nambari ya posta ya mji inatambuliwa na mji wa mteja, ambao unatambuliwa na ID ya mteja, ambayo inatambuliwa na ID ya oda. `city_postal_code`, sifa isiyo sehemu ya funguo kuu, inatambuliwa na `customer_city`, ambayo pia si sehemu ya funguo kuu, lakini `customer_city` inatambuliwa na `order_id` kupitia `customer_id`. Hii ina maana kwamba nambari ya posta ya mji itarudiwa kwa kila oda iliyowekwa na wateja wanaoishi katika mji huo huo. Hii itasababisha rudufu ya data. Zaidi ya hayo, mabadiliko yoyote ya nambari ya posta ya mji yatahitaji sasisho katika rekodi nyingi.
+
+Ili kutatua utegemezi wa mpito, unahitaji kugawanya jedwali kuwa majedwali mengi. Kwanza, jedwali la `orders`:
+
+```sql
+order_id | customer_id | order_date | quantity
+```
+
+Kisha, jedwali la `customers`:
+
+```sql
+customer_id | city_name
+```
+
+Na jedwali la `cities`:
+
+```sql
+city_name | city_postal_code
+```
+
+Hii inatoa utegemezi wa mpito kutoka kwenye jedwali.
+
+Na hatimaye, tuna Fomu ya Kawaisho ya Boyce-Codd (BCNF). Hii pia inajulikana kama Fomu ya Kawaisho 3.5 kwa sababu inashughulikia baadhi ya kasoro ambazo Fomu ya Kawaisho la Tatu inaweza isizitatue. Ili jedwali liwe katika Fomu ya Kawaisho ya Boyce-Codd (BCNF), linapaswa:
+
+- Kuwa katika Fomu ya Kawaisho la Tatu.
+- Kila upande wa kushoto wa utegemezi wa kitendakazi uwe funguo kuu.
+
+Lengo la fomu hii ya kawaida ni kuhakikisha kwamba kila sifa au seti ya sifa zinazotambua sifa nyingine ni funguo kuu, ambayo ni funguo ya mgombea au seti yake.
+
+Kuelewa na kutekeleza fomu za kawaida ni muhimu kwa kubuni hifadhidata za uhusiano zenye nguvu na ufanisi. Kwa kuondoa rudufu ya data na kuhakikisha utegemezi wa mantiki wa data, kawaisho huleta uadilifu wa data ulioboreshwa, mahitaji madogo ya kuhifadhi, na matengenezo rahisi ya hifadhidata. Kwa kawaida unapaswa kulenga kufikia Fomu ya Kawaisho la Tatu (3NF).
+
+# --questions--
+
+## --text--
+
+Ni fomu gani ya kawaida inayojali zaidi kubadilisha makundi ya data ndani ya safuwima moja kuwa thamani moja?
+
+## --answers--
+
+Fomu ya Kawaisho la Kwanza (1NF)
+
+---
+
+Fomu ya Kawaisho la Pili (2NF)
+
+### --feedback--
+
+Fikiria kiwango cha msingi zaidi cha kupanga ndani ya jedwali na kile kinachojumuisha kipande kimoja, kisichogawanyika cha data.
+
+---
+
+Fomu ya Kawaisho la Tatu (3NF)
+
+### --feedback--
+
+Fikiria kiwango cha msingi zaidi cha kupanga ndani ya jedwali na kile kinachojumuisha kipande kimoja, kisichogawanyika cha data.
+
+---
+
+Fomu ya Kawaisho ya Boyce-Codd (BCNF)
+
+### --feedback--
+
+Fikiria kiwango cha msingi zaidi cha kupanga ndani ya jedwali na kile kinachojumuisha kipande kimoja, kisichogawanyika cha data.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Jedwali liko katika Fomu ya Kawaisho la Pili (2NF) ikiwa lipo katika Fomu ya Kawaisho la Kwanza (1NF) na ni ipi kati ya zifuatazo ni kweli?
+
+## --answers--
+
+Sifa zote zisizo za funguo zinategemea kwa mpito funguo kuu.
+
+### --feedback--
+
+Fikiria tatizo ambalo Fomu ya Kawaisho la Pili (2NF) linashughulikia wakati jedwali lina funguo kuu ya mchanganyiko.
+
+---
+
+Sifa zote zisizo za funguo zinategemea kikamilifu funguo kuu yote.
+
+---
+
+Kila kigezo ni funguo ya mgombea.
+
+### --feedback--
+
+Fikiria tatizo ambalo Fomu ya Kawaisho la Pili (2NF) linashughulikia wakati jedwali lina funguo kuu ya mchanganyiko.
+
+---
+
+Hakuna makundi yanayojirudia ya data.
+
+### --feedback--
+
+Fikiria tatizo ambalo Fomu ya Kawaisho la Pili (2NF) linashughulikia wakati jedwali lina funguo kuu ya mchanganyiko.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni fomu gani ya kawaida inayoshughulikia utegemezi wa mpito, ambapo sifa isiyo ya funguo inategemea sifa nyingine isiyo ya funguo?
+
+## --answers--
+
+Fomu ya Kawaisho la Kwanza (1NF)
+
+### --feedback--
+
+Fikiria uhusiano usio wa moja kwa moja kati ya sifa zisizo za funguo na funguo kuu ambao fomu hii ya kawaida inalenga kuondoa.
+
+---
+
+Fomu ya Kawaisho la Pili (2NF)
+
+### --feedback--
+
+Fikiria uhusiano usio wa moja kwa moja kati ya sifa zisizo za funguo na funguo kuu ambao fomu hii ya kawaida inalenga kuondoa.
+
+---
+
+Fomu ya Kawaisho la Tatu (3NF)
+
+---
+
+Fomu ya Kawaisho ya Boyce-Codd (BCNF)
+
+### --feedback--
+
+Fikiria uhusiano usio wa moja kwa moja kati ya sifa zisizo za funguo na funguo kuu ambao fomu hii ya kawaida inalenga kuondoa.
+
+## --video-solution--
+
+3

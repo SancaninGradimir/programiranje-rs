@@ -1,0 +1,85 @@
+---
+id: 69373793f5a867f769cde135
+title: "Challenge 150: Markdown Unordered List Parser"
+challengeType: 29
+dashedName: challenge-150
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi wa orodha halali isiyopangwa katika Markdown, rudisha mfuatano wa herufi wa HTML unaolingana.
+
+Orodha isiyopangwa ina kipengele kimoja au zaidi cha orodha. Kipengele halali cha orodha kinaonekana kwenye mstari wake na:
+
+- Kinaanza na dash (`"-"`), ikifuatiwa na
+- Angalau nafasi moja, kisha
+- Maandishi ya kipengele cha orodha.
+
+Orodha hutolewa kama mfuatano mmoja wa herufi wenye mistari mipya iliyotenganishwa na tabia ya newline (`"\n"`). Usijumuishe tabia za newline katika maandishi ya kipengele.
+
+Zungusha kila kipengele cha orodha ndani ya lebo za HTML `li`, na orodha nzima ya vipengele ndani ya lebo za `ul`.
+
+Kwa mfano, ukipokea `"- Item A\n- Item B"`, rudisha `"<ul><li>Item A</li><li>Item B</li></ul>"`.
+
+Kumbuka: Konsoli huenda isionyeshe lebo za HTML ndani ya mfuatano wakati wa kurekodi ujumbe. Angalia konsoli ya kivinjari kuona rekodi zikiwa na lebo zilizoingizwa.
+
+# --hints--
+
+`parse_unordered_list("- Item A\n- Item B")` should return `"<ul><li>Item A</li><li>Item B</li></ul>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(parse_unordered_list("- Item A\\n- Item B"), "<ul><li>Item A</li><li>Item B</li></ul>")`)
+}})
+```
+
+`parse_unordered_list("-  JavaScript\n-  Python")` should return `"<ul><li>JavaScript</li><li>Python</li></ul>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(parse_unordered_list("-  JavaScript\\n-  Python"), "<ul><li>JavaScript</li><li>Python</li></ul>")`)
+}})
+```
+
+`parse_unordered_list("- 2 C Flour\n- 1/2 C Sugar\n- 1 Tsp Vanilla")` should return `"<ul><li>2 C Flour</li><li>1/2 C Sugar</li><li>1 Tsp Vanilla</li></ul>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(parse_unordered_list("- 2 C Flour\\n- 1/2 C Sugar\\n- 1 Tsp Vanilla"), "<ul><li>2 C Flour</li><li>1/2 C Sugar</li><li>1 Tsp Vanilla</li></ul>")`)
+}})
+```
+
+`parse_unordered_list("- A-1\n- A-2\n- B-1")` should return `"<ul><li>A-1</li><li>A-2</li><li>B-1</li></ul>"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(parse_unordered_list("- A-1\\n- A-2\\n- B-1"), "<ul><li>A-1</li><li>A-2</li><li>B-1</li></ul>")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def parse_unordered_list(markdown):
+
+    return markdown
+```
+
+# --solutions--
+
+```py
+def parse_unordered_list(markdown):
+    lines = markdown.split("\n")
+    list_items = []
+
+    for line in lines:
+        list_items.append(f"<li>{line[1:].strip()}</li>")
+
+    return f"<ul>{''.join(list_items)}</ul>"
+```

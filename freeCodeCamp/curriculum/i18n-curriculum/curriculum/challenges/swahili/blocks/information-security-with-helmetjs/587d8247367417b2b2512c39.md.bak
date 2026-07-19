@@ -1,0 +1,39 @@
+---
+id: 587d8247367417b2b2512c39
+title: >-
+  Punguza hatari ya mashambulizi ya cross site scripting (XSS) kwa kutumia
+  helmet.xssFilter()
+challengeType: 2
+forumTopicId: 301583
+dashedName: mitigate-the-risk-of-cross-site-scripting-xss-attacks-with-helmet-xssfilter
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-infosec/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Cross-site scripting (XSS) ni aina ya mara kwa mara ya shambulio ambapo misimbo hatari huingizwa katika kurasa zilizo hatarini, kwa lengo la kuiba data nyeti kama vidakuzi vya kikao, au nywila.
+
+Kanuni ya msingi ya kupunguza hatari ya shambulio la XSS ni rahisi: "Usiamini ingizo la mtumizi kamwe". Kama msanidi programu unapaswa daima kusafisha ingizo lote linalotoka nje. Hii ni pamoja na data inayotoka kwenye fomu, URL za hoja za utafutaji za GET, na hata kutoka kwenye miili ya POST. Kusafisha maana yake ni kwamba unapaswa kutafuta na kuandika herufi ambazo zinaweza kuwa hatari kama vile &lt;, >.
+
+Vivinjari vya kisasa vinaweza kusaidia kupunguza hatari kwa kutumia mikakati bora ya programu. Mara nyingi hizi zinaweza kusanidiwa kupitia vichwa vya http.
+
+Kichwa cha HTTP cha X-XSS-Protection ni kinga ya msingi. Vivinjari hutambua script inayoweza kuingizwa kwa kutumia kichujio cha heuristic. Ikiwa kichwa hiki kimewezeshwa, kivinjari hubadilisha msimbo wa script, kuufanya usiwe na madhara. Hadi sasa kina msaada mdogo.
+
+# --instructions--
+
+Tumia `helmet.xssFilter()` kusafisha ingizo linalotumwa kwa seva yako.
+
+# --hints--
+
+Programu ya kati helmet.xssFilter() inapaswa kuwekwa ipasavyo
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.include(data.appStack, 'xXssProtection');
+assert.property(data.headers, 'x-xss-protection');
+```

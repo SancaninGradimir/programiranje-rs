@@ -1,0 +1,82 @@
+---
+id: 666ab82c874add3c95145213
+title: Hatua 7
+challengeType: 20
+dashedName: step-7
+---
+
+# --description--
+
+Njia ya `pop()` inaweza kutumika kuondoa kipengele kutoka kwenye orodha. Kwa chaguo-msingi, huondoa kipengele cha mwisho kwenye orodha. Unaweza kupitisha kielezo kama hoja kwa njia hii, na itauondoa kipengele kilichopo kwenye kielezo hicho.
+
+```py
+fruits_list = ["cherry", "lemon", "tomato", "apple", "orange"]
+
+fruits_list.pop(2)
+
+print(fruits_list) # ["cherry", "lemon", "apple", "orange"]
+```
+
+Katika kesi hii, `fruits_list.pop(2)` huondoa kipengele kilichopo kwenye kielezo `2` cha orodha.
+
+Tumia `pop()` kuondoa kipengele cha mwisho kutoka `my_list`, kisha chapisha `my_list`.
+
+# --hints--
+
+Unapaswa kutumia `pop()`.
+
+```js
+({
+    test: () => runPython(`
+    assert len(_Node(_code).find_calls('pop')) > 0
+    `)
+})
+```
+
+`my_list` inapaswa kuwa `[0, 1, 2]`.
+
+```js
+({
+    test: () => runPython(`
+    assert my_list == [0, 1, 2]
+    `)
+})
+```
+
+Unapaswa kuchapisha `my_list` baada ya kutumia `pop()`.
+
+```js
+({
+    test: () => runPython(`
+    code = _Node(_code)
+    assert(
+        any(
+            code.is_ordered(pop, 'print(my_list)') for pop in ['my_list.pop()', 'my_list.pop(3)']
+        )
+    )
+    `)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+my_list = [1, 2]
+
+my_list.append(3)
+print(my_list)
+
+print(my_list[0])
+
+my_list[0] = 0
+print(my_list)
+
+my_list.insert(1, 1)
+print(my_list)
+
+
+--fcc-editable-region--
+```

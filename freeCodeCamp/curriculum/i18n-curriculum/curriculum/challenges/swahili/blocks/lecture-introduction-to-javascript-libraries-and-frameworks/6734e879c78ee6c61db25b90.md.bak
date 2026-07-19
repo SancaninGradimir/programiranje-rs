@@ -1,0 +1,219 @@
+---
+id: 6734e879c78ee6c61db25b90
+title: "Je, sehemu za React ni nini, na zinafanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-components-in-react-and-how-do-they-work
+---
+
+# --description--
+
+Sehemu ni vipande vya msingi vya programu za React vinavyowezesha wasanidi programu kuvunja muonekano tata wa mtumiaji kuwa vipande vidogo, vinavyoweza kudhibitiwa, na hivyo kufanya iwe rahisi kuendeleza na kudumisha programu kubwa.
+
+Aina mbili za sehemu katika React ni sehemu za kitendakazi na sehemu za darasa la vitu. Katika React ya kisasa, wasanidi programu watatumia sehemu za kitendakazi na mifano yote tunayochunguza leo itakuwa sehemu za kitendakazi.
+
+Kwa mtazamo wa juu, unaweza kufikiria sehemu kama vitendakazi vya JavaScript vinavyorejesha vipengele vinavyoelezea muonekano wa mtumiaji.
+
+Muonekano huu wa mtumiaji unaelezwa kwa kutumia JSX, ni nyongeza ya sintaksia kwa JavaScript inayofanana na HTML lakini inakuwezesha kuandika vipengele vya muonekano wa mtumiaji kwa njia ya kueleza zaidi.
+
+Tuchunguze mfano wa sehemu ya React:
+
+```jsx
+function Greeting() {
+  const name = "John"
+  {/* The result will be Hello John*/}
+  return <h1 className="title">Hello {name}</h1>;
+}
+```
+
+Katika mfano huu, tumeunda sehemu iitwayo `Greeting`. Mabano ya mviringo `{}` ndani ya lebo za `h1` yanatupa uwezo wa kuingiza usemi wa JavaScript, na hivyo kutuwezesha kupata thamani ya mabadiliko `name` ndani ya kipengele cha `h1`.
+
+Pia tunatumia `className` iitwayo `title` kwenye kipengele cha `h1`.
+
+Lakini kwa nini tunatumia `className` badala ya `class` kama ilivyo kwa vipengele vya kawaida vya HTML?
+
+Hii ni kwa sababu katika JavaScript, `class` ni neno lililohifadhiwa. Kwa hivyo, tunahitaji kutumia `className` badala yake.
+
+Pia tunatumia maoni katika JSX kuonyesha matokeo yatakayotokea. Ni muhimu kuelewa kuwa unaweza kutumia sintaksia ya maoni ya kawaida kama hii lakini inapaswa kufunikwa na mabano ya mviringo ili ifanye kazi:
+
+```jsx
+{/* Block Comments */}
+```
+
+Jambo lingine uliloliona ni kwamba tunatumia herufi kubwa mwanzoni mwa jina la sehemu. Lakini kwa nini hatuwezi kutumia herufi ndogo zote?
+
+Hii ni kwa sababu React hutambua sehemu zilizo na herufi kubwa kama sehemu maalum, wakati vipengele vilivyo na herufi ndogo vinachukuliwa kuwa vipengele vya kawaida vya HTML.
+
+Wakati React inakutana na lebo ya herufi ndogo, kama `<div>` au `<span>`, inadhani ni kipengele cha kawaida cha HTML. Hata hivyo, ikiwa jina la sehemu linaanza na herufi kubwa, React italitambua kama sehemu iliyotengenezwa na mtumiaji na kuionyesha ipasavyo. Tofauti hii husaidia React kutofautisha kati ya lebo za asili za HTML na sehemu unazotengeneza.
+
+Ili kutumia sehemu hii ya `Greeting` katika programu yetu, tungeandika kitu kama hiki:
+
+```jsx
+<Greeting />
+```
+
+Hii itaonyesha kipengele cha `h1` chenye maandishi ya `Hello John` kwenye ukurasa. Lakini angalia kwa makini sintaksia hapa. Tunapotumia sehemu, inamalizika kwa alama ya mstari wa mbele na kisha alama ya zaidi ya.
+
+Wakati wa kufanya kazi na JSX, lebo zote na matumizi ya sehemu zinahitaji kufungwa waziwazi. Hivyo ikiwa sehemu au lebo haina watoto wowote, basi unahitaji kuifunga wazi kama ilivyoonyeshwa hapa:
+
+```jsx
+<Greeting /> {/* /> is required */}
+```
+
+Hadi sasa tumekuwa tukitazama jinsi ya kuonyesha kipengele kimoja cha `h1`. Lakini unaweza kuonyesha vipengele vingi.
+
+Tuchunguze mfano wa msimbo ufuatao hapa:
+
+```jsx
+function Greeting() {
+  const name = "John";
+  {/* This will throw an error */}
+  return <h1>Hello {name}</h1> 
+  <p>Nice to meet you.</p>
+}
+```
+
+Tunajaribu kuongeza sentensi nyingine ya `Nice to meet you` lakini haionyeshi vizuri kwenye ukurasa.
+
+Inaonekana kuna ujumbe wa kosa badala yake. Ujumbe wa kosa unasema `Adjacent JSX elements must be wrapped in an enclosing tag.`
+
+Sababu ya kupata ujumbe huo wa kosa ni kwamba vipengele vingi vinavyopakana vinapaswa kufunikwa na kipengele cha mzazi. Ingawa unaweza kufunika vipengele vya `h1` na `p` ndani ya `div` rahisi, kuna njia nyingine ya kuondoa kosa hilo.
+
+Vipande vya React hutumika kuunganisha vipengele pamoja. Huu ndio mfano uliorekebishwa utaonekana hivi:
+
+```jsx
+function Greeting() {
+  const name = "John";
+  return (
+    <Fragment>
+      <h1>Hello {name}</h1>
+      <p>Nice to meet you.</p>
+    </Fragment>
+  );
+}
+```
+
+Unaweza pia kuchagua kutumia lebo za JSX zisizo na kitu ambazo zinaweza kutumika kama njia fupi ya vipande:
+
+```jsx
+function Greeting() {
+  const name = "John";
+  return (
+    <>
+      <h1>Hello {name}</h1>
+      <p>Nice to meet you.</p>
+    </>
+  );
+}
+```
+
+Katika mafundisho yajayo, tutaendelea kujifunza zaidi kuhusu jinsi ya kufanya kazi na sehemu na JSX. Lakini kwa sasa, umejifunza utangulizi thabiti wa kujenga muonekano wa mtumiaji kwa kutumia sehemu, kuweka msingi imara kwa kile kinachokuja.
+
+# --questions--
+
+## --text--
+
+Sababu kuu ni ipi React inatumia `className` badala ya `class` kwa vipengele vya HTML katika JSX?
+
+## --answers--
+
+`class` ni neno lililohifadhiwa katika JavaScript.
+
+---
+
+`className` linaonekana zuri zaidi.
+
+### --feedback--
+
+Fikiria maana ya `class` tayari katika JavaScript.
+
+---
+
+Kutumia `className` kunaleta usalama bora katika programu za React.
+
+### --feedback--
+
+Fikiria maana ya `class` tayari katika JavaScript.
+
+---
+
+Kutumia `className` kunaleta utendaji wa haraka zaidi.
+
+### --feedback--
+
+Fikiria maana ya `class` tayari katika JavaScript.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Katika muktadha wa sehemu za React, JSX ni nini?
+
+## --answers--
+
+Lugha mpya ya programu.
+
+### --feedback--
+
+Fikiria jinsi JSX inavyokuwezesha kuandika msimbo wa muonekano wa mtumiaji katika sehemu za React.
+
+---
+
+Lugha ya hoja ya utafutaji ya hifadhidata.
+
+### --feedback--
+
+Fikiria jinsi JSX inavyokuwezesha kuandika msimbo wa muonekano wa mtumiaji katika sehemu za React.
+
+---
+
+Nyongeza ya sintaksia kwa JavaScript inayofanana na HTML.
+
+---
+
+Mfumo wa kazi wa CSS.
+
+### --feedback--
+
+Fikiria jinsi JSX inavyokuwezesha kuandika msimbo wa muonekano wa mtumiaji katika sehemu za React.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Je, ungeonyesha sehemu ya `Message` vipi katika React?
+
+## --answers--
+
+`</ Message>`
+
+### --feedback--
+
+Kagua sehemu inayofafanua jinsi sehemu zinaonyeshwa.
+
+---
+
+`<</Message>`
+
+### --feedback--
+
+Kagua sehemu inayofafanua jinsi sehemu zinaonyeshwa.
+
+---
+
+`Message`
+
+### --feedback--
+
+Kagua sehemu inayofafanua jinsi sehemu zinaonyeshwa.
+
+---
+
+`<Message />`
+
+## --video-solution--
+
+4

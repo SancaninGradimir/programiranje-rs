@@ -1,0 +1,63 @@
+---
+id: 6821ebda237de8297eaee792
+title: "Zoezi la 16: Rudisha Mabano ya Kawaida"
+challengeType: 28
+dashedName: challenge-16
+---
+
+# --description--
+
+Ukipata mfuatano wa herufi unao kuwa na mabano ya kawaida yaliyopangwa ndani ipasavyo, rudisha toleo lililofasiriwa la mfuatano huo kwa kutumia sheria zifuatazo:
+
+- Herufi zote ndani ya kila jozi ya mabano ya kawaida zinapaswa kurudishwa nyuma.
+- Mabano ya kawaida yanapaswa kuondolewa katika matokeo ya mwisho.
+- Ikiwa mabano ya kawaida yapo yaliyopangwa ndani, jozi ya ndani kabisa inapaswa kurudishwa nyuma kwanza, kisha matokeo yake yajumuishwe katika kurudisha nyuma kwa jozi ya nje.
+- Kubali kwamba mabano yote ya kawaida yamepangwa sawasawa na kwa usahihi. 
+
+# --hints--
+
+`decode("(f(b(dc)e)a)")` inapaswa kurudisha `"abcdef"`.
+
+```js
+assert.equal(decode("(f(b(dc)e)a)"), "abcdef");
+```
+
+`decode("((is?)(a(t d)h)e(n y( uo)r)aC)")` inapaswa kurudisha `"Can you read this?"`.
+
+```js
+assert.equal(decode("((is?)(a(t d)h)e(n y( uo)r)aC)"), "Can you read this?");
+```
+
+`decode("f(Ce(re))o((e(aC)m)d)p")` inapaswa kurudisha `"freeCodeCamp"`.
+
+```js
+assert.equal(decode("f(Ce(re))o((e(aC)m)d)p"), "freeCodeCamp");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function decode(s) {
+
+  return s;
+}
+```
+
+# --solutions--
+
+```js
+function decode(s) {
+  while (s.includes(')')) {
+    const closeIndex = s.indexOf(')');
+    const openIndex = s.lastIndexOf('(', closeIndex);
+    const before = s.slice(0, openIndex);
+    const group = s.slice(openIndex + 1, closeIndex).split('').reverse().join('');
+    const after = s.slice(closeIndex + 1);
+    s = before + group + after;
+  }
+
+  return s;
+}
+```

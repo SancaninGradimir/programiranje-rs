@@ -1,0 +1,74 @@
+---
+id: 587d7fb2367417b2b2512bf8
+title: Pata data kutoka kwa maombi ya POST
+challengeType: 2
+forumTopicId: 301511
+dashedName: get-data-from-post-requests
+---
+
+# --description--
+
+Weka mshughulikiaji wa POST katika njia ya `/name`. Ni njia ile ile kama awali. Tumeandaa fomu katika ukurasa wa mbele wa html. Itawasilisha data ile ile ya zoezi la 10 (Hoja ya utafutaji). Ikiwa kichanganuzi cha mwili kimewekwa ipasavyo, unapaswa kupata vigezo katika kitu `req.body`. Angalia mfano wa kawaida wa maktaba:
+
+<blockquote>njia ya data: POST '/library'<br>urlencoded_body: userId=546&#x26;bookId=6754 <br>req.body: {userId: '546', bookId: '6754'}</blockquote>
+
+Jibu na kitu sawa cha JSON kama awali: `{name: 'firstname lastname'}`. Jaribu kama kiishio chako kinafanya kazi kwa kutumia fomu ya html tuliyotoa katika ukurasa wa mbele wa programu.
+
+Kidokezo: Kuna njia nyingine za http zaidi ya GET na POST. Na kwa mkataba kuna ulinganifu kati ya kitenzi cha http, na operesheni utakayofanya kwenye seva. Ramani ya mkataba ni:
+
+POST (mara nyingine PUT) - Unda rasilimali mpya kwa kutumia taarifa zilizotumwa na ombi,
+
+GET - Soma rasilimali iliyopo bila kuibadilisha,
+
+PUT au PATCH (mara nyingine POST) - Sasisha rasilimali kwa kutumia data iliyotumwa,
+
+DELETE - Futa rasilimali.
+
+Pia kuna njia nyingine chache zinazotumika kuanzisha muunganisho na seva. Isipokuwa GET, njia zote nyingine zilizotajwa hapo juu zinaweza kuwa na mzigo (yaani data ndani ya mwili wa ombi). Programu ya kati ya kichanganuzi cha mwili inafanya kazi pia na njia hizi. 
+
+# --hints--
+
+Test 1 : Kiishio chako cha API kinapaswa kujibu na jina sahihi
+
+```js
+  const response = await fetch(code + '/name', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({ first: 'Mick', last: 'Jagger' }).toString()
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.name,
+    'Mick Jagger',
+    'Test 1: "POST /name" route does not behave as expected'
+  );
+```
+
+Test 2 : Kiishio chako cha API kinapaswa kujibu na jina sahihi
+
+```js
+  const response = await fetch(code + '/name', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      first: 'Keith',
+      last: 'Richards'
+    }).toString()
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.name,
+    'Keith Richards',
+    'Test 2: "POST /name" route does not behave as expected'
+  );
+```

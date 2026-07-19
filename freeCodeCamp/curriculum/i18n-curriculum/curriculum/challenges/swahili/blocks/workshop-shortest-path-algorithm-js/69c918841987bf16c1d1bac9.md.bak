@@ -1,0 +1,81 @@
+---
+id: 69c918841987bf16c1d1bac9
+title: Hatua 18
+challengeType: 1
+dashedName: step-18
+---
+
+# --description--
+
+Sasa unapaswa kukagua kama kupitia nodi ya sasa kunatoa njia ya data fupi zaidi kwa jirani. Ikiwa `newDistance` ni bora kuliko kile kilichohifadhiwa tayari, basi unapaswa kusahihisha.
+
+Ndani ya kipande cha `if` kilichopo, ongeza usemi wa `if` uliopangwa ndani unaokagua kama `newDistance` ni kidogo kuliko `distances[nodeNo]`. Ndani ya kipande hicho cha `if` kilichopangwa ndani, sasisha `distances[nodeNo]` kuwa `newDistance`.
+
+# --hints--
+
+Unapaswa kuongeza usemi wa `if` uliopangwa ndani wenye sharti la `newDistance < distances[nodeNo]`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /if\s*\(\s*newDistance\s*<\s*distances\s*\[\s*\w+\s*\]\s*\)/
+);
+```
+
+Unapaswa kusahihisha `distances[nodeNo]` kuwa `newDistance` ndani ya kipande cha `if` kilichopangwa ndani.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /distances\s*\[\s*\w+\s*\]\s*=\s*newDistance/
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INF = Infinity;
+const adjMatrix = [
+  [0, 5, 3, INF, 11, INF],
+  [5, 0, 1, INF, INF, 2],
+  [3, 1, 0, 1, 5, INF],
+  [INF, INF, 1, 0, 9, 3],
+  [11, INF, 5, 9, 0, INF],
+  [INF, 2, INF, 3, INF, 0],
+];
+
+function shortestPath(matrix, startNode, targetNode = null) {
+  const n = matrix.length;
+  const distances = new Array(n).fill(INF);
+  distances[startNode] = 0;
+  const paths = Array.from({ length: n }, (_, i) => [i]);
+  const visited = new Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    let minDistance = INF;
+    let current = -1;
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {
+        minDistance = distances[nodeNo];
+        current = nodeNo;
+      }
+    }
+    if (current === -1) {
+      break;
+    }
+    visited[current] = true;
+
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      const distance = matrix[current][nodeNo];
+      if (distance !== INF && !visited[nodeNo]) {
+        const newDistance = distances[current] + distance;
+        --fcc-editable-region--
+
+        --fcc-editable-region--
+      }
+    }
+  }
+}
+```

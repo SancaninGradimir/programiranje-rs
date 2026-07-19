@@ -1,0 +1,109 @@
+---
+id: 5ef9b03c81a63668521804d9
+title: Hatua 42
+challengeType: 0
+dashedName: step-42
+---
+
+# --description--
+
+Maandishi ya kiwakilishi hutumika kuwapa watu dalili kuhusu aina gani ya taarifa yaingizwe katika ingizo.
+
+Hapa kuna mfano wa kipengele cha `input` chenye kiwakilishi kilichowekwa kuwa `e.g. Jane Doe`:
+
+```html
+<input type="text" placeholder="e.g. Jane Doe">
+```
+
+Ongeza maandishi ya kiwakilishi `cat photo URL` kwenye kipengele chako cha `input`.
+
+# --hints--
+
+Umefuta kipengele chako cha `input` au kina sintaksia isiyo sahihi. Thamani zote za sifa za kipengele zinapaswa kuzungukwa na alama za nukuu.
+
+```js
+assert(document.querySelectorAll('input').length);
+```
+
+`form` yako inapaswa kuwa na kipengele cha `input` pekee. Futa vipengele vingine vya HTML au maandishi ndani ya kipengele cha `form`.
+
+```js
+assert.isTrue(
+  document.querySelector('form')?.children?.length === 1 &&
+    document.querySelector('form')?.innerText?.trim()?.length === 0
+);
+```
+
+Kipengele chako cha `input` hakina sifa ya `placeholder`. Hakikisha kuna nafasi baada ya jina la lebo ya kufungua na/au kuna nafasi kabla ya majina yote ya sifa za kipengele.
+
+```js
+assert.isTrue(document.querySelector('input')?.hasAttribute('placeholder'));
+```
+
+Kipengele chako cha `input` kinapaswa kuwa na sifa ya `placeholder` yenye thamani `cat photo URL`. Umeacha thamani au kuna makosa ya tahajia. Kumbuka kwamba thamani za sifa za kipengele zinapaswa kuzungukwa na alama za nukuu.
+
+```js
+assert(
+  document.querySelector('input')
+    ?.getAttribute('placeholder')
+    .replace(/\s+/g, ' ')
+    .match(/^cat photo URL$/i)
+);
+```
+
+Ingawa umeweka sifa ya `input` ya kipengele cha `placeholder` kuwa `cat photo URL`, inashauriwa kila mara kuzuzua thamani ya sifa ya kipengele na alama za nukuu.
+
+```js
+assert(!/\<\s*input\s+placeholder\s*=\s*cat\s+photo\s+url/i.test(code));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+    <main>
+      <h1>CatPhotoApp</h1>
+      <section>
+        <h2>Cat Photos</h2>
+        <p>Everyone loves <a href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">cute cats</a> online!</p>
+        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
+        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+      </section>
+      <section>
+        <h2>Cat Lists</h2>
+        <h3>Things cats love:</h3>
+        <ul>
+          <li>catnip</li>
+          <li>laser pointers</li>
+          <li>lasagna</li>
+        </ul>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/lasagna.jpg" alt="A slice of lasagna on a plate.">
+          <figcaption>Cats <em>love</em> lasagna.</figcaption>  
+        </figure>
+        <h3>Top 3 things cats hate:</h3>
+        <ol>
+          <li>flea treatment</li>
+          <li>thunder</li>
+          <li>other cats</li>
+        </ol>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" alt="Two tabby kittens sleeping together on a couch.">
+          <figcaption>Cats <strong>hate</strong> other cats.</figcaption>  
+        </figure>
+      </section>
+      <section>
+        <h2>Cat Form</h2>
+        <form action="https://freecatphotoapp.com/submit-cat-photo">
+--fcc-editable-region--
+          <input type="text" name="catphotourl">
+--fcc-editable-region--
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
+```

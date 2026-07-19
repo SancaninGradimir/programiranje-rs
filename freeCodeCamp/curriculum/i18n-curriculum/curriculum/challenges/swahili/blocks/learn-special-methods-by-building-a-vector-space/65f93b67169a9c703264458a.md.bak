@@ -1,0 +1,52 @@
+---
+id: 65f93b67169a9c703264458a
+title: Hatua 30
+challengeType: 20
+dashedName: step-30
+---
+
+# --description--
+
+Kwa kuwa njia inapaswa kurudisha mfuatano wa herufi wa kuanzisha kitu kwa `R2Vector` pamoja na `R3Vector` wakati inarithiwa, huwezi kujenga mfuatano wa herufi ukibainisha jina la darasa la vitu.
+
+Unaweza kupata jina la darasa la vitu kwa `__class__.__name__`. Ongeza tamko la `return` katika njia ya `__repr__` na urudishe mfuatano wa herufi unaohitajika kuanzisha kitu hicho.
+
+# --hints--
+
+Unapaswa kutumia `__class__.__name__` kujenga f-string inayohitajika kuanzisha kitu cha vector na kuirudisha kutoka kwa njia ya `__repr__`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__repr__").has_return("f'{self.__class__.__name__}({args})'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+--fcc-editable-region--
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+```

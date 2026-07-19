@@ -1,0 +1,159 @@
+---
+id: 698a1a73ade5ac0e19180fa0
+title: "Challenge 197: Blood Type Compatibility"
+challengeType: 29
+dashedName: challenge-197
+---
+
+# --description--
+
+Ukizingatia aina ya damu ya mtoaji na aina ya damu ya mpokeaji, amua kama mtoaji anaweza kutoa damu kwa mpokeaji.
+
+Kila aina ya damu ina:
+
+- Herufi: `"A"`, `"B"`, `"AB"`, au `"O"`
+- Na kipengele cha Rh: `"+"` au `"-"`
+
+Aina za damu zitakuwa moja ya herufi halali ikifuatiwa na kipengele cha Rh. Kwa mfano, `"AB+"` na `"O-"` ni aina halali za damu.
+
+Letter Rules:
+
+- `"O"` inaweza kutoa damu kwa aina nyingine ya herufi.
+- `"A"` inaweza kutoa damu kwa `"A"` na `"AB"`.
+- `"B"` inaweza kutoa damu kwa `"B"` na `"AB"`.
+- `"AB"` inaweza kutoa damu kwa `"AB"` tu.
+
+Rh Rules:
+
+- Hasi (`"-"`) inaweza kutoa damu kwa `"-"` na `"+"`.
+- Chanya (`"+"`) inaweza kutoa damu kwa `"+"` tu.
+
+Sheria za herufi na Rh zote mbili lazima zitimizwe ili mtoaji aweze kutoa damu kwa mpokeaji.
+
+# --hints--
+
+`can_donate("B+", "B+")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("B+", "B+"), True)`)
+}})
+```
+
+`can_donate("O-", "AB-")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("O-", "AB-"), True)`)
+}})
+```
+
+`can_donate("O+", "A-")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("O+", "A-"), False)`)
+}})
+```
+
+`can_donate("A+", "AB+")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("A+", "AB+"), True)`)
+}})
+```
+
+`can_donate("A-", "B-")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("A-", "B-"), False)`)
+}})
+```
+
+`can_donate("B-", "AB+")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("B-", "AB+"), True)`)
+}})
+```
+
+`can_donate("B-", "A+")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("B-", "A+"), False)`)
+}})
+```
+
+`can_donate("O-", "O+")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("O-", "O+"), True)`)
+}})
+```
+
+`can_donate("O+", "O-")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("O+", "O-"), False)`)
+}})
+```
+
+`can_donate("AB+", "AB-")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(can_donate("AB+", "AB-"), False)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def can_donate(donor, recipient):
+
+    return donor
+```
+
+# --solutions--
+
+```py
+def can_donate(donor, recipient):
+    donor_type = donor[:-1]
+    donor_rh = donor[-1]
+
+    recipient_type = recipient[:-1]
+    recipient_rh = recipient[-1]
+
+    abo_compatibility = {
+        "O": ["A", "B", "AB", "O"],
+        "A": ["A", "AB"],
+        "B": ["B", "AB"],
+        "AB": ["AB"]
+    }
+
+    abo_match = recipient_type in abo_compatibility[donor_type]
+    rh_match = (
+        donor_rh == "-" or
+        (donor_rh == "+" and recipient_rh == "+")
+    )
+
+    return abo_match and rh_match
+```

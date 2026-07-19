@@ -1,0 +1,55 @@
+---
+id: 68c28b7cc3ab8f4daf144b5e
+title: Hatua 7
+challengeType: 20
+dashedName: step-7
+---
+
+# --description--
+
+Kufuata ulivyofanya katika hatua zilizopita, tengeneza kipokezi cha sifa ya kipengele `_level`.
+
+# --hints--
+
+Darasa lako la `Employee` linapaswa kuwa na njia ya `level` yenye kigezo cha `self`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("level").has_args("self")`)) })
+```
+
+Njia yako ya `level` inapaswa kuwekewa alama ya `@property`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("level").has_decorators("property")`)) })
+```
+
+Njia yako ya `level` inapaswa kurudisha `self._level`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("level").has_return("self._level")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Employee:
+    def __init__(self, name, level):
+        self._name = name
+        self._level = level
+
+    def __str__(self):
+        return f'{self._name}: {self._level}'
+--fcc-editable-region--
+    @property
+    def name(self):
+        return self._name
+
+    
+--fcc-editable-region--
+charlie_brown = Employee('Charlie Brown', 'trainee')
+print(charlie_brown)
+print(charlie_brown.name)
+
+```

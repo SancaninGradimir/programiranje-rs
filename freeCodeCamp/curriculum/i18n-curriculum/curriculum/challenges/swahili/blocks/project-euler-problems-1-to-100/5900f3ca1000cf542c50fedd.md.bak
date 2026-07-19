@@ -1,0 +1,84 @@
+---
+id: 5900f3ca1000cf542c50fedd
+title: "'Zoezi la 94: Mviringo karibu sawa upande tatu'"
+challengeType: 1
+forumTopicId: 302211
+dashedName: problem-94-almost-equilateral-triangles
+---
+
+# --description--
+
+Ni rahisi kuthibitisha kwamba hakuna mviringo sawa upande tatu wenye urefu wa pande zote ni nambari kamili na eneo ni nambari kamili. Hata hivyo, mviringo karibu sawa upande tatu 5-5-6 una eneo la vitengo 12 vya mraba.
+
+Tutaelezea <dfn>mviringo karibu sawa upande tatu</dfn> kuwa ni mviringo ambao pande mbili ni sawa na upande wa tatu unatofautiana kwa kiwango kisizozidi kitengo kimoja.
+
+Tafuta jumla ya mizunguko ya mviringo vyote karibu sawa upande tatu vyenye urefu wa pande ni nambari kamili na eneo ni nambari kamili na mizunguko yao haizidi `limit`.
+
+# --hints--
+
+`almostEquilateralTriangles(50)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof almostEquilateralTriangles(50) === 'number');
+```
+
+`almostEquilateralTriangles(50)` inapaswa kurudisha `66`.
+
+```js
+assert.strictEqual(almostEquilateralTriangles(50), 66);
+```
+
+`almostEquilateralTriangles(10000)` inapaswa kurudisha `3688`.
+
+```js
+assert.strictEqual(almostEquilateralTriangles(10000), 3688);
+```
+
+`almostEquilateralTriangles(10000000)` inapaswa kurudisha `9973078`.
+
+```js
+assert.strictEqual(almostEquilateralTriangles(10000000), 9973078);
+```
+
+`almostEquilateralTriangles(1000000000)` inapaswa kurudisha `518408346`.
+
+```js
+assert.strictEqual(almostEquilateralTriangles(1000000000), 518408346);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function almostEquilateralTriangles(limit) {
+
+  return true;
+}
+
+almostEquilateralTriangles(50);
+```
+
+# --solutions--
+
+```js
+function almostEquilateralTriangles(limit) {
+  // Based on https://blog.dreamshire.com/project-euler-94-solution/
+  let perimetersSum = 0;
+
+  let sidesAB = 1;
+  let sideC = 1;
+  let perimeter = 0;
+  let perimeterOffset = 1;
+
+  while (perimeter <= limit) {
+    [sidesAB, sideC] = [4 * sidesAB - sideC + 2 * perimeterOffset, sidesAB];
+    perimeterOffset = -perimeterOffset;
+
+    perimetersSum += perimeter;
+    perimeter = 3 * sidesAB - perimeterOffset;
+  }
+
+  return perimetersSum;
+}
+```

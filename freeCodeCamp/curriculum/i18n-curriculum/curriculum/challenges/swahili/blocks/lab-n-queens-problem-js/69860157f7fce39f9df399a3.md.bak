@@ -1,0 +1,165 @@
+---
+id: 69860157f7fce39f9df399a3
+title: Tekeleza algoriti ya Malkia N
+challengeType: 26
+dashedName: implement-the-n-queens-algorithm
+---
+
+# --description--
+
+Changamoto ya Malkia N inakuomba uweke malkia N kwenye ubao wa chess wa N×N ili malkia wawili wasivurugane (wasishiriki safu, nguzo, au diagonal moja).
+
+Kwa mfano, ikiwa kuna ubao wa 4x4, mpangilio halali mmoja ni:
+
+```md
+[1, 3, 0, 2]
+```
+
+Hii ina maana kwamba katika safu ya 0, malkia yuko kwenye nguzo ya 1; katika safu ya 1, malkia yuko kwenye nguzo ya 3; katika safu ya 2, malkia yuko kwenye nguzo ya 0; na katika safu ya 3, malkia yuko kwenye nguzo ya 2.
+
+Kwa mtazamo wa macho, mpangilio huu unaonekana kama:
+
+```md
+. Q . .
+. . . Q
+Q . . .
+. . Q .
+```
+
+Ambapo `Q` inawakilisha malkia na `.` inawakilisha mraba tupu.
+
+Katika maabara hii, utatekeleza suluhisho la changamoto ya Malkia N kwa kutumia mbinu ya utafutaji wa kina kwanza.
+
+
+**Lengo**: Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili ukamilishe maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `dfsNQueens`.
+2. Kitendakazi hicho kinapaswa kupokea hoja moja tu: nambari kamili `n`.
+3. Ikiwa `n` ni ndogo kuliko `1`, kitendakazi kinapaswa kurudisha safu ya data tupu (`[]`).
+4. Kitendakazi kinapaswa kurudisha orodha ya suluhisho; kila suluhisho ni orodha yenye urefu wa `n`, ambapo kipengele kilicho kwenye kielezo `i` ni kielezo cha nguzo (kuanzia 0) cha malkia katika safu `i`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `dfsNQueens` kinachopokea hoja moja.
+
+```js
+assert.isFunction(dfsNQueens);
+assert.lengthOf(dfsNQueens, 1);
+```
+
+Ikiwa `n` ni ndogo kuliko `1`, kitendakazi kinapaswa kurudisha safu ya data tupu.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(0), []);
+assert.sameDeepOrderedMembers(dfsNQueens(-1), []);
+assert.sameDeepOrderedMembers(dfsNQueens(-5), []);
+```
+
+Kitendakazi kinapaswa kurudisha safu ya suluhisho, ambapo kila suluhisho ni safu yenye urefu wa `n`.
+
+```js
+const output = dfsNQueens(4);
+assert.isArray(output);
+output.forEach(solution => {
+    assert.isArray(solution);
+    assert.lengthOf(solution, 4);
+})
+```
+
+`dfsNQueens(1)` inapaswa kurudisha `[[0]]`.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(1), [[0]]);
+```
+
+`dfsNQueens(2)` inapaswa kurudisha `[]`.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(2), []);
+```
+
+`dfsNQueens(3)` inapaswa kurudisha `[]`.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(3), []);
+```
+
+`dfsNQueens(4)` inapaswa kurudisha `[[1, 3, 0, 2], [2, 0, 3, 1]]`.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(4), [[1, 3, 0, 2], [2, 0, 3, 1]]);
+```
+
+`dfsNQueens(5)` inapaswa kurudisha `[[0, 2, 4, 1, 3], [0, 3, 1, 4, 2], [1, 3, 0, 2, 4], [1, 4, 2, 0, 3], [2, 0, 3, 1, 4], [2, 4, 1, 3, 0], [3, 0, 2, 4, 1], [3, 1, 4, 2, 0], [4, 1, 3, 0, 2], [4, 2, 0, 3, 1]]`.
+
+```js
+assert.sameDeepOrderedMembers(dfsNQueens(5), [[0, 2, 4, 1, 3], [0, 3, 1, 4, 2], [1, 3, 0, 2, 4], [1, 4, 2, 0, 3], [2, 0, 3, 1, 4], [2, 4, 1, 3, 0], [3, 0, 2, 4, 1], [3, 1, 4, 2, 0], [4, 1, 3, 0, 2], [4, 2, 0, 3, 1]]);
+```
+
+`dfsNQueens(5).length` inapaswa kuwa `10`.
+
+```js
+assert.lengthOf(dfsNQueens(5), 10);
+```
+
+`dfsNQueens(8).length` inapaswa kuwa `92`.
+
+```js
+assert.lengthOf(dfsNQueens(8), 92);
+```
+
+`dfsNQueens` inapaswa kurudisha matokeo sahihi.
+
+```js
+assert.lengthOf(dfsNQueens(7), 40);
+assert.sameDeepOrderedMembers(dfsNQueens(6), [[1, 3, 5, 0, 2, 4], [2, 5, 1, 4, 0, 3], [3, 0, 4, 1, 5, 2], [4, 2, 0, 5, 3, 1]]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function dfsNQueens(n) {
+  if (n < 1) return [];
+
+  const results = [];
+
+  function isSafe(queens, row, col) {
+    for (let r = 0; r < queens.length; r++) {
+      const c = queens[r];
+      if (c === col || Math.abs(row - r) === Math.abs(col - c)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function dfs(queens) {
+    const row = queens.length;
+    if (row === n) {
+      results.push(queens.slice());
+      return;
+    }
+
+    for (let col = 0; col < n; col++) {
+      if (isSafe(queens, row, col)) {
+        queens.push(col);
+        dfs(queens);
+        queens.pop();
+      }
+    }
+  }
+
+  dfs([]);
+  return results;
+}
+```

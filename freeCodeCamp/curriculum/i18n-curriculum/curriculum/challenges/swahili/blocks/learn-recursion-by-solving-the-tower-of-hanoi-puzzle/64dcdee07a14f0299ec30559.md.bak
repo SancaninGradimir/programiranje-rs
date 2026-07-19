@@ -1,0 +1,56 @@
+---
+id: 64dcdee07a14f0299ec30559
+title: Hatua 22
+challengeType: 20
+dashedName: step-22
+---
+
+# --description--
+
+Umeandika msimbo wa kupata mwelekeo unaoruhusiwa wa kuhamisha kati ya fimbo, lakini uhamisho halisi unaweza kuwa katika mwelekeo yote miwili.
+Baada ya wito la `print()`, tangaza kigezo kinachoitwa `forward` na usitishe kuwa `False`. Utatumia kigezo hicho kuangalia ni mwelekeo gani unahitaji kuhamisha diski kati ya fimbo.
+
+# --hints--
+
+Unapaswa kutangaza kigezo kinachoitwa `forward`.
+
+```js
+({ test: () => assert.match(code, /forward\s*=\s*./) })
+```
+
+Kigezo chako cha `forward` kinapaswa kusetwa kuwa `False`.
+
+```js
+({ test: () => assert.match(code, /forward\s*=\s*False/) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+NUMBER_OF_DISKS = 3
+number_of_moves = 2**NUMBER_OF_DISKS - 1
+rods = {
+    'A': list(range(NUMBER_OF_DISKS, 0, -1)),
+    'B': [],
+    'C': []
+}
+
+def move(n, source, auxiliary, target):
+    # display starting configuration
+    print(rods)
+    for i in range(number_of_moves):
+        remainder = (i + 1) % 3
+--fcc-editable-region--
+        if remainder == 1:
+            print(f'Move {i + 1} allowed between {source} and {target}')
+--fcc-editable-region--
+        elif remainder == 2:
+            print(f'Move {i + 1} allowed between {source} and {auxiliary}')
+        elif remainder == 0:
+            print(f'Move {i + 1} allowed between {auxiliary} and {target}')
+
+# initiate call from source A to target C with auxiliary B
+move(NUMBER_OF_DISKS, 'A', 'B', 'C')
+```

@@ -1,0 +1,212 @@
+---
+id: 68829162a7f96d73c8505d3d
+title: "Ni nini migogoro ya kuunganisha, na unaweza kuizitatua vipi?"
+challengeType: 19
+dashedName: what-are-merge-conflicts-and-how-can-you-resolve-them
+---
+
+# --description--
+
+Kama umewahi kuwa karibu na wasanidi programu wenye uzoefu, iwe katika jamii ya mtandaoni au ana kwa ana, huenda umewahi kusikia kuhusu "migogoro ya kuunganisha inayotisha". Lakini ni nini hasa?
+
+Vizuri, unapokuwa unatumia mkakati mzuri wa matawi kama tulivyojadili katika mafundisho yaliyopita, unaweza kuwa unafanya kazi kwenye vipengele viwili tofauti kwenye matawi mawili tofauti kwa wakati mmoja. Au labda unafanya kazi kwenye kitu kimoja, na mwenzako anafanya kazi kwenye tawi lingine. Hali yoyote ile, una mabadiliko mawili huru yanayotokea. Lakini wakati mwingine, matawi yote mawili yatahariri faili moja hiyo hiyo. Na ikiwa tawi lingine litaunganishwa kwanza na `main`, basi mabadiliko ya tawi lako yatakuwa nyuma.
+
+Mara nyingi, hili linaweza kurekebishwa kwa kuunganisha `main` tena kwenye tawi lako la kipengele. Lakini wakati mabadiliko kutoka kwenye tawi lingine yanapopingana na tawi lako, Git haiwezi kusema ni mabadiliko gani unayotaka kuhifadhi wakati wa kuunganisha. Hii huitwa "mgogoro wa kuunganisha".
+
+Lakini unaweza kuutatuaje? Vizuri, kwa migogoro midogo na rahisi, GitHub itakupa kiolesura cha mtandao cha kuirekebisha. Kitufe cha "Tatua migogoro" kitaonekana chini ya ombi la kuvuta mabadiliko (PR) ikiwa kuna migogoro. Ukibofya, utaona faili yenye migogoro ambayo inajumuisha msimbo wako na msimbo unaopingana. Git itaongeza "alama za mgogoro wa kuunganisha" kuzunguka msimbo wako na msimbo unaopingana kusaidia kutambua tatizo. Inaonekana kama ifuatavyo:
+
+```sh
+1 <<<<<<< feat/conflict
+2 Here's some code from my first PR :)
+3 =======
+4 Here's some code that was merged to main that conflicts with the code on my PR
+5 >>>>>>> main
+```
+
+Alama ya kufungua ni `<<<<<<< feat/conflict`, na inaonyesha mwanzo wa mabadiliko ambayo tawi letu la sasa linayafanya. Kisha tunaona `Here's some code from my first PR :)`. Baada yake ni alama ya `=======` ambayo inaonyesha mwisho wa mabadiliko yetu na mwanzo wa mabadiliko ya tawi la `main`. Tunaweza kuona kuwa mabadiliko yaliyofanywa kwenye `main` ni mstari wa `Here's some code that was merged to main that conflicts with the code on my PR`. Na baada yake ni alama ya kufunga `>>>>>> main` kuonyesha mwisho wa migogoro.
+
+Lakini tunairekebisha vipi? Vizuri, unahitaji kuamua ni mabadiliko gani unayotaka kuhifadhi kama sehemu ya migogoro ya kuunganisha. Ikiwa unataka kuhifadhi mabadiliko yote mawili, unaweza kufuta tu alama za mgogoro na kuacha mabadiliko bila kubadilika. Vinginevyo, ikiwa unataka kuhifadhi mabadiliko kutoka tawi moja tu, utafuta alama za mgogoro na mabadiliko kutoka tawi lingine (yale ambayo hutaki kuhifadhi). Na hatimaye, ikiwa hutaki mabadiliko yoyote kabisa, unaweza kufuta kila kitu kuanzia alama ya kufungua hadi alama ya kufunga (ikiwa ni pamoja na).
+
+Tufute mabadiliko ya tawi la `main`, lakini tuhifadhi yetu. Hivi ndivyo tulivyo sasa:
+
+```sh
+1 Here's some code from my first PR :)
+```
+
+Bofya kitufe cha "Alama kama imetatuliwa", ambacho kinaambia GitHub kuwa umefurahishwa na azimio lako. Ikiwa kuna mafaili zaidi, GitHub itabadilisha kwenda faili inayofuata. Lakini kwa kuwa hili ndilo faili letu pekee lenye migogoro, utaona kitufe cha "Fanya kuunganisha". Bofya kitufe hicho na GitHub itaunda kuunganisha kwa ajili yako. Utaelekezwa tena kwenye ombi la kuvuta mabadiliko, ambapo utaona kuunganisha kwako mpya na migogoro imetatuliwa. Na tuko tayari!
+
+Lakini vipi kama huwezi kuhariri migogoro moja kwa moja kwenye GitHub, kwa sababu ni ngumu sana?
+
+Vizuri, ikiwa tawi lako lina commits chache, au commits chache tu zinabadilisha faili hiyo, huenda ukaweza kuunganisha `main` kwenye tawi lako:
+
+```sh
+git checkout feat/conflict
+git fetch origin
+git merge origin/main
+```
+
+Git inaposhughulikia kuunganisha hii, utapata migogoro ya kutatua kwa mkono. Git itakuarifu ni mafaili gani yanayohitaji kurekebishwa. Tunapofungua mafaili yenye migogoro kwenye mhariri wetu, tunapata alama zile zile za mgogoro, na nyongeza za kiolesura cha mtumiaji zenye msaada kutokana na VSCode. Endelea na utatuze migogoro kwenye faili kwa njia ile ile. Lakini wakati huu, tutahitaji kuunda commit kwa mkono. Ni sawa na kuunda commit nyingine yoyote:
+
+```sh
+git add .
+git commit -m "chore: resolve conflicts"
+```
+
+Baada ya kuendesha amri hizi, tunaweza kuona Git imekubali azimio letu.
+
+Wakati mwingine, unapokuwa na commits nyingi au migogoro mingi, rebase inaweza kusaidia. Badala ya kuunganisha mabadiliko, rebase huchukua commits zote kwenye tawi lako na kuziweka tena ili ziwe baada ya mabadiliko ya hivi karibuni kwenye `main`. Kwa maneno ya Git, hii kwa ufanisi "inasetia upya" msingi wa tawi lako kwa commit ya hivi karibuni kwenye `main`.
+
+Ili kujaribu hili, tunahitaji tawi jipya:
+
+```sh
+git checkout main
+git pull
+git checkout -b feat/rebase
+```
+
+Tuanze na kuunda commits nyingi kwa tawi letu, ili tuweze kufanya mazoezi ya rebase:
+
+```sh
+echo "change one" > README.md
+git add .
+git commit -m "change one"
+echo "change two" > README.md
+git add .
+git commit -m "change two"
+echo "change three" > README.md
+git add .
+git commit -m "change three"
+```
+
+Sasa, tufanye mabadiliko mengine kwenye `main` ili kuunda mgogoro:
+
+```sh
+git checkout main
+echo "change four" > README.md
+git add .
+git commit -m "change four"
+```
+
+Na chagua tawi letu la rebase:
+
+```sh
+git checkout feat/rebase
+```
+
+Ifuatayo, endesha `git rebase -i main`. Itafanya rebase ya tawi letu juu ya hali ya sasa ya tawi la `main`. Bendera ya `-i` inaambia Git kufanya rebase kwa njia ya mwingiliano. Utaona commits zako zikiwa na neno `pick` kando yao. `pick` inaambia Git kutumia commit kama ilivyo kwa rebase. Hifadhi na funga faili, na tutapokea ujumbe wa kosa unaotuambia kuna migogoro.
+
+Commit yetu ya `change one` inapingana na commit ya `change four`, na tunahitaji kuitatua. Fungua faili kwenye mhariri wako, na utaona kiolesura kile kile tulichopata na migogoro awali. Tuhifadhi mabadiliko yetu ya `change one`. Kisha, utahitaji kuendesha `git add .` kuongeza mabadiliko, na `git rebase --continue` kuambia Git tuko tayari kuendelea na rebase. Kwa kuwa tumetatua mgogoro kwenye commit ya kwanza, Git inaweza kushughulikia rebase ya commits zilizobaki moja kwa moja.
+
+Sasa, kama usafishaji wa mwisho, tufanye squash ya commits zetu tatu za mabadiliko kuwa commit moja kwa historia safi zaidi. Endesha `git rebase -i main` tena kufikia mhariri. Kisha, acha amri ya kwanza iwe `pick` lakini badilisha mbili zinazofuata kuwa `squash`. Huenda ukakutana na mgogoro uleule tena. Ukikutana, utatatua kwa njia ile ile ulivyofanya awali. Mara tu utakapotatua na kuendelea na rebase (au mara moja, kama hakuwa na mgogoro), utaona mhariri wa ujumbe mpya wa commit ukifunguka. Ujumbe huu utakuwa commit yako mpya, ukiwa na mabadiliko kutoka kwa commits tatu tulizounganisha. Tuitaje hii `change three complete`. Hifadhi na funga mhariri, na Git itamaliza rebase.
+
+Ikiwa tukagua historia yako ya commits sasa, tunaweza kuona kuwa sasa tuna commit moja la `change three complete`, na limewekwa vizuri kwa msingi wa commit ya `change four`. Hii ina maana umefanikiwa kumaliza rebase na commits zilizounganishwa! Na sasa una zana unazohitaji kuwa bingwa wa migogoro ya kuunganisha!
+
+# --questions--
+
+## --text--
+
+Ni alama gani za migogoro ya kuunganisha ambazo Git huongeza kusaidia kutambua mabadiliko yanayopingana?
+
+## --answers--
+
+`<<< current branch`, `=== separator`, `>>> other branch`
+
+### --feedback--
+
+Fikiria sintaksia maalum ambayo Git hutumia kuonyesha mwanzo, katikati, na mwisho wa migogoro.
+
+---
+
+`[[ current branch`, `|| separator`, `]] other branch`
+
+### --feedback--
+
+Fikiria sintaksia maalum ambayo Git hutumia kuonyesha mwanzo, katikati, na mwisho wa migogoro.
+
+---
+
+`<<<<<<< current branch`, `======= separator`, `>>>>>>> other branch`
+
+---
+
+`--- current branch`, `+++ separator`, `--- other branch`
+
+### --feedback--
+
+Fikiria sintaksia maalum ambayo Git hutumia kuonyesha mwanzo, katikati, na mwisho wa migogoro.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Baada ya kutatua mgogoro wa kuunganisha kwa mkono katika hifadhidata yako ya ndani, ni amri gani unahitaji kuendesha ili kumaliza kuunganisha?
+
+## --answers--
+
+`git push origin main` na `git rebase -i origin/main`
+
+### --feedback--
+
+Baada ya kutatua migogoro, unahitaji kuweka na kufanya commit ya mabadiliko yaliyotatuliwa kama commit nyingine yoyote.
+
+---
+
+`git add` na `git commit`
+
+---
+
+`git merge --abort` na `git commit`
+
+### --feedback--
+
+Baada ya kutatua migogoro, unahitaji kuweka na kufanya commit ya mabadiliko yaliyotatuliwa kama commit nyingine yoyote.
+
+---
+
+`git reset --hard` na `git push -f`
+
+### --feedback--
+
+Baada ya kutatua migogoro, unahitaji kuweka na kufanya commit ya mabadiliko yaliyotatuliwa kama commit nyingine yoyote.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Tofauti kuu kati ya kuunganisha na rebase wakati wa kushughulikia migogoro ya matawi ni ipi?
+
+## --answers--
+
+Kuunganisha huunda commit mpya, wakati rebase huandika upya historia kuweka commits zako baada ya commits za tawi lingine.
+
+---
+
+Rebase ni haraka zaidi kuliko kuunganisha.
+
+### --feedback--
+
+Fikiria jinsi kila operesheni inavyoathiri historia ya commit.
+
+---
+
+Kuunganisha kunaweza kufanywa tu kwenye GitHub, rebase lazima ifanywe ndani ya kompyuta yako.
+
+### --feedback--
+
+Fikiria jinsi kila operesheni inavyoathiri historia ya commit.
+
+---
+
+Hakuna tofauti, ni operesheni moja tu.
+
+### --feedback--
+
+Fikiria jinsi kila operesheni inavyoathiri historia ya commit.
+
+## --video-solution--
+
+1

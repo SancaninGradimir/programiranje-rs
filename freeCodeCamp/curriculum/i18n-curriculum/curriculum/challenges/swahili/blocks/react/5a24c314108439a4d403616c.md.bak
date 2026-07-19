@@ -1,0 +1,104 @@
+---
+id: 5a24c314108439a4d403616c
+title: Ghairi vigezo vinavyopitishwa vya chaguo-msingi
+challengeType: 6
+forumTopicId: 301399
+dashedName: override-default-props
+---
+
+# --description--
+
+Uwezo wa kuweka vigezo vinavyopitishwa vya chaguo-msingi ni kipengele muhimu katika React. Njia ya ghairi vigezo vinavyopitishwa vya chaguo-msingi ni kuweka wazi thamani za vigezo kwa sehemu fulani.
+
+# --instructions--
+
+Sehemu ya `ShoppingCart` sasa inaonyesha sehemu ndogo ya `Items`. Sehemu hii ya `Items` ina kigezo cha chaguo-msingi `quantity` kilichowekwa kuwa nambari kamili `0`. Ghairi kigezo cha chaguo-msingi kwa kupitisha thamani ya `10` kwa `quantity`.
+
+**Kumbuka:** Kumbuka kuwa sintaksia ya kuongeza kigezo kwa sehemu ni sawa na jinsi unavyoongeza sifa za HTML. Hata hivyo, kwa kuwa thamani ya `quantity` ni nambari kamili, haitakuwa ndani ya nukuu bali inapaswa kufunikwa na mabano ya mviringo. Kwa mfano, `{100}`. Sintaksia hii inamwambia JSX kutafsiri thamani ndani ya mabano moja kwa moja kama JavaScript.
+
+# --hints--
+
+Sehemu ya `ShoppingCart` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    return mockedComponent.find('ShoppingCart').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Items` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+    return mockedComponent.find('Items').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Items` inapaswa kuwa na kigezo cha `{ quantity: 10 }` kinachopitishwa kutoka sehemu ya `ShoppingCart`.
+
+```js
+assert(
+    (function () {
+      const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));
+      return (
+        mockedComponent.find('Items').props().quantity == 10 &&
+        code.replace(/ /g, '')
+          .includes('<Itemsquantity={10}/>')
+      );
+    })()
+  );
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+}
+
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    { /* Change code below this line */ }
+    return <Items />
+    { /* Change code above this line */ }
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+}
+
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    { /* Change code below this line */ }
+    return <Items quantity = {10} />
+    { /* Change code above this line */ }
+  }
+};
+```

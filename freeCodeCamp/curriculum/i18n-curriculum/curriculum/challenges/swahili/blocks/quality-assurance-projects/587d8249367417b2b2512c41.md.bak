@@ -1,0 +1,387 @@
+---
+id: 587d8249367417b2b2512c41
+title: Mbadalishaji wa mita na imperiali
+challengeType: 4
+forumTopicId: 301570
+dashedName: metric-imperial-converter
+---
+
+# --description--
+
+Jenga programu ya JavaScript ya full-stack ambayo inaendana kiutendaji na hii: <a href="https://metric-imperial-converter.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://metric-imperial-converter.freecodecamp.rocks/</a>. Kufanya kazi kwenye mradi huu kutahusisha kuandika msimbo wako kwa kutumia mojawapo ya njia zifuatazo:
+
+- Nakili <a href="https://github.com/freeCodeCamp/boilerplate-project-metricimpconverter/" target="_blank" rel="noopener noreferrer nofollow">hii repo ya GitHub</a> na ukamilishe mradi wako kwa ndani ya kompyuta yako.
+- Tumia mtengenezaji wa tovuti unayempenda kukamilisha mradi. Hakikisha unajumuisha mafaili yote kutoka kwenye repo yetu ya GitHub.
+
+**Kumbuka:** Majaribio ya mradi huu hayafanyi kazi wakati unatumia `glitch.com`.
+
+# --instructions--
+
+- Kamilisha mantiki ya uongofu inayohitajika katika `/controllers/convertHandler.js`
+- Kamilisha njia za data zinazohitajika katika `/routes/api.js`
+- Nakili faili la `sample.env` kwenda `.env` na weka vigezo ipasavyo
+- Ili kuendesha majaribio moja kwa moja, ongeza `NODE_ENV=test` katika faili lako la `.env`
+- Ili kuendesha majaribio kwenye konsoli, tumia amri `npm run test`
+
+Andika majaribio yafuatayo katika `tests/1_unit-tests.js`:
+
+- `convertHandler` inapaswa kusoma kwa usahihi ingizo la nambari kamili.
+- `convertHandler` inapaswa kusoma kwa usahihi ingizo la nambari ya desimali.
+- `convertHandler` inapaswa kusoma kwa usahihi ingizo la sehemu.
+- `convertHandler` inapaswa kusoma kwa usahihi ingizo la sehemu lenye desimali.
+- `convertHandler` inapaswa kurudisha kosa kwa sehemu mbili (yaani `3/2/3`).
+- `convertHandler` inapaswa kutumia kwa chaguo la msingi nambari ya `1` wakati hakuna ingizo la nambari lililotolewa.
+- `convertHandler` inapaswa kusoma kwa usahihi kila kitengo halali cha ingizo.
+- `convertHandler` inapaswa kurudisha kosa kwa kitengo kisicho halali cha ingizo.
+- `convertHandler` inapaswa kurudisha kitengo sahihi cha kurudisha kwa kila kitengo halali cha ingizo.
+- `convertHandler` inapaswa kurudisha kwa usahihi kitengo kilichoandikwa kwa maneno kwa kila kitengo halali cha ingizo.
+- `convertHandler` inapaswa kubadilisha `gal` kuwa `L` kwa usahihi.
+- `convertHandler` inapaswa kubadilisha `L` kuwa `gal` kwa usahihi.
+- `convertHandler` inapaswa kubadilisha `mi` kuwa `km` kwa usahihi.
+- `convertHandler` inapaswa kubadilisha `km` kuwa `mi` kwa usahihi.
+- `convertHandler` inapaswa kubadilisha `lbs` kuwa `kg` kwa usahihi.
+- `convertHandler` inapaswa kubadilisha `kg` kuwa `lbs` kwa usahihi.
+
+Andika majaribio yafuatayo katika `tests/2_functional-tests.js`:
+
+- Badilisha ingizo halali kama `10L`: ombi la `GET` kwenda `/api/convert`.
+- Badilisha ingizo lisilo halali kama `32g`: ombi la `GET` kwenda `/api/convert`.
+- Badilisha nambari isiyo halali kama `3/7.2/4kg`: ombi la `GET` kwenda `/api/convert`.
+- Badilisha nambari na kitengo kisivyo halali kama `3/7.2/4kilomegagram`: ombi la `GET` kwenda `/api/convert`.
+- Badilisha bila nambari kama `kg`: ombi la `GET` kwenda `/api/convert`.
+
+# --hints--
+
+Unaweza kutoa mradi wako mwenyewe, si lazima URL ya mfano.
+
+```js
+  assert(
+    !/.*\/metric-imperial-converter\.freecodecamp\.rocks/.test(
+      code
+    )
+  );
+```
+
+Unaweza `GET` `/api/convert` kwa kigezo kimoja chenye nambari na kitengo kinachokubalika na ukibadilisha. (Kibukizi: Gawanya ingizo kwa kutafuta kielezo cha herufi ya kwanza itakayowakilisha mwanzo wa kitengo)
+
+```js
+
+```
+
+Unaweza kubadilisha `'gal'` kuwa `'L'` na kinyume chake. (1 gal hadi 3.78541 L)
+
+```js
+  try {
+    const response1 = await fetch(code + '/api/convert?input=1gal');
+    if (!response1.ok) {
+      throw Error(await response1.text());
+    }
+    const data1 = await response1.json();
+    assert.equal(data1.returnNum, 3.78541);
+    assert.equal(data1.returnUnit, 'L');
+    const response2 = await fetch(code + '/api/convert?input=10gal');
+    if (!response2.ok) {
+      throw Error(await response2.text());
+    }
+    const data2 = await response2.json();
+    assert.equal(data2.returnNum, 37.8541);
+    assert.equal(data2.returnUnit, 'L');
+    const response3 = await fetch(code + '/api/convert?input=1l');
+    if (!response3.ok) {
+      throw Error(await response3.text());
+    }
+    const data3 = await response3.json();
+    assert.equal(data3.returnNum, 0.26417);
+    assert.equal(data3.returnUnit, 'gal');
+    const response4 = await fetch(code + '/api/convert?input=10l');
+    if (!response4.ok) {
+      throw Error(await response4.text());
+    }
+    const data4 = await response4.json();
+    assert.equal(data4.returnNum, 2.64172);
+    assert.equal(data4.returnUnit, 'gal');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Unaweza kubadilisha `'lbs'` kuwa `'kg'` na kinyume chake. (1 lbs hadi 0.453592 kg)
+
+```js
+  try {
+    const response1 = await fetch(code + '/api/convert?input=1lbs');
+    if (!response1.ok) {
+      throw Error(await response1.text());
+    }
+    const data1 = await response1.json();
+    assert.equal(data1.returnNum, 0.45359);
+    assert.equal(data1.returnUnit, 'kg');
+    const response2 = await fetch(code + '/api/convert?input=10lbs');
+    if (!response2.ok) {
+      throw Error(await response2.text());
+    }
+    const data2 = await response2.json();
+    assert.equal(data2.returnNum, 4.53592);
+    assert.equal(data2.returnUnit, 'kg');
+    const response3 = await fetch(code + '/api/convert?input=1kg');
+    if (!response3.ok) {
+      throw Error(await response3.text());
+    }
+    const data3 = await response3.json();
+    assert.equal(data3.returnNum, 2.20462);
+    assert.equal(data3.returnUnit, 'lbs');
+    const response4 = await fetch(code + '/api/convert?input=10kg');
+    if (!response4.ok) {
+      throw Error(await response4.text());
+    }
+    const data4 = await response4.json();
+    assert.equal(data4.returnNum, 22.04624);
+    assert.equal(data4.returnUnit, 'lbs');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Unaweza kubadilisha `'mi'` kuwa `'km'` na kinyume chake. (1 mi hadi 1.60934 km)
+
+```js
+  try {
+    const response1 = await fetch(code + '/api/convert?input=1mi');
+    if (!response1.ok) {
+      throw Error(await response1.text());
+    }
+    const data1 = await response1.json();
+    assert.equal(data1.returnNum, 1.60934);
+    assert.equal(data1.returnUnit, 'km');
+    const response2 = await fetch(code + '/api/convert?input=10mi');
+    if (!response2.ok) {
+      throw Error(await response2.text());
+    }
+    const data2 = await response2.json();
+    assert.equal(data2.returnNum, 16.0934);
+    assert.equal(data2.returnUnit, 'km');
+    const response3 = await fetch(code + '/api/convert?input=1km');
+    if (!response3.ok) {
+      throw Error(await response3.text());
+    }
+    const data3 = await response3.json();
+    assert.equal(data3.returnNum, 0.62137);
+    assert.equal(data3.returnUnit, 'mi');
+    const response4 = await fetch(code + '/api/convert?input=10km');
+    if (!response4.ok) {
+      throw Error(await response4.text());
+    }
+    const data4 = await response4.json();
+    assert.equal(data4.returnNum, 6.21373);
+    assert.equal(data4.returnUnit, 'mi');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Vitengo vyote vinavyopokelewa vinapaswa kukubaliwa kwa herufi kubwa na ndogo, lakini vitakaporudishwa vitakuwa kwa herufi ndogo katika `initUnit` na `returnUnit`, isipokuwa kwa lita, itawakilishwa na `'L'` kubwa.
+
+```js
+  try {
+    const response1 = await fetch(code + '/api/convert?input=1gal');
+    if (!response1.ok) {
+      throw Error(await response1.text());
+    }
+    const data1 = await response1.json();
+    assert.equal(data1.initUnit, 'gal');
+    assert.equal(data1.returnUnit, 'L');
+    const response2 = await fetch(code + '/api/convert?input=10L');
+    if (!response2.ok) {
+      throw Error(await response2.text());
+    }
+    const data2 = await response2.json();
+    assert.equal(data2.initUnit, 'L');
+    assert.equal(data2.returnUnit, 'gal');
+    const response3 = await fetch(code + '/api/convert?input=1l');
+    if (!response3.ok) {
+      throw Error(await response3.text());
+    }
+    const data3 = await response3.json();
+    assert.equal(data3.initUnit, 'L');
+    assert.equal(data3.returnUnit, 'gal');
+    const response4 = await fetch(code + '/api/convert?input=10KM');
+    if (!response4.ok) {
+      throw Error(await response4.text());
+    }
+    const data4 = await response4.json();
+    assert.equal(data4.initUnit, 'km');
+    assert.equal(data4.returnUnit, 'mi');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Kama kitengo cha kipimo si halali, itarudishwa `'invalid unit'`.
+
+```js
+  try {
+    const response = await fetch(code + '/api/convert?input=1min');
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const data = await response.text();
+    assert(data.error === 'invalid unit' || data === 'invalid unit');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Kama nambari si halali, itarudishwa `'invalid number'`.
+
+```js
+  try {
+    const response = await fetch(
+      code + '/api/convert?input=1//2gal'
+    );
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const data = await response.text();
+    assert(data.error === 'invalid number' || data === 'invalid number');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Kama kitengo na nambari zote si halali, itarudishwa `'invalid number and unit'`.
+
+```js
+  try {
+    const response = await fetch(
+      code + '/api/convert?input=1//2min'
+    );
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const data = await response.text();
+    assert(
+      data.error === 'invalid number and unit' ||
+        data === 'invalid number and unit'
+    );
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Unaweza kutumia sehemu, desimali au zote mbili katika kigezo (yaani 5, 1/2, 2.5/6), lakini kama hakuna chochote kilichotolewa itatumia 1 kama msingi.
+
+```js
+  try {
+    const response1 = await fetch(code + '/api/convert?input=mi');
+    if (!response1.ok) {
+      throw Error(await response1.text());
+    }
+    const data1 = await response1.json();
+    assert.approximately(data1.initNum, 1, 0.001);
+    assert.approximately(data1.returnNum, 1.60934, 0.001);
+    assert.equal(data1.returnUnit, 'km');
+    const response2 = await fetch(code + '/api/convert?input=1/5mi');
+    if (!response2.ok) {
+      throw Error(await response2.text());
+    }
+    const data2 = await response2.json();
+    assert.approximately(data2.initNum, 1 / 5, 0.1);
+    assert.approximately(data2.returnNum, 0.32187, 0.001);
+    assert.equal(data2.returnUnit, 'km');
+    const response3 = await fetch(
+      code + '/api/convert?input=1.5/7km'
+    );
+    if (!response3.ok) {
+      throw Error(await response3.text());
+    }
+    const data3 = await response3.json();
+    assert.approximately(data3.initNum, 1.5 / 7, 0.001);
+    assert.approximately(data3.returnNum, 0.13315, 0.001);
+    assert.equal(data3.returnUnit, 'mi');
+    const response4 = await fetch(
+      code + '/api/convert?input=3/2.7km'
+    );
+    if (!response4.ok) {
+      throw Error(await response4.text());
+    }
+    const data4 = await response4.json();
+    assert.approximately(data4.initNum, 3 / 2.7, 0.001);
+    assert.approximately(data4.returnNum, 0.69041, 0.001);
+    assert.equal(data4.returnUnit, 'mi');
+  } catch (err) {
+    throw new Error(err.responseText || err.message);
+  }
+```
+
+Kurudisho lako litakuwa na `initNum`, `initUnit`, `returnNum`, `returnUnit`, na `string` zikielezea vitengo kwa muundo wa `'{initNum} {initUnitString} converts to {returnNum} {returnUnitString}'` na matokeo yakiwa yamezungushwa hadi desimali 5.
+
+```js
+  try {
+    const response = await fetch(code + '/api/convert?input=2mi');
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const data = await response.json();
+    assert.equal(data.initNum, 2);
+    assert.equal(data.initUnit, 'mi');
+    assert.approximately(data.returnNum, 3.21868, 0.001);
+    assert.equal(data.returnUnit, 'km', 'returnUnit did not match');
+    assert.equal(data.string, '2 miles converts to 3.21868 kilometers');
+  } catch (xhr) {
+    throw new Error(xhr.responseText || xhr.message);
+  }
+```
+
+Majaribio yote 16 ya vitengo yamekamilika na yanapita.
+
+```js
+  try {
+    const response = await fetch(code + '/_api/get-tests');
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const getTests = await response.json();
+    assert.isArray(getTests);
+    const unitTests = getTests.filter(test => {
+      return !!test.context.match(/Unit Tests/gi);
+    });
+    assert.isAtLeast(unitTests.length, 16, 'At least 16 tests passed');
+    unitTests.forEach(test => {
+      assert.equal(test.state, 'passed', 'Tests in Passed State');
+      assert.isAtLeast(
+        test.assertions.length,
+        1,
+        'At least one assertion per test'
+      );
+    });
+  } catch (err) {
+    throw new Error(err.responseText || err.message);
+  }
+```
+
+Majaribio yote 5 ya utendaji yamekamilika na yanapita.
+
+```js
+  try {
+    const response = await fetch(code + '/_api/get-tests');
+    if (!response.ok) {
+      throw Error(await response.text());
+    }
+    const getTests = await response.json();
+    assert.isArray(getTests);
+    const functTests = getTests.filter(test => {
+      return !!test.context.match(/Functional Tests/gi);
+    });
+    assert.isAtLeast(functTests.length, 5, 'At least 5 tests passed');
+    functTests.forEach(test => {
+      assert.equal(test.state, 'passed', 'Tests in Passed State');
+      assert.isAtLeast(
+        test.assertions.length,
+        1,
+        'At least one assertion per test'
+      );
+    });
+  } catch (err) {
+    throw new Error(err.responseText || err.message);
+  }
+```

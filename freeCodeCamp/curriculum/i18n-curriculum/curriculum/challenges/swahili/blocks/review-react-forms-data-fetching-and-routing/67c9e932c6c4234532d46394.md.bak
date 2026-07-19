@@ -1,0 +1,502 @@
+---
+id: 67c9e932c6c4234532d46394
+title: "Ukaguzi wa fomu za React, upatikanaji wa data na upangaji njia"
+challengeType: 31
+dashedName: review-react-forms-data-fetching-and-routing
+---
+
+# --description--
+
+## Kufanya kazi na fomu katika React
+
+- **Sehemu za ingizo zilizo chini ya udhibiti**: Hii ni pale unapohifadhi thamani ya sehemu ya ingizo katika state na kuiboresha kupitia matukio ya `onChange`. Hii inakupa udhibiti kamili juu ya data ya fomu na kuruhusu uthibitisho wa papo hapo na uonyeshaji wa masharti.
+
+```jsx
+import { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(name);
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Your name</label> <br />
+        <input value={name} id="name" onChange={handleChange} type="text" />
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  );
+}
+
+export default App;
+```
+
+- **Sehemu za ingizo zisizo chini ya udhibiti**: Badala ya kushughulikia sehemu za ingizo kupitia kiungo cha `useState`, sehemu zisizo chini ya udhibiti katika HTML zinahifadhi state zao za ndani kwa msaada wa DOM. Kwa kuwa DOM inadhibiti thamani za ingizo, unahitaji kuvuta thamani za sehemu za ingizo kwa `ref`.
+
+```jsx
+import { useRef } from "react";
+
+function App() {
+ const nameRef = useRef();
+
+ const handleSubmit = (e) => {
+   e.preventDefault();
+   console.log(nameRef.current.value);
+ };
+
+ return (
+   <form onSubmit={handleSubmit}>
+     <label htmlFor="name">Your</label>{" "}
+     <input type="text" ref={nameRef} id="name" />
+     <button type="submit">Submit</button>
+   </form>
+ );
+}
+
+export default App;
+```
+
+## Kufanya kazi na kiungo cha `useActionState`
+
+- **Vitendo vya seva**: Hizi ni kitendakazi zinazotekelezwa kwenye seva kuruhusu usindikaji wa fomu moja kwa moja kwenye seva bila hitaji la kiishio cha API. Hapa kuna mfano kutoka kwa programu ya Next.js:
+
+```js
+"use server";
+
+async function submitForm(formData) {
+ const name = formData.get("name");
+ return { message: `Hello, ${name}!` };
+}
+```
+
+Amri ya `"user server"` inaonyesha kitendakazi kama kitendo cha seva.
+
+- **Kiungo cha `useActionState`**: Kiungo hiki huboresha state kulingana na matokeo ya uwasilishaji wa fomu. Hapa kuna sintaksia ya msingi ya kiungo cha `useActionState`:
+
+```js
+const [state, action, isPending] = useActionState(actionFunction, initialState, permalink);
+```
+
+- `state` ni state ya sasa ambayo kitendo kinarejesha.
+- `action` ni kitendakazi kinachochochea kitendo cha seva.
+- `isPending` ni thamani ya kweli au siyo kweli inayoonyesha kama kitendo kinaendelea au la.
+- Kigezo cha `actionFunction` ni kitendo cha seva yenyewe.
+- `initialState` ni kigezo kinachoonyesha mwanzo wa state kabla ya kitendo kuanza.
+- `permalink` ni mfuatano wa herufi wa hiari unaoonyesha URL ya kipekee ya ukurasa ambayo fomu inabadilisha.
+
+## Upatikanaji wa data katika React
+
+- **Chaguzi za kupata data**: Kuna njia nyingi tofauti za kupata data katika React. Unaweza kutumia API ya Fetch ya asili, au zana za watu wengine kama Axios au SWR.
+- **Mabadiliko ya state yanayotumika mara kwa mara wakati wa kupata data**: Bila kujali njia unayotumia kupata data katika React, kuna vipande vya state ambavyo utahitaji kufuatilia. Kwanza ni data yenyewe. Pili ni kufuatilia kama data bado inapatikana. Tatu ni state itakayoshika makosa yoyote yanayoweza kutokea wakati wa mchakato wa upatikanaji wa data.
+
+```js
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+```
+
+Kwa kuwa upatikanaji wa data ni athari ya pembeni, ni bora kutumia `Fetch API` ndani ya kiungo cha `useEffect`.
+
+```js
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+      
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await res.json();
+      setData(data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+```
+
+Kisha unaweza kuonyesha ujumbe wa kupakia ikiwa upatikanaji wa data haujakamilika, ujumbe wa hitilafu ikiwa kulikuwa na hitilafu wakati wa kupata data, au matokeo.
+
+```jsx
+if (loading) {
+  return <p>Loading...</p>;
+}
+
+if (error) {
+  return <p>{error.message}</p>;
+}
+
+return (
+  <ul>
+    {data.map((post) => (
+      <li key={post.id}>{post.title}</li>
+    ))}
+  </ul>
+);
+```
+
+Ikiwa unataka kutumia Axios, unahitaji kuisakinisha na kuileta:
+
+```bash
+npm i axios
+```
+
+```js
+import axios from "axios";
+```
+
+Kisha unaweza kupata data kwa kutumia `axios.get`:
+
+```jsx
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      setData(res.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+```
+
+Ili kupata data kwa kutumia kiungo cha `useSWR`, unahitaji kwanza kuisakinisha na kuileta.
+
+```bash
+npm i swr
+```
+
+```js
+import useSWR from "swr";
+```
+
+Hapa ni jinsi unavyoweza kutumia kiungo kupata data:
+
+```jsx
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const FetchTodos = () => {
+ const { data, error } = useSWR(
+   "https://jsonplaceholder.typicode.com/todos",
+   fetcher
+ );
+
+ if (!data) {
+   return <h2>Loading...</h2>;
+ }
+ if (error) {
+   return <h2>Error: {error.message}</h2>;
+ }
+
+ return (
+   <>
+     <h2>Todos</h2>
+     <div>
+       {data.map((todo) => (
+         <h3 key={todo.id}>{todo.title}</h3>
+       ))}
+     </div>
+   </>
+ );
+};
+
+export default FetchTodos;
+```
+
+## Kufanya kazi na kiungo cha `useOptimistic`
+
+- **Kiungo cha `useOptimistic`**: Kiungo hiki hutumika kuweka UI zikiwa zinajibadilisha wakati zinaposubiri kitendo cha async kukamilika nyuma ya pazia. Husaidia kusimamia "sasisho za matumaini" katika UI, mbinu ambayo unatoa sasisho za papo hapo kwa UI kulingana na matokeo yanayotarajiwa ya kitendo, kama kusubiri jibu kutoka seva.
+
+Hapa kuna sintaksia ya msingi:
+
+```js
+const [optimisticState, addOptimistic] = useOptimistic(actualState, updateFunction);
+```
+
+- `optimisticState` ni state ya muda mfupi inayoboresha papo hapo kwa uzoefu bora wa mtumizi.
+- `addOptimistic` ni kitendakazi kinachotekeleza sasisho la matumaini kabla ya mabadiliko halisi ya state.
+- `actualState` ni thamani halisi ya state inayotokana na matokeo ya kitendo, kama kupata data kutoka seva.
+- `updateFunction` ni kitendakazi kinachoamua jinsi state ya matumaini inavyopaswa kuboreshwa inapoitwa.
+
+Hapa kuna mfano wa kutumia kiungo cha `useOptimistic` katika sehemu ya `TaskList`:
+
+```jsx
+"use client";
+
+import { useOptimistic } from "react";
+
+export default function TaskList({ tasks, addTask }) {
+  const [optimisticTasks, addOptimisticTask] = useOptimistic(
+    tasks,
+    (state, newTask) => [...state, { text: newTask, pending: true }]
+  );
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    addOptimisticTask(formData.get("task"));
+
+    addTask(formData);
+    e.target.reset();
+  }
+
+  return <>{/* UI */}</>;
+}
+```
+
+- **`startTransition`**: Hii hutumika kuonyesha sehemu ya UI na kuonyesha sasisho la state kama mabadiliko yasiyo ya dharura. Hii inaruhusu UI kujibadilisha wakati wa sasisho ghali. Hapa kuna sintaksia ya msingi:
+
+```js
+startTransition(action);
+```
+
+`action` hufanya sasisho la state au kuanzisha mantiki inayohusiana na mabadiliko yasiyo ya dharura. Hii inahakikisha kuwa sasisho za dharura za UI (kama kuandika au kubofya) hazizuiliwi.
+
+## Kufanya kazi na kiungo cha `useMemo`
+
+- **Memoization**: Hii ni mbinu ya uboreshaji ambapo matokeo ya wito wa vitendakazi ghali huhifadhiwa (kumbukwa) kulingana na hoja maalum. Wakati hoja zile zile zinapotolewa tena, matokeo yaliyohifadhiwa hurudishwa badala ya kuhesabu upya kitendakazi.
+- **Kiungo cha `useMemo`**: Kiungo hiki hutumika kuhifadhi thamani zilizohesabiwa. Hapa kuna mfano wa kuhifadhi matokeo ya kupanga safu kubwa ya data. `expensiveSortFunction` itaendeshwa tu wakati `largeArray` itabadilika:
+
+```js
+const memoizedSortedArray = useMemo(
+  () => expensiveSortFunction(largeArray),
+  [largeArray]
+);
+```
+
+## Kufanya kazi na kiungo cha `useCallback`
+
+- **Kiungo cha `useCallback`**: Hii hutumika kuhifadhi rejea za vitendakazi.
+
+```js
+const handleClick = useCallback(() => {
+  // code goes here
+}, [dependency]);
+``` 
+
+- **`React.memo`**: Hii hutumika kuhifadhi sehemu ili kuizuia kuonyeshwa tena bila sababu wakati vigezo vyake havijabadilika.
+
+```jsx
+const MemoizedComponent = React.memo(({ prop }) => {
+ return (
+   <>
+     {/* Presentation */}
+   </>
+ )
+});
+``` 
+
+## Zana za usimamizi wa utegemezi
+
+- **Ufafanuzi wa utegemezi**: Katika programu, utegemezi ni pale sehemu moja au moduli katika programu inategemea nyingine ili ifanye kazi ipasavyo. Utegemezi ni wa kawaida katika programu kwa sababu huruhusu wasanidi kutumia vitendakazi au zana zilizojengwa awali na wengine. Utegemezi kuu mbili zinazohitajika kwa mradi wa React zitakuwa vifurushi vya `react` na `react-dom`:
+
+```json
+"dependencies": {
+  "react": "^18.3.1",
+  "react-dom": "^18.3.1"
+}
+```
+
+- **Ufafanuzi wa msimamizi wa vifurushi**: Ili kusimamia utegemezi wa programu katika mradi, utahitaji kutumia msimamizi wa vifurushi. Msimamizi wa vifurushi ni zana inayotumika kwa usakinishaji, masasisho na kuondoa utegemezi. Lugha nyingi maarufu za programu kama JavaScript, Python, Ruby na Java, zote hutumia wasimamizi wa vifurushi. Wasimamizi maarufu wa vifurushi kwa JavaScript ni npm, Yarn na pnpm.
+- **Faili ya `package.json`**: Hii ni faili muhimu ya usanidi katika miradi inayojumuisha metadata kuhusu mradi wako, ikiwa ni pamoja na jina, toleo, na utegemezi. Pia inaeleza skripti, taarifa za leseni, na mipangilio mingine inayosaidia kusimamia mradi na utegemezi wake.
+- **Faili ya `package-lock.json`**: Faili hii itafunga toleo halisi la vifurushi vyote vinavyotumika katika mradi wako. Unaposasisha kifurushi, toleo jipya litasasishwa pia katika faili hii ya kufunga.
+- **Folda ya `node_modules`**: Folda hii ina msimbo halisi wa utegemezi ulioorodheshwa katika faili yako ya `package.json`, ikiwa ni pamoja na utegemezi wa moja kwa moja wa mradi wako na utegemezi wa utegemezi huo.
+- **Utegemezi wa maendeleo**: Hivi ni vifurushi vinavyotumika tu kwa ajili ya ukuzaji na si kwa uzalishaji. Mfano wa hili ni maktaba ya majaribio kama Jest. Utasakinisha Jest kama utegemezi wa maendeleo kwa sababu unahitajika kwa ajili ya kujaribu programu yako kwa ndani lakini hauhitajiki kuendesha programu katika uzalishaji.
+
+```json
+"devDependencies": {
+  "@eslint/js": "^9.17.0",
+  "@types/react": "^18.3.18",
+  "@types/react-dom": "^18.3.5",
+  "@vitejs/plugin-react": "^4.3.4",
+  "eslint": "^9.17.0",
+  "eslint-plugin-react": "^7.37.2",
+  "eslint-plugin-react-hooks": "^5.0.0",
+  "eslint-plugin-react-refresh": "^0.4.16",
+  "globals": "^15.14.0",
+  "vite": "^6.0.5"
+}
+```
+
+## Kipanga-njia cha React
+
+- **Utangulizi**: Kipanga-njia cha React ni maktaba ya mtu wa tatu inayokuwezesha kuongeza upangaji njia katika programu zako za React. Kuanza, utahitaji kusakinisha Kipanga-njia cha React katika mradi uliopo wa React kama ifuatavyo:
+
+```bash
+npm i react-router
+```
+
+Kisha ndani ya faili ya `main.jsx` au `index.jsx`, utahitaji kuweka muundo wa njia kama ifuatavyo:
+
+```jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router";
+import App from "./App.jsx";
+
+import "./index.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);
+```
+
+`path` na `element` hutumika kuunganisha URL na sehemu za UI pamoja. Katika kesi hii, tunapanga njia ya ukurasa wa nyumbani inayorejelea sehemu ya `App`.
+
+- **Maoni mengi na usanidi wa njia**: Ni kawaida katika programu kubwa kuwa na maoni mengi na njia zilizopangwa kama ifuatavyo:
+
+```jsx
+<Routes>
+  <Route index element={<Home />} />
+  <Route path="about" element={<About />} />
+
+  <Route path="products">
+    <Route index element={<ProductsHome />} />
+    <Route path=":category" element={<Category />} />
+    <Route path=":category/:productId" element={<ProductDetail />} />
+    <Route path="trending" element={<Trending />} />
+  </Route>
+</Routes>
+```
+
+Vigezo vya `index` katika mifano hii vinakusudiwa kuwakilisha njia ya msingi kwa sehemu fulani ya njia. Hivyo sehemu ya `Home` itaonyeshwa katika njia ya mzizi ya `/` wakati sehemu ya `ProductsHome` itaonyeshwa katika njia ya `/products`.
+
+- **Kupanga ndani njia**: Unaweza kupanga ndani njia ndani ya njia nyingine ambayo husababisha njia ya mtoto kuongezwa kwenye njia ya mzazi.
+
+```jsx
+<Route path="products">
+  <Route path="trending" element={<Trending />} />
+</Route>
+```
+
+Katika mfano hapo juu, njia ya bidhaa maarufu itakuwa products/trending.
+
+- **Sehemu zinazobadilika**: Sehemu inayobadilika ni pale sehemu yoyote ya njia ya URL inavyobadilika.
+
+```jsx
+<Route path=":category" element={<Category />} />
+```
+
+Katika mfano huu tuna sehemu inayobadilika iitwayo `category`. Mtumizi anapobofya URL kama products/brass-instruments, basi maoni yatabadilika kwenda sehemu ya `Category` na unaweza kupata data inayofaa kwa njia ya sehemu hiyo inayobadilika.
+
+- **Kiungo cha `useParams`**: Kiungo hiki hutumika kupata vigezo vinavyobadilika kutoka kwenye njia ya URL.
+
+```jsx
+import { useParams } from "react-router";
+
+export default function Category() {
+  let params = useParams();
+  {/* Accessing the category param: params.category */}
+  {/* rest of code goes here */}
+}
+```
+
+## Mifumo ya React
+
+- **Utangulizi**: Mifumo ya React hutoa vipengele kama upangaji njia, uboreshaji wa picha, upatikanaji wa data, uthibitisho wa utambulisho na zaidi. Hii inamaanisha kuwa huenda usihitaji kuweka programu za mbele na nyuma tofauti kwa baadhi ya matumizi. Mifano ya mifumo ya React ni Next.js na Remix.
+- **Upangaji njia wa Next.js**: Mfumo huu wa upangaji njia unajumuisha msaada kwa njia zinazobadilika, njia sambamba, mshughulikiaji wa njia, elekezo upya, utafsiri na zaidi.
+
+Hapa kuna mfano wa kuunda mshughulikiaji maalum wa ombi:
+
+```js
+export async function GET() {
+  const res = await fetch("https://example-api.com");
+  const data = await res.json();
+
+  return Response.json({ data });
+}
+```
+
+- **Uboreshaji wa picha wa Next.js**: Sehemu ya `Image` inaongeza kipengele cha asili cha HTML cha `img` na kuruhusu upakiaji wa haraka wa kurasa na uboreshaji wa ukubwa. Hii inamaanisha picha zitapakia tu zinapoingia katika eneo la kuona na sehemu ya `Image` itahudumia picha zilizo na ukubwa unaofaa kwa kila kifaa moja kwa moja.
+
+```jsx
+import Image from "next/image";
+
+export default function Page() {
+  return (
+    <Image src="link-to-image-goes-here" alt="descriptive-title-goes-here" />
+  );
+}
+``` 
+
+## Kupitisha vigezo kwa sehemu za watoto (Prop drilling)
+
+- **Ufafanuzi**: Kupitisha vigezo ni mchakato wa kupitisha vigezo kutoka sehemu ya mzazi hadi sehemu za watoto zilizo ndani sana, hata wakati baadhi ya sehemu za watoto hazihitaji vigezo hivyo.
+
+## Usimamizi wa state
+
+- **API ya muktadha**: Muktadha unahusu pale sehemu ya mzazi inapotengeneza taarifa kwa sehemu za watoto bila hitaji la kupitisha moja kwa moja kupitia vigezo. `createContext` hutumika kuunda kitu cha muktadha kinacho wakilisha muktadha ambao sehemu nyingine zitakisoma. `Provider` hutumika kusambaza thamani za muktadha kwa sehemu za watoto.
+
+```jsx
+import { useState, createContext } from "react";
+
+const CounterContext = createContext();
+
+const CounterProvider = ({ children }) => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <CounterContext.Provider value={{ count, setCount }}>
+      {children}
+    </CounterContext.Provider>
+  );
+};
+
+export { CounterContext, CounterProvider };
+```
+
+- **Redux**: Redux hushughulikia usimamizi wa state kwa kutoa hifadhi kuu na udhibiti mkali wa masasisho ya state. Inatumia muundo unaotabirika wa vitendo, reducers, na programu ya kati. Vitendo ni mzigo wa taarifa unaotuma data kutoka kwa programu yako kwenda hifadhi ya Redux, mara nyingi hutokea kutokana na mwingiliano wa mtumizi. Reducers ni vitendakazi vinavyoeleza jinsi state inavyopaswa kubadilika kwa mujibu wa vitendo hivyo, kuhakikisha state inasasishwa kwa njia isiyobadilika. Programu ya kati, kwa upande mwingine, hutumika kama daraja kati ya kutuma vitendo na reducer, ikikuruhusu kuongeza utendaji wa Redux (mfano, kurekodi, kushughulikia shughuli za async) bila kubadilisha mtiririko wa msingi.
+
+- **Zustand**: Suluhisho hili la usimamizi wa state ni bora kwa programu ndogo hadi za wastani. Hufanya kazi kwa kutumia kiungo cha `useStore` kupata state moja kwa moja katika sehemu na kurasa. Hii inakuwezesha kubadilisha na kupata data bila hitaji la vitendo, reducers, au mtoaji.
+
+## Kurekebisha makosa katika sehemu za React kwa kutumia zana za msanidi programu za React
+
+- **Zana za msanidi programu za React**: Hii ni nyongeza ya kivinjari unayoweza kutumia katika Chrome, Firefox na Edge kuchunguza sehemu za React na kubaini matatizo ya utendaji. Kwa Safari, utahitaji kusakinisha kifurushi cha npm cha `react-devtools`. Baada ya kusakinisha React DevTools na kufungua programu ya React katika kivinjari, fungua zana za msanidi programu za kivinjari kupata tabo mbili za ziada zinazotolewa kwa ajili ya kurekebisha makosa ya React – Sehemu na Profaili.
+- **Tabo ya sehemu**: Tabo hii inaonyesha kila sehemu kwako kwa muundo wa mti. Hapa kuna mambo unayoweza kufanya katika tabo hii:
+  - angalia mti wa sehemu za programu
+  - angalia na badilisha vigezo, state, na thamani za muktadha kwa wakati halisi
+  - angalia msimbo wa chanzo wa kila sehemu iliyochaguliwa
+  - andika data ya sehemu kwenye konsoli
+  - chunguza vipengele vya DOM vya sehemu
+- **Tabo ya profaili**: Tabo hii inakusaidia kuchambua utendaji wa sehemu. Unaweza kurekodi utendaji wa sehemu ili kubaini kuonyeshwa tena zisizohitajika, kuona muda wa kujitolea, na kisha kuboresha sehemu zinazochelewa.
+
+## Sehemu za seva za React
+
+- **Ufafanuzi**: Sehemu za seva za React ni sehemu za React zinazoonyesha tu kwenye seva, zikituma HTML ya mwisho tu kwa mteja. Hii inamaanisha sehemu hizo zinaweza kupata rasilimali za upande wa seva moja kwa moja na kupunguza kwa kiasi kikubwa kiasi cha JavaScript kinachotumwa kwa kivinjari.
+
+# --assignment--
+
+Kagua upangaji njia wa React, usimamizi wa state, fomu na upatikanaji wa data.

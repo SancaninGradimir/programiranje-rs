@@ -1,0 +1,70 @@
+---
+id: 69c918841987bf16c1d1bac5
+title: Hatua 14
+challengeType: 1
+dashedName: step-14
+---
+
+# --description--
+
+Baada ya kuchambua nodi zote kutafuta ile isiyotembelewa iliyo karibu zaidi, unahitaji kushughulikia hali ambapo hakuna nodi halali inayopatikana. Hii hutokea wakati nodi zote zilizobaki hazipatikani.
+
+Baada ya mzunguko wa ndani wa `for`, lakini bado ndani ya mzunguko wa nje, ongeza tamko la `if` linalokagua kama `current` ni sawa kabisa na `-1`. Ikiwa hilo ni kweli, tumia `break` ndani ya blokki ya `if` kusitisha mzunguko wa nje mapema.
+
+# --hints--
+
+Unapaswa kuongeza tamko la `if` linalokagua kama `current === -1`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /if\s*\(\s*current\s*===\s*-1\s*\)/
+);
+```
+
+Unapaswa kutumia `break` ndani ya blokki ya `if`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /if\s*\(\s*current\s*===\s*-1\s*\)[\s\S]*?break/
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INF = Infinity;
+const adjMatrix = [
+  [0, 5, 3, INF, 11, INF],
+  [5, 0, 1, INF, INF, 2],
+  [3, 1, 0, 1, 5, INF],
+  [INF, INF, 1, 0, 9, 3],
+  [11, INF, 5, 9, 0, INF],
+  [INF, 2, INF, 3, INF, 0],
+];
+
+function shortestPath(matrix, startNode, targetNode = null) {
+  const n = matrix.length;
+  const distances = new Array(n).fill(INF);
+  distances[startNode] = 0;
+  const paths = Array.from({ length: n }, (_, i) => [i]);
+  const visited = new Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    let minDistance = INF;
+    let current = -1;
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {
+        minDistance = distances[nodeNo];
+        current = nodeNo;
+      }
+    }
+--fcc-editable-region--
+
+--fcc-editable-region--
+  }
+}
+```

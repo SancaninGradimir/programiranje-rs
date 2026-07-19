@@ -1,0 +1,98 @@
+---
+id: 68d2ba1468508398389487ce
+title: "Challenge 73: Speak Wisely, You Must"
+challengeType: 29
+dashedName: challenge-73
+---
+
+# --description--
+
+Ukitoa sentensi, rudisha toleo lake ambalo linasikika kama ushauri kutoka kwa mwalimu mwenye busara kwa kutumia sheria zifuatazo:
+
+- Maneno yamegawanyika kwa nafasi moja tu.
+- Tafuta mara ya kwanza ya mojawapo ya maneno yafuatayo katika sentensi: `"have"`, `"must"`, `"are"`, `"will"`, `"can"`.
+- Hamisha maneno yote kabla na pamoja na neno hilo mwishoni mwa sentensi na:
+  - Hifadhi mpangilio wa maneno unapowahamisha.
+  - Yafanya yote kuwa herufi ndogo.
+  - Na ongeza koma na nafasi kabla yao.
+- Andika herufi kubwa ya neno la kwanza jipya la sentensi.
+- Sentensi zote zilizotolewa zitamalizika na alama moja ya uandishi. Hifadhi alama ya uandishi ya awali ya sentensi na uhamishe mwishoni mwa sentensi mpya.
+- Rudisha sentensi mpya, hakikisha kuna nafasi moja kati ya kila neno na hakuna nafasi mwanzoni au mwishoni mwa sentensi.
+
+Kwa mfano, ukipata `"You must speak wisely."` rudisha `"Speak wisely, you must."`
+
+# --hints--
+
+`wise_speak("You must speak wisely.")` should return `"Speak wisely, you must."`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(wise_speak("You must speak wisely."), "Speak wisely, you must.")`)
+}})
+```
+
+`wise_speak("You can do it!")` should return `"Do it, you can!"`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(wise_speak("You can do it!"), "Do it, you can!")`)
+}})
+```
+
+`wise_speak("Do you think you will complete this?")` should return `"Complete this, do you think you will?"`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(wise_speak("Do you think you will complete this?"), "Complete this, do you think you will?")`)
+}})
+```
+
+`wise_speak("All your base are belong to us.")` should return `"Belong to us, all your base are."`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(wise_speak("All your base are belong to us."), "Belong to us, all your base are.")`)
+}})
+```
+
+`wise_speak("You have much to learn.")` should return `"Much to learn, you have."`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(wise_speak("You have much to learn."), "Much to learn, you have.")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def wise_speak(sentence):
+
+    return sentence
+```
+
+# --solutions--
+
+```py
+def wise_speak(sentence):
+    triggers = ["have", "must", "are", "will", "can"]
+    punctuation = sentence[-1]
+    words = sentence[:-1].split(" ")
+
+    index = next(i for i, w in enumerate(words) if w in triggers)
+
+    to_move = [w.lower() for w in words[:index + 1]]
+    remaining = words[index + 1:]
+
+    if remaining:
+        remaining[0] = remaining[0][0].upper() + remaining[0][1:]
+
+    return " ".join(remaining) + ", " + " ".join(to_move) + punctuation
+```

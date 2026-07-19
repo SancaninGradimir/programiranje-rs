@@ -1,0 +1,241 @@
+---
+id: 673271f39f124ddac28866d5
+title: "Je, ni nini waendeshaji wa bitwise, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-bitwise-operators-and-how-do-they-work
+---
+
+# --interactive--
+
+Waendeshaji wa bitwise katika JavaScript ni waendeshaji maalum ambao hufanya kazi kwenye uwakilishi wa binary wa nambari. Ili kuelewa waendeshaji wa bitwise, kwanza tunahitaji kuelewa dhana ya bits na nambari za binary. Katika kompyuta, bit ni kitengo cha msingi kabisa cha taarifa. Inaweza kuwa na thamani mbili tu: `0` au `1`. Binary ni mfumo wa nambari unaotumia tarakimu hizi mbili tu kuwakilisha nambari zote.
+
+Kwa mfano, uwakilishi wa binary wa nambari ya desimali `10` ni `1010`. Katika mfumo huu, kila tarakimu inawakilisha nguvu ya `2`, kuanzia tarakimu ya kulia kabisa na kuongezeka tunaposogea kushoto.
+
+<table>
+  <tr>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td role="math" aria-label="1 times 2 to the power of 3">1 · 2<sup>3</sup></td>
+    <td role="math" aria-label="0 times 2 to the power of 2">0 · 2<sup>2</sup></td>
+    <td role="math" aria-label="1 times 2 to the power of 1">1 · 2<sup>1</sup></td>
+    <td role="math" aria-label="0 times 2 to the power of 0">0 · 2<sup>0</sup></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>0</td>
+    <td>2</td>
+    <td>0</td>
+  </tr>
+<table>
+
+Katika jedwali hapo juu, safu ya kwanza inaonyesha nambari ya binary `1010`, safu ya pili inaonyesha nguvu ya `2` inayowakilishwa na kila nafasi ya binary, na safu ya tatu inaonyesha matokeo ya kila kuzidisha. Ukijumlisha thamani zote katika safu ya tatu, jumla ni `10`.
+
+Sasa, tuangalie waendeshaji wa bitwise. Waendeshaji hawa hufanya operesheni kwenye uwakilishi wa binary wa nambari. JavaScript hutoa waendeshaji kadhaa wa bitwise, ikiwa ni pamoja na AND (`&`), OR (`|`), XOR (`^`), NOT (`~`), kushiftia kushoto (`<<`), na kushiftia kulia (`>>`).
+
+Waendeshaji wa bitwise AND (`&`) hurejesha `1` katika kila nafasi ya bit ambapo bits zinazolingana za pande zote mbili ni `1`. Hapa kuna mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+let b = 3;  // Binary: 011
+console.log(a & b);  // 1 (Binary: 001)
+```
+
+:::
+
+Katika mfano huu, tunafanya operesheni ya bitwise AND kwenye `5` (`101` katika binary) na `3` (`011` katika binary). Matokeo ni `1` (`001` katika binary) kwa sababu bit ya kulia kabisa tu ndiyo `1` katika nambari zote mbili.
+
+Waendeshaji wa bitwise OR (`|`) hurejesha `1` katika kila nafasi ya bit ambapo bits zinazolingana za pande moja au zote mbili ni `1`. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+let b = 3;  // Binary: 011
+console.log(a | b);  // 7 (Binary: 111)
+```
+
+:::
+
+Hapa, matokeo ni `7` (`111` katika binary) kwa sababu angalau bit moja ni `1` katika kila nafasi.
+
+Waendeshaji wa bitwise XOR (`^`) hurejesha `1` katika kila nafasi ya bit ambapo bits zinazolingana za pande moja, lakini si zote mbili, ni `1`. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+let b = 3;  // Binary: 011
+console.log(a ^ b);  // 6 (Binary: 110)
+```
+
+:::
+
+Matokeo ni `6` (`110` katika binary) kwa sababu bit ya kwanza na ya pili kutoka kulia ni tofauti katika nambari hizo mbili.
+
+Waendeshaji wa bitwise NOT (`~`) hubadilisha bits zote za operand yake. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+console.log(~a);  // -6
+```
+
+:::
+
+Hii inaweza kuonekana ya kushangaza, lakini ni kwa sababu ya jinsi nambari hasi zinavyowakilishwa katika binary kwa kutumia two's complement.
+
+Waendeshaji wa kushiftia kushoto (`<<`) husogeza bits zote kushoto kwa idadi fulani ya nafasi. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+console.log(a << 1);  // 10 (Binary: 1010)
+```
+
+:::
+
+Hapa, bits zote husogezwa nafasi moja kushoto, kwa ufanisi kuizidisha nambari kwa `2`.
+
+Waendeshaji wa kushiftia kulia (`>>`) husogeza bits zote kulia. Kwa mfano:
+
+:::interactive_editor
+
+```js
+let a = 5;  // Binary: 101
+console.log(a >> 1);  // 2 (Binary: 10)
+```
+
+:::
+
+Hapa, bits zote husogezwa nafasi moja kulia, kwa ufanisi kugawanya nambari kwa `2` na kuzirudisha chini.
+
+Waendeshaji wa bitwise hutumika mara nyingi katika programu za ngazi ya chini na usimbaji fiche. Ingawa huenda wasitumike sana katika programu za kawaida za JavaScript, kuelewa waendeshaji hawa kunaweza kuwa na manufaa kwa baadhi ya kazi maalum na kunaweza kuongeza uelewa wako wa jinsi kompyuta zinavyofanya kazi kwa kiwango cha msingi.
+
+# --questions--
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let a = 5;  // Binary: 101
+let b = 3;  // Binary: 011
+console.log(a & b);
+```
+
+## --answers--
+
+`8`
+
+### --feedback--
+
+Waendeshaji wa bitwise `AND` hurejesha `1` tu pale ambapo pande zote mbili zina `1` katika uwakilishi wao wa binary.
+
+---
+
+`1`
+
+---
+
+`7`
+
+### --feedback--
+
+Waendeshaji wa bitwise `AND` hurejesha `1` tu pale ambapo pande zote mbili zina `1` katika uwakilishi wao wa binary.
+
+---
+
+`15`
+
+### --feedback--
+
+Waendeshaji wa bitwise `AND` hurejesha `1` tu pale ambapo pande zote mbili zina `1` katika uwakilishi wao wa binary.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kitakuwa matokeo ya operesheni ifuatayo?
+
+```js
+let x = 8;  // Binary: 1000
+console.log(x << 2);
+```
+
+## --answers--
+
+`4`
+
+### --feedback--
+
+Waendeshaji wa kushiftia kushoto husogeza bits zote kushoto kwa idadi ya nafasi zilizobainishwa.
+
+---
+
+`16`
+
+### --feedback--
+
+Waendeshaji wa kushiftia kushoto husogeza bits zote kushoto kwa idadi ya nafasi zilizobainishwa.
+
+---
+
+`32`
+
+---
+
+`2`
+
+### --feedback--
+
+Waendeshaji wa kushiftia kushoto husogeza bits zote kushoto kwa idadi ya nafasi zilizobainishwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni uwakilishi gani wa binary wa nambari `6`?
+
+## --answers--
+
+`101`
+
+### --feedback--
+
+Kumbuka kuwa katika binary, kila tarakimu inawakilisha nguvu ya 2, kuanzia tarakimu ya kulia kabisa.
+
+---
+
+`110`
+
+---
+
+`111`
+
+### --feedback--
+
+Kumbuka kuwa katika binary, kila tarakimu inawakilisha nguvu ya 2, kuanzia tarakimu ya kulia kabisa.
+
+---
+
+`100`
+
+### --feedback--
+
+Kumbuka kuwa katika binary, kila tarakimu inawakilisha nguvu ya 2, kuanzia tarakimu ya kulia kabisa.
+
+## --video-solution--
+
+2

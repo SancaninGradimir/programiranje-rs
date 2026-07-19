@@ -1,0 +1,201 @@
+---
+id: 672c35a79fa53e00de9f2a49
+title: Ni mbinu bora gani za kuficha maudhui ili yasifike kuwa hayapatikani?
+challengeType: 19
+dashedName: what-are-best-practices-for-hiding-content-so-it-doesnt-become-inaccessible
+---
+
+# --interactive--
+
+Kuficha maudhui kwenye ukurasa wa mtandao ni mbinu ya kawaida katika ukuzaji wa mtandao, lakini ni muhimu kufanya hivyo kwa njia ambayo haisumbui ufikikaji. Mbinu tofauti za kuficha zinaweza kuathiri kwa namna tofauti jinsi teknolojia saidizi zinavyotafsiri na kuwasilisha maudhui kwa watumizi. Hebu tuchunguze mbinu bora za kuficha maudhui huku tukihakikisha ufikikaji unabaki. Njia moja ya kawaida ya kuficha maudhui ni kutumia `display: none`. Hapa kuna mfano:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<p class="hidden">Hidden text</p>
+<p>Visible text</p>
+```
+
+```css
+.hidden {
+  display: none;
+}
+```
+
+:::
+
+Ingawa hii inaficha maudhui kwa uonekano, pia huondoa maudhui kutoka kwenye mti wa ufikikaji. Mti wa ufikikaji ni muundo unaotumika na teknolojia saidizi, kama kisomaji cha skrini, kutafsiri na kuingiliana na maudhui kwenye ukurasa wa mtandao. Unawakilisha maudhui na maana yake ya kimaelezo kwa njia ambayo teknolojia saidizi inaweza kuelewa na kuwasilisha kwa mtumizi.
+
+Kutumia `display: none` kunamaanisha kwamba visomaji vya skrini na teknolojia nyingine za kusaidia haviwezi kupata maudhui haya, kwani hayajumuishwi kwenye mti wa ufikikaji. Kwa hiyo, ni muhimu kutumia njia hii tu wakati unataka kuondoa kabisa maudhui kutoka kwa uwasilishaji wa kuona na ufikikaji.
+
+Njia nyingine ya kuficha maudhui ni kutumia `visibility: hidden`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<p class="hidden">Hidden text</p>
+<p>Visible text</p>
+```
+
+```css
+.hidden {
+  visibility: hidden;
+}
+```
+
+:::
+
+`visibility: hidden` huficha maudhui kwa uonekano lakini huiacha katika mtiririko wa hati, ikimaanisha bado yanachukua nafasi kwenye ukurasa. Kama `display: none`, `visibility: hidden` pia huondoa maudhui kutoka kwenye mti wa ufikikaji. Hii inamaanisha kwamba teknolojia saidizi, kama visomaji vya skrini, haviwezi kupata maudhui yaliyofichwa. Tumia `visibility: hidden` tu unapotaka kuficha maudhui kwa kila mtu, ikiwa ni pamoja na watu wanaotumia teknolojia saidizi.
+
+Kwa maudhui yanayopaswa kufichwa kwa uonekano lakini yabaki kupatikana kwa visomaji vya skrini, unaweza kutumia mbinu inayojulikana kama "visually hidden" au "screen reader only". Hapa kuna mfano wa kutumia darasa la CSS la `.sr-only` ambalo ni mbinu ya kawaida ya kuficha maudhui kwa uonekano huku yakibaki kupatikana kwa visomaji vya skrini:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<p class="sr-only">Hidden text</p>
+<p>Visible text</p>
+```
+
+```css
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+```
+
+:::
+
+Katika mfano huu, tunatumia sifa kama `position`, `clip`, na `white-space`, ambazo utajifunza kuhusu katika mafundisho yajayo. Kwa sasa, fahamu tu kwamba sheria hii ya CSS huficha maudhui kwa uonekano huku yakibaki kupatikana kwa visomaji vya skrini. Ni muhimu kwa kutoa muktadha wa ziada kwa watumiaji wa visomaji vya skrini bila kuathiri mpangilio wa kuona.
+
+Kwa kubadili uonekano wa maudhui, fikiria kutumia sifa ya `hidden`:
+
+:::interactive_editor
+
+```html
+<p hidden>This content is hidden</p>
+<p>This content is visible</p>
+```
+
+:::
+
+Sifa ya `hidden` inaungwa mkono na vivinjari vingi vya kisasa na huficha maudhui kwa uonekano na pia kutoka kwenye mti wa ufikikaji. Inaweza kubadilishwa kwa urahisi kwa kutumia JavaScript. Mwisho, kuwa makini kuhusu kuficha maudhui muhimu. Ikiwa taarifa ni muhimu kwa kuelewa au kutumia tovuti, inapaswa kuonekana na kupatikana kwa watumizi wote. Ficha maudhui tu wakati kufanya hivyo kunaboresha kweli uzoefu wa mtumiaji. Kwa kufuata mbinu bora hizi, unaweza kuhakikisha kwamba maudhui yako yanabaki kupatikana kwa watumizi wote, bila kujali wanavyowasiliana na tovuti yako.
+
+# --questions--
+
+## --text--
+
+Ni tatizo gani kuu la ufikikaji linapotumika tamko za mtindo za `display: none` na `visibility: hidden`, au sifa ya `hidden` kuficha maudhui?
+
+## --answers--
+
+Njia hizi hufanya maudhui yaliyofichwa kupatikana tu kwa teknolojia saidizi kama visomaji vya skrini.
+
+### --feedback--
+
+Fikiria kuhusu tatizo la ufikikaji ambalo njia hizi zote zinashirikiana nalo.
+
+---
+
+Maudhui hufichwa tu hadi watumizi wapeleke panya yao juu ya maudhui hayo.
+
+### --feedback--
+
+Fikiria kuhusu tatizo la ufikikaji ambalo njia hizi zote zinashirikiana nalo.
+
+---
+
+Njia hizi huondoa maudhui kutoka kwenye mti wa ufikikaji, na kufanya isiwezekane kwa teknolojia saidizi kama visomaji vya skrini kupata maudhui yaliyofichwa.
+
+---
+
+Njia hizi hazifanyi kazi na baadhi ya vivinjari.
+
+### --feedback--
+
+Fikiria kuhusu tatizo la ufikikaji ambalo njia hizi zote zinashirikiana nalo.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Lengo kuu la mbinu ya CSS ya "visually hidden" au "screen reader only" ni lipi?
+
+## --answers--
+
+Kuficha maudhui kwa watumizi wote.
+
+### --feedback--
+
+Fikiria mahitaji ya watumizi wanaotegemea visomaji vya skrini.
+
+---
+
+Kufanya maudhui yaonekane tu kwenye vifaa vya mkononi.
+
+### --feedback--
+
+Fikiria mahitaji ya watumizi wanaotegemea visomaji vya skrini.
+
+---
+
+Kuficha maudhui kwa uonekano huku yakibaki kupatikana kwa visomaji vya skrini.
+
+---
+
+Kutengeneza mabadiliko ya picha kwa maudhui.
+
+### --feedback--
+
+Fikiria mahitaji ya watumizi wanaotegemea visomaji vya skrini.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni lini unapaswa kuficha maudhui kwenye ukurasa wa mtandao?
+
+## --answers--
+
+Wakati maudhui unayoficha si muhimu kama maudhui mengine kwenye ukurasa.
+
+### --feedback--
+
+Fikiria jinsi kuficha maudhui kunavyoathiri ufikikaji na uzoefu wa mtumiaji kwa ujumla.
+
+---
+
+Wakati maudhui unayoficha si sahihi.
+
+### --feedback--
+
+Fikiria jinsi kuficha maudhui kunavyoathiri ufikikaji na uzoefu wa mtumiaji kwa ujumla.
+
+---
+
+Ni wakati tu unapoboresha kweli uzoefu wa mtumiaji.
+
+---
+
+Kila wakati unapohisi hivyo.
+
+### --feedback--
+
+Fikiria jinsi kuficha maudhui kunavyoathiri ufikikaji na uzoefu wa mtumiaji kwa ujumla.
+
+## --video-solution--
+
+3

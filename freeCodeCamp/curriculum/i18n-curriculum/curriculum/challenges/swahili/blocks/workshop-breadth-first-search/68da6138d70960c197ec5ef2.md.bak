@@ -1,0 +1,67 @@
+---
+id: 68da6138d70960c197ec5ef2
+title: Hatua 10
+challengeType: 20
+dashedName: step-10
+---
+
+# --description--
+
+Ikiwa mfuatano wa herufi wa sasa bado haujakamilika, unahitaji kuchunguza hali zinazowezekana zinazofuata. Ongeza kifungu cha `else` kwenye usemi wako wa `if`.
+
+Ndani ya blokki ya `else`, utashughulikia kuongeza mabano ya kawaida ya kufungua. Ongeza usemi wa `if` kuangalia kama `opens_used < pairs`. Hii inahakikisha hauzitumii mabano ya kawaida ya kufungua zaidi ya idadi inayoruhusiwa.
+
+Ikiwa hali hii ni kweli, ongeza tuple mpya kwenye `queue`: `(current + '(', opens_used + 1, closes_used)`. Hii inawakilisha hali baada ya kuongeza mabano ya kawaida ya kufungua.
+
+# --hints--
+
+Unapaswa kuwa na kifungu cha `else` kwa usemi wako wa `if` ndani ya mzunguko wa `while`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0].tree.orelse
+`) })
+```
+
+Unapaswa kuwa na usemi wa `if` ndani ya blokki ya `else` ukikagua kama `opens_used < pairs`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0].find_conditions()[1].is_equivalent("opens_used < pairs")
+`) })
+```
+
+Unapaswa kuongeza `(current + '(', opens_used + 1, closes_used)` kwenye foleni wakati hali ni kweli.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0].find_bodies()[1].has_call("queue.append((current + '(', opens_used + 1, closes_used))")
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def gen_parentheses(pairs):
+    if not isinstance(pairs, int):
+        return 'The number of pairs should be an integer'
+    if pairs < 1:
+        return 'The number of pairs should be at least 1'
+    
+    queue = [('', 0, 0)]
+    result = []
+    while queue:
+        print(queue)
+        current, opens_used, closes_used = queue.pop(0)
+        if len(current) == 2 * pairs:
+            result.append(current)
+--fcc-editable-region--
+        
+--fcc-editable-region--
+    
+    return result
+
+print(gen_parentheses(1))
+```

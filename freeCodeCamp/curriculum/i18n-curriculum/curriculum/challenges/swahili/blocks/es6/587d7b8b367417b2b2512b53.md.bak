@@ -1,0 +1,109 @@
+---
+id: 587d7b8b367417b2b2512b53
+title: Tumia sintaksia ya darasa la vitu kutangaza kijenzi
+challengeType: 1
+forumTopicId: 301212
+dashedName: use-class-syntax-to-define-a-constructor-function
+---
+
+# --description--
+
+ES6 inatoa sintaksia mpya ya kuunda vitu, kwa kutumia neno kuu <dfn>darasa la vitu</dfn>.
+
+Katika ES5, kitu kinaweza kuundwa kwa kutangaza kitendakazi cha `constructor` na kutumia neno kuu la `new` kuanzisha kitu hicho.
+
+Katika ES6, tamko la `class` lina njia ya `constructor` inayoitwa kwa neno kuu la `new`. Ikiwa njia ya `constructor` haijatangazwa wazi, basi hutangazwa kwa njia isiyo wazi bila hoja yoyote.
+
+```js
+// Explicit constructor
+class SpaceShuttle {
+  constructor(targetPlanet) {
+    this.targetPlanet = targetPlanet;
+  }
+  takeOff() {
+    console.log("To " + this.targetPlanet + "!");
+  }
+}
+
+// Implicit constructor 
+class Rocket {
+  launch() {
+    console.log("To the moon!");
+  }
+}
+
+const zeus = new SpaceShuttle('Jupiter');
+// prints To Jupiter! in console
+zeus.takeOff();
+
+const atlas = new Rocket();
+// prints To the moon! in console
+atlas.launch();
+```
+
+Inapaswa kutambuliwa kuwa neno kuu la `class` linatangaza kitendakazi kipya, ambacho kijenzi kinaongezwa. Kijenzi hiki huita wakati `new` inapoitwa kuunda kitu kipya.
+
+**Kumbuka:** Camelcase ya Juu (UpperCamelCase) inapaswa kutumika kama mkataba kwa majina ya madarasa ya ES6, kama ilivyo kwenye `SpaceShuttle` iliyotumika hapo juu.
+
+Njia ya `constructor` ni njia maalum ya kuunda na kuanzisha kitu kilichoundwa kwa darasa la vitu. Utajifunza zaidi kuhusu hii katika sehemu ya Uprogramaji unaozingatia vitu ya Cheti cha Algorithimu za JavaScript na Miundo ya Data.
+
+# --instructions--
+
+Tumia neno kuu la `class` na andika `constructor` kuunda darasa la `Vegetable`.
+
+Darasa la `Vegetable` linakuwezesha kuunda kitu cha mboga chenye sifa ya `name` inayopitishwa kwa `constructor`.
+
+# --hints--
+
+`Vegetable` inapaswa kuwa `class` yenye njia ya `constructor` iliyotangazwa.
+
+```js
+assert(
+  typeof Vegetable === 'function' && typeof Vegetable.constructor === 'function'
+);
+```
+
+Neno kuu la `class` linapaswa kutumika.
+
+```js
+assert(__helpers.removeJSComments(code).match(/class/g));
+```
+
+`Vegetable` inapaswa kuweza kuanzishwa.
+
+```js
+assert(() => {
+  const a = new Vegetable('apple');
+  return typeof a === 'object';
+});
+```
+
+`carrot.name` inapaswa kurudisha `carrot`.
+
+```js
+assert(carrot.name == 'carrot');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+// Only change code below this line
+
+// Only change code above this line
+
+const carrot = new Vegetable('carrot');
+console.log(carrot.name); // Should display 'carrot'
+```
+
+# --solutions--
+
+```js
+class Vegetable {
+  constructor(name) {
+    this.name = name;
+  }
+}
+const carrot = new Vegetable('carrot');
+```

@@ -1,0 +1,83 @@
+---
+id: 691b559495c5cb5a37b9b487
+title: "Zoezi la 127: Kagua Kasi"
+challengeType: 28
+dashedName: challenge-127
+---
+
+# --description--
+
+Kutokana na kasi unayovuka kwa maili kwa saa (MPH), na kikomo cha kasi kwa kilomita kwa saa (KPH), amua kama unavuka kasi na kama utapokea onyo au tiketi.
+
+- Maili 1 ni sawa na kilomita 1.60934.
+- Ikiwa unasafiri kwa kasi isiyozidi au sawa na kikomo cha kasi, rudisha `"Not Speeding"`.
+- Ikiwa unasafiri kwa kasi ya KPH 5 au chini zaidi ya kikomo cha kasi, rudisha `"Warning"`.
+- Ikiwa unasafiri kwa kasi zaidi ya KPH 5 juu ya kikomo cha kasi, rudisha `"Ticket"`.
+
+# --hints--
+
+`speedCheck(30, 70)` inapaswa kurudisha `"Not Speeding"`.
+
+```js
+assert.equal(speedCheck(30, 70), "Not Speeding");
+```
+
+`speedCheck(40, 60)` inapaswa kurudisha `"Warning"`.
+
+```js
+assert.equal(speedCheck(40, 60), "Warning");
+```
+
+`speedCheck(40, 65)` inapaswa kurudisha `"Not Speeding"`.
+
+```js
+assert.equal(speedCheck(40, 65), "Not Speeding");
+```
+
+`speedCheck(60, 90)` inapaswa kurudisha `"Ticket"`.
+
+```js
+assert.equal(speedCheck(60, 90), "Ticket");
+```
+
+`speedCheck(65, 100)` inapaswa kurudisha `"Warning"`.
+
+```js
+assert.equal(speedCheck(65, 100), "Warning");
+```
+
+`speedCheck(88, 40)` inapaswa kurudisha `"Ticket"`.
+
+```js
+assert.equal(speedCheck(88, 40), "Ticket");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function speedCheck(speedMph, speedLimitKph) {
+  return speedMph;
+}
+```
+
+# --solutions--
+
+```js
+function speedCheck(speedMph, speedLimitKph) {
+  const speedKph = speedMph * 1.60934;
+
+  if (speedKph <= speedLimitKph) {
+    return "Not Speeding";
+  }
+
+  const over = speedKph - speedLimitKph;
+
+  if (over <= 5) {
+    return "Warning";
+  }
+
+  return "Ticket";
+}
+```

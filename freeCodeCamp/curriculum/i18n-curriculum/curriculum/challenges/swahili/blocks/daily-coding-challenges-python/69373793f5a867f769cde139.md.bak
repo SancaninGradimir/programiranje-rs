@@ -1,0 +1,106 @@
+---
+id: 69373793f5a867f769cde139
+title: "Challenge 154: Par for the Hole"
+challengeType: 29
+dashedName: challenge-154
+---
+
+# --description--
+
+Ukizingatia nambari kamili mbili, par kwa shimo la gofu na idadi ya michoro aliyochukua mchezaji wa gofu kwenye shimo hilo, rudisha alama ya mchezaji kwa kutumia maneno ya gofu.
+
+Return:
+
+- `"Hole in one!"` ikiwa ilichukua mchoro mmoja.
+- `"Eagle"` ikiwa ilichukua michoro miwili chini ya par.
+- `"Birdie"` ikiwa ilichukua mchoro mmoja chini ya par.
+- `"Par"` ikiwa ilichukua idadi sawa ya michoro na par.
+- `"Bogey"` ikiwa ilichukua mchoro mmoja zaidi ya par.
+- `"Double bogey"` ikiwa ilichukua michoro miwili zaidi ya par.
+
+# --hints--
+
+`golf_score(3, 3)` should return `"Par"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(3, 3), "Par")`)
+}})
+```
+
+`golf_score(4, 3)` should return `"Birdie"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(4, 3), "Birdie")`)
+}})
+```
+
+`golf_score(3, 1)` should return `"Hole in one!"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(3, 1), "Hole in one!")`)
+}})
+```
+
+`golf_score(5, 7)` should return `"Double bogey"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(5, 7), "Double bogey")`)
+}})
+```
+
+`golf_score(4, 5)` should return `"Bogey"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(4, 5), "Bogey")`)
+}})
+```
+
+`golf_score(5, 3)` should return `"Eagle"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(golf_score(5, 3), "Eagle")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def golf_score(par, strokes):
+
+    return par
+```
+
+# --solutions--
+
+```py
+def golf_score(par, strokes):
+    if strokes == 1:
+        return "Hole in one!"
+
+    diff = strokes - par
+
+    if diff == -2:
+        return "Eagle"
+    if diff == -1:
+        return "Birdie"
+    if diff == 0:
+        return "Par"
+    if diff == 1:
+        return "Bogey"
+    if diff == 2:
+        return "Double bogey"
+```

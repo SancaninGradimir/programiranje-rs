@@ -1,0 +1,139 @@
+---
+id: 5a24c314108439a4d403616f
+title: Kagua kutumia vigezo vinavyopitishwa na sehemu zisizo na hali zenye kitendakazi
+challengeType: 6
+forumTopicId: 301411
+dashedName: review-using-props-with-stateless-functional-components
+---
+
+# --description--
+
+Isipokuwa kwa changamoto ya mwisho, umekuwa ukipitisha vigezo vinavyopitishwa kwa sehemu zisizo na hali zenye kitendakazi. Sehemu hizi hufanya kazi kama kitendakazi safi. Zinakubali vigezo vinavyopitishwa kama ingizo na kurudisha muonekano uleule kila wakati zinapopitishwa vigezo vinavyopitishwa sawa. Huenda unajiuliza hali ni nini, na changamoto inayofuata itazungumzia kwa undani zaidi. Kabla ya hapo, hapa kuna ukaguzi wa istilahi za sehemu.
+
+*Sehemu isiyo na hali yenye kitendakazi* ni kitendakazi chochote unachokiandika kinachokubali vigezo vinavyopitishwa na kurudisha JSX. *Sehemu isiyo na hali*, kwa upande mwingine, ni darasa la vitu linaloendeleza `React.Component`, lakini halitumi hali ya ndani (itazungumziwa katika changamoto inayofuata). Mwisho, *sehemu yenye hali* ni darasa la sehemu ambalo lina hali yake ya ndani. Huenda ukaona sehemu zenye hali zikitajwa tu kama sehemu au sehemu za React.
+
+Mfumo wa kawaida ni kujaribu kupunguza hali na kuunda sehemu zisizo na hali zenye kitendakazi popote inapowezekana. Hii husaidia kuweka usimamizi wa hali yako katika eneo maalum la programu yako. Kwa upande mwingine, hii huongeza ukuzaji na matengenezo ya programu yako kwa kufanya iwe rahisi kufuatilia jinsi mabadiliko ya hali yanavyoathiri tabia yake.
+
+# --instructions--
+
+Mhariri wa msimbo una sehemu ya `CampSite` inayonyesha sehemu ya `Camper` kama mtoto. Tafsiri sehemu ya `Camper` na weka vigezo vinavyopitishwa vya msingi vya `{ name: 'CamperBot' }`. Ndani ya sehemu ya `Camper`, onyesha msimbo wowote unayotaka, lakini hakikisha kuwa na kipengele kimoja cha `p` kinachojumuisha thamani ya `name` tu inayopitishwa kama `prop`. Mwisho, tafsiri `propTypes` kwenye sehemu ya `Camper` ili kuhitaji `name` ipitishwe kama kigezo na hakiki kuwa ni cha aina ya `string`.
+
+# --hints--
+
+Sehemu ya `CampSite` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(CampSite));
+    return mockedComponent.find('CampSite').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Camper` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(CampSite));
+    return mockedComponent.find('Camper').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Camper` inapaswa kujumuisha vigezo vinavyopitishwa vya msingi vinavyoweka mfuatano wa herufi `CamperBot` kwa ufunguo wa `name`.
+
+```js
+assert(
+  /Camper.defaultProps={name:(['"`])CamperBot\1,?}/.test(
+    __helpers.removeWhiteSpace(code)
+  )
+);
+```
+
+Sehemu ya `Camper` inapaswa kujumuisha aina za vigezo vinavyopitishwa vinavyohitaji kigezo cha `name` kuwa cha aina ya `string`.
+
+```js
+assert(
+  /Camper.propTypes={name:PropTypes.string.isRequired,?}/.test(
+    __helpers.removeWhiteSpace(code)
+  )
+);
+```
+
+Sehemu ya `Camper` inapaswa kuwa na kipengele cha `p` chenye maandishi tu kutoka kwa kigezo cha `name`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(CampSite));
+    return (
+      mockedComponent.find('p').text() ===
+      mockedComponent.find('Camper').props().name
+    );
+  })()
+);
+```
+
+# --before-all--
+
+```js
+var PropTypes = {
+   string: { isRequired: true }
+};
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class CampSite extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <Camper/>
+      </div>
+    );
+  }
+};
+// Change code below this line
+```
+
+# --solutions--
+
+```jsx
+class CampSite extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <Camper/>
+      </div>
+    );
+  }
+};
+// Change code below this line
+
+const Camper = (props) => {
+   return (
+     <div>
+       <p>{props.name}</p>
+     </div>
+   );
+};
+
+Camper.propTypes = {
+  name: PropTypes.string.isRequired
+};
+
+Camper.defaultProps = {
+  name: 'CamperBot'
+};
+```

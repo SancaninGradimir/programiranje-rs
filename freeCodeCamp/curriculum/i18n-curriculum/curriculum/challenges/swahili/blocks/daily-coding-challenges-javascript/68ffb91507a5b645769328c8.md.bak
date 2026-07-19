@@ -1,0 +1,65 @@
+---
+id: 68ffb91507a5b645769328c8
+title: "Zoezi la 105: Hesabu ya herufi"
+challengeType: 28
+dashedName: challenge-105
+---
+
+# --description--
+
+Ukitoa mfuatano wa herufi wa sentensi, rudisha safu ya data yenye hesabu ya kila herufi kwa mpangilio wa alfabeti.
+
+- Tazama herufi kubwa na ndogo kama herufi moja wakati wa kuhesabu.
+- Puuza nambari, nafasi, alama za uandishi, n.k.
+- Rudisha hesabu na herufi kwa muundo `"letter count"`. Kwa mfano, `"a 3"`.
+- Herufi zote zinazorudishwa ziwe herufi ndogo.
+- Usirudishe hesabu ya herufi ambazo hazipo katika mfuatano wa herufi uliotolewa.
+
+# --hints--
+
+`countCharacters("hello world")` inapaswa kurudisha `["d 1", "e 1", "h 1", "l 3", "o 2", "r 1", "w 1"]`.
+
+```js
+assert.deepEqual(countCharacters("hello world"), ["d 1", "e 1", "h 1", "l 3", "o 2", "r 1", "w 1"]);
+```
+
+`countCharacters("I love coding challenges!")` inapaswa kurudisha `["a 1", "c 2", "d 1", "e 3", "g 2", "h 1", "i 2", "l 3", "n 2", "o 2", "s 1", "v 1"]`.
+
+```js
+assert.deepEqual(countCharacters("I love coding challenges!"), ["a 1", "c 2", "d 1", "e 3", "g 2", "h 1", "i 2", "l 3", "n 2", "o 2", "s 1", "v 1"]);
+```
+
+`countCharacters("// TODO: Complete this challenge ASAP!")` inapaswa kurudisha `["a 3", "c 2", "d 1", "e 4", "g 1", "h 2", "i 1", "l 3", "m 1", "n 1", "o 3", "p 2", "s 2", "t 3"]`.
+
+```js
+assert.deepEqual(countCharacters("// TODO: Complete this challenge ASAP!"), ["a 3", "c 2", "d 1", "e 4", "g 1", "h 2", "i 1", "l 3", "m 1", "n 1", "o 3", "p 2", "s 2", "t 3"]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function countCharacters(sentence) {
+
+  return sentence;
+}
+```
+
+# --solutions--
+
+```js
+function countCharacters(sentence) {
+  const counts = {};
+
+  for (let char of sentence.toLowerCase()) {
+    if (char >= "a" && char <= "z") {
+      counts[char] = (counts[char] || 0) + 1;
+    }
+  }
+
+  return Object.keys(counts)
+               .sort()
+               .map(letter => `${letter} ${counts[letter]}`);
+}
+```

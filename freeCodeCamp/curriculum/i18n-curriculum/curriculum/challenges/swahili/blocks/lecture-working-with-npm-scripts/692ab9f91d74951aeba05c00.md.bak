@@ -1,0 +1,354 @@
+---
+id: 692ab9f91d74951aeba05c00
+title: Nini npm scripts?
+challengeType: 19
+dashedName: what-are-npm-scripts
+---
+
+# --description--
+
+Sasa utafundishwa kuhusu npm scripts.
+
+Kabla hatujaingia ndani, hebu tukague baadhi ya dhana muhimu:
+
+* **npm** ni chombo cha mstari wa amri ambacho unaweza kutumia kusakinisha na kusimamia vifurushi vya JavaScript.
+    
+* **package** ni saraka inayokusanya msimbo unaohusiana katika muundo wa mantiki.
+    
+* **script** ni mfululizo wa maagizo au amri zilizoandikwa kwa lugha ya programu ya scripting.
+    
+
+**npm scripts** ni amri maalum unazoweza kufafanua katika faili la `package.json` la programu yako.
+
+Zinasaidia kuendesha kazi na mchakato wa kazi unaorudiwa mara kwa mara katika hatua za ukuzaji, uhakiki, na usambazaji wa mradi wako.
+
+Kwa mfano, matumizi moja ya npm scripts ni kubinafsisha `npm start` kuanzisha mazingira yako yote ya ukuzaji. Badala ya kuandika amri zote moja moja kila wakati unapotaka kuanzisha mazingira ya ukuzaji, unaweza tu kuendesha `npm start` na mchakato mzima utaendeshwa.
+
+Pia unaweza kutumia npm scripts kuendesha uhakiki wa msimbo kote kwenye hifadhidata yako na kwa kuendesha seti za mitihani, pamoja na matumizi mengine.
+
+Ni zana zenye nguvu sana, kwa hivyo hebu tuchunguze misingi yao.
+
+## Jinsi ya kuunda faili ya package.json
+
+Ili uweze kuunda na kuendesha npm scripts maalum, utahitaji faili la `package.json`.
+
+Faili la `package.json` ni muhimu kwa miradi ya Node.js. Faili hili lina metadata, utegemezi, na scripts za mradi.
+
+Kama ukumbusho, kuunda faili la `package.json`, lazima uendeshe amri ya `npm init` katika saraka kuu ya mradi wako. Kisha unaweza kuingiza jina la package, toleo, maelezo, na maelezo mengine kwa mikono, au uache sehemu hizo wazi ili kutumia thamani za chaguo-msingi.
+
+Mara baada ya kumaliza mchakato huu, utakuwa na faili la `package.json` katika saraka kuu ya mradi wako.
+
+Kama ulitumia thamani zote za chaguo-msingi, unapaswa kuona jozi za ufunguo-thamani hizi unapo fungua `package.json` katika mhariri wako wa msimbo:
+
+```json
+{
+  "name": "<project_name>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+```
+
+Angalia jozi hii ya ufunguo-thamani hapa:
+
+```json
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
+```
+
+Hapa ndipo utataja npm scripts zako, chini ya ufunguo wa `scripts`.
+
+Utapata script moja hapo kwa chaguo-msingi, script ya test:
+
+```json
+"test": "echo \"Error: no test specified\" && exit 1"
+```
+
+Hii ni mfano wa npm script iliyofafanuliwa katika `package.json`.
+
+Hapa ni sintaksia ya msingi ya kufafanua npm script:
+
+```json
+"<script_name>": "<commands>"
+```
+
+Kushoto ya nukta, tunapata jina la script. Majina ya kawaida ni `run`, `start`, `test`, `build`, `dev`, na `lint`. Majina haya hutumika kama "viungo vya haraka" kwa amri zao za msingi upande wa kulia.
+
+Kulia ya nukta, tunapata amri za msingi wenyewe.
+
+Kwa mfano:
+
+```json
+"scripts": {
+  "start": "node app.js"
+}
+```
+
+Ili kuendesha script, andika hii kwenye mstari wa amri:
+
+```bash
+npm run <script_name>
+```
+
+Na ndivyo unavyoweza kuendesha scripts yoyote maalum zilizofafanuliwa katika `package.json`.
+
+Wakati mwingine unaweza kutumia toleo fupi hili bila neno `run` kuendesha scripts:
+
+```bash
+npm <script_name>
+```
+
+Lakini hii hufanya kazi tu kwa npm scripts maalum zilizoitwa `start`, `test`, `stop`, na `restart`.
+
+Tukirudi kwenye mfano wetu, kama tuna hii katika `package.json`:
+
+```json
+"scripts": {
+  "start": "node app.js"
+}
+```
+
+Ili kuendesha npm script, unahitaji kuandika `npm run start` kwenye mstari wa amri. Unapofanya hivyo, amri halisi inayotekelezwa ni `node app.js`.
+
+Kwa kuwa npm script hii ina toleo fupi, unaweza pia kutumia `npm start` na matokeo yatakuwa sawa.
+
+Katika kesi hii, unabadilisha tu amri rahisi, `node app.js`, na nyingine, `npm start`. Lakini fikiria kama ungekuwa na mfululizo wa amri ngumu zinazohitaji kutekelezwa mfululizo au sambamba, na ungeweza kutumia `npm start` kuendesha zote. Hilo lingekuokoa muda mwingi, sivyo? Hapo ndipo nguvu ya npm scripts inaonekana kweli.
+
+Hapa kuna muhtasari wa baadhi ya npm scripts zinazotumika sana:
+
+* `npm run`: hutumika kuendesha npm script maalum.
+    
+* `npm start`: hutumika kuanzisha programu kuu au seva ya ukuzaji.
+    
+* `npm lint`: hutumika kuendesha kagua mtindo wa msimbo ili kuona kama msimbo wako unakidhi viwango vya mtindo wa msimbo na mbinu bora.
+    
+* `npm test`: hutumika kuendesha seti ya mitihani ya mradi.
+    
+Kuna npm scripts nyingi kwa madhumuni tofauti, lakini hizi ni baadhi ya za kawaida utakazoziona.
+
+Pia, mkataba wa kawaida ni kutumia nukta kuunganisha scripts zinazohusiana chini ya namespace moja. Kwa mfano, `start:server` na `start:ui`.
+
+## Jinsi ya kuendesha amri mfululizo
+
+Ikiwa unahitaji kuendesha amri nyingi mfululizo, una chaguzi mbili. Unaweza kutumia operator ya AND ya mantiki (`&&`) au nukta ya nusu (`;`). Hebu tuchunguze tofauti zao.
+
+Operator ya AND ya mantiki huendesha amri inayofuata tu ikiwa amri ya kwanza itaendeshwa kwa mafanikio.
+
+Kwa mfano:
+
+```json
+"scripts": {
+  "build": "webpack --mode production",
+  "start": "npm run build && node server.js"
+}
+```
+
+Angalia kuna operator ya AND ya mantiki katika amri ya `start`:
+
+```json
+"start": "npm run build && node server.js"
+```
+
+Hapa, `npm start` itajaribu kuendesha `npm run build` kwanza, na ikiwa script hii itaendeshwa kwa mafanikio, `node server.js` itaendeshwa.
+
+Hii ni njia ya kawaida sana kwa sababu inahakikisha uaminifu na kuzuia kupoteza muda na rasilimali kwa amri zinazofuata ambazo zinaweza kushindwa au kutupa makosa ikiwa amri ya awali itashindwa.
+
+Mbali na hilo, unaweza kutumia operator ya nukta ya nusu kuendesha amri mfululizo, bila kujali kama amri ya awali ilifanikiwa au la.
+
+Katika mfano wetu, mabadiliko haya rahisi yangekuwa na athari muhimu jinsi amri zitakavyotekelezwa:
+
+```json
+"scripts": {
+  "build": "webpack --mode production",
+  "start": "npm run build; node server.js"
+}
+```
+
+Makini na amri ya `start` tena:
+
+```json
+"start": "npm run build; node server.js"
+```
+
+Sasa, kwa kuwa tunatumia nukta ya nusu badala ya operator ya `&&`, amri ya `node server.js` itaendeshwa kila wakati baada ya `npm run build`, hata kama `node server.js` haikufaulu.
+
+```json
+"start": "npm run build; node server.js"
+```
+
+## Jinsi ya kuendesha amri sambamba
+
+Ikiwa unahitaji kuendesha amri sambamba (kwa wakati mmoja), unaweza kutumia operator ya `&`.
+
+```json
+"scripts": {
+  "start:server": "node server/index.js",
+  "start:client": "npm run build:watch",
+  "dev": "npm run start:server & npm run start:client"
+}
+```
+
+Hata hivyo, unapaswa kujua kuwa chaguo hili huendesha michakato nyuma ya pazia.
+
+Hii inamaanisha, ikiwa utaendesha katika kikao kimoja cha terminal, unaweza kuona matokeo yao yote pamoja, ambayo yanaweza kuwa magumu kuelewa.
+
+Chaguzi nyingine za kuendesha amri sambamba ni zana kama `concurrently` na `npm-run-all`.
+
+## Jinsi ya kupitisha hoja kwa npm scripts
+
+Ikiwa unahitaji kupitisha hoja moja kwa moja kwa amri inayotekelezwa ndani ya npm script, unaweza kuzitaja kwa kuandika alama mbili za mkato (`--`) ikifuatiwa na hoja hizo.
+
+`--` inamwambia npm kwamba kila kitu kinachofuata ni hoja kwa amri za msingi ambazo npm script itatekeleza.
+
+Hii ni sintaksia ya jumla:
+
+```bash
+npm run <script_name> -- <argument_1> <argument_2> <argument_3>
+```
+
+Kwa mfano, tuseme umefafanua script hii ya `npm start`:
+
+```json
+{
+  "name": "project-example",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
+```
+
+Unawezaje kutaja port unayotaka kuendesha seva yako ikiwa unatumia `npm start`?
+
+Tuseme tunataka kupitisha port moja kwa moja kama hoja ya mstari wa amri. Utaandika hivi:
+
+```bash
+npm start -- 8000
+```
+
+Katika msimbo wako, unaweza kupata hoja hizi katika safu ya `process.argv` kwa kutumia viashiria:
+
+```bash
+process.argv[0] # The path to the node executable.
+process.argv[1] # The script file being executed.
+process.argv[2] # The first argument (8000).
+```
+
+Kwa hivyo, unaweza kupata na kutumia nambari ya port mahali popote unapotaka kwa `process.argv[2]`. Hiyo ni nguvu ya hoja za mstari wa amri zikichanganywa na npm scripts.
+
+Kama unavyoona, npm scripts ni zana muhimu za kurahisisha mchakato wa ukuzaji. Zinakusaidia kuendesha na kubadilisha mfululizo wa amri ngumu na zinazoweza kutumika tena kuwa viungo rahisi na vinavyolingana ambavyo unaweza kutumia katika kazi yako ya kila siku.
+
+# --questions--
+
+## --text--
+
+Npm scripts hufafanuliwa wapi katika mradi wa Node.js?
+
+## --answers--
+
+Katika faili la `.npmignore`.
+
+### --feedback--
+
+Fikiria faili inayotumika kama orodha kuu ya mradi wa Node.js na amri zake zinazotekelezwa.
+
+---
+
+Ndani ya kitu cha `"dependencies"` cha `package.json`.
+
+### --feedback--
+
+Fikiria faili inayotumika kama orodha kuu ya mradi wa Node.js na amri zake zinazotekelezwa.
+
+---
+
+Ndani ya kitu cha `"scripts"` cha `package.json`.
+
+---
+
+Katika faili tofauti la `npm-config.json`.
+
+### --feedback--
+
+Fikiria faili inayotumika kama orodha kuu ya mradi wa Node.js na amri zake zinazotekelezwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Unaendesha vipi npm script iitwayo `build`?
+
+## --answers--
+
+`build npm`
+
+### --feedback--
+
+Fikiria kiambishi awali cha amri kinachoambia npm unataka kuendesha moja ya amri maalum zilizofafanuliwa katika sehemu ya `"scripts"`.
+
+---
+
+`npm run build`
+
+---
+
+`node build`
+
+### --feedback--
+
+Fikiria kiambishi awali cha amri kinachoambia npm unataka kuendesha moja ya amri maalum zilizofafanuliwa katika sehemu ya `"scripts"`.
+
+---
+
+`run build`
+
+### --feedback--
+
+Fikiria kiambishi awali cha amri kinachoambia npm unataka kuendesha moja ya amri maalum zilizofafanuliwa katika sehemu ya `"scripts"`.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini maana ya alama mbili za mkato (`--`) unapoendesha npm script kama `npm run start -- 5`?
+
+## --answers--
+
+Inamaanisha script inapaswa kuendeshwa kwa hali ya kimya.
+
+### --feedback--
+
+Fikiria jinsi zana ngumu za amri (kama Jest au Webpack) zinavyopokea bendera zao maalum zinapopelekwa kupitia kiungo cha haraka cha npm.
+
+---
+
+Inamwambia npm kupitisha hoja zilizobaki kwa amri ya script ya msingi.
+
+---
+
+Inamaanisha script lazima iendeshwe kwa ruhusa za juu za msimamizi.
+
+### --feedback--
+
+Fikiria jinsi zana ngumu za amri (kama Jest au Webpack) zinavyopokea bendera zao maalum zinapopelekwa kupitia kiungo cha haraka cha npm.
+
+---
+
+Inaonyesha script inapaswa kuendeshwa sambamba na scripts nyingine zilizofafanuliwa.
+
+### --feedback--
+
+Fikiria jinsi zana ngumu za amri (kama Jest au Webpack) zinavyopokea bendera zao maalum zinapopelekwa kupitia kiungo cha haraka cha npm.
+
+## --video-solution--
+
+2

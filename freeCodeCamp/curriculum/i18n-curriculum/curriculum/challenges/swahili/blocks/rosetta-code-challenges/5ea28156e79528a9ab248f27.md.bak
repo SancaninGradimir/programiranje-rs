@@ -1,0 +1,125 @@
+---
+id: 5ea28156e79528a9ab248f27
+title: Mtihani wa Luhn wa nambari za kadi za mkopo
+challengeType: 1
+forumTopicId: 385284
+dashedName: luhn-test-of-credit-card-numbers
+---
+
+# --description--
+
+Mtihani wa Luhn hutumiwa na baadhi ya kampuni za kadi za mkopo kutofautisha nambari halali za kadi za mkopo na zile ambazo zinaweza kuwa uteuzi wa nasibu wa tarakimu.
+
+Kampuni hizo zinazotumia nambari za kadi za mkopo zinazoweza kuthibitishwa kwa mtihani wa Luhn zina nambari zinazopitisha mtihani ufuatao:
+
+<ol>
+  <li> Geuza mfuatano wa tarakimu katika nambari hiyo.</li>
+  <li> Chukua tarakimu ya kwanza, ya tatu, ... na kila tarakimu nyingine isiyo ya wingi katika tarakimu zilizogeuzwa na jumlisha ili kuunda jumla ya sehemu s1</li>
+  <li> Kwa kuchukua tarakimu ya pili, ya nne ... na kila tarakimu nyingine ya wingi katika tarakimu zilizogeuzwa:</li>
+    <ol>
+      <li>Zidisha kila tarakimu kwa mbili na jumlisha tarakimu ikiwa jibu ni kubwa zaidi ya tisa ili kuunda jumla za sehemu kwa tarakimu za wingi.</li>
+      <li>Jumlisha jumla za sehemu za tarakimu za wingi kuunda s2.</li>
+    </ol>
+  <li>Kama s1 + s2 inamalizika kwa sifuri basi nambari ya awali iko katika muundo wa nambari halali ya kadi ya mkopo kama inavyothibitishwa na mtihani wa Luhn.</li>
+</ol>
+
+Kwa mfano, ikiwa nambari ya jaribio ni 49927398716:
+
+```md
+Reverse the digits:
+  61789372994
+Sum the odd digits:
+  6 + 7 + 9 + 7 + 9 + 4 = 42 = s1
+The even digits:
+    1, 8, 3, 2, 9
+  Two times each even digit:
+    2, 16, 6, 4, 18
+  Sum the digits of each multiplication:
+    2, 7, 6, 4, 9
+  Sum the last:
+    2 + 7 + 6 + 4 + 9 = 28 = s2
+
+s1 + s2 = 70 which ends in zero which means that 49927398716 passes the Luhn test.
+```
+
+# --instructions--
+
+Andika kitendakazi kitakachothibitisha nambari kwa mtihani wa Luhn. Rudisha true ikiwa ni nambari halali. Vinginevyo, rudisha false.
+
+# --hints--
+
+`luhnTest` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof luhnTest === 'function');
+```
+
+`luhnTest("4111111111111111")` inapaswa kurudisha thamani ya kweli au siyo kweli.
+
+```js
+assert(typeof luhnTest('4111111111111111') === 'boolean');
+```
+
+`luhnTest("4111111111111111")` inapaswa kurudisha `true`.
+
+```js
+assert.equal(luhnTest('4111111111111111'), true);
+```
+
+`luhnTest("4111111111111112")` inapaswa kurudisha `false`.
+
+```js
+assert.equal(luhnTest('4111111111111112'), false);
+```
+
+`luhnTest("49927398716")` inapaswa kurudisha `true`.
+
+```js
+assert.equal(luhnTest('49927398716'), true);
+```
+
+`luhnTest("49927398717")` inapaswa kurudisha `false`.
+
+```js
+assert.equal(luhnTest('49927398717'), false);
+```
+
+`luhnTest("1234567812345678")` inapaswa kurudisha `false`.
+
+```js
+assert.equal(luhnTest('1234567812345678'), false);
+```
+
+`luhnTest("1234567812345670")` inapaswa kurudisha `true`.
+
+```js
+assert.equal(luhnTest('1234567812345670'), true);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function luhnTest(str) {
+
+}
+```
+
+# --solutions--
+
+```js
+function luhnTest(str) {
+  var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+  var counter = 0;
+  var incNum;
+  var odd = false;
+  var temp = String(str).replace(/[^\d]/g, '');
+  if (temp.length == 0) return false;
+  for (var i = temp.length - 1; i >= 0; --i) {
+    incNum = parseInt(temp.charAt(i), 10);
+    counter += (odd = !odd) ? incNum : luhnArr[incNum];
+  }
+  return counter % 10 == 0;
+}
+```

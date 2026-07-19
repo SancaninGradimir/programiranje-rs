@@ -1,0 +1,154 @@
+---
+id: 5cc0c1b32479e176caf3b422
+title: Angalia kama mti ni mti wa utafutaji wa kibainari
+challengeType: 1
+forumTopicId: 301624
+dashedName: check-if-tree-is-binary-search-tree
+---
+
+# --description--
+
+Kwa kuwa tayari unajua mti wa utafutaji wa kibainari ni nini, changamoto hii itaweka wazi jinsi unavyoweza kusema kama mti ni mti wa utafutaji wa kibainari au la.
+
+Tofauti kuu ya mti wa utafutaji wa kibainari ni kwamba nodi zimepangwa kwa mpangilio ulioratibiwa. Nodi zina nodi za watoto zisizozidi mbili (zilizo upande wa kulia na/au kushoto) kulingana na kama thamani ya nodi ya mtoto ni kubwa au sawa na (kulia) au ndogo kuliko (kushoto) nodi ya mzazi.
+
+# --instructions--
+
+Katika changamoto hii, utaunda kifaa cha msaada kwa mti wako. Andika njia ya JavaScript `isBinarySearchTree` ambayo inachukua mti kama ingizo na inarudisha thamani ya kweli au siyo kweli ikiwa mti ni mti wa utafutaji wa kibainari au la. Tumia kurudia (recursion) inapowezekana.
+
+# --hints--
+
+Mti wako wa utafutaji wa kibainari unapaswa kurudisha kweli wakati ukikaguliwa na `isBinarySearchTree()`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    test.push(1);
+    test.push(5);
+    test.push(3);
+    test.push(2);
+    test.push(4);
+    return isBinarySearchTree(test) == true;
+  })()
+);
+```
+
+`isBinarySearchTree()` inapaswa kurudisha siyo kweli wakati ukikaguliwa na mti ambao si mti wa utafutaji wa kibainari.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    test.push(1);
+    test.root.left = new Node(1);
+    return isBinarySearchTree(test) == false;
+  })()
+);
+```
+
+# --before-each--
+
+```js
+BinarySearchTree.prototype.push = function(val) {
+  var root = this.root;
+
+  if (!root) {
+    this.root = new Node(val);
+    return;
+  }
+
+  var currentNode = root;
+  var newNode = new Node(val);
+
+  while (currentNode) {
+    if (val < currentNode.value) {
+      if (!currentNode.left) {
+        currentNode.left = newNode;
+        break;
+      } else {
+        currentNode = currentNode.left;
+      }
+    } else {
+      if (!currentNode.right) {
+        currentNode.right = newNode;
+        break;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+  }
+};
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));
+function Node(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+function BinarySearchTree() {
+  this.root = null;
+}
+function isBinarySearchTree(tree) {
+  // Only change code below this line
+  
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));
+function Node(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+function BinarySearchTree() {
+  this.root = null;
+}
+function isBinarySearchTree(tree) {
+  if (tree.root == null) {
+    return null;
+  } else {
+    let isBST = true;
+    function checkTree(node) {
+      if (node.left != null) {
+        const left = node.left;
+        if (left.value >= node.value) {
+          isBST = false;
+        } else {
+          checkTree(left);
+        }
+      }
+      if (node.right != null) {
+        const right = node.right;
+        if (right.value < node.value) {
+          isBST = false;
+        } else {
+          checkTree(right);
+        }
+      }
+    }
+    checkTree(tree.root);
+    return isBST;
+  }
+};
+```

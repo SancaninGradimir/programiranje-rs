@@ -1,0 +1,227 @@
+---
+id: 698f515e99f9a25a3462f97f
+title: Jinsi aina za kitendakazi zinavyofanya kazi
+challengeType: 19
+dashedName: how-do-function-types-work
+---
+
+# --description--
+
+Katika funzo hili, utajifunza jinsi ya kufanya kazi na aina za kitendakazi. Tuanze na maelezo ya aina za vigezo.
+
+Hapa kuna mfano wa kitendakazi cha msingi:
+
+```ts
+function circleArea(radius) {
+  return Math.PI * radius * radius;
+}
+```
+
+Kwa sasa, TypeScript itaonyesha ujumbe wa `Parameter 'radius' implicitly has an 'any' type`. Aina ya `any` inaonyesha kuwa thamani inaweza kuwa na aina yoyote. Utajifunza zaidi kuhusu aina hii katika funzo lijalo.
+
+Ili kuondoa kosa na kuweka aina ya kigezo waziwazi, unaweza kuiandika aina kama hii:
+
+```ts
+function circleArea(radius: number) {
+  return Math.PI * radius * radius;
+}
+```
+
+Ikiwa utajaribu kuita kitendakazi cha `circleArea` kwa aina tofauti isiyo nambari, TypeScript itaonyesha kosa kama hili:
+
+```ts
+function circleArea(radius: number) {
+  return Math.PI * radius * radius;
+}
+
+// Argument of type 'string' is not assignable to parameter of type 'number'
+circleArea("3");
+```
+
+Ikiwa utajaribu kutoa hoja zaidi kuliko kitendakazi kinavyotarajia, TypeScript itaonyesha kosa:
+
+```ts
+function circleArea(radius: number) {
+  return Math.PI * radius * radius;
+}
+
+// Expected 1 arguments, but got 2.
+circleArea(3, 4);
+```
+
+Ikiwa utatoa hoja chache sana, basi TypeScript pia itaonyesha kosa:
+
+```ts
+function circleArea(radius: number) {
+  return Math.PI * radius * radius;
+}
+
+// Expected 1 arguments, but got 0.
+// An argument for 'radius' was not provided.
+circleArea();
+```
+
+Unaweza kufanya vigezo kuwa hiari kwa kutumia alama ya `?` karibu na kigezo kama hii:
+
+```ts
+function area(radius: number, height?: number): number {
+  const baseArea = Math.PI * radius * radius;
+
+  if (height !== undefined) {
+    const sideArea = 2 * Math.PI * radius * height;
+    return baseArea + sideArea;
+  }
+
+  return baseArea;
+}
+```
+
+Kumbuka kuwa vigezo hiari lazima viwe baada ya vigezo vinavyotakiwa kila wakati. Kuweka kigezo kinachotakiwa baada ya kigezo hiari kutasababisha kosa la TypeScript.
+
+Uhakiki wa masharti ndani ya kitendakazi uko pale ikiwa hoja ya `height` haitatolewa.
+
+Ikiwa unataka kuweka aina za thamani za return, unaweza kuongeza maelezo ya aina ya return kama hii:
+
+```ts
+function circleArea(radius: number): number {
+  return Math.PI * radius * radius;
+}
+```
+
+Maelezo ya aina ya return huandikwa baada ya orodha ya vigezo. Kama maelezo ya aina ya mabadiliko, mara nyingi TypeScript itakuwa na akili ya kutambua aina ya return. Hivyo tumia maelezo ya aina ya return wazi unapotaka kufanya nia ya kitendakazi iwe wazi zaidi au kuzuia mabadiliko yasiyotakiwa kwa thamani ya return.
+
+Mfano unaofuata tutauangalia utakuwa na kitendakazi isiyo ya wakati mmoja na ahadi. Ikiwa kitendakazi chako kitarudisha ahadi, unaweza kutumia aina ya `Promise` kama hii:
+
+```ts
+async function getCityTemperature(city: string): Promise<number> {
+  const response = await fetch(`https://api.example.com/weather?city=${city}`);
+  const data = await response.json(); 
+  return data.temperature;
+}
+```
+
+Katika hali hii, ikiwa utajaribu kuondoa aina ya return, TypeScript inaweza kutambua return kama `Promise<any>`. Hivyo hii itakuwa hali nzuri ya kuweka aina ya return wazi.
+
+Hadi sasa, tumeangalia tu mifano ya kitendakazi chenye majina. Lakini je, aina zinafanya kazi vipi na vitendakazi visivyo na jina?
+
+Hapa kuna mfano wa kutumia kitendakazi kisicho na jina katika wito wa kurudisha unaopitishwa kwa `forEach`:
+
+```ts
+const languages = ["JavaScript", "Python", "TypeScript"];
+
+languages.forEach((lang) => {
+  console.log(`${lang.toUpperCase()} has ${lang.length} characters`);
+});
+```
+
+Kigezo cha `lang` hakina maelezo ya aina. Badala yake, TypeScript hutumia uainishaji wa muktadha unaomaanisha inatambua aina kutoka kwa muktadha ambapo inaonekana.
+
+# --questions--
+
+## --text--
+
+Ni aina gani ya TypeScript inaonyesha kuwa thamani inaweza kuwa na aina yoyote?
+
+## --answers--
+
+`any`
+
+---
+
+`unknown`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`optional`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`generic`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Nini hutokea ikiwa utatoa hoja nyingi sana katika wito wa kitendakazi?
+
+## --answers--
+
+TypeScript itasahau hoja za ziada.
+
+### --feedback--
+
+Rudia katikati mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+Hakutakuwa na matokeo yoyote.
+
+### --feedback--
+
+Rudia katikati mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+TypeScript itatoa kosa la ujumbe.
+
+---
+
+TypeScript itatumia hoja zote.
+
+### --feedback--
+
+Rudia katikati mwa funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Uainishaji wa muktadha ni nini?
+
+## --answers--
+
+Inatambua aina kutoka kwa muktadha ambapo inaonekana.
+
+---
+
+Daima huweka mabadiliko kuwa aina ya `any`.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Inakufanya utangaze aina wazi kila wakati.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Inabadilisha aina ya mabadiliko moja kwa moja ili iendane na thamani ya kwanza iliyowekwa.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+## --video-solution--
+
+1

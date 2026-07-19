@@ -1,0 +1,206 @@
+---
+id: 698f4f9ff24a150af1b1fa06
+title: "Jinsi Aina za any, never, unknown na void Zinavyofanya Kazi?"
+challengeType: 19
+dashedName: how-do-the-any-never-unknown-and-void-types-work
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, umejifunza jinsi ya kufanya kazi na aina za msingi pamoja na aina za muungano, na interfaces.
+
+Lakini TypeScript ina aina maalum ambazo unapaswa kuzifahamu. Tuanze kwa kuangalia aina ya `any`.
+
+Aina ya `any` hutumika kuwakilisha aina yoyote ya thamani.
+
+```ts
+let randomValue: any;
+
+randomValue = 42;           
+
+randomValue = "Hello";     
+ 
+randomValue = true;        
+
+randomValue = { name: "Alice" }; 
+```
+
+Kwa aina hii, unapaswa kuwa mwangalifu kwa sababu inaweza kutumika kupita kiasi na vibaya kwa urahisi. Hutaki kuandika kila kitu kwa aina ya `any` tu ili kutuliza ujumbe wa makosa ya TypeScript. Hii inavunja madhumuni ya kutumia TypeScript na kuongeza usalama wa aina tangu mwanzo.
+
+Mbadala salama kwa aina ya `any` itakuwa aina ya `unknown`. `unknown` ni sawa na `any` lakini kwa aina ya `unknown`, unapaswa kufanya ukaguzi wa aina kwa mabadiliko kabla ya kuitumia.
+
+Hapa kuna mfano:
+
+```ts
+function doubleValue(value: unknown) {
+  if (typeof value === "number") {
+    console.log(value * 2);
+  } else if (typeof value === "string") {
+    console.log(value + value);
+  }
+}
+
+doubleValue(10);    
+doubleValue("Hi "); 
+doubleValue(true);   
+```
+
+Katika mfano huu, ukaguzi wa aina unahakikisha kuwa operesheni zinafanywa tu kwa thamani za aina sahihi. Thamani ambazo hazilingani na aina zinazotarajiwa haziangaliwi.
+
+Aina inayofuata tutakayoiangalia ni aina ya `never`. Aina hii inawakilisha kitu ambacho hakitawahi kutokea.
+
+Katika hali nyingi, hutakuwa unaandika maelezo ya aina kwa kutumia `never`. Badala yake, uwezekano mkubwa utaona aina ya `never` ikionekana katika ujumbe wa makosa kama huu:
+
+```ts
+function processValue(value: string | number) {
+  if (typeof value === "string") {
+    console.log("String value:", value.toUpperCase());
+  } else if (typeof value === "number") {
+    console.log("Number value:", value * 2);
+  } else {
+    console.log(value); 
+  }
+}
+```
+
+Ndani ya kifungu cha `else` cha mfano hapo juu, `value` ina aina ya `never`. Hii ni kwa sababu tawi la `else` sasa haliwezi kufikiwa na hakuna aina iliyobaki. Ikiwa ungetaka kuita kitendakazi na thamani tofauti na `string` au `number`, ingetoa kosa kama hili:
+
+```ts
+function processValue(value: string | number) {
+  if (typeof value === "string") {
+    console.log("String value:", value.toUpperCase());
+  } else if (typeof value === "number") {
+    console.log("Number value:", value * 2);
+  } else {
+    console.log(value); 
+  }
+}
+
+// Argument of type 'boolean' is not assignable to parameter of type 'string | number'.
+processValue(true); 
+```
+
+Aina ya mwisho tutakayoiangalia ni aina ya `void`. Unapokuwa na kitendakazi ambacho hakirudishi thamani, hiyo itakuwa aina ya `void`.
+
+Hapa kuna mfano:
+
+```ts
+type Status = "loading" | "success" | "error";
+
+type Handler = {
+  status: Status;
+  onChange: (newStatus: Status) => void; 
+};
+```
+
+Katika mfano huu, sifa ya `onChange` kwa aina ya `Handler` hairejeshi chochote, ndiyo maana `void` inatumika.
+
+# --questions--
+
+## --text--
+
+Ni aina gani ya TypeScript inakuwezesha kuhifadhi aina yoyote ya thamani lakini inapaswa kutumika kwa uangalifu ili kuepuka kupoteza usalama wa aina?
+
+## --answers--
+
+`void`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`any`
+
+---
+
+`unknown`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`null`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini madhumuni ya aina ya `never` katika TypeScript?
+
+## --answers--
+
+Inawakilisha thamani ambayo inaweza kuwa aina yoyote.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo aina ya `never` ilifundishwa.
+
+---
+
+Inawakilisha aina ya kurudisha ya kitendakazi ambayo ni hiari.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo aina ya `never` ilifundishwa.
+
+---
+
+Inawakilisha kitu ambacho hakitawahi kutokea.
+
+---
+
+Inawakilisha mabadiliko ambayo yanaweza kushikilia aina yoyote.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo aina ya `never` ilifundishwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni aina gani ungetumia kwa kitendakazi ambacho hakirudishi thamani?
+
+## --answers--
+
+`null`
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+`void`
+
+---
+
+`any`
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+`unknown`
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+## --video-solution--
+
+2

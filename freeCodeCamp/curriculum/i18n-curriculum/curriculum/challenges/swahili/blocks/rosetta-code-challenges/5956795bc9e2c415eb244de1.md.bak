@@ -1,0 +1,232 @@
+---
+id: 5956795bc9e2c415eb244de1
+title: Kuunganisha kwa hash
+challengeType: 1
+forumTopicId: 302284
+dashedName: hash-join
+---
+
+# --description--
+
+Kuunganisha ndani ni operesheni inayochanganya jedwali mbili za data kuwa jedwali moja, kwa msingi wa thamani zinazolingana za safu. Njia rahisi zaidi ya kutekeleza operesheni hii ni algoriti ya kuunganisha kwa mzunguko uliopangwa ndani, lakini mbadala inayoweza kupanuka zaidi ni algoriti ya kuunganisha kwa hash.
+
+Algoriti ya "kuunganisha kwa hash" ina hatua mbili:
+
+<ol>
+  <li><strong>Hatua ya hash:</strong> Tengeneza multimap kutoka moja ya jedwali mbili, ukichora kutoka kila thamani ya safu ya kuunganisha hadi mistari yote inayoiweka.</li>
+  <ul>
+    <li>Multimap lazima iunge mkono utafutaji unaotegemea hash ambao unapanuka zaidi kuliko utafutaji wa mstari rahisi, kwa sababu hiyo ndiyo maana kuu ya algoriti hii.</li>
+    <li>Kwa kawaida tunapaswa kutengeneza multimap kwa jedwali dogo zaidi, hivyo kupunguza muda wa kuutengeneza na ukubwa wa kumbukumbu.</li>
+  </ul>
+  <li><strong>Hatua ya kuunganisha:</strong> Pitia jedwali lingine, na tafuta mistari inayolingana kwa kuangalia katika multimap iliyotengenezwa awali.</li>
+</ol>
+
+Kwa pseudo-msimbo, algoriti inaweza kudhihirishwa kama ifuatavyo:
+
+<pre><strong>let</strong> <i>A</i> = jedwali la kwanza la ingizo (au kwa kawaida, kubwa zaidi)
+<strong>let</strong> <i>B</i> = jedwali la pili la ingizo (au kwa kawaida, dogo zaidi)
+<strong>let</strong> <i>j<sub>A</sub></i> = kitambulisho cha safu ya kuunganisha ya jedwali <i>A</i>
+<strong>let</strong> <i>j<sub>B</sub></i> = kitambulisho cha safu ya kuunganisha ya jedwali <i>B</i>
+<strong>let</strong> <i>M<sub>B</sub></i> = multimap ya kuchora kutoka thamani moja hadi mistari mingi ya jedwali <i>B</i> (huanza tupu)
+<strong>let</strong> <i>C</i> = jedwali la matokeo (huanza tupu)
+<strong>for each</strong> mstari <i>b</i> katika jedwali <i>B</i>:
+  <strong>weka</strong> <i>b</i> katika multimap <i>M<sub>B</sub></i> chini ya ufunguo <i>b(j<sub>B</sub>)</i>
+<strong>for each</strong> mstari <i>a</i> katika jedwali <i>A</i>:
+  <strong>for each</strong> mstari <i>b</i> katika multimap <i>M<sub>B</sub></i> chini ya ufunguo <i>a(j<sub>A</sub>)</i>:
+    <strong>let</strong> <i>c</i> = mchanganyiko wa mstari <i>a</i> na mstari <i>b</i>
+    <strong>weka</strong> mstari <i>c</i> katika jedwali <i>C</i>
+</pre>
+
+# --instructions--
+
+Tekeleza algoriti ya "kuunganisha kwa hash" kama kitendakazi na onyesha kuwa kinapita kesi ya mtihani iliyo chini. Kitendakazi kinapaswa kupokea safu mbili za vitu na kurudisha safu ya vitu vilivyochanganywa.
+
+**Ingizo**
+
+<table>
+  <tr>
+    <td style="padding: 4px; margin: 5px;">
+      <table style="border:none; border-collapse:collapse;">
+        <tr>
+          <td style="border:none"><i>A =</i></td>
+          <td style="border:none">
+            <table>
+              <tr>
+                <th style="padding: 4px; margin: 5px;">Umri</th>
+                <th style="padding: 4px; margin: 5px;">Jina</th>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">27</td>
+                <td style="padding: 4px; margin: 5px;">Jonah</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">18</td>
+                <td style="padding: 4px; margin: 5px;">Alan</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">28</td>
+                <td style="padding: 4px; margin: 5px;">Glory</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">18</td>
+                <td style="padding: 4px; margin: 5px;">Popeye</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">28</td>
+                <td style="padding: 4px; margin: 5px;">Alan</td>
+              </tr>
+            </table>
+          </td>
+          <td style="border:none; padding-left:1.5em;" rowspan="2"></td>
+          <td style="border:none"><i>B =</i></td>
+          <td style="border:none">
+            <table>
+              <tr>
+                <th style="padding: 4px; margin: 5px;">Mhusika</th>
+                <th style="padding: 4px; margin: 5px;">Adui</th>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">Jonah</td>
+                <td style="padding: 4px; margin: 5px;">Whales</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">Jonah</td>
+                <td style="padding: 4px; margin: 5px;">Spiders</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">Alan</td>
+                <td style="padding: 4px; margin: 5px;">Ghosts</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">Alan</td>
+                <td style="padding: 4px; margin: 5px;">Zombies</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px; margin: 5px;">Glory</td>
+                <td style="padding: 4px; margin: 5px;">Buffy</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none">
+            <i>j<sub>A</sub> =</i>
+          </td>
+          <td style="border:none">
+            <i><code>Jina</code> (yaani safu ya 1)</i>
+          </td>
+          <td style="border:none">
+            <i>j<sub>B</sub> =</i>
+          </td>
+          <td style="border:none">
+            <i><code>Mhusika</code> (yaani safu ya 0)</i>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+**Matokeo**
+
+| A_umri | A_jina | B_mhusika | B_adui |
+| ----- | ------ | --------- | ------- |
+| 27    | Jonah  | Jonah     | Whales  |
+| 27    | Jonah  | Jonah     | Spiders |
+| 18    | Alan   | Alan      | Ghosts  |
+| 18    | Alan   | Alan      | Zombies |
+| 28    | Glory  | Glory     | Buffy   |
+| 28    | Alan   | Alan      | Ghosts  |
+| 28    | Alan   | Alan      | Zombies |
+
+Mpangilio wa mistari katika jedwali la matokeo hauna umuhimu.
+
+# --hints--
+
+`hashJoin` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof hashJoin === 'function');
+```
+
+`hashJoin([{ age: 27, name: "Jonah" }, { age: 18, name: "Alan" }, { age: 28, name: "Glory" }, { age: 18, name: "Popeye" }, { age: 28, name: "Alan" }], [{ character: "Jonah", nemesis: "Whales" }, { character: "Jonah", nemesis: "Spiders" }, { character: "Alan", nemesis: "Ghosts" }, { character:"Alan", nemesis: "Zombies" }, { character: "Glory", nemesis: "Buffy" }, { character: "Bob", nemesis: "foo" }])` inapaswa kurudisha `[{"A_age": 27,"A_name": "Jonah", "B_character": "Jonah", "B_nemesis": "Whales"}, {"A_age": 27,"A_name": "Jonah", "B_character": "Jonah", "B_nemesis": "Spiders"}, {"A_age": 18,"A_name": "Alan", "B_character": "Alan", "B_nemesis": "Ghosts"}, {"A_age": 18,"A_name": "Alan", "B_character": "Alan", "B_nemesis": "Zombies"}, {"A_age": 28,"A_name": "Glory", "B_character": "Glory", "B_nemesis": "Buffy"}, {"A_age": 28,"A_name": "Alan", "B_character": "Alan", "B_nemesis": "Ghosts"}, {"A_age": 28,"A_name": "Alan", "B_character": "Alan", "B_nemesis": "Zombies"}]`
+
+```js
+const hash1 = [
+    { age: 27, name: 'Jonah' },
+    { age: 18, name: 'Alan' },
+    { age: 28, name: 'Glory' },
+    { age: 18, name: 'Popeye' },
+    { age: 28, name: 'Alan' }
+];
+
+const hash2 = [
+    { character: 'Jonah', nemesis: 'Whales' },
+    { character: 'Jonah', nemesis: 'Spiders' },
+    { character: 'Alan', nemesis: 'Ghosts' },
+    { character: 'Alan', nemesis: 'Zombies' },
+    { character: 'Glory', nemesis: 'Buffy' },
+    { character: 'Bob', nemesis: 'foo' }
+];
+
+const res = [
+    { A_age: 27, A_name: 'Jonah', B_character: 'Jonah', B_nemesis: 'Whales' },
+    { A_age: 27, A_name: 'Jonah', B_character: 'Jonah', B_nemesis: 'Spiders' },
+    { A_age: 18, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Ghosts' },
+    { A_age: 18, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Zombies' },
+    { A_age: 28, A_name: 'Glory', B_character: 'Glory', B_nemesis: 'Buffy' },
+    { A_age: 28, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Ghosts' },
+    { A_age: 28, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Zombies' }
+];
+
+const bench1 = [{ name: 'u2v7v', num: 1 }, { name: 'n53c8', num: 10 }, { name: 'oysce', num: 9 }, { name: '0mto2s', num: 1 }, { name: 'vkh5id', num: 4 }, { name: '5od0cf', num: 8 }, { name: 'uuulue', num: 10 }, { name: '3rgsbi', num: 9 }, { name: 'kccv35r', num: 4 }, { name: '80un74', num: 9 }, { name: 'h4pp3', num: 6 }, { name: '51bit', num: 7 }, { name: 'j9ndf', num: 8 }, { name: 'vf3u1', num: 10 }, { name: 'g0bw0om', num: 10 }, { name: 'j031x', num: 7 }, { name: 'ij3asc', num: 9 }, { name: 'byv83y', num: 8 }, { name: 'bjzp4k', num: 4 }, { name: 'f3kbnm', num: 10 }];
+const bench2 = [{ friend: 'o8b', num: 8 }, { friend: 'ye', num: 2 }, { friend: '32i', num: 5 }, { friend: 'uz', num: 3 }, { friend: 'a5k', num: 4 }, { friend: 'uad', num: 7 }, { friend: '3w5', num: 10 }, { friend: 'vw', num: 10 }, { friend: 'ah', num: 4 }, { friend: 'qv', num: 7 }, { friend: 'ozv', num: 2 }, { friend: '9ri', num: 10 }, { friend: '7nu', num: 4 }, { friend: 'w3', num: 9 }, { friend: 'tgp', num: 8 }, { friend: 'ibs', num: 1 }, { friend: 'ss7', num: 6 }, { friend: 'g44', num: 9 }, { friend: 'tab', num: 9 }, { friend: 'zem', num: 10 }];
+assert.deepEqual(hashJoin(hash1, hash2), res);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function hashJoin(hash1, hash2) {
+
+  return [];
+}
+```
+
+# --solutions--
+
+```js
+function hashJoin(hash1, hash2) {
+  const hJoin = (tblA, tblB, strJoin) => {
+    const [jA, jB] = strJoin.split('=');
+    const M = tblB.reduce((a, x) => {
+      const id = x[jB];
+      return (
+        a[id] ? a[id].push(x) : (a[id] = [x]),
+        a
+      );
+    }, {});
+
+    return tblA.reduce((a, x) => {
+      const match = M[x[jA]];
+      return match ? (
+                a.concat(match.map(row => dictConcat(x, row)))
+            ) : a;
+    }, []);
+  };
+
+  const dictConcat = (dctA, dctB) => {
+    const ok = Object.keys;
+    return ok(dctB).reduce(
+            (a, k) => (a[`B_${k}`] = dctB[k]) && a,
+            ok(dctA).reduce(
+                (a, k) => (a[`A_${k}`] = dctA[k]) && a, {}
+            )
+        );
+  };
+
+  return hJoin(hash1, hash2, 'name=character');
+}
+```

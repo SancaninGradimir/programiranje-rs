@@ -1,0 +1,274 @@
+---
+id: 5a24c314108439a4d4036187
+title: Tumia kikokotoo cha masharti cha pande tatu kwa kuonyesha kwa masharti
+challengeType: 6
+forumTopicId: 301414
+dashedName: use-a-ternary-expression-for-conditional-rendering
+---
+
+# --description--
+
+Kabla ya kuendelea na mbinu za kuonyesha kwa mabadiliko, kuna njia moja ya mwisho ya kutumia masharti yaliyojengwa ndani ya JavaScript kuonyesha unachotaka: <dfn>opereta ya ternary</dfn>. Opereta ya ternary mara nyingi hutumika kama njia fupi kwa taarifa za `if/else` katika JavaScript. Hazina nguvu kama taarifa za kawaida za `if/else`, lakini ni maarufu sana miongoni mwa wasanidi programu wa React. Sababu moja ni jinsi JSX inavyotafsiriwa, taarifa za `if/else` haziwezi kuingizwa moja kwa moja ndani ya msimbo wa JSX. Labda umeona hili katika changamoto chache zilizopita — wakati taarifa ya `if/else` ilihitajika, ilikuwa daima *nje* ya taarifa ya `return`. Usemi wa ternary unaweza kuwa mbadala mzuri ikiwa unataka kutekeleza mantiki ya masharti ndani ya JSX yako. Kumbuka kuwa opereta ya ternary ina sehemu tatu, lakini unaweza kuunganisha usemi wa ternary kadhaa pamoja. Hapa ni sintaksia ya msingi:
+
+```jsx
+condition ? expressionIfTrue : expressionIfFalse;
+```
+
+# --instructions--
+
+Mhariri wa msimbo una constants tatu zilizowekwa ndani ya njia ya `CheckUserAge` ya sehemu ya `render()`. Zinaitwa `buttonOne`, `buttonTwo`, na `buttonThree`. Kila moja imepewa usemi wa JSX rahisi unaowakilisha kipengele cha kitufe. Kwanza, anzisha hali ya `CheckUserAge` na `input` na `userAge` zote zikiwa na thamani ya mfuatano wa herufi tupu.
+
+Mara sehemu inapoonyesha taarifa kwenye ukurasa, watumizi wanapaswa kuwa na njia ya kuingiliana nayo. Ndani ya taarifa ya `return` ya sehemu, weka usemi wa ternary unaotekeleza mantiki ifuatayo: wakati ukurasa unapopakia kwa mara ya kwanza, onyesha kitufe cha kuwasilisha, `buttonOne`, kwenye ukurasa. Kisha, wakati mtumizi anaingiza umri wake na kubofya kitufe, onyesha kitufe tofauti kulingana na umri. Ikiwa mtumizi anaingiza nambari chini ya `18`, onyesha `buttonThree`. Ikiwa mtumizi anaingiza nambari kubwa au sawa na `18`, onyesha `buttonTwo`.
+
+# --hints--
+
+Sehemu ya `CheckUserAge` inapaswa kuonyesha kipengele kimoja cha `input` na kipengele kimoja cha `button`.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(CheckUserAge)).find('div').find('input')
+    .length === 1 &&
+    Enzyme.mount(React.createElement(CheckUserAge)).find('div').find('button')
+      .length === 1
+);
+```
+
+Hali ya sehemu ya `CheckUserAge` inapaswa kuanzishwa na sifa ya `userAge` na sifa ya `input`, zote zikiwa na thamani ya mfuatano wa herufi tupu.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(CheckUserAge)).state().input === '' &&
+    Enzyme.mount(React.createElement(CheckUserAge)).state().userAge === ''
+);
+```
+
+Sehemu ya `CheckUserAge` inapochorwa kwa mara ya kwanza kwenye DOM, maandishi ya ndani ya `button` yanapaswa kuwa Submit.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(CheckUserAge)).find('button').text() ===
+    'Submit'
+);
+```
+
+Wakati nambari chini ya 18 inaingizwa kwenye kipengele cha `input` na kitufe cha `button` kinapobofyiwa, maandishi ya ndani ya `button` yanapaswa kusoma `You Shall Not Pass`.
+
+```js
+(() => {
+  const mockedComponent = Enzyme.mount(React.createElement(CheckUserAge));
+  const initialButton = mockedComponent.find('button').text();
+  const enter3AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '3' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const enter17AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '17' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const userAge3 = enter3AndClickButton();
+  const userAge17 = enter17AndClickButton();
+  assert(
+    initialButton === 'Submit' &&
+      userAge3 === 'You Shall Not Pass' &&
+      userAge17 === 'You Shall Not Pass'
+  );
+})();
+```
+
+Wakati nambari kubwa au sawa na 18 inaingizwa kwenye kipengele cha `input` na kitufe cha `button` kinapobofyiwa, maandishi ya ndani ya `button` yanapaswa kusoma `You May Enter`.
+
+```js
+(() => {
+  const mockedComponent = Enzyme.mount(React.createElement(CheckUserAge));
+  const initialButton = mockedComponent.find('button').text();
+  const enter18AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '18' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const enter35AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '35' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const userAge18 = enter18AndClickButton();
+  const userAge35 = enter35AndClickButton();
+  assert(
+    initialButton === 'Submit' &&
+      userAge18 === 'You May Enter' &&
+      userAge35 === 'You May Enter'
+  );
+})();
+```
+
+Mara nambari imetumwa, na thamani ya `input` ikibadilika tena, `button` inapaswa kurudi kusoma `Submit`.
+
+```js
+(() => {
+  const mockedComponent = Enzyme.mount(React.createElement(CheckUserAge));
+  const enter18AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '18' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const changeInputDontClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '5' } });
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const enter10AndClickButton = () => {
+    mockedComponent
+      .find('input')
+      .simulate('change', { target: { value: '10' } });
+    mockedComponent.find('button').simulate('click');
+    mockedComponent.update();
+    return mockedComponent.find('button').text();
+  };
+  const userAge18 = enter18AndClickButton();
+  const changeInput1 = changeInputDontClickButton();
+  const userAge10 = enter10AndClickButton();
+  const changeInput2 = changeInputDontClickButton();
+  assert(
+    userAge18 === 'You May Enter' &&
+      changeInput1 === 'Submit' &&
+      userAge10 === 'You Shall Not Pass' &&
+      changeInput2 === 'Submit'
+  );
+})();
+```
+
+Msimbo wako haupaswi kuwa na taarifa yoyote ya `if/else`.
+
+```js
+assert(
+  new RegExp(/(\s|;)if(\s|\()/).test(
+    code
+  ) === false
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    // Change code below this line
+
+    // Change code above this line
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: ''
+    });
+  }
+  submit() {
+    this.setState(state => ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = <button onClick={this.submit}>Submit</button>;
+    const buttonTwo = <button>You May Enter</button>;
+    const buttonThree = <button>You Shall Not Pass</button>;
+    return (
+      <div>
+        <h3>Enter Your Age to Continue</h3>
+        <input
+          style={inputStyle}
+          type='number'
+          value={this.state.input}
+          onChange={this.handleChange}
+        />
+        <br />
+        {/* Change code below this line */}
+
+        {/* Change code above this line */}
+      </div>
+    );
+  }
+}
+```
+
+# --solutions--
+
+```jsx
+const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userAge: '',
+      input: ''
+    };
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: ''
+    });
+  }
+  submit() {
+    this.setState(state => ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = <button onClick={this.submit}>Submit</button>;
+    const buttonTwo = <button>You May Enter</button>;
+    const buttonThree = <button>You Shall Not Pass</button>;
+    return (
+      <div>
+        <h3>Enter Your Age to Continue</h3>
+        <input
+          style={inputStyle}
+          type='number'
+          value={this.state.input}
+          onChange={this.handleChange}
+        />
+        <br />
+        {this.state.userAge === ''
+          ? buttonOne
+          : this.state.userAge >= 18
+          ? buttonTwo
+          : buttonThree}
+      </div>
+    );
+  }
+}
+```

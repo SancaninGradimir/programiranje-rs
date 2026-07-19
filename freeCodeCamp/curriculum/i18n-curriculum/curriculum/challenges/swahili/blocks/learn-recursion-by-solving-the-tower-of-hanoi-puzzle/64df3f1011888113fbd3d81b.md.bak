@@ -1,0 +1,63 @@
+---
+id: 64df3f1011888113fbd3d81b
+title: Hatua 44
+challengeType: 20
+dashedName: step-44
+---
+
+# --description--
+
+Ili kutatua fumbo kwa kutumia kurudia (recursion), jambo la kwanza kufanya ni kugawanya tatizo la awali kuwa matatizo madogo madogo.
+
+Mpangilio wa mwisho wa diski `n` zilizokusanywa kwenye fimbo ya tatu kwa mpangilio unaopungua unaweza kupatikana kwa kuhamisha:
+
+- diski `n - 1` kutoka chanzo hadi fimbo ya msaada
+- diski kubwa zaidi kutoka chanzo hadi lengo
+- na kisha diski `n - 1` kutoka fimbo ya msaada hadi lengo.
+
+Hivyo, jambo la kwanza kitendakazi `move` kinapaswa kufanya ni kujiita yenyewe kwa `n - 1` kama hoja ya kwanza. Lakini ukijaribu kufanya hivyo bila kufafanua kesi ya msingi, utapata `RecursionError`. Hii hutokea kwa sababu kitendakazi kinaendelea kujiita bila kikomo.
+
+Kabla ya maoni yako na wito wako wa `print()`, ongeza wito wa kitendakazi kinachojirudia na `n - 1` kama hoja ya kwanza na hakikisha mwili wa kitendakazi unatekelezwa tu wakati `n` ni kubwa kuliko sifuri. Kwa sasa, acha hoja zingine ziko katika mpangilio ule ule.
+
+# --hints--
+
+Mwili wa kitendakazi `move` unapaswa kuanza na tamko la `if` linalochochewa wakati `n` ni kubwa kuliko sifuri.
+
+```js
+({ test: () => assert.match(code, /def\s+move\(\s*n\s*,\s*source\s*,\s*auxiliary\s*,\s*target\s*\)\s*:\s+if\s+n\s*>\s*0\s*:/) })
+```
+
+Unapaswa kuita `move(n - 1, source, auxiliary, target)` ndani ya tamko la `if`. Kumbuka kuingiza wito wako wa `print()`.
+
+```js
+const transformedCode = "\n" + code.replace(/\r/g, '');
+const move = __helpers.python.getDef(transformedCode, "move");
+const { function_parameters, function_body } = move;
+
+assert.match(function_parameters, /n\s*,\s*source\s*,\s*auxiliary\s*,\s*target/);
+const functionBodyIndent = function_body.match(/ +/)[0];
+const re = new RegExp(`${functionBodyIndent}if\\s+n\\s*>\\s*0\\s*:\\s+^${functionBodyIndent}( +)move\\(\\s*n\\s*-\\s*1\\s*,\\s*source\\s*,\\s*auxiliary\\s*,\\s*target\\s*\\).+?^${functionBodyIndent}\\1print\\s*\\(\\s*rods\\s*,\\s*("|')\\\\n\\2\\s*\\)`, "ms");
+assert.match(function_body, re);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+NUMBER_OF_DISKS = 4
+rods = {
+    'A': list(range(NUMBER_OF_DISKS, 0, -1)),
+    'B': [],
+    'C': []
+}
+
+--fcc-editable-region--
+def move(n, source, auxiliary, target):
+    # display starting configuration
+    print(rods, '\n')
+    
+--fcc-editable-region--
+# initiate call from source A to target C with auxiliary B
+move(NUMBER_OF_DISKS, 'A', 'B', 'C')
+```

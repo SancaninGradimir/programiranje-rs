@@ -1,0 +1,80 @@
+---
+id: 69c918841987bf16c1d1bac8
+title: Hatua 17
+challengeType: 1
+dashedName: step-17
+---
+
+# --description--
+
+Kabla ya kusahihisha umbali, unahitaji kuthibitisha kuwa jirani anastahili kuzingatiwa. Lazima kuwe na kingo halisi kwake (`distance !== INF`) na haijatembelewa bado.
+
+Ndani ya mzunguko wa jirani `for`, ongeza tamko la `if` linalokagua kama `distance` si sawa kabisa na `INF` **na** kama `nodeNo` haijatembelewa.
+
+Ndani ya blokki ya `if`, tangaza kigezo `newDistance` kilichopewa thamani ya `distances[current] + distance`. Hii ni gharama jumla ya kufikia jirani kupitia nodi ya sasa. 
+
+# --hints--
+
+Unapaswa kuongeza tamko la `if` lenye sharti la `distance !== INF && !visited[nodeNo]`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /if\s*\(\s*distance\s*!==\s*INF\s*&&\s*!\s*visited\s*\[\s*\w+\s*\]\s*\)/
+);
+```
+
+Unapaswa kutangaza `newDistance` yenye thamani ya `distances[current] + distance` ndani ya blokki ya `if`.
+
+```js
+assert.match(
+  __helpers.removeJSComments(shortestPath.toString()),
+  /(const|let|var)\s+newDistance\s*=\s*distances\s*\[\s*current\s*\]\s*\+\s*distance/
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const INF = Infinity;
+const adjMatrix = [
+  [0, 5, 3, INF, 11, INF],
+  [5, 0, 1, INF, INF, 2],
+  [3, 1, 0, 1, 5, INF],
+  [INF, INF, 1, 0, 9, 3],
+  [11, INF, 5, 9, 0, INF],
+  [INF, 2, INF, 3, INF, 0],
+];
+
+function shortestPath(matrix, startNode, targetNode = null) {
+  const n = matrix.length;
+  const distances = new Array(n).fill(INF);
+  distances[startNode] = 0;
+  const paths = Array.from({ length: n }, (_, i) => [i]);
+  const visited = new Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    let minDistance = INF;
+    let current = -1;
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {
+        minDistance = distances[nodeNo];
+        current = nodeNo;
+      }
+    }
+    if (current === -1) {
+      break;
+    }
+    visited[current] = true;
+
+    for (let nodeNo = 0; nodeNo < n; nodeNo++) {
+      const distance = matrix[current][nodeNo];
+      --fcc-editable-region--
+
+      --fcc-editable-region--
+    }
+  }
+}
+```

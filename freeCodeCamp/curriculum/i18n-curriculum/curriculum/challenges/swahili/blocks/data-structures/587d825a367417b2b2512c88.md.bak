@@ -1,0 +1,179 @@
+---
+id: 587d825a367417b2b2512c88
+title: Geuza orodha iliyounganishwa mara mbili
+challengeType: 1
+forumTopicId: 301714
+dashedName: reverse-a-doubly-linked-list
+---
+
+# --description--
+
+Tufanye njia moja zaidi kwa orodha yetu iliyounganishwa mara mbili iitwayo reverse ambayo inageuza orodha hiyo mahali pake. Mara njia hii itakapotekelezwa kichwa kinapaswa kuonyesha mkia wa awali na mkia unapaswa kuonyesha kichwa cha awali. Sasa, tukipitia orodha kutoka kichwa hadi mkia tunapaswa kukutana na nodi kwa mpangilio wa kinyume ukilinganisha na orodha ya awali. Ku jaribu kugeuza orodha tupu kunapaswa kurudisha null.
+
+# --hints--
+
+Muundo wa data `DoublyLinkedList` unapaswa kuwepo.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof DoublyLinkedList !== 'undefined') {
+      test = new DoublyLinkedList();
+    }
+    return typeof test == 'object';
+  })()
+);
+```
+
+`DoublyLinkedList` inapaswa kuwa na njia iitwayo `reverse`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof DoublyLinkedList !== 'undefined') {
+      test = new DoublyLinkedList();
+    }
+    if (test.reverse == undefined) {
+      return false;
+    }
+    return typeof test.reverse == 'function';
+  })()
+);
+```
+
+Kugeuza orodha tupu kunapaswa kurudisha `null`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof DoublyLinkedList !== 'undefined') {
+      test = new DoublyLinkedList();
+    }
+    return test.reverse() == null;
+  })()
+);
+```
+
+Njia ya `reverse` inapaswa kugeuza orodha.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof DoublyLinkedList !== 'undefined') {
+      test = new DoublyLinkedList();
+    }
+    var n1 = new Node(58, null);
+    var n2 = new Node(61, n1);
+    var n3 = new Node(32, n2);
+    var n4 = new Node(95, n3);
+    var n5 = new Node(41, n4);
+    n1.next = n2;
+    n2.next = n3;
+    n3.next = n4;
+    n4.next = n5;
+    test.head = n1;
+    test.tail = n5;
+    test.reverse();
+
+    var result = [];
+    var current = test.head;
+    while (current) {
+      result.push(current.data);
+      current = current.next;
+    }
+
+    return result.join('') == '4195326158';
+  })()
+);
+```
+
+Rejea za `next` na `previous` zinapaswa kudumishwa ipasavyo wakati orodha inapo geuzwa.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof DoublyLinkedList !== 'undefined') {
+      test = new DoublyLinkedList();
+    }
+    var n1 = new Node(11, null);
+    var n2 = new Node(22, n1);
+    var n3 = new Node(33, n2);
+    var n4 = new Node(44, n3);
+    var n5 = new Node(55, n4);
+    n1.next = n2;
+    n2.next = n3;
+    n3.next = n4;
+    n4.next = n5;
+    test.head = n1;
+    test.tail = n5;
+    test.reverse();
+
+    var result = [];
+    var current = test.tail;
+    while (current) {
+      result.push(current.data);
+      current = current.prev;
+    }
+
+    return result.join('') == '1122334455';
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var Node = function(data, prev) {
+  this.data = data;
+  this.prev = prev;
+  this.next = null;
+};
+var DoublyLinkedList = function() {
+  this.head = null;
+  this.tail = null;
+  // Only change code below this line
+  
+  // Only change code above this line
+};
+```
+
+# --solutions--
+
+```js
+  var Node = function(data, prev) {
+    this.data = data;
+    this.prev = prev;
+    this.next = null;
+  };
+  var DoublyLinkedList = function() {
+    this.head = null;
+    this.tail = null;
+
+    this.reverse = function() {
+      if (!this.head || !this.head.next) {
+        return this.head
+      }
+
+      let tail;
+      let temp;
+      let current = this.head;
+      while(current !== null) {
+        if(!tail) tail = current;
+        temp = current.prev;
+        current.prev = current.next;
+        current.next = temp;
+        current = current.prev;
+      }
+
+      this.head = temp.prev;
+      this.tail = tail
+    }
+  };
+```

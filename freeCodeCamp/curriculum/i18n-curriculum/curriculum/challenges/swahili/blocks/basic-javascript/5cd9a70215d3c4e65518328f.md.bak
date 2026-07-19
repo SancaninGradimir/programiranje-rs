@@ -1,0 +1,99 @@
+---
+id: 5cd9a70215d3c4e65518328f
+title: Tumia kurudia (recursion) kuunda kuhesabu kushuka
+challengeType: 1
+forumTopicId: 305925
+dashedName: use-recursion-to-create-a-countdown
+---
+
+# --description--
+
+Katika <a href="/learn/javascript-algorithms-and-data-structures/basic-javascript/replace-loops-using-recursion" target="_blank" rel="noopener noreferrer nofollow">changamoto iliyopita</a>, ulijifunza jinsi ya kutumia kurudia (recursion) kubadilisha mzunguko wa `for`. Sasa, tuchunguze kitendakazi kigumu zaidi kinachorudisha safu ya data ya nambari kamili mfululizo kuanzia `1` hadi nambari inayopitishwa kwa kitendakazi hicho.
+
+Kama ilivyotajwa katika changamoto iliyopita, kutakuwa na <dfn>hali ya msingi</dfn>. Hali ya msingi inamwambia kitendakazi kinachojirudia lini hakiwezi kujiita tena. Ni hali rahisi ambapo thamani ya return tayari inajulikana. Pia kutakuwa na <dfn>wito la kurudia</dfn> ambalo hufanya kitendakazi asili kwa hoja tofauti. Ikiwa kitendakazi kimeandikwa kwa usahihi, hatimaye hali ya msingi itafikiwa.
+
+Kwa mfano, sema unataka kuandika kitendakazi kinachojirudia kinachorudisha safu ya data yenye nambari kuanzia `1` hadi `n`. Kitendakazi hiki kitahitaji kupokea hoja, `n`, inayowakilisha nambari ya mwisho. Kisha kitahitaji kujiita mwenyewe kwa thamani ndogo ndogo za `n` hadi kifikie `1`. Unaweza kuandika kitendakazi kama ifuatavyo:
+
+```javascript
+function countup(n) {
+  if (n < 1) {
+    return [];
+  } else {
+    const countArray = countup(n - 1);
+    countArray.push(n);
+    return countArray;
+  }
+}
+console.log(countup(5));
+```
+
+Thamani ya `[1, 2, 3, 4, 5]` itaonyeshwa kwenye konsoli.
+
+Mwanzo, hii inaonekana isiyoeleweka kwa sababu thamani ya `n` *inapungua*, lakini thamani katika safu ya mwisho *inaongezeka*. Hii hutokea kwa sababu push hufanyika mwisho, baada ya wito la kurudia kurudisha thamani. Wakati `n` inasukumwa kwenye safu, `countup(n - 1)` tayari imethaminiwa na kurudisha `[1, 2, ..., n - 1]`.
+
+# --instructions--
+
+Tumetangaza kitendakazi kinachoitwa `countdown` chenye kigezo kimoja (`n`). Kitendakazi kinapaswa kutumia kurudia (recursion) kurudisha safu ya data yenye nambari kamili kuanzia `n` hadi `1` kulingana na kigezo `n`. Ikiwa kitendakazi kitaitwa na nambari chini ya 1, kitendakazi kinapaswa kurudisha safu tupu. Kwa mfano, kuitisha kitendakazi hiki na `n = 5` kinapaswa kurudisha safu `[5, 4, 3, 2, 1]`. Kitendakazi chako lazima kitumie kurudia kwa kujiita mwenyewe na hakipaswi kutumia mizunguko ya aina yoyote.
+
+# --hints--
+
+`countdown(-1)` inapaswa kurudisha safu tupu.
+
+```js
+assert.isEmpty(countdown(-1));
+```
+
+`countdown(10)` inapaswa kurudisha `[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]`
+
+```js
+assert.deepStrictEqual(countdown(10), [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
+```
+
+`countdown(5)` inapaswa kurudisha `[5, 4, 3, 2, 1]`
+
+```js
+assert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);
+```
+
+Msimbo wako haupaswi kutegemea aina yoyote ya mizunguko (`for`, `while` au kazi za ngazi ya juu kama `forEach`, `map`, `filter`, na `reduce`).
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce/g)
+);
+```
+
+Unapaswa kutumia kurudia kutatua changamoto hii.
+
+```js
+assert(
+  countdown.toString().match(/countdown\s*\(.+\)/)
+);
+```
+
+Kigezo cha kimataifa hakipaswi kutumika kuhifadhi safu ya data.
+
+```js
+countdown(1)
+assert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+// Only change code below this line
+function countdown(n){
+  return;
+}
+// Only change code above this line
+```
+
+# --solutions--
+
+```js
+function countdown(n){
+   return n < 1 ? [] : [n].concat(countdown(n - 1));
+}
+```

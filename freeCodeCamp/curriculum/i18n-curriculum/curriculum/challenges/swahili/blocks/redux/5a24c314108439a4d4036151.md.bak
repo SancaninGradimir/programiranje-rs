@@ -1,0 +1,151 @@
+---
+id: 5a24c314108439a4d4036151
+title: Tumia taarifa ya kubadilisha kushughulikia vitendo vingi
+challengeType: 6
+forumTopicId: 301449
+dashedName: use-a-switch-statement-to-handle-multiple-actions
+---
+
+# --description--
+
+Unaweza kueleza hifadhi ya Redux jinsi ya kushughulikia aina nyingi za vitendo. Tuseme unasimamia uthibitisho wa utambulisho wa mtumizi katika hifadhi yako ya Redux. Unataka kuwa na uwakilishi wa hali wakati watumizi wameingia na wakati watumizi wameondoka. Unawakilisha hili kwa kitu kimoja cha hali chenye sifa `authenticated`. Pia unahitaji watengeneza vitendo ambao huunda vitendo vinavyolingana na kuingia kwa mtumizi na kutoka kwa mtumizi, pamoja na vitu vya vitendo wenyewe.
+
+# --instructions--
+
+Mhariri wa msimbo una hifadhi, vitendo, na watengeneza vitendo vimeandaliwa kwa ajili yako. Jaza kitendakazi cha `reducer` kushughulikia vitendo vingi vya uthibitisho wa utambulisho. Tumia taarifa ya kubadilisha ya JavaScript `switch` katika `reducer` kujibu matukio tofauti ya vitendo. Hii ni mtindo wa kawaida katika kuandika reducers za Redux. Taarifa ya kubadilisha inapaswa kubadilisha juu ya `action.type` na kurudisha hali inayofaa ya uthibitisho wa utambulisho.
+
+**Kumbuka:** Kwa sasa, usijali kuhusu kutokubadilika kwa hali, kwa sababu ni ndogo na rahisi katika mfano huu. Kwa kila kitendo, unaweza kurudisha kitu kipya — kwa mfano, `{authenticated: true}`. Pia, usisahau kuandika kesi ya `default` katika taarifa yako ya kubadilisha ambayo inarudisha `state` ya sasa. Hii ni muhimu kwa sababu mara programu yako itakapokuwa na reducers nyingi, zote zinaendeshwa kila wakati kitendo kinapotumwa, hata wakati kitendo hakihusiani na reducer hiyo. Katika hali kama hiyo, unataka kuhakikisha unarudisha hali ya sasa `state`.
+
+# --hints--
+
+Kupiga wito kitendakazi `loginUser` kunapaswa kurudisha kitu chenye sifa ya type ikiwa na mfuatano wa herufi `LOGIN`.
+
+```js
+assert(loginUser().type === 'LOGIN');
+```
+
+Kupiga wito kitendakazi `logoutUser` kunapaswa kurudisha kitu chenye sifa ya type ikiwa na mfuatano wa herufi `LOGOUT`.
+
+```js
+assert(logoutUser().type === 'LOGOUT');
+```
+
+Hifadhi inapaswa kuanzishwa na kitu chenye sifa `authenticated` ikiwa na thamani `false`.
+
+```js
+assert(store.getState().authenticated === false);
+```
+
+Kutuma `loginUser` kunapaswa kusasisha sifa `authenticated` katika hali ya hifadhi kuwa `true`.
+
+```js
+assert(
+  (function () {
+    const initialState = store.getState();
+    store.dispatch(loginUser());
+    const afterLogin = store.getState();
+    return (
+      initialState.authenticated === false && afterLogin.authenticated === true
+    );
+  })()
+);
+```
+
+Kutuma `logoutUser` kunapaswa kusasisha sifa `authenticated` katika hali ya hifadhi kuwa `false`.
+
+```js
+assert(
+  (function () {
+    store.dispatch(loginUser());
+    const loggedIn = store.getState();
+    store.dispatch(logoutUser());
+    const afterLogout = store.getState();
+    return (
+      loggedIn.authenticated === true && afterLogout.authenticated === false
+    );
+  })()
+);
+```
+
+Kitendakazi cha `authReducer` kinapaswa kushughulikia aina nyingi za vitendo kwa taarifa ya kubadilisha `switch`.
+
+```js
+assert(
+    code.toString().includes('switch') &&
+      code.toString().includes('case') &&
+      code.toString().includes('default')
+  );
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const defaultState = {
+  authenticated: false
+};
+
+const authReducer = (state = defaultState, action) => {
+  // Change code below this line
+
+  // Change code above this line
+};
+
+const store = Redux.createStore(authReducer);
+
+const loginUser = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+const logoutUser = () => {
+  return {
+    type: 'LOGOUT'
+  }
+};
+```
+
+# --solutions--
+
+```js
+const defaultState = {
+  authenticated: false
+};
+
+const authReducer = (state = defaultState, action) => {
+
+  switch (action.type) {
+
+    case 'LOGIN':
+      return {
+        authenticated: true
+      }
+
+    case 'LOGOUT':
+      return {
+        authenticated: false
+      }
+
+    default:
+      return state;
+
+  }
+
+};
+
+const store = Redux.createStore(authReducer);
+
+const loginUser = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+const logoutUser = () => {
+  return {
+    type: 'LOGOUT'
+  }
+};
+```

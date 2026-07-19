@@ -1,0 +1,154 @@
+---
+id: 587d7fac367417b2b2512bdd
+title: Tumia vipimo vinavyobadilika
+challengeType: 6
+forumTopicId: 301495
+dashedName: use-dynamic-scales
+---
+
+# --description--
+
+Njia za D3 `min()` na `max()` ni muhimu kusaidia kuweka kipimo.
+
+Ikiwa na seti tata ya data, kipaumbele kimoja ni kuweka kipimo ili uonyesho uendane na upana na urefu wa kontena la SVG. Unataka data zote zichorwe ndani ya SVG ili ziweze kuonekana kwenye ukurasa wa mtandao.
+
+Mfano hapa chini unaweka kipimo cha mhimili wa x kwa data ya mchoro wa alama. Njia ya `domain()` hupitisha taarifa kwa kipimo kuhusu thamani ghafi za data kwa mchoro. Njia ya `range()` inampa taarifa kuhusu nafasi halisi kwenye ukurasa wa mtandao kwa ajili ya uonyesho.
+
+Katika mfano, eneo la domain linaanzia 0 hadi thamani kubwa zaidi katika seti. Inatumia njia ya `max()` pamoja na kitendakazi cha mwitiko kinachotegemea thamani za x katika safu za data. Eneo la range linatumia upana wa SVG (`w`), lakini pia linajumuisha nafasi ya ndani. Hii huweka nafasi kati ya alama za mchoro wa alama na kingo za SVG.
+
+```js
+const dataset = [
+  [34, 78],
+  [109, 280],
+  [310, 120],
+  [79, 411],
+  [420, 220],
+  [233, 145],
+  [333, 96],
+  [222, 333],
+  [78, 320],
+  [21, 123]
+];
+const w = 500;
+const h = 500;
+
+const padding = 30;
+const xScale = d3
+  .scaleLinear()
+  .domain([0, d3.max(dataset, d => d[0])])
+  .range([padding, w - padding]);
+```
+
+Nafasi ya ndani inaweza kuonekana kuwa ngumu mwanzoni. Fikiria mhimili wa x kama mstari wa usawa kutoka 0 hadi 500 (thamani ya upana wa SVG). Kujumuisha nafasi ya ndani katika njia ya `range()` kunalazimisha mchoro kuanza kwa 30 kando ya mstari huo (badala ya 0), na kumalizika kwa 470 (badala ya 500).
+
+# --instructions--
+
+Tumia kigezo cha `yScale` kuunda kipimo cha mhimili wa y kinachobadilika kwa mstari. Eneo la domain linapaswa kuanza kwa sifuri na kwenda hadi thamani kubwa zaidi ya `y` katika seti. Eneo la range linapaswa kutumia urefu wa SVG (`h`) na kujumuisha nafasi ya ndani.
+
+**Kumbuka:** Kumbuka kuweka mchoro ukiwa sawa. Unapoweka range kwa kuratibu za y, thamani kubwa zaidi (urefu ukipunguzwa nafasi ya ndani) ndiyo hoja ya kwanza, na thamani ndogo ndiyo hoja ya pili.
+
+# --hints--
+
+Maandishi katika `h2` yanapaswa kuwa `30`.
+
+```js
+assert.strictEqual(output, 30);
+assert.strictEqual(document.querySelector('h2')?.textContent, '30');
+```
+
+`domain()` ya yScale inapaswa kuwa sawa na `[0, 411]`.
+
+```js
+assert.deepEqual(yScale.domain(), [0, 411]);
+```
+
+`range()` ya yScale inapaswa kuwa sawa na `[470, 30]`.
+
+```js
+assert.deepEqual(yScale.range(), [470, 30]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<body>
+  <script>
+    const dataset = [
+      [34, 78],
+      [109, 280],
+      [310, 120],
+      [79, 411],
+      [420, 220],
+      [233, 145],
+      [333, 96],
+      [222, 333],
+      [78, 320],
+      [21, 123]
+    ];
+
+    const w = 500;
+    const h = 500;
+
+    // Padding between the SVG boundary and the plot
+    const padding = 30;
+
+    // Create an x and y scale
+
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[0])])
+      .range([padding, w - padding]);
+
+    // Add your code below this line
+
+    const yScale = undefined;
+
+
+    // Add your code above this line
+
+    const output = yScale(411); // Returns 30
+    d3.select('body').append('h2').text(output);
+  </script>
+</body>
+```
+
+# --solutions--
+
+```html
+<body>
+  <script>
+    const dataset = [
+      [34, 78],
+      [109, 280],
+      [310, 120],
+      [79, 411],
+      [420, 220],
+      [233, 145],
+      [333, 96],
+      [222, 333],
+      [78, 320],
+      [21, 123]
+    ];
+
+    const w = 500;
+    const h = 500;
+
+    const padding = 30;
+
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[0])])
+      .range([padding, w - padding]);
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[1])])
+      .range([h - padding, padding]);
+
+    const output = yScale(411);
+    d3.select('body').append('h2').text(output);
+  </script>
+</body>
+```

@@ -1,0 +1,217 @@
+---
+id: 687ea8bb2b781b19c790d00e
+title: "Funguo kuu na za kigeni katika SQL ni zipi, na zinafanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-primary-and-foreign-keys-in-sql-and-how-do-they-work
+---
+
+# --description--
+
+Katika SQL, funguo kuu na funguo za kigeni hutumika kuanzisha uhusiano kati ya majedwali.
+
+Tuanze na funguo kuu.
+
+Funguo kuu ni safu moja au seti ya safu zinazotambulisha kipekee kila rekodi (safu) katika jedwali. Kizuizi hiki kinahakikisha kuwa hakuna rekodi katika jedwali itakayokuwa na thamani sawa kwa funguo kuu.
+
+Hii ndiyo sababu jedwali linaweza kuwa na funguo kuu moja tu.
+
+Thamani katika safu ya funguo kuu haiwezi kuwa `NULL` pia, kwa hivyo zitakuwa na thamani halali kila wakati.
+
+Katika PostgreSQL, ili kufanya safu kuwa funguo kuu ya jedwali lako, unahitaji tu kuongeza `PRIMARY KEY` baada ya aina ya data:
+
+```sql
+column_name data_type PRIMARY KEY
+```
+
+Hii ni mfano wa jedwali la `students`:
+
+```sql
+CREATE TABLE students (
+  student_id SERIAL PRIMARY KEY,
+  name VARCHAR(100)
+);
+```
+
+Kila mwanafunzi atakuwa na `student_id` yake mwenyewe, na kitambulisho hiki kitakuwa funguo kuu ya jedwali. Aina ya `SERIAL` ni muhimu hapa kwa sababu inahakikisha `student_id` itakuwa na thamani ya kipekee kila wakati.
+
+Funguo kuu ya mchanganyiko hutumika wakati jedwali halina safu moja ya kipekee ya kutambulisha safu. Katika kesi hii, unaweza kutumia mchanganyiko wa safu mbili au zaidi kama funguo kuu ambayo pamoja ni ya kipekee.
+
+Ili kufanya hivyo, taja ni safu gani zinazo funguo kuu ya mchanganyiko unapotengeneza jedwali kama hii:
+
+```sql
+CREATE TABLE table_name (
+  column1 data_type column_constraint,
+  column2 data_type column_constraint,
+  column3 data_type column_constraint,
+  ...
+  PRIMARY KEY (column1, column2)
+);
+```
+
+Fikiria una jedwali lenye safu za `student_id` na `course_id` zinazokuambia ni wanafunzi gani waliomo katika madarasa mbalimbali.
+
+Kila mwanafunzi atakuwa amejiandikisha katika madarasa kadhaa, na kila darasa litakuwa na wanafunzi kadhaa waliomo. Hivyo hakuna safu yoyote yenye kipekee - lakini hutawahi kuwa na mwanafunzi mmoja aliyejiandikisha darasani moja zaidi ya mara moja. Kwa hivyo unaweza kutumia mchanganyiko wa safu hizi mbili kama funguo kuu:
+
+```sql
+CREATE TABLE course_enrollments (
+  student_id INT,
+  course_id INT,
+  ...
+  PRIMARY KEY (student_id, course_id),
+);
+```
+
+Funguo kuu ni muhimu kuhakikisha kipekee na uadilifu wa data, kuboresha upatikanaji wa data, na kuanzisha uhusiano na majedwali mengine katika hifadhidata ya uhusiano.
+
+Hii inatupeleka kwa aina nyingine ya funguo tutakayojifunza katika funzo hili: funguo za kigeni.
+
+Funguo ya kigeni ni safu (au seti ya safu) katika jedwali inayorejelea funguo kuu ya jedwali jingine. Jedwali linaweza kuwa na funguo za kigeni nyingi.
+
+Katika mfano huu, tuna majedwali mawili, `customers`, na `orders`:
+
+```sql
+CREATE TABLE customers (
+  customer_id SERIAL PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  ...
+);
+
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  customer_id INTEGER,
+  ...
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+```
+
+Funguo kuu ya jedwali la `customers` ni `customer_id` na funguo kuu ya jedwali la `orders` ni `order_id`.
+
+Lakini angalia pia kuna safu ya `customer_id` katika jedwali la `orders`.
+
+Kwa nini tunahifadhi taarifa za wateja katika jedwali la `orders`?
+
+Tunafanya hivi kuanzisha uhusiano kati ya majedwali ya `customers` na `orders`. Kila oda itahifadhi kitambulisho cha mteja aliyewasilisha.
+
+Ili kuanzisha uhusiano kati ya majedwali, tutafanya safu ya `customer_id` katika jedwali la `orders` kuwa funguo ya kigeni inayorejelea safu ya `customer_id` katika jedwali la `customers`:
+
+```sql
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+```
+
+Thamani katika safu ya funguo ya kigeni lazima ziendane na thamani za funguo kuu katika jedwali linalorejelewa au ziwe `NULL` (ikiwa funguo ya kigeni inaruhusu `NULL`s).
+
+Kwa nini hii ni msaada?
+
+Kwa kuhakikisha kuwa safu hizi katika majedwali yote zinalingana kabisa, funguo kuu na funguo za kigeni huzuia kuundwa kwa rekodi "zisizo na mzazi", rekodi zinazorejelea rekodi isiyopo katika jedwali jingine.
+
+Funguo kuu na funguo za kigeni ni msingi wa hifadhidata za uhusiano. Zinatoa nguvu kwa kipengele cha "uhusiano" cha hifadhidata hizi, zikikuwezesha kuunda mfano wa data halisi kwa usahihi.
+
+# --questions--
+
+## --text--
+
+Nini lengo kuu la funguo kuu katika jedwali la hifadhidata ya uhusiano?
+
+## --answers--
+
+Kuunganisha jedwali na majedwali mengine.
+
+### --feedback--
+
+Fikiria ni nini kinachofanya kila safu katika jedwali kuwa tofauti.
+
+---
+
+Kutambulisha kipekee kila rekodi katika jedwali.
+
+---
+
+Kueleza aina ya data ya safu.
+
+### --feedback--
+
+Fikiria ni nini kinachofanya kila safu katika jedwali kuwa tofauti.
+
+---
+
+Kutekeleza uhusiano na funguo za kigeni katika jedwali lile lile.
+
+### --feedback--
+
+Fikiria ni nini kinachofanya kila safu katika jedwali kuwa tofauti.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Funguo ya kigeni katika jedwali moja kawaida inarejelea funguo gani katika jedwali jingine?
+
+## --answers--
+
+Funguo nyingine ya kigeni
+
+### --feedback--
+
+Fikiria funguo gani katika jedwali linalorejelewa inahakikisha uadilifu na halali wa uhusiano unaoundwa na funguo ya kigeni.
+
+---
+
+Kielezo cha kipekee
+
+### --feedback--
+
+Fikiria funguo gani katika jedwali linalorejelewa inahakikisha uadilifu na halali wa uhusiano unaoundwa na funguo ya kigeni.
+
+---
+
+Funguo kuu
+
+---
+
+Safu yoyote yenye aina ya data ile ile
+
+### --feedback--
+
+Fikiria funguo gani katika jedwali linalorejelewa inahakikisha uadilifu na halali wa uhusiano unaoundwa na funguo ya kigeni.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya zifuatazo ni sifa ya funguo kuu?
+
+## --answers--
+
+Inaweza kuwa na thamani za NULL.
+
+### --feedback--
+
+Kumbuka hitaji la msingi la kutambulisha kila safu kwa njia ya kipekee.
+
+---
+
+Inaweza kurudiwa katika jedwali lile lile.
+
+### --feedback--
+
+Kumbuka hitaji la msingi la kutambulisha kila safu kwa njia ya kipekee.
+
+---
+
+Jedwali linaweza kuwa na funguo kuu nyingi.
+
+### --feedback--
+
+Kumbuka hitaji la msingi la kutambulisha kila safu kwa njia ya kipekee.
+
+---
+
+Lazima ianze na thamani za kipekee.
+
+## --video-solution--
+
+4

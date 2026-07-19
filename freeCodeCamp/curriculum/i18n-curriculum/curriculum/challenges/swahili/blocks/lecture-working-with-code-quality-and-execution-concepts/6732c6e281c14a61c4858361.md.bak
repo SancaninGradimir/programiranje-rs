@@ -1,0 +1,259 @@
+---
+id: 6732c6e281c14a61c4858361
+title: "Nini Ufungaji, na Hufanya Kazi Vipi?"
+challengeType: 19
+dashedName: what-are-closures-and-how-do-they-work
+---
+
+# --interactive--
+
+Ufungaji ni mojawapo ya vipengele vyenye nguvu sana na mara nyingi hueleweka vibaya katika JavaScript. Kwa msingi wake, ufungaji ni kitendakazi ambacho kina upatikanaji wa vigezo katika wigo wake wa nje wa kisarufi, hata baada ya kitendakazi cha nje kurudi. Hii inaweza kuonekana ngumu lakini ni dhana ya msingi inayowezesha mifumo mingi ya hali ya juu ya uandishi wa programu katika JavaScript.
+
+Ili kuelewa ufungaji, tuanze na mfano:
+
+:::interactive_editor
+
+```js
+function outerFunction(x) {
+    let y = 10;
+    function innerFunction(){
+        console.log(x + y);
+    }
+    return innerFunction;
+}
+
+let closure = outerFunction(5);
+console.log(closure()); // 15
+```
+
+:::
+
+Katika mfano huu, `outerFunction` hupokea kigezo `x` na huunda kigezo cha ndani `y`. Kisha huunda kitendakazi `innerFunction` kinachotumia `x` na `y`. Mwishowe hurudisha `innerFunction`. Tunapofanya wito wa `outerFunction(5)` hurudisha `innerFunction` ambayo tunaweka thamani yake katika kigezo `closure`. Baadaye tunapofanya wito wa `closure()` bado ina upatikanaji wa `x` na `y` kutoka `outerFunction` ingawa `outerFunction` tayari imemaliza utekelezaji. Hii ndiyo kiini cha ufungaji.
+
+Kitendakazi cha ndani kinahifadhi rejea kwa mazingira yake ya nje ya kisarufi, kinahifadhi upatikanaji wa vigezo katika mazingira hayo hata baada ya kitendakazi cha nje kumaliza.
+
+Ufungaji ni muhimu sana kwa kuunda vigezo na vitendakazi vya faragha. Angalia mfano huu:
+
+:::interactive_editor
+
+```js
+function createCounter() {
+    let count = 0;
+    return function () {
+        count++;
+        return count;
+    };
+}
+
+let counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+```
+
+:::
+
+Katika kesi hii, `createCounter` hurudisha kitendakazi kinachoongeza na kurudisha kigezo `count`. Kigezo `count` hakipatikani moja kwa moja kutoka nje ya `createCounter`, lakini kitendakazi kilichorudishwa (ufungaji wetu) kina upatikanaji kwake. Kila tunapofanya wito wa `counter()`, kinaongeza na kurudisha `count`.
+
+Ufungaji pia unaweza kushikilia vigezo vingi kutoka wigo wake wa nje. Kwa mfano:
+
+:::interactive_editor
+
+```js
+function multiply(x) {
+    return function (y) {
+        return x * y;
+    };
+}
+
+let double = multiply(2);
+console.log(double(5)); // 10
+```
+
+:::
+
+Hapa kitendakazi cha ndani kinashikilia kigezo `x` kutoka `multiply`. Tunapotengeneza `double` kwa kufanya wito wa `multiply(2)` hurudisha kitendakazi kinachozidisha hoja yake kwa `2` kila wakati.
+
+Jambo muhimu la kuzingatia kuhusu ufungaji ni kwamba hushikilia vigezo kwa rejea, si kwa thamani. Hii inamaanisha kama thamani ya kigezo kilichoshikiliwa inabadilika, ufungaji utaona thamani mpya. Kwa mfano:
+
+:::interactive_editor
+
+```js
+function createIncrementer() {
+    let count = 0;
+    return function () {
+        count++;
+        console.log(count);
+    };
+}
+
+let increment = createIncrementer();
+increment(); // 1
+increment(); // 2
+```
+
+:::
+
+Kila tunapofanya wito wa `increment` inafanya kazi na kigezo kimoja cha `count`, si nakala ya thamani yake ya awali. Ufungaji ni chombo chenye nguvu katika JavaScript. Unapoendelea kufanya kazi na JavaScript utagundua kwamba kuelewa na kutumia ufungaji kwa ufanisi kunaweza kuongeza sana uwezo wako wa kuandika msimbo safi, wenye ufanisi na wenye nguvu.
+
+# --questions--
+
+## --text--
+
+Nini itakuwa matokeo ya msimbo ufuatao?
+
+```js
+function outer(x) {
+    return function(y) {
+        return x + y;
+    };
+}
+
+let add5 = outer(5);
+console.log(add5(3));
+```
+
+## --answers--
+
+`5`
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika outer kinavyoshikilia kigezo `x`.
+
+---
+
+`3`
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika outer kinavyoshikilia kigezo `x`.
+
+---
+
+`8`
+
+---
+
+`undefined`
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika outer kinavyoshikilia kigezo `x`.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Dhana gani msimbo ufuatao unaonyesha?
+
+```js
+function createGreeter(greeting) {
+    return function(name) {
+        console.log(greeting + ", " + name);
+    };
+}
+
+let sayHello = createGreeter("Hello");
+sayHello("Alice");
+```
+
+## --answers--
+
+Hoisting.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kilichorudishwa kinavyohifadhi upatikanaji wa kigezo `greeting`.
+
+---
+
+Ufungaji.
+
+---
+
+Kurudia.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kilichorudishwa kinavyohifadhi upatikanaji wa kigezo `greeting`.
+
+---
+
+Urithi wa mfano.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kilichorudishwa kinavyohifadhi upatikanaji wa kigezo `greeting`.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini itakuwa matokeo ya msimbo ufuatao?
+
+```js
+function counter() {
+    let count = 0;
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+let increment = counter();
+console.log(increment());
+console.log(increment());
+console.log(increment());
+```
+
+## --answers--
+
+```js
+1
+1
+1
+```
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika counter kinavyohifadhi upatikanaji wa kigezo count katika wito nyingi.
+
+---
+
+```js
+1
+2
+3
+```
+
+---
+
+```js
+0
+1
+2
+```
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika counter kinavyohifadhi upatikanaji wa kigezo count katika wito nyingi.
+
+---
+
+```js
+undefined
+undefined
+undefined
+```
+
+### --feedback--
+
+Fikiria jinsi kitendakazi cha ndani katika counter kinavyohifadhi upatikanaji wa kigezo count katika wito nyingi.
+
+## --video-solution--
+
+2

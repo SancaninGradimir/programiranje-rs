@@ -1,0 +1,63 @@
+---
+id: 68da6138d70960c197ec5ef1
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Sasa unahitaji kubaini lini umejenga mchanganyiko kamili wa mabano ya kawaida. Mchanganyiko kamili una urefu sawa na mara mbili ya idadi ya jozi (kwa sababu kila jozi hutoa mabano ya kufungua na ya kufunga).
+
+Ndani ya mzunguko wako wa `while`, ongeza tamko la `if` ili ukague kama `len(current) == 2 * pairs`. Wakati hali hii ni kweli, ongeza `current` kwenye orodha ya `result`.
+
+# --hints--
+
+Unapaswa kuwa na tamko la `if` ndani ya mzunguko wako wa `while`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0]
+`) })
+```
+
+Tamko lako la `if` linapaswa kukagua kama `len(current) == 2 * pairs`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0].is_equivalent("len(current) == 2 * pairs")
+`) })
+```
+
+Unapaswa kuongeza `current` kwenye orodha ya `result` ndani ya tamko lako jipya la `if`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").find_whiles()[0].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_call("result.append(current)")
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def gen_parentheses(pairs):
+    if not isinstance(pairs, int):
+        return 'The number of pairs should be an integer'
+    if pairs < 1:
+        return 'The number of pairs should be at least 1'
+    
+    queue = [('', 0, 0)]
+    result = []
+    while queue:
+        print(queue)
+        current, opens_used, closes_used = queue.pop(0)
+--fcc-editable-region--
+        
+--fcc-editable-region--
+
+    return result
+
+print(gen_parentheses(1))
+```

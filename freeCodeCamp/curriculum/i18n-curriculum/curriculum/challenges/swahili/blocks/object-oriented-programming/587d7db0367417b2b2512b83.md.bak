@@ -1,0 +1,142 @@
+---
+id: 587d7db0367417b2b2512b83
+title: Tumia urithi ili usijirudie mwenyewe
+challengeType: 1
+forumTopicId: 301334
+dashedName: use-inheritance-so-you-dont-repeat-yourself
+---
+
+# --description--
+
+Kuna kanuni katika programu inayoitwa <dfn>Usijirudie mwenyewe (DRY)</dfn>. Sababu msimbo unaojirudia ni tatizo ni kwa sababu mabadiliko yoyote yanahitaji kurekebisha msimbo sehemu nyingi. Hii kawaida inamaanisha kazi zaidi kwa waprogramu na nafasi zaidi za makosa.
+
+Angalia katika mfano hapa chini kwamba njia ya `describe` inashirikiwa na `Bird` na `Dog`:
+
+```js
+Bird.prototype = {
+  constructor: Bird,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+
+Dog.prototype = {
+  constructor: Dog,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
+
+Njia ya `describe` inajirudia sehemu mbili. Msimbo unaweza kuhaririwa kufuata kanuni ya DRY kwa kuunda `supertype` (au mzazi) anayeitwa `Animal`:
+
+```js
+function Animal() { };
+
+Animal.prototype = {
+  constructor: Animal, 
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+```
+
+Kwa kuwa `Animal` inajumuisha njia ya `describe`, unaweza kuiondoa kutoka `Bird` na `Dog`:
+
+```js
+Bird.prototype = {
+  constructor: Bird
+};
+
+Dog.prototype = {
+  constructor: Dog
+};
+```
+
+# --instructions--
+
+Njia ya `eat` inajirudia katika `Cat` na `Bear`. Hariri msimbo kwa roho ya DRY kwa kuhamisha njia ya `eat` kwenda `Animal` `supertype`.
+
+# --hints--
+
+`Animal.prototype` inapaswa kuwa na sifa ya `eat`.
+
+```js
+assert(Animal.prototype.hasOwnProperty('eat'));
+```
+
+`Bear.prototype` haipaswi kuwa na sifa ya `eat`.
+
+```js
+assert(!Bear.prototype.hasOwnProperty('eat'));
+```
+
+`Cat.prototype` haipaswi kuwa na sifa ya `eat`.
+
+```js
+assert(!Cat.prototype.hasOwnProperty('eat'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Cat(name) {
+  this.name = name;
+}
+
+Cat.prototype = {
+  constructor: Cat,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Bear(name) {
+  this.name = name;
+}
+
+Bear.prototype = {
+  constructor: Bear,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+
+};
+```
+
+# --solutions--
+
+```js
+function Cat(name) {
+  this.name = name;
+}
+
+Cat.prototype = {
+  constructor: Cat
+};
+
+function Bear(name) {
+  this.name = name;
+}
+
+Bear.prototype = {
+  constructor: Bear
+};
+
+function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+```

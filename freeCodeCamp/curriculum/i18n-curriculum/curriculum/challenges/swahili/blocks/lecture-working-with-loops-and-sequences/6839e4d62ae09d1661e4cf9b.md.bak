@@ -1,0 +1,229 @@
+---
+id: 6839e4d62ae09d1661e4cf9b
+title: "Je, list comprehension ni nini na ni vitendakazi gani muhimu vya kufanya kazi na orodha?"
+challengeType: 19
+dashedName: what-are-list-comprehensions-and-what-are-some-useful-functions-to-work-with-lists
+---
+
+# --description--
+
+Kwa funzo zilizopita, umezoea kufanya kazi na mizunguko kama hii:
+
+```py
+even_numbers = []
+
+for num in range(21):
+    if num % 2 == 0:
+        even_numbers.append(num)
+
+print(even_numbers)
+```
+
+Mfano huu unaunda orodha mpya tupu iitwayo `even_numbers` na kurudia kupitia mfululizo wa nambari kati ya `0` na `20`. Ndani ya mzunguko, kuna sharti linalokagua kama nambari ya sasa ina mabaki ya `0` wakati inagawanywa na `2`. Hii hutumika kubaini kama nambari ni nambari chanya. Ikiwa sharti ni `True`, basi `num` ya sasa inaongezwa mwishoni mwa orodha ya `even_numbers`. Mwishowe, tunachapisha orodha ya `even_numbers` kwenye konsoli.
+
+Ingawa msimbo huu unafanya kazi, kuna njia fupi zaidi ya kuandika hii kwa kutumia list comprehension badala yake. List comprehension inakuwezesha kuunda orodha mpya kwa mstari mmoja kwa kuunganisha mzunguko na sharti moja kwa moja ndani ya mabano ya mraba. Hii hufanya msimbo kuwa mfupi na mara nyingi rahisi kusoma.
+
+Hapa kuna mfano uliobadilishwa kutoka awali ukitumia mabano ya mraba:
+
+```py
+even_numbers = [num for num in range(21) if num % 2 == 0]
+print(even_numbers)
+```
+
+Katika mfano huu uliobadilishwa, orodha ya `even_numbers` imetengenezwa kwa mstari mmoja wa msimbo. List comprehension inarudia kupitia nambari kutoka `0` hadi `20`, na kujumuisha tu zile zinazogawika kwa `2`. Njia hii ni fupi zaidi na inaondoa haja ya mzunguko tofauti na sehemu ya masharti.
+
+Tuchukulie mfano mwingine ili kuelewa vizuri jinsi list comprehension inavyofanya kazi:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+result = [(num, 'Even') if num % 2 == 0 else (num, 'Odd') for num in numbers]
+print(result)
+```
+
+Katika mfano huu, tuna orodha ya nambari na tunataka kuunda orodha mpya ya tuple zinazoonyesha ni nambari gani ni chanya au hasi. Sehemu ya kwanza ya list comprehension, tunatumia tamko la `if` kukagua kama nambari inagawika sawasawa na `2`. Ikiwa ni hivyo, basi matokeo ni tuple ya nambari hiyo ikifuatiwa na neno `Even`. Vinginevyo, matokeo ni tuple yenye nambari ikifuatiwa na neno `Odd`.
+
+Hivi ndivyo matokeo yanavyoonekana yakiwa yamechapishwa kwenye konsoli:
+
+```py
+[(1, 'Odd'), (2, 'Even'), (3, 'Odd'), (4, 'Even'), (5, 'Odd')]
+```
+
+Njia nyingine ya kuunda orodha kuanzia kwenye iterable iliyopo ni kitendakazi cha `filter()`. Hapa kuna mfano wa kuunda orodha mpya ya maneno marefu zaidi ya herufi nne:
+
+```py
+words = ['tree', 'sky', 'mountain', 'river', 'cloud', 'sun']
+
+def is_long_word(word):
+    return len(word) > 4
+
+long_words = list(filter(is_long_word, words))
+print(long_words) # ['mountain', 'river', 'cloud']
+```
+
+Kitendakazi cha `filter()` hutumika kuchagua vipengele kutoka iterable vinavyokidhi sharti fulani. Kitendakazi cha `filter()` kinapokea kitendakazi na iterable kama hoja zake. Katika mfano huu, tunapitia kitendakazi cha `is_long_word` ndani ya kitendakazi cha `filter()` kukagua kama hesabu ya herufi za neno la sasa ni kubwa kuliko `4`. Maneno yote yenye hesabu ya herufi kubwa kuliko `4` yanaongezwa kwenye orodha mpya na kuwekwa kwenye mabadiliko ya `long_words`.
+
+Mbali na kitendakazi cha `filter()`, kuna vitendakazi vingine vinavyosaidia wakati wa kufanya kazi na orodha. Kitendakazi kingine cha kuzingatia ni kitendakazi cha `map()` ambacho huchukua iterable na kutekeleza kitendakazi kwa kila kipengele chake. Hapa kuna mfano wa kutumia kitendakazi cha `map()` kubadilisha orodha ya joto kutoka Celsius hadi Fahrenheit:
+
+```py
+celsius = [0, 10, 20, 30, 40]
+
+def to_fahrenheit(temp):
+    return (temp * 9/5) + 32
+
+fahrenheit = list(map(to_fahrenheit, celsius))
+print(fahrenheit) # [32.0, 50.0, 68.0, 86.0, 104.0]
+```
+
+Kama kitendakazi cha `filter()`, `map()` kinapokea kitendakazi na iterable kama hoja zake. Kitendakazi cha `to_fahrenheit` kinachukua joto na kulibadilisha kutoka Celsius hadi Fahrenheit.
+
+Kitendakazi cha mwisho tutakachokagua ni kitendakazi cha `sum()`. Kitendakazi hiki hutumika kupata jumla kutoka iterable kama orodha au tuple. Hapa kuna mfano wa kutumia kitendakazi cha `sum()`:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers)
+print(total) # Result: 50
+```
+
+Unaweza pia kupitisha hoja ya hiari ya `start` ambayo huweka thamani ya mwanzo kwa jumla. Hapa kuna mfano uliosasishwa ukitumia hoja ya `start` kama hoja ya nafasi:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, 10) # positional argument
+print(total) # 60
+```
+
+Unaweza pia kuchagua kutumia hoja ya `start` kama hoja ya neno kama hii badala yake:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, start=10) # keyword argument
+print(total) # 60
+```
+
+Toleo zote mbili zitatoa matokeo sawa, lakini hoja ya neno ni kidogo wazi zaidi.
+
+List comprehension pamoja na vitendakazi vingine kama `map()`, `filter()`, na `sum()` vinaweza kuonekana kuchanganya mwanzoni. Lakini kwa mazoezi ya kutosha na muda, utaanza kujisikia vizuri zaidi kutumia hizi katika programu zako za Python.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kutumia list comprehension?
+
+## --answers--
+
+```py
+[while for loop num in range(21)]
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo kwa jibu.
+
+---
+
+```py
+[num for num in range(21) if num % 2 == 0]
+```
+
+---
+
+```py
+[num for num]
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo kwa jibu.
+
+---
+
+```py
+[for num in range(21) if num % 2 == 0]
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo kwa jibu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni kitendakazi gani kati ya zifuatazo kinachochukua iterable na kutekeleza kitendakazi kwa kila kipengele chake?
+
+## --answers--
+
+`memoryview`
+
+### --feedback--
+
+Fikiria kitendakazi kinachofanya "ramani" ya mabadiliko kwa kila kipengele katika orodha, kipengele kwa kipengele.
+
+---
+
+`map`
+
+---
+
+`max`
+
+### --feedback--
+
+Fikiria kitendakazi kinachofanya "ramani" ya mabadiliko kwa kila kipengele katika orodha, kipengele kwa kipengele.
+
+---
+
+`min`
+
+### --feedback--
+
+Fikiria kitendakazi kinachofanya "ramani" ya mabadiliko kwa kila kipengele katika orodha, kipengele kwa kipengele.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kitatolewa kwenye konsoli?
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, start=10)
+print(total) # ?
+```
+
+## --answers--
+
+`60`
+
+---
+
+`50`
+
+### --feedback--
+
+Kagua mwisho wa funzo kwa jibu.
+
+---
+
+`40`
+
+### --feedback--
+
+Kagua mwisho wa funzo kwa jibu.
+
+---
+
+`70`
+
+### --feedback--
+
+Kagua mwisho wa funzo kwa jibu.
+
+## --video-solution--
+
+1

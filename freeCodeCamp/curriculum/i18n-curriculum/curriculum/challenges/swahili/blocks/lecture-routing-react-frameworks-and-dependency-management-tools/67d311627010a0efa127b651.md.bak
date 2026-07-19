@@ -1,0 +1,239 @@
+---
+id: 67d311627010a0efa127b651
+title: Jinsi gani njia ya data inavyofanya kazi katika React?
+challengeType: 19
+dashedName: how-does-routing-work-in-react
+---
+
+# --description--
+
+Katika mafundisho ya awali, ulijifunza kwamba React ni programu ya ukurasa mmoja. Programu za ukurasa mmoja ni programu zinazojumuisha faili moja la HTML na kutumia JavaScript kusasisha maudhui yoyote kwenye ukurasa kwa njia ya mabadiliko ya moja kwa moja.
+
+Basi, nini hutokea unapotaka kuongeza "kurasa" nyingi katika programu yako ya React? Utakwenda vipi kuvinjari kwenye maoni tofauti hayo?
+
+Hapo ndipo React Router huingia.
+
+React Router ni maktaba ya mtu wa tatu inayokuwezesha kuongeza njia ya data katika programu zako za React. Kuanza, utahitaji kusakinisha React Router katika mradi uliopo wa React kama ifuatavyo:
+
+```sh
+npm i react-router
+```
+
+Ukikagua faili la `package.json`, utaona kwamba `react-router` iliongezwa kwenye orodha ya utegemezi:
+
+```json
+"dependencies": {
+  "react": "^18.3.1",
+  "react-dom": "^18.3.1",
+  "react-router": "^7.2.0"
+}
+```
+
+Kisha ndani ya faili lako la `main.jsx` au `index.jsx`, utahitaji import `BrowserRouter` na onyesha `BrowserRouter` kuzunguka sehemu yako ya `App`:
+
+```jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+import App from "./App.jsx";
+
+import "./index.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
+```
+
+Ili kuwezesha njia za data katika programu yako, utahitaji kusasisha tamko lako la `import` ili lijumuisha sehemu za `Routes` na `Route` kama ifuatavyo:
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router";
+```
+
+Kisha ndani ya `BrowserRouter`, ongeza sehemu za `Routes` na `Route`:
+
+```jsx
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);
+```
+
+`path` na `element` hutumika kuunganisha URL na sehemu za UI pamoja. Katika kesi hii, tunapanga njia ya ukurasa wa nyumbani inayowakilishwa na sehemu ya `App`.
+
+Ni kawaida katika programu kubwa kuwa na maoni mengi na njia za data zilizopangwa kama hizi:
+
+```jsx
+<Routes>
+  <Route index element={<Home />} />
+  <Route path="about" element={<About />} />
+
+  <Route path="products">
+    <Route index element={<ProductsHome />} />
+    <Route path=":category" element={<Category />} />
+    <Route path=":category/:productId" element={<ProductDetail />} />
+    <Route path="trending" element={<Trending />} />
+  </Route>
+</Routes>
+```
+
+Vigezo vya `index` katika mifano hii vinakusudiwa kuwakilisha njia ya chaguo-msingi kwa sehemu fulani ya njia. Hivyo sehemu ya `Home` itaonyeshwa kwenye njia ya mzizi (`/`) wakati sehemu ya `ProductsHome` itaonyeshwa kwenye njia ya `products`.
+
+Pia unaweza kuwa umeona kwamba tunapanga ndani njia chache ndani ya njia nyingine kama ifuatavyo:
+
+```jsx
+<Route path="products">
+  <Route path="trending" element={<Trending />} />
+</Route>
+```
+
+Hii ina maana kwamba njia ya njia ndogo itaambatanishwa na njia ya njia kuu. Kwa mfano huu, `path` kwa bidhaa zinazopendwa itakuwa `products/trending`.
+
+Kama `path` inaanza na nukta mbili (`:`) basi hiyo inawakilisha sehemu ya mabadiliko katika njia ya data:
+
+```jsx
+<Route path=":category" element={<Category />} />
+```
+
+Katika mfano huu tuna sehemu ya mabadiliko inayoitwa `category`. Wakati mtumizi anapovinjari kwenye URL kama `products/brass-instruments`, basi maoni yatabadilika kuwa sehemu ya `Category` na unaweza kupata data inayofaa kwa njia ya mabadiliko.
+
+Unaweza kupata thamani ya sehemu ya mabadiliko kwa kutumia hook ya `useParams` ndani ya sehemu ndogo kama ifuatavyo:
+
+```jsx
+import { useParams } from "react-router";
+
+export default function Category() {
+  let params = useParams();
+   {/* Accessing the category param: params.category */}
+   {/* rest of code goes here */}
+}
+```
+
+Njia za mabadiliko ni msaada kwa sababu zinakuwezesha kuunda sehemu zinazobadilika na zinazoweza kutumika tena ambazo zinaonyesha maudhui tofauti kulingana na vigezo vilivyopo kwenye URL. Badala ya kufafanua orodha thabiti ya njia kwa kila njia inayowezekana, unaweza kutumia sehemu za mabadiliko kuonyesha maudhui mbalimbali kulingana na kile mtumizi amekiomba.
+
+# --questions--
+
+## --text--
+
+React Router hutumika kwa ajili gani?
+
+## --answers--
+
+Inatumika kuondoa njia za mabadiliko kutoka katika programu zako za React.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo React Router ilijadiliwa.
+
+---
+
+Inatumika kupanga njia za data za kudumu tu kwa programu zako za React.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo React Router ilijadiliwa.
+
+---
+
+Inatumika kuondoa njia za data kutoka katika programu zako za React.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo React Router ilijadiliwa.
+
+---
+
+Inatumika kuongeza njia ya data katika programu zako za React.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni hook gani hutumika kupata kigezo cha mabadiliko kwa URL?
+
+## --answers--
+
+`usePar`
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+---
+
+`useParams`
+
+---
+
+`useParameters`
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+---
+
+`usePara`
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya hizi njia sahihi ya kuwakilisha sehemu ya mabadiliko katika njia ya data?
+
+## --answers--
+
+```jsx
+<Route path=":category" element={<Category />} />
+```
+
+---
+
+```jsx
+<Route path="/category" element={<Category />} />
+```
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+---
+
+```jsx
+<Route path="\category" element={<Category />} />
+```
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+---
+
+```jsx
+<Route path="?category" element={<Category />} />
+```
+
+### --feedback--
+
+Kagua dakika ya mwisho ya funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+1

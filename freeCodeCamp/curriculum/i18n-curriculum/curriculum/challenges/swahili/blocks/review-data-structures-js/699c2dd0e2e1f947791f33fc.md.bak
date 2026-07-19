@@ -1,0 +1,223 @@
+---
+id: 699c2dd0e2e1f947791f33fc
+title: Ukaguzi wa miundo ya data
+challengeType: 31
+dashedName: review-data-structures-js
+---
+
+# --interactive--
+ 
+## Algoriti na noti ya Big O
+
+- **Algoriti**: Seti ya maagizo yasiyo na utata kwa kutatua tatizo au kutekeleza zoezi. Algoriti lazima zikamilike kwa idadi ya hatua zisizo na mwisho na kila hatua lazima iwe sahihi na isiyo na utata.
+
+- **Noti ya Big O**: Inaelezea utendaji mbaya zaidi, au kiwango cha ukuaji, cha algoriti kadri ukubwa wa ingizo unavyoongezeka. Inazingatia jinsi matumizi ya rasilimali yanavyokua kwa ukubwa wa ingizo, ikisahau mambo ya kudumu na vipengele vya kiwango cha chini.
+
+### Ugumu wa kawaida wa muda
+
+- **O(1) - Muda wa kudumu**: Algoriti huchukua muda sawa bila kujali ukubwa wa ingizo.
+
+:::interactive_editor
+
+```js
+function checkEvenOrOdd(number) {
+  if (number % 2 === 0) {
+    return "Even";
+  } else {
+    return "Odd";
+  }
+}
+
+console.log(checkEvenOrOdd(4)) // "Even"
+console.log(checkEvenOrOdd(5)) // "Odd"
+```
+
+:::
+
+- **O(log n) - Muda wa logaritmiki**: Muda huongezeka polepole kadri ingizo linavyokua. Mara nyingi hutokea katika algoriti zinazopunguza mara kwa mara ukubwa wa tatizo kwa sehemu (kama Utafutaji wa Binary).
+
+- **O(n) - Muda wa mstari**: Muda wa utekelezaji huongezeka kwa uwiano na ukubwa wa ingizo.
+
+```js
+for (const grade of grades) { // grades is an array
+  console.log(grade);
+}
+```
+
+- **O(n log n) - Muda wa mstari-logaritmiki**: Ugumu wa kawaida wa muda wa algoriti za kupanga zenye ufanisi kama Merge Sort na Quick Sort.
+
+- **O(n²) - Muda wa mraba**: Muda wa utekelezaji huongezeka mraba. Mara nyingi huonekana katika mizunguko iliyopangwa ndani.
+
+:::interactive_editor
+
+```js
+const n = 3;
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    console.log("Hello, World!");
+  }
+}
+```
+
+:::
+
+### Ugumu wa nafasi
+
+- **O(1) - Nafasi ya kudumu**: Algoriti hutumia kiasi sawa cha kumbukumbu bila kujali ukubwa wa ingizo.
+- **O(n) - Nafasi ya mstari**: Matumizi ya kumbukumbu huongezeka kwa uwiano na ukubwa wa ingizo.
+- **O(n²) - Nafasi ya mraba**: Matumizi ya kumbukumbu huongezeka mraba kwa ukubwa wa ingizo.
+
+## Mbinu za kutatua matatizo
+
+- **Kuelewa tatizo**: Soma tamko la tatizo mara kadhaa. Tambua ingizo, matokeo yanayotarajiwa, na jinsi ya kubadilisha ingizo kuwa matokeo.
+
+- **Msimbo wa bandia**: Maelezo ya kiwango cha juu ya mantiki ya algoriti ambayo haitegemei lugha yoyote. Inatumia lugha ya kawaida iliyochanganywa na miundo ya programu kama `IF`, `ELSE`, `FOR`, `WHILE`.
+
+```md
+GET original_string
+SET reversed_string = ""
+FOR EACH character IN original_string:
+  ADD character TO THE BEGINNING OF reversed_string
+DISPLAY reversed_string
+```
+
+- **Matukio ya pembe**: Ingizo maalum, halali yanayotokea katika mipaka ya kile algoriti inapaswa kushughulikia. Daima zingatia na jaribu matukio ya pembe.
+
+## Safu za data
+
+- **Safu za data za kudumu**: Zina ukubwa uliowekwa wakati wa uanzishaji. Vipengele huhifadhiwa katika maeneo ya kumbukumbu yanayopakana. Ukubwa hauwezi kubadilishwa wakati wa utekelezaji wa programu.
+
+- **Safu za data zinazobadilika**: Zinaweza kukua au kupungua moja kwa moja wakati wa utekelezaji wa programu. Zinashughulikia mabadiliko ya ukubwa kwa kunakili moja kwa moja kwenye safu kubwa zaidi inapohitajika.
+
+### Utekelezaji wa safu zinazobadilika katika JavaScript
+
+:::interactive_editor
+
+```js
+let numbers = [3, 4, 5, 6];
+// Access elements
+console.log(numbers[0])  // 3
+
+// Update elements
+numbers[2] = 16
+console.log([...numbers]);  // [3, 4, 16, 6]
+
+// Add elements
+numbers.push(7)
+console.log([...numbers]);  // [3, 4, 16, 6, 7] 
+
+// Add at a specific index
+numbers.splice(3, 0, 15);
+console.log([...numbers]);  // [3, 4, 16, 15, 6, 7]
+
+// Remove elements
+numbers.splice(2, 1);  // Remove at specific index
+console.log([...numbers]);  // [3, 4, 15, 6, 7]
+
+numbers.pop()   // Remove last element
+console.log([...numbers]); // [3, 4, 15, 6]
+```
+
+:::
+
+### Ugumu wa muda kwa safu zinazobadilika
+
+- **Upatikanaji**: O(1)
+- **Ingiza mwishoni**: O(1) wastani, O(n) wakati wa mabadiliko ya ukubwa
+- **Ingiza katikati**: O(n)
+- **Futa**: O(n) kwa katikati, O(1) mwishoni
+
+## Staki
+
+- **Staki**: Muundo wa data wa Last-In, First-Out (LIFO). Vipengele huongezwa na kufutwa kutoka juu tu.
+
+- **Operesheni ya push**: Kuongeza kipengele juu ya staki. Ugumu wa muda: O(1).
+
+- **Operesheni ya pop**: Kuondoa kipengele kutoka juu ya staki. Ugumu wa muda: O(1).
+
+:::interactive_editor
+
+```js
+// Using JavaScript array as a stack
+
+let stack = [];
+
+// Push operations
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log([...stack]);  // [1, 2, 3]
+
+// Pop operations
+let topElement = stack.pop();
+console.log(topElement);  // 3
+console.log([...stack]);  // [1, 2]
+```
+
+:::
+
+## Foleni
+
+- **Foleni**: Muundo wa data wa First-In, First-Out (FIFO). Vipengele huongezwa nyuma na kufutwa mbele.
+
+- **Operesheni ya enqueue**: Kuongeza kipengele nyuma ya foleni. Ugumu wa muda: O(1).
+
+- **Operesheni ya dequeue**: Kuondoa kipengele mbele ya foleni. Ugumu wa muda: O(1).
+
+:::interactive_editor
+
+```js
+// Using JavaScript array as a queue
+let queue = [];
+
+// Enqueue operations
+queue.push(1);
+queue.push(2);
+queue.push(3);
+console.log([...queue]);  // [1, 2, 3]
+
+// Dequeue operations
+let firstElement = queue.shift();
+console.log(firstElement);  // 1
+console.log([...queue]);  // [2, 3]
+```
+
+:::
+
+## Orodha zilizounganishwa
+
+- **Orodha zilizounganishwa**: Muundo wa data wa mstari ambapo kila nodi ina data na rejea kwa nodi inayofuata. Nodi zimeunganishwa kama mnyororo.
+
+### Orodha zilizounganishwa za peke yake
+
+- **Muundo**: Kila nodi ina data na rejea moja kwa nodi inayofuata.
+- **Kupitia**: Inaweza kusogea mbele tu kutoka kichwa hadi mkia.
+- **Nodi ya kichwa**: Nodi ya kwanza katika orodha, kawaida ndiyo nodi pekee inayopatikana moja kwa moja.
+- **Nodi ya mkia**: Nodi ya mwisho katika orodha, inaonyesha `null`.
+
+### Operesheni na ugumu wa muda
+
+- **Ingiza mwanzoni**: O(1)
+- **Ingiza mwishoni**: O(n) - lazima upitie hadi mwisho
+- **Ingiza katikati**: O(n) - lazima upitie hadi nafasi
+- **Futa mwanzoni**: O(1)
+- **Futa mwishoni**: O(n) - lazima upitie kupata nodi ya awali
+- **Futa katikati**: O(n) - lazima upitie kupata nodi
+
+### Orodha zilizounganishwa mara mbili
+
+- **Muundo**: Kila nodi ina data na rejea mbili: nodi inayofuata na nodi ya awali.
+- **Kupitia**: Inaweza kusogea katika mwelekeo yote miwili.
+- **Kumbukumbu**: Inahitaji kumbukumbu zaidi kuliko orodha zilizounganishwa za peke yake kwa sababu ya rejea ya ziada.
+
+## Wakati wa kutumia kila muundo wa data
+
+- **Safu za data (safu zinazobadilika)**: Unapohitaji upatikanaji uliopangwa na wa kielezo na hujui ukubwa mapema
+- **Staki**: Kwa operesheni za LIFO (kazi ya kufuta, tathmini ya usemi, kurudi nyuma)
+- **Foleni**: Kwa operesheni za FIFO (ratiba ya kazi, utafutaji wa upana kwanza)
+- **Orodha zilizounganishwa**: Unapohitaji kuingiza/futa mara kwa mara mwanzoni, ukubwa usiojulikana, hakuna upatikanaji wa nasibu unaohitajika
+
+# --assignment--
+
+Kagua mada na dhana za miundo ya data.

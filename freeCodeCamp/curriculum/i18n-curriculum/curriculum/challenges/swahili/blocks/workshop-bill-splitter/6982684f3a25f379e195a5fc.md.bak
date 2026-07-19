@@ -1,0 +1,77 @@
+---
+id: 6982684f3a25f379e195a5fc
+title: Step 4
+challengeType: 20
+dashedName: step-4
+---
+
+# --description--
+
+Sasa baada ya kuhifadhi gharama za kila moja, unaweza kuhesabu jumla.
+
+Kumbuka kuwa opereta `+=` huongeza thamani kwenye kigezo kilichopo na kuiboresha mara moja. Kwa mfano:
+
+```py
+total = 10
+total += 2 + 2 + 1
+print(total)  # total is now 15
+```
+
+Tumia opereta `+=` mara moja kuongeza `appetizers`, `main_courses`, `desserts`, na `drinks` kwenye `running_total`.
+
+Mwishowe, tumia `print()` kuonyesha mfuatano wa herufi `Total bill so far:` ukifuatiwa na nafasi na thamani ya `running_total`.
+
+**Kumbuka:** Huenda ukaona matokeo yana tarakimu za desimali zaidi kuliko ulivyotarajia. Kama ulivyojifunza katika funzo lililopita, hili hutokea kwa sababu nambari huhifadhiwa kwa mfumo wa binary, na thamani nyingi za desimali haziwezi kuwakilishwa kwa usahihi katika mfumo huu, jambo linalosababisha makosa ya kuzungusha.
+
+# --hints--
+
+Unapaswa kuboresha `running_total` kwa kutumia opereta `+=` mara moja kuongeza gharama zote nne za kozi.
+
+```js
+({
+       test: () => runPython(`
+import itertools  
+perms = itertools.permutations(['+ appetizers', '+ main_courses', '+ desserts', '+ drinks'])  
+values = (' '.join(perm).lstrip('+') for perm in perms)  
+solutions = (f'running_total += {v}' for v in values)  
+assert any(_Node(_code).has_stmt(s) for s in solutions)`)
+})
+```
+
+Unapaswa kuchapisha mfuatano wa herufi `Total bill so far:` ukifuatiwa na nafasi na thamani ya `running_total`.
+
+```js
+({
+    test: () => runPython(`
+import io, contextlib, re
+
+buffer = io.StringIO()
+with contextlib.redirect_stdout(buffer):
+    exec(_code)
+
+match = re.search(r"Total bill so far: ([0-9]+(?:\\.[0-9]+)?)", buffer.getvalue())
+
+assert match
+assert abs(float(match.group(1)) - (37.89 + 57.34 + 39.39 + 64.21)) < 1e-6
+`)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+running_total = 0
+
+num_of_friends = 4
+
+appetizers = 37.89
+main_courses = 57.34
+desserts = 39.39
+drinks = 64.21
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

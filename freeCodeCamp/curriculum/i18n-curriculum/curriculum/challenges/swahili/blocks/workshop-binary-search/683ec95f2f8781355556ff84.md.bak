@@ -1,0 +1,52 @@
+---
+id: 683ec95f2f8781355556ff84
+title: Hatua 12
+challengeType: 20
+dashedName: step-12
+---
+
+# --description--
+
+Ikiwa sharti katika `elif` ni kweli, basi ondoa neno kuu la `pass` na sasisha thamani ya mabadiliko ya `low` kwa kuongeza `1` kwa mabadiliko ya `mid`.
+
+Hii itaongeza utafutaji katika nusu ya kulia ya maeneo ya sasa ya utafutaji katika orodha, kwa sababu ikiwa `value` ni kubwa kuliko `value_at_middle`, ina maana `value` lazima iwe katika nusu ya kulia ya eneo la sasa la utafutaji.
+
+# --hints--
+
+Unapaswa kuondoa neno kuu la `pass` na kusasisha mabadiliko ya `low` kuwa `mid + 1`.
+
+```js
+({
+  test: () => assert(
+    runPython(`_Node(_code).find_function("binary_search").find_whiles()[0].find_ifs()[0].find_bodies()[1].is_equivalent("low = mid + 1")`))
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def binary_search(search_list, value):
+    path_to_target = []
+    low = 0
+    high = len(search_list) - 1
+    
+    while low <= high:
+        mid = (low + high) // 2
+        value_at_middle = search_list[mid]
+        path_to_target.append(value_at_middle)
+        
+        if value == value_at_middle:
+            return path_to_target
+        elif value > value_at_middle:
+--fcc-editable-region--
+            pass
+--fcc-editable-region--    
+        break
+    
+    return []
+
+print(binary_search([1, 2, 3, 4, 5], 3))
+print(binary_search([1, 2, 3, 4, 5, 9], 4)) 
+```

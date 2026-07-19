@@ -1,0 +1,111 @@
+---
+id: 5a24c314108439a4d4036159
+title: Tumia opereta ya spread kwenye safu za data
+challengeType: 6
+forumTopicId: 301452
+dashedName: use-the-spread-operator-on-arrays
+---
+
+# --description--
+
+Suluhisho moja kutoka ES6 kusaidia kutekeleza kutokubadilika kwa hali katika Redux ni opereta ya spread: `...`. Opereta ya spread ina matumizi mbalimbali, mojawapo ikiwa ni inayofaa kwa changamoto iliyopita ya kutengeneza safu mpya ya data kutoka kwenye safu iliyopo. Hii ni sintaksia mpya kidogo, lakini inayotumika sana. Kwa mfano, ikiwa una safu ya data `myArray` na unaandika:
+
+```js
+let newArray = [...myArray];
+```
+
+`newArray` sasa ni nakala ya `myArray`. Safu zote mbili bado zipo tofauti katika kumbukumbu. Ikiwa unafanya mabadiliko kama `newArray.push(5)`, `myArray` haibadiliki. `...` kwa ufanisi *inasambaza* thamani zilizoko katika `myArray` ndani ya safu mpya. Ili kunakili safu ya data lakini kuongeza thamani za ziada katika safu mpya, unaweza kuandika `[...myArray, 'new value']`. Hii itarudisha safu mpya iliyojumuisha thamani zilizoko katika `myArray` na mfuatano wa herufi `new value` kama thamani ya mwisho. Sintaksia ya spread inaweza kutumika mara nyingi katika uundaji wa safu kama hii, lakini ni muhimu kuelewa kwamba inafanya nakala ya kina kidogo tu ya safu. Hii inamaanisha, inatoa tu operesheni za safu zisizobadilika kwa safu za data za kipimo kimoja.
+
+# --instructions--
+
+Tumia opereta ya spread kurudisha nakala mpya ya state wakati to-do inaongezwa.
+
+# --hints--
+
+Hifadhi ya Redux inapaswa kuwepo na kuanzishwa na state sawa na `["Do not mutate state!"]`.
+
+```js
+assert(
+  (function () {
+    const initialState = store.getState();
+    return (
+      Array.isArray(initialState) === true &&
+      initialState[0] === 'Do not mutate state!'
+    );
+  })()
+);
+```
+
+`addToDo` na `immutableReducer` zote zinapaswa kuwa vitendakazi.
+
+```js
+assert(typeof addToDo === 'function' && typeof immutableReducer === 'function');
+```
+
+Kutuma kitendo cha aina `ADD_TO_DO` kwenye hifadhi ya Redux kunapaswa kuongeza kipengee cha `todo` na HAIFANYI mabadiliko ya state.
+
+```js
+const initialState = store.getState();
+const isFrozen = !!DeepFreeze(initialState);
+store.dispatch(addToDo('__TEST__TO__DO__'));
+const finalState = store.getState();
+const expectedState = ['Do not mutate state!', '__TEST__TO__DO__'];
+assert(isFrozen)
+assert.deepEqual(finalState, expectedState);
+```
+
+Opereta ya spread inapaswa kutumika kurudisha state mpya.
+
+```js
+assert(code.includes('...state'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const immutableReducer = (state = ['Do not mutate state!'], action) => {
+  switch(action.type) {
+    case 'ADD_TO_DO':
+      // Don't mutate state here or the tests will fail
+      return
+    default:
+      return state;
+  }
+};
+
+const addToDo = (todo) => {
+  return {
+    type: 'ADD_TO_DO',
+    todo
+  }
+}
+
+const store = Redux.createStore(immutableReducer);
+```
+
+# --solutions--
+
+```js
+const immutableReducer = (state = ['Do not mutate state!'], action) => {
+  switch(action.type) {
+    case 'ADD_TO_DO':
+      return [
+        ...state,
+        action.todo
+      ];
+    default:
+      return state;
+  }
+};
+
+const addToDo = (todo) => {
+  return {
+    type: 'ADD_TO_DO',
+    todo
+  }
+}
+
+const store = Redux.createStore(immutableReducer);
+```

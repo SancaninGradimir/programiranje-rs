@@ -1,0 +1,107 @@
+---
+id: bad87fee1348bd9aedf08746
+title: Pata mitindo kutoka kwa kipengele cha mwili
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/c9bmdtR'
+forumTopicId: 18204
+dashedName: inherit-styles-from-the-body-element
+---
+
+# --description--
+
+Sasa tumethibitisha kuwa kila ukurasa wa HTML una kipengele cha `body`, na kwamba kipengele chake cha `body` pia kinaweza kupambwa kwa kutumia CSS.
+
+Kumbuka, unaweza kupamba kipengele chako cha `body` kama kipengele kingine chochote cha HTML, na vipengele vyako vyote vingine vitapata mitindo ya kipengele chako cha `body`.
+
+# --instructions--
+
+Kwanza, tengeneza kipengele cha `h1` chenye maandishi `Hello World`.
+
+Kisha, tupatie vipengele vyote kwenye ukurasa wako rangi ya `green` kwa kuongeza `color: green;` kwenye tamko la mtindo la kipengele chako cha `body`.
+
+Mwishowe, tupatie kipengele chako cha `body` fonti ya `monospace` kwa kuongeza `font-family: monospace;` kwenye tamko la mtindo la kipengele chako cha `body`.
+
+# --hints--
+
+Unapaswa kutengeneza kipengele cha `h1`.
+
+```js
+assert.isNotEmpty(document.querySelectorAll('h1'));
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na maandishi `Hello World`.
+
+```js
+assert.match(
+  document.querySelector('h1').textContent,
+  /hello world/i
+);
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+const commentlessCode = __helpers.removeHtmlComments(code);
+assert.match(commentlessCode, /<\/h1>/g);
+assert.match(commentlessCode, /<h1/g);
+assert.lengthOf(commentlessCode.match(/<\/h1>/g), commentlessCode.match(/<h1/g).length);
+```
+
+Kipengele chako cha `body` kinapaswa kuwa na sifa ya `color` yenye thamani ya `green`.
+
+```js
+const bodyElement = document.querySelector('body');
+const color = window.getComputedStyle(bodyElement)['color']; 
+assert.strictEqual(color, 'rgb(0, 128, 0)');
+```
+
+Kipengele chako cha `body` kinapaswa kuwa na sifa ya `font-family` yenye thamani ya `monospace`.
+
+```js
+const bodyElement = document.querySelector('body');
+const fontFamily = window.getComputedStyle(bodyElement)['font-family'];
+assert.include(fontFamily.toLowerCase(), "monospace");
+```
+
+Kipengele chako cha `h1` kinapaswa kurithi fonti ya `monospace` kutoka kwa kipengele chako cha `body`.
+
+```js
+const h1Element = document.querySelector('h1');
+const fontFamily = window.getComputedStyle(h1Element)['font-family'];
+assert.include(fontFamily.toLowerCase(), "monospace");
+```
+
+Kipengele chako cha `h1` kinapaswa kurithi rangi ya `green` kutoka kwa kipengele chako cha `body`.
+
+```js
+const h1Element = document.querySelector('h1');
+const color = window.getComputedStyle(h1Element)['color'];
+assert.strictEqual(color, 'rgb(0, 128, 0)');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style>
+  body {
+    background-color: black;
+  }
+
+</style>
+```
+
+# --solutions--
+
+```html
+<style>
+  body {
+    background-color: black;
+    font-family: monospace;
+    color: green;
+  }
+
+</style>
+<h1>Hello World!</h1>
+```

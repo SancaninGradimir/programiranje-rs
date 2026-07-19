@@ -1,0 +1,151 @@
+---
+id: 697a49e9860d24853adef680
+title: "Challenge 195: 2026 Winter Games Day 16: Curling"
+challengeType: 29
+dashedName: challenge-195
+---
+
+# --description--
+
+Ikiwa na matriki ya 5x5 inayowakilisha "nyumba" mwishoni mwa raundi ya curling, amua ni timu gani inapata alama na ni alama ngapi wanazopata.
+
+The layout:
+
+- Selimkubwa ya katikati (kielezo `[2, 2]`) ni "kitufe".
+- Selimkubwa 8 zinazozunguka kitufe moja kwa moja zinawakilisha pete ya 1.
+- Na selimkubwa 16 kwenye ukingo wa nje wa nyumba zinawakilisha pete ya 2.
+
+Katika matriki iliyotolewa:
+
+- `"."` inawakilisha nafasi tupu.
+- `"R"` inawakilisha nafasi yenye jiwe jekundu.
+- `"Y"` inawakilisha nafasi yenye jiwe la manjano.
+
+Scoring rules:
+
+- Timu moja tu inaweza kupata alama kwa kila raundi.
+- Timu yenye jiwe lililo karibu zaidi na kitufe ndiyo hupata alama.
+- Timu inayopata alama hupata alama 1 kwa kila jiwe lao lililo karibu zaidi na kitufe kuliko jiwe la karibu zaidi la mpinzani.
+- Nambari ya pete ndogo zaidi ina maana jiwe liko karibu zaidi na katikati.
+- Ikiwa jiwe la karibu zaidi la timu zote mbili liko umbali sawa kutoka katikati, hakuna timu inayopata alama.
+
+Return:
+
+- Mfuatano wa herufi kwa muundo `"team: number_of_points"`. mfano: `"R: 2"`.
+- au `"No points awarded"` ikiwa hakuna timu iliyopata alama yoyote.
+
+Kwa mfano, ukipata:
+
+```js
+[
+  [".", ".", "R", ".", "."],
+  [".", "R", ".", ".", "."],
+  ["Y", ".", ".", ".", "."],
+  [".", "R", ".", ".", "."],
+  [".", ".", ".", ".", "."]
+]
+```
+
+Rudisha `"R: 2"`. Jiwe jekundu mbili katika pete ya 1 zimeshinda kwa kuwa ni karibu zaidi na ni jiwe pekee mbili zilizo karibu zaidi kuliko jiwe la manjano lililo karibu zaidi.
+
+# --hints--
+
+`score_curling([[".", ".", "R", ".", "."], [".", "R", ".", ".", "."], ["Y", ".", ".", ".", "."], [".", "R", ".", ".", "."], [".", ".", ".", ".", "."]])` should return `"R:2"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([[".", ".", "R", ".", "."], [".", "R", ".", ".", "."], ["Y", ".", ".", ".", "."], [".", "R", ".", ".", "."], [".", ".", ".", ".", "."]]), "R: 2")`)
+}})
+```
+
+`score_curling([[".", ".", "R", ".", "."], [".", ".", ".", ".", "."], [".", ".", "Y", ".", "R"], [".", ".", "Y", "Y", "."], [".", "Y", "R", "R", "."]])` should return `"Y: 3"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([[".", ".", "R", ".", "."], [".", ".", ".", ".", "."], [".", ".", "Y", ".", "R"], [".", ".", "Y", "Y", "."], [".", "Y", "R", "R", "."]]), "Y: 3")`)
+}})
+```
+
+`score_curling([[".", "R", "Y", ".", "."], ["Y", ".", ".", ".", "."], [".", ".", ".", ".", "."], [".", "Y", "R", "Y", "."], [".", ".", "R", "R", "."]])` should return `"No points awarded"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([[".", "R", "Y", ".", "."], ["Y", ".", ".", ".", "."], [".", ".", ".", ".", "."], [".", "Y", "R", "Y", "."], [".", ".", "R", "R", "."]]), "No points awarded")`)
+}})
+```
+
+`score_curling([[".", "Y", "Y", ".", "."], ["Y", ".", ".", "R", "."], [".", ".", "R", ".", "."], [".", ".", "R", "R", "."], [".", "Y", "R", "Y", "."]])` should return `"R: 4"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([[".", "Y", "Y", ".", "."], ["Y", ".", ".", "R", "."], [".", ".", "R", ".", "."], [".", ".", "R", "R", "."], [".", "Y", "R", "Y", "."]]), "R: 4")`)
+}})
+```
+
+`score_curling([["Y", "Y", "Y", "Y", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "R", "Y", "R", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "Y", "Y", "Y", "Y"]])` should return `"Y: 1"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([["Y", "Y", "Y", "Y", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "R", "Y", "R", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "Y", "Y", "Y", "Y"]]), "Y: 1")`)
+}})
+```
+
+`score_curling([["Y", "R", "Y", "R", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", ".", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", "R", "Y"]])` should return `"No points awarded"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(score_curling([["Y", "R", "Y", "R", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", ".", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", "R", "Y"]]), "No points awarded")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def score_curling(house):
+
+    return house
+```
+
+# --solutions--
+
+```py
+def score_curling(house):
+  stones = {'R': [], 'Y': []}
+  
+  for i in range(5):
+    for j in range(5):
+      cell = house[i][j]
+      if cell == 'R' or cell == 'Y':
+        distance = max(abs(i - 2), abs(j - 2))
+        stones[cell].append(distance)
+  
+  red_closest = min(stones['R']) if stones['R'] else float('inf')
+  yellow_closest = min(stones['Y']) if stones['Y'] else float('inf')
+  
+  if red_closest == float('inf') and yellow_closest == float('inf'):
+    return "No points awarded"
+  
+  if red_closest == yellow_closest:
+    return "No points awarded"
+  
+  if red_closest < yellow_closest:
+    winner = 'R'
+    opponent_closest = yellow_closest
+    winning_stones = stones['R']
+  else:
+    winner = 'Y'
+    opponent_closest = red_closest
+    winning_stones = stones['Y']
+  
+  points = sum(1 for d in winning_stones if d < opponent_closest)
+  
+  return "No points awarded" if points == 0 else f"{winner}: {points}"
+```

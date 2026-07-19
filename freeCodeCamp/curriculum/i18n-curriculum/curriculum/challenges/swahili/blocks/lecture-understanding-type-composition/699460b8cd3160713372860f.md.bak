@@ -1,0 +1,174 @@
+---
+id: 699460b8cd3160713372860f
+title: Ni nini uthibitisho wa aina na zinafanyaje kazi?
+challengeType: 19
+dashedName: what-are-type-assertions-and-how-do-they-work
+---
+
+# --description--
+
+Wakati mwingine kutakuwa na hali ambapo utajua zaidi kuhusu aina kuliko TypeScript inavyofahamu. Hapa ndipo uthibitisho wa aina unavyokuja kuwa msaada.
+
+Hapa kuna mfano ukitumia njia ya `querySelector()` kupata kipengele chenye `id` ya `submit`:
+
+```ts
+const submitBtn = document.querySelector("#submit");
+```
+
+Kwa sasa, TypeScript inajua tu kwamba `submitBtn` hii ni aina fulani ya `Element` au labda `null`. TypeScript haitatazama HTML inayolingana ili kubaini hilo.
+
+Huu ni wakati mzuri kutumia uthibitisho wa aina kumwambia TypeScript ni aina gani ya kipengele hiki. Hapa kuna mfano:
+
+```ts
+const submitBtn = document.querySelector("#submit") as HTMLButtonElement;
+```
+
+Sasa, TypeScript itashughulikia hii kama kipengele cha `button` kwa sababu ya uthibitisho huo wa aina.
+
+Kuna mipaka ya kutumia neno kuu la `as`. Kwa mfano, huwezi kufanya mambo kama haya bila TypeScript kutupa kosa:
+
+```ts
+// Conversion of type 'string' to type 'number' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+const age = "awesome" as number;
+```
+
+Katika mfano huu, haieleweki sana kujaribu kuthibitisha kwamba mfuatano wa herufi `"awesome"` unapaswa kuangaliwa kama aina ya nambari. TypeScript inaruhusu uthibitisho wa aina tu kati ya aina zinazolingana au zinazoshirikiana.
+
+Njia moja ya kuondoa kosa hilo ni kutumia uthibitisho mara mbili kama hii:
+
+```ts
+const age = "awesome" as unknown as number;
+```
+
+Ingawa hii inafanya kazi katika TypeScript, bado haipendekezwi kwa sababu kihisia haieleweki vizuri.
+
+Njia nyingine ya kuandika uthibitisho wa aina ni kutumia sintaksia ya mabano ya pembe kama hii:
+
+```ts
+const submitBtn = <HTMLButtonElement>document.querySelector("#submit");
+```
+
+Unahitaji kuwa mwangalifu na sintaksia hii unapotumia mafaili ya `tsx` kwa sababu TypeScript itadhani unajaribu kuonyesha sehemu na itatupa kosa kama hili:
+
+```ts
+// file: index.tsx
+// This JSX tag requires 'React' to be in scope, but it could not be found.
+// JSX element 'HTMLButtonElement' has no corresponding closing tag.
+const submitBtn =  <HTMLButtonElement>document.querySelector("#submit");
+```
+
+Katika hali nyingi, utaona sintaksia ya kwanza ikitumia neno kuu la `as` ikitumika zaidi kuliko chaguo la pili.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la uthibitisho wa aina katika TypeScript?
+
+## --answers--
+
+Kubadilisha thamani wakati wa utekelezaji kuwa aina tofauti.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+Kumwambia TypeScript kushughulikia thamani kama aina maalum zaidi.
+
+---
+
+Kuzuia thamani zisizokuwa `null`.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+Kukagua moja kwa moja DOM kwa aina sahihi ya kipengele.
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kwa nini TypeScript hutupa kosa kwa msimbo huu?
+
+```ts
+const age = "awesome" as number;
+```
+
+## --answers--
+
+TypeScript hairuhusu uthibitisho wa aina kati ya mfuatano wa herufi na nambari.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo mipaka ya neno kuu la `as` ilijadiliwa.
+
+---
+
+TypeScript inahitaji kutumia `unknown` kwa uthibitisho wote wa aina.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo mipaka ya neno kuu la `as` ilijadiliwa.
+
+---
+
+Mfuatano wa herufi na nambari hazilingani vya kutosha kama aina.
+
+---
+
+TypeScript inahitaji kutumia `any` kwa uthibitisho wote wa aina.
+
+### --feedback--
+
+Rudia katikati ya funzo ambapo mipaka ya neno kuu la `as` ilijadiliwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini unapaswa kuwa mwangalifu unapotumia sintaksia ya mabano ya pembe kwa uthibitisho wa aina katika mafaili ya `tsx`?
+
+## --answers--
+
+Imepitwa na wakati katika TypeScript.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Inafanya kazi tu na aina za msingi.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Inabadilisha thamani moja kwa moja wakati wa utekelezaji.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+TypeScript inaweza kuielewa kama sintaksia ya JSX.
+
+## --video-solution--
+
+4

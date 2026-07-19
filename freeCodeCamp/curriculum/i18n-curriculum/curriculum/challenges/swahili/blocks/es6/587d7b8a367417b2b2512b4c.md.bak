@@ -1,0 +1,83 @@
+---
+id: 587d7b8a367417b2b2512b4c
+title: >-
+  Ufumbuzi wa muundo kupitia vipengele vya REST
+challengeType: 1
+forumTopicId: 301218
+dashedName: >-
+  use-destructuring-assignment-with-the-rest-parameter-to-reassign-array-elements
+---
+
+# --description--
+
+Katika baadhi ya hali zinazohusiana na ufumbuzi wa muundo wa safu ya data, tunaweza kutaka kukusanya vipengele vilivyobaki katika safu ndogo tofauti.
+
+Matokeo ni kama `Array.prototype.slice()`, kama inavyoonyeshwa hapa chini:
+
+```js
+const [a, b, ...arr] = [1, 2, 3, 4, 5, 7];
+console.log(a, b);
+console.log(arr);
+```
+
+Konsoli itaonyesha thamani za `1, 2` na `[3, 4, 5, 7]`.
+
+Vigezo `a` na `b` vinachukua thamani ya kwanza na ya pili kutoka kwenye safu ya data. Baada ya hapo, kwa sababu ya kuwepo kwa sintaksia ya REST, `arr` hupata thamani zilizobaki kwa njia ya safu ya data. Kipengele cha REST kinafanya kazi vizuri tu kama kigezo cha mwisho kwenye orodha. Yaani, huwezi kutumia sintaksia ya REST kukamata safu ndogo inayotenganisha kipengele cha mwisho cha safu ya asili.
+
+# --instructions--
+
+Tumia mgawo wa ufumbuzi wa muundo kwa sintaksia ya REST kuiga tabia ya `Array.prototype.slice()`. `removeFirstTwo()` inapaswa kurudisha safu ndogo ya safu ya asili `list` kwa kuondoa vipengele viwili vya kwanza.
+
+# --hints--
+
+`removeFirstTwo([1, 2, 3, 4, 5])` inapaswa kuwa `[3, 4, 5]`
+
+```js
+assert.deepEqual(removeFirstTwo([1, 2, 3, 4, 5]), [3, 4, 5]);
+```
+
+`removeFirstTwo()` haipaswi kubadilisha `list`
+
+```js
+const _testArr = [1, 2, 3, 4, 5];
+removeFirstTwo(_testArr);
+assert.deepEqual(_testArr, [1, 2, 3, 4, 5])
+```
+
+`Array.slice()` haipaswi kutumika.
+
+```js
+assert(!__helpers.removeJSComments(code).match(/\.\s*slice\s*\(/));
+```
+
+Unapaswa kutumia sintaksia ya REST.
+
+```js
+assert.match(code, /\.\.\./);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function removeFirstTwo(list) {
+  return list;
+}
+
+const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const sourceWithoutFirstTwo = removeFirstTwo(source);
+```
+
+# --solutions--
+
+```js
+function removeFirstTwo(list) {
+  // comment with 'slice' to check comments are removed in tests
+  const [, , ...shorterList] = list;
+  return shorterList;
+}
+
+const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const sourceWithoutFirstTwo = removeFirstTwo(source);
+```

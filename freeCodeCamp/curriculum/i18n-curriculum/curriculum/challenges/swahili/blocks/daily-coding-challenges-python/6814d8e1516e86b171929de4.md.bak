@@ -1,0 +1,106 @@
+---
+id: 6814d8e1516e86b171929de4
+title: "Challenge 1: Vowel Balance"
+challengeType: 29
+dashedName: challenge-1
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi, amua kama idadi ya vokali katika nusu ya kwanza ya mfuatano huo ni sawa na idadi ya vokali katika nusu ya pili.
+
+- Mfuatano unaweza kuwa na herufi yoyote.
+- Herufi `a`, `e`, `i`, `o`, na `u`, iwe ni herufi kubwa au herufi ndogo, zinachukuliwa kuwa vokali.
+- Ikiwa kuna idadi isiyo ya kawaida ya herufi katika mfuatano, puuza herufi ya katikati.
+
+# --hints--
+
+`is_balanced("racecar")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("racecar"), True)`)
+}})
+```
+
+`is_balanced("Lorem Ipsum")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("Lorem Ipsum"), True)`)
+}})
+```
+
+`is_balanced("Kitty Ipsum")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("Kitty Ipsum"), False)`)
+}})
+```
+
+`is_balanced("string")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("string"), False)`)
+}})
+```
+
+`is_balanced(" ")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced(" "), True)`)
+}})
+```
+
+`is_balanced("abcdefghijklmnopqrstuvwxyz")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("abcdefghijklmnopqrstuvwxyz"), False)`)
+}})
+```
+
+`is_balanced("123A#b!E&*456-o.U")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_balanced("123A#b!E&*456-o.U"), True)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def is_balanced(s):
+
+    return s
+```
+
+# --solutions--
+
+```py
+def is_balanced(s):
+    vowels = set("aeiouAEIOU")
+    n = len(s)
+    half = n // 2
+
+    first_half = s[:half]
+    second_half = s[-half:]
+
+    def count_vowels(sub):
+        return sum(1 for char in sub if char in vowels)
+
+    return count_vowels(first_half) == count_vowels(second_half)
+```

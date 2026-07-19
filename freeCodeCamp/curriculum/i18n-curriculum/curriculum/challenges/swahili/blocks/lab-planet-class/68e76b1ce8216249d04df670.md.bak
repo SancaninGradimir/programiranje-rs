@@ -1,0 +1,340 @@
+---
+id: 68e76b1ce8216249d04df670
+title: Jenga darasa la sayari
+challengeType: 27
+dashedName: build-a-planet-class
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda darasa la vitu linaloitwa `Planet`.
+1. Darasa la `Planet` linapaswa kuwa na njia ya `__init__` ambayo:
+   - Ina vigezo vinne: `self`, `name`, `planet_type`, na `star`.
+   - Inatoa `TypeError` yenye ujumbe `name, planet type, and star must be strings` ikiwa hoja yoyote iliyotumwa si aina ya mfuatano wa herufi.
+   - Inatoa `ValueError` yenye ujumbe `name, planet_type, and star must be non-empty strings` ikiwa hoja yoyote iliyotumwa ni mfuatano wa herufi tupu.
+   - Weka thamani zilizotumwa kwenye sifa za kipengele za mfano `name`, `planet_type`, na `star`.
+1. Darasa la `Planet` linapaswa kuwa na njia ya `orbit` inayorejesha mfuatano wa herufi kwa muundo wa `{name} is orbiting around {star}...`.
+1. Darasa la `Planet` linapaswa kuwa na njia ya `__str__` inayorejesha mfuatano wa herufi kwa muundo wa `Planet: {name} | Type: {planet_type} | Star: {star}`.
+1. Unapaswa kuunda mifano mitatu ya darasa la `Planet` iitwayo `planet_1`, `planet_2`, na `planet_3`.
+1. Unapaswa kuchapisha kila kitu cha sayari ili kuona matokeo ya njia ya `__str__`.
+1. Unapaswa kuita njia ya `orbit` kwenye kila kitu cha sayari na kuchapisha matokeo.
+
+# --hints--
+
+Unapaswa kuunda darasa la vitu linaloitwa `Planet`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).has_class('Planet')
+`
+    )
+})
+```
+
+Darasa la `Planet` linapaswa kuwa na njia ya `__init__`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).find_class('Planet').has_function('__init__')
+
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kuwa na vigezo vinne: `self`, `name`, `planet_type`, na `star`, kwa mpangilio huu.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).find_class('Planet').find_function('__init__').has_args('self, name, planet_type, star')
+
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `TypeError` yenye ujumbe `name, planet type, and star must be strings` ikiwa hoja ya kwanza iliyotumwa si aina ya mfuatano wa herufi.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet(8, "planet", "sun")
+except TypeError as e:
+  assert str(e) == "name, planet type, and star must be strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `TypeError` yenye ujumbe `name, planet type, and star must be strings` ikiwa hoja ya pili iliyotumwa si aina ya mfuatano wa herufi.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet("Name", [], "sun")
+except TypeError as e:
+  assert str(e) == "name, planet type, and star must be strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `TypeError` yenye ujumbe `name, planet type, and star must be strings` ikiwa hoja ya tatu iliyotumwa si aina ya mfuatano wa herufi.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet("Name", "planet", 0)
+except TypeError as e:
+  assert str(e) == "name, planet type, and star must be strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `ValueError` yenye ujumbe `name, planet_type, and star must be non-empty strings` ikiwa hoja ya kwanza iliyotumwa ni mfuatano wa herufi tupu.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet("", "planet", "sun")
+except ValueError as e:
+  assert str(e) == "name, planet_type, and star must be non-empty strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `ValueError` yenye ujumbe `name, planet_type, and star must be non-empty strings` ikiwa hoja ya pili iliyotumwa ni mfuatano wa herufi tupu.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet("Name", "", "sun")
+except ValueError as e:
+  assert str(e) == "name, planet_type, and star must be non-empty strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Njia ya `__init__` inapaswa kutoa `ValueError` yenye ujumbe `name, planet_type, and star must be non-empty strings` ikiwa hoja ya tatu iliyotumwa ni mfuatano wa herufi tupu.
+
+```js
+({
+    test: () => runPython(
+`
+try:
+  planet = Planet("Name", "planet", "")
+except ValueError as e:
+  assert str(e) == "name, planet_type, and star must be non-empty strings"
+else:
+  assert False, "Expected to raise error..."
+`
+    )
+})
+```
+
+Unapaswa weka thamani ya `name` kwenye `self.name` katika njia ya `__init__`.
+
+```js
+({
+    test: () => runPython(
+`
+init = _Node(_code).find_class('Planet').find_function('__init__')
+assert init.find_variable('self.name').is_equivalent('self.name = name')
+`
+    )
+})
+```
+
+Unapaswa weka thamani ya `planet_type` kwenye `self.planet_type` katika njia ya `__init__`.
+
+```js
+({
+    test: () => runPython(
+`
+init = _Node(_code).find_class('Planet').find_function('__init__')
+assert init.find_variable('self.planet_type').is_equivalent('self.planet_type = planet_type')
+`
+    )
+})
+```
+
+Unapaswa weka thamani ya `star` kwenye `self.star` katika njia ya `__init__`.
+
+```js
+({
+    test: () => runPython(
+`
+init = _Node(_code).find_class('Planet').find_function('__init__')
+assert init.find_variable('self.star').is_equivalent('self.star = star')
+`
+    )
+})
+```
+
+Darasa la `Planet` linapaswa kuwa na njia ya `orbit`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).find_class('Planet').has_function('orbit')
+`
+    )
+})
+```
+
+Njia ya `orbit` inapaswa kurejesha mfuatano wa herufi kwa muundo wa `{name} is orbiting around {star}...`.
+
+```js
+({
+    test: () => runPython(
+`
+pl = Planet('planetino', 'type', 'star')
+assert pl.orbit() == 'planetino is orbiting around star...'
+`
+    )
+})
+```
+
+Darasa la `Planet` linapaswa kuwa na njia ya `__str__`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).find_class('Planet').has_function('__str__')
+`
+    )
+})
+```
+
+Njia ya `__str__` inapaswa kurejesha mfuatano wa herufi kwa muundo wa `Planet: {name} | Type: {planet_type} | Star: {star}`.
+
+```js
+({
+    test: () => runPython(
+`
+assert str(Planet("abcd", "bcdea", "jhkl")) == "Planet: abcd | Type: bcdea | Star: jhkl"
+`
+    )
+})
+```
+
+Unapaswa kuunda mifano mitatu ya darasa la `Planet` iitwayo `planet_1`, `planet_2`, na `planet_3`.
+
+```js
+({
+    test: () => runPython(
+`
+assert isinstance(planet_1, Planet)
+assert isinstance(planet_2, Planet)
+assert isinstance(planet_3, Planet)
+`
+    )
+})
+```
+
+Unapaswa kuchapisha kila kitu cha sayari ili kuona matokeo ya njia ya `__str__`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).has_call('print(planet_1)')
+assert _Node(_code).has_call('print(planet_2)')
+assert _Node(_code).has_call('print(planet_3)')
+`
+    )
+})
+```
+
+Unapaswa kuita njia ya `orbit` kwenye kila kitu cha sayari na kuchapisha matokeo.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).has_call('print(planet_1.orbit())')
+assert _Node(_code).has_call('print(planet_2.orbit())')
+assert _Node(_code).has_call('print(planet_3.orbit())')
+`
+    )
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+class Planet:
+    def __init__(self, name, planet_type, star):
+        args = (name, planet_type, star)
+        if not all(isinstance(arg, str) for arg in args):
+            raise TypeError("name, planet type, and star must be strings")
+        if not all(args):
+            raise ValueError('name, planet_type, and star must be non-empty strings')
+        self.name = name
+        self.planet_type = planet_type
+        self.star = star   # The star the planet orbits
+
+    def orbit(self):
+        return f'{self.name} is orbiting around {self.star}...'
+
+    def __str__(self):
+        return f'Planet: {self.name} | Type: {self.planet_type} | Star: {self.star}'
+
+
+# Test the Planet class
+planet_1 = Planet('Earth', 'terrestrial', 'Sun')
+planet_2 = Planet('Jupiter', 'gas giant', 'Sun')
+planet_3 = Planet('Kepler-452b', 'super-Earth', 'Kepler-452')
+
+print(planet_1.orbit()) # Earth is orbiting around Sun...
+print(planet_1) # Planet: Earth | Type: terrestrial | Star: Sun
+
+print(planet_2.orbit()) # Jupiter is orbiting around Sun...
+print(planet_2) # Planet: Jupiter | Type: gas giant | Star: Sun
+
+print(planet_3.orbit()) # Kepler-452b is orbiting around Kepler-452...
+print(planet_3) # Planet: Kepler-452b | Type: super-Earth | Star: Kepler-452
+```

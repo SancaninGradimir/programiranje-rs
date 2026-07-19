@@ -1,0 +1,63 @@
+---
+id: 587d7fb1367417b2b2512bf4
+title: Unganisha programu ya kati kuunda seva ya wakati
+challengeType: 2
+forumTopicId: 301510
+dashedName: chain-middleware-to-create-a-time-server
+---
+
+# --description--
+
+Programu ya kati inaweza kufungishwa katika njia ya data maalum kwa kutumia `app.METHOD(path, middlewareFunction)`. Programu ya kati pia inaweza kuunganishwa mfululizo ndani ya ufafanuzi wa njia ya data.
+
+Tazama mfano ufuatao:
+
+```js
+app.get('/user', function(req, res, next) {
+  req.user = getTheUserSync();  // Hypothetical synchronous operation
+  next();
+}, function(req, res) {
+  res.send(req.user);
+});
+```
+
+Njia hii ni muhimu kugawanya shughuli za seva katika vitengo vidogo vidogo. Hii huleta muundo bora wa programu, na uwezekano wa kutumia msimbo tena sehemu tofauti. Njia hii pia inaweza kutumika kufanya uthibitisho wa data. Kila sehemu ya safu ya programu ya kati unaweza kuzuia utekelezaji wa mnyororo wa sasa na kuhamisha udhibiti kwa vitendakazi vilivyoundwa mahsusi kushughulikia makosa. Au unaweza kuhamisha udhibiti kwa njia ya data inayofuata inayolingana, kushughulikia matukio maalum. Tutaona jinsi katika sehemu ya Express ya hali ya juu.
+
+# --instructions--
+
+Katika njia ya data `app.get('/now', ...)` ung'anisha kitendakazi cha programu ya kati na mshughulikiaji wa mwisho. Katika kitendakazi cha programu ya kati unapaswa kuongeza wakati wa sasa kwenye kitu cha ombi katika ufunguo wa `req.time`. Unaweza kutumia `new Date().toString()`. Katika mshughulikiaji, jibu kwa kitu cha JSON, ukichukua muundo wa `{time: req.time}`.
+
+**Kumbuka:** Mtihani hautapita ikiwa hutaunda mnyororo wa programu ya kati. Ikiwa utaweka kitendakazi mahali pengine, mtihani utaanguka, hata kama matokeo ya toleo ni sahihi.
+
+# --hints--
+
+Kiishio cha /now kinapaswa kuwa na programu ya kati iliyofungishwa
+
+```js
+  const response = await fetch(code + '/_api/chain-middleware-time');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.stackLength,
+    2,
+    '"/now" route has no mounted middleware'
+  );
+```
+
+Kiishio cha `/now` kinapaswa kurudisha wakati wa sasa.
+
+```js
+  const response = await fetch(code + '/_api/chain-middleware-time');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  var now = new Date();
+  assert.isAtMost(
+    Math.abs(new Date(data.time) - now),
+    20000,
+    'the returned time is not between +- 20 secs from now'
+  );
+```

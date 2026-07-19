@@ -1,0 +1,149 @@
+---
+id: 68d275dd800f404d22a07564
+title: Tekeleza algoriti ya utafutaji wa kina kwanza
+challengeType: 27
+dashedName: lab-depth-first-search
+---
+
+# --description--
+
+Katika maabara hii, utatekeleza algoriti ya kutembea kwenye grafu inayoitwa <dfn>utafutaji wa kina kwanza</dfn>.
+
+Wakati <dfn>utafutaji wa upana kwanza</dfn> unatafuta kwa hatua za urefu wa makali kutoka kwenye nodi chanzo, <dfn>utafutaji wa kina kwanza</dfn> huanza kwa kushuka njia ya makali hadi pale inavyoweza kufika.
+
+Mara inapofikia mwisho wa njia, utafutaji hurudi nyuma hadi nodi ya mwisho yenye njia ya makali ambayo haijatembelewa na kuendelea na utafutaji.
+
+Tofauti na utafutaji wa upana kwanza, kila mara nodi inapozitembelewa, haizitembelei majirani zake wote. Badala yake, huanza kwa kutembelea jirani mmoja na kuendelea kushuka njia hiyo hadi hakuna nodi nyingine za kutembelewa kwenye njia hiyo.
+
+Ili kutekeleza algoriti hii, utahitaji kutumia stack (safu ya data ambapo kipengele cha mwisho kuongezwa ndicho kinachotolewa kwanza, ikifuata kanuni ya <dfn>Last-In-First-Out</dfn>). Stack ni msaada katika algoriti za utafutaji wa kina kwanza kwa sababu, unapoongeza majirani kwenye stack, unataka kutembelea majirani waliyoongezwa hivi karibuni kwanza na kuondoa kutoka kwenye stack.
+
+Matokeo rahisi ya algoriti hii ni orodha ya nodi zinazoweza kufikiwa kutoka kwenye nodi fulani. Kwa hiyo, pia utahitaji kufuatilia nodi unazotembelea.
+
+**Lengo**: Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `dfs`.
+1. Kitendakazi `dfs` kinapaswa kuchukua hoja mbili:
+   - Matriki ya ujirani isiyo na mwelekeo.
+   - Lebo ya nodi, ambayo ni thamani ya nambari ya nodi kati ya `0` na `n - 1`, ambapo `n` ni jumla ya nodi katika grafu.
+1. Kitendakazi `dfs` kinapaswa kutekeleza algoriti ya utafutaji wa kina kwanza kutoa orodha ya nodi zote zinazoweza kufikiwa kutoka nodi iliyotumwa kwake.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `dfs` kinachochukua hoja mbili.
+
+```js
+({ test: () => runPython(`
+  import inspect
+  assert inspect.isfunction(dfs)
+  sig = inspect.signature(dfs)
+  assert len(sig.parameters) == 2
+`) })
+```
+
+`dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 1)` inapaswa kurudisha orodha yenye `1`, `2`, `3`, na `0`.
+
+```js
+({ test: () => runPython(`
+  result = dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 1)
+  assert isinstance(result, list)
+  assert len(result) == 4
+  assert set(result) == {1, 2, 3, 0}
+`) })
+```
+
+`dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 3)` inapaswa kurudisha orodha yenye `1`, `2`, `3`, na `0`.
+
+```js
+({ test: () => runPython(`
+  result = dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 3)
+  assert isinstance(result, list)
+  assert len(result) == 4
+  assert set(result) == {3, 2, 1, 0}
+`) })
+```
+
+`dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]], 3)` inapaswa kurudisha `[3]`.
+
+```js
+({ test: () => runPython(`
+  assert dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]], 3) == [3]
+`) })
+```
+
+`dfs([[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]], 3)` inapaswa kurudisha orodha yenye `3` na `2`.
+
+```js
+({ test: () => runPython(`
+  result = dfs([[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]], 3)
+  assert result == [3, 2] or result == [2, 3]
+`) })
+```
+
+`dfs([[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]], 0)` inapaswa kurudisha orodha yenye `0` na `1`.
+
+```js
+({ test: () => runPython(`
+  result = dfs([[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]], 0)
+  assert result == [0, 1] or result == [1, 0]
+`) })
+```
+
+Kitendakazi `dfs` kinapaswa kurudisha matokeo sahihi.
+
+```js
+({ test: () => runPython(`
+  import random
+
+  def solve(g, s):
+      v, q = set(), [s]
+      while q:
+          u = q.pop()
+          if u not in v:
+              v.add(u)
+              q.extend([i for i, x in enumerate(g[u]) if x == 1 and i not in v])
+      return v
+
+  random.seed(0)
+
+  for _ in range(10):
+      n = 6
+      mat = [[0]*n for _ in range(n)]
+      for i in range(n):
+          for j in range(i+1, n):
+              if random.random() > 0.5:
+                  mat[i][j] = mat[j][i] = 1
+
+      start = random.randint(0, n-1)
+      assert set(dfs(mat, start)) == solve(mat, start), "Random graph check failed"
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+def dfs(graph, root):
+    stack = []
+    temp_v = None
+    visited = []
+    temp_v_neighbors = []
+    stack.append(root)
+    while stack:
+        temp_v = stack.pop()
+        if temp_v not in visited:
+            visited.append(temp_v)
+            temp_v_neighbors = graph[temp_v]
+            for n, is_neighbor in enumerate(temp_v_neighbors):
+                if is_neighbor == 1:
+                    stack.append(n)
+    return visited
+```

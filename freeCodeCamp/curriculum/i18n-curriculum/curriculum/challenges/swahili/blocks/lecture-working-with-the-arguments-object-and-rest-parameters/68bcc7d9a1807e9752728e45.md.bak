@@ -1,0 +1,233 @@
+---
+id: 68bcc7d9a1807e9752728e45
+title: "Ni nini vigezo vya `rest` na hutofautianaje na kitu cha arguments?"
+challengeType: 19
+dashedName: what-are-rest-parameters-and-how-do-they-differ-from-the-arguments-object
+---
+
+# --interactive--
+
+Katika funzo lililopita, ulijifunza jinsi ya kufanya kazi na kitu cha `arguments` ambacho ni kitu kinachofanana na safu ya data kinachojumuisha thamani za hoja zilizopitishwa kwenye kitendakazi.
+
+:::interactive_editor
+
+```js
+function logArgs() {
+  for (const arg of arguments) {
+    console.log(arg);
+  }
+}
+
+logArgs(1, 2, 3);
+// result:
+// 1
+// 2
+// 3
+```
+
+:::
+
+Ingawa hii ni njia halali ya kupata na kufanya kazi na seti inayobadilika ya hoja kutoka kwenye kitendakazi, programu za kisasa za JavaScript zitumie sintaksia ya kigezo cha rest badala yake.
+
+Hapa kuna mfano uliosasishwa ukitumia sintaksia ya kigezo cha rest badala ya kitu cha `arguments`:
+
+:::interactive_editor
+
+```js
+function logArgs(...args) {
+  for (const arg of args) {
+    console.log(arg);
+  }
+}
+
+logArgs(1, 2, 3);
+// result:
+// 1
+// 2
+// 3
+```
+
+:::
+
+Mfano huu uliosasishwa hauzitaji tena rejea za moja kwa moja kwa kitu cha `arguments`. Badala yake, kigezo cha mwisho katika ufafanuzi wa kitendakazi kina nukta tatu mbele yake. Hii husababisha kigezo hiki cha rest kuwekwa ndani ya kitu cha `Array`. Unaweza kumtaja kigezo hiki cha rest kwa jina lolote unalotaka. Hakikisha tu ni kigezo cha mwisho katika ufafanuzi wa kitendakazi kama hivi:
+
+```js
+function exampleFunction(a, b, ...restOfArgs) {
+  // some code here
+}
+
+function anotherFunction(x, y, ...theArgs) {
+  // some code here
+}
+```
+
+Kuna vikwazo vichache zaidi unavyokabiliana navyo ukiwa unatumia sintaksia ya kigezo cha rest. Kikwazo kimoja ni kwamba ufafanuzi wa kitendakazi unaweza kuwa na kigezo kimoja tu cha rest. Hivyo mfano ufuatao hapa utaonekana kuwa batili.
+
+```js
+// Won't work
+
+function badFunction(...args, ...moreArgs) {
+  // some code here
+}
+```
+
+Kikwazo kingine ni kwamba koma za mwisho haziruhusiwi baada ya kigezo cha rest: `function exampleFunction(a, b, ...restOfArgs, )`.
+
+Kikwazo kingine ni kwamba kigezo cha rest hakiwezi kuwa na thamani ya msingi. Vinginevyo `SyntaxError` itatupwa.
+
+```js
+function badFunction(...args = [1,2]){
+  // some code here
+}
+```
+
+Basi ni tofauti gani kati ya kitu cha `arguments` na vigezo vya `rest`?
+
+Tofauti kuu ni kwamba kitu cha `arguments` si safu halisi kwa hivyo hakitumi njia kama `includes`, `pop` na `push`. Lakini kigezo cha rest ni mfano wa `Array`. Hivyo unaweza kutumia njia halali za safu zilizojengwa bila ya kuhitaji kuibadilisha kuwa safu halisi kwanza.
+
+:::interactive_editor
+
+```js
+function hasCat(...args) {
+  return args.includes("cat");
+}
+
+console.log(hasCat("dog", "chicken", "cat")); // true
+console.log(hasCat("dog", "chicken", "horse")); // false
+```
+
+:::
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kutumia sintaksia ya kigezo cha rest katika ufafanuzi wa kitendakazi?
+
+## --answers--
+
+```js
+function logArgs([args]) {
+  for (const arg of args) {
+    console.log(arg);
+  }
+}
+```
+
+### --feedback--
+
+Rejea mwanzoni mwa funzo kwa jibu.
+
+---
+
+```js
+function logArgs(>>>args) {
+  for (const arg of args) {
+    console.log(arg);
+  }
+}
+```
+
+### --feedback--
+
+Rejea mwanzoni mwa funzo kwa jibu.
+
+---
+
+```js
+function logArgs(...args) {
+  for (const arg of args) {
+    console.log(arg);
+  }
+}
+```
+
+---
+
+```js
+function logArgs(<<<args) {
+  for (const arg of args) {
+    console.log(arg);
+  }
+}
+```
+
+### --feedback--
+
+Rejea mwanzoni mwa funzo kwa jibu.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni kikwazo gani kati ya zifuatazo kinapotumika sintaksia ya kigezo cha rest?
+
+## --answers--
+
+Unaweza kuwa na kigezo kimoja tu cha rest kwa kila ufafanuzi wa kitendakazi.
+
+---
+
+Lazima uweke kigezo cha rest mwanzoni mwa orodha ya vigezo vya kitendakazi.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+---
+
+Lazima uwe na vigezo viwili vya rest kwa kila ufafanuzi wa kitendakazi.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+---
+
+Unaweza kutumia vigezo vya rest tu katika kitendakazi cha mshale.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Tofauti kuu kati ya kitu cha `arguments` na vigezo vya rest ni ipi?
+
+## --answers--
+
+Unaweza kutumia njia za safu zilizojengwa kama `push` na `pop` tu kwenye kigezo cha rest wakati vitu vya `arguments` vinakubali njia zote za safu zilizojengwa.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+---
+
+Huwezi kutumia njia za safu zilizojengwa kama `push` na `pop` kwenye kigezo cha rest lakini njia hizo zinaweza kutumika kwenye kitu cha `arguments`.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+---
+
+Kitu cha `arguments` ni mfano wa `Array` wakati kigezo cha rest kinapofanana na safu.
+
+### --feedback--
+
+Rejea mwishoni mwa funzo kwa jibu.
+
+---
+
+Kigezo cha rest ni mfano wa `Array` wakati kitu cha `arguments` kinapofanana na safu.
+
+## --video-solution--
+
+4

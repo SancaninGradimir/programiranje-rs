@@ -1,0 +1,86 @@
+---
+id: 69373793f5a867f769cde13a
+title: "Zoezi la 155: Panda Mazao"
+challengeType: 28
+dashedName: challenge-155
+---
+
+# --description--
+
+Ukizingatia nambari kamili inayowakilisha ukubwa wa shamba lako, na `"acres"` au `"hectares"` wakilisha kipimo cha ukubwa wa shamba lako, pamoja na aina ya zao, amua ni miche mingapi ya aina hiyo unaweza kuipanda shambani mwako.
+
+- Ekari 1 ni sawa na mita za mraba 4046.86.
+- Hekta 1 ni sawa na mita za mraba 10,000.
+
+Hapa kuna orodha ya mazao yatakayotoa ingizo pamoja na nafasi ambayo mmea mmoja unachukua:
+
+|Zao|Nafasi kwa mmea|
+|-|-|
+|`"corn"`|mita moja za mraba|
+|`"wheat"`|mita 0.1 za mraba|
+|`"soybeans"`|mita 0.5 za mraba|
+|`"tomatoes"`|mita 0.25 za mraba|
+|`"lettuce"`|mita 0.2 za mraba|
+
+Rudisha idadi ya mimea inayoweza kuendana na shamba, ukizungusha chini hadi mmea mzima wa karibu.
+
+# --hints--
+
+`getNumberOfPlants(1, "acres", "corn")` inapaswa kurudisha `4046`.
+
+```js
+assert.equal(getNumberOfPlants(1, "acres", "corn"), 4046);
+```
+
+`getNumberOfPlants(2, "hectares", "lettuce")` inapaswa kurudisha `100000`.
+
+```js
+assert.equal(getNumberOfPlants(2, "hectares", "lettuce"), 100000);
+```
+
+`getNumberOfPlants(20, "acres", "soybeans")` inapaswa kurudisha `161874`.
+
+```js
+assert.equal(getNumberOfPlants(20, "acres", "soybeans"), 161874);
+```
+
+`getNumberOfPlants(3.75, "hectares", "tomatoes")` inapaswa kurudisha `150000`.
+
+```js
+assert.equal(getNumberOfPlants(3.75, "hectares", "tomatoes"), 150000);
+```
+
+`getNumberOfPlants(16.75, "acres", "tomatoes")` inapaswa kurudisha `271139`.
+
+```js
+assert.equal(getNumberOfPlants(16.75, "acres", "tomatoes"), 271139);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getNumberOfPlants(fieldSize, unit, crop) {
+
+  return fieldSize;
+}
+```
+
+# --solutions--
+
+```js
+function getNumberOfPlants(fieldSize, unit, crop) {
+  const cropSpace = {
+    corn: 1,
+    wheat: 0.1,
+    soybeans: 0.5,
+    tomatoes: 0.25,
+    lettuce: 0.2
+  };
+
+  let fieldInSqM = unit === "acres" ? fieldSize * 4046.86 : fieldSize * 10000;
+
+  return Math.floor(fieldInSqM / cropSpace[crop.toLowerCase()]);
+}
+```

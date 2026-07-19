@@ -1,0 +1,105 @@
+---
+id: 5a24c314108439a4d4036171
+title: Onyesha hali katika kiolesura cha mtumiaji
+challengeType: 6
+forumTopicId: 301409
+dashedName: render-state-in-the-user-interface
+---
+
+# --description--
+
+Mara tu unapopanga hali ya awali ya sehemu, unaweza kuonyesha sehemu yoyote ya hali hiyo katika UI inayoonyeshwa. Ikiwa sehemu ni yenye hali, itakuwa na upatikanaji wa data katika `state` kila wakati katika njia yake ya `render()`. Unaweza kupata data hiyo kwa `this.state`.
+
+Ikiwa unataka kupata thamani ya hali ndani ya `return` ya njia ya onyesha, lazima ufungilie thamani hiyo katika mabano ya mviringo.
+
+`state` ni mojawapo ya vipengele vyenye nguvu zaidi vya sehemu katika React. Inakuwezesha kufuatilia data muhimu katika programu yako na kuonyesha UI kama jibu kwa mabadiliko katika data hii. Ikiwa data yako itabadilika, UI yako itabadilika. React hutumia kinachoitwa virtual DOM, kufuatilia mabadiliko nyuma ya pazia. Wakati data ya hali inasasishwa, husababisha onyesho upya wa sehemu zinazotumia data hiyo - ikiwa ni pamoja na sehemu za watoto ambazo zilipokea data kama vigezo. React husasisha DOM halisi, lakini tu mahali panapohitajika. Hii inamaanisha huna haja ya kuwa na wasiwasi kuhusu kubadilisha DOM. Unatangaza tu jinsi UI inavyopaswa kuonekana.
+
+Kumbuka kwamba ikiwa unafanya sehemu kuwa yenye hali, sehemu nyingine hazijui kuhusu `state` yake. `state` yake imefungwa kabisa, au ni ya ndani kwa sehemu hiyo, isipokuwa ukipitisha data ya hali kwa sehemu ya mtoto kama `props`. Dhana hii ya `state` iliyofungwa ni muhimu sana kwa sababu inakuwezesha kuandika mantiki fulani, kisha mantiki hiyo iwe imefungwa na kutengwa mahali pamoja katika msimbo wako.
+
+# --instructions--
+
+Katika mhariri wa msimbo, `MyComponent` tayari ni yenye hali. Tangaza lebo ya `h1` katika njia ya onyesha ya sehemu ambayo inaonyesha thamani ya `name` kutoka katika hali ya sehemu hiyo.
+
+**Kumbuka:** Lebo ya `h1` inapaswa kuonyesha tu thamani kutoka `state` na si kitu kingine chochote. Katika JSX, msimbo wowote unaoandikwa ndani ya mabano ya mviringo `{ }` utachukuliwa kama JavaScript. Hivyo kupata thamani kutoka `state` ni kwa kufungilia rejea hiyo ndani ya mabano ya mviringo.
+
+# --hints--
+
+`MyComponent` inapaswa kuwa na ufunguo wa `name` wenye thamani ya `freeCodeCamp` iliyohifadhiwa katika hali yake.
+
+```js
+assert(
+  Enzyme.mount(React.createElement(MyComponent)).state('name') ===
+    'freeCodeCamp'
+);
+```
+
+`MyComponent` inapaswa kuonyesha kipengele cha kichwa cha `h1` kilichofungiliwa ndani ya `div` moja.
+
+```js
+assert(
+  /<div><h1>.*<\/h1><\/div>/.test(
+    Enzyme.mount(React.createElement(MyComponent)).html()
+  )
+);
+```
+
+Kipengele cha kichwa cha `h1` kinachoonyeshwa kinapaswa kuwa na maandishi tu yanayoonyeshwa kutoka katika hali ya sehemu.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ name: 'TestName' });
+    return waitForIt(() => mockedComponent.html());
+  };
+  const firstValue = await first();
+  const getValue = firstValue.replace(/\s/g, '');
+  assert(getValue === '<div><h1>TestName</h1></div>');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    return (
+      <div>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    return (
+      <div>
+        { /* Change code below this line */ }
+        <h1>{this.state.name}</h1>
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```

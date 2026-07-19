@@ -1,0 +1,604 @@
+---
+id: 5a8b073d06fa14fcfde687aa
+title: Kifuatiliazo cha mazoezi
+challengeType: 4
+forumTopicId: 301505
+dashedName: exercise-tracker
+---
+
+# --description--
+
+Jenga programu ya JavaScript ya full-stack ambayo inaendana kiutendaji na hii: <a href="https://exercise-tracker.freecodecamp.rocks" target="_blank" rel="noopener noreferrer nofollow">https://exercise-tracker.freecodecamp.rocks</a>. Kufanya kazi kwenye mradi huu kutahusisha kuandika msimbo wako kwa kutumia mojawapo ya njia zifuatazo:
+
+-   Nakili <a href="https://github.com/freeCodeCamp/boilerplate-project-exercisetracker/" target="_blank" rel="noopener noreferrer nofollow">hii repo ya GitHub</a> na ukamilishe mradi wako kwa ndani ya kompyuta yako.
+-   Tumia mtengenezaji wa tovuti unayempenda kukamilisha mradi huu. Hakikisha umejumuisha mafaili yote kutoka kwenye repo yetu ya GitHub.
+
+# --instructions--
+
+Majibu yako yanapaswa kuwa na miundo ifuatayo.
+
+Mazoezi:
+
+```js
+{
+  username: "fcc_test",
+  description: "test",
+  duration: 60,
+  date: "Mon Jan 01 1990",
+  _id: "5fb5853f734231456ccb3b05"
+}
+```
+
+Mtumiaji:
+
+```js
+{
+  username: "fcc_test",
+  _id: "5fb5853f734231456ccb3b05"
+}
+```
+
+Rekodi:
+
+```js
+{
+  username: "fcc_test",
+  count: 1,
+  _id: "5fb5853f734231456ccb3b05",
+  log: [{
+    description: "test",
+    duration: 60,
+    date: "Mon Jan 01 1990",
+  }]
+}
+```
+
+**Kidokezo:** Kwa sifa ya `date`, njia ya `toDateString` ya API ya `Date` inaweza kutumika kufanikisha matokeo yanayotarajiwa.
+
+# --hints--
+
+Unapaswa kutoa mradi wako mwenyewe, si URL ya mfano.
+
+```js
+  assert(
+    !/.*\/exercise-tracker\.freecodecamp\.rocks/.test(code)
+  );
+```
+
+Unaweza `POST` kwenda `/api/users` kwa data ya fomu `username` kuunda mtumiaji mpya.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  assert.isTrue(res.ok);
+  if(!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`)
+  };
+```
+
+Jibu lililotolewa kutoka `POST /api/users` kwa data ya fomu `username` litakuwa kitu chenye sifa za `username` na `_id`.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    assert.exists(_id);
+    assert.exists(username);
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```
+
+Unaweza kutuma ombi la `GET` kwenda `/api/users` kupata orodha ya watumiaji wote.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users');
+  assert.isTrue(res.ok);
+  if(!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`)
+  };
+```
+
+Ombi la `GET` kwenda `/api/users` linarudisha safu ya data.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users');
+  if(res.ok){
+    const users = await res.json();
+    assert.isArray(users);
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  };
+```
+
+Kila kipengele katika safu ya data iliyorejeshwa kutoka `GET /api/users` ni kitu chenye sifa za `username` na `_id` za mtumiaji.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users');
+  if(res.ok){
+    const users = await res.json();
+    const user = users[0];
+    assert.exists(user);
+    assert.exists(user.username);
+    assert.exists(user._id);
+    assert.isString(user.username);
+    assert.isString(user._id);
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  };
+```
+
+Unaweza `POST` kwenda `/api/users/:_id/exercises` kwa data ya fomu `description`, `duration`, na kwa hiari `date`. Ikiwa hakuna tarehe itolewayo, tarehe ya sasa itatumika.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: 'Mon Jan 01 1990'
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}&date=1990-01-01`
+    });
+  assert.isTrue(addRes.ok);
+  if(!addRes.ok) {
+    throw new Error(`${addRes.status} ${addRes.statusText}`)
+  };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```
+
+Jibu lililotolewa kutoka `POST /api/users/:_id/exercises` litakuwa kitu cha mtumiaji chenye nyanja za mazoezi zilizoongezwa.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: 'Mon Jan 01 1990'
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}&date=1990-01-01`
+    });
+    assert.isTrue(addRes.ok);
+    if (!addRes.ok) {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    }
+    const responseBody = await addRes.json();
+    assert.isString(responseBody.description);
+    assert.isNumber(responseBody.duration);
+    assert.isString(responseBody.date);
+    assert.equal(responseBody._id, expected._id);
+    assert.equal(responseBody.username, expected.username);
+    assert.equal(responseBody.description, expected.description);
+    assert.equal(responseBody.duration, expected.duration);
+    const receivedDate = new Date(responseBody.date);
+    const expectedDate = new Date(expected.date); // Jan 1, 1990
+    const allowedPreviousDate = new Date(expectedDate);
+    allowedPreviousDate.setDate(expectedDate.getDate() - 1); // Dec 31, 1989
+    const isValidDate =
+      receivedDate.toDateString() === expectedDate.toDateString() ||
+      receivedDate.toDateString() === allowedPreviousDate.toDateString();
+    assert.isTrue(
+      isValidDate,
+      `Expected date to be ${expectedDate.toDateString()} or ${allowedPreviousDate.toDateString()}, but got ${receivedDate.toDateString()}`
+    );
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```
+
+Unaweza kutuma ombi la `GET` kwenda `/api/users/:_id/logs` kupata rekodi kamili ya mazoezi ya mtumiaji yeyote.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if (addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+    assert.isTrue(logRes.ok);
+    if(!logRes.ok) {
+      throw new Error(`${logRes.status} ${logRes.statusText}`)
+    };
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    }
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```
+
+Ombi kwa rekodi ya mtumiaji `GET /api/users/:_id/logs` linarudisha kitu cha mtumiaji chenye sifa ya `count` inayowakilisha idadi ya mazoezi yanayomilikiwa na mtumiaji huyo.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if (addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if (logRes.ok) {
+        const { count } = await logRes.json();
+        assert(count);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    }
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```
+
+Ombi la `GET` kwenda `/api/users/:_id/logs` litarudisha kitu cha mtumiaji chenye safu ya `log` ya mazoezi yote yaliyoongezwa.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  })
+  if(res.ok){
+    const {_id, username} = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if(addRes.ok){
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if(logRes.ok) {
+        const {log} = await logRes.json();
+        assert.isArray(log);
+        assert.equal(1, log.length);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`)
+  };
+```
+
+Kila kipengele katika safu ya `log` iliyorejeshwa kutoka `GET /api/users/:_id/logs` ni kitu kinachopaswa kuwa na sifa za `description`, `duration`, na `date`.
+
+```js
+  const url = code;
+  const res = await fetch(url + `/api/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if(res.ok) {
+    const {_id, username} = await res.json();
+     const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if(addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if(logRes.ok) {
+        const {log} = await logRes.json();
+        const exercise = log[0];
+        assert.exists(exercise);
+        assert.exists(exercise.description);
+        assert.exists(exercise.duration);
+        assert.exists(exercise.date);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      };
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`)
+  };
+```
+
+Sifa ya `description` ya kitu chochote katika safu ya `log` iliyorejeshwa kutoka `GET /api/users/:_id/logs` inapaswa kuwa mfuatano wa herufi.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `username=fcc_test_${Date.now()}`.substring(0,29)
+  });
+  if(res.ok) {
+    const {_id, username} = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if(addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if(logRes.ok){
+        const {log} = await logRes.json();
+        const exercise = log[0];
+        assert.isString(exercise.description);
+        assert.equal(exercise.description, expected.description);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  };
+```
+
+Sifa ya `duration` ya kitu chochote katika safu ya `log` iliyorejeshwa kutoka `GET /api/users/:_id/logs` inapaswa kuwa nambari.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `username=fcc_test_${Date.now()}`.substring(0,29)
+  });
+  if(res.ok) {
+    const {_id, username} = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if(addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if(logRes.ok){
+        const {log} = await logRes.json();
+        const exercise = log[0];
+        assert.isNumber(exercise.duration);
+        assert.equal(exercise.duration, expected.duration);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  };
+```
+
+Sifa ya `date` ya kitu chochote katika safu ya `log` iliyorejeshwa kutoka `GET /api/users/:_id/logs` inapaswa kuwa mfuatano wa herufi. Tumia muundo wa `dateString` wa API ya `Date`.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const currentDate = new Date();
+    const expectedDates = [
+      new Date(currentDate.setDate(currentDate.getDate() - 1)).toLocaleDateString("en-US", {
+        timeZone: "UTC", weekday: "short", month: "short",
+        day: "2-digit", year: "numeric"
+      }).replaceAll(',', ''),
+      new Date().toLocaleDateString("en-US", {
+        timeZone: "UTC", weekday: "short", month: "short",
+        day: "2-digit", year: "numeric"
+      }).replaceAll(',', ''),
+      new Date(currentDate.setDate(currentDate.getDate() + 1)).toLocaleDateString("en-US", {
+        timeZone: "UTC", weekday: "short", month: "short",
+        day: "2-digit", year: "numeric"
+      }).replaceAll(',', '')
+    ];
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+    };
+    const addRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `description=${expected.description}&duration=${expected.duration}`
+    });
+    if (addRes.ok) {
+      const logRes = await fetch(url + `/api/users/${_id}/logs`);
+      if (logRes.ok) {
+        const { log } = await logRes.json();
+        const exercise = log[0];
+        assert.isString(exercise.date);
+        assert.oneOf(exercise.date, expectedDates); // Check if date matches any valid dates
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${addRes.status} ${addRes.statusText}`);
+    };
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  };
+```
+
+Unaweza kuongeza vigezo vya `from`, `to` na `limit` kwenye ombi la `GET /api/users/:_id/logs` kupata sehemu ya rekodi ya mtumiaji yeyote. `from` na `to` ni tarehe katika muundo wa `yyyy-mm-dd`. `limit` ni nambari kamili ya idadi ya rekodi za kurudisha.
+
+```js
+  const url = code;
+  const res = await fetch(url + '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `username=fcc_test_${Date.now()}`.substring(0, 29)
+  });
+  if (res.ok) {
+    const { _id, username } = await res.json();
+    const expected = {
+      username,
+      description: 'test',
+      duration: 60,
+      _id,
+      date: new Date().toDateString()
+    };
+    const addExerciseRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}&date=1990-01-01`
+    });
+    const addExerciseTwoRes = await fetch(url + `/api/users/${_id}/exercises`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `description=${expected.description}&duration=${expected.duration}&date=1990-01-03`
+    });
+    if (addExerciseRes.ok && addExerciseTwoRes.ok) {
+      const logRes = await fetch(
+        url + `/api/users/${_id}/logs?from=1989-12-31&to=1990-01-04`
+      );
+      if (logRes.ok) {
+        const { log } = await logRes.json();
+        assert.isArray(log);
+        assert.equal(2, log.length);
+      } else {
+        throw new Error(`${logRes.status} ${logRes.statusText}`);
+      }
+      const limitRes = await fetch(
+        url + `/api/users/${_id}/logs?limit=1`
+      );
+      if (limitRes.ok) {
+        const { log } = await limitRes.json();
+        assert.isArray(log);
+        assert.equal(1, log.length);
+      } else {
+        throw new Error(`${limitRes.status} ${limitRes.statusText}`);
+      }
+      const filterDateBeforeLimitRes = await fetch(
+        url + `/api/users/${_id}/logs?from=1990-01-02&to=1990-01-04&limit=1`
+      );
+      if (filterDateBeforeLimitRes.ok) {
+        const { log } = await filterDateBeforeLimitRes.json();
+        assert.isArray(log);
+        assert.equal(1, log.length);
+      } else {
+        throw new Error(`${filterDateBeforeLimitRes.status} ${filterDateBeforeLimitRes.statusText}`);
+      }
+    } else {
+      throw new Error(`${res.status} ${res.statusText}`);
+    }
+  } else {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+```

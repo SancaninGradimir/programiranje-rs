@@ -1,0 +1,88 @@
+---
+id: 587d7b87367417b2b2512b42
+title: Badilisha safu ya data iliyotangazwa na const
+challengeType: 1
+forumTopicId: 301206
+dashedName: mutate-an-array-declared-with-const
+---
+
+# --description--
+
+Kama hujui kuhusu `const`, tafadhali angalia <a href="/learn/javascript-algorithms-and-data-structures/basic-javascript/declare-a-read-only-variable-with-the-const-keyword" target="_blank" rel="noopener noreferrer nofollow">changamoto hii kuhusu neno kuu <code>const</code></a>.
+
+Tamko la `const` lina matumizi mengi katika JavaScript ya kisasa.
+
+Wasanidi programu wengine hupendelea kuweka thamani kwa vigezo vyote kwa kutumia `const` kwa chaguo-msingi, isipokuwa wanapojua kuwa watahitaji kuweka thamani tena. Wakati huo tu hutumia `let`.
+
+Hata hivyo, ni muhimu kuelewa kuwa vitu (ikiwa ni pamoja na safu za data na vitendakazi) vilivyowekwa thamani kwenye kigezo kwa kutumia `const` bado vinaweza kubadilishwa. Kutumia tamko la `const` kunazuia tu kuweka thamani mpya kwa kitambulisho cha kigezo.
+
+```js
+const s = [5, 6, 7];
+s = [1, 2, 3];
+s[2] = 45;
+console.log(s);
+```
+
+`s = [1, 2, 3]` itasababisha kosa. Baada ya kuweka maoni kwenye mstari huo, `console.log` itaonyesha thamani `[5, 6, 45]`.
+
+Kama unavyoona, unaweza kubadilisha kitu `[5, 6, 7]` yenyewe na kigezo `s` bado kitaelekeza kwenye safu ya data iliyobadilishwa `[5, 6, 45]`. Kama safu zote za data, vipengele vya safu katika `s` vinaweza kubadilishwa, lakini kwa sababu `const` ilitumika, huwezi kutumia kitambulisho cha kigezo `s` kuelekeza kwenye safu tofauti kwa kutumia opereta ya mgawo.
+
+# --instructions--
+
+Safu ya data imetangazwa kama `const s = [5, 7, 2]`. Badilisha safu hiyo kuwa `[2, 5, 7]` kwa kutumia mgawo wa thamani wa vipengele mbalimbali.
+
+# --hints--
+
+Haupaswi kubadilisha neno kuu la `const`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/const/g));
+```
+
+`s` inapaswa kuwa kigezo cha kudumu (kwa kutumia `const`).
+
+```js
+assert(__helpers.removeJSComments(code).match(/const\s+s/g));
+```
+
+Haupaswi kubadilisha tamko la awali la safu ya data.
+
+```js
+assert(__helpers.removeJSComments(code).match(
+/const\s+s\s*=\s*\[\s*5\s*,\s*7\s*,\s*2\s*\]\s*;?/g
+));
+```
+
+`s` inapaswa kuwa sawa na `[2, 5, 7]`.
+
+```js
+assert.deepEqual(s, [2, 5, 7]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const s = [5, 7, 2];
+function editInPlace() {
+  // Only change code below this line
+
+  // Using s = [2, 5, 7] would be invalid
+
+  // Only change code above this line
+}
+editInPlace();
+```
+
+# --solutions--
+
+```js
+const s = [5, 7, 2];
+function editInPlace() {
+  s[0] = 2;
+  s[1] = 5;
+  s[2] = 7;
+}
+editInPlace();
+```

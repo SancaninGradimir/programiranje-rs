@@ -1,0 +1,56 @@
+---
+id: 68da6138d70960c197ec5eee
+title: Hatua 4
+challengeType: 20
+dashedName: step-4
+---
+
+# --description--
+
+Sasa utaanzisha muundo wa data kuhifadhi matokeo yako. Tengeneza kigezo kinachoitwa `result` na uanze na orodha tupu. Orodha hii itahifadhi mchanganyiko wote halali wa mabano ya kawaida utakayozalisha.
+
+Sahihisha taarifa yako ya return ili irudishe `result` badala ya orodha tupu.
+
+# --hints--
+
+Unapaswa kutangaza kigezo kinachoitwa `result` katika kitendakazi chako cha `gen_parentheses`.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").has_variable("result")
+`) })
+```
+
+Unapaswa kuanzisha `result` kama orodha tupu.
+
+```js
+({ test: () => runPython(`
+_result = _Node(_code).find_function("gen_parentheses").find_variable("result")
+assert _result.is_equivalent("result = []") or _result.is_equivalent("result = list()")
+`) })
+```
+
+Unapaswa kurudisha `result` mwishoni mwa kitendakazi chako.
+
+```js
+({ test: () => runPython(`
+assert _Node(_code).find_function("gen_parentheses").has_return("result")
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def gen_parentheses(pairs):
+    if not isinstance(pairs, int):
+        return 'The number of pairs should be an integer'
+    if pairs < 1:
+        return 'The number of pairs should be at least 1'
+    
+--fcc-editable-region--
+    
+    return []
+--fcc-editable-region--
+```

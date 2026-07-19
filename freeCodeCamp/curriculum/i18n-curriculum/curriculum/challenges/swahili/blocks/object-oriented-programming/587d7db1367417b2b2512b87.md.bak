@@ -1,0 +1,133 @@
+---
+id: 587d7db1367417b2b2512b87
+title: Ongeza njia baada ya urithi
+challengeType: 1
+forumTopicId: 301315
+dashedName: add-methods-after-inheritance
+---
+
+# --description--
+
+Kitendakazi cha kijenzi kinachopokea urithi wa `prototype` kutoka kwa kitendakazi cha kijenzi cha aina kuu bado kinaweza kuwa na njia zake pamoja na njia zilizopokelewa kwa urithi.
+
+Kwa mfano, `Bird` ni kijenzi kinachopokea `prototype` kutoka kwa `Animal`:
+
+```js
+function Animal() { }
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+};
+function Bird() { }
+Bird.prototype = Object.create(Animal.prototype);
+Bird.prototype.constructor = Bird;
+```
+
+Mbali na kile kinachopokelewa kutoka kwa `Animal`, unataka kuongeza tabia ambayo ni ya kipekee kwa vitu vya `Bird`. Hapa, `Bird` atapata kitendakazi cha `fly()`. Njia huongezwa kwenye `Bird's` `prototype` kwa njia ile ile kama kijenzi kingine chochote:
+
+```js
+Bird.prototype.fly = function() {
+  console.log("I'm flying!");
+};
+```
+
+Sasa matoleo ya `Bird` yatakuwa na njia za `eat()` na `fly()`:
+
+```js
+let duck = new Bird();
+duck.eat();
+duck.fly();
+```
+
+`duck.eat()` itachapisha mfuatano wa herufi `nom nom nom` kwenye konsoli, na `duck.fly()` itachapisha mfuatano wa herufi `I'm flying!`.
+
+# --instructions--
+
+Ongeza msimbo wote unaohitajika ili kitu cha `Dog` kipokee urithi kutoka kwa `Animal` na kijenzi cha `Dog` kiwe kimewekwa kuwa `prototype` ni `Dog`. Kisha ongeza njia ya `bark()` kwa kitu cha `Dog` ili `beagle` iweze kuwa na njia za `eat()` na `bark()`. Njia ya `bark()` inapaswa kuchapisha `Woof!` kwenye konsoli.
+
+# --hints--
+
+`Animal` haipaswi kujibu njia ya `bark()`.
+
+```js
+assert(typeof Animal.prototype.bark == 'undefined');
+```
+
+`Dog` inapaswa kupokea njia ya `eat()` kutoka kwa `Animal`.
+
+```js
+assert(typeof Dog.prototype.eat == 'function');
+```
+
+Prototipu ya `Dog` inapaswa kuwa na njia ya `bark()`.
+
+```js
+assert('bark' in Dog.prototype);
+```
+
+`beagle` inapaswa kuwa kijenzi cha `instanceof` `Animal`.
+
+```js
+assert(beagle instanceof Animal);
+```
+
+Kijenzi cha `beagle` kinapaswa kuwekwa kuwa `Dog`.
+
+```js
+assert(beagle.constructor === Dog);
+```
+
+`beagle.eat()` inapaswa kuandika mfuatano wa herufi `nom nom nom`
+
+```js
+const spy = __helpers.spyOn(console, 'log');
+beagle.eat();
+assert.lengthOf(spy.calls,1);
+assert(spy.calls[0][0] == 'nom nom nom');
+```
+
+`beagle.bark()` inapaswa kuandika mfuatano wa herufi `Woof!`
+
+```js
+const spy = __helpers.spyOn(console, 'log');
+beagle.bark();
+assert.lengthOf(spy.calls,1);
+assert(spy.calls[0][0] == 'Woof!');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Animal() { }
+Animal.prototype.eat = function() { console.log("nom nom nom"); };
+
+function Dog() { }
+
+// Only change code below this line
+
+
+
+
+// Only change code above this line
+
+let beagle = new Dog();
+```
+
+# --solutions--
+
+```js
+function Animal() { }
+Animal.prototype.eat = function() { console.log("nom nom nom"); };
+
+function Dog() { }
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+Dog.prototype.bark = function () {
+  console.log('Woof!');
+};
+let beagle = new Dog();
+
+beagle.eat();
+beagle.bark();
+```

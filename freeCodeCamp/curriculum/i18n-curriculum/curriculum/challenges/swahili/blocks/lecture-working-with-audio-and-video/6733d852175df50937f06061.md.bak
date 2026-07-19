@@ -1,0 +1,162 @@
+---
+id: 6733d852175df50937f06061
+title: Unawezaje Kufanya Kazi na Mito ya Vyombo vya Habari Kukamata Video na Sauti Kutoka Kifaa cha Ndani?
+challengeType: 19
+dashedName: how-can-you-work-with-the-media-streams-getusermedia-to-capture-video-and-audio-from-a-local-device
+---
+
+# --description--
+
+Badala ya kuonyesha sauti na video, wakati mwingine unaweza kutaka kukamata sauti au video. API ya Media Capture and Streams, au API ya MediaStream, inakuwezesha kufanya hivyo.
+
+Hata hivyo, ili kutumia API hii, unahitaji kuunda kitu cha `MediaStream`. Unaweza kufanya hivyo kwa kutumia kijenzi, lakini kingehusishwa na vifaa vya mtumizi. Badala yake, sifa ya `mediaDevices` ya kitu cha `navigator` cha ulimwengu ina njia ya `getUserMedia()` ambayo unaweza kutumia.
+
+Njia hii inakubali kitu kimoja cha `constraints` kinachoelezea aina ya vyombo vya habari unavyotaka kupokea. Kitu hiki kina sifa za `audio` na `video` zinazowakilisha mito ya sauti na video. Sifa hizi zinaweza kuwa `false` ikiwa hutaki kupokea aina hiyo ya mto, `true` ikiwa unataka, au vitu vinavyoelezea vizingiti vya ziada.
+
+Kwa mfano, unaweza kuhitaji azimio maalum la video:
+
+```js
+window.navigator.mediaDevices.getUserMedia({
+  audio: true,
+  video: {
+    width: {
+      min: 1280,
+      ideal: 1920,
+      max: 3840
+    },
+    height: {
+      min: 720,
+      ideal: 1080,
+      max: 2160
+    }
+  }
+});
+```
+
+Kitu hiki cha vizingiti kinaelezea azimio cha kiwango cha chini na cha juu kwa mtiririko wa video. Sifa ya `ideal` inaelezea azimio unalotaka zaidi – na mto utatoa azimio linalokaribia zaidi azimio lako bora.
+
+Mara tu unapounda MediaStream yako (ikiwa mtumizi atakubali ombi la moja kwa moja la upatikanaji wa vifaa vyao), unaweza kutumia data ya mto kwa njia yoyote unayohitaji.
+
+Kumbuka kwamba `getUserMedia()` inarudisha Ahadi, ambayo ina maana utahitaji kitendakazi cha mwitiko ili kutumia mto huo, au utumie sintaksia ya async/await. Utajifunza zaidi kuhusu Ahadi na programu isiyo ya wakati mmoja katika mafundisho yajayo.
+
+Hapa kuna mfano wa msingi unaoonyesha mtiririko wa kamera ya mtumizi kwenye ukurasa.
+
+```js
+const video = document.querySelector("video");
+const stream =
+  await window.navigator.mediaDevices.getUserMedia({ video: true });
+video.srcObject = stream;
+await video.play();
+```
+
+Inafaa kutambua kuwa API hii haitozi upatikanaji wa kukamata skrini. Utajifunza kuhusu API hiyo katika funzo lijalo.
+
+# --questions--
+
+## --text--
+
+Ni njia gani inayotumika kupata vifaa vya vyombo vya habari vya mtumizi?
+
+## --answers--
+
+`createMediaStream()`
+
+### --feedback--
+
+Njia hii inapata vifaa vya vyombo vya habari vya mtumizi.
+
+---
+
+`getMediaDevices()`
+
+### --feedback--
+
+Njia hii inapata vifaa vya vyombo vya habari vya mtumizi.
+
+---
+
+`getUserMedia()`
+
+---
+
+`captureStream()`
+
+### --feedback--
+
+Njia hii inapata vifaa vya vyombo vya habari vya mtumizi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Katika kitu cha vizingiti kwa video, sifa ya ideal inawakilisha nini?
+
+## --answers--
+
+Azimio la kiwango cha chini kinachokubalika.
+
+### --feedback--
+
+Fikiria maana ya neno ideal.
+
+---
+
+Azimio kubwa zaidi linalowezekana.
+
+### --feedback--
+
+Fikiria maana ya neno ideal.
+
+---
+
+Azimio linalopendelewa.
+
+---
+
+Azimio la msingi ikiwa hakuna vizingiti vingine vinavyotimizwa.
+
+### --feedback--
+
+Fikiria maana ya neno ideal.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini kinarudishwa na njia ya `getUserMedia()`?
+
+## --answers--
+
+Kitu cha `MediaStream`.
+
+### --feedback--
+
+Njia ya `getUserMedia()` ni isiyo ya wakati mmoja.
+
+---
+
+Kitu cha `constraints`.
+
+### --feedback--
+
+Njia ya `getUserMedia()` ni isiyo ya wakati mmoja.
+
+---
+
+Ahadi.
+
+---
+
+Kipengele cha `video`.
+
+### --feedback--
+
+Njia ya `getUserMedia()` ni isiyo ya wakati mmoja.
+
+## --video-solution--
+
+3

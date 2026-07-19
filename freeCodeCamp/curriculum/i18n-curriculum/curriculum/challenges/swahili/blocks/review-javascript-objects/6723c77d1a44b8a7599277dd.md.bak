@@ -1,0 +1,288 @@
+---
+id: 6723c77d1a44b8a7599277dd
+title: Kagua vitu vya JavaScript
+challengeType: 31
+dashedName: review-javascript-objects
+---
+
+# --interactive--
+
+## Misingi ya kitu
+
+- **Ufafanuzi**: Kitu ni muundo wa data unaotengenezwa kwa sifa. Sifa ina funguo na thamani. Ili kupata data kutoka kwenye kitu unaweza kutumia uandishi wa nukta au uandishi wa mabano.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  city: "New York"
+};
+
+console.log(person.name);  // Alice
+console.log(person["name"]); // Alice
+```
+
+:::
+
+Ili kuweka sifa ya kitu kilicho tayari, unaweza kutumia uandishi wa nukta au uandishi wa mabano pamoja na opereta ya mgawo.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+person.job = "Engineer"
+person["hobby"] = "Knitting"
+console.log(person);  // {name: 'Alice', age: 30, job: 'Engineer', hobby: 'Knitting'}
+```
+
+:::
+
+## Kuondoa sifa kutoka kwenye kitu
+
+- **Opereta ya `delete`**: Opereta hii hutumika kuondoa sifa kutoka kwenye kitu.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  job: "Engineer"
+};
+
+delete person.job;
+
+console.log(person.job); // undefined
+```
+
+:::
+
+## Kukagua kama kitu kina sifa fulani
+
+- **Njia ya `hasOwnProperty()`**: Njia hii hurudisha thamani ya kweli au siyo kweli kuonyesha kama kitu kina sifa iliyotajwa kama sifa yake mwenyewe.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(person.hasOwnProperty("name")); // true
+console.log(person.hasOwnProperty("job")); // false
+```
+
+:::
+
+- **Njia ya `Object.hasOwn()`**: Hii ni njia ya kisasa, inayopendekezwa ya kukagua kama kitu kina sifa kama yake mwenyewe (si ya kurithiwa). Sintaksia ni `Object.hasOwn(object, propertyName)`. Hurudisha `true` ikiwa sifa ipo kwenye kitu na `false` ikiwa haipo — bila kujali thamani ya sifa. Hii inafanya iwe salama zaidi kuliko `hasOwnProperty()` na ya kuaminika zaidi kuliko `if (obj.prop)` wakati thamani zinaweza kuwa `0`, `false`, `null`, au `undefined`.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(Object.hasOwn(person, "name")); // true
+console.log(Object.hasOwn(person, "job")); // false
+```
+
+:::
+
+Hapa kuna mfano wa kina unaoonyesha kwa nini `Object.hasOwn()` ni ya kuaminika zaidi kuliko kukagua thamani moja kwa moja:
+
+:::interactive_editor
+
+```js
+const settings = {
+  darkMode: false,
+  fontSize: 0,
+  language: null
+};
+
+// Object.hasOwn() correctly sees these properties exist
+console.log(Object.hasOwn(settings, "darkMode")); // true (value is false, but exists)
+console.log(Object.hasOwn(settings, "fontSize")); // true (value is 0, but exists)
+console.log(Object.hasOwn(settings, "theme"));    // false (property was never added)
+
+// Using if() directly is unsafe for falsy values!
+if (settings.darkMode) {
+  console.log("Dark mode on"); // Does NOT print — misleading!
+}
+
+// Object.hasOwn() is the safe way
+if (Object.hasOwn(settings, "darkMode")) {
+  console.log("darkMode exists, value is:", settings.darkMode); // darkMode exists, value is: false
+}
+```
+
+:::
+
+- **Opereta ya `in`**: Opereta hii itarudisha `true` ikiwa sifa ipo kwenye kitu.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Bob",
+  age: 25
+};
+
+console.log("name" in person);  // true
+```
+
+:::
+
+## Kupata sifa kutoka kwa vitu vilivyopangwa ndani
+
+- **Kupata data**: Kupata sifa kutoka kwa vitu vilivyopangwa ndani kunahusisha kutumia uandishi wa nukta au uandishi wa mabano, kama vile unavyopata sifa kutoka kwa vitu rahisi. Hata hivyo, utahitaji kuunganishaji wa mfululizo wa wapataji hawa ili kufikia muundo uliopangwa ndani.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+
+console.log(person.contact.phone.work); // "098-765-4321"
+```
+
+:::
+
+## Aina za data za msingi na zisizo za msingi
+
+- **Aina za data za msingi**: Aina hizi za data ni pamoja na nambari, mfuatano wa herufi, thamani ya kweli au siyo kweli, `null`, `undefined`, na alama. Aina hizi huitwa "za msingi" kwa sababu zinawakilisha thamani moja na si vitu. Thamani za msingi hazibadiliki, maana yake mara tu zinapotengenezwa, thamani yake haiwezi kubadilishwa.
+- **Aina za data zisizo za msingi**: Katika JavaScript, hizi ni vitu, ikiwa ni pamoja na vitu vya kawaida, safu za data, na vitendakazi. Tofauti na msingi, aina zisizo za msingi zinaweza kuhifadhi thamani nyingi kama sifa au vipengele.
+
+## Njia za kitu
+
+- **Ufafanuzi**: Njia za kitu ni vitendakazi vinavyohusishwa na kitu. Hufafanuliwa kama sifa za kitu na zinaweza kupata na kuendesha data ya kitu. Neno `this` ndani ya njia linarejelea kitu chenyewe, likiruhusu upatikanaji wa sifa zake.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Bob",
+  age: 30,
+  sayHello: function() {
+    return "Hello, my name is " + this.name;
+  }
+};
+
+console.log(person.sayHello()); // "Hello, my name is Bob"
+```
+
+:::
+
+## Kijenzi cha kitu
+
+- **Ufafanuzi**: Katika JavaScript, kijenzi ni aina maalum ya kitendakazi kinachotumika kuunda na kuanzisha vitu. Huitwa kwa neno `new` na inaweza kuanzisha sifa na njia kwenye kitu kipya kilichoundwa. Kijenzi cha `Object()` huunda kitu kipya tupu.
+
+```js
+new Object()
+```
+
+## Kufanya kazi na opereta ya uunganishaji wa mfululizo (`?.`)
+
+- **Ufafanuzi**: Opereta hii inakuwezesha kupata salama sifa za kitu au kuita njia bila wasiwasi kama zipo au la.
+
+:::interactive_editor
+
+```ts
+const user = {
+  name: "John",
+  profile: {
+    email: "john@example.com",
+    address: {
+      street: "123 Main St",
+      city: "Somewhere"
+    }
+  }
+};
+
+console.log(user.profile?.address?.street); // "123 Main St"
+console.log(user.profile?.phone?.number);   // undefined
+```
+
+:::
+
+## Ufumbuzi wa muundo wa kitu
+
+- **Ufafanuzi**: Ufumbuzi wa muundo wa kitu unakuwezesha kutoa thamani kutoka kwa vitu na kuziweka kwenye vigezo kwa njia fupi na inayosomeka zaidi.
+
+:::interactive_editor
+
+```js
+const person = { name: "Alice", age: 30, city: "New York" };
+
+const { name, age } = person;
+
+console.log(name); // Alice
+console.log(age);  // 30
+```
+
+:::
+
+## Kufanya kazi na JSON
+
+- **Ufafanuzi**: JSON ni kifupi cha JavaScript Object Notation. Ni muundo wa data wa maandishi mwepesi unaotumika sana kubadilishana data kati ya seva na programu ya mtandao.
+
+```js
+{
+  "name": "Alice",
+  "age": 30,
+  "isStudent": false,
+  "list of courses": ["Mathematics", "Physics", "Computer Science"]
+}
+```
+
+- **Njia ya `JSON.stringify()`**: Njia hii hutumika kubadilisha kitu cha JavaScript kuwa mfuatano wa herufi wa JSON. Hii ni muhimu unapohitaji kuhifadhi au kusafirisha data kwa muundo unaoweza kushirikiwa au kuhamishwa kwa urahisi kati ya mifumo.
+
+:::interactive_editor
+
+```js
+const user = {
+  name: "John",
+  age: 30,
+  isAdmin: true
+};
+
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // '{"name":"John","age":30,"isAdmin":true}'
+```
+
+:::
+
+- **Njia ya `JSON.parse()`**: Njia hii hubadilisha mfuatano wa herufi wa JSON kurudi kuwa kitu cha JavaScript. Hii ni muhimu unapopata data ya JSON kutoka kwa seva ya mtandao au localStorage na unahitaji kuendesha data hiyo katika programu yako.
+
+:::interactive_editor
+
+```js
+const jsonString = '{"name":"John","age":30,"isAdmin":true}';
+const userObject = JSON.parse(jsonString);
+
+// result: { name: 'John', age: 30, isAdmin: true }
+console.log(userObject);
+```
+
+:::
+
+# --assignment--
+
+Kagua mada na dhana za vitu vya JavaScript.

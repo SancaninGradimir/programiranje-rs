@@ -1,0 +1,273 @@
+---
+id: 68420be9af9d89620af7944a
+title: "What is Object-Oriented Programming, and How Does Encapsulation Work?"
+challengeType: 19
+dashedName: what-is-object-oriented-programming-and-how-does-encapsulation-work
+---
+
+# --description--
+
+Programu inayotumia darasa la vitu, inayojulikana pia kama OOP, ni mtindo wa uandishi wa programu ambapo wasanidi programu hutendea kila kitu katika msimbo wao kama kitu halisi cha dunia.
+
+Darasa la vitu ni kama ramani ya kuunda vitu. Kila kitu kinachoundwa kutoka darasa lina sifa za kipengele zinazobainisha data na njia zinazobainisha tabia za vitu hivyo.
+
+Katika funzo lililopita, ulijifunza jinsi ya kuunda madarasa. Hapa ni ukumbusho wa sintaksia:
+
+```py
+class ClassName:
+   def __init__(self, parameters):
+       attribute = value
+
+   def method_name(self):
+       # method logic
+```
+
+Hapa kuna mfano wa darasa linalotumia njia maalum ya `__init__` kuanzisha sifa za chapa na rangi kila wakati kitu kinapoundwa kwa kutumia darasa hilo:
+
+```py
+class Car:
+   def __init__(self, brand, color):
+       self.brand = brand
+       self.color = color
+
+# create two objects from the Car class
+car1 = Car('Toyota', 'red')
+car2 = Car('Lambo', 'green')
+
+print('Car 1 Brand:', car1.brand) # Car 1 Brand: Toyota
+print('Car 1 Color:', car1.color) # Car 1 Color: red
+
+print('Car 2 Brand:', car2.brand) # Car 2 Brand: Lambo
+print('Car 2 Color:', car2.color) # Car 2 Color: green
+```
+
+Programu inayotumia darasa la vitu ina kanuni kuu nne zinazokusaidia kupanga na kusimamia msimbo kwa ufanisi. Kanuni hizo ni ufungaji wa sifa za kipengele (encapsulation), urithi, polymorphism, na abstraction.
+
+Sehemu iliyobaki ya funzo hili itazingatia jinsi ufungaji wa sifa za kipengele unavyofanya kazi.
+
+Ufungaji wa sifa za kipengele ni kuunganisha sifa za kipengele na njia za kitu katika kitengo kimoja, darasa.
+
+Kwa ufungaji wa sifa za kipengele, unaweza kuficha hali ya ndani ya kitu nyuma ya seti rahisi ya njia na sifa za kipengele za umma zinazofanya kazi kama milango. Nyuma ya milango hiyo kuna sifa za kipengele na njia za binafsi zinazodhibiti jinsi data inavyobadilika na nani anaweza kuiona.
+
+Tuseme unataka kufuatilia salio la pochi. Unataka kuruhusu watu kuweka au kutoa pesa kutoka pochi, lakini hakuna mtu anayeweza kuingilia salio moja kwa moja.
+
+Katika hali hiyo, unaweza kufanya `deposit()` na `withdraw()` kuwa njia za umma, na kuficha salio chini ya sifa ya `_balance`:
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self._balance = balance # For internal use by convention
+
+   def deposit(self, amount):
+       if amount > 0:
+           self._balance += amount # Add to the balance safely
+
+   def withdraw(self, amount):
+       if 0 < amount <= self._balance:
+           self._balance -= amount # Remove from the balance safely
+```
+
+Kwa mkataba, kuweka kiambishi awali cha mstari mmoja kwenye sifa za kipengele na njia ina maana kwamba zinakusudiwa kwa matumizi ya ndani. Hakuna mtu anapaswa kuzifikilia moja kwa moja kutoka nje ya darasa kwani hiyo inakiuka kanuni za ufungaji wa sifa za kipengele, na inaweza kusababisha hitilafu.
+
+Ingawa kiambishi awali cha mstari mmoja ni mkataba tu, kuweka kiambishi awali cha mistari miwili kwenye sifa za kipengele na njia kwa ufanisi kunazuia kufikiwa kutoka nje ya darasa lao, na kufanya sifa na njia hizo kuwa binafsi.
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self.__balance = balance # Private attribute
+
+   def deposit(self, amount):
+       if amount > 0:
+           self.__balance += amount # Add to the balance safely
+
+   def withdraw(self, amount):
+       if 0 < amount <= self.__balance:
+           self.__balance -= amount # Remove from the balance safely
+
+account = Wallet(500)
+print(account.__balance) # AttributeError: 'Wallet' object has no attribute '__balance'
+```
+
+Ili kupata thamani ya sasa ya `__balance`, unaweza kufafanua njia ya `get_balance`. Kwa mfano:
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self.__balance = balance
+
+   def deposit(self, amount):
+       if amount > 0:
+           self.__balance += amount
+
+   def withdraw(self, amount):
+       if 0 < amount <= self.__balance:
+           self.__balance -= amount
+  
+   def get_balance(self):
+       return self.__balance
+
+
+acct_one = Wallet(100)
+acct_one.deposit(50)
+print(acct_one.get_balance()) # 150
+
+acct_two = Wallet(450)
+acct_two.withdraw(28)
+print(acct_two.get_balance()) # 422
+
+acct_two.deposit(150)
+print(acct_two.get_balance()) # 572
+```
+
+Pia unaweza kufafanua njia binafsi ya `__validate` ili kuangalia kama kila kiasi cha kuweka au kutoa ni nambari chanya:
+
+```py
+class Wallet:
+   def __init__(self):
+       self.__balance = 0
+
+   def __validate(self, amount):
+       if amount < 0:
+           raise ValueError('Amount must be positive')
+
+   def deposit(self, amount):
+       self.__validate(amount)
+       self.__balance += amount
+
+   def withdraw(self, amount):
+       self.__validate(amount)
+       if amount > self.__balance:
+           raise ValueError('Insufficient funds')
+       self.__balance -= amount
+
+   def get_balance(self):
+       return self.__balance
+
+acct_one = Wallet()
+acct_one.deposit(3)
+print(acct_one.get_balance()) # 3
+
+acct_one.deposit(50)
+print(acct_one.get_balance()) # 53
+
+acct_one.deposit(-4)  # ValueError: Amount must be positive
+acct_one.withdraw(-8) # ValueError: Amount must be positive
+acct_one.withdraw(58) # ValueError: Insufficient funds
+```
+
+Kama unavyoona, njia ya `__validate` ni binafsi, na inafanya kazi nyuma ya pazia katika njia za umma za `deposit()` na `withdraw()` kuhakikisha kiasi kila mara ni halali.
+
+Katika funzo lijalo, utajifunza zaidi kuhusu jinsi sifa za kipengele zilizo na kiambishi awali cha mistari miwili zinavyofanya kazi.
+
+Kwa muhtasari, ufungaji wa sifa za kipengele unafunga data ya ndani nyuma ya njia za umma zilizo wazi. Hivyo ndivyo unavyolinda madarasa yako dhidi ya kuingiliwa na kuzingatia uthibitisho mahali pamoja. Unaweza kusahihisha au kuongeza msimbo wako kwa uhuru, ukijua kuwa msimbo wa nje unagusa tu interfaces unazoweka wazi.
+
+# --questions--
+
+## --text--
+
+Ni kanuni kuu nne zipi za programu inayotumia darasa la vitu (OOP)?
+
+## --answers--
+
+Ufungaji wa sifa za kipengele, urithi, polymorphism, abstraction
+
+---
+
+Mabadiliko, Vitendo, Mizunguko, Masharti
+
+### --feedback--
+
+Angalia kanuni zinazobainisha jinsi data na tabia zinavyopangwa katika OOP.
+
+---
+
+Madarasa, Vitu, Njia, Sifa za kipengele
+
+### --feedback--
+
+Angalia kanuni zinazobainisha jinsi data na tabia zinavyopangwa katika OOP.
+
+---
+
+Za umma, za binafsi, zilizo salama, za static
+
+### --feedback--
+
+Angalia kanuni zinazobainisha jinsi data na tabia zinavyopangwa katika OOP.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Kwa nini ni tabia mbaya kufikia moja kwa moja sifa za kipengele/ njia zilizo na kiambishi awali cha mstari mmoja?
+
+## --answers--
+
+Kwa sababu Python itatoa kosa la sintaksia ikiwa utajaribu.
+
+### --feedback--
+
+Fikiria jinsi ufungaji wa sifa za kipengele ulivyo kuwepo kulinda hali ya ndani ya kitu.
+
+---
+
+Kwa sababu inakiuka ufungaji wa sifa za kipengele, kuruhusu upatikanaji wa data usiodhibitiwa.
+
+---
+
+Kwa sababu mali binafsi ni polepole kufikiwa kuliko za umma.
+
+### --feedback--
+
+Fikiria jinsi ufungaji wa sifa za kipengele ulivyo kuwepo kulinda hali ya ndani ya kitu.
+
+---
+
+Kwa sababu zinaweza kufikiwa tu kutoka kwa madarasa ya watoto.
+
+### --feedback--
+
+Kwa sababu zinaweza kufikiwa tu kutoka kwa madarasa ya watoto.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni njia gani ya kuonyesha sifa za kipengele au njia binafsi?
+
+## --answers--
+
+Tumia kiambishi awali cha mstari mmoja
+
+### --feedback--
+
+Angalia alama zinazotumika kuweka kiambishi awali kwenye jina la sifa binafsi au njia.
+
+---
+
+Tumia mistari miwili ya kiambishi awali mwanzoni na mwishoni
+
+### --feedback--
+
+Angalia alama zinazotumika kuweka kiambishi awali kwenye jina la sifa binafsi au njia.
+
+---
+
+Tumia kiambishi awali cha mistari miwili
+
+---
+
+Tumia neno la binafsi (private)
+
+### --feedback--
+
+Angalia alama zinazotumika kuweka kiambishi awali kwenye jina la sifa binafsi au njia.
+
+## --video-solution--
+
+3
+

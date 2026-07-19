@@ -1,0 +1,240 @@
+---
+id: 67327195e77b1bd90bdd49d7
+title: Nini Hutokea Unapojaribu Kufanya Hesabu kwa Kutumia Nambari na Mfuatano wa Herufi?
+challengeType: 19
+dashedName: what-happens-when-you-try-to-do-calculations-with-numbers-and-strings
+---
+
+# --interactive--
+
+JavaScript ni lugha ambapo mambo wakati mwingine hufanya kazi kwa njia za kushangaza, au hata za ajabu. Mojawapo ya mshangao huo hutokea unapochanganya nambari na mfuatano wa herufi katika operesheni za kihesabu. Kitu cha kwanza utakachojaribu huenda ni kuongeza nambari na mfuatano wa herufi. Katika JavaScript, opereta `+` hufanya kazi mbili. Inashughulikia kuongeza na kuunganisha mfuatano wa herufi, ambayo ni njia ya kuunganisha mfuatano wa herufi mbili pamoja.
+
+Unapotumia `+` na nambari na mfuatano wa herufi, JavaScript huchagua kuwatendea wote kama mfuatano wa herufi na kuziunganisha pamoja. Ukikagua aina ya matokeo kwa opereta `typeof`, utaona ni kweli mfuatano wa herufi:
+
+:::interactive_editor
+
+```js
+const result = 5 + '10';
+
+console.log(result); // 510
+console.log(typeof result); // string
+```
+
+:::
+
+Unadhani nini kitakachotokea ukibadilisha mpangilio wa `5` na `'10'`?
+
+:::interactive_editor
+
+```js
+const result = '10' + 5;
+
+console.log(result); // 105
+console.log(typeof result); // string
+```
+
+:::
+
+Unaweza kuona kitu kimoja kilitokea. JavaScript inaona mfuatano wa herufi katika `'10'` na nambari katika `5`, hivyo hubadilisha nambari kuwa mfuatano wa herufi na kuziunganisha. Hii inajulikana kama kulazimisha aina. Kulazimisha aina ni pale thamani kutoka aina moja ya data hubadilishwa kuwa aina nyingine.
+
+Mambo yanakuwa ya kuvutia zaidi unapojaribu kufanya operesheni nyingine za kihesabu kama kutoa, kuzidisha, au kugawanya kwa kutumia mfuatano wa herufi na nambari. Katika hali hizi, JavaScript hujaribu kubadilisha mfuatano wa herufi kuwa nambari kabla ya kufanya hesabu – kulazimisha aina tena! Hapa ni kile kinachotokea:
+
+:::interactive_editor
+
+```js
+const subtractionResult = '10' - 5;
+console.log(subtractionResult); // 5
+console.log(typeof subtractionResult); // number
+
+const multiplicationResult = '10' * 2;
+console.log(multiplicationResult); // 20
+console.log(typeof multiplicationResult); // number
+
+const divisionResult = '20' / 2;
+console.log(divisionResult); // 10
+console.log(typeof divisionResult); // number
+```
+
+:::
+
+Katika mifano hapo juu, JavaScript imefanikiwa kubadilisha mfuatano wa herufi `'10'` au `'20'` kuwa nambari kisha kufanya hesabu. Matokeo yake, `'10' - 5` hutoa `5`, `'10' * 2` hutoa `20`, na `'20' / 2` hutoa `10`.
+
+Lakini vipi kama mfuatano wa herufi hauonekani kama nambari? Tazama kinachotokea katika hali hiyo:
+
+:::interactive_editor
+
+```js
+const subtractionResult = 'abc' - 5;
+console.log(subtractionResult); // NaN
+console.log(typeof subtractionResult); // number
+
+const multiplicationResult = 'abc' * 2;
+console.log(multiplicationResult); // NaN
+console.log(typeof multiplicationResult); // number
+
+const divisionResult = 'abc' / 2;
+console.log(divisionResult); // NaN
+console.log(typeof divisionResult); // number
+```
+
+:::
+
+Katika mifano hapo juu, mfuatano wa herufi `'abc'` hauwakilishi thamani halali ya nambari, hivyo JavaScript haiwezi kuubadilisha kuwa nambari yenye maana. Wakati ubadilishaji kama huo unashindwa, JavaScript hurudisha `NaN`, ambayo inamaanisha "Sio Nambari". `NaN` ni thamani maalum ya aina ya `Number` inayowakilisha nambari isiyo halali au isiyoweza kuwakilishwa.
+
+Vipi ikiwa unafanya operesheni za kihesabu na thamani ya kweli au siyo kweli (`true` au `false`)? Tazama kinachotokea. JavaScript hutendea thamani za kweli au siyo kweli kama nambari katika operesheni za kihesabu: `true` hubadilika kuwa `1`, na `false` hubadilika kuwa `0`.
+
+:::interactive_editor
+
+```js
+const result1 = true + 1;
+console.log(result1); // 2
+console.log(typeof result1); // number
+
+const result2 = false + 1;
+console.log(result2); // 1
+console.log(typeof result2); // number
+
+const result3 = 'Hello' + true;
+console.log(result3); // "Hellotrue"
+console.log(typeof result3); // string
+```
+
+:::
+
+Katika mifano miwili ya kwanza, `true + 1` ilizaa `2`, na `false + 1` ilizaa `1`. Katika mfano wa tatu, `'Hello' + true`, JavaScript ilibadilisha `true` kuwa mfuatano wa herufi na kuuiunganisha na `'Hello'`, ikizaa `'Hellotrue'`, ambayo ni mfuatano wa herufi.
+
+Kwa `null` na `undefined`, JavaScript hutendea `null` kama `0` na `undefined` kama `NaN` katika operesheni za kihesabu:
+
+:::interactive_editor
+
+```js
+const result1 = null + 5;
+console.log(result1); // 5
+console.log(typeof result1); // number
+
+const result2 = undefined + 5;
+console.log(result2); // NaN
+console.log(typeof result2); // number
+```
+
+:::
+
+JavaScript mara nyingi hufanya kulazimisha aina, ikibadilisha aina za data kama nambari, mfuatano wa herufi, na thamani ya kweli au siyo kweli kwa njia ambazo wakati mwingine ni za kushangaza. Kuelewa mabadiliko haya ni muhimu ili kuepuka hitilafu na kuandika msimbo imara katika miradi yako.
+
+# --questions--
+
+## --text--
+
+Nini hutokea unapotekeleza msimbo ufuatao?
+
+```js
+const result = 3 + "19";
+```
+
+## --answers--
+
+JavaScript haizingatii mfuatano wa herufi na hufanya operesheni tu kwa nambari.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kuongeza, na jinsi unavyotumia alama ile ile kuunganisha mfuatano wa herufi.
+
+---
+
+JavaScript hutupa hitilafu unapojaribu kuchanganya mfuatano wa herufi na nambari katika operesheni za kihesabu.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kuongeza, na jinsi unavyotumia alama ile ile kuunganisha mfuatano wa herufi.
+
+---
+
+JavaScript hubadilisha nambari `3` kuwa mfuatano wa herufi `"3"`, kuziunganisha mfuatano hizo mbili, na kuweka thamani `"319"` kwa `result`.
+
+---
+
+JavaScript hubadilisha mfuatano wa herufi `"19"` kuwa nambari `19`, hufanya operesheni, na kuweka thamani `22` kwa `result`.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kuongeza, na jinsi unavyotumia alama ile ile kuunganisha mfuatano wa herufi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini hutokea unapotekeleza msimbo ufuatao?
+
+```js
+const result = "6" - 4;
+```
+
+## --answers--
+
+Ubadilishaji unashindwa na JavaScript hurudisha `NaN`.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kutoa, kuzidisha, kugawanya, na aina nyingine za operesheni.
+
+---
+
+JavaScript hubadilisha nambari `4` kuwa mfuatano wa herufi `"4"`, kuziunganisha mfuatano hizo mbili, na kuweka thamani `"64"` kwa `result`.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kutoa, kuzidisha, kugawanya, na aina nyingine za operesheni.
+
+---
+
+Thamani `Infinity` imepewa `result`.
+
+### --feedback--
+
+Kumbuka jinsi kulazimisha aina kunavyofanya kazi kwa operesheni za kutoa, kuzidisha, kugawanya, na aina nyingine za operesheni.
+
+---
+
+JavaScript hubadilisha mfuatano wa herufi `"6"` kuwa nambari `6`, hufanya operesheni, na kuweka thamani `2` kwa `result`.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Nini hutokea unapofanya operesheni za kihesabu na thamani ya kweli au siyo kweli (`true` au `false`) katika JavaScript?
+
+## --answers--
+
+JavaScript hutupa hitilafu.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyotafsiri `true` na `false` katika muktadha wa nambari.
+
+---
+
+JavaScript haizingatii thamani ya kweli au siyo kweli na hufanya operesheni tu kwa nambari.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyotafsiri `true` na `false` katika muktadha wa nambari.
+
+---
+
+JavaScript hutendea `true` kama `1` na `false` kama `0` katika operesheni za kihesabu.
+
+---
+
+JavaScript hubadilisha thamani ya kweli au siyo kweli kuwa mfuatano wa herufi kabla ya kufanya operesheni.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyotafsiri `true` na `false` katika muktadha wa nambari.
+
+## --video-solution--
+
+3

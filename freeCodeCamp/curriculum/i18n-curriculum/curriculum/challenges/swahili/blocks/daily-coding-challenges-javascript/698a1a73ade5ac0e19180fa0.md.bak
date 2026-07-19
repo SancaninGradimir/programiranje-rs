@@ -1,0 +1,129 @@
+---
+id: 698a1a73ade5ac0e19180fa0
+title: "Zoezi la 197: Ulinganifu wa Aina za Damu"
+challengeType: 28
+dashedName: challenge-197
+---
+
+# --description--
+
+Ukizingatia aina ya damu ya mtoaji na aina ya damu ya mpokeaji, amua kama mtoaji anaweza kutoa damu kwa mpokeaji.
+
+Kila aina ya damu ina:
+
+- Herufi: `"A"`, `"B"`, `"AB"`, au `"O"`
+- Na kipengele cha Rh: `"+"` au `"-"`
+
+Aina za damu zitakuwa moja ya herufi halali ikifuatiwa na kipengele cha Rh. Kwa mfano, `"AB+"` na `"O-"` ni aina halali za damu.
+
+Sheria za herufi:
+
+- `"O"` inaweza kutoa damu kwa aina nyingine ya herufi.
+- `"A"` inaweza kutoa damu kwa `"A"` na `"AB"`.
+- `"B"` inaweza kutoa damu kwa `"B"` na `"AB"`.
+- `"AB"` inaweza kutoa damu kwa `"AB"` tu.
+
+Sheria za Rh:
+
+- Hasi (`"-"`) inaweza kutoa damu kwa `"-"` na `"+"`.
+- Chanya (`"+"`) inaweza kutoa damu kwa `"+"` tu.
+
+Sheria za herufi na Rh zote mbili lazima zitimizwe ili mtoaji aweze kutoa damu kwa mpokeaji.
+
+# --hints--
+
+`canDonate("B+", "B+")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(canDonate("B+", "B+"));
+```
+
+`canDonate("O-", "AB-")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(canDonate("O-", "AB-"));
+```
+
+`canDonate("O+", "A-")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(canDonate("O+", "A-"));
+```
+
+`canDonate("A+", "AB+")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(canDonate("A+", "AB+"));
+```
+
+`canDonate("A-", "B-")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(canDonate("A-", "B-"));
+```
+
+`canDonate("B-", "AB+")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(canDonate("B-", "AB+"));
+```
+
+`canDonate("B-", "A+")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(canDonate("B-", "A+"));
+```
+
+`canDonate("O-", "O+")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(canDonate("O-", "O+"));
+```
+
+`canDonate("O+", "O-")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(canDonate("O+", "O-"));
+```
+
+`canDonate("AB+", "AB-")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(canDonate("AB+", "AB-"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function canDonate(donor, recipient) {
+
+  return donor;
+}
+```
+
+# --solutions--
+
+```js
+function canDonate(donor, recipient) {
+  const donorType = donor.slice(0, -1);
+  const donorRh = donor.slice(-1);
+
+  const recipientType = recipient.slice(0, -1);
+  const recipientRh = recipient.slice(-1);
+
+  const aboCompatibility = {
+    "O": ["A", "B", "AB", "O"],
+    "A": ["A", "AB"],
+    "B": ["B", "AB"],
+    "AB": ["AB"]
+  };
+
+  const aboMatch = aboCompatibility[donorType].includes(recipientType);
+  const rhMatch =
+    donorRh === "-" || (donorRh === "+" && recipientRh === "+");
+
+  return aboMatch && rhMatch;
+}
+```

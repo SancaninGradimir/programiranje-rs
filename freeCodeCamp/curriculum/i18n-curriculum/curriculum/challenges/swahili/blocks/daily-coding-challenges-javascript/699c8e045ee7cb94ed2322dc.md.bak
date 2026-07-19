@@ -1,0 +1,86 @@
+---
+id: 699c8e045ee7cb94ed2322dc
+title: "Zoezi la 221: Matriksi iliyobadilishwa mwelekeo"
+challengeType: 28
+dashedName: challenge-221
+---
+
+# --description--
+
+Ikiwa umepewa matriksi (safu ya safu za data) iliyojaa thamani mbili tofauti, rudisha matriksi mpya ambapo matukio yote ya thamani moja yamebadilishwa na nyingine.
+
+Kwa mfano, ukipata:
+
+```js
+[
+  ["a", "b"],
+  ["a", "a"]
+]
+```
+
+Rudisha:
+
+```js
+[
+  ["b", "a"],
+  ["b", "b"]
+]
+```
+
+# --hints--
+
+`invertMatrix([["a", "b"], ["a", "a"]])` inapaswa kurudisha `[["b", "a"], ["b", "b"]]`.
+
+```js
+assert.deepEqual(invertMatrix([["a", "b"], ["a", "a"]]), [["b", "a"], ["b", "b"]]);
+```
+
+`invertMatrix([[1, 0, 1], [1, 1, 1], [0, 1, 0]])` inapaswa kurudisha `[[0, 1, 0], [0, 0, 0], [1, 0, 1]]`.
+
+```js
+assert.deepEqual(invertMatrix([[1, 0, 1], [1, 1, 1], [0, 1, 0]]), [[0, 1, 0], [0, 0, 0], [1, 0, 1]]);
+```
+
+`invertMatrix([["apple", "banana", "banana", "apple"], ["banana", "apple", "apple", "banana"], ["banana", "banana", "banana", "apple"]])` inapaswa kurudisha `[["banana", "apple", "apple", "banana"], ["apple", "banana", "banana", "apple"], ["apple", "apple", "apple", "banana"]]`.
+
+```js
+assert.deepEqual(invertMatrix([["apple", "banana", "banana", "apple"], ["banana", "apple", "apple", "banana"], ["banana", "banana", "banana", "apple"]]), [["banana", "apple", "apple", "banana"], ["apple", "banana", "banana", "apple"], ["apple", "apple", "apple", "banana"]]);
+```
+
+`invertMatrix([[6, 7, 7, 7, 6], [7, 6, 7, 6, 7], [7, 7, 6, 7, 7], [7, 6, 7, 6, 7], [6, 7, 7, 7, 6]])` inapaswa kurudisha `[[7, 6, 6, 6, 7], [6, 7, 6, 7, 6], [6, 6, 7, 6, 6], [6, 7, 6, 7, 6], [7, 6, 6, 6, 7]]`.
+
+```js
+assert.deepEqual(invertMatrix([[6, 7, 7, 7, 6], [7, 6, 7, 6, 7], [7, 7, 6, 7, 7], [7, 6, 7, 6, 7], [6, 7, 7, 7, 6]]), [[7, 6, 6, 6, 7], [6, 7, 6, 7, 6], [6, 6, 7, 6, 6], [6, 7, 6, 7, 6], [7, 6, 6, 6, 7]]);
+```
+
+`invertMatrix([[1.2, 2.1, 2.1, 2.1], [2.1, 1.2, 2.1, 1.2], [1.2, 1.2, 2.1, 2.1]])` inapaswa kurudisha `[[2.1, 1.2, 1.2, 1.2], [1.2, 2.1, 1.2, 2.1], [2.1, 2.1, 1.2, 1.2]]`.
+
+```js
+assert.deepEqual(invertMatrix([[1.2, 2.1, 2.1, 2.1], [2.1, 1.2, 2.1, 1.2], [1.2, 1.2, 2.1, 2.1]]), [[2.1, 1.2, 1.2, 1.2], [1.2, 2.1, 1.2, 2.1], [2.1, 2.1, 1.2, 1.2]]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function invertMatrix(matrix) {
+
+  return matrix;
+}
+```
+
+# --solutions--
+
+```js
+function invertMatrix(matrix) {
+  if (matrix.length === 0) return [];
+
+  const values = [...new Set(matrix.flat())];
+  const [val1, val2] = values;
+
+  return matrix.map(row =>
+    row.map(cell => (cell === val1 ? val2 : val1))
+  );
+}
+```

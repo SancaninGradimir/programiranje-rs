@@ -1,0 +1,55 @@
+---
+id: 6818ed1adc249bb91d373729
+title: Hatua 14
+challengeType: 20
+dashedName: step-14
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, ulijifunza kwamba tamko la `return` hutumika kurudisha thamani kutoka kwa kitendakazi, ili u-uweze kuitumia mahali pengine katika msimbo wako:
+
+```py
+def spam():
+    return 'Spam!'
+```
+
+Futa wito la `print(encrypted_text)` kutoka kwa kitendakazi chako. Kisha, futa tamko la kigezo cha `encrypted_text` na rudisha moja kwa moja `text.translate(translation_table)` kutoka kwa kitendakazi chako.
+
+# --hints--
+
+Haupaswi kuwa na `print(encrypted_text)` ndani ya kitendakazi cha `caesar`.
+
+```js
+({ test: () => assert(runPython(`not _Node(_code).find_function("caesar").has_call("print(encrypted_text)")`)) })
+```
+
+Haupaswi kuwa na kigezo cha `encrypted_text` ndani ya kitendakazi cha `caesar`.
+
+```js
+({ test: () => assert(runPython(`not _Node(_code).find_function("caesar").has_variable("encrypted_text")`)) })
+```
+
+Kitendakazi chako cha `caesar` kinapaswa kurudisha `text.translate(translation_table)`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").has_return("text.translate(translation_table)")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def caesar(text, shift):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet, shifted_alphabet)
+--fcc-editable-region--
+    encrypted_text = text.translate(translation_table)
+    print(encrypted_text)
+--fcc-editable-region--
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

@@ -1,0 +1,98 @@
+---
+id: 595608ff8bcd7a50bd490181
+title: Mfululizo wa hailstone
+challengeType: 1
+forumTopicId: 302279
+dashedName: hailstone-sequence
+---
+
+# --description--
+
+Mfululizo wa nambari wa hailstone unaweza kuzalishwa kuanzia nambari kamili chanya ya mwanzo, `n` kwa:
+
+- Ikiwa `n` ni `1` basi mfululizo unamalizika
+- Ikiwa `n` ni `even` basi `n` inayofuata ya mfululizo ni `= n/2`
+- Ikiwa `n` ni `odd` basi `n` inayofuata ya mfululizo ni `= (3 * n) + 1`
+
+Nadharia isiyothibitishwa ya Collatz ni kwamba mfululizo wa hailstone kwa nambari yoyote ya mwanzo daima unamalizika.
+
+Mfululizo wa hailstone pia unajulikana kama nambari za hailstone (kwa sababu thamani zake kawaida hupitia kushuka na kupanda mara nyingi kama mawe ya mvua ya barafu angani), au kama mfululizo wa Collatz.
+
+# --instructions--
+
+1. Tengeneza kitendakazi cha kuzalisha mfululizo wa hailstone kwa nambari
+2. Kitendakazi chako kinapaswa kurudisha safu ya data yenye nambari chini ya `limit` ambayo ina mfululizo mrefu zaidi wa hailstone na urefu wa mfululizo huo. (Lakini usionyeshe mfululizo halisi!)
+
+# --hints--
+
+`hailstoneSequence` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof hailstoneSequence === 'function');
+```
+
+`hailstoneSequence(30)` inapaswa kurudisha safu ya data.
+
+```js
+assert(Array.isArray(hailstoneSequence(30)));
+```
+
+`hailstoneSequence(30)` inapaswa kurudisha `[27, 112]`.
+
+```js
+assert.deepEqual(hailstoneSequence(30), [27, 112]);
+```
+
+`hailstoneSequence(50000)` inapaswa kurudisha `[35655, 324]`.
+
+```js
+assert.deepEqual(hailstoneSequence(50000), [35655, 324]);
+```
+
+`hailstoneSequence(100000)` inapaswa kurudisha `[77031, 351]`.
+
+```js
+assert.deepEqual(hailstoneSequence(100000), [77031, 351]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function hailstoneSequence(limit) {
+  const res = [];
+
+
+  return res;
+}
+```
+
+# --solutions--
+
+```js
+function hailstoneSequence (limit) {
+  function hailstone(n) {
+    const seq = [n];
+    while (n > 1) {
+      n = n % 2 ? 3 * n + 1 : n / 2;
+      seq.push(n);
+    }
+    return seq;
+  }
+
+  let n = 0;
+  let max = 0;
+  for (let i = limit; --i;) {
+    const seq = hailstone(i);
+    const sLen = seq.length;
+
+    if (sLen > max) {
+      n = i;
+      max = sLen;
+    }
+  }
+
+  return [n, max];
+}
+```

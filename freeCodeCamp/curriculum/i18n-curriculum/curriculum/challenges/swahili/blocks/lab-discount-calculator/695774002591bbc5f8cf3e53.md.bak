@@ -1,0 +1,200 @@
+---
+id: 695774002591bbc5f8cf3e53
+title: Jenga kitendakazi cha tumia punguzo
+challengeType: 27
+dashedName: build-a-discount-calculator
+---
+
+# --description--
+
+Katika maabara hii utaandika kitendakazi kinachohesabu bei ya mwisho ya bidhaa baada ya kutumia punguzo la asilimia.
+
+Kwa mfano, ikiwa bei ya bidhaa ni `50` na punguzo la `20` linatumika, kiasi cha punguzo ni `10`, na bei ya mwisho ni `40`.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini ili ukamilishe maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kufafanua kitendakazi kinachoitwa `apply_discount`.
+
+2. Kitendakazi cha `apply_discount` kinapaswa kuchukua vigezo viwili tu: `price` na `discount`.
+
+3. Ikiwa `price` si nambari (`int` au `float`), kitendakazi kinapaswa kurudisha mfuatano wa herufi `The price should be a number`.
+
+4. Ikiwa `discount` si nambari (`int` au `float`), kitendakazi kinapaswa kurudisha mfuatano wa herufi `The discount should be a number`.
+
+5. Ikiwa `price` ni ndogo au sawa na `0`, kitendakazi kinapaswa kurudisha mfuatano wa herufi `The price should be greater than 0`.
+
+6. Ikiwa `discount` ni ndogo kuliko `0` au kubwa kuliko `100`, kitendakazi kinapaswa kurudisha mfuatano wa herufi `The discount should be between 0 and 100`.
+
+7. Ikiwa ingizo zote mbili ni halali, kitendakazi kinapaswa kuhesabu punguzo kama asilimia ya bei.
+
+8. Kitendakazi kinapaswa kurudisha bei ya mwisho baada ya kutumia punguzo.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `apply_discount`.
+
+```js
+({
+  test: () => runPython(
+    `assert _Node(_code).has_function("apply_discount")`
+  )
+})
+```
+
+Kitendakazi chako cha `apply_discount` kinapaswa kuchukua vigezo viwili: `price` na `discount`.
+
+```js
+({
+  test: () => runPython(
+`
+func = _Node(_code).find_function("apply_discount")
+
+assert func.has_args("price, discount")
+`
+  )
+})
+```
+
+Wakati `apply_discount` inapoitwa na `price` (hoja ya kwanza) ambayo si nambari (`int` au `float`) inapaswa kurudisha `The price should be a number`.
+
+```js
+({
+  test: () => runPython(
+`
+wrong_values = ["HelloWorld", "100", [1,2], {"a":1}, (1,2), None]
+for v in wrong_values:
+    assert apply_discount(v, 10) == "The price should be a number"
+`
+  )
+})
+```
+
+Wakati `apply_discount` inapoitwa na `discount` (hoja ya pili) ambayo si nambari (`int` au `float`) inapaswa kurudisha `The discount should be a number`.
+
+```js
+({
+  test: () => runPython(
+`
+wrong_values = ["HelloWorld", "10", [1], {"a":1}, (1,), None]
+for v in wrong_values:
+    assert apply_discount(100, v) == "The discount should be a number"
+`
+  )
+})
+```
+
+Wakati `apply_discount` inapoitwa na `price` ambayo ni ndogo au sawa na `0`, inapaswa kurudisha `The price should be greater than 0`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(0, 10) == "The price should be greater than 0"
+assert apply_discount(-5, 10) == "The price should be greater than 0"
+`
+  )
+})
+```
+
+Wakati `apply_discount` inapoitwa na `discount` ambayo ni ndogo kuliko `0` au kubwa kuliko `100`, inapaswa kurudisha `The discount should be between 0 and 100`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(100, -1) == "The discount should be between 0 and 100"
+assert apply_discount(100, 101) == "The discount should be between 0 and 100"
+`
+  )
+})
+```
+
+`apply_discount(100, 20)` inapaswa kurudisha `80`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(100, 20) == 80
+`
+  )
+})
+```
+
+`apply_discount(200, 50)` inapaswa kurudisha `100`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(200, 50) == 100
+`
+  )
+})
+```
+
+`apply_discount(50, 0)` inapaswa kurudisha `50`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(50, 0) == 50
+`
+  )
+})
+```
+
+Wakati `apply_discount` inapoitwa na punguzo la `100`, inapaswa kurudisha `0`.
+
+```js
+({
+  test: () => runPython(
+`
+assert apply_discount(120, 100) == 0
+`
+  )
+})
+```
+
+`apply_discount(74.5, 20.0)` inapaswa kurudisha `59.6`.
+
+```js
+({
+  test: () => runPython(
+`
+result = apply_discount(74.5, 20.0)
+assert result == 59.6
+`
+  )
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+def apply_discount(price, discount):
+    # Validation steps
+    if not isinstance(price, (int, float)):
+        return "The price should be a number"
+    if not isinstance(discount, (int, float)):
+        return "The discount should be a number"
+    if price <= 0:
+        return "The price should be greater than 0"
+    if discount < 0 or discount > 100:
+        return "The discount should be between 0 and 100"
+
+    discount_amount = price * discount / 100
+    final_price = price - discount_amount
+    return final_price
+```

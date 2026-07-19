@@ -1,0 +1,91 @@
+---
+id: 5895f700f9fc0f352b528e63
+title: Sanidi injini ya kiolezo
+challengeType: 2
+forumTopicId: 301564
+dashedName: set-up-a-template-engine
+---
+
+# --description--
+
+Kufanya kazi kwenye changamoto hizi kutahusisha kuandika msimbo wako kwa kutumia mojawapo ya njia zifuatazo:
+
+- Nakili <a href="https://github.com/freeCodeCamp/boilerplate-advancednode/" target="_blank" rel="noopener noreferrer nofollow">hii repo ya GitHub</a> na ukamilishe changamoto hizi kwa ndani.
+- Tumia mtengenezaji wa tovuti unayempenda kukamilisha mradi. Hakikisha umejumuisha mafaili yote kutoka kwenye repo yetu ya GitHub.
+
+Injini ya kiolezo inakuwezesha kutumia mafaili ya kiolezo yasiyobadilika (kama yale yaliyoandikwa kwa *Pug*) katika programu yako. Wakati wa utekelezaji, injini ya kiolezo hubadilisha vigezo katika faili ya kiolezo na thamani halisi zinazoweza kutolewa na seva yako. Kisha hubadilisha kiolezo kuwa faili ya HTML isiyobadilika ambayo hutumwa kwa mteja. Njia hii inafanya iwe rahisi kubuni ukurasa wa HTML na kuruhusu kuonyesha vigezo kwenye ukurasa bila hitaji la kufanya wito wa API kutoka kwa mteja.
+
+`pug@~3.0.0` tayari imewekwa, na imeorodheshwa kama utegemezi katika faili lako la `package.json`.
+
+Express inahitaji kujua ni injini gani ya kiolezo unayotumia. Tumia njia ya `set` kuweka `pug` kama thamani ya sifa ya `view engine`:
+
+```javascript
+app.set('view engine', 'pug');
+```
+
+Baadaye, ongeza njia nyingine ya `set` ambayo inaweka sifa ya `views` ya `app` yako kuonyesha kwenye saraka ya `./views/pug`. Hii inamwambia Express kuonyesha maoni yote kulingana na saraka hiyo.
+
+Mwishowe, tumia `res.render()` katika njia ya ukurasa wako wa nyumbani, ukipitisha `index` kama hoja ya kwanza. Hii itaonyesha kiolezo cha `pug`.
+
+Kama kila kitu kimeenda kama ilivyopangwa, ukurasa wa nyumbani wa programu yako hautakuwa tupu tena. Badala yake, utaonyesha ujumbe unaoonyesha umefanikiwa kuonyesha kiolezo cha Pug!
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#set-up-a-template-engine-1" target="_blank" rel="noopener noreferrer nofollow">kuangalia mradi uliofikia hadi sasa</a>.
+
+# --hints--
+
+Pug inapaswa kuwa utegemezi.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'pug',
+    'Your project should list "pug" as a dependency'
+  );
+```
+
+Injini ya maoni inapaswa kuwa Pug.
+
+```js
+  const url = new URL("/_api/app", code);
+  const res = await fetch(url);
+  const app = await res.json();
+  assert.equal(app?.settings?.['view engine'], "pug");
+```
+
+Unapaswa kuweka sifa ya `views` ya programu kuwa `./views/pug`.
+
+```js
+  const url = new URL("/_api/app", code);
+  const res = await fetch(url);
+  const app = await res.json();
+  assert.equal(app?.settings?.views, "./views/pug");
+```
+
+Tumia njia sahihi ya ExpressJS kuonyesha ukurasa wa kielezo kutoka kwa jibu.
+
+```js
+  const url = new URL("/", code);
+  const res = await fetch(url);
+  const data = await res.text();
+      assert.match(
+        data,
+        /FCC Advanced Node and Express/gi,
+        'You successfully rendered the Pug template!'
+      );
+```
+
+Pug inapaswa kufanya kazi.
+
+```js
+  const url = new URL("/", code);
+  const res = await fetch(url);
+  const data = await res.text();
+      assert.match(
+        data,
+        /pug-success-message/gi,
+        'Your projects home page should now be rendered by pug with the projects .pug file unaltered'
+      );
+```

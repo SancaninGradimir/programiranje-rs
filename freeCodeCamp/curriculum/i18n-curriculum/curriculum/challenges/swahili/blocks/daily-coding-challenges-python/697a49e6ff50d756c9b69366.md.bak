@@ -1,0 +1,112 @@
+---
+id: 697a49e6ff50d756c9b69366
+title: "Challenge 189: 2026 Winter Games Day 10: Alpine Skiing"
+challengeType: 29
+dashedName: challenge-189
+---
+
+# --description--
+
+Kutolewa kwa mteremko wa mlima wa kuteleza, umbali wa usawa, na aina yake, amua kiwango cha ugumu wa mlima huo.
+
+Ili kuamua kiwango:
+
+- Hesabu unene wa mteremko kwa kugawanya mteremko na umbali.
+- Kisha, hesabu unene uliorekebishwa kulingana na aina ya mlima:
+  - `"Downhill"`: zidisha unene kwa 1.2
+  - `"Slalom"`: zidisha unene kwa 0.9
+  - `"Giant Slalom"`: zidisha unene kwa 1.0
+
+Return:
+
+- `"Green"` ikiwa unene uliorekebishwa ni mdogo au sawa na 0.1
+- `"Blue"` ikiwa unene uliorekebishwa ni mkubwa kuliko 0.1 na mdogo au sawa na 0.25
+- `"Black"` ikiwa unene uliorekebishwa ni mkubwa kuliko 0.25
+
+
+# --hints--
+
+`get_hill_rating(95, 900, "Slalom")` should return `"Green"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(95, 900, "Slalom"), "Green")`)
+}})
+```
+
+`get_hill_rating(620, 2800, "Downhill")` should return `"Black"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(620, 2800, "Downhill"), "Black")`)
+}})
+```
+
+`get_hill_rating(420, 1680, "Giant Slalom")` should return `"Blue"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(420, 1680, "Giant Slalom"), "Blue")`)
+}})
+```
+
+`get_hill_rating(250, 3000, "Downhill")` should return `"Green"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(250, 3000, "Downhill"), "Green")`)
+}})
+```
+
+`get_hill_rating(110, 900, "Slalom")` should return `"Blue"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(110, 900, "Slalom"), "Blue")`)
+}})
+```
+
+`get_hill_rating(380, 1500, "Giant Slalom")` should return `"Black"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_hill_rating(380, 1500, "Giant Slalom"), "Black")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_hill_rating(drop, distance, hill_type):
+
+    return drop
+```
+
+# --solutions--
+
+```py
+def get_hill_rating(drop, distance, hill_type):
+    steepness = drop / distance
+
+    if hill_type == "Downhill":
+        steepness *= 1.2
+    elif hill_type == "Slalom":
+        steepness *= 0.9
+    elif hill_type == "Giant Slalom":
+        steepness *= 1.0
+
+    if steepness <= 0.1:
+        return "Green"
+    elif steepness <= 0.25:
+        return "Blue"
+    else:
+        return "Black"
+```

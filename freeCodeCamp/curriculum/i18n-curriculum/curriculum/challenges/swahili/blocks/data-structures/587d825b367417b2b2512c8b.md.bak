@@ -1,0 +1,184 @@
+---
+id: 587d825b367417b2b2512c8b
+title: Ondoa kipengele kutoka kwenye rundo la juu zaidi
+challengeType: 1
+forumTopicId: 301710
+dashedName: remove-an-element-from-a-max-heap
+---
+
+# --description--
+
+Sasa tunapoweza kuongeza vipengele kwenye rundo letu, tuchunguze jinsi ya kuondoa vipengele. Kuondoa na kuingiza vipengele vyote vinahitaji mantiki inayofanana. Katika rundo la juu zaidi, kawaida utataka kuondoa thamani kubwa zaidi, hivyo hii inahusisha tu kuichukua kutoka kwenye mzizi wa mti wetu. Hii itavunja sifa ya rundo ya mti wetu, kwa hivyo lazima tuirekebishe kwa njia fulani. Kawaida, kwa rundo la juu zaidi hii hufanywa kwa njia ifuatayo:
+
+<ol>
+  <li>Hamisha kipengele cha mwisho katika rundo hadi nafasi ya mzizi.</li>
+  <li>Kama mtoto yeyote wa mzizi ana thamani kubwa zaidi kuliko mzizi, badilisha mzizi na mtoto mwenye thamani kubwa zaidi.</li>
+  <li>Endelea kubadilisha hadi mzazi awe mkubwa kuliko watoto wote wawili au ufikie ngazi ya mwisho katika mti.</li>
+</ol>
+
+# --instructions--
+
+Maelekezo: Ongeza njia kwenye rundo letu la juu zaidi iitwayo `remove`. Njia hii inapaswa kurudisha thamani kubwa zaidi ambayo imeongezwa kwenye rundo letu la juu zaidi na kuiondoa kutoka kwenye rundo. Pia inapaswa kupanga upya rundo ili sifa ya rundo iendelee kuwepo. Baada ya kuondoa kipengele, kipengele kingine kikubwa kinachobaki kwenye rundo kinapaswa kuwa mzizi.
+
+# --hints--
+
+Muundo wa data wa `MaxHeap` unapaswa kuwepo.
+
+```js
+assert(
+  (function () {
+    let test = false;
+    if (typeof MaxHeap !== 'undefined') {
+      test = new MaxHeap();
+    }
+    return typeof test == 'object';
+  })()
+);
+```
+
+`MaxHeap` inapaswa kuwa na njia iitwayo `print`.
+
+```js
+assert(
+  (function () {
+    let test = false;
+    if (typeof MaxHeap !== 'undefined') {
+      test = new MaxHeap();
+    } else {
+      return false;
+    }
+    return typeof test.print == 'function';
+  })()
+);
+```
+
+`MaxHeap` inapaswa kuwa na njia iitwayo `insert`.
+
+```js
+assert(
+  (function () {
+    let test = false;
+    if (typeof MaxHeap !== 'undefined') {
+      test = new MaxHeap();
+    } else {
+      return false;
+    }
+    return typeof test.insert == 'function';
+  })()
+);
+```
+
+`MaxHeap` inapaswa kuwa na njia iitwayo `remove`.
+
+```js
+assert(
+  (function () {
+    let test = false;
+    if (typeof MaxHeap !== 'undefined') {
+      test = new MaxHeap();
+    } else {
+      return false;
+    }
+    return typeof test.remove == 'function';
+  })()
+);
+```
+
+Njia ya `remove` inapaswa kuondoa kipengele kikubwa kutoka kwenye rundo la juu zaidi huku ikidumisha sifa ya rundo la juu zaidi.
+
+```js
+function isHeap(arr, i, n) {
+    if( arr[i] < arr[2 * i + 1] || arr[i] < arr[2 * i + 2] ){
+        return false;
+    }
+    if (i > (n - 1) / 2) {
+        return true;
+    }
+    if (isHeap(arr, 2 * i + 1, n) && isHeap(arr, 2 * i + 2, n)) {
+        return true;
+    }
+    return false;
+}
+
+
+assert(
+  (function () {
+    let test = false;
+
+    if (typeof MaxHeap !== 'undefined') {
+      test = new MaxHeap();
+    } else {
+      return false;
+    }
+    
+    let max = Infinity;
+    const [result, vals] = [[], [9, 3, 5, 2, 15, 3, 7, 12, 7, 10, 90]];
+
+    vals.forEach((val) => test.insert(val));
+
+    for (let i = 0; i < vals.length; i++) {
+      const curHeap = test.print();
+      const arr = curHeap[0] === null ? curHeap.slice(1) : curHeap;
+      
+      if (!isHeap(arr, 0, arr.length - 1)) {
+        return false;
+      }
+
+      const removed = test.remove();
+      if (!vals.includes(removed)) return false;
+      if (removed > max) return false
+      max = removed;
+      result.push(removed);
+    }
+    
+    for (let i = 0; i < vals.length; i++) {
+      if (!result.includes(vals[i])) {
+        return false;
+      }
+    }
+    
+    return true;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const MaxHeap = function () {
+  this.heap = [];
+  this.parent = index => {
+    return Math.floor((index - 1) / 2);
+  }
+  this.insert = element => {
+    this.heap.push(element);
+    this.heapifyUp(this.heap.length - 1);
+  }
+  this.heapifyUp = index => {
+    let currentIndex = index,
+    parentIndex = this.parent(currentIndex);
+    while (currentIndex > 0 && this.heap[currentIndex] > this.heap[parentIndex]) {
+      this.swap(currentIndex, parentIndex);
+      currentIndex = parentIndex;
+      parentIndex = this.parent(parentIndex);
+    }
+  }
+  this.swap = (index1, index2) => {
+    [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+  }
+  this.print = () => {
+    return this.heap;
+  }
+  // Only change code below this line
+
+  // Only change code above this line
+};
+```
+
+# --solutions--
+
+```js
+// solution required
+```

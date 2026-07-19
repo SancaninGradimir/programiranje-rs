@@ -1,0 +1,76 @@
+---
+id: 5d822fd413a79914d39e98cc
+title: Hatua 1
+challengeType: 0
+dashedName: step-1
+demoType: onLoad
+---
+
+# --description--
+
+Karibu katika mradi wa CSS Variables Skyline! Anza kwa kuongeza kipengele cha `link` kinachounganisha faili lako la `styles.css` ndani ya kipengele cha `head`.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na kipengele cha `link`.
+
+```js
+assert.isNotNull(document.querySelector('link'));
+```
+
+Hupaswi kubadilisha lebo zako za `head` zilizopo. Hakikisha hujafuta lebo ya kufunga.
+
+```js
+const headElements = document.querySelectorAll('head');
+assert.strictEqual(headElements?.length, 1);
+```
+
+Unapaswa kuwa na kipengele kimoja cha `link` kisicho na maudhui.
+
+```js
+assert.lengthOf(document.querySelectorAll('link'), 1);
+```
+
+Kipengele chako cha `link` kinapaswa kuwa ndani ya kipengele chako cha `head`.
+
+```js
+const headContentRegex = /(?<=<head\s*>)[\S|\s]*(?=<\/head\s*>)/;
+const headElementContent = code.match(headContentRegex);
+
+const headElement = document.createElement("head");
+headElement.innerHTML = headElementContent;
+assert.isNotNull(headElement.querySelector('link'));
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele ya `rel` yenye thamani ya `stylesheet`.
+
+```js
+const linkElement = document.querySelector('link');
+const rel = linkElement?.getAttribute("rel");
+assert.strictEqual(rel, "stylesheet");
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele ya `href` yenye thamani ya `styles.css`.
+
+```js
+const linkElement = document.querySelector('link');
+assert.strictEqual(linkElement?.dataset.href, "styles.css");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+--fcc-editable-region--
+  <head>
+    <meta charset="UTF-8">
+    <title>City Skyline</title>    
+  </head>
+--fcc-editable-region--
+  <body>
+  </body>
+</html>
+```

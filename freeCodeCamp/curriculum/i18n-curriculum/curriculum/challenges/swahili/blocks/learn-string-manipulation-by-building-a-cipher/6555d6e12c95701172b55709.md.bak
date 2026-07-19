@@ -1,0 +1,69 @@
+---
+id: 6555d6e12c95701172b55709
+title: Hatua 77
+challengeType: 20
+dashedName: step-77
+---
+
+# --description--
+
+Kitendakazi kinaweza kuitwa na hoja za chaguo-msingi. Hoja ya chaguo-msingi inaonyesha thamani ambayo kitendakazi kinapaswa kuchukua ikiwa hoja haipitwi. Kwa mfano, kitendakazi kilicho hapa chini kinakubali hoja tatu lakini unaweza kukiita ukipitisha hoja mbili. Ya tatu itachukua thamani iliyobainishwa kwa chaguo-msingi:
+
+```py
+def foo(a, b, c=value):
+    <code>
+```
+
+Badilisha kitendakazi cha `vigenere` ili kigezo chake cha `direction` kiwe na thamani ya chaguo-msingi ya `1`.
+
+# --hints--
+
+Kigezo cha `direction` cha kitendakazi chako cha `vigenere` kinapaswa kuwa na thamani ya chaguo-msingi ya `1`.
+
+```js
+({ test: () => assert(runPython(`
+    import inspect
+    sig = str(inspect.signature(vigenere))
+    sig == '(message, key, direction=1)'
+  `))
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+text = 'Hello Zaira'
+custom_key = 'python'
+
+--fcc-editable-region--
+def vigenere(message, key, direction):
+--fcc-editable-region--
+    key_index = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final_message = ''
+
+    for char in message.lower():
+    
+        # Append space to the message
+        if char == ' ':
+            final_message += char
+        else:        
+            # Find the right key character to encode/decode
+            key_char = key[key_index % len(key)]
+            key_index += 1
+
+            # Define the offset and the encrypted/decrypted letter
+            offset = alphabet.index(key_char)
+            index = alphabet.find(char)
+            new_index = (index + offset*direction) % len(alphabet)
+            final_message += alphabet[new_index]
+    
+    return final_message
+    
+encryption = vigenere(text, custom_key, 1)
+print(encryption)
+decryption = vigenere(encryption, custom_key, -1)
+print(decryption)
+```

@@ -1,0 +1,359 @@
+---
+id: 69247cd74caa633ccd7e3351
+title: Ukaguzi wa moduli msingi za Node.js
+challengeType: 31
+dashedName: review-node-js-core-modules
+---
+
+# --description--
+
+## Utangulizi wa moduli msingi za Node.js
+
+- **Moduli msingi za Node.js**: Moduli zilizojengwa ndani zinazokuja tayari na Node.js, zikitoa utendaji muhimu kwa ajili ya shughuli za faili, usimbaji fiche, mwingiliano na mfumo wa uendeshaji, na zaidi.
+- **Moduli za kawaida**: Hakuna haja ya usakinishaji wa ziada; zinapatikana mradi tu Node.js imesakinishwa.
+- **Sintaksia ya import**: Tumia `require()` kuleta moduli msingi katika programu yako.
+
+```javascript
+const fs = require("fs");
+const crypto = require("crypto");
+const os = require("os");
+```
+
+## Moduli ya mfumo wa faili (fs)
+
+- **Madhumuni**: Inatoa njia za kufanya kazi na mafaili na folda, ikiwa ni pamoja na kufungua, kufunga, kusoma, kuandika, na kufuta.
+- **Import**: `const fs = require("fs");`
+- **Uwezo wa kubadilika**: Njia zinapatikana kwa aina tatu: wito wa kurudisha, ahadi, na isiyo ya wakati mmoja.
+
+### Mifumo ya matumizi ya njia
+
+- **Isiyo ya wakati mmoja na wito wa kurudisha**: Tabia ya kawaida, isiyozuia mchakato.
+
+```javascript
+fs.writeFile("filePath", "content", "utf8", (err) => {
+  if (err) throw err;
+  console.log("File written to!");
+});
+```
+
+- **Inayotumia ahadi**: Inapendekezwa kwa programu za kisasa, inatumia `async/await`.
+
+```javascript
+const fs = require("fs/promises");
+
+async function writeToFile() {
+  try {
+    await fs.writeFile("article.md", "## Node fs Module");
+    console.log("File written to!");
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+- **Isiyo ya asynchronous**: Shughuli inayozuia, inafaa kwa maandishi rahisi.
+
+```javascript
+try {
+  fs.writeFileSync("article.md", "## Node fs Module", "utf8");
+  console.log("File written to!");
+} catch (err) {
+  console.error(err);
+}
+```
+
+### Shughuli kuu za faili
+
+- **Njia ya `writeFile()`**: Inaunda au kuandika upya faili na maudhui yaliyotolewa.
+
+```javascript
+await fs.writeFile("article.md", "## Node fs Module: The Complete Guide");
+```
+
+- **Njia ya `appendFile()`**: Inaongeza maudhui mwishoni mwa faili iliyopo.
+
+```javascript
+await fs.appendFile("article.md", "\n\nIn this article, you will learn...");
+```
+
+- **Njia ya `readFile()`**: Inasoma maudhui ya faili.
+
+```javascript
+const content = await fs.readFile("article.md", "utf8");
+console.log("File content:", content);
+```
+
+- **Njia ya `unlink()`**: Inafuta faili kutoka kwenye mfumo wa faili.
+
+```javascript
+await fs.unlink("article.md");
+console.log("File deleted successfully");
+```
+
+### Usimbaji wa herufi
+
+- **Usimbaji wa UTF-8**: Eleza `"utf8"` kusoma mafaili kama mfuatano wa herufi.
+- **Muundo wa buffer**: Bila maelezo ya usimbaji, mafaili husomwa kama vitu vya kihifadhi cha muda vya binary.
+
+```javascript
+// Returns string
+const textContent = await fs.readFile("file.txt", "utf8");
+
+// Returns Buffer
+const bufferContent = await fs.readFile("file.txt");
+```
+
+## Moduli ya buffer
+
+- **Madhumuni**: Inashughulikia data ya binary moja kwa moja katika kumbukumbu kwa mafaili, picha, na mtiririko wa mtandao.
+- **Import**: `const { Buffer } = require("buffer");`
+- **Matumizi**: Ingizo/Output ya faili, mtiririko wa TCP, usindikaji wa picha, na usimamizi wa data ya binary.
+
+### Uundaji wa buffer
+
+- **Njia ya `Buffer.from()`**: Inaunda buffer kutoka kwa mfuatano wa herufi, safu, au data nyingine.
+
+```javascript
+// From string
+const myStrBuffer = Buffer.from("freeCodeCamp");
+console.log(myStrBuffer); // <Buffer 66 72 65 65 43 6f 64 65 43 61 6d 70>
+
+// From array of numbers
+const myNumBuffer = Buffer.from([70, 82, 69, 69, 67, 79, 68, 69, 67, 65, 77, 80]);
+```
+
+- **Njia ya `Buffer.alloc()`**: Inaunda buffer ya ukubwa uliotolewa iliyojaa sifuri.
+
+```javascript
+const someBuffer = Buffer.alloc(10);
+console.log(someBuffer); // <Buffer 00 00 00 00 00 00 00 00 00 00>
+```
+
+### Shughuli za buffer
+
+- **Upatikanaji kama safu**: Pata vipengele vya buffer moja moja kwa kutumia kielezo cha index.
+
+```javascript
+console.log(myStrBuffer[0]); // 102 (byte value for 'f')
+```
+
+- **Njia ya `toString()`**: Hubadilisha buffer kuwa mfuatano wa herufi unaosomwa.
+
+```javascript
+console.log(myStrBuffer.toString()); // "freeCodeCamp"
+```
+
+- **Njia ya `Buffer.write()`**: Inaandika data kwenye buffer iliyotengwa.
+
+```javascript
+someBuffer.write("Hello fCC");
+console.log(someBuffer.toString()); // "Hello fCC"
+```
+
+- **Njia ya `Buffer.byteLength()`**: Hurejesha idadi ya byte zinazohitajika kuhifadhi mfuatano wa herufi.
+
+```javascript
+console.log(Buffer.byteLength("Hello freeCodeCamp")); // 18
+```
+
+### Njia za ziada za buffer
+
+- **`Buffer.isBuffer()`**: Hukagua kama kitu ni buffer.
+- **`Buffer.compare()`**: Hulinganisha buffers mbili na kurejesha mpangilio wa kupanga.
+- **`Buffer.concat()`**: Huunganisha buffers nyingi kuwa moja.
+
+## Moduli ya crypto
+
+- **Madhumuni**: Inatoa utendaji wa usimbaji fiche, ikiwa ni pamoja na hashing, usimbaji fiche, ufichaji, na saini za kidijitali.
+- **Import**: `const crypto = require("crypto");`
+- **Kumbusho la usalama**: Tumia maktaba zilizojaribiwa kama `bcrypt` au `jsonwebtoken` kwa uthibitisho wa utambulisho katika uzalishaji.
+
+### Njia za hashing
+
+- **Njia ya `createHash()`**: Inaunda hash ya njia moja kwa kutumia algoriti kama SHA256, SHA512, au MD5.
+
+```javascript
+const hashedPassword = crypto
+  .createHash("sha256")
+  .update("myPassword123")
+  .digest("hex");
+
+console.log("createHash result:", hashedPassword);
+```
+
+- **Njia ya `createHmac()`**: Inaunda hash kwa kutumia ufunguo wa siri kwa uthibitisho na uadilifu wa data.
+
+```javascript
+const hashedMessage = crypto
+  .createHmac("sha256", "secret-key")
+  .update("Hello World")
+  .digest("hex");
+```
+
+### Usimbaji fiche na ufichaji
+
+- **Njia za `createCipheriv()` na `createDecipheriv()`**: Husimbua na kufichua data kwa kutumia algoriti, funguo, na vekta za uanzishaji.
+
+```javascript
+const key = Buffer.from("12345678901234567890123456789012"); // 32 bytes for AES-256
+const iv = Buffer.from("1234567890123456"); // 16 bytes for AES
+
+// Encryption
+const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+let encrypted = cipher.update("Hello campers!", "utf8", "hex");
+encrypted += cipher.final("hex");
+
+// Decryption
+const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+let decrypted = decipher.update(encrypted, "hex", "utf8");
+decrypted += decipher.final("utf8");
+```
+
+### Uundaji wa thamani za nasibu
+
+- **Njia ya `randomBytes()`**: Inazalisha byte za nasibu zilizo salama kisimbaji.
+
+```javascript
+console.log("Random Bytes:", crypto.randomBytes(16).toString("hex"));
+// Output: a6154ef5a296fa176ad0f332bd94d712
+```
+
+- **Njia ya `randomInt()`**: Inazalisha nambari kamili za nasibu zilizo salama ndani ya anuwai iliyotolewa.
+
+```javascript
+console.log("Random Int:", crypto.randomInt(0, 100)); // Random number 0-99
+```
+
+### Usimamizi wa funguo
+
+- **Njia ya `createSecretKey()`**: Inaunda vitu vya funguo za usimbaji fiche kutoka kwa byte ghafi.
+
+```javascript
+const secret = crypto.createSecretKey(crypto.randomBytes(32));
+console.log(secret.export().toString('hex'));
+```
+
+### Saini za kidijitali
+
+- **Njia za `sign()` na `verify()`**: Huunda na kuthibitisha saini za kidijitali kwa kutumia jozi za funguo binafsi/za umma.
+- **Matumizi**: Huonyesha uhalali na uadilifu wa data.
+
+### Njia za ziada za crypto
+
+- **`createPublicKey()` na `createPrivateKey()`**: Hufanya kazi na funguo zilizozalishwa nje.
+- **`createDiffieHellman()`**: Huwezesha uundaji wa siri ya pamoja salama.
+- **`Certificate()`**: Inashughulikia shughuli za vyeti vya HTTPS.
+
+## Moduli ya OS
+
+- **Madhumuni**: Inatoa zana zinazohusiana na mfumo wa uendeshaji kwa taarifa za mfumo na usaidizi wa majukwaa mbalimbali.
+- **Import**: `const os = require("os");`
+- **Matumizi**: Ufuatiliaji wa mfumo, uandishi wa maandishi kwa majukwaa tofauti, taarifa za vifaa.
+
+### Njia za taarifa za mfumo
+
+- **Njia ya `platform()`**: Hurejesha jukwaa la mfumo wa uendeshaji.
+
+```javascript
+console.log(os.platform()); // 'darwin', 'win32', 'linux', etc.
+
+// Cross-platform usage
+if (os.platform() === 'win32') {
+  // Windows-specific code
+} else {
+  // Unix-like systems
+}
+```
+
+- **Njia ya `arch()`**: Hurejesha usanifu wa prosesa (CPU).
+
+```javascript
+console.log(os.arch()); // 'arm64', 'x64', 'arm', 'ia32', etc.
+```
+
+- **Njia ya `type()`**: Hurejesha jina rasmi la mfumo wa uendeshaji.
+
+```javascript
+console.log(os.type()); // 'Darwin', 'Linux', 'Windows_NT'
+```
+
+### Taarifa za toleo
+
+- **Njia ya `release()`**: Inaonyesha toleo la kernel ya OS.
+
+```javascript
+console.log(os.release()); // '25.0.0'
+```
+
+- **Njia ya `version()`**: Hurejesha taarifa za kina za toleo la OS.
+
+```javascript
+console.log(os.version());
+// Darwin Kernel Version 25.0.0: Wed Sep 17 21:41:39 PDT 2025
+```
+
+### Taarifa za vifaa
+
+- **Njia ya `cpus()`**: Hurejesha safu ya taarifa za nyenzo za cores za CPU.
+
+```javascript
+console.log(os.cpus()); // Array of CPU core objects with model, speed, times
+```
+
+- **Njia ya `uptime()`**: Hurejesha muda wa kuendesha mfumo kwa sekunde.
+
+```javascript
+console.log(os.uptime()); // 23047 (seconds since system boot)
+```
+
+### Taarifa za kumbukumbu
+
+- **Njia ya `totalmem()`**: Hurejesha jumla ya kumbukumbu ya mfumo kwa byte.
+- **Njia ya `freemem()`**: Hurejesha kumbukumbu inayopatikana ya mfumo kwa byte.
+
+## Mbinu bora
+
+### Mambo ya kuzingatia utendaji
+
+- **Epuka njia zisizo za asynchronous**: Tumia njia zisizo za wakati mmoja katika programu za uzalishaji ili kuepuka kuziba mchakato.
+- **Pendelea ahadi**: Tumia `async/await` na API inayotumia ahadi kwa msimbo safi na unaotunzwa kwa urahisi.
+- **Usimamizi wa makosa**: Daima tekeleza usimamizi sahihi wa makosa kwa kutumia blocks za try-catch au wito wa kurudisha wa makosa.
+
+### Miongozo ya usalama
+
+- **Moduli ya crypto**: Tumia maktaba zilizothibitishwa kwa uthibitisho badala ya kujenga suluhisho za crypto za kawaida.
+- **Uthibitisho wa ingizo**: Hakikisha njia za faili na ingizo la mtumizi ili kuzuia hatari za usalama.
+- **Usimamizi wa funguo**: Hifadhi funguo za usimbaji fiche kwa usalama, kamwe usizijumuishe moja kwa moja katika msimbo wa chanzo.
+
+### Ukuzaji wa majukwaa mbalimbali
+
+- **Matumizi ya moduli ya OS**: Tumia njia za moduli ya OS kwa usaidizi wa majukwaa tofauti.
+- **Usimamizi wa njia za faili**: Tumia moduli ya `path` kwa shughuli za njia za faili zinazofaa kwa majukwaa tofauti.
+- **Vigezo vya mazingira**: Angalia vigezo vya mazingira na usanidi maalum kwa jukwaa.
+
+## Matumizi ya kawaida
+
+### Shughuli za faili
+
+- Usimamizi wa faili za usanidi
+- Uundaji na matengenezo ya faili za kumbukumbu
+- Utendaji wa kuuza/leta data
+- Usindikaji wa templeti
+
+### Usalama wa data
+
+- Hashing ya nywila kwa uthibitisho wa mtumizi
+- Usimbaji fiche wa taarifa nyeti
+- Uundaji wa tokeni za nasibu kwa vikao
+- Uhakiki wa saini za kidijitali
+
+### Muunganisho wa mfumo
+
+- Usambazaji wa programu kwa majukwaa mbalimbali
+- Ufuatiliaji wa rasilimali za mfumo
+- Ukaguzi wa ulinganifu wa vifaa
+- Uboreshaji wa utendaji kulingana na uwezo wa mfumo
+
+# --assignment--
+
+Kagua mada na dhana za moduli msingi za Node.js.

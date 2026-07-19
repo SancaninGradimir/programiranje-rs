@@ -1,0 +1,197 @@
+---
+id: 5688e62ea601b2482ff8422b
+title: Jenga utafutaji wa wasifu
+challengeType:  26
+dashedName: lab-profile-lookup
+---
+
+# --description--
+
+Katika maabara hii, utajenga utafutaji wa wasifu unaotafuta taarifa kuhusu watu katika orodha ya mawasiliano.
+
+Kwa mfano huu fikiria kuna mtu wa mawasiliano anayeitwa Akira Laine, `lookUpProfile("Akira", "lastName")` inapaswa kurudisha `Laine`. 
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi kinachoitwa `lookUpProfile` kinachopokea jina na sifa kama hoja. 
+2. Unapaswa kupata taarifa za mawasiliano kutoka kwenye safu ya data ya `contacts` iliyotolewa. 
+3. Ikiwa kitendakazi kinapokea jina la mtu wa mawasiliano na sifa ipo kwa mtu huyo, basi thamani ya sifa hiyo inapaswa kurudishwa.
+4. Ikiwa jina lililotumwa kwa kitendakazi halilingani na mtu yeyote katika safu ya data ya mawasiliano, basi kitendakazi kinapaswa kurudisha `"No such contact"`.
+5. Ikiwa sifa haipo kwa mtu wa mawasiliano aliyepatikana, basi kitendakazi kinapaswa kurudisha `"No such property"`. 
+
+# --before-each--
+
+```js
+const _contacts = [
+  {
+    firstName: "Akira",
+    lastName: "Laine",
+    number: "0543236543",
+    likes: ["Pizza", "Coding", "Brownie Points"],
+  },
+  {
+    firstName: "Harry",
+    lastName: "Potter",
+    number: "0994372684",
+    likes: ["Hogwarts", "Magic", "Hagrid"],
+  },
+  {
+    firstName: "Sherlock",
+    lastName: "Holmes",
+    number: "0487345643",
+    likes: ["Intriguing Cases", "Violin"],
+  },
+  {
+    firstName: "Kristian",
+    lastName: "Vos",
+    number: "unknown",
+    likes: ["JavaScript", "Gaming", "Foxes"],
+  },
+];
+
+contacts = structuredClone(_contacts); 
+```
+
+# --hints--
+
+Safu ya data ya `contacts` inapaswa bado kuwepo katika wigo wa jumla. Rudisha funzo ili kuipata tena ikiwa uliifuta.
+
+```js
+assert.isArray(contacts);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `lookUpProfile`.
+
+```js
+assert.isFunction(lookUpProfile);
+```
+
+`lookUpProfile("Kristian", "lastName")` inapaswa kurudisha mfuatano wa herufi.
+
+```js
+assert.isString(lookUpProfile("Kristian", "lastName"));
+```
+
+`lookUpProfile("Kristian", "lastName")` inapaswa kurudisha mfuatano wa herufi `Vos`
+
+```js
+assert.strictEqual(lookUpProfile('Kristian', 'lastName'), 'Vos');
+```
+
+`lookUpProfile("Sherlock", "likes")` inapaswa kurudisha `["Intriguing Cases", "Violin"]`
+
+```js
+assert.deepEqual(lookUpProfile('Sherlock', 'likes'), [
+  'Intriguing Cases',
+  'Violin'
+]);
+```
+
+`lookUpProfile("Harry", "likes")` inapaswa kurudisha safu ya data
+
+```js
+assert.isArray(lookUpProfile('Harry', 'likes'));
+```
+
+`lookUpProfile("Bob", "number")` inapaswa kurudisha mfuatano wa herufi `No such contact`
+
+```js
+assert.strictEqual(lookUpProfile('Bob', 'number'),'No such contact');
+```
+
+`lookUpProfile("Bob", "potato")` inapaswa kurudisha mfuatano wa herufi `No such contact`
+
+```js
+assert.strictEqual(lookUpProfile('Bob', 'potato'), 'No such contact');
+```
+
+`lookUpProfile("Akira", "address")` inapaswa kurudisha mfuatano wa herufi `No such property`
+
+```js
+assert.strictEqual(lookUpProfile('Akira', 'address'), 'No such property');
+```
+
+Safu ya data ya `contacts` inapaswa kubaki bila kubadilika baada ya kuendesha `lookUpProfile` 
+
+```js
+lookUpProfile("Sherlock", "likes");
+assert.deepEqual(contacts,_contacts);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let contacts = [
+  {
+    firstName: "Akira",
+    lastName: "Laine",
+    number: "0543236543",
+    likes: ["Pizza", "Coding", "Brownie Points"],
+  },
+  {
+    firstName: "Harry",
+    lastName: "Potter",
+    number: "0994372684",
+    likes: ["Hogwarts", "Magic", "Hagrid"],
+  },
+  {
+    firstName: "Sherlock",
+    lastName: "Holmes",
+    number: "0487345643",
+    likes: ["Intriguing Cases", "Violin"],
+  },
+  {
+    firstName: "Kristian",
+    lastName: "Vos",
+    number: "unknown",
+    likes: ["JavaScript", "Gaming", "Foxes"],
+  },
+];
+
+
+```
+
+# --solutions--
+
+```js
+let contacts = [
+  {
+    firstName: "Akira",
+    lastName: "Laine",
+    number: "0543236543",
+    likes: ["Pizza", "Coding", "Brownie Points"],
+  },
+  {
+    firstName: "Harry",
+    lastName: "Potter",
+    number: "0994372684",
+    likes: ["Hogwarts", "Magic", "Hagrid"],
+  },
+  {
+    firstName: "Sherlock",
+    lastName: "Holmes",
+    number: "0487345643",
+    likes: ["Intriguing Cases", "Violin"],
+  },
+  {
+    firstName: "Kristian",
+    lastName: "Vos",
+    number: "unknown",
+    likes: ["JavaScript", "Gaming", "Foxes"],
+  },
+];
+
+
+function lookUpProfile(name, prop) {
+  for (let i in contacts) {
+    if (contacts[i].firstName === name) {
+      return contacts[i][prop] || "No such property";
+    }
+  }
+  return "No such contact";
+}
+```

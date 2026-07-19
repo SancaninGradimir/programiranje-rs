@@ -1,0 +1,49 @@
+---
+id: 65f407ea37ad6e181b90462e
+title: Hatua 14
+challengeType: 20
+dashedName: step-14
+---
+
+# --description--
+
+Unaweza kuweka thamani ya kila kigezo cha `i` kwa `self.i` kama ulivyofanya awali. Ingawa katika kesi hii una mistari michache ya kurudia, njia moja ya kuepuka kurudia hii ni kutumia kitendakazi cha `super()`. `super()` inakuwezesha kurejelea kwa njia isiyo ya moja kwa moja darasa la vitu la mzazi: `super().__init__(x, y)` hufanya wito wa njia ya `__init__` ya darasa la vitu la mzazi.
+
+Ongeza wito wa `super().__init__(x, y)` kwenye njia yako ya `__init__`.
+
+# --hints--
+
+Unapaswa kuwa na wito wa `super().__init__(x, y)` katika njia yako ya `__init__`.
+
+```js
+({
+    test: () => assert(runPython(`
+      _Node(_code).find_class("R3Vector").find_function("__init__").has_stmt("super().__init__(x, y)")
+    `))
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        
+    def norm(self):
+        return (self.x**2 + self.y**2)**0.5
+        
+    def __str__(self):
+        return f'{self.x, self.y}'
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, x, y, z):
+        pass
+--fcc-editable-region--
+v1 = R2Vector(2, 3)
+print(v1.norm())
+print(v1)
+```

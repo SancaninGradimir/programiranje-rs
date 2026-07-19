@@ -1,0 +1,51 @@
+---
+id: 587d7fb2367417b2b2512bf6
+title: Pata Ingizo la Kigezo cha Hoja ya Utafutaji kutoka kwa Mteja
+challengeType: 2
+forumTopicId: 301512
+dashedName: get-query-parameter-input-from-the-client
+---
+
+# --description--
+
+Njia nyingine ya kawaida ya kupata ingizo kutoka kwa mteja ni kwa kuweka msimbo wa data baada ya njia ya njia ya data, kwa kutumia mfuatano wa herufi wa hoja ya utafutaji. Mfuatano wa herufi wa hoja ya utafutaji huanzishwa na alama ya swali (?), na unajumuisha jozi za uwanja=thamani. Kila jozi hutenganishwa na alama ya ampersand (&). Express inaweza kuchambua data kutoka kwa mfuatano wa herufi wa hoja ya utafutaji, na kujaza kitu `req.query`. Baadhi ya herufi, kama alama ya asilimia (%), haiwezi kuwepo katika URL na lazima zifanyiwe msimbo kwa muundo tofauti kabla hujatuma. Ukitumia API kutoka JavaScript, unaweza kutumia njia maalum za kuweka msimbo/kutoa msimbo wa herufi hizi.
+
+<blockquote>route_path: '/library'<br>actual_request_URL: '/library?userId=546&#x26;bookId=6754' <br>req.query: {userId: '546', bookId: '6754'}</blockquote>
+
+# --instructions--
+
+Jenga kiishio cha API, kilichowekwa kwenye `GET /name`. Jibu na hati ya JSON, ukichukua muundo `{ name: 'firstname lastname'}`. Vigezo vya jina la kwanza na la mwisho vinapaswa kuwekwa msimbo katika mfuatano wa herufi wa hoja ya utafutaji mfano `?first=firstname&last=lastname`.
+
+**Kumbuka:** Katika zoezi lifuatalo utapokea data kutoka kwa ombi la POST, katika njia ya njia ya data ile ile ya `/name`. Ikiwa unataka, unaweza kutumia njia `app.route(path).get(handler).post(handler)`. Sintaksia hii inakuwezesha kuunganisha mshughulikiaji wa vitenzi tofauti katika njia ile ile ya data. Hii inaweza kuokoa kuandika sana, na kufanya msimbo kuwa safi zaidi.
+
+# --hints--
+
+Test 1 : Kiishio chako cha API kinapaswa kujibu na `{ "name": "Mick Jagger" }` wakati kiishio cha `/name` kinapoitwa na `?first=Mick&last=Jagger`
+
+```js
+  const response = await fetch(code + '/name?first=Mick&last=Jagger');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.name,
+    'Mick Jagger',
+    'Test 1: "GET /name" route does not behave as expected'
+  );
+```
+
+Test 2 : Kiishio chako cha API kinapaswa kujibu na `{ "name": "Keith Richards" }` wakati kiishio cha `/name` kinapoitwa na `?first=Keith&last=Richards`
+
+```js
+  const response = await fetch(code + '/name?last=Richards&first=Keith');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.name,
+    'Keith Richards',
+    'Test 2: "GET /name" route does not behave as expected'
+  );
+```

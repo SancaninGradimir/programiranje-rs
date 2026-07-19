@@ -1,0 +1,128 @@
+---
+id: 5a24c314108439a4d4036170
+title: Unda sehemu yenye hali
+challengeType: 6
+forumTopicId: 301391
+dashedName: create-a-stateful-component
+---
+
+# --description--
+
+Moja ya mada muhimu zaidi katika React ni `state`. Hali inajumuisha data yoyote ambayo programu yako inahitaji kujua, ambayo inaweza kubadilika kwa muda. Unataka programu zako zijibu mabadiliko ya hali na kuonyesha UI iliyosasishwa inapohitajika. React inatoa suluhisho nzuri kwa usimamizi wa hali wa programu za mtandao za kisasa.
+
+Unaanzisha hali katika sehemu ya React kwa kutangaza sifa ya `state` kwenye darasa la sehemu hiyo katika `constructor` yake. Hii huanzisha sehemu hiyo na `state` inapoundwa. Sifa ya `state` lazima iwe na thamani ya `object` ya JavaScript. Kutangaza inafanana na hii:
+
+```jsx
+this.state = {
+
+}
+```
+
+Una upatikanaji wa kitu cha `state` katika maisha yote ya sehemu yako. Unaweza kuiboresha, kuionyesha katika UI yako, na kuipitisha kama vigezo vinavyopitishwa kwa sehemu ndogo. Kitu cha `state` kinaweza kuwa kigumu au rahisi kama unavyohitaji. Kumbuka kwamba lazima uunde sehemu ya darasa kwa kuendeleza `React.Component` ili kuunda `state` kama hii.
+
+# --instructions--
+
+Kuna sehemu katika mhariri wa msimbo inayojaribu kuonyesha sifa ya `firstName` kutoka `state` yake. Hata hivyo, hakuna `state` iliyotangazwa. Anzisha sehemu hiyo na `state` katika `constructor` na weka jina lako kama sifa ya `firstName`.
+
+# --hints--
+
+`StatefulComponent` inapaswa kuwepo na kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(
+      React.createElement(StatefulComponent)
+    );
+    return mockedComponent.find('StatefulComponent').length === 1;
+  })()
+);
+```
+
+`StatefulComponent` inapaswa kuonyesha kipengele cha `div` na `h1`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(
+      React.createElement(StatefulComponent)
+    );
+    return (
+      mockedComponent.find('div').length === 1 &&
+      mockedComponent.find('h1').length === 1
+    );
+  })()
+);
+```
+
+Hali ya `StatefulComponent` inapaswa kuanzishwa na sifa ya `firstName` iliyowekwa kuwa mfuatano wa herufi.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(
+      React.createElement(StatefulComponent)
+    );
+    const initialState = mockedComponent.state();
+    return (
+      typeof initialState === 'object' && typeof initialState.firstName === 'string'
+    );
+  })()
+);
+```
+
+Sifa ya `firstName` katika hali ya `StatefulComponent` inapaswa kuonyeshwa katika kipengele cha `h1`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(
+      React.createElement(StatefulComponent)
+    );
+    const initialState = mockedComponent.state();
+    return mockedComponent.find('h1').text() === initialState.firstName;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class StatefulComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    // Only change code below this line
+
+    // Only change code above this line
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.firstName}</h1>
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class StatefulComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: 'freeCodeCamp!'
+    }
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.firstName}</h1>
+      </div>
+    );
+  }
+};
+```

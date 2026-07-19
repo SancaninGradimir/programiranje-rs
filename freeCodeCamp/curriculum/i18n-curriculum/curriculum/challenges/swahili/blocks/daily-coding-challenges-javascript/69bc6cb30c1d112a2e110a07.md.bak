@@ -1,0 +1,87 @@
+---
+id: 69bc6cb30c1d112a2e110a07
+title: "Zoezi la 250: Ufunguo uliofichwa"
+challengeType: 28
+dashedName: challenge-250
+---
+
+# --description--
+
+Karibu kwenye zoezi la 250 la kila siku!
+
+Ukitoa mfuatano wa herufi uliosimbwa, usimbue kwa kutumia ufunguo wa usimbaji na urudishe matokeo.
+
+Ili kupata ufunguo:
+
+- Tazama changamoto zote za kila siku hadi leo ambazo nambari ya changamoto ni sehemu ya 25 (ikiwa ni pamoja na hii).
+- Chukua herufi ya kwanza kutoka kwa kila kichwa cha changamoto hizo na ziunganishe kuwa mfuatano wa herufi. Ikiwa kichwa kinaanza na herufi isiyo ya herufi, tafuta herufi yake ya kwanza.
+
+Ili kusimbua ujumbe, pitia kila herufi katika ujumbe uliosimbwa na:
+
+  1. Tazama herufi inayolingana katika ufunguo (jirudia ufunguo ikiwa ujumbe ni mrefu zaidi ya ufunguo).
+  2. Badilisha herufi ya ufunguo kuwa nambari inayolingana: `"A"` = 1, `"B"` = 2, ..., `"Z"` = 26.
+  3. Sukuma herufi iliyosimbwa nyuma katika alfabeti kwa nambari hiyo.
+  4. Ikiwa kusukuma kunakwenda kabla ya `"A"`, zungusha kurudi `"Z"`.
+
+Kwa mfano, ikiwa ujumbe uliosimbwa unaanza na `"Y"` na herufi ya kwanza ya ufunguo ni `"V"` (22), sukuma `"Y"` nyuma kwa nafasi 22 kupata `"C"`. Rudia mchakato huu kwa kila herufi ili kusimbua ujumbe mzima.
+
+- Herufi pekee ndizo husukumwa, nafasi hurudishwa kama zilivyo.
+- Herufi zote zilizotolewa na kurudishwa ni herufi kubwa.
+
+# --hints--
+
+`decode("YAVJYNXE")` inapaswa kurudisha `"CONGRATS"`.
+
+```js
+assert.equal(decode("YAVJYNXE"), "CONGRATS");
+```
+
+`decode("YALLUT PQUMJP")` inapaswa kurudisha `"CODING LEGEND"`.
+
+```js
+assert.equal(decode("YALLUT PQUMJP"), "CODING LEGEND");
+```
+
+`decode("UAC DYR EISAKYM")` inapaswa kurudisha `"YOU ARE AWESOME"`.
+
+```js
+assert.equal(decode("UAC DYR EISAKYM"), "YOU ARE AWESOME");
+```
+
+`decode("GQMS NBMZU")` inapaswa kurudisha `"KEEP GOING"`.
+
+```js
+assert.equal(decode("GQMS NBMZU"), "KEEP GOING");
+```
+
+`decode("W IQQURV UG I ZDMDTRV IVW JQDHY TMHSA QB")` inapaswa kurudisha `"A WINNER IS A DREAMER WHO NEVER GIVES UP"`.
+
+```js
+assert.equal(decode("W IQQURV UG I ZDMDTRV IVW JQDHY TMHSA QB"), "A WINNER IS A DREAMER WHO NEVER GIVES UP");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function decode(message) {
+
+  return message;
+}
+```
+
+# --solutions--
+
+```js
+function decode(message) {
+  const key = "VLHCGMDLNH";
+  let keyIndex = 0;
+  return message.split('').map(char => {
+    if (char === ' ') return char;
+    const shift = key[keyIndex % key.length].charCodeAt(0) - 64;
+    keyIndex++;
+    return String.fromCharCode(((char.charCodeAt(0) - 65 - shift + 26) % 26) + 65);
+  }).join('');
+}
+```

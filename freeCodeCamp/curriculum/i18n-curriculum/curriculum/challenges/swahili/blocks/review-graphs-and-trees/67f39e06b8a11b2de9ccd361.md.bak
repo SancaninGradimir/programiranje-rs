@@ -1,0 +1,141 @@
+---
+id: 67f39e06b8a11b2de9ccd361
+title: Ukaguzi wa grafu na miti
+challengeType: 31
+dashedName: review-graph-and-trees
+---
+
+# --description--
+
+## Muhtasari wa grafu
+
+Grafu ni seti ya nodi (vichwa) vinavyounganishwa na makundi (miunganisho). Kila nodi inaweza kuunganishwa na nodi nyingine nyingi, ikaunda mtandao. Aina tofauti za grafu ni pamoja na:
+
+- Zenye mwelekeo: makundi yana mwelekeo (kutoka nodi moja hadi nyingine), mara nyingi huwakilishwa kwa mistari ya moja kwa moja na mishale.
+- Zisizo na mwelekeo: makundi hayana mwelekeo, huwakilishwa kwa mistari rahisi.
+- Vichwa: kila nodi ina lebo au kitambulisho.
+- Zenye mizunguko: zina mizunguko (njia inayotoka na kumalizika kwenye nodi ileile).
+- Zisizo na mizunguko (DAG): hazina mizunguko.
+- Makundi yenye lebo: kila kundi lina lebo inayochorwa karibu na kundi husika.
+- Zenye uzito: makundi yana uzito (thamani) unaohusishwa nayo, unaoweza kutumika kufanya operesheni za kihesabu.
+- Zisizounganishwa: zina nodi mbili au zaidi ambazo hazijaunganishwa na makundi yoyote.
+
+Grafu hutumika katika programu mbalimbali kama ramani, mitandao, mifumo ya mapendekezo, na azimio la utegemezi.
+
+## Kupitia grafu
+
+Hii inahusisha kutembelea nodi zote katika grafu. Algoriti kuu mbili ni:
+
+- **Utafutaji wa upana kwanza (BFS)**
+  - Hutumia foleni.
+  - Huchunguza ngazi kwa ngazi.
+  - Hupata njia fupi katika grafu zisizo na uzito.
+
+- **Utafutaji wa kina kwanza (DFS)**
+  - Hutumia rundo (au kurudia).
+  - Huchunguza tawi lote kabla ya kurudi nyuma.
+  - Inafaa kwa kugundua mizunguko na kutafuta njia.
+
+## Uwawakilishi wa grafu
+
+Grafu zinaweza kuwakilishwa kwa njia kuu mbili:
+
+- **Orodha ya ujirani**
+  - Kila nodi ina orodha ya majirani zake.
+  - Inatumia nafasi kidogo kwa grafu zenye nodi chache zinazounganishwa.
+  - Rahisi kurudia juu ya majirani.
+
+- **Matriki ya ujirani**
+  - Safu ya pande mbili ambapo safu na nguzo zinawakilisha nodi.
+  - Inatumia nafasi nyingi kwa grafu kubwa.
+  - Haraka kuangalia kama kundi lipo kati ya nodi mbili.
+
+## Miti
+
+Mti ni aina maalum ya grafu ambayo haina mizunguko na imeunganishwa. Sifa kuu ni:
+
+- Haina mizunguko au mizunguko (njia ambapo nodi ya mwanzo na mwisho ni ile ile).
+- Lazima iwe imeunganishwa (kila nodi inaweza kufikiwa kutoka nodi nyingine yoyote).
+
+### Aina za kawaida za miti
+
+Aina za kawaida za miti ni:
+
+- Miti ya kibainari
+  - Kila nodi ina watoto wawili angalau, mtoto wa kushoto na mtoto wa kulia.
+
+- Miti wa utafutaji wa kibainari (BST)
+  - Mti wa kibainari ambapo kila mtoto wa kushoto ni mdogo kuliko mzazi wake, na kila mtoto wa kulia ni mkubwa kuliko mzazi wake.
+
+## Miti wa maneno (tries)
+
+Pia hujulikana kama miti ya kiambishi awali, hutumika kuhifadhi seti za mfuatano wa herufi, ambapo kila nodi inawakilisha herufi.
+
+Kiambishi awali vinashirikiwa huhifadhiwa mara moja tu, na hivyo kuwa na ufanisi kwa kazi kama kukamilisha maandishi na ukaguzi wa tahajia.
+
+Operesheni za utafutaji na uingizaji zina ugumu wa wakati wa O(L), ambapo L ni urefu wa mfuatano wa herufi.
+
+## Foleni za kipaumbele
+
+Foleni ya kipaumbele ni aina ya data isiyo ya kawaida ambapo kila kipengele kina kipaumbele.
+
+Foleni na rundo huchukulia tu mpangilio wa uingizaji, wakati foleni za kipaumbele huchukulia kipaumbele cha vipengele.
+
+Foleni za kawaida hufuata FIFO (Kwanza Kuingia Kwanza Kutoka) na rundo hufuata LIFO (Mwisho Kuingia Kwanza Kutoka). Hata hivyo, katika foleni ya kipaumbele, vipengele vyenye kipaumbele cha juu hutolewa kwanza bila kujali mpangilio wa uingizaji.
+
+## Rundo
+
+Ni muundo wa data wa mti maalum wenye sifa maalum inayoitwa sifa ya rundo.
+
+Sifa ya rundo inaamua uhusiano kati ya nodi ya mzazi na nodi ya mtoto. Kuna aina mbili za rundo:
+
+- Rundo kubwa (Max-Heap)
+  - Thamani ya kila nodi ya mzazi ni kubwa au sawa na thamani za watoto wake.
+  - Kipengele kikubwa zaidi kiko kwenye mzizi.
+
+- Rundo ndogo (Min-Heap)
+  - Thamani ya kila nodi ya mzazi ni ndogo au sawa na thamani za watoto wake.
+  - Kipengele kidogo zaidi kiko kwenye mzizi.
+
+### Mfano wa moduli ya Python `heapq`
+
+```py
+import heapq
+
+# Create empty heap
+my_heap = []
+
+# Insert elements
+heapq.heappush(my_heap, 9)
+heapq.heappush(my_heap, 3)
+heapq.heappush(my_heap, 5)
+print(my_heap) # [3, 9, 5]
+
+# Remove smallest element
+print(heapq.heappop(my_heap))  # 3
+print(my_heap) # [5, 9]
+
+# Push + Pop in one step
+print(heapq.heappushpop(my_heap, 7)) # 5
+print(my_heap) # [7, 9]
+
+# Transform list into heap
+nums = [5, 7, 3, 1]
+heapq.heapify(nums)
+```
+
+### Kutumia vipaumbele
+
+```py
+my_heap = []
+heapq.heappush(my_heap, (3, "A"))
+heapq.heappush(my_heap, (2, "B"))
+heapq.heappush(my_heap, (1, "C"))
+
+# Removes lowest number = highest priority
+print(heapq.heappop(my_heap))  # (1, "C")
+```
+
+# --assignment--
+
+Kagua mada na dhana za grafu na miti.

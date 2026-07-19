@@ -1,0 +1,101 @@
+---
+id: 5cfa550e84205a357704ccb6
+title: Tumia mgawo wa ufumbuzi wa muundo kutoa thamani kutoka kwa vitu
+challengeType: 1
+forumTopicId: 301216
+dashedName: use-destructuring-assignment-to-extract-values-from-objects
+---
+
+# --description--
+
+<dfn>Mgawo wa ufumbuzi wa muundo</dfn> ni sintaksia maalum iliyotolewa katika ES6, kwa kuweka thamani kwa mpangilio mzuri moja kwa moja kutoka kwa kitu.
+
+Tafakari msimbo ufuatao wa ES5:
+
+```js
+const user = { name: 'John Doe', age: 34 };
+
+const name = user.name;
+const age = user.age;
+```
+
+`name` ingekuwa na thamani ya mfuatano wa herufi `John Doe`, na `age` ingekuwa na nambari `34`.
+
+Hapa kuna tamko sawa la mgawo ukitumia sintaksia ya ufumbuzi wa muundo ya ES6:
+
+```js
+const { name, age } = user;
+```
+
+Tena, `name` ingekuwa na thamani ya mfuatano wa herufi `John Doe`, na `age` ingekuwa na nambari `34`.
+
+Hapa, vigezo `name` na `age` vitaumbwa na kuwekwa thamani zao kutoka kwa thamani zao zinazolingana kutoka kwa kitu `user`. Unaona jinsi inavyokuwa safi zaidi.
+
+Unaweza kutoa thamani nyingi au chache kutoka kwa kitu kama unavyotaka.
+
+# --instructions--
+
+Badilisha mgawo huo wa thamani mbili kwa mgawo sawa wa ufumbuzi wa muundo. Inapaswa bado kuweka vigezo `today` na `tomorrow` thamani za `today` na `tomorrow` kutoka kwa kitu `HIGH_TEMPERATURES`.
+
+# --hints--
+
+Unapaswa kuondoa sintaksia ya mgawo wa thamani ya ES5.
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/today\s*=\s*HIGH_TEMPERATURES\.(today|tomorrow)/g)
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo `today`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(/(var|let|const)\s*{\s*(today[^}]*|[^,]*,\s*today)\s*}\s*=\s*HIGH_TEMPERATURES(;|\s+|\/\/)/g)
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo `tomorrow`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(/(var|let|const)\s*{\s*(tomorrow[^}]*|[^,]*,\s*tomorrow)\s*}\s*=\s*HIGH_TEMPERATURES(;|\s+|\/\/)/g)
+);
+```
+
+`today` inapaswa kuwa sawa na `77` na `tomorrow` inapaswa kuwa sawa na `80`.
+
+```js
+assert(today === 77 && tomorrow === 80);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+
+const today = HIGH_TEMPERATURES.today;
+const tomorrow = HIGH_TEMPERATURES.tomorrow;
+
+// Only change code above this line
+```
+
+# --solutions--
+
+```js
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+const { today, tomorrow } = HIGH_TEMPERATURES;
+```

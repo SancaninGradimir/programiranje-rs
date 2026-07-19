@@ -1,0 +1,195 @@
+---
+id: 59e0a8df964e4540d5abe599
+title: Tekeleza Brain****
+challengeType: 1
+forumTopicId: 302261
+dashedName: execute-brain
+---
+
+# --description--
+
+Andika kitendakazi kutekeleza mfasiri wa Brain\*\*\*\*. Kitendakazi hicho kitapokea mfuatano wa herufi kama kigezo na kinapaswa kurudisha mfuatano wa herufi kama matokeo. Maelezo zaidi yapo hapa chini:
+
+RCBF ni seti ya <a href="https://rosettacode.org/wiki/Brainf***" target="_blank" rel="noopener noreferrer nofollow">mfasiri na mkusanyaji wa Brainf\*\*\*</a> waliandikwa kwa lugha mbalimbali kwa ajili ya Rosetta Code.
+
+Hapa chini ni viungo vya matoleo yote ya RCBF.
+
+Utekelezaji unahitaji tu kutekeleza kwa usahihi maagizo yafuatayo:
+
+| Amri              | Maelezo                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| <code>></code>    | Hamisha kidokezo kwenda kulia                                                    |
+| <code>&lt;</code> | Hamisha kidokezo kwenda kushoto                                                  |
+| <code>+</code>    | Ongeza thamani ya seli ya kumbukumbu chini ya kidokezo                           |
+| <code>-</code>    | Punguza thamani ya seli ya kumbukumbu chini ya kidokezo                          |
+| <code>.</code>    | Toa herufi inayowakilishwa na seli iliyoko chini ya kidokezo                    |
+| <code>,</code>    | Ingiza herufi na uihifadhi katika seli iliyoko chini ya kidokezo                 |
+| <code>\[</code>   | Ruka mbele ya <code>]</code> inayolingana ikiwa seli chini ya kidokezo ni 0      |
+| <code>]</code>    | Ruka nyuma kwa <code>\[</code> inayolingana ikiwa seli chini ya kidokezo si 0     |
+
+Seli yoyote ya ukubwa inaruhusiwa, msaada wa EOF (*E*nd-*O*-*F*ile) ni hiari, kama vile kumbukumbu yenye mipaka au isiyo na mipaka.
+
+# --hints--
+
+`brain(globalThis.hello)` inapaswa kurudisha mfuatano wa herufi
+
+```js
+assert(typeof brain(globalThis.hello) === 'string');
+```
+
+`brain("++++++[>++++++++++<-]>+++++.")` inapaswa kurudisha "A"
+
+```js
+assert.equal(brain('++++++[>++++++++++<-]>+++++.'), 'A');
+```
+
+`brain(globalThis.hello)` inapaswa kurudisha `Hello World!\n`
+
+```js
+assert.equal(brain(globalThis.hello), 'Hello World!\n');
+```
+
+`brain(globalThis.fib)` inapaswa kurudisha `1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89`
+
+```js
+assert.equal(brain(globalThis.fib), '1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89');
+```
+
+# --before-all--
+
+```js
+globalThis.fib=`+
+
+++
+
++++
+
+++++
+
++>+>>
+
+>>++++
+
++++++++
+
+++++++++
+
++++++++++
+
+++++++++++
+
+++++++>++++
+
+++++++++++++
+
++++++++++++++
+
++++<<<<<<[>[>>
+
+>>>>+>+<<<<<<<-
+
+]>>>>>>>[<<<<<<<
+
++>>>>>>>-]<[>++++
+
+++++++[-<-[>>+>+<<
+
+<-]>>>[<<<+>>>-]+<[
+
+>[-]<[-]]>[<<[>>>+<<
+
+<-]>>[-]]<<]>>>[>>+>+
+
+<<<-]>>>[<<<+>>>-]+<[>
+
+[-]<[-]]>[<<+>>[-]]<<<<
+
+<<<]>>>>>[++++++++++++++
+
++++++++++++++++++++++++++
+
++++++++++.[-]]++++++++++<[
+
+->-<]>+++++++++++++++++++++
+
++++++++++++++++++++++++++++.
+
+[-]<<<<<<<<<<<<[>>>+>+<<<<-]>
+
+>>>[<<<<+>>>>-]<-[>>.>.<<<[-]]
+
+<<[>>+>+<<<-]>>>[<<<+>>>-]<<[<+
+
+>-]>[<+>-]<<<-]`;
+globalThis.hello='++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.'
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function brain(prog) {
+
+}
+```
+
+# --solutions--
+
+```js
+function brain(prog){
+  var output="";
+    var code; // formatted code
+  var ip = 0; // current instruction within code
+  var nest = 0; // current bracket nesting (for Out button)
+  var ahead = []; // locations of matching brackets
+
+  var data = [0]; // data array (mod by +, -)
+  var dp = 0; // index into data (mod by <, >)
+
+  var inp = 0; // current input character (fetch with ,)
+  var quit = 0;
+    var commands = {
+    '>':function() { if (++dp >= data.length) data[dp]=0 },
+    '<':function() { if (--dp < 0) quit++ },
+    '+':function() { ++data[dp] },
+    '-':function() { --data[dp] },
+    '[':function() { if (!data[dp]) ip = ahead[ip]; else ++nest },
+    ']':function() { if ( data[dp]) ip = ahead[ip]; else --nest },
+    ',':function() {
+        var c = document.getElementById("input").value.charCodeAt(inp++);
+        data[dp] = isNaN(c) ? 0 : c; // EOF: other options are -1 or no change
+    },
+    '.':function() {
+            output+=String.fromCharCode(data[dp]);
+            /*var s = document.getElementById("output").innerHTML)
+             + String.fromCharCode(data[dp]);
+            s = s.replace(/\n/g,"<br>").replace(/ /g,"&amp;nbsp;");
+            document.getElementById("output").innerHTML = s;*/
+        },
+    };
+
+    let ar=prog.split('');
+    var st = [], back, error = -1;
+    for (ip=0; ip<ar.length; ip++) {
+        switch(ar[ip]) {
+        case '[':
+            st.push(ip);
+            break;
+        case ']':
+            if (st.length == 0) error = ip;
+            back = st.pop();
+            ahead[ip] = back;
+            ahead[back] = ip;
+            break;
+        }
+    }
+
+    for(ip=0;ip<ar.length;ip++){
+    if(commands.hasOwnProperty(ar[ip]))
+          commands[ar[ip]]();
+    }
+
+    return output;
+}
+```

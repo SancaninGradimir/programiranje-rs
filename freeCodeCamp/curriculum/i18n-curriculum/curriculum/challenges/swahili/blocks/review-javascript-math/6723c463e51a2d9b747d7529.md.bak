@@ -1,0 +1,335 @@
+---
+id: 6723c463e51a2d9b747d7529
+title: Ukaguzi wa hisabati wa JavaScript
+challengeType: 31
+dashedName: review-javascript-math
+---
+
+# --interactive--
+
+## Kufanya kazi na aina ya data ya nambari
+
+- **Maelezo**: Aina ya `Number` ya JavaScript inajumuisha nambari kamili, nambari za kuzunguka, `Infinity` na `NaN`. Nambari za kuzunguka ni nambari zilizo na nukta ya desimali. `Infinity` chanya ni nambari kubwa kuliko nambari nyingine yoyote wakati `-Infinity` ni nambari ndogo kuliko nambari nyingine yoyote. `NaN` (`Not a Number`) inawakilisha thamani isiyo halali ya nambari kama mfuatano wa herufi `"Jessica"`.
+
+## Operesheni za kihesabu za kawaida
+
+- **Opereta ya kuongeza**: Opereta hii (`+`) hutumika kuhesabu jumla ya nambari mbili au zaidi. 
+- **Opereta ya kutoa**: Opereta hii (`-`) hutumika kuhesabu tofauti kati ya nambari mbili.
+- **Opereta ya kuzidisha**: Opereta hii (`*`) hutumika kuhesabu bidhaa ya nambari mbili au zaidi. 
+- **Opereta ya kugawanya**: Opereta hii (`/`) hutumika kuhesabu gawio kati ya nambari mbili.
+- **Mgawanyiko kwa sifuri**: Ikiwa utajaribu kugawanya kwa sifuri, JavaScript itarudisha `Infinity`.
+- **Opereta ya mabaki**: Opereta hii (`%`) inarudisha mabaki ya mgawanyiko. 
+- **Opereta ya nguvu**: Opereta hii (`**`) huinua nambari moja kwa nguvu ya nyingine.
+
+## Hisabati na mfuatano wa herufi
+
+- **Maelezo**: Unapotumia opereta ya `+` na nambari na mfuatano wa herufi, JavaScript itakulazimisha nambari kuwa mfuatano wa herufi na kuunganisha thamani hizo mbili. Unapotumia opereta za `-`, `*` au `/` na mfuatano wa herufi na nambari, JavaScript itakulazimisha mfuatano wa herufi kuwa nambari na matokeo yatakuwa nambari. Kwa `null` na `undefined`, JavaScript hutumia `null` kama 0 na undefined kama `NaN` katika operesheni za kihesabu.
+
+:::interactive_editor
+
+```js
+const result = 5 + '10';
+
+console.log(result); // "510"
+console.log(typeof result); // string
+
+const subtractionResult = '10' - 5;
+console.log(subtractionResult); // 5
+console.log(typeof subtractionResult); // number
+
+const multiplicationResult = '10' * 2;
+console.log(multiplicationResult); // 20
+console.log(typeof multiplicationResult); // number
+
+const divisionResult = '20' / 2;
+console.log(divisionResult); // 10
+console.log(typeof divisionResult); // number
+
+const result1 = null + 5;
+console.log(result1); // 5
+console.log(typeof result1); // number
+
+const result2 = undefined + 5;
+console.log(result2); // NaN
+console.log(typeof result2); // number
+```
+
+:::
+
+## Kipaumbele cha opereta
+
+- **Maelezo**: Kipaumbele cha opereta kinaamua mpangilio wa kutekelezwa kwa operesheni katika usemi wa kihesabu. Opereta zenye kipaumbele cha juu huchanganuliwa kabla ya zile zenye kipaumbele cha chini. Thamani zilizo ndani ya mabano zitachanganuliwa kwanza na kuzidisha/kugawanya kuna kipaumbele cha juu kuliko kuongeza/kutoa. Ikiwa opereta zina kipaumbele sawa, basi JavaScript itatumia mwelekeo wa chaguo.
+
+:::interactive_editor
+
+```js
+const result = (2 + 3) * 4;
+
+console.log(result); // 20
+
+const result2 = 10 - 2 + 3;
+
+console.log(result2); // 11
+
+const result3 = 2 ** 3 ** 2;
+
+console.log(result3); // 512
+```
+
+:::
+
+- **Maelezo**: Mwelekeo wa chaguo hutueleza mwelekeo wa kutekeleza usemi wakati opereta nyingi za aina moja zipo. Huu unaamua kama usemi utachanganuliwa kutoka kushoto kwenda kulia (`left-associative`) au kulia kwenda kushoto (`right-associative`). Kwa mfano, opereta ya nguvu pia ni ya mwelekeo wa kulia kwenda kushoto:
+
+:::interactive_editor
+
+```js
+const result4 = 5 ** 4 ** 1; 
+
+console.log(result4); // 625
+```
+
+:::
+
+## Opereta za kuongeza na kupunguza
+
+- **Opereta ya kuongeza**: Opereta hii hutumika kuongeza thamani kwa moja. Noti ya kiambishi awali `++num` huongeza thamani ya kigezo kwanza, kisha hurudisha thamani mpya. Noti ya kiambishi cha mwisho `num++` hurudisha thamani ya sasa ya kigezo kwanza, kisha huiongeza.
+
+:::interactive_editor
+
+```js
+let x = 5;
+
+console.log(++x); // 6
+console.log(x); // 6
+
+
+let y = 5;
+
+console.log(y++); // 5
+console.log(y); // 6
+```
+
+:::
+
+- **Opereta ya kupunguza**: Opereta hii hutumika kupunguza thamani kwa moja. Noti ya kiambishi awali na noti ya kiambishi cha mwisho hufanya kazi kama ilivyo kwa opereta ya kuongeza.
+
+:::interactive_editor
+
+```js
+let num = 5;
+
+console.log(--num); // 4
+console.log(num--); // 4
+console.log(num); // 3
+```
+
+:::
+
+## Opereta mchanganyiko wa mgawo wa thamani
+
+- **Opereta ya mgawo wa kuongeza (`+=`)**: Opereta hii hufanya kuongeza kwenye thamani na kuweka matokeo kwenye kigezo.
+- **Opereta ya mgawo wa kutoa (`-=`)**: Opereta hii hufanya kutoa kwenye thamani na kuweka matokeo kwenye kigezo.
+- **Opereta ya mgawo wa kuzidisha (`*=`)**: Opereta hii hufanya kuzidisha kwenye thamani na kuweka matokeo kwenye kigezo.
+- **Opereta ya mgawo wa kugawanya (`/=`)**: Opereta hii hufanya kugawanya kwenye thamani na kuweka matokeo kwenye kigezo.
+- **Opereta ya mgawo wa mabaki (`%=`)**: Opereta hii hugawanya kigezo kwa nambari iliyotajwa na kuweka mabaki kwenye kigezo.
+- **Opereta ya mgawo wa nguvu (`**=`)**: Opereta hii huinua kigezo kwa nguvu ya nambari iliyotajwa na kuweka matokeo kwenye kigezo.
+
+## Thamani ya kweli au siyo kweli na usawa
+
+- **Maelezo ya thamani ya kweli au siyo kweli**: Thamani ya kweli au siyo kweli ni aina ya data inayoweza kuwa na thamani mbili tu: `true` au `false`. 
+- **Opereta ya usawa (`==`)**: Opereta hii hutumia kulazimisha aina kabla ya kuangalia kama thamani ni sawa.
+
+:::interactive_editor
+
+```js
+console.log(5 == '5'); // true
+```
+
+:::
+
+- **Opereta ya usawa mkali (`===`)**: Opereta hii haitumii kulazimisha aina na huangalia kama aina na thamani zote ni sawa.
+
+:::interactive_editor
+
+```js
+console.log(5 === '5'); // false
+```
+
+:::
+
+- **Opereta ya kutokufanana (`!=`)**: Opereta hii hutumia kulazimisha aina kabla ya kuangalia kama thamani si sawa.
+- **Opereta ya kutokufanana mkali (`!==`)**: Opereta hii haitumii kulazimisha aina na huangalia kama aina na thamani zote si sawa.
+
+## Opereta za kulinganisha
+
+- **Opereta ya kubwa kuliko (`>`)**: Opereta hii huangalia kama thamani upande wa kushoto ni kubwa kuliko ile upande wa kulia.
+- **Opereta ya kubwa kuliko au sawa (`>=`)**: Opereta hii huangalia kama thamani upande wa kushoto ni kubwa au sawa na ile upande wa kulia.
+- **Opereta ya ndogo kuliko (`<`)**: Opereta hii huangalia kama thamani upande wa kushoto ni ndogo kuliko ile upande wa kulia.
+- **Opereta ya ndogo kuliko au sawa (`<=`)**: Opereta hii huangalia kama thamani upande wa kushoto ni ndogo au sawa na ile upande wa kulia.
+
+## Opereta wa pande moja
+
+- **Opereta ya kuongeza wa pande moja**: Opereta hii hubadilisha kigezo chake kuwa nambari. Ikiwa kigezo tayari ni nambari, hubaki bila kubadilika.
+
+:::interactive_editor
+
+```js
+const str = '42';
+const num = +str;
+
+console.log(num); // 42
+console.log(typeof num); // number
+```
+
+:::
+
+- **Opereta ya kukanusha wa pande moja (`-`)**: Opereta hii hukana kigezo.
+
+:::interactive_editor
+
+```js
+const num = 4;
+console.log(-num); // -4
+```
+
+:::
+
+- **Opereta ya kukanusha ya kimantiki (`!`)**: Opereta hii hubadilisha thamani ya kweli au siyo kweli ya kigezo chake. Hivyo, ikiwa kigezo ni `true`, kinakuwa `false`, na ikiwa ni `false`, kinakuwa `true`. 
+
+## Opereta za bitwise
+
+- **Opereta ya bitwise AND (`&`)**: Opereta hii hurudisha 1 katika kila nafasi ya biti ambapo biti zinazolingana za vigezo vyote ni 1. 
+- **Opereta ya mgawo wa bitwise AND (`&=`)**: Opereta hii hufanya operesheni ya `bitwise AND` na nambari iliyotajwa na kuweka matokeo kwenye kigezo.
+- **Opereta ya bitwise OR (`|`)**: Opereta hii hurudisha 1 katika kila nafasi ya biti ambapo biti zinazolingana za angalau kimoja cha vigezo ni 1. 
+- **Opereta ya mgawo wa bitwise OR (`|=`)**: Opereta hii hufanya operesheni ya `bitwise OR` na nambari iliyotajwa na kuweka matokeo kwenye kigezo.
+- **Opereta ya bitwise XOR (`^`)**: Opereta hii hurudisha 1 katika kila nafasi ya biti ambapo biti zinazolingana za angalau moja, lakini si zote mbili, ni 1. 
+- **Opereta ya bitwise NOT (`~`)**: Opereta hii hubadilisha uwakilishi wa binary wa nambari.
+- **Opereta ya kusogeza kushoto (`<<`)**: Opereta hii husogeza biti zote kushoto kwa idadi ya nafasi zilizotajwa. 
+- **Opereta ya kusogeza kulia (`>>`)**: Opereta hii husogeza biti zote kulia.
+
+## Kifungu cha masharti, thamani za kweli, thamani za uongo na opereta ya ternary
+
+- **`if/else if/else`**: Kifungu cha `if` huchukua sharti na kutekeleza kipande cha msimbo ikiwa sharti hilo ni `truthy`. Ikiwa sharti ni `false`, basi huelekea kwenye kipande cha `else if`. Ikiwa hakuna masharti kati ya hayo yenye `true`, basi hutatua kifungu cha `else`. Thamani za `Truthy` ni thamani yoyote inayosababisha `true` wakati zinapochanganuliwa katika muktadha wa thamani ya kweli au siyo kweli kama kifungu cha `if`. Thamani za `Falsy` ni thamani zinazochanganuliwa kuwa `false` katika muktadha wa thamani ya kweli au siyo kweli.
+
+:::interactive_editor
+
+```js
+const score = 87;
+
+if (score >= 90) {
+ console.log('You got an A'); 
+} else if (score >= 80) {
+ console.log('You got a B'); // You got a B
+} else if (score >= 70) {
+ console.log('You got a C');
+} else {
+ console.log('You failed! You need to study more!');
+}
+```
+
+:::
+
+- **Opereta ya ternary**: Opereta hii hutumika mara nyingi kama njia fupi ya kuandika vifungu vya `if else`.
+
+:::interactive_editor
+
+```js
+const temperature = 30;
+const weather = temperature > 25 ? 'sunny' : 'cool';
+
+console.log(`It's a ${weather} day!`); // It's a sunny day!
+```
+
+:::
+
+## Opereta za kimantiki za pande mbili
+
+- **Opereta ya kimantiki AND (`&&`)**: Opereta hii huangalia kama vigezo vyote ni `true`. Ikiwa vyote ni `true`, basi itarudisha thamani ya pili. Ikiwa kigezo chochote ni `falsy`, basi itarudisha thamani ya `falsy`. Ikiwa vigezo vyote ni `falsy`, itarudisha thamani ya kwanza ya `falsy`.
+
+:::interactive_editor
+
+```js
+const result = true && 'hello';
+
+console.log(result); // hello
+```
+
+:::
+
+- **Opereta ya kimantiki OR (`||`)**: Opereta hii huangalia kama angalau kimoja cha vigezo ni thamani ya kweli. 
+- **Opereta ya kuunganisha thamani zisizo na maana (`??`)**: Opereta hii itarudisha thamani tu ikiwa ya kwanza ni `null` au `undefined`.
+
+:::interactive_editor
+
+```js
+const userSettings = {
+ theme: null,
+ volume: 0,
+ notifications: false,
+};
+
+let theme = userSettings.theme ?? 'light';
+console.log(theme); // light
+```
+
+:::
+
+## Kitu cha `Math`
+
+- **Njia ya `Math.random()`**: Njia hii hutengeneza nambari ya kuzunguka isiyo na mpaka kati ya 0 (ikiwa ni pamoja) na 1 (isipokuwa). Hii ina maana matokeo yanayowezekana yanaweza kuwa 0, lakini hayatafikia 1 kabisa.
+- **Njia ya `Math.max()`**: Njia hii huchukua seti ya nambari na kurudisha thamani kubwa zaidi.
+- **Njia ya `Math.min()`**: Njia hii huchukua seti ya nambari na kurudisha kiwango cha chini.
+- **Njia ya `Math.ceil()`**: Njia hii huizungusha thamani hadi nambari kamili inayofuata.
+- **Njia ya `Math.floor()`**: Njia hii huizungusha thamani hadi nambari kamili iliyopita.
+- **Njia ya `Math.round()`**: Njia hii huizungusha thamani hadi nambari kamili iliyo karibu zaidi.
+
+:::interactive_editor
+
+```js
+console.log(Math.round(2.3)); // 2
+console.log(Math.round(4.5)); // 5
+console.log(Math.round(4.8)); // 5
+```
+
+:::
+
+- **Njia ya `Math.trunc()`**: Njia hii huondoa sehemu ya desimali ya nambari, ikirudisha sehemu ya nambari kamili tu, bila kuizungusha.
+- **Njia ya `Math.sqrt()`**: Njia hii itarudisha mzizi wa mraba wa nambari.
+- **Njia ya `Math.cbrt()`**: Njia hii itarudisha mzizi wa kibao wa nambari.
+- **Njia ya `Math.abs()`**: Njia hii itarudisha thamani kamili ya nambari.
+- **Njia ya `Math.pow()`**: Njia hii huchukua nambari mbili na kuinua ya kwanza kwa nguvu ya ya pili.
+
+## Njia za kawaida za nambari
+
+- **`isNaN()`**: `NaN` inasimama kwa "Sio-nambari". Ni thamani maalum inayowakilisha matokeo yasiyoweza kuwakilishwa au yasiyoeleweka ya nambari. Sifa ya kitendakazi `isNaN()` hutumika kubaini kama thamani ni `NaN` au la. `Number.isNaN()` hutoa njia ya kuaminika zaidi ya kuangalia thamani za `NaN`, hasa katika hali ambapo kulazimisha aina kunaweza kusababisha matokeo yasiyotegemewa na kitendakazi cha ulimwengu `isNaN()`.
+
+:::interactive_editor
+
+```js
+console.log(isNaN(NaN));       // true
+console.log(isNaN(undefined)); // true
+console.log(isNaN({}));        // true
+
+console.log(isNaN(true));      // false
+console.log(isNaN(null));      // false
+console.log(isNaN(37));        // false
+
+
+console.log(Number.isNaN(NaN));        // true
+console.log(Number.isNaN(Number.NaN)); // true
+console.log(Number.isNaN(0 / 0));      // true
+
+console.log(Number.isNaN("NaN"));      // false
+console.log(Number.isNaN(undefined));  // false
+```
+
+:::
+
+- **Njia ya `parseFloat()`**: Njia hii huchanganua hoja ya mfuatano wa herufi na kurudisha nambari ya kuzunguka. Imeundwa kutoa nambari kutoka mwanzo wa mfuatano wa herufi, hata kama mfuatano huo una herufi zisizo za nambari baadaye.
+- **Njia ya `parseInt()`**: Njia hii huchanganua hoja ya mfuatano wa herufi na kurudisha nambari kamili. `parseInt()` huacha kuchanganua wakati inakutana na herufi isiyo nambari. Kwa nambari za kuzunguka, hurudisha sehemu ya nambari kamili tu. Ikiwa haiwezi kupata nambari kamili halali mwanzoni mwa mfuatano, hurudisha `NaN`.
+- **Njia ya `toFixed()`**: Njia hii inaitwa kwenye nambari na huchukua hoja moja ya hiari, ambayo ni idadi ya tarakimu kuonekana baada ya nukta ya desimali. Inarudisha uwakilishi wa mfuatano wa herufi wa nambari na idadi iliyotajwa ya sehemu za desimali.
+
+
+# --assignment--
+
+Kagua mada na dhana za hisabati za JavaScript.

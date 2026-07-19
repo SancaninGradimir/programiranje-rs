@@ -1,0 +1,237 @@
+---
+id: 69aaafeaa4037197c75587cd
+title: Tekeleza foleni
+challengeType: 26
+dashedName: implement-a-queue
+---
+
+# --description--
+
+Katika maabara hii, utatekeleza muundo wa data wa foleni kwa kutumia vitendakazi. Foleni ni muundo wa data wa Kwanza-Kuingia-Kwanza-Kutoka (FIFO) ambapo vipengele huongezwa nyuma ya foleni na kuondolewa mbele.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `enqueue` kinachoongeza kipengele nyuma ya foleni.
+1. Unapaswa kuwa na kitendakazi cha `dequeue` kinachoondoa na kurudisha kipengele cha mbele cha foleni.
+1. Unapaswa kuwa na kitendakazi cha `front` kinachorudisha kipengele cha mbele cha foleni bila kuondoa.
+1. Unapaswa kuwa na kitendakazi cha `size` kinachorudisha idadi ya vipengele vilivyopo katika foleni.
+1. Unapaswa kuwa na kitendakazi cha `isEmpty` kinachorudisha `true` ikiwa foleni ni tupu na `false` vinginevyo.
+
+**Kumbuka:** Vipimo vingi vinategemea kitendakazi cha `enqueue`. Tekeleza hicho kwanza, kwani vipimo vya `dequeue`, `front`, `size`, na `isEmpty` vinahitaji kuongeza vipengele kwenye foleni.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `enqueue`.
+
+```js
+assert.isFunction(enqueue);
+```
+
+Kitendakazi cha `enqueue` kinapaswa kuongeza kipengele nyuma ya foleni.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'first');
+enqueue(queue, 'second');
+assert.strictEqual(front(queue), 'first');
+assert.strictEqual(size(queue), 2);
+```
+
+Unapaswa kuwa na kitendakazi cha `dequeue`.
+
+```js
+assert.isFunction(dequeue);
+```
+
+Kitendakazi cha `dequeue` kinapaswa kuondoa na kurudisha kipengele cha mbele cha foleni.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'first');
+enqueue(queue, 'second');
+enqueue(queue, 'third');
+assert.strictEqual(dequeue(queue), 'first');
+assert.strictEqual(dequeue(queue), 'second');
+assert.strictEqual(size(queue), 1);
+```
+
+`dequeue` inapaswa kurudisha `undefined` inapoitwa kwenye foleni tupu.
+
+```js
+const queue = initQueue();
+assert.isUndefined(dequeue(queue));
+```
+
+`enqueue` inapaswa kuendelea kuongeza vipengele nyuma ya foleni baada ya kuondoa vipengele.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'first');
+enqueue(queue, 'second');
+assert.strictEqual(dequeue(queue), 'first');
+enqueue(queue, 'third');
+assert.strictEqual(front(queue), 'second');
+assert.strictEqual(dequeue(queue), 'second');
+assert.strictEqual(dequeue(queue), 'third');
+```
+
+Foleni tofauti hazipaswi kushiriki hali ya ndani.
+
+```js
+const queueOne = initQueue();
+const queueTwo = initQueue();
+enqueue(queueOne, 'first');
+enqueue(queueTwo, 'second');
+assert.strictEqual(front(queueOne), 'first');
+assert.strictEqual(front(queueTwo), 'second');
+assert.strictEqual(size(queueOne), 1);
+assert.strictEqual(size(queueTwo), 1);
+```
+
+Unapaswa kuwa na kitendakazi cha `front`.
+
+```js
+assert.isFunction(front);
+```
+
+Kitendakazi cha `front` kinapaswa kurudisha kipengele cha mbele cha foleni bila kuondoa.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'first');
+enqueue(queue, 'second');
+assert.strictEqual(front(queue), 'first');
+assert.strictEqual(front(queue), 'first');
+assert.strictEqual(size(queue), 2);
+```
+
+`front` inapaswa kurudisha `undefined` inapoitwa kwenye foleni tupu.
+
+```js
+const queue = initQueue();
+assert.isUndefined(front(queue));
+```
+
+Unapaswa kuwa na kitendakazi cha `size`.
+
+```js
+assert.isFunction(size);
+```
+
+Kitendakazi cha `size` kinapaswa kurudisha idadi sahihi ya vipengele katika foleni.
+
+```js
+const queue = initQueue();
+assert.strictEqual(size(queue), 0);
+enqueue(queue, 'first');
+assert.strictEqual(size(queue), 1);
+enqueue(queue, 'second');
+enqueue(queue, 'third');
+assert.strictEqual(size(queue), 3);
+dequeue(queue);
+assert.strictEqual(size(queue), 2);
+```
+
+Unapaswa kuwa na kitendakazi cha `isEmpty`.
+
+```js
+assert.isFunction(isEmpty);
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `true` kwa foleni tupu.
+
+```js
+const queue = initQueue();
+assert.isTrue(isEmpty(queue));
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `false` kwa foleni isiyo tupu.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'element');
+assert.isFalse(isEmpty(queue));
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `true` baada ya vipengele vyote kuondolewa kutoka foleni.
+
+```js
+const queue = initQueue();
+enqueue(queue, 'first');
+enqueue(queue, 'second');
+dequeue(queue);
+dequeue(queue);
+assert.isTrue(isEmpty(queue));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function initQueue() {
+  return {
+    collection: []
+  };
+}
+
+function print(queue) {
+  console.log(queue.collection);
+}
+
+function enqueue(queue, element) {
+  
+}
+
+function dequeue(queue) {
+  
+}
+
+function front(queue) {
+  
+}
+
+function size(queue) {
+  
+}
+
+function isEmpty(queue) {
+  
+}
+```
+
+# --solutions--
+
+```js
+function initQueue() {
+  return {
+    collection: []
+  };
+}
+
+function print(queue) {
+  console.log(queue.collection);
+}
+
+function enqueue(queue, element) {
+  queue.collection.push(element);
+}
+
+function dequeue(queue) {
+  return queue.collection.shift();
+}
+
+function front(queue) {
+  return queue.collection[0];
+}
+
+function size(queue) {
+  return queue.collection.length;
+}
+
+function isEmpty(queue) {
+  return queue.collection.length === 0;
+}
+```

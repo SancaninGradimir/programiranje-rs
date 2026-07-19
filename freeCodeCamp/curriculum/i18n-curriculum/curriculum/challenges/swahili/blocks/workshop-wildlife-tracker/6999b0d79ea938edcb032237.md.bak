@@ -1,0 +1,222 @@
+---
+id: 6999b0d79ea938edcb032237
+title: Hatua 12
+challengeType: 1
+dashedName: step-12
+---
+
+# --description--
+
+Katika hatua hii ya mwisho ya warsha ya Mfuatiliaji wa Wanyamapori, utaunda kitendakazi kinachopata sifa ya kitu kwa kutumia uandishi wa mabano.
+
+Hapa kuna mfano wa kupata sifa kwa kutumia uandishi wa mabano:
+
+```js
+const cat = {
+  species: "Cat",
+  age: 3
+};
+
+const property = "species";
+
+console.log(cat[property]); // "Cat"
+```
+
+Katika mfano huu, uandishi wa mabano unakuwezesha kupata sifa kwa kutumia kigezo.
+
+Sasa unda kitendakazi kinachoitwa `getProperty`.
+
+Kitendakazi kinapaswa kuchukua vigezo viwili: `animal` na `propertyName`.
+
+Rudisha thamani ya sifa kwa kutumia uandishi wa mabano.
+
+Baada ya kuunda kitendakazi, tumia `console.log` kuitisha `getProperty(tiger, "species")` na `getProperty(elephant, "age")` ili uone thamani zilizorejeshwa kwenye konsoli.
+
+Kwa hayo, warsha ya Mfuatiliaji wa Wanyamapori imekamilika!
+
+# --hints--
+
+Unapaswa kuunda kitendakazi kinachoitwa `getProperty`.
+
+```js
+assert.isFunction(getProperty);
+```
+
+Kitendakazi `getProperty` kinapaswa kuwa na vigezo viwili: `animal` na `propertyName`.
+
+```js
+const regex = __helpers.functionRegex('getProperty', ['animal', 'propertyName']);
+assert.match(__helpers.removeJSComments(code), regex);
+```
+
+`getProperty` inapaswa kutumia uandishi wa mabano kupata sifa.
+
+```js
+assert.match(code, /animal\s*\[\s*propertyName\s*\]/);
+```
+
+Unapaswa kuandika `getProperty(tiger, "species")` kwenye konsoli.
+
+```js
+assert.match(
+  code,
+  /console\s*\.\s*log\s*\(\s*getProperty\s*\(\s*tiger\s*,\s*["']species["']\s*\)\s*\)/
+);
+```
+
+Unapaswa kuandika `getProperty(elephant, "age")` kwenye konsoli.
+
+```js
+assert.match(
+  code,
+  /console\s*\.\s*log\s*\(\s*getProperty\s*\(\s*elephant\s*,\s*["']age["']\s*\)\s*\)/
+);
+```
+
+Kuitisha `getProperty(tiger, "species")` kunapaswa kurudisha `"Tiger"`.
+
+```js
+assert.strictEqual(getProperty(tiger, "species"), "Tiger");
+```
+
+Kuitisha `getProperty(elephant, "age")` kunapaswa kurudisha `12`.
+
+```js
+assert.strictEqual(getProperty(elephant, "age"), 12);
+```
+
+`getProperty` inapaswa kutumia vigezo vya kitendakazi na kufanya kazi na kitu chochote.
+
+```js
+const lion = {
+  species: "Lion",
+  weight: 200
+};
+
+assert.strictEqual(getProperty(lion, "weight"), 200);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const tiger = {
+  species: "Tiger",
+  age: 5,
+  isEndangered: true
+};
+
+const elephant = {
+  species: "Elephant",
+  age: 10,
+  isEndangered: true
+};
+
+const getSpecies = (animal) => {
+  return animal.species;
+};
+
+console.log(getSpecies(tiger));
+
+const getAge = (animal) => {
+  return animal.age;
+};
+
+console.log(getAge(tiger));
+
+const addHabitat = (animal, habitat) => {
+  animal.habitat = habitat;
+  return animal;
+};
+
+console.log(addHabitat(tiger, "Rainforest"));
+
+const updateAge = (animal, newAge) => {
+  animal.age = newAge;
+  return animal;
+};
+
+console.log(updateAge(elephant, 12));
+
+const removeEndangeredStatus = (animal) => {
+  delete animal.isEndangered;
+  return animal;
+};
+
+console.log(removeEndangeredStatus(tiger));
+
+const hasHabitat = (animal) => {
+  return animal.hasOwnProperty("habitat");
+};
+
+console.log(hasHabitat(tiger));
+console.log(hasHabitat(elephant));
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```
+
+# --solutions--
+
+```js
+const tiger = {
+  species: "Tiger",
+  age: 5,
+  isEndangered: true
+};
+
+const elephant = {
+  species: "Elephant",
+  age: 10,
+  isEndangered: true
+};
+
+const getSpecies = (animal) => {
+  return animal.species;
+};
+
+console.log(getSpecies(tiger));
+
+const getAge = (animal) => {
+  return animal.age;
+};
+
+console.log(getAge(tiger));
+
+const addHabitat = (animal, habitat) => {
+  animal.habitat = habitat;
+  return animal;
+};
+
+console.log(addHabitat(tiger, "Rainforest"));
+
+const updateAge = (animal, newAge) => {
+  animal.age = newAge;
+  return animal;
+};
+
+console.log(updateAge(elephant, 12));
+
+const removeEndangeredStatus = (animal) => {
+  delete animal.isEndangered;
+  return animal;
+};
+
+console.log(removeEndangeredStatus(tiger));
+
+const hasHabitat = (animal) => {
+  return animal.hasOwnProperty("habitat");
+};
+
+console.log(hasHabitat(tiger));
+console.log(hasHabitat(elephant));
+
+const getProperty = (animal, propertyName) => {
+  return animal[propertyName];
+};
+
+console.log(getProperty(tiger, "species"));
+console.log(getProperty(elephant, "age"));
+```

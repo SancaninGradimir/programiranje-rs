@@ -1,0 +1,455 @@
+---
+id: 66f26c32ec6f90df01a44f60
+title: Tengeneza fomu ya mawasiliano
+challengeType: 25
+dashedName: design-a-contact-form
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na `div` yenye darasa la `form-container` ili kushikilia fomu yako.
+
+2. Unapaswa kuwa na kipengele cha `form` ndani ya kipengele cha `.form-container`.
+
+3. Ndani ya kipengele cha `form`, unapaswa kuwa na vipengele na sehemu za ingizo zifuatazo:
+
+   - Kipengele cha `h2` chenye maandishi fulani.
+   - Sehemu ya ingizo ya maandishi kwa jina yenye `type` imewekwa kuwa `text` na sifa za `id`, `name`, `required`.
+   - Sehemu ya ingizo ya barua pepe yenye `type` imewekwa kuwa `email` na sifa za `id`, `name`, `required`.
+   - Sehemu ya maandishi ya ujumbe yenye `id`, `name`, na sifa ya `required`.
+   - Kipengele cha `button` chenye maandishi ya `"Submit"` na sifa ya `type` ya `submit`.
+
+4. Kila kipengele cha `input` na `textarea` kinapaswa kuwa na kipengele kinacholingana cha `label` chenye sifa ya `for` iliyowekwa kwa thamani ya `id` ya kipengele husika.
+
+5. Kipengele cha `.form-container` kinapaswa kuwa na rangi ya nyuma, na kuwa na thamani za `border-radius`, `padding`, na `width`.
+
+6. Vipengele vya `label` vinapaswa kuwa na ukingo na rangi ya fonti.
+
+7. Vipengele vya `input` na `textarea` vinapaswa kuwa na thamani za:
+   
+   - `width`.
+   - `padding`.
+   - Ukingo chini.
+
+8. Kipengele cha `button` kinapaswa kuwa na:
+   
+   - Rangi ya nyuma
+   - Ukubwa wa fonti tofauti na ile ya kawaida.
+
+9. Kitufe kinapaswa kuwa na athari ya kupaa inayobadilisha rangi ya nyuma.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo (stylesheet) katika HTML yako na tumia CSS yako.
+
+# --hints--
+
+Unapaswa kuwa na `div` yenye darasa la `form-container`.
+
+```js
+const el = document.querySelector('div.form-container');
+assert.isNotNull(el);
+```
+
+Unapaswa kuwa na kipengele cha `form` ndani ya kipengele cha `.form-container`.
+
+```js
+const el = document.querySelector('.form-container form');
+assert.isNotNull(el);
+```
+
+Ndani ya `form`, unapaswa kuwa na kipengele cha `h2` chenye maandishi fulani.
+
+```js
+const el = document.querySelector('.form-container form h2');
+assert.isNotEmpty(el.innerText);
+// assert.isAtLeast(document.querySelector('h1').innerText.length, 1);
+
+```
+
+Ndani ya `form`, unapaswa kuwa na sehemu ya ingizo ya maandishi yenye aina imewekwa kuwa `text`.
+
+```js
+const el = document.querySelector('.form-container form input[type="text"]');
+assert.isNotNull(el);
+```
+
+Sehemu yako ya ingizo ya `type=text` inapaswa kuwa na `id`, `name`, na sifa ya `required`.
+
+```js
+const el = document.querySelector('.form-container form input[type="text"]');
+assert.exists(el);
+assert.isTrue(el.required);
+assert.isNotEmpty(el?.getAttribute('id'));
+assert.isNotEmpty(el?.getAttribute('name'));
+```
+
+Ndani ya `form`, unapaswa kuwa na sehemu ya ingizo ya barua pepe yenye `type` imewekwa kuwa `email`.
+
+```js
+const el = document.querySelector('.form-container form input[type="email"]');
+assert.isNotNull(el);
+```
+
+Sehemu yako ya ingizo ya `type=email` inapaswa kuwa na `id`, `name`, na sifa ya `required`.
+
+```js
+const el = document.querySelector('.form-container form input[type="email"]');
+assert.isTrue(el?.required);
+assert.isNotEmpty(el?.getAttribute('id'));
+assert.isNotEmpty(el?.getAttribute('name'));
+```
+
+Ndani ya `form`, unapaswa kuwa na `textarea` yenye sifa za `id`, `name`, na `required`.
+
+```js
+const el = document.querySelector('.form-container form textarea');
+assert.isNotNull(el);
+assert.isNotNull(document.querySelector('.form-container form textarea[required]'));
+assert.isNotEmpty(el?.getAttribute('id'));
+assert.isNotEmpty(el?.getAttribute('name'));
+```
+
+Ndani ya `form`, unapaswa kuwa na kipengele cha `button` chenye sifa ya `type` ya `submit`.
+
+```js
+const el = document.querySelector('.form-container form button');
+assert.strictEqual(el?.getAttribute('type'), 'submit');
+```
+
+Kitufe chako kinapaswa kuwa na maandishi ya `"Submit"`.
+
+```js
+const el = document.querySelector('.form-container form button');
+assert.strictEqual(document.querySelector('.form-container form button').textContent, 'Submit');
+```
+
+Unapaswa kuwa na kipengele cha `label` kwa ajili ya kipengele cha `#name` chenye sifa ya `for` inayolingana na thamani ya `id` kwenye kipengele kinacholingana cha `input`.
+
+```js
+const nameInput = document.querySelector('.form-container form input[type="text"]')?.getAttribute('id');
+
+const labels = document.querySelectorAll('.form-container form label');
+
+assert.isAbove(labels.length, 0);
+
+// check if id has a value
+assert.isNotEmpty(nameInput);
+let found = false;
+
+for (let label of labels) {
+    if (label.getAttribute('for') === nameInput) {
+        found = true;
+        break;
+    }
+}
+
+assert.isTrue(found);
+```
+
+Unapaswa kuwa na kipengele cha `label` kwa ajili ya kipengele cha `#email` chenye sifa ya `for` inayolingana na thamani ya `id` kwenye kipengele kinacholingana cha `input`.
+
+```js
+const emailInput = document.querySelector('.form-container form input[type="email"]')?.getAttribute('id');
+const labels = document.querySelectorAll('.form-container form label');
+
+assert.isAbove(labels.length, 0);
+// check if id has a value
+assert.isNotEmpty(emailInput);
+let found = false;
+
+for (let label of labels) {
+    if (label.getAttribute('for') === emailInput) {
+        found = true;
+        break;
+    }
+}
+
+assert.isTrue(found);
+```
+
+Unapaswa kuwa na kipengele cha `label` kwa ajili ya kipengele cha `#message` chenye sifa ya `for` inayolingana na thamani ya `id` kwenye `textarea`.
+
+```js
+const messageInput = document.querySelector('.form-container form textarea')?.getAttribute('id');
+const labels = document.querySelectorAll('.form-container form label');
+
+assert.isAbove(labels.length, 0);
+
+// check if id has a value
+
+assert.isNotEmpty(messageInput);
+
+assert.exists(document.querySelector(`label[for="${messageInput}"]`));
+```
+
+Lebos hazipaswi kuwa tupu.
+
+```js
+const labels = document.querySelectorAll('.form-container form label');
+
+assert.isAbove(labels.length, 0);
+
+for (let label of labels) {
+    const labelText = label.textContent.trim();
+    assert.isNotEmpty(labelText);
+}
+
+```
+
+Kipengele cha `.form-container` kinapaswa kuwa na rangi ya nyuma.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.form-container')?.backgroundColor);
+```
+
+Kipengele cha `.form-container` kinapaswa kuwa na `border-radius`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.form-container')?.borderRadius);
+```
+
+Kipengele cha `.form-container` kinapaswa kuwa na nafasi ya ndani.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.form-container')?.padding);
+```
+
+Kipengele cha `.form-container` kinapaswa kuwa na upana.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.form-container')?.width);
+```
+
+Lebos zako zinapaswa kuwa na ukingo na rangi ya fonti.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('label')?.margin);
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('label')?.color);
+```
+
+Vipengele vyako vya `input` vinapaswa kuwa na upana, nafasi ya ndani, na ukingo chini.
+
+```js
+// Helper function to extract properties from multiple selectors
+function getStyleProperties(selectors, properties) {
+  const result = {};
+  properties.forEach((property) => {
+    result[property] = selectors.map((selector) => selector?.[property]).find(Boolean);
+  });
+  return result;
+}
+
+// Initializing selectors
+const selectors = [
+  new __helpers.CSSHelp(document).getStyle('input'),
+  new __helpers.CSSHelp(document).getStyle('input, textarea'),
+  new __helpers.CSSHelp(document).getStyle('textarea, input')
+];
+
+// Extract width, padding, and margin properties
+const { width } = getStyleProperties(selectors, ['width']);
+assert.isNotEmpty(width);
+
+const {
+  padding,
+  paddingTop,
+  paddingBottom,
+  paddingLeft,
+  paddingRight
+} = getStyleProperties(selectors, ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight']);
+
+// Assert padding properties
+assert.isOk(
+  padding ||
+  (paddingTop && paddingBottom && paddingLeft && paddingRight)
+);
+
+const { marginBottom } = getStyleProperties(selectors, ['marginBottom']);
+assert.isNotEmpty(marginBottom);
+
+```
+
+Kipengele chako cha `textarea` kinapaswa kuwa na upana, nafasi ya ndani, na ukingo chini.
+
+```js
+// Helper function to extract properties from multiple selectors
+function getStyleProperties(selectors, properties) {
+  const result = {};
+  properties.forEach((property) => {
+    result[property] = selectors.map((selector) => selector?.[property]).find(Boolean);
+  });
+  return result;
+}
+
+// Initializing selectors
+const selectors = [
+  new __helpers.CSSHelp(document).getStyle('textarea'),
+  new __helpers.CSSHelp(document).getStyle('input, textarea'),
+  new __helpers.CSSHelp(document).getStyle('textarea, input')
+];
+
+// Extract width, padding, and margin properties
+const { width } = getStyleProperties(selectors, ['width']);
+assert.isNotEmpty(width);
+
+const {
+  padding,
+  paddingTop,
+  paddingBottom,
+  paddingLeft,
+  paddingRight
+} = getStyleProperties(selectors, ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight']);
+
+// Assert padding properties
+assert.isOk(
+  padding ||
+  (paddingTop && paddingBottom && paddingLeft && paddingRight)
+);
+
+const { marginBottom } = getStyleProperties(selectors, ['marginBottom']);
+assert.isNotEmpty(marginBottom);
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na rangi ya nyuma.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('button')?.backgroundColor);
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na ukubwa wa fonti.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('button')?.fontSize);
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na athari ya kupaa inayobadilisha rangi ya nyuma.
+
+```js
+const gs = (s) => new __helpers.CSSHelp(document).getStyle(s);
+const btn_hover = gs('button:hover')?.backgroundColor;
+assert.isNotEmpty(btn_hover);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Contact Form</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <h2>Contact Us</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+```
+
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(45deg, #83a4d4, #b6fbff);
+    font-family: Arial, sans-serif;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+form h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #555;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+```

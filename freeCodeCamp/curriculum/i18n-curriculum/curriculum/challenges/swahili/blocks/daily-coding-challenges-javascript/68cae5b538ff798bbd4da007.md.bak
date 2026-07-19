@@ -1,0 +1,80 @@
+---
+id: 68cae5b538ff798bbd4da007
+title: "Zoezi la 69: Soksi Zilizokosekana"
+challengeType: 28
+dashedName: challenge-69
+---
+
+# --description--
+
+Ukizingatia nambari kamili inayowakilisha idadi ya jozi za soksi ulizozianza nazo, na nambari nyingine inayowakilisha ni mizunguko mingapi ya kuosha umefanya, rudisha idadi ya jozi kamili za soksi ulizonazo kwa sasa ukitumia masharti yafuatayo:
+
+- Kila mizunguko 2 ya kuosha, hupoteza soksi moja.
+- Kila mizunguko 3 ya kuosha, unapata soksi moja iliyokosekana.
+- Kila mizunguko 5 ya kuosha, soksi moja huharibika na lazima itupwe.
+- Kila mizunguko 10 ya kuosha, unanunua jozi mpya ya soksi.
+- Huwezi kuwa na soksi chini ya sifuri kabisa.
+- Sheria zinaweza kuungana. Kwa mfano, katika mzunguko wa kuosha wa 10, utapoteza soksi moja, utatupa soksi moja, na ununue jozi mpya ya soksi.
+- Rudisha idadi ya jozi kamili za soksi.
+
+# --hints--
+
+`sockPairs(2, 5)` inapaswa kurudisha `1`.
+
+```js
+assert.equal(sockPairs(2, 5), 1);
+```
+
+`sockPairs(1, 2)` inapaswa kurudisha `0`.
+
+```js
+assert.equal(sockPairs(1, 2), 0);
+```
+
+`sockPairs(5, 11)` inapaswa kurudisha `4`.
+
+```js
+assert.equal(sockPairs(5, 11), 4);
+```
+
+`sockPairs(6, 25)` inapaswa kurudisha `3`.
+
+```js
+assert.equal(sockPairs(6, 25), 3);
+```
+
+`sockPairs(1, 8)` inapaswa kurudisha `0`.
+
+```js
+assert.equal(sockPairs(1, 8), 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function sockPairs(pairs, cycles) {
+
+  return pairs;
+}
+```
+
+# --solutions--
+
+```js
+function sockPairs(pairs, cycles) {
+  let socks = pairs * 2;
+
+  for (let i = 1; i <= cycles; i++) {
+    if (i % 2 === 0) socks -= 1;
+    if (i % 3 === 0) socks += 1;
+    if (i % 5 === 0) socks -= 1;
+    if (i % 10 === 0) socks += 2;
+
+    if (socks < 0) socks = 0;
+  }
+
+  return Math.floor(socks / 2);
+}
+```

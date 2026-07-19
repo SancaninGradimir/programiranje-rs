@@ -1,0 +1,179 @@
+---
+id: 692aba0a78ca391f10455b4c
+title: Jinsi Imports na Exports Zinavyofanya Kazi na Moduli za ES?
+challengeType: 19
+dashedName: how-do-imports-and-exports-work-with-es-modules
+---
+
+# --description--
+
+Sasa baada ya kuelewa mfumo wa moduli wa CommonJS, tuchunguze mfumo wa moduli wa ES.
+
+Moduli za ES, au moduli za ECMAScript, ni muundo rasmi, uliowekwa viwango kwa ajili ya JavaScript kama ilivyoainishwa na sifa za ECMAScript. Zinatumia tamko la `import` na `export`, na katika Node.js, zinapakiwa isiyo ya wakati mmoja, jambo ambalo ni bora zaidi.
+
+Node.js hutumia faili kama moduli za ES katika hali zifuatazo:
+
+* Faili zilizo na nyongeza ya `.mjs`.
+    
+* Na faili zilizo na nyongeza ya `.js` wakati faili la `package.json` lililo karibu zaidi lina uwanja wa ngazi ya juu wa `"type"` wenye thamani ya `"module"`.
+    
+
+Hapa tuna kitendakazi `multiply` kile kile ulichoona awali, lakini sasa tutatumia mfumo wa ESM. Kwa hili, tunaweka nyongeza ya `.mjs` kwa moduli zote mbili.
+
+Ili ku-export kitendakazi cha `multiply` kutoka moduli ya `math.mjs`, tumia neno la `export` ikifuatiwa na jina la kitendakazi, kigezo, au kitu unachotaka ku-export ndani ya mabano ya mviringo:
+
+```javascript
+function multiply(a, b) {
+  return a * b;
+}
+
+export { multiply };
+```
+
+Unaweza pia ku-export kitendakazi moja kwa moja kwa kutumia neno la `export` kabla ya neno la `function`. Hii inajulikana kama export yenye jina. Unaweza kuwa na export nyingi zenye majina kwa kila moduli:
+
+```javascript
+export function multiply(a, b) {
+  return a * b;
+}
+```
+
+Kisha, ili ku-import moduli hii, tumia neno la `import` ikifuatiwa na mabano ya mviringo. Angalia kwamba tunatumia `import` badala ya `require()`. Hii ni tofauti kuu kati ya CommonJS na moduli za ES.
+
+Ndani ya mabano ya mviringo, tunaandika jina la kitendakazi, kigezo, au kitu tunachotaka ku-import. Katika kesi hii, ni `multiply`. Kisha, tumia neno la `from` na njia ya jamaa kuelekea moduli. Msimbo huu utaendeshwa kwa mafanikio na matokeo yatakuwa `42`.
+
+```javascript
+import { multiply } from './math.mjs';
+
+console.log(multiply(6, 7)); // 42
+```
+
+Katika mfumo wa ES, unaweza kuweka export moja ya chaguo-msingi kwa kila moduli. Kwa njia hii, huna haja ya kutumia mabano ya mviringo kuileta.
+
+Hapa kuna mfano ambapo tunaweka kitendakazi cha `multiply` kama export ya chaguo-msingi kwa moduli yote ya `math.mjs`:
+
+```javascript
+export default function multiply(a, b) {
+  return a * b;
+}
+```
+
+Sasa hatuhitaji mabano ya mviringo, kwa sababu kitendakazi kitaingizwa na kuwekwa thamani kwa chaguo-msingi:
+
+```javascript
+import multiply from './math.mjs';
+```
+
+Kama hutumi nyongeza za faili au faili la `package.json` kueleza kwa Node.js aina ya mfumo wa moduli unayotaka kutumia, itachunguza msimbo wa chanzo kutafuta sintaksia ya moduli za ES. Ikiwa sintaksia hiyo itapatikana, itafanya msimbo kama moduli ya ES; vinginevyo, itaufanya kama moduli ya CommonJS.
+
+Wakati CommonJS ilitumika kama kiwango cha chaguo-msingi kwa Node.js katika siku zake za mwanzo, kadri wasanidi programu wanavyotumia ESM kwa ufanisi wake na ulinganifu na JavaScript ya kisasa, ni muhimu kujua tofauti zao na jinsi ya kutumia zote mbili.
+
+# --questions--
+
+## --text--
+
+Ni neno gani la funguo linalotumika kupakia moduli katika moduli za ES?
+
+## --answers--
+
+`require()`
+
+### --feedback--
+
+Fikiria ni neno gani la funguo linalotumika kuleta msimbo wa nje katika mazingira ya kisasa ya JavaScript.
+
+---
+
+`module.exports`
+
+### --feedback--
+
+Fikiria ni neno gani la funguo linalotumika kuleta msimbo wa nje katika mazingira ya kisasa ya JavaScript.
+
+---
+
+`import`
+
+---
+
+`include()`
+
+### --feedback--
+
+Fikiria ni neno gani la funguo linalotumika kuleta msimbo wa nje katika mazingira ya kisasa ya JavaScript.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni njia gani kati ya zifuatazo ni ya ku-export thamani moja kama export kuu katika ES?
+
+## --answers--
+
+`module.exports`
+
+### --feedback--
+
+Fikiria ni njia gani ya export inayotumika kutoa thamani moja kuu kutoka moduli.
+
+---
+
+`exports.add`
+
+### --feedback--
+
+Fikiria ni njia gani ya export inayotumika kutoa thamani moja kuu kutoka moduli.
+
+---
+
+`export default`
+
+---
+
+`export const`
+
+### --feedback--
+
+Fikiria ni njia gani ya export inayotumika kutoa thamani moja kuu kutoka moduli.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni aina gani ya upakiaji ambayo Moduli za ECMAScript (ES) hutumia hasa?
+
+## --answers--
+
+Upakiaji wa wakati mmoja
+
+### --feedback--
+
+Fikiria jinsi vivinjari vya kisasa vinavyoleta faili za JavaScript za nje.
+
+---
+
+Upakiaji wa polepole
+
+### --feedback--
+
+Fikiria jinsi vivinjari vya kisasa vinavyoleta faili za JavaScript za nje.
+
+---
+
+Upakiaji usiyo wa wakati mmoja
+
+---
+
+Upakiaji wa masharti
+
+### --feedback--
+
+Fikiria jinsi vivinjari vya kisasa vinavyoleta faili za JavaScript za nje.
+
+## --video-solution--
+
+3

@@ -1,0 +1,97 @@
+---
+id: 5e4ce2f5ac708cc68c1df261
+title: kizalishaji mfululizo wa linear congruential
+challengeType: 1
+forumTopicId: 385266
+dashedName: linear-congruential-generator
+---
+
+# --description--
+
+Kizalishaji mfululizo wa linear congruential (LCG) ni <em>algoriti</em> inayotoa mfululizo wa nambari za bandia zilizopangwa kwa kutumia usemi wa mstari wa kipande kisichoendelea. Vizalishaji vyote vya linear congruential hutumia fomula hii:
+
+$$r_{n + 1} = (a \times r_n + c) \bmod m$$
+
+Ambapo:
+
+<ul>
+<li>$ r_0 $ ni mbegu.</li>
+<li>$r_1$, $r_2$, $r_3$, ..., ni nambari za bahati nasibu.</li>
+<li>$a$, $c$, $m$ ni thabiti.</li>
+</ul>
+
+Ikiwa mtu atachagua kwa uangalifu thamani za $a$, $c$ na $m$, basi kizalishaji kitatoa usambazaji sawa wa nambari kamili kutoka $0$ hadi $m - 1$.
+
+Nambari za <abbr title="linear congruential generator">LCG</abbr> zina ubora duni. $r_n$ na $r\_{n + 1}$ si huru, kama nambari halisi za bahati nasibu zingekuwa. Yeye yeyote anayejuwa $r_n$ anaweza kutabiri $r\_{n + 1}$, kwa hiyo <abbr title="linear congruential generator">LCG</abbr> si salama kwa usimbaji fiche. Hata hivyo, <abbr title="linear congruential generator">LCG</abbr> bado ni nzuri vya kutosha kwa kazi rahisi kama mtihani wa primality wa Miller-Rabin, au mizunguko ya FreeCell. Miongoni mwa faida za <abbr title="linear congruential generator">LCG</abbr>, mtu anaweza kwa urahisi kuzalisha tena mfululizo wa nambari, kutoka $r_0$ ile ile. Pia mtu anaweza kuzalisha tena mfululizo huo kwa lugha tofauti ya programu, kwa sababu fomula ni rahisi sana.
+
+# --instructions--
+
+Andika kitendakazi kinachopokea $r_0,a,c,m,n$ kama vigezo na kurudisha $r_n$.
+
+# --hints--
+
+`linearCongGenerator` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof linearCongGenerator == 'function');
+```
+
+`linearCongGenerator(324, 1145, 177, 2148, 3)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof linearCongGenerator(324, 1145, 177, 2148, 3) == 'number');
+```
+
+`linearCongGenerator(324, 1145, 177, 2148, 3)` inapaswa kurudisha `855`.
+
+```js
+assert.equal(linearCongGenerator(324, 1145, 177, 2148, 3), 855);
+```
+
+`linearCongGenerator(234, 11245, 145, 83648, 4)` inapaswa kurudisha `1110`.
+
+```js
+assert.equal(linearCongGenerator(234, 11245, 145, 83648, 4), 1110);
+```
+
+`linearCongGenerator(85, 11, 1234, 214748, 5)` inapaswa kurudisha `62217`.
+
+```js
+assert.equal(linearCongGenerator(85, 11, 1234, 214748, 5), 62217);
+```
+
+`linearCongGenerator(0, 1103515245, 12345, 2147483648, 1)` inapaswa kurudisha `12345`.
+
+```js
+assert.equal(linearCongGenerator(0, 1103515245, 12345, 2147483648, 1), 12345);
+```
+
+`linearCongGenerator(0, 1103515245, 12345, 2147483648, 2)` inapaswa kurudisha `1406932606`.
+
+```js
+assert.equal(
+  linearCongGenerator(0, 1103515245, 12345, 2147483648, 2),
+  1406932606
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function linearCongGenerator(r0, a, c, m, n) {
+
+}
+```
+
+# --solutions--
+
+```js
+function linearCongGenerator(r0, a, c, m, n) {
+    for (let i = 0; i < n; i++) {
+        r0 = (a * r0 + c) % m;
+    }
+    return r0;
+}
+```

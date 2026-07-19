@@ -1,0 +1,189 @@
+---
+id: 594810f028c0303b75339ad0
+title: Linganisha safu za data
+challengeType: 1
+forumTopicId: 302224
+dashedName: align-columns
+---
+
+# --description--
+
+Ikiwa umepewa safu ya mistari mingi, ambapo sehemu ndani ya mstari zimegawanywa na tabia moja ya `$`, andika programu inayolinganishwa kila safu ya sehemu kwa kuhakikisha maneno katika kila safu yamegawanyika kwa angalau nafasi moja. Zaidi ya hayo, ruhusu kila neno katika safu kuwa limepangwa upande wa kushoto, upande wa kulia, au katikati ndani ya safu yake.
+
+# --instructions--
+
+Tumia maandishi yafuatayo kujaribu programu zako:
+
+```js
+const testText = [
+  'Given$a$text$file$of$many$lines',
+  'where$fields$within$a$line$',
+  'are$delineated$by$a$single$"dollar"$character',
+  'write$a$program',
+  'that$aligns$each$column$of$fields',
+  'by$ensuring$that$words$in$each$',
+  'column$are$separated$by$at$least$one$space.',
+  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',
+  'justified,$right$justified',
+  'or$center$justified$within$its$column.'
+];
+```
+
+**Kumbuka kwamba:**
+
+- Mistari ya maandishi ya mfano ya ingizo inaweza kuwa na au isiyo na tabia za dola mwishoni.
+- Safu zote zinapaswa kushiriki ulinganifu uleule.
+- Nafasi zinazojirudia mfululizo zinazozalishwa karibu na mwisho wa mistari hazina umuhimu kwa madhumuni ya zoezi.
+- Maandishi ya matokeo yataangaliwa kwa fonti ya mono-spaced katika mhariri wa maandishi wa kawaida au terminal rahisi. Mistari ndani yake inapaswa kuunganishwa kwa kutumia tabia ya mstari mpya (`\n`).
+- Nafasi ya kiwango cha chini kati ya safu inapaswa kuhesabiwa kutoka kwa maandishi na si kuwekwa kwa msimbo thabiti.
+- Sio sharti kuongeza tabia za kutenganisha kati au karibu na safu.
+
+Kwa mfano, moja ya mistari kutoka `testText`, baada ya kupanga upande wa kulia, kushoto na katikati kwa mtiririko huo:
+
+```js
+'    column        are separated     by     at    least       one space.\n'
+'column     are        separated by     at     least    one       space.\n'
+'  column      are     separated   by     at    least      one    space.\n'
+```
+
+# --before-each--
+
+```js
+const _testText = [
+  'Given$a$text$file$of$many$lines',
+  'where$fields$within$a$line$',
+  'are$delineated$by$a$single$"dollar"$character',
+  'write$a$program',
+  'that$aligns$each$column$of$fields$',
+  'by$ensuring$that$words$in$each$',
+  'column$are$separated$by$at$least$one$space.',
+  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',
+  'justified,$right$justified',
+  'or$center$justified$within$its$column.'
+];
+
+const rightAligned = '     Given          a      text   file     of     many     lines\n' +
+'     where     fields    within      a   line \n' +
+'       are delineated        by      a single "dollar" character\n' +
+'     write          a   program\n' +
+'      that     aligns      each column     of   fields \n' +
+'        by   ensuring      that  words     in     each \n' +
+'    column        are separated     by     at    least       one space.\n' +
+'  Further,      allow       for   each   word       in         a column to be either left \n' +
+'justified,      right justified\n' +
+'        or     center justified within    its  column.';
+
+const leftAligned = 'Given      a          text      file   of     many     lines    \n' +
+'where      fields     within    a      line   \n' +
+'are        delineated by        a      single "dollar" character\n' +
+'write      a          program  \n' +
+'that       aligns     each      column of     fields   \n' +
+'by         ensuring   that      words  in     each     \n' +
+'column     are        separated by     at     least    one       space.\n' +
+'Further,   allow      for       each   word   in       a         column to be either left \n' +
+'justified, right      justified\n' +
+'or         center     justified within its    column. ';
+
+const centerAligned = '  Given        a        text     file    of     many     lines  \n' +
+'  where      fields    within     a     line  \n' +
+'   are     delineated    by       a    single \"dollar\" character\n' +
+'  write        a       program \n' +
+'   that      aligns     each    column   of    fields  \n' +
+'    by      ensuring    that    words    in     each   \n' +
+'  column      are     separated   by     at    least      one    space.\n' +
+' Further,    allow       for     each   word     in        a     column to be either left \n' +
+'justified,   right    justified\n' +
+'    or       center   justified within  its   column. ';
+```
+
+# --hints--
+
+`formatText` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof formatText === 'function');
+```
+
+`formatText(testText, 'right')` inapaswa kutoa maandishi yenye safu zimepangwa upande wa kulia.
+
+```js
+assert.strictEqual(formatText(_testText, 'right'), rightAligned);
+```
+
+`formatText(testText, 'left')` inapaswa kutoa maandishi yenye safu zimepangwa upande wa kushoto.
+
+```js
+assert.strictEqual(formatText(_testText, 'left'), leftAligned);
+```
+
+`formatText(testText, 'center')` inapaswa kutoa maandishi yenye safu zimepangwa katikati.
+
+```js
+assert.strictEqual(formatText(_testText, 'center'), centerAligned);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function formatText(input, justification) {
+
+}
+
+const testText = [
+  'Given$a$text$file$of$many$lines',
+  'where$fields$within$a$line$',
+  'are$delineated$by$a$single$"dollar"$character',
+  'write$a$program',
+  'that$aligns$each$column$of$fields$',
+  'by$ensuring$that$words$in$each$',
+  'column$are$separated$by$at$least$one$space.',
+  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',
+  'justified,$right$justified',
+  'or$center$justified$within$its$column.'
+];
+```
+
+# --solutions--
+
+```js
+String.prototype.repeat = function (n) { return new Array(1 + parseInt(n)).join(this); };
+
+function formatText(input, justification) {
+  let x, y, max, cols = 0, diff, left, right;
+  for (x = 0; x < input.length; x++) {
+    input[x] = input[x].split('$');
+    if (input[x].length > cols) {
+      cols = input[x].length;
+    }
+  }
+  for (x = 0; x < cols; x++) {
+    max = 0;
+    for (y = 0; y < input.length; y++) {
+      if (input[y][x] && max < input[y][x].length) {
+        max = input[y][x].length;
+      }
+    }
+    for (y = 0; y < input.length; y++) {
+      if (input[y][x]) {
+        diff = (max - input[y][x].length) / 2;
+        left = ' '.repeat(Math.floor(diff));
+        right = ' '.repeat(Math.ceil(diff));
+        if (justification === 'left') {
+          right += left; left = '';
+        }
+        if (justification === 'right') {
+          left += right; right = '';
+        }
+        input[y][x] = left + input[y][x] + right;
+      }
+    }
+  }
+  for (x = 0; x < input.length; x++) {
+    input[x] = input[x].join(' ');
+  }
+  input = input.join('\n');
+  return input;
+}
+```

@@ -1,0 +1,194 @@
+---
+id: 67d30191adb999a9909109ef
+title: "Generics ni nini, na zinafanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-generics-and-how-do-they-work
+---
+
+# --description--
+
+Umeona kweli aina ya generic katika funzo lililopita: `Array<string>`. Lakini kawaida utatumia aina za generic katika vitendakazi. Kwa kweli, zinaweza kufikiriwa kama kigezo maalum unachotoa kwa kitendakazi ili kudhibiti tabia ya ufafanuzi wa aina ya kitendakazi hicho.
+
+Turudi kwenye mfano wetu wa awali wa kitendakazi cha kupata thamani ya bahati nasibu kutoka kwenye safu ya data:
+
+```js
+const getRandomValue = (array: string[]): string => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+```
+
+Kitendakazi chetu kinakubali safu ya mfuatano wa herufi na kurudisha mfuatano wa herufi. Lakini vipi kama tungetaka kupitisha safu ya nambari na kurudisha nambari?
+
+Unaweza kutumia aina ya muungano:
+
+```js
+const getRandomValue = (array: (string|number)[]): (string|number) => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+const val = getRandomValue([1, 2, 4])
+```
+
+Lakini kwa njia hii, ingawa tumepitisha safu ya nambari tu, TypeScript inabaini kuwa tofauti ya `val` inaweza kuwa nambari AU mfuatano wa herufi.
+
+Badala yake, unaweza fafanua aina ya generic kwa kitendakazi:
+
+```js
+const getRandomValue = <T>(array: T[]): T => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+const val = getRandomValue([1, 2, 4])
+```
+
+Kuna sehemu muhimu kadhaa katika mfano wetu mpya. Kwanza, sintaksia ya `<T>` inamwambia TypeScript kuwa unafafanua aina ya generic `T` kwa kitendakazi. `T` ni jina la kawaida kwa aina za generic, lakini unaweza kuitaja kwa jina lolote unalotaka (ndani ya mkataba wa vigezo vya JavaScript).
+
+Kisha, tunamwambia TypeScript kuwa kigezo cha safu ni safu ya thamani zinazolingana na aina ya generic, na thamani inayorudishwa ni kipengee kimoja cha aina hiyo hiyo. Hii inaruhusu TypeScript kugundua ipasavyo kuwa `val` itakuwa nambari, kwa sababu safu tuliyopitisha ina nambari tu.
+
+Lakini vipi kuhusu vitendakazi ambavyo huna udhibiti juu yao? Tuchunguze njia ya `document.querySelector()`:
+
+```js
+const email = document.querySelector("#email");
+console.log(email.value);
+```
+
+Kwa sababu tunafanya hoja ya utafutaji kwa kichaguzi cha ID, TypeScript haijui ni aina gani ya kipengee tunachotafuta. Inajua ni `Element` ya aina fulani, lakini jaribio letu la kupata sifa ya `value` litatoa kosa kwa sababu kiolesura cha kipengee cha ngazi ya juu hakina sifa hiyo.
+
+Kwa bahati nzuri, tunaweza kupitisha hoja ya aina kwa wito wa kitendakazi:
+
+```js
+const email = document.querySelector<HTMLInputElement>("#email");
+console.log(email.value);
+```
+
+Angalia jinsi tunavyotumia tena sintaksia ya mabano ya pembe (`<HTMLInputElement>`), lakini wakati huu katika wito wa kitendakazi. Hii inamwambia TypeScript kuwa kipengee tunachotarajia kupata kitakuwa kipengee cha `input`, na hatupati tena kosa kwenye sifa ya value kwa sababu vipengee vya input vina sifa hiyo. Bila shaka, `querySelector` inaweza kurudisha `null` ikiwa kipengee hakipatikani, na TypeScript itatupa kosa la mkusanyaji hapa kwa sababu hatutashughulikia kesi hiyo.
+
+Lakini utajifunza kuhusu hilo katika funzo lijalo.
+
+# --questions--
+
+## --text--
+
+Sintaksia sahihi ya kufafanua aina ya generic katika kitendakazi ni ipi?
+
+## --answers--
+
+```ts
+function<T>
+```
+
+---
+
+```ts
+<T>function
+```
+
+### --feedback--
+
+Aina ya generic inafafanuliwa kwa kutumia mabano ya pembe kabla ya orodha ya vigezo vya kitendakazi.
+
+---
+
+```ts
+(T)function
+```
+
+### --feedback--
+
+Aina ya generic inafafanuliwa kwa kutumia mabano ya pembe kabla ya orodha ya vigezo vya kitendakazi.
+
+---
+
+```ts
+function(T)
+```
+
+### --feedback--
+
+Aina ya generic inafafanuliwa kwa kutumia mabano ya pembe kabla ya orodha ya vigezo vya kitendakazi.
+
+## --video-solution--
+
+1
+
+## --text--
+
+`T[]` inawakilisha nini katika mfano ufuatao?
+
+```ts
+const getRandomValue = <T>(array: T[]): T => { ... }
+```
+
+## --answers--
+
+Safu ya aina yoyote.
+
+### --feedback--
+
+Mabano ya mraba baada ya `T` yanaonyesha safu ya aina hiyo.
+
+---
+
+Safu ya aina ya generic `T`.
+
+---
+
+Tuple ya aina `T`.
+
+### --feedback--
+
+Mabano ya mraba baada ya `T` yanaonyesha safu ya aina hiyo.
+
+---
+
+Kipengee kimoja cha aina `T`.
+
+### --feedback--
+
+Mabano ya mraba baada ya `T` yanaonyesha safu ya aina hiyo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unawezaje kubainisha hoja ya aina wakati wa kuita `document.querySelector()`?
+
+## --answers--
+
+```js
+document.querySelector("#email", HTMLInputElement)
+```
+
+### --feedback--
+
+Hoja ya aina hupitishwa kwa kutumia mabano ya pembe kati ya jina la kitendakazi na vigezo vyake.
+
+---
+
+```js
+document.querySelector("#email"): HTMLInputElement
+```
+
+### --feedback--
+
+Hoja ya aina hupitishwa kwa kutumia mabano ya pembe kati ya jina la kitendakazi na vigezo vyake.
+
+---
+
+```js
+document.querySelector<HTMLInputElement>("#email")
+```
+
+---
+
+```js
+document.querySelector("#email" as HTMLInputElement)
+```
+
+### --feedback--
+
+Hoja ya aina hupitishwa kwa kutumia mabano ya pembe kati ya jina la kitendakazi na vigezo vyake.
+
+## --video-solution--
+
+3

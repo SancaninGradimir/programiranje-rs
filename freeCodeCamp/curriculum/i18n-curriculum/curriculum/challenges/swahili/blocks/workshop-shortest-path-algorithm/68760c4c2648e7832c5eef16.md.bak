@@ -1,0 +1,76 @@
+---
+id: 68760c4c2648e7832c5eef16
+title: Hatua 14
+challengeType: 20
+dashedName: step-14
+---
+
+# --description--
+
+Baada ya mzunguko unaotafuta nodi isiyotembelewa iliyo karibu zaidi, unahitaji kukagua kama nodi halali kweli ilipatikana.
+
+Kama nodi kama hiyo haipo, hiyo ina maana nodi zilizobaki hazipatikani kutoka nodi ya mwanzo, na algoriti inapaswa kuacha mapema.
+
+Kwenye ngazi ile ile kama mzunguko uliopangwa ndani wa `for`, ongeza tamko la `if` linalokagua kama `current == -1` na kuvunja mzunguko ikiwa ni kweli.
+
+# --hints--
+
+Unapaswa kuwa na tamko la `if` linalokagua kama `current` bado ni `-1` baada ya mzunguko wa ndani wa `for`.
+
+```js
+({
+    test: () => {
+      runPython(`
+      cond = _Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0]
+      assert cond.is_equivalent("current == -1") or cond.is_equivalent("-1 == current")
+      `);
+    }
+});
+```
+
+Unapaswa kutumia tamko la `break` kuvunja mzunguko.
+
+```js
+({
+    test: () => {
+      runPython(`
+      assert _Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_stmt("break")
+      `);
+    }
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+INF = float('inf')
+adj_matrix = [
+    [0, 5, 3, INF, 11, INF],
+    [5, 0, 1, INF, INF, 2],
+    [3, 1, 0, 1, 5, INF],
+    [INF, INF, 1, 0, 9, 3],
+    [11, INF, 5, 9, 0, INF],
+    [INF, 2, INF, 3, INF, 0],
+]
+
+def shortest_path(matrix, start_node, target_node=None):
+    n = len(matrix)
+    distances = [INF] * n
+    distances[start_node] = 0
+    paths = [[node_no] for node_no in range(n)]
+    visited = [False] * n
+
+    for _ in range(n):
+        min_distance = INF  
+        current = -1  
+        for node_no in range(n):  
+            if not visited[node_no] and distances[node_no] < min_distance:  
+                min_distance = distances[node_no]  
+                current = node_no
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

@@ -1,0 +1,115 @@
+---
+id: 687775bed85144353d298665
+title: Hatua 16
+challengeType: 20
+dashedName: step-16
+---
+
+# --description--
+
+Sasa umechagua na kuashiria nodi kama iliyotembelewa, ni wakati wa kuangalia majirani zake wote kuona kama unaweza kupata njia fupi zaidi za kufikia.
+
+Baada ya mstari `visited[current] = True`, ongeza mzunguko wa `for` unaorudia kupitia `node_no` katika `range(n)`.
+
+Ndani ya mzunguko huu, tengeneza kigezo `distance` na uweke thamani yake kuwa `matrix[current][node_no]`. Hii itakupa umbali kutoka nodi ya sasa hadi nodi jirani.
+
+# --hints--
+
+Unapaswa kuongeza mzunguko wa `for` baada ya kuashiria nodi ya sasa kama iliyotembelewa.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(`
+func = _Node(_code).find_function("shortest_path")
+outer_loop = func.find_for_loops()[0]
+len(outer_loop.find_bodies()[0].find_for_loops()) >= 2
+      `)
+      );
+    }
+});
+```
+
+Mzunguko unapaswa kurudia kupitia `node_no` katika `range(n)`.
+
+```js
+({
+    test: () => {
+      runPython(`  
+loop = _Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_for_loops()[1]  
+assert loop.find_for_vars().is_equivalent("node_no")  
+assert loop.find_for_iter().is_equivalent("range(n)")  
+`);
+    }
+});
+```
+
+Unapaswa kutengeneza kigezo `distance` ndani ya mzunguko.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(`
+func = _Node(_code).find_function("shortest_path")
+outer_loop = func.find_for_loops()[0]
+neighbor_loop = outer_loop.find_bodies()[0].find_for_loops()[1]
+neighbor_loop.find_bodies()[0].has_variable("distance")
+      `)
+      );
+    }
+});
+```
+
+Kigezo `distance` kinapaswa kuwekwa kuwa `matrix[current][node_no]`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(`_Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].is_equivalent("distance = matrix[current][node_no]")
+      `)
+      );
+    }
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+INF = float('inf')
+adj_matrix = [
+    [0, 5, 3, INF, 11, INF],
+    [5, 0, 1, INF, INF, 2],
+    [3, 1, 0, 1, 5, INF],
+    [INF, INF, 1, 0, 9, 3],
+    [11, INF, 5, 9, 0, INF],
+    [INF, 2, INF, 3, INF, 0],
+]
+
+def shortest_path(matrix, start_node, target_node=None):
+    n = len(matrix)
+    distances = [INF] * n
+    distances[start_node] = 0
+    paths = [[node_no] for node_no in range(n)]
+    visited = [False] * n
+
+    for _ in range(n):
+        min_distance = INF
+        current = -1
+        for node_no in range(n):
+            if not visited[node_no] and distances[node_no] < min_distance:
+                min_distance = distances[node_no]  
+                current = node_no
+
+        if current == -1:
+            break
+        visited[current] = True
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

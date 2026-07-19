@@ -1,0 +1,57 @@
+---
+id: 65b7cd2b7bd9a684ccf1dc16
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Ili rudia juu ya funguo za kamusi, unaweza kuweka kamusi moja kwa moja katika mzunguko wa `for`. Msimbo ulio chini utachapisha kila ufunguo katika kamusi ya `dict`:
+
+```py
+for i in dict:
+   print(i)
+```
+
+Badilisha wito la `print()` na mzunguko wa `for` unaorudia juu ya `copper` na kuchapisha kila ufunguo.
+
+# --hints--
+
+Haupaswi kuwa na `print(copper)` katika msimbo wako.
+
+```js
+({ test: () => assert.isFalse(runPython(`_Node(_code).has_call("print(copper)")`)) })
+```
+
+Unapaswa kuunda mzunguko wa `for` rudia juu ya kamusi ya `copper`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_for_loops()[0].find_for_iter().is_equivalent("copper")`)) })
+```
+
+Unapaswa kuchapisha kila ufunguo wa `copper` ndani ya mzunguko wako wa `for`.
+
+```js
+({ test: () => assert(runPython(`
+var = _Node(_code).find_for_loops()[0].find_for_vars()
+_Node(_code).find_for_loops()[0].find_bodies()[0].is_equivalent(f"print({var})")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+copper = {
+    'species': 'guinea pig',
+    'age': 2
+}
+copper['food'] = 'hay'
+copper['species'] = 'Cavia porcellus'
+
+print(copper)
+--fcc-editable-region--
+```

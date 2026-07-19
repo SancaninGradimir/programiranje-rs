@@ -1,0 +1,115 @@
+---
+id: 68d30fc57588d97fd3027b30
+title: "Challenge 79: Navigator"
+challengeType: 29
+dashedName: challenge-79
+---
+
+# --description--
+
+Mnamo Oktoba 28, 1994, Netscape Navigator ilizinduliwa, ikisaidia mamilioni ya watu kuchunguza mtandao wa mwanzo.
+
+Ukizingatia safu ya data ya amri za kivinjari ulizotekeleza kwenye Netscape Navigator, rudisha ukurasa wa sasa ulio nao baada ya kutekeleza amri zote kwa kutumia sheria zifuatazo:
+
+- Daima unaanza kwenye ukurasa wa `"Home"`, ambao hautajumuishwa katika safu ya amri.
+- Amri halali ni:
+  - `"Visit Page"`: Ambapo `"Page"` ni jina la ukurasa unaotembelea. Kwa mfano, `"Visit About"` inakupeleka kwenye ukurasa wa `"About"`. Unapotembelea ukurasa mpya, hakikisha unafuta historia yoyote ya mbele uliyo nayo.
+  - `"Back"`: Inakupeleka kwenye ukurasa uliotembelea awali katika historia yako au kubaki kwenye ukurasa wa sasa ikiwa hakuna.
+  - `"Forward"`: Inakupeleka mbele katika historia hadi ukurasa ulio kutoka au kubaki kwenye ukurasa wa sasa ikiwa hakuna.
+
+Kwa mfano, ukipata `["Visit About Us", "Back", "Forward"]`, rudisha `"About Us"`.
+
+# --hints--
+
+`navigate(["Visit About Us", "Back", "Forward"])` should return `"About Us"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Visit About Us", "Back", "Forward"]), "About Us")`)
+}})
+```
+
+`navigate(["Forward"])` should return `"Home"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Forward"]), "Home")`)
+}})
+```
+
+`navigate(["Back"])` should return `"Home"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Back"]), "Home")`)
+}})
+```
+
+`navigate(["Visit About Us", "Visit Gallery"])` should return `"Gallery"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Visit About Us", "Visit Gallery"]), "Gallery")`)
+}})
+```
+
+`navigate(["Visit About Us", "Visit Gallery", "Back", "Back"])` should return `"Home"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Visit About Us", "Visit Gallery", "Back", "Back"]), "Home")`)
+}})
+```
+
+`navigate(["Visit About", "Visit Gallery", "Back", "Visit Contact", "Forward"])` should return `"Contact"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Visit About", "Visit Gallery", "Back", "Visit Contact", "Forward"]), "Contact")`)
+}})
+```
+
+`navigate(["Visit About Us", "Visit Visit Us", "Forward", "Visit Contact Us", "Back"])` should return `"Visit Us"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(navigate(["Visit About Us", "Visit Visit Us", "Forward", "Visit Contact Us", "Back"]), "Visit Us")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def navigate(commands):
+
+    return commands
+```
+
+# --solutions--
+
+```py
+def navigate(commands):
+    history = ["Home"]
+    current_index = 0
+
+    for command in commands:
+        if command.startswith("Visit "):
+            history = history[:current_index + 1]
+            history.append(command[6:])
+            current_index += 1
+        elif command == "Back" and current_index > 0:
+            current_index -= 1
+        elif command == "Forward" and current_index < len(history) - 1:
+            current_index += 1
+
+    return history[current_index]
+```

@@ -1,0 +1,66 @@
+---
+id: 587d824c367417b2b2512c4c
+title: Thibitisha usawa wa kina kwa .deepEqual na .notDeepEqual
+challengeType: 2
+forumTopicId: 301587
+dashedName: assert-deep-equality-with--deepequal-and--notdeepequal
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa kuanzia uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+`deepEqual()` inathibitisha kuwa vitu viwili vina usawa wa kina.
+
+# --instructions--
+
+Ndani ya `tests/1_unit-tests.js` chini ya jaribio lililo na lebo ya `#7` katika suite ya `Equality`, badilisha kila `assert` kuwa `assert.deepEqual` au `assert.notDeepEqual` ili jaribio lifaulu (linapaswa kutathminiwa kuwa `true`). Usibadilishe hoja zinazopitishwa kwa uthibitisho.
+
+# --hints--
+
+Jaribio zote zinapaswa kupita.
+
+```js
+(async () => {
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=6');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.state, 'passed');
+})();
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa kwanza - `deepEqual` dhidi ya `notDeepEqual`.
+
+```js
+(async () => {
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=6');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.assertions[0].method,
+    'deepEqual',
+    'The order of the keys does not matter'
+  );
+})();
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa pili - `deepEqual` dhidi ya `notDeepEqual`.
+
+```js
+(async () => {
+  const response = await fetch(code + '/_api/get-tests?type=unit&n=6');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(
+    data.assertions[1].method,
+    'notDeepEqual',
+    'The position of elements within an array does matter'
+  );
+})();
+```

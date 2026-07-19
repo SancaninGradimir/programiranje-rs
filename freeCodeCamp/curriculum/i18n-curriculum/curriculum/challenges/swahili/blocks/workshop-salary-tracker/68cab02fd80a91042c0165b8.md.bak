@@ -1,0 +1,137 @@
+---
+id: 68cab02fd80a91042c0165b8
+title: Hatua 39
+challengeType: 20
+dashedName: step-39
+---
+
+# --description--
+
+Baada ya tamko lako la `if` lililopo, tengeneza lingine kwa wakati mshahara mpya ni chini ya mshahara wa msingi kwa kiwango cha sasa. Tumia `hasattr(self, '_level')` kuepuka `AttributeError` wakati wa uanzishaji.
+
+Ndani ya tamko la `if`, onyesha `ValueError` yenye ujumbe wa `Salary must be higher than minimum salary $` ikifuatiwa na mshahara wa msingi kwa kiwango cha sasa na nukta.
+
+# --hints--
+
+Unapaswa kuwa na tamko la pili la `if` katika setter yako ya `salary`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_functions("salary")[1].find_ifs()[1]`)) })
+```
+
+Tamko lako la `if` linapaswa kutumia `hasattr(self, '_level')` kuangalia kama `_level` ipo kabla ya kulinganisha.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_functions("salary")[1].find_ifs()[1].find_conditions()[0].is_equivalent("hasattr(self, '_level') and new_salary < Employee._base_salaries[self.level]")`)) })
+```
+
+Wakati mshahara mpya ni chini ya mshahara wa msingi kwa kiwango cha sasa, unapaswa kuonyesha `ValueError` yenye ujumbe wa `Salary must be higher than minimum salary $` ikifuatiwa na mshahara wa msingi kwa kiwango cha sasa na nukta.
+
+```js
+({ test: () => runPython(`
+  emp = Employee('Frank', 'trainee')
+  built_in_print = print
+  print = lambda x: x
+  minimum_salary = Employee._base_salaries['trainee']
+  try:
+    emp.salary = minimum_salary - 1
+  except ValueError as e:
+    print = built_in_print
+    assert str(e) == f"Salary must be higher than minimum salary \${minimum_salary}."
+  else:
+    assert False, "Expected to raise ValueError with invalid new_salary"
+`) })
+```
+
+Hupaswi kuonyesha kosa lolote wakati `new_salary` ni kubwa kuliko mshahara wa sasa.
+
+```js
+({ test: () => runPython(`
+  emp = Employee('Frank', 'trainee')
+  built_in_print = print
+  print = lambda x: x
+  minimum_salary = Employee._base_salaries['trainee']
+  try:
+    emp.salary = minimum_salary + 1
+  except Exception:
+    assert False, "Expected not to raise exception with valid new_salary"
+  try:
+    emp.salary = minimum_salary + 1000
+  except Exception:
+    assert False, "Expected not to raise exception with valid new_salary"
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Employee:
+    _base_salaries = {
+        'trainee': 1000,
+        'junior': 2000,
+        'mid-level': 3000,
+        'senior': 4000,
+    }
+
+    def __init__(self, name, level):
+        self.name = name
+        self.level = level
+        self.salary = Employee._base_salaries[level]
+
+    def __str__(self):
+        return f'{self.name}: {self.level}'
+
+    def __repr__(self):
+        return f"Employee('{self.name}', '{self.level}')"
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, new_name):
+        if not isinstance(new_name, str):
+            raise TypeError("'name' must be a string.")
+        self._name = new_name
+        print(f"'name' updated to '{self.name}'.")
+
+    @property
+    def level(self):
+        return self._level
+
+    @level.setter
+    def level(self, new_level):
+        if not isinstance(new_level, str):
+            raise TypeError("'level' must be a string.")
+        if new_level not in Employee._base_salaries:
+            raise ValueError(f"Invalid value '{new_level}' for 'level' attribute.")
+        if hasattr(self, '_level') and new_level == self.level:
+            raise ValueError(f"'{self.level}' is already the selected level.")
+        if hasattr(self, '_level') and Employee._base_salaries[new_level] < Employee._base_salaries[self.level]:
+            raise ValueError("Cannot change to lower level.")
+        print(f"'{self.name}' promoted to '{new_level}'.")
+        self.salary = Employee._base_salaries[new_level]
+        self._level = new_level
+
+    @property
+    def salary(self):
+        return self._salary
+
+    @salary.setter
+    def salary(self, new_salary):
+        if not isinstance(new_salary, (int, float)):
+            raise TypeError("'salary' must be a number.")
+--fcc-editable-region--
+        
+--fcc-editable-region--
+        self._salary = new_salary
+        print(f'Salary updated to ${self.salary}.')
+
+charlie_brown = Employee('Charlie Brown', 'trainee')
+print(charlie_brown)
+print(f'Base salary: ${charlie_brown.salary}')
+charlie_brown.level = 'junior'
+
+```

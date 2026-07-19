@@ -1,0 +1,139 @@
+---
+id: 587d7dbe367417b2b2512bb9
+title: Tumia @for kuunda mzunguko wa Sass
+challengeType: 0
+forumTopicId: 301462
+dashedName: use-for-to-create-a-sass-loop
+---
+
+# --description--
+
+Amri ya `@for` inaongeza mitindo kwa mzunguko, sawa sana na mzunguko wa `for` katika JavaScript.
+
+`@for` hutumika kwa njia mbili: "anza hadi mwisho" au "anza kwa mwisho". Tofauti kuu ni kwamba "anza **kwa** mwisho" *haijumuishi* nambari ya mwisho kama sehemu ya hesabu, na "anza **hadi** mwisho" *inajumuisha* nambari ya mwisho kama sehemu ya hesabu.
+
+Hapa kuna mfano wa kuanza **hadi** mwisho:
+
+```scss
+@for $i from 1 through 12 {
+  .col-#{$i} { width: 100%/12 * $i; }
+}
+```
+
+Sehemu ya `#{$i}` ni sintaksia ya kuunganisha kigezo (`i`) na maandishi kuunda mfuatano wa herufi. Wakati faili la Sass linapobadilishwa kuwa CSS, linaonekana hivi:
+
+```scss
+.col-1 {
+  width: 8.33333%;
+}
+
+.col-2 {
+  width: 16.66667%;
+}
+
+...
+
+.col-12 {
+  width: 100%;
+}
+```
+
+Hii ni njia yenye nguvu ya kuunda mpangilio wa gridi. Sasa una chaguzi kumi na mbili za upana wa safu zinazopatikana kama madarasa ya CSS.
+
+# --instructions--
+
+Andika amri ya `@for` inayochukua kigezo `$j` kinachoenda kutoka 1 **kwa** 6.
+
+Inapaswa kuunda madarasa 5 yanayoitwa `.text-1` hadi `.text-5` ambapo kila moja ina `font-size` iliyowekwa kuwa 15px mara nambari ya kielezo.
+
+# --hints--
+
+Msimbo wako unapaswa kutumia amri ya `@for`.
+
+```js
+assert(code.match(/@for /g));
+```
+
+Darasa lako la `.text-1` linapaswa kuwa na `font-size` ya 15px.
+
+```js
+assert($('.text-1').css('font-size') == '15px');
+```
+
+Darasa lako la `.text-2` linapaswa kuwa na `font-size` ya 30px.
+
+```js
+assert($('.text-2').css('font-size') == '30px');
+```
+
+Darasa lako la `.text-3` linapaswa kuwa na `font-size` ya 45px.
+
+```js
+assert($('.text-3').css('font-size') == '45px');
+```
+
+Darasa lako la `.text-4` linapaswa kuwa na `font-size` ya 60px.
+
+```js
+assert($('.text-4').css('font-size') == '60px');
+```
+
+Darasa lako la `.text-5` linapaswa kuwa na `font-size` ya 75px.
+
+```js
+assert($('.text-5').css('font-size') == '75px');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style type='text/scss'>
+
+
+
+</style>
+
+<p class="text-1">Hello</p>
+<p class="text-2">Hello</p>
+<p class="text-3">Hello</p>
+<p class="text-4">Hello</p>
+<p class="text-5">Hello</p>
+```
+
+# --solutions--
+
+```html
+<style type='text/scss'>
+
+@for $i from 1 through 5 {
+  .text-#{$i} { font-size: 15px * $i; }
+}
+
+</style>
+
+<p class="text-1">Hello</p>
+<p class="text-2">Hello</p>
+<p class="text-3">Hello</p>
+<p class="text-4">Hello</p>
+<p class="text-5">Hello</p>
+```
+
+---
+
+```html
+<style type='text/scss'>
+
+@for $i from 1 to 6 {
+  .text-#{$i} { font-size: 15px * $i; }
+}
+
+</style>
+
+<p class="text-1">Hello</p>
+<p class="text-2">Hello</p>
+<p class="text-3">Hello</p>
+<p class="text-4">Hello</p>
+<p class="text-5">Hello</p>
+```

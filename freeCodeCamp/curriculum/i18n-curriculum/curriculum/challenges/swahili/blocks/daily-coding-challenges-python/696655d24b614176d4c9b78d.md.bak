@@ -1,0 +1,85 @@
+---
+id: 696655d24b614176d4c9b78d
+title: "Challenge 170: Odd or Even Day"
+challengeType: 29
+dashedName: challenge-170
+---
+
+# --description--
+
+Ukitoa timestamp (idadi ya millisekunde tangu mwanzo wa Unix epoch), rudisha:
+
+- `"odd"` ikiwa nambari ya siku ya mwezi kwa timestamp hiyo ni isiyo sawa.
+- `"even"` ikiwa nambari ya siku ya mwezi kwa timestamp hiyo ni sawa.
+
+Kwa mfano, ukitoa `1769472000000`, timestamp ya tarehe 27 Januari, 2026, rudisha `"odd"` kwa sababu nambari ya siku (`27`) ni nambari isiyo sawa.
+
+Kumbuka: Timestamp iko katika millisekunde na unapaswa kutumia tarehe katika saa za UTC, si saa za eneo lako la wakati.
+
+# --hints--
+
+`odd_or_even_day(1769472000000)` should return `"odd"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(odd_or_even_day(1769472000000), "odd")`)
+}})
+```
+
+`odd_or_even_day(1769444440000)` should return `"even"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(odd_or_even_day(1769444440000), "even")`)
+}})
+```
+
+`odd_or_even_day(6739456780000)` should return `"odd"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(odd_or_even_day(6739456780000), "odd")`)
+}})
+```
+
+`odd_or_even_day(1)` should return `"odd"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(odd_or_even_day(1), "odd")`)
+}})
+```
+
+`odd_or_even_day(86400000)` should return `"even"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(odd_or_even_day(86400000), "even")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def odd_or_even_day(timestamp):
+
+    return timestamp
+```
+
+# --solutions--
+
+```py
+from datetime import datetime
+
+def odd_or_even_day(timestamp):
+    dt = datetime.utcfromtimestamp(timestamp / 1000)
+    day = dt.day
+    return "even" if day % 2 == 0 else "odd"
+```

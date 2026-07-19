@@ -1,0 +1,223 @@
+---
+id: 680900675ae3d54ee19590c9
+title: Hatua 9
+challengeType: 0
+dashedName: step-9
+---
+
+# --description--
+
+Ndani ya kipengele chako cha `select`, unahitaji kuunda chaguzi kwa mtumizi kuchagua kama chanzo chao cha nguvu. `select` inapaswa kuwa na chaguzi saba zilizoorodheshwa hapa chini:
+
+| Chanzo cha nguvu                  |
+|-------------------------------|
+| `Select one`                    |
+| `Bitten by a strange creature`  |
+| `Radioactive exposure`          |
+| `Science experiment`           |
+| `Alien heritage `               |
+| `Ancient artifact discovery`    |
+| `Other`                         |
+
+Chaguo la kwanza (`Select one`) linapaswa kuwa na mfuatano wa herufi tupu kama sifa ya kipengele cha `value` (yaani, `value=''`). Hii hufanya kazi kama kiwakilishi katika UI.
+
+# --hints--
+
+Unapaswa kuunda kipengele cha kwanza cha `option` chenye maandishi ya `Select one` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[0]?.textContent, "Select one");
+```
+
+Unapaswa kumpa kipengele cha kwanza cha `option` sifa ya kipengele ya `value` yenye mfuatano wa herufi tupu.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[0]?.getAttribute('value'), '');
+```
+
+Unapaswa kuunda kipengele cha pili cha `option` chenye maandishi ya `Bitten by a strange creature` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[1]?.textContent, "Bitten by a strange creature");
+```
+
+Unapaswa kuunda kipengele cha tatu cha `option` chenye maandishi ya `Radioactive exposure` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[2]?.textContent, "Radioactive exposure");
+```
+
+Unapaswa kuunda kipengele cha nne cha `option` chenye maandishi ya `Science experiment` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[3]?.textContent, "Science experiment");
+```
+
+Unapaswa kuunda kipengele cha tano cha `option` chenye maandishi ya `Alien heritage` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[4]?.textContent, "Alien heritage");
+```
+
+Unapaswa kuunda kipengele cha sita cha `option` chenye maandishi ya `Ancient artifact discovery` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[5]?.textContent, "Ancient artifact discovery");
+```
+
+Unapaswa kuunda kipengele cha saba cha `option` chenye maandishi ya `Other` ndani ya kipengele chako cha `select`.
+
+```js
+const optionEls = document?.querySelectorAll("select > option");
+assert.equal(optionEls[6]?.textContent, "Other");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Superhero Application Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.3/babel.min.js"></script>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      src="index.jsx"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      data-presets="react"
+      data-type="module"
+    >
+      import { SuperheroForm } from './index.jsx';
+      ReactDOM.createRoot(document.getElementById('root')).render(<SuperheroForm />);
+    </script>
+  </body>
+</html>
+```
+
+```css
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(30deg, #ff9999 50%, #6699ff 50%)
+}
+
+.form-wrap {
+  background-color: white;
+  width: 400px;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px black;
+}
+
+.form-wrap h2,
+.form-wrap p {
+  text-align: center;
+}
+
+.form-wrap p {
+  position: relative;
+  top: -18px;
+}
+
+.section {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.submit-wrap {
+  text-align: center;
+}
+
+.submit-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid black
+}
+
+.submit-btn:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+
+.submit-btn:disabled {
+  cursor: not-allowed;
+}
+```
+
+```jsx
+const { useState } = React;
+
+export const SuperheroForm = () => {
+
+  const [heroName, setHeroName] = useState('');
+  const [realName, setRealName] = useState('');
+  const [powerSource, setPowerSource] = useState('');
+  const [powers, setPowers] = useState([]);
+
+  return (
+    <div className='form-wrap'>
+      <h2>Superhero Application Form</h2>
+      <p>Please complete all fields</p>
+      <form>
+        <div className='section'>
+          <label>
+            Hero Name
+            <input
+              type='text'
+              value={heroName}
+              onChange={e => setHeroName(e.target.value)}
+            />
+          </label>
+          <label>
+            Real Name
+            <input
+              type='password'
+              value={realName}
+              onChange={e => setRealName(e.target.value)}
+            />
+          </label>
+        </div>
+          <label className='section column'>
+            How did you get your powers?
+            --fcc-editable-region--
+            <select>
+              
+            </select>
+            --fcc-editable-region--
+          </label>
+      </form>
+    </div>
+  )
+};
+```

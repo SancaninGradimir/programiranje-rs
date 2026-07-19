@@ -1,0 +1,194 @@
+---
+id: 673500b41af8500191febedc
+title: Jinsi ya kuonyesha orodha katika React?
+challengeType: 19
+dashedName: how-do-you-render-lists-in-react
+---
+
+# --description--
+
+Kuonyesha orodha ni zoezi la msingi katika programu za mtandao za React, na hutumika kwa ajili ya kuonyesha data kwa watumizi. Katika React, njia ya `map` hutumika kubadilisha safu ya data kuwa safu ya vipengele vya JSX vinavyoweza kuonyeshwa kwenye UI.
+
+Hapa kuna mfano wa sehemu inayoitwa `FruitList` inayonyesha orodha ya matunda:
+
+```jsx
+function FruitList() {
+  const fruits = ['Apple', 'Banana', 'Cherry', 'Date'];
+  return (
+    <ul>
+      {fruits.map(fruit => <li>{fruit}</li>)}
+    </ul>
+  );
+}
+```
+
+Katika mfano huu, kitendakazi cha `map` hurudia kila kipengee katika safu ya `fruits`. Kwa kila tunda, huunda kipengele kipya cha `li` chenye jina la tunda hilo. Safu mpya ya vipengele vya `li` kisha inaonyeshwa ndani ya lebo za mzazi za `ul`.
+
+Hata hivyo, wakati wa kuonyesha orodha katika React, ni muhimu usisahau vigezo vya `key` kwa kila kipengele katika orodha. Key lazima iwe ya kipekee kila wakati na husaidia React kutambua ni vipengee gani vimebadilika, vimeongezwa, au vimeondolewa, jambo ambalo ni muhimu kwa uonyeshaji na kusasisha orodha kwa ufanisi.
+
+Kama ukisahau key, React itaonyesha onyo kwenye konsoli, lakini haitupa hitilafu mbaya. Programu bado inaweza kuonyesha na kufanya kazi, lakini unaweza kukutana na hitilafu ndogo ndogo, hasa wakati orodha inabadilika. Hitilafu hizi zinaweza kuwa ngumu kutafuta makosa kwa sababu UI inaweza kuonekana sawa mwanzoni.
+
+Kosa la kawaida ni kutumia kielezo cha safu kama key, kama ifuatavyo:
+
+```jsx
+{fruits.map((fruit, index) => <li key={index}>{fruit}</li>)}
+```
+
+Ingawa hili linatulia onyo, kwa ujumla linachukuliwa kuwa mbinu isiyofaa. Kutumia kielezo kama key kunaweza kusababisha matatizo wakati orodha inapo pangwa upya, kupangwa, au kuchujwa. React hutumia key kufuatilia vipengele. Ikiwa mpangilio wa orodha unabadilika, React inaweza kutumia vibaya hali ya sehemu au kushindwa kusasisha DOM kwa ufanisi kwa sababu keys (vielezo) hubaki vile vile hata kama yaliyomo kwenye kielezo hicho yamebadilika.
+
+Mbinu bora ni kutumia kitambulisho thabiti na cha kipekee kwa kila kipengee. Hii kawaida ni ID kutoka kwenye hifadhidata yako, kama UUID au ID ya hifadhidata.
+
+Kama data yako haina ID ya kipekee, unaweza kuunda moja wakati data inapotengenezwa (mfano, kwa kutumia `crypto.randomUUID()` au maktaba kama `uuid`), au tumia mchanganyiko wa sehemu ambazo zinahakikisha kipekee. Hata hivyo, unapaswa kuepuka kuunda keys wakati wa uonyeshaji (mfano, `key={Math.random()}`), kwa sababu hii itasababisha React kuunda upya vipengele vya DOM kila mara na kuweka upya hali yao.
+
+Hebu tubadilishe mfano wetu ili kujumuisha keys:
+
+```jsx
+function FruitList() {
+  const fruits = ["Apple", "Banana", "Cherry", "Date"];
+  return (
+    <ul>
+      {fruits.map((fruit, index) => (
+        <li key={`${fruit}-${index}`}>{fruit}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+Katika mfano huu uliobadilishwa, tunaunda key ya kipekee kwa kila kipengee cha orodha kwa kuunganisha jina la tunda na kielezo chake. Hii inahakikisha kila kipengee cha orodha kina key tofauti, ambayo husaidia React kusimamia na kusasisha orodha kwa ufanisi wakati vipengee vinaongezwa, kuondolewa, au kupangwa upya.
+
+React pia inakuwezesha kuonyesha miundo tata zaidi. Kwa mfano, unaweza kuwa na safu ya vitu vinavyo wakilisha watumizi, kila mmoja akiwa na mali nyingi unazotaka kuonyesha:
+
+```jsx
+function UserList() {
+  const users = [
+    { id: "user-001-employee", name: "Alice", email: "alice@example.com" },
+    { id: "user-002-employee", name: "Bob", email: "bob@example.com" },
+    { id: "user-003-employee", name: "John", email: "john@example.com" },
+  ];
+  return (
+    <div>
+      {users.map((user) => (
+        <div key={user.id}>
+          <h3>{user.name}</h3>
+          <p>{user.email}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+Katika mfano huu, tunaunda muundo tata zaidi wa JSX kwa kila mtumizi, tukionyesha jina lao na anwani ya barua pepe. Tunatumia `id` ya mtumizi kama `key`, ambayo ni mbinu bora.
+
+Kwa kumalizia, kuonyesha orodha katika React kunahusisha kubadilisha safu za data kuwa vipengele vya JSX, kawaida kwa kutumia kitendakazi cha `map`.
+
+# --questions--
+
+## --text--
+
+Lengo kuu la kutumia vigezo vya `key` wakati wa kuonyesha orodha katika React ni lipi?
+
+## --answers--
+
+Kuwa na mtindo kwa vipengee vya orodha.
+
+### --feedback--
+
+Fikiria kile tulichosema kuhusu uboreshaji wa uonyeshaji wa React.
+
+---
+
+Kusaidia React kutambua mabadiliko katika orodha kwa ufanisi.
+
+---
+
+Kupanga vipengee vya orodha.
+
+### --feedback--
+
+Fikiria kile tulichosema kuhusu uboreshaji wa uonyeshaji wa React.
+
+---
+
+Kuchuja vipengee vya orodha.
+
+### --feedback--
+
+Fikiria kile tulichosema kuhusu uboreshaji wa uonyeshaji wa React.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Njia gani ya JavaScript kawaida hutumika kubadilisha safu ya data kuwa safu ya vipengele vya JSX katika React?
+
+## --answers--
+
+`forEach()`
+
+### --feedback--
+
+Kumbuka njia tuliyotumia mara kwa mara katika mifano yetu kuunda vipengele vya JSX kutoka kwa vipengee vya safu.
+
+---
+
+`reduce()`
+
+### --feedback--
+
+Kumbuka njia tuliyotumia mara kwa mara katika mifano yetu kuunda vipengele vya JSX kutoka kwa vipengee vya safu.
+
+---
+
+`map()`
+
+---
+
+`filter()`
+
+### --feedback--
+
+Kumbuka njia tuliyotumia mara kwa mara katika mifano yetu kuunda vipengele vya JSX kutoka kwa vipengee vya safu.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Wakati wa kuonyesha orodha ya vipengee vyenye ID za kipekee, ni mbinu gani bora zaidi kwa vigezo vya `key`?
+
+## --answers--
+
+Tumia kielezo cha kipengee katika safu.
+
+### --feedback--
+
+Kumbuka tulichosema kuhusu kutumia vitambulisho thabiti na vya kipekee kwa keys.
+
+---
+
+Tumia nambari ya bahati nasibu.
+
+### --feedback--
+
+Kumbuka tulichosema kuhusu kutumia vitambulisho thabiti na vya kipekee kwa keys.
+
+---
+
+Tumia ID ya kipekee ya kipengee.
+
+---
+
+Tumia jina au kichwa cha kipengee.
+
+### --feedback--
+
+Kumbuka tulichosema kuhusu kutumia vitambulisho thabiti na vya kipekee kwa keys.
+
+## --video-solution--
+
+3

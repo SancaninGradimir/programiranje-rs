@@ -1,0 +1,293 @@
+---
+id: 687ea8eba2a8b119f2ad9f8c
+title: Njia Gani Tofauti za Kuunganisha Majedwali?
+challengeType: 19
+dashedName: what-are-the-different-ways-to-join-tables
+---
+
+# --description--
+
+Ingawa hifadhidata za uhusiano huandaa data katika majedwali tofauti, operesheni za `JOIN` za SQL zinakuwezesha kuunganisha taarifa zinazohusiana kutoka kwa majedwali ili kufanya hoja ya utafutaji ya data.
+
+Kuna aina kadhaa za operesheni za `JOIN`, zikiwemo:
+
+- `INNER JOIN`
+- `FULL OUTER JOIN`
+- `LEFT OUTER JOIN`
+- `RIGHT OUTER JOIN`
+- `SELF JOIN`
+- `CROSS JOIN`
+
+Tuanze na `INNER JOIN`.
+
+`INNER JOIN` huchuja matokeo ili kujumuisha mistari tu ambapo thamani katika safu za kuunganisha ulizozitaja ni sawa katika majedwali yote mawili. Kwa msingi, inakupa mkusanyiko wa data unaoshirikiwa.
+
+Ili kuonyesha hili, tuseme tuna majedwali mawili.
+
+Ya kwanza ni jedwali la `products` lenye bidhaa nyingi. Linajumuisha nambari zao za utambulisho, majina, kundi, bei, na asili.
+
+```sql
+| product_id | product_name     | category    | price (USD) | origin        |
+| ---------- | ---------------- | ----------- | ----------- | ------------- |
+| 1          | Ice Cream        | Food        | 2.50        | India         |
+| 2          | Pizza Margherita | Food        | 12.00       | Italy         |
+| 3          | Sushi            | Food        | 18.75       | Japan         |
+| 4          | T-Shirt          | Clothing    | 25.00       | USA           |
+| 5          | Jeans            | Clothing    | 60.00       | Argentina     |
+| 6          | Coffee           | Beverages   | 35.00       | France        |
+| 7          | Juice            | Beverages   | 5.00        | Colombia      |
+```
+
+Na ya pili, tuna jedwali la `sales`, lenye nambari ya mauzo, nambari ya bidhaa, kiasi, na tarehe ya mauzo.
+
+```sql
+| sale_id | product_id | quantity | sale_date  |
+| ------- | ---------- | -------- | ---------- |
+| 101     | 1          | 2        | 2025-07-18 |
+| 102     | 2          | 3        | 2025-02-13 |
+| 103     | 6          | 10       | 2025-06-08 |
+| 104     | 5          | 8        | 2025-01-10 |
+| 105     | 2          | 1        | 2025-05-15 |
+```
+
+Tunaweza kufanya `INNER JOIN` kulingana na `product_id` kama ifuatavyo:
+
+```sql
+SELECT *
+FROM products
+INNER JOIN sales
+  ON products.product_id = sales.product_id;
+```
+
+Hii itapata mistari tu yenye `product_id` sawa katika majedwali yote mawili. Hivyo kama bidhaa haipo katika jedwali la mauzo au la bidhaa, haitajumuishwa.
+
+Huu ndio matokeo:
+
+```sql
+product_id | product_name     | category  | price | origin    | sale_id | product_id | quantity | sale_date
+---------- | ---------------- | --------- |-------|-----------|---------|------------|----------|------------
+     1     | Ice Cream        | Food      |  2.50 | India     |     101 |          1 |        2 | 2025-07-18
+     2     | Pizza Margherita | Food      | 12.00 | Italy     |     102 |          2 |        3 | 2025-02-13
+     2     | Pizza Margherita | Food      | 12.00 | Italy     |     105 |          2 |        1 | 2025-05-15
+     5     | Jeans            | Clothing  | 60.00 | Argentina |     104 |          5 |        8 | 2025-01-10
+     6     | Coffee           | Beverages | 35.00 | France    |     103 |          6 |       10 | 2025-06-08
+```
+
+Tunaona mistari ya bidhaa ambazo zimeuzwa tu. Kwa mfano, `'Pizza Margherita'` iko katika jedwali la `sales`, yenye `product_id` ya `2`, hivyo tunapata bidhaa hiyo katika matokeo.
+
+Hata hivyo, `'T-Shirts'` yenye `product_id` ya `4` haikuuzwa, hivyo bidhaa hii haipo katika jedwali la `sales`. Hazipo katika majedwali yote mawili, kwa hivyo hazijajumuishwa katika matokeo.
+
+Kuunganisha majedwali hufanya hasa kile kinachosikika. Huu ni muunganiko wa majedwali mawili au zaidi kuwa moja, ndiyo maana tunaona safu zote kutoka kwa majedwali yote mawili, zikiwemo `product_id` mara mbili.
+
+`FULL OUTER JOIN` hurudisha mistari yote kutoka kwa majedwali yote mawili.
+
+Kama patakapopatikana mlingano katika safu ulizotaja, data huunganishwa na unapata safu zote kwa kila rekodi inayolingana.
+
+Kama hakuna mlingano katika safu ulizotaja, katika mojawapo ya majedwali, safu zinazokosekana hujazwa na thamani za `NULL`.
+
+Tufanye `FULL OUTER JOIN` katika mfano wetu, kulingana na safu ya `product_id`. Safu hii itabaini kama kuna mlingano au la.
+
+```sql
+SELECT *
+FROM products
+FULL OUTER JOIN sales
+  ON products.product_id = sales.product_id;
+```
+
+Huu ndio matokeo:
+
+```sql
+product_id | product_name     | category  | price | origin    | sale_id | product_id | quantity | sale_date
+---------- | ---------------- | --------- |-------|-----------|---------|------------|----------|------------
+         1 | Ice Cream        | Food      |  2.50 | India     |     101 |          1 |        2 | 2025-07-18
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     102 |          2 |        3 | 2025-02-13
+         3 | Sushi            | Food      | 18.75 | Japan     |         |            |          |
+         4 | T-Shirt          | Clothing  | 25.00 | USA       |         |            |          |
+         5 | Jeans            | Clothing  | 60.00 | Argentina |     104 |          5 |        8 | 2025-01-10
+         6 | Coffee           | Beverages | 35.00 | France    |     103 |          6 |       10 | 2025-06-08
+         7 | Juice            | Beverages |  5.00 | Colombia  |         |            |          |
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     105 |          2 |        1 | 2025-05-15
+```
+
+Angalia jinsi `'Pizza Margherita'` inavyo kuwa na data zote, zikiwemo safu kutoka kwa jedwali la `sales` kwa sababu kulikuwa na mlingano.
+
+Lakini `'T-Shirt'` ina safu tupu (`NULL`) kwa sababu hakuna mlingano ulipatikana katika jedwali la `sales` (bidhaa hii haikuuzwa).
+
+`LEFT OUTER JOIN` hutumika kupata rekodi zote kutoka kwa jedwali la kushoto na taarifa zinazolingana kutoka kwa jedwali la kulia kwa kila mstari wa jedwali la kushoto.
+
+Kama hakuna mlingano, safu kutoka kwa jedwali la kulia hujazwa na thamani za `NULL`.
+
+Tufanye `LEFT OUTER JOIN` katika mfano wetu.
+
+```sql
+SELECT *
+FROM products
+LEFT JOIN sales
+  ON products.product_id = sales.product_id;
+```
+
+Huu ndio matokeo:
+
+```sql
+product_id | product_name     | category  | price | origin    | sale_id | product_id | quantity | sale_date
+---------- | ---------------- | --------- |-------|-----------|---------|------------|----------|------------
+         1 | Ice Cream        | Food      |  2.50 | India     |     101 |          1 |        2 | 2025-07-18
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     102 |          2 |        3 | 2025-02-13
+         3 | Sushi            | Food      | 18.75 | Japan     |         |            |          |
+         4 | T-Shirt          | Clothing  | 25.00 | USA       |         |            |          |
+         5 | Jeans            | Clothing  | 60.00 | Argentina |     104 |          5 |        8 | 2025-01-10
+         6 | Coffee           | Beverages | 35.00 | France    |     103 |          6 |       10 | 2025-06-08
+         7 | Juice            | Beverages |  5.00 | Colombia  |         |            |          |
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     105 |          2 |        1 | 2025-05-15
+```
+
+Katika kesi hii, ni sawa na `FULL OUTER JOIN` kwa sababu inajumuisha mistari yote kutoka kwa jedwali la kwanza, `products`.
+
+`RIGHT OUTER JOIN` ni sawa sana, lakini sasa tunapata rekodi zote kutoka kwa jedwali la kulia na taarifa zinazolingana kutoka kwa jedwali la kushoto kwa kila mstari wa jedwali la kulia.
+
+Kama hakuna mlingano, safu kutoka kwa jedwali la kushoto hujazwa na thamani za `NULL`.
+
+Tufanye `RIGHT OUTER JOIN` katika mfano wetu.
+
+```sql
+SELECT *
+FROM products
+RIGHT JOIN sales
+  ON products.product_id = sales.product_id;
+```
+
+Huu ndio matokeo:
+
+```sql
+product_id | product_name     | category  | price | origin    | sale_id | product_id | quantity | sale_date
+---------- | ---------------- | --------- |-------|-----------|---------|------------|----------|------------
+         1 | Ice Cream        | Food      |  2.50 | India     |     101 |          1 |        2 | 2025-07-18
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     102 |          2 |        3 | 2025-02-13
+         6 | Coffee           | Beverages | 35.00 | France    |     103 |          6 |       10 | 2025-06-08
+         5 | Jeans            | Clothing  | 60.00 | Argentina |     104 |          5 |        8 | 2025-01-10
+         2 | Pizza Margherita | Food      | 12.00 | Italy     |     105 |          2 |        1 | 2025-05-15
+```
+
+Utaona kuwa ina mistari michache. Hii ni kwa sababu inachukua rekodi zote kutoka kwa jedwali la kulia (`sales` katika kesi hii), na jedwali hili lina mistari michache kuliko jedwali la `products`.
+
+Kama inapata mlingano katika jedwali la `products`, hujaza safu hizo na data. Lakini kama hakuna mlingano, safu hujazwa na `NULL`.
+
+Katika kesi hii, kila bidhaa iliyouzwa ina rekodi katika jedwali la `products`, hivyo data ni kamili.
+
+Hizi ndizo operesheni za `JOIN` zinazotumika sana, lakini kuna mbili za ziada unazopaswa kujua.
+
+`SELF JOIN` hukuwezesha kuunganisha jedwali na lile lenyewe. Unaweza kufikiria kama kuunganisha nakala mbili za jedwali hilo. Hii ni msaada kwa kulinganisha mistari tofauti ndani ya jedwali moja.
+
+`CROSS JOIN`, pia inajulikana kama Cartesian Join, huunganisha kila mstari kutoka jedwali la kwanza na kila mstari la jedwali la pili. Kwa hivyo, huunda mchanganyiko wote wa mistari inayowezekana. Operesheni hii haitaji masharti yoyote ya kuunganisha majedwali.
+
+Operesheni hizi za `JOIN` ni msingi wa kazi na SQL. Kwa kuchagua ile inayofaa, unaweza kufanya hoja ya utafutaji ya data unayohitaji kwa ufanisi zaidi.
+
+# --questions--
+
+## --text--
+
+Ni operesheni gani ya `JOIN` ya SQL hurudisha mistari tu ambapo kuna mlingano katika majedwali yote mawili kulingana na sharti la kuunganisha?
+
+## --answers--
+
+`LEFT JOIN`
+
+### --feedback--
+
+Fikiria ni aina gani ya kuunganisha inayozuia zaidi kwa kujumuisha rekodi zinazolingana katika majedwali yote mawili pekee.
+
+---
+
+`INNER JOIN`
+
+---
+
+`RIGHT JOIN`
+
+### --feedback--
+
+Fikiria ni aina gani ya kuunganisha inayozuia zaidi kwa kujumuisha rekodi zinazolingana katika majedwali yote mawili pekee.
+
+---
+
+`FULL JOIN`
+
+### --feedback--
+
+Fikiria ni aina gani ya kuunganisha inayozuia zaidi kwa kujumuisha rekodi zinazolingana katika majedwali yote mawili pekee.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni operesheni gani ya `JOIN` ya SQL ungetumia ikiwa unahitaji kupata wateja wote (kushoto) na, kwa kila mteja, maagizo yoyote (kulia) waliyoweka? Wateja wasio na maagizo wanapaswa bado kujumuishwa katika matokeo.
+
+## --answers--
+
+`LEFT JOIN`
+
+---
+
+`INNER JOIN`
+
+### --feedback--
+
+Fikiria ni kuunganisha gani kinahakikisha rekodi zote kutoka jedwali la wateja zipo katika matokeo.
+
+---
+
+`RIGHT JOIN`
+
+### --feedback--
+
+Fikiria ni kuunganisha gani kinahakikisha rekodi zote kutoka jedwali la wateja zipo katika matokeo.
+
+---
+
+`FULL JOIN`
+
+### --feedback--
+
+Fikiria ni kuunganisha gani kinahakikisha rekodi zote kutoka jedwali la wateja zipo katika matokeo.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni operesheni gani ya `JOIN` ya SQL hurudisha mistari yote kutoka kwa majedwali yote mawili, zikiwemo mistari isiyo na mlingano (ikiwa na `NULL` kwa safu za jedwali lisilo na mlingano)?
+
+## --answers--
+
+`LEFT JOIN`
+
+### --feedback--
+
+Kuunganisha huu unalenga kuwa jumuishi zaidi, ukichukua rekodi zote kutoka kwa majedwali yote mawili.
+
+---
+
+`INNER JOIN`
+
+### --feedback--
+
+Kuunganisha huu unalenga kuwa jumuishi zaidi, ukichukua rekodi zote kutoka kwa majedwali yote mawili.
+
+---
+
+`RIGHT JOIN`
+
+### --feedback--
+
+Kuunganisha huu unalenga kuwa jumuishi zaidi, ukichukua rekodi zote kutoka kwa majedwali yote mawili.
+
+---
+
+`FULL JOIN`
+
+## --video-solution--
+
+4

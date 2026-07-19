@@ -1,0 +1,89 @@
+---
+id: a6b0bb188d873cb2c8729495
+title: Badilisha vitu vya HTML
+challengeType: 1
+forumTopicId: 16007
+dashedName: convert-html-entities
+---
+
+# --description--
+
+Badilisha herufi `&`, `<`, `>`, `"` (alama ya nukuu mara mbili), na `'` (alama ya nukuu moja), katika mfuatano wa herufi kuwa vitu vinavyolingana vya HTML.
+
+# --hints--
+
+`convertHTML("Dolce & Gabbana")` inapaswa kurudisha mfuatano wa herufi `Dolce &amp; Gabbana`.
+
+```js
+assert.match(convertHTML('Dolce & Gabbana'), /Dolce &amp; Gabbana/);
+```
+
+`convertHTML("Hamburgers < Pizza < Tacos")` inapaswa kurudisha mfuatano wa herufi `Hamburgers &lt; Pizza &lt; Tacos`.
+
+```js
+assert.match(
+  convertHTML('Hamburgers < Pizza < Tacos'),
+  /Hamburgers &lt; Pizza &lt; Tacos/
+);
+```
+
+`convertHTML("Sixty > twelve")` inapaswa kurudisha mfuatano wa herufi `Sixty &gt; twelve`.
+
+```js
+assert.match(convertHTML('Sixty > twelve'), /Sixty &gt; twelve/);
+```
+
+`convertHTML('Stuff in "quotation marks"')` inapaswa kurudisha mfuatano wa herufi `Stuff in &quot;quotation marks&quot;`.
+
+```js
+assert.match(
+  convertHTML('Stuff in "quotation marks"'),
+  /Stuff in &quot;quotation marks&quot;/
+);
+```
+
+`convertHTML("Schindler's List")` inapaswa kurudisha mfuatano wa herufi `Schindler&apos;s List`.
+
+```js
+assert.match(convertHTML("Schindler's List"), /Schindler&apos;s List/);
+```
+
+`convertHTML("<>")` inapaswa kurudisha mfuatano wa herufi `&lt;&gt;`.
+
+```js
+assert.match(convertHTML('<>'), /&lt;&gt;/);
+```
+
+`convertHTML("abc")` inapaswa kurudisha mfuatano wa herufi `abc`.
+
+```js
+assert.strictEqual(convertHTML('abc'), 'abc');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function convertHTML(str) {
+  return str;
+}
+
+convertHTML("Dolce & Gabbana");
+```
+
+# --solutions--
+
+```js
+var MAP = { '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&apos;'};
+
+function convertHTML(str) {
+  return str.replace(/[&<>"']/g, function(c) {
+    return MAP[c];
+  });
+}
+```

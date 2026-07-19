@@ -1,0 +1,87 @@
+---
+id: 587d8259367417b2b2512c85
+title: Tekeleza algoriti ya selection sort
+challengeType: 26
+dashedName: implement-the-selection-sort-algorithm
+---
+
+# --description--
+
+Katika maabara hii uta-tekeleza algoriti ya selection sort. Selection sort hufanya kazi kwa kuchagua thamani ya kiwango cha chini katika orodha na kubadilisha nafasi yake na thamani ya kwanza katika orodha. Kisha huanza kwenye nafasi ya pili, kuchagua thamani ndogo zaidi katika orodha iliyobaki, na kubadilisha nafasi yake na kipengele cha pili. Inaendelea kurudia kupitia orodha na kubadilisha vipengele hadi ifikie mwisho wa orodha. Sasa orodha imepangwa. Selection sort ina ugumu wa wakati wa mduara wa mraba katika kesi zote.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `selectionSort`.
+1. Kitendakazi cha `selectionSort` kinapaswa kuchukua safu ya data, na kurudisha safu ya data yenye vipengele sawa lakini vimepangwa kutoka kidogo hadi kikubwa.
+
+# --hints--
+
+`selectionSort` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(selectionSort);
+```
+
+`selectionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92])` inapaswa kurudisha safu ya data isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  selectionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`selectionSort` inapaswa kurudisha safu ya data iliyopangwa (kutoka kidogo hadi kikubwa).
+
+```js
+assert.sameOrderedMembers(
+  selectionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 1, 2, 2, 4, 8, 32, 43, 43, 55, 63, 92, 123, 123, 234, 345, 5643]
+)
+```
+
+`selectionSort` haipaswi kutumia njia iliyo-jengwa ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    selectionSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function selectionSort(array) {
+  for (let i = 0; i < array.length-1; i++) {
+    let minimumIndex = i;
+    for (let j = i+1; j < array.length; j++){
+      if (array[j] < array[minimumIndex]) {
+        minimumIndex = j;
+      }
+    }
+    let value = array[minimumIndex];
+    array[minimumIndex] = array[i];
+    array[i] = value;
+  }
+    return array;
+}
+```

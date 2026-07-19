@@ -1,0 +1,133 @@
+---
+id: 69e2383af7832c8032603b93
+title: "Challenge 277: Mirror Image"
+challengeType: 29
+dashedName: challenge-277
+---
+
+# --description--
+
+Ukizingatia mfuatano wa herufi miwili, amua kama mfuatano wa pili ni picha ya kioo ya mfuatano wa kwanza.
+
+Picha ya kioo huundwa kwa kubadilisha mfuatano wa herufi na kuchukua kila herufi na kuibadilisha na sawa yake katika kioo.
+
+- Herufi zinazolingana zinaonekana kama zilivyo katika kioo:
+
+`W`, `T`, `Y`, `U`, `I`, `O`, `H`, `A`, `X`, `V`, `M`, `w`, `o`, `x`, `v`, `0`, `8`, `=`, `+`, `:`, `|`, `-`, `_`, `*`, `^`, `!`, `.`, na nafasi (` `).
+
+- Pairs zinazobadilishana katika kioo hubadilishana kati yao:
+
+| Herufi | Hubadilishana na |
+| - | - |
+| `[` | `]` |
+| `{` | `}` |
+| `<` | `>` |
+| `b` | `d` |
+| `p` | `q` |
+| `(` | `)` |
+
+Kama mfuatano wowote una herufi isiyo kwenye orodha hapo juu, haina picha ya kioo inayoweza kuundwa kutoka kwa herufi hizo.
+
+Kwa mfano, picha ya kioo ya `"[HOW]"` ni `"[WOH]"`.
+
+# --hints--
+
+`is_mirror_image("[HOW]", "[WOH]")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("[HOW]", "[WOH]"), True)`)
+}})
+```
+
+`is_mirror_image("MOM", "MOM")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("MOM", "MOM"), True)`)
+}})
+```
+
+`is_mirror_image("vow", "wov")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("vow", "wov"), True)`)
+}})
+```
+
+`is_mirror_image("TIM", "TIM")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("TIM", "TIM"), False)`)
+}})
+```
+
+`is_mirror_image("{WOW}", "}WOW{")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("{WOW}", "}WOW{"), False)`)
+}})
+```
+
+`is_mirror_image("XXVII", "IIV%X")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("XXVII", "IIV%X"), False)`)
+}})
+```
+
+`is_mirror_image("><(((*>", "<*)))><")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("><(((*>", "<*)))><"), True)`)
+}})
+```
+
+`is_mirror_image("WTYUIOHAXVMwoxv08=+:|-_*^!.[]{}<>bdpq()", "()pqbd<>{}[].!^*_-|:+=80vxowMVXAHOIUYTW")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_mirror_image("WTYUIOHAXVMwoxv08=+:|-_*^!.[]{}<>bdpq()", "()pqbd<>{}[].!^*_-|:+=80vxowMVXAHOIUYTW"), True)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def is_mirror_image(s1, s2):
+
+    return s1
+```
+
+# --solutions--
+
+```py
+def is_mirror_image(s1, s2):
+    symmetric = set('WTYUIOHA XVMwoxv08=+:|-_*^!.')
+    pairs = {'[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<',
+             'b': 'd', 'd': 'b', 'p': 'q', 'q': 'p', '(': ')', ')': '('}
+    mirrored = []
+    for c in reversed(s1):
+        if c in symmetric:
+            mirrored.append(c)
+        elif c in pairs:
+            mirrored.append(pairs[c])
+        else:
+            return False
+    return ''.join(mirrored) == s2
+```

@@ -1,0 +1,141 @@
+---
+id: 5a24c314108439a4d4036184
+title: Onyesha kwa hali ya Ikiwa-Vinginevyo
+challengeType: 6
+forumTopicId: 301410
+dashedName: render-with-an-if-else-condition
+---
+
+# --description--
+
+Matumizi mengine ya kutumia JavaScript kudhibiti muonekano unaoonyeshwa ni kuunganisha vipengele vinavyoonyeshwa na hali fulani. Wakati hali hiyo ni kweli, muonekano mmoja unaonyeshwa. Wakati si kweli, muonekano mwingine unaonyeshwa. Unaweza kufanya hivi kwa kutumia tamko la `if/else` katika njia ya `render()` ya sehemu ya React.
+
+# --instructions--
+
+MyComponent ina `boolean` katika hali yake ambayo inafuatilia kama unataka kuonyesha kipengele fulani katika UI au la. `button` hubadilisha hali ya thamani hii. Kwa sasa, inaonyesha UI ile ile kila wakati. Andika upya njia ya `render()` kwa kutumia tamko la `if/else` ili ikiwa `display` ni `true`, urudishe alama za uandishi za sasa. Vinginevyo, rudisha alama za uandishi bila kipengele cha `h1`.
+
+**Kumbuka:** Lazima uandike tamko la `if/else` ili kupita mitihani. Matumizi ya opereta ya ternary hayatapitisha hapa.
+
+# --hints--
+
+`MyComponent` inapaswa kuwepo na kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+    return mockedComponent.find('MyComponent').length === 1;
+  })()
+);
+```
+
+Wakati `display` imewekwa kuwa `true`, `div`, `button`, na `h1` zinapaswa kuonyeshwa.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const state_1 = () => {
+    mockedComponent.setState({ display: true });
+    return waitForIt(() => mockedComponent);
+  };
+  const updated = await state_1();
+  assert(
+    mockedComponent.find('div').length === 1 &&
+      mockedComponent.find('div').children().length === 2 &&
+      mockedComponent.find('button').length === 1 &&
+      mockedComponent.find('h1').length === 1
+  );
+```
+
+Wakati `display` imewekwa kuwa `false`, ni `div` na `button` tu zinapaswa kuonyeshwa.
+
+```js
+  const waitForIt = (fn) =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const state_1 = () => {
+    mockedComponent.setState({ display: false });
+    return waitForIt(() => mockedComponent);
+  };
+  const updated = await state_1();
+  assert(
+    mockedComponent.find('div').length === 1 &&
+      mockedComponent.find('div').children().length === 1 &&
+      mockedComponent.find('button').length === 1 &&
+      mockedComponent.find('h1').length === 0
+  );
+```
+
+Njia ya onyesha inapaswa kutumia tamko la `if/else` kuchunguza hali ya `this.state.display`.
+
+```js
+assert(code.includes('if') && code.includes('else'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState((state) => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+
+    return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         <h1>Displayed!</h1>
+       </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+ this.toggleDisplay = this.toggleDisplay.bind(this);
+ }
+  toggleDisplay() {
+    this.setState((state) => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Change code below this line
+    if (this.state.display) {
+      return (
+         <div>
+           <button onClick={this.toggleDisplay}>Toggle Display</button>
+           <h1>Displayed!</h1>
+         </div>
+      );
+    } else {
+      return (
+        <div>
+           <button onClick={this.toggleDisplay}>Toggle Display</button>
+         </div>
+      );
+    }
+  }
+};
+```

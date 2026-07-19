@@ -1,0 +1,160 @@
+---
+id: 587d7fae367417b2b2512be4
+title: Pata data ya JSON kutoka API
+challengeType: 6
+forumTopicId: 301499
+dashedName: access-the-json-data-from-an-api
+---
+
+# --description--
+
+Katika changamoto iliyopita, u-liona jinsi ya kupata data ya JSON kutoka API ya picha za paka ya freeCodeCamp.
+
+Sasa utaangalia kwa makini zaidi data iliyorejeshwa ili kuelewa vyema muundo wa JSON. Kumbuka baadhi ya uandishi katika JavaScript:
+
+<blockquote>[ ] -> Mabano ya mraba yanawakilisha safu ya data.<br>{ } -> Mabano ya mviringo yanawakilisha kitu.<br>" " -> Alama za nukuu maradufu zinawakilisha mfuatano wa herufi. Pia hutumika kwa majina ya funguo katika JSON.</blockquote>
+
+Kuelewa muundo wa data inayorejeshwa na API ni muhimu kwa sababu huathiri jinsi unavyopata thamani unazohitaji.
+
+Kushoto, bofya kitufe cha `Get Message` ili kupakia JSON ya API ya picha za paka ya freeCodeCamp kwenye HTML.
+
+Tabia ya kwanza na ya mwisho unayoiona katika data ya JSON ni mabano ya mraba `[ ]`. Hii ina maana data iliyorejeshwa ni safu ya data. Tabia ya pili katika data ya JSON ni mabano ya mviringo `{` yanayoanza kitu. Ukiangalia kwa makini, utaona kuna vitu vitatu tofauti. Data ya JSON ni safu ya vitu vitatu, ambapo kila kitu kina taarifa kuhusu picha ya paka.
+
+Ulimjifunza awali kuwa vitu vina "jozi za ufunguo-thamani" zinazotenganishwa kwa koma. Katika mfano wa picha za paka, kitu cha kwanza kina `"id":0` ambapo `id` ni ufunguo na `0` ni thamani yake inayolingana. Vivyo hivyo, kuna funguo za `imageLink`, `altText`, na `codeNames`. Kila kitu cha picha ya paka kina funguo hizi sawa, lakini na thamani tofauti.
+
+Jozi nyingine ya kuvutia ya "ufunguo-thamani" katika kitu cha kwanza ni `"codeNames":["Juggernaut","Mrs. Wallace","ButterCup"]`. Hapa `codeNames` ni ufunguo na thamani yake ni safu ya data yenye mfuatano wa herufi tatu. Inawezekana pia kuwa na safu za vitu pamoja na ufunguo wenye safu kama thamani.
+
+Kumbuka jinsi ya kupata data katika safu za data na vitu. Safu za data hutumia uandishi wa mabano kupata kielezo maalum cha kipengee. Vitu hutumia uandishi wa mabano au uandishi wa nukta kupata thamani ya sifa fulani. Hapa kuna mfano unaochapisha sifa ya `altText` ya picha ya paka ya kwanza - kumbuka kuwa data ya JSON iliyochambuliwa katika mhariri imehifadhiwa katika kigezo kinachoitwa `json`:
+
+```js
+console.log(json[0].altText);
+```
+
+Konsoli itaonyesha mfuatano wa herufi `A white cat wearing a green helmet shaped melon on its head.`.
+
+# --instructions--
+
+Kwa paka mwenye `id` ya 2, chapisha kwenye konsoli thamani ya pili katika safu ya `codeNames`. Unapaswa kutumia uandishi wa mabano na nukta kwenye kitu (ambacho kimehifadhiwa katika kigezo `json`) kupata thamani hiyo.
+
+# --hints--
+
+Msimbo wako unapaswa kutumia uandishi wa mabano na nukta kupata jina sahihi la msimbo, na uchapishe `Loki` kwenye konsoli.
+
+```js
+assert.match(
+  code,
+  /console\s*\.\s*log\s*\(\s*json\s*\[2\]\s*(\.\s*codeNames|\[\s*('|`|")codeNames\2\s*\])\s*\[\s*1\s*\]\s*\)/g
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = function () {
+      const req = new XMLHttpRequest();
+      req.open('GET', '/json/cats.json', true);
+      req.send();
+      req.onload = function () {
+        const json = JSON.parse(req.responseText);
+        document.getElementsByClassName('message')[0].innerHTML =
+          JSON.stringify(json);
+        // Add your code below this line
+
+        // Add your code above this line
+      };
+    };
+  });
+</script>
+
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```
+
+# --solutions--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = function () {
+      const req = new XMLHttpRequest();
+      req.open('GET', '/json/cats.json', true);
+      req.send();
+      req.onload = function () {
+        const json = JSON.parse(req.responseText);
+        document.getElementsByClassName('message')[0].innerHTML =
+          JSON.stringify(json);
+        // Add your code below this line
+        console.log(json[2].codeNames[1]);
+        // Add your code above this line
+      };
+    };
+  });
+</script>
+
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```

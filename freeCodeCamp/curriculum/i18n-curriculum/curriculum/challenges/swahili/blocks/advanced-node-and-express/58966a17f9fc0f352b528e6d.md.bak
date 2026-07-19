@@ -1,0 +1,193 @@
+---
+id: 58966a17f9fc0f352b528e6d
+title: Usajili wa Watumizi wapya
+challengeType: 2
+forumTopicId: 301561
+dashedName: registration-of-new-users
+---
+
+# --description--
+
+Sasa unahitaji kuruhusu mtumizi mpya kwenye tovuti yako kujiandikisha akaunti. Katika `res.render` kwa ukurasa wa nyumbani ongeza kigezo kipya kwenye kitu kinachopitishwa - `showRegistration: true`. Unapoonyesha upya ukurasa wako, unapaswa kuona fomu ya usajili ambayo tayari iliumbwa katika faili lako la `index.pug`. Fomu hii imewekwa kufanya **POST** kwenye `/register`, hivyo tengeneza njia hiyo ya data na uongeze kitu cha mtumizi kwenye hifadhidata kwa kufuata mantiki ifuatayo.
+
+Mantiki ya njia ya usajili inapaswa kuwa kama ifuatavyo:
+
+1. Sajili mtumizi mpya
+2. Thibitisha mtumizi mpya
+3. Elekeza upya kwenda `/profile`
+
+Mantiki ya hatua ya 1 inapaswa kuwa kama ifuatavyo:
+
+1. Fanya hoja ya utafutaji kwenye hifadhidata kwa `findOne`
+2. Ikiwa kuna kosa, fanya wito wa `next` na kosa hilo
+3. Ikiwa mtumizi amerudishwa, elekeza upya kurudi nyumbani
+4. Ikiwa mtumizi haipatikani na hakuna makosa yanayotokea, basi `insertOne` kwenye hifadhidata kwa jina la mtumizi na nenosiri. Mradi tu hakuna makosa yanayotokea hapo, fanya wito wa `next` kwenda hatua ya 2, kuthibitisha mtumizi mpya, ambayo tayari umeandika mantiki yake katika njia yako ya `POST /login`.
+
+```js
+app.route('/register')
+  .post((req, res, next) => {
+    myDataBase.findOne({ username: req.body.username }, (err, user) => {
+      if (err) {
+        next(err);
+      } else if (user) {
+        res.redirect('/');
+      } else {
+        myDataBase.insertOne({
+          username: req.body.username,
+          password: req.body.password
+        },
+          (err, doc) => {
+            if (err) {
+              res.redirect('/');
+            } else {
+              // The inserted document is held within
+              // the ops property of the doc
+              next(null, doc.ops[0]);
+            }
+          }
+        )
+      }
+    })
+  },
+    passport.authenticate('local', { failureRedirect: '/' }),
+    (req, res, next) => {
+      res.redirect('/profile');
+    }
+  );
+```
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#registration-of-new-users-11" target="_blank" rel="noopener noreferrer nofollow">kagua mradi uliofikia hatua hii</a>.
+
+**KUMBUKA:** Kuanzia hapa, matatizo yanaweza kutokea yanayohusiana na matumizi ya kivinjari cha *picture-in-picture*. Ikiwa unatumia IDE mtandaoni inayotoa onyesho la awali la programu ndani ya mhariri, inashauriwa kufungua onyesho hilo katika kichupo kipya.
+
+# --hints--
+
+Unapaswa kuwa na njia ya `/register` na kuonyesha fomu ya usajili kwenye ukurasa wa nyumbani.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /showRegistration:( |)true/gi,
+    'You should be passing the variable showRegistration as true to your render function for the homepage'
+  );
+  assert.match(
+    data,
+    /register[^]*post[^]*findOne[^]*username:( |)req.body.username/gi,
+    'You should have a route that accepts a POST request on /register that queries the db with findOne and the query being username: req.body.username'
+  );
+```
+
+Usajili unapaswa kufanya kazi.
+
+```js
+  const url = code;
+  const user = `freeCodeCampTester${Date.now()}`;
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      test(this);
+    } else {
+      throw new Error(`${this.status} ${this.statusText}`);
+    }
+  };
+  xhttp.open('POST', url + '/register', true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send(`username=${user}&password=${user}`);
+  function test(xhttpRes) {
+    const data = xhttpRes.responseText;
+    assert.match(
+      data,
+      /Profile/gi,
+      'Register should work, and redirect successfully to the profile.'
+    );
+  }
+```
+
+Ingia (login) inapaswa kufanya kazi.
+
+```js
+  const url = code;
+  const user = `freeCodeCampTester${Date.now()}`;
+  const xhttpReg = new XMLHttpRequest();
+  xhttpReg.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      login();
+    } else {
+      throw new Error(`${this.status} ${this.statusText}`);
+    }
+  };
+  xhttpReg.open('POST', url + '/register', true);
+  xhttpReg.setRequestHeader(
+    'Content-type',
+    'application/x-www-form-urlencoded'
+  );
+  xhttpReg.send(`username=${user}&password=${user}`);
+  function login() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        test(this);
+      } else {
+        throw new Error(`${this.status} ${this.statusText}`);
+      }
+    };
+    xhttp.open('POST', url + '/login', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send(`username=${user}&password=${user}`);
+  }
+  function test(xhttpRes) {
+    const data = xhttpRes.responseText;
+    assert.match(
+      data,
+      /Profile/gi,
+      'Login should work if previous test was done successfully and redirect successfully to the profile.'
+    );
+    assert.match(
+      data,
+      new RegExp(user, 'g'),
+      'The profile should properly display the welcome to the user logged in'
+    );
+  }
+```
+
+Toka (logout) inapaswa kufanya kazi.
+
+```js
+  $.ajax({
+    url: code + '/logout',
+    type: 'GET',
+    xhrFields: { withCredentials: true }
+  }).then(
+    (data) => {
+      assert.match(data, /Home/gi, 'Logout should redirect to home');
+    },
+    (xhr) => {
+      throw new Error(xhr.statusText);
+    }
+  );
+```
+
+Profaili haipaswi tena kufanya kazi baada ya kutoka.
+
+```js
+  $.ajax({
+    url: code + '/profile',
+    type: 'GET',
+    crossDomain: true,
+    xhrFields: { withCredentials: true }
+  }).then(
+    (data) => {
+      assert.match(
+        data,
+        /Home/gi,
+        'Profile should redirect to home when we are logged out now again'
+      );
+    },
+    (xhr) => {
+      throw new Error(xhr.statusText);
+    }
+  );
+```

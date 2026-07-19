@@ -1,0 +1,88 @@
+---
+id: 6925e2068081f40f549ced1b
+title: "Zoezi la 137: Kizalishaji cha Snowflake"
+challengeType: 28
+dashedName: challenge-137
+---
+
+# --description--
+
+Ikiwa umepewa mfuatano wa herufi wenye mistari mingi unaotumia tabia za newline (`\n`) kuwakilisha mapumziko ya mistari, rudisha mfuatano mpya ambapo kila mstari umeakisi kwa usawa na kuambatanishwa mwishoni mwa mstari wa asili.
+
+- Akisi mstari kwa kubadilisha mfuatano wake wote wa herufi, ikijumuisha nafasi.
+
+Kwa mfano, ukipokea `"* \n *\n* "`, ambayo inaandika kwenye konsoli kama:
+
+```sh
+* 
+ *
+* 
+```
+
+Rudisha `"*  *\n ** \n*  *"`, ambayo inaandika kwenye konsoli kama:
+
+```sh
+*  *
+ ** 
+*  *
+```
+
+Chukua tahadhari maalum kuhusu nafasi katika mfuatano uliotolewa na ule uliorudishwa. Hakikisha haukatagi nafasi yoyote.
+
+# --hints--
+
+`generateSnowflake("* \n *\n* ")` inapaswa kurudisha `"*  *\n ** \n*  *"`.
+
+```js
+assert.equal(generateSnowflake("* \n *\n* "), "*  *\n ** \n*  *");
+```
+
+`generateSnowflake("X=~")` inapaswa kurudisha `"X=~~=X"`.
+
+```js
+assert.equal(generateSnowflake("X=~"), "X=~~=X");
+```
+
+`generateSnowflake(" X  \n  v \nX--=\n  ^ \n X  ")` inapaswa kurudisha `" X    X \n  v  v  \nX--==--X\n  ^  ^  \n X    X "`.
+
+```js
+assert.equal(generateSnowflake(" X  \n  v \nX--=\n  ^ \n X  "), " X    X \n  v  v  \nX--==--X\n  ^  ^  \n X    X ");
+```
+
+`generateSnowflake("*   *\n * * \n* * *\n * * \n*   *")` inapaswa kurudisha `"*   **   *\n * *  * * \n* * ** * *\n * *  * * \n*   **   *"`.
+
+```js
+assert.equal(generateSnowflake("*   *\n * * \n* * *\n * * \n*   *"), "*   **   *\n * *  * * \n* * ** * *\n * *  * * \n*   **   *");
+```
+
+`generateSnowflake("*  -\n * -\n*  -")` inapaswa kurudisha `"*  --  *\n * -- * \n*  --  *"`.
+
+```js
+assert.equal(generateSnowflake("*  -\n * -\n*  -"), "*  --  *\n * -- * \n*  --  *");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function generateSnowflake(crystals) {
+
+  return crystals;
+}
+```
+
+# --solutions--
+
+```js
+function generateSnowflake(crystals) {
+  const lines = crystals.split("\n");
+
+  const mirroredLines = lines.map(line => {
+    const reversed = line.split("").reverse().join("");
+    return line + reversed;
+  });
+
+  return mirroredLines.join("\n");
+}
+```

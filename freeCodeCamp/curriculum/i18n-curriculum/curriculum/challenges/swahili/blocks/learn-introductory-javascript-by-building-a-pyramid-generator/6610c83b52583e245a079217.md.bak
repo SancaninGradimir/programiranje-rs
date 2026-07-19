@@ -1,0 +1,78 @@
+---
+id: 6610c83b52583e245a079217
+title: Hatua 61
+challengeType: 1
+dashedName: step-61
+---
+
+# --description--
+
+Sasa thamani ya mabadiliko yako `call` ni `"Testing"`. Lakini kitendakazi chako hakitumi tena kigezo `name`.
+
+Ondoa kigezo `name` kutoka katika tamko la kitendakazi chako, kisha ondoa mfuatano wa herufi `"CamperChan"` kutoka kwenye wito `padRow`.
+
+Pia, ondoa `console.log` zote kutoka kwenye kitendakazi `padRow`.
+# --hints--
+
+Kitendakazi chako `padRow` hakipaswi kuwa na kigezo `name`.
+
+```js
+assert.notMatch(padRow.toString(), /name/);
+```
+
+Haupaswi kupitisha `"CamperChan"` kwenye wito wako wa `padRow`.
+
+```js
+assert.notMatch(__helpers.removeJSComments(code), /CamperChan/);
+```
+
+Bado unapaswa kuita kitendakazi chako cha `padRow`.
+
+```js
+assert.lengthOf(__helpers.removeJSComments(code).match(/padRow\(\)/g), 2);
+```
+
+Haupaswi kuwa na `console.log` kabla ya neno kuu la `return`.
+
+```js
+assert.notMatch(padRow.toString(), /console.log\s*\(\s*('|"|`)This\s+works!\1\);\s+return\s+test;/);
+```
+
+Haupaswi kuwa na `console.log` baada ya neno kuu la `return`.
+
+```js
+assert.notMatch(padRow.toString(), /return\s+test;\s+console.log\s*\(\s*('|"|`)This\s+works!\1\);/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+--fcc-editable-region--
+function padRow(name) {
+  const test = "Testing";
+  console.log("This works!");
+  return test;
+  console.log("This works!");
+}
+const call = padRow("CamperChan");
+console.log(call);
+--fcc-editable-region--
+
+for (let i = 0; i < count; i = i + 1) {
+  rows.push(character.repeat(i + 1))
+}
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

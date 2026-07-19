@@ -1,0 +1,75 @@
+---
+id: 67f39e2119042d2f2ca926ff
+title: Ukagua wa programu ya dynamic
+challengeType: 31
+dashedName: review-dynamic-programming
+---
+
+# --description--
+
+## Utangulizi wa programu ya dynamic
+
+- **Ufafanuzi**: Programu ya dynamic ni mbinu ya algoriti inayotatua changamoto ngumu kwa kuzivunja kuwa changamoto ndogo rahisi na kuhifadhi matokeo ili kuepuka mahesabu ya kurudiarudia.  
+- **Changamoto ndogo zinazojirudia**: Changamoto ndogo sawa hujitokeza mara nyingi wakati wa kutatua changamoto kubwa. Badala ya kuhesabu changamoto hizi ndogo tena na tena, tunahifadhi suluhisho lao.  
+- **Muundo bora wa changamoto ndogo**: Suluhisho bora la changamoto lina suluhisho bora za changamoto ndogo zake. Hii ina maana tunaweza kujenga suluhisho bora kwa kuunganisha suluhisho bora za sehemu ndogo.  
+
+## Suluhisho za programu ya dynamic
+
+- **Memoization (Mbinu ya juu-chini)**: Memoization huhifadhi matokeo ya wito za kitendakazi ghali na hurudisha matokeo yaliyohifadhiwa wakati ingizo sawa linapotokea tena.  
+
+```py
+def climb_stairs_memo(n, memo={}):
+    """Dynamic programming with memoization"""
+    # Check if we've already calculated this value
+    if n in memo:
+        return memo[n]  # Return cached result - O(1) lookup!
+    
+    # Base cases
+    if n <= 2:
+        return n
+    
+    # Calculate once and store in memo for future use
+    memo[n] = climb_stairs_memo(n-1, memo) + climb_stairs_memo(n-2, memo)
+    return memo[n]
+```
+
+- **Tabulation (Mbinu ya chini-juu)**: Tabulation hujenga suluhisho kutoka chini juu, ikijaza jedwali na suluhisho za changamoto ndogo.  
+
+```py
+def climb_stairs_tabulation(n):
+    """Dynamic programming with tabulation"""
+    if n <= 2:
+        return n
+    
+    # Create array to store results for all steps from 0 to n
+    dp = [0] * (n + 1)
+    dp[1] = 1  # 1 way to reach step 1
+    dp[2] = 2  # 2 ways to reach step 2
+    
+    # Build up the solution iteratively
+    for i in range(3, n + 1):
+        # Ways to reach step i = ways to reach (i-1) + ways to reach (i-2)
+        dp[i] = dp[i-1] + dp[i-2]
+    
+    return dp[n]
+```
+
+## Matumizi halisi ya programu ya dynamic
+
+- **Uboreshaji wa njia ya data**: Mifumo ya GPS hutumia algoriti za programu ya dynamic kupata njia fupi kati ya maeneo.  
+- **Usindikaji wa maandishi**: Vifaa vya ukaguzi wa tahajia na kipengele cha kukamilisha maandishi mara nyingi hutegemea programu ya dynamic kuhesabu umbali wa marekebisho kati ya maneno.  
+- **Uundaji wa mifano ya kifedha**: Mikakati ya uwekezaji na uboreshaji wa portfolio mara nyingi hutumia mbinu za programu ya dynamic.  
+- **Ugawaji wa rasilimali**: Changamoto ya knapsack na aina zake hujitokeza katika upangaji ratiba, bajeti, na usimamizi wa rasilimali.  
+
+## Wakati wa kutumia programu ya dynamic
+
+Unapaswa kuzingatia kutumia programu ya dynamic katika hali zifuatazo:
+
+- Changamoto inaweza kuvunjwa kuwa changamoto ndogo zinazojirudia.  
+- Changamoto ina muundo bora wa changamoto ndogo.  
+- Suluhisho la kurudiarudia la kawaida lingehitaji mahesabu ya kurudiarudia.  
+- Unahitaji kuboresha kwa upande wa ugumu wa wakati kwa gharama ya ugumu wa nafasi.  
+
+# --assignment--
+
+Kagua mada na dhana za programu ya dynamic.

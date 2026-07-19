@@ -1,0 +1,92 @@
+---
+id: 587d7db8367417b2b2512ba0
+title: Linganisha kila kitu isipokuwa herufi na nambari
+challengeType: 1
+forumTopicId: 301353
+dashedName: match-everything-but-letters-and-numbers
+---
+
+# --description--
+
+Umejifunza kwamba unaweza kutumia njia fupi kulinganisha herufi na nambari `[A-Za-z0-9_]` kwa kutumia `\w`. Mfumo wa kawaida unaoweza kutaka kutafuta ni kinyume cha herufi na nambari.
+
+Unaweza kutafuta kinyume cha `\w` kwa kutumia `\W`. Kumbuka, mfumo wa kinyume hutumia herufi kubwa. Njia hii fupi ni sawa na `[^A-Za-z0-9_]`.
+
+```js
+let shortHand = /\W/;
+let numbers = "42%";
+let sentence = "Coding!";
+numbers.match(shortHand);
+sentence.match(shortHand);
+```
+
+Wito wa kwanza wa `match` utarudisha thamani `["%"]` na wa pili utarudisha `["!"]`.
+
+# --instructions--
+
+Tumia darasa la vitu la njia fupi `\W` kuhesabu idadi ya herufi ambazo si herufi na nambari katika nukuu na mfuatano wa herufi mbalimbali.
+
+# --hints--
+
+Usemi wako wa kawaida unapaswa kutumia bendera ya global.
+
+```js
+assert(nonAlphabetRegex.global);
+```
+
+Usemi wako wa kawaida unapaswa kupata herufi 6 ambazo si herufi na nambari katika mfuatano wa herufi `The five boxing wizards jump quickly.`.
+
+```js
+assert(
+  'The five boxing wizards jump quickly.'.match(nonAlphabetRegex).length == 6
+);
+```
+
+Usemi wako wa kawaida unapaswa kutumia darasa la njia fupi kulinganisha herufi ambazo si herufi na nambari.
+
+```js
+assert(/\\W/.test(nonAlphabetRegex.source));
+```
+
+Usemi wako wa kawaida unapaswa kupata herufi 8 ambazo si herufi na nambari katika mfuatano wa herufi `Pack my box with five dozen liquor jugs.`
+
+```js
+assert(
+  'Pack my box with five dozen liquor jugs.'.match(nonAlphabetRegex).length == 8
+);
+```
+
+Usemi wako wa kawaida unapaswa kupata herufi 6 ambazo si herufi na nambari katika mfuatano wa herufi `How vexingly quick daft zebras jump!`
+
+```js
+assert(
+  'How vexingly quick daft zebras jump!'.match(nonAlphabetRegex).length == 6
+);
+```
+
+Usemi wako wa kawaida unapaswa kupata herufi 12 ambazo si herufi na nambari katika mfuatano wa herufi `123 456 7890 ABC def GHI jkl MNO pqr STU vwx YZ.`
+
+```js
+assert(
+  '123 456 7890 ABC def GHI jkl MNO pqr STU vwx YZ.'.match(nonAlphabetRegex)
+    .length == 12
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let quoteSample = "The five boxing wizards jump quickly.";
+let nonAlphabetRegex = /change/; // Change this line
+let result = quoteSample.match(nonAlphabetRegex).length;
+```
+
+# --solutions--
+
+```js
+let quoteSample = "The five boxing wizards_jump quickly.";
+let nonAlphabetRegex = /\W/g; // Change this line
+let result = quoteSample.match(nonAlphabetRegex).length;
+```

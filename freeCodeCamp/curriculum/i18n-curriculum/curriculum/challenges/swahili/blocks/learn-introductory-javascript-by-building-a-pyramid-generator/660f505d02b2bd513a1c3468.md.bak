@@ -1,0 +1,76 @@
+---
+id: 660f505d02b2bd513a1c3468
+title: Hatua 111
+challengeType: 1
+dashedName: step-111
+---
+
+# --description--
+
+Piramidi yako haijazidi kuwa kinyume. Hii ni kwa sababu unaongeza safu mpya mwishoni mwa safu ya data.
+
+Sahihisha mwili wa mzunguko wako kuongeza safu mpya mwanzoni mwa safu ya data.
+
+# --hints--
+
+Unapaswa kutumia njia ya `unshift` ya `rows`.
+
+```js
+const stripped = __helpers.removeJSComments(code);
+assert.match(stripped, /\.unshift/);
+```
+
+Unapaswa kupitisha wito wa `padRow()` kama hoja kwa njia yako ya `.unshift()`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /rows\.unshift\(\s*padRow\(/);
+```
+
+Unapaswa kupitisha `i` kama hoja ya kwanza kwa wito wako wa `padRow()`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /rows\.unshift\(\s*padRow\(\s*i/)
+```
+
+Unapaswa kupitisha `count` kama hoja ya pili kwa wito wako wa `padRow()`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /rows\.unshift\(\s*padRow\(\s*i\s*,\s*count\s*\)/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+function padRow(rowNumber, rowCount) {
+  return " ".repeat(rowCount - rowNumber) + character.repeat(2 * rowNumber - 1) + " ".repeat(rowCount - rowNumber);
+}
+
+// TODO: use a different type of loop
+--fcc-editable-region--
+for (let i = 1; i <= count; i++) {
+  rows.push(padRow(i, count));
+}
+--fcc-editable-region--
+
+/*while (rows.length < count) {
+  rows.push(padRow(rows.length + 1, count));
+}*/
+
+/*for (let i = count; i > 0; i--) {
+  rows.push(padRow(i, count));
+}*/
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

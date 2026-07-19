@@ -1,0 +1,77 @@
+---
+id: 587d7fb6367417b2b2512c07
+title: Unda mfano
+challengeType: 2
+forumTopicId: 301535
+dashedName: create-a-model
+---
+
+# --description--
+
+**C**RUD Sehemu ya I - UNDA
+
+Kwanza kabisa, tunahitaji Mchoro wa Schema. Kila schema inaendana na mkusanyiko wa MongoDB. Inabainisha muundo wa hati ndani ya mkusanyiko huo. Schema ni vipande vya msingi vya Miundo (Models). Inaweza kupangwa ndani kuunda miundo tata, lakini katika kesi hii, tutahifadhi mambo kuwa rahisi. Mfano hukuruhusu kuunda matukio ya vitu vyako, vinavyoitwa hati.
+
+Katika seva, mwingiliano na hifadhidata hufanyika katika vitendakazi vya mshughulikiaji. Vitendakazi hivi hufanyika wakati tukio fulani linapotokea (mfano mtu anapobofya kiishio kwenye API yako). Tutafuata mbinu ile ile katika mazoezi haya. Kitendakazi cha `done()` ni wito wa kurudisha unaotuambia tunaweza kuendelea baada ya kumaliza operesheni isiyo ya wakati mmoja kama vile kuingiza, kutafuta, kusahihisha, au kufuta. Kinafuata mkataba wa Node, na kinapaswa kuitwa kama `done(null, data)` wakati kuna mafanikio, au `done(err)` wakati kuna hitilafu.
+
+Onyo - Unaposhirikiana na huduma za mbali, makosa yanaweza kutokea!
+
+```js
+/* Example */
+
+const someFunc = function(done) {
+  //... do something (risky) ...
+  if (error) return done(error);
+  done(null, result);
+};
+```
+
+# --instructions--
+
+Unda schema ya mtu iitwayo `personSchema` yenye muundo ufuatao:
+
+* Sehemu ya `name` inayohitajika ya aina `String`
+* Sehemu ya `age` ya aina `Number`
+* Sehemu ya `favoriteFoods` ya aina `[String]`
+
+Tumia aina za msingi za schema za Mongoose. Ikiwa unataka unaweza pia kuongeza sehemu zaidi, tumia vithibitishaji rahisi kama required au unique, na weka thamani za msingi. Angalia <a href="https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/" target="_blank" rel="noopener noreferrer nofollow">makala yetu ya Mongoose</a>.
+
+Sasa, unda mfano kutoka `personSchema` na weka thamani yake kwenye kigezo kilichopo `Person`.
+
+# --hints--
+
+Kuunda tukio kutoka kwa schema ya mongoose kunapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/mongoose-model', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Mike',
+      age: 28,
+      favoriteFoods: ['pizza', 'cheese']
+    })
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.name, 'Mike', '"model.name" is not what expected');
+  assert.equal(data.age, '28', '"model.age" is not what expected');
+  assert.isArray(
+    data.favoriteFoods,
+    '"model.favoriteFoods" is not an Array'
+  );
+  assert.include(
+    data.favoriteFoods,
+    'pizza',
+    '"model.favoriteFoods" does not include the expected items'
+  );
+  assert.include(
+    data.favoriteFoods,
+    'cheese',
+    '"model.favoriteFoods" does not include the expected items'
+  );
+```

@@ -1,0 +1,216 @@
+---
+id: 587d8258367417b2b2512c80
+title: Futa nodi ya majani katika mti wa utafutaji wa kibainari
+challengeType: 1
+forumTopicId: 301637
+dashedName: delete-a-leaf-node-in-a-binary-search-tree
+---
+
+# --description--
+
+Hii ni changamoto ya kwanza kati ya tatu ambapo tutatekeleza operesheni ngumu zaidi katika miti ya utafutaji wa kibainari: kufuta. Kufuta ni ngumu kwa sababu kufuta nodi kunavunja viungo katika mti. Viungo hivi lazima viunganishwe upya kwa uangalifu ili kuhakikisha muundo wa mti wa kibainari unadumishwa. Kwa baadhi ya kufuta, hii inamaanisha mti lazima upangwe upya. Kwa ujumla, utakutana na mojawapo ya kesi tatu unapotaka kufuta nodi: Nodi ya majani: Lengo la kufuta halina watoto. Mtoto mmoja: Lengo la kufuta lina mtoto mmoja tu. Watoto wawili: Lengo la kufuta lina nodi za watoto wawili. Kufuta nodi ya majani ni rahisi, tunaifuta tu. Kufuta nodi yenye mtoto mmoja pia ni rahisi, tunaifuta tu na kuunganisha mzazi wake na nodi ya mtoto wa nodi tuliofuta. Kufuta nodi yenye watoto wawili ni ngumu zaidi, kwa sababu hii huleta nodi za watoto wawili ambazo zinahitaji kuunganishwa upya na mti mzazi. Tutaona jinsi ya kushughulikia kesi hii katika changamoto ya tatu. Zaidi ya hayo, unahitaji kuwa makini na baadhi ya kesi za kipekee unaposimamia kufuta. Je, mti ni tupu? Je, nodi ya kufuta ni nodi mzizi? Je, kuna vitu viwili tu katika mti? Kwa sasa, tuchukue kesi ya kwanza ambapo tunafuta nodi ya majani.
+
+# --instructions--
+
+Tengeneza njia kwenye mti wetu wa kibainari iitwayo `remove`. Tutajenga mantiki ya operesheni yetu ya kufuta hapa. Kwanza, utataka kutengeneza kitendakazi ndani ya remove kinachotafuta nodi tunayotaka kufuta katika mti wa sasa. Ikiwa nodi haipo katika mti, `remove` inapaswa kurudisha `null`. Sasa, ikiwa nodi lengwa ni nodi ya majani isiyo na watoto, basi rejea ya mzazi wake kwa nodi hiyo inapaswa kuwekwa kuwa `null`. Hii inafuta nodi hiyo kutoka kwenye mti kwa ufanisi. Kufanya hivi, utahitaji pia kufuatilia mzazi wa nodi tunayotaka kufuta. Pia itakuwa muhimu kutengeneza njia ya kufuatilia idadi ya watoto wa nodi lengwa, kwani hii itaamua ni kesi gani ya kufuta tunayoshughulikia. Tutashughulikia kesi ya pili na ya tatu katika changamoto zijazo. Bahati njema!
+
+# --hints--
+
+Muundo wa data wa `BinarySearchTree` unapaswa kuwepo.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    }
+    return typeof test == 'object';
+  })()
+);
+```
+
+Mti wa utafutaji wa kibainari unapaswa kuwa na njia iitwayo `remove`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    return typeof test.remove == 'function';
+  })()
+);
+```
+
+Kujaribu kufuta kipengee kutoka kwenye mti tupu kunapaswa kurudisha `null`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    if (typeof test.remove !== 'function') {
+      return false;
+    }
+    return test.remove(100) == null;
+  })()
+);
+```
+
+Kujaribu kufuta kipengee ambacho hakipo kunapaswa kurudisha `null`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    if (typeof test.remove !== 'function') {
+      return false;
+    }
+    test.add(15);
+    test.add(30);
+    return test.remove(100) == null;
+  })()
+);
+```
+
+Ikiwa nodi mzizi haina watoto, kufuta inapaswa kuweka mzizi kuwa `null`.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    if (typeof test.remove !== 'function') {
+      return false;
+    }
+    test.add(500);
+    test.remove(500);
+    return test.inorder() == null;
+  })()
+);
+```
+
+Njia ya `remove` inapaswa kufuta nodi za majani kutoka kwenye mti.
+
+```js
+assert(
+  (function () {
+    var test = false;
+    if (typeof BinarySearchTree !== 'undefined') {
+      test = new BinarySearchTree();
+    } else {
+      return false;
+    }
+    if (typeof test.remove !== 'function') {
+      return false;
+    }
+    test.add(5);
+    test.add(3);
+    test.add(7);
+    test.add(6);
+    test.add(10);
+    test.add(12);
+    test.remove(3);
+    test.remove(12);
+    test.remove(10);
+    return test.inorder().join('') == '567';
+  })()
+);
+```
+
+# --before-each--
+
+```js
+BinarySearchTree.prototype = Object.assign(
+  BinarySearchTree.prototype,
+  {
+    add: function(value) {
+      var node = this.root;
+      if (node == null) {
+        this.root = new Node(value);
+        return;
+      } else {
+        function searchTree(node) {
+          if (value < node.value) {
+            if (node.left == null) {
+              node.left = new Node(value);
+              return;
+            } else if (node.left != null) {
+              return searchTree(node.left);
+            }
+          } else if (value > node.value) {
+            if (node.right == null) {
+              node.right = new Node(value);
+              return;
+            } else if (node.right != null) {
+              return searchTree(node.right);
+            }
+          } else {
+            return null;
+          }
+        }
+        return searchTree(node);
+      }
+    },
+    inorder: function() {
+      if (this.root == null) {
+        return null;
+      } else {
+        var result = new Array();
+        function traverseInOrder(node) {
+          if (node.left != null) {
+            traverseInOrder(node.left);
+          }
+          result.push(node.value);
+          if (node.right != null) {
+            traverseInOrder(node.right);
+          }
+        }
+        traverseInOrder(this.root);
+        return result;
+      }
+    }
+  }
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var displayTree = tree => console.log(JSON.stringify(tree, null, 2));
+function Node(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+
+function BinarySearchTree() {
+  this.root = null;
+  // Only change code below this line
+}
+```
+
+# --solutions--
+
+```js
+// solution required
+```

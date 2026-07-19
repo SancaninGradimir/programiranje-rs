@@ -1,0 +1,146 @@
+---
+id: 587d8251367417b2b2512c62
+title: Tengeneza darasa la orodha iliyounganishwa
+challengeType: 1
+forumTopicId: 301628
+dashedName: create-a-linked-list-class
+---
+
+# --description--
+
+Tuanze kwa kutengeneza darasa la `linked list`. Kila orodha iliyounganishwa inapaswa kuanza na sifa chache za msingi: `head` (kitu cha kwanza katika orodha yako) na `length` (idadi ya vitu katika orodha yako). Wakati mwingine utaona utekelezaji wa orodha zilizounganishwa unaojumuisha `tail` kwa kipengele cha mwisho cha orodha, lakini kwa sasa tutabaki na hizi mbili tu. Kila tunapoongeza kipengele kwenye orodha iliyounganishwa, sifa yetu ya `length` inapaswa kuongezeka kwa moja.
+
+Tutahitaji njia ya kuongeza vitu kwenye orodha yetu iliyounganishwa, kwa hivyo njia ya kwanza tunayotaka kuunda ni njia ya `add`.
+
+Ikiwa orodha yetu ni tupu, kuongeza kipengele kwenye orodha iliyounganishwa ni rahisi: tunazungusha kipengele hicho katika darasa la `Node`, na tunaweka nodi hiyo kuwa `head` ya orodha yetu iliyounganishwa.
+
+Lakini vipi ikiwa orodha yetu tayari ina wanachama mmoja au zaidi? Tunaongezaje kipengele kwenye orodha? Kumbuka kuwa kila nodi katika orodha iliyounganishwa ina sifa ya `next`. Ili kuongeza nodi kwenye orodha, tafuta nodi ya mwisho katika orodha, na elekeza sifa ya `next` ya nodi hiyo ya mwisho kwa nodi yetu mpya. (Kiburi: unajua umefikia mwisho wa orodha iliyounganishwa wakati sifa ya `next` ya nodi ni `null`.)
+
+# --instructions--
+
+Andika njia ya kuongeza ambayo inaweka nodi ya kwanza unayoiongeza kwenye orodha iliyounganishwa kuwa `head`; baada ya hapo, kila unapoongeza nodi, kila nodi inapaswa kuwa na rejea kwa sifa ya `next` ya nodi iliyotangulia.
+
+Kumbuka
+
+`length` ya orodha yako inapaswa kuongezeka kwa moja kila kipengele kinapoongezwa kwenye orodha iliyounganishwa.
+
+# --hints--
+
+Darasa lako la `LinkedList` linapaswa kuwa na njia ya `add`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return typeof test.add === 'function';
+  })()
+);
+```
+
+Darasa lako la `LinkedList` linapaswa kuweka `head` kwa nodi ya kwanza iliyoongezwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    return test.head().element === 'cat';
+  })()
+);
+```
+
+`node` iliyotangulia katika darasa lako la `LinkedList` inapaswa kuwa na rejea kwa nodi mpya zaidi iliyotengenezwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('fish');
+    return test.head().next.element === 'dog' && test.head().next.next.element === 'fish';
+  })()
+);
+```
+
+`size` ya darasa lako la `LinkedList` inapaswa kuwa sawa na idadi ya nodi katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    return test.size() === 2;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.size = function(){
+    return length;
+  };
+
+  this.add = function(element){
+    // Only change code below this line
+
+    // Only change code above this line
+  };
+}
+```
+
+# --solutions--
+
+```js
+function LinkedList() { 
+  var length = 0; 
+  var head = null; 
+
+  var Node = function(element){
+    this.element = element; 
+    this.next = null; 
+  }; 
+
+  this.head = function(){
+    return head;
+  };
+
+  this.size = function(){
+    return length;
+  };
+
+  this.add = function(element){
+    // Only change code below this line
+    if (head == null) {
+      head = new Node(element);
+    } 
+    else {
+      let currentNode = head;
+      while (currentNode.next != null) {
+        // currentNode.next will be last node of linked list after loop
+        currentNode = currentNode.next;
+      }
+      currentNode.next = new Node(element);
+    }
+    length++;
+    // Only change code above this line
+  };
+}
+```

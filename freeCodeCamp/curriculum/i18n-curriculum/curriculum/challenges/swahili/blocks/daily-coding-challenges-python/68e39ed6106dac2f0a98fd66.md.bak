@@ -1,0 +1,97 @@
+---
+id: 68e39ed6106dac2f0a98fd66
+title: "Challenge 84: Infected"
+challengeType: 29
+dashedName: challenge-84
+---
+
+# --description--
+
+Mnamo Novemba 2, 1988, mdudu wa kwanza mkubwa wa intaneti uliachiliwa, ukiacha takriban asilimia 10 ya kompyuta zilizounganishwa na intaneti kuambukizwa baada ya siku moja tu.
+
+Katika changamoto hii, unapewa idadi ya siku zilizopita tangu mdudu wa intaneti kuachiliwa, na unahitaji kubaini ni kompyuta ngapi zimeambukizwa kwa kutumia sheria zifuatazo:
+
+- Siku ya 0, kompyuta ya kwanza inaambukizwa.
+- Kila siku inayofuata, idadi ya kompyuta zilizoambukizwa huongezeka mara mbili.
+- Kila siku ya tatu, kinga hutumika baada ya virusi kuenea na kupunguza idadi ya kompyuta zilizoambukizwa kwa asilimia 20%. Zungusha idadi ya kompyuta zilizopatiwa kinga hadi nambari nzima inayofuata.
+
+Kwa mfano, siku:
+
+- Siku ya 0: kompyuta 1 jumla imeambukizwa.
+- Siku ya 1: kompyuta 2 jumla zimeambukizwa.
+- Siku ya 2: kompyuta 4 jumla zimeambukizwa.
+- Siku ya 3: kompyuta 8 jumla zimeambukizwa. Kisha, tumia kinga: kompyuta 8 zilizoambukizwa * asilimia 20 = 1.6 zilipatiwa kinga. Zungusha 1.6 hadi 2. Kompyuta 8 zilizoambukizwa - 2 zilipatiwa kinga = kompyuta 6 jumla zimeambukizwa baada ya siku ya 3.
+
+Rudisha idadi ya kompyuta jumla zilizambukizwa baada ya idadi ya siku zilizotolewa kupita.
+
+# --hints--
+
+`infected(1)` should return `2`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(infected(1), 2)`)
+}})
+```
+
+`infected(3)` should return `6`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(infected(3), 6)`)
+}})
+```
+
+`infected(8)` should return `152`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(infected(8), 152)`)
+}})
+```
+
+`infected(17)` should return `39808`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(infected(17), 39808)`)
+}})
+```
+
+`infected(25)` should return `5217638`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(infected(25), 5217638)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def infected(days):
+
+    return days
+```
+
+# --solutions--
+
+```py
+import math
+def infected(days):
+    infected = 1
+    for day in range(1, days + 1):
+        infected *= 2
+        if day % 3 == 0:
+            patched = math.ceil(infected * 0.2)
+            infected -= patched
+
+    return infected
+```

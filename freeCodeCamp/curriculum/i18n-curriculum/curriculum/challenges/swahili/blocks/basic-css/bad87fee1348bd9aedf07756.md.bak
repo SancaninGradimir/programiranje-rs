@@ -1,0 +1,116 @@
+---
+id: bad87fee1348bd9aedf07756
+title: Ghairi mitindo mingine yote kwa kutumia Important
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cm24rcp'
+forumTopicId: 18249
+dashedName: override-all-other-styles-by-using-important
+---
+
+# --description--
+
+Hongera! Tumeonyesha kuwa mitindo ndani ya mstari itaghairi tamko zote za CSS katika kipengele chako cha `style`.
+
+Lakini ngoja. Kuna njia moja ya mwisho ya ghairi CSS. Hii ni njia yenye nguvu zaidi kati ya zote. Lakini kabla hatujafanya hivyo, hebu tuzungumze kwa nini ungependa kamwe ghairi CSS.
+
+Katika hali nyingi, utatumia maktaba za CSS. Hizi zinaweza kwa bahati mbaya ghairi CSS yako mwenyewe. Kwa hivyo unapohitaji kabisa kuhakikisha kuwa kipengele kina CSS maalum, unaweza kutumia `!important`.
+
+Turejee kabisa kwenye tamko letu la darasa la `pink-text`. Kumbuka kuwa darasa letu la `pink-text` lilighairiwa na tamko za darasa zilizofuata, tamko za kitambulisho, na mitindo ndani ya mstari.
+
+# --instructions--
+
+Tuweke neno muhimu `!important` kwenye tamko la rangi ya kipengele chako cha maandishi ya rangi ya waridi ili kuhakikisha 100% kuwa kipengele chako cha `h1` kitakuwa na rangi ya waridi.
+
+Mfano wa jinsi ya kufanya hivi ni:
+
+```css
+color: red !important;
+```
+
+# --hints--
+
+Kipengele chako cha `h1` kinapaswa kuwa na darasa la `pink-text`.
+
+```js
+assert.isTrue(document.querySelector('h1').classList.contains('pink-text'));
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na darasa la `blue-text`.
+
+```js
+assert.isTrue(document.querySelector('h1').classList.contains('blue-text'));
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na `id` ya `orange-text`.
+
+```js
+assert.strictEqual(document.querySelector('h1').getAttribute('id'), 'orange-text');
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na mtindo ndani ya mstari wa `color: white`.
+
+```js
+const commentessCode = __helpers.removeHtmlComments(code);
+assert.match(commentessCode, /<h1.*style/gi);
+assert.match(commentessCode, /<h1.*style.*color\s*?:/gi);
+```
+
+Tamko lako la darasa la `pink-text` linapaswa kuwa na neno muhimu la `!important` ili ghairi tamko zote nyingine.
+
+```js
+assert.match(__helpers.removeCssComments(code), /\.pink-text\s*?\{[\s\S]*?color:.*pink.*!important\s*;?[^\.]*\}/g);
+```
+
+Kipengele chako cha `h1` kinapaswa kuwa na rangi ya waridi.
+
+```js
+const h1Element = document.querySelector('h1');
+const color = window.getComputedStyle(h1Element)['color'];
+assert.strictEqual(color, 'rgb(255, 192, 203)');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<style>
+  body {
+    background-color: black;
+    font-family: monospace;
+    color: green;
+  }
+  #orange-text {
+    color: orange;
+  }
+  .pink-text {
+    color: pink;
+  }
+  .blue-text {
+    color: blue;
+  }
+</style>
+<h1 id="orange-text" class="pink-text blue-text" style="color: white">Hello World!</h1>
+```
+
+# --solutions--
+
+```html
+<style>
+  body {
+    background-color: black;
+    font-family: monospace;
+    color: green;
+  }
+  #orange-text {
+    color: orange;
+  }
+  .pink-text {
+    color: pink !important;
+  }
+  .blue-text {
+    color: blue;
+  }
+</style>
+<h1 id="orange-text" class="pink-text blue-text" style="color: white">Hello World!</h1>
+```

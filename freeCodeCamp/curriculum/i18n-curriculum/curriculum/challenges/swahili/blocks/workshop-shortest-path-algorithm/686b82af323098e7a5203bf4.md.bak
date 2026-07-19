@@ -1,0 +1,67 @@
+---
+id: 686b82af323098e7a5203bf4
+title: Hatua 9
+challengeType: 20
+dashedName: step-9
+---
+
+# --description--
+
+Wakati algoriti inapoendesha, unahitaji kufuatilia nodi ambazo tayari umezitembelea, ili usizizishe zaidi ya mara moja.
+
+Ili kufanya hivyo, tengeneza orodha iitwayo `visited` na uanze na `False` kwa kila nodi.
+
+# --hints--
+
+Unapaswa kuwa na orodha iitwayo `visited` ndani ya kitendakazi cha `shortest_path`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").has_variable("visited")`
+        )
+      );
+    }
+});
+```
+
+Unapaswa kuanzisha orodha ya `visited` na `False` kwa kila nodi kwa kutumia `[False] * n`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_variable("visited").is_equivalent("visited = [False] * n")`
+        )
+      );
+    }
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+INF = float('inf')
+adj_matrix = [
+    [0, 5, 3, INF, 11, INF],
+    [5, 0, 1, INF, INF, 2],
+    [3, 1, 0, 1, 5, INF],
+    [INF, INF, 1, 0, 9, 3],
+    [11, INF, 5, 9, 0, INF],
+    [INF, 2, INF, 3, INF, 0],
+]
+
+--fcc-editable-region--
+def shortest_path(matrix, start_node, target_node=None):
+    n = len(matrix)
+    distances = [INF] * n
+    distances[start_node] = 0
+    paths = [[node_no] for node_no in range(n)]
+
+--fcc-editable-region--
+```

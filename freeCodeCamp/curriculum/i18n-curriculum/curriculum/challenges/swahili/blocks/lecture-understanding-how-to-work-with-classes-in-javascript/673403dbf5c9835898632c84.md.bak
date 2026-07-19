@@ -1,0 +1,351 @@
+---
+id: 673403dbf5c9835898632c84
+title: Sifa na njia za static katika madarasa ni zipi?
+challengeType: 19
+dashedName: what-are-static-properties-and-methods-in-classes
+---
+
+# --interactive--
+
+Sifa na njia za static ni mali ya darasa lenyewe, si mali ya matukio binafsi ya darasa hilo. Unaweza kuzifikilia moja kwa moja kwa kutumia jina la darasa bila kuunda tukio la darasa. Zimefafanuliwa ndani ya madarasa ili kufunga utendaji unaohusiana.
+
+Unaweza kufafanua njia ya static kwa kuandika neno kuu la `static` kabla ya jina la njia.
+
+```js
+class MyClass {
+  static staticMethod() { ... }
+}
+```
+
+Kisha, unaweza kuita njia ya static moja kwa moja kwenye darasa, kwa kutumia uandishi wa nukta na kupitisha hoja zozote zinazohitajika:
+
+```js
+MyClass.staticMethod();
+```
+
+Angalia kwamba unaweza kuita njia hiyo bila kuunda tukio la darasa. Hiyo ni mojawapo ya sifa kuu za njia za static.
+
+Hapa kuna mfano. Tuseme tunaunda programu ya sinema na tunataka kuweza kulinganisha sinema kulingana na alama zao.
+
+Tunaweza kuzingatia njia hii ya kulinganisha kama njia ya ngazi ya juu ambayo si maalum kwa sinema yoyote:
+
+```js
+if (movieA.rating < movieB.rating) {
+  console.log(`${movieB.title} has a higher rating.`);
+} 
+```
+
+Ni kama njia ya jumla zaidi inayohusiana na darasa la `Movie`.
+
+Kwa ajili ya usomaji na utunzaji mzuri, itakuwa msaada kuifafanua ndani ya darasa la `Movie` ili kuweka njia zote zinazohusiana karibu na kila mmoja.
+
+Kwa hiyo, hii ni mgombea mzuri kwa njia ya static. Unaiona hapa, chini tu ya kijenzi:
+
+:::interactive_editor
+
+```js
+class Movie {
+
+  constructor(title, rating) {
+    this.title = title;
+    this.rating = rating;
+  }
+
+  static compareMovies(movieA, movieB) {
+    if (movieA.rating > movieB.rating) {
+      console.log(`${movieA.title} has a higher rating.`);
+    } else if (movieA.rating < movieB.rating) {
+      console.log(`${movieB.title} has a higher rating.`);
+    } else {
+      console.log("These movies have the same rating.");
+    }
+  }
+
+}
+
+let movieA = new Movie("Movie A", 80);
+let movieB = new Movie("Movie B", 45);
+console.log(movieA);
+```
+
+:::
+
+Njia ya static imefafanuliwa kwa neno kuu la `static` na inaitwa `compareMovies`. Ina vigezo viwili: `movieA` na `movieB`. Hawa watakuwa matukio ya darasa la `Movie`.
+
+Tutawaangalia kulingana na alama zao, katika kiwango kutoka `0` hadi `100`. Mantiki hii imetekelezwa kwa kutumia hali ya masharti na itachapisha ujumbe unaofaa kulingana na sinema gani ina alama kubwa zaidi.
+
+Mara njia itakapofafanuliwa, unaweza kuitisha kwenye darasa. Lakini kwanza, unahitaji kuwa na hoja tayari na zimetangazwa katika programu yako.
+
+Katika kesi hii, njia inachukua matukio mawili ya sinema kama hoja, kwa hiyo tunafafanua matukio haya hapa:
+
+```js
+let movieA = new Movie("Movie A", 80);
+let movieB = new Movie("Movie B", 45);
+```
+
+Unaona kwamba `movieA` ana alama kubwa zaidi kuliko `movieB`. Tuweze kuona matokeo ya njia hii.
+
+Ili kuita njia, unahitaji tu kutumia uandishi wa nukta kwenye darasa lenyewe.
+Unaandika jina la darasa (`Movie`), ikifuatiwa na nukta, kisha jina la njia ya static (`compareMovies`).
+
+Kisha, unapita hoja ndani ya mabano ya kawaida. Katika kesi hii, ni matukio mawili ya sinema ambayo njia inahitaji.
+
+```js
+Movie.compareMovies(movieA, movieB);
+```
+
+Hapa ni mfano uliosasishwa:
+
+:::interactive_editor
+
+```js
+class Movie {
+
+  constructor(title, rating) {
+    this.title = title;
+    this.rating = rating;
+  }
+
+  static compareMovies(movieA, movieB) {
+    if (movieA.rating > movieB.rating) {
+      console.log(`${movieA.title} has a higher rating.`);
+    } else if (movieA.rating < movieB.rating) {
+      console.log(`${movieB.title} has a higher rating.`);
+    } else {
+      console.log("These movies have the same rating.");
+    }
+  }
+
+}
+
+let movieA = new Movie("Movie A", 80);
+let movieB = new Movie("Movie B", 45);
+Movie.compareMovies(movieA, movieB);
+console.log(movieA);
+```
+
+:::
+
+Njia za static pia ni msaada kwa kutekeleza njia za "factory". Njia ya factory ni njia unayofafanua pamoja na kijenzi ili kuunda vitu kulingana na vigezo maalum.
+
+Hapa kuna mfano na darasa la `Pizza`. Njia ya static `createMargherita` ni njia ya factory ambayo unaweza kuitisha kuunda tukio la pizza ya Margherita na aina yake na bei tayari zimewekwa.
+
+```js
+class Pizza {
+  constructor(type, price) {
+    this.type = type;
+    this.price = price;
+  }
+
+  static createMargherita() {
+    return new this("Margherita", 6.99);
+  }
+}
+```
+
+Hii pia inaleta jambo muhimu sana kuhusu njia za static.
+
+Thamani ya neno kuu la `this` katika njia za static ni darasa lenyewe, kwa sababu njia ya static ni mali ya darasa.
+
+Ndiyo maana tunaweza kutumia `this` kuunda tukio jipya la darasa la `Pizza`.
+
+Ikiwa utaipiga njia hii kwenye darasa la `Pizza` lenyewe na ukaweka tukio lililorudishwa kwenye kigezo, kama katika mfano huu:
+
+```js
+let myPizza = Pizza.createMargherita();
+```
+
+Unaweza kuitumia popote unapotaka katika msimbo wako. Kwa mfano, unaweza kuichapisha kwenye konsoli:
+
+```js
+console.log(myPizza);
+```
+
+Huu ndio matokeo:
+
+```js
+Pizza { type: 'Margherita', price: 6.99 }
+```
+
+Unaweza pia kutumia uandishi wa nukta kuitisha njia zake na kufikia sifa zake, kama hivi:
+
+```js
+console.log(myPizza.type);
+```
+
+Hapa ni mfano kamili:
+
+```js
+class Pizza {
+  constructor(type, price) {
+    this.type = type;
+    this.price = price;
+  }
+
+  static createMargherita() {
+    return new this("Margherita", 6.99);
+  }
+}
+
+let myPizza = Pizza.createMargherita();
+console.log(myPizza);
+console.log(myPizza.type);
+```
+
+Mbali na njia, unaweza pia kufafanua sifa za static kwa neno kuu la `static`.
+
+Katika mfano huu, tuna sifa ya static `numberOfPizzasSold`.
+
+```js
+class Pizza {
+  static numberOfPizzasSold = 0;
+
+  constructor(type) {
+    this.type = type;
+    Pizza.numberOfPizzasSold++;
+  }
+}
+```
+
+Ni static kwa sababu haimiliki tukio lolote la pizza, ni mali ya darasa lenyewe.
+
+Ina thamani ya awali ya `0` na inasasishwa kila wakati tukio jipya linapoundwa.
+
+Ikiwa utaunda matukio mawili ya pizza, thamani itasasishwa mara mbili:
+
+```js
+let pizza1 = new Pizza("Margherita");
+let pizza2 = new Pizza("Neapolitan");
+```
+
+Ili kufikia thamani ya sifa ya static, unahitaji tu kutumia uandishi wa nukta kwenye darasa lenyewe, kwa sababu sifa ni mali ya darasa.
+
+```js
+class Pizza {
+  static numberOfPizzasSold = 0;
+
+  constructor(type) {
+    this.type = type;
+    Pizza.numberOfPizzasSold++;
+  }
+}
+
+let pizza1 = new Pizza("Margherita");
+let pizza2 = new Pizza("Neapolitan");
+
+console.log(Pizza.numberOfPizzasSold);
+```
+
+Katika kesi hii, matokeo ni `2` kwa sababu pizza mbili ziliuzwa.
+
+Hizi ndizo misingi ya sifa na njia za static katika JavaScript. Kuelewa wanachama wa static ni muhimu kwa kuunda madarasa yanayoweza kutumika tena na yenye ufanisi.
+
+# --questions--
+
+## --text--
+
+Lengo kuu la njia ya static katika darasa la JavaScript ni lipi?
+
+## --answers--
+
+Kuunda matukio mapya ya darasa.
+
+### --feedback--
+
+Fikiria jinsi njia za static zinavyohusiana na darasa lenyewe, si vitu binafsi.
+
+---
+
+Kupata sifa za tukio la darasa.
+
+### --feedback--
+
+Fikiria jinsi njia za static zinavyohusiana na darasa lenyewe, si vitu binafsi.
+
+---
+
+Kufafanua njia ambazo zinaweza kufikiwa bila kuunda tukio la darasa.
+
+---
+
+Kurithi sifa na njia kutoka kwa darasa mzazi.
+
+### --feedback--
+
+Fikiria jinsi njia za static zinavyohusiana na darasa lenyewe, si vitu binafsi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Tofauti kuu kati ya njia ya static na njia ya tukio katika JavaScript ni ipi?
+
+## --answers--
+
+Njia za static zinaweza kutumika tu ndani ya darasa, wakati njia za tukio zinaweza kutumika nje ya darasa.
+
+### --feedback--
+
+Fikiria wigo na upatikanaji wa njia za static na njia za tukio.
+
+---
+
+Njia za static zinaweza kufikia sifa za tukio, wakati njia za tukio haziwezi kufikia sifa za tukio.
+
+### --feedback--
+
+Fikiria wigo na upatikanaji wa njia za static na njia za tukio.
+
+---
+
+Njia za static zinahusishwa na darasa lenyewe, wakati njia za tukio zinahusishwa na matukio maalum ya darasa.
+
+---
+
+Njia za static huwa za umma kila wakati, wakati njia za tukio zinaweza kuwa za umma au za kibinafsi.
+
+### --feedback--
+
+Fikiria wigo na upatikanaji wa njia za static na njia za tukio.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Unawezaje kufikia sifa ya static ya darasa katika JavaScript?
+
+## --answers--
+
+Kwa kutumia neno kuu la `this`.
+
+### --feedback--
+
+Fikiria jinsi sifa za static zinavyohusishwa na darasa lenyewe.
+
+---
+
+Kwa kuunda tukio la darasa na kufikia sifa kupitia tukio hilo.
+
+### --feedback--
+
+Fikiria jinsi sifa za static zinavyohusishwa na darasa lenyewe.
+
+---
+
+Kwa kutumia moja kwa moja jina la darasa na jina la sifa.
+
+---
+
+Kwa kutumia sifa ya prototype ya darasa.
+
+### --feedback--
+
+Fikiria jinsi sifa za static zinavyohusishwa na darasa lenyewe.
+
+## --video-solution--
+
+3

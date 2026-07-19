@@ -1,0 +1,115 @@
+---
+id: 699c8e045ee7cb94ed2322dd
+title: "Zoezi la 222: Vivuli vya Equinox"
+challengeType: 28
+dashedName: challenge-222
+---
+
+# --description--
+
+Leo ni siku ya equinox, wakati jua liko moja kwa moja juu ya mstari wa katikati ya dunia na likiwa juu kabisa saa sita mchana. Ukipata wakati fulani, amua kivuli kinachotolewa na nguzo wima ya futi 4.
+
+- Muda utakuwa mfuatano wa herufi katika muundo wa saa 24 `"HH:MM"` (kwa mfano, `"15:00"` ni saa 3 asubuhi).
+- Utapewa muda tu kwa nyongeza za dakika 30.
+
+Sheria:
+
+- Jua huchomoza saa 6 asubuhi moja kwa moja `"east"`, na linazama saa 6 jioni moja kwa moja `"west"`.
+- Kivuli daima kinaelekea kinyume na jua.
+- Urefu wa kivuli (katika futi) ni idadi ya saa kutoka saa sita mchana, iliyoinuliwa kwa daraja la tatu.
+- Hakuna kivuli kabla ya jua kuchomoza (kabla ya saa 6 asubuhi), baada ya jua kuzama (saa 6 jioni au baadaye), au saa sita mchana.
+
+Rudisha:
+
+- Ikiwa kivuli kipo, rudisha `"(length)ft (direction)"`. Kwa mfano, `"8ft west"`.
+- Vinginevyo, rudisha `"No shadow"`.
+
+Kwa mfano, ukipata `"10:00"`, rudisha `"8ft west"` kwa sababu saa 10 asubuhi ni saa 2 kutoka saa sita mchana, hivyo 2<sup>3</sup> = futi 8, na kivuli kinaelekea magharibi kwa sababu jua liko mashariki saa 10 asubuhi.
+
+# --hints--
+
+`getShadow("10:00")` inapaswa kurudisha `"8ft west"`.
+
+```js
+assert.equal(getShadow("10:00"), "8ft west");
+```
+
+`getShadow("15:00")` inapaswa kurudisha `"27ft east"`.
+
+```js
+assert.equal(getShadow("15:00"), "27ft east");
+```
+
+`getShadow("12:00")` inapaswa kurudisha `"No shadow"`.
+
+```js
+assert.equal(getShadow("12:00"), "No shadow");
+```
+
+`getShadow("17:30")` inapaswa kurudisha `"166.375ft east"`.
+
+```js
+assert.equal(getShadow("17:30"), "166.375ft east");
+```
+
+`getShadow("05:00")` inapaswa kurudisha `"No shadow"`.
+
+```js
+assert.equal(getShadow("05:00"), "No shadow");
+```
+
+`getShadow("06:00")` inapaswa kurudisha `"216ft west"`.
+
+```js
+assert.equal(getShadow("06:00"), "216ft west");
+```
+
+`getShadow("18:00")` inapaswa kurudisha `"No shadow"`.
+
+```js
+assert.equal(getShadow("18:00"), "No shadow");
+```
+
+`getShadow("07:30")` inapaswa kurudisha `"91.125ft west"`.
+
+```js
+assert.equal(getShadow("07:30"), "91.125ft west");
+```
+
+`getShadow("00:00")` inapaswa kurudisha `"No shadow"`.
+
+```js
+assert.equal(getShadow("00:00"), "No shadow");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getShadow(time) {
+
+  return time;
+}
+```
+
+# --solutions--
+
+```js
+function getShadow(time) {
+  const [hourStr, minuteStr] = time.split(":");
+  const hours = Number(hourStr);
+  const minutes = Number(minuteStr);
+  const timeInHours = hours + minutes / 60;
+
+  if (timeInHours < 6 || timeInHours >= 18 || timeInHours === 12) {
+    return "No shadow";
+  }
+
+  const hoursFromNoon = Math.abs(12 - timeInHours);
+  const length = Math.pow(hoursFromNoon, 3);
+  const direction = timeInHours < 12 ? "west" : "east";
+
+  return `${length}ft ${direction}`;
+}
+```

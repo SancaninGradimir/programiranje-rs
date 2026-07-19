@@ -1,0 +1,128 @@
+---
+id: 5a24c314108439a4d4036164
+title: Unda sehemu kwa kutumia muundo wa mchanganyiko
+challengeType: 6
+forumTopicId: 301383
+dashedName: create-a-component-with-composition
+---
+
+# --description--
+
+Sasa tutaangalia jinsi tunavyoweza kupanga sehemu nyingi za React pamoja. Fikiria unajenga programu na umeunda sehemu tatu: `Navbar`, `Dashboard`, na `Footer`.
+
+Ili kupanga sehemu hizi pamoja, unaweza kuunda sehemu *mkuu* ya `App` ambayo inaonyesha kila moja ya sehemu hizi tatu kama *watoto*. Kuonyesha sehemu kama mtoto katika sehemu ya React, unajumuisha jina la sehemu lililoandikwa kama lebo maalum ya HTML katika JSX. Kwa mfano, katika njia ya `render` unaweza kuandika:
+
+```jsx
+return (
+ <App>
+  <Navbar />
+  <Dashboard />
+  <Footer />
+ </App>
+)
+```
+
+Wakati React inakutana na lebo maalum ya HTML inayorejelea sehemu nyingine (jina la sehemu lililozungushwa na `< />` kama katika mfano huu), inaonyesha alama za uandishi za sehemu hiyo mahali pa lebo hiyo. Hii inapaswa kuonyesha uhusiano wa mzazi/mtoto kati ya sehemu ya `App` na `Navbar`, `Dashboard`, na `Footer`.
+
+# --instructions--
+
+Katika mhariri wa msimbo, kuna sehemu rahisi ya kitendakazi inayoitwa `ChildComponent` na sehemu ya darasa la vitu inayoitwa `ParentComponent`. Panga hizi mbili pamoja kwa kuonyesha `ChildComponent` ndani ya `ParentComponent`. Hakikisha kufunga lebo ya `ChildComponent` kwa mstari wa mbele.
+
+**Kumbuka:** `ChildComponent` imefafanuliwa kwa kitendakazi cha mshale cha ES6 kwa sababu hii ni desturi ya kawaida sana wakati wa kutumia React.
+
+# --hints--
+
+Sehemu ya React inapaswa kurudisha kipengele kimoja cha `div`.
+
+```js
+assert(
+  (function () {
+    var shallowRender = Enzyme.shallow(React.createElement(ParentComponent));
+    return shallowRender.type() === 'div';
+  })()
+);
+```
+
+Sehemu inapaswa kurudisha vipengele viwili vilivyopangwa ndani.
+
+```js
+assert(
+  (function () {
+    var shallowRender = Enzyme.shallow(React.createElement(ParentComponent));
+    return shallowRender.children().length === 2;
+  })()
+);
+```
+
+Sehemu inapaswa kurudisha `ChildComponent` kama mtoto wake wa pili.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ParentComponent));
+    return (
+      mockedComponent.find('ParentComponent').find('ChildComponent').length ===
+      1
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const ChildComponent = () => {
+  return (
+    <div>
+      <p>I am the child</p>
+    </div>
+  );
+};
+
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>I am the parent</h1>
+        { /* Change code below this line */ }
+
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const ChildComponent = () => {
+  return (
+    <div>
+      <p>I am the child</p>
+    </div>
+  );
+};
+
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>I am the parent</h1>
+        { /* Change code below this line */ }
+        <ChildComponent />
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```

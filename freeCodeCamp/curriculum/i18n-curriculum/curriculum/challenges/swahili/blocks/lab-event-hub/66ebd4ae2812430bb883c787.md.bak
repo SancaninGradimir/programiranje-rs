@@ -1,0 +1,334 @@
+---
+id: 66ebd4ae2812430bb883c787
+title: Jenga kitovu cha tukio
+challengeType: 25
+dashedName: lab-event-hub
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii utatumia vipengele vya semantic vya HTML kuunda muundo wa ukurasa wa mtandao. Utaongeza maudhui na picha ili uonekane kama kitovu halisi cha tukio.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `header`.
+1. Ndani ya kipengele cha `header`, unapaswa kuwa na kipengele cha `h1` chenye maandishi ya `Event Hub`, na kipengele cha `nav`.
+1. Ndani ya kipengele cha `nav`, unapaswa kuwa na orodha isiyopangwa yenye vitu viwili vinavyobeba viungo vya sehemu tofauti za ukurasa. Kitu cha kwanza kinapaswa kuwa na maandishi ya `Upcoming Events`, na kitu cha pili kinapaswa kuwa na maandishi ya `Past Events`.
+1. Kila kiungo kinapaswa kuwakilishwa na kipengele cha `a` chenye sifa ya kipengele ya `href` inayounganisha na sehemu husika za ukurasa, `#upcoming-events` na `#past-events` mtawalia.
+1. Unapaswa kuwa na kipengele cha `main` chenye sehemu tofauti za ukurasa.
+1. Ndani ya kipengele cha `main`, unapaswa kuwa na vipengele viwili vya `section`.
+1. Kipengele cha kwanza cha `section` kinapaswa kuwa na sifa ya kipengele ya `id` yenye thamani `upcoming-events`.
+1. Ndani ya sehemu ya `#upcoming-events`, unapaswa kuwa na:
+   
+   - Kipengele cha `h2` chenye maandishi ya `Upcoming Events`.
+   - Vipengele viwili vya `article`. Kila makala inapaswa kuwakilisha tukio, na inapaswa kuwa na:
+      - Kipengele cha `h3` kwa kichwa cha tukio.
+      - Kipengele cha `p` kwa maelezo ya tukio. Unaweza kuongeza tarehe chini ikiwa unataka.
+
+1. Kipengele cha pili cha `section` kinapaswa kuwa na sifa ya kipengele ya `id` yenye thamani `past-events`.
+1. Ndani ya sehemu ya `#past-events`, unapaswa kuwa na:
+
+   - Kipengele cha `h2` chenye maandishi ya `Past Events`.
+   - Vipengele viwili vya `article`. Kila kipengele cha makala kinapaswa kuwakilisha tukio la zamani, na kinapaswa kuwa na:
+     - Kipengele cha `h3` kwa kichwa cha tukio,
+     - Kipengele cha `p` kwa maelezo ya tukio. Unaweza kuongeza tarehe chini ikiwa unataka.
+     - Kipengele cha picha chenye sifa ya kipengele ya `src` inayoweka picha na sifa ya kipengele ya `alt` yenye maelezo ya picha.
+
+**Kumbuka:** Unaweza kutumia maandishi yoyote kwa maelezo ya tukio na tarehe. Unaweza kutumia URL zifuatazo za picha ikiwa unataka:
+
+- `https://cdn.freecodecamp.org/curriculum/labs/past-event1.jpg`.
+- `https://cdn.freecodecamp.org/curriculum/labs/past-event2.jpg`.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `header`.
+
+```js
+assert.isNotNull(document.querySelector("header"));
+```
+
+Kipengele chako cha `header` kinapaswa kuja baada ya lebo ya kufungua ya `body`.
+
+```js
+assert.equal(document.querySelector("body")?.firstElementChild?.tagName, "HEADER");
+```
+
+Ndani ya kipengele cha `header`, unapaswa kuwa na kipengele cha `h1` chenye maandishi ya `Event Hub`.
+
+```js
+const h1Element = document.querySelector('header h1');
+assert.strictEqual(h1Element?.innerText.trim(), "Event Hub");
+```
+
+Ndani ya kipengele cha `header`, baada ya kipengele cha `h1`, unapaswa kuwa na kipengele cha `nav`.
+
+```js
+assert.isNotNull(document.querySelector("header>h1+nav"));
+```
+
+Kipengele chako cha `nav` kinapaswa kuwa na orodha isiyopangwa yenye vitu viwili.
+
+```js
+const liElements = document.querySelectorAll('header nav>ul>li');
+
+assert.isNotNull('header nav>ul');
+assert.strictEqual(liElements.length, 2);
+```
+
+Kitu cha kwanza katika orodha isiyopangwa kinapaswa kuwa kiungo.
+
+```js
+const firstLink = document.querySelectorAll('header nav ul li a')[0];
+assert.exists(firstLink);
+```
+
+Kitu cha pili katika orodha isiyopangwa kinapaswa kuwa kiungo.
+
+```js
+const secondLink = document.querySelectorAll('header nav ul li a')[1];
+assert.exists(secondLink);
+```
+
+Maandishi ya kitu cha kwanza katika orodha isiyopangwa yanapaswa kuwa `Upcoming Events`.
+
+```js
+const firstLink = document.querySelectorAll('header nav>ul>li>a')[0];
+assert.strictEqual(firstLink.innerText.trim(), "Upcoming Events");
+```
+
+Kitu cha kwanza katika orodha isiyopangwa kinapaswa kuwa na `href` iliyowekwa kuwa `#upcoming-events`.
+
+```js
+const anchorElement = document.querySelectorAll("header nav>ul>li>a")[0];
+const hrefAttribute = anchorElement?.getAttribute("href");
+assert.strictEqual(hrefAttribute, "#upcoming-events");
+```
+
+Maandishi ya kitu cha pili katika orodha isiyopangwa yanapaswa kuwa `Past Events`.
+
+```js
+const secondLink = document.querySelectorAll('header nav>ul>li>a')[1];
+assert.strictEqual(secondLink.innerText.trim(), "Past Events");
+```
+
+Kitu cha pili katika orodha isiyopangwa kinapaswa kuwa na `href` iliyowekwa kuwa `#past-events`.
+
+```js
+const anchorElement = document.querySelectorAll("header nav>ul>li>a")[1];
+const hrefAttribute = anchorElement?.getAttribute("href");
+assert.strictEqual(hrefAttribute, "#past-events");
+```
+
+Unapaswa kuwa na kipengele cha `main` baada ya lebo ya kufunga ya kipengele cha `header`.
+
+```js
+const mainElement = document.querySelector("body>header+main");
+assert.isNotNull(mainElement);
+```
+
+Ndani ya kipengele cha `main`, unapaswa kuwa na vipengele viwili vya `section`.
+
+```js
+const sectionElements = document.querySelectorAll('body>header+main>section');
+assert.strictEqual(sectionElements.length, 2);
+```
+
+Kipengele chako cha kwanza cha `section` kinapaswa kuwa na sifa ya kipengele ya `id` yenye thamani `upcoming-events`.
+
+```js
+const firstSection = document.querySelectorAll('body>header+main>section')[0];
+const idAttribute = firstSection?.getAttribute("id");
+assert.strictEqual(idAttribute, "upcoming-events");
+```
+
+Kipengele chako cha pili cha `section` kinapaswa kuwa na sifa ya kipengele ya `id` yenye thamani `past-events`.
+
+```js
+const secondSection = document.querySelectorAll('body>header+main>section')[1];
+const idAttribute = secondSection?.getAttribute("id");
+assert.strictEqual(idAttribute, "past-events");
+```
+
+Ndani ya sehemu ya `#upcoming-events`, unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Upcoming Events`.
+
+```js
+const h2Element = document.querySelector('#upcoming-events h2');
+assert.strictEqual(h2Element?.innerText.trim(), "Upcoming Events");
+```
+
+Ndani ya sehemu ya `#upcoming-events`, unapaswa kuwa na vipengele viwili vya `article` chini ya kipengele cha `h2`.
+
+```js
+const articleElements = document.querySelectorAll('#upcoming-events h2 ~ article');
+assert.strictEqual(articleElements.length, 2);
+```
+
+Vipengele vyote vya `article` ndani ya sehemu ya `#upcoming-events` vinapaswa kuwa na kipengele cha `h3` kwa kichwa cha tukio.
+
+```js
+const h3Elements = document.querySelectorAll('#upcoming-events article h3');
+assert.strictEqual(h3Elements.length, 2);
+```
+
+Vipengele vyote vya `article` ndani ya sehemu ya `#upcoming-events` vinapaswa kuwa na kipengele cha aya kwa maelezo ya tukio.
+
+```js
+const articles = document.querySelectorAll('#upcoming-events article');
+assert.isNotEmpty(articles);
+articles.forEach(article => {
+    assert.isAtLeast(article.querySelectorAll('h3 ~ p').length, 1);
+});
+```
+
+Ndani ya sehemu ya `#past-events`, unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Past Events`.
+
+```js
+const h2Element = document.querySelector('#past-events h2');
+assert.strictEqual(h2Element?.innerText.trim(), "Past Events");
+```
+
+Ndani ya sehemu ya `#past-events`, unapaswa kuwa na vipengele viwili vya `article` chini ya kipengele cha `h2`.
+
+```js
+const articleElements = document.querySelectorAll('#past-events h2 ~ article');
+assert.strictEqual(articleElements.length, 2);
+```
+
+Vipengele vyote vya `article` ndani ya sehemu ya `#past-events` vinapaswa kuwa na kipengele cha `h3` kwa kichwa cha tukio.
+
+```js
+const h3Elements = document.querySelectorAll('#past-events article h3');
+assert.strictEqual(h3Elements.length, 2);
+```
+
+Vipengele vyote vya `article` ndani ya sehemu ya `#past-events` vinapaswa kuwa na kipengele cha aya kwa maelezo ya tukio.
+
+```js
+const articles = document.querySelectorAll('#past-events article');
+assert.isNotEmpty(articles);
+articles.forEach(article => {
+    assert.isAtLeast(article.querySelectorAll('h3 ~ p').length, 1);
+});
+```
+
+Vipengele vyote vya `article` ndani ya sehemu ya `#past-events` vinapaswa kuwa na kipengele cha picha.
+
+```js
+const imgElements = document.querySelectorAll('#past-events article img');
+assert.strictEqual(imgElements.length, 2);
+```
+
+Vipengele vyote vya picha ndani ya sehemu ya `#past-events` vinapaswa kuwa na sifa ya kipengele ya `src` inayoweka faili la picha.
+
+```js
+const imgElements = document.querySelectorAll('#past-events article img');
+assert.strictEqual(imgElements.length, 2);
+
+for (let img of imgElements) {
+    assert.exists(img.getAttribute("src"));
+}
+```
+
+Vipengele vyote vya picha ndani ya sehemu ya `#past-events` vinapaswa kuwa na sifa ya kipengele ya `alt` yenye maelezo ya picha.
+
+```js
+const imgElements = document.querySelectorAll('#past-events article img');
+assert.strictEqual(imgElements.length, 2);
+
+for (let img of imgElements) {
+    assert.exists(img.getAttribute("alt"));
+}
+```
+
+Kila kipengele cha `h3` kinapaswa kuwa na kichwa cha tukio.
+
+```js
+const eventTitles = document.querySelectorAll('h3');
+assert.isNotEmpty(eventTitles);
+eventTitles.forEach((eventTitle => assert.isNotEmpty(eventTitle.innerText.trim())));
+```
+
+Kila kipengele cha `p` kinapaswa kuwa na maelezo ya tukio.
+
+```js
+const eventDescriptions = document.querySelectorAll('p');
+assert.isNotEmpty(eventDescriptions);
+eventDescriptions.forEach((eventDescription => assert.isNotEmpty(eventDescription.innerText.trim())));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Event Hub</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Hub</title>
+</head>
+<body>
+    <header>
+        <h1>Event Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="#upcoming-events">Upcoming Events</a></li>
+                <li><a href="#past-events">Past Events</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="upcoming-events">
+            <h2>Upcoming Events</h2>
+            <article>
+                <h3>AI & Machine Learning Conference 2024</h3>
+                <p>Join us for a deep dive into the latest advancements in artificial intelligence and machine learning. Industry leaders will share insights and case studies on how AI is transforming various sectors.</p>
+                <p>Date: August 10, 2024</p>
+            </article>
+            <article>
+                <h3>Web Development Bootcamp</h3>
+                <p>A hands-on workshop designed for developers looking to enhance their skills in modern web technologies including React, Node.js, and GraphQL. Perfect for both beginners and experienced developers.</p>
+                <p>Date: September 5, 2024</p>
+            </article>
+        </section>
+        <section id="past-events">
+            <h2>Past Events</h2>
+            <article>
+                <h3>Cybersecurity Summit 2024</h3>
+                <p>An event focusing on the latest trends and threats in cybersecurity. Experts discussed strategies for protecting data and ensuring privacy in an increasingly digital world.</p>
+                <p>Date: June 15, 2024</p>
+                <img src="https://cdn.freecodecamp.org/curriculum/labs/past-event1.jpg" alt="Image from Cybersecurity Summit 2024">
+            </article>
+            <article>
+                <h3>Blockchain Expo 2024</h3>
+                <p>A comprehensive event covering the future of blockchain technology. Topics included decentralized finance (DeFi), smart contracts, and the impact of blockchain on various industries.</p>
+                <p>Date: July 20, 2024</p>
+                <img src="https://cdn.freecodecamp.org/curriculum/labs/past-event2.jpg" alt="Image from Blockchain Expo 2024">
+            </article>
+        </section>
+    </main>
+</body>
+</html>
+```

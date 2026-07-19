@@ -1,0 +1,206 @@
+---
+id: a2f1d72d9b908d0bd72bb9f6
+title: Tengeneza mtu
+challengeType: 1
+forumTopicId: 16020
+dashedName: make-a-person
+---
+
+# --description--
+
+Jaza kijenzi cha kitu na njia zifuatazo hapa chini:
+
+```js
+getFirstName()
+getLastName()
+getFullName()
+setFirstName(first)
+setLastName(last)
+setFullName(first, last)
+```
+
+Endesha majaribio kuona matokeo yanayotarajiwa kwa kila njia. Njia hizi ndizo pekee zinazopatikana za kuingiliana na kitu hicho. Kila jaribio litatangaza mfano mpya wa `Person` kama `new Person('Bob', 'Ross')`.
+
+# --hints--
+
+Haupaswi kubadilisha saini ya kitendakazi.
+
+```js
+assert.match(code, /const\s+Person\s*=\s*function\s*\(\s*first\s*,\s*last\s*\)\s*{/);
+```
+
+Haupaswi kuweka thamani mpya kwa kigezo cha `first`.
+
+```js
+assert.notMatch(code, /\bfirst\s*=\s*/);
+```
+
+Haupaswi kuweka thamani mpya kwa kigezo cha `last`.
+
+```js
+assert.notMatch(code, /\blast\s*=\s*/);
+```
+
+Hakuna sifa zinazopaswa kuongezwa. `Object.keys(Person).length` inapaswa kila mara kurudisha 6.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFirstName('Haskell');
+_person.setLastName('Curry');
+_person.setFullName('John', 'Smith');
+assert.lengthOf(Object.keys(_person), 6);
+```
+
+Unapaswa kuweza kutengeneza mfano wa kitu chako cha `Person`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.instanceOf(_person, Person);
+```
+
+Kitu chako cha `Person` hakipaswi kuwa na sifa ya `firstName`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.notProperty(_person, 'firstName');
+```
+
+Kitu chako cha `Person` hakipaswi kuwa na sifa ya `lastName`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.notProperty(_person, 'lastName');
+```
+
+Njia ya `.getFirstName()` inapaswa kurudisha mfuatano wa herufi `Bob`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.strictEqual(_person.getFirstName(), 'Bob');
+```
+
+`.getLastName()` inapaswa kurudisha mfuatano wa herufi `Ross`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.strictEqual(_person.getLastName(), 'Ross');
+```
+
+Njia ya `.getFullName()` inapaswa kurudisha mfuatano wa herufi `Bob Ross`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+assert.strictEqual(_person.getFullName(), 'Bob Ross');
+```
+
+Njia ya `.getFullName()` inapaswa kurudisha mfuatano wa herufi `Haskell Ross` baada ya kuita `.setFirstName('Haskell')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFirstName('Haskell');
+assert.strictEqual(_person.getFullName(), 'Haskell Ross');
+```
+
+Njia ya `.getFullName()` inapaswa kurudisha mfuatano wa herufi `Bob Curry` baada ya kuita `.setLastName('Curry')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setLastName('Curry');
+assert.strictEqual(_person.getFullName(), 'Bob Curry');
+```
+
+Njia ya `.getFullName()` inapaswa kurudisha mfuatano wa herufi `Haskell Curry` baada ya kuita `.setFullName('Haskell', 'Curry')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Haskell', 'Curry');
+assert.strictEqual(_person.getFullName(), 'Haskell Curry');
+```
+
+Njia ya `.getFirstName()` inapaswa kurudisha mfuatano wa herufi `Haskell` baada ya kuita `.setFullName('Haskell', 'Curry')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Haskell', 'Curry');
+assert.strictEqual(_person.getFirstName(), 'Haskell');
+```
+
+Njia ya `.getLastName()` inapaswa kurudisha mfuatano wa herufi `Curry` baada ya kuita `.setFullName('Haskell', 'Curry')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Haskell', 'Curry');
+assert.strictEqual(_person.getLastName(), 'Curry');
+```
+
+Njia ya `.getFullName()` inapaswa kurudisha mfuatano wa herufi `Emily Martinez de la Rosa` baada ya kuita `.setFullName('Emily Martinez', 'de la Rosa')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Emily Martinez', 'de la Rosa');
+assert.strictEqual(_person.getFullName(), 'Emily Martinez de la Rosa');
+```
+
+Sifa ya `.getFirstName()` inapaswa kurudisha mfuatano wa herufi `Emily Martinez` baada ya kuita `.setFullName('Emily Martinez', 'de la Rosa')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Emily Martinez', 'de la Rosa');
+assert.strictEqual(_person.getFirstName(), 'Emily Martinez');
+```
+
+Sifa ya `.getLastName()` inapaswa kurudisha mfuatano wa herufi `de la Rosa` baada ya kuita `.setFullName('Emily Martinez', 'de la Rosa')`.
+
+```js
+const _person = new Person('Bob', 'Ross');
+_person.setFullName('Emily Martinez', 'de la Rosa');
+assert.strictEqual(_person.getLastName(), 'de la Rosa');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const Person = function(first, last) {
+  this.getFullName = function() {
+    return "";
+  };
+  return "";
+};
+```
+
+# --solutions--
+
+```js
+const Person = function(first, last) {
+  let firstName = first;
+  let lastName = last;
+
+  this.getFirstName = function(){
+    return firstName;
+  };
+
+  this.getLastName = function(){
+    return lastName;
+  };
+
+  this.getFullName = function(){
+    return firstName + " " + lastName;
+  };
+
+  this.setFirstName = function(str){
+    firstName = str;
+  };
+
+
+  this.setLastName = function(str){
+    lastName = str;
+  };
+
+  this.setFullName = function(first, last){
+    firstName = first;
+    lastName = last;
+  };
+};
+```

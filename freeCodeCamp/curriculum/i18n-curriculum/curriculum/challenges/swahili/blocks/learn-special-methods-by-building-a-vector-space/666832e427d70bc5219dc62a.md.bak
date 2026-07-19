@@ -1,0 +1,62 @@
+---
+id: 666832e427d70bc5219dc62a
+title: Hatua 36
+challengeType: 20
+dashedName: step-36
+---
+
+# --description--
+
+Kama unavyoona kutoka kwenye matokeo, ingawa uliunda `__getattr__` katika darasa lako la vitu, njia hii bado haijaitwa. Hii hutokea kwa sababu upatikanaji wa sifa ya kipengele wa kawaida hufanyika kupitia `__getattribute__`. Kwa hiyo, unaweza kuona thamani ya sifa ya kipengele ikichapishwa kwenye terminali.
+
+Sasa badilisha mistari miwili ya mwisho ya msimbo ili upate sifa ya kipengele ya `z` ya `v1` katika wito zako zote za `print()`. Wakati huu, utapata sifa ya kipengele ambayo `v1` haina. Matokeo yake, `__getattribute__` itatoa kosa na `__getattr__` itaitwa.
+
+# --hints--
+
+Unapaswa kubadilisha msimbo wako ili uchapishe sifa ya kipengele ya `z` ya `v1` kwa kutumia operator ya nukta na kitendakazi cha `getattr()`.
+
+```js
+({ test: () => assert(runPython(`
+n = _Node(_code)
+(n.has_call("print(v1.z)") and n.has_call("print(getattr(v1, 'z'))")) or n.has_call("print(v1.z, getattr(v1, 'z'))") or n.has_call("print(getattr(v1, 'z'), v1.z)")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+
+    def __getattr__(self, attr):                
+        return 'calling __getattr__'
+
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+# print(f'v1 = {v1}', f'\nrepr = {repr(v1)}')
+# print(f'v2 = {v2}', f'\nrepr = {repr(v2)}')
+--fcc-editable-region--
+print(v1.x)
+print(getattr(v1, 'x'))
+--fcc-editable-region--
+```

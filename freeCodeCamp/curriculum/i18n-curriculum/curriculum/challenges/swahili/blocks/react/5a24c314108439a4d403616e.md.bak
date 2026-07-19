@@ -1,0 +1,142 @@
+---
+id: 5a24c314108439a4d403616e
+title: Upatikanaji wa vigezo kwa kutumia this.props
+challengeType: 6
+forumTopicId: 301375
+dashedName: access-props-using-this-props
+---
+
+# --description--
+
+Changamoto za mwisho zimeelezea njia za msingi za kupitisha vigezo vinavyopitishwa kwa sehemu ndogo za darasa la vitu. Lakini vipi ikiwa sehemu ndogo ya darasa la vitu unayopitishia vigezo ni sehemu ya darasa la vitu la ES6, badala ya sehemu isiyo na hali ya kitendakazi? Sehemu ya darasa la vitu la ES6 hutumia mkataba tofauti kidogo kupata upatikanaji wa vigezo vinavyopitishwa.
+
+Kila unaporejelea sehemu ya darasa la vitu ndani yake yenyewe, unatumia neno kuu `this`. Ili kupata upatikanaji wa vigezo vinavyopitishwa ndani ya sehemu ya darasa la vitu, unaweka msimbo unaotumia kupata upatikanaji huo mbele ya `this`. Kwa mfano, ikiwa sehemu ya darasa la vitu la ES6 ina kigezo kinachoitwa `data`, unaandika `{this.props.data}` katika JSX.
+
+# --instructions--
+
+Onyesha mfano wa sehemu ya `Welcome` katika sehemu mama `App`. Hapa, mpe `Welcome` kigezo cha `name` na weka thamani yake kuwa mfuatano wa herufi. Ndani ya sehemu ndogo, `Welcome`, pata upatikanaji wa kigezo cha `name` ndani ya lebo za `strong`.
+
+# --hints--
+
+Sehemu ya `App` inapaswa kurudisha kipengele kimoja cha `div`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(App));
+    return mockedComponent.children().type() === 'div';
+  })()
+);
+```
+
+Mtoto wa `App` anapaswa kuwa sehemu ya `Welcome`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(App));
+    return (
+      mockedComponent.children().childAt(0).name() === 'Welcome'
+    );
+  })()
+);
+```
+
+Sehemu ya `Welcome` inapaswa kuwa na kigezo kinachoitwa `name`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(App));
+    return mockedComponent.find('Welcome').props().name;
+  })()
+);
+```
+
+Sehemu ya `Welcome` inapaswa kuonyesha mfuatano wa herufi unaopitishwa kama kigezo cha `name` ndani ya lebo za `strong`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(App));
+    return (
+      mockedComponent.find('strong').text() ===
+      mockedComponent.find('Welcome').props().name
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+            { /* Change code below this line */ }
+            <Welcome />
+            { /* Change code above this line */ }
+        </div>
+    );
+  }
+};
+
+class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+          { /* Change code below this line */ }
+          <p>Hello, <strong></strong>!</p>
+          { /* Change code above this line */ }
+        </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+          { /* Change code below this line */ }
+          <p>Hello, <strong>{this.props.name}</strong>!</p>
+          { /* Change code above this line */ }
+        </div>
+    );
+  }
+};
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+            { /* Change code below this line */ }
+            <Welcome name="Quincy"/>
+            { /* Change code above this line */ }
+        </div>
+    );
+  }
+};
+```

@@ -1,0 +1,73 @@
+---
+id: 660f34626216270c682e2f7b
+title: Hatua 66
+challengeType: 1
+dashedName: step-66
+---
+
+# --description--
+
+<Wito wa kitendakazi> hukuruhusu kutumia kitendakazi moja kwa moja. Huenda hukujua, lakini njia kama `.push()` ambazo umekuwa ukitumia zimekuwa ni wito wa kitendakazi.
+
+Kitendakazi huitwa kwa kurejelea jina la kitendakazi, na kuongeza `()`. Hivi ndivyo unavyopaswa kuita kitendakazi cha `test`:
+
+```js
+test();
+```
+
+Badilisha `character.repeat(i + 1)` katika wito wako wa `.push()` na wito wa kitendakazi kwa kitendakazi chako cha `padRow`. Usiongeze hoja yoyote kwa sasa.
+
+# --hints--
+
+Haupasi kutumia `i + 1` katika wito wako wa `push`.
+
+```js
+assert.notMatch(__helpers.removeJSComments(code), /repeat\(\s*i\s*\+\s*1\s*\)/);
+```
+
+Haupasi kutumia `character.repeat` katika wito wako wa `.push()`.
+
+```js
+assert.notMatch(__helpers.removeJSComments(code), /push\(\s*character/);
+```
+
+Unapaswa kuita `padRow` katika wito wako wa `.push()`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /push\(\s*?padRow\((.+?)?\)\)/);
+```
+
+Haupasi kuwa na hoja katika wito wako wa `padRow`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /push\(\s*?padRow\(\s*?\)/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+function padRow(rowNumber, rowCount) {
+  return character.repeat(rowNumber);
+}
+
+
+--fcc-editable-region--
+for (let i = 0; i < count; i = i + 1) {
+  rows.push(character.repeat(i + 1))
+}
+--fcc-editable-region--
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

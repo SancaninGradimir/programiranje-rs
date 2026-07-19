@@ -1,0 +1,148 @@
+---
+id: 598eea87e5cf4b116c3ff81a
+title: Vigezo vya namba ya Mersenne
+challengeType: 1
+forumTopicId: 302264
+dashedName: factors-of-a-mersenne-number
+---
+
+# --description--
+
+Namba ya Mersenne ni namba katika fomu ya <code>2<sup>P</sup>-1</code>.
+
+Ikiwa `P` ni namba msingi, namba ya Mersenne inaweza kuwa namba msingi ya Mersenne. (Ikiwa `P` si namba msingi, namba ya Mersenne pia si namba msingi.)
+
+Katika utafutaji wa nambari msingi za Mersenne ni faida kuondoa nguvu kwa kupata kigezo kidogo kabla ya kuanza mtihani wa <a href="https://rosettacode.org/wiki/Lucas-Lehmer test" target="_blank" rel="noopener noreferrer nofollow">Lucas-Lehmer</a> ambao unaweza kuwa mrefu.
+
+Kuna algoriti za ufanisi sana za kubaini kama namba hugawanya <code>2<sup>P</sup>-1</code> (au sawa na kusema, kama <code>2<sup>P</sup> mod (namba) = 1</code>).
+
+Lugha zingine tayari zina utekelezaji uliyojengwa ndani wa operesheni hii ya nguvu-na-modulo (inayojulikana kama modPow au sawa).
+
+Hapa chini ni jinsi ya kutekeleza modPow mwenyewe:
+
+Kwa mfano, hebu tukokotoe <code>2<sup>23</sup> mod 47</code>.
+
+Badilisha nguvu 23 kuwa binary, unapata 10111. Kuanzia na <code><tt>square</tt> = 1</code>, rudia kuizidisha yenyewe.
+
+Ondoa kidole cha juu cha nguvu, na ikiwa ni 1 zidisha `square` kwa msingi wa nguvu (2), kisha hesabu <code><tt>square</tt> modulo 47</code>.
+
+Tumia matokeo ya modulo kutoka hatua ya mwisho kama thamani ya awali ya `square` katika hatua inayofuata:
+
+<pre>Ondoa   Hiari
+square     kidole cha juu  zidisha kwa 2  mod 47
+------------  -------  -------------  ------
+1*1 = 1       1  0111  1*2 = 2           2
+2*2 = 4       0   111     hapana           4
+4*4 = 16      1    11  16*2 = 32        32
+32*32 = 1024  1     1  1024*2 = 2048    27
+27*27 = 729   1        729*2 = 1458      1
+</pre>
+
+Kwa kuwa <code>2<sup>23</sup> mod 47 = 1</code>, 47 ni kigezo cha <code>2<sup>P</sup>-1</code>.
+
+(Ili kuona hili, toa 1 pande zote mbili: <code>2<sup>23</sup>-1 = 0 mod 47</code>.)
+
+Kwa kuwa tumeonyesha kuwa 47 ni kigezo, <code>2<sup>23</sup>-1</code> si namba msingi.
+
+Sifa zaidi za nambari za Mersenne zinaturuhusu kuboresha mchakato zaidi.
+
+Kigezo chochote `q` cha <code>2<sup>P</sup>-1</code> lazima kiwe katika fomu ya `2kP+1`, `k` ikiwa nambari chanya au sifuri. Zaidi ya hayo, `q` lazima iwe `1` au `7 mod 8`.
+
+Mwishowe, kigezo chochote kinachowezekana `q` lazima kiwe <a href="https://rosettacode.org/wiki/Primality_by_trial_division" target="_blank" rel="noopener noreferrer nofollow">namba msingi</a>.
+
+Kama katika algoriti nyingine za mgawanyiko wa majaribio, algoriti inasimama wakati `2kP+1 > sqrt(N)`. Hizi hasa hufanya kazi kwa nambari za Mersenne ambapo `P` ni namba msingi. Kwa mfano, <code>M<sub>4</sub>=15</code> haina vigezo kwa kutumia mbinu hizi, lakini hugawanyika kwa 3 na 5, wala hakuna kati yao inayokidhi `2kP+1`.
+
+# --instructions--
+
+Kutumia njia iliyoelezwa hapo juu pata kigezo cha <code>2<sup>p</sup>-1</code>.
+
+# --hints--
+
+`check_mersenne` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof check_mersenne === 'function');
+```
+
+`check_mersenne(3)` inapaswa kurudisha mfuatano wa herufi.
+
+```js
+assert(typeof check_mersenne(3) == 'string');
+```
+
+`check_mersenne(3)` inapaswa kurudisha mfuatano wa herufi `M3 = 2^3-1 is prime`.
+
+```js
+assert.equal(check_mersenne(3), 'M3 = 2^3-1 is prime');
+```
+
+`check_mersenne(23)` inapaswa kurudisha mfuatano wa herufi `M23 = 2^23-1 is composite with factor 47`.
+
+```js
+assert.equal(check_mersenne(23), 'M23 = 2^23-1 is composite with factor 47');
+```
+
+`check_mersenne(929)` inapaswa kurudisha mfuatano wa herufi `M929 = 2^929-1 is composite with factor 13007`.
+
+```js
+assert.equal(
+  check_mersenne(929),
+  'M929 = 2^929-1 is composite with factor 13007'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function check_mersenne(p) {
+
+}
+```
+
+# --solutions--
+
+```js
+function check_mersenne(p){
+    function isPrime(value){
+      for (let i=2; i < value; i++){
+        if (value % i == 0){
+          return false;
+        }
+        if (value % i != 0){
+          return true;
+         }
+      }
+    }
+
+    function trial_factor(base, exp, mod){
+      let square, bits;
+      square = 1;
+      bits = exp.toString(2).split('');
+      for (let i=0,ln=bits.length; i<ln; i++){
+        square = Math.pow(square, 2) * (bits[i] == 1 ? base : 1) % mod;
+      }
+      return (square == 1);
+    }
+
+    function mersenne_factor(p){
+      let limit, k, q;
+      limit = Math.sqrt(Math.pow(2,p) - 1);
+      k = 1;
+      while ((2*k*p - 1) < limit){
+        q = 2*k*p + 1;
+        if (isPrime(q) && (q % 8 == 1 || q % 8 == 7) && trial_factor(2,p,q)){
+          return q; // q is a factor of 2**p-1
+        }
+        k++;
+      }
+      return null;
+    }
+  let f, result;
+  result="M"+p+" = 2^"+p+"-1 is ";
+  f = mersenne_factor(p);
+  result+=f == null ? "prime" : "composite with factor "+f;
+  return result;
+}
+```

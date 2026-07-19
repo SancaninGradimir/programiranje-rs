@@ -1,0 +1,186 @@
+---
+id: 5a24c314108439a4d403616a
+title: Pita safu ya data kama vigezo
+challengeType: 6
+forumTopicId: 301401
+dashedName: pass-an-array-as-props
+---
+
+# --description--
+
+Changamoto ya mwisho ilionyesha jinsi ya kupitisha taarifa kutoka sehemu ya mzazi kwenda sehemu ya mtoto kama `props` au sifa. Changamoto hii inaangalia jinsi safu za data zinavyoweza kupitishwa kama `props`. Ili kupitisha safu ya data kwa kipengele cha JSX, lazima itendwe kama JavaScript na ifungwe ndani ya mabano ya mviringo.
+
+```jsx
+<ParentComponent>
+  <ChildComponent colors={["green", "blue", "red"]} />
+</ParentComponent>
+```
+
+Sehemu ya mtoto kisha ina upatikanaji wa sifa ya safu ya data `colors`. Njia za safu kama `join()` zinaweza kutumika wakati wa kupata sifa hiyo.
+
+```jsx
+const ChildComponent = (props) => <p>{props.colors.join(', ')}</p>
+```
+
+Hii itachanganya vitu vyote vya safu ya `colors` kuwa mfuatano wa herufi ulio na koma kati na kutoa: `<p>green, blue, red</p>`. Baadaye, tutajifunza kuhusu njia nyingine za kawaida za kuonyesha safu za data katika React.
+
+# --instructions--
+
+Kuna sehemu za `List` na `ToDo` katika mhariri wa msimbo. Unaponyesha kila `List` kutoka sehemu ya `ToDo`, pita sifa ya `tasks` ambayo imepewa thamani ya safu ya zoezi za kufanya, kwa mfano `["walk dog", "workout"]`. Kisha pata safu hii ya `tasks` katika sehemu ya `List`, ukaonyesha thamani yake ndani ya kipengele cha `p`. Tumia `join(", ")` kuonyesha safu ya `props.tasks` katika kipengele cha `p` kama orodha iliyo na koma kati. Orodha ya leo inapaswa kuwa na angalau zoezi 2 na ile ya kesho inapaswa kuwa na angalau zoezi 3.
+
+# --hints--
+
+Sehemu ya `ToDo` inapaswa kurudisha `div` moja la nje.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return mockedComponent.children().first().type() === 'div';
+  })()
+);
+```
+
+Mtoto wa tatu wa sehemu ya `ToDo` inapaswa kuwa mfano wa sehemu ya `List`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return mockedComponent.children().first().childAt(2).name() === 'List';
+  })()
+);
+```
+
+Mtoto wa tano wa sehemu ya `ToDo` inapaswa kuwa mfano wa sehemu ya `List`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return mockedComponent.children().first().childAt(4).name() === 'List';
+  })()
+);
+```
+
+Mifano yote miwili ya sehemu ya `List` inapaswa kuwa na sifa inayoitwa `tasks` na `tasks` inapaswa kuwa ya aina ya safu ya data.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return (
+      Array.isArray(mockedComponent.find('List').get(0).props.tasks) &&
+      Array.isArray(mockedComponent.find('List').get(1).props.tasks)
+    );
+  })()
+);
+```
+
+Sehemu ya kwanza ya `List` inayowakilisha zoezi za leo inapaswa kuwa na vitu 2 au zaidi.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return mockedComponent.find('List').get(0).props.tasks.length >= 2;
+  })()
+);
+```
+
+Sehemu ya pili ya `List` inayowakilisha zoezi za kesho inapaswa kuwa na vitu 3 au zaidi.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return mockedComponent.find('List').get(1).props.tasks.length >= 3;
+  })()
+);
+```
+
+Sehemu ya `List` inapaswa onyesha thamani kutoka kwa sifa ya `tasks` katika lebo ya `p`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+    return (
+      mockedComponent
+        .find('p')
+        .get(0)
+        .props.children.replace(/\s*,\s*/g, ',') ===
+        mockedComponent
+          .find('List')
+          .get(0)
+          .props.tasks.join(',')
+          .replace(/\s*,\s*/g, ',') &&
+      mockedComponent
+        .find('p')
+        .get(1)
+        .props.children.replace(/\s*,\s*/g, ',') ===
+        mockedComponent
+          .find('List')
+          .get(1)
+          .props.tasks.join(',')
+          .replace(/\s*,\s*/g, ',')
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const List = (props) => {
+  { /* Change code below this line */ }
+  return <p>{}</p>
+  { /* Change code above this line */ }
+};
+
+class ToDo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>To Do Lists</h1>
+        <h2>Today</h2>
+        { /* Change code below this line */ }
+        <List/>
+        <h2>Tomorrow</h2>
+        <List/>
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const List= (props) => {
+  return <p>{props.tasks.join(', ')}</p>
+};
+
+class ToDo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>To Do Lists</h1>
+        <h2>Today</h2>
+        <List tasks={['study', 'exercise']} />
+        <h2>Tomorrow</h2>
+        <List tasks={['call Sam', 'grocery shopping', 'order tickets']} />
+      </div>
+    );
+  }
+};
+```

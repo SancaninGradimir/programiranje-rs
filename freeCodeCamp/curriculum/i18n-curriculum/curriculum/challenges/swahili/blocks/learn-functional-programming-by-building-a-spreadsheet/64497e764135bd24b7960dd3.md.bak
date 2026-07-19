@@ -1,0 +1,152 @@
+---
+id: 64497e764135bd24b7960dd3
+title: Hatua 33
+challengeType: 0
+dashedName: step-33
+---
+
+# --description--
+
+Ili kuendesha kitendakazi chako cha lahajedwali, unahitaji kuwa na uwezo wa kuchambua na kutathmini mfuatano wa herufi wa ingizo. Huu ni wakati mzuri wa kutumia kitendakazi kingine.
+
+Tangaza kitendakazi cha mshale `evalFormula` kinachopokea vigezo `x` na `cells`.
+
+# --hints--
+
+Unapaswa kutangaza tofauti `evalFormula`.
+
+```js
+assert.match(code, /(?:let|const|var)\s+evalFormula/);
+```
+
+Unapaswa kutumia `const` kutangaza tofauti yako ya `evalFormula`.
+
+```js
+assert.match(code, /const\s+evalFormula/);
+```
+
+Tofauti yako ya `evalFormula` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(evalFormula);
+```
+
+Kitendakazi chako cha `evalFormula` kinapaswa kutumia sintaksia ya mshale.
+
+```js
+assert.match(code, /const\s+evalFormula\s*=\s*\(/);
+```
+
+Kitendakazi chako cha `evalFormula` kinapaswa kuwa na `x` kama kigezo cha kwanza.
+
+```js
+assert.match(code, /const\s+evalFormula\s*=\s*\(\s*x/);
+```
+
+Kitendakazi chako cha `evalFormula` kinapaswa kuwa na `cells` kama kigezo cha pili.
+
+```js
+assert.match(code, /const\s+evalFormula\s*=\s*\(\s*x\s*,\s*cells\s*\)\s*=>/);
+```
+
+Kitendakazi chako cha `evalFormula` kinapaswa kuwa tupu.
+
+```js
+assert.match(code, /const\s+evalFormula\s*=\s*\(\s*x\s*,\s*cells\s*\)\s*=>\s*{\s*}/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Functional Programming Spreadsheet</title>
+  </head>
+  <body>
+    <div id="container">
+      <div></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+#container {
+  display: grid;
+  grid-template-columns: 50px repeat(10, 200px);
+  grid-template-rows: repeat(11, 30px);
+}
+
+.label {
+  background-color: lightgray;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+```
+
+```js
+const isEven = num => num % 2 === 0;
+const sum = nums => nums.reduce((acc, el) => acc + el, 0);
+const average = nums => sum(nums) / nums.length;
+
+const median = nums => {
+  const sorted = nums.slice().sort((a, b) => a - b);
+  const length = sorted.length;
+  const middle = length / 2 - 1;
+  return isEven(length)
+    ? average([sorted[middle], sorted[middle + 1]])
+    : sorted[Math.ceil(middle)];
+}
+
+const spreadsheetFunctions = {
+  sum,
+  average,
+  median
+}
+
+const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);
+const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+
+window.onload = () => {
+  const container = document.getElementById("container");
+  const createLabel = (name) => {
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = name;
+    container.appendChild(label);
+  }
+  const letters = charRange("A", "J");
+  letters.forEach(createLabel);
+  range(1, 99).forEach(number => {
+    createLabel(number);
+    letters.forEach(letter => {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = letter + number;
+      input.ariaLabel = letter + number;
+      input.onchange = update;
+      container.appendChild(input);
+    })
+  })
+}
+
+const update = event => {
+  const element = event.target;
+  const value = element.value.replace(/\s/g, "");
+  if (!value.includes(element.id) && value.startsWith('=')) {
+
+  }
+}
+```

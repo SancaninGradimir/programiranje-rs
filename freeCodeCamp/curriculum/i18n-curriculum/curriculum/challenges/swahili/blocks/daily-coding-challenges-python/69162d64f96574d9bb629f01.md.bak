@@ -1,0 +1,81 @@
+---
+id: 69162d64f96574d9bb629f01
+title: "Challenge 116: Permutation Count"
+challengeType: 29
+dashedName: challenge-116
+---
+
+# --description--
+
+Ikiwa umepewa mfuatano wa herufi, rudisha idadi ya permutation tofauti zinazoweza kuundwa kutoka kwa herufi zake.
+
+- Permutation ni mpangilio upya wowote wa herufi katika mfuatano.
+- Usihesabu permutation zinazojirudia.
+- Ikiwa mfuatano una herufi zinazojirudia, mipangilio inayojirudia inapaswa kuhesabiwa mara moja tu.
+- Mfuatano utakuwa na herufi tu (`A-Z`, `a-z`).
+
+Kwa mfano, ukipata `"abb"`, rudisha `3` kwa sababu kuna njia tatu za kipekee za kupanga herufi: `"abb"`, `"bab"`, na `"bba"`.
+
+# --hints--
+
+`count_permutations("abb")` should return `3`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(count_permutations("abb"), 3)`)
+}})
+```
+
+`count_permutations("abc")` should return `6`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(count_permutations("abc"), 6)`)
+}})
+```
+
+`count_permutations("racecar")` should return `630`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(count_permutations("racecar"), 630)`)
+}})
+```
+
+`count_permutations("freecodecamp")` should return `39916800`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(count_permutations("freecodecamp"), 39916800)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def count_permutations(s):
+
+    return s
+```
+
+# --solutions--
+
+```py
+from math import factorial
+from collections import Counter
+def count_permutations(s):
+    freq = Counter(s)
+    n = len(s)
+
+    result = factorial(n)
+    for count in freq.values():
+        result //= factorial(count)
+
+    return result
+```

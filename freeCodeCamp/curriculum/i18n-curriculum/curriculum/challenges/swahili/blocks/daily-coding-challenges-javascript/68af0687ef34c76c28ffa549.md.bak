@@ -1,0 +1,69 @@
+---
+id: 68af0687ef34c76c28ffa549
+title: "Zoezi la 31: Tofauti ya safu ya data"
+challengeType: 28
+dashedName: challenge-31
+---
+
+# --description--
+
+Ukitoa safu mbili za data zenye thamani za mfuatano wa herufi, rudisha safu mpya ya data inayojumuisha thamani zote zinazojitokeza katika moja tu ya safu hizo.
+
+- Safu ya data inayorudishwa inapaswa kupangwa kwa mpangilio wa alfabeti.
+
+# --hints--
+
+`arrayDiff(["apple", "banana"], ["apple", "banana", "cherry"])` inapaswa kurudisha `["cherry"]`.
+
+```js
+assert.deepEqual(arrayDiff(["apple", "banana"], ["apple", "banana", "cherry"]), ["cherry"]);
+```
+
+`arrayDiff(["apple", "banana", "cherry"], ["apple", "banana"])` inapaswa kurudisha `["cherry"]`.
+
+```js
+assert.deepEqual(arrayDiff(["apple", "banana", "cherry"], ["apple", "banana"]), ["cherry"]);
+```
+
+`arrayDiff(["one", "two", "three", "four", "six"], ["one", "three", "eight"])` inapaswa kurudisha `["eight", "four", "six", "two"]`.
+
+```js
+assert.deepEqual(arrayDiff(["one", "two", "three", "four", "six"], ["one", "three", "eight"]), ["eight", "four", "six", "two"]);
+```
+
+`arrayDiff(["two", "four", "five", "eight"], ["one", "two", "three", "four", "seven", "eight"])` inapaswa kurudisha `["five", "one", "seven", "three"]`.
+
+```js
+assert.deepEqual(arrayDiff(["two", "four", "five", "eight"], ["one", "two", "three", "four", "seven", "eight"]), ["five", "one", "seven", "three"]);
+```
+
+`arrayDiff(["I", "like", "freeCodeCamp"], ["I", "like", "rocks"])` inapaswa kurudisha `["freeCodeCamp", "rocks"]`.
+
+```js
+assert.deepEqual(arrayDiff(["I", "like", "freeCodeCamp"], ["I", "like", "rocks"]), ["freeCodeCamp", "rocks"]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function arrayDiff(arr1, arr2) {
+
+  return arr1;
+}
+```
+
+# --solutions--
+
+```js
+function arrayDiff(arr1, arr2) {
+  let unique1 = arr1.filter((v, i) => arr1.indexOf(v) === i);
+  let unique2 = arr2.filter((v, i) => arr2.indexOf(v) === i);
+
+  let only1 = unique1.filter(v => !unique2.includes(v));
+  let only2 = unique2.filter(v => !unique1.includes(v));
+
+  return [...only1, ...only2].sort();
+}
+```

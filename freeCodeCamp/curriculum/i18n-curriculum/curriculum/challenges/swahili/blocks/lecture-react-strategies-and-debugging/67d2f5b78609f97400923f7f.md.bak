@@ -1,0 +1,300 @@
+---
+id: 67d2f5b78609f97400923f7f
+title: "Nini Hizi Maktaba za Usimamizi wa Hali, na Ni Lini Unapaswa Kuzitumia?"
+challengeType: 19
+dashedName: what-are-state-management-libraries-and-when-should-you-use-them
+---
+
+# --description--
+
+Kadiri programu yako inavyokua, kusimamia jinsi data inavyopita kati ya sehemu kunaweza kuwa changamoto.
+
+Unapoanza, hook ya `useState` ya React inaweza kutosha, lakini unapoongeza vipengele, unaweza kukumbana na matatizo kama:
+
+- Kupitisha vigezo vinavyopitishwa kupitia sehemu ambazo hazivihitaji, pia huitwa prop drilling
+- Kudumisha data kuwa sawa katika sehemu tofauti za programu yako
+- Kushughulikia masasisho magumu yanayoathiri sehemu nyingi kwa wakati mmoja
+
+Hizi na changamoto nyingine zinaweza kutokea, na kusababisha msimbo mgumu kudumishwa, kutafutwa makosa, na kujaribiwa. Hapa ndipo maktaba za usimamizi wa hali zinapoingia – hutoa mahali pa kati ambapo sehemu zinaweza kupata au kusasisha data wanayohitaji.
+
+Tuchunguze chaguzi kadhaa tofauti za usimamizi wa hali ulizonazo, na lini kuzitumia.
+
+Context API ni msimamizi wa hali uliojengwa ndani ya React unaokuwezesha kushiriki hali kati ya sehemu bila kutumia maktaba ya mtu wa tatu. Ni maboresho yaliyothibitishwa juu ya hook ya `useState`, hivyo ni kamili kwa kesi kama kubadilisha mandhari au hali ya uthibitisho wa utambulisho wa mtumizi.
+
+Hata hivyo, Context API haishughulikii masasisho ya mara kwa mara vizuri, na inaweza kusababisha kuonyesha tena zisizohitajika, na kufanya isiwe bora kwa mahitaji magumu ya hali katika programu kama vile eCommerce na majukwaa ya mitandao ya kijamii.
+
+Hapa kuna sehemu ya kuhesabu inayothibitisha matumizi ya msingi ya Context API:
+
+```jsx
+import { useState, createContext } from 'react';
+
+const CounterContext = createContext();
+
+const CounterProvider = ({ children }) => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <CounterContext.Provider value={{ count, setCount }}>
+      {children}
+    </CounterContext.Provider>
+  );
+};
+
+export { CounterContext, CounterProvider };
+```
+
+Msimbo huu unaunda context na provider ili kushiriki hali ya `count` katika programu nzima.
+
+`CounterProvider` hutumia hook ya `useState` kuanzisha na kusimamia hali ya `count` na kitumizi chake cha kuweka. Vyote viwili hupitishwa kwa sehemu za watoto kupitia `Provider`.
+
+Hivyo, unapozunguka programu yako yote na `CounterProvider`, hali ya `count` inapatikana kila mahali katika programu yako.
+
+Hivi ndivyo unavyoweza kuzunguka `CounterProvider` katika programu yako:
+
+```jsx
+import { CounterProvider } from './context/CounterContext';
+
+function App() {
+  return (
+    <CounterProvider>
+        {/* App components */}
+    </CounterProvider>
+  );
+}
+
+export default App;
+```
+
+Na hivi ndivyo unavyoweza kutumia hali ya `count`:
+
+```jsx
+import React, { useContext } from 'react';
+import { CounterContext } from '../context/CounterContext';
+
+const Counter = () => {
+  const { count, setCount } = useContext(CounterContext);
+
+  return (
+    <>
+      <div style={{ textAlign: 'center' }}>
+        <h1>Context API Counter</h1>
+        <button style={{ marginRight: '5px' }} onClick={() => setCount(count - 1)}>
+          Decrease
+        </button>
+        <span>{count}</span>
+        <button style={{ marginLeft: '5px' }} onClick={() => setCount(count + 1)}>
+          Increase
+        </button>
+      </div>
+    </>
+  );
+};
+
+export default Counter;
+```
+
+Kama unavyoona, hali ya `count` na kitumizi chake cha kuweka, `setCount`, huanzishwa kupitia kitendakazi cha `useContext`.
+
+Hali ya sasa ya `count` inaonyeshwa, na `setCount` hutumiwa kuongeza na kupunguza hali ya `count` wakati mtumizi anabofya vifungo vya kupunguza na kuongeza mtawalia.
+
+Maktaba nyingine maarufu ya usimamizi wa hali ni Redux, ambayo ni mojawapo ya maktaba maarufu zaidi za usimamizi wa hali kutumia React. Imekuwa ikitumika kwa muda mrefu, na ni bora kwa programu kubwa kama eCommerce na majukwaa ya mitandao ya kijamii, majukwaa ya mijadala, na kadhalika.
+
+Redux husimamia usimamizi wa hali kwa kutoa hifadhi ya kati na udhibiti mkali juu ya masasisho ya hali. Inatumia muundo unaotabirika wa vitendo, reducers, na programu ya kati.
+
+Vitendo ni mzigo wa taarifa unaotuma data kutoka kwa programu yako kwenda hifadhi ya Redux, mara nyingi hutokea kutokana na mwingiliano wa mtumizi.
+
+Reducers ni vitendakazi vinavyoeleza jinsi hali inavyopaswa kubadilika kama jibu kwa vitendo hivyo, kuhakikisha hali inasasishwa kwa njia isiyobadilika.
+
+Programu ya kati, kwa upande mwingine, hufanya kazi kama daraja kati ya kutuma vitendo na reducer, ikikuruhusu kuongeza uwezo wa Redux (kwa mfano, kurekodi, kushughulikia shughuli zisizo za papo hapo) bila kubadilisha mtiririko wa msingi.
+
+Malalamiko yanayojirudia kuhusu Redux ni msimbo mwingi wa muundo wa msingi unaohitajika kuanza. Kwa jibu, timu ya Redux ilizindua "Redux Toolkit" na "RTK Query", ambazo zinarahisisha mchakato wa usanidi kwa kiasi kikubwa.
+
+Kwa kawaida unafafanua vitendo na reducers zote katika faili moja kwa kutumia kitendakazi cha `createSlice()`. Ni kawaida kuitwa faili hiyo itakapomalizika na neno `Slice`, kwa mfano, `productSlice`, `userSlice`, `counterSlice`, na kadhalika.
+
+Hapa kuna faili ya `counterSlice` kukuonyesha mambo ya msingi:
+
+```jsx
+import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+
+  initialState: { count: 0 },
+
+  reducers: {
+    increment: (state) => {
+      state.count += 1;
+    },
+    decrement: (state) => {
+      state.count -= 1;
+    },
+  },
+});
+
+export const { increment, decrement } = counterSlice.actions;
+
+export default counterSlice.reducer;
+```
+
+Kutoka hapa, unahitaji kuzunguka programu nzima na `Provider`, kuchagua kipande cha hali kutoka kwa slice kwa `useSelector()`, kisha tumia `useDispatch()` kufanya hali iwe hai.
+
+Chaguo jingine la kuzingatia ni Zustand.
+
+Zustand ni maktaba nyepesi ya usimamizi wa hali yenye API rahisi. Inategemea hooks, hivyo kuna msimbo mdogo wa muundo wa msingi ukilinganisha na Redux, na kufanya iwe rahisi na haraka kuanzisha.
+
+Zustand ni bora kwa programu ndogo hadi wastani. Inafanya kazi kwa kutumia hook ya `useStore` kupata hali moja kwa moja katika sehemu na kurasa. Hii inakuwezesha kubadilisha na kupata data bila hitaji la vitendo, reducers, au provider.
+
+Hapa kuna `useCounterStore` inayotekeleza kazi nyingine ya kuhesabu:
+
+```jsx
+import { create } from 'zustand';
+
+const useCounterStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
+}));
+
+export default useCounterStore;
+```
+
+Na hivi ndivyo unavyoweza kuanzisha na kutumia hali katika programu yako:
+
+```jsx
+// Import the useCounterStore (it's just a hook)
+import useCounterStore from '../useCounterStore';
+
+const Counter = () => {
+  // Initialize the states with the useCounterStore hook
+  const { count, increment, decrement } = useCounterStore();
+
+  return (
+    <>
+      <div style={{ textAlign: 'center' }}>
+        <h1>Zustand Counter</h1>
+        <button style={{ marginRight: '5px' }} onClick={() => decrement()}>
+          Decrease
+        </button>
+        <span>{count}</span>
+        <button style={{ marginLeft: '5px' }} onClick={() => increment()}>
+          Increase
+        </button>
+      </div>
+    </>
+  );
+};
+
+export default Counter;
+```
+
+Ingawa mfumo wa ikolojia wa mbele unaendelea kubadilika na maktaba mpya za usimamizi wa hali zinazuka mara kwa mara, zile tulizojadiliwa zinatumiwa sana katika sekta.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya hizi ni sababu ya kutumia maktaba ya usimamizi wa hali?
+
+## --answers--
+
+Kuepuka kuandika mantiki yoyote ya hali katika programu yako.
+
+### --feedback--
+
+Fikiria kuhusu faida za kusimamia hali ngumu kati ya sehemu na kurasa nyingi.
+
+---
+
+Kusasaisha kiolesura cha mtumiaji moja kwa moja bila kuonyesha tena.
+
+### --feedback--
+
+Fikiria kuhusu faida za kusimamia hali ngumu kati ya sehemu na kurasa nyingi.
+
+---
+
+Kuunda mtiririko wa data unaoendana na kutabirika.
+
+---
+
+Kuondoa kabisa hitaji la vigezo vinavyopitishwa.
+
+### --feedback--
+
+Fikiria kuhusu faida za kusimamia hali ngumu kati ya sehemu na kurasa nyingi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya hizi SI maktaba ya usimamizi wa hali?
+
+## --answers--
+
+Context API
+
+### --feedback--
+
+Fikiria ni ipi hutumika hasa kwa maombi ya API.
+
+---
+
+Redux
+
+### --feedback--
+
+Fikiria ni ipi hutumika hasa kwa maombi ya API.
+
+---
+
+Zustand
+
+### --feedback--
+
+Fikiria ni ipi hutumika hasa kwa maombi ya API.
+
+---
+
+Axios
+
+## --video-solution--
+
+4
+
+## --text--
+
+Malalamiko gani ya kawaida kuhusu Redux, na yalitatuliwa vipi?
+
+## --answers--
+
+Ilipata upatikanaji mdogo wa kivinjari, ulitatuliwa kwa kuunda polyfills.
+
+### --feedback--
+
+Fikiria maboresho yaliyofanywa kupunguza ugumu wa usanidi.
+
+---
+
+Ilipata matatizo ya utendaji, yaliyotatuliwa kwa kuboresha programu yake ya kati.
+
+### --feedback--
+
+Fikiria maboresho yaliyofanywa kupunguza ugumu wa usanidi.
+
+---
+
+Ilihitaji msimbo mwingi wa muundo wa msingi mgumu, ulitatuliwa na Redux Toolkit na RTK Query.
+
+---
+
+Kulikuwa na uhaba wa nyaraka, ulitatuliwa kwa kuongeza mifano zaidi.
+
+### --feedback--
+
+Fikiria maboresho yaliyofanywa kupunguza ugumu wa usanidi.
+
+## --video-solution--
+
+3

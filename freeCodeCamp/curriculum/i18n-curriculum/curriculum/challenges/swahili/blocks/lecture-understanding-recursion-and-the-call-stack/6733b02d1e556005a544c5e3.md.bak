@@ -1,0 +1,268 @@
+---
+id: 6733b02d1e556005a544c5e3
+title: "Recursion ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-recursion-and-how-does-it-work
+---
+
+# --interactive--
+
+Recursion ni kipengele kigumu kinachokuwezesha kuita kitendakazi mara kwa mara hadi kufikia hali ya msingi. Tofauti na mzunguko wa kawaida, recursion inakuwezesha kushughulikia kitu chenye kina kisichojulikana, kama vitu/vitu vilivyopangwa ndani kwa kina, au mpangilio wa faili. Lakini pia unaweza kuitumia kwa kazi rahisi zaidi, kama kuhesabu chini kutoka nambari fulani.
+
+Tujenge kitendakazi kufanya hasa hivyo. Tutaita kitendakazi chetu `recursiveCountdown`, na kinahitaji kupokea nambari. Tutafanya ichapishe nambari hii kwenye konsoli:
+
+:::interactive_editor
+
+```js
+const recursiveCountdown = (number) => {
+  console.log(number);
+};
+
+recursiveCountdown(5);
+```
+
+:::
+
+Sasa tukipaita na kupitisha nambari 5, tutaona nambari hiyo ikichapishwa kwenye terminal yetu. Lakini hakuna kingine kinachotokea – na nambari 5 hakika si kuhesabu chini.
+
+Kabla hatujaanza kujenga sehemu ya recursion ya kitendakazi chetu, tunahitaji kuweka hali ya msingi kwanza. Ukikosa kuweka hali ya msingi, msimbo wako utaendelea kuendesha hadi kuzidi kumbukumbu uliyopewa na kusababisha kuanguka.
+
+:::interactive_editor
+
+```js
+const recursiveCountdown = (number) => {
+  if (number < 1) {
+    return;
+  }
+  console.log(number);
+};
+
+recursiveCountdown(5);
+```
+
+:::
+
+Kwa hali yetu ya msingi, tunataka kuhesabu chini kusimama ikiwa nambari ni chini ya 1. Tunapofikia hali hiyo ya msingi, tunaweza kurudi ili kuvunja utekelezaji wa kitendakazi.
+
+Sasa tumejiandaa salama na hali ya msingi, tunaweza kuweka recursion. Kitu muhimu kinachofanya kitendakazi kuwa recursive ni kwamba hujiita mwenyewe wakati wa utekelezaji. Katika kesi hii, tunataka kuita kitendakazi baada ya kuchapisha nambari. Lakini ili kuhesabu chini, nambari yetu mpya inahitaji kuwa moja chini:
+
+:::interactive_editor
+
+```js
+const recursiveCountdown = (number) => {
+  if (number < 1) {
+    return;
+  }
+  console.log(number);
+  recursiveCountdown(number - 1);
+};
+
+recursiveCountdown(5); 
+```
+
+:::
+
+Hii itachapisha nambari 5, 4, 3, 2, na 1 kwenye konsoli.
+
+Tunapata nambari zetu tano! Lakini vipi kama tungetaka kuhesabu juu badala yake? Badala ya kuandika kitendakazi kipya kabisa, tunaweza kubadilisha mpangilio wa chapisho letu na wito wa recursive:
+
+:::interactive_editor
+
+```js
+const recursiveCountdown = (number) => {
+    if (number < 1) {
+        return;
+    }
+    recursiveCountdown(number - 1);
+    console.log(number);
+  };
+
+recursiveCountdown(5);
+```
+
+:::
+
+Hii itachapisha nambari 1, 2, 3, 4, na 5 kwenye konsoli.
+
+Lakini kwa nini hiyo inafanya kazi? Ili kuelewa hili unahitaji kuelewa call stack. Call stack ni jinsi JavaScript inavyofuatilia na kutatua wito za kitendakazi. Stack hufanya kazi kama foleni ya last-in-first-out. Ili kuelewa vizuri zaidi, tuongeze chapisho kwenye kitendakazi chetu:
+
+:::interactive_editor
+
+```js
+const recursiveCountdown = (number) => {
+  console.log(`Function execution started for number: ${number}`);
+  if (number < 1) {
+    console.log(`Base case reached, begin resolving stack`);
+    return;
+  }
+  console.log(`Calling recursiveCountdown with number: ${number - 1}`);
+  recursiveCountdown(number - 1);
+  console.log(`Function execution completed for number: ${number}`);
+};
+
+recursiveCountdown(5);
+```
+
+:::
+
+Tumeongeza taarifa nne muhimu hapa. Chapisho la kwanza linaendeshwa wakati wito wa kitendakazi linaanza kutekelezwa. Chapisho la tatu linaendeshwa kabla kitendakazi recursive kuitwa. Na chapisho la nne linaendeshwa wakati utekelezaji wa kitendakazi umekamilika. Matokeo ni:
+
+```md
+Function execution started for number: 5
+Calling recursiveCountdown with number: 4
+Function execution started for number: 4
+Calling recursiveCountdown with number: 3
+Function execution started for number: 3
+Calling recursiveCountdown with number: 2
+Function execution started for number: 2
+Calling recursiveCountdown with number: 1
+Function execution started for number: 1
+Calling recursiveCountdown with number: 0
+Function execution started for number: 0
+Base case reached, begin resolving stack
+Function execution completed for number: 1
+Function execution completed for number: 2
+Function execution completed for number: 3
+Function execution completed for number: 4
+Function execution completed for number: 5
+```
+
+Lakini hili linafanyika vipi? Hapa ndipo call stack huingia. Tunapoitaja `recursiveCountdown(5)`, wito huo wa kitendakazi unaongezwa kwenye call stack.
+
+Wakati wito huo wa kitendakazi unafikia sehemu ya kuitaja `recursiveCountdown(4)`, lazima usimame na usubiri matokeo hayo. Wakati huo huo, `recursiveCountdown(4)` inaongezwa kwenye call stack, juu ya `recursiveCountdown(5)`.
+
+Wakati wito huo wa kitendakazi unafikia sehemu ya kuitaja `recursiveCountdown(3)`, lazima usimame na usubiri matokeo hayo. Wakati huo huo, `recursiveCountdown(3)` inaongezwa kwenye call stack, juu ya `recursiveCountdown(4)`.
+
+Wakati wito huo wa kitendakazi unafikia sehemu ya kuitaja `recursiveCountdown(2)`, lazima usimame na usubiri matokeo hayo. Wakati huo huo, `recursiveCountdown(2)` inaongezwa kwenye call stack, juu ya `recursiveCountdown(3)`.
+
+Wakati wito huo wa kitendakazi unafikia sehemu ya kuitaja `recursiveCountdown(1)`, lazima usimame na usubiri matokeo hayo. Wakati huo huo, `recursiveCountdown(1)` inaongezwa kwenye call stack, juu ya `recursiveCountdown(2)`.
+
+Na hatimaye, wakati wito huo wa kitendakazi unafikia sehemu ya kuitaja `recursiveCountdown(0)`, lazima usimame na usubiri matokeo hayo. Wakati huo huo, `recursiveCountdown(0)` inaongezwa kwenye call stack, juu ya `recursiveCountdown(1)`.
+
+Lakini `recursiveCountdown(0)` haijuiita kitendakazi kingine – inafikia hali yetu ya msingi, ambapo inarudi mapema. Kwa sababu utekelezaji wa kitendakazi hicho umekamilika, wito wa kitendakazi unaweza kuchukuliwa kuwa "umetatuliwa". Wakati wito umetatuliwa, huondolewa kwenye stack.
+
+Sasa `recursiveCountdown(1)` haiko tena kusubiri wito huo – iko juu ya stack na inaweza kuendelea kutekeleza.
+
+`recursiveCountdown(1)` inatatuliwa, inaondolewa kwenye stack, na kuruhusu `recursiveCountdown(2)` kuendelea na utekelezaji.
+
+`recursiveCountdown(2)` inatatuliwa, inaondolewa kwenye stack, na kuruhusu `recursiveCountdown(3)` kuendelea na utekelezaji.
+
+`recursiveCountdown(3)` inatatuliwa, inaondolewa kwenye stack, na kuruhusu `recursiveCountdown(4)` kuendelea na utekelezaji.
+
+`recursiveCountdown(4)` inatatuliwa, inaondolewa kwenye stack, na kuruhusu `recursiveCountdown(5)` kuendelea na utekelezaji.
+
+Na `recursiveCountdown(5)` inatatuliwa na kuondolewa kwenye stack. Call stack yetu sasa ni tupu, hivyo recursion imekamilika!
+
+Hii ni muhtasari wa msingi wa jinsi recursion inavyofanya kazi katika JavaScript. Ni dhana ngumu, na unapaswa kujaribu msimbo na taarifa za chapisho hadi ujisikie vizuri na tabia ya call stack.
+
+Kwa funzo la kufurahisha kidogo, tulizungumzia jinsi ukosefu wa hali ya msingi unaweza kusababisha msimbo wako kuanguka wakati unakosa kumbukumbu. Hii ni kwa sababu recursion inaendelea kuongezea wito zaidi na zaidi wa kitendakazi kwenye call stack hadi stack kuzidi. Kama jina la jamii maarufu ya programu.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la hali ya msingi katika kitendakazi cha recursive?
+
+## --answers--
+
+Kuanza wito za recursive.
+
+### --feedback--
+
+Funzo linataja kinachotokea ikiwa huna hali ya msingi iliyowekwa.
+
+---
+
+Kuzuia recursion isiyo na mwisho na kuzidi kwa stack.
+
+---
+
+Kuboresha utendaji wa kitendakazi.
+
+### --feedback--
+
+Funzo linataja kinachotokea ikiwa huna hali ya msingi iliyowekwa.
+
+---
+
+Kushughulikia hali za makosa.
+
+### --feedback--
+
+Funzo linataja kinachotokea ikiwa huna hali ya msingi iliyowekwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika muktadha wa recursion, call stack hutumika kwa ajili gani?
+
+## --answers--
+
+Kuhifadhi vigezo vya ndani.
+
+### --feedback--
+
+Funzo linaeleza jinsi call stack inavyosimamia wito za kitendakazi wakati wa recursion.
+
+---
+
+Kufuatilia na kutatua wito za kitendakazi.
+
+---
+
+Kuboresha utendaji wa kitendakazi za recursive.
+
+### --feedback--
+
+Funzo linaeleza jinsi call stack inavyosimamia wito za kitendakazi wakati wa recursion.
+
+---
+
+Kushughulikia shughuli zisizo za wakati mmoja.
+
+### --feedback--
+
+Funzo linaeleza jinsi call stack inavyosimamia wito za kitendakazi wakati wa recursion.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini hutokea wakati wito wa kitendakazi cha recursive unafikia hali yake ya msingi?
+
+## --answers--
+
+Huanza mzunguko mpya wa recursive.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kinavyotenda linapofikia hali inayosimamisha recursion.
+
+---
+
+Hutupa kosa.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kinavyotenda linapofikia hali inayosimamisha recursion.
+
+---
+
+Inarudi na kuruhusu wito la awali kuendelea na utekelezaji.
+
+---
+
+Inaendelea kujiita yenyewe bila kikomo.
+
+### --feedback--
+
+Fikiria jinsi kitendakazi kinavyotenda linapofikia hali inayosimamisha recursion.
+
+## --video-solution--
+
+3

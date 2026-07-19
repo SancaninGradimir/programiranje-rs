@@ -1,0 +1,83 @@
+---
+id: 68ffb91507a5b645769328c6
+title: "Challenge 103: LCM"
+challengeType: 29
+dashedName: challenge-103
+---
+
+# --description--
+
+Ukizingatia nambari kamili mbili, rudisha mzalishaji mdogo wa kawaida (LCM) wa nambari hizo mbili.
+
+LCM ya nambari mbili ni nambari kamili chanya ndogo kabisa ambayo ni mzalishaji wa nambari zote mbili. Kwa mfano, ukizingatia `4` na `6`, rudisha `12` kwa sababu:
+
+- Mzalishaji wa `4` ni `4`, `8`, `12` na kadhalika.
+- Mzalishaji wa `6` ni `6`, `12`, `18` na kadhalika.
+- `12` ni nambari ndogo kabisa ambayo ni mzalishaji wa zote mbili.
+
+# --hints--
+
+`lcm(4, 6)` should return `12`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(lcm(4, 6), 12)`)
+}})
+```
+
+`lcm(9, 6)` should return `18`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(lcm(9, 6), 18)`)
+}})
+```
+
+`lcm(10, 100)` should return `100`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(lcm(10, 100), 100)`)
+}})
+```
+
+`lcm(13, 17)` should return `221`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(lcm(13, 17), 221)`)
+}})
+```
+
+`lcm(45, 70)` should return `630`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(lcm(45, 70), 630)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def lcm(a, b):
+
+    return a
+```
+
+# --solutions--
+
+```py
+def lcm(a, b):
+    def gcd(x, y):
+        return x if y == 0 else gcd(y, x % y)
+
+    return abs(a * b) // gcd(a, b)
+```

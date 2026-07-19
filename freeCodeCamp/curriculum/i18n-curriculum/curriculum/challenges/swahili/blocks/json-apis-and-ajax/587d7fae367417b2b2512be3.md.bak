@@ -1,0 +1,187 @@
+---
+id: 587d7fae367417b2b2512be3
+title: Pata JSON kwa njia ya JavaScript XMLHttpRequest
+challengeType: 6
+forumTopicId: 301502
+dashedName: get-json-with-the-javascript-xmlhttprequest-method
+---
+
+# --description--
+
+Unaweza pia kuomba data kutoka chanzo cha nje. Hapa ndipo API zinapoingia.
+
+Kumbuka kuwa API - au Interfaces za Programu za Programu - ni zana ambazo kompyuta hutumia kuwasiliana kati yao. Utafundishwa jinsi ya kusahihisha HTML na data tunazopata kutoka kwa API kwa kutumia teknolojia inayoitwa AJAX.
+
+API nyingi za mtandao husafirisha data katika muundo unaoitwa JSON. JSON inasimama kwa JavaScript Object Notation.
+
+Sintaksia ya JSON inaonekana kama sana na sintaksia ya methali ya vitu ya JavaScript. JSON ina mali za vitu na thamani zao za sasa, zikiwa zimewekwa kati ya `{` na `}`.
+
+Mali hizi na thamani zao mara nyingi huitwa "jozi za ufunguo-thamani".
+
+Hata hivyo, JSON inayotumwa na API hutumwa kama `bytes`, na programu yako hupokea kama `string`. Hizi zinaweza kubadilishwa kuwa vitu vya JavaScript, lakini si vitu vya JavaScript kwa chaguo-msingi. Njia ya `JSON.parse` huchanganuzi mfuatano wa herufi na kujenga kitu cha JavaScript kinachoelezwa na mfuatano huo.
+
+Unaweza kuomba JSON kutoka API ya Picha za Paka ya freeCodeCamp. Huu ni msimbo unaoweza kuweka katika tukio lako la bofya kufanya hivi:
+
+```js
+const req = new XMLHttpRequest();
+req.open('GET', '/json/cats.json', true);
+req.send();
+req.onload = function () {
+  const json = JSON.parse(req.responseText);
+  document.getElementsByClassName('message')[0].innerHTML =
+    JSON.stringify(json);
+};
+```
+
+Hapa kuna muhtasari wa kile kila kipande kinachofanya. Kitu cha JavaScript `XMLHttpRequest` kina mali na njia kadhaa zinazotumika kusafirisha data. Kwanza, mfano wa kitu cha `XMLHttpRequest` umeundwa na kuhifadhiwa katika kigezo cha `req`. Kisha, njia ya `open` huanzisha ombi - mfano huu unaomba data kutoka API, kwa hiyo ni ombi la `GET`. Hoja ya pili kwa `open` ni URL ya API unayoomba data kutoka. Hoja ya tatu ni thamani ya kweli au siyo kweli ambapo `true` hufanya ombi kuwa isiyo ya wakati mmoja. Njia ya `send` hutuma ombi. Mwishowe, mshughulikiaji wa tukio la `onload` huchanganuzi data iliyorejeshwa na kutumia njia ya `JSON.stringify` kubadilisha kitu cha JavaScript kuwa mfuatano wa herufi. Mfuatano huu kisha unaingizwa kama maandishi ya ujumbe.
+
+# --instructions--
+
+Sahihisha msimbo kuunda na kutuma ombi la `GET` kwa API ya Picha za Paka ya freeCodeCamp. Kisha bofya kitufe cha `Get Message`. Kitendakazi chako cha AJAX kitabadilisha maandishi ya `The message will go here` na matokeo ya JSON ghafi kutoka API.
+
+# --hints--
+
+Msimbo wako unapaswa kuunda `XMLHttpRequest` mpya.
+
+```js
+assert.match(code, /new\s+?XMLHttpRequest\(\s*?\)/g);
+```
+
+Msimbo wako unapaswa kutumia njia ya `open` kuanzisha ombi la `GET` kwa API ya Picha za Paka ya freeCodeCamp.
+
+```js
+assert.match(
+  code,
+  /\.open\(\s*('|")GET\1\s*,\s*('|")\/json\/cats\.json\2\s*,\s*true\s*\)/g
+);
+```
+
+Msimbo wako unapaswa kutumia njia ya `send` kutuma ombi.
+
+```js
+assert.match(code, /\.send\(\s*\)/g);
+```
+
+Msimbo wako unapaswa kuwa na mshughulikiaji wa tukio la `onload` uliowekwa kwa kitendakazi.
+
+```js
+assert.match(
+  code,
+  /\.onload\s*=\s*(function|\(\s*\))\s*(\(\s*\)|\=\>)\s*{/g
+);
+```
+
+Msimbo wako unapaswa kutumia njia ya `JSON.parse` kuchanganuzi `responseText`.
+
+```js
+assert.match(code, /JSON\s*\.parse\(\s*.*\.responseText\s*\)/g);
+```
+
+Msimbo wako unapaswa kupata kipengele chenye darasa la `message` na kubadilisha HTML yake ya ndani kuwa mfuatano wa data ya JSON.
+
+```js
+assert.match(
+  code,
+  /document\s*\.getElementsByClassName\(\s*?('|")message\1\s*?\)\[0\]\s*\.innerHTML\s*?=\s*?JSON\.stringify\(.+?\)/g
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = function () {
+      // Add your code below this line
+      // Add your code above this line
+    };
+  });
+</script>
+
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```
+
+# --solutions--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = function () {
+      const req = new XMLHttpRequest();
+      req.open('GET', '/json/cats.json', true);
+      req.send();
+      req.onload = () => {
+        const json = JSON.parse(req.responseText);
+        document.getElementsByClassName('message')[0].innerHTML =
+          JSON.stringify(json);
+      };
+    };
+  });
+</script>
+
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```

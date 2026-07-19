@@ -1,0 +1,392 @@
+---
+id: 6724e3d6e1cb0c1fec3a8e4f
+title: Ukaguzi wa SQL na PostgreSQL
+challengeType: 31
+dashedName: review-sql-and-postgresql
+---
+
+# --description--
+
+## Utangulizi wa Hifadhidata za Uhusiano
+
+- **Hifadhidata za uhusiano**: Hupanua data katika jedwali zinazohusiana zenye safu na nguzo. Kila safu inawakilisha rekodi, na kila nguzo inawakilisha sifa ya kipengele cha data.
+- **Faida za hifadhidata za uhusiano**: Zinakua kwa urahisi, zinatumika katika nyanja mbalimbali (mfano, huduma za afya, biashara, michezo), na zimepangwa ili kudumisha data ya kuaminika.
+- **Matumizi ya kawaida**: Ukuaji wa mtandao, mifumo ya hesabu ya mali, biashara mtandaoni, huduma za afya, na programu za makampuni.
+
+## Dhahania Muhimu
+
+- **Mchoro wa hifadhidata (schema)**: Hifadhidata ya uhusiano inahitaji mchoro unaoeleza muundo wake—majedwali, nguzo, aina za data, vikwazo, na uhusiano.
+- **Mfunguo kuu**: Vitambulisho vya kipekee kwa kila safu katika jedwali. Ni muhimu kwa usahihi wa data na hutumika kuhusisha rekodi kati ya majedwali kupitia funguo za kigeni.
+- **Funguo za kigeni**: Marejeo kwa funguo kuu katika jedwali jingine, hutumika kuunganisha data zinazohusiana katika majedwali.
+- **Uhusiano**: Kwa kuunganisha majedwali kupitia funguo kuu na funguo za kigeni, unaweza kupanga data iliyokawaishwa na kufanya maswali yenye maana.
+- **Michoro ya uhusiano wa vitu (ERDs)**: Inaonyesha jinsi vitu (majedwali) vinavyohusiana katika mchoro wa hifadhidata.
+- **Usahihi wa data**: Hutekelezwa kwa kutumia funguo na aina za data. Huhakikisha uthabiti na usahihi wa data iliyohifadhiwa.
+
+## Misingi ya SQL
+
+- **Maswali (queries)**: Maombi ya kupata data maalum kutoka hifadhidata.
+
+```sql
+SELECT * FROM dogs WHERE age < 3;
+```
+
+- **Kifungu cha WHERE**: Chuja matokeo kulingana na masharti. Tumia waendeshaji wa kulinganisha kama `<`, `=`, `>`, n.k.
+- **Chagua kwa ORDER BY**: Pata na panga matokeo kulingana na nguzo.
+
+```sql
+SELECT columns FROM table_name ORDER BY column_name;
+```
+
+## Operesheni za Jedwali
+
+- **Kifungu cha `CREATE TABLE`**: Kifungu hiki hutumika kuunda jedwali jipya katika hifadhidata.
+
+```sql
+CREATE TABLE first_table();
+```
+
+- **Kifungu cha `ALTER TABLE ADD COLUMN`**: Kifungu hiki hutumika kuongeza nguzo katika jedwali lililopo.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE;
+```
+
+- **Kifungu cha `ALTER TABLE DROP COLUMN`**: Kifungu hiki hutumika kufuta nguzo kutoka katika jedwali lililopo.
+
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+- **Kifungu cha `ALTER TABLE RENAME COLUMN`**: Kifungu hiki hutumika kubadilisha jina la nguzo katika jedwali.
+
+```sql
+ALTER TABLE table_name RENAME COLUMN column_name TO new_name;
+```
+
+- **Kifungu cha `DROP TABLE`**: Kifungu hiki hutumika kufuta jedwali lote kutoka hifadhidata.
+
+```sql
+DROP TABLE table_name;
+```
+
+- **Kifungu cha `ALTER DATABASE RENAME`**: Kifungu hiki hutumika kubadilisha jina la hifadhidata.
+
+```sql
+ALTER DATABASE database_name RENAME TO new_database_name;
+```
+
+- **Kifungu cha `DROP DATABASE`**: Kifungu hiki hutumika kufuta hifadhidata yote.
+
+```sql
+DROP DATABASE database_name;
+```
+
+## Vikwazo na Usahihi wa Data
+
+- **Kifungu cha `ALTER TABLE ADD COLUMN` chenye kikwazo**: Kifungu hiki hutumika kuongeza nguzo yenye kikwazo katika jedwali lililopo.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINT;
+```
+
+- **Kikwazo cha `NOT NULL`**: Kikwazo hiki huhakikisha kuwa nguzo haiwezi kuwa na thamani za NULL.
+
+```sql
+column_name VARCHAR(50) NOT NULL
+```
+
+- **Kifungu cha `ALTER TABLE ADD PRIMARY KEY`**: Kifungu hiki hutumika kuongeza kikwazo cha funguo kuu katika jedwali.
+
+```sql
+ALTER TABLE table_name ADD PRIMARY KEY(column_name);
+```
+
+- **Kifungu cha `ALTER TABLE DROP CONSTRAINT`**: Kifungu hiki hutumika kufuta kikwazo kutoka katika jedwali.
+
+```sql
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+```
+
+- **Kifungu cha `ALTER TABLE ADD COLUMN` chenye funguo ya kigeni**: Kifungu hiki hutumika kuongeza nguzo ya funguo ya kigeni inayorejea jedwali jingine.
+
+```sql
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE REFERENCES referenced_table_name(referenced_column_name);
+```
+
+- **Kifungu cha `ALTER TABLE ADD UNIQUE`**: Kifungu hiki hutumika kuongeza kikwazo cha UNIQUE kwenye nguzo.
+
+```sql
+ALTER TABLE table_name ADD UNIQUE(column_name);
+```
+
+- **Kifungu cha `ALTER TABLE ALTER COLUMN SET NOT NULL`**: Kifungu hiki hutumika kuweka kikwazo cha NOT NULL kwenye nguzo lililopo.
+
+```sql
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+```
+
+- **Kifungu cha `INSERT` chenye thamani za NULL**: Kifungu hiki kinaonyesha jinsi ya kuingiza thamani za NULL katika jedwali.
+
+```sql
+INSERT INTO table_name(column_a) VALUES(NULL);
+-- or
+INSERT INTO table_name(column_b) VALUES('value'); -- if column_a allows nulls
+```
+
+- **Funguo kuu mchanganyiko**: Kikwazo hiki kinaeleza funguo kuu inayojumuisha nguzo nyingi.
+
+```sql
+CREATE TABLE course_enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+);
+```
+
+## Uendeshaji wa Data (CRUD)
+
+- **Kifungu cha `INSERT`**: Kifungu hiki hutumika kuingiza safu moja katika jedwali.
+
+```sql
+INSERT INTO table_name(column_1, column_2) VALUES(value1, value2);
+```
+
+- **Kifungu cha `INSERT` chenye nguzo zilizopitwa**: Kifungu hiki kinaonyesha jinsi ya kuingiza thamani bila kuorodhesha majina ya nguzo, ukitegemea mpangilio wa kawaida wa nguzo katika jedwali.
+
+```sql
+INSERT INTO dogs VALUES ('Gino', 3);
+```
+
+- **Kifungu cha `INSERT` chenye safu nyingi**: Kifungu hiki hutumika kuingiza safu nyingi katika jedwali kwa operesheni moja.
+
+```sql
+INSERT INTO dogs (name, age) VALUES 
+('Gino', 3),
+('Nora', 2);
+```
+
+- **Kifungu cha `UPDATE`**: Kifungu hiki hutumika kusahihisha data iliyopo katika jedwali kulingana na sharti.
+
+```sql
+UPDATE table_name SET column_name=new_value WHERE condition;
+```
+
+- **Kifungu cha `DELETE`**: Kifungu hiki hutumika kufuta safu kutoka katika jedwali kulingana na sharti.
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+## Aina za Data
+
+- **Aina ya data `NUMERIC`**: Aina hii ya data hutumika kuhifadhi nambari za desimali zenye usahihi maalum na kiwango.
+
+```sql
+price NUMERIC(10, 2)
+```
+
+- **Aina ya data `TEXT`**: Aina hii ya data hutumika kuhifadhi mfuatano wa herufi wenye urefu wa kubadilika bila kikomo maalum.
+
+```sql
+column_name TEXT
+```
+
+- **Aina ya data `INTEGER`**: Aina hii ya data hutumika kuhifadhi nambari kamili zisizo na sehemu za desimali.
+
+```sql
+units_sold INTEGER
+```
+
+- **Aina za data `SMALLINT` na `BIGINT`**: Hizi ni aina za INTEGER zenye anuwai ndogo na kubwa mtawalia.
+
+- **Aina ya data `SERIAL`**: Aina hii ya data hutumika kuunda nguzo za nambari kamili zinazoongezeka kiotomatiki katika PostgreSQL.
+
+```sql
+id SERIAL
+```
+
+- **Sifa ya `AUTO_INCREMENT`**: Sifa hii hutumika katika MySQL kuunda nguzo za nambari kamili zinazoongezeka kiotomatiki.
+
+```sql
+id INT AUTO_INCREMENT
+```
+
+- **Aina ya data `VARCHAR`**: Aina hii ya data hutumika kuhifadhi mfuatano wa herufi wenye urefu wa kubadilika na kikomo cha juu kilichobainishwa.
+
+```sql
+name VARCHAR(50)
+```
+
+- **Aina ya data `DATE`**: Aina hii ya data hutumika kuhifadhi tarehe (mwaka, mwezi, siku).
+
+```sql
+event_date DATE
+```
+
+- **Aina ya data `TIME`**: Aina hii ya data hutumika kuhifadhi saa (saa, dakika, sekunde).
+
+```sql
+start_time TIME
+```
+
+- **Aina ya data `TIMESTAMP`**: Aina hii ya data hutumika kuhifadhi tarehe na saa, kwa hiari ikiwa na taarifa za eneo la saa.
+
+```sql
+event_timestamp TIMESTAMP
+event_timestamp TIMESTAMP WITH TIME ZONE
+```
+
+- **Aina ya data `BOOLEAN`**: Aina hii ya data hutumika kuhifadhi thamani za kweli/sikweli.
+
+```sql
+is_active BOOLEAN
+```
+
+## Uhusiano wa Hifadhidata
+
+- **Aina za uhusiano**: Hizi ni njia tofauti ambazo majedwali yanaweza kuhusiana katika hifadhidata ya uhusiano.
+  - Moja kwa moja
+  - Moja kwa wengi
+  - Wengi kwa moja
+  - Wengi kwa wengi
+  - Kujirejea mwenyewe (kurudia)
+
+- **Uhusiano wa moja kwa moja**: Aina hii ya uhusiano ina maana kuwa kila rekodi katika jedwali moja inalingana na rekodi moja tu katika jedwali jingine.
+
+```md
+One employee is assigned exactly one vehicle.
+Tables: employees, vehicles
+```
+
+- **Uhusiano wa moja kwa wengi**: Aina hii ya uhusiano ina maana kuwa rekodi moja katika jedwali inaweza kuhusishwa na rekodi nyingi katika jedwali jingine.
+
+```md
+One customer can have many orders.
+Tables: customers → orders
+```
+
+- **Uhusiano wa wengi kwa wengi kupitia jedwali la kiunganishi**: Aina hii ya uhusiano hutekelezwa kwa kutumia jedwali la kiunganishi lenye funguo za kigeni kutoka kwa majedwali yote yanayohusiana.
+
+```sql
+CREATE TABLE books_authors (
+    author_id INT REFERENCES authors(id),
+    book_id INT REFERENCES books(id)
+);
+```
+
+- **Uhusiano wa kujirejea mwenyewe**: Aina hii ya uhusiano hutokea wakati jedwali linajirejea lenyewe, likiunda muundo wa ngazi.
+
+```md
+An employee table where each employee may report to another employee.
+```
+
+## SQL ya Juu (Joins)
+
+- **Kifungu cha `INNER JOIN`**: Join hii hurudisha safu tu zilizo na thamani zinazolingana katika majedwali yote mawili.
+
+```sql
+SELECT *
+FROM products
+INNER JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kifungu cha `FULL OUTER JOIN`**: Join hii hurudisha safu zote kutoka majedwali yote mawili, ikiwa ni pamoja na safu zisizolingana kutoka kwa jedwali lolote.
+
+```sql
+SELECT *
+FROM products
+FULL OUTER JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kifungu cha `LEFT OUTER JOIN`**: Join hii hurudisha safu zote kutoka jedwali la kushoto na safu zinazolingana kutoka jedwali la kulia.
+
+```sql
+SELECT *
+FROM products
+LEFT JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kifungu cha `RIGHT OUTER JOIN`**: Join hii hurudisha safu zote kutoka jedwali la kulia na safu zinazolingana kutoka jedwali la kushoto.
+
+```sql
+SELECT *
+FROM products
+RIGHT JOIN sales ON products.product_id = sales.product_id;
+```
+
+- **Kifungu cha `SELF JOIN`**: Join hii hutumika kuunganisha jedwali na lenyewe kulinganisha safu ndani ya jedwali hilo.
+
+```sql
+SELECT A.column_name, B.column_name
+FROM table_name A
+JOIN table_name B ON A.related_column = B.related_column;
+```
+
+- **Kifungu cha `CROSS JOIN`**: Join hii hurudisha matokeo ya Cartesian ya majedwali mawili, ikichanganya kila safu kutoka jedwali la kwanza na kila safu kutoka jedwali la pili.
+
+```sql
+SELECT *
+FROM table1
+CROSS JOIN table2;
+```
+
+## Amri Maalum za PostgreSQL
+
+- **Amri ya kuingia `psql`**: Amri hii hutumika kuingia PostgreSQL kwa jina la mtumiaji na hifadhidata maalum.
+
+```bash
+psql --username=freecodecamp --dbname=postgres
+```
+
+- **Amri ya `\l`**: Amri hii inaorodhesha hifadhidata zote katika mfano wa PostgreSQL.
+
+```sql
+\l
+```
+
+- **Amri za `CREATE DATABASE` na `\c`**: Amri hizi hutumika kuunda hifadhidata mpya na kuungana nayo.
+
+```sql
+CREATE DATABASE database_name;
+\c database_name
+```
+
+- **Amri ya `\d`**: Amri hii inaorodhesha majedwali yote katika hifadhidata ya sasa.
+
+```sql
+\d
+```
+
+- **Amri ya `\d table_name`**: Amri hii inaonyesha mchoro/muundo wa jedwali maalum.
+
+```sql
+\d table_name
+```
+
+- **Amri ya `\q`**: Amri hii hutoka kwenye mteja wa PostgreSQL.
+
+```bash
+\q
+```
+
+## Hifadhidata za Uhusiano dhidi ya zisizo za Uhusiano
+
+- **Hifadhidata zisizo za uhusiano (NoSQL)**: Huhifadhi data isiyo na muundo au yenye muundo wa nusu. Hazihitaji mchoro mkali na ni rahisi kwa mifano ya data inayobadilika.
+- **Kuchagua kati ya hifadhidata za uhusiano na zisizo za uhusiano**: Inategemea asili ya data yako na mahitaji ya programu.
+- **Uhusiano dhidi ya zisizo za uhusiano**: Chagua uhusiano kwa data iliyopangwa na uthabiti; NoSQL kwa urahisi na data inayobadilika haraka.
+
+## Mifumo maarufu ya RDBMS
+
+- **MySQL**: Chanzo huria, imara, inatumiwa sana katika ukuzaji wa mtandao, inaungwa mkono na jamii kubwa.
+- **PostgreSQL**: Chanzo huria, ya hali ya juu, inayoweza kupanuliwa. Inaunga mkono aina za data maalum na programu za upande wa seva.
+- **SQLite**: Nyepesi, inategemea faili, haina seva. Inafaa kwa programu ndogo.
+- **Microsoft SQL Server**: Hifadhidata ya biashara yenye leseni.
+- **Oracle Database**: RDBMS ya kibiashara inayojulikana kwa utendaji mkubwa na uwezo wa kupanuka.
+
+## Mbinu bora
+
+- **Mkataba wa majina**: Tumia `snake_case` (mfano, `delivery_orders`) kwa majina ya majedwali na nguzo.
+
+# --assignment--
+
+Kagua mada na dhahania za SQL na PostgreSQL.

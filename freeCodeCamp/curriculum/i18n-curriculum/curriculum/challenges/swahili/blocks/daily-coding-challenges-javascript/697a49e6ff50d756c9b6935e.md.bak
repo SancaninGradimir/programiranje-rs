@@ -1,0 +1,78 @@
+---
+id: 697a49e6ff50d756c9b6935e
+title: "Zoezi la 181: Michezo ya Majira ya Baridi 2026 Siku ya 2: Snowboarding"
+challengeType: 28
+dashedName: challenge-181
+---
+
+# --description--
+
+Kutolewa mkao wa mwanariadha wa snowboarding anapoanza na mzunguko kwa digrii, amua mkao atakapoangukia.
+
+- Mkao wa mwanariadha wa snowboarding ni `"Regular"` au `"Goofy"`.
+- Mizunguko ya mbinu ni mara nyingi ya digrii 90. Chanya inaonyesha mzunguko wa saa, na hasi inaonyesha mzunguko wa kinyume cha saa.
+- Mkao wa kuangukia hubadilika kila mzunguko wa digrii 180.
+
+Kwa mfano, ukitolewa `"Regular"` na `90`, rudisha `"Regular"`. Ukitolewa `"Regular"` na digrii `180`, rudisha `"Goofy"`.
+
+# --hints--
+
+`getLandingStance("Regular", 90)` inapaswa kurudisha `"Regular"`.
+
+```js
+assert.equal(getLandingStance("Regular", 90), "Regular");
+```
+
+`getLandingStance("Regular", 180)` inapaswa kurudisha `"Goofy"`.
+
+```js
+assert.equal(getLandingStance("Regular", 180), "Goofy");
+```
+
+`getLandingStance("Goofy", -270)` inapaswa kurudisha `"Regular"`.
+
+```js
+assert.equal(getLandingStance("Goofy", -270), "Regular");
+```
+
+`getLandingStance("Regular", 2340)` inapaswa kurudisha `"Goofy"`.
+
+```js
+assert.equal(getLandingStance("Regular", 2340), "Goofy");
+```
+
+`getLandingStance("Goofy", 2160)` inapaswa kurudisha `"Goofy"`.
+
+```js
+assert.equal(getLandingStance("Goofy", 2160), "Goofy");
+```
+
+`getLandingStance("Goofy", -540)` inapaswa kurudisha `"Regular"`.
+
+```js
+assert.equal(getLandingStance("Goofy", -540), "Regular");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getLandingStance(startStance, rotation) {
+
+  return startStance;
+}
+```
+
+# --solutions--
+
+```js
+function getLandingStance(startStance, rotation) {
+  const flips = Math.floor(Math.abs(rotation) / 180);
+  if (flips % 2 === 0) {
+    return startStance;
+  } else {
+    return startStance === "Regular" ? "Goofy" : "Regular";
+  }
+}
+```

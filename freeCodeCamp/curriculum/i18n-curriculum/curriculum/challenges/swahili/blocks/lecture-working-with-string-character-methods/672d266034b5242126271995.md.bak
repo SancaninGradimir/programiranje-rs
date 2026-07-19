@@ -1,0 +1,197 @@
+---
+id: 672d266034b5242126271995
+title: "ASCII ni nini, na inafanya kazi vipi na charCodeAt() na fromCharCode()?"
+challengeType: 19
+dashedName: what-is-ascii-and-how-does-it-work-with-charcodeat-and-fromcharcode
+---
+
+# --interactive--
+
+Katika programu, kuelewa jinsi herufi zinavyowakilishwa kama nambari ni msingi muhimu. Hapa ndipo ASCII inapoingia. ASCII, kifupi cha American Standard Code for Information Interchange, ni kiwango cha usimbaji wa herufi kinachotumika katika kompyuta kuwakilisha maandishi. Inapanga thamani ya nambari kwa kila herufi, ambayo mashine zinatambua kwa ujumla.
+
+Katika funzo hili, tutaangalia ASCII ni nini, inavyofanya kazi, na jinsi njia za JavaScript kama `charCodeAt()` na `fromCharCode()` zinavyohusiana na usimbaji wa herufi. Ingawa mfuatano wa herufi za JavaScript hutumia Unicode (UTF-16) ndani, thamani za ASCII zinafanana na herufi 128 za kwanza za Unicode, ndiyo maana mifano inayotegemea ASCII hufanya kazi katika JavaScript.
+
+ASCII ni mfumo wa kusimba herufi kama vile herufi, nambari, na alama kuwa thamani za nambari. Kila herufi inaambatanishwa na nambari maalum.
+
+Kwa mfano, herufi kubwa `A` inawakilishwa na nambari `65` katika ASCII, wakati herufi ndogo `a` inawakilishwa na `97`. Usimbaji huu unaruhusu kompyuta kuhifadhi na kushughulikia maandishi.
+
+Kiwango cha ASCII kinajumuisha herufi 128 zikiwemo:
+
+- Herufi kubwa na ndogo za Kiingereza (A-Z, a-z).
+- Nambari (0-9).  
+- Alama za uandishi na alama za kawaida (!, @, #, na kadhalika).
+- Herufi za udhibiti (kama vile newline na tab).  
+
+Katika JavaScript, unaweza kupata msimbo wa nambari wa herufi kwa kutumia njia ya `charCodeAt()`. Njia hii hurudisha kitengo cha msimbo wa UTF-16 cha herufi katika kielezo fulani. Kwa herufi 128 za kwanza, thamani hii inalingana na msimbo wa ASCII.
+
+Tuchukulie mfano:
+
+:::interactive_editor
+
+```js
+let letter = "A";
+console.log(letter.charCodeAt(0));  // 65
+```
+
+:::
+
+Katika mfano huu, `A` ni herufi ya kwanza ya mfuatano wa herufi, na wito wa `charCodeAt(0)` hurudisha msimbo wake wa nambari (unaolingana na thamani yake ya ASCII kwa herufi za msingi za Kilatini), `65`.
+
+Pia unaweza kutumia njia hii kwa herufi nyingine kupata thamani zao za msimbo wa nambari:
+
+:::interactive_editor
+
+```js
+let symbol = "!";
+console.log(symbol.charCodeAt(0));  // 33
+```
+
+:::
+
+Hapa, msimbo wa nambari wa alama ya mshangao `!` hurudishwa kama `33` (unaolingana na thamani yake ya ASCII).
+
+Wakati `charCodeAt()` inakusaidia kupata msimbo wa nambari wa herufi, njia ya `fromCharCode()` inakuwezesha kufanya kinyume: kubadilisha kitengo cha msimbo wa UTF-16 (kinacholingana na ASCII kwa herufi za msingi) kuwa herufi inayolingana.
+
+Tuchukulie mfano huu:
+
+:::interactive_editor
+
+```js
+let char = String.fromCharCode(65);
+console.log(char);  //  A
+```
+
+:::
+
+Katika mfano huu, `fromCharCode(65)` hubadilisha msimbo wa nambari `65` (unaolingana na thamani ya ASCII ya `A`) kurudi kuwa herufi `A`.
+
+Mfano mwingine ni kubadilisha nambari `97` kuwa herufi ndogo inayolingana:
+
+:::interactive_editor
+
+```js
+let char = String.fromCharCode(97);
+console.log(char);  // a
+```
+
+:::
+
+Njia hizi ni muhimu hasa unapohitaji kushughulikia au kulinganisha herufi kulingana na thamani zao za msimbo wa nambari.
+
+Kwa mfano, unaweza kutumia `charCodeAt()` kuangalia kama herufi ni kubwa, ndogo, au nambari kwa kulinganisha thamani yake ya ASCII.
+
+Kwa upande mwingine, `fromCharCode()` inaweza kutumika kuzalisha herufi kwa nguvu kutoka kwa misimbo yao ya ASCII.
+
+# --questions--
+
+## --text--
+
+Njia ya `charCodeAt()` hurudisha nini wakati inapotumika kwenye mfuatano wa herufi katika JavaScript?
+
+## --answers--
+
+Idadi ya herufi katika mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria jinsi herufi zinavyowakilishwa kama thamani za msimbo wa nambari katika JavaScript.
+
+---
+
+Kielezo cha herufi katika mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria jinsi herufi zinavyowakilishwa kama thamani za msimbo wa nambari katika JavaScript.
+
+---
+
+Kitengo cha msimbo wa UTF-16 cha herufi katika kielezo fulani.
+
+---
+
+Uwawakilishi wa herufi kwa mfumo wa hexadecimal.
+
+### --feedback--
+
+Fikiria jinsi herufi zinavyowakilishwa kama thamani za msimbo wa nambari katika JavaScript.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini msimbo ufuatao utaonyesha?
+
+```js
+console.log(String.fromCharCode(66));
+```
+
+## --answers--
+
+`B`
+
+---
+
+`b`
+
+### --feedback--
+
+Rejelea sehemu ya funzo inayojadili `fromCharCode()`.
+
+---
+
+`6`
+
+### --feedback--
+
+Rejelea sehemu ya funzo inayojadili `fromCharCode()`.
+
+---
+
+`A`
+
+### --feedback--
+
+Rejelea sehemu ya funzo inayojadili `fromCharCode()`.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni mfano gani kati ya yafuatayo unaonyesha jinsi usimbaji wa herufi unavyosaidia katika programu?
+
+## --answers--
+
+Kukagua kama thamani ni `null` au `undefined`.
+
+### --feedback--
+
+Fikiria kile unachoweza kufanya wakati herufi zinawakilishwa na thamani zao za msimbo wa nambari.
+
+---
+
+Kuhesabu urefu wa mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria kile unachoweza kufanya wakati herufi zinawakilishwa na thamani zao za msimbo wa nambari.
+
+---
+
+Kubadilisha nambari kuwa thamani ya nambari yenye sehemu ya desimali.
+
+### --feedback--
+
+Fikiria kile unachoweza kufanya wakati herufi zinawakilishwa na thamani zao za msimbo wa nambari.
+
+---
+
+Kushughulikia herufi kulingana na thamani zao za nambari.
+
+## --video-solution--
+
+4

@@ -1,0 +1,522 @@
+---
+id: 672a549231b8728f7171ed9d
+title: Ni jukumu gani la ARIA?
+challengeType: 19
+dashedName: what-are-aria-roles
+---
+
+# --interactive--
+
+**KUMBUKA**: Baadhi ya mifano hii ya mwingiliano inaweza kujumuisha msimbo wa CSS na JavaScript. Usijali kuhusu kuelewa msimbo huo. Maonyesho hayo yamo kusaidia kuelezea baadhi ya hoja kuu zinazojadiliwa katika funzo. Ili kuona maonyesho hayo, utahitaji kuwezesha mhariri wa mwingiliano.
+
+ARIA inasimama kwa Accessible Rich Internet Applications.
+
+Majukumu ya ARIA huainisha maana ya kimaelezo ya vipengele vya HTML. Ni muhimu kwa kufanya maudhui ya mtandao kupatikana kwa watu wanaotumia teknolojia saidizi, kama vile visomaji vya skrini.
+
+HTML ina vipengele vya kimaelezo na visivyo vya kimaelezo, kulingana na kama vinawakilisha maana kuhusu maudhui yao.
+
+Vipengele vingi vya kimaelezo vya HTML tayari vina jukumu la ARIA limepewa kwa chaguo-msingi. Kwa mfano, kipengele cha `button` kina jukumu la ARIA la chaguo-msingi la `button`.
+
+:::interactive_editor
+
+```html
+<button>Example button</button>
+```
+
+:::
+
+Lakini vipengele visivyo vya kimaelezo havina jukumu. Kwa mfano, visomaji vya skrini havitajua jinsi ya kufasiri kusudi la `div` ikiwa hutaeleza jukumu lake waziwazi.
+
+```html
+<div>
+  <!-- more elements go here -->
+</div>
+```
+
+Ili kuweka jukumu la ARIA kwa kipengele, unahitaji tu kuongeza sifa ya `role`, kama hii `role="ARIA role"`, ambapo value ni jina la jukumu katika maelezo ya ARIA.
+
+Hapa kuna mfano wa kutumia sifa ya `role` yenye thamani ya `"alert"`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="alert" id="exp-warning" role="alert">
+  <span class="hidden">Your log in session will expire in 3 minutes.</span>
+</div>
+```
+
+```css
+.alert {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.alert span {
+  display: inline-block;
+}
+```
+
+:::
+
+Ni muhimu kuelewa kuwa kuweka jukumu kwa kipengele hufanya jambo moja tu: Inaarifu teknolojia saidizi kuhusu kusudi la kipengele. Hainiongezi kitendakazi au tabia yoyote kwa kipengele. Ikiwa watu wanatarajia jukumu lifanye kazi kwa njia fulani, ni jukumu lako wewe, msanidi programu, kuongeza tabia inayotarajiwa.
+
+Kwa mfano, kuongeza `role` ya `button` kwa `div` haifanyi kiotomatiki iwe kinachoweza kubofywa kwa panya au kitumiwe kwa kibodi. Ni jukumu la msanidi programu kuongeza tabia inayotarajiwa inayomruhusu `div` kufanya kazi kama kitufe, na katika hali nyingi, ni bora zaidi kutumia kipengele cha `button`.
+
+Kuna makundi sita makuu ya majukumu ya ARIA:
+
+- Majukumu ya muundo wa hati
+- Majukumu ya widget
+- Majukumu ya alama za sehemu muhimu
+- Majukumu ya maeneo ya moja kwa moja
+- Majukumu ya dirisha
+- Na majukumu ya muhtasari
+
+Tuchunguze kwa undani zaidi.
+
+Majukumu ya muundo wa hati huainisha muundo mzima wa ukurasa wa mtandao. Kwa majukumu haya, teknolojia saidizi zinaweza kuelewa uhusiano kati ya sehemu tofauti na kusaidia watumizi kuvinjari maudhui.
+
+Hata hivyo, sehemu kubwa ya majukumu ya muundo wa hati hayatumiki katika ukuzaji wa mtandao wa kisasa kwa sababu vivinjari tayari vinaunga mkono vipengele vya kimaelezo vya HTML vinavyofanana, ambavyo vinapaswa kupewa kipaumbele inapowezekana.
+
+Unapaswa kuweka majukumu ambayo hayana kipengele cha kimaelezo kinachofanana. Kwa mfano: `toolbar`, `tooltip`, `feed`, `math`, `presentation`, `none`, na `note`.
+
+Kuna majukumu mengine yanayofanana lakini haya ndio yanayotumika zaidi. Huu ni mfano wa `div` yenye jukumu la ARIA la `math`. `div` lina mlinganyo wa kihesabu.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div role="math" aria-label="x squared + y squared = 3">
+  x<sup>2</sup> + y<sup>2</sup> = 3
+</div>
+```
+
+```css
+.math-expression {
+  font-family: "Times New Roman", serif;
+  font-size: 1.2rem;
+  background-color: #f4f4f4;
+  border-left: 4px solid #007acc;
+  padding: 0.75em 1em;
+  margin-top: 1em;
+  display: inline-block;
+}
+
+.math-expression sup {
+  font-size: 0.8em;
+}
+```
+
+:::
+
+Pia utaona kuwa `div` ina sifa ya `aria-label`. Thamani ya sifa hii inapaswa kuwa mfuatano wa herufi unaowakilisha usemi wa kihesabu.
+
+Majukumu ya widget huainisha kusudi na kitendakazi cha vipengele vinavyoshirikiana, kama vile vipini vya kusogeza.
+
+Mifano ya majukumu ya widget ni pamoja na `scrollbar`, `searchbox`, `separator` (wakati inavyoweza kupata makini), `slider`, `spinbutton`, `switch`, `tab`, `tabpanel`, na `treeitem`.
+
+Hapa kuna mfano wa kisanduku cha utafutaji:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="search-container" role="search">
+  <label for="searchbox" class="visually-hidden">Search</label>
+
+  <div
+    id="searchbox"
+    class="searchbox"
+    role="searchbox"
+    aria-label="Search the site"
+    tabindex="0"
+    contenteditable="true">
+  </div>
+
+  <button type="button" aria-label="Submit search">Search</button>
+</div>
+
+```
+
+```css
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.searchbox {
+  flex: 1;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  min-height: 1.5em;
+}
+
+.searchbox:focus {
+  border-color: #007acc;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.3);
+}
+
+button {
+  padding: 0.5em 1em;
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Hide visually but keep for screen readers */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+}
+```
+
+:::
+
+Baadhi ya majukumu haya yana vipengele vya kimaelezo vinavyofanana. Unapaswa kuipa kipaumbele kipengele cha kimaelezo badala ya jukumu ikiwa lipo. Kwa mfano, unapaswa kupendelea kutumia kipengele cha HTML cha `button` badala ya kuongeza `role` ya `button` kwa `div`.
+
+Majukumu ya alama za sehemu muhimu huainisha na kuweka lebo sehemu kuu za ukurasa wa mtandao. Visomaji vya skrini hutumia majukumu haya kutoa urambazaji rahisi kwa sehemu muhimu za ukurasa. Unapaswa kuyatumia kwa kiasi ili kuweka mpangilio mzima rahisi na rahisi kuelewa. Mifano ya majukumu ya alama za sehemu muhimu ni `banner`, `complementary`, `contentinfo`, `form`, `main`, `navigation`, `region`, na `search`. Kila moja ya majukumu haya ina kipengele cha HTML kinachofanana, kama `header`, `footer`, `aside`, `form`, `main`, `nav`, `section`, na `search`. Ikiwa utatumia vipengele sahihi vya HTML kuainisha sehemu za ukurasa wako basi si lazima kuongeza sifa ya `role` kwa vipengele hivi.
+
+Hapa kuna mfano wa bango:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+
+<div role="banner" class="site-banner">
+  <h1>Accessible Web Design</h1>
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Articles</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+```
+
+```css
+.site-banner {
+  background-color: #007acc;
+  color: #fff;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+}
+
+.site-banner h1 {
+  margin: 0 0 0.5em;
+  font-size: 1.5em;
+}
+
+.site-banner nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1em;
+}
+
+.site-banner nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.site-banner nav a:hover {
+  text-decoration: underline;
+}
+```
+
+:::
+
+Majukumu ya maeneo ya moja kwa moja huainisha vipengele vyenye maudhui yatakayobadilika kwa wakati halisi. Hii inaruhusu visomaji vya skrini na teknolojia nyingine za kusaidia kutangaza mabadiliko kwa watumizi wenye ulemavu wa kuona. Majukumu haya ni pamoja na: `alert`, `log`, `marquee`, `status`, na `timer`.
+
+Hapa kuna mfano wa hali:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="status-demo">
+  <button id="update-status-btn">Check Status</button>
+  <div id="status-msg" role="status" class="status-message">
+    No updates yet.
+  </div>
+</div>
+
+<script src="index.js"></script>
+```
+
+```css
+.status-demo {
+  margin-top: 1em;
+}
+
+button {
+  padding: 0.5em 1em;
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.status-message {
+  margin-top: 0.75em;
+  padding: 0.75em;
+  background-color: #e8f4ff;
+  border: 1px solid #b3d8ff;
+  border-radius: 4px;
+  font-weight: 500;
+}
+```
+
+```js
+const button = document.getElementById("update-status-btn");
+const statusMessage = document.getElementById("status-msg");
+
+button.addEventListener("click", () => {
+  statusMessage.textContent = "Your upload has completed successfully.";
+});
+```
+
+:::
+
+Majukumu ya dirisha huainisha dirisha ndogo, kama vile mazungumzo ya pop-up modal. Majukumu haya ni pamoja na `alertdialog` na `dialog`. Tafadhali fahamu kuwa sasa inachukuliwa kuwa mbinu bora kutumia kipengele cha HTML cha `dialog` na njia zake za JavaScript badala ya kuunda mazungumzo kwa mikono.
+
+Hapa kuna mfano wa kutumia jukumu la `dialog` kwa mazungumzo maalum:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<button id="open-dialog">Open Dialog</button>
+
+<div id="custom-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" class="dialog">
+  <div class="dialog-content">
+    <h3 id="dialog-title">Confirm Action</h3>
+    <p>Are you sure you want to delete this file?</p>
+    <div class="dialog-actions">
+      <button id="confirm-btn">Yes</button>
+      <button id="close-dialog">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="index.js"></script>
+```
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  margin: 2em;
+}
+
+button {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007acc;
+  color: white;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.dialog {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  justify-content: center; 
+  align-items: center;   
+  z-index: 1000;
+}
+
+.dialog-content {
+  background-color: white;
+  padding: 1.5em;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+```
+
+```js
+const dialog = document.getElementById("custom-dialog");
+const openBtn = document.getElementById("open-dialog");
+const closeBtn = document.getElementById("close-dialog");
+const confirmBtn = document.getElementById("confirm-btn");
+
+openBtn.addEventListener("click", () => {
+  dialog.style.display = "flex";
+});
+
+closeBtn.addEventListener("click", () => {
+  dialog.style.display = "none";
+});
+
+confirmBtn.addEventListener("click", () => {
+  alert("File deleted.");
+  dialog.style.display = "none";
+});
+```
+
+:::
+
+Na hatimaye, tuna majukumu ya muhtasari. Majukumu haya husaidia kupanga hati. Yanakusudiwa kutumika ndani ya kivinjari tu, si kwa wasanidi programu, hivyo unapaswa kujua yapo lakini usiyatumie kwenye tovuti au programu zako za mtandao.
+
+Kwa majukumu ya ARIA, unaweza kuunda tovuti na programu za mtandao zinazopatikana na jumuishi. Yanatoa taarifa za kimaelezo kuhusu kusudi na kitendakazi cha vipengele vya HTML.
+
+Visomaji vya skrini na teknolojia nyingine za kusaidia hutumia taarifa hii kusaidia watumizi kuelewa maudhui ya ukurasa wako na kuweka matarajio ya jinsi ya kuitumia, ambayo husaidia kuhakikisha kila mtu ana uzoefu mzuri wa mtumiaji.
+
+# --questions--
+
+## --text--
+
+Jukumu kuu la majukumu ya ARIA ni lipi?
+
+## --answers--
+
+Kuweka muonekano wa vipengele.
+
+### --feedback--
+
+Fikiria jinsi majukumu ya ARIA yanavyosaidia teknolojia saidizi kuelewa maudhui.
+
+---
+
+Kuboresha utendaji wa tovuti.
+
+### --feedback--
+
+Fikiria jinsi majukumu ya ARIA yanavyosaidia teknolojia saidizi kuelewa maudhui.
+
+---
+
+Kutoa taarifa za kimaelezo kuhusu kusudi la vipengele.
+
+---
+
+Kuboresha ulinganifu wa kivinjari.
+
+### --feedback--
+
+Fikiria jinsi majukumu ya ARIA yanavyosaidia teknolojia saidizi kuelewa maudhui.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni kundi gani la majukumu ya ARIA linalotumika kuainisha kusudi na tabia za dirisha ndogo, kama mazungumzo ya pop-up modal?
+
+## --answers--
+
+Majukumu ya widget.
+
+### --feedback--
+
+Fikiria jinsi ya kuainisha dirisha ndogo kwa majukumu ya ARIA.
+
+---
+
+Majukumu ya muundo wa hati.
+
+### --feedback--
+
+Fikiria jinsi ya kuainisha dirisha ndogo kwa majukumu ya ARIA.
+
+---
+
+Majukumu ya alama za sehemu muhimu.
+
+### --feedback--
+
+Fikiria jinsi ya kuainisha dirisha ndogo kwa majukumu ya ARIA.
+
+---
+
+Majukumu ya dirisha.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni kundi gani la majukumu ya ARIA linalotumika kuonyesha maudhui yanayobadilika ambayo yanapaswa kutangazwa kwa watumizi?
+
+## --answers--
+
+Majukumu ya widget.
+
+### --feedback--
+
+Fikiria jinsi ya kutoa taarifa au tahadhari kwa watumizi.
+
+---
+
+Majukumu ya muundo wa hati.
+
+### --feedback--
+
+Fikiria jinsi ya kutoa taarifa au tahadhari kwa watumizi.
+
+---
+
+Majukumu ya alama za sehemu muhimu.
+
+### --feedback--
+
+Fikiria jinsi ya kutoa taarifa au tahadhari kwa watumizi.
+
+---
+
+Majukumu ya maeneo ya moja kwa moja.
+
+## --video-solution--
+
+4

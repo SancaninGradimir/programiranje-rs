@@ -1,0 +1,79 @@
+---
+id: 596fda99c69f779975a1b67d
+title: Hesabu idadi ya matukio ya mfuatano wa herufi ndogo
+challengeType: 1
+forumTopicId: 302237
+dashedName: count-occurrences-of-a-substring
+---
+
+# --description--
+
+Tengeneza kitendakazi, au onyesha kitendakazi kilicho ndani, cha kuhesabu idadi ya matukio yasiyovuka-vukana ya mfuatano wa herufi ndogo ndani ya mfuatano wa herufi.
+
+Kitendakazi kinapaswa kuchukua hoja mbili:
+
+<ul>
+  <li>hoja ya kwanza iwe mfuatano wa herufi wa kutafuta, na</li>
+  <li>ya pili iwe mfuatano wa herufi ndogo wa kutafutwa.</li>
+</ul>
+
+Kinapaswa kurudisha hesabu ya nambari kamili.
+
+Ulinganifu unapaswa kutoa idadi kubwa zaidi ya mechi zisizovuka-vukana.
+
+Kwa ujumla, hii kwa msingi inamaanisha kulinganisha kutoka kushoto kwenda kulia au kutoka kulia kwenda kushoto.
+
+# --before-each--
+
+```js
+const testCases = ['the three truths', 'ababababab', 'abaabba*bbaba*bbab'];
+const searchString = ['th', 'abab', 'a*b'];
+const results = [3, 2, 2];
+```
+
+# --hints--
+
+`countSubstring` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof countSubstring === 'function');
+```
+
+`countSubstring("the three truths", "th")` inapaswa kurudisha `3`.
+
+```js
+assert.equal(countSubstring(testCases[0], searchString[0]), results[0]);
+```
+
+`countSubstring("ababababab", "abab")` inapaswa kurudisha `2`.
+
+```js
+assert.equal(countSubstring(testCases[1], searchString[1]), results[1]);
+```
+
+`countSubstring("abaabba*bbaba*bbab", "a*b")` inapaswa kurudisha `2`.
+
+```js
+assert.equal(countSubstring(testCases[2], searchString[2]), results[2]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function countSubstring(str, subStr) {
+
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+function countSubstring(str, subStr) {
+  const escapedSubStr = subStr.replace(/[.+*?^$[\]{}()|/]/g, '\\$&');
+  const matches = str.match(new RegExp(escapedSubStr, 'g'));
+  return matches ? matches.length : 0;
+}
+```

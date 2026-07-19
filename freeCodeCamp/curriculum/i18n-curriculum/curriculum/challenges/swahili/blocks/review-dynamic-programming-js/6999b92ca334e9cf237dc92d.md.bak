@@ -1,0 +1,84 @@
+---
+id: 6999b92ca334e9cf237dc92d
+title: Kagua programu ya mabadiliko ya nguvu
+challengeType: 31
+dashedName: review-dynamic-programming-js
+---
+
+# --description--
+
+## Utangulizi wa programu ya mabadiliko ya nguvu
+
+- **Ufafanuzi**: Programu ya mabadiliko ya nguvu ni mbinu ya algoriti inayotatua changamoto ngumu kwa kuzivunja kuwa changamoto ndogo rahisi na kuhifadhi matokeo ili kuepuka mahesabu ya kurudiarudia. 
+- **Changamoto ndogo zinazojirudia**: Changamoto ndogo sawa hujitokeza mara nyingi wakati wa kutatua changamoto kubwa. Badala ya kuhesabu tena changamoto hizi ndogo mara kwa mara, tunahifadhi suluhisho lao.
+- **Muundo bora wa changamoto ndogo**: Suluhisho bora la changamoto lina suluhisho bora za changamoto ndogo zake. Hii ina maana tunaweza kujenga suluhisho bora kwa kuunganisha suluhisho bora za sehemu ndogo ndogo.
+
+## Suluhisho za programu ya mabadiliko ya nguvu
+
+- **Memoization (Mbinu ya juu-chini)**: Memoization huhifadhi matokeo ya wito za kitendakazi ghali na hurudisha matokeo yaliyohifadhiwa wakati ingizo sawa linapotokea tena. 
+
+```js
+function climbStairsMemo(n, memo = {}) {
+  // If already calculated, return cached value
+  if (memo[n] !== undefined) {
+    return memo[n];
+  }
+
+  // Base cases: 1 way for 1 step, 2 ways for 2 steps
+  if (n <= 2) {
+    return n;
+  }
+
+  // Calculate once and store in memo for future use
+  memo[n] =
+    climbStairsMemo(n - 1, memo) +
+    climbStairsMemo(n - 2, memo);
+
+  return memo[n];
+}
+```
+
+- **Tabulation (Mbinu ya chini-juu)**: Tabulation hujenga suluhisho kutoka chini juu, ikijaza jedwali na suluhisho za changamoto ndogo.
+
+```js
+function climbStairsTabulation(n) {
+  if (n <= 2) {
+    return n;
+  }
+
+  // Create an array to store solutions from 0 to n
+  const dp = new Array(n + 1).fill(0);
+
+  // Base cases
+  dp[1] = 1; // 1 way to reach step 1
+  dp[2] = 2; // 2 ways to reach step 2
+
+  // Build up the solution iteratively
+  for (let i = 3; i <= n; i++) {
+    // Ways to reach step i = ways to reach (i-1) + ways to reach (i-2)
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}
+```
+
+## Matumizi halisi ya programu ya mabadiliko ya nguvu
+
+- **Uboreshaji wa njia ya data**: Mifumo ya GPS hutumia algoriti za programu ya mabadiliko ya nguvu kupata njia fupi kati ya maeneo.
+- **Usindikaji wa maandishi**: Vipengele vya ukaguzi wa tahajia na kukamilisha maandishi mara nyingi hutegemea programu ya mabadiliko ya nguvu kuhesabu umbali wa mabadiliko kati ya maneno.
+- **Uundaji wa mifano ya kifedha**: Mikakati ya uwekezaji na uboreshaji wa portfolio mara nyingi hutumia mbinu za programu ya mabadiliko ya nguvu.
+- **Ugawaji wa rasilimali**: Changamoto ya knapsack na aina zake hujitokeza katika upangaji ratiba, bajeti, na usimamizi wa rasilimali.
+
+## Wakati wa kutumia programu ya mabadiliko ya nguvu
+
+Unapaswa kuzingatia kutumia programu ya mabadiliko ya nguvu katika hali zifuatazo:
+
+- Changamoto inaweza kuvunjwa kuwa changamoto ndogo zinazojirudia.
+- Changamoto ina muundo bora wa changamoto ndogo.
+- Suluhisho la kurudiarudia la kawaida lingehitaji mahesabu ya kurudiarudia.
+- Unahitaji kuboresha kwa upande wa ugumu wa wakati kwa gharama ya ugumu wa nafasi.
+
+# --assignment--
+
+Kagua mada na dhana za programu ya mabadiliko ya nguvu.

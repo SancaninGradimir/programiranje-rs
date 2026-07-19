@@ -1,0 +1,65 @@
+---
+id: 68cae5b538ff798bbd4da006
+title: "Zoezi la 68: Kifichuzi cha Kadi ya Mikopo"
+challengeType: 28
+dashedName: challenge-68
+---
+
+# --description--
+
+Kutolewa mfuatano wa nambari za kadi ya mikopo, rudisha toleo lililofichwa kwa kutumia masharti yafuatayo:
+
+- Mfuatano utakuwa na seti nne za nambari nne kila moja (`0-9`), na seti zote zitakuwa zimegawanyika kwa nafasi moja au alama moja ya msalaba (`-`).
+- Badilisha nambari zote isipokuwa nne za mwisho kwa nyota (`*`).
+- Acha herufi zilizobaki zisibadilike.
+
+Kwa mfano, ikitolewa `"4012-8888-8888-1881"` rudisha `"****-****-****-1881"`.
+
+# --hints--
+
+`mask("4012-8888-8888-1881")` inapaswa kurudisha `"****-****-****-1881"`.
+
+```js
+assert.equal(mask("4012-8888-8888-1881"), "****-****-****-1881");
+```
+
+`mask("5105 1051 0510 5100")` inapaswa kurudisha `"**** **** **** 5100"`.
+
+```js
+assert.equal(mask("5105 1051 0510 5100"), "**** **** **** 5100");
+```
+
+`mask("6011 1111 1111 1117")` inapaswa kurudisha `"**** **** **** 1117"`.
+
+```js
+assert.equal(mask("6011 1111 1111 1117"), "**** **** **** 1117");
+```
+
+`mask("2223-0000-4845-0010")` inapaswa kurudisha `"****-****-****-0010"`.
+
+```js
+assert.equal(mask("2223-0000-4845-0010"), "****-****-****-0010");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function mask(card) {
+
+  return card;
+}
+```
+
+# --solutions--
+
+```js
+function mask(card) {
+  const split = card.split(card.includes('-') ? '-' : ' ');
+  
+  return card.includes('-') ?
+    `****-****-****-${split[3]}` :
+    `**** **** **** ${split[3]}`;
+}
+```

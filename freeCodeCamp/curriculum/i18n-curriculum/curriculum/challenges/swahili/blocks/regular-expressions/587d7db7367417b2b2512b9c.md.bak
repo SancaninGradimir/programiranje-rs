@@ -1,0 +1,108 @@
+---
+id: 587d7db7367417b2b2512b9c
+title: Tafuta Mhalifu Mmoja au Zaidi Katika Ufuatiliaji
+challengeType: 1
+forumTopicId: 301343
+dashedName: find-one-or-more-criminals-in-a-hunt
+---
+
+# --description--
+
+Ni wakati wa kusimama kidogo na kujaribu ujuzi wako mpya wa kuandika usemi wa kawaida. Kikundi cha wahalifu walitoroka gerezani na kukimbia, lakini hujui wangapi walikuwa. Hata hivyo, unajua kuwa wanakaa karibu pamoja wanapokuwa karibu na watu wengine. Wewe ndiye anayehusika kutafuta wahalifu wote mara moja.
+
+Hapa kuna mfano wa kukagua jinsi ya kufanya hivi:
+
+Usemi wa kawaida `/z+/` unalingana na herufi `z` inapojitokeza mara moja au zaidi mfululizo. Utapata mechi katika mfuatano wote ufuatao:
+
+```js
+"z"
+"zzzzzz"
+"ABCzzzz"
+"zzzzABC"
+"abczzzzzzzzzzzzzzzzzzzzzabc"
+```
+
+Lakini haupati mechi katika mfuatano ufuatao kwa sababu hakuna herufi `z`:
+
+```js
+""
+"ABC"
+"abcabc"
+```
+
+# --instructions--
+
+Andika usemi wa kawaida wa aina ya "greedy" unaotafuta mhalifu mmoja au zaidi ndani ya kundi la watu wengine. Mhalifu anawakilishwa na herufi kubwa `C`.
+
+# --hints--
+
+Usemi wako wa kawaida unapaswa kulinganisha mhalifu mmoja (`C`) katika mfuatano `C`
+
+```js
+assert('C'.match(reCriminals) && 'C'.match(reCriminals)[0] == 'C');
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha wahalifu wawili (`CC`) katika mfuatano `CC`
+
+```js
+assert('CC'.match(reCriminals) && 'CC'.match(reCriminals)[0] == 'CC');
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha wahalifu watatu (`CCC`) katika mfuatano `P1P5P4CCCcP2P6P3`.
+
+```js
+assert(
+  'P1P5P4CCCcP2P6P3'.match(reCriminals) &&
+    'P1P5P4CCCcP2P6P3'.match(reCriminals)[0] == 'CCC'
+);
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha wahalifu watano (`CCCCC`) katika mfuatano `P6P2P7P4P5CCCCCP3P1`
+
+```js
+assert(
+  'P6P2P7P4P5CCCCCP3P1'.match(reCriminals) &&
+    'P6P2P7P4P5CCCCCP3P1'.match(reCriminals)[0] == 'CCCCC'
+);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha wahalifu wowote katika mfuatano tupu `""`
+
+```js
+reCriminals.lastIndex = 0;
+assert(!reCriminals.test(''));
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha wahalifu wowote katika mfuatano `P1P2P3`
+
+```js
+reCriminals.lastIndex = 0;
+assert(!reCriminals.test('P1P2P3'));
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha wahalifu hamsini (`CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC`) katika mfuatano `P2P1P5P4CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCP3`.
+
+```js
+assert(
+  'P2P1P5P4CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCP3'.match(
+    reCriminals
+  ) &&
+    'P2P1P5P4CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCP3'.match(
+      reCriminals
+    )[0] == 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let reCriminals = /./; // Change this line
+```
+
+# --solutions--
+
+```js
+let reCriminals = /C+/; // Change this line
+```

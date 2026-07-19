@@ -1,0 +1,94 @@
+---
+id: 589a69f5f9fc0f352b528e70
+title: Utekelezaji wa uthibitisho wa utambulisho wa kijamii
+challengeType: 2
+forumTopicId: 301559
+dashedName: implementation-of-social-authentication
+---
+
+# --description--
+
+Njia msingi ambayo uthibitisho huu wa aina hii utakayo fuata katika programu yako ni:
+
+1.  Mtumizi anabofya kitufe au kiungo kinachompeleka kwenye njia yako ya data ili kuthibitisha utambulisho kwa kutumia mkakati maalum (mfano GitHub).
+2.  Njia yako ya data inaita `passport.authenticate('github')` ambayo inaelekeza upya mtumizi kwenda GitHub.
+3.  Ukurasa ambao mtumizi anafika, kwenye GitHub, unamruhusu kuingia ikiwa bado hajajiunga. Kisha unamuomba kuruhusu upatikanaji wa wasifu wake kutoka kwenye programu yako.
+4.  Mtumizi kisha anarudishwa kwenye programu yako kwenye URL maalum ya wito wa kurudisha na wasifu wake ikiwa ameidhinishwa.
+5.  Sasa yuko imethibitishwa, na programu yako inapaswa kukagua kama ni wasifu unaorudiwa, au kuihifadhi kwenye hifadhidata yako ikiwa siyo.
+
+Mikakati yenye OAuth inahitaji uwe na angalau *Client ID* na *Client Secret* ambayo ni njia ya huduma kuthibitisha ni nani anayetuma ombi la uthibitisho wa utambulisho na kama ni halali. Hizi hupatikana kutoka kwenye tovuti unayojaribu kutekeleza uthibitisho nayo, kama GitHub, na ni za kipekee kwa programu yako--**HAZITAKIWA KUSHIRIKIWA** na hazipaswi kamwe kupakiwa kwenye hifadhidata ya umma au kuandikwa moja kwa moja kwenye msimbo wako. Mazoezi ya kawaida ni kuzihifadhi kwenye faili lako la `.env` na kuzirejea kama `process.env.GITHUB_CLIENT_ID`. Kwa changamoto hii utatumia mkakati wa GitHub.
+
+Fuata <a href="https://www.freecodecamp.org/news/how-to-set-up-a-github-oauth-application/" target="_blank" rel="noopener noreferrer nofollow">maelekezo haya</a> kupata *Client ID na Secret* kutoka GitHub. Weka URL ya ukurasa wa nyumbani kuwa ukurasa wako wa nyumbani (**si URL ya msimbo wa mradi**), na weka URL ya wito wa kurudisha kuwa URL ile ile ya ukurasa wa nyumbani na `/auth/github/callback` imeambatanishwa mwishoni. Hifadhi client ID na siri ya mteja kwenye faili la `.env` la mradi wako kama `GITHUB_CLIENT_ID` na `GITHUB_CLIENT_SECRET`.
+
+Katika faili lako la `routes.js`, ongeza `showSocialAuth: true` kwenye njia ya ukurasa wa nyumbani, baada ya `showRegistration: true`. Sasa, tengeneza njia mbili za data zinazokubali maombi ya GET: `/auth/github` na `/auth/github/callback`. Ya kwanza inapaswa kuitwa passport tu kuthibitisha `'github'`. Ya pili inapaswa kuitwa passport kuthibitisha `'github'` na ikiwa itashindwa elekeza upya kwenda `/`, kisha ikiwa itafanikiwa elekeza upya kwenda `/profile` (kama ilivyo kwenye mradi wako wa mwisho).
+
+Mfano wa jinsi `/auth/github/callback` inavyopaswa kuonekana ni kama jinsi ulivyoshughulikia kuingia kawaida:
+
+```js
+app.route('/login')
+  .post(passport.authenticate('local', { failureRedirect: '/' }), (req,res) => {
+    res.redirect('/profile');
+  });
+```
+
+Wasilisha ukurasa wako unapohisi umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#implementation-of-social-authentication-3" target="_blank" rel="noopener noreferrer nofollow">kagua mradi hadi hatua hii</a>.
+
+# --hints--
+
+Njia ya data `/auth/github` inapaswa kuwa sahihi.
+
+```js
+  try {
+    const res = await fetch(code + '/_api/routes.js');
+    if (res.ok) {
+      const data = await res.text();
+      assert.match(
+          data.replace(/\s/g, ''),
+          /passport.authenticate.*?github/g,
+          'Route auth/github should only call passport.authenticate with github'
+        );
+    } else {
+      throw new Error(res.statusText);
+    }
+    const res2 = await fetch(code + '/_api/app-stack');
+    if (res2.ok) {
+      const data2 = JSON.parse(await res2.json());
+      const dataLayer = data2.find(layer => layer?.route?.path === '/auth/github');
+      assert.deepInclude(dataLayer?.route, { methods: {get: true}, path: "/auth/github"});
+      assert.deepInclude(dataLayer?.route?.stack?.[0], {method: "get", name: "authenticate"});
+    } else {
+      throw new Error(res2.statusText);
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+```
+
+Njia ya data `/auth/github/callback` inapaswa kuwa sahihi.
+
+```js
+  try {
+    const res = await fetch(code + '/_api/routes.js');
+    if (res.ok) {
+      const data = await res.text();
+      assert.match(
+        data.replace(/\s/g, ''),
+        /failureRedirect:("|')\/\1/g,
+        'Route auth/github/callback should accept a get request and call passport.authenticate for github with a failure redirect to home'
+      );
+    } else {
+      throw new Error(res.statusText);
+    }
+    const res2 = await fetch(code + '/_api/app-stack');
+    if (res2.ok) {
+      const data2 = JSON.parse(await res2.json());
+      const dataLayer = data2.find(layer => layer?.route?.path === '/auth/github/callback');
+      assert.deepInclude(dataLayer?.route, { methods: {get: true}, path: "/auth/github/callback"});
+      assert.deepInclude(dataLayer?.route?.stack?.[0], {method: "get", name: "authenticate"});
+    } else {
+      throw new Error(res2.statusText);
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+```

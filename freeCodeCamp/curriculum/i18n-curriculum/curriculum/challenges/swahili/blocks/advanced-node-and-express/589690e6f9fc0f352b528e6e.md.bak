@@ -1,0 +1,49 @@
+---
+id: 589690e6f9fc0f352b528e6e
+title: Safisha mradi wako kwa moduli
+challengeType: 2
+forumTopicId: 301549
+dashedName: clean-up-your-project-with-modules
+---
+
+# --description--
+
+Kwa sasa, kila kitu ulicho nacho kiko katika faili lako la `server.js`. Hii inaweza kusababisha msimbo mgumu kusimamia usiokuwa rahisi kupanua. Unda mafaili mapya 2: `routes.js` na `auth.js`
+
+Yote yanapaswa kuanza na msimbo ufuatao:
+
+```js
+module.exports = function (app, myDataBase) {
+
+}
+```
+
+Sasa, juu ya faili lako la seva, ita faili hizi kama ifuatavyo: `const routes = require('./routes.js');` Mara tu unapopata muunganisho mzuri na hifadhidata, anzisha kila moja kama ifuatavyo: `routes(app, myDataBase)`
+
+Mwishowe, chukua njia zote za data katika seva yako na uzibandike katika mafaili mapya, kisha ziondoe kutoka kwenye faili la seva. Pia chukua kitendakazi cha `ensureAuthenticated`, kwani kiliumbwa mahsusi kwa ajili ya njia za data. Sasa, itabidi uongeze kwa usahihi utegemezi unaotumika, kama vile `const passport = require('passport');`, juu kabisa, juu ya mstari wa kusafirisha katika faili lako la `routes.js`.
+
+Endelea kuziongeza hadi hakuna makosa tena, na faili lako la seva halina njia za data tena (**isipokuwa njia ya data katika sehemu ya catch**)!
+
+Fanya jambo kama hilo katika faili lako la `auth.js` kwa vitu vyote vinavyohusiana na uthibitisho wa utambulisho kama vile serialization na usanidi wa mkakati wa local, kisha futa kutoka kwenye faili la seva. Hakikisha unaongeza utegemezi na kuita `auth(app, myDataBase)` katika seva mahali pale pale.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#clean-up-your-project-with-modules-2" target="_blank" rel="noopener noreferrer nofollow">kuangalia mfano wa mradi ulio kamilika</a>.
+
+# --hints--
+
+Moduli zinapaswa kuwepo.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /require\s*\(('|")\.\/routes(\.js)?\1\)/gi,
+    'You should have required your new files'
+  );
+  assert.match(
+    data,
+    /client\s*\.db[^]*routes/gi,
+    'Your new modules should be called after your connection to the database'
+  );
+```

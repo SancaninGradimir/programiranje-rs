@@ -1,0 +1,134 @@
+---
+id: 587d8259367417b2b2512c86
+title: Tekeleza kupanga kwa njia ya insertion sort
+challengeType: 1
+forumTopicId: 301613
+dashedName: implement-insertion-sort
+---
+
+# --description--
+
+Njia inayofuata ya kupanga tutakayochunguza ni insertion sort. Njia hii hufanya kazi kwa kujenga safu ya data iliyopangwa mwanzoni mwa orodha. Huanza safu iliyopangwa kwa kipengele cha kwanza. Kisha huchunguza kipengele kinachofuata na kukibadilisha nyuma ndani ya safu iliyopangwa hadi kiwe katika nafasi iliyopangwa. Inaendelea kupitia orodha na kubadilisha vitu vipya nyuma ndani ya sehemu iliyopangwa hadi ifike mwisho. Algoriti hii ina ugumu wa wakati wa mduara wa mraba katika hali ya wastani na mbaya zaidi.
+
+**Maelekezo:** Andika kitendakazi `insertionSort` kinachopokea safu ya data ya nambari kamili kama ingizo na kurudisha safu ya data ya nambari hizi kamili zikiwa zimepangwa kutoka ndogo hadi kubwa.
+
+# --hints--
+
+`insertionSort` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(insertionSort);
+```
+
+`insertionSort` inapaswa kurudisha safu ya data iliyopangwa (kutoka ndogo hadi kubwa).
+
+```js
+function isSorted(a){
+  for(let i = 0; i < a.length - 1; i++)
+    if(a[i] > a[i + 1])
+      return false;
+  return true;
+}
+assert.isTrue(
+  isSorted(
+    insertionSort([
+      1,
+      4,
+      2,
+      8,
+      345,
+      123,
+      43,
+      32,
+      5643,
+      63,
+      123,
+      43,
+      2,
+      55,
+      1,
+      234,
+      92
+    ])
+  )
+);
+```
+
+`insertionSort([1,4,2,8,345,123,43,32,5643,63,123,43,2,55,1,234,92])` inapaswa kurudisha safu ya data isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  insertionSort([
+    1,
+    4,
+    2,
+    8,
+    345,
+    123,
+    43,
+    32,
+    5643,
+    63,
+    123,
+    43,
+    2,
+    55,
+    1,
+    234,
+    92
+  ]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`insertionSort([5, 4, 33, 2, 8])` inapaswa kurudisha `[2, 4, 5, 8, 33]`.
+
+```js
+assert.deepEqual(insertionSort([5, 4, 33, 2, 8]), [2, 4, 5, 8, 33])
+```
+
+`insertionSort` haipaswi kutumia njia iliyo ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    insertionSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function insertionSort(array) {
+  // Only change code below this line
+  return array;
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function insertionSort (array) {
+  for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
+    let current = array[currentIndex];
+    let j = currentIndex - 1;
+    while (j > -1 && array[j] > current) {
+      array[j + 1] = array[j];
+      j--;
+    }
+    array[j + 1] = current;
+  }
+  return array;
+}
+```

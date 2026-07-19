@@ -1,0 +1,73 @@
+---
+id: 5dfa3589eacea3f48c6300ae
+title: Step 20
+challengeType: 0
+dashedName: step-20
+---
+
+# --description--
+
+Ndani ya kipengele cha pili cha `section`, ongeza kipengele kipya cha `h2` chenye maandishi `Cat Lists`.
+
+# --hints--
+
+Kipengele chako cha `section` kinapaswa kuwa na lebo ya kufungua. Lebo za kufungua zina sintaksia hii: `<elementName>`.
+
+```js
+assert.lengthOf(document.querySelectorAll('section'), 2);
+assert.lengthOf(code.match(/<\/section>/g), 2);
+```
+
+Kipengele chako cha `h2` kinapaswa kuwa na lebo ya kufungua. Lebo za kufungua zina sintaksia hii: `<elementName>`.
+
+```js
+assert.lengthOf(document.querySelectorAll('h2'), 2);
+```
+
+Kipengele chako cha `h2` kinapaswa kuwa na lebo ya kufunga. Lebo za kufunga zina `/` mara tu baada ya herufi ya `<`.
+
+```js
+assert.lengthOf(code.match(/<\/h2\>/g), 2);
+```
+
+Kipengele chako cha pili cha `h2` kinapaswa kuwa juu kabisa ya lebo ya kufunga ya kipengele cha pili cha `section`. Siko katika nafasi sahihi.
+
+```js
+const secondSection = document.querySelectorAll('section')[1];
+assert.equal(secondSection?.lastElementChild?.nodeName, 'H2');
+```
+
+Kipengele cha pili cha `h2` kinapaswa kuwa na maandishi `Cat Lists`. Umeacha maandishi au kuna makosa ya tahajia.
+
+```js
+assert.equal(
+  document
+    .querySelectorAll('main > section')[1]
+    ?.lastElementChild?.innerText?.trim().replace(/\s+/g, ' ').toLowerCase(), 'cat lists'
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+    <main>
+      <h1>CatPhotoApp</h1>
+      <section>
+        <h2>Cat Photos</h2>
+        <p>Everyone loves <a href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">cute cats</a> online!</p>
+        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
+        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+      </section>
+      <section>
+--fcc-editable-region--
+        
+--fcc-editable-region--
+      </section>
+    </main>
+  </body>
+</html>
+```

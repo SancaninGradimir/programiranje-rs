@@ -1,0 +1,73 @@
+---
+id: 6675a38a8b535e4ff3274520
+title: Hatua 11
+challengeType: 20
+dashedName: step-11
+---
+
+# --description--
+
+Kitendakazi cha `hasattr` kilichojengwa ndani kinachukua kitu kama hoja yake ya kwanza na mfuatano wa herufi unaowakilisha jina la sifa ya kipengele kama hoja yake ya pili. Kinarejesha thamani ya kweli au siyo kweli kuonyesha kama kitu hicho kina sifa ya kipengele iliyotajwa.
+
+Sasa uta tumia njia ya `__init_subclass__` kukagua kama darasa la mtoto lina sifa ya kipengele ya `degree` wakati wa kuanzishwa kwake.
+
+Tengeneza tamko la `if` kukagua kama `cls` haina sifa ya kipengele ya `degree`. Ikiwa ni hivyo, onyesha `AttributeError` na tumia mfuatano wa herufi `f"Cannot create '{cls.__name__}' class: missing required attribute 'degree'"` kutoa ujumbe maalum.
+
+Baada ya hapo, rekebisha kosa lililotokea kwenye terminal kwa kutangaza sifa ya kipengele cha darasa la `degree` ndani ya darasa la `LinearEquation`. Sifa hii inapaswa kuwakilisha daraja la mlinganyo, ambalo ni nguvu ya neno la juu zaidi la \\( x \\). Kwa hiyo, weka thamani ya nambari kamili `1` kwa sifa ya kipengele ya `degree`.
+
+# --hints--
+
+Unapaswa kutengeneza tamko la `if` linalokagua kama `cls` haina sifa ya kipengele ya `degree` ndani ya njia ya `__init_subclass__`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__init_subclass__").find_ifs()[0].find_conditions()[0].is_equivalent("not hasattr(cls, 'degree')")`)) })
+```
+
+Unapaswa kuonyesha `AttributeError` ukitumia mfuatano wa herufi uliotolewa ndani ya tamko lako la `if`.
+
+```js
+({ test: () => runPython(`
+raise_stmt = 'raise AttributeError(f"Cannot create \\'{cls.__name__}\\' class: missing required attribute \\'degree\\'")'
+node = _Node(_code).find_class("Equation").find_function("__init_subclass__").find_ifs()[0].find_bodies()[0]
+assert node.has_stmt(raise_stmt) 
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+from abc import ABC, abstractmethod
+
+
+class Equation(ABC):
+    degree: int
+    
+    def __init__(self):
+        pass
+--fcc-editable-region--
+    def __init_subclass__(cls):
+        pass
+
+    @abstractmethod
+    def solve(self):
+        pass
+        
+    @abstractmethod
+    def analyze(self):
+        pass
+
+
+class LinearEquation(Equation):
+    
+--fcc-editable-region--
+    def solve(self):
+        pass
+
+    def analyze(self):
+        pass
+
+
+lin_eq = LinearEquation()
+```

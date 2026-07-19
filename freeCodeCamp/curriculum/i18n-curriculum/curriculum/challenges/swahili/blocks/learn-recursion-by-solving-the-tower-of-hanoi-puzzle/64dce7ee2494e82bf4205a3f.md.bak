@@ -1,0 +1,72 @@
+---
+id: 64dce7ee2494e82bf4205a3f
+title: Hatua 24
+challengeType: 20
+dashedName: step-24
+---
+
+# --description--
+
+Hali nyingine ambayo lazima uhamishe diski kutoka `source` kwenda `target` ni pale ambapo orodha ya chanzo **si** tupu **na** diski ya mwisho katika `source` iko chini kuliko diski ya mwisho katika `target`.
+
+Ongeza usemi wa `elif` kuangalia hali hii. Kisha, weka thamani ya `forward` kuwa `True` ikiwa hali hiyo itatimizwa.
+
+# --hints--
+
+Unapaswa kuwa na usemi wa `elif` kuangalia kama `rods[source]` si tupu na `rods[source][-1] < rods[target][-1]`.
+
+```js
+const allowedRes = [
+    "rods\\s*\\[\\s*source\\s*\\]",
+    "len\\(rods\\s*\\[\\s*source\\s*\\]\\s*\\)\\s*>\\s*0",
+    "len\\(rods\\s*\\[\\s*source\\s*\\]\\s*\\)\\s*>=\\s*1",
+];
+const re = new RegExp(`elif\\s+((${allowedRes.join(")|(")}))\\s+and\\s+(rods\\s*\\[\\s*source\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*<\\s*rods\\s*\\[\\s*target\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]|rods\\s*\\[\\s*target\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*>\\s*rods\\s*\\[\\s*source\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\])\\s*:`);
+assert.match(code, re);
+```
+
+Unapaswa kuweka `forward` kuwa `True` ndani ya usemi wako mpya wa `elif`. Hauruhusiwi kubadilisha mgawo wa thamani uliopita wa `forward`.
+
+```js
+const allowedRes = [
+    "rods\\s*\\[\\s*source\\s*\\]",
+    "len\\(rods\\s*\\[\\s*source\\s*\\]\\s*\\)\\s*>\\s*0",
+    "len\\(rods\\s*\\[\\s*source\\s*\\]\\s*\\)\\s*>=\\s*1",
+];
+const re = new RegExp(`elif\\s+((${allowedRes.join(")|(")}))\\s+and\\s+(rods\\s*\\[\\s*source\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*<\\s*rods\\s*\\[\\s*target\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]|rods\\s*\\[\\s*target\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*>\\s*rods\\s*\\[\\s*source\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\])\\s*:\\s+forward\\s*=\\s*True`);
+assert.match(code, re);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+NUMBER_OF_DISKS = 3
+number_of_moves = 2**NUMBER_OF_DISKS - 1
+rods = {
+    'A': list(range(NUMBER_OF_DISKS, 0, -1)),
+    'B': [],
+    'C': []
+}
+
+def move(n, source, auxiliary, target):
+    # display starting configuration
+    print(rods)
+    for i in range(number_of_moves):
+        remainder = (i + 1) % 3
+        if remainder == 1:
+            print(f'Move {i + 1} allowed between {source} and {target}')
+            forward = False
+--fcc-editable-region--            
+            if not rods[target]:
+                forward = True
+--fcc-editable-region--
+        elif remainder == 2:
+            print(f'Move {i + 1} allowed between {source} and {auxiliary}')
+        elif remainder == 0:
+            print(f'Move {i + 1} allowed between {auxiliary} and {target}')
+
+# initiate call from source A to target C with auxiliary B
+move(NUMBER_OF_DISKS, 'A', 'B', 'C')
+```

@@ -1,0 +1,1594 @@
+---
+id: 673c91f0b934834bc4a3ecc2
+title: Jenga jedwali la viongozi wa jukwaa la fCC
+challengeType: 25
+dashedName: build-an-fcc-forum-leaderboard
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii, utajenga jedwali la viongozi la jukwaa la freeCodeCamp linaloonyesha mada za hivi karibuni, watumiaji, na majibu kutoka [freeCodeCamp forum](https://forum.freecodecamp.org/). HTML, CSS na sehemu ya JS vimetolewa kwako. Tafadhali jisikie huru kuvinjari.
+
+Kiishio cha API hurejesha JSON katika muundo ufuatao:
+
+```json
+{
+  "users": [
+    {
+      "id": 6,
+      "username": "QuincyLarson",
+      "name": "Quincy Larson",
+      "avatar_template": "/user_avatar/QuincyLarson_{size}.png"
+    },
+    {
+      "id": 576147,
+      "username": "JOY-OKORO",
+      "name": "Joy Okoro",
+      "avatar_template": "/user_avatar/JOY-OKORO_{size}.png"
+    }
+  ],
+  "topic_list": {
+    "topics": [
+      {
+        "id": 684569,
+        "title": "The freeCodeCamp Podcast is back – now with video",
+        "slug": "the-freecodecamp-podcast-is-back-now-with-video",
+        "posts_count": 8,
+        "views": 542,
+        "bumped_at": "2024-04-15T16:01:26.403Z",
+        "category_id": 1,
+        "posters": [
+          { "user_id": 6 },
+          { "user_id": 576147 }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Kumbuka kuwa thamani za `avatar_template` ni njia za jamaa: huanza na `/` na zina kiwakilishi cha `{size}` ambacho kinapaswa kubadilishwa na ukubwa wa pikseli. Kiasi cha `avatarUrl` kinashikilia URL msingi cha kuambatanisha wakati njia ni jamaa.
+
+**Lengo:** Timiza hadithi za watumiaji zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumiaji:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `timeAgo` kinachopokea alama ya wakati katika muundo wa ISO 8601 kama hoja.
+1. Kitendakazi cha `timeAgo` kinapaswa kuhesabu tofauti ya wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa na kurudisha:
+   - `xm ago` (`x` inawakilisha dakika) ikiwa idadi ya dakika zilizopita ni chini ya `60`.
+   - `xh ago` (`x` inawakilisha saa) ikiwa idadi ya saa zilizopita ni chini ya `24`.
+   - `xd ago` (`x` inawakilisha siku) vinginevyo.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `viewCount` kinachopokea idadi ya maoni ya chapisho kama hoja.
+1. Ikiwa thamani ya maoni iliyotolewa kama hoja ni kubwa au sawa na `1000`, kitendakazi cha `viewCount` kinapaswa kurudisha mfuatano wa herufi wenye thamani ya maoni iliyogawanywa kwa `1000`, ikizungushwa chini hadi nambari kamili iliyo karibu na herufi `k` imeambatanishwa. Vinginevyo, kinapaswa kurudisha thamani ya maoni.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `forumCategory` kinachopokea kitambulisho cha aina iliyochaguliwa kama hoja.
+1. Kitendakazi cha `forumCategory` kinapaswa kuthibitisha kuwa kitambulisho cha aina iliyochaguliwa ni sifa ya kitu cha `allCategories` na kinapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye:
+   - maandishi ya ufunguo wa `category` wa aina iliyochaguliwa.
+   - darasa la `category` linalofuata sifa ya `className` ya aina iliyochaguliwa.
+   - `href` iliyoundwa kwa kuambatanisha `<className>/<id>` na `forumCategoryUrl` (kumbuka: `forumCategoryUrl` tayari inamalizika na `/`, hivyo usiongeze kizuizi cha ziada cha `/`), ambapo `<className>` ni sifa ya `className` ya aina iliyochaguliwa na `id` ni hoja iliyotolewa kwa `forumCategory`.
+1. Ikiwa kitu cha `allCategories` hakina kitambulisho cha aina iliyochaguliwa kama sifa yake, `category` inapaswa kuonyeshwa kama `General` na `className` inapaswa kuonyeshwa kama `general`.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `avatars` kinachopokea safu mbili zinazo wakilisha wachapishaji na watumiaji, mtawalia.
+1. Kitendakazi cha `avatars` kinapaswa kurudisha mfuatano wa herufi uliounganishwa na vipengele vya `img`, kimoja kwa kila `user_id` katika safu ya `posters`. Tafuta URL ya `img` kwa kutafuta sifa ya `user_id` katika safu ya `posters` na upate sifa inayolingana ya `id` katika safu ya `users`.
+1. Kitendakazi cha `avatars` kinapaswa kuweka ukubwa wa kila picha ya avatar kwa kupata sifa ya `avatar_template` ya kitu cha mtumiaji kilicholingana (kilichopatikana katika safu ya `users` kwa kulinganisha `id` yake na `user_id` katika `posters`) na kubadilisha kiwakilishi cha `{size}` katika mfuatano wa URL na `30`.
+1. Kila kipengele cha picha kinapaswa kuwa na maandishi ya alt yenye thamani ya sifa ya `name` ya mchapishaji.
+1. Kila kipengele cha `img` kinapaswa kuwa na sifa ya `src` iliyowekwa kwa `avatar_template` ya mtumiaji aliyepatikana. Ikiwa `avatar_template` inaanza na `/`, ongeza `avatarUrl` moja kwa moja mbele yake.
+1. Unapaswa kuwa na kitendakazi kinachoitwa `showLatestPosts` kinachopokea kigezo kimoja.
+1. Kitendakazi cha `showLatestPosts` kinapaswa kutoa sifa za `users` na `topic_list` kutoka kwa kitu kilichotolewa kama hoja. Pia, kinapaswa kushughulikia sifa zifuatazo za vitu kutoka kwa safu ya `topics`, ambayo iko ndani ya `topic_list`:
+   - `id`: kitambulisho cha chapisho
+   - `title`: kichwa cha chapisho
+   - `views`: idadi ya maoni ya chapisho
+   - `posts_count`: idadi ya majibu kwa mada
+   - `slug`: slug ya chapisho
+   - `posters`: wachapishaji wa mada hiyo
+   - `category_id`: nambari kamili inayowakilisha kitambulisho cha aina ya chapisho
+   - `bumped_at`: alama ya wakati katika muundo wa ISO 8601
+1. Kitendakazi cha `showLatestPosts` kinapaswa kuweka HTML ya ndani ya `#posts-container` kuwa mfuatano wa herufi uliounganishwa na vipengele vya `tr`, kimoja kwa kila kipengee katika `topics`.
+1. Kila kipengele cha `tr` kinapaswa kuwa na vipengele vitano vya `td` ndani yake:
+   - `td` yenye vipengele viwili vya nanga, kimoja chenye darasa la `post-title`, `href` ya `<forumTopicUrl><slug>/<id>`, maandishi ya nanga ya `<title>`, na kingine kinachopatikana kwa kuita `forumCategory` na `category_id`.
+   - `td` yenye kipengele cha `div` chenye darasa la `avatar-container` kinachojumuisha picha zinazorejeshwa na kitendakazi cha `avatars` kinachoitwa na `posters` na `users` kama hoja.
+   - `td` yenye idadi ya majibu kwa chapisho. _Kibukisho:_ tumia `posts_count - 1`.
+   - `td` yenye idadi ya maoni ya chapisho.
+   - `td` yenye muda uliopita tangu shughuli ya mwisho.
+1. Unapaswa kuwa na kitendakazi cha async kinachoitwa `fetchData`.
+1. Kitendakazi cha `fetchData` kinapaswa kuomba data kutoka `forumLatest` na kuita `showLatestPosts` kikipeleka jibu lililochambuliwa kama JSON.
+1. Ikiwa kuna kosa wakati wa kupata data, kitendakazi cha `fetchData` kinapaswa kuandika kosa kwenye konsoli. Tafadhali tumia `console.log` kwa hili.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `timeAgo` kinachopokea hoja moja.
+
+```js
+assert.isFunction(timeAgo);
+assert.lengthOf(timeAgo, 1);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `50` dakika, `timeAgo` inapaswa kurudisha `50m ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 50).toISOString();
+};
+const expected = '50m ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `60` dakika, `timeAgo` inapaswa kurudisha `1h ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 60).toISOString();
+};
+const expected = '1h ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `115` dakika, `timeAgo` inapaswa kurudisha `1h ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * (60 * 115)).toISOString();
+};
+const expected = '1h ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `15` saa, `timeAgo` inapaswa kurudisha `15h ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 60 * 15).toISOString();
+};
+const expected = '15h ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `24` saa, `timeAgo` inapaswa kurudisha `1d ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 60 * 24).toISOString();
+};
+const expected = '1d ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `46` saa, `timeAgo` inapaswa kurudisha `1d ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 60 * 46).toISOString();
+};
+const expected = '1d ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Wakati tofauti wa wakati kati ya wakati uliotolewa kama hoja na wakati wa sasa ni `3` siku, `timeAgo` inapaswa kurudisha `3d ago`.
+
+```js
+const generateTime = () => {
+  const currentTime = new Date();
+  return new Date(currentTime - 1000 * 60 * 60 * 24 * 3).toISOString();
+};
+const expected = '3d ago';
+const actual = timeAgo(generateTime());
+assert.equal(actual, expected);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `viewCount` kinachopokea hoja moja.
+
+```js
+assert.isFunction(viewCount);
+assert.lengthOf(viewCount, 1);
+```
+
+`viewCount(597)` inapaswa kurudisha `597`.
+
+```js
+assert.strictEqual(597, viewCount(597));
+```
+
+`viewCount(1000)` inapaswa kurudisha `1k`.
+
+```js
+assert.equal('1k', viewCount(1000));
+```
+
+`viewCount(2730)` inapaswa kurudisha `2k`.
+
+```js
+assert.equal('2k', viewCount(2730));
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `forumCategory` kinachopokea hoja moja.
+
+```js
+assert.isFunction(forumCategory);
+assert.lengthOf(forumCategory, 1);
+```
+
+`forumCategory(299)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye maandishi ya `Career Advice`.
+
+```js
+let actual = forumCategory(299);
+assert.match(actual.trim(), /^<\s*a.+?>\s*Career Advice\s*<\/a>$/);
+// prevent hardcoding
+
+actual = forumCategory(409);
+assert.match(actual.trim(), /^<\s*a.+?>\s*Project Feedback\s*<\/a>$/);
+```
+
+`forumCategory(299)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye `href="https://forum.freecodecamp.org/c/career/299"`.
+
+```js
+let actual = forumCategory(299);
+assert.match(
+  actual,
+  /href=("|')https:\/\/forum\.freecodecamp\.org\/c\/career\/299\1/
+);
+
+// prevent hardcoding
+actual = forumCategory(409);
+assert.match(
+  actual,
+  /href=("|')https:\/\/forum\.freecodecamp\.org\/c\/feedback\/409\1/
+);
+```
+
+`forumCategory(299)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye `class="category career"`.
+
+```js
+let actual = forumCategory(299);
+assert.match(actual, /class=("|')category\s+career\1/);
+
+// prevent hardcoding
+actual = forumCategory(409);
+assert.match(actual, /class=("|')category\s+feedback\1/);
+```
+
+`forumCategory(200)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye maandishi ya `General`.
+
+```js
+const actual = forumCategory(200);
+assert.match(actual.trim(), /^<\s*a.+?>\s*General\s*<\/a>$/);
+```
+
+`forumCategory(200)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye `href="https://forum.freecodecamp.org/c/general/200"`.
+
+```js
+let actual = forumCategory(200);
+assert.match(
+  actual,
+  /href=("|')https:\/\/forum\.freecodecamp\.org\/c\/general\/200/
+);
+
+actual = forumCategory(220);
+assert.match(
+  actual,
+  /href=("|')https:\/\/forum\.freecodecamp\.org\/c\/general\/220/
+);
+```
+
+`forumCategory(200)` inapaswa kurudisha mfuatano wa herufi unaojumuisha kipengele cha nanga chenye `class="category general"`.
+
+```js
+const actual = forumCategory(200);
+assert.match(actual, /class=("|')category\s+general\1/);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `avatars` kinachopokea hoja mbili.
+
+```js
+assert.isFunction(avatars);
+assert.lengthOf(avatars, 2);
+```
+
+Kitendakazi cha `avatars` kinapaswa kurudisha mfuatano wa herufi uliounganishwa na vipengele vya `img`, kimoja kwa kila mchapishaji aliyeonekana katika safu ya watumiaji.
+
+```js
+const posters = [{ user_id: 6 }, { user_id: 285941 }, { user_id: 170865 }];
+const users = [
+  {
+    avatar_template:
+      '/user_avatar/QuincyLarson_{size}.png',
+    id: 6,
+    name: 'Quincy Larson',
+    username: 'QuincyLarson'
+  },
+  {
+    avatar_template:
+      '/user_avatar/jwilkins.oboe_{size}.png',
+    id: 285941,
+    name: 'Jessica Wilkins',
+    username: 'jwilkins.oboe'
+  },
+  {
+    avatar_template:
+      '/user_avatar/ilenia_{size}.png',
+    id: 170865,
+    name: 'Ilenia',
+    username: 'ilenia'
+  },
+  { id: 20 }
+];
+const actual = avatars(posters, users);
+const matches = actual.match(/<\s*img\s+.+?>/g);
+assert.lengthOf(matches, 3);
+```
+
+Kila kipengele cha `img` katika mfuatano uliorejeshwa na kitendakazi cha `avatars` kinapaswa kuwa na maandishi ya `alt` yenye thamani ya sifa ya `name` ya mchapishaji.
+
+```js
+const posters = [{ user_id: 6 }, { user_id: 285941 }, { user_id: 170865 }];
+const users = [
+  {
+    avatar_template:
+      '/user_avatar/QuincyLarson_{size}.png',
+    id: 6,
+    name: 'Quincy Larson',
+    username: 'QuincyLarson'
+  },
+  {
+    avatar_template:
+      '/user_avatar/jwilkins.oboe_{size}.png',
+    id: 285941,
+    name: 'Jessica Wilkins',
+    username: 'jwilkins.oboe'
+  },
+  {
+    avatar_template:
+      '/user_avatar/ilenia_{size}.png',
+    id: 170865,
+    name: 'Ilenia',
+    username: 'ilenia'
+  },
+  { id: 20 }
+];
+const actual = avatars(posters, users);
+const matches = actual.match(/<\s*img\s+.+?>/g);
+
+assert.match(matches[0], /alt=('|")Quincy Larson\1/);
+assert.match(matches[1], /alt=('|")Jessica Wilkins\1/);
+assert.match(matches[2], /alt=('|")Ilenia\1/);
+```
+
+Kitendakazi cha `avatars` kinapaswa kuweka ukubwa wa kila avatar kwa kupata sifa ya `avatar_template` na kubadilisha `{size}` na `30`.
+
+```js
+const posters = [{ user_id: 6 }, { user_id: 285941 }, { user_id: 170865 }];
+const users = [
+  {
+    avatar_template:
+      '/user_avatar/QuincyLarson_{size}.png',
+    id: 6,
+    name: 'Quincy Larson',
+    username: 'QuincyLarson'
+  },
+  {
+    avatar_template:
+      '/user_avatar/jwilkins.oboe_{size}.png',
+    id: 285941,
+    name: 'Jessica Wilkins',
+    username: 'jwilkins.oboe'
+  },
+  {
+    avatar_template:
+      '/user_avatar/ilenia_{size}.png',
+    id: 170865,
+    name: 'Ilenia',
+    username: 'ilenia'
+  },
+  { id: 20 }
+];
+const actual = avatars(posters, users);
+assert.notMatch(actual, /\{size\}/);
+assert.lengthOf(actual.match(/_30/g), 3);
+```
+
+Kila kipengele cha `img` kinapaswa kuwa na sifa ya `src` iliyowekwa kwa `avatar_template` ya mtumiaji aliyepatikana. Ikiwa `avatar_template` inaanza na `/`, ongeza `avatarUrl` moja kwa moja mbele yake.
+
+```js
+const posters = [{ user_id: 6 }, { user_id: 285941 }, { user_id: 170865 }];
+const users = [
+  {
+    avatar_template:
+      '/user_avatar/QuincyLarson_{size}.png',
+    id: 6,
+    name: 'Quincy Larson',
+    username: 'QuincyLarson'
+  },
+  {
+    avatar_template:
+      '/user_avatar/jwilkins.oboe_{size}.png',
+    id: 285941,
+    name: 'Jessica Wilkins',
+    username: 'jwilkins.oboe'
+  },
+  {
+    avatar_template:
+      '/user_avatar/ilenia_{size}.png',
+    id: 170865,
+    name: 'Ilenia',
+    username: 'ilenia'
+  },
+  { id: 20 }
+];
+const actual = avatars(posters, users);
+
+const matches = actual.match(/<\s*img\s+.+?>/g);
+
+assert.match(
+  matches[0],
+  /src=('|")https:\/\/cdn\.freecodecamp\.org\/curriculum\/forum-latest\/user_avatar\/QuincyLarson_30\.png\1/
+);
+assert.match(
+  matches[1],
+  /src=('|")https:\/\/cdn\.freecodecamp\.org\/curriculum\/forum-latest\/user_avatar\/jwilkins\.oboe_30\.png\1/
+);
+assert.match(
+  matches[2],
+  /src=('|")https:\/\/cdn\.freecodecamp\.org\/curriculum\/forum-latest\/user_avatar\/ilenia_30\.png\1/
+);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `showLatestPosts` kinachopokea kigezo kimoja.
+
+```js
+assert.isFunction(showLatestPosts);
+assert.lengthOf(showLatestPosts, 1);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `fetchData`.
+
+```js
+assert.isFunction(fetchData);
+```
+
+Kitendakazi chako cha `fetchData` kinapaswa kuomba data kutoka `https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json`.
+
+```js
+const testArr = [];
+const temp = fetch;
+try {
+  fetch = source => {
+    testArr.push(source);
+    return temp(source);
+  };
+  fetchData();
+  assert.deepEqual(testArr, [
+    'https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json'
+  ]);
+} finally {
+  fetch = temp;
+}
+```
+
+Kitendakazi chako cha `fetchData` kinapaswa kuita `showLatestPosts`.
+
+```js
+const testArr = [];
+const temp = showLatestPosts;
+async () => {
+  try {
+    showLatestPosts = data => {
+      testArr.push(data);
+      return temp(data);
+    };
+    await fetchData();
+    assert.isNotEmpty(testArr);
+  } catch (err) {
+    throw new Error(err);
+  } finally {
+    fetch = temp;
+  }
+};
+```
+
+Ikiwa kuna kosa, kitendakazi chako cha `fetchData` kinapaswa kuandika kosa kwenye konsoli, ukitumia `console.log`.
+
+```js
+const testArr = [];
+const temp1 = fetch;
+const temp2 = console.log;
+async () => {
+  try {
+    console.log = obj => {
+      testArr.push(obj.toString());
+    };
+    fetch = source => {
+      throw new Error('This is a test error');
+    };
+    await fetchData();
+    assert.deepEqual(testArr, ['Error: This is a test error']);
+  } finally {
+    fetch = temp1;
+    console.log = temp2;
+  }
+};
+```
+
+`showLatestPosts` inapaswa kuweka HTML ya ndani ya `#posts-container` kuwa mfuatano wa herufi uliounganishwa na vipengele vya `tr`, kimoja kwa kila kipengee katika `topics`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+assert.lengthOf(pContainer.querySelectorAll('tr'), 2);
+```
+
+Kila kipengele cha `tr` kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na vipengele vitano vya `td`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+assert.lengthOf(pContainer.querySelectorAll('tr:first-child>td'), 5);
+assert.lengthOf(pContainer.querySelectorAll('tr:last-child>td'), 5);
+```
+
+Kipengele cha kwanza cha `td` cha kila safu ya jedwali kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na vipengele viwili vya nanga, cha kwanza chenye darasa la `post-title`, `href` ya `<forumTopicUrl><slug>/<id>`, maandishi ya nanga ya `<title>`, na cha pili kinachopatikana kwa kuita `forumCategory` na `category_id`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+const anchors1 = pContainer.querySelectorAll('tr:first-child>td>a');
+assert.lengthOf(anchors1, 2);
+
+const anchors2 = pContainer.querySelectorAll('tr:last-child>td>a');
+assert.lengthOf(anchors2, 2);
+
+assert.equal(anchors1[0].classList[0], 'post-title');
+assert.equal(
+  anchors1[0].href,
+  'https://forum.freecodecamp.org/t/the-freecodecamp-podcast-is-back-now-with-video/684569'
+);
+assert.equal(
+  anchors1[0].innerText.trim(),
+  'The freeCodeCamp Podcast is back – now with video'
+);
+
+assert.equal(anchors1[1].classList[0], 'category');
+assert.equal(anchors1[1].classList[1], 'general');
+assert.equal(anchors1[1].href, 'https://forum.freecodecamp.org/c/general/1');
+
+assert.equal(anchors2[0].classList[0], 'post-title');
+assert.equal(
+  anchors2[0].href,
+  'https://forum.freecodecamp.org/t/problem-with-making-changes-to-styles-js/686149'
+);
+assert.equal(
+  anchors2[0].innerText.trim(),
+  'Problem with making changes to styles. (JS)'
+);
+
+assert.equal(anchors2[1].classList[0], 'category');
+assert.equal(anchors2[1].classList[1], 'javascript');
+assert.equal(
+  anchors2[1].href,
+  'https://forum.freecodecamp.org/c/javascript/421'
+);
+```
+
+Kipengele cha pili cha `td` cha kila safu ya jedwali kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na picha zinazorejeshwa na kitendakazi cha `avatars` kinachoitwa na `posters` na `users` kama hoja, zikiwa zimepangwa ndani ya kipengele cha `div` chenye darasa la `avatar-container`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+
+const div1 = pContainer.querySelector('tr:first-child>td:nth-child(2)>div');
+assert.equal(div1.classList[0], 'avatar-container');
+
+const div2 = pContainer.querySelector('tr:last-child>td:nth-child(2)>div');
+assert.equal(div2.classList[0], 'avatar-container');
+
+const imgs1 = div1.querySelectorAll('img');
+assert.lengthOf(imgs1, 3);
+assert.equal(
+  imgs1[0].src,
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/user_avatar/QuincyLarson_30.png'
+);
+assert.equal(imgs1[0].alt, 'Quincy Larson');
+assert.equal(
+  imgs1[1].src,
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/user_avatar/ilenia_30.png'
+);
+assert.equal(imgs1[1].alt, 'Ilenia');
+assert.equal(
+  imgs1[2].src,
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/user_avatar/jwilkins.oboe_30.png'
+);
+assert.equal(imgs1[2].alt, 'Jessica Wilkins');
+
+const imgs2 = div2.querySelectorAll('img');
+assert.lengthOf(imgs2, 1);
+assert.equal(
+  imgs2[0].src,
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/user_avatar/ilenia_30.png'
+);
+assert.equal(imgs2[0].alt, 'Ilenia');
+```
+
+Kipengele cha tatu cha `td` cha kila safu ya jedwali kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na idadi ya majibu kwa chapisho. _Kibukisho:_ tumia `posts_count - 1`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+
+assert.equal(
+  pContainer.querySelector('tr:first-child>td:nth-child(3)').innerText,
+  '7'
+);
+
+assert.equal(
+  pContainer.querySelector('tr:last-child>td:nth-child(3)').innerText,
+  '0'
+);
+```
+
+Kipengele cha nne cha `td` cha kila safu ya jedwali kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na idadi ya maoni ya chapisho.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+
+assert.equal(
+  pContainer.querySelector('tr:first-child>td:nth-child(4)').innerText,
+  '542'
+);
+
+assert.equal(
+  pContainer.querySelector('tr:last-child>td:nth-child(4)').innerText,
+  '9'
+);
+```
+
+Kipengele cha tano cha `td` cha kila safu ya jedwali kutoka kwa mfuatano uliorejeshwa na `showLatestPosts` kinapaswa kuwa na muda uliopita tangu shughuli ya mwisho, uliotengenezwa kwa kutumia kitendakazi cha `timeAgo`.
+
+```js
+const data = {
+  users: [
+    {
+      avatar_template:
+        '/user_avatar/QuincyLarson_{size}.png',
+      id: 6,
+      name: 'Quincy Larson',
+      username: 'QuincyLarson'
+    },
+    {
+      avatar_template:
+        '/user_avatar/jwilkins.oboe_{size}.png',
+      id: 285941,
+      name: 'Jessica Wilkins',
+      username: 'jwilkins.oboe'
+    },
+    {
+      avatar_template:
+        '/user_avatar/ilenia_{size}.png',
+      id: 170865,
+      name: 'Ilenia',
+      username: 'ilenia'
+    }
+  ],
+  topic_list: {
+    topics: [
+      {
+        bumped_at: '2024-04-15T16:01:26.403Z',
+        category_id: 1,
+        id: 684569,
+        posters: [{ user_id: 6 }, { user_id: 170865 }, { user_id: 285941 }],
+        posts_count: 8,
+        slug: 'the-freecodecamp-podcast-is-back-now-with-video',
+        title: 'The freeCodeCamp Podcast is back – now with video',
+        views: 542
+      },
+      {
+        bumped_at: '2024-04-19T13:52:03.523Z',
+        category_id: 421,
+        id: 686149,
+        posters: [{ user_id: 170865 }],
+        posts_count: 1,
+        slug: 'problem-with-making-changes-to-styles-js',
+        title: 'Problem with making changes to styles. (JS)',
+        views: 9
+      }
+    ]
+  }
+};
+const calcTime = time => {
+  const currentTime = new Date();
+  const lastPost = new Date(time);
+  const timeDifference = currentTime - lastPost;
+  const msPerMinute = 1000 * 60;
+  const minutesAgo = Math.floor(timeDifference / msPerMinute);
+  const hoursAgo = Math.floor(minutesAgo / 60);
+  const daysAgo = Math.floor(hoursAgo / 24);
+  return `${daysAgo}d ago`;
+};
+const pContainer = document.getElementById('posts-container');
+pContainer.innerHTML = '';
+showLatestPosts(data);
+
+assert.equal(
+  pContainer.querySelector('tr:first-child>td:nth-child(5)').innerText,
+  calcTime('2024-04-15T16:01:26.403Z')
+);
+
+assert.equal(
+  pContainer.querySelector('tr:last-child>td:nth-child(5)').innerText,
+  calcTime('2024-04-19T13:52:03.523Z')
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fCC Forum Leaderboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img
+          class="fcc-logo"
+          src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg"
+          alt="freeCodeCamp logo"
+        />
+      </nav>
+      <h1 class="title">Latest Topics</h1>
+    </header>
+    <main>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th id="topics">Topics</th>
+              <th id="avatars">Avatars</th>
+              <th id="replies">Replies</th>
+              <th id="views">Views</th>
+              <th id="activity">Activity</th>
+            </tr>
+          </thead>
+          <tbody id="posts-container"></tbody>
+        </table>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-color: #2a2a40;
+  --black: #000;
+  --dark-navy: #0a0a23;
+  --dark-grey: #d0d0d5;
+  --medium-grey: #dfdfe2;
+  --light-grey: #f5f6f7;
+  --peach: #f28373;
+  --salmon-color: #f0aea9;
+  --light-blue: #8bd9f6;
+  --light-orange: #f8b172;
+  --light-green: #93cb5b;
+  --golden-yellow: #f1ba33;
+  --gold: #f9aa23;
+  --green: #6bca6b;
+}
+
+body {
+  background-color: var(--main-bg-color);
+}
+
+nav {
+  background-color: var(--dark-navy);
+  padding: 10px 0;
+}
+
+.fcc-logo {
+  width: 210px;
+  display: block;
+  margin: auto;
+}
+
+.title {
+  margin: 25px 0;
+  text-align: center;
+  color: var(--light-grey);
+}
+
+.table-wrapper {
+  padding: 0 25px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  color: var(--dark-grey);
+  margin: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  overflow-x: scroll;
+}
+
+#topics {
+  text-align: start;
+  width: 60%;
+}
+
+th {
+  border-bottom: 2px solid var(--dark-grey);
+  padding-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+td:not(:first-child) {
+  text-align: center;
+}
+
+td {
+  border-bottom: 1px solid var(--dark-grey);
+  padding: 20px 0;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  color: var(--medium-grey);
+  text-decoration: none;
+}
+
+.category {
+  padding: 3px;
+  color: var(--black);
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+  margin: 10px 0 10px;
+}
+
+.career {
+  background-color: var(--salmon-color);
+}
+
+.feedback,
+.html-css {
+  background-color: var(--light-blue);
+}
+
+.support {
+  background-color: var(--light-orange);
+}
+
+.general {
+  background-color: var(--light-green);
+}
+
+.javascript {
+  background-color: var(--golden-yellow);
+}
+
+.backend {
+  background-color: var(--gold);
+}
+
+.python {
+  background-color: var(--green);
+}
+
+.motivation {
+  background-color: var(--peach);
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.avatar-container img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 750px) {
+  .table-wrapper {
+    padding: 0 15px;
+  }
+
+  table {
+    width: 700px;
+  }
+
+  th {
+    font-size: 1.2rem;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+  }
+}
+```
+
+```js
+const forumLatest =
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json';
+const forumTopicUrl = 'https://forum.freecodecamp.org/t/';
+const forumCategoryUrl = 'https://forum.freecodecamp.org/c/';
+const avatarUrl = 'https://cdn.freecodecamp.org/curriculum/forum-latest';
+
+const allCategories = {
+  299: { category: 'Career Advice', className: 'career' },
+  409: { category: 'Project Feedback', className: 'feedback' },
+  417: { category: 'freeCodeCamp Support', className: 'support' },
+  421: { category: 'JavaScript', className: 'javascript' },
+  423: { category: 'HTML - CSS', className: 'html-css' },
+  424: { category: 'Python', className: 'python' },
+  432: { category: 'You Can Do This!', className: 'motivation' },
+  560: { category: 'Back-End Development', className: 'backend' }
+};
+```
+
+# --solutions--
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fCC Forum Leaderboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img
+          class="fcc-logo"
+          src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg"
+          alt="freeCodeCamp logo"
+        />
+      </nav>
+      <h1 class="title">Latest Topics</h1>
+    </header>
+    <main>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th id="topics">Topics</th>
+              <th id="avatars">Avatars</th>
+              <th id="replies">Replies</th>
+              <th id="views">Views</th>
+              <th id="activity">Activity</th>
+            </tr>
+          </thead>
+          <tbody id="posts-container"></tbody>
+        </table>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-color: #2a2a40;
+  --black: #000;
+  --dark-navy: #0a0a23;
+  --dark-grey: #d0d0d5;
+  --medium-grey: #dfdfe2;
+  --light-grey: #f5f6f7;
+  --peach: #f28373;
+  --salmon-color: #f0aea9;
+  --light-blue: #8bd9f6;
+  --light-orange: #f8b172;
+  --light-green: #93cb5b;
+  --golden-yellow: #f1ba33;
+  --gold: #f9aa23;
+  --green: #6bca6b;
+}
+
+body {
+  background-color: var(--main-bg-color);
+}
+
+nav {
+  background-color: var(--dark-navy);
+  padding: 10px 0;
+}
+
+.fcc-logo {
+  width: 210px;
+  display: block;
+  margin: auto;
+}
+
+.title {
+  margin: 25px 0;
+  text-align: center;
+  color: var(--light-grey);
+}
+
+.table-wrapper {
+  padding: 0 25px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  color: var(--dark-grey);
+  margin: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  overflow-x: scroll;
+}
+
+#topics {
+  text-align: start;
+  width: 60%;
+}
+
+th {
+  border-bottom: 2px solid var(--dark-grey);
+  padding-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+td:not(:first-child) {
+  text-align: center;
+}
+
+td {
+  border-bottom: 1px solid var(--dark-grey);
+  padding: 20px 0;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  color: var(--medium-grey);
+  text-decoration: none;
+}
+
+.category {
+  padding: 3px;
+  color: var(--black);
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+  margin: 10px 0 10px;
+}
+
+.career {
+  background-color: var(--salmon-color);
+}
+
+.feedback,
+.html-css {
+  background-color: var(--light-blue);
+}
+
+.support {
+  background-color: var(--light-orange);
+}
+
+.general {
+  background-color: var(--light-green);
+}
+
+.javascript {
+  background-color: var(--golden-yellow);
+}
+
+.backend {
+  background-color: var(--gold);
+}
+
+.python {
+  background-color: var(--green);
+}
+
+.motivation {
+  background-color: var(--peach);
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.avatar-container img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 750px) {
+  .table-wrapper {
+    padding: 0 15px;
+  }
+
+  table {
+    width: 700px;
+  }
+
+  th {
+    font-size: 1.2rem;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+  }
+}
+```
+
+```js
+const forumLatest =
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json';
+const forumTopicUrl = 'https://forum.freecodecamp.org/t/';
+const forumCategoryUrl = 'https://forum.freecodecamp.org/c/';
+const avatarUrl = 'https://cdn.freecodecamp.org/curriculum/forum-latest';
+
+const postsContainer = document.getElementById('posts-container');
+
+const allCategories = {
+  299: { category: 'Career Advice', className: 'career' },
+  409: { category: 'Project Feedback', className: 'feedback' },
+  417: { category: 'freeCodeCamp Support', className: 'support' },
+  421: { category: 'JavaScript', className: 'javascript' },
+  423: { category: 'HTML - CSS', className: 'html-css' },
+  424: { category: 'Python', className: 'python' },
+  432: { category: 'You Can Do This!', className: 'motivation' },
+  560: { category: 'Back-End Development', className: 'backend' }
+};
+
+const forumCategory = id => {
+  let selectedCategory = {};
+
+  if (allCategories.hasOwnProperty(id)) {
+    const { className, category } = allCategories[id];
+
+    selectedCategory.className = className;
+    selectedCategory.category = category;
+  } else {
+    selectedCategory.className = 'general';
+    selectedCategory.category = 'General';
+    selectedCategory.id = 1;
+  }
+  const url = `${forumCategoryUrl}${selectedCategory.className}/${id}`;
+  const linkText = selectedCategory.category;
+  const linkClass = `category ${selectedCategory.className}`;
+
+  return `<a href="${url}" class="${linkClass}" target="_blank">
+    ${linkText}
+  </a>`;
+};
+
+const timeAgo = time => {
+  const currentTime = new Date();
+  const lastPost = new Date(time);
+
+  const timeDifference = currentTime - lastPost;
+  const msPerMinute = 1000 * 60;
+
+  const minutesAgo = Math.floor(timeDifference / msPerMinute);
+  const hoursAgo = Math.floor(minutesAgo / 60);
+  const daysAgo = Math.floor(hoursAgo / 24);
+
+  if (minutesAgo < 60) {
+    return `${minutesAgo}m ago`;
+  }
+
+  if (hoursAgo < 24) {
+    return `${hoursAgo}h ago`;
+  }
+
+  return `${daysAgo}d ago`;
+};
+
+const viewCount = views => {
+  const thousands = Math.floor(views / 1000);
+
+  if (views >= 1000) {
+    return `${thousands}k`;
+  }
+
+  return views;
+};
+
+const avatars = (posters, users) => {
+  return posters
+    .map(poster => {
+      const user = users.find(user => user.id === poster.user_id);
+      if (user) {
+        const avatar = user.avatar_template.replace(/{size}/, 30);
+        const userAvatarUrl = avatar.startsWith('/user_avatar/')
+          ? avatarUrl.concat(avatar)
+          : avatar;
+        return `<img src="${userAvatarUrl}" alt="${user.name}" />`;
+      }
+    })
+    .join('');
+};
+
+const fetchData = async () => {
+  try {
+    const res = await fetch(forumLatest);
+    const data = await res.json();
+    showLatestPosts(data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+fetchData();
+
+const showLatestPosts = data => {
+  const { topic_list, users } = data;
+  const { topics } = topic_list;
+
+  postsContainer.innerHTML = topics
+    .map(item => {
+      const {
+        id,
+        title,
+        views,
+        posts_count,
+        slug,
+        posters,
+        category_id,
+        bumped_at
+      } = item;
+
+      return `
+    <tr>
+      <td>
+       <a class="post-title" target="_blank" href="${forumTopicUrl}${slug}/${id}">
+        ${title}
+       </a>
+        ${forumCategory(category_id)}
+      </td>
+      <td>
+        <div class="avatar-container">
+          ${avatars(posters, users)}
+        </div>
+      </td>
+      <td>${posts_count - 1}</td>
+      <td>${viewCount(views)}</td>
+      <td>${timeAgo(bumped_at)}</td>
+    </tr>`;
+    })
+    .join('');
+};
+```

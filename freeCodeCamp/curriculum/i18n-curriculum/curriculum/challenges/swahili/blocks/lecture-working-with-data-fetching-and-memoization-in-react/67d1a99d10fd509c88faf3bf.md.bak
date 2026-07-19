@@ -1,0 +1,401 @@
+---
+id: 67d1a99d10fd509c88faf3bf
+title: Jinsi Upatikanaji wa Data Unavyofanya Kazi katika React?
+challengeType: 19
+dashedName: how-does-data-fetching-work-in-react
+---
+
+# --description--
+
+Programu za React mara nyingi hutegemea API za nje na hifadhidata kwa maudhui yanayobadilika. Ili kupata data kutoka kwa API na hifadhidata hizo, unahitaji kutumia mbinu fulani za upatikanaji wa data.
+
+Tuchunguze jinsi upatikanaji wa data unavyofanya kazi katika React na chaguzi tofauti zinazopatikana kwako kwa upatikanaji wa data.
+
+React haina maoni maalum kuhusu jinsi unavyopata data zako, hii inamaanisha kwa kiwango cha msingi, unaweza kutumia API ya Fetch iliyojengwa ndani, ambayo vivinjari vyote vya kisasa vinaunga mkono.
+
+Pia unaweza kutumia Axios na SWR. Axios ni maktaba ya ombi la HTTP inayotegemea ahadi iliyojengwa juu ya kitu cha XMLHttpRequest, na SWR ni hook ya React kwa upatikanaji wa data iliyotengenezwa na timu ya Vercel.
+
+Tuanze na mfano. Kwanza unahitaji kuleta hook za `useState` na `useEffect`:
+
+```js
+import { useState, useEffect } from "react";
+```
+
+Kisha utahitaji kuunda vigezo vitatu vya hali vinavyoitwa `loading`, `data`, na `error`:
+
+```js
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+```
+
+Kigezo cha `loading` kitafuatilia kama data bado inapatikana. Kigezo cha `data` kinawakilisha data yenyewe, na kigezo cha `error` kitakamata makosa yoyote yanayoweza kutokea wakati wa mchakato wa upatikanaji wa data.
+
+Kwa kuwa upatikanaji wa data ni athari ya pembeni, ni bora kutumia API ya Fetch ndani ya hook ya `useEffect`.
+
+Hapa kuna mfano wa hilo:
+
+```js
+useEffect(() => {
+  fetch("https://jsonplaceholder.typicode.com/posts")
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setError(err);
+      setLoading(false);
+    });
+}, []);
+```
+
+Hook ya `useEffect` hupata data kwa kutumia API ya Fetch na kuweka hali zote.
+
+Unaweza kuboresha mambo kwa kutumia `async`/`await` badala ya sintaksia ya `.then()`. Hii inamaanisha lazima uwe na kitendakazi tofauti ndani ya `useEffect` kwa sababu huwezi kuweka kiambishi awali `useEffect` na neno kuu la `async`:
+
+```js
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+       
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await res.json();
+      setData(data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+```
+
+Kisha unaweza kutumia hali zote hizo kuonyesha data kutoka kwa API.
+
+Hapa kuna msimbo kamili:
+
+```jsx
+import { useState, useEffect } from "react";
+
+const FetchPosts = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+       
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await res.json();
+        setData(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
+  return (
+    <ul>
+      {data.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default FetchPosts;
+```
+
+Katika UI, utaona `Loading...` kwenye skrini wakati data inapatikana, kisha data au kosa litaonyeshwa kulingana na kama upatikanaji wa data ulikuwa na mafanikio.
+
+Kumbuka tulizungumzia pia upatikanaji wa data kwa kutumia Axios na SWR. Tuchunguze mfano wa kutumia Axios.
+
+Kwanza utahitaji kusakinisha Axios kutoka kwenye mstari wa amri kama hii:
+
+```sh
+npm i axios
+```
+
+Kisha utahitaji kuleta Axios kama hii:
+
+```js
+import axios from "axios";
+```
+
+Kisha unaweza kutumia vigezo vya hali vilivyotajwa awali na kupata data kutoka kwa API kwa kutumia `axios.get`:
+
+```js
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      setData(res.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+```
+
+Huenda umeona kuwa hakuna mstari wa `await res.json()` katika mfano huu. Hii ni kwa sababu Axios huchanganuzi JSON moja kwa moja, hivyo hakuna haja ya huo mstari.
+
+Mfano wa mwisho tutaoangalia ni kutumia hook ya `useSWR` kupata data.
+
+Kama ilivyo kwa Axios, utahitaji kusakinisha SWR kama hii:
+
+```sh
+npm install swr
+```
+
+Kisha utahitaji kuleta hook ya `useSWR` ndani ya faili kama hii:
+
+```js
+import useSWR from "swr";
+```
+
+Ikilinganishwa na mifano ya awali, sintaksia ya SWR ni fupi zaidi. Kinachohitajika ni kuunda kitendakazi cha fetcher na kukipatia hook ya `useSWR` kama kigezo chake cha pili (kiishio ni kigezo cha kwanza).
+
+Pia unapata kufungua hali za data na kosa kutoka kwa hook ya `useSWR`, hivyo huhitaji hook ya `useState`.
+
+Hii ndiyo sintaksia:
+
+```js
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const { data, error } = useSWR(endpoint, fetcher);
+```
+
+Kumbuka kuwa jina "fetcher" hapa ni mkataba tu, hivyo unaweza kumuita kigezo chochote unachotaka.
+
+Hapa kuna sehemu inayopata todos kutoka kwa API ya JSON Placeholder:
+
+```jsx
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const FetchTodos = () => {
+  const { data, error } = useSWR(
+    "https://jsonplaceholder.typicode.com/todos",
+    fetcher
+  );
+
+  if (!data) {
+    return <h2>Loading...</h2>;
+  }
+  if (error) {
+    return <h2>Error: {error.message}</h2>;
+  }
+
+  return (
+    <>
+      <h2>Todos</h2>
+      <div>
+        {data.map((todo) => (
+          <h3 key={todo.id}>{todo.title}</h3>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default FetchTodos;
+```
+
+Kama ulivyofundishwa katika funzo la awali kuhusu hooks maalum, upatikanaji wa data ni mantiki unayoweza kutoa ndani ya hook maalum. Kwa hivyo, ikiwa unapata data katika sehemu na kurasa nyingi, ni bora kuunda hook ya `useFetch`.
+
+Hapa kuna hook ya `useFetch` inayotumia SWR kwa upatikanaji wa data:
+
+```jsx
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const useFetch = (url) => {
+  const { data, error } = useSWR(url, fetcher);
+
+  return {
+    data,
+    loading: !data && !error,
+    error,
+  };
+};
+
+export default useFetch;
+```
+
+Na hapa ni jinsi ya kutumia hook ya `useFetch` kuandika upya mfano wa kwanza unaopata posts kutoka kwa API ya JSON Placeholder:
+
+```jsx
+import useFetch from "./useFetch";
+
+const FetchPosts = () => {
+  const { data, loading, error } = useFetch(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error.message}</h2>;
+  }
+
+  return (
+    <>
+      <h2>Posts</h2>
+      <ul>
+        {data.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default FetchPosts;
+```
+
+# --questions--
+
+## --text--
+
+Ni vigezo viwili gani vya hook ya `useSWR` katika mfano uliotolewa?
+
+## --answers--
+
+URL na sera ya cache.
+
+### --feedback--
+
+Kigezo cha kwanza kinawakilisha chanzo cha data na cha pili kinashughulikia upatikanaji wa data.
+
+---
+
+Njia ya API na kitendakazi cha fetcher.
+
+### --feedback--
+
+Kigezo cha kwanza kinawakilisha chanzo cha data na cha pili kinashughulikia upatikanaji wa data.
+
+---
+
+Kiishio na kitendakazi cha fetcher.
+
+---
+
+Ufunguo na kitu cha usanidi.
+
+### --feedback--
+
+Kigezo cha kwanza kinawakilisha chanzo cha data na cha pili kinashughulikia upatikanaji wa data.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini lazima ushughulikie mantiki ya upatikanaji wa data ndani ya `useEffect`?
+
+## --answers--
+
+Kwa sababu upatikanaji wa data unapaswa kufanyika mara moja tu.
+
+### --feedback--
+
+Upatikanaji wa data unaathiri mambo nje ya sehemu na haupaswi kuzuia uonyesho.
+
+---
+
+Kwa sababu upatikanaji wa data haupaswi kuwa sehemu ya mchakato wa uonyesho.
+
+---
+
+Kwa sababu `useEffect` hufanyika kabla ya sehemu kuonyeshwa.
+
+### --feedback--
+
+Upatikanaji wa data unaathiri mambo nje ya sehemu na haupaswi kuzuia uonyesho.
+
+---
+
+Kwa sababu `useEffect` hufanyika sambamba na mzunguko wa uonyesho.
+
+### --feedback--
+
+Upatikanaji wa data unaathiri mambo nje ya sehemu na haupaswi kuzuia uonyesho.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Axios imejengwa juu ya nini?
+
+## --answers--
+
+API ya Fetch.
+
+### --feedback--
+
+Ni API ya zamani inayotumika kwa maombi ya HTTP kabla ya Fetch.
+
+---
+
+Kitu cha XMLHttpRequest.
+
+---
+
+API ya WebSocket.
+
+### --feedback--
+
+Ni API ya zamani inayotumika kwa maombi ya HTTP kabla ya Fetch.
+
+---
+
+API ya DOM.
+
+### --feedback--
+
+Ni API ya zamani inayotumika kwa maombi ya HTTP kabla ya Fetch.
+
+## --video-solution--
+
+2

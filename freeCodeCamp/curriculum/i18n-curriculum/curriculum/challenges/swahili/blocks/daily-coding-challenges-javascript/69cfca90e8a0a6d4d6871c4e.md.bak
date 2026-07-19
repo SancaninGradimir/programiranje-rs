@@ -1,0 +1,76 @@
+---
+id: 69cfca90e8a0a6d4d6871c4e
+title: "Zoezi la 264: Makundi ya Anagramu"
+challengeType: 28
+dashedName: challenge-264
+---
+
+# --description--
+
+Ukitoa safu ya data ya maneno, rudisha safu ya data ya viwango viwili ya maneno yaliyopangwa katika makundi ya anagramu.
+
+- Maneno ni anagramu ikiwa yana herufi sawa kwa mpangilio wowote.
+- Kila neno linahusiana na kundi moja tu.
+- Mpangilio wa kurudisha haujaliwi.
+
+Kwa mfano, ukitoa `["listen", "silent", "hello", "enlist", "world"]`, rudisha `[["listen", "silent", "enlist"], ["hello"], ["world"]]`.
+
+# --hints--
+
+`groupAnagrams(["listen", "silent", "hello", "enlist", "world"])` inapaswa kurudisha `[["listen", "silent", "enlist"], ["hello"], ["world"]]`.
+
+```js
+const groups = groupAnagrams(["listen", "silent", "hello", "enlist", "world"]);
+const sorted = groups.map(g => g.sort()).sort((a, b) => a[0].localeCompare(b[0]));
+assert.deepEqual(sorted, [["enlist", "listen", "silent"], ["hello"], ["world"]]);
+```
+
+`groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])` inapaswa kurudisha `[["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]`.
+
+```js
+const groups = groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]);
+const sorted = groups.map(g => g.sort()).sort((a, b) => a[0].localeCompare(b[0]));
+assert.deepEqual(sorted, [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]);
+```
+
+`groupAnagrams(["care", "race", "acre", "pots", "stop", "tops", "opts", "post", "spot", "evil", "vile", "live", "veil"])` inapaswa kurudisha `[["acre", "care", "race"], ["evil", "live", "veil", "vile"], ["opts", "post", "pots", "spot", "stop", "tops"]]`.
+
+```js
+const groups = groupAnagrams(["care", "race", "acre", "pots", "stop", "tops", "opts", "post", "spot", "evil", "vile", "live", "veil"]);
+const sorted = groups.map(g => g.sort()).sort((a, b) => a[0].localeCompare(b[0]));
+assert.deepEqual(sorted, [["acre", "care", "race"], ["evil", "live", "veil", "vile"], ["opts", "post", "pots", "spot", "stop", "tops"]]);
+
+```
+
+`groupAnagrams(["algorithms", "logarithms", "education", "cautioned", "auctioned", "triangle", "integral", "alerting", "relating"])` inapaswa kurudisha `[["alerting", "integral", "relating", "triangle"], ["algorithms", "logarithms"], ["auctioned", "cautioned", "education"]]`.
+
+```js
+const groups = groupAnagrams(["algorithms", "logarithms", "education", "cautioned", "auctioned", "triangle", "integral", "alerting", "relating"]);
+const sorted = groups.map(g => g.sort()).sort((a, b) => a[0].localeCompare(b[0]));
+assert.deepEqual(sorted, [["alerting", "integral", "relating", "triangle"], ["algorithms", "logarithms"], ["auctioned", "cautioned", "education"]]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function groupAnagrams(words) {
+
+  return words;
+}
+```
+
+# --solutions--
+
+```js
+function groupAnagrams(words) {
+  const map = {};
+  for (const word of words) {
+    const key = word.split('').sort().join('');
+    if (!map[key]) map[key] = [];
+    map[key].push(word);
+  }
+  return Object.values(map);
+}
+```

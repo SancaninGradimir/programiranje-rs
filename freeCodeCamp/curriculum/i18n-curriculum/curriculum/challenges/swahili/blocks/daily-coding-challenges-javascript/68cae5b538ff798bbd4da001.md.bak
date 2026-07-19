@@ -1,0 +1,113 @@
+---
+id: 68cae5b538ff798bbd4da001
+title: "Zoezi la 63: Mapambano ya Maneno"
+challengeType: 28
+dashedName: challenge-63
+---
+
+# --description--
+
+Ukizingatia sentensi mbili zinazowakilisha timu yako na timu pinzani, ambapo kila neno kutoka timu yako linapambana na neno linalolingana kutoka timu pinzani, amua ni timu gani inashinda kwa kutumia sheria zifuatazo:
+
+- Sentensi zilizotolewa zitakuwa na idadi sawa ya maneno kila wakati.
+- Maneno yamegawanyika kwa nafasi moja tu na yatakuwa na herufi tu.
+- Thamani ya kila neno ni jumla ya herufi zake.
+- Herufi `a` hadi `z` zinaendana na thamani `1` hadi `26`. Kwa mfano, `a` ni `1`, na `z` ni `26`.
+- Herufi kubwa huongeza mara mbili thamani ya herufi hiyo. Kwa mfano, `A` ni `2`, na `Z` ni `52`.
+- Maneno yanapambana kwa mpangilio: neno la kwanza la timu yako linapambana na neno la kwanza la timu pinzani, na kadhalika.
+- Neno linashinda ikiwa thamani yake ni kubwa kuliko thamani ya neno la mpinzani.
+- Timu yenye maneno mengi yanayoshinda ndiyo mshindi.
+
+Rudisha `"We win"` ikiwa timu yako ni mshindi, `"We lose"` ikiwa timu yako inapoteza, na `"Draw"` ikiwa timu zote mbili zina idadi sawa ya ushindi.
+
+# --hints--
+
+`battle("hello world", "hello word")` inapaswa kurudisha `"We win"`.
+
+```js
+assert.equal(battle("hello world", "hello word"), "We win");
+```
+
+`battle("Hello world", "hello world")` inapaswa kurudisha `"We win"`.
+
+```js
+assert.equal(battle("Hello world", "hello world"), "We win");
+```
+
+`battle("lorem ipsum", "kitty ipsum")` inapaswa kurudisha `"We lose"`.
+
+```js
+assert.equal(battle("lorem ipsum", "kitty ipsum"), "We lose");
+```
+
+`battle("hello world", "world hello")` inapaswa kurudisha `"Draw"`.
+
+```js
+assert.equal(battle("hello world", "world hello"), "Draw");
+```
+
+`battle("git checkout", "git switch")` inapaswa kurudisha `"We win"`.
+
+```js
+assert.equal(battle("git checkout", "git switch"), "We win");
+```
+
+`battle("Cheeseburger with fries", "Cheeseburger with Fries")` inapaswa kurudisha `"We lose"`.
+
+```js
+assert.equal(battle("Cheeseburger with fries", "Cheeseburger with Fries"), "We lose");
+```
+
+`battle("We must never surrender", "Our team must win")` inapaswa kurudisha `"Draw"`.
+
+```js
+assert.equal(battle("We must never surrender", "Our team must win"), "Draw");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function battle(ourTeam, opponent) {
+
+  return ourTeam;
+}
+```
+
+# --solutions--
+
+```js
+function getCharacterValue(char) {
+  const lowerCaseValue = char.toLowerCase().charCodeAt(0) - 96;
+  return char >= 'A' && char <= 'Z' ? lowerCaseValue * 2 : lowerCaseValue;
+}
+
+function getWordValue(word) {
+  let wordValue = 0;
+  for (let i=0; i<word.length; i++) {
+    wordValue += getCharacterValue(word[i])
+  }
+
+  return wordValue;
+}
+
+function battle(ourTeam, opponent) {
+  const myWords = ourTeam.split(' ');
+  const opponentWords = opponent.split(' ');
+
+  let myWins = 0, opponentWins = 0;
+
+  for (let i=0; i<myWords.length; i++) {
+    const myWordValue = getWordValue(myWords[i]);
+    const opponentWordValue = getWordValue(opponentWords[i])
+
+    if (myWordValue > opponentWordValue) myWins++;
+    if (opponentWordValue > myWordValue) opponentWins++;
+  }
+
+  if (myWins > opponentWins) return 'We win';
+  if (opponentWins > myWins) return 'We lose';
+  return 'Draw';
+}
+```

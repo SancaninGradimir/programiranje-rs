@@ -1,0 +1,95 @@
+---
+id: 594810f028c0303b75339acd
+title: "'Uainishaji wa nambari kamili chanya: nyingi, duni na kamilifu'"
+challengeType: 1
+forumTopicId: 302221
+dashedName: abundant-deficient-and-perfect-number-classifications
+---
+
+# --description--
+
+Hizi zinafafanua aina tatu za nambari kamili chanya kulingana na vigawanyo halisi vyao.
+
+Acha $P(n)$ iwe jumla ya vigawanyo halisi vya `n` ambapo vigawanyo halisi ni nambari kamili chanya zote `n` isipokuwa `n` yenyewe.
+
+Kama `P(n) < n` basi `n` huainishwa kama `deficient`
+
+Kama `P(n) === n` basi `n` huainishwa kama `perfect`
+
+Kama `P(n) > n` basi `n` huainishwa kama `abundant`
+
+**Mfano**: `6` ina vigawanyo halisi vya `1`, `2`, na `3`. `1 + 2 + 3 = 6`, kwa hiyo `6` huainishwa kama nambari kamilifu.
+
+# --instructions--
+
+Tekeleza kitendakazi kinachohesabu ni ngapi kati ya nambari kamili chanya kutoka `1` hadi `num` (ikiwa ni pamoja na) ziko katika kila moja ya darasa tatu. Toa matokeo kama safu ya data kwa muundo wa `[deficient, perfect, abundant]`.
+
+# --hints--
+
+`getDPA` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof getDPA === 'function');
+```
+
+`getDPA(5000)` inapaswa kurudisha safu ya data.
+
+```js
+assert(Array.isArray(getDPA(5000)));
+```
+
+`getDPA(5000)` safu inayorudishwa inapaswa kuwa na urefu wa `3`.
+
+```js
+assert(getDPA(5000).length === 3);
+```
+
+`getDPA(5000)` inapaswa kurudisha `[3758, 3, 1239]`.
+
+```js
+assert.deepEqual(getDPA(5000), [3758, 3, 1239]);
+```
+
+`getDPA(10000)` inapaswa kurudisha `[7508, 4, 2488]`.
+
+```js
+assert.deepEqual(getDPA(10000), [7508, 4, 2488]);
+```
+
+`getDPA(20000)` inapaswa kurudisha `[15043, 4, 4953]`.
+
+```js
+assert.deepEqual(getDPA(20000), [15043, 4, 4953]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getDPA(num) {
+
+}
+```
+
+# --solutions--
+
+```js
+function getDPA(num) {
+  const dpa = [1, 0, 0];
+  for (let n = 2; n <= num; n += 1) {
+    let ds = 1;
+    const e = Math.sqrt(n);
+    for (let d = 2; d < e; d += 1) {
+      if (n % d === 0) {
+        ds += d + (n / d);
+      }
+    }
+    if (n % e === 0) {
+      ds += e;
+    }
+    dpa[ds < n ? 0 : ds === n ? 1 : 2] += 1;
+  }
+  return dpa;
+}
+```

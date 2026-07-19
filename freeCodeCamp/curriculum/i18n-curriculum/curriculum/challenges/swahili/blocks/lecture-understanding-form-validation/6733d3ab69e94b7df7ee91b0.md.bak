@@ -1,0 +1,183 @@
+---
+id: 6733d3ab69e94b7df7ee91b0
+title: Jinsi tukio la wasilisha linavyofanya kazi na fomu?
+challengeType: 19
+dashedName: how-does-the-submit-event-work-with-forms
+---
+
+# --description--
+
+Tujifunze jinsi tukio la `submit` linavyofanya kazi na fomu za HTML. Kwanza, tunahitaji kuelewa jinsi ya kuwasilisha fomu. Kuna njia tatu za fomu kuwasilishwa.
+
+Ya kwanza ni wakati mtumizi anabofya kitufe kilicho kwenye fomu ambacho kina sifa ya `type` iliyowekwa kuwa `submit`.
+
+Ya pili ni wakati mtumizi anabonyeza kitufe cha Enter kwenye sehemu yoyote ya ingizo inayoweza kuhaririwa kwenye fomu.
+
+Ya tatu ni kupitia wito wa JavaScript kwa njia za `requestSubmit()` au `submit()` za kipengele cha fomu.
+
+Lakini nini hutokea wakati fomu inapo wasilishwa? Kuna mambo kadhaa yanayotokea, na tabia ya fomu inategemea sifa zake.
+
+Sifa ya kwanza tunayotakiwa kuangalia ni sifa ya `action`. Sifa ya `action` inapaswa kuwa na URL au njia ya jamaa kwa kikoa cha sasa. Thamani hii inaamua wapi fomu inajaribu kutuma data. Ikiwa hutaweka sifa ya `action`, fomu itatuma data kwa URL ya ukurasa wa sasa. Hapa kuna mfano wa fomu yenye sifa ya `action` iliyowekwa kwa URL maalum:
+
+```html
+<form action="https://freecodecamp.org">
+  <input type="number" id="input" placeholder="Enter a number" name="number" />
+  <button type="submit">Submit</button>
+</form>
+```
+
+Fomu hii itapotumwa, itatuma data kwa ukurasa wa nyumbani wa freeCodeCamp, ambayo huenda isifanye chochote.
+
+Hapa kuna fomu nyingine, inayotuma kwa njia ya jamaa:
+
+```html
+<form action="/data">
+  <input type="number" id="input" placeholder="Enter a number" name="number" />
+  <button type="submit">Submit</button>
+</form>
+```
+
+Hii inatuma kwa njia ya `/data` kwenye kikoa cha sasa. Katika kesi yetu, itatuma kwa `http://127.0.0.1:5500/data`.
+
+Sifa ya pili ya kudhibiti jinsi uwasilishaji unavyofanya kazi ni sifa ya `method`. Sifa hii inakubali njia ya kawaida ya HTTP, kama `GET` au `POST`, na hutumia njia hiyo wakati wa kufanya ombi kwa URL ya `action`.
+
+HTTP inasimama kwa Hypertext Transfer Protocol na hutumiwa kusafirisha data kupitia mtandao.
+
+Njia za HTTP hutumiwa kufafanua vitendo vinavyoweza kufanywa kwa rasilimali, kama vile `GET`, `POST`, `PUT`, `DELETE`, na kadhalika. Utajifunza zaidi kuhusu njia hizi katika masomo yajayo.
+
+Wakati njia haijawekwa, fomu itatumia ombi la `GET` kwa chaguo-msingi. Ombi la `GET` hutumiwa kupata data kutoka kwa rasilimali iliyobainishwa bila kufanya mabadiliko yoyote, na vigezo kawaida huongezwa kwenye URL kwa njia ya mfuatano wa hoja ya utafutaji.
+
+Data katika fomu itakuwa imeandikwa kama jozi za ufunguo-thamani za `name=value` na kuongezwa kwenye URL ya `action` kama vigezo vya hoja ya utafutaji. Kwa mfano, kwa kuwasilisha fomu kutoka kwa mfano wetu wa awali na thamani ya `3342` kwa sehemu ya `input`, fomu ingejaribu `GET` URL ya `http://127.0.0.1:5500/data?number=3342`.
+
+Hii ni nzuri kwa kitu kama fomu ya utafutaji, ambapo mtumizi wako anatafuta data. Lakini ikiwa unataka mtumizi wako kuwasilisha data mpya, kama katika fomu ya usajili, njia inayofaa kutumia ni njia ya `POST`. Njia ya `POST` hutumiwa kutuma data kwa seva ili kuunda au kusasisha rasilimali.
+
+Tuweke sifa ya `method` kwa thamani ya `POST`:
+
+```xml
+<form action="/data" method="POST">
+  <input type="number" id="input" placeholder="Enter a number" name="number" />
+  <button type="submit">Submit</button>
+</form>
+```
+
+Unapotuma ombi la `POST`, mwili unaweza kujumuisha data za ombi lako. Kwa hivyo tofauti na `GET`, data haziongezwi kwenye URL, na fomu yetu inatuma ombi la `POST` kwa `http://127.0.0.1:5500/data`. Data, badala yake, zinaweza kupatikana katika mwili wa ombi, bado kama data za fomu zilizoandikwa kwa URL.
+
+Data za fomu zilizoandikwa kwa URL ni wakati data za fomu zinabadilishwa kuwa mfuatano wa jozi za ufunguo-thamani, kama `name=John+Doe&email=john%40example.com`, ambapo herufi maalum zinabadilishwa kuwa matoleo yaliyowekwa ili kutuma data salama kupitia mtandao. Utajifunza zaidi kuhusu hili katika masomo yajayo.
+
+Lakini labda hutaki kutuma data kama mzigo wa fomu uliyoandikwa kwa URL?
+
+Kipengele cha `form` kinakubali sifa ya `enctype`, inayowakilisha aina ya uandikishaji ya kutumia kwa data.
+
+Sifa hii inakubali thamani tatu tu: `application/x-www-form-urlencoded` (ambayo ni chaguo-msingi, ikituma data kama mwili wa fomu uliyoandikwa kwa URL), `text/plain` (ambayo hutuma data kwa maandishi wazi, katika jozi za `name=value` zilizoachwa kwa mistari mipya), au `multipart/form-data`, ambayo ni maalum kwa kushughulikia fomu zilizo na upakiaji faili.
+
+Katika funzo hili, umejifunza misingi ya uwasilishaji wa fomu. Katika masomo yajayo, tutaingia zaidi katika kazi na fomu na jinsi zinavyoshirikiana na seva.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo SI njia ya kuwasilisha fomu ya HTML?
+
+## --answers--
+
+Kubofya kitufe chenye `type="submit"`.
+
+### --feedback--
+
+Funzo linataja njia tatu maalum za kuwasilisha fomu.
+
+---
+
+Kubonyeza Enter kwenye sehemu ya ingizo inayoweza kuhaririwa.
+
+### --feedback--
+
+Funzo linataja njia tatu maalum za kuwasilisha fomu.
+
+---
+
+Kuitisha njia ya `requestSubmit()` ya fomu.
+
+### --feedback--
+
+Funzo linataja njia tatu maalum za kuwasilisha fomu.
+
+---
+
+Kubofya mara mbili mahali popote ndani ya fomu.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Nini hutokea wakati sifa ya `action` ya fomu haijawekwa?
+
+## --answers--
+
+Uwasilishaji wa fomu unazuia.
+
+### --feedback--
+
+Funzo linaelezea tabia ya chaguo-msingi wakati sifa ya `action` haipo.
+
+---
+
+Data za fomu hutumwa kwa URL ya ukurasa wa sasa.
+
+---
+
+Hitilafu hutupwa.
+
+### --feedback--
+
+Funzo linaelezea tabia ya chaguo-msingi wakati sifa ya `action` haipo.
+
+---
+
+Data za fomu hutumwa kwa seva ya chaguo-msingi.
+
+### --feedback--
+
+Funzo linaelezea tabia ya chaguo-msingi wakati sifa ya `action` haipo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni thamani gani ya `enctype` inapaswa kutumika wakati fomu ina upakiaji faili?
+
+## --answers--
+
+`application/x-www-form-urlencoded`
+
+### --feedback--
+
+Funzo linataja `enctype` maalum kwa kushughulikia fomu zilizo na upakiaji faili.
+
+---
+
+`text/plain`
+
+### --feedback--
+
+Funzo linataja `enctype` maalum kwa kushughulikia fomu zilizo na upakiaji faili.
+
+---
+
+`multipart/form-data`
+
+---
+
+`application/json`
+
+### --feedback--
+
+Funzo linataja enctype maalum kwa kushughulikia fomu zilizo na upakiaji faili.
+
+## --video-solution--
+
+3

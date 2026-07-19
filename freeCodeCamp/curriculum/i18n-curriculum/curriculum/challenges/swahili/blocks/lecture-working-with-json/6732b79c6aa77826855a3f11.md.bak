@@ -1,0 +1,212 @@
+---
+id: 6732b79c6aa77826855a3f11
+title: Jinsi gani JSON.parse() na JSON.stringify() hufanya kazi?
+challengeType: 19
+dashedName: how-do-json-parse-and-json-stringify-work
+---
+
+# --interactive--
+
+Kuna njia mbili zenye nguvu katika JavaScript za kushughulikia data ya JSON: `JSON.parse()` na `JSON.stringify()`. Njia hizi hutumika sana kubadilisha kati ya mfuatano wa herufi wa JSON na vitu vya JavaScript.
+
+`JSON.stringify()` hutumika kubadilisha kitu cha JavaScript kuwa mfuatano wa herufi wa JSON. Hii ni muhimu unapotaka kuhifadhi au kusafirisha data kwa muundo unaoweza kushirikiwa au kuhamishwa kwa urahisi kati ya mifumo.
+
+Hapa ni jinsi unavyoweza kutumia njia ya `JSON.stringify()`:
+
+:::interactive_editor
+
+```js
+const user = {
+  name: "John",
+  age: 30,
+  isAdmin: true
+};
+
+const jsonString = JSON.stringify(user);
+console.log(jsonString);
+```
+
+:::
+
+Njia ya `JSON.stringify()` pia inakubali kigezo cha hiari kinachoitwa replacer, ambacho kinaweza kuwa kitendakazi au safu ya data. Hapa kuna mfano wa kutumia safu ya data kwa kigezo cha hiari cha replacer:
+
+:::interactive_editor
+
+```js
+const developerObj = {
+  firstName: "Jessica",
+  isAwesome: true,
+  isMusician: true,
+  country: "USA",
+};
+
+// result: {"firstName":"Jessica","country":"USA"}
+console.log(JSON.stringify(developerObj, ["firstName", "country"]));
+```
+
+:::
+
+Katika mfano huu, tuna `developerObj` yenye sifa nne. Tunapotumia njia ya `JSON.stringify()`, tunaweza kupitisha safu ya data kwa kigezo cha pili na kubainisha sifa gani tunataka ziwe katika mfuatano wa herufi. Matokeo yatakuwa kitu kilichobadilishwa kuwa mfuatano wa herufi chenye sifa za `firstName` na `country` pekee.
+
+Kigezo kingine cha hiari kwa njia ya `JSON.stringify()` ni kigezo cha spacer. Hii inakuwezesha kudhibiti nafasi katika matokeo ya mfuatano wa herufi:
+
+:::interactive_editor
+
+```js
+const developerObj = {
+  firstName: "Jessica",
+  isAwesome: true,
+  isMusician: true,
+  country: "USA",
+};
+
+console.log(JSON.stringify(developerObj, null, 2));
+
+/* result
+{
+  "firstName": "Jessica",
+  "isAwesome": true,
+  "isMusician": true,
+  "country": "USA"
+}
+*/
+```
+
+:::
+
+Mara nyingi hutatumia vigezo hivi vya hiari kwa njia ya `JSON.stringify()` lakini bado ni vyema kuyafahamu.
+
+Njia nyingine utakayotumia sana katika programu zako ni njia ya `JSON.parse()`. `JSON.parse()` hubadilisha mfuatano wa herufi wa JSON kurudi kuwa kitu cha JavaScript. Hii ni muhimu unapopata data ya JSON kutoka kwa seva ya mtandao au kutoka `localStorage` na unahitaji kushughulikia data hiyo katika programu yako. Utajifunza zaidi kuhusu `localStorage` katika funzo lijalo.
+
+Hapa kuna mfano wa jinsi ya kufanya kazi na njia ya `JSON.parse()`:
+
+:::interactive_editor
+
+```js
+const jsonString = '{"name":"John","age":30,"isAdmin":true}';
+const userObject = JSON.parse(jsonString);
+console.log(userObject);
+
+// Result:
+// { name: 'John', age: 30, isAdmin: true }
+```
+
+:::
+
+Hii inakuwezesha kufanya kazi na data katika programu yako kama kitu cha kawaida cha JavaScript, na kufanya iwe rahisi kuibadilisha na kuitumia.
+
+Katika moduli zijazo, tutaendelea kujifunza zaidi kuhusu jinsi ya kufanya kazi na JSON na njia za `JSON.parse()` na `JSON.stringify()`.
+
+# --questions--
+
+## --text--
+
+`JSON.stringify()` hufanya nini?
+
+## --answers--
+
+Hubadilisha mfuatano wa herufi wa JSON kuwa kitu cha JavaScript.
+
+### --feedback--
+
+Fikiria ni kitendakazi gani kinahusika na kuunda muundo wa mfuatano wa herufi kutoka kwa kitu.
+
+---
+
+Hubadilisha kitu cha JavaScript kuwa mfuatano wa herufi wa JSON.
+
+---
+
+Hutuma data kwa seva ya mtandao.
+
+### --feedback--
+
+Fikiria ni kitendakazi gani kinahusika na kuunda muundo wa mfuatano wa herufi kutoka kwa kitu.
+
+---
+
+Hubadilisha safu ya data kuwa mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria ni kitendakazi gani kinahusika na kuunda muundo wa mfuatano wa herufi kutoka kwa kitu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+`JSON.parse()` hufanya nini?
+
+## --answers--
+
+Hubadilisha kitu cha JavaScript kuwa mfuatano wa herufi wa JSON.
+
+### --feedback--
+
+Njia hii huchanganuzi mfuatano wa herufi na kurudisha kitu kinachoweza kutumika cha JavaScript.
+
+---
+
+Huhifadhi data katika hifadhi ya ndani.
+
+### --feedback--
+
+Njia hii huchanganuzi mfuatano wa herufi na kurudisha kitu kinachoweza kutumika cha JavaScript.
+
+---
+
+Hubadilisha mfuatano wa herufi wa JSON kuwa kitu cha JavaScript.
+
+---
+
+Hutuma data kupitia mtandao.
+
+### --feedback--
+
+Njia hii huchanganuzi mfuatano wa herufi na kurudisha kitu kinachoweza kutumika cha JavaScript.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa kuzingatia mfuatano wa herufi wa JSON ufuatao, ungeubadilisha vipi kurudi kuwa kitu cha JavaScript na kupata thamani ya `"age"`?
+
+```js
+const jsonString = '{"name":"Alice","age":25}';
+```
+
+## --answers--
+
+`jsonString.name`
+
+### --feedback--
+
+Tumia njia inayochanganuzi mfuatano wa herufi wa JSON kuwa vitu kisha upate sifa ya `"age"`.
+
+---
+
+`JSON.stringify(jsonString).age`
+
+### --feedback--
+
+Tumia njia inayochanganuzi mfuatano wa herufi wa JSON kuwa vitu kisha upate sifa ya `"age"`.
+
+---
+
+`JSON.parse(jsonString).age`
+
+---
+
+`jsonString[1]`
+
+### --feedback--
+
+Tumia njia inayochanganuzi mfuatano wa herufi wa JSON kuwa vitu kisha upate sifa ya `"age"`.
+
+## --video-solution--
+
+3

@@ -1,0 +1,170 @@
+---
+id: 5a24c314108439a4d4036156
+title: Tumia programu ya kati kushughulikia vitendo isivyo ya wakati mmoja
+challengeType: 6
+forumTopicId: 301451
+dashedName: use-middleware-to-handle-asynchronous-actions
+---
+
+# --description--
+
+Hadi sasa changamoto hizi zimeepuka kujadili vitendo isivyo ya wakati mmoja, lakini ni sehemu isiyoweza kuepukika ya ukuzaji wa mtandao. Wakati fulani utahitaji kuita viishio isivyo ya wakati mmoja katika programu yako ya Redux, basi unashughulikia vipi aina hizi za maombi? Redux hutoa programu ya kati iliyoundwa mahsusi kwa madhumuni haya, inayoitwa programu ya kati ya Redux Thunk. Hapa kuna maelezo mafupi ya jinsi ya kutumia hii na Redux.
+
+Ili kujumuisha programu ya kati ya Redux Thunk, unaituma kama hoja kwa `Redux.applyMiddleware()`. Kauli hii kisha hutolewa kama kigezo cha pili cha hiari kwa kitendakazi cha `createStore()`. Tazama msimbo chini ya mhariri kuona hili. Kisha, ili kuunda kitendo kisivyo cha wakati mmoja, unarudisha kitendakazi katika muumba wa kitendo kinachochukua `dispatch` kama hoja. Ndani ya kitendakazi hiki, unaweza kutuma vitendo na kufanya maombi isiyo ya wakati mmoja.
+
+Katika mfano huu, ombi isiyo ya wakati mmoja imetengenezwa kwa wito wa `setTimeout()`. Ni kawaida kutuma kitendo kabla ya kuanzisha tabia yoyote isiyo ya wakati mmoja ili hali ya programu yako ijue kuwa data fulani inahitajika (hali hii inaweza kuonyesha ikoni ya kupakia, kwa mfano). Kisha, mara unaporejea data, unatumia kitendo kingine kinachobeba data kama mzigo pamoja na taarifa kwamba kitendo kimekamilika.
+
+Kumbuka kuwa unapitisha `dispatch` kama kigezo kwa muumba huu maalum wa kitendo. Hii ndiyo utakayotumia kutuma vitendo vyako, unapitisha kitendo moja kwa moja kwa dispatch na programu ya kati inashughulikia mengine yote.
+
+# --instructions--
+
+Andika dispatch zote mbili katika muumba wa kitendo cha `handleAsync()`. Tuma `requestingData()` kabla ya `setTimeout()` (wito wa API uliotengenezwa). Kisha, baada ya kupokea data (ya kubuni), tuma kitendo cha `receivedData()`, ukipitisha data hii. Sasa unajua jinsi ya kushughulikia vitendo isivyo ya wakati mmoja katika Redux. Mengine yote yanaendelea kufanya kazi kama awali.
+
+# --hints--
+
+Muumba wa kitendo cha `requestingData` unapaswa kurudisha kitu cha aina sawa na thamani ya `REQUESTING_DATA`.
+
+```js
+assert(requestingData().type === REQUESTING_DATA);
+```
+
+Muumba wa kitendo cha `receivedData` unapaswa kurudisha kitu cha aina sawa na thamani ya `RECEIVED_DATA`.
+
+```js
+assert(receivedData('data').type === RECEIVED_DATA);
+```
+
+`asyncDataReducer` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof asyncDataReducer === 'function');
+```
+
+Kutuma kitendo cha `requestingData` kunapaswa kusasisha sifa ya fetching katika hifadhi `state` kuwa `true`.
+
+```js
+assert(
+  (function () {
+    const initialState = store.getState();
+    store.dispatch(requestingData());
+    const reqState = store.getState();
+    return initialState.fetching === false && reqState.fetching === true;
+  })()
+);
+```
+
+Kutuma `handleAsync` kunapaswa kutuma kitendo cha ombi la data kisha kutuma kitendo cha data iliyopokelewa baada ya kuchelewa.
+
+```js
+assert(
+  (function () {
+    const noWhiteSpace = __helpers.removeWhiteSpace(handleAsync.toString());
+    return (
+      noWhiteSpace.includes('dispatch(requestingData())') === true &&
+      noWhiteSpace.includes('dispatch(receivedData(data))') === true
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const REQUESTING_DATA = 'REQUESTING_DATA'
+const RECEIVED_DATA = 'RECEIVED_DATA'
+
+const requestingData = () => { return {type: REQUESTING_DATA} }
+const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
+
+const handleAsync = () => {
+  return function(dispatch) {
+    // Dispatch request action here
+
+    setTimeout(function() {
+      let data = {
+        users: ['Jeff', 'William', 'Alice']
+      }
+      // Dispatch received data action here
+
+    }, 2500);
+  }
+};
+
+const defaultState = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      }
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      }
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(
+  asyncDataReducer,
+  Redux.applyMiddleware(ReduxThunk.default)
+);
+```
+
+# --solutions--
+
+```js
+const REQUESTING_DATA = 'REQUESTING_DATA'
+const RECEIVED_DATA = 'RECEIVED_DATA'
+
+const requestingData = () => { return {type: REQUESTING_DATA} }
+const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
+
+const handleAsync = () => {
+  return function(dispatch) {
+    dispatch(requestingData());
+    setTimeout(function() {
+      let data = {
+        users: ['Jeff', 'William', 'Alice']
+      }
+      dispatch(receivedData(data));
+    }, 2500);
+  }
+};
+
+const defaultState = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      }
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      }
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(
+  asyncDataReducer,
+  Redux.applyMiddleware(ReduxThunk.default)
+);
+```

@@ -1,0 +1,297 @@
+---
+id: 674ba6876f7ada867135bb95
+title: Jinsi gani uingizaji na uingizaji wa sehemu hufanya kazi katika sehemu za React?
+challengeType: 19
+dashedName: how-can-you-import-and-export-components-in-react
+---
+
+# --description--
+
+Katika mafundisho ya awali, ulijifunza jinsi ya kufanya kazi na imports na exports katika JavaScript. Katika funzo hili, tutaangalia jinsi ya kuingiza na kusafirisha sehemu katika React.
+
+Export hufanya sehemu ipatikane kwa mafaili mengine. Import inaruhusu faili kutumia sehemu ambayo ilisafirishwa mahali pengine. Katika miradi ya React, hivi ndivyo sehemu zinavyotumika tena na kuunganishwa ili kujenga interface za mtumiaji.
+
+Katika funzo hili, utajifunza jinsi ya kusafirisha sehemu za React kwa kutumia default exports na named exports, na jinsi ya kuziingiza mahali zinapohitajika.
+
+Katika mfano huu, tuna sehemu ya `Cat` inayomilikiwa na faili liitwalo `Cat.jsx`. Kwa kiambatisho cha faili, tunatumia kiambatisho cha faili cha `.jsx` kwa sababu faili hii inahusiana zaidi na JSX.
+
+Sehemu hii ya `Cat` inarudisha alama za uandishi za JSX zenye kichwa na picha ya paka anayeitwa Mr. Whiskers:
+
+```jsx
+function Cat() {
+  return (
+    <div className="card">
+      <h2>Mr. Whiskers</h2>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg"
+        alt="Tuxedo cats running on dirt ground."
+      />
+    </div>
+  );
+}
+```
+
+Ikiwa tunataka kutumia sehemu ya `Cat` katika faili nyingine, tunahitaji kwanza kuisafirisha hivi:
+
+```jsx
+function Cat() {
+  return (
+    <div className="card">
+      <h2>Mr. Whiskers</h2>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg"
+        alt="Tuxedo cats running on dirt ground."
+      />
+    </div>
+  );
+}
+
+export default Cat;
+```
+
+Tunatumia neno muhimu la `default` kwa sababu hii itakuwa export ya default kutoka moduli. Unaweza pia kuchagua kusafirisha sehemu hiyo kwenye mstari mmoja na ufafanuzi wa sehemu kama hii:
+
+```jsx
+export default function Cat() {
+  return (
+    <div className="card">
+      <h2>Mr. Whiskers</h2>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg"
+        alt="Tuxedo cats running on dirt ground."
+      />
+    </div>
+  );
+}
+```
+
+Unaweza kuchagua kuingiza sehemu ndogo katika mafaili mengine ya sehemu za mzazi, au kuziingiza katika faili kuu la sehemu. Kwa mfano huu, tutaingiza sehemu ya `Cat` ndani ya faili kuu la sehemu.
+
+Kila mradi wa React utakuwa na sehemu ya ngazi ya juu, kawaida huitwa `App.jsx`:
+
+```jsx
+export default function App() {
+  return (
+    // return component here
+  );
+}
+```
+
+Faili hii kawaida hupatikana katika saraka ya `src` ya mradi wako. Utajifunza zaidi kuhusu mipangilio ya kawaida ya miradi katika funzo lijalo.
+
+Ili kutumia sehemu ya `Cat` ndani ya sehemu kuu ya `App`, utahitaji kuingiza hivi:
+
+```jsx
+import Cat from "./Cat";
+
+export default function App() {
+  return (
+    // return component here
+  );
+}
+```
+
+Sasa, unaweza kurudisha sehemu ya `Cat` ndani ya sehemu ya `App` hivi:
+
+```jsx
+import Cat from "./Cat";
+
+export default function App() {
+  return (
+    <Cat />
+  );
+}
+```
+
+Njia hii inafanya kazi vizuri wakati faili inawajibika kusafirisha sehemu kuu moja tu, na kufanya sintaksia ya kuingiza iwe rahisi na rahisi kusoma. Kumbuka, faili inaweza kuwa na export moja tu ya default, ambayo inafanya iwe bora kwa faili inayojumuisha sehemu moja kuu.
+
+Sasa kwa kuwa unajua jinsi ya kutumia default exports, tuchunguze named exports. Named exports huruhusu faili kushiriki sehemu nyingi au kitendakazi nyingi. Tofauti na default exports, hizi lazima ziingizwe kwa kutumia jina halisi walilosafirishwa nalo (isipokuwa ukibadilisha jina kwa kutumia neno la `as`).
+
+Hii ni muhimu wakati faili hutumika kama maktaba ya sehemu. Kwa mfano, hapa kuna faili inayojumuisha sehemu mbili, Cat na Dog:
+
+```jsx
+// Animals.jsx
+export function Cat() {
+  return <h2>Mr. Whiskers</h2>;
+}
+
+export function Dog() {
+  return <h2>Fido</h2>;
+}
+```
+
+Tunatumia neno la export kwa kila sehemu kwa mtu mmoja mmoja. Ili kutumia hizi katika faili nyingine, tunaziingiza kwa kutumia mabano ya mviringo:
+
+```jsx
+import { Cat, Dog } from "./Animals";
+
+export default function App() {
+  return (
+    <div>
+      <Cat />
+      <Dog />
+    </div>
+  );
+}
+```
+
+Sintaksia ya `{ Cat, Dog }` inamwambia JavaScript kuingiza exports maalum zilizopewa majina kutoka faili la `Animals.jsx`. Majina ndani ya mabano ya mviringo lazima yaendane kabisa na majina yaliyosafirishwa. Ikiwa unahitaji kuepuka migongano ya majina, au ukipendelea jina tofauti katika faili ya sasa, unaweza kubadilisha jina la sehemu wakati wa kuingiza kwa kutumia neno la as.
+
+```jsx
+import { Cat as Kitty } from "./Animals";
+
+export default function App() {
+  return <Kitty />;
+}
+```
+
+Mwishowe, faili inaweza kuwa na export moja ya default na exports nyingi zilizopewa majina.
+
+```jsx
+// Animals.jsx
+export default function Cat() {
+  return <h2>Mr. Whiskers</h2>;
+}
+
+export function Dog() {
+  return <h2>Fido</h2>;
+}
+```
+
+Wakati wa kuingiza exports mchanganyiko, export ya default huja kwanza (bila mabano), ikifuatiwa na exports zilizopewa majina (ndani ya mabano):
+
+```jsx
+// App.jsx
+import Cat, { Dog } from "./Animals";
+
+export default function App() {
+  return (
+    <div>
+      <Cat />
+      <Dog />
+    </div>
+  );
+}
+```
+
+Katika mfano huu, `Cat` ni export ya default, kwa hivyo haifanyi kazi na mabano ya mviringo. `Dog` ni export iliyopewa jina, kwa hivyo inahitaji mabano hayo.
+
+Kwa kuelewa jinsi default na named exports zinavyofanya kazi, unaweza kupanga sehemu za React katika mafaili mengi na kuzitumia tena mahali zinapohitajika. Unapojenga programu kubwa zaidi, kuchagua mtindo sahihi wa export kutasaidia kuweka msimbo wako wazi na rahisi kudumisha, na kufanya iwe rahisi kufanya kazi na sehemu zilizotengenezwa na wengine.
+
+# --questions--
+
+## --text--
+
+Je, ungeweza kusafirisha sehemu nyingi kutoka faili moja kwa kutumia named exports vipi?
+
+## --answers--
+
+```jsx
+export function Cat() { ... } export function Dog() { ... }
+```
+
+---
+
+```jsx
+export default { Cat, Dog };
+```
+
+### --feedback--
+
+Hakikisha unatumia maneno muhimu ya function halali na usitegemee export moja ya default tu.
+
+---
+
+```jsx
+export component Cat { ... } export component Dog { ... }
+```
+
+### --feedback--
+
+Hakikisha unatumia maneno muhimu ya function halali na usitegemee export moja ya default tu.
+
+---
+
+```jsx
+default export Cat; default export Dog;
+```
+
+### --feedback--
+
+Hakikisha unatumia maneno muhimu ya function halali na usitegemee export moja ya default tu.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Kwa kawaida ungeingiza sehemu ndogo kama sehemu ya `Cat` wapi katika mradi wa React?
+
+## --answers--
+
+Ndani ya faili la `index.html`.
+
+### --feedback--
+
+Fikiria kuhusu mahali sehemu zinapounganishwa pamoja kawaida katika mradi wa React.
+
+---
+
+Ndani ya faili la `cat-photo-app.css`.
+
+### --feedback--
+
+Fikiria kuhusu mahali sehemu zinapounganishwa pamoja kawaida katika mradi wa React.
+
+---
+
+Katika sehemu ya mzazi au faili kuu la sehemu (kawaida `App.jsx`).
+
+---
+
+Katika saraka ya umma.
+
+### --feedback--
+
+Fikiria kuhusu mahali sehemu zinapounganishwa pamoja kawaida katika mradi wa React.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini kusudi la tamko la `import` katika sehemu ya `App`?
+
+## --answers--
+
+Huiweka sehemu ya `App` mtindo moja kwa moja.
+
+### --feedback--
+
+Kumbuka ulijifunza jinsi ya kufanya kazi na imports katika mafundisho ya awali.
+
+---
+
+Inaiingiza sehemu ya `Cat`, ikiruhusu itumike ndani ya sehemu ya `App`.
+
+---
+
+Inaweka hali ya default kwa sehemu ya `App`.
+
+### --feedback--
+
+Kumbuka ulijifunza jinsi ya kufanya kazi na imports katika mafundisho ya awali.
+
+---
+
+Inaruhusu `App` ifanye kazi kwa kasi zaidi.
+
+### --feedback--
+
+Kumbuka ulijifunza jinsi ya kufanya kazi na imports katika mafundisho ya awali.
+
+## --video-solution--
+
+2

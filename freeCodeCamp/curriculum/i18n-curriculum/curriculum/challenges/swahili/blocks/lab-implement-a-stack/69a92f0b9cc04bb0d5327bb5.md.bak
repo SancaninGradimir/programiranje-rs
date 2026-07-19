@@ -1,0 +1,191 @@
+---
+id: 69a92f0b9cc04bb0d5327bb5
+title: Tekeleza muundo wa data wa stack
+challengeType: 26
+dashedName: implement-a-stack
+---
+
+# --description--
+
+Katika maabara hii, uta-tekeleza muundo wa data wa stack kwa kutumia vitendakazi. Stack ni muundo wa data wa Last-In-First-Out (LIFO) ambapo vipengele huongezwa na kuondolewa kutoka juu.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `initStack` kinachorudisha kitu chenye sifa ya `collection` iliyowekwa kuwa safu ya data tupu.
+1. Unapaswa kuwa na kitendakazi cha `push` kinachoongeza kipengele kwenye juu ya stack.
+1. Unapaswa kuwa na kitendakazi cha `pop` kinachotoa na kurudisha kipengele cha juu cha stack, au `undefined` ikiwa hakipo.
+1. Unapaswa kuwa na kitendakazi cha `peek` kinachorudisha kipengele cha juu cha stack bila kuondoa, au `undefined` ikiwa hakipo.
+1. Unapaswa kuwa na kitendakazi cha `isEmpty` kinachorudisha `true` ikiwa stack haina vipengele, na `false` vinginevyo.
+1. Unapaswa kuwa na kitendakazi cha `clear` kinachoondoa vipengele vyote kutoka stack.
+
+**Kumbuka:** Vipimo vingi vinategemea vitendakazi vya `initStack` na `push`. Tekeleza kwanza, kwani vipimo vya `pop`, `peek`, `isEmpty`, na `clear` vinahitaji kuongeza vipengele kwenye stack.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `push`.
+
+```js
+assert.isFunction(push);
+```
+
+Kitendakazi cha `push` kinapaswa kuongeza kipengele kwenye juu ya stack.
+
+```js
+const stack = initStack();
+push(stack, 'first');
+push(stack, 'second');
+assert.deepEqual(stack.collection, ['first', 'second']);
+```
+
+Unapaswa kuwa na kitendakazi cha `pop`.
+
+```js
+assert.isFunction(pop);
+```
+
+Kitendakazi cha `pop` kinapaswa kuondoa na kurudisha kipengele cha juu cha stack.
+
+```js
+const stack = initStack();
+push(stack, 'first');
+push(stack, 'second');
+push(stack, 'third');
+assert.strictEqual(pop(stack), 'third');
+assert.strictEqual(pop(stack), 'second');
+```
+
+Kitendakazi cha `pop` kinapaswa kurudisha `undefined` ikiwa stack ni tupu.
+
+```js
+const stack = initStack();
+assert.isUndefined(pop(stack));
+```
+
+Kitendakazi cha `pop` kinapaswa kurudisha thamani za uongo kwa usahihi.
+
+```js
+const stack = initStack();
+push(stack, '');
+assert.strictEqual(pop(stack), '');
+assert.lengthOf(stack.collection, 0);
+```
+
+Unapaswa kuwa na kitendakazi cha `peek`.
+
+```js
+assert.isFunction(peek);
+```
+
+Kitendakazi cha `peek` kinapaswa kurudisha kipengele cha juu cha stack bila kuondoa.
+
+```js
+const stack = initStack();
+push(stack, 'first');
+push(stack, 'second');
+assert.strictEqual(peek(stack), 'second');
+assert.strictEqual(peek(stack), 'second');
+```
+
+Kitendakazi cha `peek` kinapaswa kurudisha `undefined` ikiwa stack ni tupu.
+
+```js
+const stack = initStack();
+assert.isUndefined(peek(stack));
+```
+
+Kitendakazi cha `peek` kinapaswa kurudisha thamani za uongo kwa usahihi.
+
+```js
+const stack = initStack();
+push(stack, 0);
+assert.strictEqual(peek(stack), 0);
+```
+
+Unapaswa kuwa na kitendakazi cha `isEmpty`.
+
+```js
+assert.isFunction(isEmpty);
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `true` kwa stack tupu.
+
+```js
+const stack = initStack();
+assert.isTrue(isEmpty(stack));
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `false` kwa stack isiyotupu.
+
+```js
+const stack = initStack();
+push(stack, 'element');
+assert.isFalse(isEmpty(stack));
+```
+
+Kitendakazi cha `isEmpty` kinapaswa kurudisha `false` wakati kipengele cha juu ni thamani ya uongo.
+
+```js
+const stack = initStack();
+push(stack, false);
+assert.isFalse(isEmpty(stack));
+```
+
+Unapaswa kuwa na kitendakazi cha `clear`.
+
+```js
+assert.isFunction(clear);
+```
+
+Kitendakazi cha `clear` kinapaswa kuondoa vipengele vyote kutoka stack.
+
+```js
+const stack = initStack();
+push(stack, 'first');
+push(stack, 'second');
+push(stack, 'third');
+clear(stack);
+assert.lengthOf(stack.collection, 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+```
+
+# --solutions--
+
+```js
+function initStack() {
+  return {
+    collection: []
+  };
+}
+
+function print(stack) {
+  console.log(stack.collection);
+}
+
+function push(stack, element) {
+  stack.collection.push(element);
+}
+
+function pop(stack) {
+  return stack.collection.pop();
+}
+
+function peek(stack) {
+  return stack.collection[stack.collection.length - 1];
+}
+
+function isEmpty(stack) {
+  return stack.collection.length === 0;
+}
+
+function clear(stack) {
+  stack.collection = [];
+}
+```

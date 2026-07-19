@@ -1,0 +1,279 @@
+---
+id: 6733696567d2273540aa6033
+title: "Je, API ya Web Animations ni Nini, na Inahusiana Vipi na Sifa za Uhuishaji wa CSS?"
+challengeType: 19
+dashedName: what-is-the-web-animations-api-and-how-does-it-relate-to-css-animation-properties
+---
+
+# --interactive--
+
+API ya `Web Animations` (WAAPI) inakuwezesha kuunda na kudhibiti uhuishaji moja kwa moja ndani ya JavaScript. Kwa WAAPI, unaweza kufanya kazi na uhuishaji kwa njia ya nguvu zaidi, na kufanya iwe rahisi kuubadilisha.
+
+Tuchunguze WAAPI kwa undani zaidi, ili uanze kufanya kazi na uhuishaji moja kwa moja ndani ya msimbo wako wa JavaScript. Kitu msingi cha WAAPI ni kijenzi cha `Animation`, ambacho kinatoa njia na sifa kadhaa za mfano zinazokuwezesha kuhuisha vipengele kwa nguvu.
+
+Njia muhimu katika kijenzi cha `Animation` ni `animate()`. Inakuwezesha kuunda uhuishaji kwa kubainisha fremu muhimu na chaguzi kama muda, mwelekeo, urahisi wa mabadiliko, na idadi ya kurudiwa.
+
+Hii ndiyo sintaksia ya msingi ya njia ya `animate()`:
+
+```js
+element.animate(keyframes, options);
+```
+
+Tuchukulie mfano.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css" />
+<div class="square" id="square"></div>
+<script src="index.js"></script>
+```
+
+```css
+body {
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.square {
+  background: #1b1b32;
+  width: 10rem;
+  aspect-ratio: 1/1;
+}
+```
+
+```js
+const square = document.querySelector("#square");
+
+const animation = square.animate(
+  [{ transform: "translateX(0px)" }, { transform: "translateX(100px)" }],
+  {
+    duration: 2000, // makes animation lasts 2 seconds
+    iterations: Infinity, // loops indefinitely
+    direction: "alternate", // moves back and forth
+    easing: "ease-in-out" // smooth easing
+  }
+);
+```
+
+:::
+
+Matokeo katika kivinjari yatakuwa mraba wa buluu unaosogea mbele na nyuma kwa usawa.
+
+Njia za mfano za kijenzi cha `Animation` ni pamoja na:
+
+```js
+play()
+pause()
+reverse()
+finish()
+cancel()
+```
+
+Na sifa za mfano ni:
+
+```md
+playbackRate
+currentTime
+startTime
+effect
+timeline
+playState
+finished
+onfinish
+oncancel
+```
+
+Turekebishe mfano huu kutumia njia za `play()`, `pause()` na sifa ya `onfinish`. Hapa ni toleo jipya:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css" />
+<div class="square" id="square"></div>
+
+<button id="playBtn">Play</button>
+<button id="pauseBtn">Pause</button>
+<script src="index.js"></script>
+```
+
+```css
+body {
+  background: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.square {
+  background: #1b1b32;
+  width: 10rem;
+  aspect-ratio: 1/1;
+  margin-bottom: 20px;
+}
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+```
+
+```js
+const square = document.querySelector("#square");
+const playBtn = document.querySelector("#playBtn");
+const pauseBtn = document.querySelector("#pauseBtn");
+
+const animation = square.animate(
+  [{ transform: "translateX(0px)" }, { transform: "translateX(200px)" }],
+  {
+    duration: 5000, // Animation lasts 5 seconds
+    // iterations: Infinity, // Loops indefinitely
+    direction: "alternate", // Moves back and forth
+    easing: "ease-in-out" // Smooth easing function
+  }
+);
+
+// Set the onfinish property to log a message when the animation ends
+animation.onfinish = () => {
+  console.log("Animation finished!");
+};
+
+// Play the animation when the "Play" button is clicked
+playBtn.addEventListener("click", () => {
+  animation.play();
+  console.log("You start the animation");
+});
+
+// Pause the animation when the "Pause" button is clicked
+pauseBtn.addEventListener("click", () => {
+  animation.pause();
+  console.log("You pause the animation");
+});
+```
+
+:::
+
+Matokeo katika kivinjari yataonyesha sanduku la buluu likisogea kutoka kushoto kwenda kulia wakati kitufe cha `play` kinapobofyiwa.
+
+WAAPI inaongeza uwezo wa uhuishaji wa CSS kwa kutoa udhibiti zaidi wa nguvu juu ya uhuishaji ndani ya JavaScript.
+
+Kwa uhuishaji wa CSS, unaeleza uhuishaji kwa njia ya tamko kwa kutumia sifa kama `animation-name`, `animation-duration`, na `animation-timing-function`. Pia una nafasi ya kufanya jambo lile lile kwa kutumia njia ya `animate()` ya WAAPI.
+
+Tofauti ni kwamba unaweza kudhibiti uhuishaji unaouunda kwa njia ya `animate()` moja kwa moja na kwa nguvu zaidi, lakini kwa uhuishaji wa CSS, unahitaji kufanya mengi zaidi kwa kuunda mitindo maalum na kuanzisha ndani ya faili yako ya JavaScript.
+
+Uhuishaji wa CSS ni mzuri kwa uhuishaji rahisi na wa tamko unaoendeshwa moja kwa moja. Hii ni pamoja na athari za kupaa, mabadiliko ya hali au uhuishaji usiohitaji mwingiliano mwingi baada ya kuanzishwa. Ikiwa uhuishaji wako unahitaji kujibu mwingiliano wa mtumizi kama kubofya, kusogeza, au unataka mtumizi aweze kusitisha, kurudisha nyuma, au kubadilisha kasi kwa nguvu, WAAPI ni chaguo bora.
+
+Unaweza pia kuzingatia kuchanganya WAAPI na uhuishaji wa CSS unapohitaji urahisi wa CSS kwa usanidi wa msingi lakini unahitaji kudhibiti uhuishaji wakati wa utekelezaji.
+
+# --questions--
+
+## --text--
+
+Njia kuu katika API ya Web Animations (WAAPI) ya kuunda uhuishaji ni ipi?
+
+## --answers--
+
+`setInterval()`
+
+### --feedback--
+
+Fikiria kuhusu njia inayokuwezesha kubainisha fremu muhimu na chaguzi kama muda.
+
+---
+
+`setTimeout()`
+
+### --feedback--
+
+Fikiria kuhusu njia inayokuwezesha kubainisha fremu muhimu na chaguzi kama muda.
+
+---
+
+`animate()`
+
+---
+
+`requestAnimationFrame()`
+
+### --feedback--
+
+Fikiria kuhusu njia inayokuwezesha kubainisha fremu muhimu na chaguzi kama muda.
+
+## --video-solution--
+
+3
+
+## --text--
+Ni ipi kati ya hizi si njia ya mfano ya kijenzi cha `Animation` katika API ya Web Animations (WAAPI)?
+
+## --answers--
+
+`play()`
+
+### --feedback--
+
+Fikiria kuhusu njia zinazotumika kudhibiti uhuishaji.
+
+---
+
+`pause()`
+
+### --feedback--
+
+Fikiria kuhusu njia zinazotumika kudhibiti uhuishaji.
+
+---
+
+`reverse()`
+
+### --feedback--
+
+Fikiria kuhusu njia zinazotumika kudhibiti uhuishaji.
+
+---
+
+`stop()`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni lini unapaswa kutumia WAAPI badala ya uhuishaji wa CSS?
+
+## --answers--
+
+Kwa athari rahisi za kupaa zinazotokea moja kwa moja.
+
+### --feedback--
+
+Fikiria kuhusu hali ambapo unahitaji udhibiti zaidi juu ya uhuishaji.
+
+---
+
+Unapohitaji uhuishaji kujibu mwingiliano wa mtumizi kama kubofya, kusogeza, au kuruhusu udhibiti wa nguvu kama kusitisha au kurudisha nyuma.
+
+---
+
+Unapohitaji mabadiliko tu bila mwingiliano wowote.
+
+### --feedback--
+
+Fikiria kuhusu hali ambapo unahitaji udhibiti zaidi juu ya uhuishaji.
+
+---
+
+Kwa uhuishaji usiohitaji mwingiliano mwingi baada ya kuanzishwa.
+
+### --feedback--
+
+Fikiria kuhusu hali ambapo unahitaji udhibiti zaidi juu ya uhuishaji.
+
+## --video-solution--
+
+2

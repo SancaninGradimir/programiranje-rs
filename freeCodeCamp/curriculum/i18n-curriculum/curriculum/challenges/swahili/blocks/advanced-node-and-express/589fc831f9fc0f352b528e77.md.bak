@@ -1,0 +1,122 @@
+---
+id: 589fc831f9fc0f352b528e77
+title: Uthibitisho wa utambulisho na Socket.IO
+challengeType: 2
+forumTopicId: 301548
+dashedName: authentication-with-socket-io
+---
+
+# --description--
+
+Kwa sasa, huwezi kubaini ni nani amejumuika na socket yako ya mtandao. Wakati `req.user` ina kitu cha mtumizi, hiyo ni tu wakati mtumizi wako anaposhirikiana na seva ya mtandao, na kwa sockets za mtandao huna `req` (ombi) na kwa hivyo huna data ya mtumizi. Njia moja ya kutatua tatizo la kujua ni nani amejumuika na socket yako ya mtandao ni kwa kuchambua na kufasiri cookie inayoshikilia kikao cha passport kisha kuibadilisha kuwa kitu cha mtumizi. Bahati nzuri, kuna kifurushi kwenye NPM kilicho maalum kwa hili kinachofanya zoezi lililokuwa gumu kuwa rahisi!
+
+`passport.socketio@~3.7.0`, `connect-mongo@~3.2.0`, na `cookie-parser@~1.4.5` tayari vimeongezwa kama utegemezi. Viite kama `passportSocketIo`, `MongoStore`, na `cookieParser` mtawalia. Pia, tunahitaji kuanzisha hifadhi mpya ya kumbukumbu, kutoka `express-session` ambayo tulikuwa tumeliita awali. Inapaswa kuonekana kama hii:
+
+```js
+const MongoStore = require('connect-mongo')(session);
+const URI = process.env.MONGO_URI;
+const store = new MongoStore({ url: URI });
+```
+
+Sasa tunahitaji tu kusema Socket.IO itumie hii na kuweka chaguzi. Hakikisha hii inaongezwa kabla ya msimbo wa socket uliopo na si katika msikilizaji wa muunganisho uliopo. Kwa seva yako, inapaswa kuonekana kama hii:
+
+```js
+io.use(
+  passportSocketIo.authorize({
+    cookieParser: cookieParser,
+    key: 'express.sid',
+    secret: process.env.SESSION_SECRET,
+    store: store,
+    success: onAuthorizeSuccess,
+    fail: onAuthorizeFail
+  })
+);
+```
+
+Kumbuka kuwa kusanidi uthibitisho wa Passport kwa Socket.IO ni sawa sana na jinsi tulivyosanidi programu ya kati ya `session` kwa API. Hii ni kwa sababu zote mbili zinakusudiwa kutumia njia ile ile ya uthibitisho — pata kitambulisho cha kikao kutoka cookie na kuthibitisha.
+
+Awali, tuliposanidi programu ya kati ya `session`, hatukuweka wazi jina la cookie kwa kikao (`key`). Hii ni kwa sababu kifurushi cha `session` kilikuwa kinatumia thamani ya chaguo-msingi. Sasa tumeongeza kifurushi kingine kinachohitaji upatikanaji wa thamani ile ile kutoka kwa cookies, tunahitaji kuweka wazi thamani ya `key` katika vitu viwili vya usanidi.
+
+Hakikisha unaongeza `key` yenye jina la cookie kwenye programu ya kati ya `session` inayolingana na ufunguo wa Socket.IO. Pia, ongeza rejea ya `store` kwenye chaguzi, karibu na sehemu tunapoweka `saveUninitialized: true`. Hii ni muhimu kusema Socket.IO ni kikao gani kinachohusiana nacho.
+
+<hr>
+
+Sasa, fafanua kitendakazi cha mwitiko cha `success`, na `fail`:
+
+```js
+function onAuthorizeSuccess(data, accept) {
+  console.log('successful connection to socket.io');
+
+  accept(null, true);
+}
+
+function onAuthorizeFail(data, message, error, accept) {
+  if (error) throw new Error(message);
+  console.log('failed connection to socket.io:', message);
+  accept(null, false);
+}
+```
+
+Kitu cha mtumizi sasa kinapatikana kwenye kitu chako cha socket kama `socket.request.user`. Kwa mfano, sasa unaweza kuongeza yafuatayo:
+
+```js
+console.log('user ' + socket.request.user.username + ' connected');
+```
+
+Kitaandika kwenye konsoli ya seva ni nani amejumuika!
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza  <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#authentication-with-socketio-9" target="_blank" rel="noopener noreferrer nofollow">kagua mradi hadi hatua hii</a>.
+
+# --hints--
+
+`passport.socketio` inapaswa kuwa utegemezi.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'passport.socketio',
+    'Your project should list "passport.socketio" as a dependency'
+  );
+```
+
+`cookie-parser` inapaswa kuwa utegemezi.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'cookie-parser',
+    'Your project should list "cookie-parser" as a dependency'
+  );
+```
+
+passportSocketIo inapaswa kuitwa ipasavyo.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /require\((['"])passport\.socketio\1\)/gi,
+    'You should correctly require and instantiate "passport.socketio"'
+  );
+```
+
+passportSocketIo inapaswa kusanidiwa ipasavyo.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /io\.use\(\s*\w+\.authorize\(/,
+    'You should register "passport.socketio" as socket.io middleware and provide it correct options'
+  );
+```

@@ -1,0 +1,123 @@
+---
+id: 587d8250367417b2b2512c5d
+title: Endesha majaribio ya kitendakazi ukitumia kivinjari kisicho na kichwa
+challengeType: 2
+forumTopicId: 301595
+dashedName: run-functional-tests-using-a-headless-browser
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Kwenye ukurasa kuna fomu ya ingizo. Inatuma data kwa kiishio cha `PUT /travellers` kama ombi la AJAX.
+
+Wakati ombi linapokamilika kwa mafanikio, msimbo wa mteja unaongeza `<div>` yenye taarifa katika jibu kwenye DOM.
+
+Hapa kuna mfano wa jinsi ya kutumia Zombie.js kuingiliana na fomu:
+
+```js
+test('Submit the surname "Polo" in the HTML form', function (done) {
+  browser.fill('surname', 'Polo').then(() => {
+    browser.pressButton('submit', () => {
+      browser.assert.success();
+      browser.assert.text('span#name', 'Marco');
+      browser.assert.text('span#surname', 'Polo');
+      browser.assert.elements('span#dates', 1);
+      done();
+    });
+  });
+});
+```
+
+Kwanza, njia ya `fill` ya kitu cha `browser` inajaza uwanja wa `surname` wa fomu na thamani `'Polo'`. `fill` inarudisha ahadi, hivyo `then` inafuatana nayo.
+
+Ndani ya wito wa kurudisha wa `then`, njia ya `pressButton` ya kitu cha `browser` inatumika kuitisha msikilizaji wa tukio la `submit` la fomu. Njia ya `pressButton` ni isiyo ya wakati mmoja.
+
+Kisha, mara jibu linapopokelewa kutoka kwa ombi la AJAX, uthibitisho kadhaa hufanywa kuthibitisha:
+
+1.  Hali ya jibu ni `200`
+2.  Maandishi ndani ya kipengele cha `<span id='name'></span>` yanalingana na `'Marco'`
+3.  Maandishi ndani ya kipengele cha `<span id='surname'></span>` yanalingana na `'Polo'`
+4.  Kuna kipengele cha `1` `<span id='dates'></span>`
+
+Mwishowe, wito wa kurudisha wa `done` unaitishwa, ambao unahitajika kwa sababu ya mtihani isiyo ya wakati mmoja.
+
+# --instructions--
+
+Ndani ya `tests/2_functional-tests.js`, katika mtihani wa `'Submit the surname "Colombo" in the HTML form'` (`// #5`), jifanyie otomatiki yafuatayo:
+
+1.  Jaza fomu na jina la ukoo `Colombo`
+2.  Bonyeza kitufe cha kuwasilisha
+
+Na ndani ya wito wa kurudisha wa `pressButton`:
+
+1.  Thibitisha kuwa hali ni OK `200`
+2.  Thibitisha kuwa maandishi ndani ya kipengele cha `span#name` ni `'Cristoforo'`
+3.  Thibitisha kuwa maandishi ndani ya kipengele cha `span#surname` ni `'Colombo'`
+4.  Thibitisha kuwa kipengele (v) cha `span#dates` kipo na idadi yake ni `1`
+
+Usisahau kuondoa wito wa `assert.fail()`.
+
+# --hints--
+
+Majaribio yote yanapaswa kupita.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=5');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.state, 'passed');
+```
+
+Unapaswa kuthibitisha kuwa ombi la kivinjari kisicho na kichwa limefanikiwa.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=5');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[0].method, 'browser.success');
+```
+
+Unapaswa kuthibitisha kuwa maandishi ndani ya kipengele cha `span#name` ni `'Cristoforo'`.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=5');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[1].method, 'browser.text');
+assert.match(data.assertions[1].args[0], /('|")span#name\1/);
+assert.match(data.assertions[1].args[1], /('|")Cristoforo\1/);
+```
+
+Unapaswa kuthibitisha kuwa maandishi ndani ya kipengele cha `span#surname` ni `'Colombo'`.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=5');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[2].method, 'browser.text');
+assert.match(data.assertions[2].args[0], /('|")span#surname\1/);
+assert.match(data.assertions[2].args[1], /('|")Colombo\1/);
+```
+
+Unapaswa kuthibitisha kuwa kipengele cha `span#dates` kipo na idadi yake ni 1.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=5');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[3].method, 'browser.elements');
+assert.match(data.assertions[3].args[0], /('|")span#dates\1/);
+assert.equal(data.assertions[3].args[1], 1);
+```

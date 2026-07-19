@@ -1,0 +1,88 @@
+---
+id: 5900f3ce1000cf542c50fee0
+title: "'Zoezi la 97: namba msingi kubwa isiyo ya Mersenne'"
+challengeType: 1
+forumTopicId: 302214
+dashedName: problem-97-large-non-mersenne-prime
+---
+
+# --description--
+
+Namba msingi ya kwanza inayojulikana kupita herufi milioni moja iligunduliwa mwaka 1999, na ni namba msingi ya Mersenne ya aina $2^{6972593} − 1$; ina herufi 2,098,960 kwa usahihi. Baadaye namba nyingine za msingi za Mersenne, za aina $2^p − 1$, ziligunduliwa zenye herufi zaidi.
+
+Hata hivyo, mwaka 2004 iligunduliwa namba kubwa ya msingi isiyo ya Mersenne yenye herufi 2,357,207: $28433 × 2^{7830457} + 1$.
+
+Tafuta herufi kumi za mwisho za namba hiyo isiyo ya Mersenne katika muundo $multiplier × 2^{power} + 1$.
+
+# --hints--
+
+`largeNonMersennePrime(19, 6833086)` inapaswa kurudisha mfuatano wa herufi.
+
+```js
+assert(typeof largeNonMersennePrime(19, 6833086) === 'string');
+```
+
+`largeNonMersennePrime(19, 6833086)` inapaswa kurudisha mfuatano wa herufi `3637590017`.
+
+```js
+assert.strictEqual(largeNonMersennePrime(19, 6833086), '3637590017');
+```
+
+`largeNonMersennePrime(27, 7046834)` inapaswa kurudisha mfuatano wa herufi `0130771969`.
+
+```js
+assert.strictEqual(largeNonMersennePrime(27, 7046834), '0130771969');
+```
+
+`largeNonMersennePrime(6679881, 6679881)` inapaswa kurudisha mfuatano wa herufi `4455386113`.
+
+```js
+assert.strictEqual(largeNonMersennePrime(6679881, 6679881), '4455386113');
+```
+
+`largeNonMersennePrime(28433, 7830457)` inapaswa kurudisha mfuatano wa herufi `8739992577`.
+
+```js
+assert.strictEqual(largeNonMersennePrime(28433, 7830457), '8739992577');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function largeNonMersennePrime(multiplier, power) {
+
+  return true;
+}
+
+largeNonMersennePrime(19, 6833086);
+```
+
+# --solutions--
+
+```js
+function largeNonMersennePrime(multiplier, power) {
+  function modStepsResults(number, other, mod, startValue, step) {
+    let result = startValue;
+    for (let i = 0; i < other; i++) {
+      result = step(number, result) % mod;
+    }
+    return result;
+  }
+
+  const numOfDigits = 10;
+  const mod = 10 ** numOfDigits;
+  const digitsAfterPower = modStepsResults(2, power, mod, 1, (a, b) => a * b);
+  const digitsAfterMultiply = modStepsResults(
+    digitsAfterPower,
+    multiplier,
+    mod,
+    0,
+    (a, b) => a + b
+  );
+  const lastDigits = (digitsAfterMultiply + 1) % mod;
+
+  return lastDigits.toString().padStart(10, '0');
+}
+```

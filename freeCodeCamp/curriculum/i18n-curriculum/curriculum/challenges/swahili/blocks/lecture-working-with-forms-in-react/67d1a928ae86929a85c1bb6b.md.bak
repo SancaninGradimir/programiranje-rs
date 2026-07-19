@@ -1,0 +1,212 @@
+---
+id: 67d1a928ae86929a85c1bb6b
+title: Jinsi Fomu Zinavyofanya Kazi katika React?
+challengeType: 19
+dashedName: how-do-forms-work-in-react
+---
+
+# --description--
+
+Fomu ni msingi wa kila programu ya mtandao kwa sababu zinakuwezesha kushughulikia ingizo la mtumizi, kukusanya data, na kuanzisha vitendo.
+
+Katika React, fomu zinadhibitiwa kwa kutumia state au refs, zikikupa udhibiti kamili juu ya tabia na uthibitisho wake. Njia hizi mbili za kudhibiti fomu huitwa "controlled" na "uncontrolled" input.
+
+Tuchunguze ni nini maana ya controlled na uncontrolled inputs.
+
+Controlled input ni njia inayofanana zaidi na mtindo wa React ya kushughulikia sehemu za ingizo za fomu. Kwa controlled inputs, unahifadhi thamani ya sehemu ya ingizo katika state na kuiboresha kupitia matukio ya `onChange`. Hii inakupa udhibiti kamili wa data ya fomu na kuruhusu uthibitisho wa papo hapo na onyesho la masharti.
+
+Mchakato hufanya kazi hivi: React inasimamia state ya fomu kwa kutumia hook ya `useState`, na unaihifadhi kila mabadiliko. Mtumizi anapoiandika sehemu ya ingizo, tukio la `onChange` linaanzishwa, state inasasishwa, na React inaonyesha tena sehemu hiyo na thamani mpya.
+
+```jsx
+import { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(name);
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Your name</label> <br />
+        <input value={name} id="name" onChange={handleChange} type="text" />
+        <button type="submit">Submit</button>
+      </form> 
+    </>
+  );
+}
+
+export default App;
+```
+
+Faida za controlled inputs ni kama ifuatavyo:
+
+- Upatikanaji wa papo hapo wa data ya fomu.
+
+- Unaweza kutekeleza uthibitisho wa papo hapo.
+
+- Unaweza kuzima kitufe cha kuwasilisha kwa masharti.
+
+- Unaweza kudhibiti thamani ya ingizo kwa njia ya programu.
+
+Kwa upande mwingine, uncontrolled inputs huonekana zaidi katika fomu za jadi za HTML. Hivyo, badala ya kushughulikia ingizo kupitia hook ya `useState`, uncontrolled inputs katika HTML zinahifadhi state zao za ndani kwa msaada wa DOM.
+
+Kwa kuwa DOM inasimamia thamani za ingizo, unachohitaji ni kuvuta thamani za sehemu za ingizo kwa kutumia ref. Njia hii inahitaji msimbo mdogo na hufanya kazi vizuri zaidi kwa sababu refs hazisababisha React kuonyesha tena.
+
+Hapa kuna mfano wa uncontrolled inputs:
+
+```jsx
+import { useRef } from "react";
+
+function App() {
+  const nameRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(nameRef.current.value);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Your</label>{" "}
+      <input type="text" ref={nameRef} id="name" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default App;
+```
+
+Faida moja inayojulikana sana ya uncontrolled inputs ni kwamba zinahitaji msimbo mdogo. Pia hufanya kazi vizuri zaidi na zinahisi kuwa za asili kwa wanaoanza kutumia React ambao wanajua HTML.
+
+Basi, ni ipi unapaswa kutumia kati ya controlled na uncontrolled inputs?
+
+Tumia controlled inputs unapotaka masasisho ya fomu kwa wakati halisi, uthibitisho wa papo hapo, au unapotaka kusawazisha thamani za ingizo na state. Zinatoa udhibiti bora lakini zinahitaji kuonyesha tena mara nyingi zaidi.
+
+Tumia uncontrolled inputs unapotaka fomu rahisi zaidi, unapotaka kupata thamani tu wakati wa uwasilishaji, au unapotumia msimbo usio wa React.
+
+Bila kujali unatumia controlled au uncontrolled inputs, hapa kuna mbinu bora unazopaswa kuzingatia unapotengeneza fomu katika React:
+
+- Daima zuia uwasilishaji wa fomu kwa njia ya default.
+
+- Hakikisha unathibitisha ingizo kabla ya uwasilishaji.
+
+- Daima toa mrejesho wazi kwa watumizi kuhusu hali ya kupakia, makosa ya uthibitisho au hali nyingine zinazohusiana.
+
+# --questions--
+
+## --text--
+
+Unadhibitije thamani za sehemu ya ingizo katika controlled input?
+
+## --answers--
+
+Kwa kuhifadhi thamani katika state na kuiboresha kupitia matukio ya `onChange`.
+
+---
+
+Kwa kubadilisha moja kwa moja thamani ya ingizo katika DOM na kutumia JavaScript kupata thamani hizo.
+
+### --feedback--
+
+State inashikilia thamani, na mabadiliko husababisha masasisho.
+
+---
+
+Kwa kutumia refs kufuatilia mabadiliko na kuweka sifa ya ref kwa kila sehemu ya ingizo.
+
+### --feedback--
+
+State inashikilia thamani, na mabadiliko husababisha masasisho.
+
+---
+
+Kwa kuweka thamani ya ingizo kuwa `null` kwa mwanzo na kuandika kitendakazi cha kuzipata baadaye.
+
+### --feedback--
+
+State inashikilia thamani, na mabadiliko husababisha masasisho.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya hizi ni faida ya controlled inputs?
+
+## --answers--
+
+Huziboresha thamani za DOM moja kwa moja bila usimamizi wa state.
+
+### --feedback--
+
+Controlled inputs zinakupa udhibiti zaidi juu ya data na tabia ya fomu.
+
+---
+
+Zinaruhusu udhibiti zaidi juu ya data ya fomu.
+
+---
+
+Huzuia uthibitisho wa fomu.
+
+### --feedback--
+
+Controlled inputs zinakupa udhibiti zaidi juu ya data na tabia ya fomu.
+
+---
+
+Huzima mshughulikiaji wa tukio la `onChange`.
+
+### --feedback--
+
+Controlled inputs zinakupa udhibiti zaidi juu ya data na tabia ya fomu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Uncontrolled inputs hushughulikiaje data ya fomu katika React?
+
+## --answers--
+
+Zinahifadhi thamani ya ingizo katika state ya sehemu.
+
+### --feedback--
+
+Uncontrolled inputs hutegemea tabia ya default ya fomu ya kivinjari badala ya state ya React.
+
+---
+
+Zinatumia hook ya `useReducer` kwa usimamizi wa state.
+
+### --feedback--
+
+Uncontrolled inputs hutegemea tabia ya default ya fomu ya kivinjari badala ya state ya React.
+
+---
+
+React huboresha thamani ya ingizo kupitia matukio ya `onChange`.
+
+### --feedback--
+
+Uncontrolled inputs hutegemea tabia ya default ya fomu ya kivinjari badala ya state ya React.
+
+---
+
+DOM inasimamia data ya fomu ndani yake.
+
+## --video-solution--
+
+4

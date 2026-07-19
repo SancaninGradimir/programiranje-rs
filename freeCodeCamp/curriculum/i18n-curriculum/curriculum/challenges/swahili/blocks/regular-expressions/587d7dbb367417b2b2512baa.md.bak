@@ -1,0 +1,129 @@
+---
+id: 587d7dbb367417b2b2512baa
+title: Tumia tena mifumo ukitumia makundi ya kunasa
+challengeType: 1
+forumTopicId: 301364
+dashedName: reuse-patterns-using-capture-groups
+---
+
+# --description--
+
+Sema unataka kulinganisha neno linalojirudia mara kadhaa kama ilivyo hapa chini.
+
+```js
+let repeatStr = "row row row your boat";
+```
+
+Unaweza kutumia `/row row row/`, lakini vipi kama hujui neno maalum linalojirudia? <dfn>Makundi ya kunasa</dfn> yanaweza kutumika kupata sehemu za mfuatano wa herufi zinazojirudia.
+
+Makundi ya kunasa huundwa kwa kuweka muundo wa usemi wa kawaida unaotakiwa kunaswa ndani ya mabano ya kawaida. Katika kesi hii, lengo ni kunasa neno linalojumuisha herufi na nambari, hivyo kundi la kunasa litakuwa `\w+` lililozungushwa na mabano ya kawaida: `/(\w+)/`.
+
+Sehemu ya mfuatano wa herufi inayolingana na kundi hilo huhifadhiwa katika "kigezo" cha muda, ambacho kinaweza kufikiliwa ndani ya usemi wa kawaida uleule kwa kutumia mkwaju wa nyuma na nambari ya kundi la kunasa (mfano `\1`). Makundi ya kunasa hupangiwa nambari moja kwa moja kulingana na nafasi ya mabano yao ya kufungua (kutoka kushoto kwenda kulia), kuanzia nambari 1.
+
+Mfano hapa chini unalinganisha neno linalojirudia mara tatu likitenganishwa na nafasi:
+
+```js
+let repeatRegex = /(\w+) \1 \1/;
+repeatRegex.test(repeatStr); // Returns true
+repeatStr.match(repeatRegex); // Returns ["row row row", "row"]
+```
+
+Kutumia njia ya `.match()` kwenye mfuatano wa herufi kutarudisha safu ya data yenye sehemu iliyolingana pamoja na makundi yake ya kunasa.
+
+
+# --instructions--
+
+Tumia makundi ya kunasa katika `reRegex` kulinganisha mfuatano wa herufi unaojumuisha nambari ile ile inayojirudia mara tatu kabisa ikitenganishwa na nafasi moja.
+
+# --hints--
+
+Usemi wako wa kawaida unapaswa kutumia darasa la herufi fupi kwa nambari.
+
+```js
+assert(reRegex.source.match(/\\d/));
+```
+
+Usemi wako wa kawaida unapaswa kutumia kundi la kunasa mara mbili tena.
+
+```js
+assert(reRegex.source.match(/\\1|\\2/g).length >= 2);
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano wa herufi `42 42 42`.
+
+```js
+reRegex.lastIndex = 0;
+assert(reRegex.test('42 42 42'));
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano wa herufi `100 100 100`.
+
+```js
+reRegex.lastIndex = 0;
+assert(reRegex.test('100 100 100'));
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `42 42 42 42`.
+
+```js
+assert.equal('42 42 42 42'.match(reRegex.source), null);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `42 42`.
+
+```js
+assert.equal('42 42'.match(reRegex.source), null);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `101 102 103`.
+
+```js
+reRegex.lastIndex = 0;
+assert(!reRegex.test('101 102 103'));
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `1 2 3`.
+
+```js
+reRegex.lastIndex = 0;
+assert(!reRegex.test('1 2 3'));
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano wa herufi `10 10 10`.
+
+```js
+reRegex.lastIndex = 0;
+assert(reRegex.test('10 10 10'));
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `42\t42\t42`.
+
+```js
+reRegex.lastIndex = 0;
+assert(!reRegex.test('42\t42\t42'));
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano wa herufi `42  42  42`.
+
+```js
+reRegex.lastIndex = 0;
+assert(!reRegex.test('42  42  42'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let repeatNum = "42 42 42";
+let reRegex = /change/; // Change this line
+let result = reRegex.test(repeatNum);
+```
+
+# --solutions--
+
+```js
+let repeatNum = "42 42 42";
+let reRegex = /^(\d+) \1 \1$/;
+let result = reRegex.test(repeatNum);
+```

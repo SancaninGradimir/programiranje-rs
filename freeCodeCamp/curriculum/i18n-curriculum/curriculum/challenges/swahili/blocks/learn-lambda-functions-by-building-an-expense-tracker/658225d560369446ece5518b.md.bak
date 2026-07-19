@@ -1,0 +1,41 @@
+---
+id: 658225d560369446ece5518b
+title: Hatua 13
+challengeType: 20
+dashedName: step-13
+---
+
+# --description--
+
+Ongeza jozi nyingine ya ufunguo-thamani kwenye kamusi unayoiongeza kwenye orodha ya `expense`. Tumia mfuatano wa herufi `'category'` kama ufunguo, na kigezo `category` kama thamani.
+
+# --hints--
+
+Unapaswa kuongeza jozi ya pili ya ufunguo-thamani kwenye kamusi unayoipitisha kama hoja kwa njia ya `.append()`.
+
+```js
+({ test: () => assert(runPython(`
+import ast
+node = _Node(_code).find_function("add_expense").find_calls("append")[0].find_call_args()
+len(node) == 1 and isinstance(node[0].tree, ast.Dict) and len(node[0].tree.keys) == 2
+`)) })
+```
+
+Unapaswa kupitisha `{'amount': amount, 'category': category}` kama hoja kwa njia ya `.append()`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("add_expense").has_stmt("expenses.append({'amount': amount, 'category': category})")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+def add_expense(expenses, amount, category):
+    expenses.append({'amount': amount})
+--fcc-editable-region--
+
+expenses = []
+```

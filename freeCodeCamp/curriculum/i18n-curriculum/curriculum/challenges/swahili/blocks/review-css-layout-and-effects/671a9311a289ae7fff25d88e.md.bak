@@ -1,0 +1,255 @@
+---
+id: 671a9311a289ae7fff25d88e
+title: Ukaguzi wa mpangilio na athari za CSS
+challengeType: 31
+dashedName: review-css-layout-and-effects
+---
+
+# --interactive--
+
+## Sifa ya kuzidi (overflow) ya CSS
+
+- **Maana**: Kuzidi kunahusu jinsi vipengele vinavyoshughulikia maudhui yanayozidi, au "kuzidi", ukubwa wa kipengele kinachokifunga. Kuzidi ni katika mwelekeo wa pande mbili.
+- **`overflow-x`**: Mhimili wa x unaamua kuzidi kwa usawa.
+- **`overflow-y`**: mhimili wa y unaamua kuzidi kwa wima.
+- **`overflow`**: Sifa ya ufupisho kwa `overflow-x` na `overflow-y`. Ikipewa thamani moja, kuzidi zote mbili zitaitumia. Ikipewa thamani mbili, `overflow-x` itatumia ya kwanza, na `overflow-y` itatumia ya pili.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="overflow-box">
+  This is very long content that will overflow horizontally and vertically.
+  <br />
+  This is very long content that will overflow horizontally and vertically.
+  <br />
+  This is very long content that will overflow horizontally and vertically.
+  <br />
+  This is very long content that will overflow horizontally and vertically.
+  <br />
+  This is very long content that will overflow horizontally and vertically.
+  <br />
+  This is very long content that will overflow horizontally and vertically.
+</div>
+```
+
+```css
+.overflow-box {
+  width: 140px;
+  height: 70px;
+  border: 2px solid black;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space:nowrap;
+}
+```
+
+:::
+
+## Sifa ya mabadiliko (transform) ya CSS
+
+- **Maana**: Sifa hii inakuwezesha kutumia mabadiliko mbalimbali kwa vipengele, kama vile kuzungusha, kubadilisha ukubwa, kupinda, au kusogeza (kutafsiri) katika nafasi ya 2D au 3D.
+- **Kitendakazi cha `translate()`**: Kitendakazi hiki hutumika kusogeza kipengele kutoka mahali pake pa sasa.
+- **Kitendakazi cha `scale()`**: Kitendakazi hiki hukuruhusu kubadilisha ukubwa wa kipengele.
+- **Kitendakazi cha `rotate()`**: Kitendakazi hiki hukuruhusu kuzungusha kipengele.
+- **Kitendakazi cha `skew()`**: Kitendakazi hiki hukuruhusu kupinda kipengele.
+- **Mabadiliko na ufikikaji**: Ikiwa unatumia transform kuficha au kufichua maudhui, hakikisha maudhui bado yanapatikana kwa wasomaji wa skrini na urambazaji wa kibodi. Maudhui yaliyofichwa yanapaswa kufichwa kabisa, kama vile kwa kutumia `display: none` au `visibility: hidden`, badala ya kusogezwa tu nje ya skrini kwa mtazamo.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="container">
+  <div class="transform-box translate">Translate</div>
+  <div class="transform-box scale">Scale</div>
+  <div class="transform-box rotate">Rotate</div>
+  <div class="transform-box skew">Skew</div>
+</div>
+```
+
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.transform-box {
+  width: 100px;
+  height: 100px;
+  background: coral;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* translate() */
+.translate {
+  transform: translateX(20px);
+}
+
+/* scale() */
+.scale {
+  transform: scale(1.2);
+}
+
+/* rotate() */
+.rotate {
+  transform: rotate(15deg);
+}
+
+/* skew() */
+.skew {
+  transform: skew(10deg, 5deg);
+}
+```
+
+:::
+
+
+## Mfano wa sanduku (box model)
+
+- **Maana**: Katika mfano wa sanduku wa CSS, kila kipengele kimezungukwa na sanduku. Sanduku hili lina sehemu nne: eneo la maudhui, `padding`, `border`, `margin`.
+- **Eneo la maudhui**: Eneo la maudhui ni sehemu ya ndani kabisa ya sanduku. Ni nafasi inayoshikilia maudhui halisi ya kipengele, kama maandishi au picha.
+- **`padding`**: Nafasi ya ndani ni eneo linalofuata mara moja baada ya eneo la maudhui. Ni nafasi kati ya eneo la maudhui na mpaka wa kipengele.
+- **`border`**: Mpaka ni kingo ya nje au mstari wa kipengele katika mfano wa sanduku wa CSS. Ni mpaka wa kuona wa kipengele.
+- **`margin`**: Ukingo ni nafasi nje ya mpaka wa kipengele. Huu ndio unaamua umbali kati ya kipengele na vipengele vingine vinavyouzunguka.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="box-model">Content</div>
+```
+
+```css
+.box-model {
+  width: 120px;
+  background: lightblue;
+  padding: 16px;
+  border: 4px solid teal;
+  margin: 20px;
+  text-align: center;
+}
+```
+
+:::
+
+## Kuanguka kwa ukingo (margin collapse)
+
+- **Maana**: Tabia hii hutokea wakati vikingo vya wima vya vipengele vinavyopakana vinaposhirikiana, na kusababisha ukingo mmoja sawa na mkubwa kati ya viwili. Tabia hii inahusu vikingo vya wima tu (juu na chini), si vya usawa (kushoto na kulia).
+
+## Thamani za sifa za `content-box` na `border-box`
+
+- **Sifa ya `box-sizing`**: Sifa hii hutumika kuamua jinsi `width` na `height` za mwisho zinavyohesabiwa kwa kipengele cha HTML.
+- **Thamani ya `content-box`**: Katika mfano wa `content-box`, `width` na `height` unazoweka kwa kipengele huamua vipimo vya eneo la maudhui lakini hazijumuishi `padding`, `border`, au `margin`.
+- **Thamani ya `border-box`**: Kwa `border-box`, `width` na `height` za kipengele zinajumuisha eneo la maudhui, `padding`, na `border`, lakini hazijumuishi `margin`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="sizing-box content-box">Content-box</div>
+<div class="sizing-box border-box">Border-box</div>
+```
+
+```css
+.sizing-box {
+  width: 150px;
+  padding: 10px;
+  border: 4px solid teal;
+  margin-bottom: 10px;
+  background: peachpuff;
+  text-align: center;
+}
+
+.content-box {
+  box-sizing: content-box;  
+}
+
+.border-box {
+  box-sizing: border-box;
+  background: lightgreen;
+}
+```
+
+:::
+
+## Urejeshaji wa CSS (CSS reset)
+
+- **Maana**: Urejeshaji wa CSS ni karatasi ya mtindo inayotolewa ili kuondoa muundo wowote au baadhi ya muundo wa msingi ambao vivinjari vya mtandao huweka kwa vipengele vya HTML. Chaguzi za mtu wa tatu kwa urejeshaji wa CSS ni pamoja na `sanitize.css` na `normalize.css`.
+
+## Sifa ya kichujio (filter) ya CSS
+
+- **Maana**: Sifa hii inaweza kutumika kuunda athari mbalimbali kama vile kufifisha, kubadilisha rangi, na marekebisho ya mng'ao.
+- **Kitendakazi cha `blur()`**: Kitendakazi hiki hufanya kipengele kififike kwa mtindo wa Gaussian blur. Kiasi huwekwa kwa pikseli na kinawakilisha mduara wa kufifisha.
+- **Kitendakazi cha `brightness()`**: Kitendakazi hiki hurekebisha mwangaza wa kipengele. Thamani ya 0% itafanya kipengele kuwa giza kabisa, wakati thamani zaidi ya 100% itaongeza mwangaza.
+- **Kitendakazi cha `contrast()`**: Kitendakazi hiki hurekebisha mng'ao wa kipengele. Thamani ya 0% itafanya kipengele kuwa kijivu kabisa, 100% kitafanya kipengele kuonekana kawaida, na thamani zaidi ya 100% itaongeza mng'ao.
+- **Kitendakazi cha `grayscale()`**: Kitendakazi hiki hubadilisha kipengele kuwa rangi za kijivu (grayscale). Kiasi huwekwa kwa asilimia, ambapo 100% ni rangi za kijivu kabisa na 0% hutoa picha isiyobadilika.
+- **Kitendakazi cha `sepia()`**: Kitendakazi hiki hutoa rangi ya sepia kwa kipengele. Kama grayscale, hutumia thamani ya asilimia.
+- **Kitendakazi cha `hue-rotate()`**: Kitendakazi hiki hutoa mzunguko wa rangi (hue rotation) kwa kipengele. Thamani huwekwa kwa digrii na inawakilisha mzunguko katika mduara wa rangi.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="container">
+  <img class="filter blur" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Blur" />
+  <img class="filter brightness" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Brightness" />
+  <img class="filter contrast" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Contrast" />
+  <img class="filter grayscale" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Grayscale" />
+  <img class="filter sepia" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Sepia" />
+  <img class="filter hue" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="Hue Rotate" />
+</div>
+```
+
+```css
+.container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter {
+  width: 120px;
+}
+
+/* blur() */
+.blur {
+  filter: blur(3px);
+}
+
+/* brightness() */
+.brightness {
+  filter: brightness(130%);
+}
+
+/* contrast() */
+.contrast {
+  filter: contrast(150%);
+}
+
+/* grayscale() */
+.grayscale {
+  filter: grayscale(100%);
+}
+
+/* sepia() */
+.sepia {
+  filter: sepia(100%);
+}
+
+/* hue-rotate() */
+.hue {
+  filter: hue-rotate(90deg);
+}
+```
+
+:::
+
+# --assignment--
+
+Kagua mada na dhana za mpangilio na athari za CSS.

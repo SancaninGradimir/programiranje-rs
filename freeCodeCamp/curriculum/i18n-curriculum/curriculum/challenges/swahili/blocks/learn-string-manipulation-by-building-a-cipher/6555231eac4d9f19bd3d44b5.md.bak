@@ -1,0 +1,80 @@
+---
+id: 6555231eac4d9f19bd3d44b5
+title: Hatua 83
+challengeType: 20
+dashedName: step-83
+---
+
+# --description--
+
+Neno kuu `pass` linaweza kutumika kama kiwakilishi kwa msimbo wa baadaye. Halina athari yoyote katika msimbo wako lakini linaweza kukuokoa kutokana na makosa unayopata pale msimbo haujakamilika:
+
+```py
+def foo():
+    pass
+```
+
+Kuitisha `vigenere` na `1` kwa ajili ya kusimba na `-1` kwa ajili ya kusimbua ni sawa lakini inaweza kuwa ngumu kidogo kuelewa. Tengeneza kitendakazi kipya kinachoitwa `encrypt` kinachopokea vigezo `message` na `key`, na tumia `pass` kujaza mwili wa kitendakazi hicho.
+
+
+# --hints--
+
+Unapaswa kutangaza kitendakazi kipya kinachoitwa `encrypt`. Kumbuka kutumia neno kuu `pass` ndani ya mwili wake.
+
+```js
+({ test: () => assert(runPython(`
+    import inspect
+    inspect.isfunction(encrypt)
+  `))
+})
+```
+
+Kitendakazi chako cha `encrypt` kinapaswa kupokea vigezo `message` na `key`. Mpangilio ni muhimu.
+
+```js
+({ test: () => assert(runPython(`
+    import inspect
+    sig = inspect.signature(encrypt)
+    str(sig) == "(message, key)"
+  `))
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+text = 'Hello Zaira!'
+custom_key = 'python'
+
+def vigenere(message, key, direction=1):
+    key_index = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final_message = ''
+
+    for char in message.lower():
+
+        # Append any non-letter character to the message
+        if not char.isalpha():
+            final_message += char
+        else:        
+            # Find the right key character to encode/decode
+            key_char = key[key_index % len(key)]
+            key_index += 1
+
+            # Define the offset and the encrypted/decrypted letter
+            offset = alphabet.index(key_char)
+            index = alphabet.find(char)
+            new_index = (index + offset*direction) % len(alphabet)
+            final_message += alphabet[new_index]
+    
+    return final_message
+--fcc-editable-region--
+
+encryption = vigenere(text, custom_key)
+print(encryption)
+decryption = vigenere(encryption, custom_key, -1)
+print(decryption)
+--fcc-editable-region--
+```

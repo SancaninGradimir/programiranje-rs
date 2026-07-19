@@ -1,0 +1,215 @@
+---
+id: 69a6f5e1264af50c407aecfe
+title: Jinsi ya kuunda programu ya msingi ya Express?
+challengeType: 19
+dashedName: how-do-you-create-a-basic-express-app
+---
+
+# --description--
+
+Katika funzo lililopita, uliunda folda ya mradi na kusakinisha Express:
+
+```bash
+mkdir my-app
+cd my-app
+npm init -y
+npm install express
+```
+
+Kama ukumbusho, amri hizi huunda folda mpya ya mradi, `cd` ndani ya folda ya mradi, huanzisha mradi na kuunda faili la msingi la `package.json`, na kusakinisha Express.
+
+Ifuatayo, fungua mhariri wa msimbo, unda faili liitwalo `index.js`, na andika seva yako ya kwanza ya Express:
+
+```javascript
+const express = require("express");
+const app = express();
+const port = 3000;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+```
+
+Unaweza kuendesha msimbo wako kwa amri ifuatayo kwenye terminali:
+
+```bash
+node index.js
+```
+
+Fungua kivinjari chako na uende [http://localhost:3000](http://localhost:3000) utaona ujumbe **"Hello World!"**
+
+Hivyo ndivyo haraka unavyoweza kuanza na Express! Sasa tuangalie msimbo hatua kwa hatua.
+
+Katika mstari wa kwanza wa msimbo, unapakia maktaba ya Express na kuwekea thamani kwenye kigezo kinachoitwa `express`:
+
+```javascript
+const express = require("express");
+```
+
+Kigezo `express` ni kitendakazi cha kiwanda. Unapokipiga wito, huunda na kurudisha mfano mpya wa programu ya Express:
+
+```javascript
+const app = express();
+```
+
+Sasa `app` ina upatikanaji wa njia zote zinazotolewa na Express, kama `.get()`, `.post()`, `.listen()`, na kadhalika. Hii ni kituo chako kikuu cha seva.
+
+Mstari unaofuata unaeleza kigezo `port`. Port ni kiishio cha mtandao ambacho programu yako husikiliza, na `3000` ni port inayotumika sana kwa ukuzaji wa ndani:
+
+```javascript
+const port = 3000;
+```
+
+Sasa, tuchunguze sehemu inayofuata hapa:
+
+```javascript
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+```
+
+Kipande hiki cha msimbo kinaeleza njia ya data na kuambia seva jinsi ya kujibu maombi. `app.get()` hujiandikisha mshughulikiaji kwa maombi ya HTTP GET. Ombi la GET ni njia ya kawaida ya HTTP kwa kupata data.
+
+Hoja ya `"/"` ndani ya `app.get()` inawakilisha njia ya data. Katika kesi hii, inaelekeza kwenye URL ya mzizi ya programu.
+
+Sehemu ya `(req, res) => { ... }` ni kitendakazi cha mwitiko kinachoendeshwa wakati ombi linapolingana na njia hii ya data. Kituo cha `req` kina taarifa kuhusu ombi linalokuja, na kituo cha `res` kinatumika kutuma jibu kurudi kwa mteja.
+
+Mwishowe, `res.send("Hello World!")` hutuma jibu kwa mteja. Katika mfano huu, jibu ni maandishi ya kawaida `"Hello World!"`.
+
+Sasa, tuchunguze kipande cha mwisho cha msimbo hapa:
+
+```javascript
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+```
+
+Njia ya `app.listen()` huanzisha programu ya Express na kuambia Node kusikiliza maombi ya HTTP yanayoingia kwenye port iliyotajwa, katika kesi hii, `3000`.
+
+Mara seva inaanza, kitendakazi cha mwitiko hufanyika na ujumbe `Example app listening on port 3000` unaandikwa kwenye konsoli, kuthibitisha kuwa programu ya Express imeanza kwa mafanikio na iko tayari kupokea maombi.
+
+# --questions--
+
+## --text--
+ 
+Njia hii ya Express hufanya nini?
+
+```javascript
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+```
+
+## --answers--
+
+Hufuta ukurasa wa nyumbani.
+
+### --feedback--
+
+Nini hutokea wakati mtumizi anapotembelea `/`?
+
+---
+
+Huinua hifadhidata mpya.
+
+### --feedback--
+
+Nini hutokea wakati mtumizi anapotembelea `/`?
+
+---
+
+Hutuma jibu kwa URL ya mzizi.
+
+---
+
+Huanza seva.
+
+### --feedback--
+
+Nini hutokea wakati mtumizi anapotembelea `/`?
+
+## --video-solution--
+
+3
+
+## --text--
+
+`app.listen()` hufanya nini?
+
+```javascript
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+```
+
+## --answers--
+
+Huisimamisha programu.
+
+### --feedback--
+
+Fikiria ni nini kinapaswa kutokea kabla hujaweza kutembelea [`http://localhost:3000`](http://localhost:3000) kwenye kivinjari.
+
+---
+
+Hutuma msimbo wa 404 kurudi kwa mteja.
+
+### --feedback--
+
+Fikiria ni nini kinapaswa kutokea kabla hujaweza kutembelea [`http://localhost:3000`](http://localhost:3000) kwenye kivinjari.
+
+---
+
+Hueleza port ya programu.
+
+### --feedback--
+
+Fikiria ni nini kinapaswa kutokea kabla hujaweza kutembelea [`http://localhost:3000`](http://localhost:3000) kwenye kivinjari.
+
+---
+
+Huanza seva na husikiliza maombi yanayoingia kwenye port.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni ipi kati ya hizi ni URL ya mzizi?
+
+## --answers--
+
+`http://localhost:3000/posts`
+
+### --feedback--
+
+Kumbuka kuwa URL ya mzizi haina sehemu yoyote ya ziada ya njia.
+
+---
+
+`http://localhost:3000/posts?id=34`
+
+### --feedback--
+
+Kumbuka kuwa URL ya mzizi haina sehemu yoyote ya ziada ya njia.
+
+---
+
+`http://localhost:3000`
+
+---
+
+`http://localhost:3000/posts+comments`
+
+### --feedback--
+
+Kumbuka kuwa URL ya mzizi haina sehemu yoyote ya ziada ya njia.
+
+## --video-solution--
+
+3

@@ -1,0 +1,106 @@
+---
+id: 594810f028c0303b75339ad4
+title: Kufunga maneno
+challengeType: 1
+forumTopicId: 302344
+dashedName: word-wrap
+---
+
+# --description--
+
+Hata leo, kwa fonti za uwiano na mipangilio tata, bado kuna matukio ambapo unahitaji kufunga maandishi katika safu maalum. Zoezi la msingi ni kufunga aya ya maandishi kwa njia rahisi.
+
+# --instructions--
+
+Andika kitendakazi kinachoweza kufunga maandishi haya kwa idadi yoyote ya herufi. Kumbuka kuwa maandishi ya ingizo tayari yana mapumziko ya mistari, ambayo kitendakazi chako kinapaswa kushughulikia ipasavyo. Kwa mfano, maandishi yaliyofungwa kwa herufi 80 yanapaswa kuonekana kama yafuatayo:
+
+<pre>
+Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX
+algorithm. If your language provides this, you get easy extra credit, but you
+must reference documentation indicating that the algorithm is something better
+than a simple minimum length algorithm.
+</pre>
+
+# --before-each--
+
+```js
+const text =
+`Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX algorithm.
+If your language provides this, you get easy extra credit,
+but you ''must reference documentation'' indicating that the algorithm
+is something better than a simple minimum length algorithm.`;
+
+const wrapped80 = wrap(text, 80);
+const wrapped42 = wrap(text, 42);
+
+const firstRow80 =
+    'Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX';
+
+const firstRow42 = 'Wrap text using a more sophisticated';
+```
+
+# --hints--
+
+`wrap` inapaswa kuwa kitendakazi.
+
+```js
+assert.equal(typeof wrap, 'function');
+```
+
+`wrap` inapaswa kurudisha mfuatano wa herufi.
+
+```js
+assert.equal(typeof wrap('abc', 10), 'string');
+```
+
+`wrap(text,80)` inapaswa kurudisha mistari 4.
+
+```js
+assert(wrapped80.split('\n').length === 4);
+```
+
+Kitendakazi chako cha `wrap` kinapaswa kurudisha maandishi yanayotarajiwa.
+
+```js
+assert.equal(wrapped80.split('\n')[0], firstRow80);
+```
+
+`wrap(text,42)` inapaswa kurudisha mistari 7.
+
+```js
+assert(wrapped42.split('\n').length === 7);
+```
+
+Kitendakazi chako cha `wrap` kinapaswa kurudisha maandishi yanayotarajiwa.
+
+```js
+assert.equal(wrapped42.split('\n')[0], firstRow42);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function wrap(text, limit) {
+  return text;
+}
+```
+
+# --solutions--
+
+```js
+function wrap(text, limit) {
+  const noNewlines = text.replace('\n', '');
+  if (noNewlines.length > limit) {
+    // find the last space within limit
+    const edge = noNewlines.slice(0, limit).lastIndexOf(' ');
+    if (edge > 0) {
+      const line = noNewlines.slice(0, edge);
+      const remainder = noNewlines.slice(edge + 1);
+      return line + '\n' + wrap(remainder, limit);
+    }
+  }
+  return text;
+}
+```

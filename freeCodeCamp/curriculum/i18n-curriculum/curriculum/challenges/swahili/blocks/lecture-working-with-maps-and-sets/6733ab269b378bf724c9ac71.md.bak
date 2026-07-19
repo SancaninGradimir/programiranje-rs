@@ -1,0 +1,383 @@
+---
+id: 6733ab269b378bf724c9ac71
+title: "Sets ni nini katika JavaScript, na Zinatofautianaje na WeakSets?"
+challengeType: 19
+dashedName: what-are-sets-in-javascript-and-how-does-it-differ-from-weaksets
+---
+
+# --description--
+
+Katika JavaScript, `Set` ni kitu kilicho jengwa ndani kwa ajili ya kusimamia makusanyo ya data. Inakuwezesha kuhifadhi thamani za kipekee za aina yoyote, iwe ni za msingi au rejea za vitu. `Set` huhakikisha kuwa kila thamani ndani yake inaonekana mara moja tu, na kufanya iwe muhimu kwa kuondoa rudufu kutoka kwenye safu ya data au kushughulikia makusanyo ya thamani tofauti.
+
+Kuhusu `WeakSet`, ni aina maalum ya `Set` yenye vipengele vichache ambayo inakuwezesha kuhifadhi rejea dhaifu za vitu na alama. Tofauti na `Set`, `WeakSet` haitegemezi vitu vya msingi kama nambari au mfuatano wa herufi.
+
+Tofauti na `Set` ya kawaida, `WeakSet` huhifadhi vitu tu, na rejea kwa vitu hivyo ni "dhaifu" ikimaanisha WeakSets hazizuzi vitu vilivyohifadhiwa kuondolewa na mfumo wa kusafisha kumbukumbu ikiwa hakuna rejea nyingine kwao. Kwa maneno rahisi, ikiwa kitu hakitumiki mahali pengine katika msimbo wako, hutolewa moja kwa moja ili kuachilia kumbukumbu.
+
+Ili kuunda `Set`, unatumia kijenzi cha `Set` na kuwekea kwenye kigezo:
+
+```js
+const myFirstSet = new Set();
+```
+
+Unaweza pia kuanzisha `Set` na thamani:
+
+```js
+const treeSet = new Set(["Baobab", "Jackalberry", "Mopane Tree", "Breadfruit"]);
+```
+
+Ukichapisha `Set` kwenye konsoli, matokeo yanaonekana kama haya:
+
+```js
+/*
+Set(4) {"Baobab", "Jackalberry", "Mopane Tree", "Breadfruit"}
+  [[Entries]]
+  0: "Baobab"
+    value: "Baobab"
+  1: "Jackalberry"
+    value: "Jackalberry"
+  2: "Mopane Tree"
+    value: "Mopane Tree"
+  3: "Breadfruit"
+    value: "Breadfruit"
+  size: 4
+  [[Prototype]]: Set
+*/
+```
+
+Kama hukuanza `Set` na thamani, unaweza kutumia njia ya `add()` kuongeza kipengee kwenye `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+```
+
+Matokeo na muonekano wake kwenye konsoli hubaki kama ilivyo.
+
+Usisahau kuwa vitu rudufu zitasahaulika katika `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+treeSet.add("Baobab"); //duplicate item will be ignored
+
+console.log(treeSet);
+// Set(4) {"Baobab", "Jackalberry", "Mopane Tree", "Breadfruit"}
+```
+
+Njia nyingine unazoweza kutumia kudhibiti `Set` ni:
+
+- `delete()`  
+- `clear()`
+- `has()`
+- `entries()`
+- `forEach()`
+- `keys()`
+- `values()`
+
+Tuchunguze jinsi njia hizi zinavyofanya kazi moja moja. `delete()` huondoa kipengee kilichobainishwa kutoka `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+console.log(treeSet); // Set(3) {"Baobab", "Jackalberry", "Mopane Tree"}
+```
+
+`has()` huangalia kama thamani fulani ipo ndani ya `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+console.log(treeSet.has("Breadfruit")); // false
+```
+
+`entries()` hurudisha kizunguzungu cha `Set` chenye safu ya thamani katika muundo wa `[value, value]`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+console.log(treeSet.entries());
+// SetIterator {"Baobab" => "Baobab", "Jackalberry" => "Jackalberry", "Mopane Tree" => "Mopane Tree"}
+```
+
+`keys()` na `values()` huonyesha thamani katika `Set`. `keys()` ni jina mbadala tu la njia ya `values()`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+console.log("Keys: ", treeSet.keys());
+console.log("Values: ", treeSet.values());
+// Keys: SetIterator {"Baobab", "Jackalberry", "Mopane Tree"}
+// Values: SetIterator {"Baobab", "Jackalberry", "Mopane Tree"}
+```
+
+`forEach()` inakuwezesha kurudia kupitia `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+treeSet.forEach((tree) => console.log(tree));
+/*
+Baobab
+Jackalberry
+Mopane Tree
+*/
+```
+
+`clear()` huondoa vitu vyote vya safu:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+treeSet.clear();
+
+console.log(treeSet); // Set(0) {size: 0}
+```
+
+Pia ni muhimu kutaja kuwa kuna sifa ya `size` inayorudisha idadi ya vitu katika `Set`:
+
+```js
+const treeSet = new Set();
+
+// Add items to the treeSet
+treeSet.add("Baobab");
+treeSet.add("Jackalberry");
+treeSet.add("Mopane Tree");
+treeSet.add("Breadfruit");
+
+treeSet.delete("Breadfruit");
+
+console.log(treeSet.size); // 3
+```
+
+Kama `Set`, pia kuna kijenzi cha `WeakSet` unachoweza kutumia kuunda `WeakSet`:
+
+```javascript
+const treeWeakSet = new WeakSet();
+```
+
+`WeakSet` pia ina njia za `add()`, `delete()`, na `has()`:
+
+```javascript
+const treeWeakSet = new WeakSet();
+
+const baobab = { name: "Baobab" };
+const jackalberry = { name: "Jackalberry" };
+const mopaneTree = { name: "Mopane Tree" };
+const breadfruit = { name: "Breadfruit" };
+
+treeWeakSet.add(baobab);
+treeWeakSet.add(jackalberry);
+treeWeakSet.add(mopaneTree);
+treeWeakSet.add(breadfruit);
+
+treeWeakSet.delete(jackalberry);
+console.log(treeWeakSet.has(jackalberry)); // false
+
+console.log(treeWeakSet);
+```
+
+Katika matokeo, maudhui ya `WeakSet` yanaonekana kama haya:
+
+```javascript
+/*
+WeakSet {{…}, {…}, {…}}
+  [[Entries]]
+    0: value: {name: "Mopane Tree"}
+    1: value: {name: "Baobab"}
+    2: value: {name: "Breadfruit"}
+  [[Prototype]]: WeakSet
+*/
+```
+
+Maudhui yanaonekana hapa kwa sababu vigezo vya vitu bado vina rejea imara, vinavyoweka vitu hivyo katika kumbukumbu. Kumbuka kuwa WeakSets hazirudiwa, hivyo hakuna njia ya kurudia maingizo yao au kuyapata kwa njia ya programu. Unachoona kwenye matokeo ni msaada tu wa kurekebisha makosa.
+
+Usisahau kuwa ni alama na vitu vyenye funguo na thamani zilizo wazi tu vinavyotegemewa. Kuongeza kitu cha msingi, kama nambari au mfuatano wa herufi, kutasababisha hitilafu:
+
+```js
+treeWeakSet.add("Alan Smith");
+
+console.log(treeWeakSet); // Invalid value used in weak set
+//    at WeakSet.add (<anonymous>)
+```
+
+Tofauti kuu kati ya `Set` na `WeakSet` ni kwamba `Set` huhifadhi aina yoyote ya thamani, wakati `WeakSet` huhifadhi vitu tu.
+
+Hapa kuna tofauti nyingine zinazoonekana kati ya `Set` na `WeakSet`:
+
+| Kipengele | Set | WeakSet |
+| --- | --- | --- |
+| Aina ya Thamani Zinazohifadhiwa | Huhifadhi aina yoyote ya data | Huhifadhi vitu tu |
+| Rejea | Rejea imara | Rejea dhaifu |
+| Kurudia | Inasaidia kurudia kwa `forEach` na mizunguko | Haisiungi mkono kurudia |
+| Njia na Sifa | `add()`, `delete()`, `has()`, `keys()`, `values()`, `size`, na zaidi | `add()`, `delete()`, na `has()` tu |
+| Matumizi | Makusanyo ya jumla ya thamani za kipekee na kuondoa rudufu kutoka safu | Ufuatiliaji wa kumbukumbu kwa rejea za vitu kwa ufanisi |
+
+Unaweza kuona tofauti katika aina za thamani ambazo aina hizi mbili za sets zinaweza kuhifadhi, msaada wao wa kurudia vitu vilivyohifadhiwa na matumizi yao bora. Tafadhali chukua muda kusoma maudhui ya jedwali hili.
+
+# --questions--
+
+## --text--
+
+Tofauti gani kati ya `Set` na `WeakSet` linapokuja suala la data wanazounga mkono zote mbili?
+
+## --answers--
+
+`Set` inaruhusu rejea dhaifu za vitu, wakati `WeakSet` inaunga mkono vitu na vitu vya msingi.
+
+### --feedback--
+
+Kumbuka kuwa `Set` inaweza kuhifadhi aina mbalimbali za data.
+
+---
+
+`Set` huhifadhi aina yoyote, ikiwa ni pamoja na vitu vya msingi, wakati `WeakSet` inaruhusu rejea dhaifu za vitu pekee.
+
+---
+
+`Set` ina vipengele vichache zaidi kuliko `WeakSet`.
+
+### --feedback--
+
+Kumbuka kuwa `Set` inaweza kuhifadhi aina mbalimbali za data.
+
+---
+
+`Set` ni kwa ajili ya vitu pekee, wakati `WeakSet` ni kwa ajili ya nambari.
+
+### --feedback--
+
+Kumbuka kuwa `Set` inaweza kuhifadhi aina mbalimbali za data.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unaunda vipi `Set` au `WeakSet` katika JavaScript?
+
+## --answers--
+
+Kwa kuita `Set()` au `WeakSet()` bila neno la `new`
+
+### --feedback--
+
+Fikiria ni neno gani la msingi linahitajika kuundwa `Set` au `WeakSet`.
+
+---
+
+Kwa kutumia literals za vitu `{}`
+
+### --feedback--
+
+Fikiria ni neno gani la msingi linahitajika kuundwa `Set` au `WeakSet`.
+
+---
+
+Kwa kutumia literals za safu `[]`
+
+### --feedback--
+
+Fikiria ni neno gani la msingi linahitajika kuundwa `Set` au `WeakSet`.
+
+---
+
+Kwa kutumia kijenzi cha `Set` au `WeakSet` na neno la `new`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni njia gani zinapatikana kwa `Set` na `WeakSet` zote mbili katika JavaScript?
+
+## --answers--
+
+`keys()`, `values()`, `size()`
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo hili lilijadiliwa.
+
+---
+
+`add()`, `delete()`, `has()`
+
+---
+
+`clear()`, `entries()`, `forEach()`
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo hili lilijadiliwa.
+
+---
+
+`set()`, `get()`, `remove()`
+
+### --feedback--
+
+Kagua mwisho wa funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+2

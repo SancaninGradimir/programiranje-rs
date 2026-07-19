@@ -1,0 +1,48 @@
+---
+id: 587d8247367417b2b2512c38
+title: Punguza hatari ya clickjacking kwa helmet.frameguard()
+challengeType: 2
+forumTopicId: 301582
+dashedName: mitigate-the-risk-of-clickjacking-with-helmet-frameguard
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-infosec/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Ukurasa wako unaweza kuwekwa katika `<frame>` au `<iframe>` bila idhini yako. Hii inaweza kusababisha mashambulizi ya clickjacking, pamoja na mambo mengine. Clickjacking ni mbinu ya kumdanganya mtumizi kuingiliana na ukurasa tofauti na anavyodhani. Hii inaweza kufanikishwa kwa kuendesha ukurasa wako katika muktadha hatari, kwa njia ya iframing. Katika muktadha huo, mdukuzi anaweza kuweka tabaka lililofichwa juu ya ukurasa wako. Vitufe vilivyo fichwa vinaweza kutumika kuendesha misimbo mibaya. Programu hii ya kati inaweka kichwa cha X-Frame-Options. Inazuia nani anaweza kuweka tovuti yako katika fremu. Ina hali tatu: DENY, SAMEORIGIN, na ALLOW-FROM.
+
+Hatuhitaji app yetu kuwekwa katika fremu.
+
+# --instructions--
+
+Tumia `helmet.frameguard()` ukipitisha na kitu cha usanidi `{action: 'deny'}`.
+
+# --hints--
+
+programu ya kati helmet.frameguard() inapaswa kuwekwa ipasavyo
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.include(
+  data.appStack,
+  'frameguard',
+  'helmet.frameguard() middleware is not mounted correctly'
+);
+```
+
+helmet.frameguard() 'action' inapaswa kuwekwa kuwa 'DENY'
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.property(data.headers, 'x-frame-options');
+assert.equal(data.headers['x-frame-options'], 'DENY');
+```

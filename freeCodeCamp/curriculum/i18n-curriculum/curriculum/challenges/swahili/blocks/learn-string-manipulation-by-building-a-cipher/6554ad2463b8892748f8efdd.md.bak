@@ -1,0 +1,82 @@
+---
+id: 6554ad2463b8892748f8efdd
+title: Hatua 67
+challengeType: 20
+dashedName: step-67
+---
+
+# --description--
+
+Kwa sasa, kitendakazi chako kinachapisha baadhi ya mfuatano wa herufi, lakini thamani hizi haziwezi kutumika na sehemu nyingine za msimbo kufanya vitendo vyovyote.
+
+Kwa madhumuni hayo, unahitaji kutumia tamko la `return`:
+
+```python
+def foo():
+    return 'spam'
+```
+
+Unahitaji kuandika `return` ikifuatiwa na nafasi na thamani ambayo kitendakazi kinapaswa kurudisha. Mara tamko la `return` linapopatikana, thamani hiyo hurudishwa na utekelezaji wa kitendakazi unasimama, ukifuata mstari unaofuata wa msimbo baada ya wito wa kitendakazi. Katika mfano ulio juu, kitendakazi cha `foo` hurudisha mfuatano wa herufi `'spam'`.
+
+Ondoa wito mbili za `print()` kutoka kwa kitendakazi chako na rudisha `encrypted_text`.
+
+# --hints--
+
+Unapaswa kuondoa wito mbili za `print()` kutoka kwa kitendakazi chako.
+
+```js
+({ 
+  test: () => {
+    const commentless_code = __helpers.python.removeComments(code);
+    assert.isFalse(/print\s*\(\s*("|')plain\stext:\1\s*,\s*message\s*\)/.test(commentless_code))
+    assert.isFalse(/print\s*\(\s*("|')encrypted\stext:\1\s*,\s*encrypted_text\s*\)/.test(commentless_code))
+  }
+})
+```
+
+Kitendakazi chako kinapaswa kurudisha `encrypted_text`.
+
+```js
+({ test: () => {
+    const commentless_code = __helpers.python.removeComments(code);
+    const {function_body} = __helpers.python.getDef(commentless_code, "vigenere");
+    const {block_body} = __helpers.python.getBlock(commentless_code, /for\s+char\s+in\s+message\.lower\s*\(\s*\)\s*/);
+    const regex = /return\s+encrypted_text/
+    assert(function_body.match(regex));
+    assert.notMatch(block_body, regex);
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+text = 'Hello Zaira'
+custom_key = 'python'
+
+def vigenere(message, key):
+    key_index = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_text = ''
+
+    for char in message.lower():
+    
+        # Append space to the message
+        if char == ' ':
+            encrypted_text += char
+        else:        
+            # Find the right key character to encode
+            key_char = key[key_index % len(key)]
+            key_index += 1
+--fcc-editable-region--
+            # Define the offset and the encrypted letter
+            offset = alphabet.index(key_char)
+            index = alphabet.find(char)
+            new_index = (index + offset) % len(alphabet)
+            encrypted_text += alphabet[new_index]
+    print('plain text:', message)
+    print('encrypted text:', encrypted_text)
+--fcc-editable-region--
+```

@@ -1,0 +1,191 @@
+---
+id: 673284e7244c0c1a649121b9
+title: "Ni nini wigo katika programu, na wigo wa kimataifa, wa ndani, na wa block hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-scope-in-programming-and-how-does-global-local-and-block-scope-work
+---
+
+# --interactive--
+
+Wigo katika programu unahusu uonekano na upatikanaji wa vigezo katika sehemu tofauti za msimbo wako. Huu ni uamuzi wa mahali ambapo vigezo vinaweza kufikiliwa au kubadilishwa. Katika JavaScript, kuelewa wigo ni muhimu kwa kuandika msimbo safi, wenye ufanisi, na usio na hitilafu. Kuna aina tatu kuu za wigo: wigo wa kimataifa, wigo wa ndani, na wigo wa block.
+
+Wigo wa kimataifa ni wigo wa nje kabisa katika programu ya JavaScript. Vigezo vilivyotangazwa katika wigo wa kimataifa vinaweza kufikiliwa kutoka sehemu yoyote ya msimbo wako, ikiwa ni pamoja na ndani ya vitendakazi na mabano. Vigezo hivi mara nyingi huitwa vigezo vya kimataifa. Ingawa vigezo vya kimataifa vinaweza kuwa rahisi kutumia, vinapaswa kutumika kwa kiasi kidogo kwa sababu vinaweza kusababisha migongano ya majina na kufanya msimbo wako kuwa mgumu kudumisha. Hapa kuna mfano wa kigezo cha kimataifa:
+
+:::interactive_editor
+
+```js
+let globalVar = "I'm a global variable";
+
+function printGlobalVar() {
+    console.log(globalVar);
+}
+
+printGlobalVar(); // "I'm a global variable"
+```
+
+:::
+
+Katika mfano huu, `globalVar` imetangazwa katika wigo wa kimataifa na inaweza kufikiliwa ndani ya kitendakazi cha `printGlobalVar`.
+
+Wigo wa ndani, kwa upande mwingine, unahusu vigezo vinavyopatikana tu ndani ya kitendakazi. Hapa kuna mfano wa wigo wa ndani:
+
+:::interactive_editor
+
+```js
+function greet() {
+    let message = "Hello, local scope!";
+    console.log(message);
+}
+
+greet(); // "Hello, local scope!"
+// console.log(message); // This will throw an error
+```
+
+:::
+
+Katika msimbo huu, `message` ni kigezo cha ndani ndani ya kitendakazi cha `greet`. Kinaweza kutumika ndani ya kitendakazi, lakini kujaribu kukifikilia nje ya kitendakazi kutaelekea hitilafu.
+
+Wigo wa block ni dhana iliyotangazwa kwa maneno muhimu ya `let` na `const` katika ES6. Block ni sehemu yoyote ya msimbo ndani ya mabano ya mviringo, `{}`, kama vile katika tamko za `if`, mizunguko ya `for`, au mizunguko ya `while`. Dhana ya mizunguko itafundishwa katika funzo lijalo.
+
+Vigezo vilivyotangazwa kwa `let` au `const` ndani ya block vinapatikana tu ndani ya block hiyo. Hapa kuna mfano wa wigo wa block:
+
+```js
+if (true) {
+    let blockVar = "I'm in a block";
+    console.log(blockVar); // "I'm in a block"
+}
+console.log(blockVar); // This will throw an error
+```
+
+Katika mfano huu, `blockVar` inapatikana tu ndani ya block ya `if`. Kuangalia kufikilia nje ya block kutaelekea hitilafu. Kuelewa aina hizi tofauti za wigo ni muhimu kwa kusimamia upatikanaji wa vigezo na kuepuka athari zisizotarajiwa katika msimbo wako.
+
+Vigezo vya kimataifa vinapaswa kutumika kwa kiasi kidogo, kwa sababu vinaweza kusababisha migongano ya majina na kufanya msimbo wako kuwa mgumu kudumisha. Vigezo vya ndani husaidia kuweka sehemu tofauti za msimbo wako zikiwa zimegawanyika, jambo ambalo ni muhimu hasa katika programu kubwa. Wigo wa block kwa kutumia `let` na `const` unatoa udhibiti wa karibu zaidi juu ya upatikanaji wa vigezo, kusaidia kuzuia makosa na kufanya msimbo wako uwe na utabiri zaidi. Kumudu dhana hizi za msingi za wigo wa kimataifa, wa ndani, na wa block kutatoa msingi thabiti wa kuelewa mada za juu zaidi.
+
+# --questions--
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let x = 10;
+
+function printX() {
+    let x = 20;
+    console.log(x);
+}
+
+printX();
+console.log(x);
+```
+
+## --answers--
+
+`20`, `20`
+
+### --feedback--
+
+Fikiria jinsi wigo wa ndani unavyofanya kazi ndani ya vitendakazi na jinsi unavyoshirikiana na vigezo katika wigo wa kimataifa.
+
+---
+
+`20`, `10`
+
+---
+
+`10`, `10`
+
+### --feedback--
+
+Fikiria jinsi wigo wa ndani unavyofanya kazi ndani ya vitendakazi na jinsi unavyoshirikiana na vigezo katika wigo wa kimataifa.
+
+---
+
+`10`, `20`
+
+### --feedback--
+
+Fikiria jinsi wigo wa ndani unavyofanya kazi ndani ya vitendakazi na jinsi unavyoshirikiana na vigezo katika wigo wa kimataifa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kitakuwa matokeo ya kujaribu kufikilia `blockVar` nje ya block yake katika msimbo ufuatao?
+
+```js
+if (true) {
+    let blockVar = "Hello";
+}
+console.log(blockVar);
+```
+
+## --answers--
+
+Itachapisha `"Hello"`.
+
+### --feedback--
+
+Kumbuka jinsi wigo wa block unavyofanya kazi na vigezo vilivyotangazwa kwa kutumia `let`.
+
+---
+
+Itachapisha `undefined`.
+
+### --feedback--
+
+Kumbuka jinsi wigo wa block unavyofanya kazi na vigezo vilivyotangazwa kwa kutumia `let`.
+
+---
+
+Itatupa `ReferenceError`.
+
+---
+
+Itachapisha `null`.
+
+### --feedback--
+
+Kumbuka jinsi wigo wa block unavyofanya kazi na vigezo vilivyotangazwa kwa kutumia `let`.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni ipi kati ya hizi inayoelezea kwa usahihi wigo wa kigezo kilichotangazwa kwa `let` katika ngazi ya juu ya script (nje ya kitendakazi au block yoyote)?
+
+## --answers--
+
+Wigo wa kitendakazi.
+
+### --feedback--
+
+Fikiria mahali ambapo kigezo kilichotangazwa katika ngazi ya juu ya script kitapatikana.
+
+---
+
+Wigo wa block.
+
+### --feedback--
+
+Fikiria mahali ambapo kigezo kilichotangazwa katika ngazi ya juu ya script kitapatikana.
+
+---
+
+Wigo wa kimataifa.
+
+---
+
+Wigo wa ndani.
+
+### --feedback--
+
+Fikiria mahali ambapo kigezo kilichotangazwa katika ngazi ya juu ya script kitapatikana.
+
+## --video-solution--
+
+3

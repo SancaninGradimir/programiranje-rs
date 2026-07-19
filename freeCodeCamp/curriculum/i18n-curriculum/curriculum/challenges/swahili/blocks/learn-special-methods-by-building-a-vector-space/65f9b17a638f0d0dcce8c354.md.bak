@@ -1,0 +1,62 @@
+---
+id: 65f9b17a638f0d0dcce8c354
+title: Hatua 38
+challengeType: 20
+dashedName: step-38
+---
+
+# --description--
+
+Ili kuunda nafasi ya vekta, unahitaji kufafanua jinsi vekta zinavyopaswa kutenda katika hali kadhaa. Vekta zinaweza kuongezwa, zikaunda vekta mpya.
+
+Njia maalum `__add__` inaweza kutekelezwa ghairi kile kinachotokea kwa chaguo-msingi wakati vitu viwili vinaongezwa pamoja kwa kutumia kigezo cha `+`.
+
+Kwa sasa, kujaribu kuongeza matukio mawili ya `R2Vector` au `R3Vector` kutasababisha kosa. Unda njia tupu ya `__add__` ndani ya darasa la `R2Vector` na ipe vigezo viwili: `self`, na `other`.
+
+# --hints--
+
+Unapaswa kufafanua njia ya `__add__` ndani ya darasa la `R2Vector`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").has_function("__add__")`)) })
+```
+
+Njia yako ya `__add__` inapaswa kuwa na vigezo viwili, `self` na `other`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__add__").has_args("self, other")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+--fcc-editable-region--
+    
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+```

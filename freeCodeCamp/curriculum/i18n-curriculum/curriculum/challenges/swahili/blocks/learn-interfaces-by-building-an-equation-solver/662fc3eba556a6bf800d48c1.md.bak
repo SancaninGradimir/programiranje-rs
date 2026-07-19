@@ -1,0 +1,87 @@
+---
+id: 662fc3eba556a6bf800d48c1
+title: Hatua 14
+challengeType: 20
+dashedName: step-14
+---
+
+# --description--
+
+Kitendakazi iliyojengwa ndani cha `isinstance()` kinachukua hoja mbili na kurudisha thamani ya kweli au siyo kweli ikionyesha kama kitu kilichopitishwa kama hoja ya kwanza ni mfano wa darasa la vitu lililopitishwa kama hoja ya pili.
+
+```py
+isinstance(7, int) # True
+```
+
+Jambo lingine unalotaka kukagua ni kwamba kila hoja ni nambari. Baada ya `if` yako ya kwanza, tengeneza mzunguko wa `for` unaorudia kwenye `args` na ukague kama hoja katika mzunguko wa sasa si mfano wa `int` au `float`. Tumia kitendakazi cha `isinstance()` na ukipitishe tuple yenye `int` na `float` kama hoja ya pili.
+
+Kama hoja si nambari, onyesha `TypeError` ikisema `"Coefficients must be of type 'int' or 'float'"`.
+
+# --hints--
+
+Unapaswa kutengeneza mzunguko wa `for` unaorudia kwenye `args` baada ya tamko lako la `if`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__init__").find_for_loops()[0].find_for_iter().is_equivalent("args")`)) })
+```
+
+Unapaswa kutengeneza tamko la `if` linalokagua kama coefficient ya sasa si mfano wa `int` au `float` ndani ya mzunguko wa `for`.
+
+```js
+({ test: () => assert(runPython(`
+var = str(_Node(_code).find_class("Equation").find_function("__init__").find_for_loops()[0].find_for_vars())
+cond1 = f'not isinstance({var}, (int, float))'
+cond2 = f'not isinstance({var}, (float, int))'
+if_stmt = _Node(_code).find_class("Equation").find_function("__init__").find_for_loops()[0].find_ifs()[0].find_conditions()[0]
+if_stmt.is_equivalent(cond1) or if_stmt.is_equivalent(cond2)
+`)) })
+```
+
+Unapaswa kutumia mfuatano wa herufi uliotolewa kuonyesha `TypeError` ndani ya tamko la `if`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__init__").find_for_loops()[0].find_ifs()[0].find_bodies()[0].has_stmt("raise TypeError(\\"Coefficients must be of type 'int' or 'float'\\")")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+from abc import ABC, abstractmethod
+--fcc-editable-region--
+class Equation(ABC):
+    degree: int
+    
+    def __init__(self, *args):
+        if (self.degree + 1) != len(args):
+            raise TypeError(
+                f"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given"
+            )
+--fcc-editable-region--
+    def __init_subclass__(cls):
+        if not hasattr(cls, "degree"):
+            raise AttributeError(
+                f"Cannot create '{cls.__name__}' class: missing required attribute 'degree'"
+            )
+    
+    @abstractmethod
+    def solve(self):
+        pass
+        
+    @abstractmethod
+    def analyze(self):
+        pass
+        
+class LinearEquation(Equation):
+    degree = 1
+    
+    def solve(self):
+        pass
+    
+    def analyze(self):
+        pass
+    
+lin_eq = LinearEquation(2, 3)
+```

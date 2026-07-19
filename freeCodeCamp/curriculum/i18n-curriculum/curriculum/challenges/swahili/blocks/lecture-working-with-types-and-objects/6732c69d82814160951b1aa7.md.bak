@@ -1,0 +1,240 @@
+---
+id: 6732c69d82814160951b1aa7
+title: "Kijenzi cha nambari ni nini, na kinafanya kazi vipi kwa kulazimisha aina?"
+challengeType: 19
+dashedName: what-is-the-number-constructor-and-how-does-it-work-for-type-coercion
+---
+
+# --interactive--
+
+Kijenzi cha `Number()` kinatumika kuunda kitu cha nambari. Kitu cha nambari kina vigezo na njia chache muhimu kama `isNaN` na njia ya `toFixed`. Hapa kuna mfano unaotumia kijenzi cha `Number()` pamoja na neno kuu la `new`:
+
+:::interactive_editor
+
+```js
+const myNum = new Number("34");
+console.log(typeof myNum); // "object" 
+```
+
+:::
+
+Katika mfano huu tunapitia mfuatano wa herufi kwa kijenzi cha `Number()` na aina ya return ni ya aina ya `object` badala ya `string`. 
+
+Wakati kijenzi cha `Number()` kinapoitwa kama kitendakazi bila neno kuu la `new`, basi thamani ya return itakuwa aina ya nambari ya msingi. Mara nyingi utatumia kijenzi cha `Number()` kubadilisha aina nyingine za data kuwa aina ya nambari. Hapa kuna mfano wa kubadilisha mfuatano wa herufi kuwa nambari:
+
+:::interactive_editor
+
+```js
+const myNum = Number("100");
+console.log(myNum); // 100
+
+console.log(typeof myNum); // number
+```
+
+:::
+
+Hii ni msaada wakati unapata ingizo kutoka kwa mtumizi na unahitaji kubadilisha ingizo hilo la mfuatano wa herufi kuwa nambari ili uweze kufanya mahesabu ya kihesabu. 
+
+Kama utajaribu kuita kijenzi cha `Number()` kwa mfuatano wa herufi tupu basi matokeo yatakuwa nambari `0`: 
+
+:::interactive_editor
+
+```js
+const num = Number("");
+console.log(num); // 0
+```
+
+:::
+
+Hii ni kwa sababu JavaScript itajaribu kuchambua mfuatano wa herufi na kwa kuwa hauna tarakimu yoyote, matokeo yatakuwa sifuri.
+
+Kama utajaribu kupitisha mfuatano wa herufi wenye herufi za bahati nasibu basi matokeo yatakuwa `NaN` au "Sio Nambari". 
+
+:::interactive_editor
+
+```js
+const num = Number("random");
+console.log(num); // NaN
+```
+
+:::
+
+Unapofanya kazi na thamani za kweli au siyo kweli, `true` inarudisha `1` kwa sababu `true` hubadilishwa kuwa moja na `false` inarudisha `0` kwa sababu `false` hubadilishwa kuwa sifuri. 
+
+:::interactive_editor
+
+```js
+const boolTrue = Number(true);
+const boolFalse = Number(false);
+
+console.log(boolTrue); // 1
+console.log(boolFalse); // 0
+```
+
+:::
+
+Kama utapitisha `null`, matokeo yatakuwa `0` na kama utapitisha `undefined`, matokeo yatakuwa `NaN`. 
+
+:::interactive_editor
+
+```js
+const undefinedNum = Number(undefined);
+const nullNum = Number(null);
+
+console.log(undefinedNum); // NaN
+console.log(nullNum); // 0
+```
+
+:::
+
+Unapofanya kazi na safu za data kuna mambo machache ya kuzingatia.
+
+Safu ya data tupu itarudisha `0`. Safu ya data yenye nambari moja itarudisha nambari hiyo. Safu ya data yenye nambari nyingi itarudisha `NaN`. Na safu ya data yenye mfuatano wa herufi pia itarudisha `NaN`.
+
+:::interactive_editor
+
+```js
+const emptyArr = Number([]);
+const arrOneNum = Number([7]);
+const arrMultiNum = Number([7, 36, 12]);
+const arrStr = Number(["str1"]);
+const arrMultiStr = Number(["str1", "str2"]);
+
+console.log(emptyArr); // 0
+console.log(arrOneNum); // 7
+console.log(arrMultiNum); // NaN
+console.log(arrStr); // NaN
+console.log(arrMultiStr); // NaN
+```
+
+:::
+
+Unapofanya kazi na vitu, matokeo huwa daima `NaN`.
+
+:::interactive_editor
+
+```js
+const obj1 = Number({});
+const obj2 = Number({2: 2});
+const obj3 = Number({key: "val"});
+const obj4 = Number({key: true});
+
+console.log(obj1); // NaN
+console.log(obj2); // NaN
+console.log(obj3); // NaN
+console.log(obj4); // NaN
+```
+
+:::
+
+Kwa kumalizia, utatumia zaidi kijenzi cha `Number()` kwa ajili ya kubadilisha aina zaidi kuliko kuunda nambari au kitu cha nambari.
+
+# --questions--
+
+## --text--
+
+Kusudi la kijenzi cha `Number` katika JavaScript ni nini?
+
+## --answers--
+
+Kinaunda mfuatano wa herufi tu.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kubadilisha mfuatano wa herufi kuwa nambari au kuunda nambari mpya katika JavaScript.
+
+---
+
+Kinabadilisha aina nyingine za data kuwa nambari na kuunda thamani mpya za nambari.
+
+---
+
+Kinatumika kusimamia safu za data.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kubadilisha mfuatano wa herufi kuwa nambari au kuunda nambari mpya katika JavaScript.
+
+---
+
+Kinafanya muunganiko wa mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kubadilisha mfuatano wa herufi kuwa nambari au kuunda nambari mpya katika JavaScript.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unaunda vipi kitu cha nambari kwa kutumia kijenzi cha `Number` katika JavaScript?
+
+## --answers--
+
+Kwa kutumia njia ya `Number.toString()`.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunda mfano wa kitu katika JavaScript.
+
+---
+
+Kwa kuanzisha na neno kuu la new na kupitisha nambari kama hoja.
+
+---
+
+Kwa kutangaza kigezo kwa neno kuu la `var`.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunda mfano wa kitu katika JavaScript.
+
+---
+
+Kwa kuita `Number.parseInt()` na thamani ya mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunda mfano wa kitu katika JavaScript.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya hizi ni mojawapo ya njia sahihi JavaScript inavyoshughulikia safu za data wakati zinapobadilishwa kuwa nambari kwa kutumia kijenzi cha `Number`?
+
+## --answers--
+
+Safu ya data tupu inarudisha `NaN`.
+
+### --feedback--
+
+Fikiria jinsi muundo tofauti wa safu za data unavyoweza kuathiri tabia wakati wa kubadilisha.
+
+---
+
+Safu ya data yenye nambari nyingi hubadilishwa kuwa jumla yao.
+
+### --feedback--
+
+Fikiria jinsi muundo tofauti wa safu za data unavyoweza kuathiri tabia wakati wa kubadilisha.
+
+---
+
+Safu ya data yenye nambari moja hubadilishwa kuwa nambari hiyo, wakati safu ya data tupu inarudisha `0`.
+
+---
+
+Safu ya data yenye mfuatano wa herufi hubadilishwa kuwa `NaN`.
+
+### --feedback--
+
+Fikiria jinsi muundo tofauti wa safu za data unavyoweza kuathiri tabia wakati wa kubadilisha.
+
+## --video-solution--
+
+3

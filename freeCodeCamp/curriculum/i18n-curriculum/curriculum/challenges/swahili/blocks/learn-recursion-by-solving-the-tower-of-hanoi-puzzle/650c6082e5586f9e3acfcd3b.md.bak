@@ -1,0 +1,74 @@
+---
+id: 650c6082e5586f9e3acfcd3b
+title: Hatua 52
+challengeType: 20
+dashedName: step-52
+---
+
+# --description--
+
+Sasa, futa kamusi ya `rods` na badilisha funguo zake kuwa vigezo `A`, `B`, na `C`, kwa mtiririko huo, ukihifadhi thamani zao. Rekebisha msimbo wako kuonyesha mabadiliko haya. Ikiwa utaona matokeo kwenye terminali, umefanya hatua hii kwa usahihi.
+
+# --hints--
+
+Unapaswa kubadilisha `rods['A']` kuwa kigezo kinachoitwa `A` ukihifadhi thamani yake.
+
+```js
+assert.match(code, /A\s*=\s*list\s*\(\s*range\s*\(\s*NUMBER_OF_DISKS\s*,\s*0\s*,\s*-\s*1\s*\)\s*\)/);
+```
+
+Unapaswa kubadilisha `rods['B']` kuwa kigezo kinachoitwa `B` ukihifadhi thamani yake.
+
+```js
+assert.match(code, /B\s*=\s*\[\s*\]/);
+```
+
+Unapaswa kubadilisha `rods['C']` kuwa kigezo kinachoitwa `C` ukihifadhi thamani yake.
+
+```js
+assert.match(code, /C\s*=\s*\[\s*\]/);
+```
+
+Unapaswa kurekebisha wito wako wa `print()` kuchapisha `A`, `B`, `C`, badala ya kitu cha `rods`. Hifadhi tabia ya kuingia mstari mpya katika wito wa `print()`.
+
+```js
+assert.match(code, /print\s*\(\s*A\s*,\s*B\s*,\s*C\s*,\s*('|")\\n\1\s*\)/);
+```
+
+Unapaswa kuwa na `target.append(source.pop())` katika msimbo wako.
+
+```js
+assert.match(code, /target\.append\s*\(\s*source\.pop\s*\(\s*\)\s*\)/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+NUMBER_OF_DISKS = 4
+rods = {
+    'A': list(range(NUMBER_OF_DISKS, 0, -1)),
+    'B': [],
+    'C': []
+}
+
+def move(n, source, auxiliary, target):
+    if n > 0:
+        # move n - 1 disks from source to auxiliary, so they are out of the way
+        move(n - 1, source, target, auxiliary)
+        
+        # move the nth disk from source to target
+        rods[target].append(rods[source].pop())
+        
+        # display our progress
+        print(rods, '\n')
+        
+        # move the n - 1 disks that we left on auxiliary onto target
+        move(n - 1,  auxiliary, source, target)
+              
+# initiate call from source A to target C with auxiliary B
+move(NUMBER_OF_DISKS, 'A', 'B', 'C')
+--fcc-editable-region--
+```

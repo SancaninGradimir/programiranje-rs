@@ -1,0 +1,104 @@
+---
+id: 5c3dda8b4d8df89bea71600f
+title: Angalia kwa mchanganyiko wa makundi ya herufi
+challengeType: 1
+forumTopicId: 301339
+dashedName: check-for-mixed-grouping-of-characters
+---
+
+# --description--
+
+Wakati mwingine tunataka kuangalia makundi ya herufi kwa kutumia usemi wa kawaida na kufanikisha hilo tunatumia mabano ya kawaida `()`.
+
+Ikiwa unataka kupata ama `Penguin` au `Pumpkin` katika mfuatano wa herufi, unaweza kutumia usemi wa kawaida ufuatao: `/P(engu|umpk)in/g`
+
+Kisha angalia kama makundi ya mfuatano wa herufi unayotaka yapo katika mfuatano wa majaribio kwa kutumia njia ya `test()`.
+
+```js
+let testStr = "Pumpkin";
+let testRegex = /P(engu|umpk)in/;
+testRegex.test(testStr);
+```
+
+Njia ya `test` hapa itarudisha `true`.
+
+# --instructions--
+
+Rekebisha usemi wa kawaida ili uangalie majina ya `Franklin Roosevelt` au `Eleanor Roosevelt` kwa njia inayotambua herufi kubwa na ndogo na pia iruhusu majina ya kati.
+
+Kisha rekebisha msimbo ili usemi wa kawaida uliouunda uchunguzwe dhidi ya `myString` na kurudisha ama `true` au `false` kulingana na kama usemi wa kawaida unalingana.
+
+# --hints--
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `true` kwa mfuatano wa herufi `Franklin D. Roosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(myRegex.test('Franklin D. Roosevelt'));
+```
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `true` kwa mfuatano wa herufi `Eleanor Roosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(myRegex.test('Eleanor Roosevelt'));
+```
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `false` kwa mfuatano wa herufi `Franklin Rosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(!myRegex.test('Franklin Rosevelt'));
+```
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `false` kwa mfuatano wa herufi `Frank Roosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(!myRegex.test('Frank Roosevelt'));
+```
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `false` kwa mfuatano wa herufi `FranklinRoosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(!myRegex.test('FranklinRoosevelt'));
+```
+
+Usemi wako wa kawaida `myRegex` unapaswa kurudisha `false` kwa mfuatano wa herufi `EleanorRoosevelt`
+
+```js
+myRegex.lastIndex = 0;
+assert(!myRegex.test('EleanorRoosevelt'));
+```
+
+Unapaswa kutumia `.test()` kujaribu usemi wa kawaida.
+
+```js
+assert(__helpers.removeJSComments(code).match(/myRegex.test\(\s*myString\s*\)/));
+```
+
+Matokeo yako yanapaswa kurudisha `true`.
+
+```js
+assert(result === true);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let myString = "Eleanor Roosevelt";
+let myRegex = /False/; // Change this line
+let result = false; // Change this line
+// After passing the challenge experiment with myString and see how the grouping works
+```
+
+# --solutions--
+
+```js
+let myString = "Eleanor Roosevelt";
+let myRegex = /(Franklin|Eleanor) (([A-Z]\.?|[A-Z][a-z]+) )?Roosevelt/;
+let result = myRegex.test(myString);
+```

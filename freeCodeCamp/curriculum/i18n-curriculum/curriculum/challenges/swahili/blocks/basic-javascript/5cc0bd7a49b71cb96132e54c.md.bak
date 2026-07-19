@@ -1,0 +1,88 @@
+---
+id: 5cc0bd7a49b71cb96132e54c
+title: Tumia kurudia ili kuunda safu ya nambari
+challengeType: 1
+forumTopicId: 301180
+dashedName: use-recursion-to-create-a-range-of-numbers
+---
+
+# --description--
+
+Kuendelea na changamoto iliyopita, tunakupa fursa nyingine ya kuunda kitendakazi kinachojirudia ili kutatua tatizo.
+
+# --instructions--
+
+Tumeunda kitendakazi kinachoitwa `rangeOfNumbers` chenye vigezo viwili. Kitendakazi kinapaswa kurudisha safu ya nambari kamili ambayo huanza na nambari inayowakilishwa na kigezo cha `startNum` na kumalizika na nambari inayowakilishwa na kigezo cha `endNum`. Nambari ya kuanzia daima itakuwa ndogo au sawa na nambari ya kumalizia. Kitendakazi chako lazima kitumie kurudia kwa kuita yenyewe na kisitumie mizunguko ya aina yoyote. Pia kinapaswa kufanya kazi kwa hali ambapo `startNum` na `endNum` ni sawa.
+
+# --hints--
+
+Kitendakazi chako kinapaswa kurudisha safu ya data.
+
+```js
+assert(Array.isArray(rangeOfNumbers(5, 10)));
+```
+
+Msimbo wako usitumie sintaksia yoyote ya mizunguko (`for` au `while` au kazi za ngazi ya juu kama `forEach`, `map`, `filter`, au `reduce`).
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce/g)
+);
+```
+
+`rangeOfNumbers` inapaswa kutumia kurudia (kuita yenyewe) kutatua changamoto hii.
+
+```js
+assert(
+  rangeOfNumbers.toString().match(/rangeOfNumbers\s*\(.+\)/)
+);
+```
+
+`rangeOfNumbers(1, 5)` inapaswa kurudisha `[1, 2, 3, 4, 5]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(1, 5), [1, 2, 3, 4, 5]);
+```
+
+`rangeOfNumbers(6, 9)` inapaswa kurudisha `[6, 7, 8, 9]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(6, 9), [6, 7, 8, 9]);
+```
+
+`rangeOfNumbers(4, 4)` inapaswa kurudisha `[4]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(4, 4), [4]);
+```
+
+Hakuna vigezo vya kimataifa vinavyopaswa kutumika kuhifadhi safu hiyo.
+
+```js
+rangeOfNumbers(1, 3)
+assert.deepStrictEqual(rangeOfNumbers(6, 9), [6, 7, 8, 9]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function rangeOfNumbers(startNum, endNum) {
+  return [];
+};
+```
+
+# --solutions--
+
+```js
+function rangeOfNumbers(startNum, endNum) {
+  if (endNum - startNum === 0) {
+    return [startNum];
+  } else {
+    const numbers = rangeOfNumbers(startNum, endNum - 1);
+    numbers.push(endNum);
+    return numbers;
+  }
+}
+```

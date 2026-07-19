@@ -1,0 +1,111 @@
+---
+id: 56533eb9ac21ba0edf2244cc
+title: Upatikanaji wa vitu vilivyopangwa ndani
+challengeType: 1
+forumTopicId: 16161
+dashedName: accessing-nested-objects
+---
+
+# --description--
+
+Sifa ndogo za vitu zinaweza kupatikana kwa kuunganishaji pamoja uandishi wa nukta au uandishi wa mabano.
+
+Hapa kuna kitu kilichopangwa ndani:
+
+```js
+const ourStorage = {
+  "desk": {
+    "drawer": "stapler"
+  },
+  "cabinet": {
+    "top drawer": { 
+      "folder1": "a file",
+      "folder2": "secrets"
+    },
+    "bottom drawer": "soda"
+  }
+};
+
+ourStorage.cabinet["top drawer"].folder2;
+ourStorage.desk.drawer;
+```
+
+`ourStorage.cabinet["top drawer"].folder2` itakuwa mfuatano wa herufi `secrets`, na `ourStorage.desk.drawer` itakuwa mfuatano wa herufi `stapler`.
+
+# --instructions--
+
+Pata upatikanaji wa kitu cha `myStorage` na weka thamani ya yaliyomo katika sifa ya `glove box` kwenye kigezo cha `gloveBoxContents`. Tumia uandishi wa nukta kwa sifa zote pale inapowezekana, vinginevyo tumia uandishi wa mabano.
+
+# --hints--
+
+`gloveBoxContents` inapaswa kuwa sawa na mfuatano wa herufi `maps`.
+
+```js
+assert(gloveBoxContents === 'maps');
+```
+
+Msimbo wako unapaswa kutumia uandishi wa nukta, pale inapowezekana, kupata `myStorage`.
+
+```js
+assert.match(code, /myStorage\.car\.inside/);
+```
+
+`gloveBoxContents` bado inapaswa kutangazwa kwa `const`.
+
+```js
+assert.match(code, /const\s+gloveBoxContents\s*=/);
+```
+
+Haupaswi kubadilisha kitu cha `myStorage`.
+
+```js
+const expectedMyStorage = {
+  "car":{
+    "inside":{
+      "glove box":"maps",
+      "passenger seat":"crumbs"
+    },
+    "outside":{
+      "trunk":"jack"
+    }
+  }
+};
+assert.deepStrictEqual(myStorage, expectedMyStorage);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const myStorage = {
+  "car": {
+    "inside": {
+      "glove box": "maps",
+      "passenger seat": "crumbs"
+     },
+    "outside": {
+      "trunk": "jack"
+    }
+  }
+};
+
+const gloveBoxContents = undefined;
+```
+
+# --solutions--
+
+```js
+const myStorage = {
+  "car":{
+    "inside":{
+      "glove box":"maps",
+      "passenger seat":"crumbs"
+    },
+    "outside":{
+      "trunk":"jack"
+    }
+  }
+};
+const gloveBoxContents = myStorage.car.inside["glove box"];
+```

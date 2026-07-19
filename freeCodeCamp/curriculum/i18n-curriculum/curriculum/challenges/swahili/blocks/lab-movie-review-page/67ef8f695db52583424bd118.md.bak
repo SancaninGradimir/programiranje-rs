@@ -1,0 +1,221 @@
+---
+id: 67ef8f695db52583424bd118
+title: Tengeneza ukurasa wa ukaguzi wa sinema
+challengeType: 25
+dashedName: design-a-movie-review-page
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `main`.
+2. Ndani ya kipengele cha `main`, unapaswa kuwa na kipengele cha `h1` kwa kichwa cha sinema.
+3. Chini ya kipengele cha `h1`, unapaswa kuwa na kipengele cha `img` kinachoonyesha jalada la sinema. Kipengele chako cha `img` kinapaswa kuwa na maandishi ya `alt` yanayoelezea picha. Una uhuru kutumia picha ifuatayo ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/labs/rise-beyond-2.png`.
+4. Unapaswa kuwa na kipengele cha `p` chenye maelezo mafupi ya sinema.
+5. Unapaswa kuwa na kipengele kingine cha `p` kuonyesha kiwango cha sinema. Ndani yake, unapaswa kuwa na vitu hivi kwa mpangilio ulioorodheshwa:
+   - Kipengele cha `strong` chenye maandishi ya `Movie Rating:`.
+   - Kipengele cha `span` chenye sifa ya kipengele cha `aria-hidden` iliyowekwa kuwa `true` kinachoonyesha kiwango kwa njia ya nyota `⭐⭐⭐⭐⭐⭐⭐⭐⭐☆`.
+   - Thamani ya nambari, inayo wakilisha kiwango, ndani ya mabano ya kawaida (mfano `9.2/10`) baada ya kipengele cha span.
+6. Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Cast Members`.
+7. Unapaswa kuwa na kipengele cha `ul`.
+8. Ndani ya kipengele cha `ul`, unapaswa kuwa na vipengele vingi vya `li` kila kikiwa na kipengele cha `strong` kwa jina la mwigizaji ikifuatiwa na jina la mhusika linalotanguliwa na maandishi ya `as`. (mfano, `James Holloway as Ethan Carter`).
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `main`.
+
+```js
+assert.isNotNull(document.querySelector("main"));
+```
+
+Ndani ya kipengele cha `main`, unapaswa kuwa na kipengele cha `h1` chenye kichwa cha sinema.
+
+```js
+const h1 = document.querySelector("main > h1");
+assert.isAbove(h1?.innerText.trim().length, 0);
+```
+
+Chini ya kipengele cha `h1`, unapaswa kuwa na kipengele cha `img` chenye sifa ya kipengele cha `alt` kinachoelezea.
+
+```js
+const img = document.querySelector("main > h1 + img");
+assert.isNotNull(img);
+assert.isNotEmpty(img.getAttribute("alt"));
+```
+
+Unapaswa kuwa na kipengele cha `p` baada ya picha chenye maelezo ya sinema.
+
+```js
+const description = document.querySelector("main img + p");
+assert.isNotNull(description);
+assert.isNotEmpty(description.innerText.trim());
+```
+
+Unapaswa kuwa na kipengele kingine cha `p` chenye kiwango.
+
+```js
+const paragraphs = document.querySelectorAll("main p");
+assert.isAtLeast(paragraphs.length, 2);
+```
+
+Ndani ya kipengele cha pili cha `p`, unapaswa kuwa na kipengele cha `strong` chenye maandishi ya `Movie Rating: `.
+
+```js
+const strongEl = document.querySelector("main p:nth-of-type(2) strong");
+assert.match(strongEl?.innerText.trim(), /^Movie Rating:?$/);
+```
+
+Kipengele cha `span` kinapaswa kuwepo ndani ya aya ya kiwango.
+
+```js
+const spanEl = document.querySelector("main p:nth-of-type(2) span");
+assert.isNotNull(spanEl);
+```
+
+Kipengele cha `span` ndani ya aya ya kiwango kinapaswa kuwa na nyota kumi, zikiwa zimejazwa (⭐) au tupu (☆), ikifuatiwa na thamani ya nambari ndani ya mabano ya kawaida baada ya `span`.
+
+```js  
+const spanEl = document.querySelector("main p:nth-of-type(2) span");
+const fullRatingText = document.querySelector("main p:nth-of-type(2)")?.textContent.replace(/\s+/g, ' ').trim();
+
+assert.match(spanEl?.innerText.trim(), /^[⭐☆]{10}$/);
+assert.match(fullRatingText, /Movie Rating:?\s*[⭐☆]{10}\s*\(\s*\d+(?:\.\d+)?\s*\/\s*10\s*\)$/);
+```
+
+Kipengele cha `span` ndani ya aya ya kiwango kinapaswa kuwa na sifa ya kipengele cha `aria-hidden` iliyowekwa kuwa `true`.
+
+```js
+const spanEl = document.querySelector("main p:nth-of-type(2) span");
+assert.strictEqual(spanEl?.getAttribute("aria-hidden"), "true");
+```
+
+Unapaswa kuwa na kipengele cha `h2`.
+
+```js
+assert.exists(document.querySelector("h2"));
+```
+
+Kipengele chako cha `h2` kinapaswa kuja baada ya kipengele chako cha pili cha `p`.
+
+```js
+const allParagraphs = document.querySelectorAll("p");
+assert.isAtLeast(allParagraphs.length, 2);
+
+const h2 = document.querySelector("h2");
+const main = document.querySelector("main");
+
+assert.exists(h2);
+assert.exists(main);
+
+const elements = Array.from(main.querySelectorAll("*"));
+const lastPIndex = elements.indexOf(allParagraphs[1]);
+const h2Index = elements.indexOf(h2);
+
+assert.isAbove(h2Index, lastPIndex);
+```
+
+Kipengele chako cha `h2` kinapaswa kuwa na maandishi ya `Cast Members`.
+
+```js
+const h2 = document.querySelector("h2");
+assert.equal(h2?.textContent.trim(), "Cast Members");
+```
+
+Unapaswa kuwa na kipengele cha `ul` baada ya `h2`.
+
+```js
+const ul = document.querySelector("main h2 + ul");
+assert.isNotNull(ul);
+```
+
+Kipengele cha `ul` kinapaswa kuwa na vipengele vingi vya `li`.
+
+```js
+const liItems = document.querySelectorAll("main ul li");
+assert.isAbove(liItems.length, 1);
+```
+
+Kila kipengele cha `li` kinapaswa kuwa na kipengele cha `strong` kwa jina la mwigizaji ikifuatiwa na jina la mhusika linalotanguliwa na maandishi ya `as`. (mfano, `James Holloway as Ethan Carter`).
+
+```js
+const liItems = document.querySelectorAll("main ul li");  
+assert.isNotEmpty(liItems);
+liItems.forEach(li => {
+  const strong = li.querySelector("strong");
+  assert.isNotNull(strong);
+  const fullText = li.textContent.trim();
+  const actorName = strong.textContent.trim();
+  assert.isTrue(fullText.startsWith(actorName));
+  const characterPart = fullText.slice(actorName.length).trim();
+  assert.match(characterPart, /^as\s.+/);
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Movie Review</title>
+ </head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Review</title>
+  </head>
+  <body>
+    <main class="review">
+      <h1>Movie Review: Rise Beyond</h1>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/labs/rise-beyond-2.png"
+        alt="The Rise Beyond movie poster, starring Ethan Carter. A portrait of a young boy standing on a stage with his back toward the audience, holding a guitar at his side, staring at a backdrop of a cityscape with the sun rising behind its tall buildings."
+      />
+      <p>
+        Rise Beyond is an uplifting drama that tells the story of Ethan Carter,
+        a young man from a small town who dreams of becoming a world-class
+        musician. Facing financial struggles and self-doubt, Ethan embarks on a
+        journey of resilience, guided by his mentor Professor Adams and
+        childhood friend Lena Mitchell. Through setbacks, failures, and moments
+        of triumph, Rise Beyond reminds us that our greatest potential lies
+        beyond our fears.
+      </p>
+      <p>
+        <strong>Movie Rating:</strong>
+        <span aria-hidden="true">⭐⭐⭐⭐⭐⭐⭐⭐⭐☆</span> (9.2/10)
+      </p>
+
+      <h2>Cast Members</h2>
+      <ul>
+        <li><strong>James Holloway</strong> as Ethan Carter</li>
+        <li><strong>Olivia Sterling</strong> as Lena Mitchell</li>
+        <li><strong>William Lancaster</strong> as Professor Adams</li>
+        <li>
+          <strong>Maria Collins</strong> as Evelyn Carter (Ethan’s Mother)
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+```

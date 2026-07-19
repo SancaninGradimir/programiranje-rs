@@ -1,0 +1,56 @@
+---
+id: 587d7fb7367417b2b2512c0a
+title: Unda rekodi nyingi kwa kutumia model.create()
+challengeType: 2
+forumTopicId: 301537
+dashedName: create-many-records-with-model-create
+---
+
+# --description--
+
+Wakati mwingine unahitaji kuunda matukio mengi ya mifano yako, kwa mfano wakati wa kuanzisha hifadhidata na data za awali. `Model.create()` hupokea safu ya vitu kama `[{name: 'John', ...}, {...}, ...]` kama hoja ya kwanza, na kuzihifadhi zote katika hifadhidata.
+
+# --instructions--
+
+Badilisha kitendakazi cha `createManyPeople` ili kuunda watu wengi kwa kutumia `Model.create()` na hoja `arrayOfPeople`.
+
+**Kumbuka:** Unaweza kutumia tena mfano uliouunda katika zoezi lililopita.
+
+# --hints--
+
+Kuunda vitu vingi vya hifadhidata kwa wakati mmoja kunapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/create-many-people', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify([
+      { name: 'John', age: 24, favoriteFoods: ['pizza', 'salad'] },
+      { name: 'Mary', age: 21, favoriteFoods: ['onions', 'chicken'] }
+    ])
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.isArray(data, 'the response should be an array');
+  assert.equal(
+    data.length,
+    2,
+    'the response does not contain the expected number of items'
+  );
+  assert.equal(data[0].name, 'John', 'The first item is not correct');
+  assert.equal(
+    data[0].__v,
+    0,
+    'The first item should be not previously edited'
+  );
+  assert.equal(data[1].name, 'Mary', 'The second item is not correct');
+  assert.equal(
+    data[1].__v,
+    0,
+    'The second item should be not previously edited'
+  );
+```

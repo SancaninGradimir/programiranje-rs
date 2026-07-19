@@ -1,0 +1,66 @@
+---
+id: 6553995f412dd8122ed38e4a
+title: Hatua 43
+challengeType: 20
+dashedName: step-43
+---
+
+# --description--
+
+Sentensi ya masharti pia inaweza kuwa na kifungu cha `else`. Kifungu hiki kinaweza kuongezwa mwishoni mwa sentensi ya `if` ili kutekeleza msimbo mbadala ikiwa sharti la sentensi ya `if` ni uongo:
+
+```py
+if x != 0:
+    print(x)
+else:
+    print('x = 0')
+```
+
+Kama unavyoona katika matokeo yako, wakati mizunguko ya mzunguko inafikia nafasi, nafasi inaongezwa kwenye mfuatano wa herufi uliosimbwa. Kisha msimbo nje ya blokki ya `if` unatekelezwa na `c` inaongezwa kwenye mfuatano wa herufi uliosimbwa.
+
+Ili kurekebisha, ongeza kifungu cha `else` baada ya `encrypted_text += char` na weka msimbo wote unaofuata kwa mpangilio wa ndani isipokuwa wito wa `print()`.
+
+# --hints--
+
+Unapaswa kuunda kifungu cha `else`. Kumbuka kujumuisha nukta mbili za mwisho.
+
+```js
+const commentless_code = __helpers.python.removeComments(code);
+const {block_body} = __helpers.python.getBlock(commentless_code, /for\s+char\s+in\s+text\.lower\s*\(\s*\)\s*/);
+assert(block_body.match(/else\s*:/));
+```
+
+Unapaswa kuweka msimbo kwa mpangilio wa ndani baada ya kifungu chako cha `else` isipokuwa wito wa `print()`.
+
+```js
+const commentless_code = __helpers.python.removeComments(code);
+const {block_body} = __helpers.python.getBlock(commentless_code, /else/);
+assert(block_body.match(/index\s*=\s*alphabet\.find\s*\(\s*char\s*\)\s*new_index\s*=\s*index\s*\+\s*shift\s*encrypted_text\s*\+=\s*alphabet\s*\[\s*new_index\s*\]\s*$/));
+```
+
+Msimbo wako una sintaksia isiyo sahihi na/au mpangilio wa ndani usio sahihi.
+
+```js
+({test: () => assert(true) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+text = 'Hello World'
+shift = 3
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+encrypted_text = ''
+
+for char in text.lower():
+    if char == ' ':
+        encrypted_text += char
+    index = alphabet.find(char)
+    new_index = index + shift
+    encrypted_text += alphabet[new_index]
+    print('char:', char, 'encrypted text:', encrypted_text)
+--fcc-editable-region--
+```

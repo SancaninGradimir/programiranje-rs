@@ -1,0 +1,74 @@
+---
+id: 65f876d17832001e8e1abb05
+title: Hatua 28
+challengeType: 20
+dashedName: step-28
+---
+
+# --description--
+
+Tangaza kigezo `arg_list`. Mpe thamani ya mfuatano wa orodha unaorudia juu ya `key` na `val` kwa kila jozi ya ufunguo-thamani katika `vars(self).items()` na huhesabu f-string `f'{key}={val}'` kila kurudia.
+
+# --hints--
+
+Unapaswa kutangaza kigezo `arg_list`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__repr__").has_variable("arg_list")`)) })
+```
+
+Unapaswa kuweka thamani ya mfuatano wa orodha unaorudia juu ya `vars(self).items()` kwa `arg_list`.
+
+```js
+({ test: () => runPython(`
+import ast
+var = _Node(_code).find_class("R2Vector").find_function("__repr__").find_variable("arg_list")
+assert isinstance(var.tree.value, ast.ListComp), "Expected arg_list to be a list comprehension"
+assert (actual := var.find_comp_iters()[0].is_equivalent("vars(self).items()")), f"Expected vars(self).items(), got {actual}"
+`) })
+```
+
+Mfuatano wa orodha ulipewa thamani `arg_list` unapaswa kutumia `key` na `val` kurudia juu ya `vars(self).items()`.
+
+```js
+({ test: () => assert(runPython(`
+_Node(_code).find_class("R2Vector").find_function("__repr__").find_variable("arg_list").find_comp_targets()[0].is_equivalent("key, val")
+`)) })
+```
+
+Mfuatano wa orodha ulipewa thamani `arg_list` unapaswa kuhesabu mfuatano wa herufi `f'{key}={val}'` kwa kila jozi ya ufunguo-thamani katika `vars(self).items()`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("R2Vector").find_function("__repr__").find_variable("arg_list").find_comp_expr().is_equivalent("f'{key}={val}'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+--fcc-editable-region--
+    def __repr__(self):
+        pass
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R3Vector(x=2, y=2, z=3)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+```

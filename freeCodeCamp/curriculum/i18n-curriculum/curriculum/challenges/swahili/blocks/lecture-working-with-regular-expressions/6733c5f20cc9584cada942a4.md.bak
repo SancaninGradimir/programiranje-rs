@@ -1,0 +1,272 @@
+---
+id: 6733c5f20cc9584cada942a4
+title: "Je, makundi ya kunasa na rejea za nyuma ni nini, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-capturing-groups-and-backreferences-and-how-do-they-work
+---
+
+# --interactive--
+
+Kundi la kunasa linakuwezesha "kunasa" sehemu ya mfuatano wa herufi uliolingana ili kuitumia kwa namna yoyote unayohitaji. Makundi ya kunasa huainishwa kwa mabano ya kawaida yanayozunguka muundo wa kunasa, bila herufi za kuanzia kama angalizo la mbele.
+
+Hebu tunase `code` kutoka kwenye usemi wa kawaida wa `freeCodeCamp`. Ili kufanya hivyo, tutazunguka `code` kwa mabano ya kawaida na kuitaja kama kundi la kunasa:
+
+```js
+const regex = /free(code)camp/i;
+```
+
+Ili kuthibitisha tabia hii, tunaweza kuipima dhidi ya mfuatano wa herufi wa `freecodecamp`:
+
+:::interactive_editor
+
+```js
+const regex = /free(code)camp/i;
+console.log(regex.test("freecodecamp")); // true
+```
+
+:::
+
+Lakini hii haifanyi matumizi ya kundi letu la kunasa. Badala yake, hebu tazame matokeo ya kutumia `match`:
+
+```js
+const regex = /free(code)camp/i;
+console.log("freecodecamp".match(regex));
+// [
+//   'freecodecamp',
+//   'code', <--
+//   index: 0,
+//   input: 'freecodecamp',
+//   groups: undefined
+// ]
+```
+
+Hapa tunaona kuwa safu ya data ya `match` ina kipengele cha pili, ambacho ni sehemu ya mfuatano wa herufi iliyonaswa na kundi letu la kunasa.
+
+Angalia jinsi kundi la kunasa linavyolingana na muundo halisi wa `code`, ambapo darasa la herufi lingelingana na herufi moja kutoka kwenye orodha ya `c`, `o`, `d`, na `e`.
+
+Lakini tunawezaje kutumia hili? Vizuri, makundi ya kunasa mara nyingi hutumika wakati wa kubadilisha yaliyomo ya mfuatano wa herufi. Hebu tuandae msimbo wa kufanya hivyo. Tutabadilisha `freecodecamp` kuwa `paidcodeworld`:
+
+:::interactive_editor
+
+```js
+const regex = /free(code)camp/i;
+console.log("freecodecamp".replace(regex, "paidcodeworld"));
+```
+
+:::
+
+Hii inafanya kazi peke yake, lakini vipi kama hatujui ni ngapi `o`zipo katika `code`? Ikiwa tunahitaji kihimarisha cha moja au zaidi ya `o`:
+
+:::interactive_editor
+
+```js
+const regex = /free(co+de)camp/i;
+console.log("freecoooooooodecamp".replace(regex, "paidcodeworld"));
+```
+
+:::
+
+Tunapata `paidcodeworld` kama matokeo yetu. Tunataka kuhifadhi idadi ya `o`, kwa hivyo tunahitaji kutumia tena kile kilichonaswa na usemi wa kawaida.
+
+Hapa ndipo rejea ya nyuma inapoingia. Badala ya kuweka sehemu ya `code` ya mfuatano wa kubadilisha kwa mkono, tunaweza kurejea kundi lililonaswa moja kwa moja.
+
+Katika wito wa `replace`, unapata rejea ya nyuma kwa kutumia alama ya dola (`$`) ikifuatiwa na nambari ya kundi la kunasa unalotaka kutumia. Katika kesi yetu, hiyo itakuwa `$1`, kwa kuwa `code` imenaswa katika kundi la kwanza la kunasa:
+
+:::interactive_editor
+
+```js
+const regex = /free(co+de)camp/i;
+console.log("freecoooooooodecamp".replace(regex, "paid$1world")); // paidcoooooooodeworld
+```
+
+:::
+
+Sasa tumehifadhi kwa mafanikio idadi isiyojulikana ya herufi za `o` wakati tunabadilisha `freecodecamp` kuwa `paidcodeworld`. Lakini rejea za nyuma hazizuiliwi tu kwa wito la replace. Unaweza kuzitumia moja kwa moja katika usemi wa kawaida.
+
+Hii itakuwezesha kulinganisha muundo uliyonaswa hapo awali baadaye katika usemi wa kawaida.
+
+Tuseme tunataka kulinganisha `freecodecamp` mara mbili, na idadi sawa ya `o`, lakini popote katika mfuatano wa herufi.
+
+Kwanza, tunahitaji kuwatenganisha kwa herufi yetu ya wildcard, na kuruhusu idadi yoyote ya herufi kulingana na wildcard hiyo:
+
+```js
+const regex = /free(co+de)camp.*free(co+de)camp/i;
+```
+
+Usemi huu wa sasa hautahakikisha kuwa idadi ya herufi za `o` ni sawa, hata hivyo. Ili kufanikisha hilo, tunahitaji kubadilisha kundi la pili la kunasa na rejea ya kundi la kwanza.
+
+Ndani ya usemi wa kawaida, rejea ya nyuma inaonyeshwa kwa mkwaju wa nyuma ukifuatiwa na nambari ya kundi la kunasa:
+
+:::interactive_editor
+
+```js
+const regex = /free(co+de)camp.*free\1camp/i;
+console.log(regex.test("freecooooodecamp is great i love freecooooodecamp")); // true
+console.log(regex.test("freecooooodecamp is great i love freecodecamp")); // false
+```
+
+:::
+
+Na kwa hiyo, tunaona kuwa mfuatano wa herufi wenye idadi sahihi ya `o` unalingana, wakati mfuatano wenye idadi mbili tofauti za `o` haulingani.
+
+Sintaksia hii ni nzuri, lakini inaweza kuwa ngumu haraka unaporejea makundi mengi ya kunasa. Kwa bahati nzuri, badala ya kutumia nambari, unaweza kuwapa makundi yako majina.
+
+Ili kufafanua kundi la kunasa lenye jina, unaongeza alama ya swali (`?`) ikifuatiwa na jina lililozungukwa na alama za kidogo kuliko na kubwa kuliko mwanzoni mwa kundi. Hebu tuitaje kundi letu la kunasa `code`:
+
+```js
+const regex = /free(?<code>co+de)camp.*free\1camp/i;
+```
+
+Sasa tunaweza kusahihisha rejea yetu ya nyuma katika usemi wa kawaida ili i-rejea kundi hili. Rejea ya nyuma yenye jina huanza na mkwaju wa nyuma ukifuatiwa na herufi `k` katika JavaScript. Kisha unaongeza jina, tena likizungukwa na alama za kidogo kuliko (`<`) na kubwa kuliko (`>`). Hebu tazame hiyo:
+
+```js
+const regex = /free(?<code>co+de)camp.*free\k<code>camp/i;
+```
+
+Sasa ikiwa tutaangalia wito wetu wa `test()`, tunaweza kuona bado tunapitisha:
+
+:::interactive_editor
+
+```js
+const regex = /free(?<code>co+de)camp.*free\k<code>camp/i;
+console.log(regex.test("freecooooodecamp is freecooooodecamp")); // true
+```
+
+:::
+
+Ili kutumia kundi letu la kunasa lenye jina katika wito wa `replace()`, tungeingiza alama ya dola katika mfuatano wa herufi, ikifuatiwa na jina lililozungukwa na alama za kidogo kuliko na kubwa kuliko:
+
+:::interactive_editor
+
+```js
+const regex = /free(?<code>co+de)camp/i;
+console.log("freecooooodecamp".replace(regex, "paid$<code>camp")); // paidcooooodecamp
+```
+
+:::
+
+Mwishowe, wakati mwingine unataka kuunda kundi la herufi, lakini huna haja ya matokeo yaliyokamatwa.
+
+Tuseme tunataka kulinganisha `freecodecamp` au `freecandycamp`. Unaweza kuunda mifumo miwili iliyotenganishwa na uthibitisho wa AU:
+
+```js
+const regex = /freecodecamp|freecandycamp/i;
+```
+
+Lakini hii inaweza kuwa ndefu sana kwa usemi wa kawaida wa kiwango kikubwa. Badala yake, unaweza kuunda kundi lisilonasa linalozunguka herufi unazotaka ku-AU:
+
+```js
+const regex = /free(?:code|candy)camp/i;
+```
+
+Kundi lisilonasa halihifadhi mechi ya `code|candy` tofauti katika kumbukumbu. Lakini linaweza kusaidia kuunda mifumo mbadala bila kuathiri usomaji au utendaji.
+
+# --questions--
+
+## --text--
+
+Unawezaje kuunda kundi la kunasa lenye jina katika usemi wa kawaida?
+
+## --answers--
+
+`(name:pattern)`
+
+### --feedback--
+
+Funzo linaelezea sintaksia maalum ya kuteua jina la kundi la kunasa, ikihusisha mabano ya kidogo kuliko na kubwa kuliko.
+
+---
+
+`(?<name>pattern)`
+
+---
+
+`(?name:pattern)`
+
+### --feedback--
+
+Funzo linaelezea sintaksia maalum ya kuteua jina la kundi la kunasa, ikihusisha mabano ya kidogo kuliko na kubwa kuliko.
+
+---
+
+`(name=>pattern)`
+
+### --feedback--
+
+Funzo linaelezea sintaksia maalum ya kuteua jina la kundi la kunasa, ikihusisha mabano ya kidogo kuliko na kubwa kuliko.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika njia ya `replace()`, unge-rejeaje kundi la kwanza la kunasa katika mfuatano wa kubadilisha?
+
+## --answers--
+
+`\1`
+
+### --feedback--
+
+Funzo linataja kutumia alama maalum ikifuatiwa na nambari kurejea makundi ya kunasa katika wito la replace.
+
+---
+
+`$1`
+
+---
+
+`{1}`
+
+### --feedback--
+
+Funzo linataja kutumia alama maalum ikifuatiwa na nambari kurejea makundi ya kunasa katika wito la replace.
+
+---
+
+`[1]`
+
+### --feedback--
+
+Funzo linataja kutumia alama maalum ikifuatiwa na nambari kurejea makundi ya kunasa katika wito la replace.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kusudi la kundi lisilonasa katika usemi wa kawaida?
+
+## --answers--
+
+Kukamata kundi bila kulihifadhi katika kumbukumbu
+
+### --feedback--
+
+Funzo linaelezea matumizi maalum ya makundi yasiyonasa yanayohusiana na kuunda mifumo mbadala.
+
+---
+
+Kuunda mifumo mbadala bila kuathiri usomaji au utendaji
+
+---
+
+Kuteua kundi la kunasa
+
+### --feedback--
+
+Funzo linaelezea matumizi maalum ya makundi yasiyonasa yanayohusiana na kuunda mifumo mbadala.
+
+---
+
+Kurejea kundi lililonaswa hapo awali
+
+### --feedback--
+
+Funzo linaelezea matumizi maalum ya makundi yasiyonasa yanayohusiana na kuunda mifumo mbadala.
+
+## --video-solution--
+
+2

@@ -1,0 +1,69 @@
+---
+id: 5895f70df9fc0f352b528e6a
+title: Unda programu ya kati mpya
+challengeType: 2
+forumTopicId: 301551
+dashedName: create-new-middleware
+---
+
+# --description--
+
+Kama ilivyo sasa, mtumizi yeyote anaweza tu kwenda `/profile` iwe amethibitishwa au la kwa kuandika URL. Unataka kuzuia hili kwa kuangalia kama mtumizi amethibitishwa kwanza kabla ya kuonyesha ukurasa wa wasifu. Hii ni mfano mzuri wa wakati wa kuunda programu ya kati.
+
+Changamoto hapa ni kuunda kitendakazi cha programu ya kati `ensureAuthenticated(req, res, next)`, ambacho kitacheki kama mtumizi amethibitishwa kwa kuita njia ya Passport `isAuthenticated` kwenye `request` ambayo inakagua kama `req.user` imefafanuliwa. Ikiwa ipo, basi `next()` inapaswa kuitwa. Vinginevyo, unaweza kujibu ombi kwa kuelekeza upya kwenye ukurasa wako wa nyumbani kuingia.
+
+Utekelezaji wa programu hii ya kati ni:
+
+```javascript
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+};
+```
+
+Unda kitendakazi cha programu ya kati kilichotajwa hapo juu, kisha pita `ensureAuthenticated` kama programu ya kati kwa maombi ya ukurasa wa wasifu kabla ya hoja ya ombi la GET:
+
+```javascript
+app
+ .route('/profile')
+ .get(ensureAuthenticated, (req,res) => {
+    res.render('profile');
+ });
+```
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#create-new-middleware-8" target="_blank" rel="noopener noreferrer nofollow">kagua mradi uliofanyika hadi sasa</a>.
+
+# --hints--
+
+Programu ya kati `ensureAuthenticated` inapaswa kutekelezwa na kuambatanishwa na njia ya data `/profile`.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /ensureAuthenticated[^]*req.isAuthenticated/,
+    'Your ensureAuthenticated middleware should be defined and utilize the req.isAuthenticated function'
+  );
+  assert.match(
+    data,
+    /profile[^]*get[^]*ensureAuthenticated/,
+    'Your ensureAuthenticated middleware should be attached to the /profile route'
+  );
+```
+
+Ombi la GET lisilo imethibitishwa kwa `/profile` linapaswa kuelekezwa upya kwa usahihi kwenda `/`.
+
+```js
+  const url = new URL("/profile", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /Home page/,
+    'An attempt to go to the profile at this point should redirect to the homepage since we are not logged in'
+  );
+```

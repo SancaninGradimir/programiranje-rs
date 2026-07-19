@@ -1,0 +1,250 @@
+---
+id: 695b93cb572125a6fb19f399
+title: Faili la package.json ni nini
+challengeType: 19
+dashedName: what-is-a-package-json-file
+---
+
+# --description--
+
+npm inahitaji njia ya kuhifadhi maelezo muhimu kuhusu mradi wako – mambo kama vile ni vifurushi gani vinavyotumika, toleo la vifurushi hivyo, na amri gani zinaweza kutekelezwa. Hii hufanyika kwa faili la `package.json`.
+
+Fikiria faili la `package.json` kama faili la usanidi wa npm kwa mradi. Ni faili rahisi la JSON linaloelezea mradi wako kwa kutumia jozi za ufunguo-thamani ili kufuatilia mambo kama:
+
+* jina la mradi na toleo lake
+    
+* mwandishi
+    
+* faili kuu inayopaswa kuanzishwa kwanza
+    
+* leseni
+    
+* hifadhi ya msimbo, maneno muhimu, na maelezo
+    
+* utegemezi wowote unaohitajika na mradi
+    
+
+Hapa kuna mfano wa faili la `package.json`:
+
+```json
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "A simple NPM project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Running tests...\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/project.git"
+  },
+  "keywords": ["fCC", "js"],
+  "author": "Kolade Chris",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.2.1"
+  },
+  "devDependencies": {
+    "cypress": "^15.7.1"
+  }
+}
+```
+
+Sehemu ya `main` mara nyingi huwekwa kuwa `index.js`, na inaeleza Node.js faili gani ianzishwe kwanza.
+
+Sehemu ya `license` hutumika kubainisha masharti ya kisheria ambayo watu wengine wanaweza kutumia, kubadilisha, na kusambaza msimbo uliopo kwenye kifurushi chako. Kuna leseni nyingi tofauti kama `MIT`, `ISC`, au `GPL`, ambazo zote zina masharti na ruhusa tofauti. Kwa chaguo-msingi ni `ISC`, Leseni ya Internet Systems Consortium, ambayo ni leseni ya chanzo huru yenye ruhusa nyingi.
+
+Kadiri mradi wako unavyokua na unavyoweka vifurushi, npm huviweka chini ya sehemu moja kati ya mbili:
+
+* `dependencies`, ambayo ni vifurushi vinavyohitajika kwa app yako kuendesha katika uzalishaji
+    
+* `devDependencies`, ambayo ni vifurushi unavyohitaji tu wakati wa ukuzaji
+    
+
+Kwa mfano, ikiwa mradi wako unatumia React kwa ajili ya UI yake, hiyo itawekwa katika `dependencies` kwa sababu inahitajika mradi ufanye kazi mara baada ya kupelekwa. Zana kama Cypress, inayotumika tu kwa mtihani wa mwisho kabla ya kupeleka uzalishaji, inahusiana na `devDependencies`.
+
+Kuna njia rahisi kadhaa za kuunda faili la `package.json`. Njia inayotumika zaidi ni kuendesha amri ifuatayo:
+
+```bash
+npm init
+```
+
+Unapaswa kuendesha hii katika folda kuu ya mradi wako. Amri hii huanzisha mchakato wa usanidi wa maingiliano ambapo npm inakuuliza maswali kadhaa. Majibu yako hutumika kujaza sehemu kama jina la mradi, toleo, maelezo, maandishi ya amri, maneno muhimu, mwandishi, na leseni.
+
+Ikiwa unapendelea kuruka maswali na kuunda faili la `package.json` lenye thamani za chaguo-msingi, unaweza kuendesha:
+
+```bash
+npm init -y
+```
+
+au
+
+```bash
+npm init --yes
+```
+
+Hii huunda faili la `package.json` mara moja lenye thamani za chaguo-msingi katika sehemu nyingi.
+
+Kwa kawaida ni bora kutumia `npm init` bila bendera ya `-y` au `--yes` ili uweze kupitia kila sehemu na kubinafsisha taarifa za mradi wako. Ukikosa kujibu swali, npm hutumia thamani ya chaguo-msingi. Kwa mfano, ukiacha swali la leseni tupu, npm itaiweka kuwa `ISC` kwa chaguo-msingi.
+
+Hapa kuna mfano wa kile utakachoona unapoendesha `npm init`:
+
+```bash
+user@Kolade ~/Desktop/fCC/npm/package-json-file  % npm init
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (test) my-app
+version: (1.0.0)
+description: a description for my-app
+entry point: (index.js)
+test command:
+git repository:
+keywords: fCC, JS
+author: Kolade Chris
+license: (ISC)
+About to write to /Users/user/Desktop/fCC/npm/package-json-file/package.json
+
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "a description for my-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fCC",
+    "JS"
+  ],
+  "author": "Kolade Chris",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes)
+```
+
+Unaweza kugundua kuwa `dependencies` na `devDependencies` bado hazijaorodheshwa. Hii ni kwa sababu sehemu hizi huongezwa tu baada ya kusakinisha kifurushi chako cha kwanza.
+
+Pia utaona kuwa sehemu ya `repository` haipo. Ingawa npm ilikuuliza kuhusu hilo wakati wa `npm init`, haijajaza moja kwa moja baadaye. Kwa mfano, unapoendesha amri kama `git remote add origin` au `git push`, npm haitasasisha sehemu ya hifadhi ya msimbo kwa niaba yako — unapaswa kuiongeza mwenyewe ikiwa unataka iingizwe.
+
+Katika mafundisho yajayo, utajifunza zaidi kuhusu utegemezi katika `package.json` na jinsi ya kusakinisha, kusasisha, na kufuta.
+
+# --questions--
+
+## --text--
+
+Unawezaje kuunda faili la `package.json`?
+
+## --answers--
+
+Kwa kupakua tu kutoka kwenye tovuti ya npm.
+
+### --feedback--
+
+Fikiria amri inayosaidia kuanzisha maelezo ya mradi kwa njia ya maingiliano.
+
+---
+
+Kwa kuendesha amri ya `npm install`.
+
+### --feedback--
+
+Fikiria amri inayosaidia kuanzisha maelezo ya mradi kwa njia ya maingiliano.
+
+---
+
+Kwa kuendesha amri ya `npm init`.
+
+---
+
+Kwa kuleta kutoka mradi mwingine.
+
+### --feedback--
+
+Fikiria amri inayosaidia kuanzisha maelezo ya mradi kwa njia ya maingiliano.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini hutokea kwa faili la `package.json` unaposakinisha utegemezi katika mradi wa Node.js?
+
+## --answers--
+
+Hufuta funguo za usanidi zilizopo.
+
+### --feedback--
+
+Fikiria mahali ambapo npm huhifadhi maelezo ya vifurushi vilivyowekwa.
+
+---
+
+Huinua sehemu ya `dependencies` au `devDependencies` kulingana na aina ya kifurushi kilichosakinishwa.
+
+---
+
+Huisasisha moja kwa moja nambari ya toleo la mradi.
+
+### --feedback--
+
+Fikiria mahali ambapo npm huhifadhi maelezo ya vifurushi vilivyowekwa.
+
+---
+
+Hufuta vifurushi visivyotumika kutoka kwenye mradi.
+
+### --feedback--
+
+Fikiria mahali ambapo npm huhifadhi maelezo ya vifurushi vilivyowekwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni taarifa gani kati ya hizi faili la `package.json` huhifadhi katika mradi wa Node.js?
+
+## --answers--
+
+Maelezo kama `name` ya mradi, `version`, `author`, faili la kuingilia, na `license`
+
+---
+
+Ni mitindo ya CSS ya mradi na templeti za HTML tu
+
+### --feedback--
+
+Fikiria kile kinachosaidia kutambua na kuelezea mradi wa Node.js.
+
+---
+
+Faili zilizotengenezwa za JavaScript
+
+### --feedback--
+
+Fikiria kile kinachosaidia kutambua na kuelezea mradi wa Node.js.
+
+---
+
+Vyeti vya mtumizi na vigezo vya mazingira ya mfumo
+
+### --feedback--
+
+Fikiria kile kinachosaidia kutambua na kuelezea mradi wa Node.js.
+
+## --video-solution--
+
+1

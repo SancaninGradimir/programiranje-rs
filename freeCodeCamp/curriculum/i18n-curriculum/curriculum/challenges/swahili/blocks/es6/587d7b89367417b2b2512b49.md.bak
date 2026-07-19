@@ -1,0 +1,97 @@
+---
+id: 587d7b89367417b2b2512b49
+title: Tumia mgawo wa ufumbuzi wa muundo kuweka thamani kwa vigezo kutoka kwa vitu
+challengeType: 1
+forumTopicId: 301215
+dashedName: use-destructuring-assignment-to-assign-variables-from-objects
+---
+
+# --description--
+
+Ufumbuzi wa muundo unakuwezesha kuweka jina jipya la kigezo wakati unachukua thamani. Unaweza kufanya hivi kwa kuweka jina jipya baada ya nukta wakati wa kuweka thamani.
+
+Ukichukua mfano huo huo wa kitu kutoka kwenye mfano uliopita:
+
+```js
+const user = { name: 'John Doe', age: 34 };
+```
+
+Hivi ndivyo unavyoweza kutoa majina mapya ya vigezo katika mgawo:
+
+```js
+const { name: userName, age: userAge } = user;
+```
+
+Unaweza kusoma kama "pata thamani ya `user.name` na weka thamani hiyo kwenye kigezo kipya kinachoitwa `userName`" na kadhalika. Thamani ya `userName` itakuwa mfuatano wa herufi `John Doe`, na thamani ya `userAge` itakuwa nambari `34`.
+
+# --instructions--
+
+Badilisha mgawo huo wa thamani mbili na mgawo wa ufumbuzi wa muundo unaolingana. Inapaswa bado kuweka vigezo `highToday` na `highTomorrow` thamani za `today` na `tomorrow` kutoka kwa kitu cha `HIGH_TEMPERATURES`.
+
+# --hints--
+
+Unapaswa kuondoa sintaksia ya mgawo wa thamani ya ES5.
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/highToday = HIGH_TEMPERATURES\.today/g) &&
+    !__helpers.removeJSComments(code).match(/highTomorrow = HIGH_TEMPERATURES\.tomorrow/g)
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo cha `highToday`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(
+    /(var|const|let)\s*{\s*(today\s*:\s*highToday[^}]*|[^,]*,\s*today\s*:\s*highToday\s*)}\s*=\s*HIGH_TEMPERATURES(;|\s+|\/\/)/g
+  )
+);
+```
+
+Unapaswa kutumia ufumbuzi wa muundo kuunda kigezo cha `highTomorrow`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(
+    /(var|const|let)\s*{\s*(tomorrow\s*:\s*highTomorrow[^}]*|[^,]*,\s*tomorrow\s*:\s*highTomorrow\s*)}\s*=\s*HIGH_TEMPERATURES(;|\s+|\/\/)/g
+  )
+);
+```
+
+`highToday` inapaswa kuwa sawa na `77` na `highTomorrow` inapaswa kuwa sawa na `80`.
+
+```js
+assert(highToday === 77 && highTomorrow === 80);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+  
+const highToday = HIGH_TEMPERATURES.today;
+const highTomorrow = HIGH_TEMPERATURES.tomorrow; 
+
+// Only change code above this line
+```
+
+# --solutions--
+
+```js
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+const { today: highToday, tomorrow: highTomorrow } = HIGH_TEMPERATURES;
+```

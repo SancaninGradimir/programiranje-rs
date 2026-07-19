@@ -1,0 +1,222 @@
+---
+id: 66f17db06803d11a1bd19a20
+title: Jenga mchezo wa jaribio fupi
+challengeType: 26
+dashedName: lab-quiz-game
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda safu ya data iitwayo `questions`.
+1. Safu ya data ya `questions` inapaswa kuwa na angalau vitu vitano, kila kimoja kikiwa na funguo `category`, `question`, `choices`, na `answer`.
+1. Funguo ya `category` inapaswa kuwa na thamani ya mfuatano wa herufi unaowakilisha kundi la swali.
+1. Funguo ya `question` inapaswa kuwa na thamani ya mfuatano wa herufi unaowakilisha swali.
+1. Funguo ya `choices` inapaswa kuwa na thamani ya safu ya data yenye mfuatano wa herufi tatu, ambazo ni majibu mbadala ya swali.
+1. Funguo ya `answer` inapaswa kuwa na thamani ya mfuatano wa herufi, unaowakilisha jibu sahihi la swali. Pia, thamani ya `answer` inapaswa kujumuishwa katika safu ya data ya `choices`.
+1. Unapaswa kuwa na kitendakazi iitwayo `getRandomQuestion` kinachopokea safu ya data ya maswali kama kigezo na kurudisha kitu cha swali cha nasibu kutoka kwenye safu hiyo.
+1. Unapaswa kuwa na kitendakazi iitwayo `getRandomComputerChoice` kinachopokea safu ya chaguzi zinazopatikana kama kigezo, na kurudisha jibu la nasibu kwa swali lililochaguliwa.
+1. Unapaswa kuwa na kitendakazi iitwayo `getResults` kinachopokea kitu cha swali kama kigezo cha kwanza na chaguo la kompyuta kama kigezo cha pili. Kitendakazi kinapaswa kurudisha `The computer's choice is correct!` ikiwa jibu ni sahihi. Vinginevyo, kinarudisha `The computer's choice is wrong. The correct answer is: <correct-answer>`, ambapo `<correct-answer>` ni thamani ya jibu sahihi kwa swali lililochaguliwa.
+
+# --hints--
+
+Unapaswa kuunda safu ya data iitwayo `questions`.
+
+```js
+assert.isArray(questions);
+```
+
+Safu ya data ya `questions` inapaswa kuwa na angalau vitu vitano, kila kimoja kikiwa na funguo `category`, `question`, `choices`, na `answer`.
+
+```js
+assert.isAtLeast(questions.length, 5);
+questions.forEach(question => {
+    assert.isObject(question);
+    assert.hasAllKeys(question, ['category', 'choices', 'question', 'answer']);
+});
+
+```
+
+Funguo ya `category` inapaswa kuwa na thamani ya mfuatano wa herufi unaowakilisha kundi la swali.
+
+```js
+assert.isNotEmpty(questions);
+questions.forEach(({category}) => {
+    assert.isString(category);
+    assert.isNotEmpty(category);
+});
+```
+
+Funguo ya `question` inapaswa kuwa na thamani ya mfuatano wa herufi unaowakilisha swali.
+
+```js
+assert.isNotEmpty(questions);
+questions.forEach(({question}) => {
+    assert.isString(question);
+    assert.include(question, '?');
+    assert.isNotEmpty(question.replaceAll('?', ''));
+})
+```
+
+Funguo ya `choices` inapaswa kuwa na thamani ya safu ya data yenye mfuatano wa herufi tatu tofauti na kila mmoja.
+
+```js
+assert.isNotEmpty(questions);
+questions.forEach(({choices}) => {
+    assert.isArray(choices);
+    assert.lengthOf(choices, 3);
+    assert.lengthOf(new Set(choices), 3);
+    choices.forEach(choice => {
+        assert.isString(choice);
+        assert.isNotEmpty(choice);
+    });
+})
+```
+
+Funguo ya `answer` inapaswa kuwa na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotEmpty(questions);
+questions.forEach(({answer}) => {
+    assert.isString(answer);
+    assert.isNotEmpty(answer);
+});
+```
+
+Thamani ya `answer` inapaswa kujumuishwa katika safu ya data ya `choices`.
+
+```js
+assert.isNotEmpty(questions);
+questions.forEach(({answer, choices}) => assert.oneOf(answer, choices));
+```
+
+Unapaswa kuwa na kitendakazi iitwayo `getRandomQuestion` kinachopokea safu ya data ya maswali kama kigezo na kurudisha kitu cha swali cha nasibu kutoka kwenye safu hiyo.
+
+```js
+const parameters = __helpers.getFunctionParams(getRandomQuestion.toString());
+
+assert.isFunction(getRandomQuestion);
+assert.lengthOf(parameters, 1);
+assert.lengthOf(getRandomQuestion, 1);
+assert.isObject(getRandomQuestion(questions));
+assert.deepInclude(questions, getRandomQuestion(questions), "getRandomQuestion did not return one of the objects inside questions");
+```
+
+Unapaswa kuwa na kitendakazi iitwayo `getRandomComputerChoice` kinachopokea safu ya chaguzi zinazopatikana kama kigezo, na kurudisha jibu la nasibu kwa swali lililochaguliwa.
+
+```js
+assert.isFunction(getRandomComputerChoice);
+const randomArray = ['a', 'b', 'c'];
+assert.oneOf(getRandomComputerChoice(randomArray), randomArray)
+```
+
+Unapaswa kuwa na kitendakazi iitwayo `getResults`.
+
+```js
+assert.isFunction(getResults);
+```
+
+Kitendakazi chako cha `getResults` kinapaswa kupokea kitu cha swali kama kigezo cha kwanza na chaguo la kompyuta kama kigezo cha pili.
+
+```js
+const testQuestion = questions[0];
+const wrongChoice = questions[0].choices.find(choice => choice !== questions[0].answer);
+assert.equal(getResults(testQuestion, testQuestion.answer), `The computer's choice is correct!`);
+assert.equal(getResults(testQuestion, wrongChoice), `The computer's choice is wrong. The correct answer is: ${testQuestion.answer}`);
+```
+
+Ikiwa chaguo la kompyuta linafanana na jibu, `getResults` inapaswa kurudisha `The computer's choice is correct!`
+
+```js
+assert.equal(getResults(questions[0], questions[0].answer), `The computer's choice is correct!`);
+```
+
+Ikiwa chaguo la kompyuta halifanani na jibu, `getResults` inapaswa kurudisha `The computer's choice is wrong. The correct answer is: <correct-answer>`, ambapo `<correct-answer>` ni thamani ya jibu sahihi kwa swali lililochaguliwa.
+
+```js
+assert.equal(getResults({category: 'misc', choices: ['a', 'b', 'c'], question: "question?", answer: "b"}, "a"), `The computer's choice is wrong. The correct answer is: b`)
+```
+
+Kitendakazi chako cha `getResults` kinapaswa kutumia kulinganisha usawa kamili, si kulinganisha sehemu ya mfuatano wa herufi.
+
+```js
+assert.equal(getResults({category: 'food', choices: ['Ham', 'Hamburger', 'Hot Dog'], question: "What food?", answer: "Hamburger"}, "Ham"), `The computer's choice is wrong. The correct answer is: Hamburger`);
+assert.equal(getResults({category: 'food', choices: ['Ham', 'Hamburger', 'Hot Dog'], question: "What food?", answer: "Ham"}, "Hamburger"), `The computer's choice is wrong. The correct answer is: Ham`);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const questions = [
+    {
+        category: "science",
+        question: "What is the chemical symbol for potassium?",
+        choices: ["P", "K", "Pt"],
+        answer: "K"
+    },
+    {
+        category: "science",
+        question: "What is the unit of electrical resistance?",
+        choices: ["Ohm", "Coulomb", "Sievert"],
+        answer: "Ohm"
+    },
+    {
+        category: "geography",
+        question: "What is the capital city of Australia?",
+        choices: ["Sidney", "Canberra", "Wellington"],
+        answer: "Canberra"
+    },
+    {
+        category: "literature",
+        question: 'Who wrote "1984"?',
+        choices: ["Ray Bradbury", "Aldous Huxley", "George Orwell"],
+        answer: "George Orwell"
+    },
+    {
+        category: "sport",
+        question: "How many players are on a standard volleyball team?",
+        choices: ["6", "7", "12"],
+        answer: "6"
+    }
+]
+
+function getRandomQuestion(questionList) {
+    const randomIndex = Math.floor(Math.random() * questionList.length);
+    return questionList[randomIndex];
+}
+
+function getRandomComputerChoice(choices) {
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
+
+function getResults(obj, computerChoice) {
+    return computerChoice === obj.answer
+        ? "The computer's choice is correct!"
+        : `The computer's choice is wrong. The correct answer is: ${obj.answer}`;
+}
+
+const questionObj = getRandomQuestion(questions);
+const { question, choices } = questionObj;
+
+console.log(question);
+console.log(`Choices: ${choices}`);
+
+const computerChoice = getRandomComputerChoice(choices);
+console.log(`Computer chooses: ${computerChoice}`);
+
+const results = getResults(questionObj, computerChoice);
+console.log(results);
+
+```

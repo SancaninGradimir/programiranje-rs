@@ -1,0 +1,135 @@
+---
+id: a8e512fbe388ac2f9198f0fa
+title: Tekeleza kichujio cha kitu kinacholingana
+challengeType: 26
+dashedName: implement-a-matching-object-filter
+---
+
+# --description--
+
+Katika maabara hii, utaunda kitendakazi kinachochuja safu ya vitu na kurudisha tu vitu vinavyolingana na jozi zote za ufunguo-thamani katika kitu cha chanzo kilichotolewa.
+
+**Lengo**: Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi `whatIsInAName` kinachokubali hoja mbili, safu ya vitu na kitu cha chanzo.
+1. Kitendakazi `whatIsInAName` kinapaswa kurudisha safu mpya inayojumuisha tu vitu kutoka kwenye mkusanyiko vinavyokuwa na jozi zote za ufunguo-thamani zilizopo katika kitu cha chanzo.
+1. Ikiwa hakuna vitu vinavyolingana na jozi zote za ufunguo-thamani kutoka chanzo, kitendakazi kinapaswa kurudisha safu tupu. Kwa mfano:
+
+```js
+whatIsInAName(
+  [
+    { first: "Romeo", last: "Montague" },
+    { first: "Mercutio", last: null },
+    { first: "Tybalt", last: "Capulet" }
+  ],
+  { last: "Capulet" }
+);
+// should return [{ first: "Tybalt", last: "Capulet" }]
+```
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi `whatIsInAName`.
+
+```js
+assert.isFunction(whatIsInAName);
+```
+
+`whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" })` inapaswa kurudisha `[{ first: "Tybalt", last: "Capulet" }]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName(
+    [{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }],
+    { last: "Capulet" }
+  ),
+  [{ first: "Tybalt", last: "Capulet" }]
+);
+```
+
+`whatIsInAName([{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }], { "apple": 1 })` inapaswa kurudisha `[{"apple": 1}, {"apple": 1}, {"apple": 1, "bat": 2}]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName(
+    [{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }],
+    { "apple": 1 }
+  ),
+  [{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }]
+);
+```
+
+`whatIsInAName([{ "apple": 1, "bat": 2 }, { "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "bat": 2 })` inapaswa kurudisha `[{"apple": 1, "bat": 2}, {"apple": 1, "bat": 2, "cookie": 2}]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName(
+    [{ "apple": 1, "bat": 2 }, { "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }],
+    { "apple": 1, "bat": 2 }
+  ),
+  [{ "apple": 1, "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }]
+);
+```
+
+`whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "cookie": 2 })` inapaswa kurudisha `[{"apple": 1, "bat": 2, "cookie": 2}]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName(
+    [{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }],
+    { "apple": 1, "cookie": 2 }
+  ),
+  [{ "apple": 1, "bat": 2, "cookie": 2 }]
+);
+```
+
+`whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat": 2 }], { "apple": 1, "bat": 2 })` inapaswa kurudisha `[{"apple": 1, "bat": 2}, {"apple": 1, "bat": 2, "cookie": 2}]`
+
+```js
+assert.deepEqual(
+  whatIsInAName(
+    [{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat": 2 }],
+    { "apple": 1, "bat": 2 }
+  ),
+  [{ "apple": 1, "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }]
+);
+```
+
+`whatIsInAName([{"a": 1, "b": 2, "c": 3}], {"a": 1, "b": 9999, "c": 3})` inapaswa kurudisha `[]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName([{ "a": 1, "b": 2, "c": 3 }], { "a": 1, "b": 9999, "c": 3 }),
+  []
+);
+```
+
+`whatIsInAName([{"a": 1, "b": 2, "c": 3, "d": 9999}], {"a": 1, "b": 9999, "c": 3})` inapaswa kurudisha `[]`.
+
+```js
+assert.deepEqual(
+  whatIsInAName([{ "a": 1, "b": 2, "c": 3, "d": 9999 }], { "a": 1, "b": 9999, "c": 3 }),
+  []
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+```
+
+# --solutions--
+
+```js
+function whatIsInAName(collection, source) {
+  const sourceKeys = Object.keys(source);
+
+  return collection.filter(obj =>
+    sourceKeys.every(key => obj.hasOwnProperty(key) && obj[key] === source[key])
+  );
+}
+```

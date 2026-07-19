@@ -1,0 +1,60 @@
+---
+id: 587d824d367417b2b2512c54
+title: Tumia usemi wa kawaida kupima mfuatano wa herufi
+challengeType: 2
+forumTopicId: 301608
+dashedName: use-regular-expressions-to-test-a-string
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa msingi uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+`match()` inathibitisha kuwa thamani halisi inalingana na usemi wa kawaida wa hoja ya pili.
+
+# --instructions--
+
+Ndani ya `tests/1_unit-tests.js` chini ya jaribio lenye lebo `#15` katika safu ya `Strings`, badilisha kila `assert` kuwa `assert.match` au `assert.notMatch` ili jaribio lifaulu (linapaswa kutathminiwa kuwa `true`). Usibadilishe hoja zinazopitishwa kwa uthibitisho.
+
+# --hints--
+
+Jaribio zote zinapaswa kupita.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=unit&n=14');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.state, 'passed');
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa kwanza - `match` dhidi ya `notMatch`.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=unit&n=14');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(
+  data.assertions[0].method,
+  'match',
+  "'# name:John Doe, age:35' matches the regex"
+);
+```
+
+Unapaswa kuchagua njia sahihi kwa uthibitisho wa pili - `match` dhidi ya `notMatch`.
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=unit&n=14');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(
+  data.assertions[1].method,
+  'notMatch',
+  "'# name:Paul Smith III, age:twenty-four' does not match the regex (the age must be numeric)"
+);
+```

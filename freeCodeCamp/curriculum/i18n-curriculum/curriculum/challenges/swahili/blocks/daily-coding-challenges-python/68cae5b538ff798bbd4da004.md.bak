@@ -1,0 +1,72 @@
+---
+id: 68cae5b538ff798bbd4da004
+title: "Zoezi la 66: Ondoa lebo za HTML"
+challengeType: 29
+dashedName: challenge-66
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi wa msimbo wa HTML, ondoa lebo na rudisha maudhui ya maandishi ya kawaida.
+
+- Mfuatano wa herufi wa ingizo utakuwa na HTML halali tu.
+- Lebo za HTML zinaweza kuwa zilizopangwa ndani.
+- Ondoa lebo na sifa za kipengele zote.
+
+Kwa mfano, `'<a href="#">Click here</a>'` inapaswa kurudisha `"Click here"`.
+
+# --hints--
+
+`strip_tags('<a href="#">Click here</a>')` inapaswa kurudisha `"Click here"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(strip_tags('<a href="#">Click here</a>'), "Click here")`)
+}})
+```
+
+`strip_tags('<p class="center">Hello <b>World</b>!</p>')` inapaswa kurudisha `"Hello World!"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(strip_tags('<p class="center">Hello <b>World</b>!</p>'), "Hello World!")`)
+}})
+```
+
+`strip_tags('<img src="cat.jpg" alt="Cat">')` inapaswa kurudisha mfuatano wa herufi tupu (`""`).
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(strip_tags('<img src="cat.jpg" alt="Cat">'), "")`)
+}})
+```
+
+`strip_tags('<main id="main"><section class="section">section</section><section class="section">section</section></main>')` inapaswa kurudisha `sectionsection`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(strip_tags('<main id="main"><section class="section">section</section><section class="section">section</section></main>'), "sectionsection")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def strip_tags(html):
+
+    return html
+```
+
+# --solutions--
+
+```py
+import re
+def strip_tags(html):
+    return re.sub(r'<[^>]*>', '', html)
+```

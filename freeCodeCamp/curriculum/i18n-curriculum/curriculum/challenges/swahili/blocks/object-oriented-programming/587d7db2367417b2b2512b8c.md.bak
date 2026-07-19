@@ -1,0 +1,106 @@
+---
+id: 587d7db2367417b2b2512b8c
+title: Tumia IIFE kuunda moduli
+challengeType: 1
+forumTopicId: 301332
+dashedName: use-an-iife-to-create-a-module
+---
+
+# --description--
+
+Usemi wa kitendakazi unaoitwa mara moja (IIFE) mara nyingi hutumika kuunganisha utendaji unaohusiana katika kitu kimoja au <dfn>moduli</dfn>. Kwa mfano, changamoto ya awali ilibainisha mixin mbili:
+
+```js
+function glideMixin(obj) {
+  obj.glide = function() {
+    console.log("Gliding on the water");
+  };
+}
+function flyMixin(obj) {
+  obj.fly = function() {
+    console.log("Flying, wooosh!");
+  };
+}
+```
+
+Tunaweza kuunganisha mixin hizi katika moduli kama ifuatavyo:
+
+```js
+let motionModule = (function () {
+  return {
+    glideMixin: function(obj) {
+      obj.glide = function() {
+        console.log("Gliding on the water");
+      };
+    },
+    flyMixin: function(obj) {
+      obj.fly = function() {
+        console.log("Flying, wooosh!");
+      };
+    }
+  }
+})();
+```
+
+Kumbuka kuwa una usemi wa kitendakazi unaoitwa mara moja (IIFE) unaorudisha kitu `motionModule`. Kitu hiki kinachorudishwa kina tabia zote za mixin kama vigezo vya kitu hicho. Faida ya muundo wa moduli ni kwamba tabia zote za mwendo zinaweza kufungashwa katika kitu kimoja ambacho kisha kinaweza kutumika na sehemu nyingine za msimbo wako. Hapa kuna mfano wa kuitumia:
+
+```js
+motionModule.glideMixin(duck);
+duck.glide();
+```
+
+# --instructions--
+
+Unda moduli iitwayo `funModule` kufunika mixin mbili `isCuteMixin` na `singMixin`. `funModule` inapaswa kurudisha kitu.
+
+# --hints--
+
+`funModule` inapaswa kufafanuliwa na kurudisha kitu.
+
+```js
+assert(typeof funModule === 'object');
+```
+
+`funModule.isCuteMixin` inapaswa kupata upatikanaji wa kitendakazi.
+
+```js
+assert(typeof funModule.isCuteMixin === 'function');
+```
+
+`funModule.singMixin` inapaswa kupata upatikanaji wa kitendakazi.
+
+```js
+assert(typeof funModule.singMixin === 'function');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let isCuteMixin = function(obj) {
+  obj.isCute = function() {
+    return true;
+  };
+};
+let singMixin = function(obj) {
+  obj.sing = function() {
+    console.log("Singing to an awesome tune");
+  };
+};
+```
+
+# --solutions--
+
+```js
+const funModule = (function () {
+  return {
+    isCuteMixin: obj => {
+      obj.isCute = () => true;
+    },
+    singMixin: obj => {
+      obj.sing = () => console.log("Singing to an awesome tune");
+    }
+  };
+})();
+```

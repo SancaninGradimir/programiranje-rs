@@ -1,0 +1,126 @@
+---
+id: 5900f3cc1000cf542c50fede
+title: "'Zoezi la 95: Mnyororo wa kirafiki'"
+challengeType: 1
+forumTopicId: 302212
+dashedName: problem-95-amicable-chains
+---
+
+# --description--
+
+Vigawanyo halisi vya nambari ni vigawanyo vyote isipokuwa nambari yenyewe. Kwa mfano, vigawanyo halisi vya 28 ni 1, 2, 4, 7, na 14. Kwa kuwa jumla ya vigawanyo hivi ni sawa na 28, tunaita nambari hiyo nambari kamilifu.
+
+Kwa kushangaza, jumla ya vigawanyo halisi vya 220 ni 284 na jumla ya vigawanyo halisi vya 284 ni 220, na hivyo kuunda mnyororo wa nambari mbili. Kwa sababu hii, 220 na 284 huitwa jozi ya kirafiki.
+
+Labda haijulikani sana mnyororo mrefu zaidi. Kwa mfano, kuanzia na 12496, tunaunda mnyororo wa nambari tano:
+
+$$
+  12496 → 14288 → 15472 → 14536 → 14264 \\,(→ 12496 → \cdots)
+$$
+
+Kwa kuwa mnyororo huu unarudi kwenye sehemu yake ya mwanzo, huitwa mnyororo wa kirafiki.
+
+Tafuta mshiriki mdogo zaidi wa mnyororo mrefu zaidi wa kirafiki usio na kipengele chochote kinachozidi `limit`.
+
+# --hints--
+
+`amicableChains(300)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof amicableChains(300) === 'number');
+```
+
+`amicableChains(300)` inapaswa kurudisha `220`.
+
+```js
+assert.strictEqual(amicableChains(300), 220);
+```
+
+`amicableChains(15000)` inapaswa kurudisha `220`.
+
+```js
+assert.strictEqual(amicableChains(15000), 220);
+```
+
+`amicableChains(100000)` inapaswa kurudisha `12496`.
+
+```js
+assert.strictEqual(amicableChains(100000), 12496);
+```
+
+`amicableChains(1000000)` inapaswa kurudisha `14316`.
+
+```js
+assert.strictEqual(amicableChains(1000000), 14316);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function amicableChains(limit) {
+
+  return true;
+}
+
+amicableChains(300);
+```
+
+# --solutions--
+
+```js
+function amicableChains(limit) {
+  function getSmallestMember(chain) {
+    let smallest = chain[0];
+    for (let i = 1; i < chain.length; i++) {
+      if (smallest > chain[i]) {
+        smallest = chain[i];
+      }
+    }
+    return smallest;
+  }
+
+  function getFactorsSums(limit) {
+    const factorsSums = new Array(limit + 1).fill(1);
+    for (let i = 2; i <= limit / 2; i++) {
+      for (let j = 2 * i; j <= limit; j += i) {
+        factorsSums[j] += i;
+      }
+    }
+    return factorsSums;
+  }
+
+  const factorsSums = getFactorsSums(limit);
+  const checkedNumbers = new Set();
+
+  let longestChain = 0;
+  let smallestMember = 0;
+  for (let i = 0; i <= limit; i++) {
+    const curChain = [];
+    let curNumber = i;
+    while (!checkedNumbers.has(curNumber) && factorsSums[curNumber] <= limit) {
+      curNumber = factorsSums[curNumber];
+
+      const chainStart = curChain.indexOf(curNumber);
+      if (chainStart === -1) {
+        curChain.push(curNumber);
+        continue;
+      }
+
+      const chainLength = curChain.length - chainStart;
+      if (chainLength > longestChain) {
+        longestChain = chainLength;
+        smallestMember = getSmallestMember(curChain.slice(chainStart));
+      }
+      break;
+    }
+
+    for (let j = 0; j < curChain.length; j++) {
+      checkedNumbers.add(curChain[j]);
+    }
+  }
+
+  return smallestMember;
+}
+```

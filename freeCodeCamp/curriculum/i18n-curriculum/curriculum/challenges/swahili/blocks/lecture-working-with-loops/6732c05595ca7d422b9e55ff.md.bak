@@ -1,0 +1,276 @@
+---
+id: 6732c05595ca7d422b9e55ff
+title: "Nini ni mzunguko wa for...in, na lini unapaswa kuutumia?"
+challengeType: 19
+dashedName: what-is-the-for-in-loop-and-when-should-you-use-it
+---
+
+# --interactive--
+
+Mzunguko wa `for...in` hutumika vyema unapohitaji kurudia juu ya sifa za kitu. Mzunguko huu utarudia juu ya sifa zote zinazoweza kuhesabiwa za kitu, ikiwa ni pamoja na sifa zilizopatikana kutoka kwenye mnyororo wa prototype na sifa zisizo za nambari.
+
+Sifa iliyopatikana ni sifa inayopatikana kutoka kwenye mnyororo wa prototype wa kitu. Sifa isiyo ya nambari ni sifa ambayo si nambari au mfuatano wa herufi unaoweza kubadilishwa kuwa nambari.
+
+Hapa kuna sintaksia ya msingi ya mzunguko wa `for...in`:
+
+```js
+for (variable in object) {
+  // code block to be executed
+}
+```
+
+Kigezo katika mfano kinawakilisha sifa ya sasa ya kitu kinachorudiwa.
+
+Tuchunguze mifano michache ili uelewe vizuri jinsi mzunguko wa `for...in` unavyofanya kazi.
+
+Katika mfano huu wa kwanza tuna kitu cha `fruit` na tunataka kurudia kila sifa na kuandika thamani kwenye konsoli.
+
+:::interactive_editor
+
+```js
+const fruit = {
+  name: 'apple',
+  color: 'red',
+  price: 0.99
+};
+
+for (const prop in fruit) {
+  console.log(fruit[prop]);
+}
+```
+
+:::
+
+Kigezo cha `prop` kinawakilisha sifa ya sasa ya kitu. `fruit[prop]` hutumika kupata thamani ya kila sifa.
+
+Kwa mzunguko wa kwanza, `prop` itakuwa `name`. Kwa mzunguko wa pili, `prop` itakuwa `color`, na kadhalika.
+
+Matokeo yaliyoandikwa kwenye konsoli yatakuwa `apple`, `red`, na `0.99`.
+
+Katika mfano wa pili, tuna kitu kilichopangwa ndani na tunataka kurudia kila sifa na kuandika thamani kwenye konsoli.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: 'John',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'Anytown',
+    state: 'CA'
+  }
+};
+
+for (const prop in person) {
+  console.log(person[prop]);
+}
+```
+
+:::
+
+Sifa ya `address` ni kitu yenyewe. Mzunguko wa `for...in` pia utarudia juu ya sifa za kitu cha `person` na kuandika kitu kizima cha `address` kwenye konsoli.
+
+Hivi ndivyo matokeo yatakavyoonekana kwenye konsoli:
+
+```md
+John
+30
+{ street: '123 Main St', city: 'Anytown', state: 'CA' }
+```
+
+Ikiwa unataka kurudia juu ya sifa za kitu cha `address`, unaweza kupanga ndani mzunguko mwingine wa `for...in` ndani ya ule wa kwanza.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: 'John',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'Anytown',
+    state: 'CA'
+  }
+};
+
+function isObject(obj) {
+  return typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
+}
+
+for (const prop in person) {
+  if (isObject(person[prop])) {
+    for (const nestedProp in person[prop]) {
+      console.log(person[prop][nestedProp]);
+    }
+  } else {
+    console.log(person[prop]);
+  }
+}
+```
+
+:::
+
+Katika mfano huu, tuna kitendakazi maalum cha `isObject` kinachokagua kama thamani ni kitu.
+
+Njia ya `Array.isArray` hutumika kuangalia kama thamani ni safu ya data. Kwa kuweka kielezi cha mantiki NOT (`!`) mbele ya njia hiyo, tunakagua kama thamani si safu ya data.
+
+Sababu ya kutoweza kutumia `typeof` sawa na `'object'` ni kwa sababu safu za data pia zinachukuliwa kuwa vitu katika JavaScript. Tunataka kuondoa safu za data kutoka kwenye ukaguzi.
+
+Pia, kutokana na hitilafu ya kihistoria katika JavaScript, `typeof null` hurejesha `'object'`. Hivyo tunataka pia kuondoa thamani za `null` kutoka kwenye ukaguzi.
+
+Ikiwa sharti ni kweli, tunapanga ndani mzunguko mwingine wa `for...in` ambao utarudia juu ya sifa za kitu kilichopangwa ndani na kuandika thamani kwenye konsoli.
+
+Kigezo cha `nestedProp` kinawakilisha sifa ya sasa ya kitu kilichopangwa ndani.
+
+Hivi ndivyo matokeo yaliyobadilishwa yatakavyoonekana kwenye konsoli:
+
+```md
+"John"
+30
+"123 Main St"
+"Anytown"
+"CA"
+```
+
+Mzunguko wa `for...in` ni muhimu unapohitaji kurudia juu ya sifa za kitu.
+
+Haipendekezwi kutumia mzunguko wa `for...in` kurudia juu ya vipengele vya safu ya data. Badala yake, tumia mzunguko wa `for...of` au njia nyingine za safu kama `forEach`, `map`, `filter`, na `reduce`, ambazo utajifunza katika mafundisho yajayo.
+
+# --questions--
+
+## --text--
+
+Matokeo ya msimbo ufuatao yatakuwa yapi?
+
+```js
+const fruit = {
+  name: 'apple',
+  color: 'red',
+  price: 0.99
+};
+
+for (const prop in fruit) {
+  console.log(fruit[prop]);
+}
+```
+
+## --answers--
+
+```md
+apple
+apple
+apple
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo ili ujifunze kile mzunguko wa `for...in` unachofanya.
+
+---
+
+```md
+name
+color
+price
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo ili ujifunze kile mzunguko wa `for...in` unachofanya.
+
+---
+
+```md
+apple
+red
+0.99
+```
+
+---
+
+```md
+fruit
+fruit
+fruit
+```
+
+### --feedback--
+
+Kagua mwanzo wa funzo ili ujifunze kile mzunguko wa `for...in` unachofanya.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini kwa ujumla haipendekezwi kutumia mzunguko wa `for...in` kurudia juu ya vipengele vya safu ya data?
+
+## --answers--
+
+`for...in` hurudia juu ya njia za safu tu, si vipengele.
+
+### --feedback--
+
+Fikiria aina za sifa na viashiria ambavyo `for...in` inaweza kupata.
+
+---
+
+`for...in` hurudia juu ya sifa zote zinazoweza kuhesabiwa, ikiwa ni pamoja na sifa zilizopatikana na zisizo za nambari, jambo ambalo linaweza kusababisha matokeo yasiyotegemewa.
+
+---
+
+Mizunguko ya `for...in` ni polepole ikilinganishwa na njia nyingine za kurudia safu.
+
+### --feedback--
+
+Fikiria aina za sifa na viashiria ambavyo `for...in` inaweza kupata.
+
+---
+
+`for...in` haiwezi kushughulikia safu zilizo na viashiria visivyo vya nambari.
+
+### --feedback--
+
+Fikiria aina za sifa na viashiria ambavyo `for...in` inaweza kupata.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kwa nini kitendakazi cha `isObject` kinahitajika katika mfano wa mzunguko uliopangwa ndani?
+
+## --answers--
+
+Ili kuangalia kama thamani ni mfuatano wa herufi.
+
+### --feedback--
+
+Fikiria ukaguzi wa ziada unaohitajika kuangalia kama thamani ni kitu halisi.
+
+---
+
+Ili kuhakikisha kuwa thamani si safu ya data wala `null`.
+
+---
+
+Ili kuthibitisha kuwa thamani ni nambari kamili.
+
+### --feedback--
+
+Fikiria ukaguzi wa ziada unaohitajika kuangalia kama thamani ni kitu halisi.
+
+---
+
+Ili kubadilisha thamani kuwa kitu.
+
+### --feedback--
+
+Fikiria ukaguzi wa ziada unaohitajika kuangalia kama thamani ni kitu halisi.
+
+## --video-solution--
+
+2

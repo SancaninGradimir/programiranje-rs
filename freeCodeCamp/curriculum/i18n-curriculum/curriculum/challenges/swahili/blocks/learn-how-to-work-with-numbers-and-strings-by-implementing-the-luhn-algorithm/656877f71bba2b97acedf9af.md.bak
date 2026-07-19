@@ -1,0 +1,65 @@
+---
+id: 656877f71bba2b97acedf9af
+title: Hatua 3
+challengeType: 20
+dashedName: step-3
+---
+
+# --description--
+
+Python inakuja na madarasa ya vitu yaliyojengwa ndani ambayo yanaweza kutusaidia na usindikaji wa mfuatano wa herufi. Mmoja wao ni darasa la `str`. Lina njia inayoitwa `maketrans` ambayo inaweza kutusaidia kuunda jedwali la tafsiri. Jedwali hili linaweza kutumika kubadilisha herufi katika mfuatano wa herufi:
+
+```python
+str.maketrans({'t': 'c', 'l': 'b'})
+```
+
+Hili hapo juu, linapoitwa kwenye mfuatano wa herufi, litabadilisha herufi zote za `t` kuwa `c` na herufi zote za `l` kuwa `b`.
+
+Unda kigezo kinachoitwa `card_translation` na uweke thamani ya jedwali la tafsiri kubadilisha herufi zote za `-` na ` ` kuwa mfuatano wa herufi tupu.
+
+# --hints--
+
+Unapaswa kuunda kigezo cha `card_translation` ndani ya `main`.
+
+```js
+({
+    test: () => {
+        const transformedCode = code.replace(/\r/g, "");
+        const main = __helpers.python.getDef("\n" + transformedCode, "main");
+        const { function_body } = main;
+
+        assert.match(function_body, / +card_translation\s*=/);
+    }
+})
+```
+
+Unapaswa kuweka thamani ya `card_translation` kuwa `str.maketrans({'-': '', ' ': ''})`.
+
+```js
+({
+    test: () => {
+        const transformedCode = code.replace(/\r/g, "");
+        const main = __helpers.python.getDef("\n" + transformedCode, "main");
+        const { function_body } = main;
+
+        const allowedMatches = [
+            / +card_translation\s*=\s*str\.maketrans\(\s*\{\s*('|")-\1\s*:\s*('|")\2\s*,\s*('|") \3\s*:\s*('|")\4\s*\}\s*\)/,
+            / +card_translation\s*=\s*str\.maketrans\(\s*\{\s*('|") \1\s*:\s*('|")\2\s*,\s*('|")-\3\s*:\s*('|")\4\s*\}\s*\)/,
+        ];
+        const anyMatch = allowedMatches.some((match) => match.test(function_body));
+        assert.isTrue(anyMatch);
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+def main():
+    card_number = '4111-1111-4555-1142'
+    
+--fcc-editable-region--
+```

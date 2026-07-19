@@ -1,0 +1,158 @@
+---
+id: 56533eb9ac21ba0edf2244cb
+title: Kudhibiti vitu tata
+challengeType: 1
+forumTopicId: 18208
+dashedName: manipulating-complex-objects
+---
+
+# --description--
+
+Wakati mwingine unaweza kutaka kuhifadhi data katika <dfn>muundo wa data</dfn> unaobadilika. Kitu cha JavaScript ni njia moja ya kushughulikia data inayobadilika. Huwezesha mchanganyiko wowote wa <dfn>mfuatano wa herufi</dfn>, <dfn>nambari</dfn>, <dfn>thamani ya kweli au siyo kweli</dfn>, <dfn>safu ya data</dfn>, <dfn>kitendakazi</dfn>, na <dfn>vitu</dfn>.
+
+Hapa kuna mfano wa muundo tata wa data:
+
+```js
+const ourMusic = [
+  {
+    "artist": "Daft Punk",
+    "title": "Homework",
+    "release_year": 1997,
+    "formats": [ 
+      "CD", 
+      "Cassette", 
+      "LP"
+    ],
+    "gold": true
+  }
+];
+```
+
+Hii ni safu ya data ambayo ina kitu kimoja ndani yake. Kitu hicho kina vipande mbalimbali vya <dfn>metadata</dfn> kuhusu albamu. Pia kina safu ya data zilizopangwa ndani `formats`. Ikiwa unataka kuongeza rekodi zaidi za albamu, unaweza kufanya hivyo kwa kuongeza rekodi kwenye safu ya data ya ngazi ya juu. Vitu huhifadhi data katika sifa, ambayo ina muundo wa ufunguo-thamani. Katika mfano hapo juu, `"artist": "Daft Punk"` ni sifa ambayo ina ufunguo `artist` na thamani `Daft Punk`.
+
+**Kumbuka:** Utahitaji kuweka koma baada ya kila kitu katika safu ya data, isipokuwa ikiwa ni kitu cha mwisho katika safu hiyo.
+
+# --instructions--
+
+Ongeza albamu mpya kwenye safu ya data ya `myMusic`. Ongeza mfuatano wa herufi `artist` na `title`, nambari `release_year`, na safu ya data ya mfuatano wa herufi `formats`.
+
+# --hints--
+
+`myMusic` inapaswa kuwa safu ya data
+
+```js
+assert(Array.isArray(myMusic));
+```
+
+`myMusic` inapaswa kuwa na vipengele vya angalau viwili
+
+```js
+assert(myMusic.length > 1);
+```
+
+Vipengele katika safu ya data ya `myMusic` vinapaswa kuwa vitu
+
+```js
+myMusic.forEach(object => {assert.typeOf(object, 'object')})
+```
+
+Kitu chako katika `myMusic` kinapaswa kuwa na sifa angalau nne
+
+```js
+myMusic.forEach(object => {assert(Object.keys(object).length > 3); });
+```
+
+Kitu chako katika `myMusic` kinapaswa kuwa na sifa `artist` ambayo ni mfuatano wa herufi
+
+```js
+myMusic.forEach(object => {
+  assert.containsAllKeys(object, ['artist']);
+  assert.typeOf(object.artist, 'string')
+})
+```
+
+Kitu chako katika `myMusic` kinapaswa kuwa na sifa `title` ambayo ni mfuatano wa herufi
+
+```js
+myMusic.forEach(object => {
+  assert.containsAllKeys(object, ['title']);
+  assert.typeOf(object.title, 'string')
+})
+```
+
+Kitu chako katika `myMusic` kinapaswa kuwa na sifa `release_year` ambayo ni nambari
+
+```js
+myMusic.forEach(object => {
+  assert.containsAllKeys(object, ['release_year']);
+  assert.typeOf(object.release_year, 'number')
+})
+```
+
+Kitu chako katika `myMusic` kinapaswa kuwa na sifa `formats` ambayo ni safu ya data
+
+```js
+myMusic.forEach(object => {
+  assert.containsAllKeys(object, ['formats']);
+  assert.typeOf(object.formats, 'array')
+})
+```
+
+`formats` inapaswa kuwa safu ya mfuatano wa herufi yenye vipengele vya angalau viwili
+
+```js
+myMusic.forEach(object => {
+  object.formats.forEach(format => {
+    assert.typeOf(format, 'string')
+  });
+  assert.isAtLeast(object.formats.length, 2)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const myMusic = [
+  {
+    "artist": "Billy Joel",
+    "title": "Piano Man",
+    "release_year": 1973,
+    "formats": [
+      "CD",
+      "8T",
+      "LP"
+    ],
+    "gold": true
+  }
+];
+```
+
+# --solutions--
+
+```js
+const myMusic = [
+  {
+    "artist": "Billy Joel",
+    "title": "Piano Man",
+    "release_year": 1973,
+    "formats": [
+      "CS",
+      "8T",
+      "LP" ],
+    "gold": true
+  },
+  {
+    "artist": "ABBA",
+    "title": "Ring Ring",
+    "release_year": 1973,
+    "formats": [
+      "CS",
+      "8T",
+      "LP",
+    "CD",
+  ]
+  }
+];
+```

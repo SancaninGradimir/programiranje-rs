@@ -1,0 +1,183 @@
+---
+id: 5a24c314108439a4d4036147
+title: Unganisha Redux na React
+challengeType: 6
+forumTopicId: 301426
+dashedName: connect-redux-to-react
+---
+
+# --description--
+
+Sasa umeandika kitendakazi cha `mapStateToProps()` na `mapDispatchToProps()`, unaweza kutumia hizi kuoanisha `state` na `dispatch` na `props` ya moja ya sehemu zako za React. Njia ya `connect` kutoka React Redux inaweza kushughulikia zoezi hili. Njia hii inachukua hoja mbili za hiari, `mapStateToProps()` na `mapDispatchToProps()`. Ni hiari kwa sababu unaweza kuwa na sehemu inayohitaji upatikanaji wa `state` tu lakini haitaji kutuma vitendo vyovyote, au kinyume chake.
+
+Ili kutumia njia hii, pita vitendakazi kama hoja, na mara moja fanya wito kwa matokeo na sehemu yako. Sintaksia hii ni ya kipekee kidogo na inaonekana kama:
+
+```js
+connect(mapStateToProps, mapDispatchToProps)(MyComponent)
+```
+
+**Kumbuka:** Ikiwa unataka kuacha moja ya hoja za njia ya `connect`, pita `null` badala yake.
+
+# --instructions--
+
+Mhariri wa msimbo una vitendakazi vya `mapStateToProps()` na `mapDispatchToProps()` na sehemu mpya ya React iitwayo `Presentational`. Unganisha sehemu hii na Redux kwa njia ya `connect` kutoka kwenye kitu cha ulimwengu wa `ReactRedux`, na fanya wito mara moja kwa sehemu ya `Presentational`. Weka matokeo katika `const` mpya iitwayo `ConnectedComponent` inayowakilisha sehemu iliyounganishwa. Hiyo tu, sasa umeunganishwa na Redux! Jaribu kubadilisha moja ya hoja za `connect` kwa `null` na angalia matokeo ya majaribio.
+
+# --hints--
+
+Sehemu ya `Presentational` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    if (typeof ConnectedComponent === 'undefined') {
+      return false;
+    }
+    const store = Redux.createStore(
+      (state = '__INITIAL__STATE__', action) => state
+    );
+    class AppWrapper extends React.Component {
+      render() {
+        return React.createElement(
+          ReactRedux.Provider,
+          { store: store },
+          React.createElement(ConnectedComponent)
+        );
+      }
+    }
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return mockedComponent.find('Presentational').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kupokea vigezo `messages` kupitia `connect`.
+
+```js
+assert(
+  (function () {
+    if (typeof ConnectedComponent === 'undefined') {
+      return false;
+    }
+    const store = Redux.createStore(
+      (state = '__INITIAL__STATE__', action) => state
+    );
+    class AppWrapper extends React.Component {
+      render() {
+        return React.createElement(
+          ReactRedux.Provider,
+          { store: store },
+          React.createElement(ConnectedComponent)
+        );
+      }
+    }
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    const props = mockedComponent.find('Presentational').props();
+    return props.messages === '__INITIAL__STATE__';
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kupokea vigezo `submitNewMessage` kupitia `connect`.
+
+```js
+assert(
+  (function () {
+    if (typeof ConnectedComponent === 'undefined') {
+      return false;
+    }
+    const store = Redux.createStore(
+      (state = '__INITIAL__STATE__', action) => state
+    );
+    class AppWrapper extends React.Component {
+      render() {
+        return React.createElement(
+          ReactRedux.Provider,
+          { store: store },
+          React.createElement(ConnectedComponent)
+        );
+      }
+    }
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    const props = mockedComponent.find('Presentational').props();
+    return typeof props.submitNewMessage === 'function';
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const addMessage = (message) => {
+  return {
+    type: 'ADD',
+    message: message
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (message) => {
+      dispatch(addMessage(message));
+    }
+  }
+};
+
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h3>This is a Presentational Component</h3>
+  }
+};
+
+const connect = ReactRedux.connect;
+// Change code below this line
+```
+
+# --solutions--
+
+```jsx
+const addMessage = (message) => {
+  return {
+    type: 'ADD',
+    message: message
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (message) => {
+      dispatch(addMessage(message));
+    }
+  }
+};
+
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h3>This is a Presentational Component</h3>
+  }
+};
+
+const connect = ReactRedux.connect;
+// Change code below this line
+
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(Presentational);
+```

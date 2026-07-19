@@ -1,0 +1,55 @@
+---
+id: 587d8249367417b2b2512c3f
+title: Weka sera ya usalama wa maudhui kwa helmet.contentSecurityPolicy()
+challengeType: 2
+forumTopicId: 301585
+dashedName: set-a-content-security-policy-with-helmet-contentsecuritypolicy
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa kuanzia uliochukuliwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-infosec/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Changamoto hii inaonyesha ulinzi mpya unaoahidi ambao unaweza kupunguza kwa kiasi kikubwa hatari na athari za aina nyingi za mashambulizi katika vivinjari vya kisasa. Kwa kuweka na kusanidi sera ya usalama wa maudhui unaweza kuzuia kuingizwa kwa chochote kisichotarajiwa kwenye ukurasa wako. Hii italinda programu yako dhidi ya udhaifu wa XSS, ufuatiliaji usiotakikana, fremu zenye madhara, na mengine mengi. CSP hufanya kazi kwa kufafanua orodha ya vyanzo vya maudhui vinavyoruhusiwa ambavyo vinaaminika. Unaweza kuvisanidi kwa kila aina ya rasilimali ambayo ukurasa wa mtandao unaweza kuhitaji (misimbo, majalada ya mitindo, fonti, fremu, vyombo vya habari, na kadhalika...). Kuna maagizo mengi yanayopatikana, hivyo mmiliki wa tovuti anaweza kuwa na udhibiti wa kina. Angalia HTML 5 Rocks, KeyCDN kwa maelezo zaidi. Kwa bahati mbaya CSP haitegemelewi na vivinjari vya zamani.
+
+Kwa chaguo-msingi, maagizo ni wazi sana, hivyo ni muhimu kuweka agizo la defaultSrc kama njia mbadala. Helmet inaunga mkono mitindo ya majina ya defaultSrc na default-src. Njia mbadala hutumika kwa maagizo mengi ambayo hayajatangazwa.
+
+# --instructions--
+
+Katika zoezi hili, tumia `helmet.contentSecurityPolicy()`. Sanidi kwa kuongeza kitu cha `directives`. Katika kitu hicho, weka `defaultSrc` kuwa `["'self'"]` (orodha ya vyanzo vinavyoruhusiwa lazima iwe katika safu ya data), ili kuamini tu anwani ya tovuti yako kwa chaguo-msingi. Pia weka agizo la `scriptSrc` ili uruhusu misimbo kupakuliwa tu kutoka tovuti yako (`'self'`), na kutoka kwenye kikoa cha `'trusted-cdn.com'`.
+
+Kidokezo: katika neno la `'self'`, nukuu moja ni sehemu ya neno hilo lenyewe, hivyo inahitaji kufungwa kwa alama za nukuu maradufu ili lifanye kazi.
+
+# --hints--
+
+programu ya kati helmet.contentSecurityPolicy() inapaswa kuwekwa ipasavyo
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.include(data.appStack, 'csp');
+```
+
+Usanidi wako wa csp si sahihi. defaultSrc inapaswa kuwa ["'self'"] na scriptSrc inapaswa kuwa ["'self'", 'trusted-cdn.com']
+
+```js
+const response = await fetch(code + '/_api/app-info');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+var cspHeader = Object.keys(data.headers).filter(function (k) {
+  return (
+    k === 'content-security-policy' ||
+    k === 'x-webkit-csp' ||
+    k === 'x-content-security-policy'
+  );
+})[0];
+assert.equal(
+  data.headers[cspHeader],
+  "default-src 'self'; script-src 'self' trusted-cdn.com"
+);
+```

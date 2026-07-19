@@ -1,0 +1,97 @@
+---
+id: 697a49e6ff50d756c9b69366
+title: "Zoezi la 189: Michezo ya Majira ya Baridi 2026 Siku ya 10: Kuteleza Mlimani"
+challengeType: 28
+dashedName: challenge-189
+---
+
+# --description--
+
+Kutolewa kwa mteremko wa mlima wa kuteleza, umbali wa usawa, na aina yake, amua kiwango cha ugumu wa mlima huo.
+
+Ili kuamua kiwango:
+
+- Hesabu unene wa mteremko kwa kugawanya mteremko na umbali.
+- Kisha, hesabu unene uliorekebishwa kulingana na aina ya mlima:
+  - `"Downhill"`: zidisha unene kwa 1.2
+  - `"Slalom"`: zidisha unene kwa 0.9
+  - `"Giant Slalom"`: zidisha unene kwa 1.0
+
+Rudisha:
+
+- `"Green"` ikiwa unene uliorekebishwa ni mdogo au sawa na 0.1
+- `"Blue"` ikiwa unene uliorekebishwa ni mkubwa kuliko 0.1 na mdogo au sawa na 0.25
+- `"Black"` ikiwa unene uliorekebishwa ni mkubwa kuliko 0.25
+
+# --hints--
+
+`getHillRating(95, 900, "Slalom")` inapaswa kurudisha `"Green"`.
+
+```js
+assert.equal(getHillRating(95, 900, "Slalom"), "Green");
+```
+
+`getHillRating(620, 2800, "Downhill")` inapaswa kurudisha `"Black"`.
+
+```js
+assert.equal(getHillRating(620, 2800, "Downhill"), "Black");
+```
+
+`getHillRating(420, 1680, "Giant Slalom")` inapaswa kurudisha `"Blue"`.
+
+```js
+assert.equal(getHillRating(420, 1680, "Giant Slalom"), "Blue");
+```
+
+`getHillRating(250, 3000, "Downhill")` inapaswa kurudisha `"Green"`.
+
+```js
+assert.equal(getHillRating(250, 3000, "Downhill"), "Green");
+```
+
+`getHillRating(110, 900, "Slalom")` inapaswa kurudisha `"Blue"`.
+
+```js
+assert.equal(getHillRating(110, 900, "Slalom"), "Blue");
+```
+
+`getHillRating(380, 1500, "Giant Slalom")` inapaswa kurudisha `"Black"`.
+
+```js
+assert.equal(getHillRating(380, 1500, "Giant Slalom"), "Black");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getHillRating(drop, distance, type) {
+
+  return drop;
+}
+```
+
+# --solutions--
+
+```js
+function getHillRating(drop, distance, type) {
+  let steepness = drop / distance;
+
+  if (type === "Downhill") {
+    steepness *= 1.2;
+  } else if (type === "Slalom") {
+    steepness *= 0.9;
+  } else if (type === "Giant Slalom") {
+    steepness *= 1.0;
+  }
+
+  if (steepness <= 0.1) {
+    return "Green";
+  } else if (steepness <= 0.25) {
+    return "Blue";
+  } else {
+    return "Black";
+  }
+}
+```

@@ -1,0 +1,93 @@
+---
+id: 587d7b86367417b2b2512b3b
+title: Gundua makosa ya off by one unapotumia kielezo
+challengeType: 1
+forumTopicId: 301189
+dashedName: catch-off-by-one-errors-when-using-indexing
+---
+
+# --description--
+
+<dfn>Makosa ya off by one</dfn> (mara nyingine huitwa OBOE) hutokea unapotaka kufikia kielezo maalum cha mfuatano wa herufi au safu ya data (kwa kukata au kupata sehemu), au unapotazama kielezo cha vitu hivyo. Kielezo cha JavaScript huanza kwa sifuri, si moja, ambayo inamaanisha kielezo cha mwisho daima ni moja chini ya urefu wa kipengee. Ukijaribu kufikia kielezo kinacholingana na urefu, programu inaweza tupa kosa la rejea "index out of range" au kuchapisha `undefined`.
+
+Unapotumia njia za mfuatano wa herufi au safu ya data zinazochukua viwango vya kielezo kama hoja, ni msaada kusoma nyaraka na kuelewa kama ni pamoja na kipengee kilicho kwenye kielezo hicho (inclusive) au la. Hapa kuna mifano ya makosa ya off by one:
+
+```js
+let alphabet = "abcdefghijklmnopqrstuvwxyz";
+let len = alphabet.length;
+for (let i = 0; i <= len; i++) {
+  console.log(alphabet[i]);
+}
+for (let j = 1; j < len; j++) {
+  console.log(alphabet[j]);
+}
+for (let k = 0; k < len; k++) {
+  console.log(alphabet[k]);
+}
+```
+
+Mfano wa kwanza hapa unarudia mara moja zaidi kuliko inavyotakiwa, na wa pili unarudia mara moja kidogo (ukikosa kielezo cha kwanza, 0). Mfano wa tatu ni sahihi.
+
+# --instructions--
+
+Rekebisha makosa mawili ya kielezo katika kitendakazi kilicho hapa chini ili nambari zote kutoka 1 hadi 5 zichapishwe kwenye konsoli.
+
+# --hints--
+
+Msimbo wako unapaswa kuweka hali ya mwanzo ya mzunguko ili uanze kwa kielezo cha kwanza.
+
+```js
+assert(__helpers.removeJSComments(code).match(/i\s*?=\s*?0\s*?;/g).length == 1);
+```
+
+Msimbo wako unapaswa kurekebisha hali ya mwanzo ya mzunguko ili kielezo cha mzunguko kianze kwa 0.
+
+```js
+assert(!__helpers.removeJSComments(code).match(/i\s?=\s*?1\s*?;/g));
+```
+
+Msimbo wako unapaswa kuweka hali ya mwisho ya mzunguko ili uishe kwa kielezo cha mwisho.
+
+```js
+assert(__helpers.removeJSComments(code).match(/i\s*<\s*len\s*;|i\s*<=\s*len\s*-\s*1\s*;/g).length == 1);
+```
+
+Msimbo wako unapaswa kurekebisha hali ya mwisho ya mzunguko ili uishe moja kabla ya urefu.
+
+```js
+assert(!__helpers.removeJSComments(code).match(/i\s*?<=\s*?len;/g));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function countToFive() {
+  let firstFive = "12345";
+  let len = firstFive.length;
+  // Only change code below this line
+  for (let i = 1; i <= len; i++) {
+  // Only change code above this line
+    console.log(firstFive[i]);
+  }
+}
+
+countToFive();
+```
+
+# --solutions--
+
+```js
+function countToFive() {
+ let firstFive = "12345";
+ let len = firstFive.length;
+ // Only change code below this line
+ for (let i = 0; i < len; i++) {
+ // Only change code above this line
+   console.log(firstFive[i]);
+ }
+}
+
+countToFive();
+```

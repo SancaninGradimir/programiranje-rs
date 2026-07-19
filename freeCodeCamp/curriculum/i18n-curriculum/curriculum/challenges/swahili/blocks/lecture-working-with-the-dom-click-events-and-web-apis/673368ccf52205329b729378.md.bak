@@ -1,0 +1,302 @@
+---
+id: 673368ccf52205329b729378
+title: "Ni Nini Tofauti Kati ya innerText, textContent, na innerHTML?"
+challengeType: 19
+dashedName: what-is-the-difference-between-innertext-textcontent-and-innerhtml
+---
+
+# --interactive--
+
+Tujifunze kuhusu `innerText`, `textContent`, na `innerHTML`.
+
+Hizi ni sifa ambazo unaweza kupata katika JavaScript ili kupata au kubadilisha yaliyomo ya kipengee cha HTML. Hata kama zinaweza kuonekana kama sawa mwanzoni, zina tofauti muhimu. Kuchagua sifa sahihi hutegemea matumizi yako maalum, kwa hivyo tuanze.
+
+Tuanze na `innerText`.
+
+`innerText` inawakilisha maudhui ya maandishi yanayoonekana ya kipengee cha HTML na mzao wake. Sifa hii haijumuishi maandishi yaliyofichwa au lebo za HTML, bali maandishi tu yaliyoonyeshwa.
+
+Kwa mfano, hapa unaweza kuona kipengee cha `div` chenye aya mbili:
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p>I'm learning JavaScript</p>
+</div>
+```
+
+Ikiwa tutapata rejea ya kipengee hiki cha HTML katika msimbo wetu wa JavaScript kwa kutumia `getElementById()`, tunaweza kupata sifa ya `innerText` ya kipengee hiki:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+console.log(container.innerText);
+```
+
+:::
+
+Huu ni maandishi ya ndani ya kipengee hiki:
+
+```md
+Hello, World!
+I'm learning JavaScript
+```
+
+Sifa hii inarudisha mfuatano wa herufi wenye maandishi yaliyomo ndani ya kipengee, ikiwa ni pamoja na maandishi kutoka kwa mzao wake.
+
+Unapaswa kujua kwamba `innerText` inarudisha tu maandishi yanayoonekana wakati huo hasa ambapo mfuatano wa herufi unapoombwa. Ikiwa nodi ya mtoto imefichwa, maandishi yake hayatakuwa yanayoonekana.
+
+Huu ni mfano ambapo aya ya pili imefichwa:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p hidden>I'm learning JavaScript</p>
+</div>
+```
+
+:::
+
+Ikiwa tutajaribu kuandika tena `innerText`, sasa matokeo hayatakuwa na maandishi ya aya ya pili:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p hidden>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+console.log(container.innerText);
+```
+
+:::
+
+Unaweza kuweka `innerText` ya kipengee cha HTML hivi, lakini hii itabadilisha maandishi yaliyopo na kuongeza kipengee cha kuvunja mstari (`br`) kwa kila kuvunjwa kwa mstari:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+container.innerText = "JavaScript is awesome!";
+```
+
+:::
+
+Kwa kuwa `innerText` inazingatia uonekano, kupata thamani yake husababisha mchakato unaoitwa "reflow", ambao hupima upya nafasi za vipengee fulani kwenye tovuti. Mchakato huu unaweza kuwa mzito kwa kompyuta, kwa hivyo unapaswa kuepuka kuusababisha ikiwa inawezekana.
+
+Nzuri. Sasa tuzungumzie `textContent`.
+
+`textContent` inarudisha maudhui ya maandishi ya kawaida ya kipengee, ikiwa ni pamoja na maandishi yote ndani ya mzao wake.
+
+Tofauti muhimu kati ya `innerText` na `textContent` ni kwamba `textContent` daima inarudisha maudhui yote ya maandishi ya kipengee cha HTML na mzao wake, bila kujali kama yanaonekana au yamefichwa.
+
+Hapa tuna mfano ule ule katika HTML:
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p>I'm learning JavaScript</p>
+</div>
+```
+
+Ikiwa utajaribu kupata sifa hii, utaona maandishi ya kipengee na mzao wake kama matokeo, ukihifadhi ulinganifu na nafasi:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+console.log(container.textContent);
+```
+
+:::
+
+Ikiwa kipengee cha HTML hakionekani, kama unavyoona hapa ambapo tumezificha aya ya pili, maandishi yake bado yatajumuishwa katika sifa hii:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p hidden>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+console.log(container.textContent);
+```
+
+:::
+  
+`textContent` pia itajumuisha maudhui ya vipengee kama `script` na `style`.
+
+Ikiwa utajaribu kubadilisha thamani ya `textContent` kwenye nodi, itafuta nodi zake zote za watoto na kuzibadilisha na nodi moja ya maandishi yenye mfuatano mpya:
+
+:::interactive_editor
+
+```html
+<div id="container">
+  <p>Hello, World!</p>
+  <p hidden>I'm learning JavaScript</p>
+</div>
+<script src="index.js"></script>
+```
+
+```js
+const container = document.getElementById("container");
+container.textContent = "New content";
+```
+
+:::
+
+Na hatimaye, tuzungumzie jinsi `textContent` na `innerText` zinavyotofautiana na `innerHTML`.
+
+Kumbuka kwamba kwa `innerHTML` unaweza kuweka maudhui ya HTML ya ndani ya kipengee. Hii ni msaada kwa kuingiza HTML mpya kwenye DOM kwa njia ya mabadiliko.
+
+Hata hivyo, kumbuka kwamba hii inaleta hatari ya usalama ikiwa huna udhibiti juu ya mfuatano, kama vile mfuatano unaojumuisha data iliyowekwa na mtumizi. Ikiwa data hiyo ni hatari, inaweza kusababisha matatizo makubwa ya usalama.
+
+Ili kuepuka hili, inashauriwa kutumia sifa ya `textContent` kuingiza maandishi ya kawaida badala yake.
+
+Sifa za `innerText`, `textContent`, na `innerHTML` katika JavaScript hutoa njia tofauti za kupata na kudhibiti yaliyomo ya vipengee vya HTML. Unapaswa kuelewa tofauti kati ya sifa hizi ikiwa lengo lako ni kufanya kazi na maudhui ya HTML kwa ufanisi katika JavaScript.
+
+# --questions--
+
+## --text--
+
+Ni sifa gani kati ya zifuatazo inarudisha maudhui ya maandishi yanayoonekana ya kipengee cha HTML, isijumuisha maandishi yaliyofichwa au maandishi ndani ya vipengee vilivyofichwa?
+
+## --answers--
+
+`innerHTML`
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+---
+
+`textContent`
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+---
+
+`innerText`
+
+---
+
+Zote zilizo hapo juu.
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni sifa gani kati ya zifuatazo inaweza kutumika kuingiza maudhui mapya ya HTML kwa njia ya mabadiliko ndani ya kipengee?
+
+## --answers--
+
+`innerHTML`
+
+---
+
+`textContent`
+
+### --feedback--
+
+Fikiria ni sifa gani inakuwezesha kubadilisha muundo wa HTML wa kipengee.
+
+---
+
+`innerText`
+
+### --feedback--
+
+Fikiria ni sifa gani inakuwezesha kubadilisha muundo wa HTML wa kipengee.
+
+---
+
+Hakuna kati ya hizi.
+
+### --feedback--
+
+Fikiria ni sifa gani inakuwezesha kubadilisha muundo wa HTML wa kipengee.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni sifa gani kati ya zifuatazo inarudisha maudhui ya maandishi ya kawaida ya kipengee, ikiwa ni pamoja na maandishi yote ndani ya vipengee vya watoto, bila kujali kama yanaonekana au yamefichwa?
+
+## --answers--
+
+`innerHTML`
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+---
+
+`textContent`
+
+---
+
+`innerText`
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+---
+
+Zote zilizo hapo juu.
+
+### --feedback--
+
+Fikiria jinsi sifa hizi zinavyoshughulikia maudhui yaliyofichwa.
+
+## --video-solution--
+
+2

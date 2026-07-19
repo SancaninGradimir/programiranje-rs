@@ -1,0 +1,92 @@
+---
+id: 59637c4d89f6786115efd814
+title: Mfululizo wa Hofstadter Q
+challengeType: 1
+forumTopicId: 302287
+dashedName: hofstadter-q-sequence
+---
+
+# --description--
+
+Mfululizo wa Hofstadter Q unafafanuliwa kama:
+
+$Q(1)=Q(2)=1, \\\\ Q(n)=Q\\big(n-Q(n-1)\\big)+Q\\big(n-Q(n-2)), \\quad n>2.$
+
+Unafafanuliwa kama mfululizo wa Fibonacci, lakini badala ya nambari inayofuata katika mfululizo wa Fibonacci kuwa jumla ya nambari mbili zilizotangulia, katika mfululizo wa Q nambari mbili zilizotangulia zinaeleza ni umbali gani wa kurudi nyuma katika mfululizo wa Q kupata nambari mbili za kujumlisha ili kupata nambari inayofuata ya mfululizo.
+
+# --instructions--
+
+Tekeleza mlinganyo wa mfululizo wa Hofstadter Q kama kitendakazi. Kitendakazi kinapaswa kupokea nambari, `n`, na kurudisha nambari kamili.
+
+# --before-each--
+
+```js
+const testCase = [1000, 1500, 2000, 2500];
+const res = [502, 755, 1005, 1261];
+```
+
+# --hints--
+
+`hofstadterQ` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof hofstadterQ === 'function');
+```
+
+`hofstadterQ()` inapaswa kurudisha `integer`
+
+```js
+assert(Number.isInteger(hofstadterQ(1000)));
+```
+
+`hofstadterQ(1000)` inapaswa kurudisha `502`
+
+```js
+assert.equal(hofstadterQ(testCase[0]), res[0]);
+```
+
+`hofstadterQ(1500)` inapaswa kurudisha `755`
+
+```js
+assert.equal(hofstadterQ(testCase[1]), res[1]);
+```
+
+`hofstadterQ(2000)` inapaswa kurudisha `1005`
+
+```js
+assert.equal(hofstadterQ(testCase[2]), res[2]);
+```
+
+`hofstadterQ(2500)` inapaswa kurudisha `1261`
+
+```js
+assert.equal(hofstadterQ(testCase[3]), res[3]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function hofstadterQ(n) {
+
+  return n;
+}
+```
+
+# --solutions--
+
+```js
+function hofstadterQ (n) {
+  const memo = [1, 1, 1];
+  const Q = function (i) {
+    let result = memo[i];
+    if (typeof result !== 'number') {
+      result = Q(i - Q(i - 1)) + Q(i - Q(i - 2));
+      memo[i] = result;
+    }
+    return result;
+  };
+  return Q(n);
+}
+```

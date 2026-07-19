@@ -1,0 +1,100 @@
+---
+id: 5e6dd1278e6ca105cde40ea9
+title: Mfululizo mdogo mrefu zaidi unaofanana
+challengeType: 1
+forumTopicId: 385271
+dashedName: longest-common-subsequence
+---
+
+# --description--
+
+**Mfululizo mdogo mrefu zaidi unaofanana** (au **LCS**) wa makundi A na B ni kundi refu zaidi la vipengele kutoka A na B vinavyofanana kati ya makundi hayo mawili na vikiwa katika mfululizo uleule katika kila kundi. Kwa mfano, mfululizo `1234` na `1224533324` una LCS ya `1234`:
+
+<u>1234</u>
+
+<u>12</u>245<u>3</u>332<u>4</u>
+
+Kwa mfano wa mfuatano wa herufi, fikiria mfululizo `thisisatest` na `testing123testing`. LCS itakuwa `tsitest`:
+
+<u>t</u>hi<u>si</u>sa<u>test</u>
+
+<u>t</u>e<u>s</u>t<u>i</u>ng123<u>test</u>ing.
+
+Msimbo wako unahitaji kushughulikia tu mfuatano wa herufi.
+
+# --instructions--
+
+Andika kitendakazi kinachotambua tofauti ya herufi kubwa na ndogo kinachorejesha LCS ya mfuatano wa herufi mbili. Huna haja ya kuonyesha LCS nyingi.
+
+# --hints--
+
+`lcs` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof lcs == 'function');
+```
+
+`lcs("thisisatest", "testing123testing")` inapaswa kurejesha mfuatano wa herufi.
+
+```js
+assert(typeof lcs('thisisatest', 'testing123testing') == 'string');
+```
+
+`lcs("thisisatest", "testing123testing")` inapaswa kurejesha `"tsitest"`.
+
+```js
+assert.equal(lcs('thisisatest', 'testing123testing'), 'tsitest');
+```
+
+`lcs("ABCDGH", "AEDFHR")` inapaswa kurejesha `"ADH"`.
+
+```js
+assert.equal(lcs('ABCDGH', 'AEDFHR'), 'ADH');
+```
+
+`lcs("AGGTAB", "GXTXAYB")` inapaswa kurejesha `"GTAB"`.
+
+```js
+assert.equal(lcs('AGGTAB', 'GXTXAYB'), 'GTAB');
+```
+
+`lcs("BDACDB", "BDCB")` inapaswa kurejesha `"BDCB"`.
+
+```js
+assert.equal(lcs('BDACDB', 'BDCB'), 'BDCB');
+```
+
+`lcs("ABAZDC", "BACBAD")` inapaswa kurejesha `"ABAD"`.
+
+```js
+assert.equal(lcs('ABAZDC', 'BACBAD'), 'ABAD');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function lcs(a, b) {
+
+}
+```
+
+# --solutions--
+
+```js
+function lcs(a, b) {
+  var aSub = a.substring(0, a.length - 1);
+  var bSub = b.substring(0, b.length - 1);
+
+  if (a.length === 0 || b.length === 0) {
+    return '';
+  } else if (a.charAt(a.length - 1) === b.charAt(b.length - 1)) {
+    return lcs(aSub, bSub) + a.charAt(a.length - 1);
+  } else {
+    var x = lcs(a, bSub);
+    var y = lcs(aSub, b);
+    return (x.length > y.length) ? x : y;
+  }
+}
+```

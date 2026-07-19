@@ -1,0 +1,83 @@
+---
+id: 69779dcb44016eccc05c15a4
+title: Hatua 5
+challengeType: 20
+dashedName: step-5
+---
+
+# --description--
+
+Huduma ilikuwa nzuri sana, kwa hivyo kikundi kimeamua kuacha tip ya asilimia 25%. Ili kuhesabu asilimia katika Python, unaweza kuzidisha jumla kwa sawa ya desimali ya asilimia hiyo.
+
+Kwa mfano, kupata asilimia 10 ya thamani, ungeizidisha na `0.10` kwa kutumia opereta ya `*`:
+
+```py
+tax = total * 0.10
+```
+
+Tengeneza kigezo kinachoitwa `tip` na weka thamani ya matokeo ya kuzidisha `running_total` na `0.25`.
+
+Mwishowe, tumia `print()` kuonyesha mfuatano wa herufi `Tip amount:` ukifuatiwa na nafasi na thamani ya kigezo chako cha `tip`.
+
+# --hints--
+
+Unapaswa kuwa na kigezo kinachoitwa `tip`.
+
+```js
+({
+    test: () => assert(runPython(`
+    _Node(_code).has_variable('tip')
+    `))
+})
+```
+
+Kigezo chako cha `tip` kinapaswa kuwa matokeo ya `running_total * 0.25`.
+
+```js
+({
+    test: () => runPython(`
+    t = _Node(_code).find_variable('tip')
+    assert t.is_equivalent('tip = running_total * 0.25') or t.is_equivalent('tip = 0.25 * running_total')`)
+})
+```
+
+Unapaswa kuchapisha mfuatano wa herufi `Tip amount:` ukifuatiwa na nafasi na kigezo cha `tip`.
+
+```js
+({
+    test: () => runPython(`
+import io, contextlib, re
+
+buffer = io.StringIO()
+with contextlib.redirect_stdout(buffer):
+    exec(_code)
+
+match = re.search(r"Tip amount: ([0-9]+(?:\\.[0-9]+)?)", buffer.getvalue())
+
+assert match
+assert abs(float(match.group(1)) - ((37.89 + 57.34 + 39.39 + 64.21) * 0.25)) < 1e-6
+`)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+running_total = 0
+
+num_of_friends = 4
+
+appetizers = 37.89
+main_courses = 57.34
+desserts = 39.39
+drinks = 64.21
+
+running_total += appetizers + main_courses + desserts + drinks
+print('Total bill so far:', running_total)
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

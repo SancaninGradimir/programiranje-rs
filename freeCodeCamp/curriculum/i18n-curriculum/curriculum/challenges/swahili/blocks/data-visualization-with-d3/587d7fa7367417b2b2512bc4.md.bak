@@ -1,0 +1,104 @@
+---
+id: 587d7fa7367417b2b2512bc4
+title: Fanya kazi na data katika D3
+challengeType: 6
+forumTopicId: 301497
+dashedName: work-with-data-in-d3
+---
+
+# --description--
+
+Maktaba ya D3 inazingatia njia inayoongozwa na data. Unapokuwa na seti ya data, unaweza kutumia njia za D3 kuionyesha kwenye ukurasa. Data huja katika aina nyingi, lakini changamoto hii inatumia safu ya data rahisi ya nambari.
+
+Hatua ya kwanza ni kumfahamisha D3 kuhusu data hiyo. Njia ya `data()` hutumika kwenye uteuzi wa vipengele vya DOM ili kuambatanisha data na vipengele hivyo. Seti ya data hupitishwa kama hoja kwa njia hiyo.
+
+Mfumo wa kawaida wa kazi ni kuunda kipengele kipya katika hati kwa kila kipande cha data katika seti. D3 ina njia ya `enter()` kwa madhumuni haya.
+
+Wakati `enter()` inapoambatana na njia ya `data()`, inatazama vipengele vilivyochaguliwa kutoka kwenye ukurasa na kuvikagua na idadi ya vipengee vya data katika seti. Ikiwa kuna vipengele vichache kuliko vipengee vya data, inaunda vipengele vinavyokosekana.
+
+Hapa kuna mfano unaochagua kipengele cha `ul` na kuunda kipengele kipya cha orodha kulingana na idadi ya maingizo katika safu ya data:
+
+```html
+<body>
+  <ul></ul>
+  <script>
+    const dataset = ['a', 'b', 'c'];
+    d3.select('ul')
+      .selectAll('li')
+      .data(dataset)
+      .enter()
+      .append('li')
+      .text('New item');
+  </script>
+</body>
+```
+
+Inaweza kuonekana kuchanganya kuchagua vipengele ambavyo bado havipo. Msimbo huu unaambia D3 kwanza ichague `ul` kwenye ukurasa. Kisha, ichague vipengele vyote vya orodha, ambavyo hurejesha uteuzi tupu. Kisha njia ya `data()` inakagua seti ya data na kuendesha msimbo ufuatao mara tatu, mara moja kwa kila kipengee katika safu. Njia ya `enter()` inaona hakuna vipengele vya `li` kwenye ukurasa, lakini inahitaji 3 (kimoja kwa kila kipande cha data katika `dataset`). Vipengele vipya vya `li` vinaongezwa kwenye `ul` na vina maandishi ya `New item`.
+
+# --instructions--
+
+Chagua nodi ya `body`, kisha chagua vipengele vyote vya `h2`. Waambatanishe D3 kuunda na kuongeza lebo ya `h2` kwa kila kipengee katika safu ya `dataset`. Maandishi katika `h2` yanapaswa kusema `New Title`. Msimbo wako unapaswa kutumia njia za `data()` na `enter()`.
+
+# --hints--
+
+Hati yako inapaswa kuwa na vipengele 9 vya `h2`.
+
+```js
+assert.lengthOf(document.querySelectorAll('h2'), 9);
+```
+
+Maandishi katika vipengele vya `h2` yanapaswa kusema `New Title`. Uandishi wa herufi kubwa na nafasi vinapaswa kufanana kabisa.
+
+```js
+const h2Elements = document.querySelectorAll('h2');
+for (let i = 0; i < h2Elements.length; i++) {
+  assert.match(h2Elements[i]?.textContent, /New Title/g);
+}
+```
+
+Msimbo wako unapaswa kutumia njia ya `data()`.
+
+```js
+assert.match(code, /\.data/g);
+```
+
+Msimbo wako unapaswa kutumia njia ya `enter()`.
+
+```js
+assert.match(code, /\.enter/g);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    // Add your code below this line
+
+
+
+    // Add your code above this line
+  </script>
+</body>
+```
+
+# --solutions--
+
+```html
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    d3.select('body')
+      .selectAll('h2')
+      .data(dataset)
+      .enter()
+      .append('h2')
+      .text('New Title');
+  </script>
+</body>
+```

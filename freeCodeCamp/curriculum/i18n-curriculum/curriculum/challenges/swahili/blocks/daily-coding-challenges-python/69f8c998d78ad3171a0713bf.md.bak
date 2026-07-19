@@ -1,0 +1,97 @@
+---
+id: 69f8c998d78ad3171a0713bf
+title: "Zoezi la 292: Uwiano mpana wa sura"
+challengeType: 29
+dashedName: challenge-292
+---
+
+# --description--
+
+Ukipata mfuatano wa herufi miwili wa vipimo tofauti vya picha, rudisha uwiano wa sura wa picha yenye uwiano mkubwa zaidi wa upana kwa urefu.
+
+- Mfuatano wa herufi uliotolewa utakuwa katika muundo `"WxH"`, kwa mfano, `"1920x1080"`.
+- Uwiano wa sura ni uwiano wa upana kwa urefu, uliopunguzwa hadi nambari kamili ndogo kabisa. Kwa mfano, `"1920x1080"` hupunguzwa kuwa `"16:9"`.
+- Rudisha mfuatano wa herufi katika muundo `"W:H"`, kwa mfano, `"16:9"`.
+
+# --hints--
+
+`get_wider_aspect_ratio("1920x1080", "800x600")` inapaswa kurudisha `"16:9"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("1920x1080", "800x600"), "16:9")`)
+}})
+```
+
+`get_wider_aspect_ratio("1080x1350", "2048x1536")` inapaswa kurudisha `"4:3"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("1080x1350", "2048x1536"), "4:3")`)
+}})
+```
+
+`get_wider_aspect_ratio("640x480", "2440x1220")` inapaswa kurudisha `"2:1"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("640x480", "2440x1220"), "2:1")`)
+}})
+```
+
+`get_wider_aspect_ratio("360x640", "1080x1920")` inapaswa kurudisha `"9:16"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("360x640", "1080x1920"), "9:16")`)
+}})
+```
+
+`get_wider_aspect_ratio("3440x1440", "2048x858")` inapaswa kurudisha `"43:18"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("3440x1440", "2048x858"), "43:18")`)
+}})
+```
+
+`get_wider_aspect_ratio("12345x61234", "12534x51234")` inapaswa kurudisha `"2089:8539"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_wider_aspect_ratio("12345x61234", "12534x51234"), "2089:8539")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_wider_aspect_ratio(a, b):
+
+    return a
+```
+
+# --solutions--
+
+```py
+from math import gcd
+
+def get_wider_aspect_ratio(a, b):
+    def parse(s):
+        w, h = map(int, s.split("x"))
+        g = gcd(w, h)
+        return w / h, f"{w // g}:{h // g}"
+
+    ratio_a, simplified_a = parse(a)
+    ratio_b, simplified_b = parse(b)
+
+    return simplified_a if ratio_a >= ratio_b else simplified_b
+```

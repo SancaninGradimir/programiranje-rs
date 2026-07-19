@@ -1,0 +1,123 @@
+---
+id: 69a890af247de743333bd4cd
+title: "Challenge 224: Coffee Roast Detector"
+challengeType: 29
+dashedName: challenge-224
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi unaowakilisha maharagwe yanayotumika kutengeneza kikombe cha kahawa, amua kiwango cha kuoka kwa kikombe hicho.
+
+- Mfuatano wa herufi uliotolewa utakuwa na herufi zifuatazo, kila moja ikiwakilisha aina ya haragwe:
+
+- Alama ya apostrofi (`'`) ni haragwe la kuoka kwa kiwango cha mwanga lenye thamani ya pointi 1 kila moja.
+  - Alama ya dash (`-`) ni haragwe la kuoka wastani lenye thamani ya pointi 2 kila moja.
+  - Alama ya nukta (`.`) ni haragwe la kuoka giza lenye thamani ya pointi 3 kila moja.
+
+- Kiwango cha kuoka kinaamuliwa kwa wastani wa maharagwe yote.
+
+Return:
+
+- `"Light"` ikiwa wastani ni chini ya 1.75.
+- `"Medium"` ikiwa wastani ni kati ya 1.75 na 2.5.
+- `"Dark"` ikiwa wastani ni zaidi ya 2.5.
+
+# --hints--
+
+`detect_roast("''-''''''-'-''--''''")` should return `"Light"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast("''-''''''-'-''--''''"), "Light")`)
+}})
+```
+
+`detect_roast(".'-''-''..'''.-.-''-")` should return `"Medium"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast(".'-''-''..'''.-.-''-"), "Medium")`)
+}})
+```
+
+`detect_roast("--.''--'-''.--..-.--")` should return `"Medium"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast("--.''--'-''.--..-.--"), "Medium")`)
+}})
+```
+
+`detect_roast("-...'-......-..-...-")` should return `"Dark"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast("-...'-......-..-...-"), "Dark")`)
+}})
+```
+
+`detect_roast(".--.-..-......----.'")` should return `"Medium"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast(".--.-..-......----.'"), "Medium")`)
+}})
+```
+
+`detect_roast("..-..-..-..-....-.-.")` should return `"Dark"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast("..-..-..-..-....-.-."), "Dark")`)
+}})
+```
+
+`detect_roast("-'-''''''..-'.''-'.'")` should return `"Light"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(detect_roast("-'-''''''..-'.''-'.'"), "Light")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def detect_roast(beans):
+
+    return beans
+```
+
+# --solutions--
+
+```py
+def detect_roast(beans):
+    total = 0
+
+    for bean in beans:
+        if bean == "'":
+            total += 1
+        elif bean == "-":
+            total += 2
+        elif bean == ".":
+            total += 3
+
+    avg = total / len(beans)
+
+    if avg < 1.75:
+        return "Light"
+    elif avg <= 2.5:
+        return "Medium"
+    else:
+        return "Dark"
+```

@@ -1,0 +1,377 @@
+---
+id: 66a37f37ef5823a313de8c26
+title: Jenga mzunguko wa mwezi
+challengeType: 25
+dashedName: build-a-moon-orbit
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii, utaunda uhuishaji rahisi wa mzunguko wa Mwezi kuzunguka Dunia kwa kutumia HTML na CSS. Dunia itakuwa katikati ya mfumo, na Mwezi utazunguka kuizunguka.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kupanga vipengele vyote katikati ya ukurasa kwa kuweka urefu kuwa `100%` wa eneo la kuona na kuweka mpangilio wa flexbox katika kipengele cha `body`.
+   
+2. Unapaswa kuwa na `div` yenye darasa la vitu `space`.
+
+3. Ndani ya kipengele cha `.space`, kunapaswa kuwa na vipengele viwili vya `div` vyenye madarasa ya vitu `earth` na `orbit`, kwa mpangilio huo.
+
+4. Ndani ya kipengele cha `.orbit`, kunapaswa kuwa na `div` nyingine yenye darasa la vitu `moon`.
+   
+5. Kipengele cha `div` chenye sifa ya `class` ya `space` kinapaswa kuwekwa katikati ya ukurasa na kuwa na upana na urefu wa `200px`.
+
+6. Kipengele cha `div` chenye sifa ya `class` ya `space` kinapaswa kutumia upangaji wa `relative`.
+
+7. Kipengele cha `.earth` kinapaswa kutumia upangaji wa `absolute`. Weka katikati ya kipengele cha `.earth` mahali pa nusu ya mzazi wake katika mwelekeo wa wima (juu) na usawa (kushoto). Baada ya hapo, sukuma kipengele cha `.earth` nyuma kwa nusu ya upana na urefu wake, ili kiwe katikati ndani ya mzazi wake, kipengele cha `.space`.
+
+8. Kipengele cha `.earth` kinapaswa kuwa na upana na urefu wa `100px`.
+
+9.  Kipengele cha `.orbit` kinapaswa kuwa na upana na urefu wa `200px`.
+
+10.  Kipengele cha `.orbit` kinapaswa kuwekwa kwa kutumia upangaji wa `absolute`. Kona yake ya chini kulia inapaswa kuwa katikati ya kipengele cha `.space` kwa kutumia sifa ya `transform` inayosukuma kwa `-50%` katika mwelekeo wa wima na usawa.
+
+11. Njia ya mzunguko wa mwezi kuzunguka Dunia inapaswa kuwa mduara.
+
+12. Kipengele cha `.moon` kinapaswa kuwekwa kwa kutumia upangaji wa `absolute` na kuwa na upana na urefu wa `30px`. Kipengele cha `.moon` kinapaswa kujipanga juu ya kipengele cha `.orbit` na kuwa katikati kwa usawa.
+
+13. Unapaswa kurekebisha zaidi upangaji wa usawa wa kipengele cha `.moon` kwa kusogeza kipengele kushoto kwa nusu ya upana wake.
+
+14. Kichaguzi cha `.earth` kinapaswa kuwa na rangi ya nyuma na `border-radius` ya `50%`.
+
+15. Kichaguzi cha `.moon` kinapaswa kuwa na rangi ya nyuma na `border-radius` ya `50%`.
+
+16. Unapaswa kufafanua uhuishaji wa `@keyframes orbit` unaozungusha kipengele cha `.orbit` kwa digrii 360 kuzunguka katikati yake. Unapaswa kutumia uhuishaji huu kwa kipengele cha `.orbit` kwa muda wa `5` sekunde, kitendakazi cha wakati wa mstari, na mizunguko isiyoisha.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo katika HTML yako na kutumia CSS yako.
+
+# --hints--
+
+Yaliyomo katika kipengele cha `body` yanapaswa kuwekwa katikati ya ukurasa kwa kuweka urefu kuwa `100%` wa urefu wa eneo la kuona, `display` kuwa `flex`, `justify-content`, na `align-items` kuwa `center`.
+
+```js
+
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('body')?.height, '100vh')
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('body')?.display, 'flex');
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('body')?.justifyContent, 'center');
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('body')?.alignItems, 'center');
+```
+
+Unapaswa kuwa na `div` kuu yenye darasa la vitu `space`.
+
+```js
+assert.strictEqual(document.querySelector('div')?.getAttribute('class'), 'space');
+```
+
+Kipengele cha `.space` kinapaswa kuwa na upana na urefu wa `200px`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.space')?.width, '200px')
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.space')?.height, '200px');
+```
+
+Kipengele cha `.space` kinapaswa kuwa na sifa ya `position` ya `relative`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.space')?.position, 'relative')
+```
+
+Unapaswa kuwa na `div` yenye darasa la vitu `earth` ndani ya `div` yenye sifa ya `class` ya `space`.
+
+```js
+assert.exists(document.querySelector('div.space div.earth'));
+```
+
+Kipengele cha `.earth` kinapaswa kuwa mtoto wa kwanza wa kipengele cha `.space`.
+
+```js
+assert.strictEqual(document.querySelector('.space > div')?.getAttribute('class'), 'earth');
+```
+
+Kipengele cha `.earth` kinapaswa kuwa na upana na urefu wa `100px`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.width, '100px');
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.height, '100px');
+```
+
+Kipengele cha `.earth` kinapaswa kutumia upangaji wa `absolute`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.position, 'absolute');
+```
+
+Kipengele cha `.earth` kinapaswa kuwa na sifa za `top` na `left` za nafasi ya `50%`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.top, '50%') 
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.left, '50%');
+```
+
+Kipengele cha `.earth` kinapaswa kusogezwa nyuma na juu kwa `50%` kwa kuweka sifa ya `transform` kuwa `translate(-50%, -50%)`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.transform, 'translate(-50%, -50%)');
+```
+
+Unapaswa kuwa na `div` yenye darasa la vitu `orbit` ndani ya kipengele cha `.space`.
+
+```js
+assert.exists(document.querySelector('div.space div.orbit'));
+```
+
+Kipengele cha `.orbit` kinapaswa kuja baada ya kipengele cha `.earth`.
+
+```js
+assert.isTrue(document.querySelector('.earth')?.nextElementSibling?.classList?.contains('orbit'));
+```
+
+Kipengele cha `.orbit` kinapaswa kuwa na upana na urefu wa `200px`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.orbit')?.width, '200px')
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.orbit')?.height, '200px');
+```
+
+Kipengele cha `.orbit` kinapaswa kutumia upangaji wa `absolute`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.orbit')?.position, 'absolute');
+```
+
+Kipengele cha `.orbit` kinapaswa kuwekwa katikati ya kipengele cha `.space` kwa kutumia sifa ya `transform` inayosukuma kwa `-50%` katika mwelekeo wa wima na usawa.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.orbit')?.transform, 'translate(-50%, -50%)');
+```
+
+Unapaswa kuwa na `div` yenye darasa la vitu `moon` ndani ya kipengele cha `.orbit`.
+
+```js
+assert.exists(document.querySelector('div.space div.orbit div.moon'));
+```
+
+Kipengele cha `.moon` kinapaswa kuwa na upana na urefu wa `30px`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.width, '30px') 
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.height, '30px');
+```
+
+Kipengele cha `.moon` kinapaswa kuwekwa kwa kutumia upangaji wa `absolute`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.position, 'absolute');
+```
+
+Kona ya juu ya kipengele cha `.moon` inapaswa kulinganishwa na kona ya juu ya kizuizi chake.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.top, '0px');
+```
+
+Unapaswa kusogeza kona ya kushoto ya kipengele cha `.moon` hadi katikati ya kizuizi (`50%` kutoka upande wa kushoto).
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.left, '50%');
+```
+
+Kipengele cha `.moon` kinapaswa kurekebishwa kwa usawa kwa kutafsiriwa hadi `-50%` katika mhimili wa x.
+
+```js
+const transformValue = new __helpers.CSSHelp(document).getStyle('.moon')?.transform;
+const validTransforms = ['translateX(-50%)', 'translate(-50%)'];
+assert.oneOf(transformValue, validTransforms);
+```
+
+Kichaguzi cha `.earth` kinapaswa kuwa na rangi ya nyuma.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.earth')?.backgroundColor);
+```
+
+Kichaguzi cha `.earth` kinapaswa kuwa na `border-radius` ya `50%`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.earth')?.borderRadius, '50%');
+```
+
+Kichaguzi cha `.moon` kinapaswa kuwa na rangi ya nyuma.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('.moon')?.backgroundColor);
+```
+
+Kichaguzi cha `.moon` kinapaswa kuwa na `border-radius` ya `50%`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getStyle('.moon')?.borderRadius, '50%');
+```
+
+Unapaswa kuwa na sheria ya `@keyframes`.
+
+```js
+assert.lengthOf(new __helpers.CSSHelp(document).getCSSRules('keyframes'), 1);
+```
+
+Sheria yako mpya ya `@keyframes` inapaswa kuitwa `orbit`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.name, 'orbit');
+```
+
+Sheria yako ya `@keyframes orbit` inapaswa kuwa na kichaguzi cha `0%`.
+
+```js
+const rules = new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.cssRules; 
+assert.strictEqual(rules?.[0]?.keyText, '0%');
+```
+
+Sheria yako ya `@keyframes orbit` inapaswa kuwa na kichaguzi cha `100%`.
+
+```js 
+const rules = new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.cssRules
+assert.isTrue(rules?.[0]?.keyText === '100%' || rules?.[1]?.keyText === '100%');
+```
+
+Kichaguzi cha `0%` kinapaswa kuwa na sifa ya `transform` iliyowekwa kuwa `rotate(0deg) translate(-50%, -50%)`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.cssRules?.[0]?.style?.transform, 'rotate(0deg) translate(-50%, -50%)');
+```
+
+Kichaguzi cha `100%` kinapaswa kuja baada ya kichaguzi cha `0%`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.cssRules?.[1]?.keyText, '100%')
+```
+
+Kichaguzi cha `100%` kinapaswa kuwa na sifa ya `transform` iliyowekwa kuwa `rotate(360deg) translate(-50%, -50%)`.
+
+```js
+assert.strictEqual(new __helpers.CSSHelp(document).getCSSRules('keyframes')?.[0]?.cssRules?.[1]?.style?.transform, 'rotate(360deg) translate(-50%, -50%)')
+```
+
+Kichaguzi cha `.orbit` kinapaswa kuwa na sifa ya `animation` iliyowekwa kuwa `orbit 5s linear infinite`.
+
+```js
+
+const orbitStyles = new __helpers.CSSHelp(document).getStyle('.orbit');
+assert.strictEqual(orbitStyles?.animationName, "orbit");
+assert.strictEqual(orbitStyles?.animationDuration, "5s");
+assert.strictEqual(orbitStyles?.animationTimingFunction, "linear");
+assert.strictEqual(orbitStyles?.animationIterationCount, "infinite");
+
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Moon Orbit</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Orbiting Earth</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="space">
+        <div class="earth"></div>
+        <div class="orbit">
+            <div class="moon"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+```
+
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+}
+
+.space {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.earth {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+}
+
+.orbit {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    animation: orbit 5s linear infinite;
+}
+
+.moon {
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translate(-50%, -50%);
+    }
+
+    100% {
+        transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+```

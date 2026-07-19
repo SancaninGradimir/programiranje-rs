@@ -1,0 +1,236 @@
+---
+id: 6733697661182d357fc643d2
+title: "API ya turubai ya kuchora ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-canvas-api-and-how-does-it-work
+---
+
+# --interactive--
+
+API ya `Canvas` ni chombo chenye nguvu kinachokuwezesha kudhibiti michoro ndani ya faili yako ya JavaScript. Kila kitu huanza na kipengele cha `canvas` katika HTML. Kipengele hiki hutoa uso wa kuchora unaoweza kudhibitiwa kwa kutumia njia na sifa za mfano wa API ya `Canvas`.
+
+API ya `Canvas` hutoa kila unachohitaji kuunda picha za kuvutia, ikiwa ni pamoja na maumbo, maandishi, michoro ya kusisimua, na hata michezo tata. Ina interfaces kama `HTMLCanvasElement`, `CanvasRenderingContext2D`, `CanvasGradient`, `CanvasPattern`, `TextMetrics` ambazo hutoa njia na sifa unazoweza kutumia kuunda michoro katika faili yako ya JavaScript.
+
+Tuchunguze jinsi API ya `Canvas` inavyofanya kazi ili uanze kuunda michoro kwa kutumia JavaScript.
+
+Kwanza, unahitaji kuunda kipengele cha `canvas` katika faili yako ya HTML:
+
+```html
+<canvas id="my-canvas"></canvas>
+```
+
+Kipengele cha `canvas` kinawakilishwa na interface ya `HTMLCanvasElement` ambayo hutoa njia na sifa za kukidhibiti. Zaidi ya hayo, unaweza kutumia njia na sifa kutoka kwa interfaces nyingine katika API ya `Canvas`.
+
+Unaweza kumpa `canvas` yako `width` na `height` ndani ya HTML:
+
+```html
+<canvas id="my-canvas" width="400" height="400"></canvas>
+```
+
+Au unaweza kutumia sifa za `width` na `height` za interface ya `HTMLCanvasElement`:
+
+```js
+const canvas = document.getElementById("my-canvas");
+canvas.width = 400;
+canvas.height = 400;
+```
+
+Kwa sasa, huwezi kuona chochote kwenye skrini bado. Baada ya kuunda kipengele chako cha `canvas`, jambo linalofuata ni kupata upatikanaji wa muktadha wa kuchora wa turubai ya kuchora kwa kutumia njia ya `getContext()` ya interface ya `HTMLCanvasElement`.
+
+Muktadha unaotumika zaidi ni `2d`, unaokuwezesha kuchora kwa vipimo viwili:
+
+```js
+const canvas = document.getElementById("my-canvas");
+const ctx = canvas.getContext('2d');
+```
+
+Ikiwa utaandika thamani ya mabadiliko ya `ctx` kwenye konsoli, utaona njia na sifa za `CanvasRenderingContext2D` unazoweza kutumia kuunda maumbo, rangi, mistari, na zaidi, pamoja na thamani zao za msingi:
+
+```js
+console.log(ctx);
+```
+
+Mara tu unapokuwa na muktadha wa 2D, unaweza kuanza kuchora kwenye turubai ya kuchora.
+
+API ya `Canvas` hutoa njia na sifa kadhaa za kuchora maumbo, mistari, na maandishi. Moja ya hizo ni sifa ya `fillStyle` ambayo unaweza kuichanganya na njia ya `fillRect()` kuchora mstatili au mraba:
+
+:::interactive_editor
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="my-canvas" width="400" height="400"></canvas>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+```js
+const canvas = document.getElementById("my-canvas");
+
+const ctx = canvas.getContext("2d");
+
+// Set the background color
+ctx.fillStyle = "crimson";
+
+// Draw a rectangle
+ctx.fillRect(1, 1, 150, 100);
+```
+
+:::
+
+`fillRect` inachukua thamani nne za nambari zinazowakilisha mhimili wa x, mhimili wa y, upana, na urefu, kwa mtiririko huo.
+
+Sasa kuna kitu kwenye skrini. Pia unaweza kuchora maandishi au hata kuunda michoro ya kusisimua. Hapa kuna turubai ya kuchora kuwakilisha maandishi:
+
+```html
+<canvas id="my-text-canvas" width="300" height="70"></canvas>
+```
+
+Ili hatimaye kuchora maandishi, pita maandishi hayo katika njia ya `fillText()` kama hoja ya kwanza, ikifuatiwa na thamani za mhimili wa x na y:
+
+:::interactive_editor
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="my-text-canvas" width="300" height="70"></canvas>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+```js
+const textCanvas = document.getElementById("my-text-canvas");
+
+const textCanvasCtx = textCanvas.getContext("2d");
+
+// Set font family and size
+textCanvasCtx.font = "30px Arial";
+
+// Set text color
+textCanvasCtx.fillStyle = "crimson";
+
+// Draw the text
+textCanvasCtx.fillText("Hello HTML Canvas!", 1, 50);
+```
+
+:::
+
+Matokeo katika kivinjari yatakuwa maandishi mekundu ya `Hello HTML Canvas!`.
+
+Kuna mengi zaidi unayoweza kufanya na API ya `Canvas`. Kwa mfano, unaweza kuichanganya na `requestAnimationFrame` kuunda michoro ya kusisimua, maonyesho, michezo, na zaidi.
+
+# --questions--
+
+## --text--
+
+Ni njia gani na sifa gani zinakuwezesha kuchora na kujaza mstatili au mraba katika API ya `Canvas`?
+
+## --answers--
+
+`strokeRect()` na `lineWidth`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayochora umbo na sifa inayojaza rangi.
+
+---
+
+`fillRect()` na `fillStyle`.
+
+---
+
+`clearRect()` na `strokeStyle`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayochora umbo na sifa inayojaza rangi.
+
+---
+
+`beginPath()` na `shadowColor`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayochora umbo na sifa inayojaza rangi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya hizi si sifa au njia ya interface ya `CanvasRenderingContext2D` katika API ya `Canvas`?
+
+## --answers--
+
+`fillStyle`
+
+### --feedback--
+
+Fikiria kuhusu sifa na njia zinazotumika mara kwa mara katika kuonyesha turubai ya kuchora.
+
+---
+
+`shadowColor`
+
+### --feedback--
+
+Fikiria kuhusu sifa na njia zinazotumika mara kwa mara katika kuonyesha turubai ya kuchora.
+
+---
+
+`drawImage`
+
+### --feedback--
+
+Fikiria kuhusu sifa na njia zinazotumika mara kwa mara katika kuonyesha turubai ya kuchora.
+
+---
+
+`backgroundColor`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Unachora vipi maandishi kwenye turubai ya kuchora kwa kutumia njia ya `fillText()` katika JavaScript?
+
+## --answers--
+
+Pita maandishi, ikifuatiwa na thamani za upana na urefu.
+
+### --feedback--
+
+Fikiria kuhusu kuratibu ambapo maandishi yanapaswa kuonekana.
+
+---
+
+Pita maandishi, ikifuatiwa na thamani za mhimili wa x na y.
+
+---
+
+Pita maandishi na ukubwa wa fonti.
+
+### --feedback--
+
+Fikiria kuhusu kuratibu ambapo maandishi yanapaswa kuonekana.
+
+---
+
+Pita maandishi na thamani za rangi.
+
+### --feedback--
+
+Fikiria kuhusu kuratibu ambapo maandishi yanapaswa kuonekana.
+
+## --video-solution--
+
+2

@@ -1,0 +1,251 @@
+---
+id: 68c3bc4ddb7b469fb7d17c28
+title: Polymorphism ni nini na inakuzaje upitishaji msimbo?
+challengeType: 19
+dashedName: what-is-polymorphism-and-how-does-it-promote-code-reuse
+---
+
+# --description--
+
+Polymorphism ni dhana kuu inayofuata katika programu za kuzingatia darasa la vitu (OOP) tutakayozungumzia.
+
+Kwa polymorphism, unapata upatikanaji wa kiolesura ambapo unaweza kuingiliana na vitu vingi vya aina moja.
+
+Tuchunguze kwa undani zaidi polymorphism na jinsi inavyokuwezesha upitishaji msimbo.
+
+Polymorphism inaruhusu njia katika madarasa tofauti kushiriki jina moja lakini kutekeleza kazi tofauti. Unaita njia ile ile kwa vitu tofauti, na kila kivitendo kinajibu kwa njia yake.
+
+Hapa kuna mfano wa msingi wa polymorphism:
+
+```py
+class A:
+   def action(self): ...
+
+class B:
+   def action(self): ...
+
+class C:
+   def action(self): ...
+
+Class().method()  # Works for A, B, or C
+```
+
+Hapa kuna mfano unaotumia sauti tofauti za wanyama kuonyesha polymorphism:
+
+```py
+class Cat:
+   def speak(self):
+       return "A cat meow"
+
+class Bird:
+   def speak(self):
+       return "A bird tweet"
+  
+class Monkey:
+   def speak(self):
+       return "A monkey ooh ooh aah aah ooh ooh aah aah"
+
+def animal_sound(animal):
+   print(animal.speak())
+
+animal_sound(Cat())
+animal_sound(Bird())
+animal_sound(Monkey())
+```
+
+Katika mfano huu, `animal_sound()` ni kitendakazi kinachopokea kitu chochote chenye njia ya `speak()`.
+
+Unapopita `Cat`, `Bird`, au `Monkey`, kinaita njia ya `speak()` ya kitu hicho na kuchapisha matokeo. Kwa sababu kila darasa linafafanua `speak()` kwa njia tofauti, unapata matokeo tofauti kutoka kwa kitendakazi kile kile. Hiyo ni polymorphism ikifanya kazi.
+
+Hapa kuna mfano mwingine, wakati huu ukiwa na matukio na sifa ya kipengele:
+
+```py
+class Twitter:
+   def __init__(self, content):
+       self.content = content
+
+   def post(self):
+       return f"🐦 Tweet: '{self.content}' (280 chars max)"
+
+class Instagram:
+   def __init__(self, content):
+       self.content = content
+
+   def post(self):
+       return f"📸 Instagram Post: '{self.content}' + ✨ filters"
+
+class LinkedIn:
+   def __init__(self, content):
+       self.content = content
+
+   def post(self):
+       return f"💼 LinkedIn Article: '{self.content}' (Professional Mode)"
+
+def start(social_media):
+   print(social_media.post())  # Calls .post() on any object
+
+# Instances
+tweet = Twitter('Just learned Python polymorphism!')
+photo = Instagram('Sunset vibes 🌅')
+article = LinkedIn('Why OOP matters in 2024')
+
+# The polymorphic calls - same function, different outputs
+start(tweet) # 🐦 Tweet: 'Just learned Python polymorphism!' (280 chars max)
+start(photo) # 📸 Instagram Post: 'Sunset vibes 🌅' + ✨ filters
+start(article) # 💼 LinkedIn Article: 'Why OOP matters in 2024' (Professional Mode)
+```
+
+Pia kuna aina ya polymorphism inayoitwa **polymorphism inayotegemea urithi**.
+
+Katika polymorphism inayotegemea urithi, darasa la mzazi linatekeleza njia, na madarasa mengi ya watoto ghairi njia hiyo kwa njia zao wenyewe. Kisha unaweza kuita njia ile ile kwa kitu chochote cha darasa la mtoto, na itatenda tofauti kulingana na darasa la mtoto ni lipi.
+
+Hapa kuna mfano:
+
+```py
+class Animal:
+   def speak(self):
+       return 'Some generic sound'
+
+class Cat(Animal):
+   def speak(self):
+       return 'A cat meow'
+
+class Dog(Animal):
+   def speak(self):
+       return 'A dog barks woof woof'
+
+class Monkey(Animal):
+   def speak(self):
+       return 'A monkey ooh ooh aah aah ooh ooh aah aah'
+  
+print(Cat().speak()) # A cat meow
+print(Dog().speak()) # A dog barks woof woof
+print(Monkey().speak()) # A monkey ooh ooh aah aah ooh ooh aah aah
+print(Animal().speak()) # Some generic sound
+```
+
+Unaweza kuona kuwa kila darasa la mtoto la darasa la mzazi `Animal` linaghairi njia ya `speak()` kutoa utekelezaji wake. Hivyo unapoita njia ya `speak()` kwa mfano wa kila darasa la mtoto, inarudisha sauti maalum inayohusiana na mnyama huyo.
+
+Unaweza pia kwenda mbali zaidi na kufanya wito katika orodha, kisha pitia orodha hiyo kuonyesha kile njia ya `speak()` inaporudisha kwa kila mmoja:
+
+```py
+animals = [Cat(), Dog(), Monkey()]
+
+for animal in animals:
+   print(animal.speak())
+
+# Output:
+# A cat meow
+# A dog barks woof woof
+# A monkey ooh ooh aah aah ooh ooh aah aah
+```
+
+# --questions--
+
+## --text--
+
+Polymorphism ni nini katika programu za kuzingatia darasa la vitu?
+
+## --answers--
+
+Wakati darasa haliwezi kuwa na njia zenye jina moja.
+
+### --feedback--
+
+Fikiria jinsi neno “polymorphism” linavyomaanisha “maumbo mengi” ya tendo lile lile.
+
+---
+
+Wakati madarasa tofauti yanaweza kutumia jina moja la njia lakini kutekeleza kwa njia tofauti.
+
+---
+
+Wakati njia lazima iwe ya kipekee katika madarasa yote.
+
+### --feedback--
+
+Fikiria jinsi neno “polymorphism” linavyomaanisha “maumbo mengi” ya tendo lile lile.
+
+---
+
+Wakati darasa la mtoto linafuta njia ya darasa la mzazi.
+
+### --feedback--
+
+Fikiria jinsi neno “polymorphism” linavyomaanisha “maumbo mengi” ya tendo lile lile.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika polymorphism inayotegemea urithi, darasa la mtoto linapaswa kufanya nini kutoa utekelezaji wake wa njia iliyotangazwa katika darasa la mzazi?
+
+## --answers--
+
+Ghairi njia kwa kuitangaza upya kwa jina lile lile.
+
+---
+
+Tangaza njia kama `@static`.
+
+### --feedback--
+
+Fikiria jinsi darasa la mtoto linavyotangaza upya njia huku likibakisha saini ile ile.
+
+---
+
+Futa njia ya mzazi kwanza.
+
+### --feedback--
+
+Fikiria jinsi darasa la mtoto linavyotangaza upya njia huku likibakisha saini ile ile.
+
+---
+
+Tumia dekoreta wa `@polymorphic`.
+
+### --feedback--
+
+Fikiria jinsi darasa la mtoto linavyotangaza upya njia huku likibakisha saini ile ile.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Je, faida kuu ya polymorphism inayotegemea urithi ni ipi?
+
+## --answers--
+
+Inalazimisha madarasa yote ya watoto kutekeleza tabia sawa.
+
+### --feedback--
+
+Angalia jinsi polymorphism inavyokuwezesha kuita njia ile ile kwa madarasa tofauti ya watoto.
+
+---
+
+Inazuia madarasa ya watoto kubadilisha njia za mzazi.
+
+### --feedback--
+
+Angalia jinsi polymorphism inavyokuwezesha kuita njia ile ile kwa madarasa tofauti ya watoto.
+
+---
+
+Inaruhusu kuitwa kwa jina moja la njia kwa vitu tofauti vya watoto, kila kivitendo kikitekeleza toleo lake.
+
+---
+
+Inunganisha njia zote za watoto katika darasa la mzazi.
+
+### --feedback--
+
+Angalia jinsi polymorphism inavyokuwezesha kuita njia ile ile kwa madarasa tofauti ya watoto.
+
+## --video-solution--
+
+3

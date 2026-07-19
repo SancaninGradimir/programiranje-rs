@@ -1,0 +1,90 @@
+---
+id: 6577319039f4f7de9251b822
+title: Hatua 61
+challengeType: 20
+dashedName: step-61
+---
+
+# --description--
+
+Badala ya kutumia mzunguko na kigezo cha kuhesabu, unaweza kupata matokeo sawa kwa njia tofauti, ambayo utaitekeleza katika hatua chache zijazo.
+
+`all()` ni kitendakazi kilichojengwa ndani cha Python kinachorudisha `True` ikiwa vipengele vyote ndani ya iterable fulani vinathibitishwa kuwa `True`. Vinginevyo, hurudisha `False`.
+
+Badilisha mzunguko wako wa `for` uliopo na taarifa mbili za `if` kwa taarifa moja ya `if`. Kwa sharti la `if`, tumia wito wa kitendakazi cha `all()` na pita orodha tupu kama hoja kwa wito wa kitendakazi.
+
+# --hints--
+
+Unapaswa kubadilisha mzunguko wako wa `for` uliopo na taarifa mbili za `if` kwa taarifa moja ya `if`.
+
+```js
+({ test: () => {
+  assert.match(code, /^(\s{8})if\s+.+:\s*^\1\s{4}break/ms);
+  assert.isFalse(/if\s+count\s*==\s*4\s*:/.test(code));
+} })
+```
+
+Sharti lako jipya la `if` linapaswa kuwa `all([])`.
+
+```js
+({ test: () => assert(runPython(`
+  _Node(_code).find_function("generate_password").find_while("True").find_bodies()[0].find_if("all([])") != _Node()
+`)) })
+```
+
+Unapaswa kuwa na `break` ndani ya mwili wa `if` mpya.
+
+```js
+({ test: () => assert(runPython(`
+  _Node(_code).find_function("generate_password").find_while("True").find_bodies()[0].find_if("all([])").find_bodies()[0].is_equivalent("break")
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+import re
+import secrets
+import string
+
+
+def generate_password(length, nums, special_chars, uppercase, lowercase):
+    # Define the possible characters for the password
+    letters = string.ascii_letters
+    digits = string.digits
+    symbols = string.punctuation
+
+    # Combine all characters
+    all_characters = letters + digits + symbols
+
+    while True:
+        password = ''
+        # Generate password
+        for _ in range(length):
+            password += secrets.choice(all_characters)
+       
+        constraints = [
+            (nums, r'\d'),
+            (lowercase, r'[a-z]'),
+            (uppercase, r'[A-Z]'),            
+            (special_chars, fr'[{symbols}]')            
+        ]
+
+        # Check constraints
+        count = 0
+--fcc-editable-region--
+        for constraint, pattern in constraints:
+            if constraint <= len(re.findall(pattern, password)):
+                count += 1
+            
+        if count == 4:
+--fcc-editable-region--
+            break
+
+    return password
+
+# new_password = generate_password(8)
+# print(new_password)
+```

@@ -1,0 +1,248 @@
+---
+id: 688c9c4fe5fef91262f9bdf8
+title: Nini Kauli ya raise na Inavyofanya Kazi?
+challengeType: 19
+dashedName: what-is-the-raise-statement-and-how-does-it-work
+---
+
+# --description--
+
+Katika Python, kauli ya `raise` ni chombo chenye nguvu kinachokuwezesha kusababisha hitilafu kwa mikono katika msimbo wako. Inakupa udhibiti wa wakati na jinsi makosa yanavyotokea, ikikuwezesha kuunda hali za makosa maalum na kutekeleza tabia fulani za programu.
+
+Kauli ya `raise` hutumika kutupa hitilafu waziwazi mahali popote katika programu yako, ikikuruhusu kuashiria kuwa hali ya hitilafu imetokea au kwamba mahitaji fulani hayjakamilika.
+
+Kauli ya `raise` ya Python inaweza kutumika kwa njia kadhaa kusababisha hitilafu. Kwa msingi wake rahisi, unaweza kuinua hitilafu zilizojengwa ndani au kuunda ujumbe wa makosa maalum. Hapa kuna mfano rahisi:
+
+```py
+def check_age(age):
+    if age < 0:
+        raise ValueError('Age cannot be negative')
+    return age
+
+try:
+    check_age(-5)
+except ValueError as e:
+    print(f'Error: {e}') # Error: Age cannot be negative
+```
+
+Unaweza kuona hapa kuwa `raise` ni neno kuu linalosababisha hitilafu.
+
+Katika mfano huu, tunainua `ValueError` na ujumbe maalum wakati umri usio halali unatolewa.
+
+Kauli ya `raise` pia inaweza kutumika kuinua tena hitilafu ya sasa, ambayo ni muhimu hasa katika kushughulikia hitilafu:
+
+```py
+def process_data(data):
+    try:
+        result = int(data)
+        return result * 2
+    except ValueError:
+        print('Logging: Invalid data received')
+        raise  # Re-raises the same ValueError
+
+try:
+    process_data('abc')
+except ValueError:
+    print('Handled at higher level')
+```
+
+Hapa neno kuu `raise` (bila hoja), linainua tena hitilafu ya sasa inayoshughulikiwa.
+
+Hii inakuwezesha kurekodi au kufanya usafi huku bado ukisambaza hitilafu juu kwenye mfuatano wa wito.
+
+Unaweza kuunda na kuinua hitilafu maalum kwa kufafanua madarasa yako ya hitilafu:
+
+```py
+class InsufficientFundsError(Exception):
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f'Insufficient funds: ${balance} available, ${amount} requested')
+
+def withdraw(balance, amount):
+    if amount > balance:
+        raise InsufficientFundsError(balance, amount)
+    return balance - amount
+
+try:
+    new_balance = withdraw(100, 150)
+except InsufficientFundsError as e:
+    print(f'Transaction failed: {e}')
+```
+
+Hapa unaweza kuona madarasa ya hitilafu maalum yanarithi kutoka `Exception` au madarasa yake ndogo.
+
+Utajifunza zaidi kuhusu madarasa na urithi katika mafundisho yajayo. Kwa sasa, fahamu kuwa hii ni njia ya kuunda hitilafu zako mwenyewe zenye mantiki maalum.
+
+Kauli ya `raise` pia inaweza kutumika pamoja na neno kuu `from` kuunganisha hitilafu, kuonyesha uhusiano kati ya makosa tofauti:
+
+```py
+def parse_config(filename):
+    try:
+        with open(filename, 'r') as file:
+            data = file.read()
+            return int(data)
+    except FileNotFoundError:
+        raise ValueError('Configuration file is missing') from None
+    except ValueError as e:
+        raise ValueError('Invalid configuration format') from e
+
+config = parse_config('config.txt')
+```
+
+Hapa unaweza kuona kuwa `raise ... from None`, huzuia muktadha wa hitilafu ya awali:
+
+```bash
+Traceback (most recent call last):
+  File "main.py", line 12, in <module>
+    config = parse_config('config.txt')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "main.py", line 7, in parse_config
+    raise ValueError('Configuration file is missing') from None
+ValueError: Configuration file is missing
+```
+
+Na `raise ... from e`, huunganisha hitilafu mpya na ile ya awali, ikihifadhi mfuatano wa makosa.
+
+```bash
+Traceback (most recent call last):
+  File "main.py", line 5, in parse_config
+    return int(data)
+           ^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "main.py", line 12, in <module>
+    config = parse_config('config.txt')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "main.py", line 9, in parse_config
+    raise ValueError('Invalid configuration format') from e
+ValueError: Invalid configuration format
+```
+
+Unaweza pia kuinua hitilafu kwa masharti kwa kutumia kauli za `assert`, ambazo kwa msingi ni njia fupi za `raise` na `AssertionError`:
+
+```py
+def calculate_square_root(number):
+    assert number >= 0, 'Cannot calculate square root of negative number'
+    return number ** 0.5
+
+try:
+    result = calculate_square_root(-4)
+except AssertionError as e:
+    print(f'Assertion failed: {e}')
+```
+
+Kauli ya `raise` ni muhimu kwa kuunda programu imara ambapo unahitaji kutekeleza sheria za biashara, kuthibitisha ingizo, na kutoa ujumbe wa makosa wenye maana. Kwa kutumia `raise` kwa mkakati, unaweza kufanya msimbo wako uwe wa kutegemewa zaidi na rahisi kutafuta makosa, huku ukitoa mrejesho wazi kwa watumiaji kuhusu kilichotokea vibaya.
+
+# --questions--
+
+## --text--
+
+Kauli ya `raise` hufanya nini katika Python?
+
+## --answers--
+
+Inakamata hitilafu.
+
+### --feedback--
+
+Rudia sehemu kuhusu kuinua hitilafu.
+
+---
+
+Inasababisha hitilafu kwa mikono.
+
+---
+
+Inaepuka makosa.
+
+### --feedback--
+
+Rudia sehemu kuhusu kuinua hitilafu.
+
+---
+
+Inarekebisha msimbo uliovunjika.
+
+### --feedback--
+
+Rudia sehemu kuhusu kuinua hitilafu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini hutokea unapotumia `raise` bila hoja yoyote?
+
+## --answers--
+
+Inainua `Exception` ya jumla.
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa jinsi inavyotenda bila hoja.
+
+---
+
+Hakufanya chochote.
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa jinsi inavyotenda bila hoja.
+
+---
+
+Inainua tena hitilafu ya sasa.
+
+---
+
+Inainua `TypeError`.
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa jinsi inavyotenda bila hoja.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Neno kuu gani hutumika kuunganisha hitilafu pamoja?
+
+## --answers--
+
+`with`
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa neno kuu linalounganisha hitilafu.
+
+---
+
+`from`
+
+---
+
+`chain`
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa neno kuu linalounganisha hitilafu.
+
+---
+
+`link`
+
+### --feedback--
+
+Rudia sehemu kuhusu `raise` kuelewa neno kuu linalounganisha hitilafu.
+
+## --video-solution--
+
+2

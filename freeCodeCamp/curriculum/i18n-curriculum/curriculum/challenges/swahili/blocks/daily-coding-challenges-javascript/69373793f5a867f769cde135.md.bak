@@ -1,0 +1,76 @@
+---
+id: 69373793f5a867f769cde135
+title: "Zoezi la 150: Kuchambua orodha isiyopangwa ya Markdown"
+challengeType: 28
+dashedName: challenge-150
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi wa orodha halali isiyopangwa katika Markdown, rudisha mfuatano wa herufi wa HTML unaolingana.
+
+Orodha isiyopangwa ina kipengele kimoja au zaidi cha orodha. Kipengele halali cha orodha kinaonekana kwenye mstari wake na:
+
+- Kinaanza na dash (`"-"`), ikifuatiwa na
+- Angalau nafasi moja, kisha
+- Maandishi ya kipengele cha orodha.
+
+Orodha hutolewa kama mfuatano mmoja wa herufi wenye mistari mipya iliyotenganishwa na tabia ya newline (`"\n"`). Usijumuishe tabia za newline katika maandishi ya kipengele.
+
+Zungusha kila kipengele cha orodha ndani ya lebo za HTML `li`, na orodha nzima ya vipengele ndani ya lebo za `ul`.
+
+Kwa mfano, ukipokea `"- Item A\n- Item B"`, rudisha `"<ul><li>Item A</li><li>Item B</li></ul>"`.
+
+Kumbuka: Konsoli huenda isionyeshe lebo za HTML katika mfuatano wa herufi wakati wa kurekodi ujumbe. Angalia konsoli ya kivinjari kuona rekodi zenye lebo zilizoingizwa.
+
+# --hints--
+
+`parseUnorderedList("- Item A\n- Item B")` inapaswa kurudisha `"<ul><li>Item A</li><li>Item B</li></ul>"`.
+
+```js
+assert.equal(parseUnorderedList("- Item A\n- Item B"), "<ul><li>Item A</li><li>Item B</li></ul>");
+```
+
+`parseUnorderedList("-  JavaScript\n-  Python")` inapaswa kurudisha `"<ul><li>JavaScript</li><li>Python</li></ul>"`.
+
+```js
+assert.equal(parseUnorderedList("-  JavaScript\n-  Python"), "<ul><li>JavaScript</li><li>Python</li></ul>");
+```
+
+`parseUnorderedList("- 2 C Flour\n- 1/2 C Sugar\n- 1 Tsp Vanilla")` inapaswa kurudisha `"<ul><li>2 C Flour</li><li>1/2 C Sugar</li><li>1 Tsp Vanilla</li></ul>"`.
+
+```js
+assert.equal(parseUnorderedList("- 2 C Flour\n- 1/2 C Sugar\n- 1 Tsp Vanilla"), "<ul><li>2 C Flour</li><li>1/2 C Sugar</li><li>1 Tsp Vanilla</li></ul>");
+```
+
+`parseUnorderedList("- A-1\n- A-2\n- B-1")` inapaswa kurudisha `"<ul><li>A-1</li><li>A-2</li><li>B-1</li></ul>"`.
+
+```js
+assert.equal(parseUnorderedList("- A-1\n- A-2\n- B-1"), "<ul><li>A-1</li><li>A-2</li><li>B-1</li></ul>");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function parseUnorderedList(markdown) {
+
+  return markdown;
+}
+```
+
+# --solutions--
+
+```js
+function parseUnorderedList(markdown) {
+  const lines = markdown.split("\n");
+  const listItems = [];
+  
+  for (let line of lines) {
+    listItems.push(`<li>${line.slice(1).trim()}</li>`);
+  }
+  
+  return `<ul>${listItems.join("")}</ul>`;
+}
+```

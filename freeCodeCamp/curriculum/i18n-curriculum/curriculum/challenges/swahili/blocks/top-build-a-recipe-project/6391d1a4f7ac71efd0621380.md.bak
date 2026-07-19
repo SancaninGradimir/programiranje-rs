@@ -1,0 +1,230 @@
+---
+id: 6391d1a4f7ac71efd0621380
+title: Jenga mradi wa ukurasa wa mapishi
+challengeType: 25
+dashedName: top-build-a-recipe-project
+---
+
+# --description--
+
+Tovuti itajumuisha ukurasa mkuu wa kielezo ambao utakuwa na viungo vya baadhi ya mapishi. Tovuti haitakuwa na muonekano mzuri sana baada ya kumaliza.
+
+**Hadithi za watumizi:**
+
+1. Ukurasa wako wa mapishi unapaswa kuwa na lebo ya `DOCTYPE`.
+1. Ukurasa wako wa mapishi unapaswa kujumuisha kipengele cha `html` chenye vipengele vya `head` na `body` kama watoto.
+1. Unapaswa kuwa na kipengele cha `title` ndani ya kipengele cha `head` chenye maandishi ya `The Odin Recipes`.
+1. Unapaswa kuona kipengele cha `h1` chenye maandishi ya `Creamy Chocolate Fudge`.
+1. Unapaswa kuona picha inayohusiana na sifa ya `alt`.
+1. Inapaswa kuwepo kipengele cha `h2` chenye maandishi ya `Description` chini ya picha.
+1. Unapaswa kuona aya chache chini ya `Description` zinazoelezea mapishi.
+1. Inapaswa kuwepo kipengele cha `h2` chenye maandishi ya `Ingredients`.
+1. Chini ya kichwa cha sehemu cha `Ingredients` inapaswa kuwepo orodha isiyopangwa yenye viungo vinavyohitajika kwa mapishi.
+1. Chini ya orodha ya viungo ongeza kichwa cha sehemu kingine kinachoitwa `Steps`.
+1. Unapaswa kuona orodha iliyopangwa yenye hatua chache zinazohitajika kukamilisha mapishi.
+1. Chini ya hatua inapaswa kuwepo kipengele cha `h2` chenye maandishi ya `More Recipes`.
+1. Unapaswa kuona viungo viwili vya mapishi mengine ndani ya orodha isiyopangwa yenye vitu viwili vya orodha vyenye vipengele vya nanga ndani.
+1. Vipengele hivi vya nanga vinapaswa kuwa na sifa ya `href` yenye thamani ya `#`.
+
+# --hints--
+
+Unapaswa kuwa na lebo ya `DOCTYPE`.
+
+```js
+assert(code.match(/<!DOCTYPE\s+?html\s*?>/gi));
+```
+
+Unapaswa kuwa na kipengele cha `html` chenye vipengele vya `head` na `body`.
+
+```js
+const html = document.querySelectorAll('html')[0];
+const head = document.querySelectorAll('html > head')[0];
+const body = document.querySelectorAll('html > body')[0];
+
+assert(html && head && body);
+```
+
+Unapaswa kuwa na kipengele cha `title` ndani ya kipengele cha `head` chenye maandishi ya `The Odin Recipes`.
+
+```js
+assert(document.querySelectorAll('HEAD > TITLE')[0]?.innerText == 'The Odin Recipes');
+```
+
+Unapaswa kuwa na kipengele cha `h1` ndani ya kipengele chako cha `body` chenye maandishi ya `Creamy Chocolate Fudge`.
+
+```js
+assert(document.querySelectorAll('BODY > H1')[0]?.innerText == 'Creamy Chocolate Fudge');
+```
+
+Unapaswa kuwa na picha yenye sifa ya `alt`.
+
+```js
+const img = document.querySelectorAll('IMG')[0];
+
+assert(img && img.alt !='' && img.src != '')
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Description`.
+
+```js
+const h2 = document.querySelectorAll('H2')[0];
+
+assert(h2?.innerText == 'Description');
+```
+
+Unapaswa kuwa na angalau vipengele viwili vya `p` vinavyoelezea mapishi.
+
+```js
+const paragraphs = document.querySelectorAll('P');
+
+assert(paragraphs?.length > 1);
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Ingredients`.
+
+```js
+const h2 = document.querySelectorAll('H2')[1];
+
+assert(h2?.innerText == 'Ingredients');
+```
+
+Unapaswa kuwa na kipengele cha `ul` kilichopangwa ndani na vipengele vya `li` vinavyoonyesha viungo.
+
+```js
+const headers = document.querySelectorAll("h2");
+
+headers.forEach(header => {
+    if (header.textContent.trim() === "Ingredients") {
+        const next = header.nextElementSibling;
+
+        if(next.tagName === "UL") {
+            const listItems = next.querySelectorAll("LI");
+
+            assert(listItems.length > 1);
+        } else {
+            assert(false);
+        }
+    }
+});
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `Steps`.
+
+```js
+const h2 = document.querySelectorAll('H2')[2];
+
+assert(h2?.innerText == 'Steps');
+```
+
+Unapaswa kuwa na kipengele cha `ol` chenye vipengele vya `li` vinavyoonyesha hatua za mapishi.
+
+```js
+const orderedList = document.querySelectorAll('OL')[0];
+const listItems = document.querySelectorAll('OL > LI');
+
+assert(orderedList && listItems && listItems.length > 1);
+```
+
+Unapaswa kuwa na kipengele cha `h2` chenye maandishi ya `More Recipes`. 
+
+```js
+const h2 = document.querySelectorAll('H2')[3];
+
+assert(h2?.innerText == 'More Recipes');
+```
+
+Unapaswa kuwa na kipengele cha `ul` kilichopangwa ndani na vipengele vya `li` vinavyoonyesha vipengele vya `a` vinavyunganisha na mapishi mengine.
+
+```js
+const headers = document.querySelectorAll("h2");
+
+headers.forEach(header => {
+    if (header.textContent.trim() === "More Recipes") {
+        const next = header.nextElementSibling;
+
+        if(next.tagName === "UL") {
+            const listItems = next.querySelectorAll("LI");
+
+            assert(listItems.length > 1);
+
+            listItems.forEach(listItem => {
+                const anchor = listItem.querySelector("A");
+
+                assert(anchor);
+            });
+        } else {
+            assert(false);
+        }
+    }
+});
+```
+
+Vipengele vyako vya nanga vinavyunganisha na mapishi vinapaswa kuwa na sifa ya `href` yenye thamani ya `#`.
+
+```js
+const anchorTags = document.querySelectorAll("a");
+
+const allAnchorsHaveHrefHash = [...anchorTags].every(function(anchorTag) {
+  return anchorTag.hasAttribute("href") && anchorTag.getAttribute("href") === "#";
+});
+
+assert(allAnchorsHaveHrefHash && anchorTags.length > 0); 
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Odin Recipes</title>
+  </head>
+  <body>
+    <h1>Creamy Chocolate Fudge</h1>
+    <img src="https://cdn.freecodecamp.org/curriculum/odin-project/build-a-recipe-page/build-a-recipe-page-01.jpg" alt="A delicious chocolate fudge dessert">
+    <h2>Description</h2>
+    <p>This recipe is for a rich and creamy chocolate fudge that is sure to satisfy your sweet tooth. It's perfect for a special occasion or as a tasty treat for any time of the year.</p>
+    <p>This recipe is easy to follow and only requires a few simple ingredients. With just a few steps, you'll be able to create a delicious dessert that everyone will love.</p>
+    <h2>Ingredients</h2>
+    <ul>
+      <li>1 cup sugar</li>
+      <li>1/2 cup unsalted butter</li>
+      <li>1/4 cup milk</li>
+      <li>1/4 cup cocoa powder</li>
+      <li>1/4 cup chocolate chips</li>
+      <li>1/4 tsp salt</li>
+      <li>1 tsp vanilla extract</li>
+    </ul>
+    <h2>Steps</h2>
+    <ol>
+      <li>In a medium saucepan, melt the butter over medium heat.</li>
+      <li>Add the sugar, milk, cocoa powder, and salt to the saucepan and stir until well combined.</li>
+      <li>Bring the mixture to a boil, stirring constantly, and then reduce the heat to low and simmer for 5 minutes.</li>
+      <li>Remove the saucepan from the heat and stir in the chocolate chips and vanilla extract until the chocolate is melted and the mixture is smooth.</li>
+      <li>Pour the fudge into a greased 8-inch square pan and let it cool completely before cutting into squares.</li>
+    </ol>
+    <h2>More Recipes</h2>
+    <ul>
+      <li><a href="#">Peanut Butter Cookies</a></li>
+      <li><a href="#">Lemon Bars</a></li>
+      <li><a href="#">Chocolate Chip Pancakes</a></li>
+    </ul>
+  </body>
+</html>
+```
+
+```css
+
+```

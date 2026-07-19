@@ -1,0 +1,136 @@
+---
+id: 61437d575fb98f57fa8f7f36
+title: Hatua 1
+challengeType: 0
+dashedName: step-1
+demoType: onLoad
+---
+
+# --description--
+
+Anza na muundo wako wa msingi wa HTML. Ongeza tamko la `DOCTYPE`, kipengele cha `html` kinachoeleza kuwa ukurasa huu uko kwa Kiingereza, kipengele cha `head`, na kipengele cha `body`.
+
+Ongeza lebo ya `<meta>` yenye sifa ya kipengele inayofaa ya `charset` na lebo ya `<meta>` kwa ajili ya kuendana na simu ndani ya kipengele cha `head`.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na rejea ya `DOCTYPE`.
+
+```js
+assert(code.match(/<!DOCTYPE/gi));
+```
+
+Unapaswa kuweka nafasi baada ya rejea ya `DOCTYPE`.
+
+```js
+assert(code.match(/<!DOCTYPE\s+/gi));
+```
+
+Unapaswa kufafanua aina ya hati kuwa `html`.
+
+```js
+assert(code.match(/<!DOCTYPE\s+html/gi));
+```
+
+Unapaswa kufunga tamko la `DOCTYPE` kwa lebo ya kufunga `>` baada ya aina.
+
+```js
+assert(code.match(/<!DOCTYPE\s+html\s*>/gi));
+```
+
+Unapaswa kuwa na lebo ya kufungua `<html>`, na inapaswa kuwa na sifa ya kipengele `lang` ya `en`.
+
+```js
+assert(code.match(/<html\s+lang\s*=\s*('|")en\1\s*>/gi));
+```
+
+Kipengele chako cha `html` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert(code.match(/<\/html\s*>/));
+```
+
+Tamko lako la `DOCTYPE` linapaswa kuwa mwanzoni mwa HTML yako.
+
+```js
+assert(__helpers.removeHtmlComments(code).match(/^\s*<!DOCTYPE\s+html\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufungua `<head>`.
+
+```js
+assert(code.match(/<head\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufunga `</head>`.
+
+```js
+assert(code.match(/<\/head\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufungua `<body>`.
+
+```js
+assert(code.match(/<body\s*>/i));
+```
+
+Unapaswa kuwa na lebo ya kufunga `</body>`.
+
+```js
+assert(code.match(/<\/body\s*>/i));
+```
+
+Vipengele vya `head` na `body` vinapaswa kuwa ndugu.
+
+```js
+assert(document.querySelector('head')?.nextElementSibling?.localName === 'body');
+```
+
+Kipengele cha `head` kinapaswa kuwa ndani ya kipengele cha `html`.
+
+```js
+assert([...document.querySelector('html')?.children].some(x => x?.localName === 'head'));
+```
+
+Kipengele cha `body` kinapaswa kuwa ndani ya kipengele cha `html`.
+
+```js
+assert([...document.querySelector('html')?.children].some(x => x?.localName === 'body'));
+```
+
+Unapaswa kuwa na vipengele viwili vya `meta`.
+
+```js
+const meta = document.querySelectorAll('meta');
+assert(meta?.length === 2);
+```
+
+Kipengele kimoja cha `meta` kinapaswa kuwa na sifa ya kipengele `name` iliyowekwa kuwa `viewport`, na `content` imewekwa kuwa `width=device-width, initial-scale=1.0`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => m?.getAttribute('name') === 'viewport' && m?.getAttribute('content') === 'width=device-width, initial-scale=1.0' && !m?.getAttribute('charset'));
+assert.exists(target);
+```
+
+Kipengele kingine cha `meta` kinapaswa kuwa na sifa ya kipengele `charset` iliyowekwa kuwa `UTF-8`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => !m?.getAttribute('name') && !m?.getAttribute('content') && m?.getAttribute('charset')?.toLowerCase() === 'utf-8');
+assert.exists(target);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+--fcc-editable-region--
+
+--fcc-editable-region--
+```
+
+```css
+
+```

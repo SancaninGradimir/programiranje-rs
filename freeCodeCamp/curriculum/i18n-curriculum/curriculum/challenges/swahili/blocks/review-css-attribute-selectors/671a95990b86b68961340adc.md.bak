@@ -1,0 +1,219 @@
+---
+id: 671a95990b86b68961340adc
+title: Kagua kichaguzi cha sifa za kipengele za CSS
+challengeType: 31
+dashedName: review-css-attribute-selectors
+---
+
+# --interactive--
+
+## Kufanya kazi na vichaguzi tofauti vya sifa za kipengele na viungo
+
+- **Maana**: Kichaguzi cha `attribute` hukuwezesha kulenga vipengele vya HTML kulingana na sifa zao kama sifa za `href` au `title`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="https://www.freecodecamp.org">Link with href</a>
+<a>No href</a>
+```
+
+```css
+a[href] {
+  color: blue;
+  text-decoration: underline;
+}
+```
+
+:::
+
+- **Sifa ya `title`**: Sifa hii hutoa taarifa za ziada kuhusu kipengele. Hapa ni jinsi unavyoweza kulenga viungo vyenye sifa ya `title`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="#" title="Tooltip">Link with title</a>
+<a href="#">Normal link</a>
+```
+
+```css
+a[title] {
+  font-weight: bold;
+  text-decoration: none;
+}
+```
+
+:::
+
+- **Changanya vichaguzi ili kulenga viungo vyenye sifa za `href` na `title`**: Hii ni mchanganyiko wa vichaguzi vingi vya sifa za kipengele.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="#" title="Info">Href + Title</a>
+<a href="#">Only href</a>
+```
+
+```css
+a[href][title] {
+  color: green;
+}
+```
+
+:::
+
+- **Lenga neno moja ndani ya orodha iliyotengwa kwa nafasi**: Hii inalenga viungo vyenye neno maalum la darasa la vitu.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a class="link primary">Primary link</a>
+<a class="link secondary">Secondary link</a>
+```
+
+```css
+a[class~="primary"] {
+  color: red;
+  font-weight: bold;
+}
+```
+
+:::
+
+- **Lenga thamani zinazotangulia na kiambishi awali maalum**: Hii inalenga viungo vinavyoanza na `https://`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="https://www.freecodecamp.org">HTTPS link</a>
+<a href="http://www.freecodecamp.org">HTTP link</a>
+```
+
+```css
+a[href^="https://"] {
+  color: green;
+  text-decoration: underline;
+}
+```
+
+:::
+
+- **Lenga thamani zinazomalizika na kiambishi tamati maalum**: Hii inalenga viungo vinavyoisha na `.jpg`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="photo.jpg">Image link</a>
+<a href="index.html">HTML link</a>
+```
+
+```css
+a[href$=".jpg"] {
+  color: darkgreen;
+  text-decoration: underline dotted;
+}
+```
+
+:::
+
+- **Lenga thamani zinazojumuisha sehemu ndogo ya mfuatano wa herufi mahali popote**: Hii inalenga viungo vinavyojumuisha `https` mahali popote ndani ya thamani.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<a href="https://www.freecodecamp.org">Secure link</a>
+<a href="page.html">Local link</a>
+```
+
+```css
+a[href*="https"] {
+  color: teal;
+}
+```
+
+:::
+
+- **Muhtasari**: Mifumo hii inafanya iwe rahisi kuunda mitindo ya viungo kwa kuzingatia sifa na thamani zao kwa njia thabiti.
+
+## Kulenga vipengele vyenye sifa za `lang` na `data-lang`
+
+- **Sifa ya `lang`**: Sifa hii hutumika katika HTML kubainisha lugha ya maudhui ndani ya kipengele. Unaweza kutaka kuunda mitindo tofauti kwa vipengele kulingana na lugha iliyotumika, hasa kwenye tovuti yenye lugha nyingi.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<p lang="en">English text</p>
+<p lang="fr">French text</p>
+```
+
+```css
+p[lang="en"] {
+  font-style: italic;
+}
+```
+
+:::
+
+- **Sifa ya `data-lang`**: Sifa za data za kawaida kama sifa ya `data-lang` hutumika sana kuhifadhi taarifa za ziada ndani ya vipengele, kama vile kubainisha lugha inayotumika katika sehemu maalum ya maandishi. Hapa ni jinsi unavyoweza kuunda mitindo kwa vipengele kulingana na sifa ya `data-lang`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div data-lang="fr">French content</div>
+<div data-lang="en">English content</div>
+```
+
+```css
+div[data-lang="fr"] {
+  color: blue;
+}
+```
+
+:::
+
+## Kufanya kazi na kichaguzi cha sifa za kipengele, vipengele vya orodha iliyopangwa na sifa ya `type`
+
+- **Sifa ya `type`**: Unapofanya kazi na orodha zilizopangwa katika HTML, sifa ya `type` hukuwezesha kubainisha mtindo wa nambari unaotumika, kama vile nambari za tarakimu, alfabeti, au nambari za Kirumi.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<ol type="A">
+  <li>Alpha</li>
+  <li>Beta</li>
+</ol>
+
+<ol type="i">
+  <li>One</li>
+  <li>Two</li>
+</ol>
+```
+
+```css
+/*Example targeting uppercase alphabetical numbering*/
+ol[type="A"] {
+  color: purple;
+  font-weight: bold;
+}
+
+/*Example targeting lowercase Roman numerals*/
+ol[type="i"] {
+  color: green;
+}
+```
+
+:::
+
+# --assignment--
+
+Kagua mada na dhana za kichaguzi cha sifa za kipengele za CSS.

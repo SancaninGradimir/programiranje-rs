@@ -1,0 +1,381 @@
+---
+id: 68e2c945cc1d8e778152be31
+title: Jenga kiolesura cha mchezaji
+challengeType: 27
+dashedName: build-a-player-interface
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kufafanua darasa la vitu la abstraction linaloitwa `Player` ambalo linarithi kutoka darasa la vitu la `abc.ABC`.
+1. Darasa la vitu la `Player` linapaswa kuwa na njia ya `__init__` inayoweka:
+
+   - Sifa ya kipengele ya `moves` kuwa orodha tupu.
+   - Sifa ya kipengele ya `position` kuwa `(0, 0)`.
+   - Sifa ya kipengele ya `path` kuwa orodha yenye nafasi ya mwanzo.
+
+1. Darasa la vitu la `Player` linapaswa kuwa na njia inayoitwa `make_move` ambayo:
+
+   - Inatumia `random.choice` kupata mwelekeo wa nasibu kutoka sifa ya kipengele ya `moves` (iliyo fafanuliwa katika darasa la vitu halisi).
+   - Inaongeza thamani kutoka kwa mwelekeo ulioteuliwa kwenye nafasi ya sasa na kusahihisha sifa ya kipengele ya `position`.
+   - Inaongeza tuple mpya ya `position` kwenye sifa ya kipengele ya `path`.
+   - Inarudisha `position` mpya.
+
+1. Darasa la vitu la `Player` linapaswa kuwa na njia ya abstraction inayoitwa `level_up` itakayotekelezwa katika madarasa halisi.
+1. Unapaswa kufafanua darasa la vitu la `Pawn` linalorithi kutoka darasa la vitu la `Player`.
+1. Darasa la vitu la `Pawn` linapaswa kutumia `super()` kuita njia ya `__init__` ya mzazi kisha kuweka sifa ya kipengele ya `moves` kuwa orodha ya tuple zinazowakilisha kuratibu za `x, y`.
+1. Kila tuple ya kuratibu inapaswa kuwakilisha mwendo wa kitengo cha `1` katika mwelekeo ufuatao: juu, chini, kushoto, kulia.
+1. Darasa la vitu la `Pawn` linapaswa kutekeleza njia halisi ya `level_up` kwa kuongeza miendo mingine kwenye sifa ya kipengele ya `moves`. Miendo iliyoongezwa inapaswa kuwakilisha miendo minne ya mwelekeo wa pembeni (kwa mfano, kitengo cha `1` chini pamoja na kitengo cha `1` kushoto).
+
+**Kumbuka:** Moduli za maktaba za kawaida zinapaswa kuletwa bila kutumia majina mbadala. Mitihani inayohusiana na darasa la vitu la `Player` itashindwa hadi darasa la vitu la `Pawn` liweze kuanzishwa.
+
+# --hints--
+
+Unapaswa kuwa na darasa la vitu linaloitwa `Player`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).has_class("Player")`) })
+```
+
+Darasa la vitu la `Player` linapaswa kurithi kutoka darasa la vitu la `ABC` la moduli ya `abc`.
+
+```js
+({ test: () => runPython(`
+from abc import ABC
+import ast
+cls = _Node(_code).find_class("Player")
+assert cls.inherits_from("ABC") or cls.inherits_from("abc.ABC")
+`) })
+```
+
+Darasa la vitu la `Player` linapaswa kuwa na njia ya `__init__`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").has_function("__init__")`) })
+```
+
+Njia ya `Player` ya `__init__` inapaswa kuwa na kigezo kimoja `self`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").find_function("__init__").has_args("self")`) })
+```
+
+Njia ya `Player` ya `__init__` inapaswa kuweka `self.moves` kuwa orodha tupu.
+
+```js
+({ test: () => runPython(`
+init = _Node(_code).find_class("Player").find_function("__init__")
+assert init.has_stmt("self.moves = []") or init.has_stmt("self.moves = list()")
+`) })
+```
+
+Njia ya `Player` ya `__init__` inapaswa kuweka `self.position` kuwa `(0, 0)`.
+
+```js
+({ test: () => runPython(`
+init = _Node(_code).find_class("Player").find_function("__init__")
+assert init.has_stmt("self.position = (0, 0)")
+`) })
+```
+
+Njia ya `Player` ya `__init__` inapaswa kuweka `self.path` kuwa orodha yenye nafasi ya mwanzo.
+
+```js
+({ test: () => runPython(`
+init = _Node(_code).find_class("Player").find_function("__init__")
+assert init.has_stmt("self.path = [self.position]")
+`) })
+```
+
+Darasa la vitu la `Player` linapaswa kuwa na njia ya `make_move`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").has_function("make_move")`) })
+```
+
+Njia ya `Player` ya `make_move` inapaswa kuwa na kigezo kimoja `self`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").find_function("make_move").has_args("self")`) })
+```
+
+Njia ya `Player` ya `make_move` inapaswa kutumia `random.choice` kupata mwelekeo wa nasibu kutoka sifa ya kipengele ya `moves`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").block_has_call("choice", "make_move")`) })
+```
+
+Njia ya `Player` ya `make_move` inapaswa kusahihisha sifa ya kipengele ya `position` kwa kuongeza kuratibu za mwelekeo ulioteuliwa nasibu.
+
+```js
+({ test: () => runPython(`
+def test_func():
+  try:
+    p = Pawn()
+  except TypeError:
+    assert False, "Unable to instantiate Pawn"
+
+  p.make_move()
+  assert p.position == (1, 2)
+  p.make_move()
+  assert p.position == (2, 4)
+
+def custom_choice(seq):
+  return (1, 2)
+
+flag = None
+
+try:
+  original_choice = choice
+  choice = custom_choice
+  flag = "choice"
+    
+  test_func()
+
+except NameError:
+  try:
+    original_choice = random.choice
+    random.choice = custom_choice
+    flag = "random.choice"
+
+    test_func()
+
+  except NameError:
+    assert False, "missing import"
+finally:
+  if flag == "choice":
+    choice = original_choice
+  elif flag == "random.choice":
+    random.choice = original_choice
+`) })
+```
+
+Njia ya `Player` ya `make_move` inapaswa kuongeza tuple mpya ya `position` kwenye sifa ya kipengele ya `path`.
+
+```js
+({ test: () => runPython(`
+def test_func():
+  try:
+    p = Pawn()
+  except TypeError:
+    assert False, "Unable to instantiate Pawn"
+
+  p.make_move()
+  assert p.path == [(0, 0), (1, 2)]
+  p.make_move()
+  assert p.path == [(0, 0), (1, 2), (2, 4)]
+
+def custom_choice(seq):
+  return (1, 2)
+
+flag = None
+
+try:
+  original_choice = choice
+  choice = custom_choice
+  flag = "choice"
+    
+  test_func()
+
+except NameError:
+  try:
+    original_choice = random.choice
+    random.choice = custom_choice
+    flag = "random.choice"
+
+    test_func()
+
+  except NameError:
+    assert False, "missing import"
+finally:
+  if flag == "choice":
+    choice = original_choice
+  elif flag == "random.choice":
+    random.choice = original_choice
+`) })
+```
+
+Njia ya `Player` ya `make_move` inapaswa kurudisha sifa ya kipengele ya `position` iliyosasishwa.
+
+```js
+({ test: () => runPython(`
+def test_func():
+  try:
+    p = Pawn()
+  except TypeError:
+    assert False, "Unable to instantiate Pawn"
+
+  assert p.make_move() == (1, 2)
+
+def custom_choice(seq):
+  return (1, 2)
+
+flag = None
+
+try:
+  original_choice = choice
+  choice = custom_choice
+  flag = "choice"
+    
+  test_func()
+
+except NameError:
+  try:
+    original_choice = random.choice
+    random.choice = custom_choice
+    flag = "random.choice"
+
+    test_func()
+
+  except NameError:
+    assert False, "missing import"
+finally:
+  if flag == "choice":
+    choice = original_choice
+  elif flag == "random.choice":
+    random.choice = original_choice
+`) })
+```
+
+Darasa la vitu la `Player` linapaswa kuwa na njia ya `level_up`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").has_function("level_up")`) })
+```
+
+Njia ya `Player` ya `level_up` inapaswa kuwa na kigezo kimoja `self`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Player").find_function("level_up").has_args("self")`) })
+```
+
+Njia ya `Player` ya `level_up` inapaswa kuwa njia ya abstraction.
+
+```js
+({ test: () => runPython(`
+target = _Node(_code).find_class("Player").find_function("level_up")
+assert target.has_decorators("abstractmethod") or target.has_decorators("abc.abstractmethod")
+`) })
+```
+
+Darasa la vitu la `Player` linapaswa kuwa darasa la vitu la abstraction.
+
+```js
+({ test: () => runPython(`
+try:
+  Player()
+except TypeError as e:
+  assert str(e) == "Can't instantiate abstract class Player with abstract method level_up"
+else:
+  assert False, "Player class should not be instantiable"
+`) })
+```
+
+Unapaswa kuwa na darasa la vitu linaloitwa `Pawn`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).has_class("Pawn")`) })
+```
+
+Darasa la vitu la `Pawn` linapaswa kurithi kutoka darasa la vitu la `Player`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Pawn").inherits_from("Player")`) })
+```
+
+Darasa la vitu la `Pawn` linapaswa kuwa na njia ya `__init__`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Pawn").has_function("__init__")`) })
+```
+
+Njia ya `Pawn` ya `__init__` inapaswa kuwa na kigezo kimoja `self`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Pawn").find_function("__init__").has_args("self")`) })
+```
+
+Njia ya `Pawn` ya `__init__` inapaswa kuita njia ya `__init__` ya mzazi kwa kutumia kitendo cha `super`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Pawn").find_function("__init__").has_stmt("super().__init__()")`) })
+```
+
+Njia ya `Pawn` ya `__init__` inapaswa kuweka sifa ya kipengele ya `moves` kuwa orodha ya tuple zinazowakilisha kuratibu za `x, y`, ambapo kila tuple ya kuratibu inawakilisha mwendo wa kitengo cha `1` katika mwelekeo ufuatao: juu, chini, kushoto, kulia.
+
+```js
+({ test: () => runPython(`
+p = Pawn()
+moves = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+assert isinstance(p.moves, list)
+assert len(p.moves) == 4
+assert all(move in p.moves for move in moves)
+`) })
+```
+
+Darasa la vitu la `Pawn` linapaswa kuwa na njia ya `level_up`.
+
+```js
+({ test: () => runPython(`assert _Node(_code).find_class("Pawn").has_function("level_up")`) })
+```
+
+Njia ya `Pawn` ya `level_up` inapaswa kuongeza miendo minne ya pembeni ya kitengo cha `1` kwenye sifa ya kipengele ya `moves`.
+
+```js
+({ test: () => runPython(`
+p = Pawn()
+moves = [(0, 1), (1, 0), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+p.level_up()
+assert isinstance(p.moves, list)
+assert len(p.moves) == 8
+assert all(move in p.moves for move in moves)
+`) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+from abc import ABC, abstractmethod
+from random import choice
+
+
+class Player(ABC):
+    def __init__(self):
+        self.moves = []
+        self.position = (0, 0)
+        self.path = [self.position]
+
+    def make_move(self):
+        x, y = self.position
+        move = choice(self.moves)
+        new_x = move[0] + x
+        new_y = move[1] + y
+        self.position = (new_x, new_y)
+        self.path.append(self.position)
+        return self.position
+
+    @abstractmethod
+    def level_up(self):
+        pass
+
+
+class Pawn(Player):
+    def __init__(self):
+        super().__init__()
+        self.moves = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
+    def level_up(self):
+        self.moves.extend([(1, 1), (1, -1), (-1, 1), (-1, -1)])
+```

@@ -1,0 +1,211 @@
+---
+id: 69a9184df26779d958824552
+title: Unawezaje kuhudumia mafaili ya static katika Express?
+challengeType: 19
+dashedName: how-can-you-serve-static-files-in-express
+---
+
+# --description--
+
+Kuhudumia mafaili ya static ni hitaji la kawaida katika programu za mtandao. Mafaili ya static ni pamoja na mali kama picha, mafaili ya CSS, JavaScript ya upande wa mteja, fonti, na rasilimali nyingine ambazo hazibadiliki kwa nguvu.
+
+Express hufanya kuhudumia mafaili haya kuwa rahisi kwa kutumia programu ya kati iliyo ndani (built-in) ya `express.static()`.
+
+Katika Express, kuhudumia faili za static kunamaanisha kusambaza mafaili moja kwa moja kutoka kwa mfumo wa faili wa seva kwenda kwa kivinjari cha mteja bila usindikaji wowote wa ziada upande wa seva.
+
+Kwa mfano, wakati kivinjari kinapoomba mafaili kama `/styles.css`, `/script.js`, au `/images/logo.png`, Express inaweza kupata mafaili hayo katika folda iliyobainishwa na kuyahudumia moja kwa moja. Ikiwa faili haipatikani, basi Express itajibu moja kwa moja kwa 404. Kwa kuwa mafaili haya hayahitaji kuzalishwa au kubadilishwa kwenye seva, huitwa *static*.
+
+Hii hufanya kuhudumia mali kama majalada ya mitindo na picha kuwa rahisi, na kuondoa haja ya kufafanua njia za data kwa kila faili.
+
+Hapa ni jinsi unavyoweza kuweka huduma ya kuhudumia mafaili ya static katika Express:
+
+```javascript
+const express = require("express");
+const path = require("path");
+const app = express();
+const port = 3000;
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the static file demo!");
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+Kwanza, tunafanya import ya `express` kuunda seva yetu na `path` kujenga njia za faili kwa usalama kati ya mifumo tofauti ya uendeshaji.
+
+Kisha, `app.use(express.static(path.join(__dirname, "public")))` inaambia Express kuhudumia mafaili kutoka folda ya `public`. Programu ya kati ya `express.static()` inaambia Express kuhudumia mafaili kutoka folda ya `public`. Faili yoyote ndani ya saraka hii inakuwa inapatikana kwa kivinjari.
+
+Pia tunafafanua njia rahisi ya `GET` kwa `/` inayotuma ujumbe wa karibu. Hii inaonyesha kuwa kuhudumia mafaili ya static kunaweza kuwepo pamoja na njia za data zinazobadilika.
+
+Mwishowe, `app.listen()` huanzisha seva kwenye port 3000. Mara seva inapokuwa inafanya kazi, maombi ya mali za static katika folda ya `public` yanashughulikiwa moja kwa moja.
+
+Ili hii ifanye kazi, unahitaji folda iitwayo `public` kuhifadhi mafaili yako ya static. Muundo wa kawaida wa mradi unaweza kuonekana kama huu:
+
+```md
+my-app/
+│
+├── app.js
+└── public/
+    ├── index.html
+    ├── styles.css
+    └── image.png
+```
+
+Wakati mtumizi anapofanya ombi, kwa mfano, kwa kutembelea `http://localhost:3000/index.html`, Express huangalia kama faili iliyotakiwa ipo ndani ya saraka ya `public`. Ikiwa faili ipo, Express huituma moja kwa moja kwa kivinjari. Ikiwa faili haipo, Express huendelea na programu ya kati inayofuata au hurudisha jibu la 404.
+
+Kumbuka kuwa huna haja ya kufafanua njia za data kwa kila faili, kwa hivyo ombi la `http://localhost:3000/styles.css` linamaanisha kuwa Express inatafuta `public/styles.css` na kuirudisha moja kwa moja.
+
+Unaweza pia kubinafsisha jinsi mafaili ya static yanavyohudumiwa. Kwa mfano, unaweza kuhudumia mafaili kutoka saraka nyingi au kusanidi tabia ya kuhifadhi nakala (caching).
+
+Fikiria programu yako ina muundo huu wa faili:
+
+```md
+my-app/
+│
+├── app.js
+│
+├── public/
+│   ├── index.html
+│   └── styles.css
+│
+└── images/
+    └── image.png
+```
+
+Hapa ni jinsi unavyoweza kusajili saraka nyingi kuhudumia mafaili ya static kutoka:
+
+```javascript
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+```
+
+Hapa tunatumia `app.use(express.static(path.join(__dirname, "public")));` kama kawaida, ambayo inamaanisha kuwa mafaili ndani ya saraka ya `public` yanahudumiwa kutoka njia ya mizizi, kama kawaida.
+
+Lakini ukitazama mstari unaofuata, utaona tunapita `"/images"` kama hoja ya kwanza kwa `app.use()`, ikifuatiwa na `express.static(path.join(__dirname, "images"))`. Katika kesi hii, `"/images"` ni njia ya kupandisha (mount path), ambayo inaambia Express kutumia programu hii ya kati tu inapopokea ombi la `/images`. Inapofanya hivyo, `express.static()` huanzishwa na kutafuta mafaili ndani ya saraka ya `images`.
+
+Kwa hivyo kwa usanidi huu, hapa ni jinsi maombi yafuatayo yatakavyofanya kazi:
+
+*   GET `http://localhost:3000/styles.css`: Express inatafuta katika saraka ya `public` faili ya `styles.css`, inapata faili, na kuituma kwa mteja.
+    
+*   GET `http://localhost:3000/images/image.png`: Kwa kuwa ombi hili linaanza na `/images`, Express inatafuta katika saraka ya `images` faili ya `image.png`, inapata faili, na kuituma kwa mteja.
+    
+
+Kuhudumia mafaili ya static kwa Express ni rahisi na yenye nguvu. Kwa kutumia `express.static()`, unaweza kwa urahisi kuhudumia mali kama picha, majalada ya mitindo, na JavaScript ya upande wa mteja.
+
+Kuweka mafaili ya static katika folda maalum kama `public`, au kwa kutumia saraka nyingi za faili na njia za kupandisha, husaidia kuweka programu yako imepangwa vizuri, iwe rahisi kudumisha, na rahisi kupanua.
+
+# --questions--
+
+## --text--
+
+`express.static()` hufanya nini?
+
+## --answers--
+
+Inaunda programu mpya ya Express.
+
+### --feedback--
+
+Fikiria jinsi mafaili ya static yanavyoshughulikiwa katika Express.
+
+---
+
+Inahudumia mafaili ya static kutoka saraka iliyobainishwa.
+
+---
+
+Inafafanua nambari ya port kwa seva.
+
+### --feedback--
+
+Fikiria jinsi mafaili ya static yanavyoshughulikiwa katika Express.
+
+---
+
+Inarekodi maombi yanayofanywa kwa seva.
+
+### --feedback--
+
+Fikiria jinsi mafaili ya static yanavyoshughulikiwa katika Express.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unapaswa kuweka mafaili yako ya static wapi ili yahudumiwe na Express?
+
+## --answers--
+
+Katika saraka ya mizizi ya programu.
+
+### --feedback--
+
+Fikiria taratibu za kawaida za kupanga mali za static.
+
+---
+
+Katika folda ya `public`.
+
+---
+
+Katika folda ya `views`.
+
+### --feedback--
+
+Fikiria taratibu za kawaida za kupanga mali za static.
+
+---
+
+Katika folda ya `node_modules`.
+
+### --feedback--
+
+Fikiria taratibu za kawaida za kupanga mali za static.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini hutokea wakati mtumizi anapoomba `/index.html` kwenye seva inayotumia `express.static()` kuhudumia mafaili ya static kutoka folda ya `public`?
+
+## --answers--
+
+Seva itaonyesha ukurasa wa kosa.
+
+### --feedback--
+
+Fikiria jinsi Express inavyohudumia mafaili kutoka saraka.
+
+---
+
+Seva itatafuta `public/index.html` na kuihudumia.
+
+---
+
+Seva itaelekeza upya mtumizi kwenda ukurasa mwingine.
+
+### --feedback--
+
+Fikiria jinsi Express inavyohudumia mafaili kutoka saraka.
+
+---
+
+Seva itatuma msimbo wa kosa wa 404.
+
+### --feedback--
+
+Fikiria jinsi Express inavyohudumia mafaili kutoka saraka.
+
+## --video-solution--
+
+2

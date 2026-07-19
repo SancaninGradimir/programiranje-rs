@@ -1,0 +1,86 @@
+---
+id: 694596b0585c11170ac7c7fb
+title: "Challenge 163: Consonant Case"
+challengeType: 29
+dashedName: challenge-163
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi unaowakilisha jina la kigezo, ubadilishe kuwa herufi ndogo za konsonanti kwa kutumia sheria zifuatazo:
+
+- Konsonanti zote zifanyike kuwa herufi kubwa.
+- Vowels zote (`a`, `e`, `i`, `o`, `u` kwa hali yoyote) zifanyike kuwa herufi ndogo.
+- Mistari ya kuunganisha maneno (hyphens) (`-`) ibadilishwe kuwa mistari ya chini (underscores) (`_`).
+
+# --hints--
+
+`to_consonant_case("helloworld")` should return `"HeLLoWoRLD"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_consonant_case("helloworld"), "HeLLoWoRLD")`)
+}})
+```
+
+`to_consonant_case("HELLOWORLD")` should return `"HeLLoWoRLD"`.
+
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_consonant_case("HELLOWORLD"), "HeLLoWoRLD")`)
+}})
+```
+
+`to_consonant_case("_hElLO-WOrlD-")` should return `"_HeLLo_WoRLD_"`.
+
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_consonant_case("_hElLO-WOrlD-"), "_HeLLo_WoRLD_")`)
+}})
+```
+
+`to_consonant_case("_~-generic_~-variable_~-name_~-here-~_")` should return `"_~_GeNeRiC_~_VaRiaBLe_~_NaMe_~_HeRe_~_"`.
+
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(to_consonant_case("_~-generic_~-variable_~-name_~-here-~_"), "_~_GeNeRiC_~_VaRiaBLe_~_NaMe_~_HeRe_~_")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def to_consonant_case(s):
+
+    return s
+```
+
+# --solutions--
+
+```py
+def to_consonant_case(s):
+    vowels = "aeiouAEIOU"
+    result = ""
+
+    for char in s:
+        if char == "-":
+            result += "_"
+        elif char.isalpha():
+            if char in vowels:
+                result += char.lower()
+            else:
+                result += char.upper()
+        else:
+            result += char
+
+    return result
+```

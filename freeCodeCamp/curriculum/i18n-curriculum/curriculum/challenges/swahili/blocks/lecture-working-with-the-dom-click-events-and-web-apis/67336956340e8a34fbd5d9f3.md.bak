@@ -1,0 +1,219 @@
+---
+id: 67336956340e8a34fbd5d9f3
+title: "Je, API ya requestAnimationFrame() ni nini, na Inawezaje Kutumika Kuanzisha Mzunguko wa Uhuishaji?"
+challengeType: 19
+dashedName: what-is-the-requestanimationframe-api-and-how-can-it-be-used-to-set-up-an-animation-loop
+---
+
+# --interactive--
+
+Kuunda uhuishaji laini kwenye ukurasa wa mtandao kunaweza kuwa changamoto, hasa kama hujui jinsi ya kushughulikia muda ipasavyo. Habari njema ni kwamba API ya `requestAnimationFrame()` inafanya iwe rahisi. 
+
+`requestAnimationFrame()` ni njia inayokuwezesha kupanga hatua inayofuata ya uhuishaji wako kabla ya onyesho la skrini kufanyiwa upya, na kusababisha uzoefu laini na wa kuvutia kwa macho.
+
+Onyesho la skrini kufanyiwa upya linamaanisha wakati ambapo kivinjari kinaonyesha upya muonekano wa ukurasa wa mtandao. Hii hutokea mara nyingi kwa sekunde, kawaida takriban mara 60 (au fremu 60 kwa sekunde) kwenye skrini nyingi.
+
+Ili kutumia njia ya `requestAnimationFrame()`, unachohitaji kufanya ni kuitaja na kuipatia kitendakazi cha mwitiko ndani yake:
+
+```js
+requestAnimationFrame(callback);
+```
+
+Kuitaja `requestAnimationFrame()` lazima kwanza ifanyike ndani ya kitendakazi kinachoshughulikia uhuishaji, kama `animate()`, pamoja na kitendakazi cha kusasisha uhuishaji, kawaida huitwa `update()`:
+
+```js
+function animate() {
+ // Update the animation...
+ // for example, move an element, change a style, and more.
+ update();
+ // Request the next frame
+ requestAnimationFrame(animate);
+}
+```
+
+Kitendakazi cha `update()` ndicho kinachofanya mambo ya ajabu. Ndani yake, unaweza kubadilisha chochote unachotaka kuhuisha. Kwa mfano, kusasisha mtindo au kubadilisha nafasi ya kipengele:
+
+```js
+function update() {
+ element.style.transform = `translateX(${position}px)`;
+ position += 2;
+}
+```
+
+Kinachozindua uhuishaji ni kuitaja `requestAnimationFrame()` na kuipatia kitendakazi cha `animate`, wakati huu nje ya kitendakazi cha `animate`:
+
+```js
+requestAnimationFrame(animate);
+```
+
+Mzunguko utaendelea hadi u-uache.
+
+Sasa, tuchunguze mfano mwingine. HTML ya mfano huu ni kipengele cha `div` chenye maandishi `freeCodeCamp is Awesome`. CSS inafanya `div` kuwa mstatili na kuficha chochote kinachoenda nje ya eneo la kuona upande wa kushoto au kulia. Msimbo wa JavaScript unasogeza mstatili `2px` kwenda kulia kila wito wa `requestAnimationFrame(animate)` ukiwa na kitendakazi cha `animate` kama wito wa kurudisha:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css" />
+<div id="rect" class="rect">freeCodeCamp is Awesome</div>
+<script src="index.js"></script>
+```
+
+```css
+body {
+  overflow-x: hidden;
+}
+
+.rect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 250px;
+  border-radius: 5px;
+  background-color: #1b1b32;
+  color: #f5f6f7;
+  font-size: 2rem;
+  position: absolute;
+}
+```
+
+```js
+const rect = document.getElementById("rect");
+
+let position = 0;
+
+function update() {
+  // Move the rectangle 2px to the right
+  rect.style.left = position + "px";
+  position += 2;
+
+  if (position > window.innerWidth) {
+    // Move the rectangle just outside the left side of the screen
+    position = -rect.offsetWidth;
+  }
+}
+
+function animate() {
+  update();
+
+  //request the next frame
+  requestAnimationFrame(animate);
+}
+
+// Start the animation
+requestAnimationFrame(animate);
+```
+
+:::
+
+Matokeo kwenye kivinjari yatakuwa kadi ya kichwa yenye uhuishaji ikielea kwenye skrini.
+
+# --questions--
+
+## --text--
+
+Njia ya `requestAnimationFrame()` hufanya nini?
+
+## --answers--
+
+Inaacha uhuishaji kuendelea.
+
+### --feedback--
+
+Fikiria jinsi njia hii inavyosaidia kuunda uhuishaji laini.
+
+---
+
+Inaendesha uhuishaji mara moja bila kuchelewa.
+
+### --feedback--
+
+Fikiria jinsi njia hii inavyosaidia kuunda uhuishaji laini.
+
+---
+
+Inaongeza kasi ya uhuishaji.
+
+### --feedback--
+
+Fikiria jinsi njia hii inavyosaidia kuunda uhuishaji laini.
+
+---
+
+Inapanga hatua inayofuata ya uhuishaji kabla ya onyesho la skrini kufanyiwa upya kwa muonekano laini zaidi.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Nini huanzisha uhuishaji wakati wa kutumia `requestAnimationFrame()`?
+
+## --answers--
+
+Kuitaja kitendakazi cha `animate` ndani ya njia ya `requestAnimationFrame()`.
+
+### --feedback--
+
+Fikiria jinsi njia ya `requestAnimationFrame()` inavyochochea uhuishaji.
+
+---
+
+Kuweka muda wa kusubiri kwa `setTimeout()`.
+
+### --feedback--
+
+Fikiria jinsi njia ya `requestAnimationFrame()` inavyochochea uhuishaji.
+
+---
+
+Kutumia `setInterval()` kurudia uhuishaji.
+
+### --feedback--
+
+Fikiria jinsi njia ya `requestAnimationFrame()` inavyochochea uhuishaji.
+
+---
+
+Kuitaja `requestAnimationFrame()` na kuipatia kitendakazi cha uhuishaji nje ya kitendakazi cha uhuishaji.
+
+## --video-solution--
+
+4
+
+## --text--
+
+"Onyesho la skrini kufanyiwa upya" linamaanisha nini?
+
+## --answers--
+
+Wakati ambapo kivinjari kinasasisha muundo wa HTML.
+
+### --feedback--
+
+Fikiria mara ngapi kivinjari kinasasisha kile unachoona kwenye skrini.
+
+---
+
+Wakati ambapo kivinjari kinaonyesha upya muonekano wa ukurasa wa mtandao, kawaida takriban mara 60 kwa sekunde.
+
+---
+
+Wakati ambapo kivinjari kinapakia upya ukurasa mzima.
+
+### --feedback--
+
+Fikiria mara ngapi kivinjari kinasasisha kile unachoona kwenye skrini.
+
+---
+
+Wakati ambapo kivinjari kinasasisha mitindo ya CSS.
+
+### --feedback--
+
+Fikiria mara ngapi kivinjari kinasasisha kile unachoona kwenye skrini.
+
+## --video-solution--
+
+2

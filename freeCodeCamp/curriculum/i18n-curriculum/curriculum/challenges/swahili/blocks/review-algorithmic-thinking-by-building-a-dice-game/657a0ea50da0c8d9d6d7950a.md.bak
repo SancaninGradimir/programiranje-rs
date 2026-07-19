@@ -1,0 +1,374 @@
+---
+id: 657a0ea50da0c8d9d6d7950a
+title: Hatua 1
+challengeType: 0
+dashedName: step-1
+demoType: onLoad
+---
+
+# --description--
+
+Katika mradi huu, utajifunza kufikiri kwa njia ya algoriti kwa kujenga mchezo wa kadi za bahati. Kuna raundi 6 kwa jumla na kwa kila raundi, mchezaji anaweza kurusha kadi hadi mara 3 na kukusanya alama.
+
+HTML na CSS vimetolewa kwako. Tafadhali jisikie huru kuvinjari. Ukijiandaa, utahitaji kuandaa vigezo vyako vya HTML. Pata vipengele vyote vya `.die` na uweke thamani yao katika kigezo cha `listOfAllDice`. Pata ingizo zako za alama (vipengele vya `input` ndani ya `#score-options`) na vipengele vya alama, na uweke thamani zao katika `scoreInputs` na `scoreSpans`. Weka thamani ya kipengele cha `#current-round` katika `roundElement` na kipengele cha `#current-round-rolls` katika `rollsElement`, kisha fanya vivyo hivyo kwa vipengele vya `#total-score` na `#score-history`. Weka vigezo vya `#roll-dice-btn`, `#keep-score-btn`, `#rules-btn`, na `.rules-container` kwa majina ya vigezo yaliyoandikwa vizuri.
+
+Mtu anapobofya kitufe cha `Show rules`, anapaswa kuweza kubadilisha kati ya kuonyesha na kuficha sheria za mchezo. Tengeneza kigezo cha `isModalShowing` kufuatilia hali ya sheria za mchezo.
+
+Kila mtu anaporusha kadi, utahitaji kufuatilia thamani zote za kadi. Tengeneza kigezo cha `diceValuesArr` kufuatilia hili.
+
+Katika mchezo mzima, utahitaji kufuatilia alama za sasa, jumla ya alama, idadi ya marushaji na raundi ambayo mchezaji yuko. Tangaza vigezo vya `rolls`, `score`, na `round` kwa madhumuni haya.
+
+Fikiria ni thamani gani ya kuanzia ya kila kigezo cha hizi inapaswa kuwa. Vigezo vyote hivi vinapaswa kuweza kuwekwa thamani upya.
+
+# --hints--
+
+Unapaswa kuweka vipengele vyako vya `.die` katika `listOfAllDice`.
+
+```js
+assert.deepEqual(listOfAllDice, document.querySelectorAll(".die"));
+```
+
+Unapaswa kuweka vipengele vyako vya `#score-options input` katika `scoreInputs`.
+
+```js
+assert.deepEqual(scoreInputs, document.querySelectorAll("#score-options input"));
+```
+
+Unapaswa kuweka vipengele vyako vya `#score-options span` katika `scoreSpans`.
+
+```js
+assert.deepEqual(scoreSpans, document.querySelectorAll("#score-options span"));
+```
+
+Unapaswa kuweka kipengele chako cha `#current-round` katika `roundElement`.
+
+```js
+assert.deepInclude([document.getElementById("current-round"), document.querySelector("#current-round")], roundElement);
+```
+
+Unapaswa kuweka kipengele chako cha `#current-round-rolls` katika `rollsElement`.
+
+```js
+assert.deepInclude([document.getElementById("current-round-rolls"), document.querySelector("#current-round-rolls")], rollsElement);
+```
+
+Unapaswa kuweka kipengele chako cha `#total-score` katika `totalScoreElement`.
+
+```js
+assert.deepInclude([document.getElementById("total-score"), document.querySelector("#total-score")], totalScoreElement);
+```
+
+Unapaswa kuweka kipengele chako cha `#score-history` katika `scoreHistory`.
+
+```js
+assert.deepInclude([document.getElementById("score-history"), document.querySelector("#score-history")], scoreHistory);
+```
+
+Unapaswa kuweka kipengele chako cha `#roll-dice-btn` katika `rollDiceBtn`.
+
+```js
+assert.deepInclude([document.getElementById("roll-dice-btn"), document.querySelector("#roll-dice-btn")], rollDiceBtn);
+```
+
+Unapaswa kuweka kipengele chako cha `#keep-score-btn` katika `keepScoreBtn`.
+
+```js
+assert.deepInclude([document.getElementById("keep-score-btn"), document.querySelector("#keep-score-btn")], keepScoreBtn);
+```
+
+Unapaswa kuweka kipengele chako cha `#rules-btn` katika `rulesBtn`.
+
+```js
+assert.deepInclude([document.getElementById("rules-btn"), document.querySelector("#rules-btn")], rulesBtn);
+```
+
+Unapaswa kuweka kipengele chako cha `.rules-container` katika `rulesContainer`.
+
+```js
+assert.deepEqual(rulesContainer, document.querySelector(".rules-container"));
+```
+
+Kigezo chako cha `isModalShowing` kinapaswa kuwa na thamani ya `false`.
+
+```js
+assert.isFalse(isModalShowing);
+```
+
+`diceValuesArr` inapaswa kuwa na safu ya data tupu kama thamani.
+
+```js
+assert.isArray(diceValuesArr);
+assert.isEmpty(diceValuesArr);
+```
+
+Kigezo chako cha `rolls` kinapaswa kuwa na thamani ya `0`.
+
+```js
+assert.strictEqual(rolls, 0);
+```
+
+Kigezo chako cha `score` kinapaswa kuwa na thamani ya `0`.
+
+```js
+assert.strictEqual(score, 0);
+```
+
+Kigezo chako cha `round` kinapaswa kuwa na thamani ya `1`.
+
+```js
+assert.strictEqual(round, 1);
+```
+
+Vigezo vyote vipya vinapaswa kutangazwa kwa `let`.
+
+```js
+assert.match(code, /let isModalShowing/);
+assert.match(code, /let diceValuesArr/);
+assert.match(code, /let rolls/);
+assert.match(code, /let score/);
+assert.match(code, /let round/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Dice Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Advanced Dice Game</h1>
+    <button class="btn" id="rules-btn" type="button">Show rules</button>
+    <div class="rules-container">
+      <h2>Rules</h2>
+      <ul>
+        <li>There are total of six rounds</li>
+        <li>You can only roll the dice three times per round</li>
+        <li>To start the game, roll the dice</li>
+        <li>
+          Then, choose from one of the selected scores or roll the dice again
+        </li>
+        <li>
+          If you choose a selected score, then you will move to the next round
+        </li>
+        <li>
+          If you decline to choose a selected score, then you can roll the
+          dice again two more times
+        </li>
+      </ul>
+      <h2 class="points">Points</h2>
+      <ul>
+        <li>Three of a kind: Sum of all five dice</li>
+        <li>Four of a kind: Sum of all five dice</li>
+        <li>Full house: Three of a kind and a pair - 25 points</li>
+        <li>
+          Small straight: Four of the dice have consecutive values - 30 points
+        </li>
+        <li>
+          Large straight: All five dice have consecutive values - 40 points
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <form id="game">
+      <div id="dice">
+        <div class="die"></div>
+        <div class="die"></div>
+        <div class="die"></div>
+        <div class="die"></div>
+        <div class="die"></div>
+      </div>
+
+      <p class="rounds-text">
+        <strong>Rolls:</strong> <span id="current-round-rolls">0</span> |
+        <strong>Round:</strong> <span id="current-round">1</span>
+      </p>
+
+      <div id="score-options">
+        <div>
+          <input type="radio" name="score-options" id="three-of-a-kind" value="three-of-a-kind" disabled />
+          <label for="three-of-a-kind">Three of a kind<span></span></label>
+        </div>
+        <div>
+          <input type="radio" name="score-options" id="four-of-a-kind" value="four-of-a-kind" disabled />
+          <label for="four-of-a-kind">Four of a kind<span></span></label>
+        </div>
+        <div>
+          <input type="radio" name="score-options" id="full-house" value="full-house" disabled />
+          <label for="full-house">Full house<span></span></label>
+        </div>
+        <div>
+          <input type="radio" name="score-options" id="small-straight" value="small-straight" disabled />
+          <label for="small-straight">Small straight<span></span></label>
+        </div>
+        <div>
+          <input type="radio" name="score-options" id="large-straight" value="large-straight" disabled />
+          <label for="large-straight">Large straight<span></span></label>
+        </div>
+
+        <div>
+          <input type="radio" name="score-options" id="none" value="none" disabled />
+          <label for="none">None of the above<span></span></label>
+        </div>
+      </div>
+
+      <button class="btn" id="keep-score-btn" type="button">
+        Keep the above selected score
+      </button>
+      <button class="btn" id="roll-dice-btn" type="button">
+        Roll the dice
+      </button>
+    </form>
+
+    <div id="scores">
+      <h3>Score history (Total score: <span id="total-score">0</span>)</h3>
+      <ol id="score-history"></ol>
+    </div>
+  </main>
+  <script src="./script.js"></script>
+</body>
+
+</html>
+```
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --dark-grey: #1b1b32;
+  --light-grey: #f5f6f7;
+  --black: #000;
+  --white: #fff;
+  --grey: #3b3b4f;
+  --golden-yellow: #fecc4c;
+  --yellow: #ffcc4c;
+  --gold: #feac32;
+  --orange: #ffac33;
+  --dark-orange: #f89808;
+}
+
+body {
+  background-color: var(--dark-grey);
+}
+
+header {
+  color: var(--light-grey);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 25px 0;
+}
+
+.rules-container {
+  display: none;
+  background-color: var(--light-grey);
+  color: var(--black);
+  width: 50%;
+  margin: 20px auto;
+  height: 300px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.rules-container ul {
+  list-style-type: none;
+}
+
+.points {
+  margin-top: 15px;
+}
+
+main {
+  background-color: var(--light-grey);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1rem;
+  margin: auto;
+  justify-items: center;
+  width: 50%;
+  border-radius: 10px;
+}
+
+#dice {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.die {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  margin-right: 15px;
+  border: 4px solid var(--black);
+  padding: 10px;
+}
+
+.rounds-text {
+  text-align: center;
+}
+
+input[type="radio"]:disabled + label {
+  color: var(--grey);
+}
+
+#score-history {
+  margin-top: 15px;
+  text-align: center;
+  list-style-position: inside;
+}
+
+.btn {
+  cursor: pointer;
+  width: 200px;
+  margin: 10px 0 10px 0.5rem;
+  color: var(--black);
+  background-color: var(--gold);
+  background-image: linear-gradient(var(--golden-yellow), var(--orange));
+  border-color: var(--gold);
+  border-width: 3px;
+}
+
+.btn:hover:enabled {
+  background-image: linear-gradient(var(--yellow), var(--dark-orange));
+}
+
+@media (max-width: 992px) {
+  main {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn {
+    width: 120px;
+  }
+}
+
+```
+
+```js
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

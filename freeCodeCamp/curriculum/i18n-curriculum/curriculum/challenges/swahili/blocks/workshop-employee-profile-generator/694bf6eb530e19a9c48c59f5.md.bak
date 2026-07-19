@@ -1,0 +1,79 @@
+---
+id: 694bf6eb530e19a9c48c59f5
+title: Hatua 16
+challengeType: 20
+dashedName: step-16
+---
+
+# --description--
+
+Unapofanya kazi na mfuatano wa herufi, mara nyingi utahitaji kutoa sehemu maalum ya mfuatano huo. Hii huitwa **kukata (slicing)**.
+
+Sintaksia ni `string[start:stop]`, ambapo:
+
+* `start` ni kielezo ambacho kukata kunaanza (**ikiwa ni pamoja na**).
+* `stop` ni kielezo ambacho kukata kunamalizika (**bila kujumuisha**).
+
+Kwa mfano, ikiwa `text = 'Python'`, basi `text[0:2]` hutoa `'Py'`.
+
+Fafanua `employee_code` kama `'DEV-2026-JD-001'`. Baada ya hapo, tengeneza kigezo `department` na weka thamani ya sehemu ya `employee_code` kuanzia kielezo `0` hadi `3`. Kisha chapisha `department` kwenye terminali.
+
+# --hints--
+Unapaswa kuwa na kigezo kinachoitwa `employee_code`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).has_variable("employee_code")`)) })
+```
+
+Unapaswa kuweka mfuatano wa herufi `DEV-2026-JD-001` kwenye kigezo chako cha `employee_code`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_variable("employee_code").is_equivalent("employee_code = 'DEV-2026-JD-001'")`)) })
+```
+
+Unapaswa kuwa na kigezo kinachoitwa `department`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).has_variable("department")`)) })
+```
+
+Unapaswa kukata herufi tatu za kwanza za `employee_code` na kuziweka kwenye kigezo chako cha `department`.
+
+```js
+({ test: () => runPython(`
+dep = _Node(_code).find_variable("department")
+assert dep.is_equivalent("department = employee_code[0:3]") or dep.is_equivalent("department = employee_code[:3]")
+`) })
+```
+
+Unapaswa kuchapisha `department` kwenye terminali.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).has_call("print(department)")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```python
+first_name = 'John'
+last_name = 'Doe'
+full_name = first_name + ' ' + last_name
+address = '123 Main Street'
+address += ', Apartment 4B'
+employee_age = 28
+employee_info = full_name + ' is ' + str(employee_age) + ' years old'
+print(employee_info)
+experience_years = 5
+experience_info = 'Experience: ' + str(experience_years) + ' years'
+print(experience_info)
+position = 'Data Analyst'
+salary = 75000
+employee_card = f'Employee: {full_name} | Age: {employee_age} | Position: {position} | Salary: ${salary}'
+print(employee_card)
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

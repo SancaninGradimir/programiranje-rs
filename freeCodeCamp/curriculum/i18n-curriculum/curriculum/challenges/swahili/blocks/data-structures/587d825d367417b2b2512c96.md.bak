@@ -1,0 +1,225 @@
+---
+id: 587d825d367417b2b2512c96
+title: Utafutaji wa kina kwanza
+challengeType: 1
+forumTopicId: 301640
+dashedName: depth-first-search
+---
+
+# --description--
+
+Kama ilivyo kwa <dfn>utafutaji wa upana kwanza</dfn>, hapa tutaelewa kuhusu algoriti nyingine ya kutembea kwenye grafu inayoitwa <dfn>utafutaji wa kina kwanza</dfn>.
+
+Wakati utafutaji wa upana kwanza unatafuta kwa hatua za urefu wa makali kutoka kwenye nodi chanzo, <dfn>utafutaji wa kina kwanza</dfn> huanza kwa kushuka kwenye njia ya makali hadi pale inavyoweza kufika.
+
+Mara inaporudi mwisho wa njia, utafutaji hurudi nyuma hadi nodi ya mwisho yenye njia ya makali ambayo haijatembelewa na kuendelea na utafutaji.
+
+Mchoro wa mvivu hapa chini unaonyesha jinsi algoriti inavyofanya kazi. Algoriti huanza na nodi ya juu na kutembelea nodi kwa mpangilio wa nambari.
+
+<img alt="animation showing the depth first search algorithm" src='https://cdn.freecodecamp.org/curriculum/coding-interview-prep/depth-first-search.gif'>
+
+Angalia jinsi, tofauti na utatafutaji wa upana kwanza, kila mara nodi inapozungukwa, haizunguki majirani zake wote. Badala yake, huanza kwa kutembelea jirani mmoja na kuendelea kwenye njia hiyo hadi hakuna nodi nyingine za kutembelewa kwenye njia hiyo.
+
+Ili kutekeleza algoriti hii, utahitaji kutumia stacki. Stacki ni safu ya data ambapo kipengele cha mwisho kuongezwa ndicho kinachotolewa kwanza. Hii pia inajulikana kama muundo wa data wa <dfn>Last-In-First-Out</dfn>. Stacki ni muhimu katika algoriti za utafutaji wa kina kwanza kwa sababu, tunapoongeza majirani kwenye stacki, tunataka kutembelea majirani waliyoongezwa hivi karibuni kwanza na kuondoa kutoka kwenye stacki.
+
+Matokeo rahisi ya algoriti hii ni orodha ya nodi zinazoweza kufikiwa kutoka kwenye nodi fulani. Kwa hiyo, pia utahitaji kufuatilia nodi unazotembelea.
+
+# --instructions--
+
+Andika kitendakazi `dfs()` kinachopokea matriki ya ujirani isiyo na mwelekeo `graph` na lebo ya nodi `root` kama vigezo. Lebo ya nodi itakuwa tu thamani ya nambari ya nodi kati ya `0` na `n - 1`, ambapo `n` ni jumla ya nodi katika grafu.
+
+Kitendakazi chako kinapaswa kutoa safu ya data ya nodi zote zinazoweza kufikiwa kutoka `root`.
+
+# --hints--
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `1` inapaswa kurudisha safu ya data yenye `0`, `1`, `2`, na `3`.
+
+```js
+assert.sameMembers(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 1);
+  })(),
+  [0, 1, 2, 3]
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `3` inapaswa kurudisha safu ya data yenye `3`, `2`, `1`, na `0`.
+
+```js
+assert.sameMembers(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 3);
+  })(),
+  [3, 2, 1, 0]
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `1` inapaswa kurudisha safu ya data yenye vipengele vinne.
+
+```js
+assert(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 1);
+  })().length === 4
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]` yenye nodi ya kuanzia `3` inapaswa kurudisha safu ya data yenye `3`.
+
+```js
+assert.sameMembers(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 0],
+      [0, 0, 0, 0]
+    ];
+    return dfs(graph, 3);
+  })(),
+  [3]
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]` yenye nodi ya kuanzia `3` inapaswa kurudisha safu ya data yenye kipengele kimoja.
+
+```js
+assert(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 0, 0],
+      [0, 0, 0, 0]
+    ];
+    return dfs(graph, 3);
+  })().length === 1
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `3` inapaswa kurudisha safu ya data yenye `2` na `3`.
+
+```js
+assert.sameMembers(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 3);
+  })(),
+  [2, 3]
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `3` inapaswa kurudisha safu ya data yenye vipengele viwili.
+
+```js
+assert(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 3);
+  })().length === 2
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `0` inapaswa kurudisha safu ya data yenye `0` na `1`.
+
+```js
+assert.sameMembers(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 0);
+  })(),
+  [0, 1]
+);
+```
+
+Grafu ya ingizo `[[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]` yenye nodi ya kuanzia `0` inapaswa kurudisha safu ya data yenye vipengele viwili.
+
+```js
+assert(
+  (function () {
+    var graph = [
+      [0, 1, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0]
+    ];
+    return dfs(graph, 0);
+  })().length === 2
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function dfs(graph, root) {
+
+}
+
+var exDFSGraph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+];
+console.log(dfs(exDFSGraph, 3));
+```
+
+# --solutions--
+
+```js
+function dfs(graph, root) {
+    var stack = [];
+    var tempV;
+    var visited = [];
+    var tempVNeighbors = [];
+    stack.push(root);
+    while (stack.length > 0) {
+        tempV = stack.pop();
+        if (visited.indexOf(tempV) == -1) {
+            visited.push(tempV);
+            tempVNeighbors = graph[tempV];
+            for (var i = 0; i < tempVNeighbors.length; i++) {
+                if (tempVNeighbors[i] == 1) {
+                    stack.push(i);
+                }
+            }
+        }
+    }
+    return visited;
+}
+```

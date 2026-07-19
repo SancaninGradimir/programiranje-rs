@@ -1,0 +1,69 @@
+---
+id: 68b9366fae8b13c1278761b1
+title: Hatua 15
+challengeType: 20
+dashedName: step-15
+---
+
+# --description--
+
+Sanduku lako la barua linahitaji njia ya kupokea barua mpya. Wakati mtu anapotuma barua pepe kwa mtumizi, inapaswa kuongezwa kwenye sanduku lao la barua.
+
+Ongeza njia iitwayo `receive_email` katika darasa la vitu la `Inbox` ambayo inachukua `self` na kitu cha barua pepe `email` kama vigezo. Ndani ya mwili wa njia hiyo, ongeza `email` kwenye orodha ya `emails` kwa kutumia njia ya `append`.
+
+# --hints--
+
+Unapaswa kufafanua njia iitwayo `receive_email` katika darasa la vitu la `Inbox` ambayo inachukua `self` na `email` kama vigezo.
+
+```js
+({
+    test: () => 
+    {
+        assert(runPython(`_Node(_code).find_class("Inbox").find_function("receive_email").has_args("self, email")`))
+    }
+})
+```
+
+Unapaswa kuongeza `email` kwenye `self.emails`.
+
+```js
+({
+    test: () => 
+    {
+        assert(runPython(`_Node(_code).find_class("Inbox").find_function("receive_email").has_stmt("self.emails.append(email)")`))
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Email:
+    def __init__(self, sender, receiver, subject, body):
+        self.sender = sender
+        self.receiver = receiver
+        self.subject = subject
+        self.body = body
+        self.read = False
+
+    def mark_as_read(self):
+        self.read = True
+
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.inbox = Inbox()
+
+    def send_email(self, receiver, subject, body):
+        email = Email(sender=self, receiver=receiver, subject=subject, body=body)
+
+--fcc-editable-region--
+class Inbox:
+    def __init__(self):
+        self.emails = []
+
+    
+--fcc-editable-region--
+```

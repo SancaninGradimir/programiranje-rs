@@ -1,0 +1,133 @@
+---
+id: 587d7b8f367417b2b2512b60
+title: Badilisha Kigezo cha Kimataifa Kutoka Katika Vitendakazi
+challengeType: 1
+forumTopicId: 301235
+dashedName: refactor-global-variables-out-of-functions
+---
+
+# --description--
+
+Hadi sasa, tumeshuhudia kanuni mbili tofauti za programu utendaji:
+
+1) Usibadilishe kigezo au kitu - tengeneza vigezo na vitu vipya na virejee ikiwa ni lazima kutoka kwenye kitendakazi. Kidokezo: kutumia kitu kama `const newArr = arrVar`, ambapo `arrVar` ni safu ya data kutengeneza tu rejea kwa kigezo kilichopo na si nakala. Hivyo kubadilisha thamani katika `newArr` kutabadilisha thamani katika `arrVar`.
+
+2) Tangaza vigezo vya kitendakazi - hesabu yoyote ndani ya kitendakazi inategemea tu hoja zinazopitishwa kwa kitendakazi, si kitu au kigezo chochote cha kimataifa.
+
+Kuongeza moja kwa nambari si jambo la kusisimua sana, lakini tunaweza kutumia kanuni hizi tunapofanya kazi na safu za data au vitu tata zaidi.
+
+# --instructions--
+
+Andika upya msimbo ili safu ya data ya kimataifa `bookList` isibadilishwe ndani ya kitendakazi chochote. Kitendakazi `add` kinapaswa kuongeza `bookName` iliyotolewa mwishoni mwa safu ya data inayopitishwa na kurejea safu mpya (orodha). Kitendakazi `remove` kinapaswa kuondoa `bookName` iliyotolewa kutoka kwenye safu ya data inayopitishwa.
+
+**Kumbuka:** Vitendakazi vyote vinapaswa kurejea safu ya data, na vigezo vipya vinapaswa kuongezwa kabla ya kigezo cha `bookName`.
+
+# --hints--
+
+`bookList` haipaswi kubadilika na bado iwe sawa na `["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"]`.
+
+```js
+add(bookList, "Test");
+remove(bookList, "The Hound of the Baskervilles");
+assert(
+  JSON.stringify(bookList) ===
+    JSON.stringify([
+      'The Hound of the Baskervilles',
+      'On The Electrodynamics of Moving Bodies',
+      'Philosophiæ Naturalis Principia Mathematica',
+      'Disquisitiones Arithmeticae'
+    ])
+);
+```
+
+`add(bookList, "A Brief History of Time")` inapaswa kurejea `["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`.
+
+```js
+assert(
+  JSON.stringify(add(bookList, "A Brief History of Time")) ===
+    JSON.stringify([
+      'The Hound of the Baskervilles',
+      'On The Electrodynamics of Moving Bodies',
+      'Philosophiæ Naturalis Principia Mathematica',
+      'Disquisitiones Arithmeticae',
+      'A Brief History of Time'
+    ])
+);
+```
+
+`remove(bookList, "On The Electrodynamics of Moving Bodies")` inapaswa kurejea `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"]`.
+
+```js
+assert(
+  JSON.stringify(remove(bookList, 'On The Electrodynamics of Moving Bodies')) ===
+    JSON.stringify([
+      'The Hound of the Baskervilles',
+      'Philosophiæ Naturalis Principia Mathematica',
+      'Disquisitiones Arithmeticae'
+    ])
+);
+```
+
+`remove(add(bookList, "A Brief History of Time"), "On The Electrodynamics of Moving Bodies");` inapaswa kuwa sawa na `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`.
+
+```js
+assert(
+  JSON.stringify(remove(add(bookList, 'A Brief History of Time'), 'On The Electrodynamics of Moving Bodies')) ===
+    JSON.stringify([
+      'The Hound of the Baskervilles',
+      'Philosophiæ Naturalis Principia Mathematica',
+      'Disquisitiones Arithmeticae',
+      'A Brief History of Time'
+    ])
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+// The global variable
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+
+// Change code below this line
+function add(bookName) {
+
+  bookList.push(bookName);
+  return bookList;
+  
+  // Change code above this line
+}
+
+// Change code below this line
+function remove(bookName) {
+  const book_index = bookList.indexOf(bookName);
+  if (book_index >= 0) {
+
+    bookList.splice(book_index, 1);
+    return bookList;
+
+    // Change code above this line
+    }
+}
+```
+
+# --solutions--
+
+```js
+// The global variable
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+
+function add(bookList, bookName) {
+  return [...bookList, bookName];
+}
+
+function remove(bookList, bookName) {
+  const bookListCopy = [...bookList];
+  const bookNameIndex = bookList.indexOf(bookName);
+  if (bookNameIndex >= 0) {
+    bookListCopy.splice(bookNameIndex, 1);
+  }
+  return bookListCopy;
+}
+```

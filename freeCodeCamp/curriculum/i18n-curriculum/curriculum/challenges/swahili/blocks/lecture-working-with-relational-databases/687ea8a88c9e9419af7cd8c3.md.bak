@@ -1,0 +1,253 @@
+---
+id: 687ea8a88c9e9419af7cd8c3
+title: Jinsi ya Kuingiza na Kutazama Data katika Jedwali?
+challengeType: 19
+dashedName: how-do-you-insert-and-view-data-in-a-table
+---
+
+# --description--
+
+Tuchunguze baadhi ya amri za msingi unazoweza kutumia kuingiza na kutazama data katika SQL.
+
+Kwanza kabisa, ili kutazama data, unahitaji kuingiza data hiyo. Hivyo tutaanza na kuingiza data.
+
+Mifano tutakayoshughulikia katika funzo hili itategemea jedwali hili la rekodi za mbwa:
+
+```sql
+CREATE TABLE dogs(
+  id SERIAL,
+  name VARCHAR(100),
+  age INTEGER
+);
+```
+
+Jedwali hili litahifadhi majina na umri wa mbwa mbalimbali.
+
+Ikiwa tutadhani tunafanya kazi na PostgreSQL, tunaweza kutumia aina ya data ya `SERIAL` kwa ajili ya `id`. Kwa kuwa `id` iliumbwa kwa kutumia `SERIAL`, thamani yake itakuwa `INTEGER`, kuanzia `1`, na kuongezwa moja kwa moja wakati rekodi mpya inaingizwa. Hivyo hutahitaji kutoa thamani kwa ajili yake wakati unaingiza rekodi.
+
+Tuanze kwa kuingiza rekodi katika jedwali letu la `dogs` kwa amri ya `INSERT INTO`. Kuna njia nyingi za kufanya hivi. Njia ya kwanza ni kuingiza safu moja na kubainisha nguzo za thamani zitakazowekwa.
+
+Unaandika `INSERT INTO`, ikifuatiwa na jina la jedwali (katika kesi hii, `dogs`), kisha nguzo ndani ya mabano ya kawaida, kisha `VALUES`, na thamani zao zinazolingana ndani ya mabano ya kawaida.
+
+Huu ni mfano, tunaingiza rekodi ya mbwa mwenye `name` ya `'Gino'`, ambaye `age` ni `3`, kumbuka kuwa `id` itapewa thamani moja kwa moja:
+
+```sql
+INSERT INTO dogs (name, age)
+VALUES ('Gino', 3);
+```
+
+Hii kawaida ni chaguo salama zaidi kwa sababu unabainisha nguzo waziwazi, hivyo thamani zitapewa nguzo hizo kwa mpangilio.
+
+Tambua kuwa `'Gino'` inahitaji kuwekwa ndani ya nukuu moja kwa moja kwa sababu ni aina ya `VARCHAR`.
+
+Chaguo jingine ni kuingiza rekodi bila kubainisha nguzo, kama ifuatavyo:
+
+```sql
+INSERT INTO dogs
+VALUES ('Gino', 3);
+```
+
+Sintaksia hii ni halali katika SQL, lakini ni hatarishi kwa makosa.
+
+Kwa kuwa thamani zinapewa kulingana na mpangilio wa nguzo, PostgreSQL itajaribu kuingiza `'Gino'` katika nguzo ya `id` ambayo inatarajia nambari kamili. Hii husababisha kosa kama `invalid input syntax for type integer`.
+
+Kwa sababu hii, ni salama zaidi kubainisha majina ya nguzo waziwazi wakati wa kuingiza data.
+
+Unaweza pia kuingiza rekodi nyingi katika amri moja ya SQL kwa kuzitenganisha kwa koma.
+
+Hapa, tunaingiza rekodi mbili za mbwa, moja kwa `'Gino'` na nyingine kwa `'Nora'`.
+
+```sql
+INSERT INTO dogs (name, age)
+VALUES
+  ('Gino', 3),
+  ('Nora', 2);
+```
+
+Na kama unavyoweza kuingiza rekodi, unaweza pia kuomba taarifa kutoka katika hifadhidata. Katika muktadha wa hifadhidata, hoja ya utafutaji ni ombi la data.
+
+Katika SQL, amri ya `SELECT` hutumika kwa kuomba data kutoka jedwali moja au zaidi. Unaweza kubinafsisha hoja ya utafutaji kupata taarifa halisi unayohitaji.
+
+Ikiwa unahitaji kuomba taarifa zote kutoka katika jedwali la `dogs`, unahitaji tu kuandika `SELECT`, ikifuatiwa na nyota (`*`), kisha `FROM`, na jina la jedwali, `dogs`:
+
+```sql
+SELECT *
+FROM dogs;
+```
+
+Katika amri hii, nyota ni tabia ya wildcard inayowakilisha "nguzo zote."
+
+Utapata data zote za rekodi zote katika jedwali:
+
+```sql
+ id | name | age 
+----+------+-----
+  1 | Gino |   3
+  2 | Nora |   2
+```
+
+Ili kuomba nguzo maalum, unaweza kuandika majina ya nguzo hizo katika amri, mara moja baada ya `SELECT`, zikizitenganisha kwa koma. Katika mfano huu, tunaomba nguzo za `name` na `age` za jedwali la `dogs`:
+
+```sql
+SELECT name, age
+FROM dogs;
+```
+
+Matokeo yatakuwa na nguzo za `name` na `age` pekee:
+
+```sql
+ name | age 
+------+-----
+ Gino |   3
+ Nora |   2
+```
+
+Wakati mwingine, unaweza kuhitaji kuomba data kulingana na sharti maalum. Kwa mfano, kupata mbwa wote ambao ni chini ya miaka 3 unaweza kutumia neno la `WHERE` na kielezi cha kulinganisha cha chini ya (`<`):
+
+```sql
+SELECT *
+FROM dogs
+WHERE age < 3;
+```
+
+Matokeo yatakuwa na mbwa ambao umri wao ni chini ya 3 pekee:
+
+```sql
+ id | name | age 
+----+------+-----
+  2 | Nora |   2
+```
+
+Ikiwa unajaribu tu kupata `age` ya `'Gino'`, unaweza kutumia kielezi cha kulinganisha cha sawa na (`=`):
+
+```sql
+SELECT age
+FROM dogs
+WHERE name = 'Gino';
+```
+
+Na hapa ni matokeo:
+
+```sql
+ age 
+-----
+  3
+```
+
+Hizi ni njia za kawaida na rahisi za kuingiza na kutazama data katika SQL, lakini kuna chaguzi nyingi tofauti unazoweza kuchagua na baadhi yao ni za hali ya juu zaidi. Utajifunza kuhusu hizo katika mafundisho yajayo.
+
+# --questions--
+
+## --text--
+
+Nyota (`*`) inawakilisha nini katika amri ya SQL `SELECT * FROM products;`?
+
+## --answers--
+
+Huchagua nguzo ya mwisho kutoka katika jedwali la `products`.
+
+### --feedback--
+
+Fikiria ungetakiwa kuandika nini waziwazi kama usingetumia nyota.
+
+---
+
+Inaonyesha kuwa kuna kosa katika hoja ya utafutaji ya SQL.
+
+### --feedback--
+
+Fikiria ungetakiwa kuandika nini waziwazi kama usingetumia nyota.
+
+---
+
+Huchagua nguzo zote kutoka katika jedwali la `products`.
+
+---
+
+Huchagua safu zote ambapo nguzo ina tabia ya nyota.
+
+### --feedback--
+
+Fikiria ungetakiwa kuandika nini waziwazi kama usingetumia nyota.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni amri gani ya SQL hutumika kuongeza rekodi mpya katika jedwali linaloitwa `products`?
+
+## --answers--
+
+`SELECT name, price FROM products;`
+
+### --feedback--
+
+Fikiria vitendo vya msingi unavyofanya kwenye data. Ni neno gani la SQL linalolingana na kuongeza kitu kipya?
+
+---
+
+`INSERT INTO products (name, price) VALUES ('New Product', 4.5);`
+
+---
+
+`UPDATE products SET name = 'New Product' WHERE price = 4.5;`
+
+### --feedback--
+
+Fikiria vitendo vya msingi unavyofanya kwenye data. Ni neno gani la SQL linalolingana na kuongeza kitu kipya?
+
+---
+
+`CREATE TABLE products (name VARCHAR(100), price DECIMAL);`
+
+### --feedback--
+
+Fikiria vitendo vya msingi unavyofanya kwenye data. Ni neno gani la SQL linalolingana na kuongeza kitu kipya?
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kutokana na hoja ya utafutaji ifuatayo:
+
+```bash
+SELECT price FROM products WHERE category = 'Laptops';
+```
+
+Lengo kuu la kifungu cha `WHERE category = 'Laptops'` ni nini?
+
+## --answers--
+
+Kubainisha kuwa nguzo ya bei pekee ndiyo ionyeshwe.
+
+### --feedback--
+
+Fikiria athari ambayo sehemu hii ya hoja ya utafutaji itakuwa nayo juu ya safu zitakazojumuishwa katika matokeo ya mwisho.
+
+---
+
+Kupanga orodha ya bidhaa zinazotokana kulingana na kundi lao.
+
+### --feedback--
+
+Fikiria athari ambayo sehemu hii ya hoja ya utafutaji itakuwa nayo juu ya safu zitakazojumuishwa katika matokeo ya mwisho.
+
+---
+
+Kuchuja safu, kurudisha bidhaa tu ambazo kundi lao ni `'Laptops'`.
+
+---
+
+Kusahihisha kundi la bidhaa zote kuwa `'Laptops'`.
+
+### --feedback--
+
+Fikiria athari ambayo sehemu hii ya hoja ya utafutaji itakuwa nayo juu ya safu zitakazojumuishwa katika matokeo ya mwisho.
+
+## --video-solution--
+
+3

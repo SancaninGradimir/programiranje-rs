@@ -1,0 +1,235 @@
+---
+id: 67c2bbd476f6e540b4c0b0d4
+title: Ukaguzi wa hali ya React na hooks
+challengeType: 31
+dashedName: review-react-state-and-hooks
+---
+
+# --description--
+
+## Kufanya kazi na matukio katika React
+
+- **Mfumo wa tukio la synthetic**: Huu ni njia ya React ya kushughulikia matukio. Hufanya kama kifuniko juu ya matukio ya asili kama matukio ya `click`, `keydown`, na `submit`. Mshughulikiaji wa matukio katika React hutumia mkataba wa majina ya camel casing. (Mfano `onClick`, `onSubmit`, n.k.)
+
+Hapa kuna mfano wa kutumia sifa ya `onClick` kwa kipengele cha `button` katika React:
+
+```jsx
+function handleClick() {
+  console.log("Button clicked!");
+}
+
+<button onClick={handleClick}>Click Me</button>;
+```
+
+Katika React, kazi za mshughulikiaji wa tukio kawaida huanza na kiambishi awali `handle` kuonyesha kuwa zinahusika na kushughulikia matukio, kama `handleClick` au `handleSubmit`.
+
+Wakati kitendo cha mtumizi kinasababisha tukio, React hupitisha kitu cha Synthetic Event kwa mshughulikiaji wako. Kitu hiki hufanya kazi kama kitu cha Event cha asili katika JavaScript ya kawaida, kikitoa sifa kama `type`, `target`, na `currentTarget`.
+
+Ili kuzuia tabia za kawaida kama kuonyesha upya kivinjari wakati wa tukio la `onSubmit`, kwa mfano, unaweza kuita njia ya `preventDefault()`:
+
+```jsx
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log("Form submitted!");
+}
+
+<form onSubmit={handleSubmit}>
+  <input type="text" />
+  <button>Submit</button>
+</form>;
+```
+
+Unaweza pia kufunika kazi ya mshughulikiaji ndani ya kitendakazi cha mshale kama hii:
+
+```jsx
+function handleDelete(id) {
+  console.log("Deleting item:", id);
+}
+
+<button onClick={() => handleDelete(1)}>Delete Item</button>;
+```
+
+## Kufanya kazi na hali na hook ya `useState`
+
+- **Ufafanuzi wa hali**: Katika React, hali ni kitu chenye data kwa ajili ya sehemu. Wakati hali inaposasishwa, sehemu itafanya onyesho upya. React huchukulia hali kama isiyobadilika, ikimaanisha haupaswi kuibadilisha moja kwa moja.  
+- **Hook ya `useState()`**: Hook ya `useState` ni kitendakazi kinachokuruhusu kutangaza vigezo vya hali katika sehemu za kitendakazi. Hapa ni sintaksia ya msingi:
+
+```js
+const [stateVariable, setStateFunction] = useState(initialValue);
+```
+
+Katika kigezo cha hali una yafuatayo:
+
+- `stateVariable` huhifadhi thamani ya sasa ya hali
+- `setStateFunction` (kitendakazi cha kuweka thamani) husasisha kigezo cha hali
+- `initialValue` huweka hali ya awali
+
+Hapa kuna mfano kamili wa sehemu ya `Counter`:
+
+```jsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h2>{count}</h2>
+
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+## Kuonyesha na sehemu za React
+
+- **Ufafanuzi**: Katika React, kuonyesha ni mchakato ambao sehemu huonekana katika kiolesura cha mtumiaji (UI), kawaida kivinjari. Mchakato wa kuonyesha una hatua tatu: kusababisha, kuonyesha, na kuidhinisha.
+
+Hatua ya kusababisha hutokea wakati React inagundua kuwa kitu kimebadilika na UI inaweza kuhitaji kusasishwa. Mabadiliko haya mara nyingi hutokana na sasisho la hali au vigezo vinavyopitishwa.
+
+Mara hatua ya kusababisha inapotokea, React huingia katika hatua ya kuonyesha. Hapa, React hupitia tena sehemu zako na kubaini nini cha kuonyesha. Kwa kufanya hivyo, React hutumia nakala nyepesi ya DOM halisi inayoitwa virtual DOM. Kwa virtual DOM, React inaweza haraka kuangalia kinachohitaji kubadilika katika sehemu.
+
+Hatua ya kuidhinisha ni pale ambapo React huchukua mabadiliko yaliyotayarishwa kutoka virtual DOM na kuyaweka kwenye DOM halisi. Kwa maneno mengine, hapa ndipo unapoona matokeo ya mwisho kwenye skrini.
+
+## Kusasisha vitu na safu za data katika hali
+
+- **Kusasisha vitu katika hali**: Ikiwa unahitaji kusasisha kitu katika hali, basi unapaswa kutengeneza kitu kipya au kunakili kitu kilichopo kwanza, kisha kuweka hali kwa kitu hicho kipya. Kitu chochote kilichowekwa katika hali kinapaswa kuchukuliwa kama kisichobadilika. Hapa kuna mfano wa kuweka jina, umri na mji wa mtumiaji. Kazi ya `handleChange` hutumika kushughulikia masasisho ya taarifa za mtumiaji:
+
+```jsx
+import { useState } from "react";
+
+function Profile() {
+  const [user, setUser] = useState({ name: "John Doe", age: 31, city: "LA" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setUser((prevUser) => ({...prevUser, [name]: value}));
+  };
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+      <p>City: {user.city}</p>
+
+      <h2>Update User Age </h2>
+      <input type="number" name="age" value={user.age} onChange={handleChange} />
+
+      <h2>Update User Name </h2>
+      <input type="text" name="name" value={user.name} onChange={handleChange} />
+
+      <h2>Update User City </h2>
+      <input type="text" name="city" value={user.city} onChange={handleChange} />
+    </div>
+  );
+}
+
+export default Profile;
+```
+
+- **Kusasisha safu za data katika hali**: Wakati unasasisha safu za data katika hali, ni muhimu kutozibadilisha moja kwa moja kwa kutumia njia kama `push()` au `pop()`. Badala yake unapaswa kutengeneza safu mpya wakati unasasisha hali:
+
+```js
+const addItem = () => {
+  const newItem = {
+    id: items.length + 1,
+    name: `Item ${items.length + 1}`,
+  };
+
+  // Creates a new array
+  setItems((prevItems) => [...prevItems, newItem]);
+};
+```
+
+Ikiwa unataka kuondoa vitu kutoka kwenye safu, unapaswa kutumia njia ya `filter()`, ambayo hurudisha safu mpya baada ya kuchuja vitu unavyotaka kuondoa:
+
+```js
+const removeItem = (id) => {
+  setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+};
+```
+
+## Kurejelea thamani kwa kutumia Refs
+
+- **Sifa ya `ref`**: Unaweza kupata nodi ya DOM katika React kwa kutumia sifa ya `ref`. Hapa kuna mfano unaoonyesha `ref` ili kuweka makini kwenye kipengele cha `input`. Sifa ya `current` hutumika kupata thamani ya sasa ya `ref` hiyo:
+
+```jsx
+import { useRef } from "react";
+
+const Focus = () => {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" placeholder="Enter text" />
+      <button onClick={handleFocus}>Focus Input</button>
+    </div>
+  );
+};
+
+export default Focus;
+```
+
+## Kufanya kazi na hook ya `useEffect`
+
+- **Hook ya `useEffect()`**: Katika React, athari ni chochote kinachotokea nje ya mchakato wa kuonyesha sehemu. Yaani, chochote ambacho React haisimami moja kwa moja kama sehemu ya kuonyesha UI. Mifano ya kawaida ni pamoja na kupata data, kusasisha kichwa cha kichupo cha kivinjari, kusoma au kuandika kwenye hifadhi ya kivinjari, kupata eneo la mtumiaji, na mengine mengi. Operesheni hizi huingiliana na dunia ya nje na hujulikana kama athari za pembeni. React hutoa hook ya `useEffect` ili kuruhusu kushughulikia athari hizo za pembeni. `useEffect` hukuruhusu kuendesha kitendakazi baada ya sehemu kuonyeshwa au kusasishwa.
+
+```js
+import { useEffect } from "react";
+
+useEffect(() => {
+ // Your side effect logic (usually a function) goes here
+}, [dependencies]);
+```
+
+Kitendakazi cha athari hufanyika baada ya sehemu kuonyeshwa, wakati hoja ya hiari ya `dependencies` inasimamia lini athari hiyo itekelezwe.
+
+Kumbuka kuwa `dependencies` inaweza kuwa safu ya "thamani zinazoreact" (hali, vigezo, kazi, vigezo vya muktadha, n.k.), safu tupu, au kutokuwepo kabisa. Hivi ndivyo chaguzi zote hizi zinavyosimamia jinsi `useEffect` inavyofanya kazi:
+
+- Ikiwa `dependencies` ni safu inayojumuisha thamani moja au zaidi zinazoreact, athari itatekelezwa kila wanapobadilika.
+
+- Ikiwa `dependencies` ni safu tupu, `useEffect` hufanya kazi mara moja tu wakati sehemu inavyoonyeshwa kwa mara ya kwanza.
+
+- Ikiwa utapuuza `dependencies`, athari hufanyika kila sehemu inapoonyeshwa au kusasishwa.
+
+## Jinsi ya kuunda hooks maalum
+
+- **Hooks maalum**: Hook maalum hukuruhusu kutoa mantiki inayoweza kutumika tena kutoka sehemu, kama vile kupata data, usimamizi wa hali, kubadili hali, na athari za pembeni kama kufuatilia hali ya mtandao. Katika React, hooks zote zilizojengwa ndani huanza na neno `use`, kwa hivyo hook yako maalum inapaswa kufuata mkataba huo huo.
+
+Hapa kuna mfano wa kuunda hook ya `useDebounce`:
+
+```js
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export { useDebounce };
+```
+
+# --assignment--
+
+Kagua mada na dhana za hali ya React na hooks.

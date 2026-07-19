@@ -1,0 +1,96 @@
+---
+id: 662f96576ef178927de87975
+title: Hatua 7
+challengeType: 20
+dashedName: step-7
+---
+
+# --description--
+
+Ili kutambuliwa kama njia ya abstract, njia inapaswa kupambwa na dekoreta wa `@abstractmethod`.
+
+<dfn>Dekoreta</dfn> hutumika katika Python kubadilisha tabia ya kitendakazi. Hapa kuna mfano wa jinsi ya kutumia dekoreta anayeitwa `spam`:
+
+```py
+@spam
+def foo():
+    pass
+```
+
+Badilisha kauli yako ya import ili kuleta dekoreta wa `abstractmethod` na pamba njia zote mbili za `solve` na `analyze` za darasa la `Equation`. Hii itasababisha makosa mawili.
+
+Mara darasa linalorithi kutoka `ABC` linapokuwa na njia ya abstract, darasa hilo haliwezi kuanzishwa tena. Kwa hiyo, futa mfano wa `Equation` ili kuondoa kosa hilo.
+
+Kosa lingine hutokea kwa sababu darasa la `LinearEquation` linapaswa kutekeleza njia zote za abstract zilizobainishwa katika interface. Hakikisha kuzitengeneza ndani ya darasa la `LinearEquation` pia. Hauruhusiwi kutumia dekoreta wa `abstractmethod` katika darasa halisi.
+
+# --hints--
+
+Unapaswa kuleta `abstractmethod` kutoka moduli ya `abc`.
+
+```js
+({ test: () => assert(runPython(`
+_Node(_code).has_import("from abc import ABC, abstractmethod") or \\
+_Node(_code).has_import("from abc import abstractmethod, ABC") or \\
+(_Node(_code).has_import("from abc import abstractmethod") and _Node(_code).has_import("from abc import ABC"))
+`)) })
+```
+
+Unapaswa kupamba na `@abstractmethod` njia ya `solve` ndani ya darasa la `Equation`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("solve").has_decorators("abstractmethod")`)) })
+```
+
+Unapaswa kupamba na `@abstractmethod` njia ya `analyze` ndani ya darasa la `Equation`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("analyze").has_decorators("abstractmethod")`)) })
+```
+
+Unapaswa kutengeneza njia inayoitwa `solve` ndani ya darasa la `LinearEquation`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("LinearEquation").has_function("solve")`)) })
+```
+
+Njia yako ya `solve` inapaswa kuchukua kigezo kimoja, `self`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("LinearEquation").find_function("solve").has_args("self")`)) })
+```
+
+Unapaswa kutengeneza njia inayoitwa `analyze` ndani ya darasa la `LinearEquation`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("LinearEquation").has_function("analyze")`)) })
+```
+
+Njia yako ya `solve` inapaswa kuchukua kigezo kimoja, `self`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("LinearEquation").find_function("analyze").has_args("self")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+from abc import ABC
+
+
+class Equation(ABC):
+    def solve(self):
+        pass
+        
+    def analyze(self):
+        pass
+        
+class LinearEquation(Equation):
+    pass
+
+eq = Equation()
+lin_eq = LinearEquation()
+--fcc-editable-region--
+```

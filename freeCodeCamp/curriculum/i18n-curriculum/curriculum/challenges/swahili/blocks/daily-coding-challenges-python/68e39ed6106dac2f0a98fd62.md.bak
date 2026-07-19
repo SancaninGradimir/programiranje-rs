@@ -1,0 +1,86 @@
+---
+id: 68e39ed6106dac2f0a98fd62
+title: "Challenge 80: Email Sorter"
+challengeType: 29
+dashedName: challenge-80
+---
+
+# --description--
+
+Mnamo Oktoba 29, 1971, barua pepe ya kwanza kabisa ilitumwa, ikianzisha muundo wa `username@domain` ambao bado tunautumia. Sasa, kuna mabilioni ya anwani za barua pepe.
+
+Katika changamoto hii, unapewa orodha ya anwani za barua pepe na unahitaji kuzipanga kwa mpangilio wa alfabeti kwa jina la kikoa kwanza (sehemu baada ya `@`), na jina la mtumiaji pili (sehemu kabla ya `@`).
+
+- Upangaji unapaswa kuwa usiozingatia herufi kubwa au ndogo.
+- Ikiwa barua pepe zaidi ya moja zina jina la kikoa sawa, zipange kwa jina la mtumiaji.
+- Rudisha safu ya anwani zilizopangwa.
+- Anwani zilizorejeshwa zinapaswa kuhifadhi herufi zao za awali.
+
+Kwa mfano, ukipata `["jill@mail.com", "john@example.com", "jane@example.com"]`, rudisha `["jane@example.com", "john@example.com", "jill@mail.com"]`.
+
+# --hints--
+
+`sort(["jill@mail.com", "john@example.com", "jane@example.com"])` should return `["jane@example.com", "john@example.com", "jill@mail.com"]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(sort(["jill@mail.com", "john@example.com", "jane@example.com"]), ["jane@example.com", "john@example.com", "jill@mail.com"])`)
+}})
+```
+
+`sort(["bob@mail.com", "alice@zoo.com", "carol@mail.com"])` should return `["bob@mail.com", "carol@mail.com", "alice@zoo.com"]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(sort(["bob@mail.com", "alice@zoo.com", "carol@mail.com"]), ["bob@mail.com", "carol@mail.com", "alice@zoo.com"])`)
+}})
+```
+
+`sort(["user@z.com", "user@y.com", "user@x.com"])` should return `["user@x.com", "user@y.com", "user@z.com"]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(sort(["user@z.com", "user@y.com", "user@x.com"]), ["user@x.com", "user@y.com", "user@z.com"])`)
+}})
+```
+
+`sort(["sam@MAIL.com", "amy@mail.COM", "bob@Mail.com"])` should return `["amy@mail.COM", "bob@Mail.com", "sam@MAIL.com"]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(sort(["sam@MAIL.com", "amy@mail.COM", "bob@Mail.com"]), ["amy@mail.COM", "bob@Mail.com", "sam@MAIL.com"])`)
+}})
+```
+
+`sort(["simon@beta.com", "sammy@alpha.com", "Sarah@Alpha.com", "SAM@ALPHA.com", "Simone@Beta.com", "sara@alpha.com"])` should return `["SAM@ALPHA.com", "sammy@alpha.com", "sara@alpha.com", "Sarah@Alpha.com", "simon@beta.com", "Simone@Beta.com"]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(sort(["simon@beta.com", "sammy@alpha.com", "Sarah@Alpha.com", "SAM@ALPHA.com", "Simone@Beta.com", "sara@alpha.com"]), ["SAM@ALPHA.com", "sammy@alpha.com", "sara@alpha.com", "Sarah@Alpha.com", "simon@beta.com", "Simone@Beta.com"])`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def sort(emails):
+
+    return emails
+```
+
+# --solutions--
+
+```py
+def sort(emails):
+    return sorted(
+        emails,
+        key=lambda email: (email.split('@')[1].lower(), email.split('@')[0].lower())
+    )
+```

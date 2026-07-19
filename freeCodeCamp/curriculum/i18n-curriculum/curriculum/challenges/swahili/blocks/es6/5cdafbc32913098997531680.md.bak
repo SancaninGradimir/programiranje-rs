@@ -1,0 +1,77 @@
+---
+id: 5cdafbc32913098997531680
+title: Kamilisha ahadi kwa kutumia resolve na reject
+challengeType: 1
+forumTopicId: 301196
+dashedName: complete-a-promise-with-resolve-and-reject
+---
+
+# --description--
+
+Ahadi ina hali tatu: `pending`, `fulfilled`, na `rejected`. Ahadi uliyotengeneza katika changamoto iliyopita imekwama milele katika hali ya `pending` kwa sababu hukuweka njia ya kumaliza ahadi hiyo. Vigezo vya `resolve` na `reject` vinavyotolewa kwa hoja ya ahadi hutumika kufanya hivyo. `resolve` hutumika unapotaka ahadi yako ifanikishe, na `reject` hutumika unapotaka ifeli. Hizi ni njia zinazopokea hoja, kama inavyoonekana hapa chini.
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  if(condition here) {
+    resolve("Promise was fulfilled");
+  } else {
+    reject("Promise was rejected");
+  }
+});
+```
+
+Mfano ulio juu unatumia mfuatano wa herufi kama hoja za hizi njia, lakini inaweza kuwa chochote kweli. Mara nyingi, inaweza kuwa kitu, ambacho ungetumia data kutoka kwake kuweka kwenye tovuti yako au mahali pengine.
+
+# --instructions--
+
+Fanya ahadi kushughulikia mafanikio na kushindwa. Ikiwa `responseFromServer` ni `true`, fanya wito wa njia ya `resolve` kumaliza ahadi kwa mafanikio. Pitia `resolve` mfuatano wa herufi wenye thamani ya `We got the data`. Ikiwa `responseFromServer` ni `false`, tumia njia ya `reject` badala yake na upitie mfuatano wa herufi: `Data not received`.
+
+# --hints--
+
+`resolve` inapaswa kuitwa na mfuatano wa herufi unaotarajiwa wakati hali ya `if` ni `true`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(/if\s*\(\s*responseFromServer\s*\)\s*{\s*resolve\s*\(\s*('|"|`)We got the data\1\s*\)(\s*|\s*;\s*)}/g)
+);
+```
+
+`reject` inapaswa kuitwa na mfuatano wa herufi unaotarajiwa wakati hali ya `if` ni `false`.
+
+```js
+assert(
+  __helpers.removeJSComments(code).match(/}\s*else\s*{\s*reject\s*\(\s*('|"|`)Data not received\1\s*\)(\s*|\s*;\s*)}/g)
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer represents a response from a server
+  let responseFromServer;
+    
+  if(responseFromServer) {
+    // Change this line
+  } else {  
+    // Change this line
+  }
+});
+```
+
+# --solutions--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer represents a response from a server
+  let responseFromServer;
+
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+```

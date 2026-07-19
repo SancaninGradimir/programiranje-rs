@@ -1,0 +1,190 @@
+---
+id: 6882904fd7063f7258c0aef3
+title: Jinsi Unavyoshughulikia Mahitaji ya Usalama Kama Funguo za SSH na GPG?
+challengeType: 19
+dashedName: how-do-you-handle-security-requirements-like-ssh-and-gpg-keys
+---
+
+# --description--
+
+Kabla hujapakia hifadhi yako ya msimbo (repository) kwenye GitHub, utahitaji kuthibitishwa. Funguo za SSH na GPG zote hutumia jozi ya funguo ya umma na ya faragha. Hii ina maana kwamba unahifadhi funguo ya faragha kwenye kompyuta yako ya ndani, ambayo unaitumia kuthibitisha utambulisho wako. Unashirikisha funguo ya umma na watu au huduma zinazohitaji kuthibitisha uthibitisho wako. Kwa maneno mengine, funguo ya faragha inahitajika kutekeleza kitendo, na funguo ya umma hutumika kuthibitisha kitendo hicho.
+
+Funguo za GPG, au Gnu Privacy Guard, kawaida hutumika kusaini mafaili au commits. Mtu anaweza kutumia funguo yako ya umma ya GPG kuthibitisha kuwa saini ya faili ni kutoka kwa funguo yako na kwamba yaliyomo kwenye faili hayajabadilishwa au kuingiliwa. Funguo za SSH, au Secure SHell, kawaida hutumika kuthibitisha muunganisho wa mbali kwenye seva - kupitia zana ya `ssh`. Hata hivyo, kama utakavyojifunza katika funzo hili, unaweza pia kutumia funguo ya SSH kusaini commits.
+
+Ili kuunda funguo ya GPG, utahitaji kuendesha:
+
+```sh
+gpg --full-generate-key
+```
+
+Kwa funguo ya SSH, utaendesha:
+
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Hakikisha unatoa barua pepe yako halisi.
+
+Amri hizi zote mbili zinapaswa kuomba nenosiri la kulinda funguo. Hizi ni hiari, lakini zinapendekezwa sana.
+
+Kwa funguo za SSH, utapata mafaili mawili - moja kwa funguo yako ya faragha, na moja kwa funguo yako ya umma. Majina ya mafaili ya funguo ya umma yataishia na `.pub`, ili usishiriki kwa bahati mbaya funguo yako ya faragha. Mafaili haya yatakuwa katika `~/.ssh`.
+
+Funguo za GPG, hata hivyo, zitakuwa katika saraka iliyofichwa na iliyosimbwa. Badala yake, ili kuorodhesha funguo zako za umma, utaendesha:
+
+```sh
+gpg --list-secret-keys --keyid-format=long
+```
+
+Kisha, kupata funguo ya umma, tumia:
+
+```sh
+gpg --armor --export "<key id>"
+```
+
+Lakini unaweza kufanya nini na funguo hizi mpya? Vizuri, tumeshazungumzia kusaini commits zako, na hiyo ni kitu ambacho unaweza kutumia kwa moja ya funguo hizi.
+
+Ili kusaini commits zako kwa funguo yako ya GPG, utahitaji kupakia funguo yako ya umma, si funguo ya faragha, kwenye akaunti yako ya GitHub. Kisha, chukua ID fupi uliyopata kutoka kwa orodha ya funguo hapo awali, na endesha amri hii kuiweka kama funguo yako ya kusaini ya git:
+
+```sh
+git config --global user.signingkey <your_gpg_key_id>
+```
+
+Kisha, unaweza kupitisha bendera ya `-S` kwa amri yako ya `git commit` kusaini commit maalum - utahitaji kutoa nenosiri lako. Vinginevyo, ikiwa unataka kusaini kila commit moja kwa moja, unaweza kuweka usanidi wa autosign kuwa `true`:
+
+```sh
+git config --global commit.gpgsign true
+```
+
+Ili kusaini kwa funguo ya SSH, ambayo ni kipengele kipya kidogo kwenye GitHub, utahitaji kuanza kwa kupakia funguo kwenye akaunti yako ya GitHub. Kisha utahitaji kuweka hali ya kusaini kwa git kutumia SSH:
+
+```sh
+git config --global gpg.format ssh
+```
+
+Kisha, kuweka funguo ya kusaini, utapitisha njia ya faili badala ya ID:
+
+```sh
+git config --global user.signingkey <path_to_your_ssh_keys>
+```
+
+Mwishowe, unaweza kuwezesha kusaini moja kwa moja kama unavyofanya kwa funguo ya GPG.
+
+Kwa mojawapo ya mbinu hizi zilizowekwa, sasa umejiandaa kuwa na commits zilizo na uthibitisho ambazo zitapata alama maalum kwenye GitHub.
+
+# --questions--
+
+## --text--
+
+Tofauti kuu kati ya funguo za faragha na za umma katika jozi za funguo za SSH na GPG ni ipi?
+
+## --answers--
+
+Funguo ya faragha ni ndefu zaidi kuliko funguo ya umma.
+
+### --feedback--
+
+Fikiria ni nani anayeweza kupata kila funguo na zinahifadhiwa wapi.
+
+---
+
+Funguo ya faragha hubaki kwenye kompyuta yako ya ndani wakati funguo ya umma inashirikiwa.
+
+---
+
+Funguo ya umma hutumika kusimba data wakati funguo ya faragha hutafsiri data hiyo.
+
+### --feedback--
+
+Fikiria ni nani anayeweza kupata kila funguo na zinahifadhiwa wapi.
+
+---
+
+Funguo ya faragha huisha muda fulani baada ya kipindi.
+
+### --feedback--
+
+Fikiria ni nani anayeweza kupata kila funguo na zinahifadhiwa wapi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni amri gani ungetumia kuwezesha kusaini moja kwa moja kwa commits zote kwa kutumia funguo yako ya GPG?
+
+## --answers--
+
+```sh
+git config --global gpg.autosign true
+```
+
+### --feedback--
+
+Tazama amri ya usanidi iliyotajwa katika funzo kwa kusaini moja kwa moja commits zote.
+
+---
+
+```sh
+git config --global commit.sign always
+```
+
+### --feedback--
+
+Tazama amri ya usanidi iliyotajwa katika funzo kwa kusaini moja kwa moja commits zote.
+
+---
+
+```sh
+git config --global commit.gpgsign true
+```
+
+---
+
+```sh
+git --enable-auto-signing
+```
+
+### --feedback--
+
+Tazama amri ya usanidi iliyotajwa katika funzo kwa kusaini moja kwa moja commits zote.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni nini kinachohitajika ili kuweka kusaini kwa funguo ya SSH kwa commits za Git kwenye GitHub?
+
+## --answers--
+
+Pakia tu funguo yako ya umma ya SSH kwenye GitHub.
+
+### --feedback--
+
+Fikiria hatua za usanidi zilizotajwa kwa kusaini kwa SSH.
+
+---
+
+Weka muundo wa kusaini kuwa SSH na usanidi njia ya funguo yako ya kusaini.
+
+---
+
+Tengeneza funguo maalum ya kusaini ya SSH tofauti na funguo yako ya kawaida ya SSH.
+
+### --feedback--
+
+Fikiria hatua za usanidi zilizotajwa kwa kusaini kwa SSH.
+
+---
+
+Wezesha kipengele maalum cha GitHub katika mipangilio ya akaunti yako.
+
+### --feedback--
+
+Fikiria hatua za usanidi zilizotajwa kwa kusaini kwa SSH.
+
+## --video-solution--
+
+2

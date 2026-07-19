@@ -1,0 +1,161 @@
+---
+id: 587d8252367417b2b2512c67
+title: Ongeza vipengele katika kielezo maalum katika orodha iliyounganishwa
+challengeType: 1
+forumTopicId: 301619
+dashedName: add-elements-at-a-specific-index-in-a-linked-list
+---
+
+# --description--
+
+Tufanye njia ya addAt(index,element) inayoongeza kipengele katika kielezo kilichotolewa. Kama vile tunavyotumia kuondoa vipengele katika kielezo fulani, tunahitaji kufuatilia currentIndex tunapopita kwenye orodha iliyounganishwa. Wakati currentIndex itakapolingana na kielezo kilichotolewa, tunahitaji kuweka thamani mpya kwa sifa ya next ya nodi iliyotangulia ili i-rejea nodi mpya iliyoongezwa. Na nodi mpya inapaswa kuwa na rejea kwa nodi inayofuata katika currentIndex. Tukirudi kwenye mfano wa mstari wa conga, mtu mpya anataka kujiunga na mstari, lakini anataka kujiunga katikati. Uko katikati ya mstari, hivyo unatoa mikono yako kwa mtu aliyekuwepo mbele yako. Mtu mpya anakuja na kuweka mikono yake kwa mtu aliyekuwepo mikononi mwako, na sasa wewe una mikono yako kwa mtu mpya.
+
+# --instructions--
+
+Tengeneza njia ya `addAt(index,element)` inayoongeza kipengele katika kielezo kilichotolewa. Rudisha false ikiwa kipengele hakiwezi kuongezwa. **Kumbuka:** Kagua ikiwa kielezo kilichotolewa ni hasi au kimezidi urefu wa orodha iliyounganishwa.
+
+# --hints--
+
+Njia yako ya `addAt` inapaswa kuweka thamani ya `head` kwa nodi mpya wakati kielezo kilichotolewa ni 0.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.addAt(0, 'fish');
+    return test.head().element === 'fish' && test.head().next.element === 'cat';
+  })()
+);
+```
+
+Njia yako ya `addAt` inapaswa kuongeza urefu wa orodha iliyounganishwa kwa moja kila nodi mpya inapo ongezwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.addAt(0, 'cat');
+    return test.size() === 3;
+  })()
+);
+```
+
+Njia yako ya `addAt` inapaswa kurudisha `false` ikiwa nodi haikuweza kuongezwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    return test.addAt(4, 'cat') === false;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element) {
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function() {
+    return length;
+  };
+
+  this.head = function() {
+    return head;
+  };
+
+  this.add = function(element) {
+    var node = new Node(element);
+    if (head === null) {
+      head = node;
+    } else {
+      var currentNode = head;
+
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+    length++;
+  };
+
+  // Only change code below this line
+
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function(){
+    return length;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.add = function(element){
+    var node = new Node(element);
+    if (head === null){
+        head = node;
+    } else {
+      var currentNode = head;
+
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+    length++;
+  };
+  this.addAt = function (index, element) {
+    if (index > length || index < 0) {
+      return false;
+    }
+    var newNode = new Node(element);
+    var currentNode = head;
+    if (index === 0) {
+      head = newNode;
+    } else {
+      var previousNode = null;
+      var i = 0;
+      while (currentNode && i < index) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+        i++;
+      }
+      previousNode.next = newNode;
+    }
+    newNode.next = currentNode;
+    length++;
+  }
+}
+```

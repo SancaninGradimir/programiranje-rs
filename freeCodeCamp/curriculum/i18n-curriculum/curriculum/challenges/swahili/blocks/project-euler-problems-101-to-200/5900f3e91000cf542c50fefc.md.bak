@@ -1,0 +1,79 @@
+---
+id: 5900f3e91000cf542c50fefc
+title: "'Zoezi la 125: Jumla za palindromu'"
+challengeType: 1
+forumTopicId: 301752
+dashedName: problem-125-palindromic-sums
+---
+
+# --description--
+
+Nambari palindromu 595 ni ya kuvutia kwa sababu inaweza kuandikwa kama jumla ya mraba mfululizo: $6^2 + 7^2 + 8^2 + 9^2 + 10^2 + 11^2 + 12^2$.
+
+Kuna palindromu kumi na moja hasa chini ya elfu moja ambazo zinaweza kuandikwa kama jumla ya mraba mfululizo, na jumla ya palindromu hizi ni 4164. Kumbuka kwamba $1 = 0^2 + 1^2$ haijajumuishwa kwa kuwa changamoto hii inahusu mraba wa nambari kamili chanya.
+
+Tafuta jumla ya nambari zote chini ya `limit` ambazo ni palindromu na zinaweza kuandikwa kama jumla ya mraba mfululizo.
+
+# --hints--
+`palindromicSums(100000000)` inapaswa kurudisha `2906969179`.
+
+```js
+
+assert.strictEqual(palindromicSums(100000000), 2906969179);
+
+```
+
+`palindromicSums(100)` inapaswa kurudisha `137`.
+
+```js
+assert.strictEqual(palindromicSums(100), 137);
+```
+
+`palindromicSums(1000)` inapaswa kurudisha `4164`.
+
+```js
+assert.strictEqual(palindromicSums(1000),4164);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function palindromicSums(limit) {
+
+  return true;
+}
+
+palindromicSums(100);
+```
+
+# --solutions--
+
+```js
+function isPalindrome(num) {
+  return num
+    .toString()
+    .split('')
+    .every((digit, i, arr) => digit === arr[arr.length - 1 - i]);
+}
+
+function palindromicSums(limit) {
+  let sumOfPalindromes = 0;
+  const sqrtLimit = Math.sqrt(limit);
+  const list = new Set();
+
+  for (let i = 1; i <= sqrtLimit; i++) {
+    let sumOfSquares = i * i;
+    for (let j = i + 1; j <= sqrtLimit; j++) {
+      sumOfSquares += j * j;
+      if (sumOfSquares > limit) break;
+      if (isPalindrome(sumOfSquares) && !list.has(sumOfSquares)) {
+        sumOfPalindromes += sumOfSquares;
+        list.add(sumOfSquares);
+      }
+    }
+  }
+  return sumOfPalindromes;
+}
+```

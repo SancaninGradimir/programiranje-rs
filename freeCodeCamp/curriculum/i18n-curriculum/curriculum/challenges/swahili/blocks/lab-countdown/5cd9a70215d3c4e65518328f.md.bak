@@ -1,0 +1,107 @@
+---
+id: 5cd9a70215d3c4e65518328f
+title: Jenga orodha ya kuhesabu nyuma
+challengeType: 26
+dashedName: build-a-countdown
+---
+
+# --description--
+
+Katika maabara hii, utafanya kitendakazi cha `countdown` kinachopokea nambari ya kuanzia na kutengeneza orodha ya kuhesabu nyuma.
+
+Unapofanya wito wa `countdown(n)`, inapaswa kurudisha safu ya data inayotoka `n` na kuhesabu nyuma kwa `1` hadi ifikie `1`.
+
+Kwa mfano:
+
+- `countdown(5)` inapaswa kurudisha `[5, 4, 3, 2, 1]`
+- `countdown(1)` inapaswa kurudisha `[1]`
+
+Kama nambari ya kuanzia ni ndogo kuliko `1`, hakuna cha kuhesabu nyuma, basi rudisha safu ya data tupu:
+
+- `countdown(0)` inapaswa kurudisha `[]`
+- `countdown(-3)` inapaswa kurudisha `[]`
+
+Ili kumaliza maabara hii, lazima ujenge matokeo kwa kutumia kurudiwa (recursion) na usitumie mizunguko (`for`, `while`), `Array.from()`, au njia za kuzunguka safu ya data (`forEach`, `map`, `filter`, `reduce`). Kila wito linapaswa kutoa safu yake ya matokeo (usitumie vigezo vya kimataifa kuhifadhi orodha ya kuhesabu nyuma).
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kuunda kitendakazi kinachoitwa `countdown`.
+2. Kitendakazi cha `countdown` kinapaswa kupokea hoja moja `n` (nambari).
+3. Ikiwa `n` ni ndogo kuliko `1`, `countdown` inapaswa kurudisha safu ya data tupu.
+4. Vinginevyo, `countdown` inapaswa kurudisha safu ya data yenye nambari kamili kutoka `n` hadi `1` kwa mpangilio wa kushuka.
+5. Lazima utumie kurudiwa (kitendakazi kinapaswa kuitwa yenyewe) na usitumie mizunguko yoyote (`for`, `while`, `Array.from()`, au njia za daraja la juu kama `forEach`, `map`, `filter`, `reduce`).
+6. Kila wito la kurudiwa linapaswa kutumia thamani ndogo kuliko wito lililotangulia (kwa mfano, `n - 1`) ili kitendakazi kifikie hali yake ya msingi.
+7. Suluhisho halipaswi kutumia vigezo vya kimataifa kuhifadhi au kuweka matokeo ya safu ya data.
+8. Kufanya wito wa `countdown` mara nyingi kwa ingizo tofauti kunapaswa kila mara kurudisha matokeo sahihi na huru.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `countdown`.
+
+```js
+assert.isFunction(countdown);
+```
+
+`countdown(-1)` inapaswa kurudisha safu ya data tupu.
+
+```js
+assert.isEmpty(countdown(-1));
+```
+
+`countdown(10)` inapaswa kurudisha `[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]`
+
+```js
+assert.deepStrictEqual(countdown(10), [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
+```
+
+`countdown(5)` inapaswa kurudisha `[5, 4, 3, 2, 1]`
+
+```js
+assert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);
+```
+
+Msimbo wako haupaswi kutegemea aina yoyote ya mizunguko (`for`, `while`, `Array.from()` au njia za daraja la juu kama `forEach`, `map`, `filter`, na `reduce`).
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce|Array\.from/g)
+);
+```
+
+Unapaswa kutumia kurudiwa kutatua changamoto hii.
+
+```js
+assert.isAtLeast(
+  __helpers.removeJSComments(countdown.toString()).match(/countdown\s*\(.+\)/g)?.length,
+  2
+);
+```
+
+Vigezo vya kimataifa havipaswi kutumika kuhifadhi safu ya data.
+
+```js
+countdown(1)
+assert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function countdown(n) {
+  if (n < 1) {
+    return [];
+  }
+
+  return [n, ...countdown(n - 1)];
+}
+```

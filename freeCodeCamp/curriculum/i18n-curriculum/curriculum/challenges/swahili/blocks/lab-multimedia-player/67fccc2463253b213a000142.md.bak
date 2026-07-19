@@ -1,0 +1,346 @@
+---
+id: 67fccc2463253b213a000142
+title: Jenga mchezaji wa vyombo vya habari
+challengeType: 25
+dashedName: lab-multimedia-player
+demoType: onClick
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, ulianzishwa na kazi na vipengele vya `audio` na `video`. Katika maabara hii, utajenga mchezaji wa vyombo vya habari ambao utaonyesha wimbo wa `audio` na `video` pamoja na nakala ya maandishi.
+
+Kwa kipengele cha `audio`, utahitaji kujumuisha kipengele cha `source` ambacho hutumika kubainisha media inayotumika.
+
+Hapa kuna mfano:
+
+```html
+<audio controls aria-label="descriptive label goes here">
+  <source src="url-to-audio-goes-here" type="audio/mpeg">
+</audio>
+```
+
+Kipengele cha `source` pia kinaweza kutumika katika kipengele cha `video` kama hii:
+
+```html
+<video controls width="600" aria-label="descriptive label goes here">
+  <source src="link-to-mp4-goes-here" type="video/mp4">
+  <!-- Remaining code goes here -->  
+</video>
+```
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `h1` kwa kichwa kikuu cha ukurasa.
+2. Unapaswa kuwa na vipengele vitatu vya `section`.
+3. Ndani ya kipengele cha kwanza cha `section`, unapaswa kuwa na kipengele cha `h2` kwa kichwa cha wimbo unaochezwa.
+4. Chini ya kipengele cha `h2`, unapaswa kuwa na kipengele cha `audio` chenye sifa za `controls` na `aria-label`.
+5. Ndani ya kipengele cha `audio`, unapaswa kuwa na kipengele cha `source` chenye sifa ya `src` inayowakilisha faili la sauti na sifa ya `type`. Una uhuru kutumia URL hii ya sauti ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/js-music-player/sailing-away.mp3`
+6. Ndani ya kipengele cha pili cha `section`, unapaswa kuwa na kipengele cha `h2` kwa kichwa cha video inayochezwa.
+7. Chini ya kipengele cha `h2`, unapaswa kuwa na kipengele cha `video` chenye sifa za `controls`, `width` na `aria-label`.
+8. Ndani ya kipengele cha `video`, unapaswa kuwa na kipengele cha `source` chenye sifa ya `src` inayowakilisha faili la video na sifa ya `type`. Una uhuru kutumia URL hii ya video ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/labs/what-is-the-map-method-and-how-does-it-work.mp4`
+9. Chini ya kipengele cha `source`, unapaswa kuwa na kipengele cha `track` chenye sifa ya `src` inayowakilisha faili la manukuu, sifa za `kind`, `srclang` na `label`. Una uhuru kutumia URL hii ya manukuu ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/labs/what-is-the-map-method-and-how-does-it-work.vtt`
+10. Ndani ya kipengele cha tatu cha `section`, unapaswa kuwa na kipengele cha `h2` kwa kichwa cha sehemu mfano "Nakala ya maandishi".
+11. Chini ya kipengele cha `h2`, unapaswa kuwa na kipengele cha `p` chenye nakala ya maandishi ya video.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `h1`.
+
+```js
+assert.isNotNull(document.querySelector("h1"));
+```
+
+`h1` yako inapaswa kuwa na maandishi yanayowakilisha kichwa kikuu cha ukurasa.
+
+```js  
+assert.isNotEmpty(document.querySelector("h1")?.textContent?.trim());  
+```
+
+Unapaswa kuwa na vipengele vitatu vya `section`.
+
+```js
+const sectionElements = document.querySelectorAll("section");
+assert.lengthOf(sectionElements, 3);
+```
+
+`section` ya kwanza inapaswa kuwa na kipengele cha `h2`.
+
+```js
+const sectionElements = document.querySelectorAll("section");
+const firstSection = sectionElements[0];
+assert.isNotNull(firstSection?.querySelector("h2"));
+```
+
+`h2` yako inapaswa kuwa na maandishi yanayowakilisha kichwa cha wimbo unaochezwa.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];
+assert.isNotEmpty(firstSection?.querySelector("h2")?.textContent?.trim());
+```
+
+`section` ya kwanza inapaswa kuwa na kipengele cha `audio`.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];
+const audio = firstSection?.querySelector("audio");
+assert.isNotNull(audio);
+```
+
+Kipengele chako cha `audio` kinapaswa kuwa na sifa ya `controls`.
+
+```js  
+const firstSection = document.querySelectorAll("section")[0];  
+const audio = firstSection?.querySelector("audio");  
+assert.isTrue(audio?.hasAttribute("controls"));
+```
+
+Kipengele chako cha `audio` kinapaswa kuwa na sifa ya `aria-label` yenye maandishi yanayoelezea sauti.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];  
+const audio = firstSection?.querySelector("audio");  
+assert.isTrue(audio?.hasAttribute("aria-label"));  
+
+const ariaLabel = audio?.getAttribute("aria-label");  
+assert.isString(ariaLabel);  
+assert.isNotEmpty(ariaLabel.trim());
+```
+
+Kipengele chako cha `audio` kinapaswa kuwa na kipengele cha `source`.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];
+const audio = firstSection?.querySelector("audio");
+const source = audio?.querySelector("source");
+assert.isNotNull(source);
+```
+
+Kipengele chako cha `source` kinapaswa kuwa na sifa ya `src` inayowakilisha faili la sauti.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];
+const audio = firstSection?.querySelector("audio");
+const source = audio?.querySelector("source");
+assert.isTrue(source?.hasAttribute("src"));
+assert.isTrue(source?.getAttribute("src")?.trim().length > 0);
+```
+
+Kipengele chako cha `source` kinapaswa kuwa na sifa ya `type` yenye thamani inayobainisha aina ya sauti.
+
+```js
+const firstSection = document.querySelectorAll("section")[0];
+const audio = firstSection?.querySelector("audio");
+const source = audio?.querySelector("source");
+
+assert.isTrue(source?.hasAttribute("type"));
+assert.isTrue(source?.getAttribute("type")?.trim().length > 0);
+```
+
+`section` ya pili inapaswa kuwa na kipengele cha `h2`.
+
+```js
+const sectionElements = document.querySelectorAll("section");
+const h2 = sectionElements[1]?.querySelector("h2");
+assert.isNotNull(h2);
+```
+
+`h2` yako inapaswa kuwa na maandishi yanayowakilisha kichwa cha video inayochezwa.
+
+```js
+assert.isNotEmpty(document.querySelector("h2")?.textContent?.trim());
+```
+
+`section` ya pili inapaswa kuwa na kipengele cha `video`.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+assert.isNotNull(video);
+```
+
+Kipengele chako cha `video` kinapaswa kuwa na sifa ya `controls`.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+assert.isTrue(video?.hasAttribute("controls"));
+```
+
+Kipengele chako cha `video` kinapaswa kuwa na sifa ya `width` yenye thamani inayobainisha upana wa video.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+assert.isTrue(video?.hasAttribute("width"));
+
+const width = video?.getAttribute("width");
+assert.isTrue(width.trim().length > 0);
+```
+
+Kipengele cha `video` kinapaswa kuwa na kipengele cha `source`.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const source = video?.querySelector("source");
+assert.isNotNull(source);
+```
+
+Kipengele cha `source` kinapaswa kuwa na sifa ya `src` inayowakilisha faili la video.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const source = video?.querySelector("source");
+assert.isTrue(source?.hasAttribute("src"));
+assert.isTrue(source.getAttribute("src").trim().length > 0);
+```
+
+Kipengele cha `source` kinapaswa kuwa na sifa ya `type` yenye thamani inayobainisha aina ya video.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const source = video?.querySelector("source");
+assert.isTrue(source?.hasAttribute("type"));
+assert.isTrue(source.getAttribute("type").trim().length > 0);
+```
+
+Kipengele chako cha `video` kinapaswa kuwa na kipengele cha `track`.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const track = video?.querySelector("track");
+assert.isNotNull(track);
+```
+
+Kipengele chako cha `track` kinapaswa kuwa na sifa ya `src` inayowakilisha faili la manukuu.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const track = video?.querySelector("track");
+assert.isTrue(track?.hasAttribute("src"));
+assert.isTrue(track?.getAttribute("src")?.trim().length > 0);
+```
+
+Kipengele chako cha `track` kinapaswa kuwa na sifa ya `kind` yenye maandishi yanayoelezea aina ya faili.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const track = video?.querySelector("track");
+assert.isTrue(track?.hasAttribute("kind"));
+assert.isTrue(track?.getAttribute("kind")?.trim().length > 0);
+```
+
+Kipengele chako cha `track` kinapaswa kuwa na sifa ya `srclang` yenye maandishi yanayoelezea lugha ya manukuu.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const track = video?.querySelector("track");
+assert.isTrue(track?.hasAttribute("srclang"));
+assert.isTrue(track?.getAttribute("srclang")?.trim().length > 0);
+```
+
+Kipengele chako cha `track` kinapaswa kuwa na sifa ya `label` yenye maandishi yanayoelezea lugha ya manukuu.
+
+```js
+const secondSection = document.querySelectorAll("section")[1];
+const video = secondSection?.querySelector("video");
+const track = video?.querySelector("track");
+assert.isTrue(track?.hasAttribute("label"));
+assert.isTrue(track?.getAttribute("label")?.trim().length > 0);
+```
+
+`section` ya tatu inapaswa kuwa na kipengele cha `h2`.
+
+```js
+const sectionElements = document.querySelectorAll("section");
+const thirdSection = sectionElements[2];
+assert.isNotNull(thirdSection.querySelector("h2"));
+```
+
+`h2` yako inapaswa kuwa na maandishi yanayowakilisha kichwa cha sehemu.
+
+```js
+assert.isNotEmpty(document.querySelector("h2")?.textContent?.trim());
+```
+
+`section` ya tatu inapaswa kuwa na kipengele cha `p` kwa nakala ya maandishi.
+
+```js
+const thirdSection = document.querySelectorAll("section")[2];
+const transcript = thirdSection?.querySelector("p");
+assert.isNotNull(transcript);
+assert.isAbove(transcript.textContent.trim().length, 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimedia Player</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimedia Player</title>
+</head>
+<body>
+  <h1>Multimedia Player</h1>
+  <section>
+    <h2>Now Playing: Sailing Away</h2>
+    <audio controls aria-label="Audio Player for Sailing Away">
+        <source src="https://cdn.freecodecamp.org/curriculum/js-music-player/sailing-away.mp3" type="audio/mpeg">
+    </audio>
+  </section>
+
+  <section>
+    <h2>What is a map method and how does it work?</h2>
+    <video controls width="600" aria-label="What is a map method and how does it work?">
+      <source src="https://cdn.freecodecamp.org/curriculum/labs/what-is-the-map-method-and-how-does-it-work.mp4" type="video/mp4">
+      
+      <track 
+      src="what-is-a-map-method.vtt" 
+      kind="captions" 
+      srclang="en" 
+      label="English" 
+      default>
+
+    </video>
+  </section>
+
+  <section>
+    <h2>Transcript</h2>
+    <p>What is a map method and how does it work? The map method is a powerful and widely used function in JavaScript that operates on arrays. It's designed to create a new array by applying a given function to each element of the original array. This method does not modify the original array, but instead returns the new array containing the results of the function applied to each element. 
+    </p>
+  </section>
+
+</body>
+</html> 
+```

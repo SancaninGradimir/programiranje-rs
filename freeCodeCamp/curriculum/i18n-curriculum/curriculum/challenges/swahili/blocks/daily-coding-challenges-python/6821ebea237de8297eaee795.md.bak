@@ -1,0 +1,95 @@
+---
+id: 6821ebea237de8297eaee795
+title: "Challenge 19: Candlelight"
+challengeType: 29
+dashedName: challenge-19
+---
+
+# --description--
+
+Ukitoa nambari kamili inayowakilisha idadi ya mishumaa unayoanza nayo, na nambari kamili inayowakilisha ni mishumaa mingapi iliyochomwa inahitajika kutengeneza mshumaa mpya, rudisha idadi ya mishumaa utakazotumia baada ya kutengeneza na kuchoma mishumaa yote unayoweza.
+
+Kwa mfano, ukipewa mishumaa 7 na inachukua mishumaa 2 iliyochomwa kutengeneza mshumaa mpya:
+
+1. Choma mishumaa 7 kupata mabaki 7,
+2. Rudisha mabaki 6 kuwa mishumaa 3 mipya (mshumaa 1 unabaki),
+3. Choma mishumaa 3 kupata mabaki 3 zaidi (jumla 4),
+4. Rudisha mabaki 4 kuwa mishumaa 2 mipya,
+5. Choma mishumaa 2 kupata mabaki 2,
+6. Rudisha mabaki 2 kuwa mshumaa 1 mpya,
+7. Choma mshumaa 1.
+
+Utakachomwa jumla ya mishumaa 13 katika mfano huu.
+
+# --hints--
+
+`burn_candles(7, 2)` should return `13`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(burn_candles(7, 2), 13)`)
+}})
+```
+
+`burn_candles(10, 5)` should return `12`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(burn_candles(10, 5), 12)`)
+}})
+```
+
+`burn_candles(20, 3)` should return `29`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(burn_candles(20, 3), 29)`)
+}})
+```
+
+`burn_candles(17, 4)` should return `22`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(burn_candles(17, 4), 22)`)
+}})
+```
+
+`burn_candles(2345, 3)` should return `3517`
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(burn_candles(2345, 3), 3517)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def burn_candles(candles, leftovers_needed):
+
+    return candles
+```
+
+# --solutions--
+
+```py
+def burn_candles(candles, leftovers_needed):
+    total_burned = 0
+    unused_leftovers = 0
+
+    while candles > 0:
+        total_burned += candles
+        leftovers = candles + unused_leftovers
+        candles = leftovers // leftovers_needed
+        unused_leftovers = leftovers % leftovers_needed
+
+    return total_burned
+```

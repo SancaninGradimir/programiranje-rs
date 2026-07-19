@@ -1,0 +1,272 @@
+---
+id: 672a54dff9dc439089f1a219
+title: "Sifa ya kipengele cha aria-live ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-aria-live-attribute
+---
+
+# --interactive--
+
+Sifa ya `aria-live` huunda eneo la moja kwa moja kwenye ukurasa wako ambalo linaweza kutumika kuwajulisha watumiaji wa kisomaji cha skrini kuhusu mabadiliko ya maudhui yanayotokea katika eneo hilo la moja kwa moja wakati yanapotokea.
+
+Matumizi ya kawaida ya maeneo ya moja kwa moja ni pamoja na ujumbe unaoonyeshwa baada ya kitendo kufanyika (kama ujumbe wa kosa au uthibitisho), maudhui yanayosasishwa mara kwa mara (kama ticker, marquee, au kielekezi cha kuhesabu chini), au ujumbe wa hali kwa ujumla (kama masasisho kuhusu mchakato).
+
+Kwa sababu makini ya kusoma kwa kisomaji cha skrini unaweza kuwa mahali pamoja kwa wakati mmoja tu, watumiaji wa kisomaji cha skrini hawataona mabadiliko ya maudhui ikiwa makini yao yako sehemu nyingine ya ukurasa. Maeneo ya moja kwa moja huruhusu watumiaji wa kisomaji cha skrini kujulishwa moja kwa moja kuhusu mabadiliko yanayotokea kwenye ukurasa kwa wakati halisi. Bila eneo la moja kwa moja, watumiaji wa kisomaji cha skrini wanaweza kukosa masasisho muhimu ya maudhui yanayopatikana kwa watumiaji wanaoona, kwa sababu mtumiaji mwenye kuona ana uwezo wa kuchambua ukurasa mzima.
+
+Kuna thamani tatu zinazowezekana kwa sifa hii, kulingana na kipaumbele cha taarifa.
+
+Ikiwa utaweka `aria-live` kwa thamani ya `assertive` hiyo ina maana kwamba sasisho ni muhimu sana. Ina kipaumbele cha juu kabisa, hivyo mtumiaji anapaswa kujulishwa mara moja.
+
+Hii ina maana kwamba kisomaji cha skrini kitakatisha matangazo yoyote kinayoyafanya kwa sasa ili kutangaza mabadiliko ya maudhui katika eneo la moja kwa moja. Kukatishwa kwa namna hii kunaweza kuwa na usumbufu mkubwa, kwa hivyo thamani ya `assertive` inapaswa kutumika tu kwa taarifa za haraka au muhimu sana.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="session-warning" aria-live="assertive">
+  <p>Your session will expire in 30 seconds.</p>
+</div>
+
+<script src="index.js"></script>
+
+```
+
+```css
+.session-warning {
+  background-color: #ffcc00;
+  color: #000;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  padding: 1em 1.5em;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.session-warning.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.session-warning.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+```
+
+```js
+document.addEventListener("DOMContentLoaded", () => {
+  const warning = document.querySelector(".session-warning");
+
+  setTimeout(() => {
+    warning.classList.add("visible");
+  }, 100);
+
+  setTimeout(() => {
+    warning.classList.add("fade-out");
+  }, 8000);
+
+  warning.addEventListener("transitionend", () => {
+    if (warning.classList.contains("fade-out")) {
+      warning.remove();
+    }
+  });
+});
+
+```
+
+:::
+
+Thamani inayofuata kwa kipaumbele ni `polite`.
+
+Thamani hii ina maana kwamba sasisho si la dharura, hivyo kisomaji cha skrini kinaweza kusubiri hadi matangazo yoyote ya sasa yatakapokamilika au mtumiaji atakapomaliza kuandika kabla ya kutangaza sasisho hilo. Maeneo mengi ya moja kwa moja yatatumia thamani ya `polite`.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<div class="upload-success" aria-live="polite">
+  <p>File successfully uploaded</p>
+</div>
+
+<script src="index.js"></script>
+
+```
+
+```css
+.upload-success {
+  background-color: #4caf50;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  padding: 1em 1.5em;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.upload-success.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.upload-success.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+```
+
+```js
+document.addEventListener("DOMContentLoaded", () => {
+  const success = document.querySelector(".upload-success");
+
+  setTimeout(() => {
+    success.classList.add("visible");
+  }, 100);
+
+  setTimeout(() => {
+    success.classList.add("fade-out");
+  }, 8000);
+
+  success.addEventListener("transitionend", () => {
+    if (success.classList.contains("fade-out")) {
+      success.remove();
+    }
+  });
+});
+
+```
+
+:::
+
+Thamani ya kipaumbele cha chini kabisa kwa `aria-live` ni `off` ambayo ina maana kwamba sasisho halitatangazwa isipokuwa maudhui yako katika kipengele ambacho kwa sasa kina makini ya kibodi. Kwa kweli, thamani hii karibu haitumiki kwa sababu matumizi yake ni nadra sana na haitekelezwi kwa usawa (ikiwa hata inatekelezwa) katika visomaji vya skrini. Ikiwa unahitaji maeneo ya moja kwa moja, panga kutumia `polite` kwa kila kitu isipokuwa ujumbe muhimu unaohitaji `assertive`.
+
+Pia ni muhimu kutambua kwamba sifa ya `aria-live` haidiwi ikiwa taarifa iliyosasishwa iko katika kipengele chenye jukumu la ARIA la `alert`, `log`, `marquee`, `status`, au `timer`, kwani majukumu haya tayari yana thamani za `aria-live` za msingi. Lakini thamani ya msingi inaweza kubadilishwa kwa kuweka wazi `aria-live` kwenye kipengele.
+
+Kuchagua thamani sahihi ya `aria-live` kunategemea kipaumbele cha taarifa iliyosasishwa.
+
+Ikiwa masasisho ni ya dharura, unapaswa kumjulisha mtumiaji mara moja kwa `assertive`. Lakini unapaswa kutumia hii tu ikiwa masasisho ni ya dharura kweli kwa sababu kukatishwa ghafla kunaweza kumchanganya mtumiaji na kuathiri uzoefu wa mtumiaji.
+
+Ikiwa sasisho linaweza kusubiri hadi zoezi la sasa likamilike, unapaswa kutumia `polite` badala yake.
+
+Sifa ya `aria-live` inaruhusu teknolojia za kusaidia kujua wakati maudhui yanabadilika moja kwa moja kwenye ukurasa wa mtandao. Hii husaidia watumiaji wenye ulemavu kubaki na taarifa kuhusu matangazo na masasisho muhimu.
+
+Kwa kutumia `aria-live` ipasavyo, unaweza kuhakikisha kwamba watumiaji wanajua masasisho haya kulingana na kipaumbele chao.
+
+# --questions--
+
+## --text--
+
+Jukumu kuu la sifa ya `aria-live` ni lipi?
+
+## --answers--
+
+Kufafanua muonekano wa kipengele.
+
+### --feedback--
+
+Fikiria jinsi `aria-live` inavyosaidia teknolojia za kusaidia kuelewa maudhui.
+
+---
+
+Kuboresha utendaji wa tovuti.
+
+### --feedback--
+
+Fikiria jinsi `aria-live` inavyosaidia teknolojia za kusaidia kuelewa maudhui.
+
+---
+
+Kueleza kwamba maudhui ya kipengele yanabadilika moja kwa moja.
+
+---
+
+Kuboresha muunganisho wa kivinjari.
+
+### --feedback--
+
+Fikiria jinsi `aria-live` inavyosaidia teknolojia za kusaidia kuelewa maudhui.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni thamani zipi kati ya zifuatazo zinaweza kutumika kwa sifa ya `aria-live`?
+
+## --answers--
+
+`true`, `false`, `off`.
+
+### --feedback--
+
+Fikiria viwango tofauti vya dharura vya kutangaza mabadiliko ya maudhui yanayobadilika.
+
+---
+
+`visible`, `hidden`, `off`.
+
+### --feedback--
+
+Fikiria viwango tofauti vya dharura vya kutangaza mabadiliko ya maudhui yanayobadilika.
+
+---
+
+`assertive`, `polite`, `off`.
+
+---
+
+`open`, `closed`, `off`.
+
+### --feedback--
+
+Fikiria viwango tofauti vya dharura vya kutangaza mabadiliko ya maudhui yanayobadilika.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Tofauti gani kati ya thamani za `polite` na `assertive` kwa sifa ya `aria-live`?
+
+## --answers--
+
+`polite` hutangaza masasisho mara moja, wakati `assertive` hutangaza masasisho wakati makini yako kwenye kipengele kingine.
+
+### --feedback--
+
+Fikiria kiwango cha dharura cha kutangaza maudhui yanayobadilika.
+
+---
+
+`polite` hutangaza masasisho baada ya zoezi la sasa kumalizika, wakati `assertive` hutangaza masasisho mara moja.
+
+---
+
+Hakuna tofauti kati ya `polite` na `assertive`.
+
+### --feedback--
+
+Fikiria kiwango cha dharura cha kutangaza maudhui yanayobadilika.
+
+---
+
+`polite` hutumika kwa masasisho muhimu, wakati `assertive` hutumika kwa masasisho yasiyo ya dharura sana.
+
+### --feedback--
+
+Fikiria kiwango cha dharura cha kutangaza maudhui yanayobadilika.
+
+## --video-solution--
+
+2

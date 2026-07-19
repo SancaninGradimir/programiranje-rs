@@ -1,0 +1,126 @@
+---
+id: 59f40b17e79dbf1ab720ed7a
+title: Nambari za idara
+challengeType: 1
+forumTopicId: 302249
+dashedName: department-numbers
+---
+
+# --description--
+
+Kuna jiji lililoandaliwa kwa mpangilio mzuri ambalo limeamua kuweka nambari kwa kila idara zao:
+
+<ul>
+  <li>Idara ya polisi</li>
+  <li>Idara ya usafi</li>
+  <li>Idara ya zima moto</li>
+</ul>
+
+Kila idara inaweza kuwa na nambari kati ya 1 na 7 (ikiwa ni pamoja).
+
+Nambari tatu za idara zinapaswa kuwa za kipekee (tofauti na kila moja) na lazima ziongeze hadi nambari 12.
+
+Kiongozi wa polisi hapendi nambari zisizo za hata na anataka idara yake iwe na nambari ya hata.
+
+# --instructions--
+
+Andika programu inayotoa mchanganyiko wote halali kama safu ya data.
+
+```js
+[2, 3, 7] [2, 4, 6] [2, 6, 4]
+[2, 7, 3] [4, 1, 7] [4, 2, 6]
+[4, 3, 5] [4, 5, 3] [4, 6, 2]
+[4, 7, 1] [6, 1, 5] [6, 2, 4]
+[6, 4, 2] [6, 5, 1]
+```
+
+# --before-each--
+
+```js
+const nums = [1, 2, 3, 4, 5, 6, 7];
+const total = 12;
+const len = 14;
+const result = [
+  [2, 3, 7],
+  [2, 4, 6],
+  [2, 6, 4],
+  [2, 7, 3],
+  [4, 1, 7],
+  [4, 2, 6],
+  [4, 3, 5],
+  [4, 5, 3],
+  [4, 6, 2],
+  [4, 7, 1],
+  [6, 1, 5],
+  [6, 2, 4],
+  [6, 4, 2],
+  [6, 5, 1]
+];
+```
+
+# --hints--
+
+`combinations` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof combinations === 'function');
+```
+
+`combinations([1, 2, 3], 6)` inapaswa kurudisha Safu ya data.
+
+```js
+assert(Array.isArray(combinations([1, 2, 3], 6)));
+```
+
+`combinations([1, 2, 3, 4, 5, 6, 7], 12)` inapaswa kurudisha safu ya data yenye urefu wa 14.
+
+```js
+assert(combinations(nums, total).length === len);
+```
+
+`combinations([1, 2, 3, 4, 5, 6, 7], 12)` inapaswa kurudisha mchanganyiko wote halali.
+
+```js
+assert.deepEqual(combinations(nums, total), result);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function combinations(possibleNumbers, total) {
+
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+function combinations(possibleNumbers, total) {
+  let firstNumber;
+  let secondNumber;
+  let thirdNumber;
+  const allCombinations = [];
+
+  for (let i = 0; i < possibleNumbers.length; i += 1) {
+    firstNumber = possibleNumbers[i];
+
+    if (firstNumber % 2 === 0) {
+      for (let j = 0; j < possibleNumbers.length; j += 1) {
+        secondNumber = possibleNumbers[j];
+
+        if (j !== i && firstNumber + secondNumber <= total) {
+          thirdNumber = total - firstNumber - secondNumber;
+
+          if (thirdNumber !== firstNumber && thirdNumber !== secondNumber && possibleNumbers.includes(thirdNumber)) {
+            allCombinations.push([firstNumber, secondNumber, thirdNumber]);
+          }
+        }
+      }
+    }
+  }
+  return allCombinations;
+}
+```

@@ -1,0 +1,114 @@
+---
+id: 68cae5b538ff798bbd4da005
+title: "Zoezi la 67: Kagua barua pepe"
+challengeType: 28
+dashedName: challenge-67
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi, amua kama ni anwani halali ya barua pepe kwa kutumia vizingiti vifuatavyo:
+
+- Lazima iwe na alama moja tu ya `@`.
+- Sehemu ya ndani (kabla ya `@`):
+  - Inaweza kuwa na herufi tu (`a-z`, `A-Z`), nambari (`0-9`), nukta (`.`), alama za mstari chini (`_`), au alama za mkato (`-`).
+  - Haiwezi kuanza au kumalizika na nukta.
+- Sehemu ya kikoa (baada ya `@`):
+  - Lazima iwe na angalau nukta moja.
+  - Lazima imalizike na nukta ikifuatiwa na angalau herufi mbili.
+- Sehemu ya ndani wala sehemu ya kikoa haiwezi kuwa na nukta mbili mfululizo.
+
+# --hints--
+
+`validate("a@b.cd")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(validate("a@b.cd"));
+```
+
+`validate("hell.-w.rld@example.com")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(validate("hell.-w.rld@example.com"));
+```
+
+`validate(".b@sh.rc")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate(".b@sh.rc"));
+```
+
+`validate("example@test.c0")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("example@test.c0"));
+```
+
+`validate("freecodecamp.org")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("freecodecamp.org"));
+```
+
+`validate("develop.ment_user@c0D!NG.R.CKS")` inapaswa kurudisha `true`.
+
+```js
+assert.isTrue(validate("develop.ment_user@c0D!NG.R.CKS"));
+```
+
+`validate("hello.@wo.rld")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("hello.@wo.rld"));
+```
+
+`validate("hello@world..com")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("hello@world..com"));
+```
+
+`validate("develop..ment_user@c0D!NG.R.CKS")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("develop..ment_user@c0D!NG.R.CKS"));
+```
+
+`validate("git@commit@push.io")` inapaswa kurudisha `false`.
+
+```js
+assert.isFalse(validate("git@commit@push.io"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function validate(email) {
+
+  return email;
+}
+```
+
+# --solutions--
+
+```js
+function validate(email) {
+  if (email.includes('..')) return false;
+
+  const parts = email.split('@');
+  if (parts.length !== 2) return false;
+
+  const [local, domain] = parts;
+
+  if (local.startsWith('.') || local.endsWith('.')) return false;
+  if (!/^[a-zA-Z0-9._-]+$/.test(local)) return false;
+  if (!domain.includes('.')) return false;
+
+  const tld = domain.split('.').pop();
+  if (tld.length < 2 || !/^[a-zA-Z]+$/.test(tld)) return false;
+
+  return true;
+}
+```

@@ -1,0 +1,110 @@
+---
+id: 587d8256367417b2b2512c79
+title: Matriki ya ukabiliano
+challengeType: 1
+forumTopicId: 301644
+dashedName: incidence-matrix
+---
+
+# --description--
+
+Njia nyingine ya kuwakilisha grafu ni kuiweka katika <dfn>matriki ya ukabiliano.</dfn>
+
+<dfn>Matriki ya ukabiliano</dfn> ni safu ya data ya pande mbili (2D). Kwa ujumla, matriki ya ukabiliano huhusisha darasa la vitu mbili tofauti kati ya pande zake mbili. Aina hii ya matriki ni sawa na matriki ya ujirani. Hata hivyo, safu na nguzo zina maana tofauti hapa.
+
+Katika grafu, tuna makali na nodi. Hizi zitakuwa "darasa la vitu mbili tofauti" zetu. Matriki hii itakuwa na safu za nodi na nguzo za makali. Hii ina maana kwamba tunaweza kuwa na idadi isiyo sawa ya safu na nguzo.
+
+Kila nguzo itawakilisha ukali wa kipekee. Pia, kila ukali unaunganisha nodi mbili. Kuonyesha kwamba kuna ukali kati ya nodi mbili, utaweka 1 katika safu mbili za nguzo fulani. Hapa chini ni grafu yenye nodi 3 na ukali mmoja kati ya nodi 1 na nodi 3.
+
+<blockquote>    1<br>   ---<br>1 | 1<br>2 | 0<br>3 | 1</blockquote>
+
+Hapa ni mfano wa matriki ya ukabiliano yenye makali 4 na nodi 4. Kumbuka, nguzo ni makali na safu ni nodi wenyewe.
+
+<blockquote>    1 2 3 4<br>   --------<br>1 | 0 1 1 1<br>2 | 1 1 0 0<br>3 | 1 0 0 1<br>4 | 0 0 1 0</blockquote>
+
+Hapa chini ni utekelezaji wa JavaScript wa kitu hicho hicho.
+
+```js
+var incMat = [
+  [0, 1, 1, 1],
+  [1, 1, 0, 0],
+  [1, 0, 0, 1],
+  [0, 0, 1, 0]
+];
+```
+
+Ili kutengeneza grafu yenye mwelekeo, tumia `-1` kwa ukali unaotoka nodi fulani na `1` kwa ukali unaoingia nodi.
+
+```js
+var incMatDirected = [
+  [ 0, -1,  1, -1],
+  [-1,  1,  0,  0],
+  [ 1,  0,  0,  1],
+  [ 0,  0, -1,  0]
+];
+```
+
+Grafu pia zinaweza kuwa na <dfn>uzito</dfn> kwenye makali yao. Hadi sasa, tumekuwa na makali <dfn>yasiyo na uzito</dfn> ambapo uwepo au kutokuwepo kwa ukali ni binary (`0` au `1`). Unaweza kuwa na uzito tofauti kulingana na programu yako. Uzito tofauti huwakilishwa kama nambari kubwa kuliko 1.
+
+# --instructions--
+
+Tengeneza matriki ya ukabiliano ya grafu isiyo na mwelekeo yenye nodi tano na makali manne. Matriki hii inapaswa kuwa katika safu ya data ya pande nyingi.
+
+Nodi hizi tano zina uhusiano ufuatao. Ukali wa kwanza uko kati ya nodi ya kwanza na ya pili. Ukali wa pili uko kati ya nodi ya pili na ya tatu. Ukali wa tatu uko kati ya nodi ya tatu na ya tano. Ukali wa nne uko kati ya nodi ya nne na ya pili. Uzito wa makali yote ni moja na mpangilio wa makali ni muhimu.
+
+# --hints--
+
+`incMatUndirected` inapaswa kuwa na nodi tano tu.
+
+```js
+assert(
+  incMatUndirected.length === 5 &&
+    incMatUndirected
+      .map(function (x) {
+        return x.length === 4;
+      })
+      .reduce(function (a, b) {
+        return a && b;
+      })
+);
+```
+
+Kuna ukali wa kwanza kati ya nodi ya kwanza na ya pili.
+
+```js
+assert(incMatUndirected[0][0] === 1 && incMatUndirected[1][0] === 1);
+```
+
+Kuna ukali wa pili kati ya nodi ya pili na ya tatu.
+
+```js
+assert(incMatUndirected[1][1] === 1 && incMatUndirected[2][1] === 1);
+```
+
+Kuna ukali wa tatu kati ya nodi ya tatu na ya tano.
+
+```js
+assert(incMatUndirected[2][2] === 1 && incMatUndirected[4][2] === 1);
+```
+
+Kuna ukali wa nne kati ya nodi ya pili na ya nne.
+
+```js
+assert(incMatUndirected[1][3] === 1 && incMatUndirected[3][3] === 1);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var incMatUndirected = [
+
+];
+```
+
+# --solutions--
+
+```js
+var incMatUndirected = [[1, 0, 0, 0],[1, 1, 0, 1],[0, 1, 1, 0],[0, 0, 0, 1],[0, 0, 1, 0]];
+```

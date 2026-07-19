@@ -1,0 +1,85 @@
+---
+id: 68e529226b0defdff26c4a8a
+title: Hatua 6
+challengeType: 20
+dashedName: step-6
+---
+
+# --description--
+
+Sasa, tengeneza mfano wa `Product` wenye jina `Wireless Mouse` na bei ya `50.0`. Weka thamani yake katika kigezo kinachoitwa `product`. Kisha, chapisha `product` kwenye konsoli ili kuona muonekano wake.
+
+# --hints--
+
+Unapaswa kuwa na kigezo kinachoitwa `product`.
+
+```js
+({
+  test: () => runPython(`assert _Node(_code).has_variable("product")`)
+})
+```
+
+Unapaswa kuweka thamani mfano wa `Product` katika kigezo cha `product`.
+
+```js
+({
+  test: () => runPython(`assert isinstance(product, Product)`)
+})
+```
+
+Mfano wako wa `Product` unapaswa kuwa na jina `Wireless Mouse` na bei `50.0`.
+
+```js
+({
+  test: () => runPython(`
+    assert product.name == 'Wireless Mouse'
+    assert product.price == 50.0
+  `)
+})
+```
+
+Unapaswa kuchapisha `product` kwenye konsoli.
+
+```js
+({
+  test: () => runPython(`assert _Node(_code).has_call("print(product)")`)
+})
+```
+
+Unapochapisha `Product` yenye jina `'Wireless Mouse'` na bei `50.0`, inapaswa kuonyesha `Wireless Mouse - $50.0`.
+
+```js
+({
+  test: () => runPython(`
+    import io
+    import sys
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
+
+    test_product = Product('Wireless Mouse', 50.0)
+    print(test_product)
+
+    sys.stdout = sys.__stdout__
+    output = captured_output.getvalue()
+
+    assert "Wireless Mouse - $50.0" in output
+  `)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Product:
+    def __init__(self, name: str, price: float) -> None:
+        self.name = name
+        self.price = price
+
+    def __str__(self) -> str:
+        return f'{self.name} - ${self.price}'
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

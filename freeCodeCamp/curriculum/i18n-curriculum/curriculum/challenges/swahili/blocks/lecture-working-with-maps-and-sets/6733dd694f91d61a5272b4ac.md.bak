@@ -1,0 +1,234 @@
+---
+id: 6733dd694f91d61a5272b4ac
+title: "Je, Kipi ni Kielezo cha Map, na Kina Tofauti Gani na WeakMaps?"
+challengeType: 19
+dashedName: what-is-the-map-object-and-how-does-it-differ-from-weakmaps
+---
+
+# --description--
+
+Katika JavaScript, `Map` ni kielezo kilichojengwa ndani kinachohifadhi jozi za ufunguo-thamani, kama vile kielezo cha kawaida. Hata hivyo, kinatofautiana na vitu vya kawaida vya JavaScript kwa kuruhusu funguo za aina yoyote, ikiwa ni pamoja na vitu na vitendakazi.
+
+`WeakMap` ni mkusanyiko wa jozi za ufunguo-thamani, kama `Map`, lakini hutumia rejea dhaifu kwa funguo zake. Funguo lazima ziwe vitu, wakati thamani zinaweza kuwa za aina yoyote.
+
+Fikiria uhusiano kati ya `WeakMap` na `Map` kama ule kati ya `WeakSet` na `Set`, kama ulivyojifunza katika funzo lililopita.
+
+Ili kuunda `Map`, tumia kijenzi cha `Map()` kilichoandaliwa na neno kuu la `new`:
+
+```js
+const myFirstMap = new Map();
+```
+
+Unaweza kuanzisha Map na thamani:
+
+```js
+const myTreesMap = new Map([
+ [{ type: 'deciduous' }, 'Maple tree'],
+ [['forest', 'grove'], 'Pine tree'],
+ [42, 'Oak tree'],
+ [true, 'Birch tree'],
+ [function() { return 'I am a function key'; }, 'Willow tree'],
+]);
+```
+
+Kama hukuanza `Map` na thamani, unaweza kutumia njia ya `set()` kuongeza thamani:
+
+```js
+const myTreesMap = new Map();
+myTreesMap.set({ type: 'deciduous' }, 'Maple tree');
+myTreesMap.set([1, 2], 'Pine tree');
+myTreesMap.set(42, 'Oak tree');
+myTreesMap.set(true, 'Birch tree');
+myTreesMap.set(function() { return "I'm a function key"; }, 'Willow tree');
+
+console.log(myTreesMap);
+```
+
+Hivi ndivyo `Map` inavyoonekana kwenye konsoli:
+
+```js
+/*
+Map(5) {{…} => 'Maple tree', Array(2) => 'Pine tree', 42 => 'Oak tree', true => 'Birch tree', ƒ => 'Willow tree'}
+  [[Entries]]
+    0:{Object => "Maple tree"}
+      key: {type: 'deciduous'}
+      value: "Maple tree"
+    1:{Array(2) => "Pine tree"}
+      key: (2)
+      value: "Pine tree"
+    2:{42 => "Oak tree"}
+      key: 42
+      value: "Oak tree"
+    3:{true => "Birch tree"}
+      key: true
+      value: "Birch tree"
+    4:{function () { return "I'm a function key"; } => "Willow tree"}
+      key: f ()
+      value: "Willow tree"
+    size: 5
+    [[Prototype]]: Map
+*/
+```
+
+Njia nyingine unazoweza kutumia kufanya kazi na `Map` ni:
+
+- `get(key)` kupata thamani inayohusiana na `key` iliyotajwa.
+- `has(key)` kuangalia kama `key` ipo katika `Map`.
+- `delete(key)` kuondoa jozi ya ufunguo-thamani kutoka `Map`.
+- `clear()` kuondoa jozi zote za ufunguo-thamani.
+- `entries()` kuangalia maingizo ya `Map` (inarejesha maingizo katika `MapIterator`).
+- `forEach()` kurudia maingizo ya `Map`.
+- `size` kuonyesha idadi ya jozi za ufunguo-thamani katika `Map`.
+    
+
+Kuna kijenzi cha `WeakMap()` unachoweza kutumia kuunda `WeakMap`:
+
+```js
+const myFirstWeakMap = new WeakMap();
+```
+
+Njia za `set()`, `get()`, `has()`, na `delete()` zote zinapatikana kwa matumizi na `WeakMap` pia. Kwa mfano, hivi ndivyo unavyoweza kuweka vitu kwenye `Map` kwa kutumia njia ya `set()`:
+
+```js
+const myTreeWeakMap = new WeakMap();
+
+myTreeWeakMap.set({ id: 1 }, 'Maple tree');
+myTreeWeakMap.set({ id: 2 }, 'Pine tree');
+myTreeWeakMap.set({ id: 3 }, 'Oak tree');
+myTreeWeakMap.set({ id: 4 }, 'Birch tree');
+myTreeWeakMap.set({ id: 5 }, 'Willow tree');
+
+console.log(myTreeWeakMap);
+```
+
+Hivi ndivyo `WeakMap` inavyoonekana kwenye konsoli:
+
+```js
+/*
+WeakMap {{…} => 'Willow tree', {…} => 'Maple tree', {…} => 'Pine tree', {…} => 'Oak tree'}
+  [[Entries]]
+    No properties
+  [[Prototype]]: WeakMap
+*/
+```
+
+Hapa ni tofauti kati ya `Map` na `WeakMap`:
+
+| **Kipengele** | **Map** | **WeakMap** |
+| --- | --- | --- |
+| **Aina ya funguo** | Funguo zinaweza kuwa za aina yoyote ya data, ikiwa ni pamoja na mfuatano wa herufi, nambari, vitu, au hata vitendakazi. | Funguo lazima ziwe vitu. |
+| **Matumizi** | Tumia `Map` unapohitaji kuhusisha data na aina yoyote ya funguo. | Tumia `WeakMap` unapohitaji kuhusisha data na vitu tu. |
+| **Kurudia** | Unaweza kurudia `Map` kwa kutumia `forEach()`, `keys()`, `values()`, au `entries()`. | `WeakMap` haiwezi kurudiwa. |
+| **Sifa ya ukubwa** | `Map` ina sifa ya `size` kupata idadi ya jozi za ufunguo-thamani. | `WeakMap` haina sifa ya `size`. |
+
+Katika jedwali hapo juu, unaweza kuona muhtasari wa tofauti ikiwa ni pamoja na aina ya funguo, matumizi, kurudia na sifa ya ukubwa. Tafadhali chukua muda kusoma maudhui ya jedwali hili ili kujifunza zaidi kuhusu tofauti zao.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya hizi inayotofautisha `Map` na `WeakMap` katika JavaScript?
+
+## --answers--
+
+`Map` huruhusu vitu tu kama funguo, wakati `WeakMap` huruhusu funguo za aina yoyote.
+
+### --feedback--
+
+Fikiria aina za funguo zinazoruhusiwa na jinsi rejea zinavyoshughulikiwa.
+
+---
+
+`Map` ina rejea dhaifu kwa funguo, wakati `WeakMap` haina.
+
+### --feedback--
+
+Fikiria aina za funguo zinazoruhusiwa na jinsi rejea zinavyoshughulikiwa.
+
+---
+
+`Map` huruhusu funguo za aina yoyote, wakati `WeakMap` huruhusu vitu tu kama funguo.
+
+---
+
+`Map` na `WeakMap` hufanya kazi sawa kabisa.
+
+### --feedback--
+
+Fikiria aina za funguo zinazoruhusiwa na jinsi rejea zinavyoshughulikiwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni sifa gani inakuwezesha kujua idadi ya vitu katika `Map`?
+
+## --answers--
+
+`length`
+
+### --feedback--
+
+Fikiria sifa inayopima idadi ya maingizo katika `Map`.
+
+---
+
+`count`
+
+### --feedback--
+
+Fikiria sifa inayopima idadi ya maingizo katika `Map`.
+
+---
+
+`total`
+
+### --feedback--
+
+Fikiria sifa inayopima idadi ya maingizo katika `Map`.
+
+---
+
+`size`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni njia gani inakuwezesha kuongeza kipengee kwenye `Map` na `WeakMap`?
+
+## --answers--
+
+`add()`
+
+### --feedback--
+
+Fikiria njia inayotumika hasa kuongeza jozi za ufunguo-thamani kwenye `Map`.
+
+---
+
+`push()`
+
+### --feedback--
+
+Fikiria njia inayotumika hasa kuongeza jozi za ufunguo-thamani kwenye `Map`.
+
+---
+
+`set()`
+
+---
+
+`insert()`
+
+### --feedback--
+
+Fikiria njia inayotumika hasa kuongeza jozi za ufunguo-thamani kwenye `Map`.
+
+## --video-solution--
+
+3

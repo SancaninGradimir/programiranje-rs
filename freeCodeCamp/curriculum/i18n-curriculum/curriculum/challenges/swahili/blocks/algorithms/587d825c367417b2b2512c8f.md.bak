@@ -1,0 +1,155 @@
+---
+id: 587d825c367417b2b2512c8f
+title: Tekeleza mpangilio wa Unganisha
+challengeType: 1
+forumTopicId: 301614
+dashedName: implement-merge-sort
+---
+
+# --description--
+
+Algoriti nyingine ya kawaida ya mpangilio wa wastani ni mpangilio wa unganisha. Kama quick sort, mpangilio wa unganisha pia hutumia mbinu ya kugawanya-na-kushinda, ya kurudia (recursive) kupanga safu ya data. Inatumia fursa ya ukweli kwamba ni rahisi kupanga safu mbili za data mradi kila moja imeshapangwa awali. Lakini tutaanza na safu moja tu kama ingizo, basi tunapataje safu mbili zilizopangwa kutoka hapo? Naam, tunaweza kugawanya ingizo la awali mara kwa mara hadi tufikie kesi ya msingi ya safu ndogo yenye kipengee kimoja tu. Safu yenye kipengee kimoja kwa asili imepangwa, hivyo basi tunaweza kuanza kuunganisha. Muunganiko huu utaondoa wito wa kurudia ulioigawa safu ya awali, hatimaye ukazalisha safu ya mwisho iliyopangwa yenye vipengee vyote. Hatua za mpangilio wa unganisha, basi, ni:
+
+**1)** Gawanya safu ya data ya ingizo mara kwa mara nusu hadi safu ndogo yenye kipengee kimoja tu itoke.
+
+**2)** Unganisha kila safu ndogo iliyopangwa pamoja ili kuzalisha safu ya mwisho iliyopangwa.
+
+Mpangilio wa unganisha ni njia bora ya kupanga, yenye ugumu wa wakati wa *O(nlog(n))*. Algoriti hii ni maarufu kwa sababu ni yenye ufanisi na rahisi kutekeleza.
+
+Kwa upande mwingine, hii itakuwa algoriti ya mwisho ya kupanga tutakayojifunza hapa. Hata hivyo, baadaye katika sehemu ya miundo ya data ya miti tutaelezea mpangilio wa rundo, njia nyingine bora ya kupanga inayohitaji rundo la binary katika utekelezaji wake.
+
+**Maelekezo:** Andika kitendakazi `mergeSort` kinachopokea safu ya nambari kamili kama ingizo na kurudisha safu ya nambari hizi zikiwa zimepangwa kutoka ndogo hadi kubwa. Njia nzuri ya kutekeleza hili ni kuandika kitendakazi kimoja, kwa mfano `merge`, kinachohusika na kuunganisha safu mbili zilizopangwa, na kitendakazi kingine, kwa mfano `mergeSort`, kinachohusika na kurudia (recursion) inayozalisha safu ndogo zenye kipengee kimoja ili ziingizwe kwenye unganisho. Bahati njema!
+
+# --hints--
+
+`mergeSort` inapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(mergeSort);
+```
+
+`mergeSort` inapaswa kurudisha safu iliyopangwa (kutoka ndogo hadi kubwa).
+
+```js
+function isSorted(a){
+  for(let i = 0; i < a.length - 1; i++)
+    if(a[i] > a[i + 1])
+      return false;
+  return true;
+}
+assert.isTrue(
+  isSorted(
+    mergeSort([
+      1,
+      4,
+      2,
+      8,
+      345,
+      123,
+      43,
+      32,
+      5643,
+      63,
+      123,
+      43,
+      2,
+      55,
+      1,
+      234,
+      92
+    ])
+  )
+);
+```
+
+`mergeSort([1,4,2,8,345,123,43,32,5643,63,123,43,2,55,1,234,92])` inapaswa kurudisha safu isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  mergeSort([
+    1,
+    4,
+    2,
+    8,
+    345,
+    123,
+    43,
+    32,
+    5643,
+    63,
+    123,
+    43,
+    2,
+    55,
+    1,
+    234,
+    92
+  ]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`mergeSort` haipaswi kutumia njia iliyo ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    mergeSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function mergeSort(array) {
+  // Only change code below this line
+  return array;
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function mergeSort(array) {
+  if (array.length === 1) {
+    return array;
+  } else {
+    const splitIndex = Math.floor(array.length / 2);
+    return merge(
+      mergeSort(array.slice(0, splitIndex)),
+      mergeSort(array.slice(splitIndex))
+    );
+  }
+
+  // Merge two sorted arrays
+  function merge(array1, array2) {
+    let merged = [];
+    while (array1.length && array2.length) {
+      if (array1[0] < array2[0]) {
+        merged.push(array1.shift());
+      } else if (array1[0] > array2[0]) {
+        merged.push(array2.shift());
+      } else {
+        merged.push(array1.shift(), array2.shift());
+      }
+    }
+
+    // After looping ends, one array is empty, and other array contains only
+    // values greater than all values in `merged`
+    return [...merged, ...array1, ...array2];
+  }
+}
+
+mergeSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]);
+```

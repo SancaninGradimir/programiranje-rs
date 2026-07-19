@@ -1,0 +1,99 @@
+---
+id: 69a890af247de743333bd4cd
+title: "Zoezi la 224: Kigeuzi cha Kuangalia Kawa ya Kuoka"
+challengeType: 28
+dashedName: challenge-224
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi unaowakilisha maharagwe yanayotumika kutengeneza kikombe cha kahawa, amua kiwango cha kuoka kwa kikombe hicho.
+
+- Mfuatano wa herufi uliotolewa utakuwa na herufi zifuatazo, kila moja ikiwakilisha aina ya haragwe:
+
+  - Alama ya apostrofi (`'`) ni haragwe la kuoka kwa kiwango cha mwanga lenye thamani ya pointi 1 kila moja.
+  - Alama ya dash (`-`) ni haragwe la kuoka wastani lenye thamani ya pointi 2 kila moja.
+  - Alama ya nukta (`.`) ni haragwe la kuoka giza lenye thamani ya pointi 3 kila moja.
+
+- Kiwango cha kuoka kinaamuliwa kwa wastani wa maharagwe yote.
+
+Rudisha:
+
+- `"Light"` ikiwa wastani ni chini ya 1.75.
+- `"Medium"` ikiwa wastani ni kati ya 1.75 na 2.5.
+- `"Dark"` ikiwa wastani ni zaidi ya 2.5.
+
+# --hints--
+
+`detectRoast("''-''''''-'-''--''''")` inapaswa kurudisha `"Light"`.
+
+```js
+assert.equal(detectRoast("''-''''''-'-''--''''"), "Light");
+```
+
+`detectRoast(".'-''-''..'''.-.-''-")` inapaswa kurudisha `"Medium"`.
+
+```js
+assert.equal(detectRoast(".'-''-''..'''.-.-''-"), "Medium");
+```
+
+`detectRoast("--.''--'-''.--..-.--")` inapaswa kurudisha `"Medium"`.
+
+```js
+assert.equal(detectRoast("--.''--'-''.--..-.--"), "Medium");
+```
+
+`detectRoast("-...'-......-..-...-")` inapaswa kurudisha `"Dark"`.
+
+```js
+assert.equal(detectRoast("-...'-......-..-...-"), "Dark");
+```
+
+`detectRoast(".--.-..-......----.'")` inapaswa kurudisha `"Medium"`.
+
+```js
+assert.equal(detectRoast(".--.-..-......----.'"), "Medium");
+```
+
+`detectRoast("..-..-..-..-....-.-.")` inapaswa kurudisha `"Dark"`.
+
+```js
+assert.equal(detectRoast("..-..-..-..-....-.-."), "Dark");
+```
+
+`detectRoast("-'-''''''..-'.''-'.'")` inapaswa kurudisha `"Light"`.
+
+```js
+assert.equal(detectRoast("-'-''''''..-'.''-'.'"), "Light");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function detectRoast(beans) {
+
+  return beans;
+}
+```
+
+# --solutions--
+
+```js
+function detectRoast(beans) {
+  let total = 0;
+
+  for (const bean of beans) {
+    if (bean === "'") total += 1;
+    else if (bean === "-") total += 2;
+    else if (bean === ".") total += 3;
+  }
+
+  const avg = total / beans.length;
+
+  if (avg < 1.75) return "Light";
+  if (avg <= 2.5) return "Medium";
+  return "Dark";
+}
+```

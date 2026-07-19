@@ -1,0 +1,148 @@
+---
+id: 587d7b7d367417b2b2512b1d
+title: Rudia kupitia funguo za kitu kwa kauli ya for...in
+challengeType: 1
+forumTopicId: 301162
+dashedName: iterate-through-the-keys-of-an-object-with-a-for---in-statement
+---
+
+# --description--
+
+Wakati mwingine unahitaji kurudia kupitia funguo zote ndani ya kitu. Unaweza kutumia mzunguko wa <dfn>for...in</dfn> kufanya hivi. Mzunguko wa for...in unaonekana kama ifuatavyo:
+
+```javascript
+const refrigerator = {
+  'milk': 1,
+  'eggs': 12,
+};
+
+for (const food in refrigerator) {
+  console.log(food, refrigerator[food]);
+}
+```
+
+Msimbo huu unachapisha `milk 1` na `eggs 12`, kila jozi ya funguo-thamani ikiwa kwenye mstari wake.
+
+Tulibainisha kigezo `food` kwenye kichwa cha mzunguko na kigezo hiki kilipangwa kwa kila funguo ya kitu kila kurudia, na kusababisha jina la chakula kila moja kuchapishwa kwenye konsoli.
+
+**KUMBUKA:** Vitu havihifadhi mpangilio wa funguo zilizohifadhiwa kama safu za data; kwa hivyo nafasi ya funguo kwenye kitu, au mpangilio wa kuonekana kwake, hauna umuhimu wakati wa kurejelea au kupata funguo hiyo.
+
+# --instructions--
+
+Tumebainisha kitendakazi `countOnline` kinachopokea hoja moja, `allUsers`. Tumia kauli ya <dfn>for...in</dfn> ndani ya kitendakazi hiki kurudia kupitia kitu cha `allUsers` na rudisha idadi ya watumizi ambao sifa yao ya `online` imewekwa kuwa `true`. Mfano wa kitu ambacho kinaweza kupitishwa kwa `countOnline` umeonyeshwa hapa chini. Kila mtumizi atakuwa na sifa ya `online` iliyowekwa kuwa `true` au `false`.
+
+```js
+{
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+```
+
+# --hints--
+
+Kitendakazi cha `countOnline` kinapaswa kutumia kauli ya `for in` kurudia kupitia funguo za kitu kilichopitishwa.
+
+```js
+assert.match(
+  __helpers.removeJSComments(code),
+    /for\s*\(\s*(var|let|const)\s+[a-zA-Z_$]\w*\s+in\s+[a-zA-Z_$]\w*\s*\)/
+);
+```
+
+Kitendakazi cha `countOnline` kinapaswa kurudisha `1` wakati kitu cha `{ Alan: { online: false }, Jeff: { online: true }, Sarah: { online: false } }` kinapopitishwa
+
+```js
+const usersObj1 = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+assert.equal(countOnline(usersObj1), 1);
+```
+
+Kitendakazi cha `countOnline` kinapaswa kurudisha `2` wakati kitu cha `{ Alan: { online: true }, Jeff: { online: false }, Sarah: { online: true } }` kinapopitishwa
+
+```js
+const usersObj2 = {
+  Alan: {
+    online: true
+  },
+  Jeff: {
+    online: false
+  },
+  Sarah: {
+    online: true
+  }
+}
+assert.equal(countOnline(usersObj2), 2);
+```
+
+Kitendakazi cha `countOnline` kinapaswa kurudisha `0` wakati kitu cha `{ Alan: { online: false }, Jeff: { online: false }, Sarah: { online: false } }` kinapopitishwa
+
+```js
+const usersObj3 = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: false
+  },
+  Sarah: {
+    online: false
+  }
+}
+assert.equal(countOnline(usersObj3), 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const users = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+
+function countOnline(allUsers) {
+  // Only change code below this line
+
+  // Only change code above this line
+}
+
+console.log(countOnline(users));
+```
+
+# --solutions--
+
+```js
+function countOnline(allUsers) {
+  let numOnline = 0;
+  for(const user in allUsers){
+    if(allUsers[user].online) {
+      numOnline++;
+    }
+  }
+  return numOnline;
+}
+```

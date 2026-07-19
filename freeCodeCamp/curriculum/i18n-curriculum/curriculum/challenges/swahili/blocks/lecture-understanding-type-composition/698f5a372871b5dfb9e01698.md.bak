@@ -1,0 +1,200 @@
+---
+id: 698f5a372871b5dfb9e01698
+title: Aina za Muungano ni Nini na Zinavyofanya Kazi?
+challengeType: 19
+dashedName: what-are-union-types-and-how-do-they-work
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, ulijifunza jinsi ya kufanya kazi na aina za msingi kama `string`, na `boolean`. Lakini TypeScript inakuwezesha kujenga aina mpya kutoka kwa zile zilizopo. Mfano mmoja wa hili ni aina ya muungano.
+
+Aina ya muungano ni aina inayochanganya aina mbili au zaidi.
+
+Hapa kuna sintaksia ya msingi:
+
+```ts
+type1 | type2 | type3
+```
+
+Tuchunguze mifano kadhaa ili kuelewa dhana hii vizuri zaidi.
+
+Hii ni variable iitwayo `id` yenye aina ya muungano ya `string` au `number`:
+
+```ts
+let id: string | number = "user_783";
+```
+
+Thamani inaweza kusahihishwa kuwa nambari ambayo bado ni halali kwa aina ya muungano:
+
+```ts
+let id: string | number = 1024;
+```
+
+Ikiwa utajaribu kuweka thamani nyingine ambayo si `string` au `number`, basi TypeScript itaonyesha ujumbe wa kosa:
+
+```ts
+// Type 'string[]' is not assignable to type 'string | number'.
+let id: string | number = ["Java", "Python"];
+```
+
+Unapofanya kazi na aina za muungano, ni muhimu kutumia njia zinazofanya kazi kwa aina zote, vinginevyo TypeScript itatupa kosa kama hili:
+
+```ts
+function getId(id: string | number) {
+  // Property 'toUpperCase' does not exist on type 'string | number'.
+  return id.toUpperCase();
+}
+```
+
+Kuna suluhisho la hili ambalo linahusisha kupunguza aina ya muungano. Lakini utajifunza zaidi kuhusu hilo pamoja na jinsi aina za muungano zinavyofanya kazi na majina ya aina katika mafundisho yajayo.
+
+Aina za muungano pia ni msaada wakati wa kufanya kazi na thamani za `null` na `undefined`.
+
+Hapa kuna mfano ambapo variable inaweza kuwa na thamani ya `string`, au inaweza kuwa `null` ikiwa thamani bado haijapewa:
+
+```ts
+let username: string | null;
+
+// Type 'number' is not assignable to type 'string | null'.
+username = 42;
+```
+
+Katika kesi hii, `username` inaweza kuwa `string` au `null`, lakini si kitu kingine chochote. Unaweza kutumia `null` unapotaka kuwakilisha kwa makusudi kutokuwepo kwa thamani.
+
+Hapa kuna mfano mwingine ukitumia `undefined`:
+
+```ts
+let score: number | undefined;
+
+score = undefined; 
+
+// Type 'string' is not assignable to type 'number | undefined'.
+score = "high";
+```
+
+Katika mfano huu, `score` inaweza kuwa `number` au `undefined`. Unaweza kutumia `undefined` wakati thamani bado haijapewa.
+
+Kutumia aina za muungano na `null` na `undefined` kunafanya wazi wakati thamani inaweza kukosekana, huku bado kuruhusu TypeScript kugundua mgawo wa thamani zisizo halali.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kuunda aina ya muungano?
+
+## --answers--
+
+```ts
+let id: string >> number;
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+```ts
+let id: string | number;
+```
+
+---
+
+```ts
+let id: string ? number;
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+```ts
+let id: string << number;
+```
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni mgawo gani utachukuliwa kuwa halali kwa ifuatayo?
+
+```ts
+let id: string | number
+```
+
+## --answers--
+
+`false`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`"28djj38372"`
+
+---
+
+`["a", "b"]`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+---
+
+`null`
+
+### --feedback--
+
+Rudia mwanzoni mwa funzo.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini kitakachotokea ikiwa utaita njia ambayo ipo tu kwenye mfuatano wa herufi kwa muungano wa `type string | number` bila kutumia kupunguza aina?
+
+## --answers--
+
+Hakutakuwa na kinachotokea.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Itabadilisha nambari kuwa mfuatano wa herufi.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+Njia hiyo itapuuzwa wakati wa utekelezaji.
+
+### --feedback--
+
+Rudia mwishoni mwa funzo.
+
+---
+
+TypeScript itatupa kosa.
+
+## --video-solution--
+
+4

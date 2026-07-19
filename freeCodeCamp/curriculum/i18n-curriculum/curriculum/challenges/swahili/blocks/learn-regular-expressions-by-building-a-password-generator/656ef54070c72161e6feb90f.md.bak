@@ -1,0 +1,55 @@
+---
+id: 656ef54070c72161e6feb90f
+title: Hatua 22
+challengeType: 20
+dashedName: step-22
+---
+
+# --description--
+
+Inaonekana kila kitu kiko sawa, lakini itakuwa vizuri kuwa na njia ya kuangalia kwamba nenosiri lililotengenezwa linafuata vipengele maalum. Kwa mfano, kiwango cha chini cha herufi maalum, nambari, au herufi kubwa/herufi ndogo. Utahakikisha hilo hivi karibuni.
+
+Kwa sasa, toa maoni kwenye mistari miwili ya mwisho ya msimbo wako.
+
+# --hints--
+
+Unapaswa kubadilisha mistari miwili ya mwisho ya msimbo wako kuwa maoni.
+
+```js
+({ test: () => {
+  assert.match(code, /#\s*new_password\s*=\s*generate_password\s*\(\s*8\s*\)/);
+  assert.match(code, /#\s*print\s*\(\s*new_password\s*\)/);
+} })
+```
+
+
+# --seed--
+
+## --seed-contents--
+
+```py
+import secrets
+import string
+
+
+def generate_password(length):
+    # Define the possible characters for the password
+    letters = string.ascii_letters
+    digits = string.digits
+    symbols = string.punctuation
+
+    # Combine all characters
+    all_characters = letters + digits + symbols
+
+    password = ''
+    # Generate password
+    for _ in range(length):
+        password += secrets.choice(all_characters)
+        
+    return password
+    
+--fcc-editable-region--
+new_password = generate_password(8)
+print(new_password)
+--fcc-editable-region--
+```

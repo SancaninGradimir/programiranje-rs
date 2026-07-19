@@ -1,0 +1,71 @@
+---
+id: 65c4f300da28d8da361bfa93
+title: Hatua 14
+challengeType: 20
+dashedName: step-14
+---
+
+# --description--
+
+Ndani ya kifungu chako cha `elif`, badilisha `pass` kwa wito wa njia ya `_insert` ukiwa na nodi ya mtoto wa kulia wa nodi ya sasa kama hoja ya kwanza na `key` kama hoja ya pili. Weka thamani ya matokeo kwenye sifa ya kipengele ya `right` ya nodi ya sasa.
+
+# --hints--
+
+Unapaswa kuondoa neno kuu la `pass` kutoka kwenye blokki ya `elif`.
+
+```js
+({
+  test: () => {
+    const pyClassStr = runPython(
+      `str(_Node(_code).find_class("BinarySearchTree"))`
+    );
+    assert.notInclude(pyClassStr, "pass");
+  },
+});
+
+```
+
+Unapaswa kuita njia ya `self._insert()` ukipitisha `node.right` na `key` kama hoja.
+
+```js
+({ test: () => assert.match(code, /self\._insert\(\s*node\.right\s*,\s*key\s*\)/) });
+```
+
+Unapaswa kuweka thamani ya matokeo ya wito wako wa `self._insert()` kwenye sifa ya kipengele sahihi (`node.right`) ya nodi ya sasa.
+
+```js
+({ test: () => assert.match(code, /node\.right\s*=\s*self\._insert\(\s*node\.right\s*,\s*key\s*\)/) });
+```
+
+
+# --seed--
+
+## --seed-contents--
+
+
+```py
+class TreeNode:
+
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+
+class BinarySearchTree:
+
+    def __init__(self):
+        self.root = None
+
+--fcc-editable-region--
+    def _insert(self, node, key):
+        if node is None:
+            return TreeNode(key)
+        if key < node.key:
+            node.left = self._insert(node.left, key)
+        elif key > node.key:
+            pass
+
+--fcc-editable-region--
+
+```

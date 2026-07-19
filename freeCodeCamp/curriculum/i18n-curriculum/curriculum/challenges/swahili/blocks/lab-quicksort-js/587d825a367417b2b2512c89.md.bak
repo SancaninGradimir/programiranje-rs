@@ -1,0 +1,103 @@
+---
+id: 587d825a367417b2b2512c89
+title: Tekeleza algoriti ya quicksort
+challengeType: 26
+dashedName: implement-the-quicksort-algorithm
+---
+
+# --description--
+
+Katika maabara hii uta-tekeleza algoriti ya kupanga: quicksort.
+
+Quicksort ni njia yenye ufanisi, ya kugawanya na kushinda kwa kurudia (recursive divide-and-conquer) ya kupanga safu ya data. Katika njia hii, thamani ya pivot huchaguliwa katika safu ya data ya awali. Safu hiyo hugawanywa kuwa safu ndogo mbili za thamani zilizo chini na zilizo juu ya thamani ya pivot. Kisha matokeo ya kuitisha algoriti ya quicksort kwa kurudia kwenye safu ndogo zote mbili huunganishwa. Hii inaendelea hadi kufikia kesi ya msingi ya safu tupu au yenye kipengele kimoja, ambayo hurudishwa. Kupungua kwa wito za kurudia hurejesha safu iliyopangwa.
+
+Ingawa uchaguzi wa thamani ya pivot ni muhimu, pivot yoyote itatosha kwa madhumuni yetu hapa. Kwa urahisi, kipengele cha kwanza au cha mwisho kinaweza kutumika.
+
+Quicksort ni njia ya kupanga yenye ufanisi sana, ikitoa utendaji wa *O(nlog(n))* kwa wastani. Pia ni rahisi kutekeleza. Sifa hizi zinaifanya kuwa njia maarufu na yenye manufaa ya kupanga.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `quicksort` kinachopokea safu ya nambari kamili kama ingizo.
+1. Kitendakazi cha `quicksort` kinapaswa kurudisha safu ya data yenye nambari kamili sawa na ingizo, lakini kwa mpangilio kutoka chini hadi juu.
+1. Kitendakazi cha `quicksort` kinapaswa kuitisha kwa kurudia ili kupanga safu ya data. 
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `quicksort`.
+
+```js
+assert.isFunction(quicksort);
+```
+
+`quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92])` inapaswa kurudisha safu ya data isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`quicksort` inapaswa kurudisha safu ya data iliyopangwa (kutoka kidogo hadi kikubwa).
+
+```js
+assert.sameOrderedMembers(
+  quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),
+  [1, 1, 2, 2, 4, 8, 32, 43, 43, 55, 63, 92, 123, 123, 234, 345, 5643]
+);
+```
+
+`quicksort` haipaswi kutumia njia iliyo-jengwa ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    quicksort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function quicksort(array) {
+  if (array.length === 0) {
+    return [];
+  } else {
+    const pivotValue = array[0];
+
+    // Sort elements into three piles
+    let lesser = [];
+    let equal = [];
+    let greater = [];
+    for (let e of array) {
+      if (e < pivotValue) {
+        lesser.push(e);
+      } else if (e > pivotValue) {
+        greater.push(e);
+      } else {
+        equal.push(e);
+      }
+    }
+
+    return [...quicksort(lesser), ...equal, ...quicksort(greater)];
+  }
+}
+```

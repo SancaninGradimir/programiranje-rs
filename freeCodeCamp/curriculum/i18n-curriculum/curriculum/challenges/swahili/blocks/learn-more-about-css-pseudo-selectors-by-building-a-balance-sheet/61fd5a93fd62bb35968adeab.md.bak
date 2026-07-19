@@ -1,0 +1,132 @@
+---
+id: 61fd5a93fd62bb35968adeab
+title: Hatua 1
+challengeType: 0
+dashedName: step-1
+demoType: onLoad
+---
+
+# --description--
+
+Sanidi HTML yako na `DOCTYPE`, `html` zikionyesha kuwa hati hii iko kwa Kiingereza, `head`, na vipengele vya `body`.
+
+Toa kipengele chako cha `head` vigezo vinavyofaa vya `meta` kwa ajili ya `charset` na `viewport`, kipengele cha `title` chenye kichwa kinachofaa, na kipengele cha `link` kwa ajili ya karatasi yako ya mitindo.
+
+# --hints--
+
+Msimbo wako unapaswa kuwa na tamko la `<!DOCTYPE html>`.
+
+```js
+assert(code.match(/<!DOCTYPE html>/i));
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `html`.
+
+```js
+assert.equal(document.querySelectorAll('html')?.length, 1);
+```
+
+Kipengele chako cha `html` kinapaswa kuwa na lebo ya kufungua yenye sifa ya kipengele `lang` yenye thamani `en`.
+
+```js
+assert(code.match(/<html\s+lang\s*=\s*('|")en\1\s*>/gi));
+```
+
+Kipengele chako cha `html` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert(code.match(/<\/html\s*>/));
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `head` ndani ya kipengele cha `html`.
+
+```js
+assert.equal(document.querySelectorAll('head')?.length, 1);
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `body` ndani ya kipengele cha `html`.
+
+```js
+assert.equal(document.querySelectorAll('body')?.length, 1);
+```
+
+Kipengele chako cha `head` kinapaswa kuja kabla ya kipengele chako cha `body`.
+
+```js
+assert.equal(document.querySelector('body')?.previousElementSibling?.tagName, 'HEAD');
+```
+
+Unapaswa kuwa na vipengele viwili vya `meta`.
+
+```js
+const meta = document.querySelectorAll('meta');
+assert.equal(meta?.length, 2);
+```
+
+Kipengele kimoja cha `meta` kinapaswa kuwa na sifa ya kipengele `name` iliyowekwa kuwa `viewport`, na `content` ikiwa `width=device-width, initial-scale=1.0`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => m?.getAttribute('name') === 'viewport' && m?.getAttribute('content') === 'width=device-width, initial-scale=1.0' && !m?.getAttribute('charset'));
+assert.exists(target);
+```
+
+Kipengele kingine cha `meta` kinapaswa kuwa na sifa ya kipengele `charset` iliyowekwa kuwa `UTF-8`.
+
+```js
+const meta = [...document.querySelectorAll('meta')];
+const target = meta?.find(m => !m?.getAttribute('name') && !m?.getAttribute('content') && m?.getAttribute('charset')?.toLowerCase() === 'utf-8');
+assert.exists(target);
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `title`.
+
+```js
+const title = document.querySelector('title');
+assert.exists(title);
+```
+
+`title` yako inapaswa kuwa na maandishi.
+
+```js
+const title = document.querySelector('title');
+assert.isAtLeast(title?.textContent?.length, 1);
+```
+
+Msimbo wako unapaswa kuwa na kipengele cha `link`.
+
+```js
+assert(/<link/.test(code))
+```
+
+Kipengele chako cha `link` kinapaswa kuwa ndani ya kipengele chako cha `head`.
+
+```js
+assert(code.match(/<head>[\w\W\s]*<link[\w\W\s]*\/?>[\w\W\s]*<\/head>/i))
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele `rel` yenye thamani `stylesheet`.
+
+```js
+assert.match(code, /<link[\s\S]*?rel=('|"|`)stylesheet\1/)
+```
+
+Kipengele chako cha `link` kinapaswa kuwa na sifa ya kipengele `href` yenye thamani `styles.css`.
+
+```js
+assert.match(code, /<link[\s\S]*?href=('|"|`)(\.\/)?styles\.css\1/)
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+--fcc-editable-region--
+
+--fcc-editable-region--
+```
+
+```css
+
+```

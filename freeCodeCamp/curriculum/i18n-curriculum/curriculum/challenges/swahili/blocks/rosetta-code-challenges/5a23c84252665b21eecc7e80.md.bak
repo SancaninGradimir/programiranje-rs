@@ -1,0 +1,122 @@
+---
+id: 5a23c84252665b21eecc7e80
+title: Msimbo wa gray
+challengeType: 1
+forumTopicId: 302276
+dashedName: gray-code
+---
+
+# --description--
+
+Msimbo wa gray ni aina ya usimbaji wa binary ambapo mabadiliko kati ya nambari zinazofuata hutofautiana kwa bit moja tu.
+
+Huu ni usimbaji muhimu kwa kupunguza hatari za data za vifaa vya kompyuta na thamani zinazobadilika kwa haraka na/au kuunganishwa na vifaa polepole kama ingizo.
+
+Pia ni muhimu kwa kuzalisha ingizo kwa ramani za Karnaugh kwa mpangilio kutoka kushoto kwenda kulia au kutoka juu kwenda chini.
+
+# --instructions--
+
+Tengeneza kitendakazi cha kusimba nambari na kusambua nambari kutoka kwa msimbo wa gray. Kitendakazi kitakuwa na vigezo viwili.
+
+Kigezo cha kwanza kitakuwa thamani ya kweli au siyo kweli. Kitendakazi kitafanya usimbaji kwa kweli na kusambua kwa siyo kweli. Kigezo cha pili kitakuwa nambari ya kusimbwa/kusambuliwa.
+
+Onyesha uwakilishi wa kawaida wa binary, uwakilishi wa msimbo wa gray, na thamani zilizosasishwa za msimbo wa gray kwa nambari zote za binary za bit 5 (0-31 pamoja, kuonyesha 0 za mbele si lazima).
+
+Kuna msimbo mwingi wa gray unaowezekana. Ufuatao unasimba kile kinachoitwa "binary reflected Gray code."
+
+Usimbaji (MSB ni bit 0, b ni binary, g ni msimbo wa gray):
+
+<pre>ikiwa b[i-1] = 1
+  g[i] = si b[i]
+vengine
+  g[i] = b[i]
+</pre>
+
+Au:
+
+<pre>g = b xor (b ikisogezwa kulia kwa mara 1 kwa mantiki)
+</pre>
+
+Usambuzi (MSB ni bit 0, b ni binary, g ni msimbo wa gray):
+
+<pre>b[0] = g[0]<br>
+kwa bit nyingine:
+b[i] = g[i] xor b[i-1]
+</pre>
+
+# --hints--
+
+`gray` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof gray == 'function');
+```
+
+`gray(true,177)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof gray(true, 177) == 'number');
+```
+
+`gray(true,177)` inapaswa kurudisha `233`.
+
+```js
+assert.equal(gray(true, 177), 233);
+```
+
+`gray(true,425)` inapaswa kurudisha `381`.
+
+```js
+assert.equal(gray(true, 425), 381);
+```
+
+`gray(true,870)` inapaswa kurudisha `725`.
+
+```js
+assert.equal(gray(true, 870), 725);
+```
+
+`gray(false,233)` inapaswa kurudisha `177`.
+
+```js
+assert.equal(gray(false, 233), 177);
+```
+
+`gray(false,381)` inapaswa kurudisha `425`.
+
+```js
+assert.equal(gray(false, 381), 425);
+```
+
+`gray(false,725)` inapaswa kurudisha `870`.
+
+```js
+assert.equal(gray(false, 725), 870);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function gray(enc, number) {
+
+}
+```
+
+# --solutions--
+
+```js
+function gray(enc, number){
+  if(enc){
+      return number ^ (number >> 1);
+  }else{
+      let n = number;
+
+      while (number >>= 1) {
+          n ^= number;
+      }
+      return n;
+  }
+}
+```

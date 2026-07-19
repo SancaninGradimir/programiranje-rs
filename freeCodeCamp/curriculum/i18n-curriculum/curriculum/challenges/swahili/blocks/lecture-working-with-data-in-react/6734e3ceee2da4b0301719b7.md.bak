@@ -1,0 +1,258 @@
+---
+id: 6734e3ceee2da4b0301719b7
+title: Jinsi ya Kupitisha Vigezo Vinavyopitishwa kutoka kwa Sehemu ya Mzazi hadi Sehemu ya Mtoto katika React?
+challengeType: 19
+dashedName: how-do-you-pass-props-from-a-parent-component-to-a-child-component-in-react
+---
+
+# --description--
+
+Katika mafundisho yaliyopita, tulijifunza jinsi ya kujenga sehemu ndogo ndogo katika React kama hii:
+
+```jsx
+function Greeting() {
+  const developerName = "Jessica";
+  return <h1>Hi {developerName}!</h1>;
+}
+```
+
+Tunaweza kuchagua kupanga ndani sehemu hii ndani ya sehemu nyingine ya mzazi au sehemu ya mzizi kama hii:
+
+```jsx
+function App() {
+  return <Greeting />;
+}
+
+function Greeting() {
+  const developerName = "Jessica";
+  return <h1>Hi {developerName}!</h1>;
+}
+```
+
+Ingawa msimbo huu utaendesha vizuri na kuonyesha matokeo ya `Hi Jessica!` kwenye skrini, si sehemu yenye kubadilika sana.
+
+Je, tungetaka kuonyesha jina tofauti kama Naomi, Tom, au Oliver? Hapa ndipo vigezo vinavyopitishwa (props) vya React vinapoingia. Props, ambayo ni kifupi cha properties, ni njia ya sehemu za mzazi kupitisha data kwa sehemu ya mtoto. Props zinaweza kuwa za aina yoyote: mfuatano wa herufi, nambari, thamani ya kweli au siyo kweli, vitu, au safu za data.
+
+Hebu sasisha mfano wetu wa awali ili sasa ukubali prop ya `name`:
+
+```jsx
+function App() {
+  return <Greeting name="Jessica" />;
+}
+
+export default App;
+
+function Greeting(props) {
+  console.log(props);
+  return <h1>Hi {props.name}!</h1>;
+}
+```
+
+Kwa sehemu ya mtoto inayoitwa `Greeting` sasa tunatumia `props.name` badala ya kuweka jina `"Jessica"` moja kwa moja. Pia tunarekodi `props` kwenye konsoli ambayo inaonyesha kama kitu.
+
+Kisha, ndani ya sehemu ya mzazi `App`, tunapitisha thamani kwa prop ya `name` ili ipitishwe kwa mtoto. Matokeo yatakuwa sawa kwenye skrini kama awali, lakini sasa tumeunda sehemu yenye kubadilika zaidi.
+
+Sasa tuna uwezo wa kutumia tena sehemu ya mtoto mara kadhaa na kupitisha majina tofauti kila mara:
+
+```jsx
+function App() {
+  return (
+    <>
+      <Greeting name="Naomi" />
+      <Greeting name="Tom" />
+      <Greeting name="Jessica" />
+      <Greeting name="Oliver" />
+    </>
+  );
+}
+```
+
+Unaweza pia kuchagua kutumia ufumbuzi wa muundo kwenye vigezo vinavyopitishwa ili iwe rahisi kusomeka. Hapa ni jinsi unavyoweza kuandika upya sehemu ya `Greeting`:
+
+```jsx
+function Greeting({ name }) {
+  return <h1>Hi {name}!</h1>;
+}
+```
+
+Msimbo huu unafanikisha matokeo sawa lakini unafanya iwe wazi ni vigezo gani sehemu inatarajia kupokea.
+
+React pia hutoa prop maalum inayoitwa `children`. Kila JSX unayoweka kati ya lebo ya kufungua na lebo ya kufunga ya sehemu hupitishwa kwa sehemu hiyo kama `children`.
+
+Kwa mfano:
+
+```jsx
+function Card({ children }) {
+  return <div className="card">{children}</div>;
+}
+
+function App() {
+  return (
+    <Card>
+      <h2>Hello</h2>
+    </Card>
+  );
+}
+```
+
+Katika kesi hii, JSX ndani ya `<Card>...</Card>` inakuwa prop ya `children`. Matokeo yanayoonyeshwa kwenye DOM yatakuwa:
+
+```html
+<div class="card">
+  <h2>Hello</h2>
+</div>
+```
+
+Mfumo huu mara nyingi hutumika kwa muundo wa sehemu, ambapo sehemu inazunguka vipengele vingine vya UI.
+
+Wakati mwingine, unaweza kuwa na mali nyingi unazopaswa kupitisha kama vigezo vinavyopitishwa. Badala ya kuzipitisha moja moja, unaweza kutumia opereta ya spread (`...`), baada ya kuzibadilisha kuwa kitu.
+
+Hapa kuna mfano wa sehemu mpya ya mtoto inayoitwa `DeveloperCard`:
+
+```jsx
+function DeveloperCard({ name, age, country }) {
+  return (
+    <div className="developer-card">
+      <h1>Developer: {name}</h1>
+      <p>Age: {age}</p>
+      <p>Country: {country}</p>
+    </div>
+  );
+}
+```
+
+Sehemu hii ya `DeveloperCard` inakubali vigezo vinavyopitishwa vitatu: `name`, `age`, na `country`.
+
+Katika sehemu ya mzazi `App`, tunaweza kutumia sintaksia ya spread kupitisha mali zote kutoka kwa kitu kama vigezo vinavyopitishwa binafsi kwa sehemu ya mtoto:
+
+```jsx
+function App() {
+  const developerObj = {
+    name: "Alice",
+    age: 30,
+    country: "USA",
+  };
+
+  return (
+    <div className="App">
+      <DeveloperCard {...developerObj} />
+    </div>
+  );
+}
+```
+
+Hii ni muhimu hasa wakati wa kufanya kazi na safu za vitu na kupitisha seti nyingi za vigezo vinavyopitishwa kwa sehemu za watoto. Kwa mfano, unaweza kuwa na orodha ya wasanidi programu ambapo kila kitu katika safu lina muundo sawa lakini linawakilisha mtu tofauti.
+
+Utajifunza zaidi kuhusu jinsi ya kuonyesha orodha katika safu katika mafundisho yajayo.
+
+Kutumia vigezo vinavyopitishwa katika React kunafanya sehemu zako ziwe za kubadilika zaidi na zinazoweza kutumika tena, zikikuwezesha kujenga UI tata zaidi. Hata hivyo, ni muhimu kutambua kuwa vigezo vinavyopitishwa haviwezi kubadilishwa, maana yake haviwezi kubadilishwa baada ya kupitishwa kwa sehemu. Ikiwa unahitaji kushughulikia ingizo la mtumizi na kubadilisha data, unapaswa kutumia state badala yake. Utajifunza zaidi kuhusu kusimamia state katika mafundisho yajayo.
+
+# --questions--
+
+## --text--
+
+Katika React, unapitishaje prop iitwayo `message` yenye mfuatano wa herufi `Hello` kwa sehemu ya mtoto?
+
+## --answers--
+
+`<ChildComponent message="Hello" />`
+
+---
+
+`<ChildComponent props.message="Hello" />`
+
+### --feedback--
+
+Fikiria jinsi sifa za kipengele zinaongezwa kwenye vipengele vya JSX.
+
+---
+
+`<ChildComponent>message="Hello"</ChildComponent>`
+
+### --feedback--
+
+Fikiria jinsi sifa za kipengele zinaongezwa kwenye vipengele vya JSX.
+
+---
+
+`<ChildComponent {message: "Hello"} />`
+
+### --feedback--
+
+Fikiria jinsi sifa za kipengele zinaongezwa kwenye vipengele vya JSX.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ungeupatikanaje prop iitwayo `userName` ndani ya sehemu ya mtoto ya kitendakazi, ikizingatiwa vigezo vinavyopitishwa ni kitu cha `props`?
+
+## --answers--
+
+`this.props.userName`
+
+### --feedback--
+
+Tafakari jinsi vigezo vinavyopitishwa kwa sehemu za kitendakazi katika React.
+
+---
+
+`props.userName`
+
+---
+
+`this.userName`
+
+### --feedback--
+
+Tafakari jinsi vigezo vinavyopitishwa kwa sehemu za kitendakazi katika React.
+
+---
+
+`children.userName`
+
+### --feedback--
+
+Tafakari jinsi vigezo vinavyopitishwa kwa sehemu za kitendakazi katika React.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni njia gani sahihi ya kupitisha mali zote za kitu kama vigezo vinavyopitishwa binafsi kwa sehemu ya mtoto?
+
+## --answers--
+
+`<ChildComponent props={objectName} />`
+
+### --feedback--
+
+Kumbuka sintaksia maalum inayotumika kupanua mali za kitu kama vigezo vinavyopitishwa binafsi.
+
+---
+
+`<ChildComponent {...objectName} />`
+
+---
+
+`<ChildComponent objectName />`
+
+### --feedback--
+
+Kumbuka sintaksia maalum inayotumika kupanua mali za kitu kama vigezo vinavyopitishwa binafsi.
+
+---
+
+`<ChildComponent>{objectName}</ChildComponent>`
+
+### --feedback--
+
+Kumbuka sintaksia maalum inayotumika kupanua mali za kitu kama vigezo vinavyopitishwa binafsi.
+
+## --video-solution--
+
+2

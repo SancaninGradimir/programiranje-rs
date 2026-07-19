@@ -1,0 +1,87 @@
+---
+id: 68ffb91507a5b645769328c9
+title: "Challenge 106: Message Validator"
+challengeType: 29
+dashedName: challenge-106
+---
+
+# --description--
+
+Ukipata mfuatano wa herufi wa ujumbe na mfuatano wa herufi wa uthibitisho, amua kama ujumbe ni halali.
+
+- Ujumbe ni halali ikiwa kila neno katika ujumbe huanza na herufi inayolingana katika mfuatano wa herufi wa uthibitisho, kwa mpangilio.
+- Herufi hazizingatii tofauti ya herufi kubwa na ndogo.
+- Maneno katika ujumbe yamegawanyika kwa nafasi moja moja.
+
+# --hints--
+
+`is_valid_message("hello world", "hw")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_message("hello world", "hw"), True)`)
+}})
+```
+
+`is_valid_message("ALL CAPITAL LETTERS", "acl")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_message("ALL CAPITAL LETTERS", "acl"), True)`)
+}})
+```
+
+`is_valid_message("Coding challenge are boring.", "cca")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_message("Coding challenge are boring.", "cca"), False)`)
+}})
+```
+
+`is_valid_message("The quick brown fox jumps over the lazy dog.", "TQBFJOTLD")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_message("The quick brown fox jumps over the lazy dog.", "TQBFJOTLD"), True)`)
+}})
+```
+
+`is_valid_message("The quick brown fox jumps over the lazy dog.", "TQBFJOTLDT")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_message("The quick brown fox jumps over the lazy dog.", "TQBFJOTLDT"), False)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def is_valid_message(message, validation):
+
+    return message
+```
+
+# --solutions--
+
+```py
+def is_valid_message(message, validation):
+    words = message.split()
+    
+    if len(words) != len(validation):
+        return False
+
+    for word, val_letter in zip(words, validation):
+        if word[0].lower() != val_letter.lower():
+            return False
+
+    return True
+```

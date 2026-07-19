@@ -1,0 +1,61 @@
+---
+id: 5895f70df9fc0f352b528e69
+title: Jinsi ya kutumia mikakati ya Passport
+challengeType: 2
+forumTopicId: 301555
+dashedName: how-to-use-passport-strategies
+---
+
+# --description--
+
+Katika faili la `index.pug` lililotolewa, kuna fomu ya kuingia. Imefichwa kwa sababu ya JavaScript ndani ya mstari `if showLogin` na fomu imepangwa ndani yake.
+
+Katika `res.render` ya ukurasa huo, ongeza kigezo kipya kwenye kitu, `showLogin: true`. Unapoonyesha upya ukurasa wako, unapaswa kuona fomu hiyo! Fomu hii imewekwa kufanya **POST** kwenye `/login`. Hivyo, hapa ndipo unapaswa kuandaa kupokea ombi la POST na kuthibitisha mtumizi.
+
+Kwa changamoto hii, unapaswa kuongeza njia ya data `/login` ili kupokea ombi la POST. Ili kuthibitisha kwenye njia hii, unahitaji kuongeza programu ya kati kufanya hivyo kabla ya kutuma jibu. Hii hufanyika kwa kupitisha hoja nyingine yenye programu ya kati kabla ya jibu lako. Programu ya kati ya kutumia ni `passport.authenticate('local')`.
+
+`passport.authenticate` pia inaweza kuchukua chaguzi kama hoja kama `{ failureRedirect: '/' }` ambayo ni ya msaada mkubwa, hivyo hakikisha unaongeza hiyo pia. Ongeza jibu baada ya kutumia programu ya kati (ambayo itaitwa tu ikiwa programu ya kati ya uthibitisho itapitishwa) ambalo litaelekeza upya mtumizi kwenda `/profile`. Ongeza njia hiyo ya data pia, na uifanye ionyeshe mtazamo `profile.pug`.
+
+Ikiwa uthibitisho ulikuwa wa mafanikio, kitu cha mtumizi kitawekwa katika `req.user`.
+
+Katika hatua hii, ukingiza jina la mtumizi na nenosiri kwenye fomu, inapaswa kuelekeza upya kwenye ukurasa wa nyumbani `/`, na konsoli ya seva yako inapaswa kuonyesha `'User {USERNAME} attempted to log in.'`, kwa kuwa kwa sasa hatuwezi kuingia mtumizi ambaye hajasajiliwa.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#how-to-use-passport-strategies-7" target="_blank" rel="noopener noreferrer nofollow">kagua mradi uliofanyika hadi hatua hii</a>.
+
+# --hints--
+
+Hatua zote zinapaswa kutekelezwa ipasavyo katika `server.js`.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /showLogin:( |)true/,
+    'You should be passing the variable "showLogin" as true to your render function for the homepage'
+  );
+  assert.match(
+    data,
+    /failureRedirect:( |)('|")\/('|")/,
+    'Your code should include a failureRedirect to the "/" route'
+  );
+  assert.match(
+    data,
+    /login[^]*post[^]*local/,
+    'You should have a route for login which accepts a POST and passport.authenticates local'
+  );
+```
+
+Ombi la POST kwenye `/login` linapaswa kuelekeza upya ipasavyo kwenda `/`.
+
+```js
+  const url = new URL("/login", code);
+  const res = await fetch(url, { method: 'POST' });
+  const data = await res.text();
+  assert.match(
+    data,
+    /Looks like this page is being rendered from Pug into HTML!/,
+    'A login attempt at this point should redirect to the homepage since we do not have any registered users'
+  );
+```

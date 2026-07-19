@@ -1,0 +1,352 @@
+---
+id: 673b3d6b7ef7318eef926d5a
+title: Jenga bodi ya hisia
+challengeType: 25
+dashedName: build-a-mood-board
+demoType: onClick
+---
+
+# --description--
+
+Bodi ya hisia ni mkusanyiko wa picha na maandishi unaoelezea wazo la jumla, lengo, au hisia kuhusu mada fulani.
+
+Katika maabara hii, utaunda bodi ya hisia ukitumia sehemu za React zinazoweza kutumika tena. CSS tayari imetolewa kwako.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda na kusafirisha sehemu ya `MoodBoardItem` inayokubali vigezo vinavyopitishwa vitatu: `color`, `image`, na `description`.
+2. Sehemu yako ya `MoodBoardItem` inapaswa kurudisha `div` yenye darasa la `mood-board-item` kama kipengele chake cha ngazi ya juu.
+3. Unapaswa kuweka rangi ya nyuma ya kipengele cha `.mood-board-item` kwa thamani ya kigezo cha `color` ukitumia mitindo ndani ya mstari.
+4. Unapaswa kuonyesha kipengele cha `img`, chenye darasa la `mood-board-image` na sifa yake ya `src` kuwekwa kwa thamani ya kigezo cha `image`, ndani ya kipengele cha `.mood-board-item`.
+5. Unapaswa kuonyesha kipengele cha `h3`, chenye darasa la `mood-board-text` na maandishi yake kuwa thamani ya kigezo cha `description`, ndani ya kipengele cha `.mood-board-item`.
+6. Unapaswa kuunda na kusafirisha `MoodBoard`.
+7. Sehemu yako ya `MoodBoard` inapaswa kurudisha `div` kama kipengele chake cha ngazi ya juu.
+8. Sehemu yako ya `MoodBoard` inapaswa kuonyesha kipengele cha `h1` chenye darasa la `mood-board-heading` na maandishi `Destination Mood Board`.
+9. Sehemu yako ya `MoodBoard` inapaswa kuonyesha `div` yenye darasa la `mood-board`.
+10. Sehemu yako ya `MoodBoard` inapaswa kuonyesha angalau sehemu tatu za `MoodBoardItem` ndani ya kipengele cha `.mood-board`, kila moja ikipitisha vigezo vinavyopitishwa `color`, `image`, na `description` zenye thamani halali.
+
+Unaweza kutumia picha zifuatazo katika bodi yako ya hisia ikiwa unataka:
+
+- `https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg`
+- `https://cdn.freecodecamp.org/curriculum/labs/shore.jpg`
+- `https://cdn.freecodecamp.org/curriculum/labs/grass.jpg`
+- `https://cdn.freecodecamp.org/curriculum/labs/ship.jpg`
+- `https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg`
+- `https://cdn.freecodecamp.org/curriculum/labs/pigeon.jpg`
+
+# --hints--
+
+Unapaswa kusafirisha sehemu ya `MoodBoardItem`.
+
+```js
+assert.isFunction(window.index.MoodBoardItem, 1);
+```
+
+Sehemu yako ya `MoodBoardItem` inapaswa kurudisha `div` yenye darasa la `mood-board-item` kama kipengele chake cha ngazi ya juu.
+
+```js
+const item = document.getElementsByClassName('mood-board-item')[0];
+assert.exists(item);
+assert.equal(item.tagName, 'DIV');
+```
+
+Rangi ya nyuma ya kipengele cha `.mood-board-item` inapaswa kuwekwa kwa thamani ya kigezo cha `color` ukitumia mitindo ndani ya mstari.
+
+```js
+  const container = await __helpers.prepTestComponent(window.index.MoodBoardItem, { color: "red" });
+  const moodBoardItem = container.querySelector(".mood-board-item");
+  assert.equal(moodBoardItem.style.backgroundColor, "red");
+```
+
+Sehemu yako ya `MoodBoardItem` inapaswa kuonyesha kipengele cha `img` chenye darasa la `mood-board-image` na sifa yake ya `src` kuwekwa kwa thamani ya kigezo cha `image`.
+
+```js
+  const container = await __helpers.prepTestComponent(window.index.MoodBoardItem, { image: "https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg" });
+  const img = container.querySelector(".mood-board-image");
+  assert.exists(img);
+  assert.equal(img.tagName, "IMG");
+  assert.equal(img.src, "https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg");
+```
+
+Sehemu yako ya `MoodBoardItem` inapaswa kuonyesha kipengele cha `h3` chenye darasa la `mood-board-text` na maandishi yake kuwekwa kwa thamani ya kigezo cha `description`.
+
+```js
+  const container = await __helpers.prepTestComponent(window.index.MoodBoardItem, { description: "Caribbean" });
+  const text = container.querySelector(".mood-board-text");
+  assert.exists(text);
+  assert.equal(text.tagName, "H3");
+  assert.equal(text.textContent, "Caribbean");
+```
+
+Unapaswa kusafirisha sehemu ya `MoodBoard`.
+
+```js
+assert.isFunction(window.index.MoodBoard, 1);
+```
+
+Sehemu yako ya `MoodBoard` inapaswa kurudisha `div` kama kipengele chake cha ngazi ya juu.
+
+```js
+const root = document.getElementById('root');
+assert.equal(root.children[0].tagName, 'DIV');
+```
+
+Sehemu yako ya `MoodBoard` inapaswa kuonyesha kipengele cha `h1` chenye darasa la `mood-board-heading` na maandishi `Destination Mood Board`.
+
+```js
+const heading = document.getElementsByClassName('mood-board-heading')[0];
+assert.exists(heading);
+assert.equal(heading.tagName, 'H1');
+assert.equal(heading.textContent, 'Destination Mood Board');
+```
+
+Sehemu yako ya `MoodBoard` inapaswa kuonyesha angalau sehemu tatu za `MoodBoardItem`, kila moja ikipitisha vigezo vinavyopitishwa `color`, `image`, na `description` zenye thamani halali.
+
+```js
+const moodboard = document.getElementsByClassName('mood-board')[0];
+const items = moodboard.querySelectorAll(".mood-board-item");
+assert.isAtLeast(items.length, 3);     
+
+items.forEach((item) => {
+  const color = item.style.backgroundColor;
+  const img = item.querySelector("img");
+  const text = item.querySelector("h3");
+  
+  assert.isAtLeast(color.length, 1);
+  assert.isAtLeast(img.src.length, 1);
+  assert.isAtLeast(text.textContent.length, 1);
+});
+```
+
+Sehemu yako ya `MoodBoard` inapaswa kuonyeshwa kwenye kipengele cha `#root` cha ukurasa.
+
+```js
+const root = document.getElementById('root');
+const moodBoard = root.getElementsByClassName('mood-board')[0];
+assert.exists(moodBoard);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mood Board</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.3/babel.min.js"></script>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      src="index.jsx"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      data-presets="react"
+      data-type="module"
+    >
+      import { MoodBoard } from './index.jsx';
+      ReactDOM.createRoot(document.getElementById('root')).render(
+        <MoodBoard />
+      );
+    </script>
+  </body>
+</html>
+```
+
+```css
+body {
+  background-color: #ffffcc;
+}
+
+.mood-board-heading {
+  text-align: center;
+  font-size: 2.5em;
+  color: #333;
+  margin-top: 20px;
+}
+
+.mood-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mood-board-item {
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  height: 250px;
+}
+
+.mood-board-image {
+  border-radius: 5px;
+  width: 180px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mood-board-text {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+```
+
+```jsx
+
+```
+
+# --solutions--
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mood Board</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.3/babel.min.js"></script>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      src="index.jsx"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script
+      data-plugins="transform-modules-umd"
+      type="text/babel"
+      data-presets="react"
+      data-type="module"
+    >
+      import { MoodBoard } from './index.jsx';
+      ReactDOM.createRoot(document.getElementById('root')).render(
+        <MoodBoard />
+      );
+    </script>
+  </body>
+</html>
+```
+
+```css
+body {
+  background-color: #ffffcc;
+}
+
+.mood-board-heading {
+  text-align: center;
+  font-size: 2.5em;
+  color: #333;
+  margin-top: 20px;
+}
+
+.mood-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mood-board-item {
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  height: 250px;
+}
+
+.mood-board-image {
+  border-radius: 5px;
+  width: 180px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mood-board-text {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+```
+
+```jsx
+export function MoodBoardItem(props) {
+  return (
+    <div className='mood-board-item' style={{ backgroundColor: props.color }}>
+      <img src={props.image} alt='Mood' className='mood-board-image' />
+      <h3 className='mood-board-text'>{props.description}</h3>
+    </div>
+  );
+}
+
+export function MoodBoard() {
+  return (
+    <div>
+      <h1 className='mood-board-heading'>Destination Mood Board</h1>
+      <div className='mood-board'>
+        <MoodBoardItem
+          color='#2da64f'
+          image='https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg'
+          description='Caribbean'
+        />
+        <MoodBoardItem
+          color='#8e44ad'
+          image='https://cdn.freecodecamp.org/curriculum/labs/shore.jpg'
+          description='Gawadar Beach'
+        />
+        <MoodBoardItem
+          color='#3498db'
+          image='https://cdn.freecodecamp.org/curriculum/labs/grass.jpg'
+          description='Cape Town'
+        />
+        <MoodBoardItem
+          color='#bf3d7e'
+          image='https://cdn.freecodecamp.org/curriculum/labs/ship.jpg'
+          description='Suez Canal'
+        />
+        <MoodBoardItem
+          color='#e74c3c'
+          image='https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg'
+          description='Santorini'
+        />
+        <MoodBoardItem
+          color='#95a5a6'
+          image='https://cdn.freecodecamp.org/curriculum/labs/pigeon.jpg'
+          description='Istanbul'
+        />
+      </div>
+    </div>
+  );
+}
+```

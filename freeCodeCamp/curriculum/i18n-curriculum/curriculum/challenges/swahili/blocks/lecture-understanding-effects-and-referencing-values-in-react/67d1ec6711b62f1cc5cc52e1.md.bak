@@ -1,0 +1,229 @@
+---
+id: 67d1ec6711b62f1cc5cc52e1
+title: "Ni nini athari katika React, na kitendakazi cha useEffect hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-effects-in-react-and-how-does-the-useeffect-hook-work
+---
+
+# --description--
+
+Katika React, athari ni chochote kinachotokea nje ya mchakato wa kuonyesha sehemu. Yaani, chochote ambacho React haisimami moja kwa moja kama sehemu ya kuonyesha UI.
+
+Mifano ya kawaida ni pamoja na kupata data, kusasisha kichwa cha kichupo cha kivinjari, kusoma au kuandika kwenye hifadhi ya ndani ya kivinjari, kupata eneo la mtumizi, na mengine mengi. Operesheni hizi huingiliana na dunia ya nje na hujulikana kama athari za pembeni.
+
+React hutoa kitendakazi cha `useEffect` ili kuruhusu kushughulikia athari hizo za pembeni. `useEffect` hukuwezesha kuendesha kitendakazi baada ya sehemu kuonyeshwa au kusasishwa.
+
+Tuchunguze jinsi kitendakazi cha `useEffect` kinavyofanya kazi na kwa nini ni muhimu kwa ukuzaji wa kisasa wa React.
+
+Ili kutumia kitendakazi cha `useEffect`, kwanza unahitaji kuleta (import):
+
+```js
+import { useEffect } from "react";
+```
+
+Kisha unakitumia kama kitendakazi, hivi:
+
+```js
+useEffect(() => {
+  // Your side effect logic (usually a function) here
+}, [dependencies]);
+```
+
+Kitendakazi cha athari kinaendeshwa baada ya sehemu kuonyeshwa, wakati hoja ya hiari ya `dependencies` inasimamia lini athari hiyo itaendeshwa.
+
+Kumbuka kuwa `dependencies` inaweza kuwa safu ya "thamani zinazotegemea" (state, props, functions, variables, na kadhalika), safu tupu, au kuachwa kabisa. Hapa ni jinsi chaguzi zote hizo zinavyodhibiti jinsi `useEffect` inavyofanya kazi:
+
+- Ikiwa `dependencies` ni safu inayojumuisha thamani moja au zaidi zinazotegemea, athari itaendeshwa kila wanapobadilika.
+
+- Ikiwa `dependencies` ni safu tupu, `useEffect` itaendeshwa mara moja tu wakati sehemu inavyoonyeshwa kwa mara ya kwanza.
+
+- Ikiwa utaacha `dependencies`, athari itaendeshwa kila wakati sehemu inavyoonyeshwa au kusasishwa.
+
+Kwa mfano, katika programu hii ya `Counter`, hatupitishi hoja ya `dependencies`, hivyo athari itaendeshwa wakati sehemu inavyoonyeshwa na kila mara inaposasishwa:
+
+```jsx
+import { useState, useEffect } from "react";
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Component renders");
+  });
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h2>{count}</h2>
+      <div>
+        <button onClick={() => setCount(count + 1)}>Increase</button>
+        <button onClick={() => setCount(count - 1)}>Decrease</button>
+      </div>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+Lakini ikiwa tutapitia safu tupu kama utegemezi, athari itaendeshwa tu wakati wa kuonyeshwa kwa mara ya kwanza:
+
+```js
+useEffect(() => {
+  console.log('Component renders');
+}, []);
+```
+
+Ikiwa utapitia state ya `count` kama utegemezi, athari itaendeshwa wakati sehemu inavyoonyeshwa kwa mara ya kwanza, na pia wakati `count` inabadilika:
+
+```js
+useEffect(() => {
+  document.title = `The current count is ${count}`;
+  console.log('component renders');
+}, [count]);
+```
+
+Kumbuka, ikiwa athari unayoanzisha itaendelea zaidi ya mzunguko wa maisha wa kuonyesha sehemu, unaweza kuhitaji kitendakazi kingine cha "kusafisha" kitendakazi hicho baada ya sehemu kuonyeshwa au kusasishwa.
+
+Kwa mfano, ikiwa kitendakazi chako cha athari kinatumia `setInterval()`, kinaweka msikilizaji wa tukio kama `window.addEventListener()`, au kinajiunga na seva, utahitaji kitendakazi cha kusafisha kuendesha `clearInterval()`, `window.removeEventListener()`, na kutenganisha na seva, mtawalia.
+
+Hii ndiyo sintaksia ya kurudisha kitendakazi cha kusafisha kutoka kwa kitendakazi cha `useEffect`:
+
+```js
+useEffect(() => {
+  // Your side effect logic here
+  return () => {
+    // Cleanup logic here (optional)
+  };
+}, [dependencies]);
+```
+
+Kwa mfano, ikiwa unaongeza msikilizaji wa tukio la kusogeza (scroll), unaweza kusafisha kwa kuondoa msikilizaji huo katika kitendakazi chako cha kusafisha:
+
+```js
+useEffect(() => {
+  const handleScroll = () => {
+    // Handle scroll logic
+  };
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+```
+
+# --questions--
+
+## --text--
+
+Ni nini kinachochukuliwa kuwa athari katika React?
+
+## --answers--
+
+Mabadiliko yoyote ya state ya sehemu.
+
+### --feedback--
+
+Athari zinahusisha vitendo ambavyo React haisimami wakati wa kuonyesha.
+
+---
+
+Operesheni zinazotokea nje ya mchakato wa kuonyesha ambazo React haisimami.
+
+---
+
+Kuonyesha UI baada ya kila sasisho la state.
+
+### --feedback--
+
+Athari zinahusisha vitendo ambavyo React haisimami wakati wa kuonyesha.
+
+---
+
+Kusasaisha props za sehemu.
+
+### --feedback--
+
+Athari zinahusisha vitendo ambavyo React haisimami wakati wa kuonyesha.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Nini huamua jinsi athari za pembeni zinaendeshwa katika programu ya React?
+
+## --answers--
+
+Athari huendeshwa mara moja tu, bila kujali utegemezi.
+
+### --feedback--
+
+Tabia ya athari inategemea yaliyomo katika safu ya utegemezi.
+
+---
+
+Athari huendeshwa tu wakati props zinabadilika, zikipuuzia state.
+
+### --feedback--
+
+Tabia ya athari inategemea yaliyomo katika safu ya utegemezi.
+
+---
+
+Safu ya utegemezi huamua lini athari zinaendeshwa.
+
+---
+
+Athari huendeshwa kila mara kwenye kuonyesha isipokuwa zifungwe wazi.
+
+### --feedback--
+
+Tabia ya athari inategemea yaliyomo katika safu ya utegemezi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni mifano gani ya kawaida ya athari za pembeni katika React?
+
+## --answers--
+
+Kuonyesha sehemu na kusasisha state.
+
+### --feedback--
+
+Athari za pembeni zinahusisha kuingiliana na dunia nje ya mchakato wa kuonyesha React.
+
+---
+
+Kupitisha props kwa sehemu za watoto.
+
+### --feedback--
+
+Athari za pembeni zinahusisha kuingiliana na dunia nje ya mchakato wa kuonyesha React.
+
+---
+
+Kufafanua mitindo na mpangilio wa sehemu.
+
+### --feedback--
+
+Athari za pembeni zinahusisha kuingiliana na dunia nje ya mchakato wa kuonyesha React.
+
+---
+
+Kupata data, kusasisha vichwa vya kichupo, na kusoma kutoka hifadhi.
+
+## --video-solution--
+
+4

@@ -1,0 +1,65 @@
+---
+id: 691b559495c5cb5a37b9b489
+title: "Zoezi la 129: Parser ya blockquote ya Markdown"
+challengeType: 28
+dashedName: challenge-129
+---
+
+# --description--
+
+Ikiwa umepewa mfuatano wa herufi unaojumuisha blockquote katika Markdown, rudisha mfuatano wa herufi wa HTML unaolingana.
+
+Blockquote katika Markdown ni mstari wowote unao:
+
+- Anza na nafasi sifuri au zaidi
+- Ikifuatiwa na alama ya zaidi ya (>)(`>`)
+- Kisha, nafasi moja au zaidi
+- Na hatimaye, maandishi ya blockquote.
+
+Rudisha maandishi ya blockquote yakiwa yamezungukwa na lebo za HTML za kufungua na kufunga `blockquote`.
+
+Kwa mfano, ukipokea `"> This is a quote"`, rudisha `<blockquote>This is a quote</blockquote>`.
+
+Kumbuka: konsoli inaweza isionyeshe lebo za HTML katika mfuatano wa herufi wakati wa kurekodi ujumbe. Angalia konsoli ya kivinjari kuona rekodi zenye lebo zikiambatanishwa.
+
+# --hints--
+
+`parseBlockquote("> This is a quote")` inapaswa kurudisha `"<blockquote>This is a quote</blockquote>"`.
+
+```js
+assert.equal(parseBlockquote("> This is a quote"), "<blockquote>This is a quote</blockquote>");
+```
+
+`parseBlockquote(" > This is also a quote")` inapaswa kurudisha `"<blockquote>This is also a quote</blockquote>"`.
+
+```js
+assert.equal(parseBlockquote(" > This is also a quote"), "<blockquote>This is also a quote</blockquote>");
+```
+
+`parseBlockquote("  >    So  Is  This")` inapaswa kurudisha `"<blockquote>So  Is  This</blockquote>"`.
+
+```js
+assert.equal(parseBlockquote("  >    So  Is  This"), "<blockquote>So  Is  This</blockquote>");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function parseBlockquote(markdown) {
+  return markdown;
+}
+```
+
+# --solutions--
+
+```js
+function parseBlockquote(markdown) {
+  const blockquoteRegex = /^\s*>\s+(.+)$/;
+  const match = markdown.match(blockquoteRegex);
+
+  const text = match[1];
+  return `<blockquote>${text}</blockquote>`;
+}
+```

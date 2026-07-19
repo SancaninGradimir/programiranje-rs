@@ -1,0 +1,112 @@
+---
+id: 589fc830f9fc0f352b528e74
+title: Sanidi mazingira
+challengeType: 2
+forumTopicId: 301566
+dashedName: set-up-the-environment
+---
+
+# --description--
+
+Changamoto zifuatazo zitatumia faili la `chat.pug`. Hivyo, katika faili lako la `routes.js`, ongeza njia ya GET inayolenga `/chat` ambayo inatumia `ensureAuthenticated`, na inonyesha `chat.pug`, huku `{ user: req.user }` ikipitishwa kama hoja kwa jibu. Sasa, badilisha njia yako ya `/auth/github/callback` iliyopo ili kuweka `req.session.user_id = req.user.id`, na elekeza upya kwenda `/chat`.
+
+`socket.io@~2.3.0` tayari imeongezwa kama utegemezi, hivyo itajiomba/ianzishe katika seva yako kama ifuatavyo kwa `http` (inakuja iliyo ndani ya Node.js):
+
+```javascript
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+```
+
+Sasa baada ya seva ya *http* kuunganishwa kwenye *express app*, unahitaji kusikiliza kutoka kwa seva ya *http*. Badilisha mstari wenye `app.listen` kuwa `http.listen`.
+
+Kitu cha kwanza kinachohitaji kushughulikiwa ni kusikiliza muunganisho mpya kutoka kwa mteja. Neno kuu <dfn>on</dfn> hufanya hivyo tu - husikiliza tukio maalum. Inahitaji hoja 2: mfuatano wa herufi unaoelezea jina la tukio linalotolewa, na kitendakazi ambacho data hupitishwa kupitia. Katika kesi ya msikilizaji wetu wa muunganisho, tumia `socket` kufafanua data katika hoja ya pili. Socket ni mteja mmoja aliyeko kwenye muunganisho.
+
+Ili kusikiliza muunganisho kwenye seva yako, ongeza yafuatayo ndani ya muunganisho wa hifadhidata yako:
+
+```javascript
+io.on('connection', socket => {
+  console.log('A user has connected');
+});
+```
+
+Sasa ili mteja aunganishwe, unahitaji tu kuongeza yafuatayo kwenye `client.js` ambayo inapakiwa na ukurasa baada ya kuthibitishwa:
+
+```js
+/*global io*/
+let socket = io();
+```
+
+Maoni haya yanazuia hitilafu unayoweza kuona kwa kawaida kwa sababu 'io' haijafafanuliwa katika faili. Tayari umeongeza CDN ya kuaminika kwa maktaba ya Socket.IO kwenye ukurasa katika `chat.pug`.
+
+Sasa jaribu kupakia app yako na kuthibitisha na unapaswa kuona kwenye konsoli ya seva `A user has connected`.
+
+**Kumbuka:** `io()` hufanya kazi tu wakati unakuunganishwa na socket iliyoko kwenye url/seva ile ile. Kwa kuunganishwa na socket ya nje iliyoko mahali pengine, utatumia `io.connect('URL');`.
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#set-up-the-environment-6" target="_blank" rel="noopener noreferrer nofollow">kagua mradi uliofikia hatua hii</a>.
+
+# --hints--
+
+`socket.io` inapaswa kuwa utegemezi.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'socket.io',
+    'Your project should list "socket.io" as a dependency'
+  );
+```
+
+Unapaswa kuomba na kuanzisha `http` ipasavyo kama `http`.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /http.*=.*require.*('|")http\1/s,
+    'Your project should list "http" as a dependency'
+  );
+```
+
+Unapaswa kuomba na kuanzisha `socket.io` ipasavyo kama `io`.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /io.*=.*require.*('|")socket.io\1.*http/s,
+    'You should correctly require and instantiate socket.io as io.'
+  );
+```
+
+Socket.IO inapaswa kusikiliza muunganisho.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /io.on.*('|")connection\1.*socket/s,
+    'io should listen for "connection" and socket should be the 2nd arguments variable'
+  );
+```
+
+Mteja wako anapaswa kuungana na seva yako.
+
+```js
+  const url = new URL("/public/client.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /socket.*=.*io/s,
+    'Your client should be connection to server with the connection defined as socket'
+  );
+```

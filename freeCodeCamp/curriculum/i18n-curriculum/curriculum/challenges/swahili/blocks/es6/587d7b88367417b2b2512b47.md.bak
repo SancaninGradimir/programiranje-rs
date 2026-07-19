@@ -1,0 +1,88 @@
+---
+id: 587d7b88367417b2b2512b47
+title: Tumia kigezo la rest pamoja na vigezo vya kitendakazi
+challengeType: 1
+forumTopicId: 301221
+dashedName: use-the-rest-parameter-with-function-parameters
+---
+
+# --description--
+
+Ili kutusaidia kuunda vitendakazi vyenye kubadilika zaidi, ES6 inaleta <dfn>kigezo la rest</dfn> kwa vigezo vya kitendakazi. Kwa kutumia kigezo la rest, unaweza kuunda vitendakazi vinavyopokea idadi inayobadilika ya hoja. Hoja hizi huhifadhiwa katika safu ya data ambayo inaweza kufikiliwa baadaye kutoka ndani ya kitendakazi.
+
+Angalia msimbo huu:
+
+```js
+function howMany(...args) {
+  return "You have passed " + args.length + " arguments.";
+}
+console.log(howMany(0, 1, 2));
+console.log(howMany("string", null, [1, 2, 3], { }));
+```
+
+Konsoli itaonyesha mfuatano wa herufi `You have passed 3 arguments.` na `You have passed 4 arguments.`.
+
+Kigezo la rest kinaondoa haja ya kutumia kitu cha `arguments` na kinaturuhusu kutumia njia za safu ya data kwenye safu ya vigezo vilivyopitishwa kwa kitendakazi `howMany`.
+
+# --instructions--
+
+Badilisha kitendakazi `sum` kwa kutumia kigezo la rest kwa njia ambayo kitendakazi `sum` kinaweza kupokea idadi yoyote ya hoja na kurudisha jumla yao.
+
+# --hints--
+
+Matokeo ya `sum(0,1,2)` yanapaswa kuwa 3
+
+```js
+assert(sum(0, 1, 2) === 3);
+```
+
+Matokeo ya `sum(1,2,3,4)` yanapaswa kuwa 10
+
+```js
+assert(sum(1, 2, 3, 4) === 10);
+```
+
+Matokeo ya `sum(5)` yanapaswa kuwa 5
+
+```js
+assert(sum(5) === 5);
+```
+
+Matokeo ya `sum()` yanapaswa kuwa 0
+
+```js
+assert(sum() === 0);
+```
+
+`sum` inapaswa kuwa kitendakazi cha mshale kinachotumia sintaksia ya kigezo la rest (`...`) kwenye kigezo `args`.
+
+```js
+assert(__helpers.removeWhiteSpace(__helpers.removeJSComments(code)).match(/sum=\(\.\.\.args\)=>/));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const sum = (x, y, z) => {
+  const args = [x, y, z];
+  let total = 0;
+  for (let i = 0; i < args.length; i++) {
+    total += args[i];
+  }
+  return total;
+}
+```
+
+# --solutions--
+
+```js
+const sum = (...args) => {
+  let total = 0;
+  for (let i = 0; i < args.length; i++) {
+    total += args[i];
+  }
+  return total;
+}
+```

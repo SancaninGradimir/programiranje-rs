@@ -1,0 +1,104 @@
+---
+id: 642dccb78549c9285835ebc2
+title: Hatua 2
+challengeType: 0
+dashedName: step-2
+---
+
+# --description--
+
+Vitendakazi ni bora kwa mantiki inayoweza kutumika tena. Wakati kitendakazi chenyewe kinapohitaji kutumia tena mantiki, unaweza kutangaza kitendakazi kilichopangwa ndani kushughulikia mantiki hiyo. Hapa kuna mfano wa kitendakazi kilichopangwa ndani:
+
+```js
+const outer = () => {
+  const inner = () => {
+
+  };
+};
+```
+
+Tangaza kitendakazi kilichopangwa ndani cha `createLabel` kwa kutumia sintaksia ya mshale. Kinapaswa kuchukua kigezo cha `name`.
+
+# --hints--
+
+Unapaswa kutangaza tofauti ya `createLabel` katika kitendakazi chako cha `onload`.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*(?:const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?)?\s*(?:let|var|const)\s+createLabel/);
+```
+
+Tofauti yako ya `createLabel` inapaswa kutangazwa baada ya tofauti yako ya `container`.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?\s*(?:let|var|const)\s+createLabel/);
+```
+
+Tofauti yako ya `createLabel` inapaswa kutangazwa kwa `const`.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?\s*const\s+createLabel/);
+```
+
+Tofauti yako ya `createLabel` inapaswa kuwa kitendakazi cha mshale.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?\s*const\s+createLabel\s*=\s*(\(.*\)|[^\s()]+)\s*=>/);
+```
+
+Kitendakazi chako cha `createLabel` kinapaswa kuwa na kigezo cha `name`.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?\s*const\s+createLabel\s*=\s*(\(\s*name\s*\)|name)\s*=>/);
+```
+
+Kitendakazi chako cha `createLabel` kinapaswa kuwa tupu.
+
+```js
+assert.match(code, /window\.onload\s*=\s*\(\s*\)\s*=>\s*\{\s*const\s+container\s*=\s*document\.getElementById\(\s*('|"|`)container\1\s*\)\s*;?\s*const\s+createLabel\s*=\s*(\(\s*name\s*\)|name)\s*=>\s*\{\s*\}/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Functional Programming Spreadsheet</title>
+  </head>
+  <body>
+    <div id="container">
+      <div></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+#container {
+  display: grid;
+  grid-template-columns: 50px repeat(10, 200px);
+  grid-template-rows: repeat(11, 30px);
+}
+
+.label {
+  background-color: lightgray;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+```
+
+```js
+--fcc-editable-region--
+window.onload = () => {
+  const container = document.getElementById("container");
+
+}
+--fcc-editable-region--
+```

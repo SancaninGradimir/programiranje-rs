@@ -1,0 +1,158 @@
+---
+id: 5a24c314108439a4d4036169
+title: Pita vigezo vinavyopitishwa kwa sehemu isiyo na hali ya kitendakazi
+challengeType: 6
+forumTopicId: 301402
+dashedName: pass-props-to-a-stateless-functional-component
+---
+
+# --description--
+
+Changamoto zilizopita zilijumuisha mengi kuhusu kuunda na kuunganisha vipengele vya JSX, sehemu za kitendakazi, na sehemu za darasa la vitu za mtindo wa ES6 katika React. Kwa msingi huu, ni wakati wa kuangalia kipengele kingine kinachojirudia sana katika React: **vigezo vinavyopitishwa**. Katika React, unaweza kupitisha vigezo, au sifa, kwa sehemu za watoto. Sema una sehemu ya `App` ambayo inaonyesha sehemu ya mtoto inayoitwa `Welcome` ambayo ni sehemu isiyo na hali ya kitendakazi. Unaweza kumpitisha `Welcome` sifa ya `user` kwa kuandika:
+
+```jsx
+<App>
+  <Welcome user='Mark' />
+</App>
+```
+
+Unatumia **sifa za HTML zilizobuniwa na wewe na zinazoungwa mkono na React** kupitishwa kwa sehemu hiyo. Katika kesi hii, sifa iliyoundwa `user` inapitishwa kwa sehemu ya `Welcome`. Kwa kuwa `Welcome` ni sehemu isiyo na hali ya kitendakazi, ina upatikanaji wa thamani hii kama ifuatavyo:
+
+```jsx
+const Welcome = (props) => <h1>Hello, {props.user}!</h1>
+```
+
+Ni kawaida kuitwa thamani hii `props` na unaposhughulika na sehemu zisizo na hali za kitendakazi, kwa msingi unazichukulia kama hoja kwa kitendakazi kinachorudisha JSX. Unaweza kupata thamani ya hoja hiyo ndani ya mwili wa kitendakazi. Kwa sehemu za darasa la vitu, utaona hili ni tofauti kidogo.
+
+# --instructions--
+
+Kuna sehemu za `Calendar` na `CurrentDate` katika mhariri wa msimbo. Unaponyesha `CurrentDate` kutoka sehemu ya `Calendar`, pita sifa ya `date` ambayo imepewa thamani ya tarehe ya sasa kutoka kwa kitu cha `Date` cha JavaScript. Kisha pata thamani hii ya `prop` katika sehemu ya `CurrentDate`, ukaonyesha thamani yake ndani ya lebo za `p`. Kumbuka kuwa ili thamani za `prop` zichunguzwe kama JavaScript, lazima zifungwe ndani ya mabano ya mviringo, kwa mfano `date={Date()}`.
+
+# --hints--
+
+Sehemu ya `Calendar` inapaswa kurudisha kipengele kimoja cha `div`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Calendar));
+    return mockedComponent.children().type() === 'div';
+  })()
+);
+```
+
+Mtoto wa pili wa sehemu ya `Calendar` inapaswa kuwa sehemu ya `CurrentDate`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Calendar));
+    return mockedComponent.children().childAt(1).name() === 'CurrentDate';
+  })()
+);
+```
+
+Sehemu ya `CurrentDate` inapaswa kuwa na prop inayoitwa `date`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Calendar));
+    return mockedComponent.children().childAt(1).props().date;
+  })()
+);
+```
+
+Prop ya `date` ya `CurrentDate` inapaswa kuwa na mfuatano wa herufi.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(Calendar));
+    const prop = mockedComponent.children().childAt(1).props().date;
+    return typeof prop === 'string' && prop.length > 0;
+  })()
+);
+```
+
+Prop ya `date` inapaswa kuzalishwa kwa kuita `Date()`
+
+```js
+assert(/<CurrentDatedate={Date\(\)}\/>/.test(__helpers.removeWhiteSpace(code)));
+```
+
+Sehemu ya `CurrentDate` inapaswa kuonyesha thamani kutoka kwa prop ya `date` katika lebo ya `p`.
+
+```js
+let date = 'dummy date';
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(
+      React.createElement(CurrentDate, { date })
+    );
+    return mockedComponent.find('p').html().includes(date);
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+const CurrentDate = (props) => {
+  return (
+    <div>
+      { /* Change code below this line */ }
+      <p>The current date is: </p>
+      { /* Change code above this line */ }
+    </div>
+  );
+};
+
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>What date is it?</h3>
+        { /* Change code below this line */ }
+        <CurrentDate />
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const CurrentDate = (props) => {
+  return (
+    <div>
+      { /* Change code below this line */ }
+      <p>The current date is: {props.date}</p>
+      { /* Change code above this line */ }
+    </div>
+  );
+};
+
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>What date is it?</h3>
+        { /* Change code below this line */ }
+        <CurrentDate date={Date()} />
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```

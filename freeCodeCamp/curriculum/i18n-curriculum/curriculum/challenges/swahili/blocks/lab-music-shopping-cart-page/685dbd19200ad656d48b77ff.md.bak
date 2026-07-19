@@ -1,0 +1,637 @@
+---
+id: 685dbd19200ad656d48b77ff
+title: Jenga ukurasa wa gari la ununuzi wa muziki
+challengeType: 25
+dashedName: lab-music-shopping-cart-page
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza mazoezi.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele chenye `id` kinachoitwa `shopping-cart-container`.
+2. Kipengele chako cha `#shopping-cart-container` kinapaswa kutumia darasa la vitu la huduma sahihi kuweka kipengele katika mpangilio wa Flexbox.
+3. Kipengele chako cha `#shopping-cart-container` kinapaswa kuweka mwelekeo wa vipande vya kubadilika kuwa safu kwa vifaa vidogo na mstari kwa vifaa vikubwa. Kumbuka kuwa Tailwind CSS hutumia mbinu ya simu kwanza na utatumia kiambishi awali cha `lg:` cha breakpoint kulenga vifaa vikubwa.
+4. Ndani ya kipengele chako cha `#shopping-cart-container`, unapaswa kuwa na kipengele chenye `id` kinachoitwa `products-container`.
+5. Kipengele chako cha `#products-container` kinapaswa kuwa na angalau vipengele viwili vya watoto kila kikiwa na darasa la vitu linaloitwa `card`.
+6. Kila kipengele cha `.card` kinapaswa kuwa na vipengele vifuatavyo vilivyopangwa ndani:
+   - Kipengele cha `h2` chenye maandishi yanayowakilisha jina la bidhaa, na darasa la huduma linaloweka ukubwa wa fonti kwa kutumia madarasa ya ukubwa yaliyotangazwa kama `text-sm`, `text-md`, `text-lg`, `text-xl`, `text-2xl`, n.k.
+   - Kipengele chenye darasa la vitu linaloitwa `quantity` na maandishi ya idadi ya vitu katika gari kwa bidhaa hiyo.
+   - Kipengele chenye darasa la vitu linaloitwa `price` na maandishi ya bei.
+   - `button` yenye darasa la vitu linaloitwa `remove-button` na maandishi `Remove`. `button` yako inapaswa kuwa na madarasa ya huduma kwa rangi ya nyuma nyekundu iliyotangazwa unayochagua na rangi tofauti ya nyuma nyekundu kwa hali ya hover. Mifano ya rangi za nyuma nyekundu zilizotangazwa ni `bg-red-500`, `bg-red-600`, n.k. Mifano ya rangi za nyuma nyekundu za hover ni `hover:bg-red-500`, `hover:bg-red-600`, n.k.
+7. Ndani ya kipengele chako cha `#shopping-cart-container`, unapaswa kuwa na kipengele chenye `id` kinachoitwa `order-summary-container`.
+8. Kipengele chako cha `#order-summary-container` kinapaswa kuwa na mitindo ifuatayo:
+   - Darasa la huduma unalochagua kwa pembe zilizozungushwa zilizotangazwa. Mifano ni `rounded`, `rounded-lg`, `rounded-full`, n.k.
+   - Darasa la huduma unalochagua kwa kuweka upana wa mpaka upande wote.
+9. Kipengele chako cha `#order-summary-container` kinapaswa kuwa na vipengele vifuatavyo vilivyopangwa ndani:
+   - Kipengele cha `h2` chenye maandishi `Order Summary` na darasa la huduma unalochagua linaloweka ukubwa wa fonti.
+   - Kipengele chenye maandishi `Total:` na `id` imewekwa kuwa `total`. Kipengele hiki kinapaswa pia kutumia madarasa ya huduma kuweka uzito wa fonti kwa uzito wa fonti wa Tailwind CSS uliotangazwa na ukubwa wa fonti unayochagua kwa kipengele.
+   - Kipengele chenye `id` kimewekwa kuwa `total-amount` kuonyesha jumla ya vitu vyote katika gari.
+   - Kiungo chenye maandishi `Checkout` na darasa la huduma sahihi la kuweka maandishi katikati. Thamani ya `href` inapaswa kuwekwa kuwa `#`. Kiungo chako kinapaswa pia kuwa na darasa la huduma la kuweka rangi ya nyuma kuwa rangi ya buluu ya Tailwind CSS iliyotangazwa unayochagua na rangi tofauti ya buluu ya nyuma kwa hali ya hover.
+
+# --hints--
+
+Unapaswa kuwa na kipengele chenye `id` kimewekwa kuwa `shopping-cart-container`.
+
+```js
+assert.exists(document.getElementById("shopping-cart-container"));
+```
+
+Kipengele chako cha `#shopping-cart-container` kinapaswa kutumia darasa la huduma la `flex` kuweka kipengele katika mpangilio wa Flexbox.
+
+```js
+const shoppingCartContainer = document.getElementById("shopping-cart-container");
+assert.isTrue(shoppingCartContainer.classList.contains("flex"));
+```
+
+Kipengele chako cha `#shopping-cart-container` kinapaswa kutumia darasa la huduma sahihi kuweka mwelekeo wa vipande vya kubadilika kuwa safu.
+
+```js
+const shoppingCartContainer = document.getElementById("shopping-cart-container");
+assert.isTrue(shoppingCartContainer.classList.contains("flex-col"));
+```
+
+Kipengele chako cha `#shopping-cart-container` kinapaswa kutumia kiambishi awali cha breakpoint cha `lg:` kifuatiwe na darasa la huduma sahihi kuweka mwelekeo wa vipande vya kubadilika kuwa mstari kwa vifaa vikubwa.
+
+```js
+const shoppingCartContainer = document.getElementById("shopping-cart-container");
+assert.isTrue(shoppingCartContainer.classList.contains("lg:flex-row"));
+```
+
+Unapaswa kuwa na kipengele chenye `id` kimewekwa kuwa `products-container` ndani ya kipengele chako cha `#shopping-cart-container`.
+
+```js
+const shoppingCartContainer = document.getElementById("shopping-cart-container");
+assert.exists(shoppingCartContainer);
+const productsContainer = document.getElementById("products-container");
+assert.exists(productsContainer);
+assert.isTrue(shoppingCartContainer.contains(productsContainer));
+```
+
+Kipengele chako cha `#products-container` kinapaswa kuwa na angalau vipengele viwili vya watoto kila kikiwa na darasa la vitu linaloitwa `card`.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+assert.isAtLeast(cards.length, 2);
+```
+
+Kila kipengele cha `.card` kinapaswa kuwa na kipengele cha `h2` chenye maandishi yanayowakilisha jina la bidhaa.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+cards?.forEach((card) => {
+  const productName = card.querySelector("h2");
+  assert.exists(productName);
+  assert.isNotEmpty(productName.textContent);
+});
+```
+
+Kila kipengele cha `h2` ndani ya kipengele cha `.card` kinapaswa kutumia darasa la huduma linaloweka ukubwa wa fonti kwa kutumia madarasa ya ukubwa yaliyotangazwa kama `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl`, n.k.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+const predefinedSizes = [
+  "text-xs",
+  "text-sm",
+  "text-base",
+  "text-lg",
+  "text-xl",
+  "text-2xl",
+  "text-3xl",
+  "text-4xl",
+  "text-5xl",
+  "text-6xl",
+  "text-7xl",
+  "text-8xl",
+  "text-9xl"
+];
+
+cards?.forEach((card) => {
+  const productName = card.querySelector("h2");
+  assert.exists(productName);
+  const hasPredefinedSize = predefinedSizes.some(size => productName.classList.contains(size));
+  assert.isTrue(hasPredefinedSize);
+});
+```
+
+Kila kipengele cha `.card` kinapaswa kuwa na kipengele chenye darasa la vitu linaloitwa `quantity`.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+cards?.forEach((card) => {
+  const quantity = card.querySelector(".quantity");
+  assert.exists(quantity);
+});
+```
+
+Kila kipengele cha `.quantity` kinapaswa kuwa na maandishi yanayowakilisha idadi ya vitu katika gari kwa bidhaa hiyo.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+cards?.forEach((card) => {
+  const quantity = card.querySelector(".quantity");
+  assert.exists(quantity);
+  assert.isNotEmpty(quantity.textContent.trim());
+});
+```
+
+Kila kipengele cha `.card` kinapaswa kuwa na kipengele chenye darasa la vitu linaloitwa `price`.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");  
+
+cards?.forEach((card) => {
+  const price = card.querySelector(".price");
+  assert.exists(price);
+});
+```
+
+Kila kipengele cha `.price` kinapaswa kuwa na maandishi yanayowakilisha bei.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+cards?.forEach((card) => {
+  const price = card.querySelector(".price");
+  assert.exists(price);
+  assert.isNotEmpty(price.textContent.trim());
+});
+```
+
+Kila kipengele cha `.card` kinapaswa kuwa na kipengele cha `button` chenye darasa la vitu linaloitwa `remove-button` na maandishi `Remove`.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+cards?.forEach((card) => {
+  const removeButton = card.querySelector("button.remove-button");
+  assert.exists(removeButton);
+  assert.equal(removeButton.textContent.trim(), "Remove");
+});
+```
+
+Kila kipengele cha `button` kinapaswa kuwa na darasa la huduma kwa rangi ya nyuma nyekundu unayochagua.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+const predefinedRedColors = [
+  "bg-red-50",
+  "bg-red-100",
+  "bg-red-200",
+  "bg-red-300",
+  "bg-red-400",
+  "bg-red-500",
+  "bg-red-600",
+  "bg-red-700",
+  "bg-red-800",
+  "bg-red-900",
+  "bg-red-950"
+];
+
+cards?.forEach((card) => {
+  const removeButton = card.querySelector("button.remove-button");
+  assert.exists(removeButton);
+  const hasRedBackground = predefinedRedColors.some(color => removeButton.classList.contains(color));
+  assert.isTrue(hasRedBackground);
+});
+```
+
+Kila kipengele cha `button` kinapaswa kuwa na rangi tofauti ya nyuma nyekundu kwa hali ya hover.
+
+```js
+const productsContainer = document.getElementById("products-container");
+const cards = productsContainer.querySelectorAll("#products-container .card");
+
+const predefinedRedHoverColors = [
+  "hover:bg-red-50",
+  "hover:bg-red-100",
+  "hover:bg-red-200",
+  "hover:bg-red-300",
+  "hover:bg-red-400",
+  "hover:bg-red-500",
+  "hover:bg-red-600",
+  "hover:bg-red-700",
+  "hover:bg-red-800",
+  "hover:bg-red-900",
+  "hover:bg-red-950"
+];
+
+cards?.forEach((card) => {
+  const removeButton = card.querySelector("button.remove-button");
+  assert.exists(removeButton);
+
+  const classList = removeButton.classList;
+
+  const hoverBgClass = [...classList].find(cls => cls.startsWith("hover:bg-red-"));
+  const bgClass = [...classList].find(cls => cls.startsWith("bg-red-") && !cls.startsWith("hover:"));
+
+  assert.notEqual(bgClass, hoverBgClass.replace("hover:", ""));
+});
+```
+
+Unapaswa kuwa na kipengele chenye `id` kinachoitwa `order-summary-container` ndani ya kipengele chako cha `#shopping-cart-container`.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+assert.exists(orderSummaryContainer);
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na darasa la huduma unalochagua la kuweka pembe zilizozungushwa.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const predefinedRoundedCorners = [
+  "rounded-none",
+  "rounded-sm",
+  "rounded",
+  "rounded-md",
+  "rounded-lg",
+  "rounded-xl",
+  "rounded-2xl",
+  "rounded-3xl",
+  "rounded-full"
+];
+
+const hasRoundedCorners = predefinedRoundedCorners.some(corner => orderSummaryContainer.classList.contains(corner));
+assert.isTrue(hasRoundedCorners);
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na darasa la huduma unalochagua la kuweka upana wa mpaka upande wote.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+
+// border classes can vary in width, so this check is for the presence of any border class
+const hasBorder = [...orderSummaryContainer.classList].some(className => className.startsWith("border-") || className === "border");
+assert.isTrue(hasBorder);
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na kipengele cha `h2` chenye maandishi `Order Summary`.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const orderSummaryTitle = orderSummaryContainer.querySelector("h2");
+assert.exists(orderSummaryTitle);
+assert.equal(orderSummaryTitle.textContent.trim(), "Order Summary");
+```
+
+Kipengele chako cha `h2` ndani ya kipengele cha `#order-summary-container` kinapaswa kutumia darasa la huduma unalochagua linaloweka ukubwa wa fonti.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const predefinedSizes = [
+  "text-xs",
+  "text-sm",
+  "text-base",
+  "text-lg",
+  "text-xl",
+  "text-2xl",
+  "text-3xl",
+  "text-4xl",
+  "text-5xl",
+  "text-6xl",
+  "text-7xl",
+  "text-8xl",
+  "text-9xl"
+];
+
+const orderSummaryTitle = orderSummaryContainer.querySelector("h2");
+assert.exists(orderSummaryTitle);
+const hasPredefinedSize = predefinedSizes.some(size => orderSummaryTitle.classList.contains(size));
+assert.isTrue(hasPredefinedSize);
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na kipengele chenye maandishi `Total:` na `id` kimewekwa kuwa `total`.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const totalElement = orderSummaryContainer.querySelector("#total");
+assert.exists(totalElement);
+assert.equal(totalElement.textContent.trim(), "Total:");
+```
+
+Kipengele chako cha `#total` kinapaswa kutumia darasa la huduma kuweka uzito wa fonti.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const totalElement = orderSummaryContainer.querySelector("#total");
+const predefinedFontWeights = [
+  "font-thin",
+  "font-extralight",
+  "font-light",
+  "font-normal",
+  "font-medium",
+  "font-semibold",
+  "font-bold",
+  "font-extrabold",
+  "font-black"
+];
+
+const hasFontWeight = predefinedFontWeights.some(weight => totalElement.classList.contains(weight));
+assert.isTrue(hasFontWeight);
+```
+
+Kipengele chako cha `#total` kinapaswa kutumia darasa la huduma kuweka ukubwa wa fonti.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const totalElement = orderSummaryContainer.querySelector("#total");
+const predefinedSizes = [
+  "text-xs",
+  "text-sm",
+  "text-base",
+  "text-lg",
+  "text-xl",
+  "text-2xl",
+  "text-3xl",
+  "text-4xl",
+  "text-5xl",
+  "text-6xl",
+  "text-7xl",
+  "text-8xl",
+  "text-9xl"
+];
+
+const hasPredefinedSize = predefinedSizes.some(size => totalElement.classList.contains(size));
+assert.isTrue(hasPredefinedSize);
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na kipengele chenye `id` kimewekwa kuwa `total-amount` kuonyesha jumla ya vitu vyote katika gari.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const totalElement = orderSummaryContainer.querySelector("#total-amount");
+assert.exists(totalElement);
+assert.isNotEmpty(totalElement.textContent.trim());
+```
+
+Kipengele chako cha `#order-summary-container` kinapaswa kuwa na kiungo chenye maandishi `Checkout` na `#` kwa thamani ya `href`.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const checkoutLink = orderSummaryContainer.querySelector("a");
+assert.exists(checkoutLink);
+assert.equal(checkoutLink.textContent.trim(), "Checkout");
+assert.equal(checkoutLink.getAttribute("href"), "#");
+```
+
+Kiungo chako cha `Checkout` kinapaswa kuwa na darasa la huduma la kuweka maandishi katikati.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const checkoutLink = orderSummaryContainer.querySelector("a");
+const hasTextCentering = checkoutLink.classList.contains("text-center");
+assert.isTrue(hasTextCentering);
+```
+
+Kiungo chako cha `Checkout` kinapaswa kuwa na darasa la huduma la kuweka rangi ya nyuma kuwa rangi ya buluu ya Tailwind CSS iliyotangazwa unayochagua.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const checkoutLink = orderSummaryContainer.querySelector("a");
+const predefinedBlueColors = [
+  "bg-blue-50",
+  "bg-blue-100",
+  "bg-blue-200",
+  "bg-blue-300",
+  "bg-blue-400",
+  "bg-blue-500",
+  "bg-blue-600",
+  "bg-blue-700",
+  "bg-blue-800",
+  "bg-blue-900",
+  "bg-blue-950"
+];
+
+const hasBlueBackground = predefinedBlueColors.some(color => checkoutLink.classList.contains(color));
+assert.isTrue(hasBlueBackground);
+```
+
+Kiungo chako cha `Checkout` kinapaswa kuwa na rangi tofauti ya buluu ya nyuma kwa hali ya hover.
+
+```js
+const orderSummaryContainer = document.querySelector("#shopping-cart-container #order-summary-container");
+const checkoutLink = orderSummaryContainer.querySelector("a");
+const predefinedBlueHoverColors = [
+  "hover:bg-blue-50",
+  "hover:bg-blue-100",
+  "hover:bg-blue-200",
+  "hover:bg-blue-300",
+  "hover:bg-blue-400",
+  "hover:bg-blue-500",
+  "hover:bg-blue-600",
+  "hover:bg-blue-700",
+  "hover:bg-blue-800",
+  "hover:bg-blue-900",
+  "hover:bg-blue-950"
+];
+
+const classList = checkoutLink.classList;
+const hoverBgClass = [...classList].find(cls => cls.startsWith("hover:bg-blue-"));
+const bgClass = [...classList].find(cls => cls.startsWith("bg-blue-") && !cls.startsWith("hover:"));
+
+assert.notEqual(bgClass, hoverBgClass.replace("hover:", ""));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Shopping Cart Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+
+  </body>
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Shopping Cart Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <h1 class="text-center text-3xl my-8">Shopping Cart Page</h1>
+    <main
+      id="shopping-cart-container"
+      class="flex flex-col lg:flex-row items-center gap-8"
+    >
+      <div id="products-container" class="w-full md:w-2/3 px-4">
+        <div
+          class="card flex flex-col lg:flex-row items-center gap-6 rounded-lg border border-gray-200 p-4 my-8 bg-gray-800"
+        >
+          <h2 class="text-lg lg:w-1/2">Ludwig Supraphonic Snare Drum Chrome</h2>
+          <div class="btn-container flex items-center lg:w-1/4">
+            <button
+              class="decrement-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Decrease quantity"
+            >
+              <span aria-hidden="true">-</span>
+            </button>
+            <span class="quantity mx-2">2</span>
+            <button
+              class="increment-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Increase quantity"
+            >
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
+          <p class="price lg:w-1/6 text-right">$1398.00</p>
+          <button
+            class="remove-button bg-red-700 hover:bg-red-800 py-1 px-2 rounded-md"
+          >
+            Remove
+          </button>
+        </div>
+
+        <div
+          class="card flex flex-col lg:flex-row items-center gap-6 rounded-lg border border-gray-200 p-4 my-8 bg-gray-800"
+        >
+          <h2 class="text-lg lg:w-1/2">Shure SM58S Mic With Switch Standard</h2>
+          <div class="btn-container flex items-center lg:w-1/4">
+            <button
+              class="decrement-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Decrease quantity"
+            >
+              <span aria-hidden="true">-</span>
+            </button>
+            <span class="quantity mx-2">1</span>
+            <button
+              class="increment-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Increase quantity"
+            >
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
+          <p class="price lg:w-1/6 text-right">$119.00</p>
+          <button
+            class="remove-button bg-red-700 hover:bg-red-800 py-1 px-2 rounded-md"
+          >
+            Remove
+          </button>
+        </div>
+
+        <div
+          class="card flex flex-col lg:flex-row items-center gap-6 rounded-lg border border-gray-200 p-4 my-8 bg-gray-800"
+        >
+          <h2 class="text-lg lg:w-1/2">
+            Fender American Professional II Stratocaster
+          </h2>
+          <div class="btn-container flex items-center lg:w-1/4">
+            <button
+              class="decrement-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Decrease quantity"
+            >
+              <span aria-hidden="true">-</span>
+            </button>
+            <span class="quantity mx-2">1</span>
+            <button
+              class="increment-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Increase quantity"
+            >
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
+          <p class="price lg:w-1/6 text-right">$1700.00</p>
+          <button
+            class="remove-button bg-red-700 hover:bg-red-800 py-1 px-2 rounded-md"
+          >
+            Remove
+          </button>
+        </div>
+
+        <div
+          class="card flex flex-col lg:flex-row items-center gap-6 rounded-lg border border-gray-200 p-4 my-8 bg-gray-800"
+        >
+          <h2 class="text-lg lg:w-1/2">
+            Moog Subsequent 37 Analog Synthesizer
+          </h2>
+          <div class="btn-container flex items-center lg:w-1/4">
+            <button
+              class="decrement-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Decrease quantity"
+            >
+              <span aria-hidden="true">-</span>
+            </button>
+            <span class="quantity mx-2">1</span>
+            <button
+              class="increment-btn bg-gray-800 hover:bg-gray-700 border border-gray-200 py-1 px-2 rounded-md"
+              type="button"
+              aria-label="Increase quantity"
+            >
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
+          <p class="price lg:w-1/6 text-right">$1799.00</p>
+          <button
+            class="remove-button bg-red-700 hover:bg-red-800 py-1 px-2 rounded-md"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="order-summary-container"
+        class="rounded-lg border border-gray-200 p-8 bg-gray-800 w-full md:w-1/3 mt-8 lg:mt-0"
+      >
+        <h2 class="text-2xl mb-4">Order Summary</h2>
+        <ul>
+          <li>
+            <span id="subtotal" class="font-semibold text-lg">Subtotal:</span>
+            <span>$5,016.00</span>
+          </li>
+          <li class="my-6">
+            <span id="shipping" class="font-semibold text-lg">Shipping:</span>
+            <span>Calculated in checkout</span>
+          </li>
+          <li>
+            <span id="total" class="font-semibold text-lg">Total:</span>
+            <span id="total-amount">$5,016.00</span>
+          </li>
+        </ul>
+        <a
+          href="#"
+          class="text-center rounded-lg mx-auto mt-4 block px-5 py-2.5 font-medium bg-blue-600 hover:bg-blue-700"
+          >Checkout</a
+        >
+      </div>
+    </main>
+  </body>
+</html>
+```

@@ -1,0 +1,156 @@
+---
+id: 599d1566a02b571412643b84
+title: Zidisha kwa njia ya Waethiopia
+challengeType: 1
+forumTopicId: 302257
+dashedName: ethiopian-multiplication
+---
+
+# --description--
+
+Zidisha kwa njia ya Waethiopia ni njia ya kuzidisha nambari kamili kwa kutumia tu kuongeza, kuzidisha mara mbili, na kugawanya nusu.
+
+**Njia:**
+
+<ol>
+  <li>Chukua nambari mbili zinazozidishwa na ziandike juu ya safu mbili</li>
+  <li>Kwenye safu ya kushoto gawanya nambari ya mwisho mara kwa mara nusu, ukiacha mabaki yoyote, na andika matokeo chini ya nambari ya mwisho kwenye safu hiyo hiyo, hadi uandike thamani ya <code>1</code></li>
+  <li>Kwenye safu ya kulia zidisha mara mbili nambari ya mwisho mara kwa mara na andika matokeo chini. simama unapoongeza matokeo kwenye safu ile ile ambapo safu ya kushoto inaonyesha <code>1</code></li>
+  <li>Kagua jedwali lililotengenezwa na toa safu yoyote ambapo thamani kwenye safu ya kushoto ni nambari hata</li>
+  <li>Jumlisha thamani zilizobaki kwenye safu ya kulia ili kupata matokeo ya kuzidisha nambari mbili za awali pamoja</li>
+</ol>
+
+**Kwa mfano:** `17 × 34`
+
+<pre>17   34
+</pre>
+
+Kugawanya safu ya kwanza nusu:
+
+<pre>17   34
+8
+4
+2
+1
+</pre>
+
+Kuzidisha mara mbili safu ya pili:
+
+<pre>17   34
+8    68
+4   136
+2   272
+1   544
+</pre>
+
+Futa safu ambazo seli yao ya kwanza ni nambari hata:
+
+<pre>17   34
+8    <strike>68</strike>
+4   <strike>136</strike>
+2   <strike>272</strike>
+1   544
+</pre>
+
+Jumlisha nambari zilizobaki kwenye safu ya kulia:
+
+<!-- markdownlint-disable MD003 -->
+
+<pre>17   34
+8    --
+4   ---
+2   ---
+1   544
+   ====
+    578
+</pre>
+
+<!-- markdownlint-enable MD003 -->
+
+Hivyo `17` iliyozidishwa na `34`, kwa njia ya Waethiopia ni `578`.
+
+# --instructions--
+
+Zoezi ni kufafanua kitendakazi/njia/utaratibu tatu zilizopewa majina:
+
+<ol>
+  <li>moja ya kugawanya nambari kamili nusu,</li>
+  <li>moja ya kuzidisha nambari kamili mara mbili, na</li>
+  <li>moja ya kusema kama nambari kamili ni hata</li>
+</ol>
+
+Tumia vitendakazi hivi kuunda kitendakazi kinachofanya zidisha kwa njia ya Waethiopia.
+
+<!-- markdownlint-disable MD046-->
+
+# --hints--
+
+`eth_mult` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof eth_mult === 'function');
+```
+
+`eth_mult(17,34)` inapaswa kurudisha `578`.
+
+```js
+assert.equal(eth_mult(17, 34), 578);
+```
+
+`eth_mult(23,46)` inapaswa kurudisha `1058`.
+
+```js
+assert.equal(eth_mult(23, 46), 1058);
+```
+
+`eth_mult(12,27)` inapaswa kurudisha `324`.
+
+```js
+assert.equal(eth_mult(12, 27), 324);
+```
+
+`eth_mult(56,98)` inapaswa kurudisha `5488`.
+
+```js
+assert.equal(eth_mult(56, 98), 5488);
+```
+
+`eth_mult(63,74)` inapaswa kurudisha `4662`.
+
+```js
+assert.equal(eth_mult(63, 74), 4662);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function eth_mult(a, b) {
+
+}
+```
+
+# --solutions--
+
+```js
+function eth_mult(a, b) {
+  let sum = 0; a = [a]; b = [b];
+
+  let half = a => a / 2,
+    double = a => a * 2,
+    is_even = a => a % 2 == 0;
+
+  while (a[0] !== 1) {
+    a.unshift(Math.floor(half(a[0])));
+    b.unshift(double(b[0]));
+  }
+
+  for (let i = a.length - 1; i > 0; i -= 1) {
+    if (!is_even(a[i])) {
+      sum += b[i];
+    }
+  }
+  return sum + b[0];
+}
+```

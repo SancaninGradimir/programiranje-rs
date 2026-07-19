@@ -1,0 +1,90 @@
+---
+id: 587d7b89367417b2b2512b48
+title: Tumia opereta ya spread kutathmini safu za data mahali hapo hapo
+challengeType: 1
+forumTopicId: 301222
+dashedName: use-the-spread-operator-to-evaluate-arrays-in-place
+---
+
+# --description--
+
+ES6 inaleta <dfn>opereta ya spread</dfn>, ambayo inatuwezesha kupanua safu za data na usemi wa kihesabu mahali ambapo kigezo nyingi au vipengele vinatarajiwa.
+
+Msimbo wa ES5 hapa chini unatumia `apply()` kuhesabu thamani kubwa zaidi katika safu ya data:
+
+```js
+var arr = [6, 89, 3, 45];
+var maximus = Math.max.apply(null, arr);
+```
+
+`maximus` ingekuwa na thamani ya `89`.
+
+Tulilazimika kutumia `Math.max.apply(null, arr)` kwa sababu `Math.max(arr)` inarudisha `NaN`. `Math.max()` inatarajia hoja zilizoachwa kwa koma, lakini si safu ya data. Opereta ya spread inafanya sintaksia hii kuwa rahisi kusoma na kudumisha.
+
+```js
+const arr = [6, 89, 3, 45];
+const maximus = Math.max(...arr);
+```
+
+`maximus` ingekuwa na thamani ya `89`.
+
+`...arr` inarudisha safu ya data iliyofunguliwa. Kwa maneno mengine, inapanua safu ya data. Hata hivyo, opereta ya spread hufanya kazi mahali hapo hapo tu, kama katika hoja za kitendakazi au katika orodha ya safu ya data. Kwa mfano:
+
+```js
+const spreaded = [...arr];
+```
+
+Hata hivyo, msimbo ufuatao hautafanya kazi:
+
+```js
+const spreaded = ...arr;
+```
+
+# --instructions--
+
+Nakili maudhui yote ya `arr1` ndani ya safu nyingine `arr2` ukitumia opereta ya spread.
+
+# --hints--
+
+`arr2` inapaswa kuwa nakala sahihi ya `arr1`.
+
+```js
+assert(arr2.every((v, i) => v === arr1[i]) && arr2.length);
+```
+
+Opereta ya spread `...` inapaswa kutumika kunakili mara mbili `arr1`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/Array\(\s*\.\.\.arr1\s*\)|\[\s*\.\.\.arr1\s*\]/));
+```
+
+`arr2` inapaswa kubaki isiyobadilika wakati `arr1` inabadilishwa.
+
+```js
+assert((arr1, arr2) => {
+  arr1.push('JUN');
+  return arr2.length < arr1.length;
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const arr1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY'];
+let arr2;
+
+arr2 = [];  // Change this line
+
+console.log(arr2);
+```
+
+# --solutions--
+
+```js
+const arr1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY'];
+let arr2;
+
+arr2 = [...arr1];
+```

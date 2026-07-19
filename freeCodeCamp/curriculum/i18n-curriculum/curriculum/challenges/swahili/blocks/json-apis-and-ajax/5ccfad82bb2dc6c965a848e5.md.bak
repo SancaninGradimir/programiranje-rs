@@ -1,0 +1,184 @@
+---
+id: 5ccfad82bb2dc6c965a848e5
+title: Pata JSON kwa kutumia njia ya JavaScript fetch
+challengeType: 6
+forumTopicId: 301501
+dashedName: get-json-with-the-javascript-fetch-method
+---
+
+# --description--
+
+Njia nyingine ya kuomba data za nje ni kutumia njia ya JavaScript `fetch()`. Ni sawa na `XMLHttpRequest`, lakini sintaksia yake inachukuliwa kuwa rahisi kuelewa.
+
+Hapa kuna msimbo wa kufanya ombi la GET kwa `/json/cats.json`
+
+```js
+fetch('/json/cats.json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('message').innerHTML = JSON.stringify(data);
+  });
+```
+
+Kumbuka: Njia ya `fetch()` hutumia `GET` kama njia ya `HTTP` kwa chaguo-msingi. Hii ina maana huna haja ya kuieleza wazi kwa ajili ya kupata data za msingi.
+
+Tazama kila sehemu ya msimbo huu.
+
+Mstari wa kwanza ndio unaofanya ombi. Hivyo, `fetch(URL)` hufanya ombi la `GET` kwa URL iliyotajwa. Njia hii inarudisha Ahadi.
+
+Baada ya Ahadi kurudishwa, ikiwa ombi lilifanikiwa, njia ya `then` hufanyika, ambayo inachukua jibu na kulibadilisha kuwa muundo wa JSON.
+
+Njia ya `then` pia inarudisha Ahadi, ambayo inashughulikiwa na njia inayofuata ya `then`. Hoja katika `then` ya pili ni kitu cha JSON unachotafuta!
+
+Sasa, inachagua kipengele kitakachopokea data kwa kutumia `document.getElementById()`. Kisha hubadilisha msimbo wa HTML wa kipengele hicho kwa kuingiza mfuatano wa herufi uliotengenezwa kutoka kwa kitu cha JSON kilichorejeshwa kutoka kwa ombi.
+
+# --instructions--
+
+Sahihisha msimbo ili kuunda na kutuma ombi la `GET` kwa API ya Picha za Paka ya freeCodeCamp. Lakini wakati huu, tumia njia ya `fetch` badala ya `XMLHttpRequest`.
+
+# --hints--
+
+Msimbo wako unapaswa kutumia data iliyopatikana kubadilisha HTML ya ndani
+
+```js
+const catData = 'dummy data';
+const ref = fetch;
+fetch = () => Promise.resolve({ json: () => catData });
+
+  try {
+    document.getElementById('getMessage').click();
+    await new Promise((resolve, reject) => setTimeout(() => resolve(), 250));
+  } catch (error) {
+    console.log(error);
+  } finally {
+    fetch = ref;
+    assert.equal(
+      document.getElementById('message').textContent,
+      JSON.stringify(catData)
+    );
+  }
+
+```
+
+Msimbo wako unapaswa kufanya ombi la `GET` kwa `fetch`.
+
+```js
+assert.match(code, /fetch\s*\(\s*('|")\/json\/cats\.json\1\s*\)/g);
+```
+
+Msimbo wako unapaswa kutumia `then` kubadilisha jibu kuwa JSON.
+
+```js
+assert.match(
+  code,
+  /\.then\s*\(\s*\(?(?<var>\w+)\)?\s*=>\s*\k<var>\s*\.json\s*\(\s*\)\s*\)/g
+);
+```
+
+Msimbo wako unapaswa kutumia `then` kushughulikia data iliyobadilishwa kuwa JSON na `then` mwingine.
+
+```js
+assert.match(__helpers.removeWhiteSpace(code), /\.then\(\(?\w+\)?=>{[^}]*}\)/g);
+```
+
+Msimbo wako unapaswa kupata kipengele chenye kitambulisho `message` na kubadilisha HTML yake ya ndani kuwa mfuatano wa data ya JSON.
+
+```js
+assert.match(
+  __helpers.removeWhiteSpace(code),
+  /document\.getElementById\(('|")message\1\)\.innerHTML=JSON\.stringify\(?\w+\)/g
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = () => {
+      // Add your code below this line
+      // Add your code above this line
+    };
+  });
+</script>
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+<h1>Cat Photo Finder</h1>
+<p id="message" class="box">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```
+
+# --solutions--
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getMessage').onclick = () => {
+      fetch('/json/cats.json')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('message').innerHTML = JSON.stringify(data);
+        });
+    };
+  });
+</script>
+<style>
+  body {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+  }
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+  }
+  button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+  }
+  button:hover {
+    background-color: #0f5897;
+    border: 1px solid #0f5897;
+  }
+</style>
+<h1>Cat Photo Finder</h1>
+<p id="message" class="box">The message will go here</p>
+<p>
+  <button id="getMessage">Get Message</button>
+</p>
+```

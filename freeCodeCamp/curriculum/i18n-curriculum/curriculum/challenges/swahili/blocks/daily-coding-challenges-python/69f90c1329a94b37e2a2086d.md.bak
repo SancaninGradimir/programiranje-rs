@@ -1,0 +1,96 @@
+---
+id: 69f90c1329a94b37e2a2086d
+title: "Zoezi la 294: Mchanganyiko wa mabano ya kawaida"
+challengeType: 29
+dashedName: challenge-294
+---
+
+# --description--
+
+Ukipatiwa nambari kamili, `n`, rudisha idadi ya mchanganyiko halali wa jozi `n` za mabano ya kawaida.
+
+- Mchanganyiko halali ni mfuatano wa herufi ambapo kila mabano ya kawaida ya kufungua yana mabano ya kawaida ya kufunga yanayolingana, na hakuna mabano ya kawaida ya kufunga yanayotokea kabla ya mabano ya kawaida ya kufungua yanayolingana.
+
+Kwa mfano, ukipatiwa `2`, kuna mchanganyiko 2 halali:
+
+```json
+(())
+()()
+```
+
+# --hints--
+
+`get_combinations(2)` inapaswa kurudisha `2`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_combinations(2), 2)`)
+}})
+```
+
+`get_combinations(3)` inapaswa kurudisha `5`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_combinations(3), 5)`)
+}})
+```
+
+`get_combinations(5)` inapaswa kurudisha `42`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_combinations(5), 42)`)
+}})
+```
+
+`get_combinations(8)` inapaswa kurudisha `1430`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_combinations(8), 1430)`)
+}})
+```
+
+`get_combinations(13)` inapaswa kurudisha `742900`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_combinations(13), 742900)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_combinations(n):
+
+    return n
+```
+
+# --solutions--
+
+```py
+def get_combinations(n):
+    count = 0
+
+    def generate(op, cl):
+        nonlocal count
+        if op == 0 and cl == 0:
+            count += 1
+            return
+        if op > 0:
+            generate(op - 1, cl)
+        if cl > op:
+            generate(op, cl - 1)
+
+    generate(n, n)
+    return count
+```

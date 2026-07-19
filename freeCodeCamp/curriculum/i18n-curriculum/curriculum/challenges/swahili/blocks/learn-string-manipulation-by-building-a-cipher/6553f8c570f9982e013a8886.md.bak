@@ -1,0 +1,53 @@
+---
+id: 6553f8c570f9982e013a8886
+title: Hatua 57
+challengeType: 20
+dashedName: step-57
+---
+
+# --description--
+
+Kwa sasa, kila herufi moja huhifadhiwa kwa herufi ile ile kila wakati, kulingana na mbali iliyotangazwa. Je, vipi kama mbali ingekuwa tofauti kwa kila herufi? Hii ingekuwa ngumu zaidi kufungua. Algoriti hii huitwa Vigenère cipher, ambapo mbali kwa kila herufi huamuliwa na maandishi mengine, yanayojulikana kama *funguo*.
+
+Anza kubadilisha Caesar cipher yako kuwa Vigenère cipher kwa kuondoa wito wa vitendakazi viwili.
+
+# --hints--
+
+Unapaswa kuondoa wito wako wa vitendakazi viwili vya `caesar()`.
+
+```js
+({ test: () => {
+    const commentless_code = __helpers.python.removeComments(code);
+    assert.isFalse(/^caesar\s*\(\s*text\s*,\s*shift\s*\)/m.test(commentless_code))
+    assert.isFalse(/^caesar\s*\(\s*text\s*,\s*13\s*\)/m.test(commentless_code))
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+text = 'Hello Zaira'
+shift = 3
+
+def caesar(message, offset):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_text = ''
+
+    for char in message.lower():
+        if char == ' ':
+            encrypted_text += char
+        else:
+            index = alphabet.find(char)
+            new_index = (index + offset) % len(alphabet)
+            encrypted_text += alphabet[new_index]
+    print('plain text:', message)
+    print('encrypted text:', encrypted_text)
+
+caesar(text, shift)
+caesar(text, 13)
+--fcc-editable-region--
+```

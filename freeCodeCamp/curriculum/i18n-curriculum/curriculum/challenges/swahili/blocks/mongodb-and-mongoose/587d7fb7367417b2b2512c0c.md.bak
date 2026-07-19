@@ -1,0 +1,44 @@
+---
+id: 587d7fb7367417b2b2512c0c
+title: Tumia model.findOne() kurudisha hati moja inayolingana kutoka hifadhidata yako
+challengeType: 2
+forumTopicId: 301545
+dashedName: use-model-findone-to-return-a-single-matching-document-from-your-database
+---
+
+# --description--
+
+`Model.findOne()` hufanya kazi kama `Model.find()`, lakini hurudisha hati moja tu (si safu ya data), hata kama kuna vitu vingi. Ni muhimu hasa wakati wa kutafuta kwa vigezo ulivyotangaza kuwa vya kipekee.
+
+# --instructions--
+
+Badilisha kitendakazi cha `findOneByFood` ili upate mtu mmoja tu ambaye ana chakula fulani miongoni mwa chakula anachokipenda, ukitumia `Model.findOne() -> Person`. Tumia hoja ya kitendakazi `food` kama ufunguo wa kutafuta.
+
+# --hints--
+
+Kupata kipengee kimoja kunapaswa kufanikiwa
+
+```js
+  const response = await fetch(code + '/_api/find-one-by-food', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Gary',
+      age: 46,
+      favoriteFoods: ['chicken salad']
+    })
+  });
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.equal(data.name, 'Gary', 'item.name is not what expected');
+  assert.deepEqual(
+    data.favoriteFoods,
+    ['chicken salad'],
+    'item.favoriteFoods is not what expected'
+  );
+  assert.equal(data.__v, 0, 'The item should be not previously edited');
+```

@@ -1,0 +1,92 @@
+---
+id: 68c497f3aaefc9fd9f1b0e25
+title: "Challenge 61: Space Week Day 7: Launch Fuel"
+challengeType: 29
+dashedName: challenge-61
+---
+
+# --description--
+
+Kwa siku ya mwisho ya Wiki ya Anga, utapewa uzito kwa kilo (kg) wa mzigo unaotaka kutuma angani. Tambua kiasi cha mafuta kinachohitajika kutuma mzigo wako angani kwa kutumia sheria zifuatazo:
+
+- Mizinga ya roketi inahitaji kilo 1 ya mafuta kwa kila kilo 5 za uzito wa kuinua.
+- Mafuta yenyewe yana uzito. Hivyo unapoongeza mafuta, uzito wa kuinua unaongezeka, jambo linalohitaji mafuta zaidi, ambayo huongeza uzito, na kadhalika.
+- Ili kuhesabu jumla ya mafuta yanayohitajika: anza na uzito wa mzigo, hesabu mafuta yanayohitajika kwa huo uzito, ongeza mafuta hayo kwenye jumla ya uzito, na hesabu tena. Rudia mchakato huu hadi mafuta ya ziada yanayohitajika yapungue kilo 1, kisha simama.
+- Puuza uzito wa roketi yenyewe. Hesabu tu mafuta yanayohitajika kuinua mzigo na mafuta yake mwenyewe.
+
+Kwa mfano, ukipata mzigo wa kilo 50, utahitaji kilo 10 za mafuta kuinua mzigo huo (mzigo / 5), jambo linaloongeza jumla ya uzito kuwa kilo 60, ambayo inahitaji kilo 12 kuinua (kilo 2 za ziada), jambo linaloongeza jumla ya uzito kuwa kilo 62, ambayo inahitaji kilo 12.4 kuinua - kilo 0.4 za ziada - ambazo ni chini ya kilo 1 za ziada, hivyo tunasimama hapa. Jumla ya uzito wa kuinua ni kilo 62.4, ambapo 50 ni mzigo wa awali na 12.4 ni mafuta.
+
+- Rudisha kiasi cha mafuta kinachohitajika kilichozungushwa hadi sehemu moja ya desimali.
+
+# --hints--
+
+`launch_fuel(50)` should return `12.4`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(launch_fuel(50), 12.4)`)
+}})
+```
+
+`launch_fuel(500)` should return `124.8`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(launch_fuel(500), 124.8)`)
+}})
+```
+
+`launch_fuel(243)` should return `60.7`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(launch_fuel(243), 60.7)`)
+}})
+```
+
+`launch_fuel(11000)` should return `2749.8`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(launch_fuel(11000), 2749.8)`)
+}})
+```
+
+`launch_fuel(6214)` should return `1553.4`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(launch_fuel(6214), 1553.4)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def launch_fuel(payload):
+
+    return payload
+```
+
+# --solutions--
+
+```py
+def launch_fuel(payload):
+    total_mass = payload
+    additional_fuel = total_mass / 5
+    total_fuel = additional_fuel
+
+    while additional_fuel >= 1:
+        total_mass += additional_fuel
+        additional_fuel = (total_mass / 5) - total_fuel
+        total_fuel += additional_fuel
+
+    return round(total_fuel, 1)
+```

@@ -1,0 +1,161 @@
+---
+id: 587d7b7d367417b2b2512b1c
+title: Angalia kama Kitu kina Sifa
+challengeType: 1
+forumTopicId: 301155
+dashedName: check-if-an-object-has-a-property
+---
+
+# --description--
+
+Sasa tunaweza kuongeza, kubadilisha, na kuondoa funguo kutoka kwa vitu. Lakini vipi kama tungependa tu kujua kama kitu kina sifa fulani? JavaScript inatupatia njia mbili tofauti za kufanya hivi. Moja hutumia njia ya `hasOwnProperty()` na nyingine hutumia neno kuu la `in`. Ikiwa tuna kitu `users` chenye sifa ya `Alan`, tunaweza kuangalia uwepo wake kwa mojawapo ya njia zifuatazo:
+
+```js
+users.hasOwnProperty('Alan');
+'Alan' in users;
+```
+
+Zote hizi zitarudisha `true`.
+
+# --instructions--
+
+Malizia kuandika kitendakazi ili kirudishe `true` ikiwa kitu kilichotumwa kina majina yote manne, `Alan`, `Jeff`, `Sarah` na `Ryan` na kirudishe `false` vinginevyo.
+
+# --hints--
+
+Kitu cha `users` hakipaswi kufikiliwa moja kwa moja
+
+```js 
+
+assert(__helpers.removeJSComments(code).match(/users/gm).length <= 2)
+
+```
+
+Kitu cha `users` kinapaswa kuwa na funguo `Alan`, `Jeff`, `Sarah`, na `Ryan` pekee
+
+```js
+assert(
+  'Alan' in users &&
+    'Jeff' in users &&
+    'Sarah' in users &&
+    'Ryan' in users &&
+    Object.keys(users).length === 4
+);
+```
+
+Kitendakazi cha `isEveryoneHere` kinapaswa kurudisha `true` ikiwa `Alan`, `Jeff`, `Sarah`, na `Ryan` ni sifa kwenye kitu kilichotumwa.
+
+```js
+assert(isEveryoneHere(users) === true);
+```
+
+Kitendakazi cha `isEveryoneHere` kinapaswa kurudisha `false` ikiwa `Alan` si sifa kwenye kitu kilichotumwa.
+
+```js
+assert(
+  (function () {
+    delete users.Alan;
+    return isEveryoneHere(users);
+  })() === false
+);
+```
+
+Kitendakazi cha `isEveryoneHere` kinapaswa kurudisha `false` ikiwa `Jeff` si sifa kwenye kitu kilichotumwa.
+
+```js
+assert(
+  (function () {
+    delete users.Jeff;
+    return isEveryoneHere(users);
+  })() === false
+);
+```
+
+Kitendakazi cha `isEveryoneHere` kinapaswa kurudisha `false` ikiwa `Sarah` si sifa kwenye kitu kilichotumwa.
+
+```js
+assert(
+  (function () {
+    delete users.Sarah;
+    return isEveryoneHere(users);
+  })() === false
+);
+```
+
+Kitendakazi cha `isEveryoneHere` kinapaswa kurudisha `false` ikiwa `Ryan` si sifa kwenye kitu kilichotumwa.
+
+```js
+assert(
+  (function () {
+    delete users.Ryan;
+    return isEveryoneHere(users);
+  })() === false
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let users = {
+  Alan: {
+    age: 27,
+    online: true
+  },
+  Jeff: {
+    age: 32,
+    online: true
+  },
+  Sarah: {
+    age: 48,
+    online: true
+  },
+  Ryan: {
+    age: 19,
+    online: true
+  }
+};
+
+function isEveryoneHere(userObj) {
+  // Only change code below this line
+  
+  // Only change code above this line
+}
+
+console.log(isEveryoneHere(users));
+```
+
+# --solutions--
+
+```js
+let users = {
+  Alan: {
+    age: 27,
+    online: true
+  },
+  Jeff: {
+    age: 32,
+    online: true
+  },
+  Sarah: {
+    age: 48,
+    online: true
+  },
+  Ryan: {
+    age: 19,
+    online: true
+  }
+};
+
+function isEveryoneHere(userObj) {
+  return [
+    'Alan',
+    'Jeff',
+    'Sarah',
+    'Ryan'
+  ].every(user => userObj.hasOwnProperty(user));
+}
+
+console.log(isEveryoneHere(users));
+```

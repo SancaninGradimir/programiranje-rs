@@ -1,0 +1,158 @@
+---
+id: 5a24c314108439a4d4036166
+title: Tengeneza sehemu za React
+challengeType: 6
+forumTopicId: 301381
+dashedName: compose-react-components
+---
+
+# --description--
+
+Kadiri changamoto zinavyoendelea kutumia mchanganyiko tata zaidi wa sehemu za React na JSX, kuna jambo moja muhimu la kuzingatia. Kuonyesha sehemu za darasa la vitu za mtindo wa ES6 ndani ya sehemu nyingine haina tofauti na kuonyesha sehemu rahisi ulizotumia katika changamoto za hivi karibuni. Unaweza kuonyesha vipengele vya JSX, sehemu za kitendakazi isiyo na hali, na sehemu za darasa la vitu la ES6 ndani ya sehemu nyingine.
+
+# --instructions--
+
+Katika mhariri wa msimbo, sehemu ya `TypesOfFood` tayari inaonyesha sehemu inayoitwa `Vegetables`. Pia, kuna sehemu ya `Fruits` kutoka changamoto iliyopita.
+
+Panga ndani sehemu mbili ndani ya `Fruits` — kwanza `NonCitrus`, kisha `Citrus`. Sehemu hizi zote mbili zimeandaliwa kwako nyuma ya pazia. Kisha, panga ndani sehemu ya darasa la vitu `Fruits` ndani ya sehemu ya `TypesOfFood`, chini ya kipengele cha kichwa cha sehemu `h1` na juu ya `Vegetables`. Matokeo yanapaswa kuwa mfululizo wa sehemu zilizopangwa ndani, zinazotumia aina mbili tofauti za sehemu.
+
+# --before-all--
+
+```js
+globalThis.NonCitrus = function NonCitrus() {
+  return React.createElement('div', null);
+};
+globalThis.Citrus = function Citrus() {
+  return React.createElement('div', null);
+};
+globalThis.Vegetables = function Vegetables() {
+  return React.createElement('div', null);
+};
+```
+
+# --hints--
+
+Sehemu ya `TypesOfFood` inapaswa kurudisha kipengele kimoja cha `div`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));
+    return mockedComponent.children().type() === 'div';
+  })()
+);
+```
+
+Sehemu ya `TypesOfFood` inapaswa kurudisha sehemu ya `Fruits`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));
+    return mockedComponent.children().childAt(1).name() === 'Fruits';
+  })()
+);
+```
+
+Sehemu ya `Fruits` inapaswa kurudisha sehemu ya `NonCitrus` na sehemu ya `Citrus`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));
+    return (
+      mockedComponent.find('Fruits').children().find('NonCitrus').length ===
+        1 &&
+      mockedComponent.find('Fruits').children().find('Citrus').length === 1
+    );
+  })()
+);
+```
+
+Sehemu ya `TypesOfFood` inapaswa kurudisha sehemu ya `Vegetables` chini ya sehemu ya `Fruits`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));
+    return mockedComponent.children().childAt(2).name() === 'Vegetables';
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class Fruits extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h2>Fruits:</h2>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+
+class TypesOfFood extends React.Component {
+  constructor(props) {
+     super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>Types of Food:</h1>
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+        <Vegetables />
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class Fruits extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h2>Fruits:</h2>
+        { /* Change code below this line */ }
+        <NonCitrus />
+        <Citrus />
+        { /* Change code above this line */ }
+      </div>
+    )
+  }
+}
+
+class TypesOfFood extends React.Component {
+  constructor(props) {
+     super(props);
+  }
+    render() {
+      return (
+        <div>
+        <h1>Types of Food:</h1>
+          { /* Change code below this line */ }
+          <Fruits />
+          { /* Change code above this line */ }
+          <Vegetables />
+        </div>
+      );
+    }
+};
+```

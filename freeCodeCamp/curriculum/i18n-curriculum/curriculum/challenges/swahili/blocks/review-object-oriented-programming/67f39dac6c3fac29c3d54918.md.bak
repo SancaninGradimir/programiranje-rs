@@ -1,0 +1,203 @@
+---
+id: 67f39dac6c3fac29c3d54918
+title: Ukaguzi wa uprogramaji unaozingatia vitu
+challengeType: 31
+dashedName: review-object-oriented-programming
+---
+
+# --description--
+
+## Uprogramaji unaozingatia vitu ni nini?
+
+- **Uprogramaji unaozingatia vitu**: Mtindo wa uprogramaji ambapo wasanidi programu hutumia kila kitu katika msimbo wao kama kitu halisi cha ulimwengu. Unajulikana sana kama OOP. Kanuni kuu nne zinazokusaidia kupanga na kusimamia msimbo kwa ufanisi ni **ufungaji wa sifa na njia (encapsulation)**, **urithi**, **polymorphism**, na **ufupishaji (abstraction)**
+- **Darasa la vitu**: Mchoro wa kuunda vitu. Kila kitu kinachoundwa kutoka kwa darasa lina sifa zinazobainisha data na njia zinazobainisha tabia za vitu hivyo.
+
+## Ufungaji wa sifa na njia ni nini?
+
+- **Ufungaji wa sifa na njia (encapsulation)**: Kuunganisha sifa na njia za kitu katika kitengo kimoja. Hukuruhusu kuficha hali ya ndani ya kitu nyuma ya seti rahisi ya njia na sifa za umma zinazofanya kazi kama milango. Nyuma ya milango hiyo kuna sifa na njia za faragha zinazodhibiti jinsi data inavyobadilika na nani anaweza kuiona.
+- **Mfano wa ufungaji wa sifa na njia**: Ikiwa unataka kufuatilia salio la pochi, utaruhusu kuweka na kutoa fedha, lakini hutaki mtu yeyote kubadilisha salio la pochi yenyewe:
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self.__balance = balance # Private attribute
+
+   def deposit(self, amount):
+       if amount > 0:
+           self.__balance += amount # Add to the balance safely
+
+   def withdraw(self, amount):
+       if 0 < amount <= self.__balance:
+           self.__balance -= amount # Remove from the balance safely
+
+account = Wallet(500)
+print(account.__balance) # AttributeError: 'Wallet' object has no attribute '__balance'
+```
+
+- **Tofauti kati ya kuweka kiambishi awali cha mstari mmoja na wa mistari miwili kwa sifa**: Kuweka kiambishi awali cha mstari mmoja kwa sifa na njia ina maana kwamba ni kwa matumizi ya ndani tu. Hii ni mkataba, na haizuizi upatikanaji wa sifa kutoka nje. Kuweka kiambishi awali cha mistari miwili kwa sifa na njia huzuia kabisa upatikanaji kutoka nje ya darasa lao.
+
+## Getters na setters ni nini?
+
+- **Getters na setters**: Njia zinazokuruhusu kudhibiti jinsi sifa za darasa zinavyopatikana na kubadilishwa. Unapata thamani kwa getters na unaweka thamani kwa setters.
+- **Sifa**: Zinahusisha getters na setters, na kuruhusu upatikanaji wa data. Zinatumia mantiki ya ziada nyuma ya pazia wakati unapata, unaweka, au unafuta thamani.
+- **Kwa nini sifa badala ya njia**: Sifa hutumika badala ya njia kwa ajili ya usomaji bora na msimbo safi. Zinakuwezesha kupata thamani kwa uandishi wa nukta, kama sifa za kawaida, bila mabano ya kawaida.
+- **Kuunda getter**: Ili kuunda getter, tumia dekoreta `@property`. Hapa kuna getter inayopata mduara wa mduara:
+
+```py
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self): # A getter to get the radius
+        return self._radius
+  
+    @property
+    def area(self):  # A getter to calculate area
+        return 3.14 * (self._radius ** 2)
+
+my_circle = Circle(3)
+
+print(my_circle.radius) # 3
+print(my_circle.area) # 28.26
+```
+
+- **Kuunda setter**: Ili kuunda setter itakayoweka mduara, lazima ueleze njia nyingine yenye jina lile lile na utumie `@<property_name>.setter` juu yake:
+
+```py
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self):  # A getter to get the radius
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):  # A setter to set the radius
+        if value <= 0:
+            raise ValueError('Radius must be positive')
+        self._radius = value
+
+my_circle = Circle(3)
+print('Initial radius:', my_circle.radius) # Initial radius: 3
+
+my_circle.radius = 8
+print('After modifying the radius:', my_circle.radius) # After modifying the radius: 8
+```
+
+- **Jinsi Python inavyoshughulikia getters na setters**: Mara unapobainisha getters na setters, Python huwaita moja kwa moja kila wakati unapotumia sintaksia ya kawaida ya sifa hivi:
+
+```py
+my_circle.radius # This will call the getter
+my_circle.radius = 4 # This will call the setter
+```
+
+ Wakati wa kuweka thamani, haipaswi kuweka thamani kwa jina la sifa yenyewe kwa sababu hiyo itasababisha `RecursionError`. Tumia jina la ndani tofauti, mara nyingi lenye kiambishi awali cha mstari mmoja, kuhifadhi thamani.
+
+- **Deleter**: Baada ya kuweka na kupata thamani kwa setter na getter, unaweza kudhibiti jinsi inavyofutwa kwa `deleter`. Deleter hutekeleza mantiki maalum unapotumia tamko la `del` kwenye sifa. Ili kuunda deleter, tumia dekoreta `@<property_name>.deleter`.
+
+```py
+  # Deleter
+    @radius.deleter
+    def radius(self):
+        print("Deleting radius...")
+        del self._radius
+```
+
+## Urithi ni nini na unakuzaje matumizi tena ya msimbo?
+
+- **Urithi**: Mchakato ambapo darasa la mtoto hutumia sifa na njia za darasa la mzazi. Urithi unakuza matumizi tena ya msimbo, hutoa hierarkia wazi, na hubadilisha tabia bila kuandika upya kila kitu. Ili kutekeleza urithi, darasa la mtoto huchukua jina la darasa la mzazi:
+
+```py
+class Parent:
+    # Parent attributes and methods
+
+class Child(Parent):
+    # Child inherits, extends, and/or overrides where necessary
+```
+
+- **Urithi wa moja kwa moja na wa mara nyingi**: Wakati darasa la mtoto linarithi sifa na njia kutoka kwa mzazi mmoja, kama unavyoona hapo juu, mchakato huo huitwa **urithi wa moja kwa moja**. Wakati darasa la mtoto linarithi sifa na njia kutoka kwa wazazi zaidi ya mmoja, hiyo ni **urithi wa mara nyingi**. Hapa ni sintaksia yake:
+
+```py
+class Parent:
+    # Attributes and methods for Parent
+
+class Child:
+    # Attributes and methods for Child
+
+class GrandChild(Parent, Child):
+    # GrandChild inherits from both Parent and Child
+    # GrandChild can combine or override behavior from each
+```
+
+- **Kitendakazi `super()`**: Kitendakazi kinachokuruhusu **kuita** njia kutoka kwa darasa la mzazi, wakati darasa lina utekelezaji tofauti wa njia hiyo, au linaongeza njia hiyo, bila kuiga msimbo.
+
+## Polymorphism ni nini na unakuzaje matumizi tena ya msimbo?
+
+- **Polymorphism**: Kanuni ya OOP inayoruhusu madarasa tofauti kutumia jina moja la njia, lakini kila darasa linaitekeleza tofauti wakati inapoitwa. Hapa ni sintaksia yake:
+
+```py
+class A:
+   def action(self): ...
+
+class B:
+   def action(self): ...
+
+class C:
+   def action(self): ...
+
+Class().method()  # Works for A, B, or C
+```
+
+- **Polymorphism inayotegemea urithi**: Mzazi huanzisha njia, na kila darasa la mtoto hubadilisha kwa matumizi yao.
+
+## Name mangling ni nini na inafanya kazi vipi?
+
+- **Name mangling**: Mchakato ambapo Python kwa ndani hubadilisha jina la sifa lililo na kiambishi awali cha mistari miwili kwa kuongeza mstari mmoja na jina la darasa kama kiambishi awali, kubadilisha `__attribute` kuwa `_ClassName__attribute`.
+- **Madhumuni ya name mangling**: Madhumuni kuu ya name mangling ni kuzuia kubadilishwa kwa bahati mbaya kwa sifa na njia wakati unatumia urithi. Hapa kuna msimbo unaofanya hili kueleweka zaidi:
+
+```py
+class Parent:
+    def __init__(self):
+        self.__data = 'Parent data'
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        self.__data = 'Child data'
+
+c = Child()
+print(c.__dict__) # {'_Parent__data': 'Parent data', '_Child__data': 'Child data'}
+```
+
+## Ufupishaji ni nini na unasaidiaje kuweka mifumo tata imepangwa?
+
+- **Ufupishaji**: Dhana ya uprogramaji ambapo maelezo tata ya utekelezaji wa kitu au mfumo hufichwa na kuonyeshwa tu vipengele muhimu. Katika Python na lugha nyingine za uprogramaji, ufupishaji hurahisisha mifumo tata kwa kuongeza matumizi tena.
+- **Mfano wa ufupishaji**: Mfano mzuri wa ufupishaji katika maisha ya kila siku ni gari linaporuhusu kutumia tu gurudumu, pedali, na shifta bila kujua jinsi injini au breki zinavyofanya kazi.
+- **Jinsi Python inavyotekeleza ufupishaji**: Python hufanya ufupishaji kupitia moduli ya `abc`. Moduli hutoa darasa la `ABC` (darasa la msingi la ufupishaji) na dekoreta `@abstractmethod`. Darasa la msingi la ufupishaji (ABC) linaeleza njia na sifa za kawaida ambazo madarasa ya watoto lazima yatekeleze. Haiwezi kutumika kuunda vitu moja kwa moja.
+- **Jinsi njia ya ufupishaji inavyobainishwa**: Njia ya ufupishaji huainishwa kwa `@abstractmethod` na lazima ibadilishwe katika madarasa ya watoto, hata kama ina utekelezaji wa msingi. Sintaksia ya msingi ya ufupishaji ni kama ifuatavyo:
+
+```py
+from abc import ABC, abstractmethod
+
+# Define an abstract base class
+class AbstractClass(ABC):
+    @abstractmethod
+    def abstract_method(self):
+        pass
+
+# Concrete subclass that implements the abstract method
+class ConcreteClassOne(AbstractClass):
+    def abstract_method(self):
+        print('Implementation in ConcreteClassOne')
+
+# Another concrete subclass
+class ConcreteClassTwo(AbstractClass):
+    def abstract_method(self):
+        print('Implementation in ConcreteClassTwo')
+```
+
+# --assignment--
+
+Kagua mada na dhana za uprogramaji unaozingatia vitu.

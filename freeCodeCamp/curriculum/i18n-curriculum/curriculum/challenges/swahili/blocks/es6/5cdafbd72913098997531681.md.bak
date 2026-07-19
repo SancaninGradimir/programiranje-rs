@@ -1,0 +1,98 @@
+---
+id: 5cdafbd72913098997531681
+title: Shughulikia ahadi iliyotekelezwa kwa then
+challengeType: 1
+forumTopicId: 301203
+dashedName: handle-a-fulfilled-promise-with-then
+---
+
+# --description--
+
+Ahadi ni muhimu zaidi unapokuwa na mchakato unaochukua muda usiojulikana katika msimbo wako (yaani kitu isiyo ya wakati mmoja), mara nyingi ni ombi la seva. Unapofanya ombi la seva huchukua muda fulani, na baada ya kukamilika kawaida unataka kufanya kitu na jibu kutoka seva. Hii inaweza kufanikishwa kwa kutumia njia ya `then`.
+
+```js
+Promise.prototype.then(onFulfilled, onRejected)
+```
+
+Njia ya `then` huandaa vitendakazi vya mwitiko kwa kukamilika kwa ahadi - iwe ni kutekelezwa au kukataliwa. Mojawapo ya mshughulikiaji wa `onFulfilled` na `onRejected` itatekelezwa kushughulikia kutekelezwa au kukataliwa kwa ahadi ya sasa. Ahadi inapotekelezwa na `resolve` mshughulikiaji wa `onFulfilled` huitwa.
+
+```js
+myPromise.then(result => {
+  
+});
+```
+
+`result` hutoka kwenye hoja iliyotolewa kwa njia ya `resolve`.
+
+# --instructions--
+
+Ongeza njia ya `then` kwa ahadi yako. Tumia `result` kama kigezo cha kitendakazi chake cha mwitiko na andika `result` kwenye konsoli.
+
+# --hints--
+
+Unapaswa kuita njia ya `then` kwenye ahadi.
+
+```js
+assert(
+  __helpers.removeWhiteSpace(__helpers.removeJSComments(code)).match(/(makeServerRequest|\))\.then\(/g)
+);
+```
+
+Njia yako ya `then` inapaswa kuwa na kitendakazi cha mwitiko chenye `result` kama kigezo chake.
+
+```js
+assert(
+  /\.then\((function\(result\){|result|\(result\)=>)/.test(
+    __helpers.removeWhiteSpace(__helpers.removeJSComments(code))
+  )
+);
+```
+
+Unapaswa kuandika `result` kwenye konsoli.
+
+```js
+assert(
+  /\.then\((function\(result\){|result|\(result\)=>)/.test(
+    __helpers.removeWhiteSpace(__helpers.removeJSComments(code))
+  ) &&
+    __helpers
+      .removeWhiteSpace(__helpers.removeJSComments(code))
+      .match(/\.then\(.*?result.*?console.log\(result\).*?\)/)
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to true to represent a successful response from a server
+  let responseFromServer = true;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+```
+
+# --solutions--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to true to represent a successful response from a server
+  let responseFromServer = true;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+makeServerRequest.then(result => {
+  console.log(result);
+});
+```

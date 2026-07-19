@@ -1,0 +1,76 @@
+---
+id: 691b559495c5cb5a37b9b484
+title: "Zoezi la 124: Sasisho la Hifadhi"
+challengeType: 28
+dashedName: challenge-124
+---
+
+# --description--
+
+Ikiwa umepewa safu ya data ya pande mbili inayowakilisha hifadhi ya duka lako, na safu nyingine ya data ya pande mbili inayowakilisha mzigo ulioupokea, rudisha hifadhi yako iliyosasishwa.
+
+- Kila kipengele katika safu hizo kitakuwa na muundo: `[quantity, "item"]`, ambapo `quantity` ni nambari kamili na `"item"` ni mfuatano wa herufi.
+- Sasisha vitu katika hifadhi kwa kuongeza idadi ya vitu vinavyolingana kutoka kwenye mzigo.
+- Ikiwa kipengele kilichopokelewa hakipo katika hifadhi ya sasa, ongeza kama kipengele kipya mwishoni mwa hifadhi.
+- Rudisha hifadhi kwa mpangilio ilivyotolewa na vitu vipya viwe mwishoni kwa mpangilio walivyoonekana kwenye mzigo.
+
+Kwa mfano, ukipata hifadhi ya `[[2, "apples"], [5, "bananas"]]` na mzigo wa `[[1, "apples"], [3, "bananas"]]`, rudisha `[[3, "apples"], [8, "bananas"]]`.
+
+# --hints--
+
+`updateInventory([[2, "apples"], [5, "bananas"]], [[1, "apples"], [3, "bananas"]])` inapaswa kurudisha `[[3, "apples"], [8, "bananas"]]`.
+
+```js
+assert.deepEqual(updateInventory([[2, "apples"], [5, "bananas"]], [[1, "apples"], [3, "bananas"]]), [[3, "apples"], [8, "bananas"]]);
+```
+
+`updateInventory([[2, "apples"], [5, "bananas"]], [[1, "apples"], [3, "bananas"], [4, "oranges"]])` inapaswa kurudisha `[[3, "apples"], [8, "bananas"], [4, "oranges"]]`.
+
+```js
+assert.deepEqual(updateInventory([[2, "apples"], [5, "bananas"]], [[1, "apples"], [3, "bananas"], [4, "oranges"]]), [[3, "apples"], [8, "bananas"], [4, "oranges"]]);
+```
+
+`updateInventory([], [[10, "apples"], [30, "bananas"], [20, "oranges"]])` inapaswa kurudisha `[[10, "apples"], [30, "bananas"], [20, "oranges"]]`.
+
+```js
+assert.deepEqual(updateInventory([], [[10, "apples"], [30, "bananas"], [20, "oranges"]]), [[10, "apples"], [30, "bananas"], [20, "oranges"]]);
+```
+
+`updateInventory([[0, "Bowling Ball"], [0, "Dirty Socks"], [0, "Hair Pin"], [0, "Microphone"]], [[1, "Hair Pin"], [1, "Half-Eaten Apple"], [1, "Bowling Ball"], [1, "Toothpaste"]])` inapaswa kurudisha `[[1, "Bowling Ball"], [0, "Dirty Socks"], [1, "Hair Pin"], [0, "Microphone"], [1, "Half-Eaten Apple"], [1, "Toothpaste"]]`.
+
+```js
+assert.deepEqual(updateInventory([[0, "Bowling Ball"], [0, "Dirty Socks"], [0, "Hair Pin"], [0, "Microphone"]], [[1, "Hair Pin"], [1, "Half-Eaten Apple"], [1, "Bowling Ball"], [1, "Toothpaste"]]), [[1, "Bowling Ball"], [0, "Dirty Socks"], [1, "Hair Pin"], [0, "Microphone"], [1, "Half-Eaten Apple"], [1, "Toothpaste"]]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function updateInventory(inventory, shipment) {
+  return inventory;
+}
+```
+
+# --solutions--
+
+```js
+function updateInventory(inventory, shipment) {
+  const inventoryMap = new Map();
+  inventory.forEach(([qty, item], index) => {
+    inventoryMap.set(item, index);
+  });
+
+  shipment.forEach(([qty, item]) => {
+    if (inventoryMap.has(item)) {
+      const index = inventoryMap.get(item);
+      inventory[index][0] += qty;
+    } else {
+      inventory.push([qty, item]);
+      inventoryMap.set(item, inventory.length - 1);
+    }
+  });
+
+  return inventory;
+}
+```

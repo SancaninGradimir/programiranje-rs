@@ -1,0 +1,110 @@
+---
+id: 69373793f5a867f769cde138
+title: "Challenge 153: Tic-Tac-Toe"
+challengeType: 29
+dashedName: challenge-153
+---
+
+# --description--
+
+Ikiwa umepewa matriki ya 3×3 (safu ya data ya safu za data) inayowakilisha mchezo wa Tic-Tac-Toe uliokamilika, amua mshindi.
+
+- Kila kipengele katika matriki iliyotolewa ni `"X"` au `"O"`.
+
+Mchezaji hushinda ikiwa ana wahusika wake watatu mfululizo - kwa usawa wa mstari, wima, au mwinuko.
+
+Return:
+
+- `"X wins"` ikiwa mchezaji X ana wahusika watatu mfululizo.
+- `"O wins"` ikiwa mchezaji O ana wahusika watatu mfululizo.
+- `"Draw"` ikiwa hakuna mchezaji aliye na wahusika watatu mfululizo.
+
+# --hints--
+
+`tic_tac_toe([["X", "X", "X"], ["O", "O", "X"], ["O", "X", "O"]])` should return `"X wins"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["X", "X", "X"], ["O", "O", "X"], ["O", "X", "O"]]), "X wins")`)
+}})
+```
+
+`tic_tac_toe([["O", "O", "X"], ["X", "O", "X"], ["O", "X", "X"]])` should return `"X wins"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["O", "O", "X"], ["X", "O", "X"], ["O", "X", "X"]]), "X wins")`)
+}})
+```
+
+`tic_tac_toe([["X", "O", "X"], ["O", "X", "O"], ["O", "X", "O"]])` should return `"Draw"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["X", "O", "X"], ["O", "X", "O"], ["O", "X", "O"]]), "Draw")`)
+}})
+```
+
+`tic_tac_toe([["X", "X", "O"], ["X", "O", "O"], ["O", "O", "X"]])` should return `"O wins"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["X", "X", "O"], ["X", "O", "O"], ["O", "O", "X"]]), "O wins")`)
+}})
+```
+
+`tic_tac_toe([["X", "O", "O"], ["O", "X", "O"], ["O", "X", "X"]])` should return `"X wins"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["X", "O", "O"], ["O", "X", "O"], ["O", "X", "X"]]), "X wins")`)
+}})
+```
+
+`tic_tac_toe([["O", "X", "X"], ["X", "O", "O"], ["X", "O", "X"]])` should return `"Draw"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(tic_tac_toe([["O", "X", "X"], ["X", "O", "O"], ["X", "O", "X"]]), "Draw")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def tic_tac_toe(board):
+
+    return board
+```
+
+# --solutions--
+
+```py
+def tic_tac_toe(board):
+    lines = []
+
+    for row in board:
+        lines.append(row)
+
+    for c in range(3):
+        lines.append([board[0][c], board[1][c], board[2][c]])
+
+    lines.append([board[0][0], board[1][1], board[2][2]])
+    lines.append([board[0][2], board[1][1], board[2][0]])
+
+    for line in lines:
+        if all(cell == "X" for cell in line):
+            return "X wins"
+        if all(cell == "O" for cell in line):
+            return "O wins"
+
+    return "Draw"
+```

@@ -1,0 +1,96 @@
+---
+id: 59667989bf71cf555dd5d2ff
+title: Usemi wa S
+challengeType: 1
+forumTopicId: 302303
+dashedName: s-expressions
+---
+
+# --description--
+
+<a href="https://rosettacode.org/wiki/S-expressions" target="_blank" rel="noopener noreferrer nofollow">Usemi wa S</a> ni njia rahisi ya kuchambua na kuhifadhi data.
+
+# --instructions--
+
+Andika msomaji/mchambuzi rahisi wa Usemi wa S unaoshughulikia mfuatano wa herufi zilizo na nukuu na zisizo na nukuu, nambari kamili na nambari za desimali.
+
+Kitendakazi kinapaswa kusoma Usemi wa S mmoja tu lakini ulio pangwa ndani kutoka kwenye mfuatano wa herufi na kurudisha kama safu ya data (zilizopangwa ndani).
+
+Mstari mpya na nafasi nyingine za tupu zinaweza kupuuzwa isipokuwa ziko ndani ya mfuatano wa herufi ulio na nukuu.
+
+"`()`" ndani ya mfuatano wa herufi ulio na nukuu huchukuliwa kama sehemu ya mfuatano wa herufi, si tafsiriwa.
+
+Kushughulikia nukuu zilizokimbizwa ndani ya mfuatano wa herufi ni hiari; kwa hivyo "`(foo"bar)`" inaweza kuchukuliwa kama mfuatano wa herufi "`foo"bar`", au kama kosa.
+
+Kwa hili, msomaji haahitaji kutambua `\` kwa ajili ya kukimbiza, lakini pia anapaswa kutambua nambari ikiwa lugha ina aina zinazofaa za data.
+
+Kumbuka kuwa isipokuwa `()"` (`\` ikiwa kukimbiza kunasaidiwa) na nafasi za tupu, hakuna herufi maalum. Kitu kingine chochote kinaruhusiwa bila nukuu.
+
+Msomaji anapaswa kuwa na uwezo wa kusoma ingizo lifuatalo
+
+<pre>((data "quoted data" 123 4.5)
+(data (!@# (4.5) "(more" "data)")))
+</pre>
+
+na kulibadilisha kuwa muundo wa data wa asili.
+
+# --before-each--
+
+```js
+const simpleSExpr = '(data1 data2 data3)';
+const simpleSolution = ['data1', 'data2', 'data3'];
+
+const basicSExpr = '((data "quoted data" 123 4.5) (data (!@# (4.5) "(more" "data)")))';
+const basicSolution = [["data","\"quoted data\"",123,4.5],["data",["!@#",[4.5],"\"(more\"","\"data)\""]]];
+```
+
+# --hints--
+
+`parseSexpr` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof parseSexpr === 'function');
+```
+
+`parseSexpr('(data1 data2 data3)')` inapaswa kurudisha `['data1', 'data2', 'data3']`
+
+```js
+assert.deepEqual(parseSexpr(simpleSExpr), simpleSolution);
+```
+
+`parseSexpr('((data "quoted data" 123 4.5) (data (!@# (4.5) "(more" "data)")))')` inapaswa kurudisha `[['data', '"quoted data"', 123, 4.5], ['data', ['!@#', [4.5], '"(more"', '"data)"']]]`.
+
+```js
+assert.deepEqual(parseSexpr(basicSExpr), basicSolution);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function parseSexpr(str) {
+
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+function parseSexpr(str) {
+  const t = str.match(/\s*("[^"]*"|\(|\)|"|[^\s()"]+)/g);
+  for (var o, c = 0, i = t.length - 1; i >= 0; i--) {
+    var n,
+      ti = t[i].trim();
+    if (ti == '"') return;
+    else if (ti == '(') t[i] = '[', c += 1;
+    else if (ti == ')') t[i] = ']', c -= 1;
+    else if ((n = +ti) == ti) t[i] = n;
+    else t[i] = `'${ti.replace('\'', '\\\'')}'`;
+    if (i > 0 && ti != ']' && t[i - 1].trim() != '(') t.splice(i, 0, ',');
+    if (!c) if (!o) o = true; else return;
+  }
+  return c ? undefined : eval(t.join(''));
+}
+```

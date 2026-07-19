@@ -1,0 +1,87 @@
+---
+id: 65fc899d77495504d6deeccc
+title: Hatua 54
+challengeType: 20
+dashedName: step-54
+---
+
+# --description--
+
+Mno wa skala kati ya vekta mbili $\mathbf{a}$ na $\mathbf{b}$ unaonyeshwa kama:
+
+\\( \mathbf{a} \cdot \mathbf{b} = a_1 \cdot b_1 + a_2 \cdot b_2 + \ldots + a_n \cdot b_n = \sum_{i=1}^{n} a_i \cdot b_i \\)
+
+Ambapo kila sehemu ya $\mathbf{a}$ inazidishwa na sehemu inayolingana ya $\mathbf{b}$, na bidhaa zote hujumlishwa pamoja, zikatoa nambari moja.
+
+Ndani ya kifungu cha `elif`, tekeleza fomula hapo juu ili kuhesabu matokeo ya mno wa skala na rudisha matokeo. Kumbuka kuwa utekelezaji wako lazima uwe halali kwa vekta yoyote, bila kujali idadi ya sehemu, wakati njia hiyo inarithiwa.
+
+# --hints--
+
+Unapaswa kutekeleza hesabu ya mno wa skala na kurudisha matokeo ndani ya mwili wa `elif` wa njia yako ya `__mul__`.
+
+```js
+({ test: () => assert(runPython(`
+v1 = R2Vector(x=2, y=3)
+v2 = R2Vector(x=0.5, y=1.25)
+v3 = R3Vector(x=2, y=3, z=1.5)
+v4 = R3Vector(x=0.5, y=1.25, z=1.5)
+v1*v2 == 4.75 and v3*v4 == 7.0      
+`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+
+    def __add__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+
+    def __sub__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+--fcc-editable-region--
+    def __mul__(self, other):
+        if type(other) in (int, float):
+            kwargs = {i: getattr(self, i) * other for i in vars(self)}
+            return self.__class__(**kwargs)
+        
+        elif type(self) == type(other):
+            pass
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R2Vector(x=0.5, y=1.25)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+v3 = v1 + v2
+print(f'v1 + v2 = {v3}')
+v4 = v1 - v2
+print(f'v1 - v2 = {v4}')
+
+```

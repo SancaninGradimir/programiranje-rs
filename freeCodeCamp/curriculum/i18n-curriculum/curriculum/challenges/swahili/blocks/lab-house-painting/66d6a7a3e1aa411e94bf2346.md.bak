@@ -1,0 +1,554 @@
+---
+id: 66d6a7a3e1aa411e94bf2346
+title: Jenga Uchoraji wa Nyumba
+challengeType: 25
+dashedName: build-a-house-painting
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii, utatumia HTML kuunda muundo wa nyumba. Kisha, utatumia upangaji wa CSS kupanga vipengele vya nyumba yako kama madirisha na milango.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na `div` yenye `id` ya `house`.
+1. `#house` yako inapaswa kuwa na `position` iliyowekwa kuwa `relative` ili watoto wake waweze kupangwa kwa kuzingatia hiyo.
+1. `#house` yako inapaswa kuwa na upana wa `500px` na urefu wa `400px`. Usipange viwango vya chini au vya juu.
+1. `#house` yako inapaswa kuwa na rangi ya nyuma na mpaka uliowekwa.
+1. Unapaswa kuwa na vipengele vitano vya `div` ndani ya `#house` vyenye vigezo vya `id` vifuatavyo: `chimney`, `roof`, `window-1`, `window-2`, na `door`.
+1. Watoto wote wa moja kwa moja wa `#house` wanapaswa kuwa na `position` ya `absolute`.
+1. `#roof`, `#chimney`, `#window-1`, `#window-2`, na `#door` wanapaswa kuwa na upana, urefu, mpaka, na rangi ya nyuma iliyowekwa.
+1. `#roof` yako inapaswa kuwa na thamani ya juu ya `0`.
+1. `#door` yako inapaswa kuwekwa chini ya nyumba yako.
+1. Madirisha yako yanapaswa kuwekwa chini ya `#roof` yako na angalau kuwa juu zaidi ya theluthi moja ya urefu wa `#door` yako.
+1. Madirisha yako na mlango wako wote wanapaswa kuwa na `left` au `right` iliyowekwa kwa thamani inayowapanga ndani ya mipaka ya nyumba.
+1. `#chimney` yako inapaswa kuwa na thamani ya juu inayoiweka juu ya `#house` yako.
+1. `#chimney` yako inapaswa kuwa na `z-index` inayoiweka nyuma ya nyumba.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo (stylesheet) katika HTML yako ili kutumia CSS yako.
+
+# --hints--
+
+Unapaswa kuwa na `div` yenye `id` ya `house`.
+
+```js
+assert.exists(document.querySelector("div#house"));
+```
+
+Unapaswa kulenga `#house` na kuweka `position` yake kuwa `relative`.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle('#house')?.getPropertyValue("position"), "relative");
+```
+
+Unapaswa kulenga `#house` na kuweka sifa yake ya `border`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("border"));
+```
+
+Unapaswa kulenga `#house` na kuweka sifa yake ya `background-color`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("background-color"));
+```
+
+`#house` haipaswi kuwa na sifa ya `min-height`.
+
+```js
+assert.isEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("min-height"));
+```
+
+`#house` haipaswi kuwa na sifa ya `min-width`.
+
+```js
+assert.isEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("min-width"));
+```
+
+`#house` haipaswi kuwa na sifa ya `max-height`.
+
+```js
+assert.isEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("max-height"));
+```
+
+`#house` haipaswi kuwa na sifa ya `max-width`.
+
+```js
+assert.isEmpty(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("max-width"));
+```
+
+Unapaswa kulenga `#house` na kuweka upana wake kuwa `500px`.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle("#house")?.getPropertyValue("width"), "500px")
+```
+
+Unapaswa kulenga `#house` na kuweka urefu wake kuwa `400px`.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle('#house')?.getPropertyValue("height"), "400px")
+```
+
+Unapaswa kuwa na `div` yenye `id` ya `chimney` ndani ya `#house`.
+
+```js
+assert.exists(document.querySelector("div#house div#chimney"));
+```
+
+`#chimney` inapaswa kuwa na sifa ya `position` iliyowekwa kuwa `absolute`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#chimney"))?.getPropertyValue("position"), "absolute");
+```
+
+Unapaswa kulenga `#chimney` na kuweka sifa yake ya `width`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#chimney")?.getPropertyValue("width"));
+```
+
+Unapaswa kulenga `#chimney` na kuweka sifa yake ya `height`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#chimney")?.getPropertyValue("height"));
+```
+
+Unapaswa kulenga `#chimney` na kuweka sifa yake ya `border`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#chimney")?.getPropertyValue("border"));
+```
+
+Unapaswa kulenga `#chimney` na kuweka sifa yake ya `background-color`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#chimney")?.getPropertyValue("background-color"));
+```
+
+Unapaswa kuwa na `div` yenye `id` ya `roof` ndani ya `#house`.
+
+```js
+assert.exists(document.querySelector("div#house  div#roof"));
+```
+
+`#roof` inapaswa kuwa na sifa ya `position` iliyowekwa kuwa `absolute`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#roof"))?.getPropertyValue("position"), "absolute");
+```
+
+Unapaswa kulenga `#roof` na kuweka sifa yake ya `width`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#roof")?.getPropertyValue("width"));
+```
+
+Unapaswa kulenga `#roof` na kuweka sifa yake ya `height`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#roof")?.getPropertyValue("height"));
+```
+
+Unapaswa kulenga `#roof` na kuweka sifa yake ya `border`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#roof")?.getPropertyValue("border"));
+```
+
+Unapaswa kulenga `#roof` na kuweka sifa yake ya `background-color`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#roof")?.getPropertyValue("background-color"));
+```
+
+Unapaswa kuwa na `div` yenye `id` ya `window-1` ndani ya `#house`.
+
+```js
+assert.exists(document.querySelector("div#house  div#window-1"));
+```
+
+`#window-1` inapaswa kuwa na sifa ya `position` iliyowekwa kuwa `absolute`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#window-1"))?.getPropertyValue("position"), "absolute");
+```
+
+Unapaswa kulenga `#window-1` na kuweka sifa yake ya `width`.
+
+```js
+const window1 = new __helpers.CSSHelp(document).getStyle("#window-1")?.getPropertyValue("width");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("width") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("width");
+assert.isNotEmpty(window1 || windows);
+```
+
+Unapaswa kulenga `#window-1` na kuweka sifa yake ya `height`.
+
+```js
+const window1 = new __helpers.CSSHelp(document).getStyle("#window-1")?.getPropertyValue("height");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("height") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("height");
+assert.isNotEmpty(window1 || windows);
+```
+
+Unapaswa kulenga `#window-1` na kuweka sifa yake ya `border`.
+
+```js
+const window1 = new __helpers.CSSHelp(document).getStyle("#window-1")?.getPropertyValue("border");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("border") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("border");
+assert.isNotEmpty(window1 || windows);
+```
+
+Unapaswa kulenga `#window-1` na kuweka sifa yake ya `background-color`.
+
+```js
+const window1 = new __helpers.CSSHelp(document).getStyle("#window-1")?.getPropertyValue("background-color");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("background-color") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("background-color");
+assert.isNotEmpty(window1 || windows);
+```
+
+Unapaswa kuwa na `div` yenye `id` ya `window-2` ndani ya `#house`.
+
+```js
+assert.exists(document.querySelector("div#house  div#window-2"));
+```
+
+`#window-2` inapaswa kuwa na sifa ya `position` iliyowekwa kuwa `absolute`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#window-2"))?.getPropertyValue("position"), "absolute");
+```
+
+Unapaswa kulenga `#window-2` na kuweka sifa yake ya `width`.
+
+```js
+const window2 = new __helpers.CSSHelp(document).getStyle("#window-2")?.getPropertyValue("width");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("width") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("width");
+assert.isNotEmpty(window2 || windows);
+```
+
+Unapaswa kulenga `#window-2` na kuweka sifa yake ya `height`.
+
+```js
+const window2 = new __helpers.CSSHelp(document).getStyle("#window-2")?.getPropertyValue("height");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("height") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("height");
+assert.isNotEmpty(window2 || windows);
+```
+
+Unapaswa kulenga `#window-2` na kuweka sifa yake ya `border`.
+
+```js
+const window2 = new __helpers.CSSHelp(document).getStyle("#window-2")?.getPropertyValue("border");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("border") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("border");
+assert.isNotEmpty(window2 || windows);
+```
+
+Unapaswa kulenga `#window-2` na kuweka sifa yake ya `background-color`.
+
+```js
+const window2 = new __helpers.CSSHelp(document).getStyle("#window-2")?.getPropertyValue("background-color");
+const windows = new __helpers.CSSHelp(document).getStyle("#window-1, #window-2")?.getPropertyValue("background-color") || new __helpers.CSSHelp(document).getStyle("#window-2, #window-1")?.getPropertyValue("background-color");
+assert.isNotEmpty(window2 || windows);
+```
+
+Unapaswa kuwa na `div` yenye `id` ya `door` ndani ya `#house`.
+
+```js
+assert.exists(document.querySelector("div#house  div#door"));
+```
+
+`#door` inapaswa kuwa na sifa ya `position` iliyowekwa kuwa `absolute`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#door"))?.getPropertyValue("position"), "absolute");
+```
+
+Unapaswa kulenga `#door` na kuweka sifa yake ya `width`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#door")?.getPropertyValue("width"));
+```
+
+Unapaswa kulenga `#door` na kuweka sifa yake ya `height`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#door")?.getPropertyValue("height"));
+```
+
+Unapaswa kulenga `#door` na kuweka sifa yake ya `border`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#door")?.getPropertyValue("border"));
+```
+
+Unapaswa kulenga `#door` na kuweka sifa yake ya `background-color`.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle("#door")?.getPropertyValue("background-color"));
+```
+
+`#roof` yako inapaswa kuwa na sifa ya `top` iliyowekwa kuwa `0`.
+
+```js
+assert.equal(getComputedStyle(document.querySelector("#roof"))?.getPropertyValue("top"), "0px");
+```
+
+`#door` yako inapaswa kuwekwa chini ya nyumba.
+
+```js
+const door = getComputedStyle(document.querySelector("#door"))
+const doorBottom = Number(door.getPropertyValue("bottom").replace("px", ""));
+assert.strictEqual(doorBottom, 0);
+```
+
+Unapaswa kuweka `left` au `right` kwenye `#door` yako na kuipanga ndani ya mipaka ya nyumba.
+
+```js
+const door = getComputedStyle(document.querySelector("#door"))
+const doorLeft = Number(door.getPropertyValue("left").replace("px", ""));
+const doorRight = Number(door.getPropertyValue("right").replace("px", ""));
+assert.isTrue(doorLeft > 0 || doorRight > 0);
+```
+
+`#chimney` yako inapaswa kuwa na thamani ya `top` inayoiweka juu ya `#house` yako.
+
+```js
+const chimney = getComputedStyle(document.querySelector("#chimney"));
+assert.approximately(parseFloat(chimney?.getPropertyValue("top")), - parseFloat(chimney?.getPropertyValue("height")), 2);
+```
+
+`#chimney` yako inapaswa kuwa na `z-index` inayoiweka nyuma ya nyumba.
+
+```js
+const houseZIndex = getComputedStyle(document.querySelector("#house"))?.getPropertyValue("z-index");
+const chimneyZIndex = getComputedStyle(document.querySelector("#chimney"))?.getPropertyValue("z-index");
+if (houseZIndex === "auto") {
+    assert.isBelow(Number(chimneyZIndex), 0)
+} else {
+    assert.isBelow(Number(chimneyZIndex), Number(houseZIndex));
+}
+```
+
+Madirisha yako yanapaswa kuwekwa chini ya `#roof` yako na angalau kuwa juu zaidi ya theluthi moja ya urefu wa `#door` yako.
+
+```js
+const window1 = getComputedStyle(document.querySelector("#window-1"))
+const window2 = getComputedStyle(document.querySelector("#window-2"))
+const door = getComputedStyle(document.querySelector("#door"))
+const roof = getComputedStyle(document.querySelector("#roof"))
+const w1Top = Number(window1.getPropertyValue("top").replace("px", ""));
+const w1Bottom = Number(window1.getPropertyValue("bottom").replace("px", ""));
+const w2Top = Number(window2.getPropertyValue("top").replace("px", ""));
+const w2Bottom = Number(window2.getPropertyValue("bottom").replace("px", ""));
+const doorHeight = Number(door.getPropertyValue("height").replace("px", ""));
+const roofHeight = Number(roof.getPropertyValue("height").replace("px", ""));
+assert.isAbove(w1Top, roofHeight);
+assert.isAbove(w1Bottom, doorHeight/3);
+assert.isAbove(w2Top, roofHeight);
+assert.isAbove(w2Bottom, doorHeight/3);
+```
+
+Unapaswa kuweka `left` au `right` kwenye madirisha yako na kuwapanga ndani ya mipaka ya nyumba.
+
+```js
+const window1 = getComputedStyle(document.querySelector("#window-1"))
+const window2 = getComputedStyle(document.querySelector("#window-2"))
+const w1Left = Number(window1.getPropertyValue("left").replace("px", ""));
+const w1Right = Number(window1.getPropertyValue("right").replace("px", ""));
+const w2Left = Number(window2.getPropertyValue("left").replace("px", ""));
+const w2Right = Number(window2.getPropertyValue("right").replace("px", ""));
+assert.isTrue(w1Left > 0 || w1Right > 0);
+assert.isTrue(w2Left > 0 || w2Right > 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Painting</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Painting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="house">
+        <div id="chimney">
+          <div id="smoke"></div>
+        </div>
+        <div id="roof"></div>
+        <div id="window-1"></div>
+        <div id="window-2"></div>
+        <div id="door">
+          <div id="door-knob"></div>
+        </div>
+        <div id="welcome">WELCOME</div>
+    </div>
+</body>
+</html>
+```
+
+```css
+* {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(
+      #b3e6ff,
+      #b3e6ff 60%,
+      green 60%
+    );
+  }
+
+  #house {
+    flex: 0 0 auto;
+    width: 500px;
+    height: 400px;
+    position: relative;
+    background-color: #ff9980;
+    border: 6px solid #b35900;
+  }
+
+  #chimney {
+    position: absolute;
+    width: 90px;
+    height: 100px;
+    top: -100px;
+    left: 65%;
+    background: repeating-linear-gradient(
+      #e6e6e6,
+      #e6e6e6 10%,
+      black 10%,
+      black 12%
+    );
+    border: 2px solid black;
+    z-index: -1;
+  }
+
+  #smoke {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0,0,0,0.3);
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    border-radius: 50%;
+    box-shadow: 0 -10px 10px 10px rgba(0,0,0,0.3);
+    border: none;
+  }
+
+  #roof {
+    border: 2px;
+    width: 100%;
+    height: 110px;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      #b35900,
+      #b35900 2%,
+      transparent 2%,
+      transparent 5%
+    ), repeating-linear-gradient(
+      -45deg,
+      #b35900,
+      #b35900 2%,
+      #ff9980 2%,
+      #ff9980 5%
+    )
+  }
+
+  #window-1, #window-2 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(
+      to right,
+      #ffffb3,
+      #ffffb3 48%,
+      #b35900 48%,
+      #b35900 52%,
+      #ffffb3 52%,
+      #ffffb3 100%
+    );
+    position: absolute;
+    top: 40%;
+    border: 6px solid #b35900;
+  }
+
+  #window-1 {
+    left: 7.5%;
+  }
+
+  #window-2 {
+    right: 7.5%;
+  }
+
+  #door {
+    width: 130px;
+    height: 180px;
+    position: absolute;
+    bottom: 0%;
+    left: 185px;
+    background-color: #e6e6e6;
+    border: 6px solid #b35900;
+    transform: translateY(6px);
+  }
+
+  #door-knob {
+    width: 20px;
+    height: 20px;
+    background-color: #b35900;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+  }
+
+  #welcome {
+    font-family: sans-serif;
+    font-weight: bold;
+    width: 130px;
+    height: 40px;
+    position: absolute;
+    bottom: -47px;
+    left: 178px;
+    background-color: #85e085;
+    border: 2px solid black;
+    transform: skewX(-20deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+```

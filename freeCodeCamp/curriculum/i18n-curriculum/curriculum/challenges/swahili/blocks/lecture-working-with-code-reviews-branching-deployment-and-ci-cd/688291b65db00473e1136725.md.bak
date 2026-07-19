@@ -1,0 +1,238 @@
+---
+id: 688291b65db00473e1136725
+title: "CI/CD ni nini, na CI hufanya kazi vipi na GitHub Actions?"
+challengeType: 19
+dashedName: what-is-ci-cd-and-how-does-ci-work-with-github-actions
+---
+
+# --description--
+
+CI inasimama kwa Muunganisho Endelevu, na CD inasimama kwa Usambazaji Endelevu au Usambazaji Endelevu wa Moja kwa Moja. Pamoja, michakato hii inakuwezesha kusambaza mabadiliko kwenye programu yako moja kwa moja baada ya kuhakikisha mabadiliko hayo yanafanya kazi ipasavyo.
+
+Katika mchakato wa CI, unaweza kuendesha linter na majaribio dhidi ya msimbo. Mifumo ya CI kawaida huendeshwa kwenye ombi la kuvuta mabadiliko ili kuhakikisha mabadiliko yaliyofanywa hayavunji programu, na pia kwenye tawi la `main` ili kuhakikisha iko tayari kusambazwa.
+
+Mchakato wa CD pia unaweza kuendeshwa kwenye ombi la kuvuta mabadiliko, ikiwa utaanzisha mazingira ya awali ili uweze kuona mabadiliko hayo moja kwa moja. Lakini pia utaendesha kwenye tawi lako la `main` kusambaza mabadiliko moja kwa moja wakati yanapokubaliwa na kuunganishwa.
+
+Lakini hizi zinafanya kazi vipi hasa na GitHub Actions? Kwanza, tunahitaji kuelewa GitHub Actions ni nini hasa. GitHub Actions hutoa watekelezaji wa muda mfupi (fikiri kama kompyuta ya muda mfupi) inayokuwezesha kutekeleza amri maalum.
+
+Actions huwekwa kwa faili la YAML. Unaweza kuwa na mafaili mengi kuainisha actions tofauti za kuendesha. Kwa mfano, unaweza kuwa na faili moja kwa ajili ya CI na nyingine kwa ajili ya CD.
+
+Tuchunguze mfano rahisi wa CI:
+
+```yml
+name: Node.js CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Files
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Lint Source Files
+        run: pnpm run lint
+
+      - name: Verify Build
+        run: pnpm run build
+
+      - name: Run Tests
+        run: pnpm run test
+```
+
+Hii ni nyingi, kwa hivyo tuchambue kidogo. Tukiangalia sehemu ya kwanza:
+
+```yml
+name: Node.js CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+```
+
+`name` inaeleza jina la action yenyewe. Hii inaonekana katika maeneo kama sehemu ya ukaguzi wa hali ya PR. Sifa za `on` zinaeleza kinachoitwa "vichocheo vya workflow" - haya ni matukio yatakayochochea action yako kuendeshwa.
+
+Katika mfano huu, tunaendesha action wakati commits zinaposhinikizwa kwenye `main`, na wakati ombi la kuvuta mabadiliko linaelekezwa kwenye `main`. Hii ina maana CI inaendeshwa mtu anapofanya ombi la kuvuta mabadiliko, na tena tunapolunganisha.
+
+Sehemu ya `jobs` ni mahali unapoeleza nini action yako inafanya hasa. Funguo ya `lint:` ni funguo ya hiari inayotaja jina la ndani la kazi hiyo. Sifa ya `name` inaeleza jina la nje la kazi hii maalum. Na sifa ya `runs-on` inaeleza aina ya mazingira ambayo action yako inapaswa kuendeshwa - kwa kesi hii, tunaendesha kwenye toleo la hivi karibuni la Ubuntu linaloungwa mkono.
+
+Sifa ya `steps` ni mahali ambapo mambo ya ajabu hutokea. Kipande hiki kinaeleza hatua halisi ambazo action yako inapaswa kuchukua. Tuchunguze kipande cha kwanza hapo:
+
+```yml
+      - name: Checkout Source Files
+        uses: actions/checkout@v4
+```
+
+Hatua hii ina sifa mbili, `name` ambayo hatua inapaswa kuwa nayo, na sifa ya `uses`. Sifa hii ya `uses` ni maalum, kwa kuwa inaeleza kwa mtekelezaji wa action kwenda kupata action ya umma kutoka GitHub na kuendesha, badala ya kuendesha amri. Action ya `actions/checkout` inashughulikia kunakili na kuandaa hifadhidata ndani ya mtekelezaji wako.
+
+```yml
+      - name: Use Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+```
+
+Vipande viwili vinavyofuata pia vinatumia actions za watu wengine. Hatua hizi huandaa Node na meneja wa vifurushi wa pnpm. Vyote vina funguo ya `with` ambayo unaweza kutumia kupitisha hoja kwa actions hizo za watu wengine. Fikiria hii kama kupitisha hoja kwa kitendakazi.
+
+Vipande vinne vya mwisho ndiko ambapo mambo ya ajabu hutokea kweli.
+
+```yml
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Lint Source Files
+        run: pnpm run lint
+
+      - name: Verify Build
+        run: pnpm run build
+
+      - name: Run Tests
+        run: pnpm run test
+```
+
+Tuna kipande cha `Install Dependencies` kinachosakinisha vifurushi vya npm. Kipande chetu cha `Lint Source Files` kinaendesha linter, kipande cha `Verify Build` kinahakikisha msimbo wa TypeScript unaweza kukusanywa, na kipande cha `Run Tests` kinaendesha majaribio ya kitengo.
+
+Jambo muhimu kujua kuhusu actions ni, kwa chaguo-msingi, ikiwa hatua moja kati ya hizi itashindwa, hatua zilizobaki zitapita na mchakato mzima utawekwa kama umefaulu.
+
+Unaweka mafaili yako ya YAML wapi ili uweze kuendesha actions hizi? Yanapaswa kuwekwa katika saraka ya `.github/workflows` ndani ya hifadhidata yako ili GitHub iipate na kuitumia.
+
+Kuna mambo mengi zaidi ambayo actions zinaweza kufanya, na nakuhimiza usome nyaraka na uchunguze actions zilizopo katika miradi kama hifadhidata ya freeCodeCamp. Lakini kwa sasa, unapaswa kuwa na uelewa mzuri wa misingi ya GitHub Actions na CI/CD!
+
+# --questions--
+
+## --text--
+
+Sifa ya on inaeleza nini katika faili la workflow la GitHub Actions?
+
+## --answers--
+
+Jina la action.
+
+### --feedback--
+
+Fikiria ni lini unataka actions zako ziendeshe moja kwa moja.
+
+---
+
+Matukio yanayochochea workflow kuendeshwa.
+
+---
+
+Mfumo wa uendeshaji wa kuendesha.
+
+### --feedback--
+
+Fikiria ni lini unataka actions zako ziendeshe moja kwa moja.
+
+---
+
+Hatua za kutekeleza.
+
+### --feedback--
+
+Fikiria ni lini unataka actions zako ziendeshe moja kwa moja.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Mafaili ya workflow ya GitHub Actions ya YAML yanapaswa kuwekwa wapi katika hifadhidata?
+
+## --answers--
+
+Katika saraka ya mizizi.
+
+### --feedback--
+
+GitHub hutafuta mafaili ya workflow katika muundo maalum wa saraka.
+
+---
+
+Katika saraka ya `.github/actions`.
+
+### --feedback--
+
+GitHub hutafuta mafaili ya workflow katika muundo maalum wa saraka.
+
+---
+
+Katika saraka ya `.github/workflows`.
+
+---
+
+Katika saraka ya `workflows`.
+
+### --feedback--
+
+GitHub hutafuta mafaili ya workflow katika muundo maalum wa saraka.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini hutokea kwa chaguo-msingi wakati hatua inashindwa katika workflow ya GitHub Actions?
+
+## --answers--
+
+Workflow inaendelea na onyo.
+
+### --feedback--
+
+Fikiria jinsi GitHub Actions inavyoshughulikia makosa katika utekelezaji wa workflow.
+
+---
+
+Hatua hiyo pekee inawekwa kama imefeli.
+
+### --feedback--
+
+Fikiria jinsi GitHub Actions inavyoshughulikia makosa katika utekelezaji wa workflow.
+
+---
+
+Workflow inaanza upya kutoka mwanzo.
+
+### --feedback--
+
+Fikiria jinsi GitHub Actions inavyoshughulikia makosa katika utekelezaji wa workflow.
+
+---
+
+Hatua zilizobaki zinapita na mchakato unawekwa kama umefeli.
+
+## --video-solution--
+
+4

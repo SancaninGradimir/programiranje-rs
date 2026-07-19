@@ -1,0 +1,115 @@
+---
+id: 5a23c84252665b21eecc7ee0
+title: Faktoria za kushoto
+challengeType: 1
+forumTopicId: 302302
+dashedName: left-factorials
+---
+
+# --description--
+
+**Faktoria za kushoto**, $ !n $, zinaweza kumaanisha *subfaktoria* au *jumla za faktoria*. Alama hiyo hiyo inaweza kutumika kwa mkanganyiko kwa maana mbili tofauti. Wakati mwingine, *subfaktoria* (zinazojulikana pia kama *derangements*) zinaweza kutumia mojawapo ya alama hizi:
+
+<ul>
+  <li>$!n`$</li>
+  <li>$!n$</li>
+  <li>$n¡$</li>
+</ul>
+
+(Huenda isiwe dhahiri kwa macho, lakini mfano wa mwisho hutumia alama ya mshangao iliyogeuzwa mwelekeo.) Zoezi hili litakuwa likitumia fomula hii kwa **faktoria ya kushoto**:
+
+$ !n = \\sum\_{k=0}^{n-1} k! $
+
+ambapo $!0 = 0$
+
+# --instructions--
+
+Andika kitendakazi cha kuhesabu faktoria ya kushoto ya nambari iliyotolewa.
+
+# --hints--
+
+`leftFactorial` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof leftFactorial == 'function');
+```
+
+`leftFactorial(0)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof leftFactorial(0) == 'number');
+```
+
+`leftFactorial(0)` inapaswa kurudisha `0`.
+
+```js
+assert.equal(leftFactorial(0), 0);
+```
+
+`leftFactorial(1)` inapaswa kurudisha `1`.
+
+```js
+assert.equal(leftFactorial(1), 1);
+```
+
+`leftFactorial(2)` inapaswa kurudisha `2`.
+
+```js
+assert.equal(leftFactorial(2), 2);
+```
+
+`leftFactorial(3)` inapaswa kurudisha `4`.
+
+```js
+assert.equal(leftFactorial(3), 4);
+```
+
+`leftFactorial(10)` inapaswa kurudisha `409114`.
+
+```js
+assert.equal(leftFactorial(10), 409114);
+```
+
+`leftFactorial(17)` inapaswa kurudisha `22324392524314`.
+
+```js
+assert.equal(leftFactorial(17), 22324392524314);
+```
+
+`leftFactorial(19)` inapaswa kurudisha `6780385526348314`.
+
+```js
+assert.equal(leftFactorial(19), 6780385526348314);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function leftFactorial(n) {
+
+}
+```
+
+# --solutions--
+
+```js
+function leftFactorial(n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+
+  // Note: for n>=20, the result may not be correct.
+  // This is because JavaScript uses 53 bit integers and
+  // for n>=20 result becomes too large.
+
+  let res = 2,
+    fact = 2;
+  for (var i = 2; i < n; i++) {
+    res += fact;
+    fact *= i + 1;
+  }
+
+  return res;
+}
+```

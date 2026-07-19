@@ -1,0 +1,103 @@
+---
+id: 68c497f3aaefc9fd9f1b0e24
+title: "Challenge 60: Space Week Day 6: Moon Phase"
+challengeType: 29
+dashedName: challenge-60
+---
+
+# --description--
+
+Kwa siku ya sita ya Wiki ya Anga, utapewa tarehe katika muundo `"YYYY-MM-DD"` na unahitaji kubaini awamu ya mwezi kwa siku hiyo kwa kutumia sheria zifuatazo:
+
+Tumia mzunguko rahisi wa mwezi wa siku 28, uliogawanywa katika awamu nne sawa:
+
+- `"New"`: siku 1 - 7
+- `"Waxing"`: siku 8 - 14
+- `"Full"`: siku 15 - 21
+- `"Waning"`: siku 22 - 28
+
+Baada ya siku 28, mzunguko unarudi na siku 1, mwezi mpya.
+
+- Tumia `"2000-01-06"` kama rejea ya mwezi mpya (siku 1 ya mzunguko) kubaini awamu ya siku iliyotolewa.
+- Hautapewa tarehe yoyote kabla ya tarehe ya rejea.
+- Rudisha awamu sahihi kama mfuatano wa herufi.
+
+**Kumbuka:** Siku 1 inawakilisha siku ya mwezi mpya, ikimaanisha siku 0 zimepita tangu mwezi mpya uliopita.
+
+# --hints--
+
+`moon_phase("2000-01-12")` should return `"New"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(moon_phase("2000-01-12"), "New")`)
+}})
+```
+
+`moon_phase("2000-01-13")` should return `"Waxing"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(moon_phase("2000-01-13"), "Waxing")`)
+}})
+```
+
+`moon_phase("2014-10-15")` should return `"Full"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(moon_phase("2014-10-15"), "Full")`)
+}})
+```
+
+`moon_phase("2012-10-21")` should return `"Waning"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(moon_phase("2012-10-21"), "Waning")`)
+}})
+```
+
+`moon_phase("2022-12-14")` should return `"New"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(moon_phase("2022-12-14"), "New")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def moon_phase(date_string):
+
+    return date_string
+```
+
+# --solutions--
+
+```py
+from datetime import datetime
+def moon_phase(date_string):
+    ref_date = datetime.strptime("2000-01-06", "%Y-%m-%d")
+    target_date = datetime.strptime(date_string, "%Y-%m-%d")
+
+    diff_days = (target_date - ref_date).days
+    cycle_day = (diff_days % 28) + 1
+
+    if cycle_day <= 7:
+        return "New"
+    elif cycle_day <= 14:
+        return "Waxing"
+    elif cycle_day <= 21:
+        return "Full"
+    else:
+        return "Waning"
+```

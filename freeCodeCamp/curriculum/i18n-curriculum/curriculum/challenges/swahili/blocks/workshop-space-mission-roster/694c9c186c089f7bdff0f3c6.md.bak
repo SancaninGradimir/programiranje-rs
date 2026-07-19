@@ -1,0 +1,109 @@
+---
+id: 694c9c186c089f7bdff0f3c6
+title: Hatua 4
+challengeType: 1
+dashedName: step-4
+---
+
+# --description--
+
+Kwa ujumla, ni desturi nzuri kuthibitisha ingizo lako ndani ya kitendakazi. Tumia mzunguko wa `for` kurudia kupitia safu ya data ya `crew` na angalia kama mwanachama yeyote tayari ana `id` sawa na ingizo la `astronaut`. Ikiwa nakala inapatikana, andika ujumbe wa kosa `console.log("Duplicate ID: " + astronaut.id)` kisha fanya wito wa `return` kuondoka kwenye kitendakazi mapema.
+
+Hapa kuna mfano wa mbinu hii inayotumika sana:
+
+```js
+if (existingMember.id === newMember.id) {
+    console.log("Duplicate ID: " + newMember.id);
+    return;
+}
+```
+
+# --hints--
+
+Kitendakazi chako kinapaswa kutumia mzunguko wa `for` kuchunguza wanachama waliopo wa `crew` (fomu yoyote halali ya `for (...)` ni sawa).
+
+```js
+assert.match(__helpers.removeJSComments(code), /for\s*\([^)]*\)/);
+```
+
+Ndani ya mzunguko wa `for`, unapaswa kuangalia nakala ya `id`. Ikiwa inapatikana, andika `"Duplicate ID: " + astronaut.id"` kwenye konsoli kisha fanya wito wa `return` kuondoka kwenye kitendakazi.
+
+```js
+const spy = __helpers.spyOn(console, "log");
+
+try {
+  const crewWithDuplicate = [
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 3 }
+  ];
+  addCrewMember(crewWithDuplicate, { id: 3 });
+
+  assert.lengthOf(
+    spy.calls,
+    1,
+    "Duplicate ID input should trigger exactly one console.log and then exit"
+  );
+  assert.match(
+    spy.calls[0][0],
+    /duplicate\s+id\s*:\s*3/i,
+    "Console message should mention 'duplicate id'"
+  );
+
+} catch (err) {
+  assert.fail(err);
+} finally {
+  spy.restore();
+}
+```
+
+Unapopewa ingizo halali, kitendakazi chako cha `addCrewMember` hakipaswi kuita ujumbe wa kosa wa `console.log()` wala kuondoka mapema kwa `return`.
+
+```js
+const spy = __helpers.spyOn(console, "log");
+
+try {
+  const crewNoDuplicate = [
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 }
+  ];
+  addCrewMember(crewNoDuplicate, { id: 5 });
+
+  assert.lengthOf(
+    spy.calls,
+    0,
+    "A truly new astronaut should produce zero console.log calls"
+  );
+
+} catch (err) {
+  assert.fail(err);
+} finally {
+  spy.restore();
+}
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const squad = [];
+
+const firstAstronaut = {
+  id: 1,
+  name: "Andy",
+  role: "Commander",
+  isEVAEligible: true,
+  priority: 3
+};
+
+function addCrewMember(crew, astronaut) {
+--fcc-editable-region--
+
+--fcc-editable-region--
+}
+```

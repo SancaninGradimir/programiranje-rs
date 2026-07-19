@@ -1,0 +1,90 @@
+---
+id: 589a69f5f9fc0f352b528e71
+title: Utekelezaji wa uthibitisho wa utambulisho wa kijamii II
+challengeType: 2
+forumTopicId: 301557
+dashedName: implementation-of-social-authentication-ii
+---
+
+# --description--
+
+Sehemu ya mwisho ya kuanzisha uthibitisho wako wa GitHub ni kuunda mkakati wenyewe. `passport-github@~1.1.0` tayari imeongezwa kama utegemezi, kwa hivyo itaombea katika faili lako la `auth.js` kama `GitHubStrategy` hivi: `const GitHubStrategy = require('passport-github').Strategy;`. Usisahau kuomba na kusanidi `dotenv` ili itumie vigezo vyako vya mazingira.
+
+Ili kuanzisha mkakati wa GitHub, lazima uambie Passport itumie `GitHubStrategy` iliyotengenezwa, ambayo inakubali hoja 2: kitu (chenye `clientID`, `clientSecret`, na `callbackURL`) na kitendakazi kinachoitwa wakati mtumizi amethibitishwa kwa mafanikio, ambacho kitabaini kama mtumizi ni mpya na ni sehemu gani za kuhifadhi awali katika kitu cha mtumizi katika hifadhidata. Hii ni kawaida kwa mikakati mingi, lakini baadhi zinaweza kuhitaji taarifa zaidi kama ilivyoelezwa katika README ya mkakati huo maalum wa GitHub. Kwa mfano, Google pia inahitaji *wigo* unaoamua aina gani ya taarifa ombi lako linataka kurudishwa na huomba mtumizi kuidhinisha upatikanaji huo.
+
+Mkakati unaotekeleza sasa unathibitisha watumizi kwa kutumia akaunti ya GitHub na tokeni za OAuth 2.0. Kitambulisho cha mteja na siri zilizopatikana wakati wa kuunda programu hutolewa kama chaguo wakati wa kuunda mkakati. Mkakati pia unahitaji wito wa kurudisha `verify`, unaopokea tokeni ya upatikanaji na tokeni ya onyesha upya hiari, pamoja na `profile` inayojumuisha wasifu wa mtumizi aliyethibitishwa wa GitHub. Wito wa kurudisha `verify` lazima uitwe `cb` ukitoa mtumizi ili kukamilisha uthibitisho.
+
+Hivi ndivyo mkakati wako mpya unavyopaswa kuonekana kwa sasa:
+
+```js
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: /*INSERT CALLBACK URL ENTERED INTO GITHUB HERE*/
+},
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    //Database logic here with callback containing your user object
+  }
+));
+```
+
+Uthibitisho wako bado hautafanikiwa, na kwa kweli utatupa kosa bila mantiki ya hifadhidata na wito wa kurudisha, lakini inapaswa kuandika wasifu wako wa GitHub kwenye konsoli yako ukijaribu!
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#implementation-of-social-authentication-ii-4" target="_blank" rel="noopener noreferrer nofollow">kuangalia mradi uliofanyika hadi hatua hii</a>.
+
+# --hints--
+
+`passport-github` utegemezi unapaswa kuongezwa.
+
+```js
+  const url = new URL("/_api/package.json", code);
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'passport-github',
+    'Your project should list "passport-github" as a dependency'
+  );
+```
+
+`passport-github` inapaswa kuombwa.
+
+```js
+  const url = new URL("/_api/auth.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /require.*("|')passport-github("|')/gi,
+    'You should have required passport-github'
+  );
+```
+
+Mkakati wa GitHub unapaswa kuanzishwa vizuri hadi sasa.
+
+```js
+  const url = new URL("/_api/auth.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /passport\.use.*new GitHubStrategy/gis,
+    'Passport should use a new GitHubStrategy'
+  );
+  assert.match(
+    data,
+    /callbackURL:\s*("|').*("|')/gi,
+    'You should have a callbackURL'
+  );
+  assert.match(
+    data,
+    /process\.env(\.GITHUB_CLIENT_SECRET|\[(?<q>"|')GITHUB_CLIENT_SECRET\k<q>\])/g,
+    'You should use process.env.GITHUB_CLIENT_SECRET'
+  );
+  assert.match(
+    data,
+    /process\.env(\.GITHUB_CLIENT_ID|\[(?<q>"|')GITHUB_CLIENT_ID\k<q>\])/g,
+    'You should use process.env.GITHUB_CLIENT_ID'
+  );
+```

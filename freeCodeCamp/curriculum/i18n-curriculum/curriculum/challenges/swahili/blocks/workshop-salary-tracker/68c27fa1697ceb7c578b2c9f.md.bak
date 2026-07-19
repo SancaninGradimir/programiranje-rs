@@ -1,0 +1,66 @@
+---
+id: 68c27fa1697ceb7c578b2c9f
+title: Hatua ya 5
+challengeType: 20
+dashedName: step-5
+---
+
+# --description--
+
+Mkipaji `@property` hutumika katika Python kubadilisha njia kuwa sifa. Kwa kawaida hutumika kufafanua njia za kupokea, ambazo ni njia zinazotumika kupata thamani ya sifa ya kipengele:
+
+```py
+class Person:
+    def __init__(self, name):
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+p = Person('Alice')
+print(p.name)  # Alice
+```
+
+Tengeneza njia iitwayo `name` yenye kigezo `self` na ipambwe na `@property`. Ndani ya njia hiyo, rudisha `self._name`.
+    
+# --hints--
+
+Darasa lako la `Employee` linapaswa kuwa na njia `name` yenye kigezo `self`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("name").has_args("self")`)) })
+```
+
+Njia yako ya `name` inapaswa kupambwa na `@property`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("name").has_decorators("property")`)) })
+```
+
+Njia yako ya `name` inapaswa kurudisha `self._name`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Employee").find_function("name").has_return("self._name")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+class Employee:
+    def __init__(self, name, level):
+        self._name = name
+        self._level = level
+
+    def __str__(self):
+        return f'{self._name}: {self._level}'
+
+    
+
+charlie_brown = Employee('Charlie Brown', 'trainee')
+print(charlie_brown)
+--fcc-editable-region--
+```

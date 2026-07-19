@@ -1,0 +1,61 @@
+---
+id: 68cae5b538ff798bbd4da004
+title: "Zoezi la 66: Ondoa lebo za HTML"
+challengeType: 28
+dashedName: challenge-66
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi wa msimbo wa HTML, ondoa lebo na rudisha maudhui ya maandishi ya kawaida.
+
+- Mfuatano wa herufi wa ingizo utakuwa na HTML halali tu.
+- Lebo za HTML zinaweza kuwa zilizopangwa ndani.
+- Ondoa lebo na sifa za kipengele zote.
+
+Kwa mfano, `'<a href="#">Click here</a>'` inapaswa kurudisha `"Click here"`.
+
+# --hints--
+
+`stripTags('<a href="#">Click here</a>')` inapaswa kurudisha `"Click here"`.
+
+```js
+assert.equal(stripTags('<a href="#">Click here</a>'), "Click here");
+```
+
+`stripTags('<p class="center">Hello <b>World</b>!</p>')` inapaswa kurudisha `"Hello World!"`.
+
+```js
+assert.equal(stripTags('<p class="center">Hello <b>World</b>!</p>'), "Hello World!");
+```
+
+`stripTags('<img src="cat.jpg" alt="Cat">')` inapaswa kurudisha mfuatano wa herufi tupu (`""`).
+
+```js
+assert.equal(stripTags('<img src="cat.jpg" alt="Cat">'), "");
+```
+
+`stripTags('<main id="main"><section class="section">section</section><section class="section">section</section></main>')` inapaswa kurudisha `sectionsection`.
+
+```js
+assert.equal(stripTags('<main id="main"><section class="section">section</section><section class="section">section</section></main>'), "sectionsection");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function stripTags(html) {
+
+  return html;
+}
+```
+
+# --solutions--
+
+```js
+function stripTags(html) {
+  return html.replace(/<[^>]*>/g, '');
+}
+```

@@ -1,0 +1,281 @@
+---
+id: 672cf3ca326da9f63683e236
+title: "Kanuni ya @property ni nini, na inafanya kazi vipi na njia mbadala?"
+challengeType: 19
+dashedName: what-is-the-at-property-rule
+---
+
+# --interactive--
+
+Kanuni ya `@property` ni kipengele chenye nguvu cha CSS kinachowawezesha wasanidi programu kutangaza sifa za kawaida na kuwa na udhibiti zaidi juu ya tabia zao, ikiwa ni pamoja na jinsi zinavyobadilika na thamani zao za awali.
+
+Kanuni hii hutoa njia ya kuongeza utendaji wa sifa za kawaida za CSS na inatoa unyumbufu zaidi katika matumizi yake.
+
+Sintaksia ya msingi ya kanuni ya `@property` ni kama ifuatavyo:
+
+```css
+@property --property-name {
+  syntax: '<type>';
+  inherits: true | false;
+  initial-value: <value>;
+}
+```
+
+`--property-name` ni jina la sifa ya kawaida unayotangaza. Kama sifa zote za kawaida, lazima ianze na alama mbili za mviringo.
+
+`syntax` hutangaza aina ya sifa, ambayo inaweza kuwa vitu kama `<color>`, `<length>`, `<number>`, `<percentage>`, au aina ngumu zaidi.
+
+`inherits` inaeleza kama sifa inapaswa kurithi thamani yake kutoka kwa kipengele mzazi.
+
+`initial-value` huweka thamani ya msingi ya sifa.
+
+Hapa kuna mfano wa vitendo wa kutumia kanuni ya `@property`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<button class="button">Click Me</button>
+```
+
+```css
+@property --main-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #3498db;
+}
+
+.button {
+  background-color: var(--main-color);
+}
+```
+
+:::
+
+Katika mfano huu, tunatangaza sifa ya kawaida `--main-color` kama thamani ya `color`, tukiiweka isirithi, na tukitoa thamani ya awali ya `#3498db`.
+
+Moja ya faida kuu za kanuni ya `@property` ni kwamba inaruhusu uhuishaji wa sifa za kawaida, jambo ambalo halikuwezekana hapo awali:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="gradient-box"></div>
+```
+
+```css
+@property --gradient-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.gradient-box {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(var(--gradient-angle), red, blue);
+  transition: --gradient-angle 0.5s;
+}
+
+.gradient-box:hover {
+  --gradient-angle: 90deg;
+}
+```
+
+:::
+
+Msimbo ulio hapo juu unaunda mchanganyiko wa rangi unaobadilika kwa taratibu wakati kipengele kinapobofyanwa, jambo ambalo halikuwezekana kwa sifa za kawaida za kawaida.
+
+Sasa, tujadili jinsi kanuni ya `@property` inavyofanya kazi na njia mbadala.
+
+Njia mbadala ni muhimu katika CSS kuhakikisha mitindo inashuka kwa taratibu katika vivinjari ambavyo haviiungi mkono vipengele fulani. Kwa `@property`, njia mbadala hufanya kazi kwa ngazi mbili: kwa kanuni yenyewe na kwa matumizi ya sifa ya kawaida.
+
+Kwa vivinjari ambavyo haviiungi mkono kanuni ya `@property`, unaweza kutoa njia mbadala kwa kutangaza sifa ya kawaida kwa njia ya kawaida:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+```
+
+```css
+:root {
+  --main-color: #3498db;
+}
+
+@property --main-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #3498db;
+}
+
+body {
+  background-color: var(--main-color);
+}
+```
+
+:::
+
+Katika kesi hii, vivinjari vinavyounga mkono `@property` vitatumia toleo lililotangazwa kwa ukali zaidi, wakati vingine vitarudi kwenye tamko la kawaida la sifa ya kawaida.
+
+Unapotumia sifa ya kawaida, unaweza kutoa thamani ya njia mbadala kwa kutumia kitendo cha `var()`, kama unavyofanya na sifa za kawaida za kawaida:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<button class="button">Click Me</button>
+```
+
+```css
+.button {
+  background-color: var(--main-color, #3498db);
+}
+```
+
+:::
+
+Hii inahakikisha kwamba hata kama sifa ya `--main-color` haijatangazwa au ni batili, kitufe bado kitaonekana na rangi ya nyuma.
+
+Kanuni ya `@property` pia inaruhusu hali ngumu zaidi za njia mbadala. Kwa mfano, unaweza kuitumia kutoa njia mbadala salama kwa aina:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div class="box">Colored box</div>
+```
+
+```css
+@property --padding {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 10px;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: darkred;
+  color: white;
+  padding: var(--padding);
+}
+```
+
+:::
+
+Katika kesi hii, kama mtu anajaribu kuweka `--padding` kwa thamani isiyo halali, kama rangi, kivinjari kitarudi kwenye thamani ya awali ya `10px`, na kudumisha usalama wa aina.
+
+Kanuni ya CSS `@property` inachukuliwa kuwa inapatikana sana katika injini zote kuu za vivinjari vya kisasa (kama Chrome, Edge, Opera, Firefox, na Safari) tangu mwanzo wa 2024. Ikiwa unataka kuunga mkono vivinjari vya awali unahitaji kutoa CSS ya njia mbadala kama ilivyoelezwa hapo juu.
+
+Kwa kumalizia, kanuni ya `@property` ni maendeleo makubwa katika jinsi tunavyofanya kazi na sifa za kawaida katika CSS. Inatoa udhibiti zaidi na inaruhusu uwezekano mpya kama uhuishaji wa sifa za kawaida. Hata hivyo, ni muhimu kuitumia kwa busara na kila mara kutoa njia mbadala zinazofaa ili kuhakikisha uzoefu mzuri katika vivinjari vyote. Kama ilivyo kwa teknolojia yoyote ya mtandao ya kisasa, ufunguo ni kuboresha uzoefu kwa vivinjari vinavyoiunga mkono huku ukihakikisha utendaji wa msingi kwa vile visivyo.
+
+# --questions--
+
+## --text--
+
+Lengo kuu la kanuni ya `@property` katika CSS ni lipi?
+
+## --answers--
+
+Kuumba sifa mpya za CSS.
+
+### --feedback--
+
+Fikiria jinsi `@property` inavyohusiana na sifa za kawaida za CSS.
+
+---
+
+Kutangaza na kudhibiti tabia za sifa za kawaida.
+
+---
+
+Kubadilisha sifa za kawaida za CSS.
+
+### --feedback--
+
+Fikiria jinsi `@property` inavyohusiana na sifa za kawaida za CSS.
+
+---
+
+Kuumba uhuishaji.
+
+### --feedback--
+
+Fikiria jinsi `@property` inavyohusiana na sifa za kawaida za CSS.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya zifuatazo SIyo sifa halali katika kanuni ya `@property`?
+
+## --answers--
+
+`syntax`
+
+### --feedback--
+
+Fikiria muundo wa msingi wa tamko la kanuni ya `@property`.
+
+---
+
+`inherits`
+
+### --feedback--
+
+Fikiria muundo wa msingi wa tamko la kanuni ya `@property`.
+
+---
+
+`initial-value`
+
+### --feedback--
+
+Fikiria muundo wa msingi wa tamko la kanuni ya `@property`.
+
+---
+
+`animation`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Unawezaje kutoa njia mbadala kwa vivinjari ambavyo haviiungi mkono kanuni ya `@property`?
+
+## --answers--
+
+Tumia polyfill.
+
+### --feedback--
+
+Fikiria jinsi unavyotangaza sifa ya kawaida bila `@property`.
+
+---
+
+Tangaza sifa ya kawaida kwa njia ya kawaida.
+
+---
+
+Tumia kanuni ya `@supports`.
+
+### --feedback--
+
+Fikiria jinsi unavyotangaza sifa ya kawaida bila `@property`.
+
+---
+
+Haiwezekani kutoa njia mbadala.
+
+### --feedback--
+
+Fikiria jinsi unavyotangaza sifa ya kawaida bila `@property`.
+
+## --video-solution--
+
+2

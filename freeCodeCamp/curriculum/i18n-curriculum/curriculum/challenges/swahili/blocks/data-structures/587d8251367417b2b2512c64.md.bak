@@ -1,0 +1,293 @@
+---
+id: 587d8251367417b2b2512c64
+title: Tafuta ndani ya orodha iliyounganishwa
+challengeType: 1
+forumTopicId: 301715
+dashedName: search-within-a-linked-list
+---
+
+# --description--
+
+Tuweke njia chache zaidi zenye manufaa katika darasa letu la orodha iliyounganishwa. Je, singekuwa na manufaa ikiwa tunaweza kusema kama orodha yetu ni tupu au la, kama ilivyo kwa madarasa yetu ya `Stack` na `Queue`?
+
+Pia tunapaswa kuwa na uwezo wa kupata vipengele maalum katika orodha yetu iliyounganishwa. Kupitia muundo wa data ni jambo utakayotaka kupata mazoezi mengi nalo! Tufanye njia ya `indexOf` ambayo inachukua `element` kama hoja, na inarudisha `index` ya kipengele hicho katika orodha iliyounganishwa. Ikiwa kipengele hakipatikani katika orodha iliyounganishwa, rudisha `-1`.
+
+Pia tufanye njia inayofanya kinyume: njia ya `elementAt` ambayo inachukua `index` kama hoja na inarudisha `element` katika `index` iliyotolewa. Ikiwa hakuna `element` inayopatikana, rudisha `undefined`.
+
+# --instructions--
+
+Andika njia ya `isEmpty` inayokagua kama orodha iliyounganishwa ni tupu, njia ya `indexOf` inayorudisha `index` ya kipengele fulani, na njia ya `elementAt` inayorudisha `element` katika `index` iliyotolewa.
+
+# --hints--
+
+Darasa lako la `LinkedList` linapaswa kuwa na njia ya `isEmpty`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return typeof test.isEmpty === 'function';
+  })()
+);
+```
+
+Njia yako ya `isEmpty` inapaswa kurudisha `false` wakati kuna angalau kipengele kimoja katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.isEmpty() === false;
+  })()
+);
+```
+
+Njia yako ya `isEmpty` inapaswa kurudisha `true` wakati hakuna vipengele katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return test.isEmpty() === true;
+  })()
+);
+```
+
+Darasa lako la `LinkedList` linapaswa kuwa na njia ya `indexOf`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return typeof test.indexOf === 'function';
+  })()
+);
+```
+
+Njia yako ya `indexOf` inapaswa kurudisha kielezo cha kipengele fulani kilichopatikana katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.indexOf('cat') === 0;
+  })()
+);
+```
+
+Njia yako ya `indexOf` inapaswa kurudisha `-1` ikiwa kipengele kilichotolewa hakipatikani katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.indexOf('pony') === -1;
+  })()
+);
+```
+
+Darasa lako la `LinkedList` linapaswa kuwa na njia ya `elementAt`.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    return typeof test.elementAt === 'function';
+  })()
+);
+```
+
+Njia yako ya `elementAt` inapaswa kurudisha kipengele kilichopatikana katika kielezo fulani katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.elementAt(1) === 'dog';
+  })()
+);
+```
+
+Njia yako ya `elementAt` inapaswa kurudisha `undefined` ikiwa kipengele kilichotolewa hakipatikani katika kielezo fulani katika orodha iliyounganishwa.
+
+```js
+assert(
+  (function () {
+    var test = new LinkedList();
+    test.add('cat');
+    test.add('dog');
+    test.add('kitten');
+    return test.elementAt(5) === undefined;
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function() {
+    return length;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.add = function(element){
+    var node = new Node(element);
+    if(head === null){
+        head = node;
+    } else {
+      var currentNode = head;
+
+      while(currentNode.next){
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  this.remove = function(element){
+    var currentNode = head;
+    var previousNode;
+    if(currentNode.element === element){
+      head = currentNode.next;
+    } else {
+      while(currentNode.element !== element) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+
+      previousNode.next = currentNode.next;
+    }
+
+    length --;
+  };
+
+  // Only change code below this line
+
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function() {
+    return length;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.add = function(element){
+    var node = new Node(element);
+    if(head === null){
+        head = node;
+    } else {
+        var currentNode = head;
+
+        while(currentNode.next){
+            currentNode  = currentNode.next;
+        }
+
+        currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  this.remove = function(element){
+    var currentNode = head;
+    var previousNode;
+    if(currentNode.element === element){
+        head = currentNode.next;
+    } else {
+        while(currentNode.element !== element) {
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        previousNode.next = currentNode.next;
+    }
+
+    length --;
+  };
+
+  this.indexOf = function(element) {
+    if (head === null) return -1
+
+    let current = head;
+    let index = 0;
+
+    while (current.element !== element && current.next !== null) {
+      current = current.next;
+      index++
+    }
+
+    if (current.element !== element && current.next === null) {
+      return -1
+    }
+
+    return index;
+  }
+
+  this.elementAt = function(index) {
+    if (head === null) return undefined;
+
+    let current = head;
+    let currentIndex = 0;
+
+    while (currentIndex !== index && current.next !== null) {
+      current = current.next;
+      currentIndex++
+    }
+
+    if (currentIndex !== index && current.next === null) {
+      return undefined;
+    }
+
+    return current.element;
+  }
+
+  this.isEmpty = function() {
+    return length === 0;
+  }
+}
+```

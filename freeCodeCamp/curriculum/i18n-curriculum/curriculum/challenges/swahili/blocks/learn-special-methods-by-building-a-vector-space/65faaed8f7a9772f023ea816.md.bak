@@ -1,0 +1,94 @@
+---
+id: 65faaed8f7a9772f023ea816
+title: Hatua 52
+challengeType: 20
+dashedName: step-52
+---
+
+# --description--
+
+Vektors zinaweza kuzidishwa na *scalar*, yaani nambari inayozidisha kila sehemu moja moja. Matokeo ya kuzidisha na scalar ni vektor lenye mwelekeo sawa na vektor ya awali lakini lenye ukubwa tofauti.
+
+Tekeleza kuzidisha na scalar kwa kuangalia kama `other` ni `int` au `float`. Ikiwa ni hivyo, rudisha mfano mpya wa darasa la sasa ambao kila sehemu ya vektor ya mwanzo imezidishwa na `other`. Hii itakuwa vektor inayotokana na kuzidisha na scalar.
+
+Hakikisha njia zinaweza kutumika kuhesabu kuzidisha na scalar kwa vektors zenye idadi yoyote ya vipimo.
+
+# --hints--
+
+Njia yako inapaswa kurudisha mfano mpya wa darasa la sasa tu wakati aina ya `other` ni `int` au `float`.
+
+```js
+({ test: () => runPython(`
+v1 = R2Vector(x=0, y=0)
+v2 = R3Vector(x=0, y=0, z=0)
+types = ["", True, [], {}]
+assert all((v1 * i) is None for i in types)
+types = [1, 1.0]
+assert all(type(v1 * i) is type(v1) for i in types)
+assert all(type(v2 * i) is type(v2) for i in types)
+`) })
+```
+
+Vektor inayotokana na kuzidisha na scalar inapaswa kuwa na kila sehemu ya vektor ya mwanzo imezidishwa na scalar.
+
+```js
+({ test: () => runPython(`
+v1 = R2Vector(x=1, y=1.5)
+v2 = R3Vector(x=2.2, y=3, z=-1)
+assert vars(v1 * 3) == vars(R2Vector(x=3, y=4.5))
+assert vars(v2 * (-2.0)) == vars(R3Vector(x=-4.4, y=-6.0, z=2.0))
+`) })
+```
+
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class R2Vector:
+    def __init__(self, *, x, y):
+        self.x = x
+        self.y = y
+
+    def norm(self):
+        return sum(val**2 for val in vars(self).values())**0.5
+
+    def __str__(self):
+        return str(tuple(getattr(self, i) for i in vars(self)))
+
+    def __repr__(self):
+        arg_list = [f'{key}={val}' for key, val in vars(self).items()]
+        args = ', '.join(arg_list)
+        return f'{self.__class__.__name__}({args})'
+
+    def __add__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+
+    def __sub__(self, other):
+        if type(self) != type(other):
+            return NotImplemented
+        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}
+        return self.__class__(**kwargs)
+--fcc-editable-region--
+    def __mul__(self, other):
+        pass
+--fcc-editable-region--
+class R3Vector(R2Vector):
+    def __init__(self, *, x, y, z):
+        super().__init__(x=x, y=y)
+        self.z = z
+
+v1 = R2Vector(x=2, y=3)
+v2 = R2Vector(x=0.5, y=1.25)
+print(f'v1 = {v1}')
+print(f'v2 = {v2}')
+v3 = v1 + v2
+print(f'v1 + v2 = {v3}')
+v4 = v1 - v2
+print(f'v1 - v2 = {v4}')
+
+```

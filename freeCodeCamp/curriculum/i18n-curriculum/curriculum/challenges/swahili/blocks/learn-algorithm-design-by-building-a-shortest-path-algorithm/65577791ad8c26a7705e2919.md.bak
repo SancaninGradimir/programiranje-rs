@@ -1,0 +1,66 @@
+---
+id: 65577791ad8c26a7705e2919
+title: Hatua 34
+challengeType: 20
+dashedName: step-34
+---
+
+# --description--
+
+Kwa kutumia ufupisho wa kamusi, unaweza kuunda kamusi kuanzia kamusi iliyopo:
+
+```py
+{key: val for key in dict}
+```
+
+Katika mfano ulio juu, `val` ni thamani ambayo `key` itakuwa nayo katika kamusi mpya, na `dict` ni kamusi iliyopo.
+
+Unataka kufuatilia njia kati ya nodi ya kuanzia na kila nodi nyingine.
+
+Baada ya mabadiliko ya `distances`, unda mabadiliko ya `paths` na weka thamani yake kuwa kamusi yenye funguo zote kutoka `graph`. Weka orodha tupu kwa kila funguo na tumia ufupisho wa kamusi kujenga kamusi yako.
+
+# --hints--
+
+Unapaswa kuwa na mabadiliko yenye jina `paths`.
+
+```js
+({ test: () =>  {
+    const shortest = __helpers.python.getDef(code, "shortest_path");
+    const {function_body} = shortest;    
+    assert(function_body.match(/^\s{4}paths\s*\=/m));
+  }
+})
+```
+
+Mabadiliko yako ya `paths` yanapaswa kutumia sintaksia ya ufupisho wa kamusi kuweka orodha tupu kwa kila nodi katika graph.
+
+```js
+({ test: () =>  {
+    const {function_body} = __helpers.python.getDef(code, "shortest_path");       
+    assert(function_body.match(/^\s{4}paths\s*\=\s*\{\s*(\w+)\s*:\s*\[\s*\]\s+for\s+\1\s+in\s+graph\s*\}/m));
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+my_graph = {
+    'A': [('B', 3), ('D', 1)],
+    'B': [('A', 3), ('C', 4)],
+    'C': [('B', 4), ('D', 7)],
+    'D': [('A', 1), ('C', 7)]
+}
+
+--fcc-editable-region--
+def shortest_path(graph, start):
+    unvisited = list(graph)
+    distances = {}
+    
+    print(f'Unvisited: {unvisited}\nDistances: {distances}')
+    
+shortest_path(my_graph, 'A')
+--fcc-editable-region--
+```

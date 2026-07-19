@@ -1,0 +1,196 @@
+---
+id: 67d1a3fea729e274dc33d04d
+title: "Je, Matukio Hufanya Kazi Vipi Katika React?"
+challengeType: 19
+dashedName: how-do-events-work-in-react
+---
+
+# --description--
+
+Kushughulikia matukio ni sehemu muhimu ya kila tovuti inayoshirikisha mtumiaji.
+
+React hutoa njia yenye nguvu na thabiti ya kushughulikia matukio kupitia Mfumo wake wa Tukio la Synthetic, ambao ni kifuniko cha matukio ya asili kama `click`, `keydown`, na `submit` ulizojifunza katika mafundisho ya awali.
+
+Kifuniko hiki kinachofanya kazi kwa vivinjari vyote kinahakikisha matukio hufanya kazi kwa njia ile ile katika vivinjari vyote ili kuepuka tofauti yoyote.
+
+Tuchunguze jinsi matukio yanavyofanya kazi katika React ili uanze kuyatumia katika miradi yako.
+
+Katika React, mshughulikiaji wa matukio hufanya kazi kwa njia inayofanana na matukio ya asili ya kivinjari, lakini kwa marekebisho machache.
+
+Badala ya kutumia majina ya sifa za matukio kwa herufi ndogo kama `onclick` na `onsubmit`, React hutumia camelCase, kama `onClick` na `onSubmit`.
+
+Zaidi ya hayo, badala ya kutumia mfuatano wa herufi kuonyesha aina ya tukio, React inatarajia kitendakazi kwa mshughulikiaji wa tukio.
+
+Kitendakazi cha mshughulikiaji wa tukio hupitishwa kwa kipengele kama kigezo, na aina ya tukio kama `onClick` au `onSubmit` hutumika kama sifa katika JSX.
+
+Hapa ni ukumbusho wa jinsi ya kushughulikia tukio la bofya katika HTML ya kawaida:
+
+```html
+<button onclick="alert('Button clicked!')">Click Me</button>
+```
+
+Na hapa ni jinsi unavyofanya sawa katika React:
+
+```jsx
+function handleClick() {
+  console.log("Button clicked!");
+}
+
+<button onClick={handleClick}>Click Me</button>;
+```
+
+Katika mfano huu, `handleClick` huandika ujumbe kwenye konsoli wakati mtumiaji anabofya kitufe.
+
+Kumbuka kuwa huna haja ya mabano ya kawaida baada ya `handleClick` katika sifa ya `onClick`, kwani unapitisha rejea ya kitendakazi, si kuitaja moja kwa moja.
+
+Katika React, vitendakazi vya mshughulikiaji wa matukio kawaida huanza na kiambishi awali `handle` kuonyesha kuwa vinahusika na kushughulikia matukio, kama `handleClick` au `handleSubmit`.
+
+Wakati kitendo cha mtumiaji kinachochea tukio, React hupitisha kitu cha Tukio la Synthetic kwa mshughulikiaji wako. Kitu hiki hufanya kazi kama kitu cha tukio la asili katika JavaScript ya kawaida, kikitoa sifa kama `type`, `target`, na `currentTarget`.
+
+Unaweza kupitisha `event` kama kigezo kwa kitendakazi cha mshughulikiaji na kuandika kwenye konsoli ili kuangalia muundo wake:
+
+```js
+function handleClick(event) {
+  console.log(event);
+}
+```
+
+Ili kuzuia tabia za kawaida kama kuonyesha upya kivinjari wakati wa tukio la `onSubmit`, kwa mfano, unaweza kuita njia ya `preventDefault()`:
+
+```jsx
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log("Form submitted!");
+}
+
+<form onSubmit={handleSubmit}>
+  <input type="text" />
+  <button>Submit</button>
+</form>;
+```
+
+Pia unaweza kuzuia tukio lisipande hadi kwa vipengele vya mzazi kwa kuita `event.stopPropagation()`.
+
+Wakati mwingine, unapotumia matukio maalum kama vipengele vya futa na hariri, unaweza kutaka kupitisha data za ziada kwa mshughulikiaji wa tukio. Hii unaweza kuifanya kwa kufunika mshughulikiaji ndani ya kitendakazi cha mshale ndani ya mstari:
+
+```jsx
+function handleDelete(id) {
+  console.log("Deleting item:", id);
+}
+
+<button onClick={() => handleDelete(1)}>Delete Item</button>;
+```
+
+Ni sawa kutumia mishughulikiaji ya matukio ndani ya mstari katika React kwa sababu React hushughulikia upya wa kuonyesha kwa ufanisi na kuepuka matatizo ya utendaji.
+
+Katika JavaScript ya kawaida, mishughulikiaji ya matukio ndani ya mstari inaweza kusababisha matatizo ya utendaji kwa kuunda vitendakazi vipya kila mara kuonyesha upya, kwani hakuna DOM ya kweli ya kuboresha mchakato.
+
+# --questions--
+
+## --text--
+
+React hushughulikia matukio vipi kwa usawa katika vivinjari tofauti?
+
+## --answers--
+
+Kwa kutumia matukio ya asili ya kivinjari pekee.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+Kwa kuunda matukio maalum kwa kila kivinjari.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+---
+
+Kupitia Mfumo wake wa Tukio la Synthetic.
+
+---
+
+Kwa kubadilisha moja kwa moja DOM kwa kila tukio.
+
+### --feedback--
+
+Kagua mwanzo wa funzo ambapo jibu lilijadiliwa.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Unawezaje kuzuia tabia za kawaida, kama kuonyesha upya kivinjari katika React?
+
+## --answers--
+
+Kwa kutumia njia ya `stopPropagation()`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayozuia vitendo vya kawaida vya kivinjari.
+
+---
+
+Kwa kuita njia ya `preventDefault()`.
+
+---
+
+Kwa kuweka tukio kuwa `false`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayozuia vitendo vya kawaida vya kivinjari.
+
+---
+
+Kwa kutumia tamko la `return`.
+
+### --feedback--
+
+Fikiria kuhusu njia inayozuia vitendo vya kawaida vya kivinjari.
+
+## --video-solution--
+
+2
+
+## --text--
+
+React inatofautianaje na HTML ya kawaida katika kuitaja majina ya sifa za matukio?
+
+## --answers--
+
+React hutumia majina ya matukio kwa herufi ndogo kama `onclick` na `onsubmit`.
+
+### --feedback--
+
+Fikiria jinsi mkataba wa majina ya JavaScript unavyotumika kwa matukio katika React.
+
+---
+
+React hutumia majina ya matukio kwa camelCase kama `onClick` na `onSubmit`.
+
+---
+
+React huandika kwa herufi kubwa majina yote ya matukio.
+
+### --feedback--
+
+Fikiria jinsi mkataba wa majina ya JavaScript unavyotumika kwa matukio katika React.
+
+---
+
+React hutumia alama za mnyororo katika majina ya matukio kama `on-click` na `on-submit`.
+
+### --feedback--
+
+Fikiria jinsi mkataba wa majina ya JavaScript unavyotumika kwa matukio katika React.
+
+## --video-solution--
+
+2

@@ -1,0 +1,197 @@
+---
+id: bad87fee1348bd9bedf08813
+title: Ongeza mipaka kuzunguka vipengele vyako
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/c2MvnHZ'
+forumTopicId: 16630
+dashedName: add-borders-around-your-elements
+---
+
+# --description--
+
+Mipaka ya CSS ina sifa za kipengele kama `style`, `color` na `width`.
+
+Kwa mfano, kama tungetaka kuunda mpaka jekundu wa pikseli 5 kuzunguka kipengele cha HTML, tunaweza kutumia darasa hili:
+
+```html
+<style>
+  .thin-red-border {
+    border-color: red;
+    border-width: 5px;
+    border-style: solid;
+  }
+</style>
+```
+
+# --instructions--
+
+Unda darasa la `thick-green-border`. Darasa hili linapaswa kuongeza mpaka la kijani, imara, lenye upana wa 10px kuzunguka kipengele cha HTML. Tumia darasa hili kwenye picha yako ya paka.
+
+Kumbuka kuwa unaweza kutumia madarasa mengi kwenye kipengele kwa kutumia sifa ya `class`, kwa kutenganisha majina ya madarasa kwa nafasi. Kwa mfano:
+
+```html
+<img class="class1 class2">
+```
+
+# --hints--
+
+Kipengele chako cha `img` kinapaswa kuwa na darasa la `smaller-image`.
+
+```js
+assert.isTrue(document.querySelector('img').classList.contains('smaller-image'));
+```
+
+Kipengele chako cha `img` kinapaswa kuwa na darasa la `thick-green-border`.
+
+```js
+assert.isTrue(document.querySelector('img').classList.contains('thick-green-border'));
+```
+
+Picha yako inapaswa kuwa na upana wa mpaka wa `10px`.
+
+```js
+// Note: to any future maintainers, the read width of the border is dependent on 
+// the zoom. For example we cannot match 10px exactly because if a campers set the zoom to 110% 
+// it will be read as 9~px. 
+const image = document.querySelector('img'); 
+const imageBorderTopWidth = window.getComputedStyle(image)["border-top-width"]; 
+const widthNumber = parseInt(imageBorderTopWidth);
+assert.isAtLeast(widthNumber, 8);
+assert.isAtMost(widthNumber, 12);
+```
+
+Picha yako inapaswa kuwa na mtindo wa mpaka wa `solid`.
+
+```js
+const image = document.querySelector('img'); 
+const borderRightStyle = window.getComputedStyle(image)["border-right-style"]; 
+assert.strictEqual(borderRightStyle, 'solid');
+```
+
+Mpaka unaozunguka kipengele chako cha `img` unapaswa kuwa wa rangi ya kijani.
+
+```js
+const image = document.querySelector('img'); 
+const borderLeftColor = window.getComputedStyle(image)["border-left-color"]; 
+assert.strictEqual(borderLeftColor, 'rgb(0, 128, 0)');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<style>
+  .red-text {
+    color: red;
+  }
+
+  h2 {
+    font-family: Lobster, monospace;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: monospace;
+  }
+
+  .smaller-image {
+    width: 100px;
+  }
+</style>
+
+<h2 class="red-text">CatPhotoApp</h2>
+<main>
+  <p class="red-text">Click here to view more <a href="#">cat photos</a>.</p>
+
+  <a href="#"><img class="smaller-image" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+  <div>
+    <p>Things cats love:</p>
+    <ul>
+      <li>catnip</li>
+      <li>laser pointers</li>
+      <li>lasagna</li>
+    </ul>
+    <p>Top 3 things cats hate:</p>
+    <ol>
+      <li>flea treatment</li>
+      <li>thunder</li>
+      <li>other cats</li>
+    </ol>
+  </div>
+
+  <form action="https://freecatphotoapp.com/submit-cat-photo">
+    <label><input type="radio" name="indoor-outdoor" checked> Indoor</label>
+    <label><input type="radio" name="indoor-outdoor"> Outdoor</label><br>
+    <label><input type="checkbox" name="personality" checked> Loving</label>
+    <label><input type="checkbox" name="personality"> Lazy</label>
+    <label><input type="checkbox" name="personality"> Energetic</label><br>
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```
+
+# --solutions--
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<style>
+  .red-text {
+    color: red;
+  }
+
+  h2 {
+    font-family: Lobster, monospace;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: monospace;
+  }
+
+  .smaller-image {
+    width: 100px;
+  }
+
+  .thick-green-border {
+    border-width: 10px;
+    border-color: green;
+    border-style: solid;
+  }
+</style>
+
+<h2 class="red-text">CatPhotoApp</h2>
+<main>
+  <p class="red-text">Click here to view more <a href="#">cat photos</a>.</p>
+
+  <a href="#"><img class="smaller-image thick-green-border" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+  <div>
+    <p>Things cats love:</p>
+    <ul>
+      <li>catnip</li>
+      <li>laser pointers</li>
+      <li>lasagna</li>
+    </ul>
+    <p>Top 3 things cats hate:</p>
+    <ol>
+      <li>flea treatment</li>
+      <li>thunder</li>
+      <li>other cats</li>
+    </ol>
+  </div>
+
+  <form action="https://freecatphotoapp.com/submit-cat-photo">
+    <label><input type="radio" name="indoor-outdoor" checked> Indoor</label>
+    <label><input type="radio" name="indoor-outdoor"> Outdoor</label><br>
+    <label><input type="checkbox" name="personality" checked> Loving</label>
+    <label><input type="checkbox" name="personality"> Lazy</label>
+    <label><input type="checkbox" name="personality"> Energetic</label><br>
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```

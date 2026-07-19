@@ -1,0 +1,686 @@
+---
+id: 66b36358ed4f261d64840c24
+title: Jenga jedwali la upatikanaji
+challengeType: 25
+dashedName: build-an-availability-table
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili ukamilishe maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na jedwali lenye angalau safu tatu na mistari mitano, ikiwa na vichwa.
+1. Selu katika safu ya kwanza zinapaswa kuwa vichwa vya jedwali vinavyoonyesha siku za wiki.
+1. Selu katika safu ya kwanza zinapaswa kuwa vichwa vya jedwali vyenye `class` ya `time` na zinapaswa kuwa na thamani za muda kama maandishi yao.
+1. Selu zote za data zinapaswa kuwa na `class` ya `available-#`, ambapo `#` ni nambari kutoka `0` hadi `5` inayobainisha idadi ya watu waliopo wakati huo.
+1. Katika kichaguzi chako cha `:root`, unapaswa kufafanua vigezo sita vya CSS vinavyoitwa `--color#`, ambapo `#` ni nambari kutoka `0` hadi `5`, na uwaweke thamani ya rangi kila moja. Tumia vigezo hivi kuweka rangi ya nyuma ya vipengele vinavyolingana vya `.available-#`.
+1. Katika kichaguzi chako cha `:root`, unapaswa kufafanua vigezo vya CSS vinavyoitwa `--solid-border` na `--dashed-border`. Tumia vigezo hivi kupamba mipaka ya chini ya selu zako za data, ukibadilisha kati ya mipaka imara na mipaka ya mistari ya nukta kulingana na safu. Toa safu hizo darasa la `sharp` au `half` ili kuzipamba.
+1. Unapaswa kuwa na kipengele cha `div` chenye `id` ya `legend`. Kinapaswa kuwa na kipengele cha `span` chenye maandishi ya `Availability` na kipengele cha `div` chenye `id` ya `legend-gradient`.
+1. Unapaswa kumpa kipengele cha `#legend-gradient` mwelekeo wa mchanganyiko wa rangi unaobadilika kati ya rangi zote kutoka `--color0` hadi `--color5` kwa mistari mikali.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo (stylesheet) katika HTML yako ili kutumia CSS yako.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `table`.
+
+```js
+assert.isNotNull(document.querySelector('table'));
+```
+
+Unapaswa kuwa na kipengele kimoja tu cha `table`.
+
+```js
+assert.lengthOf(document.querySelectorAll('table'), 1);
+```
+
+Jedwali lako linapaswa kuwa na mistari angalau `5`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('tr')?.length, 5);
+```
+
+Jedwali lako linapaswa kuwa na safu angalau `3`.
+
+```js
+const rows = [...document.querySelectorAll('tr')];
+assert.isNotEmpty(rows);
+rows.forEach((row) => {
+    assert.isAtLeast(row.children.length, 3);
+})
+```
+
+Safu ya kwanza katika jedwali lako inapaswa kuwa na vipengele vya angalau `th`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('tr:first-child>th').length, 3)
+```
+
+Safu ya kwanza katika jedwali lako haipaswi kuwa na vipengele vya `td`.
+
+```js
+const firstRow = document.querySelector('tr');
+assert.isNotNull(firstRow);
+assert.isEmpty(firstRow.querySelectorAll('td'));
+```
+
+Unapaswa kuwa na mistari angalau miwili yenye darasa la `sharp`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('tr[class~="sharp"]').length, 2);
+```
+
+Unapaswa kuwa na mistari angalau miwili yenye darasa la `half`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('tr[class~="half"]').length, 2);
+```
+
+Vipengele vya `th` katika safu ya kwanza vinapaswa kuwa na `class` ya `time` na viwe na thamani za muda.
+
+```js
+const firstColumnData = [...document.querySelectorAll('tr th:first-child')];
+assert.isNotEmpty(firstColumnData);
+for (let cell of firstColumnData) {
+    if (cell.innerText.match(/\d/)?.length) {
+        assert.isTrue(cell.classList.contains('time'));
+    }
+}
+```
+
+Unapaswa kuwa na vipengele angalau vinne vya `th` vyenye darasa la `time` vinavyobeba thamani za muda.
+
+```js
+const timeClass = document.querySelectorAll('.time');
+assert.isAtLeast(timeClass.length, 4);
+for (let cell of timeClass) {
+    assert.match(cell.innerText, /\d/)
+}
+```
+
+Vipengele vyote vya `td` vinapaswa kuwa na `class` ya `available-#`, ambapo `#` ni nambari kutoka `0` hadi `5`.
+
+```js
+const cells = [...document.querySelectorAll('tr[class="sharp"]>td, tr[class="half"]>td')];
+assert.isNotEmpty(cells);
+for (let cell of cells) {
+    const classString = [...cell.classList].join(' ');
+    assert.lengthOf(classString.match(/(?<=\s|^)available-[0-5](?=\s|$)/gm), 1);
+}
+```
+
+Unapaswa kuwa na vipengele angalau nane vya `.available-#`, ambapo `#` ni nambari kati ya `0` na `5`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('td[class*="available-"]').length, 8);
+```
+
+Unapaswa kufafanua kigezo cha `--color0` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color0'))
+```
+
+Unapaswa kufafanua kigezo cha `--color1` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color1'))
+```
+
+Unapaswa kufafanua kigezo cha `--color2` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color2'))
+```
+
+Unapaswa kufafanua kigezo cha `--color3` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color3'));
+```
+
+Unapaswa kufafanua kigezo cha `--color4` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color4'));
+```
+
+Unapaswa kufafanua kigezo cha `--color5` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--color5'));
+```
+
+Unapaswa kutumia `--color0` kuweka rangi ya nyuma ya vipengele vya `.available-0`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-0');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color0)');
+```
+
+Unapaswa kutumia `--color1` kuweka rangi ya nyuma ya vipengele vya `.available-1`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-1');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color1)');
+```
+
+Unapaswa kutumia `--color2` kuweka rangi ya nyuma ya vipengele vya `.available-2`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-2');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color2)');
+```
+
+Unapaswa kutumia `--color3` kuweka rangi ya nyuma ya vipengele vya `.available-3`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-3');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color3)');
+```
+
+Unapaswa kutumia `--color4` kuweka rangi ya nyuma ya vipengele vya `.available-4`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-4');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color4)');
+```
+
+Unapaswa kutumia `--color5` kuweka rangi ya nyuma ya vipengele vya `.available-5`.
+
+```js
+const a = new __helpers.CSSHelp(document).getStyle('.available-5');
+assert.exists(a); 
+assert.strictEqual(a.backgroundColor, 'var(--color5)');
+```
+
+Unapaswa kufafanua kigezo cha `--solid-border` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--solid-border'));
+```
+
+Unapaswa kufafanua kigezo cha `--dashed-border` katika kichaguzi chako cha mzizi.
+
+```js
+const root = new __helpers.CSSHelp(document).getStyle(':root');
+assert.exists(root); 
+assert.isNotEmpty(root.getPropVal('--dashed-border'));
+```
+
+Unapaswa kulenga vipengele vya `td` ambavyo ni watoto wa vipengele vya `.sharp`.
+
+```js
+const tds = new __helpers.CSSHelp(document).getStyle('.sharp td') || new __helpers.CSSHelp(document).getStyle('.sharp>td');
+assert.exists(tds);
+```
+
+Unapaswa kutumia `--solid-border` kuweka `bottom-border` ya vipengele vya `td` ambavyo ni watoto wa vipengele vya `.sharp`.
+
+```js
+const tds = new __helpers.CSSHelp(document).getStyle('.sharp td') || new __helpers.CSSHelp(document).getStyle('.sharp>td');
+assert.exists(tds);
+assert.strictEqual(tds.borderBottom, 'var(--solid-border)');
+```
+
+Unapaswa kulenga vipengele vya `td` ambavyo ni watoto wa vipengele vya `.half`.
+
+```js
+const tds = new __helpers.CSSHelp(document).getStyle('.half td') || new __helpers.CSSHelp(document).getStyle('.half>td');
+assert.exists(tds);
+```
+
+Unapaswa kutumia `--dashed-border` kuweka `bottom-border` ya vipengele vya `td` vya vipengele vya `.half`.
+
+```js
+const tds = new __helpers.CSSHelp(document).getStyle('.half td') || new __helpers.CSSHelp(document).getStyle('.half>td');
+assert.exists(tds);
+assert.strictEqual(tds.borderBottom, 'var(--dashed-border)');
+```
+
+Unapaswa kuwa na kipengele cha `div` chenye `id` ya `legend`.
+
+```js
+assert.equal(document.querySelector('#legend')?.tagName, 'DIV');
+```
+
+Unapaswa kuwa na kipengele cha `span` chenye maandishi ya `Availability` ndani ya `#legend` yako.
+
+```js
+assert.equal(document.querySelector('#legend span')?.textContent.trim(), 'Availability');
+```
+
+Unapaswa kuwa na kipengele cha `div` chenye `id` ya `legend-gradient` ndani ya `#legend` yako.
+
+```js
+assert.equal(document.querySelector('#legend #legend-gradient')?.tagName, 'DIV');
+```
+
+Unapaswa kuweka picha ya nyuma ya `#legend-gradient` kuwa mchanganyiko wa rangi unaoelea.
+
+```js
+const legendGradient = new __helpers.CSSHelp(document).getStyle('#legend-gradient');
+assert.exists(legendGradient); 
+assert.include(legendGradient.backgroundImage, "linear-gradient(")
+```
+
+Unapaswa kuwa na mabadiliko kutoka rangi moja hadi rangi inayofuata kama mstari mkali kwa `#legend-gradient` yako. Hakikisha asilimia zako ni nambari kamili.
+
+```js
+const legendGradient = new __helpers.CSSHelp(document).getStyle('#legend-gradient');
+assert.exists(legendGradient);
+const gradientStr = legendGradient.backgroundImage;
+
+const COLOR_COUNT = 6;
+const EXPECTED_SHORTHAND_STOPS = 6;
+const EXPECTED_EXPANDED_STOPS = 12;
+
+for (let i = 0; i < COLOR_COUNT; i++) {
+  assert.include(gradientStr, `--color${i}`, `gradient should include --color${i}`);
+}
+
+const GRADIENT_PATTERNS = {
+  SHORTHAND: /var\(\s*--color[0-5]\s*\)\s+\d+%\s+\d+%/g,
+  EXPANDED: /var\(\s*--color[0-5]\s*\)\s+\d+%(?!\s+\d+%)/g
+};
+
+const matchGradientFormat = (gradientStr, pattern) => gradientStr.match(pattern);
+
+const shorthandMatches = matchGradientFormat(gradientStr, GRADIENT_PATTERNS.SHORTHAND);
+const expandedMatches = matchGradientFormat(gradientStr, GRADIENT_PATTERNS.EXPANDED);
+
+const colorPattern = /var\(\s*--color(\d)\s*\)/g;
+const allColorMatches = [...gradientStr.matchAll(colorPattern)];
+const colorNumbers = allColorMatches.map(match => parseInt(match[1]));
+
+if (shorthandMatches?.length === EXPECTED_SHORTHAND_STOPS) {
+  for (let i = 0; i < COLOR_COUNT; i++) {
+    const count = colorNumbers.filter(num => num === i).length;
+    assert.equal(count, 1, `In shorthand format, --color${i} should appear exactly once, but it appears ${count} times`);
+  }
+  
+  for (let i = 0; i < COLOR_COUNT; i++) {
+    const idx = colorNumbers.indexOf(i);
+    assert.isAtLeast(idx, 0, `--color${i} should be in the gradient`);
+    if (i > 0) {
+      const prevIdx = colorNumbers.indexOf(i - 1);
+      assert.isBelow(prevIdx, idx, `--color${i - 1} should appear before --color${i}`);
+    }
+  }
+} else if (expandedMatches?.length === EXPECTED_EXPANDED_STOPS) {
+  for (let i = 0; i < COLOR_COUNT; i++) {
+    const count = colorNumbers.filter(num => num === i).length;
+    assert.equal(count, 2, `In expanded format, --color${i} should appear exactly twice, but it appears ${count} times`);
+  }
+  
+  for (let i = 0; i < COLOR_COUNT; i++) {
+    const firstIdx = colorNumbers.indexOf(i);
+    const lastIdx = colorNumbers.lastIndexOf(i);
+    assert.equal(lastIdx - firstIdx, 1, `--color${i} should appear in consecutive positions for hard lines`);
+    
+    if (i > 0) {
+      const prevLastIdx = colorNumbers.lastIndexOf(i - 1);
+      assert.isBelow(prevLastIdx, firstIdx, `--color${i - 1} should complete before --color${i} starts`);
+    }
+  }
+  
+  const percentPattern = /var\(\s*--color\d\s*\)\s+(\d+)%/g;
+  const percentMatches = [...gradientStr.matchAll(percentPattern)];
+  const percentages = percentMatches.map(match => parseInt(match[1]));
+  
+  for (let i = 1; i < percentages.length - 1; i += 2) {
+    assert.equal(percentages[i], percentages[i + 1], `For hard lines, percentage at position ${i} (${percentages[i]}%) should equal percentage at position ${i + 1} (${percentages[i + 1]}%) where colors meet`);
+  }
+} else {
+  assert.fail('Gradient must use either shorthand format (6 stops with two percentages each) or expanded format (12 stops with one percentage each)');
+}
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Availability Table</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Availability Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main>
+        <table>
+            <tbody>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">9 AM</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+                <tr class="half">
+                    <td class="available-0"></td>
+                    <td class="available-1"></td>
+                    <td class="available-2"></td>
+                    <td class="available-2"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">10 AM</th>
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">11 AM</th>
+                    <td class="available-0"></td>
+                    <td class="available-2"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-0"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-1"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">12 PM</th>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-3"></td>
+                    <td class="available-2"></td>
+                    <td class="available-0"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-0"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">1 PM</th>
+                    <td class="available-2"></td>
+                    <td class="available-3"></td>
+                    <td class="available-3"></td>
+                    <td class="available-2"></td>
+                    <td class="available-0"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">2 PM</th>
+                    <td class="available-0"></td>
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">3 PM</th>
+                    <td class="available-3"></td>
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-4"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">4 PM</th>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-4"></td>
+                    <td class="available-4"></td>
+                </tr>
+                <tr class="half">
+                    <td class="available-3"></td>
+                    <td class="available-0"></td>
+                    <td class="available-4"></td>
+                    <td class="available-2"></td>
+                    <td class="available-5"></td>
+                </tr>
+                <tr class="sharp">
+                    <th rowspan="2" class="time">5 PM</th>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-5"></td>
+                    <td class="available-3"></td>
+                    <td class="available-4"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="legend">
+            <span id="legend-title">Availability</span>
+            <div id="legend-line"><span>0</span>
+                <div id="legend-gradient"></div><span>5+</span>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
+```
+
+```css
+:root {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    --color0: hsl(0, 0%, 100%);
+    --color1: hsl(120, 95%, 90%);
+    --color2: hsl(120, 95%, 80%);
+    --color3: hsl(120, 95%, 65%);
+    --color4: hsl(120, 95%, 40%);
+    --color5: hsl(120, 95%, 25%);
+    --solid-border: 0.1rem solid black;
+    --dashed-border: 0.09rem dashed black;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: hsl(150, 30%, 75%);
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 32rem;
+}
+
+tr {
+    height: 1.1rem;
+}
+
+tr :first-child {
+    width: 4rem;
+}
+
+td {
+    border-right: var(--solid-border);
+    border-left: var(--solid-border);
+}
+
+.sharp td {
+    border-bottom: var(--solid-border);
+}
+
+.sharp th:not([class*="time"]) {
+    border-bottom: var(--solid-border);
+}
+
+.half td {
+    border-bottom: var(--dashed-border);
+}
+
+tbody :last-child td {
+    border: 0;
+}
+
+.time {
+    text-align: right;
+    border: 0;
+    padding: 0.4rem;
+}
+
+.available-0 {
+    background-color: var(--color0);
+}
+
+.available-1 {
+    background-color: var(--color1);
+}
+
+.available-2 {
+    background-color: var(--color2);
+}
+
+.available-3 {
+    background-color: var(--color3);
+}
+
+.available-4 {
+    background-color: var(--color4);
+}
+
+.available-5 {
+    background-color: var(--color5);
+}
+
+#legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18rem;
+    height: 3.5rem;
+    text-align: center;
+}
+
+#legend span {
+    display: inline-block;
+    width: 5rem;
+    height: 2rem;
+}
+
+#legend-gradient {
+    width: 100%;
+    height: 60%;
+    border: var(--solid-border);
+    background-image: linear-gradient(90deg,
+            var(--color0) 0% 17%,
+            var(--color1) 17% 34%,
+            var(--color2) 34% 50%,
+            var(--color3) 50% 67%,
+            var(--color4) 67% 83%,
+            var(--color5) 83% 100%);
+}
+
+#legend-line {
+    width: 60%;
+    height: 100%;
+    display: flex;
+}
+```

@@ -1,0 +1,155 @@
+---
+id: bad87fee1348bd9aedf08834
+title: Unda seti ya vitufe vya radio
+challengeType: 0
+forumTopicId: 16822
+dashedName: create-a-set-of-radio-buttons
+---
+
+# --description--
+
+Unaweza kutumia <dfn>vitufe vya radio</dfn> kwa maswali ambapo unataka mtumizi akutie jibu moja tu kati ya chaguzi nyingi.
+
+Vitufe vya radio ni aina ya `input`.
+
+Kila kitufe chako cha radio kinaweza kupangwa ndani ya kipengele chake cha `label`. Kwa kuzungusha kipengele cha `input` ndani ya kipengele cha `label` itahusisha moja kwa moja ingizo la kitufe cha radio na kipengele cha lebo kinachokizunguka.
+
+Vitufe vyote vya radio vinavyohusiana vinapaswa kuwa na sifa ya `name` ile ile ili kuunda kundi la vitufe vya radio. Kwa kuunda kundi la radio, kuchagua kitufe chochote cha radio kutafuta moja kwa moja kuondoa uteuzi wa vitufe vingine ndani ya kundi hilo kuhakikisha jibu moja tu linatolewa na mtumizi.
+
+Hapa kuna mfano wa kitufe cha radio:
+
+```html
+<label> 
+  <input type="radio" name="indoor-outdoor">Indoor 
+</label>
+```
+
+Inachukuliwa kuwa mbinu bora kuweka sifa ya `for` kwenye kipengele cha `label`, na thamani inayolingana na thamani ya sifa ya `id` ya kipengele cha `input`. Hii inaruhusu teknolojia za kusaidia kuunda uhusiano uliounganishwa kati ya lebo na kipengele cha `input` kinachohusiana. Kwa mfano:
+
+```html
+<input id="indoor" type="radio" name="indoor-outdoor">
+<label for="indoor">Indoor</label>
+```
+
+Tunaweza pia kupanga ndani kipengele cha `input` ndani ya lebo za `label`:
+
+```html
+<label for="indoor"> 
+  <input id="indoor" type="radio" name="indoor-outdoor">Indoor 
+</label>
+```
+
+# --instructions--
+
+Ongeza jozi ya vitufe vya radio kwenye fomu yako, kila kikiwa kimepangwa ndani ya kipengele chake cha `label`. Kimoja kinapaswa kuwa na chaguo la `indoor` na kingine kiwe na chaguo la `outdoor`. Vyote viwili vinapaswa kushiriki sifa ya `name` yenye thamani ya `indoor-outdoor` ili kuunda kundi la vitufe vya radio.
+
+# --hints--
+
+Ukurasa wako unapaswa kuwa na vipengele viwili vya kitufe cha `radio`.
+
+```js
+assert.lengthOf(document.querySelectorAll('input[type="radio"]'),2);
+```
+
+Vitufe vyako vya radio vinapaswa kupewa sifa ya `name` yenye thamani ya `indoor-outdoor`.
+
+```js
+assert.lengthOf([...document.querySelectorAll('input[type="radio"]')].filter(input => input.name === "indoor-outdoor"),2);
+```
+
+Kila kipengele chako cha kitufe cha radio kinapaswa kupangwa ndani ya kipengele chake cha `label`.
+
+```js
+assert.lengthOf(document.querySelectorAll('label > input[type="radio"]:only-child'),2);
+```
+
+Kila kipengele chako cha `label` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert.match(code,/<\/label>/g);
+assert.match(code,/<label/g);
+assert.strictEqual(code.match(/<\/label>/g).length,code.match(/<label/g).length);
+```
+
+Kimoja cha vitufe vyako vya radio kinapaswa kuwa na lebo ya `indoor`.
+
+```js
+const labelTexts = [...document.querySelectorAll('label')].map(label => label.textContent);
+const hasMatch = labelTexts.some(label =>  label.match(/indoor/gi));
+assert.isTrue(hasMatch); 
+```
+
+Kimoja cha vitufe vyako vya radio kinapaswa kuwa na lebo ya `outdoor`.
+
+```js
+const labelTexts = [...document.querySelectorAll('label')].map(label => label.textContent);
+const hasMatch = labelTexts.some(label => label.match(/outdoor/gi));
+assert.isTrue(hasMatch); 
+```
+
+Kila kipengele chako cha kitufe cha radio kinapaswa kuongezwa ndani ya lebo ya `form`.
+
+```js
+const labelParent = document.querySelector('label').parentNode;
+assert.strictEqual(labelParent.tagName,'FORM');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<h2>CatPhotoApp</h2>
+<main>
+  <p>Click here to view more <a href="#">cat photos</a>.</p>
+
+  <a href="#"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+  <p>Things cats love:</p>
+  <ul>
+    <li>catnip</li>
+    <li>laser pointers</li>
+    <li>lasagna</li>
+  </ul>
+  <p>Top 3 things cats hate:</p>
+  <ol>
+    <li>flea treatment</li>
+    <li>thunder</li>
+    <li>other cats</li>
+  </ol>
+  <form action="https://www.freecatphotoapp.com/submit-cat-photo">
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```
+
+# --solutions--
+
+```html
+<h2>CatPhotoApp</h2>
+<main>
+  <p>Click here to view more <a href="#">cat photos</a>.</p>
+  
+  <a href="#"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+  
+  <p>Things cats love:</p>
+  <ul>
+    <li>catnip</li>
+    <li>laser pointers</li>
+    <li>lasagna</li>
+  </ul>
+  <p>Top 3 things cats hate:</p>
+  <ol>
+    <li>flea treatment</li>
+    <li>thunder</li>
+    <li>other cats</li>
+  </ol>
+  <form action="https://www.freecatphotoapp.com/submit-cat-photo">
+   <label for="indoor"><input id="indoor" type="radio" name="indoor-outdoor"> Indoor</label>
+    <label for="outdoor"><input id="outdoor" type="radio" name="indoor-outdoor"> Outdoor</label><br>
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```

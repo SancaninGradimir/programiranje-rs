@@ -1,0 +1,121 @@
+---
+id: 68a47dcdbce12193caf77012
+title: Tekeleza kitafuta kielezo kilichopangwa
+challengeType: 26
+dashedName: lab-sorted-index-finder
+---
+
+# --description--
+
+Katika maabara hii utaunda kitendakazi kinachorudisha kielezo cha chini kabisa ambacho thamani inapaswa kuingizwa katika safu ya data mara baada ya kupangwa kwa mpangilio wa kuongezeka.
+
+**Lengo**: Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `getIndexToIns` kinachopokea hoja mbili: safu ya data na nambari.  
+2. Unapaswa kutumia njia ya `sort` kupanga safu ya data kwa mpangilio wa kuongezeka.
+3. Kitendakazi chako cha `getIndexToIns` kinapaswa kurudisha kielezo cha chini kabisa ambacho nambari inapaswa kuingizwa kwa kutumia njia ya `findIndex`.
+4. Kitendakazi chako cha `getIndexToIns` kinapaswa kila mara kurudisha nambari.
+
+**Kibukizo:**  
+Njia ya `findIndex` ni njia iliyojengwa ndani ya safu ya data katika JavaScript. Inapokea kitendakazi cha mwitiko na kurudisha kielezo cha kipengele cha kwanza kinachokidhi sharti. Zote `findIndex` na `sort` ni kitendakazi cha daraja la juu.
+
+**Mifano:**
+
+- `getIndexToIns([1, 2, 3, 4], 1.5)` inapaswa kurudisha `1` kwa sababu `1.5` ni kubwa kuliko `1` (kielezo `0`) na ndogo kuliko `2` (kielezo `1`).
+- `getIndexToIns([20, 3, 5], 19)` inapaswa kurudisha `2` kwa sababu baada ya kupangwa kuwa `[3, 5, 20]`, `19` ni ndogo kuliko `20` (kielezo `2`) na kubwa kuliko `5` (kielezo `1`).
+
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `getIndexToIns`.
+
+```js
+assert.isFunction(getIndexToIns);
+```
+
+`getIndexToIns` inapaswa kila mara kurudisha nambari.
+
+```js
+assert.isNumber(getIndexToIns([10, 20, 30, 40, 50], 35));
+```
+
+Kitendakazi chako kinapaswa kutumia njia ya `sort`.
+
+```js
+assert.match(getIndexToIns.toString(), /\.sort\(/);
+```
+
+
+Kitendakazi chako kinapaswa kutumia njia ya `findIndex`.
+
+```js
+assert.match(getIndexToIns.toString(), /\.findIndex\(/);
+```
+
+`getIndexToIns([10, 20, 30, 40, 50], 35)` inapaswa kurudisha `3`.
+
+```js
+assert.strictEqual(getIndexToIns([10, 20, 30, 40, 50], 35), 3);
+```
+
+`getIndexToIns([10, 20, 30, 40, 50], 30)` inapaswa kurudisha `2`.
+
+```js
+assert.strictEqual(getIndexToIns([10, 20, 30, 40, 50], 30), 2);
+```
+
+`getIndexToIns([40, 60], 50)` inapaswa kurudisha `1`.
+
+```js
+assert.strictEqual(getIndexToIns([40, 60], 50), 1);
+```
+
+`getIndexToIns([3, 10, 5], 3)` inapaswa kurudisha `0`.
+
+```js
+assert.strictEqual(getIndexToIns([3, 10, 5], 3), 0);
+```
+
+`getIndexToIns([5, 3, 20, 3], 5)` inapaswa kurudisha `2`.
+
+```js
+assert.strictEqual(getIndexToIns([5, 3, 20, 3], 5), 2);
+```
+
+`getIndexToIns([2, 20, 10], 19)` inapaswa kurudisha `2`.
+
+```js
+assert.strictEqual(getIndexToIns([2, 20, 10], 19), 2);
+```
+
+`getIndexToIns([3, 10, 5], 11)` inapaswa kurudisha `3`
+
+```js
+assert.strictEqual(getIndexToIns([3, 10, 5], 11), 3);
+```
+
+`getIndexToIns([], 5)` inapaswa kurudisha `0`
+
+```js
+assert.strictEqual(getIndexToIns([], 5), 0);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+``` 
+
+# --solutions--
+
+```js
+function getIndexToIns(arr, num) {
+  const sorted = [...arr].sort((a, b) => a - b);
+  const index = sorted.findIndex(el => el >= num);
+
+  return index === -1 ? sorted.length : index;
+}
+```

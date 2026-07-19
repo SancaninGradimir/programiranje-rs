@@ -1,0 +1,210 @@
+---
+id: 587d825b367417b2b2512c8e
+title: Unda jedwali la hash
+challengeType: 1
+forumTopicId: 301627
+dashedName: create-a-hash-table
+---
+
+# --description--
+
+Katika changamoto hii tutajifunza kuhusu meza za hash. Jedwali la hash hutumika kutekeleza safu za data za uhusiano, au ramani za jozi za ufunguo-thamani, kama vile vitu na Ramani tulizokuwa tukizisoma hivi karibuni. Kitu cha JavaScript kinaweza kutekelezwa kama jedwali la hash, kwa mfano (utekelezaji wake halisi utategemea mazingira kinapotekelezwa). Njia ambayo jedwali la hash hufanya kazi ni kwamba linachukua ufunguo wa ingizo na kuuhash kwa njia ya kuaminika hadi thamani ya nambari fulani. Thamani hii ya nambari hutumika kama ufunguo halisi ambao thamani inayohusiana nayo huhifadhiwa kwa kutumia. Kisha, ukijaribu kupata upatikanaji wa ufunguo huo huo tena, kitendakazi cha hashing kitachakata ufunguo, kurudisha matokeo sawa ya nambari, ambayo kisha itatumika kutafuta thamani inayohusiana. Hii hutoa muda wa upatikanaji wa O(1) kwa wastani kwa ufanisi mkubwa.
+
+Meza za hash zinaweza kutekelezwa kama safu za data zenye kazi za hashing zinazozalisha vielezo vya safu ndani ya anuwai iliyobainishwa. Katika njia hii, uchaguzi wa ukubwa wa safu ni muhimu, kama vile kitendakazi cha hashing. Kwa mfano, je, kitendakazi cha hashing kitazalisha thamani sawa kwa funguo mbili tofauti? Hii huitwa mgongano. Njia moja ya kushughulikia migongano ni kuhifadhi jozi zote za ufunguo-thamani katika kielezo hicho. Kisha, wakati wa upatikanaji wa moja kati ya hizo, utalazimika kurudia kupitia kundi la vitu ili kupata ufunguo unayotafuta. Kitendakazi kizuri cha hashing kitapunguza migongano ili kudumisha muda mzuri wa utafutaji.
+
+Hapa, hatutazingatia maelezo ya hashing au utekelezaji wa jedwali la hash, tutajaribu tu kupata hisia ya jumla ya jinsi zinavyofanya kazi.
+
+# --instructions--
+
+Tundeni utendaji msingi wa jedwali la hash. Tumetengeneza kitendakazi cha hashing cha kawaida kwa ajili yako kutumia. Unaweza kupitisha thamani ya mfuatano wa herufi kwa kitendakazi `hash` na kitakurudishia thamani ya hash ambayo unaweza kuitumia kama ufunguo wa kuhifadhi. Hifadhi vitu kulingana na thamani hii ya hash katika kitu cha `this.collection`. Unda njia hizi tatu: `add`, `remove`, na `lookup`. Ya kwanza inapaswa kupokea jozi ya ufunguo-thamani kuongeza kwenye jedwali la hash. Ya pili inapaswa kuondoa jozi ya ufunguo-thamani inapopitishwa ufunguo. Ya tatu inapaswa kupokea ufunguo na kurudisha thamani inayohusiana au `null` ikiwa ufunguo haupo.
+
+Hakikisha unaandika msimbo wako kuzingatia migongano!
+
+**Kumbuka:** Mtihani wa njia ya `remove` hautapita hadi njia za `add` na `lookup` zitatekelezwa kwa usahihi.
+
+# --hints--
+
+Kitendakazi cha `hash` kinapaswa kuwa halali.
+
+```js
+let calls = 0;
+const ourHash = string => {
+  calls++;
+  let hashCode = 0;
+  for (let i = 0; i < string.length; i++) {
+    hashCode += string.charCodeAt(i);
+  }
+  return hashCode;
+};
+
+assert.strictEqual(hash('yek'),ourHash('yek'));
+
+assert.strictEqual(hash('key'),ourHash('key'));
+assert.strictEqual(hash('key1'),ourHash('key1'));
+assert.strictEqual(hash('key2'),ourHash('key2'));
+assert.strictEqual(hash('key3'),ourHash('key3'));
+
+assert.strictEqual(hash('1key'),ourHash('1key'));
+assert.strictEqual(hash('ke1y'),ourHash('ke1y'));
+assert.strictEqual(hash('altKey'),ourHash('altKey'));
+
+assert.strictEqual(called,calls); 
+```
+
+Muundo wa data wa `HashTable` unapaswa kuwepo.
+
+```js
+assert.isDefined(HashTable); 
+let newHashTable = new HashTable(); 
+assert.isObject(newHashTable); 
+```
+
+`HashTable` inapaswa kuwa na njia ya `add`.
+
+```js
+let newHashTable = new HashTable(); 
+assert.isFunction(newHashTable.add); 
+```
+
+`HashTable` inapaswa kuwa na njia ya `lookup`.
+
+```js
+let newHashTable = new HashTable(); 
+assert.isFunction(newHashTable.lookup); 
+```
+
+`HashTable` inapaswa kuwa na njia ya `remove`.
+
+```js
+let newHashTable = new HashTable(); 
+assert.isFunction(newHashTable.remove); 
+```
+
+Njia ya `add` inapaswa kuongeza jozi za ufunguo-thamani na njia ya `lookup` inapaswa kurudisha thamani zinazohusiana na ufunguo fulani.
+
+```js
+let newHashTable = new HashTable(); 
+newHashTable.add('key','value');
+assert.strictEqual(newHashTable.lookup('key'),'value'); 
+```
+
+Njia ya `remove` inapaswa kupokea ufunguo kama ingizo na kuondoa jozi ya ufunguo-thamani inayohusiana.
+
+```js
+let hashValue = hash('key');
+let newHashTable = new HashTable(); 
+newHashTable.add('key','value');
+newHashTable.remove('key'); 
+assert.notProperty(newHashTable.collection,hashValue); 
+```
+
+Njia ya `remove` inapaswa kuondoa tu jozi sahihi ya ufunguo-thamani.
+
+```js
+let newHashTable = new HashTable(); 
+let hashValue = hash('key');
+newHashTable.add('key','value');
+newHashTable.add('yek','value');
+newHashTable.add('altKey','value');
+newHashTable.remove('yek');
+
+assert.notExists(newHashTable.lookup('yek'));
+assert.exists(newHashTable.lookup('altKey'));
+assert.exists(newHashTable.lookup('key'));
+
+newHashTable.remove('key');
+
+assert.notProperty(newHashTable.collection,hashValue); 
+assert.exists(newHashTable.lookup('altKey'));
+
+```
+
+Vitu vinapaswa kuongezwa kwa kutumia kitendakazi cha hash.
+
+```js
+let newHashTable = new HashTable(); 
+called = 0;
+newHashTable.add('key1', 'value1')
+newHashTable.add('key2', 'value2');
+newHashTable.add('key3', 'value3');
+assert.strictEqual(called,3); 
+```
+
+Jedwali la hash linapaswa kushughulikia migongano.
+
+```js
+let newHashTable = new HashTable(); 
+called = 0;
+newHashTable.add('key1','value1');
+newHashTable.add('1key', 'value2'); 
+newHashTable.add('ke1y', 'value3'); 
+assert.strictEqual(newHashTable.lookup('key1'),'value1');
+assert.strictEqual(newHashTable.lookup('1key'),'value2');
+assert.strictEqual(newHashTable.lookup('ke1y'),'value3');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+var called = 0;
+var hash = string => {
+  called++;
+  var hashed = 0;
+  for (var i = 0; i < string.length; i++) {
+    hashed += string.charCodeAt(i);
+  }
+  return hashed;
+};
+var HashTable = function() {
+  this.collection = {};
+  // Only change code below this line
+  
+  // Only change code above this line
+};
+```
+
+# --solutions--
+
+```js
+var called = 0;
+var hash = (string) => {
+  called++;
+  var hash = 0;
+  for (var i = 0; i < string.length; i++) { hash += string.charCodeAt(i); }
+  return hash;
+};
+var HashTable = function() {
+  this.collection = {};
+  // Only change code below this line
+
+  this.add = function(key, val) {
+    var theHash = hash(key);
+    if (!this.collection.hasOwnProperty(theHash)) {
+      this.collection[theHash] = {};
+    }
+    this.collection[theHash][key] = val;
+  }
+
+  this.remove = function(key) {
+    var theHash = hash(key);
+    var hashedObj = this.collection[theHash];
+    if (hashedObj.hasOwnProperty(key)) {
+      delete hashedObj[key];
+    }
+    if (!Object.keys(hashedObj).length) {
+      delete this.collection[theHash];
+    }
+  }
+
+  this.lookup = function(key) {
+    var theHash = hash(key);
+    if (this.collection.hasOwnProperty(theHash)) {
+      return this.collection[theHash][key];
+    }
+    return null
+  }
+  // Only change code above this line
+};
+```

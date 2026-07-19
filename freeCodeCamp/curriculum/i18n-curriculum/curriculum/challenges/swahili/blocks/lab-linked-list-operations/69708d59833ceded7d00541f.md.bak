@@ -1,0 +1,478 @@
+---
+id: 69708d59833ceded7d00541f
+title: Tekeleza operesheni za orodha iliyounganishwa
+challengeType: 26
+dashedName: implement-linked-list-operations
+---
+
+# --description--
+
+Katika maabara hii, uta-tekeleza operesheni za ziada kwa muundo wa data wa orodha iliyounganishwa, ukijenga juu ya utendaji wa msingi wa kuongeza na kuondoa nodi.
+
+**Lengo**: Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi cha `contains` kinachokubali orodha iliyounganishwa na kipengele. Kinapaswa kurudisha `true` ikiwa kipengele kilichotajwa kiko katika orodha iliyounganishwa, na `false` vinginevyo.
+1. Unapaswa kuwa na kitendakazi cha `getAt` kinachokubali orodha iliyounganishwa na kielezo. Kinapaswa kurudisha kipengele kilicho kwenye kielezo kilichotolewa katika orodha iliyounganishwa. Ikiwa kielezo kiko nje ya mipaka, kinapaswa kurudisha `undefined`.
+1. Unapaswa kuwa na kitendakazi cha `insertAt` kinachokubali orodha iliyounganishwa, kielezo, na kipengele. Kinapaswa kuingiza kipengele kilichotolewa katika nafasi iliyotajwa katika orodha iliyounganishwa. Ikiwa kielezo kiko nje ya mipaka, hakitabadilisha orodha.
+1. Unapaswa kuwa na kitendakazi cha `removeAt` kinachokubali orodha iliyounganishwa na kielezo. Kinapaswa kuondoa nodi iliyoko kwenye kielezo kilichotolewa katika orodha iliyounganishwa. Ikiwa kielezo kiko nje ya mipaka, hakitabadilisha orodha.
+1. Unapaswa kuwa na kitendakazi cha `clear` kinachokubali orodha iliyounganishwa. Kinapaswa kuondoa vipengele vyote kutoka katika orodha iliyounganishwa, kwa ufanisi kuirejesha katika hali tupu.
+
+**Kumbuka:** Baadhi ya mitihani ya baadaye inategemea njia za awali. Kwa mfano, ikiwa `getAt` haitekelezwi kwa usahihi, mitihani ya vitendakazi kama `insertAt` na `removeAt` inaweza kushindwa hata vitendakazi hivyo vikiwa karibu kuwa sahihi.
+
+# --hints--
+
+`initList` inapaswa kurudisha kitu chenye `head` imewekwa kuwa `null` na `length` imewekwa kuwa `0`.
+
+```js
+const list = initList();
+assert.isNull(list.head);
+assert.strictEqual(list.length, 0);
+```
+
+`add` inapaswa kuongeza urefu wa orodha kwa moja.
+
+```js
+const list = initList();
+add(list, 'apple');
+assert.strictEqual(list.length, 1);
+```
+
+`remove` inapaswa kupunguza urefu wa orodha kwa moja.
+
+```js
+const list = initList();  
+add(list, 'apple');  
+add(list, 'banana');  
+remove(list, 'apple');  
+assert.strictEqual(list.length, 1);  
+assert.strictEqual(list.head.element, 'banana');  
+assert.isNull(list.head.next);
+```
+
+Unapaswa kuwa na kitendakazi cha `contains`.
+
+```js
+assert.isFunction(contains);
+```
+
+`contains` inapaswa kurudisha `true` ikiwa kipengele kiko katika orodha.
+
+```js
+const list = initList();
+add(list, 'apple');
+add(list, 'banana');
+add(list, 'cherry');
+assert.isTrue(contains(list, 'banana'));
+```
+
+`contains` inapaswa kurudisha `false` ikiwa kipengele hakipo katika orodha.
+
+```js
+const list = initList();
+add(list, 'apple');
+add(list, 'banana');
+assert.isFalse(contains(list, 'cherry'));
+```
+
+`contains` inapaswa kurudisha `false` kwa orodha tupu.
+
+```js
+const list = initList();
+assert.isFalse(contains(list, 'apple'));
+```
+
+Unapaswa kuwa na kitendakazi cha `getAt`.
+
+```js
+assert.isFunction(getAt);
+```
+
+`getAt` inapaswa kurudisha kipengele kilicho kwenye kielezo kilichotolewa.
+
+```js
+const list = initList();
+add(list, 'first');
+add(list, 'second');
+add(list, 'third');
+assert.strictEqual(getAt(list, 0), 'first');
+assert.strictEqual(getAt(list, 1), 'second');
+assert.strictEqual(getAt(list, 2), 'third');
+```
+
+`getAt` inapaswa kurudisha `undefined` kwa vielezo visivyo halali.
+
+```js
+const list = initList();  
+add(list, 'apple');  
+assert.isUndefined(getAt(list, -1));  
+assert.isUndefined(getAt(list, 1));  
+assert.isUndefined(getAt(list, 5));
+```
+
+`getAt` inapaswa kurudisha `undefined` kwa orodha tupu.
+
+```js
+const list = initList();  
+assert.isUndefined(getAt(list, 0));
+```
+
+Unapaswa kuwa na kitendakazi cha `insertAt`.
+
+```js
+assert.isFunction(insertAt);
+```
+
+`insertAt` inapaswa kuingiza kipengele mwanzoni mwa orodha.
+
+```js
+const list = initList();  
+add(list, 'second');  
+add(list, 'third');  
+insertAt(list, 0, 'first');  
+assert.strictEqual(getAt(list, 0), 'first');  
+assert.strictEqual(getAt(list, 1), 'second');  
+assert.strictEqual(getAt(list, 2), 'third');  
+assert.strictEqual(list.length, 3);
+```
+
+`insertAt` inapaswa kuingiza kipengele katikati ya orodha.
+
+```js
+const list = initList();  
+add(list, 'first');  
+add(list, 'third');  
+insertAt(list, 1, 'second');  
+assert.strictEqual(getAt(list, 0), 'first');  
+assert.strictEqual(getAt(list, 1), 'second');  
+assert.strictEqual(getAt(list, 2), 'third');  
+assert.strictEqual(list.length, 3);
+```
+
+`insertAt` inapaswa kuingiza kipengele mwishoni mwa orodha.
+
+```js
+const list = initList();
+add(list, 'first');
+add(list, 'second');
+insertAt(list, 2, 'third');
+assert.strictEqual(getAt(list, 0), 'first');
+assert.strictEqual(getAt(list, 1), 'second');
+assert.strictEqual(getAt(list, 2), 'third');
+assert.strictEqual(list.length, 3);
+```
+
+`insertAt` inapaswa kuingiza katika orodha tupu kwenye kielezo cha `0`.  
+
+```js  
+const list = initList();  
+insertAt(list, 0, 'first');  
+assert.strictEqual(list.length, 1);  
+assert.strictEqual(getAt(list, 0), 'first');  
+assert.isNull(list.head.next); 
+```
+
+`insertAt` haipaswi kubadilisha orodha kwa vielezo visivyo halali.
+
+```js
+const list = initList();  
+add(list, 'apple');  
+insertAt(list, -1, 'invalid');  
+insertAt(list, 10, 'invalid');  
+assert.strictEqual(list.length, 1);  
+assert.strictEqual(getAt(list, 0), 'apple');  
+assert.isUndefined(getAt(list, 1));
+```
+
+Unapaswa kuwa na kitendakazi cha `removeAt`.
+
+```js
+assert.isFunction(removeAt);
+```
+
+`removeAt` inapaswa kuondoa kipengele kwenye kielezo kilichotajwa.
+
+```js
+const list = initList();  
+add(list, 'first');  
+add(list, 'second');  
+add(list, 'third');  
+removeAt(list, 1);  
+assert.strictEqual(getAt(list, 0), 'first');  
+assert.strictEqual(getAt(list, 1), 'third');  
+assert.isUndefined(getAt(list, 2));  
+assert.strictEqual(list.length, 2);
+```
+
+`removeAt` inapaswa kuondoa kipengele cha kwanza kwa usahihi.
+
+```js
+const list = initList();
+add(list, 'first');
+add(list, 'second');
+removeAt(list, 0);
+assert.strictEqual(getAt(list, 0), 'second');
+assert.strictEqual(list.length, 1);
+assert.isNull(list.head.next);
+```
+
+`removeAt` inapaswa kuondoa kipengele cha mwisho kwa usahihi.  
+
+```js  
+const list = initList();  
+add(list, 'first');  
+add(list, 'second');  
+add(list, 'third');  
+removeAt(list, 2);  
+assert.strictEqual(getAt(list, 0), 'first');  
+assert.strictEqual(getAt(list, 1), 'second');  
+assert.isUndefined(getAt(list, 2));  
+assert.strictEqual(list.length, 2);
+```
+
+`removeAt` inapaswa kurejesha orodha wakati wa kuondoa kipengele pekee.
+
+```js
+const list = initList();  
+add(list, 'only');  
+removeAt(list, 0);  
+assert.strictEqual(list.length, 0);  
+assert.isNull(list.head);  
+assert.isTrue(isEmpty(list));
+```
+
+`removeAt` haipaswi kubadilisha orodha kwa vielezo visivyo halali.
+
+```js
+const list = initList();  
+add(list, 'apple');  
+removeAt(list, -1);  
+removeAt(list, 10);  
+assert.strictEqual(list.length, 1);  
+assert.strictEqual(getAt(list, 0), 'apple');  
+```
+
+Unapaswa kuwa na kitendakazi cha `clear`.
+
+```js
+assert.isFunction(clear);
+```
+
+`clear` inapaswa kuondoa vipengele vyote kutoka orodha.
+
+```js
+const list = initList();
+add(list, 'first');
+add(list, 'second');
+add(list, 'third');
+clear(list);
+assert.strictEqual(list.length, 0);
+assert.isNull(list.head);
+assert.isTrue(isEmpty(list));
+```
+
+`clear` inapaswa kuruhusu orodha kutumika tena.  
+
+```js  
+const list = initList();  
+add(list, 'first');  
+clear(list);  
+clear(list);  
+add(list, 'second');  
+assert.strictEqual(list.length, 1);  
+assert.strictEqual(getAt(list, 0), 'second');  
+assert.isNull(list.head.next); 
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function initList() {
+  return {
+    head: null,
+    length: 0
+  };
+}
+
+function isEmpty(list) {
+  return list.length === 0;
+}
+
+function add(list, element) {
+  const node = { element, next: null };
+
+  if (isEmpty(list)) {
+    list.head = node;
+  } else {
+    let current = list.head;
+    while (current.next !== null) {
+      current = current.next;
+    }
+    current.next = node;
+  }
+
+  list.length++;
+}
+
+function remove(list, element) {
+  let previous = null;
+  let current = list.head;
+
+  while (current !== null && current.element !== element) {
+    previous = current;
+    current = current.next;
+  }
+
+  if (current === null) return;
+
+  if (previous !== null) {
+    previous.next = current.next;
+  } else {
+    list.head = current.next;
+  }
+
+  list.length--;
+}
+
+function contains(list, element) {
+  
+}
+
+function getAt(list, index) {
+ 
+}
+
+function insertAt(list, index, element) {
+  
+}
+
+function removeAt(list, index) {
+ 
+}
+
+function clear(list) {
+
+}
+```
+
+# --solutions--
+
+```js
+function initList() {
+  return {
+    head: null,
+    length: 0
+  };
+}
+
+function isEmpty(list) {
+  return list.length === 0;
+}
+
+function add(list, element) {
+  const node = { element, next: null };
+
+  if (isEmpty(list)) {
+    list.head = node;
+  } else {
+    let current = list.head;
+    while (current.next !== null) {
+      current = current.next;
+    }
+    current.next = node;
+  }
+
+  list.length++;
+}
+
+function remove(list, element) {
+  let previous = null;
+  let current = list.head;
+
+  while (current !== null && current.element !== element) {
+    previous = current;
+    current = current.next;
+  }
+
+  if (current === null) return;
+
+  if (previous !== null) {
+    previous.next = current.next;
+  } else {
+    list.head = current.next;
+  }
+
+  list.length--;
+}
+
+function contains(list, element) {
+  let current = list.head;
+  while (current !== null) {
+    if (current.element === element) {
+      return true;
+    }
+    current = current.next;
+  }
+  return false;
+}
+
+function getAt(list, index) {
+  if (index < 0 || index >= list.length) return undefined;
+  let current = list.head;
+  let i = 0;
+  while (i < index) {
+    current = current.next;
+    i++;
+  }
+  return current.element;
+}
+
+function insertAt(list, index, element) {
+  if (index < 0 || index > list.length) return;
+  const node = { element, next: null };
+  if (index === 0) {
+    node.next = list.head;
+    list.head = node;
+    list.length++;
+    return;
+  }
+  let current = list.head;
+  let previous = null;
+  let i = 0;
+  while (i < index) {
+    previous = current;
+    current = current.next;
+    i++;
+  }
+  previous.next = node;
+  node.next = current;
+  list.length++;
+}
+
+function removeAt(list, index) {
+  if (index < 0 || index >= list.length) return;
+  if (index === 0) {
+    list.head = list.head.next;
+    list.length--;
+    return;
+  }
+  let current = list.head;
+  let previous = null;
+  let i = 0;
+  while (i < index) {
+    previous = current;
+    current = current.next;
+    i++;
+  }
+  previous.next = current.next;
+  list.length--;
+}
+
+function clear(list) {
+  list.head = null;
+  list.length = 0;
+}
+```

@@ -1,0 +1,84 @@
+---
+id: 5a24c314108439a4d403614f
+title: Tuma tukio la kitendo
+challengeType: 6
+forumTopicId: 301442
+dashedName: dispatch-an-action-event
+---
+
+# --description--
+
+Njia ya `dispatch` ndiyo unayotumia kutuma vitendo kwa hifadhi ya Redux. Kufanya wito la `store.dispatch()` na kupitisha thamani inayorejeshwa kutoka kwa muundaji wa kitendo hurejesha kitendo kwa hifadhi.
+
+Kumbuka kuwa waundaji wa vitendo hurudisha kitu chenye sifa ya aina inayobainisha aina ya kitendo kilichotokea. Kisha njia hiyo hutuma kitu cha kitendo kwa hifadhi ya Redux. Kulingana na mfano wa changamoto iliyopita, mistari ifuatayo ni sawa, na yote hutuma kitendo cha aina `LOGIN`:
+
+```js
+store.dispatch(actionCreator());
+store.dispatch({ type: 'LOGIN' });
+```
+
+# --instructions--
+
+Hifadhi ya Redux katika mhariri wa msimbo ina hali iliyowekwa ambayo ni kitu chenye sifa ya `login` ambayo kwa sasa imewekwa kuwa `false`. Pia kuna muundaji wa kitendo anayeitwa `loginAction()` ambaye hurudisha kitendo cha aina `LOGIN`. Tuma kitendo cha `LOGIN` kwa hifadhi ya Redux kwa kuita njia ya `dispatch`, na pitisha kitendo kilichoundwa na `loginAction()`.
+
+# --hints--
+
+Kuita kitendakazi `loginAction` kunapaswa kurudisha kitu chenye sifa ya `type` iliyowekwa kuwa mfuatano wa herufi `LOGIN`.
+
+```js
+assert(loginAction().type === 'LOGIN');
+```
+
+Hifadhi inapaswa kuanzishwa na kitu chenye sifa ya `login` iliyowekwa kuwa `false`.
+
+```js
+assert(store.getState().login === false);
+```
+
+Njia ya `store.dispatch()` inapaswa kutumika kutuma kitendo cha aina `LOGIN`.
+
+```js
+assert(
+    (function () {
+      let noWhiteSpace = code.replace(/\s/g, '');
+      return (
+        noWhiteSpace.includes('store.dispatch(loginAction())') ||
+        noWhiteSpace.includes("store.dispatch({type: 'LOGIN'})") === true
+      );
+    })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const store = Redux.createStore(
+  (state = {login: false}) => state
+);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+// Dispatch the action here:
+```
+
+# --solutions--
+
+```js
+const store = Redux.createStore(
+  (state = {login: false}) => state
+);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+
+store.dispatch(loginAction());
+```

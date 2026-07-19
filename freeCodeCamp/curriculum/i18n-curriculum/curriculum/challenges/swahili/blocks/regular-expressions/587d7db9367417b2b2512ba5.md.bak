@@ -1,0 +1,93 @@
+---
+id: 587d7db9367417b2b2512ba5
+title: Eleza idadi ya chini na ya juu ya mechi
+challengeType: 1
+forumTopicId: 301367
+dashedName: specify-upper-and-lower-number-of-matches
+---
+
+# --description--
+
+Kumbuka kwamba unatumia alama ya kuongeza `+` kutafuta herufi moja au zaidi na nyota `*` kutafuta herufi sifuri au zaidi. Hizi ni rahisi lakini wakati mwingine unataka kulinganisha anuwai fulani ya mifumo.
+
+Unaweza eleza idadi ya chini na ya juu ya mifumo kwa kutumia <dfn>viashiria vya kiasi</dfn>. Viashiria vya kiasi hutumika na mabano ya mviringo (`{` na `}`). Unaweka nambari mbili kati ya mabano ya mviringo - kwa idadi ya chini na ya juu ya mifumo.
+
+Kwa mfano, ili kulinganisha tu herufi `a` inayojirudia kati ya `3` na `5` mara katika mfuatano wa herufi `ah`, usemi wako wa kawaida ungekuwa `/a{3,5}h/`.
+
+```js
+let A4 = "aaaah";
+let A2 = "aah";
+let multipleA = /a{3,5}h/;
+multipleA.test(A4);
+multipleA.test(A2);
+```
+
+Wito wa kwanza wa `test` utarudisha `true`, wakati wa pili utarudisha `false`.
+
+# --instructions--
+
+Badilisha usemi wa kawaida `ohRegex` ili ulinganishe mfuatano mzima `Oh no` tu wakati una herufi `3` kuanzia `6` hadi `h`.
+
+# --hints--
+
+Usemi wako wa kawaida unapaswa kutumia mabano ya mviringo.
+
+```js
+assert(ohRegex.source.match(/{.*?}/).length > 0);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano `Ohh no`
+
+```js
+ohRegex.lastIndex = 0;
+assert(!ohRegex.test('Ohh no'));
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano `Ohhh no`
+
+```js
+assert('Ohhh no'.match(ohRegex)[0].length === 7);
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano `Ohhhh no`
+
+```js
+assert('Ohhhh no'.match(ohRegex)[0].length === 8);
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano `Ohhhhh no`
+
+```js
+assert('Ohhhhh no'.match(ohRegex)[0].length === 9);
+```
+
+Usemi wako wa kawaida unapaswa kulinganisha mfuatano `Ohhhhhh no`
+
+```js
+assert('Ohhhhhh no'.match(ohRegex)[0].length === 10);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha mfuatano `Ohhhhhhh no`
+
+```js
+ohRegex.lastIndex = 0;
+assert(!ohRegex.test('Ohhhhhhh no'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let ohStr = "Ohhh no";
+let ohRegex = /change/; // Change this line
+let result = ohRegex.test(ohStr);
+```
+
+# --solutions--
+
+```js
+let ohStr = "Ohhh no";
+let ohRegex = /Oh{3,6} no/; // Change this line
+let result = ohRegex.test(ohStr);
+```

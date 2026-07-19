@@ -1,0 +1,75 @@
+---
+id: 685c1eba966c6396850736ea
+title: Hatua 13
+challengeType: 20
+dashedName: step-13
+---
+
+# --description--
+
+Wakati watumizi wanaweza kutuma barua pepe na kuwa na sanduku la barua, darasa la vitu maalum linahitajika kusimamia shughuli za sanduku la barua kwa ufanisi.
+
+Darasa la `Inbox` litahifadhi orodha ya barua pepe na kutoa njia za kuongeza barua pepe mpya, kuorodhesha barua pepe zote, na kuzisimamia.
+
+Tengeneza darasa jipya linaloitwa `Inbox` lenye njia ya `__init__` inayozindua orodha tupu iitwayo `emails`.
+
+# --hints--
+
+Unapaswa kutengeneza darasa la `Inbox`.
+
+```js
+({
+    test: () => {
+        assert(runPython(`_Node(_code).has_class("Inbox")`));
+    }
+})
+```
+
+Darasa la `Inbox` linapaswa kuwa na njia ya `__init__` inayopokea `self` kama kigezo.
+
+```js
+({
+    test: () => {
+        assert(runPython(`_Node(_code).find_class("Inbox").find_function("__init__").has_args("self")`));
+    }
+})
+```
+
+Unapaswa kuanzisha `self.emails = []` katika njia ya `Inbox` ya darasa la `__init__`.
+
+```js
+({
+    test: () => {
+        assert(runPython(`_Node(_code).find_class("Inbox").find_function("__init__").find_variable("self.emails").is_equivalent("self.emails = []")`));
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Email:
+    def __init__(self, sender, receiver, subject, body):
+        self.sender = sender
+        self.receiver = receiver
+        self.subject = subject
+        self.body = body
+        self.read = False
+
+    def mark_as_read(self):
+        self.read = True
+
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.inbox = []
+
+    def send_email(self, receiver, subject, body):
+        email = Email(sender=self, receiver=receiver, subject=subject, body=body)
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

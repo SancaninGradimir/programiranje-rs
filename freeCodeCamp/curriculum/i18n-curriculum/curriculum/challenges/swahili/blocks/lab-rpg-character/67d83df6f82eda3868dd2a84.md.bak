@@ -1,0 +1,333 @@
+---
+id: 67d83df6f82eda3868dd2a84
+title: Jenga mhusika wa RPG
+challengeType: 27
+dashedName: build-an-rpg-character
+---
+
+# --description--
+
+Katika maabara hii utafundisha misingi ya Python kwa kujenga programu ndogo inayotengeneza mhusika kwa ajili ya safari ya RPG.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `create_character`.
+1. Kitendakazi kinapaswa kupokea, kwa mpangilio, jina la mhusika ikifuatiwa na takwimu tatu: nguvu, akili, na haiba.
+1. Jina la mhusika linapaswa kuthibitishwa:
+   - Ikiwa jina la mhusika si mfuatano wa herufi, kitendakazi kinapaswa kurudisha `The character name should be a string`.
+   - Ikiwa jina la mhusika ni mfuatano wa herufi tupu, kitendakazi kinapaswa kurudisha `The character should have a name`.
+   - Ikiwa jina la mhusika lina herufi zaidi ya 10, kitendakazi kinapaswa kurudisha `The character name is too long`.
+   - Ikiwa jina la mhusika lina nafasi, kitendakazi kinapaswa kurudisha `The character name should not contain spaces`.
+1. Takwimu pia zinapaswa kuthibitishwa:
+   - Ikiwa takwimu moja au zaidi si nambari kamili, kitendakazi kinapaswa kurudisha `All stats should be integers`.
+   - Ikiwa takwimu moja au zaidi ni chini ya 1, kitendakazi kinapaswa kurudisha `All stats should be no less than 1`.
+   - Ikiwa takwimu moja au zaidi ni zaidi ya 4, kitendakazi kinapaswa kurudisha `All stats should be no more than 4`.
+   - Ikiwa jumla ya takwimu zote si sawa na 7, kitendakazi kinapaswa kurudisha `The character should start with 7 points`.
+1. Ikiwa thamani zote zitapita uthibitisho, kitendakazi kinapaswa kurudisha mfuatano wa herufi wenye mistari minne:
+   - mstari wa kwanza unapaswa kuwa na jina la mhusika
+   - mistari ya 2-4 inapaswa kuanza na kifupisho cha takwimu, `STR`, `INT` au `CHA` (kwa mpangilio huu), kisha nafasi, na kisha nukta kamili (`●`) kulingana na thamani ya takwimu, na nukta tupu (`○`) kufikia 10. Mfano: ikiwa thamani ya nguvu ni 3 lazima kuwe na nukta 3 kamili ikifuatiwa na nukta 7 tupu. Nukta zimetolewa katika mhariri.
+
+Huu ni mfuatano wa herufi unaopaswa kurudishwa na `create_character('ren', 4, 2, 1)`:
+
+   ```md
+   ren
+   STR ●●●●○○○○○○
+   INT ●●○○○○○○○○
+   CHA ●○○○○○○○○○
+   ```
+
+KUMBUKA: ingawa `str` na `int` ni vifupisho vya kawaida vya takwimu, kumbuka kuwa ni maneno muhimu yaliyohifadhiwa katika Python na hayapaswi kutumika kama majina ya vigezo.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `create_character`.
+
+```js
+({
+    test: () => runPython(
+`
+assert _Node(_code).has_function('create_character')
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo si mfuatano wa herufi inapaswa kurudisha `The character name should be a string`.
+
+```js
+({
+    test: () => runPython(
+        `
+wrong_types = [3, 5, {'a': 3}, 3.1, [1, 2], (1, 2), {1, 2}]
+for wrong_type in wrong_types:
+    assert create_character(wrong_type, 1, 2, 4) == 'The character name should be a string'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo ni mfuatano wa herufi haipaswi kurudisha `The character name should be a string`.
+
+```js
+({
+    test: () => runPython(
+        `assert create_character('ren', 1, 2, 4) != 'The character name should be a string'`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo ni mfuatano wa herufi tupu, inapaswa kurudisha `The character should have a name`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('', 4, 2, 1) == 'The character should have a name'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo si mfuatano wa herufi tupu, haipaswi kurudisha `The character should have a name`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 2, 1) != 'The character should have a name'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo ina herufi zaidi ya 10 inapaswa kurudisha `The character name is too long`.
+
+```js
+({
+    test: () => runPython(
+        `
+for length in range(11, 27):
+    assert create_character('abcdefghijklmnopqrstuvwxyz'[:length], 4, 2, 1) == 'The character name is too long'
+`
+    )
+})
+```
+
+Kitendakazi `create_character` hakipaswi kusema kuwa mhusika ni mrefu sana wakati sio mrefu zaidi ya herufi 10.
+
+```js
+({
+    test: () => runPython(
+        `
+for length in range(0, 11):
+  assert create_character('aaabbcccdd'[:length], 4, 2, 1) != 'The character name is too long'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo ina nafasi inapaswa kurudisha `The character name should not contain spaces`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('cha cha', 4, 1, 2) == 'The character name should not contain spaces'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya kwanza ambayo haina nafasi haipaswi kurudisha `The character name should not contain spaces`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('chacha', 4, 2, 1) != 'The character name should not contain spaces'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu au ya nne ambayo si nambari kamili inapaswa kurudisha `All stats should be integers`.
+
+```js
+({
+    test: () => runPython(
+        `
+wrong_types = ['3', '5', {'a': 3}, 3.1, [1, 2], (1, 2), {1, 2}, 'str', 'friend']
+for wrong_type in wrong_types:
+    assert create_character('friend', wrong_type, 2, 1) == 'All stats should be integers'
+    assert create_character('friend', 2, wrong_type, 1) == 'All stats should be integers'
+    assert create_character('friend', 2, 1, wrong_type) == 'All stats should be integers'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu na ya nne ambazo zote ni nambari kamili haipaswi kurudisha `All stats should be integers`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('friend', 4, 2, 1) != 'All stats should be integers'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu au ya nne ambayo ni chini ya `1` inapaswa kurudisha `All stats should be no less than 1`.
+
+```js
+({
+    test: () => runPython(
+        `
+expected = 'All stats should be no less than 1'
+
+assert create_character('ren', 0, 4, 3) == expected
+assert create_character('ren', 4, 0, 3) == expected
+assert create_character('ren', 4, 3, 0) == expected
+assert create_character('ren', -1, 4, 4) == expected
+assert create_character('ren', 4, -1, 4) == expected
+assert create_character('ren', 4, 4, -1) == expected
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu na ya nne ambazo zote si chini ya `1` haipaswi kurudisha `All stats should be no less than 1`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 2, 1) != 'All stats should be no less than 1'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu au ya nne ambayo ni zaidi ya `4` inapaswa kurudisha `All stats should be no more than 4`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 1, 5, 1) == 'All stats should be no more than 4'
+assert create_character('ren', 5, 1, 1) == 'All stats should be no more than 4'
+assert create_character('ren', 1, 1, 5) == 'All stats should be no more than 4'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu na ya nne ambazo zote si zaidi ya `4` haipaswi kurudisha `All stats should be no more than 4`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 2, 1) != 'All stats should be no more than 4'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu au ya nne ambazo hazijajumlisha `7` inapaswa kurudisha `The character should start with 7 points`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 4, 4) == 'The character should start with 7 points'
+assert create_character('ren', 1, 1, 1) == 'The character should start with 7 points'
+assert create_character('ren', 1, 2, 3) == 'The character should start with 7 points'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na hoja ya pili, ya tatu na ya nne ambazo zinajumlisha `7` haipaswi kurudisha `The character should start with 7 points`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 2, 1) != 'The character should start with 7 points'
+`
+    )
+})
+```
+
+`create_character('ren', 4, 2, 1)` inapaswa kurudisha `ren\nSTR ●●●●○○○○○○\nINT ●●○○○○○○○○\nCHA ●○○○○○○○○○`.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('ren', 4, 2, 1) == f'ren\\nSTR ●●●●○○○○○○\\nINT ●●○○○○○○○○\\nCHA ●○○○○○○○○○'
+`
+    )
+})
+```
+
+Wakati `create_character` inapoitwa na thamani halali inapaswa kutoa takwimu za mhusika kama inavyotakiwa.
+
+```js
+({
+    test: () => runPython(
+        `
+assert create_character('Bob', 1, 2, 4) == f'Bob\\nSTR ●○○○○○○○○○\\nINT ●●○○○○○○○○\\nCHA ●●●●○○○○○○'
+assert create_character('aaabbbcccd', 4, 2, 1) == f'aaabbbcccd\\nSTR ●●●●○○○○○○\\nINT ●●○○○○○○○○\\nCHA ●○○○○○○○○○'
+`
+    )
+})
+
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+full_dot = '●'
+empty_dot = '○'
+
+
+```
+
+# --solutions--
+
+```py
+full_dot = '●'
+empty_dot = '○'
+
+def create_character(character_name, strength, intelligence, charisma):
+    if type(character_name) != str:
+        return 'The character name should be a string'
+    if len(character_name) == 0:
+        return 'The character should have a name'
+    if len(character_name) > 10:
+        return 'The character name is too long'
+    if ' ' in character_name:
+        return 'The character name should not contain spaces'
+
+    if type(strength) != int or type(intelligence) != int or type(charisma) != int:
+       return 'All stats should be integers'
+    if strength < 1 or intelligence < 1 or charisma < 1:
+        return 'All stats should be no less than 1'
+    if strength > 4 or intelligence > 4 or charisma > 4:
+        return 'All stats should be no more than 4'
+    if strength + intelligence + charisma != 7:
+        return 'The character should start with 7 points'
+
+    character_sheet = f'{character_name}\n'
+    character_sheet += f'STR {full_dot * strength}{empty_dot * (10 - strength)}\n'
+    character_sheet += f'INT {full_dot * intelligence}{empty_dot * (10 - intelligence)}\n'
+    character_sheet += f'CHA {full_dot * charisma}{empty_dot * (10 - charisma)}'
+    return character_sheet
+```

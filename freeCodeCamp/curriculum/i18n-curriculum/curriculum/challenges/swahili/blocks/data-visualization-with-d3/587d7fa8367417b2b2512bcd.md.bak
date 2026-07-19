@@ -1,0 +1,109 @@
+---
+id: 587d7fa8367417b2b2512bcd
+title: Tengeneza bar kwa kila nukta ya data katika seti
+challengeType: 6
+forumTopicId: 301482
+dashedName: create-a-bar-for-each-data-point-in-the-set
+---
+
+# --description--
+
+Changamoto ya mwisho iliongeza mraba mmoja tu kwenye kipengele cha `svg` kuwakilisha bar. Hapa, utaunganisha kile ulichojifunza hadi sasa kuhusu `data()`, `enter()`, na maumbo ya SVG kutengeneza na kuongeza mraba kwa kila nukta ya data katika `dataset`.
+
+Changamoto ya awali ilionyesha muundo wa jinsi ya kutengeneza na kuongeza `div` kwa kila kipengee katika `dataset`:
+
+```js
+d3.select('body')?.selectAll('div').data(dataset).enter().append('div');
+```
+
+Kuna tofauti chache unapotumia vipengele vya `rect` badala ya vipengele vya `div`. Vipengele vya `rect` lazima viongezwe kwenye kipengele cha `svg`, si moja kwa moja kwenye `body`. Pia, unahitaji kusema D3 wapi kuweka kila `rect` ndani ya eneo la `svg`. Msimamo wa bar utashughulikiwa katika changamoto inayofuata.
+
+# --instructions--
+
+Tumia njia za `data()`, `enter()`, na `append()` kutengeneza na kuongeza `rect` kwa kila kipengee katika `dataset`. Bar zote zinapaswa kuonyeshwa zikiwa juu ya kila moja; hili litarekebishwa katika changamoto inayofuata.
+
+# --hints--
+
+Nyaraka yako inapaswa kuwa na vipengele 9 vya `rect`.
+
+```js
+assert.lengthOf(document.querySelectorAll('rect'), 9);
+```
+
+Msimbo wako unapaswa kutumia njia ya `data()`.
+
+```js
+assert.match(code, /\.data/g);
+```
+
+Msimbo wako unapaswa kutumia njia ya `enter()`.
+
+```js
+assert.match(code, /\.enter/g);
+```
+
+Msimbo wako unapaswa kutumia njia ya `append()`.
+
+```js
+assert.match(code, /\.append/g);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3
+      .select('body')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    svg
+      .selectAll('rect')
+      // Add your code below this line
+
+      // Add your code above this line
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', 25)
+      .attr('height', 100);
+  </script>
+</body>
+```
+
+# --solutions--
+
+```html
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3
+      .select('body')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    svg
+      .selectAll('rect')
+      .data(dataset)
+      .enter()
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', 25)
+      .attr('height', 100);
+  </script>
+</body>
+```

@@ -1,0 +1,151 @@
+---
+id: 5ea2815a8640bcc6cb7dab3c
+title: Nambari za Lychrel
+challengeType: 1
+forumTopicId: 385287
+dashedName: lychrel-numbers
+---
+
+# --description--
+
+<ol>
+  <li>Chukua nambari kamili <code>n₀</code>, kubwa kuliko sifuri.</li>
+  <li>Tengeneza nambari inayofuata <code>n</code> ya mfululizo kwa kugeuza <code>n₀</code> na kuiongeza kwa <code>n₀</code></li>
+  <li>Maliza wakati <code>n</code> inakuwa palindromu - yaani tarakimu za <code>n</code> zikiwa kwa mpangilio wa kinyume ni sawa na <code>n</code>.</li>
+</ol>
+
+Mhusiano wa kurudiwa ulio hapo juu unapohusishwa na nambari nyingi za kuanzia `n` = 1, 2, ... humaliza kwa palindromu haraka sana.
+
+Kwa mfano ikiwa `n₀` = 12 tunapata:
+
+```md
+12
+12 + 21 = 33,  a palindrome!
+```
+
+Na ikiwa `n₀` = 55 tunapata:
+
+```md
+55
+55 + 55 = 110
+110 + 011 = 121,  a palindrome!
+```
+
+Angalia kwamba ukaguzi wa palindromu hufanyika *baada* ya kuongeza.
+
+Baadhi ya nambari za kuanzia zinaonekana kuendelea milele; mhusiano wa kurudiwa kwa 196 umehesabiwa kwa mamilioni ya marudio ukitengeneza nambari zenye mamilioni ya tarakimu, bila kutengeneza palindromu. Nambari hizi ambazo hazimalizi kwa palindromu huitwa **nambari za Lychrel**.
+
+Kwa madhumuni ya zoezi hili nambari ya Lychrel ni nambari yoyote ya kuanzia ambayo haitengenezi palindromu ndani ya marudio 500 (au zaidi).
+
+**Nambari za mbegu na nambari za Lychrel zinazohusiana:**
+
+Nambari yoyote kamili inayozalishwa katika mfululizo wa nambari ya Lychrel pia ni nambari ya Lychrel.
+
+Kwa ujumla, mfululizo wowote kutoka kwa nambari moja ya Lychrel *huenda* ukajumuika kuungana na mfululizo kutoka kwa mgombea wa nambari ya Lychrel wa awali; kwa mfano mfululizo wa nambari 196 na kisha 689 unaanza:
+
+```md
+    196
+    196 + 691 = 887
+    887 + 788 = 1675
+    1675 + 5761 = 7436
+    7436 + 6347 = 13783
+    13783 + 38731 = 52514
+    52514 + 41525 = 94039
+    ...
+    689
+    689 + 986 = 1675
+    1675 + 5761 = 7436
+    ...
+```
+
+Hivyo tunaona kwamba mfululizo unaoanza na 689 unajumuika na kuendelea na nambari sawa na ule wa 196.
+
+Kutokana na hili tunaweza kugawanya zaidi nambari za Lychrel kuwa wagombea halisi wa nambari za Lychrel za **mbegu**, na nambari **zinazohusiana** ambazo hazizalishi palindromu lakini zina nambari kamili katika mfululizo wake zinazojulikana kama sehemu ya mfululizo unaotokana na nambari ya Lychrel ya chini.
+
+# --instructions--
+
+Andika kitendakazi kinachochukua nambari kama kigezo. Rudisha true ikiwa nambari ni nambari ya Lychrel. Vinginevyo, rudisha false. Kumbuka kwamba kikomo cha marudio ni 500.
+
+# --hints--
+
+`isLychrel` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof isLychrel === 'function');
+```
+
+`isLychrel(12)` inapaswa kurudisha thamani ya kweli au siyo kweli.
+
+```js
+assert(typeof isLychrel(12) === 'boolean');
+```
+
+`isLychrel(12)` inapaswa kurudisha `false`.
+
+```js
+assert.equal(isLychrel(12), false);
+```
+
+`isLychrel(55)` inapaswa kurudisha `false`.
+
+```js
+assert.equal(isLychrel(55), false);
+```
+
+`isLychrel(196)` inapaswa kurudisha `true`.
+
+```js
+assert.equal(isLychrel(196), true);
+```
+
+`isLychrel(879)` inapaswa kurudisha `true`.
+
+```js
+assert.equal(isLychrel(879), true);
+```
+
+`isLychrel(44987)` inapaswa kurudisha `false`.
+
+```js
+assert.equal(isLychrel(44987), false);
+```
+
+`isLychrel(7059)` inapaswa kurudisha `true`.
+
+```js
+assert.equal(isLychrel(7059), true);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function isLychrel(n) {
+
+}
+```
+
+# --solutions--
+
+```js
+function isLychrel(n) {
+  function reverse(num) {
+    return parseInt(
+      num
+        .toString()
+        .split('')
+        .reverse()
+        .join('')
+    );
+  }
+
+  var i;
+  for (i = 0; i < 500; i++) {
+    n = n + reverse(n);
+    if (n == reverse(n)) break;
+  }
+
+  return i == 500;
+}
+```

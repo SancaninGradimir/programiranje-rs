@@ -1,0 +1,574 @@
+---
+id: 687ad7be1ff45032ccf1d92f
+title: Jenga kitufe cha kubadilisha mandhari
+challengeType: 25
+dashedName: lab-theme-switcher
+demoType: onClick
+---
+
+# --description--
+
+Katika maabara hii, utajenga programu inayobadilisha kati ya mandhari tofauti. Unapobadilisha kwenda mandhari tofauti, rangi ya nyuma itabadilika na ujumbe tofauti utaonyeshwa.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `button` chenye maandishi ya `Switch Theme`.
+2. Kipengele chako cha `button` kinapaswa kuwa na sifa za kipengele zifuatazo:
+   - Sifa ya `id` ikiwa imewekwa kuwa `"theme-switcher-button"`.
+   - Sifa ya `aria-haspopup` ikiwa imewekwa kuwa `"true"`.
+   - Sifa ya `aria-expanded` ikiwa imewekwa kuwa `"false"`.
+   - Sifa ya `aria-controls` ikiwa imewekwa kuwa `"theme-dropdown"`.
+3. Unapaswa kuwa na kipengele cha `ul` chenye sifa za kipengele zifuatazo:
+   - Sifa ya `id` ikiwa imewekwa kuwa `"theme-dropdown"`.
+   - Sifa ya `role` ikiwa imewekwa kuwa `"menu"`.
+   - Sifa ya `aria-labelledby` ikiwa imewekwa kuwa `"theme-switcher-button"`.
+   - Sifa ya `hidden`.
+4. Kipengele chako cha `ul` kinapaswa kuwa na angalau vipengele viwili vya `li` vyenye sifa ya kipengele ya `role` iliyowekwa kuwa `"menuitem"` na maandishi ya uchaguzi wako yanayowakilisha mandhari tofauti.
+5. Kila kipengele chako cha `li` kinapaswa kuwa na sifa ya kipengele ya `id` inayotangulia na `theme-` na kumalizika na mandhari uliyoiweka kwa maandishi ya kipengele cha `li`. Kwa mfano, ikiwa moja ya mandhari zako ni `Light` basi `id` yako inapaswa kuwa `theme-light`.
+6. Unapaswa kuwa na kipengele chenye sifa ya kipengele ya `aria-live` iliyowekwa kuwa `"polite"`.
+7. Unapaswa kuwa na safu ya data ya `themes` yenye angalau vitu viwili ambavyo kila kimoja kina sifa za `name` na `message`. `name` itawakilisha mandhari tofauti na `message` itaonyeshwa wakati mandhari inabadilika. Una uhuru wa kuja na thamani za `name` na `message` za uchaguzi wako lakini thamani za `name` zinapaswa kufanana na maudhui ya maandishi ya vipengele vyako vya `li`.
+8. Mtumizi anapobofya `#theme-switcher-button`, kipengele cha `#theme-dropdown` kinapaswa kuonyesha mandhari zinazopatikana.
+9. Kipengele cha `#theme-dropdown` kinapoonyeshwa, sifa ya kipengele ya `aria-expanded` inapaswa kuwekwa kuwa `"true"` kwa kipengele cha `button`.
+10. Watumizi wanapobofya `#theme-switcher-button` wakati kipengele cha `#theme-dropdown` kikiwa kinaonyeshwa, menyu inapaswa kufungwa na sifa ya kipengele ya `hidden` inapaswa kuongezwa na sifa ya kipengele ya `aria-expanded` iwekwa kuwa `"false"`.
+11. Mtumizi anapobofya `#theme-switcher-button` na kuchagua mandhari, darasa la vitu la `theme-<name>` linalohusiana linapaswa kuongezwa kwa kipengele cha `body` na ujumbe wa mandhari unaohusiana ulioweka katika safu ya data ya `themes` utaonyeshwa katika kipengele cha `aria-live="polite"`.
+12. Mtumizi anapobofya `#theme-switcher-button` na kuchagua mandhari tofauti na ile ya sasa, darasa la mandhari la `body` na ujumbe wa hali vinapaswa kusasishwa ili kuendana na uchaguzi mpya.
+
+# --before-all--
+
+```js
+const resetThemeSwitch = () => {
+  const themeDropdownBtn = document.getElementById("theme-switcher-button");
+  const themeDropdownEl = document.getElementById("theme-dropdown");
+
+  // Reset attributes due to earlier button clicks interfering with these tests
+  themeDropdownEl.setAttribute("hidden", "");
+  themeDropdownBtn.setAttribute("aria-expanded", "false");
+}
+```
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `button`.
+
+```js
+assert.exists(document.querySelector("button"));
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na maandishi ya `Switch Theme`.
+
+```js
+const btn = document.querySelector("button");
+assert.equal(btn?.textContent.trim(), "Switch Theme");
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na sifa ya kipengele ya `id` iliyowekwa kuwa `"theme-switcher-button"`.
+
+```js
+const btn = document.querySelector("button");
+assert.equal(btn?.getAttribute("id"), "theme-switcher-button");
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na sifa ya kipengele ya `aria-haspopup` iliyowekwa kuwa `"true"`.
+
+```js
+const btn = document.querySelector("button");
+assert.equal(btn?.getAttribute("aria-haspopup"), "true");
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na sifa ya kipengele ya `aria-expanded` iliyowekwa kuwa `"false"`.
+
+```js
+const btn = document.querySelector("button");
+assert.equal(btn?.getAttribute("aria-expanded"), "false");
+```
+
+Kipengele chako cha `button` kinapaswa kuwa na sifa ya kipengele ya `aria-controls` iliyowekwa kuwa `"theme-dropdown"`.
+
+```js
+const btn = document.querySelector("button");
+assert.equal(btn?.getAttribute("aria-controls"), "theme-dropdown");
+```
+
+Unapaswa kuwa na kipengele cha `ul`.
+
+```js
+assert.exists(document.querySelector("ul"));
+```
+
+Kipengele chako cha `ul` kinapaswa kuwa na sifa ya kipengele ya `id` iliyowekwa kuwa `"theme-dropdown"`.
+
+```js
+const ul = document.querySelector("ul");
+assert.equal(ul?.getAttribute("id"), "theme-dropdown");
+```
+
+Kipengele chako cha `ul` kinapaswa kuwa na sifa ya kipengele ya `role` iliyowekwa kuwa `"menu"`.
+
+```js
+const ul = document.querySelector("ul");
+assert.equal(ul?.getAttribute("role"), "menu");
+```
+
+Kipengele chako cha `ul` kinapaswa kuwa na sifa ya kipengele ya `aria-labelledby` iliyowekwa kuwa `"theme-switcher-button"`.
+
+```js
+const ul = document.querySelector("ul");
+assert.equal(ul?.getAttribute("aria-labelledby"), "theme-switcher-button");
+```
+
+Kipengele chako cha `ul` kinapaswa kuwa na sifa ya kipengele ya `hidden`.
+
+```js
+const ul = document.querySelector("ul");
+assert.isTrue(ul?.hasAttribute("hidden"));
+```
+
+Kipengele chako cha `ul` kinapaswa kuwa na angalau vipengele viwili vya `li`.
+
+```js
+const listItems = document.querySelectorAll("ul li");
+assert.isAtLeast(listItems?.length, 2);
+```
+
+Kila kipengele chako cha `li` kinapaswa kuwa na sifa ya kipengele ya `role` iliyowekwa kuwa `"menuitem"`.
+
+```js
+const listItems = document.querySelectorAll("ul li");
+assert.isNotEmpty(listItems);
+listItems.forEach(li => {
+  assert.equal(li?.getAttribute("role"), "menuitem");
+})
+```
+
+Kila kipengele chako cha `li` kinapaswa kuwa na kipande cha maandishi kinachowakilisha mandhari.
+
+```js
+const listItems = document.querySelectorAll("ul li");
+assert.isNotEmpty(listItems);
+listItems.forEach(li => {
+  const text = li?.textContent.trim();
+  assert.isTrue(text.length > 0);
+})
+```
+
+Kila kipengele chako cha `li` kinapaswa kuwa na sifa ya kipengele ya `id` inayotangulia na `theme-` na kumalizika na mandhari inayohusiana kwa kipengele hicho. Hakikisha thamani ya `id` ni herufi ndogo zote.
+
+```js
+const listItems = document.querySelectorAll("ul li");
+assert.isNotEmpty(listItems);
+const listTitles = [...listItems].map(li => li?.textContent.trim().toLowerCase());
+
+listItems.forEach((li, index) =>{
+  assert.equal(li.getAttribute("id"), `theme-${listTitles[index]}`);
+})
+```
+
+Unapaswa kuwa na kipengele chenye sifa ya kipengele ya `aria-live` iliyowekwa kuwa `"polite"`.
+
+```js
+assert.exists(document.querySelector('[aria-live="polite"]'));
+```
+
+Unapaswa kuwa na safu ya data ya `themes`.
+
+```js
+assert.isArray(themes);
+```
+
+Safu yako ya data ya `themes` inapaswa kuwa na angalau vitu viwili.
+
+```js
+assert.isAtLeast(themes?.length, 2);
+themes.forEach(theme => {
+  assert.isObject(theme);
+});
+```
+
+Safu yako ya data ya `themes` inapaswa kuwa na angalau vitu viwili kila kikiwa na sifa za `name` na `message`.
+
+```js
+assert.isNotEmpty(themes);
+themes?.forEach(theme => {
+  assert.isObject(theme);
+  assert.property(theme, "name");
+  assert.property(theme, "message");
+})
+```
+
+Thamani za sifa zako za `name` na `message` zinapaswa kuwa mfuatano wa herufi usio tupu.
+
+```js
+assert.isNotEmpty(themes);
+themes?.forEach(theme => {
+  assert.isObject(theme);
+  assert.isString(theme["name"]);
+  assert.isNotEmpty(theme["name"]);
+  assert.isString(theme["message"]);
+  assert.isNotEmpty(theme["message"]);
+})
+```
+
+Kila thamani ya sifa zako za `name` inapaswa kufanana na maudhui ya maandishi ya mojawapo ya vipengele vyako vya `li`. Hakikisha thamani hizi ni herufi ndogo zote.
+
+```js
+const listItems = [...document.querySelectorAll("ul li")]?.map(li => li.textContent.toLowerCase().trim());
+const namesArr = themes?.map(({name}) => name);
+
+assert.equal(listItems.length, namesArr.length);
+assert.isTrue(namesArr?.every(name => listItems.includes(name)));
+```
+
+Mtumizi anapobofya `#theme-switcher-button` kuonyesha chaguzi za mandhari, sifa ya kipengele ya `hidden` inapaswa kuondolewa kutoka kwa kipengele cha `#theme-dropdown`.
+
+```js
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+const themeDropdownEl = document.getElementById("theme-dropdown");
+
+assert.isTrue(themeDropdownEl?.hasAttribute("hidden"));
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.isFalse(themeDropdownEl?.hasAttribute("hidden"));
+```
+
+Kipengele cha `#theme-dropdown` kinapoonyeshwa, sifa ya kipengele ya `aria-expanded` inapaswa kuwekwa kuwa `"true"` kwa kipengele cha `button`.
+
+```js
+resetThemeSwitch()
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.equal(themeDropdownBtn?.getAttribute("aria-expanded"), "true");
+```
+
+Watumizi wanapobofya `#theme-switcher-button` wakati kipengele cha `#theme-dropdown` kikiwa kinaonyeshwa, menyu ya kushuka inapaswa kurejeshwa kuwa `hidden`.
+
+```js
+resetThemeSwitch()
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+const themeDropdownEl = document.getElementById("theme-dropdown");
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.isFalse(themeDropdownEl?.hasAttribute("hidden"));
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.isTrue(themeDropdownEl?.hasAttribute("hidden"));
+```
+
+Watumizi wanapobofya `#theme-switcher-button` wakati kipengele cha `#theme-dropdown` kikiwa kinaonyeshwa, sifa ya kipengele ya `aria-expanded` inapaswa kuwekwa kuwa `"false"`.
+
+```js
+resetThemeSwitch()
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.equal(themeDropdownBtn?.getAttribute("aria-expanded"), "true");
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+assert.equal(themeDropdownBtn?.getAttribute("aria-expanded"), "false");
+```
+
+Mtumizi anapobofya `#theme-switcher-button` na kuchagua mandhari, darasa la vitu la `theme-<name>` linalohusiana linapaswa kuongezwa kwa kipengele cha `body`.
+
+```js
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+const listItems = document.querySelectorAll("#theme-dropdown li");
+
+themeDropdownBtn.dispatchEvent(new Event("click"));
+
+const clickedItem = listItems[1];
+clickedItem?.dispatchEvent(new Event("click", {bubbles: true}));
+
+const expectedClass = clickedItem?.id;
+const actualClass = document.body.className;
+
+assert.equal(actualClass, expectedClass);
+```
+
+Mtumizi anapobofya `#theme-switcher-button` na kuchagua mandhari, ujumbe unaohusiana na `message` wa `theme` uliyochaguliwa kutoka kwa safu ya data ya `themes` utaonyeshwa katika kipengele cha `aria-live="polite"`.
+
+```js
+const liveRegion = document.querySelector('[aria-live="polite"]');
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+const listItems = document.querySelectorAll("ul li");
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+listItems[1]?.dispatchEvent(new Event("click", {bubbles: true}));
+
+const selectedThemeName = listItems[1]?.textContent.toLowerCase().trim();
+const selectedTheme = themes?.find(theme => theme.name === selectedThemeName);
+
+assert.equal(liveRegion?.textContent, selectedTheme?.message);
+```
+
+Mtumizi anapobofya `#theme-switcher-button` na kuchagua mandhari mbili tofauti, darasa la `body` na ujumbe wa hali vinapaswa kusasishwa ili kuendana na kila mandhari iliyochaguliwa.
+
+```js
+const liveRegion = document.querySelector('[aria-live="polite"]');
+const themeDropdownBtn = document.getElementById("theme-switcher-button");
+const listItems = document.querySelectorAll("#theme-dropdown li");
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+listItems[0]?.dispatchEvent(new Event("click", { bubbles: true }));
+const firstClass = document.body.className;
+const firstMessage = liveRegion?.textContent;
+
+themeDropdownBtn?.dispatchEvent(new Event("click"));
+listItems[1]?.dispatchEvent(new Event("click", { bubbles: true }));
+const secondClass = document.body.className;
+const secondMessage = liveRegion?.textContent;
+
+assert.equal(firstClass, listItems[0]?.id);
+assert.equal(secondClass, listItems[1]?.id);
+assert.notEqual(firstClass, secondClass);
+assert.notEqual(firstMessage, secondMessage);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switcher</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+```
+
+```css
+body {
+  margin: 0;
+  font-family: sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+#status {
+  text-align: center;
+  min-height: 20px;
+}
+```
+
+```js
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switcher</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="theme-light">  
+  <button
+    class="dropdown-btn"
+    id="theme-switcher-button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="theme-dropdown"
+  >
+    Switch Theme
+  </button>
+
+  <ul
+    class="dropdown-content"
+    id="theme-dropdown"
+    role="menu"
+    aria-labelledby="theme-switcher-button"
+    hidden
+  >
+    <li class="dropdown-item" id="theme-light" role="menuitem">Light</li>
+    <li class="dropdown-item" id="theme-dark" role="menuitem">Dark</li>
+    <li class="dropdown-item" id="theme-ocean" role="menuitem">Ocean</li>
+    <li class="dropdown-item" id="theme-nord" role="menuitem">Nord</li>
+  </ul>
+  
+  <div id="status" aria-live="polite"></div>
+  
+  <script src="./script.js"></script>
+</body>
+</html>
+```
+
+```css
+body {
+  margin: 0;
+  font-family: sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.dropdown-btn {
+  position: relative;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 12px;
+  color: #000000;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+#status {
+  text-align: center;
+  min-height: 20px;
+}
+
+/* Themes */
+.theme-light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.theme-light .dropdown-btn {
+  background-color: #d3b3aa;
+  color: #000000;
+}
+
+.theme-dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.theme-dark .dropdown-btn {
+  background-color: #4f4f4f;
+  color: #ffffff;
+}
+
+.theme-ocean {
+  background-color: #0077be;
+  color: #e0f7fa;
+}
+
+.theme-ocean .dropdown-btn {
+  background-color: #193e51;
+  color: #ffffff;
+}
+
+.theme-nord {
+  background-color: #2e3440;
+  color: #d8dee9;
+}
+
+.theme-nord .dropdown-btn {
+  background-color: #596680;
+  color: #ffffff;
+}
+```
+
+```js
+const themes = [
+  {
+    name: "light",
+    message: "Hello sunshine — Light theme is on!"
+  },
+  {
+    name: "dark",
+    message: "The night is yours — Dark theme is on!"
+  },
+  {
+    name: "nord",
+    message: "The frost has settled - Nord theme is on!"
+  },
+  {
+    name: "ocean",
+    message: "Blue skies and high tides — Ocean theme is on!"
+  },
+];
+
+const setTheme = (theme) => {
+  document.body.className = "";
+  document.body.classList.add(`theme-${theme.name}`);
+};
+
+const updateStatus = (theme) => {
+  const status = document.getElementById("status");
+  status.textContent = theme.message;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  themes.forEach((theme) => {
+    const button = document.getElementById(`theme-${theme.name}`);
+    
+    if (button) {
+      button.addEventListener("click", () => {
+        setTheme(theme);
+        updateStatus(theme);
+        closeMenu();
+      });
+    }
+  });
+
+  const toggleButton = document.getElementById("theme-switcher-button");
+  const menu = document.getElementById("theme-dropdown");
+
+  toggleButton.addEventListener("click", () => {
+    const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+    if (isExpanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  function closeMenu() {
+    menu.setAttribute("hidden", "");
+    toggleButton.setAttribute("aria-expanded", "false");
+  }
+
+  function openMenu() {
+    menu.removeAttribute("hidden");
+    toggleButton.setAttribute("aria-expanded", "true");
+  }
+
+  // Close the menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!toggleButton.contains(e.target) && !menu.contains(e.target)) {
+      closeMenu();
+    }
+  });
+});
+```

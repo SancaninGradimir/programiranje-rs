@@ -1,0 +1,161 @@
+---
+id: 5efc4f528d6a74d05e68af74
+title: Hatua 58
+challengeType: 0
+dashedName: step-58
+---
+
+# --description--
+
+Kuna njia nyingine ya kuhusisha maandishi ya kipengele cha `input` na kipengele hicho chenyewe. Unaweza kupanga ndani maandishi hayo ndani ya kipengele cha `label` na kuongeza sifa ya kipengele ya `for` yenye thamani sawa na sifa ya kipengele ya `input` ya kipengele cha `id`.
+
+Ikiwa na kipengele cha `input` kama kilivyo hapa chini:
+
+```html
+<input id="breakfast" type="radio" name="meal" value="breakfast">
+```
+
+Mfano wa kipengele cha `label` kinachohusishwa na kipengele hiki cha `input` ni:
+
+```html
+<label for="breakfast">Breakfast</label>
+```
+
+Husisha maandishi ya `Loving` na kisanduku cha kuchagua kwa kupanga ndani maandishi ya `Loving` pekee katika kipengele cha `label` na kumpa sifa ya kipengele ya `for` inayofaa.
+
+# --hints--
+
+Unapaswa kuhakikisha kipengele cha kisanduku cha kuchagua bado kipo, na hujafanya mabadiliko yoyote ndani yake. Kinapaswa kubaki kama kilivyokuwa katika msimbo wa mwanzo.
+
+```js
+const checkboxElementRegex = /\s*<input\s+id\s*=\s*"loving"\s*type\s*=\s*"checkbox"\s*>/;
+assert.match(code, checkboxElementRegex);
+```
+
+Kisanduku chako cha kuchagua kinapaswa bado kuwa na sifa ya kipengele ya `id` yenye thamani `loving`. Ilitarajiwa `--fcc-expected--`, lakini ilipatikana `--fcc-actual--`.
+
+```js
+const checkboxElementId = document.querySelector('input[type="checkbox"]')?.getAttribute('id');
+assert.strictEqual(checkboxElementId, 'loving');
+```
+
+Unapaswa kuongeza kipengele kipya cha `label` baada ya kipengele cha kisanduku cha kuchagua. Hakikisha kina lebo ya kufungua na lebo ya kufunga.
+
+```js
+assert.lengthOf(document.querySelectorAll('label'), 3);
+assert.lengthOf(code.match(/<\/label\>/g), 3);
+```
+
+Kipengele chako cha `label` kinapaswa kuwa kipo baada ya kisanduku chako cha kuchagua.
+
+```js
+const checkboxElement = document.querySelector('input[type="checkbox"]');
+const checkboxSiblingElement = checkboxElement?.nextElementSibling?.nodeName;
+assert.strictEqual(checkboxSiblingElement, 'LABEL');
+```
+
+Kipengele chako cha `label` kinapaswa kuwa na maandishi ya `Loving`.
+
+```js
+const checkboxElement = document.querySelector('input[type="checkbox"]');
+const checkboxSiblingElementText = checkboxElement?.nextElementSibling?.innerText;
+
+assert.strictEqual(checkboxSiblingElementText, 'Loving');
+```
+
+Maandishi ya lebo `Loving` yanapaswa kuwa ndani tu ya kipengele chako kipya cha `label`. Hakikisha hujarudia maandishi hayo nje ya kipengele cha `label`.
+
+```js
+const checkboxElement = document.querySelector('input[type="checkbox"]');
+const checkboxSiblingNode = checkboxElement?.nextSibling?.nodeValue ?? '';
+const labelElement = checkboxElement?.nextElementSibling;
+const labelSiblingNode = labelElement?.nextSibling?.nodeValue ?? '';
+
+assert.notInclude(checkboxSiblingNode, 'Loving');
+assert.notInclude(labelSiblingNode, 'Loving');
+```
+
+Kipengele chako cha `label` hakina sifa ya kipengele ya `for`. Hakikisha kuna nafasi kati ya jina la lebo ya kufungua ya `label` na sifa ya kipengele ya `for`.
+
+```js
+const checkboxElement = document.querySelector('input[type="checkbox"]');
+const checkboxSiblingElementAttr = checkboxElement?.nextElementSibling?.getAttribute('for');
+
+assert.isNotNull(checkboxSiblingElementAttr);
+```
+
+Kipengele chako cha `label` kinapaswa kuwa na sifa ya kipengele ya `for` yenye thamani `loving`. Ilitarajiwa `--fcc-expected--`, lakini ilipatikana `--fcc-actual--`.
+
+```js
+const checkboxElement = document.querySelector('input[type="checkbox"]');
+const checkboxSiblingElementAttr = checkboxElement?.nextElementSibling?.getAttribute('for');
+
+assert.strictEqual(checkboxSiblingElementAttr, 'loving');
+```
+
+Kuna nafasi inapaswa kuwepo kati ya kisanduku chako cha kuchagua na kipengele chako kipya cha `label`.
+
+```js
+assert.match(code, />\s+<label\s+for\s*=\s*('|")loving/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<html>
+  <body>
+    <main>
+      <h1>CatPhotoApp</h1>
+      <section>
+        <h2>Cat Photos</h2>
+        <p>Everyone loves <a href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">cute cats</a> online!</p>
+        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
+        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+      </section>
+      <section>
+        <h2>Cat Lists</h2>
+        <h3>Things cats love:</h3>
+        <ul>
+          <li>catnip</li>
+          <li>laser pointers</li>
+          <li>lasagna</li>
+        </ul>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/lasagna.jpg" alt="A slice of lasagna on a plate.">
+          <figcaption>Cats <em>love</em> lasagna.</figcaption>  
+        </figure>
+        <h3>Top 3 things cats hate:</h3>
+        <ol>
+          <li>flea treatment</li>
+          <li>thunder</li>
+          <li>other cats</li>
+        </ol>
+        <figure>
+          <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" alt="Two tabby kittens sleeping together on a couch.">
+          <figcaption>Cats <strong>hate</strong> other cats.</figcaption>  
+        </figure>
+      </section>
+      <section>
+        <h2>Cat Form</h2>
+        <form action="https://freecatphotoapp.com/submit-cat-photo">
+          <fieldset>
+            <legend>Is your cat an indoor or outdoor cat?</legend>
+            <label><input id="indoor" type="radio" name="indoor-outdoor" value="indoor"> Indoor</label>
+            <label><input id="outdoor" type="radio" name="indoor-outdoor" value="outdoor"> Outdoor</label>
+          </fieldset>
+          <fieldset>
+            <legend>What's your cat's personality?</legend>
+--fcc-editable-region--
+            <input id="loving" type="checkbox"> Loving
+--fcc-editable-region--
+          </fieldset>
+          <input type="text" name="catphotourl" placeholder="cat photo URL" required>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
+```

@@ -1,0 +1,100 @@
+---
+id: 69373793f5a867f769cde13a
+title: "Challenge 155: Plant the Crop"
+challengeType: 29
+dashedName: challenge-155
+---
+
+# --description--
+
+Ukizingatia nambari kamili inayowakilisha ukubwa wa shamba lako, na `"acres"` au `"hectares"` wakilisha kipimo cha ukubwa wa shamba lako, pamoja na aina ya zao, amua ni miche mingapi ya aina hiyo unaweza kuipanda shambani mwako.
+
+- Ekari 1 ni sawa na mita za mraba 4046.86.
+- Hekta 1 ni sawa na mita za mraba 10,000.
+
+Hapa kuna orodha ya mazao yatakayotoa ingizo pamoja na nafasi ambayo mmea mmoja unachukua:
+
+|Zao|Nafasi kwa mmea|
+|-|-|
+|`"corn"`|mita moja za mraba|
+|`"wheat"`|mita 0.1 za mraba|
+|`"soybeans"`|mita 0.5 za mraba|
+|`"tomatoes"`|mita 0.25 za mraba|
+|`"lettuce"`|mita 0.2 za mraba|
+
+Rudisha idadi ya mimea inayoweza kuendana na shamba, ukizungusha chini hadi mmea mzima wa karibu.
+
+# --hints--
+
+`get_number_of_plants(1, "acres", "corn")` should return `4046`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_number_of_plants(1, "acres", "corn"), 4046)`)
+}})
+```
+
+`get_number_of_plants(2, "hectares", "lettuce")` should return `100000`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_number_of_plants(2, "hectares", "lettuce"), 100000)`)
+}})
+```
+
+`get_number_of_plants(20, "acres", "soybeans")` should return `161874`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_number_of_plants(20, "acres", "soybeans"), 161874)`)
+}})
+```
+
+`get_number_of_plants(3.75, "hectares", "tomatoes")` should return `150000`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_number_of_plants(3.75, "hectares", "tomatoes"), 150000)`)
+}})
+```
+
+`get_number_of_plants(16.75, "acres", "tomatoes")` should return `271139`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(get_number_of_plants(16.75, "acres", "tomatoes"), 271139)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def get_number_of_plants(field_size, unit, crop):
+
+    return field_size
+```
+
+# --solutions--
+
+```py
+import math
+def get_number_of_plants(field_size, unit, crop):
+    crop_space = {
+        "corn": 1,
+        "wheat": 0.1,
+        "soybeans": 0.5,
+        "tomatoes": 0.25,
+        "lettuce": 0.2
+    }
+
+    field_in_sqm = field_size * 4046.86 if unit == "acres" else field_size * 10000
+
+    return math.floor(field_in_sqm / crop_space[crop.lower()])
+```

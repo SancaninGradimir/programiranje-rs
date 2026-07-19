@@ -1,0 +1,62 @@
+---
+id: 68cae5b538ff798bbd4da009
+title: "Zoezi la 71: Kihesabu cha Tipi"
+challengeType: 28
+dashedName: challenge-71
+---
+
+# --description--
+
+Ukizingatia bei ya chakula chako na asilimia ya tipi unayotaka, rudisha safu ya data yenye thamani tatu za tipi; asilimia 15%, 20%, na kiasi cha tipi unachotaka.
+
+- Bei zitapewa kwa muundo: `"$N.NN"`.
+- Asilimia za tipi za kawaida zitapewa kwa muundo huu: `"25%"`.
+- Rudisha kiasi kwa muundo ule ule wa `"$N.NN"`, ukizungushwa hadi sehemu mbili za desimali.
+
+Kwa mfano, ukizingatia bei ya chakula ya `"$10.00"`, na thamani ya tipi ya kawaida ya `"25%"`, rudisha `["$1.50", "$2.00", "$2.50"]`.
+
+# --hints--
+
+`calculateTips("$10.00", "25%")` inapaswa kurudisha `["$1.50", "$2.00", "$2.50"]`.
+
+```js
+assert.deepEqual(calculateTips("$10.00", "25%"), ["$1.50", "$2.00", "$2.50"]);
+```
+
+`calculateTips("$89.67", "26%")` inapaswa kurudisha `["$13.45", "$17.93", "$23.31"]`.
+
+```js
+assert.deepEqual(calculateTips("$89.67", "26%"), ["$13.45", "$17.93", "$23.31"]);
+```
+
+`calculateTips("$19.85", "9%")` inapaswa kurudisha `["$2.98", "$3.97", "$1.79"]`.
+
+```js
+assert.deepEqual(calculateTips("$19.85", "9%"), ["$2.98", "$3.97", "$1.79"]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function calculateTips(mealPrice, customTip) {
+
+  return mealPrice;
+}
+```
+
+# --solutions--
+
+```js
+function calculateTips(mealPrice, customTip) {
+  const meal = parseFloat(mealPrice.slice(1));
+  const customPercent = parseFloat(customTip.slice(0, -1));
+  const tips = [15, 20, customPercent];
+
+  return tips.map(percent => {
+    const amount = (meal * percent / 100).toFixed(2);
+    return `$${amount}`;
+  });
+}
+```

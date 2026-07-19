@@ -1,0 +1,305 @@
+---
+id: 5a24c314108439a4d4036148
+title: Unganisha Redux na programu ya ujumbe
+challengeType: 6
+forumTopicId: 301427
+dashedName: connect-redux-to-the-messages-app
+---
+
+# --description--
+
+Sasa unapoelewa jinsi ya kutumia `connect` kuunganisha React na Redux, unaweza kutumia unachojifunza kwenye sehemu yako ya React inayoshughulikia ujumbe.
+
+Katika funzo la mwisho, sehemu uliyoiunganisha na Redux ilijulikana kama `Presentational`, na hii haikuwa bahati mbaya. Neno hili *kwa ujumla* linahusu sehemu za React ambazo hazijaunganishwa moja kwa moja na Redux. Zinahusika tu na kuonyesha UI na hufanya hivyo kwa kutumia vigezo vinavyopitishwa. Kwa upande mwingine, sehemu za kontena ziko kwenye muunganisho na Redux. Hizi kwa kawaida zinahusika na kutuma vitendo kwenye hifadhi na mara nyingi hupitisha hali ya hifadhi kwa sehemu ndogo kama vigezo vinavyopitishwa.
+
+# --instructions--
+
+Mhariri wa msimbo una msimbo wote uliouandika katika sehemu hii hadi sasa. Mabadiliko pekee ni kwamba sehemu ya React imebadilishwa jina kuwa `Presentational`. Unda sehemu mpya inayoshikiliwa katika thabiti iitwayo `Container` inayotumia `connect` kuunganisha sehemu ya `Presentational` na Redux. Kisha, katika `AppWrapper`, onyesha sehemu ya React Redux `Provider`. Pitisha `Provider` hifadhi ya Redux `store` kama kigezo na onyesha `Container` kama mtoto. Mara kila kitu kitakapowekwa, utaona programu ya ujumbe ikionyeshwa tena kwenye ukurasa.
+
+# --hints--
+
+Sehemu ya `AppWrapper` inapaswa kuonyeshwa kwenye ukurasa.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return mockedComponent.find('AppWrapper').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Container` inapaswa kufunikwa na `Provider`
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return mockedComponent.find(Provider).length === 1;
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kuonyeshwa kwenye ukurasa.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return mockedComponent.find('Presentational').length === 1;
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kuonyesha vipengele vya `h2`, `input`, `button`, na `ul`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    const PresentationalComponent = mockedComponent.find('Presentational');
+    return (
+      PresentationalComponent.find('div').length === 1 &&
+      PresentationalComponent.find('h2').length === 1 &&
+      PresentationalComponent.find('button').length === 1 &&
+      PresentationalComponent.find('ul').length === 1
+    );
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kupokea `messages` kutoka kwenye hifadhi ya Redux kama kigezo.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    const PresentationalComponent = mockedComponent.find('Presentational');
+    const props = PresentationalComponent.props();
+    return Array.isArray(props.messages);
+  })()
+);
+```
+
+Sehemu ya `Presentational` inapaswa kupokea kitengeneza kitendo cha `submitMessage` kama kigezo.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    const PresentationalComponent = mockedComponent.find('Presentational');
+    const props = PresentationalComponent.props();
+    return typeof props.submitNewMessage === 'function';
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+// Redux:
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message: message
+  }
+};
+
+const messageReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) => {
+      const currentMessage = state.input;
+      return {
+        input: '',
+        messages: state.messages.concat(currentMessage)
+      };
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange}/><br/>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>
+          {this.state.messages.map( (message, idx) => {
+              return (
+                 <li key={idx}>{message}</li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+
+// React-Redux:
+const mapStateToProps = (state) => {
+  return { messages: state }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (newMessage) => {
+       dispatch(addMessage(newMessage))
+    }
+  }
+};
+
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
+
+// Define the Container component here:
+
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    // Complete the return statement:
+    return (null);
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+// Redux:
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message: message
+  }
+};
+
+const messageReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+ this.handleChange = this.handleChange.bind(this);
+ this.submitMessage = this.submitMessage.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) => {
+      const currentMessage = state.input;
+      return {
+        input: '',
+        messages: state.messages.concat(currentMessage)
+      };
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange}/><br/>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>
+          {this.state.messages.map( (message, idx) => {
+              return (
+                 <li key={idx}>{message}</li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+
+// React-Redux:
+const mapStateToProps = (state) => {
+  return { messages: state }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (newMessage) => {
+       dispatch(addMessage(newMessage))
+    }
+  }
+};
+
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Presentational);
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <Container/>
+      </Provider>
+    );
+  }
+};
+```

@@ -1,0 +1,83 @@
+---
+id: 6821ebea237de8297eaee795
+title: "Zoezi la 19: Mwanga wa Mishumaa"
+challengeType: 28
+dashedName: challenge-19
+---
+
+# --description--
+
+Ukitoa nambari kamili inayowakilisha idadi ya mishumaa unayoanza nayo, na nambari kamili inayowakilisha ni mishumaa mingapi iliyochomwa inahitajika kutengeneza mshumaa mpya, rudisha idadi ya mishumaa utakazotumia baada ya kutengeneza na kuchoma mishumaa yote unayoweza.
+
+Kwa mfano, ukipewa mishumaa 7 na inachukua mishumaa 2 iliyochomwa kutengeneza mshumaa mpya:
+
+1. Choma mishumaa 7 kupata mabaki 7,
+2. Rudisha mabaki 6 kuwa mishumaa 3 mipya (mshumaa 1 unabaki),
+3. Choma mishumaa 3 kupata mabaki 3 zaidi (jumla 4),
+4. Rudisha mabaki 4 kuwa mishumaa 2 mipya,
+5. Choma mishumaa 2 kupata mabaki 2,
+6. Rudisha mabaki 2 kuwa mshumaa 1 mpya,
+7. Choma mshumaa 1.
+
+Utakachomwa jumla ya mishumaa 13 katika mfano huu.
+
+# --hints--
+
+`burnCandles(7, 2)` inapaswa kurudisha `13`
+
+```js
+assert.equal(burnCandles(7, 2), 13);
+```
+
+`burnCandles(10, 5)` inapaswa kurudisha `12`
+
+```js
+assert.equal(burnCandles(10, 5), 12);
+```
+
+`burnCandles(20, 3)` inapaswa kurudisha `29`
+
+```js
+assert.equal(burnCandles(20, 3), 29);
+```
+
+`burnCandles(17, 4)` inapaswa kurudisha `22`
+
+```js
+assert.equal(burnCandles(17, 4), 22);
+```
+
+`burnCandles(2345, 3)` inapaswa kurudisha `3517`
+
+```js
+assert.equal(burnCandles(2345, 3), 3517);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function burnCandles(candles, leftoversNeeded) {
+
+  return candles;
+}
+```
+
+# --solutions--
+
+```js
+function burnCandles(candles, leftoversNeeded) {
+  let totalBurned = 0;
+  let unusedLeftovers = 0;
+
+  while (candles > 0) {
+    totalBurned += candles;
+    const leftovers = candles + unusedLeftovers;
+    candles = Math.floor(leftovers / leftoversNeeded);
+    unusedLeftovers = leftovers % leftoversNeeded;
+  }
+
+  return totalBurned;
+}
+```

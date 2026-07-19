@@ -1,0 +1,98 @@
+---
+id: aa7697ea2477d1316795783b
+title: Tekeleza mtafsiri wa Pig Latin
+challengeType: 26
+dashedName: lab-pig-latin
+---
+
+# --description--
+
+Pig Latin ni njia ya kubadilisha maneno ya Kiingereza kwa kufuata kanuni maalum za mabadiliko.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi `translatePigLatin` kinachokubali mfuatano wa herufi mmoja kama hoja.
+1. Ikiwa hoja ya mfuatano wa herufi inaanza na konsonanti, kitendakazi chako kinapaswa kuchukua konsonanti ya kwanza au kundi la konsonanti, kuhamisha mwisho wa neno, kuongeza `ay` na kurudisha matokeo.
+1. Ikiwa hoja ya mfuatano wa herufi inaanza na vokali, kitendakazi chako kinapaswa kuongeza `way` mwishoni na kurudisha matokeo.
+1. Kitendakazi chako kinapaswa kushughulikia hoja za mfuatano wa herufi ambapo vokali ya kwanza ipo katikati ya neno na kurudisha mfuatano wa herufi uliobadilishwa ipasavyo.
+1. Ikiwa hoja ya mfuatano wa herufi haina vokali, kitendakazi chako kinapaswa kuongeza `ay` mwishoni na kurudisha matokeo.
+
+Kumbuka: Kwa muktadha wa maabara hii, vokali ni `a`, `e`, `i`, `o`, na `u`. Herufi `y` haizingatiwi kama vokali.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi `translatePigLatin`.
+
+```js
+assert.isFunction(translatePigLatin);
+```
+
+`translatePigLatin("california")` inapaswa kurudisha mfuatano wa herufi `aliforniacay`.
+
+```js
+assert.deepEqual(translatePigLatin('california'), 'aliforniacay');
+```
+
+`translatePigLatin("paragraphs")` inapaswa kurudisha mfuatano wa herufi `aragraphspay`.
+
+```js
+assert.deepEqual(translatePigLatin('paragraphs'), 'aragraphspay');
+```
+
+`translatePigLatin("glove")` inapaswa kurudisha mfuatano wa herufi `oveglay`.
+
+```js
+assert.deepEqual(translatePigLatin('glove'), 'oveglay');
+```
+
+`translatePigLatin("algorithm")` inapaswa kurudisha mfuatano wa herufi `algorithmway`.
+
+```js
+assert.deepEqual(translatePigLatin('algorithm'), 'algorithmway');
+```
+
+`translatePigLatin("eight")` inapaswa kurudisha mfuatano wa herufi `eightway`.
+
+```js
+assert.deepEqual(translatePigLatin('eight'), 'eightway');
+```
+
+Inapaswa kushughulikia maneno ambapo vokali ya kwanza ipo katikati ya neno. `translatePigLatin("schwartz")` inapaswa kurudisha mfuatano wa herufi `artzschway`.
+
+```js
+assert.deepEqual(translatePigLatin('schwartz'), 'artzschway');
+```
+
+Inapaswa kushughulikia maneno yasiyo na vokali. `translatePigLatin("rhythm")` inapaswa kurudisha mfuatano wa herufi `rhythmay`.
+
+```js
+assert.deepEqual(translatePigLatin('rhythm'), 'rhythmay');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function translatePigLatin(str) {
+  if (isVowel(str.charAt(0))) return str + "way";
+  let front = [];
+  str = str.split('');
+  while (str.length && !isVowel(str[0])) {
+    front.push(str.shift());
+  }
+  return [].concat(str, front).join('') + 'ay';
+}
+
+function isVowel(c) {
+  return ['a', 'e', 'i', 'o', 'u'].indexOf(c.toLowerCase()) !== -1;
+}
+```

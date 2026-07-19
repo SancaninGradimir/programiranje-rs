@@ -1,0 +1,720 @@
+---
+id: 67f39b91583dec1e1eddbb9e
+title: Ukaguzi wa mfululizo na mizunguko
+challengeType: 31
+dashedName: review-loops-and-sequences
+---
+
+# --description--
+
+## Orodha za Python
+
+- **Utangulizi**: Katika Python, aina ya data ya orodha ni mfululizo uliopangwa wa vipengele ambavyo vinaweza kuwa mfuatano wa herufi, nambari au hata orodha nyingine. Orodha ni zinazobadilika na zina kielezo kuanzia sufuri.
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+```
+
+- **Kupata vipengele katika orodha**: Ili kupata kipengele kutoka kwenye orodha ya `cities`, unaweza kurejea nambari ya kielezo chake katika mfululizo:
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+cities[0] # Los Angeles
+```
+
+- **Kupata vipengele kwa kutumia kielezo hasi**: Ili kupata kipengele cha mwisho cha orodha yoyote, unaweza kutumia `-1` kama nambari ya kielezo:
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+cities[-1] # Tokyo
+```
+
+- Kielezo hasi hutumika kupata vipengele kuanzia mwisho wa orodha badala ya mwanzo kwa kielezo `0`.
+
+- **Kutengeneza orodha kwa kutumia kijenzi cha `list()`**: Orodha pia zinaweza kutengenezwa kwa kutumia kijenzi cha `list()`. Kijenzi cha `list()` hutumika kubadilisha kitu kinachoweza kurudiwa kuwa orodha:
+
+```python
+developer = 'Jessica'
+
+print(list(developer)) 
+# Result: ['J', 'e', 's', 's', 'i', 'c', 'a']
+```
+
+- **Kupata urefu wa orodha**: Unaweza kutumia kitendakazi cha `len()` kupata urefu wa orodha:
+
+```python
+numbers = [1, 2, 3, 4, 5]
+len(numbers) # 5
+```
+
+- **Kubadilika kwa orodha**: Orodha ni zinazobadilika, maana yake unaweza kusahihisha kipengele chochote ndani ya orodha mradi tu ulete nambari halali ya kielezo. Ili kusahihisha orodha kwa kielezo fulani, unaweza weka thamani mpya kwa kielezo hicho:
+
+```python
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+programming_languages[0] = 'JavaScript'
+print(programming_languages) # ['JavaScript', 'Java', 'C++', 'Rust']
+```
+
+- **Hitilafu ya kielezo nje ya mipaka**: Ikiwa utaingiza kielezo (chanya au hasi) ambacho kiko nje ya mipaka ya orodha, basi utapokea `IndexError`:
+
+```python
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+programming_languages[10] = 'JavaScript'
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list assignment index out of range
+"""
+```
+
+- **Kuondoa vipengele kutoka orodha**: Vipengele vinaweza kuondolewa kutoka orodha kwa kutumia neno kuu la `del`:
+
+```python
+developer = ['Jane Doe', 23, 'Python Developer']
+del developer[1]
+print(developer) # ['Jane Doe', 'Python Developer']
+```
+
+- **Kukagua kama kipengele kiko katika orodha**: Neno kuu la `in` linaweza kutumika kukagua kama kipengele kiko katika orodha:
+
+```py
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+
+'Rust' in programming_languages # True
+'JavaScript' in programming_languages # False
+```
+
+- **Kupanga orodha ndani ya orodha nyingine**: Orodha zinaweza kupangwa ndani ya orodha nyingine:
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+```
+
+- Ili kupata orodha iliyopangwa ndani, utahitaji kuipata kwa kutumia kielezo `2` kwa kuwa orodha zina kielezo kuanzia sufuri.
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+developer[2] # ['Python', 'Rust', 'C++']
+```
+
+- Ili zaidi kupata lugha ya pili kutoka orodha iliyopangwa ndani, utahitaji kuipata kwa kutumia kielezo `1`:
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+developer[2][1] # Rust
+```
+
+- **Kutoa thamani kutoka orodha:** Kutoa thamani kutoka orodha ni mbinu inayotumika kuweka thamani kutoka orodha kwa vigezo vipya. Hapa kuna mfano wa kutoa orodha ya `developer` kwa vigezo vipya vinavyoitwa `name`, `age` na `job` kama ifuatavyo:
+
+```py
+developer = ['Alice', 34, 'Rust Developer']
+name, age, job = developer
+```
+
+- Ikiwa idadi ya vigezo upande wa kushoto wa opereta ya mgawo haitalingani na jumla ya vitu katika orodha, basi utapokea `ValueError`.
+
+- **Kukusanya vitu vilivyobaki kutoka orodha**: Ili kukusanya vitu vyovyote vilivyobaki kutoka orodha, unaweza kutumia opereta ya nyota (`*`) kama ifuatavyo:
+
+```py
+developer = ['Alice', 34, 'Rust Developer']
+name, *rest = developer
+```
+
+- **Kuchakata orodha kwa sehemu**: Kuchakata ni dhana ya kupata sehemu ya orodha kwa kutumia opereta wa kuchakata `:`. Ili kuchakata orodha kuanzia kielezo `1` na kumaliza kabla ya kielezo `3`, unaweza tumia sintaksia ifuatayo:
+
+```python
+desserts = ['Cake', 'Cookies', 'Ice Cream', 'Pie']
+desserts[1:3] # ['Cookies', 'Ice Cream']
+```
+
+- **Hatua za kuongezeka**: Pia inawezekana kubainisha hatua ya kuongezeka ambayo inaamua ni kwa kiasi gani kielezo kinapandishwa. Hapa kuna mfano ikiwa unataka kutoa orodha ya nambari kamili chanya tu kwa kutumia kuchakata:
+
+```python
+numbers = [1, 2, 3, 4, 5, 6]
+numbers[1::2] # [2, 4, 6]
+```
+
+## Njia za orodha
+
+- **append()**: Inatumika kuongeza kipengele mwishoni mwa orodha. Hapa kuna mfano wa kutumia njia ya `append()` kuongeza nambari `6` kwenye orodha ya `numbers`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+- **Kuongeza orodha nyingine**: Njia ya `append()` pia inaweza kutumika kuongeza orodha moja mwishoni mwa nyingine:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.append(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, [6, 8, 10]]
+```
+
+- **extend()**: Inatumika kuongeza vitu vingi mwishoni mwa orodha. Hapa kuna mfano wa kuongeza nambari `6`, `8`, na `10` mwishoni mwa orodha ya `numbers`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.extend(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, 6, 8, 10]
+```
+
+- **insert()**: Inatumika kuingiza kipengele mahali fulani ndani ya orodha kwa kielezo maalum. Hapa kuna mfano wa kutumia njia ya `insert()`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.insert(2, 2.5)
+
+print(numbers) # [1, 2, 2.5, 3, 4, 5]
+```
+
+- **remove():** Inatumika kuondoa kipengele kutoka orodha. Njia ya `remove()` itaondoa tu tukio la kwanza la kipengele ndani ya orodha:
+
+```py
+numbers = [1, 2, 3, 4, 5, 5, 5]
+numbers.remove(5)
+
+print(numbers) # [1, 2, 3, 4, 5, 5]
+
+```
+
+- **pop()**: Inatumika kuondoa kipengele maalum kutoka orodha na kurudisha thamani yake:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop(1) # The number 2 is returned
+```
+
+- Ikiwa hutaja kipengele kwa njia ya `pop`, basi kipengele cha mwisho ndicho kinaondolewa.
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop() # The number 5 is returned
+```
+
+- **clear()**: Inatumika kuondoa vitu vyote kutoka orodha:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.clear()
+
+print(numbers) # []
+```
+
+- **sort()**: Njia ya `sort()` hutumika kupanga vipengele mahali pale pale. Hapa kuna mfano wa kupanga orodha ya nasibu ya `numbers` mahali pale pale:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+numbers.sort()
+
+print(numbers) # [1, 2, 19, 35, 41, 67]
+```
+
+- **sorted()**: Kitendakazi kilicho ndani kinachorudisha orodha mpya iliyopangwa badala ya kubadilisha orodha ya awali:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+sorted_numbers = sorted(numbers)
+
+print(sorted_numbers) # [1, 2, 19, 35, 41, 67]
+print(numbers) # [19, 2, 35, 1, 67, 41]
+```
+
+- **reverse()**: Inatumika kubadilisha mpangilio wa vipengele katika orodha:
+
+```py
+numbers = [6, 5, 4, 3, 2, 1]
+numbers.reverse()
+
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+- **index()**: Inatumika kupata kielezo cha kwanza ambacho kipengele kinaweza kupatikana katika orodha:
+
+```python
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+programming_languages.index('Java') # 1
+```
+
+- Ikiwa kipengele hakiwezi kupatikana kwa njia ya `index()`, basi matokeo yatakuwa `ValueError`.
+
+## Tuple katika Python
+
+- **Maelezo**: Tuple ni aina ya data ya Python inayotumika kutengeneza mfululizo uliopangwa wa thamani. Tuple zinaweza kuwa na mchanganyiko wa aina tofauti za data:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+```
+
+- Tuple ni zisizobadilika, maana vipengele ndani ya tuple haviwezi kubadilishwa baada ya kutengenezwa. Ikiwa utajaribu kusahihisha kipengele cha tuple, utapokea `TypeError`:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+programming_languages[0] = 'JavaScript'
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: "tuple" object does not support item assignment
+"""
+```
+
+- **Kupata vipengele kutoka tuple**: Ili kupata kipengele kutoka tuple, tumia uandishi wa mabano na nambari ya kielezo:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+developer[1] # 34
+```
+
+- Kielezo hasi kinaweza kutumika kupata vipengele kuanzia mwisho wa tuple:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[-2] # 4
+```
+
+- Ikiwa utajaribu kuingiza nambari ya kielezo inayozidi au sawa na urefu wa tuple, basi utapokea `IndexError`:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[7]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: tuple index out of range
+"""
+```
+
+- Tuple pia inaweza kutengenezwa kwa kutumia kijenzi cha `tuple()`. Ndani ya kijenzi, unaweza kuingiza vitu vinavyoweza kurudiwa kama mfuatano wa herufi, orodha na hata tuple nyingine.
+
+```python
+developer = 'Jessica'
+
+print(tuple(developer)) 
+# Result: ('J', 'e', 's', 's', 'i', 'c', 'a')
+```
+
+- **Kukagua vitu katika tuple**: Ili kukagua kama kipengele kiko katika tuple, unaweza kutumia neno kuu la `in` kama ifuatavyo:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+
+'Rust' in programming_languages # True
+'JavaScript' in programming_languages # False
+```
+
+- **Kutoa vitu kutoka tuple**: Vitu vinaweza kutolewa kutoka tuple kama ifuatavyo:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, age, job = developer
+```
+
+- Ikiwa unahitaji kukusanya vitu vilivyobaki kutoka tuple, unaweza kutumia opereta ya nyota (`*`) kama ifuatavyo:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, *rest = developer
+```
+
+- **Kuchakata tuple**: Kuchakata kunaweza kutumika kutoa sehemu ya tuple. Kwa mfano, vitu `pie` na `cookies` vinaweza kuchakatwa kuwa tuple tofauti:
+
+```py
+desserts = ('cake', 'pie', 'cookies', 'ice cream')
+desserts[1:3] # ('pie', 'cookies')
+```
+
+- **Kuondoa vitu kutoka tuple**: Kuondoa kipengele kutoka tuple kutaamsha `TypeError` kwa kuwa tuple ni zisizobadilika:
+
+```py
+developer = ('Jane Doe', 23, 'Python Developer')
+del developer[1]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: "tuple" object doesn't support item deletion
+"""
+```
+
+- **Lini utumie tuple badala ya orodha?**: Ikiwa unahitaji mkusanyiko wa vitu unaobadilika ambapo unaweza kuongeza, kuondoa na kusahihisha vipengele, basi tumia orodha. Ikiwa unajua unafanya kazi na mkusanyiko wa data uliowekwa na usiobadilika, basi tumia tuple.
+
+## Njia za kawaida za tuple
+
+- **`count()`**: Inatumika kubaini ni mara ngapi kipengele kinaonekana katika tuple. Kwa mfano, unaweza kukagua ni mara ngapi lugha ya `'Rust'` inaonekana katika tuple:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.count('Rust') # 2
+```
+
+- Ikiwa kipengele kilichotajwa katika njia ya `count()` hakipo kabisa katika tuple, basi thamani ya return itakuwa `0`:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.count('JavaScript') # 0
+```
+
+- Ikiwa hakuna hoja zitakazotolewa kwa njia ya `count()`, basi Python itarudisha `TypeError`.
+
+- **index()**: Inatumika kupata kielezo ambacho kipengele fulani kiko katika tuple. Hapa kuna mfano wa kutumia njia ya `index()` kupata kielezo cha lugha ya `'Java'`:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.index('Java') # 1
+```
+
+- Ikiwa kipengele kilichotajwa hakiwezi kupatikana, basi Python itarudisha `ValueError`.
+
+- Unaweza pia kuingiza kielezo cha kuanzia kwa njia ya `index()` ili kubainisha wapi utaanza kutafuta kipengele katika tuple:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+programming_languages.index('Python', 3) # 5
+```
+
+- Unaweza pia kuingiza kielezo cha mwisho kwa njia ya `index()` ili kubainisha wapi utaacha kutafuta kipengele katika tuple:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python', 'JavaScript', 'Python')
+programming_languages.index('Python', 2, 5) # 2
+```
+
+- **`sorted()`**: Inatumika kupanga vipengele katika kitu chochote kinachoweza kurudiwa na kurudisha orodha mpya iliyopangwa. Hapa kuna mfano wa kutengeneza orodha mpya ya nambari kwa kutumia kitendakazi cha `sorted()`:
+
+```py
+numbers = (13, 2, 78, 3, 45, 67, 18, 7)
+sorted(numbers) # [2, 3, 7, 13, 18, 45, 67, 78]
+```
+
+- **Kubadilisha tabia ya kupanga**: Unaweza kubinafsisha tabia ya kupanga kwa kitu kinachoweza kurudiwa kwa kutumia hoja za hiari za `reverse` na `key`. Hapa kuna mfano wa kutumia hoja ya `key` kupanga vitu katika tuple kwa mujibu wa urefu:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+sorted(programming_languages, key=len)
+
+# Result
+# ['C++', 'Rust', 'Java', 'Rust', 'Python', 'Python']
+```
+
+- Unaweza kutengeneza orodha mpya ya thamani kwa mpangilio wa kinyume, kwa kutumia hoja ya `reverse` kama ifuatavyo:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+
+print(sorted(programming_languages, reverse=True))
+
+# Result
+# ['Rust', 'Rust', 'Python', 'Python', 'Java', 'C++']
+```
+
+## Mizunguko katika Python
+
+- **Maelezo**: Mizunguko hutumika kurudia sehemu ya msimbo kwa idadi fulani ya mara.
+
+- **Mzunguko wa `for`**: Hutumika kurudia juu ya mfululizo (kama orodha, tuple au mfuatano wa herufi) na kutekeleza sehemu ya msimbo kwa kila kipengele katika mfululizo huo. Hapa kuna mfano wa kutumia mzunguko wa `for` kurudia orodha na kuchapisha kila lugha kwenye konsoli:
+
+```py
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+
+for language in programming_languages:
+    print(language)
+
+"""
+Result 
+
+Rust
+Java
+Python
+C++
+"""
+```
+
+- Hapa kuna mfano wa kutumia mzunguko wa `for` kurudia mfuatano wa herufi `code` na kuchapisha kila herufi:
+
+```py
+for char in 'code':
+    print(char)
+
+"""
+Result 
+
+c
+o
+d
+e
+"""
+```
+
+- Mizunguko ya `for` inaweza kupangwa ndani. Hapa kuna mfano wa kutumia mzunguko wa `for` uliopangwa ndani:
+
+```py
+categories = ['Fruit', 'Vegetable']
+foods = ['Apple', 'Carrot', 'Banana']
+
+for category in categories:
+    for food in foods:
+        print(category, food)
+
+"""
+Result
+
+Fruit Apple
+Fruit Carrot
+Fruit Banana
+Vegetable Apple
+Vegetable Carrot
+Vegetable Banana
+"""
+
+```
+
+- **Mzunguko wa `while`**: Hurudia sehemu ya msimbo hadi hali iwe `False`. Hapa kuna mfano wa kutumia mzunguko wa `while` kwa mchezo wa kubahatisha:
+
+```py
+secret_number = 3
+guess = 0
+
+while guess != secret_number:
+    guess = int(input('Guess the number (1-5): '))
+    if guess != secret_number:
+        print('Wrong! Try again.')
+
+print('You got it!')
+
+"""
+Result
+
+Guess the number (1-5): 2
+Wrong! Try again.
+Guess the number (1-5): 1
+Wrong! Try again.
+Guess the number (1-5): 3
+You got it!
+"""
+
+```
+
+- **Kifungu cha `break` na `continue`**: Hutumika katika mizunguko kubadilisha utekelezaji wa mzunguko.
+
+- Kifungu cha `break` hutumika kutoka mara moja kwenye mzunguko wakati hali fulani inatimia. Hapa kuna mfano wa kutumia kifungu cha `break` kwa orodha ya `developer_names`:
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        break
+    print(developer)
+```
+
+- Kifungu cha `continue` hutumika kuruka kurudia hiyo na kuendelea na kurudia inayofuata ya mzunguko. Hapa kuna mfano wa kutumia kifungu cha `continue` badala ya kifungu cha `break`:
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        continue
+    print(developer)
+```
+
+- Mizunguko ya `for` na `while` inaweza kuunganishwa na kifungu cha `else`, ambacho hutekelezwa tu wakati mzunguko haukuisha kwa kifungu cha `break`:
+
+```python
+words = ['sky', 'apple', 'rhythm', 'fly', 'orange']
+
+for word in words:
+    for letter in word:
+        if letter.lower() in 'aeiou':
+            print(f"'{word}' contains the vowel '{letter}'")
+            break
+    else:
+        print(f"'{word}' has no vowels")
+```
+
+## Ranges na matumizi yake katika mizunguko
+
+- **Kitendakazi cha `range()`**: Hutumika kuzalisha mfululizo wa nambari kamili.
+
+```py
+range(start, stop, step)
+```
+
+- Hoja muhimu ya `stop` ni nambari kamili (isiyo jumuishi) inayowakilisha mwisho wa mfululizo wa nambari unaozalishwa. Hapa kuna mfano wa kutumia kitendakazi cha `range()`:
+
+```py
+for num in range(3):
+    print(num)
+```
+
+- Ikiwa hoja ya `start` haijatolewa, basi chaguo-msingi itakuwa `0`. Kwa chaguo-msingi mfululizo wa nambari kamili utaongezeka kwa `1`. Unaweza kutumia hoja ya hiari ya `step` kubadilisha thamani ya ongezeko la chaguo-msingi. Hapa kuna mfano wa kuzalisha mfululizo wa nambari kamili chanya kuanzia 2 hadi 10 (yaani, ikijumuisha 10)
+
+```py
+for num in range(2, 11, 2):
+    print(num)
+```
+
+- Ikiwa hutoi hoja yoyote kwa kitendakazi cha `range()`, basi utapata `TypeError`.
+
+- Kitendakazi cha `range()` kinakubali nambari kamili tu kama hoja, si nambari za desimali. Kutumia nambari za desimali kutasababisha `TypeError`:
+
+```py
+ERROR!
+Traceback (most recent call last):
+  File "<main.py>", line 1, in <module>
+TypeError: 'float' object cannot be interpreted as an integer
+```
+
+- Unaweza kutumia nambari kamili hasi kwa hoja ya `step` kuzalisha mfululizo wa nambari kamili kwa mpangilio wa kushuka:
+
+```py
+for num in range(40, 0, -10):
+    print(num)
+```
+
+- Kitendakazi cha `range()` pia kinaweza kutumika kutengeneza orodha ya nambari kamili kwa kutumia pamoja na kijenzi cha `list`. Kijenzi cha `list` hutumika kubadilisha kitu kinachoweza kurudiwa kuwa orodha. Hapa kuna mfano wa kuzalisha orodha ya nambari kamili chanya kati ya 2 na 10 ikijumuisha:
+
+```py
+numbers = list(range(2, 11, 2))
+print(numbers) # [2, 4, 6, 8, 10]
+```
+
+## Kitendakazi cha `enumerate()` na `zip()` katika Python
+
+- **`enumerate()`**: hutumika kurudia juu ya mfululizo na kufuatilia kielezo cha kila kipengele katika mfululizo huo. Kitendakazi cha `enumerate()` kinachukua kitu kinachoweza kurudiwa kama hoja na kurudisha kitu cha `enumerate` kinachojumuisha kielezo na thamani ya kila kipengele katika kitu kinachoweza kurudiwa.
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+for index, language in enumerate(languages):
+    print(f'Index {index} and language {language}')
+
+# Result
+# Index 0 and language Spanish
+# Index 1 and language English
+# Index 2 and language Russian
+# Index 3 and language Chinese
+
+```
+
+- Kitendakazi cha `enumerate()` pia kinaweza kutumika nje ya mzunguko wa `for`:
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+print(list(enumerate(languages)))
+# [(0, 'Spanish'), (1, 'English'), (2, 'Russian'), (3, 'Chinese')]
+```
+
+- Kitendakazi cha `enumerate()` pia kinakubali hoja ya hiari ya `start` inayobainisha thamani ya kuanzia kwa kuhesabu. Ikiwa hoja hii haitolewi, basi kuhesabu kutaanza kwa `0`.
+
+-  **`zip()`** : Hutumika kurudia juu ya vitu vingi vinavyoweza kurudiwa sambamba. Hapa kuna mfano wa kutumia kitendakazi cha `zip()` kurudia juu ya `developers` na `ids`:
+
+```python
+developers = ['Naomi', 'Dario', 'Jessica', 'Tom']
+ids = [1, 2, 3, 4]
+
+for name, id in zip(developers, ids):
+    print(f'Name: {name}')
+    print(f'ID: {id}')
+
+
+"""
+Result
+
+Name: Naomi
+ID: 1
+Name: Dario
+ID: 2
+Name: Jessica
+ID: 3
+Name: Tom
+ID: 4
+"""
+
+```
+
+## Uelewa wa orodha katika Python
+
+- **Maelezo**: Uelewa wa orodha unakuwezesha kutengeneza orodha mpya kwa mstari mmoja kwa kuunganisha mzunguko na hali moja kwa moja ndani ya mabano ya mraba. Hii hufanya msimbo kuwa mfupi na mara nyingi rahisi kusoma.
+
+```py
+even_numbers = [num for num in range(21) if num % 2 == 0]
+print(even_numbers)
+```
+
+## Njia za vitu vinavyoweza kurudiwa
+
+- **`filter()`**: Inatumika kuchuja vipengele kutoka kitu kinachoweza kurudiwa kulingana na hali fulani. Inarudisha kielezi chenye vipengele tu vinavyokidhi hali hiyo. Hapa kuna mfano wa kutengeneza orodha mpya ya maneno yenye herufi zaidi ya nne:
+
+```py
+words = ['tree', 'sky', 'mountain', 'river', 'cloud', 'sun']
+
+def is_long_word(word):
+    return len(word) > 4
+
+long_words = list(filter(is_long_word, words))
+print(long_words) # ['mountain', 'river', 'cloud']
+```
+
+- **`map()`**: Inatumika kutumia kitendakazi kwa kila kipengele katika kitu kinachoweza kurudiwa na kurudisha kitu kipya chenye matokeo. Hapa kuna mfano wa kutumia kitendakazi cha `map()` kubadilisha orodha ya joto kutoka celsius hadi fahrenheit:
+
+```py
+celsius = [0, 10, 20, 30, 40]
+
+def to_fahrenheit(temp):
+    return (temp * 9/5) + 32
+
+fahrenheit = list(map(to_fahrenheit, celsius))
+print(fahrenheit) # [32.0, 50.0, 68.0, 86.0, 104.0]
+```
+
+- **`sum()`**: Inatumika kupata jumla kutoka kitu kinachoweza kurudiwa kama orodha au tuple. Hapa kuna mfano wa kutumia kitendakazi cha `sum()`:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers)
+print(total) # Result: 50
+```
+
+- Unaweza pia kuingiza hoja ya hiari ya `start` ambayo inaweka thamani ya mwanzo kwa jumla. Hapa kuna mfano uliosasishwa wa kutumia hoja ya `start` kama hoja ya nafasi:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, 10) # positional argument
+print(total) # 60
+```
+
+- Unaweza pia kuchagua kutumia hoja ya `start` kama hoja ya neno kuu kama ifuatavyo:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, start=10) # keyword argument
+print(total) # 60
+```
+
+## Kitendakazi cha lambda
+
+- **Maelezo**: Kitendakazi cha lambda katika Python ni njia fupi ya kutengeneza kitendakazi kisicho na jina (kitendakazi kisicho na jina). 
+- Kitendakazi cha lambda mara nyingi hutumika kama hoja kwa kitendakazi kingine. Hapa kuna mfano wa kitendakazi cha lambda:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # [2, 4]
+```
+
+- Mbinu bora za kutumia kitendakazi cha lambda ni kutoweka thamani yake kwenye kigezo, kuifanya iwe rahisi na inayoeleweka, na kuitumia kwa vitendakazi vifupi, vya mara moja.
+
+# --assignment--
+
+Kagua mada na dhana za mizunguko na mfululizo.

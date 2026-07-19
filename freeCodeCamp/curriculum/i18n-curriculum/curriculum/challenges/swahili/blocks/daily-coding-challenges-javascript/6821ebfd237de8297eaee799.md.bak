@@ -1,0 +1,72 @@
+---
+id: 6821ebfd237de8297eaee799
+title: "Zoezi la 23: RGB kuwa Hex"
+challengeType: 28
+dashedName: challenge-23
+---
+
+# --description--
+
+Ukitoa mfuatano wa rangi wa CSS `rgb(r, g, b)`, rudisha sawa yake ya hexadecimal.
+
+Hapa kuna baadhi ya matokeo ya mfano kwa ingizo fulani:
+
+| Ingizo   | Matokeo   |
+|---------|----------|
+| `"rgb(255, 255, 255)"`| `"#ffffff"` |
+| `"rgb(1, 2, 3)"` | `"#010203"` |
+
+- Fanya herufi zote ziwe herufi ndogo.
+- Rudisha `#` ikifuatiwa na herufi sita. Usitumie thamani za kifupi.
+
+# --hints--
+
+`rgbToHex("rgb(255, 255, 255)")` inapaswa kurudisha `"#ffffff"`.
+
+```js
+assert.equal(rgbToHex("rgb(255, 255, 255)"), "#ffffff");
+```
+
+`rgbToHex("rgb(1, 11, 111)")` inapaswa kurudisha `"#010b6f"`.
+
+```js
+assert.equal(rgbToHex("rgb(1, 11, 111)"), "#010b6f");
+```
+
+`rgbToHex("rgb(173, 216, 230)")` inapaswa kurudisha `"#add8e6"`.
+
+```js
+assert.equal(rgbToHex("rgb(173, 216, 230)"), "#add8e6");
+```
+
+`rgbToHex("rgb(79, 123, 201)")` inapaswa kurudisha `"#4f7bc9"`.
+
+```js
+assert.equal(rgbToHex("rgb(79, 123, 201)"), "#4f7bc9");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function rgbToHex(rgb) {
+
+  return rgb;
+}
+```
+
+# --solutions--
+
+```js
+function rgbToHex(rgb) {
+  const match = rgb.match(/\d+/g);
+  const [r, g, b] = match.map(num =>
+    Math.max(0, Math.min(255, parseInt(num)))
+      .toString(16)
+      .padStart(2, '0')
+  );
+
+  return `#${r}${g}${b}`;
+}
+```

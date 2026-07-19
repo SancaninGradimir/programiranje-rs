@@ -1,0 +1,64 @@
+---
+id: 5900f3701000cf542c50fe83
+title: "'Zoezi la 4: bidhaa kubwa zaidi ya palindromu'"
+challengeType: 1
+forumTopicId: 302065
+dashedName: problem-4-largest-palindrome-product
+---
+
+# --description--
+
+Nambari palindromu husomwa sawa kutoka pande zote mbili. Palindromu kubwa zaidi inayotokana na bidhaa ya nambari mbili za tarakimu 2 ni 9009 = 91 × 99.
+
+Tafuta palindromu kubwa zaidi inayotokana na bidhaa ya nambari mbili za tarakimu `n`.
+
+# --hints--
+
+`largestPalindromeProduct(2)` inapaswa kurudisha nambari.
+
+```js
+assert.isNumber(largestPalindromeProduct(2));
+```
+
+`largestPalindromeProduct(2)` inapaswa kurudisha 9009.
+
+```js
+assert.strictEqual(largestPalindromeProduct(2), 9009);
+```
+
+`largestPalindromeProduct(3)` inapaswa kurudisha 906609.
+
+```js
+assert.strictEqual(largestPalindromeProduct(3), 906609);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function largestPalindromeProduct(n) {
+
+  return true;
+}
+
+largestPalindromeProduct(3);
+```
+
+# --solutions--
+
+```js
+const largestPalindromeProduct = (digit)=>{
+  let start = 1;
+  let end = Number(`1e${digit}`) - 1;
+ let palindrome = [];
+  for(let i=start;i<=end;i++){
+    for(let j=start;j<=end;j++){
+      let product = i*j;
+      let palindromeRegex = /\b(\d)(\d?)(\d?).?\3\2\1\b/gi;
+      palindromeRegex.test(product) && palindrome.push(product);
+    }
+ }
+ return Math.max(...palindrome);
+}
+```

@@ -1,0 +1,204 @@
+---
+id: 673362d7f94d551edb532d24
+title: Njia gani njia ya sort inavyofanya kazi?
+challengeType: 19
+dashedName: how-does-the-sort-method-work
+---
+
+# --interactive--
+
+Kuna njia nyingi tofauti za kupanga data yako katika programu. Katika funzo hili, tutazingatia njia iliyojengwa ndani ya `sort` katika JavaScript.
+
+Njia ya `sort` hutumika kupanga vipengele vya safu ya data na hurudisha rejea kwa safu iliyopangwa. Hakuna nakala inayotengenezwa kwa sababu vipengele hupangwa mahali pake.
+
+Hapa kuna sintaksia ya msingi kwa njia ya `sort`:
+
+```js
+array.sort(compareFunction);
+```
+
+`compareFunction` ni kigezo cha hiari kinachobainisha kitendakazi kinachofafanua mpangilio wa kupanga. Baadaye tutaangalia jinsi ya kutumia kitendakazi cha kulinganisha wakati wa kupanga nambari.
+
+Katika mfano huu wa kwanza, tuna safu ya data ya mfuatano wa herufi kwa mpangilio wa bahati nasibu.
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+```
+
+Lengo letu ni kupanga safu ya data kwa mpangilio wa alfabeti. Tunaweza kufanya hivi kwa kuita njia ya `sort` kwenye safu ya data ya `fruits`.
+
+:::interactive_editor
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+
+console.log(fruits); // ["Apple", "Banana", "Mango", "Orange"]
+```
+
+:::
+
+Matokeo yatakuwa safu ya data ya matunda iliyopangwa kwa mpangilio wa alfabeti kuanzia na tunda la `Apple`.
+
+Katika mfano unaofuata, tunataka kupanga safu ya nambari ifuatayo:
+
+```js
+const numbers = [414, 200, 5, 10, 3];
+```
+
+Ikiwa tutajaribu kutumia njia ya `sort` kwenye safu ya data ya `numbers`, tutapata matokeo yasiyotegemewa.
+
+:::interactive_editor
+
+```js
+const numbers = [414, 200, 5, 10, 3];
+numbers.sort();
+
+console.log(numbers); // [10, 200, 3, 414, 5]
+```
+
+:::
+
+Tulitarajia kuona matokeo ya `[3, 5, 10, 200, 414]`, lakini badala yake tulipata `[10, 200, 3, 414, 5]`.
+
+Hii ni kwa sababu njia ya `sort` hubadilisha vipengele kuwa mfuatano wa herufi kisha kulinganisha mfululizo wa thamani za vitengo vya msimbo wa UTF-16.
+
+Vitengo vya msimbo wa UTF-16 ni thamani za nambari zinazowakilisha herufi katika mfuatano wa herufi. Mifano ya vitengo vya msimbo wa UTF-16 ni nambari `65`, `66`, na `67` ambazo zinawakilisha herufi `A`, `B`, na `C` kwa mtiririko huo.
+
+Kwa hivyo, nambari `200` inaonekana kabla ya nambari `3` katika safu ya data, kwa sababu mfuatano wa herufi `200` unakuja kabla ya mfuatano wa herufi `3` wakati wa kulinganisha vitengo vya msimbo wa UTF-16.
+
+Suluhisho la tatizo hili ni kutoa kitendakazi cha kulinganisha kwa njia ya `sort`.
+
+Hapa kuna mfano wa jinsi ya kupanga safu ya data ya `numbers` kwa kutumia kitendakazi cha kulinganisha:
+
+:::interactive_editor
+
+```js
+const numbers = [414, 200, 5, 10, 3];
+
+numbers.sort((a, b) => a - b);
+
+console.log(numbers); // [3, 5, 10, 200, 414]
+```
+
+:::
+
+Vigezo `a` na `b` ni vipengele viwili vinavyolinganishwa. Kitendakazi cha kulinganisha kinapaswa kurudisha thamani hasi ikiwa `a` inapaswa kuja kabla ya `b`, thamani chanya ikiwa `a` inapaswa kuja baada ya `b`, na sifuri ikiwa `a` na `b` ni sawa.
+
+Ulinganisho wa kwanza ni kati ya nambari `414` na `200`. Matokeo ya `414 - 200` ni `214`, ambayo ni thamani chanya. Hii ina maana `414` inapaswa kuja baada ya `200` katika safu ya data iliyopangwa.
+
+Ulinganisho unaofuata ni kati ya nambari `200` na `5`. Matokeo ya `200 - 5` ni `195`, ambayo ni thamani chanya. Hii ina maana `200` inapaswa kuja baada ya `5` katika safu ya data iliyopangwa.
+
+Tunajirudia mchakato huu kwa vipengele vyote katika safu ya data, na matokeo ni safu ya data ya nambari iliyopangwa.
+
+Ingawa kuna njia nyingi zaidi za kupanga data katika programu, njia ya `sort` katika JavaScript inaweza kuwa ya msaada na yenye ufanisi katika visa vingi unapotaka kupanga safu ya vipengele.
+
+# --questions--
+
+## --text--
+
+Njia ya `sort` hufanya nini katika JavaScript?
+
+## --answers--
+
+Inatengeneza nakala ya safu ya data na kupanga nakala hiyo.
+
+### --feedback--
+
+Njia hii hubadilisha safu ya data ya awali moja kwa moja.
+
+---
+
+Inapanga vipengele vya safu ya data mahali pake.
+
+---
+
+Inapanga nambari tu.
+
+### --feedback--
+
+Njia hii hubadilisha safu ya data ya awali moja kwa moja.
+
+---
+
+Inapanga vipengele kwa mpangilio wa kushuka kwa chaguo-msingi.
+
+### --feedback--
+
+Njia hii hubadilisha safu ya data ya awali moja kwa moja.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kwa nini nambari hazipangiwi kama inavyotarajiwa wakati wa kutumia njia ya `sort` bila kitendakazi cha kulinganisha?
+
+## --answers--
+
+Njia ya `sort` haiwezi kupanga nambari.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyoshughulikia aina tofauti za data wakati wa kulinganisha.
+
+---
+
+Vipengele vinalinganishwa kama mfuatano wa herufi kulingana na vitengo vya msimbo wa UTF-16.
+
+---
+
+Njia ya `sort` ina makini na herufi kubwa na ndogo.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyoshughulikia aina tofauti za data wakati wa kulinganisha.
+
+---
+
+Njia hii hufanya kazi kwa mfuatano wa herufi tu.
+
+### --feedback--
+
+Fikiria jinsi JavaScript inavyoshughulikia aina tofauti za data wakati wa kulinganisha.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Kitendakazi cha kulinganisha kinapaswa kurudisha nini ikiwa `a` inapaswa kuja baada ya `b`?
+
+## --answers--
+
+Thamani hasi.
+
+### --feedback--
+
+Fikiria mpangilio wa vipengele.
+
+---
+
+Sifuri.
+
+### --feedback--
+
+Fikiria mpangilio wa vipengele.
+
+---
+
+Thamani chanya.
+
+---
+
+`undefined`
+
+### --feedback--
+
+Fikiria mpangilio wa vipengele.
+
+## --video-solution--
+
+3

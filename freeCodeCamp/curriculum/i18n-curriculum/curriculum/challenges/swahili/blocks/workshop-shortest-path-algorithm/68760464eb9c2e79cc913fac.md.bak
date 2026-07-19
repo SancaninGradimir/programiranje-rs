@@ -1,0 +1,117 @@
+---
+id: 68760464eb9c2e79cc913fac
+title: Hatua 10
+challengeType: 20
+dashedName: step-10
+---
+
+# --description--
+
+Katika hatua hii, utaongeza mzunguko ambao utaendeshwa mara moja kwa kila nodi katika grafu. Mzunguko huu utawezesha algoriti kusahihisha umbali na njia kupitia mizunguko mingi.
+
+Tengeneza mzunguko wa `for` unaoendeshwa mara `n`. Tumia `_` kama kigezo cha mzunguko kwa sababu huna haja ya kutumia thamani ya rudia.
+
+Ndani ya mzunguko, unahitaji kujiandaa kwa kuchagua nodi inayofuata ya kuchakata kwa kuunda vigezo viwili:
+
+- kimoja kushikilia umbali mdogo zaidi ulio patikana hadi sasa katika rudia ya sasa  
+- na kingine kuhifadhi kielezo cha nodi yenye umbali mdogo zaidi huo.
+
+Tengeneza vigezo `min_distance` na `current`, na viweke kuwa `INF` na `-1`, mtawalia.
+
+# --hints--
+
+Unapaswa kuwa na mzunguko wa `for` ndani ya kitendakazi cha `shortest_path`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0]`
+        )
+      );
+    }
+});
+```
+
+Mzunguko wako wa `for` unapaswa kurudia juu ya `range(n)`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_for_iter().is_equivalent("range(n)")`
+        )
+      );
+    }
+});
+```
+
+Mzunguko wako wa for unapaswa kutumia `_` kama kigezo cha rudia.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_for_vars().is_equivalent("_")`
+        )
+      );
+    }
+});
+```
+
+Unapaswa kuunda kigezo kinachoitwa `min_distance` na kuikamilisha kuwa `INF` ndani ya mzunguko wa for.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].has_stmt("min_distance = INF")`
+        )
+      );
+    }
+});
+```
+
+Unapaswa kuunda kigezo kinachoitwa `current` na kuikamilisha kuwa `-1` ndani ya mzunguko wa for.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].has_stmt("current = -1")`
+        )
+      );
+    }
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+INF = float('inf')
+adj_matrix = [
+    [0, 5, 3, INF, 11, INF],
+    [5, 0, 1, INF, INF, 2],
+    [3, 1, 0, 1, 5, INF],
+    [INF, INF, 1, 0, 9, 3],
+    [11, INF, 5, 9, 0, INF],
+    [INF, 2, INF, 3, INF, 0],
+]
+
+def shortest_path(matrix, start_node, target_node=None):
+    n = len(matrix)
+    distances = [INF] * n
+    distances[start_node] = 0
+    paths = [[node_no] for node_no in range(n)]
+    visited = [False] * n
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

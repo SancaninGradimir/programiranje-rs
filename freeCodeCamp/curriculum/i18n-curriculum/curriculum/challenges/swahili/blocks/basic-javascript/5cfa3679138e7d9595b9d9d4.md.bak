@@ -1,0 +1,105 @@
+---
+id: 5cfa3679138e7d9595b9d9d4
+title: Badilisha mizunguko kwa kutumia urudiaji
+challengeType: 1
+videoUrl: >-
+  https://www.freecodecamp.org/news/how-recursion-works-explained-with-flowcharts-and-a-video-de61f40cb7f9/
+forumTopicId: 301175
+dashedName: replace-loops-using-recursion
+---
+
+# --description--
+
+Urudiaji ni dhana kwamba kitendakazi kinaweza kudhihirishwa kwa kutumia nafsi yake. Ili kusaidia kuelewa hili, anza kwa kufikiria kuhusu zoezi lifuatalo: zidisha vipengele vya kwanza `n` vya safu ya data ili kuunda bidhaa ya vipengele hivyo. Kwa kutumia mzunguko wa `for`, unaweza kufanya hivi:
+
+```js
+  function multiply(arr, n) {
+    let product = 1;
+    for (let i = 0; i < n; i++) {
+      product *= arr[i];
+    }
+    return product;
+  }
+```
+
+Hata hivyo, angalia kwamba `multiply(arr, n) == multiply(arr, n - 1) * arr[n - 1]`. Hii inamaanisha unaweza kuandika upya `multiply` kwa kutumia nafsi yake na hauitaji kamwe kutumia mzunguko.
+
+```js
+  function multiply(arr, n) {
+    if (n <= 0) {
+      return 1;
+    } else {
+      return multiply(arr, n - 1) * arr[n - 1];
+    }
+  }
+```
+
+Toleo la urudiaji la `multiply` linaeleweka hivi. Katika <dfn>hali ya msingi</dfn>, ambapo `n <= 0`, linarejesha 1. Kwa thamani kubwa za `n`, linajipigia wito nafsi yake, lakini kwa `n - 1`. Wito hilo la kitendakazi linatathminiwa kwa njia ile ile, likipiga wito `multiply` tena hadi `n <= 0`. Katika hatua hii, vitendakazi vyote vinaweza kurudisha na `multiply` ya awali inarejesha jibu.
+
+**Kumbuka:** Vitendakazi vya urudiaji lazima viwe na hali ya msingi ambapo vinarejesha bila kupiga wito kitendakazi tena (katika mfano huu, wakati `n <= 0`), vinginevyo haviwezi kamwe kumaliza utekelezaji.
+
+# --instructions--
+
+Andika kitendakazi cha urudiaji, `sum(arr, n)`, kinachorejesha jumla ya vipengele vya kwanza `n` vya safu ya data `arr`.
+
+# --hints--
+
+`sum([1], 0)` inapaswa kuwa sawa na 0.
+
+```js
+assert.equal(sum([1], 0), 0);
+```
+
+`sum([2, 3, 4], 1)` inapaswa kuwa sawa na 2.
+
+```js
+assert.equal(sum([2, 3, 4], 1), 2);
+```
+
+`sum([2, 3, 4, 5], 3)` inapaswa kuwa sawa na 9.
+
+```js
+assert.equal(sum([2, 3, 4, 5], 3), 9);
+```
+
+Msimbo wako haupaswi kutegemea aina yoyote ya mizunguko (`for` au `while` au vitendakazi vya ngazi ya juu kama `forEach`, `map`, `filter`, au `reduce`).
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce/g)
+);
+```
+
+Unapaswa kutumia urudiaji kutatua changamoto hii.
+
+```js
+assert(
+  sum.toString().match(/sum\(.*\)/g).length > 1
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function sum(arr, n) {
+  // Only change code below this line
+
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function sum(arr, n) {
+  // Only change code below this line
+  if(n <= 0) {
+    return 0;
+  } else {
+    return sum(arr, n - 1) + arr[n - 1];
+  }
+  // Only change code above this line
+}
+```

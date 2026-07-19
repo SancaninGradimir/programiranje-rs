@@ -1,0 +1,95 @@
+---
+id: 5900f36f1000cf542c50fe82
+title: "'Zoezi la 3: Gawanyio msingi kubwa zaidi'"
+challengeType: 1
+forumTopicId: 301952
+dashedName: problem-3-largest-prime-factor
+---
+
+# --description--
+
+Gawanyio msingi za 13195 ni 5, 7, 13 na 29.
+
+Gawanyio msingi kubwa zaidi ya `number` ni ipi?
+
+# --hints--
+
+`largestPrimeFactor(2)` inapaswa kurudisha nambari.
+
+```js
+assert.isNumber(largestPrimeFactor(2));
+```
+
+`largestPrimeFactor(2)` inapaswa kurudisha 2.
+
+```js
+assert.strictEqual(largestPrimeFactor(2), 2);
+```
+
+`largestPrimeFactor(3)` inapaswa kurudisha 3.
+
+```js
+assert.strictEqual(largestPrimeFactor(3), 3);
+```
+
+`largestPrimeFactor(5)` inapaswa kurudisha 5.
+
+```js
+assert.strictEqual(largestPrimeFactor(5), 5);
+```
+
+`largestPrimeFactor(7)` inapaswa kurudisha 7.
+
+```js
+assert.strictEqual(largestPrimeFactor(7), 7);
+```
+
+`largestPrimeFactor(8)` inapaswa kurudisha 2.
+
+```js
+assert.strictEqual(largestPrimeFactor(8), 2);
+```
+
+`largestPrimeFactor(13195)` inapaswa kurudisha 29.
+
+```js
+assert.strictEqual(largestPrimeFactor(13195), 29);
+```
+
+`largestPrimeFactor(600851475143)` inapaswa kurudisha 6857.
+
+```js
+assert.strictEqual(largestPrimeFactor(600851475143), 6857);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function largestPrimeFactor(number) {
+
+  return true;
+}
+
+largestPrimeFactor(13195);
+```
+
+# --solutions--
+
+```js
+const largestPrimeFactor = (number) => {
+  let largestFactor = number;
+
+  for (let i = 2; i <= Math.sqrt(largestFactor); i++) {
+    if (!(largestFactor % i)) {
+      let factor = largestFactor / i;
+      let candidate = largestPrimeFactor(factor);
+
+      return i > candidate ? i : candidate;
+    }
+  }
+
+  return largestFactor;
+}
+```

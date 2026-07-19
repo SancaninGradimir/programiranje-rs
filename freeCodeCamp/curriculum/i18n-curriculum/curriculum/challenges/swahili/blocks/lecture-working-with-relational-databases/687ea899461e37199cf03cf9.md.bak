@@ -1,0 +1,224 @@
+---
+id: 687ea899461e37199cf03cf9
+title: Ni aina gani za msingi za data katika SQL?
+challengeType: 19
+dashedName: what-are-the-basic-data-types-in-sql
+---
+
+# --description--
+
+Ili kufafanua jedwali katika SQL, unahitaji kubainisha aina ya data ya kila safu.
+
+Kumbuka kwamba hii ni sintaksia ya msingi ya kuunda jedwali katika SQL. Kila safu ina aina yake ya data.
+
+```sql
+CREATE TABLE table_name(
+  column1 data_type column_constraint,
+  column2 data_type column_constraint,
+  column3 data_type column_constraint,
+  ... etc
+);
+```
+
+Kama msanidi programu, lengo lako ni kuchagua aina hizi za data kwa usahihi zaidi iwezekanavyo.
+
+Kuna makundi sita maarufu ya aina za data katika SQL:
+
+- Nambari, kama `INTEGER`, `FLOAT`, `SERIAL`, na `DECIMAL`.
+- Tarehe na wakati, kama `TIMESTAMP`, `DATE`, na `TIME`.
+- Herufi na mfuatano wa herufi. Hizi ni pamoja na `CHAR`, `VARCHAR`, na `TEXT`.
+- Unicode, ikiwa ni pamoja na `NTEXT`, na `NVARCHAR`. Hizi hutumika kuhakikisha kwamba maandishi yatahifadhiwa na kurejeshwa kwa usahihi, bila kujali asili ya herufi.
+- Binary, hutumika kuhifadhi data isiyo ya maandishi, kama picha, sauti, na mafaili ya video.
+- Na aina nyingine mbalimbali za data, kama `XML` na `TABLE`.
+
+Katika funzo hili, tutashughulikia baadhi ya aina zinazotumika sana na PostgreSQL. Aina za data zitabadilika kati ya mifumo ya usimamizi wa hifadhidata, lakini kwa ujumla ni sawa sana. Kwa hivyo utahitaji kuangalia orodha kamili katika nyaraka.
+
+Tutaanza na thamani za nambari.
+
+Kwanza, tuna aina ya data ya `INTEGER`:
+
+```sql
+units_sold INTEGER
+```
+
+Katika mfano huu, tunaweka aina hii ya data kwa safu ya `units_sold`.
+
+Aina za `INTEGER` hutumia byte 4 katika hifadhidata na zinaweza kuwa na thamani kuanzia -2,147,483,648 hadi 2,147,483,647. Nyaraka rasmi za PostgreSQL zinaelezea kama "chaguo la kawaida kwa nambari kamili."
+
+Pia tuna `SMALLINT` na `BIGINT`, ambazo kwa msingi ni sawa na `INTEGER` isipokuwa zina mzunguko mdogo na mkubwa wa nambari, mtawalia, kutokana na ukubwa wa nafasi waliyopewa katika hifadhidata.
+
+Kipengele kinachofaa kinachopatikana katika PostgreSQL ni kuunda safu kwa kutumia neno kuu la `SERIAL`. Hapa, safu ya `id` inaundwa kwa kutumia `SERIAL`:
+
+```sql
+id SERIAL
+```
+
+Ingawa si aina halisi ya data, ni msaada mkubwa kuunda safu za kitambulisho cha kipekee kwa sababu safu hiyo itakuwa na aina ya `INTEGER`, haitaruhusu thamani za `NULL`, na itaongezeka moja kwa moja wakati mistari inaongezwa.
+
+Kwa mfano, mstari wa kwanza utaongezwa moja kwa moja na `id` ya `1`, mstari wa pili utakuwa na `id` ya `2`, na kadhalika, kuunda kitambulisho cha kipekee kwa kila rekodi.
+
+Katika MySQL, sawa na `SERIAL` itakuwa sifa ya `AUTO_INCREMENT`, inayotumika kuzalisha nambari kamili mfululizo moja kwa moja:
+
+```sql
+id INT AUTO_INCREMENT
+```
+
+Unaweza kuona kwamba mifumo tofauti ya usimamizi wa hifadhidata inaweza kuwa na njia tofauti za kufanikisha kazi ile ile katika hifadhidata yako.
+
+Hizi ndizo aina za data za nambari zinazotumika zaidi, lakini wakati mwingine, unaweza kuhitaji kuwakilisha maandishi au mfululizo wa herufi.
+
+Kwa hili, una aina ya data ya `VARCHAR`. Aina hii ya data hutumika kwa mfuatano wa herufi wenye urefu unaobadilika. Unaweza kuweka urefu wa herufi wa juu ndani ya mabano ya kawaida:
+
+```sql
+name VARCHAR(50)
+```
+
+Katika mfano huu, tunaeleza safu ya `name`, ambapo thamani zinaweza kuwa na urefu hadi herufi 50.
+
+Aina hii ya data inaweka urefu wa juu kwa mfuatano wa herufi, lakini ikiwa unahitaji kuhifadhi mfuatano wa herufi wa urefu wowote, unaweza kutumia `TEXT` badala yake:
+
+```sql
+name TEXT
+```
+
+Mbali na nambari na mfuatano wa herufi, pia ni kawaida kuhifadhi tarehe na wakati.
+
+Kwa mfano, ikiwa utaunda jedwali kuhifadhi matukio, unaweza kuhitaji kuhifadhi tarehe ya tukio kila moja kwa muundo maalum. Kwa hili, una aina ya data ya `DATE`:
+
+```sql
+event_date DATE
+```
+
+Ili kuhifadhi wakati, pia unaweza kutumia aina ya data ya `TIME`. Kwa mfano, unaweza kuhifadhi wakati tukio linaanza:
+
+```sql
+start_time TIME
+```
+
+Aina ya data ya `TIMESTAMP` huunganisha zote mbili. Inajumuisha tarehe na wakati. Inaweza pia kujumuisha eneo la saa ikiwa utaandika `TIMESTAMP WITH TIME ZONE`:
+
+```sql
+event_timestamp TIMESTAMP
+```
+
+```sql
+event_timestamp TIMESTAMP WITH TIME ZONE
+```
+
+Na hatimaye, ikiwa unahitaji kuhifadhi thamani ya kweli au siyo kweli, `TRUE` au `FALSE`, unaweza kutumia aina ya data ya `BOOLEAN`:
+
+```sql
+is_active BOOLEAN
+```
+
+Sasa unajua baadhi ya aina za data zinazotumika sana katika SQL, lakini kuna nyingi zaidi. Unaweza kuangalia nyaraka za mfumo wako wa usimamizi wa hifadhidata kupata taarifa zaidi kuhusu aina za data unazoweza kutumia.
+
+# --questions--
+
+## --text--
+
+Ni aina gani ya data hutumika kuhifadhi nambari kamili katika PostgreSQL?
+
+## --answers--
+
+`VARCHAR`
+
+### --feedback--
+
+Fikiria ni chaguo gani linawakilisha thamani ya nambari isiyo na sehemu za desimali.
+
+---
+
+`TEXT`
+
+### --feedback--
+
+Fikiria ni chaguo gani linawakilisha thamani ya nambari isiyo na sehemu za desimali.
+
+---
+
+`INTEGER`
+
+---
+
+`BOOLEAN`
+
+### --feedback--
+
+Fikiria ni chaguo gani linawakilisha thamani ya nambari isiyo na sehemu za desimali.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ikiwa unahitaji kuhifadhi hati ndefu ya maandishi au mfuatano mrefu sana wa herufi, ni aina gani ya data unapaswa kutumia katika PostgreSQL?
+
+## --answers--
+
+`VARCHAR(255)`
+
+### --feedback--
+
+Fikiria ni chaguo gani kimeundwa kuhifadhi mfuatano wa herufi wenye urefu usio na kikomo au mrefu sana.
+
+---
+
+`INTEGER`
+
+### --feedback--
+
+Fikiria ni chaguo gani kimeundwa kuhifadhi mfuatano wa herufi wenye urefu usio na kikomo au mrefu sana.
+
+---
+
+`CHAR(100)`
+
+### --feedback--
+
+Fikiria ni chaguo gani kimeundwa kuhifadhi mfuatano wa herufi wenye urefu usio na kikomo au mrefu sana.
+
+---
+
+`TEXT`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Ni aina gani ya data ungetumia kuhifadhi thamani ya `TRUE` au `FALSE` katika hifadhidata ya PostgreSQL?
+
+## --answers--
+
+`INTEGER`
+
+### --feedback--
+
+Fikiria aina ya data inayowakilisha hali ya mantiki.
+
+---
+
+`VARCHAR`
+
+### --feedback--
+
+Fikiria aina ya data inayowakilisha hali ya mantiki.
+
+---
+
+`BOOLEAN`
+
+---
+
+`TEXT`
+
+### --feedback--
+
+Fikiria aina ya data inayowakilisha hali ya mantiki.
+
+## --video-solution--
+
+3

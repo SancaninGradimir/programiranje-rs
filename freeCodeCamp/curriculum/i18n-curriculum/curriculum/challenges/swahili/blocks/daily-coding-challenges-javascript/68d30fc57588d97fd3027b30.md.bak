@@ -1,0 +1,98 @@
+---
+id: 68d30fc57588d97fd3027b30
+title: "Zoezi la 79: Navigator"
+challengeType: 28
+dashedName: challenge-79
+---
+
+# --description--
+
+Mnamo Oktoba 28, 1994, Netscape Navigator ilizinduliwa, ikisaidia mamilioni ya watu kuchunguza mtandao wa mwanzo.
+
+Ukizingatia safu ya data ya amri za kivinjari ulizotekeleza kwenye Netscape Navigator, rudisha ukurasa wa sasa ulio nao baada ya kutekeleza amri zote kwa kutumia sheria zifuatazo:
+
+- Daima unaanza kwenye ukurasa wa `"Home"`, ambao hautajumuishwa katika safu ya amri.
+- Amri halali ni:
+  - `"Visit Page"`: Ambapo `"Page"` ni jina la ukurasa unaotembelea. Kwa mfano, `"Visit About"` inakupeleka kwenye ukurasa wa `"About"`. Unapotembelea ukurasa mpya, hakikisha unafuta historia yoyote ya mbele uliyo nayo.
+  - `"Back"`: Inakupeleka kwenye ukurasa uliotembelea awali katika historia yako au kubaki kwenye ukurasa wa sasa ikiwa hakuna.
+  - `"Forward"`: Inakupeleka mbele katika historia hadi ukurasa ulio kutoka au kubaki kwenye ukurasa wa sasa ikiwa hakuna.
+
+Kwa mfano, ukipata `["Visit About Us", "Back", "Forward"]`, rudisha `"About Us"`.
+
+# --hints--
+
+`navigate(["Visit About Us", "Back", "Forward"])` inapaswa kurudisha `"About Us"`.
+
+```js
+assert.equal(navigate(["Visit About Us", "Back", "Forward"]), "About Us");
+```
+
+`navigate(["Forward"])` inapaswa kurudisha `"Home"`.
+
+```js
+assert.equal(navigate(["Forward"]), "Home");
+```
+
+`navigate(["Back"])` inapaswa kurudisha `"Home"`.
+
+```js
+assert.equal(navigate(["Back"]), "Home");
+```
+
+`navigate(["Visit About Us", "Visit Gallery"])` inapaswa kurudisha `"Gallery"`.
+
+```js
+assert.equal(navigate(["Visit About Us", "Visit Gallery"]), "Gallery");
+```
+
+`navigate(["Visit About Us", "Visit Gallery", "Back", "Back"])` inapaswa kurudisha `"Home"`.
+
+```js
+assert.equal(navigate(["Visit About Us", "Visit Gallery", "Back", "Back"]), "Home");
+```
+
+`navigate(["Visit About", "Visit Gallery", "Back", "Visit Contact", "Forward"])` inapaswa kurudisha `"Contact"`.
+
+```js
+assert.equal(navigate(["Visit About", "Visit Gallery", "Back", "Visit Contact", "Forward"]), "Contact");
+```
+
+`navigate(["Visit About Us", "Visit Visit Us", "Forward", "Visit Contact Us", "Back"])` inapaswa kurudisha `"Visit Us"`.
+
+```js
+assert.equal(navigate(["Visit About Us", "Visit Visit Us", "Forward", "Visit Contact Us", "Back"]), "Visit Us");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function navigate(commands) {
+
+  return commands;
+}
+```
+
+# --solutions--
+
+```js
+function navigate(commands) {
+  const history = ["Home"];
+  let currentPageIndex = 0;
+
+  for (const command of commands) {
+    if (command.startsWith("Visit")) {
+      history.splice(currentPageIndex + 1);
+      history.push(command.slice(6));
+      currentPageIndex++;
+    } else if(command === "Back" && currentPageIndex > 0) {
+      currentPageIndex--;
+    } else if (command === "Forward" && currentPageIndex < history.length - 1) {
+      currentPageIndex++;
+    }
+  }
+
+  return history[currentPageIndex];
+}
+```

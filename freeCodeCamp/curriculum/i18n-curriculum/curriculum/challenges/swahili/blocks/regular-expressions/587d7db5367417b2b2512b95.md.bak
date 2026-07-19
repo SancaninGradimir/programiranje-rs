@@ -1,0 +1,85 @@
+---
+id: 587d7db5367417b2b2512b95
+title: Linganisha herufi moja na uwezekano mwingi
+challengeType: 1
+forumTopicId: 301357
+dashedName: match-single-character-with-multiple-possibilities
+---
+
+# --description--
+
+Umejifunza jinsi ya kulinganisha mifumo halisi (`/literal/`) na herufi ya wildcard (`/./`). Hizo ni pande mbili kabisa za usemi wa kawaida, ambapo moja hupata mlingano halisi na nyingine hulinganisha kila kitu. Kuna chaguzi ambazo ni sawa kati ya pande hizo mbili kabisa.
+
+Unaweza kutafuta mfuatano wa herufi halisi kwa unyumbufu fulani kwa kutumia <dfn>madarasa ya herufi</dfn>. Madarasa ya herufi hukuruhusu kufafanua kundi la herufi unalotaka kulinganisha kwa kuziweka ndani ya mabano ya mstatili (`[` na `]`).
+
+Kwa mfano, unataka kulinganisha `bag`, `big`, na `bug` lakini si `bog`. Unaweza kuunda usemi wa kawaida `/b[aiu]g/` kufanya hivyo. `[aiu]` ni darasa la herufi ambalo litalinganisha tu herufi `a`, `i`, au `u`.
+
+```js
+let bigStr = "big";
+let bagStr = "bag";
+let bugStr = "bug";
+let bogStr = "bog";
+let bgRegex = /b[aiu]g/;
+bigStr.match(bgRegex);
+bagStr.match(bgRegex);
+bugStr.match(bgRegex);
+bogStr.match(bgRegex);
+```
+
+Kwa mpangilio, wito nne za `match` zitarudisha thamani `["big"]`, `["bag"]`, `["bug"]`, na `null`.
+
+# --instructions--
+
+Tumia darasa la herufi lenye vokali (`a`, `e`, `i`, `o`, `u`) katika usemi wako wa kawaida `vowelRegex` kupata vokali zote katika mfuatano wa herufi `quoteSample`.
+
+**Kumbuka:** Hakikisha unalinganisha vokali za herufi kubwa na ndogo.
+
+# --hints--
+
+Unapaswa kupata vokali 25 zote.
+
+```js
+assert(result.length == 25);
+```
+
+Usemi wako wa kawaida `vowelRegex` unapaswa kutumia darasa la herufi.
+
+```js
+assert(/\[.*\]/.test(vowelRegex.source));
+```
+
+Usemi wako wa kawaida `vowelRegex` unapaswa kutumia bendera ya global.
+
+```js
+assert(vowelRegex.flags.match(/g/).length == 1);
+```
+
+Usemi wako wa kawaida `vowelRegex` unapaswa kutumia bendera isiyojali herufi kubwa au ndogo.
+
+```js
+assert(vowelRegex.flags.match(/i/).length == 1);
+```
+
+Usemi wako wa kawaida haupaswi kulinganisha konsonanti yoyote.
+
+```js
+assert(!/[b-df-hj-np-tv-z]/gi.test(result.join()));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let quoteSample = "Beware of bugs in the above code; I have only proved it correct, not tried it.";
+let vowelRegex = /change/; // Change this line
+let result = vowelRegex; // Change this line
+```
+
+# --solutions--
+
+```js
+let quoteSample = "Beware of bugs in the above code; I have only proved it correct, not tried it.";
+let vowelRegex = /[aeiou]/gi; // Change this line
+let result = quoteSample.match(vowelRegex); // Change this line
+```

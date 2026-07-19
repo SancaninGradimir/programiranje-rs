@@ -1,0 +1,300 @@
+---
+id: 672a54ce90c19e9038f481d7
+title: "Sifa ya kipengele `aria-expanded` ni nini, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-aria-expanded-attribute
+---
+
+# --interactive--
+
+Sifa ya kipengele `aria-expanded` hutumika kwa madhumuni ya Ufikikaji kuonyesha kama udhibiti umepanuliwa au umefichwa. Inatumika pamoja na vidhibiti vinavyoweza kufichwa kama menyu, accordions na vidhibiti vingine vya kufichua vinavyodhibiti uonekano wa maudhui. Sifa ya kipengele `aria-expanded` huwekwa kuwa `true` ikiwa udhibiti umepanuliwa, au `false` ikiwa umefichwa.
+
+Taarifa inayotolewa na `aria-expanded` inawawezesha watu wanaotumia visomaji vya skrini kuelewa hali ya sasa ya udhibiti (ikiwa umepanuliwa au umefichwa).
+
+Sifa ya kipengele `aria-expanded` hutumika kwenye kipengele cha mwingiliano kinachobadili uonekano wa kidhibiti kinachoweza kufichwa. Kwa mfano, ikiwa kitufe hubadili menyu inayopanuka, sifa ya kipengele `aria-expanded` huwekwa kwenye kitufe hicho.
+
+Menyu inapopanuliwa, sifa ya kipengele `aria-expanded` inapaswa kuwekwa kuwa `true` kama katika mfano huu:
+
+```html
+<button aria-expanded="true">Menu</button>
+```
+
+Menyu ikiwa imefichwa, inapaswa kuwekwa kuwa `false` badala yake.
+
+```html
+<button aria-expanded="false">Menu</button>
+```
+
+Lazima daima uwe na sifa ya kipengele `aria-expanded` ikiwa imewekwa kuwa `true` au `false` kwenye kipengele kinachodhibiti. Kwa mfano, ikiwa kitufe hubadili uonekano wa menyu, thamani ya chaguo-msingi ya `aria-expanded` inapaswa kuwa kulingana na uonekano wa chaguo-msingi wa menyu.
+
+Ikiwa menyu inapanuliwa kwa chaguo-msingi, `aria-expanded` inapaswa kuwekwa awali kuwa `true`. Ikiwa menyu imefichwa kwa chaguo-msingi, `aria-expanded` inapaswa kuwekwa awali kuwa `false`.
+
+Thamani ya `aria-expanded` inapaswa kusasishwa kwa nguvu kwa kutumia JavaScript wakati mtumizi anavyoshirikiana na kipengele hicho.
+
+Zaidi ya hayo, mali `aria-controls` na `aria-owns` zinaweza kutumika pamoja na `aria-expanded` kuanzisha muunganisho wa programu kati ya kipengele kinachodhibiti na kipengele kinachodhibitiwa.
+
+Tuanze na `aria-controls`. Inapotumika pamoja na `aria-expanded`, sifa ya kipengele `aria-controls` hutumika kubainisha kipengele kinachodhibitiwa. Kwa mfano, kitufe kinaweza kupanua au kuficha orodha inayotumika kama menyu. Thamani ya `aria-controls` itakuwa `id` ya kipengele kinachodhibitiwa (orodha ya menyu katika mfano huu).
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<button aria-expanded="false" aria-controls="menu1">Menu</button>
+<ul id="menu1" hidden>
+  <li>...</li>
+  <li>...</li>
+</ul>
+
+<script src="index.js"></script>
+```
+
+```css
+button {
+  background-color: #0078d4;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005ea2;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+  background: #fff;
+}
+
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f2f2f2;
+}
+
+```
+
+```js
+const button = document.querySelector('button');
+const menu = document.getElementById(button.getAttribute('aria-controls'));
+
+button.addEventListener('click', () => {
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', String(!expanded));
+  menu.hidden = expanded;
+});
+
+```
+
+:::
+
+Angalia kwamba orodha inafuata mara moja kitufe kinachodhibiti. Kwa vidhibiti vinavyopanuka kama hivi, ni bora maudhui yaliyopanuliwa yafuatane mara moja na kipengele kinachodhibiti katika DOM. Hii inazuia watumiaji wa visomaji vya skrini kutafuta maudhui yaliyopanuliwa, na inarahisisha watumiaji wa kibodi kuvinjari vidhibiti vyovyote vya mwingiliano vilivyomo katika maudhui yaliyopanuliwa.
+
+Ikiwa haiwezekani kuweka maudhui yaliyopanuliwa mara moja baada ya kipengele kinachodhibiti, sifa ya kipengele `aria-owns` inakuwezesha kuhamisha kwa njia ya mtandao baada ya kidhibiti katika mti wa Ufikikaji. Hii inaruhusu teknolojia saidizi kama visomaji vya skrini kudanganya kwamba maudhui yaliyopanuliwa yamewekwa moja kwa moja baada ya kidhibiti katika DOM.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+
+<button aria-owns="menu1" aria-expanded="true">Menu</button>
+<main>
+  <!-- an entire page worth of content --->
+</main>
+<ul id="menu1">
+  <li>...</li>
+  <li>...</li>
+</ul>
+
+<script src="index.js"></script>
+```
+
+```css
+button {
+  background-color: #0078d4;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #005ea2;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+  background: #fff;
+  position: absolute;
+  z-index: 10;
+}
+
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f2f2f2;
+}
+
+```
+
+```js
+const button = document.querySelector('button');
+const menu = document.getElementById(button.getAttribute('aria-owns'));
+
+button.addEventListener('click', () => {
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', String(!expanded));
+  menu.hidden = expanded;
+});
+
+// Close the menu if user clicks outside
+document.addEventListener('click', (e) => {
+  if (!button.contains(e.target) && !menu.contains(e.target)) {
+    button.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+  }
+});
+
+```
+
+:::
+
+Kuna hasara za kutumia sifa ya kipengele `aria-owns`. Inasababisha maelezo ya ziada yasiyohitajika kwa watumiaji wa visomaji vya skrini kwa kuwa visomaji vingi vya skrini hutasoma moja kwa moja maudhui yote ya kipengele kilichopanuliwa wakati kinapopanuliwa kwa mara ya kwanza. Pia haibadilishi mpangilio wa tab, na inaweza kulazimisha watumiaji wa kibodi kupita tab kupitia vidhibiti vingine vyote vya mwingiliano kwenye ukurasa kabla ya kufikia maudhui yaliyopanuliwa, isipokuwa ukisimamia mpangilio wa tab kwa kutumia JavaScript.
+
+Kwa kawaida, maudhui yanayopanuka yanapaswa kuwekwa baada ya kipengele kinachodhibiti, na sifa ya kipengele `aria-owns` inapaswa kutumika tu katika hali mbaya kabisa pale ambapo haiwezekani. Ikiwa lazima itumike, utahitaji kufanya majaribio makini kwa kutumia aina mbalimbali za visomaji vya skrini na vivinjari ili kuhakikisha utekelezaji wako unapatikana kwa kila mtu.
+
+Na kumbuka, unapotumia `aria-controls` au `aria-owns`, thamani ya `aria-expanded` lazima iendelee kusasishwa wakati kidhibiti kinapopanuliwa na kufichwa.
+
+Sifa ya kipengele `aria-expanded` inaonyesha kama kidhibiti kimepanuliwa au kimefichwa. Taarifa hii ni muhimu kwa watumiaji wa visomaji vya skrini, kuwasaidia kuelewa hali ya sasa ya vidhibiti vinavyoweza kufichwa kama menyu, accordions, na vidhibiti vingine vya kufichua vinavyofanana.
+
+Kwa kutumia `aria-expanded` kwa usahihi, unaweza kuunda uzoefu wa mtumizi unaoeleweka kwa kila mtu.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la sifa ya kipengele `aria-expanded`?
+
+## --answers--
+
+Kufafanua muonekano wa kipengele.
+
+### --feedback--
+
+Fikiria jinsi `aria-expanded` inavyotoa taarifa kwa teknolojia saidizi.
+
+---
+
+Kuboresha utendaji wa tovuti.
+
+### --feedback--
+
+Fikiria jinsi `aria-expanded` inavyotoa taarifa kwa teknolojia saidizi.
+
+---
+
+Kuonyesha kama kipengele kimepanuliwa au kimefichwa.
+
+---
+
+Kuboresha muunganisho wa kivinjari.
+
+### --feedback--
+
+Fikiria jinsi `aria-expanded` inavyotoa taarifa kwa teknolojia saidizi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni lini sifa ya kipengele `aria-expanded` inapaswa kutumika?
+
+## --answers--
+
+Kwa vipengele vyote kwenye ukurasa wa mtandao.
+
+### --feedback--
+
+Fikiria muktadha ambao `aria-expanded` ni muhimu zaidi.
+
+---
+
+Kwa vipengele vilivyo fichwa kwa muonekano.
+
+### --feedback--
+
+Fikiria muktadha ambao `aria-expanded` ni muhimu zaidi.
+
+---
+
+Kwa vipengele vinavyoweza kufichwa kama menyu na accordions.
+
+---
+
+Kwa vipengele vyenye maudhui yanayobadilika.
+
+### --feedback--
+
+Fikiria muktadha ambao `aria-expanded` ni muhimu zaidi.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ni thamani zipi zinazowezekana kwa sifa ya kipengele `aria-expanded`?
+
+## --answers--
+
+`true`, `false`, `yes`, `no`.
+
+### --feedback--
+
+Fikiria hali ambazo kipengele kinaweza kuwa nazo kuhusu upanuzi au kufichwa.
+
+---
+
+`open`, `closed`, `expanded`, `collapsed`.
+
+### --feedback--
+
+Fikiria hali ambazo kipengele kinaweza kuwa nazo kuhusu upanuzi au kufichwa.
+
+---
+
+`show`, `hide`, `visible`, `invisible`.
+
+### --feedback--
+
+Fikiria hali ambazo kipengele kinaweza kuwa nazo kuhusu upanuzi au kufichwa.
+
+---
+
+`true`, `false`.
+
+## --video-solution--
+
+4

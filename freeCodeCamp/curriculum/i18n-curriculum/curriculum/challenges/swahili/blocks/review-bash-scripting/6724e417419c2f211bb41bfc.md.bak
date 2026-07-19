@@ -1,0 +1,715 @@
+---
+id: 6724e417419c2f211bb41bfc
+title: Ukaguzi wa uandishi wa Bash
+challengeType: 31
+dashedName: review-bash-scripting
+---
+
+# --description--
+
+## Misingi ya uandishi wa Bash
+
+- **Uandishi wa bash**: Kuandika mfululizo wa amri za Bash katika faili, ambazo unaweza kisha kuzitekeleza kwa Bash ili kuendesha yaliyomo kwenye faili.
+- **Shebang**: Mstari uliotolewa kama maoni mwanzoni mwa script (mfano, `#!/bin/bash`) unaoonyesha tafsiri gani inapaswa kutumika kwa script hiyo.
+
+  ```bash
+  #!/bin/bash
+  ```
+
+- **Mgawo wa thamani kwa vigezo**: Tengeneza vigezo kwa kutumia sintaksia `variable_name=value`.
+
+  ```bash
+  servers=("prod" "dev")
+  ```
+
+- **Sheria za kuunda vigezo**: Unda vigezo kwa sintaksia `VARIABLE_NAME=VALUE`. Hakuna nafasi zinazoruhusiwa kuzunguka ishara ya usawa (`=`). Tumia alama za nukuu maradufu ikiwa thamani ina nafasi.
+
+  ```bash
+  NAME=John
+  MESSAGE="Hello World"
+  COUNT=5
+  TEXT="The next number is, "
+  ```
+
+- **Matumizi ya vigezo**: Pata upatikanaji wa thamani za vigezo kwa kuweka `$` mbele ya jina la kigezo.
+
+  ```bash
+  echo $NAME
+  echo "The message is: $MESSAGE"
+  ```
+
+- **Uingizaji wa thamani za vigezo**: Tumia `$variable_name` kupata thamani ya kigezo ndani ya mfuatano wa herufi na amri.
+
+  ```bash
+  TEXT="The next number is, "
+  NUMBER=42
+  echo $TEXT B:$NUMBER
+  echo $TEXT I:$NUMBER
+  
+  echo "Pulling $server"
+  rsync --archive --verbose $server:/etc/nginx/conf.d/server.conf configs/$server.conf
+  ```
+
+- **Wigo wa vigezo**: Script za shell zinaendeshwa kutoka juu hadi chini, hivyo vigezo vinaweza kutumika tu chini ya mahali zilipoanzishwa.
+
+  ```bash
+  NAME="Alice"
+  echo $NAME
+  ```
+
+- **Ingizo la mtumiaji**: Tumia `read` kupokea ingizo kutoka kwa watumiaji na kuhifadhi katika kigezo.
+
+  ```bash
+  read USERNAME
+  echo "Hello $USERNAME"
+  ```
+
+- **Maoni**: Ongeza maoni kwenye script zako kwa kutumia `#` ikifuatiwa na maandishi ya maoni yako.
+  - Maoni ya mstari mmoja huanza na `#` na huendelea hadi mwisho wa mstari
+  - Maoni hayazingatiwi na shell na hayathiri utekelezaji wa script
+
+  ```bash
+  # This is a single-line comment
+  NAME="John"  # Comment at end of line
+  ```
+
+- **Maoni ya mistari mingi**: Toa maoni kwenye sehemu kubwa za msimbo kwa kutumia alama za nukuu na alama ya koloni.
+
+  ```bash
+  : '
+  This is a multi-line comment
+  Everything between the quotes is ignored
+  Useful for debugging or documentation
+  '
+  ```
+
+- **Amri zilizojengwa ndani na msaada**: 
+  - Tumia `help` kuona orodha ya amri za bash zilizojengwa ndani
+  - Tumia `help <command>` kupata taarifa kuhusu amri maalum zilizojengwa ndani
+  - Baadhi ya amri (kama `if`) ni zilizojengwa ndani na hazina kurasa za man
+  - Amri zilizojengwa ndani zinaendeshwa moja kwa moja na shell badala ya kama programu za nje
+  - Tumia `help function` kuona taarifa kuhusu kuunda vitendakazi
+
+  ```bash
+  help
+  help if
+  help function
+  ```
+
+- **Kupata mahali pa amri**: Tumia `which` kupata mahali ambapo faili za utekelezaji zipo.
+  - Inaonyesha njia kamili ya faili za utekelezaji
+  - Inasaidia kupata mahali pa tafsiri kama bash
+  - Inasaidia kuthibitisha toleo la amri litakalotekelezwa
+
+  ```bash
+  which bash
+  which python
+  which ls
+  ```
+
+- **Kurasa za mwongozo**: Tumia `man` kupata maelezo ya kina kuhusu amri.
+  - Hutoa taarifa kamili kuhusu matumizi ya amri
+  - Inaonyesha chaguzi zote zinazopatikana na mifano
+  - Tumia mishale ya mwelekeo kuvinjari, 'q' kuondoka
+  - Si amri zote zina kurasa za mwongozo (amri zilizojengwa ndani hutumia `help` badala yake)
+
+  ```bash
+  man echo
+  man ls
+  man bash
+  ```
+
+- **Bendera za msaada**: Amri nyingi zinaunga mkono `--help` kwa taarifa za msaada haraka.
+  - Mbali na kurasa za mwongozo kwa rejea ya haraka
+  - Inaonyesha sintaksia ya amri na chaguzi za kawaida
+  - Si amri zote zinaunga mkono bendera hii (baadhi zinaweza kuonyesha hitilafu)
+
+  ```bash
+  ls --help
+  chmod --help
+  mv --help
+  ```
+
+- **Chaguzi za amri ya echo**: Amri ya `echo` inaunga mkono chaguzi mbalimbali:
+  - Chaguo la `-e` linawezesha tafsiri ya mkwaju wa nyuma
+  - `\n` huunda mstari mpya
+  - Mistari tupu huchapishwa tu wakati thamani ziko ndani ya nukuu
+  - Inafaa kwa kuunda matokeo yaliyopangwa na vichwa vya programu
+
+  ```bash
+  echo -e "Line 1\nLine 2"
+  echo ""
+  echo -e "\n~~ Program Title ~~\n"
+  echo "Line 1\nLine 2"
+  ```
+
+- **Hoja za script**: Programu zinaweza kupokea hoja zinazopatikana kwa kutumia vigezo vya `$`.
+  - `$*` huchapisha hoja zote zilizopitishwa kwa script
+  - `$@` huchapisha hoja zote kama mfuatano wa herufi zilizo ndani ya nukuu tofauti
+  - `$<number>` hupata hoja maalum kwa nafasi (mfano, `$1`, `$2`, `$3`)
+
+  ```bash
+  echo $*
+  echo $@
+  echo $1
+  echo $2
+  ```
+
+## Usemi wa mabano maradufu `[[ ]]`
+
+- **Sintaksia ya mabano maradufu**: Tumia `[[ ]]` kwa majaribio ya masharti na kulinganisha mifumo.
+  - Lazima kuwe na nafasi ndani ya mabano na kuzunguka opereta
+  - Hurejesha hali ya kutoka 0 (kweli) au 1 (uongo) kulingana na matokeo ya jaribio
+
+  ```bash
+  [[ $variable == "value" ]]
+  [[ $number -gt 10 ]]
+  [[ -f filename.txt ]]
+  ```
+
+- **Opereta za kulinganisha mfuatano wa herufi**: Linganisha mfuatano wa herufi kwa opereta mbalimbali ndani ya `[[ ]]`.
+  - `==` (sawa): Hujaribu kama mfuatano miwili ni sawa
+  - `!=` (si sawa): Hujaribu kama mfuatano miwili ni tofauti
+  - `<` (chini kwa mpangilio wa alfabeti): Kulinganisha mfuatano kwa mpangilio wa alfabeti
+  - `>` (juu kwa mpangilio wa alfabeti): Kulinganisha mfuatano kwa mpangilio wa alfabeti
+
+  ```bash
+  [[ "apple" == "apple" ]]
+  [[ "apple" != "orange" ]]
+  [[ "apple" < "banana" ]]
+  [[ "zebra" > "apple" ]]
+  ```
+
+- **Opereta za kulinganisha nambari**: Linganisha nambari kwa opereta maalum za nambari.
+  - `-eq` (sawa): Kulinganisha usawa wa nambari
+  - `-ne` (si sawa): Kulinganisha kutokuwepo kwa usawa wa nambari
+  - `-lt` (chini kuliko): Kulinganisha nambari ndogo kuliko nyingine
+  - `-le` (chini au sawa): Kulinganisha nambari ndogo au sawa na nyingine
+  - `-gt` (juu kuliko): Kulinganisha nambari kubwa kuliko nyingine
+  - `-ge` (juu au sawa): Kulinganisha nambari kubwa au sawa na nyingine
+
+  ```bash
+  [[ $number -eq 5 ]]
+  [[ $count -ne 0 ]]
+  [[ $age -ge 18 ]]
+  [[ $score -lt 100 ]]
+  ```
+
+- **Opereta za kimantiki**: Unganisha masharti mengi kwa opereta za kimantiki.
+  - `&&` (na): Masharti yote mawili lazima yawe kweli
+  - `||` (au): Angalau sharti moja lazima liwe kweli
+  - `!` (si): Kinyume cha sharti (hufanya kweli kuwa uongo, uongo kuwa kweli)
+
+  ```bash
+  [[ $age -ge 18 && $age -le 65 ]]
+  [[ $name == "John" || $name == "Jane" ]]
+  [[ ! -f missing_file.txt ]]
+  ```
+
+- **Opereta za kujaribu faili**: Jaribu sifa na kuwepo kwa faili.
+  - `-e file`: Kweli ikiwa faili ipo
+  - `-f file`: Kweli ikiwa faili ipo na ni faili ya kawaida
+  - `-d file`: Kweli ikiwa faili ipo na ni saraka
+  - `-r file`: Kweli ikiwa faili ipo na inasomeka
+  - `-w file`: Kweli ikiwa faili ipo na inaandikika
+  - `-x file`: Kweli ikiwa faili ipo na inaweza kutekelezwa
+  - `-s file`: Kweli ikiwa faili ipo na ina ukubwa zaidi ya sifuri
+
+  ```bash
+  [[ -e /path/to/file ]]
+  [[ -f script.sh ]]
+  [[ -d /home/user ]]
+  [[ -x program ]]
+  ```
+
+- **Kulinganisha mifumo kwa `=~`**: Tumia usemi wa kawaida kwa kulinganisha mifumo ya hali ya juu.
+  - Opereta `=~` inaruhusu kulinganisha kwa usemi wa kawaida
+  - Mfano haupaswi kuwekwa ndani ya nukuu wakati wa kutumia metacharacters za regex
+  - Inasaidia sintaksia kamili ya usemi wa kawaida
+  - Inazingatia herufi kwa chaguo-msingi
+
+  ```bash
+  [[ "hello123" =~ [0-9]+ ]]
+  [[ "email@domain.com" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]
+  [[ "filename.txt" =~ \.txt$ ]]
+  ```
+
+- **Kujaribu kuwepo kwa vigezo**: Angalia kama vigezo vimewekwa au ni tupu.
+  - Jaribu kama kigezo ni tupu: `[[ ! $variable ]]`
+
+  ```bash
+  [[ ! $undefined_var ]]
+  ```
+
+## Usemi wa mabano ya kawaida maradufu `(( ))`
+
+- **Tathmini za kihesabu**: Tumia `(( ))` kwa mahesabu na kulinganisha nambari.
+  - Huthamini usemi wa kihesabu kwa sintaksia ya mtindo wa C
+  - Vigezo havihitaji kiambishi awali cha `$` ndani ya mabano maradufu
+  - Hurejesha hali ya kutoka 0 ikiwa matokeo si sifuri, 1 ikiwa matokeo ni sifuri
+  - Inasaidia opereta zote za kawaida za kihesabu
+
+  ```bash
+  (( result = 10 + 5 ))
+  (( count++ ))
+  (( total += value ))
+  ```
+
+- **Opereta za kihesabu**: Opereta za kihesabu zinazopatikana katika `(( ))`.
+  - `+` (jumlisha): Jumlisha nambari mbili
+  - `-` (toa): Toa nambari ya pili kutoka ya kwanza
+  - `*` (zidisha): Zidisha nambari mbili
+  - `/` (gawanya): Gawanya nambari ya kwanza kwa ya pili (gawanyo la nambari kamili)
+  - `%` (modulo): Mabaki baada ya mgawanyo
+  - `**` (nguvu): Inua nambari ya kwanza kwa nguvu ya ya pili
+
+  ```bash
+  (( sum = a + b ))
+  (( diff = x - y ))
+  (( product = width * height ))
+  (( remainder = num % 10 ))
+  (( power = base ** exponent ))
+  ```
+
+- **Opereta za mgawo wa thamani**: Badilisha vigezo kwa kutumia opereta za mgawo wa thamani za kihesabu.
+  - `=` (mgawo): Weka thamani kwa kigezo
+  - `+=` (ongeza na weka): Ongeza thamani kwa kigezo
+  - `-=` (punguza na weka): Punguza thamani kutoka kwa kigezo
+  - `*=` (zidisha na weka): Zidisha kigezo kwa thamani
+  - `/=` (gawanya na weka): Gawanya kigezo kwa thamani
+  - `%=` (modulo na weka): Weka kigezo kuwa mabaki
+
+  ```bash
+  (( counter = 0 ))
+  (( counter += 5 ))
+  (( total -= cost ))
+  (( area *= 2 ))
+  (( value /= 3 ))
+  ```
+
+- **Opereta za kuongeza na kupunguza**: Badilisha vigezo kwa moja.
+  - `++variable` (ongeza kabla): Ongeza kabla ya matumizi
+  - `variable++` (ongeza baada): Ongeza baada ya matumizi
+  - `--variable` (punguza kabla): Punguza kabla ya matumizi
+  - `variable--` (punguza baada): Punguza baada ya matumizi
+
+  ```bash
+  (( ++counter ))
+  (( index++ ))
+  (( --remaining ))
+  (( attempts-- ))
+  ```
+
+- **Opereta za kulinganisha**: Linganisha nambari kwa kulinganisha kihesabu.
+  - `==` (sawa): Nambari ni sawa
+  - `!=` (si sawa): Nambari si sawa
+  - `<` (chini kuliko): Nambari ya kwanza ni ndogo kuliko ya pili
+  - `<=` (chini au sawa): Nambari ya kwanza ni ndogo au sawa na ya pili
+  - `>` (juu kuliko): Nambari ya kwanza ni kubwa kuliko ya pili
+  - `>=` (juu au sawa): Nambari ya kwanza ni kubwa au sawa na ya pili
+
+  ```bash
+  (( age >= 18 ))
+  (( score < 100 ))
+  (( count == 0 ))
+  (( temperature > freezing ))
+  ```
+
+- **Opereta za kimantiki**: Unganisha masharti ya kihesabu.
+  - `&&` (na): Masharti yote mawili lazima yawe kweli
+  - `||` (au): Angalau sharti moja lazima liwe kweli
+  - `!` (si): Kinyume cha sharti
+
+  ```bash
+  (( age >= 18 && age <= 65 ))
+  (( score >= 90 || extra_credit > 0 ))
+  (( !(count == 0) ))
+  ```
+
+- **Opereta za bitwise**: Fanya operesheni za bit kwa nambari kamili.
+  - `&` (bitwise AND): Operesheni ya AND kwa kila bit
+  - `|` (bitwise OR): Operesheni ya OR kwa kila bit
+  - `^` (bitwise XOR): Operesheni ya XOR kwa kila bit
+  - `~` (bitwise NOT): Geuza bits zote
+  - `<<` (kushiftia kushoto): Hamisha bits kushoto
+  - `>>` (kushiftia kulia): Hamisha bits kulia
+
+  ```bash
+  (( result = a & b ))
+  (( flags |= new_flag ))
+  (( shifted = value << 2 ))
+  ```
+
+- **Opereta wa masharti wa ternary**: Tumia sintaksia ya `condition ? true_value : false_value`.
+  - Inatoa njia fupi ya kuweka thamani kulingana na masharti
+  - Inafanana na opereta ya ternary katika lugha za mtindo wa C
+  - Huthamini sharti na kurejesha moja ya thamani mbili
+
+  ```bash
+  (( result = (score >= 60) ? 1 : 0 ))
+  (( max = (a > b) ? a : b ))
+  (( sign = (num >= 0) ? 1 : -1 ))
+  ```
+
+- **Ubadilishaji wa amri kwa kihesabu**: Tumia `$(( ))` kupata matokeo ya hesabu.
+  - Hurejesha matokeo ya usemi wa kihesabu kama mfuatano wa herufi
+  - Inaweza kutumika katika mgawo wa thamani au hoja za amri
+  - Inafaa kwa mahesabu yanayohitaji kutumika mahali pengine
+
+  ```bash
+  result=$(( 10 + 5 ))
+  echo "The answer is $(( a * b ))"
+  array_index=$(( RANDOM % array_length ))
+  ```
+
+## Mtiririko wa udhibiti na masharti
+
+- **Sentensi za masharti**: Tumia sentensi za `if` kutekeleza msimbo kulingana na masharti.
+  - Sintaksia ya msingi: `if [[ CONDITION ]] then STATEMENTS fi`
+  - Sintaksia kamili: `if [[ CONDITION ]] then STATEMENTS elif [[ CONDITION ]] then STATEMENTS else STATEMENTS fi`
+  - Inaweza kutumia usemi wa `[[ ]]` na `(( ))` kwa aina tofauti za masharti
+  - **elif (else if)**: Hiari, inaweza kurudiwa mara nyingi kujaribu masharti zaidi mfululizo
+  - **else**: Hiari, hufanya kazi wakati masharti yote ya awali ni uongo
+  - Inaweza kuchanganya mabano maradufu `(( ... ))` na mabano ya kawaida maradufu `[[ ... ]]` katika mnyororo mmoja wa masharti
+
+  ```bash
+  if (( NUMBER <= 15 ))
+  then
+      echo "B:$NUMBER"
+  elif [[ $NUMBER -le 30 ]]
+  then
+      echo "I:$NUMBER"
+  elif (( NUMBER < 46 ))
+  then
+      echo "N:$NUMBER"
+  elif [[ $NUMBER -lt 61 ]]
+  then
+      echo "G:$NUMBER"
+  else
+      echo "O:$NUMBER"
+  fi
+  ```
+
+## Utekelezaji wa amri na udhibiti wa michakato
+
+- **Kutenganisha amri**: Tumia nukta-koma (`;`) kuendesha amri nyingi kwenye mstari mmoja.
+  - Amri zinaendeshwa mfululizo kutoka kushoto kwenda kulia
+  - Hali ya kutoka ya kila amri inaweza kuangaliwa kwa kila moja
+
+  ```bash
+  [[ 4 -ge 5 ]]; echo $?
+  ls -l; echo "Done"
+  ```
+
+- **Hali ya kutoka**: Kila amri ina hali ya kutoka inayoonyesha mafanikio au kushindwa.
+  - Pata hali ya kutoka ya amri ya mwisho kwa `$?`
+  - Hali ya kutoka `0` ina maana ya mafanikio (kweli/hakuna makosa)
+  - Hali yoyote isiyo sifuri ina maana ya kushindwa (uongo/makosa yametokea)
+  - Nambari za makosa ya kawaida: `127` (amri haikupatikana), `1` (hitilafu ya jumla)
+
+  ```bash
+  echo $?
+  [[ 4 -le 5 ]]; echo $?
+  ls; echo $?
+  bad_command; echo $?
+  ```
+
+- **Subshells na ubadilishaji wa amri**: Matumizi tofauti ya mabano kwa muktadha wa utekelezaji.
+  - Mabano ya kawaida `( ... )` huunda subshell
+  - `$( ... )` hufanya ubadilishaji wa amri
+  - Subshells zinaendeshwa katika mazingira tofauti na hazibadilishi vigezo vya shell mama
+
+  ```bash
+  ( cd /tmp; echo "Current dir: $(pwd)" )
+  current_date=$(date)
+  file_count=$(ls | wc -l)
+  echo "Today is $current_date"
+  echo "Found $file_count files"
+  ```
+
+- **Amri ya kulala**: Simamisha utekelezaji wa script kwa sekunde zilizobainishwa.
+  - Inafaa kwa kuunda ucheleweshaji katika script
+  - Inaweza kutumika na thamani za desimali kwa ucheleweshaji wa chini ya sekunde moja
+
+  ```bash
+  sleep 3
+  sleep 0.5
+  sleep 1
+  ```
+
+## Mizunguko
+
+- **Mizunguko ya while**: Tekeleza msimbo kurudia wakati sharti ni kweli.
+  - Sintaksia: `while [[ CONDITION ]] do STATEMENTS done`
+
+  ```bash
+  I=5
+  while [[ $I -ge 0 ]]
+  do
+      echo $I
+      (( I-- ))
+      sleep 1
+  done
+  ```
+
+- **Mizunguko ya until**: Tekeleza msimbo kurudia hadi sharti liwe kweli.
+  - Sintaksia: `until [[ CONDITION ]] do STATEMENTS done`
+
+  ```bash
+  until [[ $QUESTION =~ \?$ ]]
+  do
+      echo "Please enter a question ending with ?"
+      read QUESTION
+  done
+  until [[ $QUESTION =~ \?$ ]]
+  do
+      GET_FORTUNE again
+  done
+  ```
+
+- **Mizunguko ya for**: Rudia kupitia safu za data au orodha kwa kutumia mizunguko ya `for` na `do` na `done` kuainisha sehemu ya mzunguko.
+
+  ```bash
+  for server in "${servers[@]}"
+  do
+      echo "Processing $server"
+  done
+  for (( i = 1; i <= 5; i++ ))
+  do
+      echo "Number: $i"
+  done
+  for (( i = 5; i >= 1; i-- ))
+  do
+      echo "Countdown: $i"
+  done
+  for i in {1..5}
+  do
+      echo "Count: $i"
+  done
+  ```
+
+## Safu za data
+
+- **Safu za data**: Hifadhi thamani nyingi katika kigezo kimoja.
+  - Unda safu za data kwa mabano ya kawaida: `ARRAY=("value1" "value2" "value3")`
+  - Pata vipengele kwa kielezo: `${ARRAY[0]}`, `${ARRAY[1]}`
+  - Pata vipengele vyote: `${ARRAY[@]}` au `${ARRAY[*]}`
+  - Kielezo cha safu huanza kwa 0
+
+  ```bash
+  RESPONSES=("Yes" "No" "Maybe" "Ask again later")
+  echo ${RESPONSES[0]}     # Yes          
+  echo ${RESPONSES[1]}     # No         
+  echo ${RESPONSES[5]}     # Index 5 doesn't exist; empty string              
+  echo ${RESPONSES[@]}     # Yes No Maybe Ask again later   
+  echo ${RESPONSES[*]}     # Yes No Maybe Ask again later 
+  ```
+
+- **Ukaguzi wa safu za data kwa declare**: Tumia `declare -p` kuona maelezo ya safu.
+  - Inaonyesha aina ya safu kwa bendera ya `-a`
+  - Inaonyesha vipengele vyote vya safu na muundo wake
+
+  ```bash
+  ARR=("a" "b" "c")
+  declare -p ARR # ARR=([0]="a" [1]="b" [2]="c")
+  ```
+
+- **Upanuzi wa safu**: Tumia sintaksia ya `"${array_name[@]}"` kupanua safu kuwa vipengele binafsi.
+
+```bash
+for server in "${servers[@]}"
+```
+
+## Vitendakazi
+
+- **Vitendakazi**: Unda sehemu za msimbo zinazoweza kutumika tena.
+  - Tangaza kwa `FUNCTION_NAME() { STATEMENTS }`
+  - Wito kwa kutumia jina la kitendakazi
+  - Inaweza kupokea hoja zinazopatikana kama `$1`, `$2`, n.k.
+
+  ```bash
+  GET_FORTUNE() {
+      echo "Ask a question:"
+      read QUESTION
+  }
+  GET_FORTUNE
+  ```
+
+- **Hoja za vitendakazi**: Vitendakazi vinaweza kupokea hoja kama script.
+  - Hoja hupitishwa wakati wa kuita kitendakazi
+  - Pata hoja ndani ya kitendakazi kwa kutumia `$1`, `$2`, n.k.
+  - Tumia mantiki ya masharti kushughulikia hoja tofauti
+
+  ```bash
+  GET_FORTUNE() {
+      if [[ ! $1 ]]
+      then
+          echo "Ask a yes or no question:"
+      else
+          echo "Try again. Make sure it ends with a question mark:"
+      fi
+      read QUESTION
+  }
+  GET_FORTUNE
+  GET_FORTUNE again
+  ```
+
+## Nambari za nasibu na operesheni za kihesabu
+
+- **Nambari za nasibu**: Tengeneza thamani za nasibu kwa kutumia kigezo cha `$RANDOM`.
+  - `$RANDOM` hutoa nambari kati ya 0 na 32767
+  - Tumia opereta ya modulo kupunguza wigo: `$RANDOM % 75`
+  - Ongeza 1 kuepuka sifuri: `$(( RANDOM % 75 + 1 ))`
+  - Lazima utumie sintaksia ya `$(( ... ))` kwa mahesabu na `$RANDOM`
+
+  ```bash
+  NUMBER=$(( RANDOM % 6 ))
+  DICE=$(( RANDOM % 6 + 1 ))
+  BINGO=$(( RANDOM % 75 + 1 ))
+  echo $(( RANDOM % 10 ))
+  ```
+
+- **Upatikanaji wa nasibu wa safu za data**: Tumia nambari za nasibu kupata vipengele vya safu kwa nasibu.
+  - Tengeneza kielezo cha nasibu ndani ya mipaka ya safu
+  - Tumia kielezo cha nasibu kupata vipengele vya safu
+  - Inafaa kwa uchaguzi wa nasibu kutoka kwa chaguzi zilizowekwa awali
+
+  ```bash
+  RESPONSES=("Yes" "No" "Maybe" "Outlook good" "Don't count on it" "Ask again later")
+  N=$(( RANDOM % 6 ))
+  echo ${RESPONSES[$N]}
+  ```
+
+- **Opereta ya modulo**: Tumia `%` kupata mabaki ya mgawanyo.
+  - Muhimu kwa kupunguza wigo wa nambari za nasibu
+  - Hufanya kazi na `$RANDOM` kuunda thamani za nasibu zilizo na mipaka
+  - `RANDOM % n` hutoa nambari kutoka 0 hadi n-1
+
+  ```bash
+  echo $(( 15 % 4 ))
+  echo $(( RANDOM % 100 ))
+  echo $(( RANDOM % 10 + 1 ))
+  ```
+
+## Mazingira na taarifa za mfumo
+
+- **Vigezo vya mazingira**: Vigezo vilivyowekwa awali vinavyopatikana katika mazingira ya shell.
+  - `$RANDOM`: Hutoa nambari za nasibu kati ya 0 na 32767
+  - `$LANG`: Mipangilio ya lugha ya mfumo
+  - `$HOME`: Njia ya saraka ya nyumbani ya mtumiaji
+  - `$PATH`: Saraka zinazotafutwa kwa amri za utekelezaji
+  - Angalia zote kwa `printenv` au `declare -p`
+
+  ```bash
+  echo $RANDOM
+  echo $HOME
+  echo $LANG
+  printenv
+  ```
+
+- **Ukaguzi wa vigezo**: Tumia `declare` kuona na kufanya kazi na vigezo.
+  - `declare -p`: Chapisha vigezo vyote na thamani zao
+  - `declare -p VARIABLE`: Chapisha maelezo maalum ya kigezo
+  - Inaonyesha aina ya kigezo (mfuatano wa herufi, safu, n.k.) na sifa zake
+
+  ```bash
+  declare -p
+  declare -p RANDOM
+  declare -p MY_ARRAY
+  ```
+
+- **Aina za amri**: Makundi tofauti ya amri zinazopatikana katika bash.
+  - **Amri zilizojengwa ndani**: Zinaendeshwa moja kwa moja na shell (mfano, `echo`, `read`, `if`)
+  - **Amri za nje**: Faili za binary katika saraka za mfumo (mfano, `ls`, `sleep`, `bash`)
+  - **Maneno muhimu ya shell**: Miundo ya lugha (mfano, `then`, `do`, `done`)
+  - Tumia `type <command>` kuona aina ya amri
+
+  ```bash
+  type echo
+  type ls
+  type if
+  type ./script.sh
+  ```
+
+## Kuunda na kusimamia faili
+
+- **Kuunda faili**: Tumia `touch` kuunda faili mpya tupu.
+  - Huunda faili mpya ikiwa haipo
+  - Husahihisha alama za wakati ikiwa faili tayari ipo
+  - Inatumiwa sana kuunda faili za script kabla ya kuhariri
+
+  ```bash
+  touch script.sh
+  touch bingo.sh
+  touch filename.txt
+  ```
+
+## Kuunda na kuendesha script za Bash
+
+- **Njia za kuendesha script**: Njia nyingi za kuendesha script za bash:
+  - **`sh scriptname.sh`**: Endesha kwa tafsiri ya shell ya sh.
+  - **`bash scriptname.sh`**: Endesha kwa tafsiri ya shell ya bash.
+  - **`./scriptname.sh`**: Tekeleza moja kwa moja (inahitaji ruhusa za utekelezaji).
+
+```bash
+sh questionnaire.sh
+bash questionnaire.sh
+./questionnaire.sh
+```
+
+## Ruhusa za faili na utekelezaji wa script
+
+- **Hitilafu ya ruhusa imekataliwa**: Unapotumia `./scriptname.sh`, unaweza kupata "permission denied" ikiwa faili haina ruhusa za utekelezaji.
+- **Kukagua ruhusa**: Tumia `ls -l` kuona ruhusa za faili.
+
+  ```bash
+  ls -l questionnaire.sh
+  ```
+
+- **Muundo wa ruhusa**: Matokeo yanaonyesha ruhusa kama `-rw-r--r--` ambapo:
+  - Herufi ya kwanza (`-`): Aina ya faili (- kwa faili ya kawaida, d kwa saraka)
+  - Herufi 9 zinazofuata: Ruhusa kwa mmiliki, kundi, na wengine
+  - `r` = soma, `w` = andika, `x` = tekeleza
+  
+- **Kuongeza ruhusa za utekelezaji**: Tumia `chmod +x` kutoa ruhusa za utekelezaji kwa kila mtu.
+
+  ```bash
+  chmod +x questionnaire.sh
+  ```
+
+- **Mpangilio wa script**: Mbinu bora za kupanga script za bash.
+  - Anza na shebang (`#!/bin/bash`)
+  - Ongeza maoni ya kuelezea kusudi la script
+  - Tangaza vigezo juu
+  - Panga vitendakazi vinavyohusiana pamoja
+  - Mantiki kuu ya script iwe chini
+
+  ```bash
+  #!/bin/bash
+  NAME="value"
+  ARRAY=("item1" "item2")
+  my_function() {
+      echo "Function code here"
+  }
+  my_function
+  echo "Script complete"
+  ```
+
+- **Utekelezaji wa mfululizo wa script**: Unda script kuu zinazoendesha programu nyingi mfululizo.
+  - Inafaa kwa kuendesha kazi za kiotomatiki zinazohusisha script nyingi
+  - Kila script inaendeshwa hadi mwisho kabla ya nyingine kuanza
+  - Inaweza kuunganisha programu tofauti katika mtiririko mmoja wa utekelezaji
+  - Hoja zinaweza kupitishwa kwa script binafsi kama inavyohitajika
+  - Inaweza kujumuisha aina tofauti za programu (za mwingiliano, za kiotomatiki, n.k.)
+
+  ```bash
+  #!/bin/bash
+  ./setup.sh
+  ./interactive.sh
+  ./processing.sh
+  ./cleanup.sh
+  ```
+
+# --assignment--
+
+Kagua mada na dhana za uandishi wa Bash.

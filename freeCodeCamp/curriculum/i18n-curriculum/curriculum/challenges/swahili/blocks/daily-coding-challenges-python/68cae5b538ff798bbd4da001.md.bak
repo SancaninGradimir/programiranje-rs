@@ -1,0 +1,129 @@
+---
+id: 68cae5b538ff798bbd4da001
+title: "Challenge 63: Battle of Words"
+challengeType: 29
+dashedName: challenge-63
+---
+
+# --description--
+
+Ukizingatia sentensi mbili zinazowakilisha timu yako na timu pinzani, ambapo kila neno kutoka timu yako linapambana na neno linalolingana kutoka timu pinzani, amua ni timu gani inashinda kwa kutumia sheria zifuatazo:
+
+- Sentensi zilizotolewa zitakuwa na idadi sawa ya maneno kila wakati.
+- Maneno yamegawanyika kwa nafasi moja tu na yatakuwa na herufi tu.
+- Thamani ya kila neno ni jumla ya herufi zake.
+- Herufi `a` hadi `z` zinaendana na thamani `1` hadi `26`. Kwa mfano, `a` ni `1`, na `z` ni `26`.
+- Herufi kubwa huongeza mara mbili thamani ya herufi hiyo. Kwa mfano, `A` ni `2`, na `Z` ni `52`.
+- Maneno yanapambana kwa mpangilio: neno la kwanza la timu yako linapambana na neno la kwanza la timu pinzani, na kadhalika.
+- Neno linashinda ikiwa thamani yake ni kubwa kuliko thamani ya neno la mpinzani.
+- Timu yenye maneno mengi yanayoshinda ndiyo mshindi.
+
+Rudisha `"We win"` ikiwa timu yako ni mshindi, `"We lose"` ikiwa timu yako inapoteza, na `"Draw"` ikiwa timu zote mbili zina idadi sawa ya ushindi.
+
+# --hints--
+
+`battle("hello world", "hello word")` should return `"We win"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("hello world", "hello word"), "We win")`)
+}})
+```
+
+`battle("Hello world", "hello world")` should return `"We win"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("Hello world", "hello world"), "We win")`)
+}})
+```
+
+`battle("lorem ipsum", "kitty ipsum")` should return `"We lose"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("lorem ipsum", "kitty ipsum"), "We lose")`)
+}})
+```
+
+`battle("hello world", "world hello")` should return `"Draw"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("hello world", "world hello"), "Draw")`)
+}})
+```
+
+`battle("git checkout", "git switch")` should return `"We win"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("git checkout", "git switch"), "We win")`)
+}})
+```
+
+`battle("Cheeseburger with fries", "Cheeseburger with Fries")` should return `"We lose"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("Cheeseburger with fries", "Cheeseburger with Fries"), "We lose")`)
+}})
+```
+
+`battle("We must never surrender", "Our team must win")` should return `"Draw"`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(battle("We must never surrender", "Our team must win"), "Draw")`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def battle(our_team, opponent):
+
+    return our_team
+```
+
+# --solutions--
+
+```py
+def get_word_value(word):
+    value = 0
+    for char in word:
+        val = ord(char.lower()) - ord('a') + 1
+        if char.isupper():
+            val *= 2
+        value += val
+    return value
+
+def battle(our_team, opponent):
+    my_wins = 0
+    opp_wins = 0
+
+    for my_word, opp_word in zip(our_team.split(), opponent.split()):
+        my_val = get_word_value(my_word)
+        opp_val = get_word_value(opp_word)
+
+        if my_val > opp_val:
+            my_wins += 1
+        elif opp_val > my_val:
+            opp_wins += 1
+
+    if my_wins > opp_wins:
+        return "We win"
+    elif opp_wins > my_wins:
+        return "We lose"
+    else:
+        return "Draw"
+```

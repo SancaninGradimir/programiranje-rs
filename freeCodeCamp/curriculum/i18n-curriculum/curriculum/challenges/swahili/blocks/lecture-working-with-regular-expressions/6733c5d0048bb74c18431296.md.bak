@@ -1,0 +1,224 @@
+---
+id: 6733c5d0048bb74c18431296
+title: "Darasa la vitu ni nini, na ni mifano gani ya kawaida?"
+challengeType: 19
+dashedName: what-are-character-classes-and-what-are-some-common-examples
+---
+
+# --description--
+
+Tujifunze kuhusu madarasa ya vitu katika usemi wa kawaida, pamoja na baadhi ya mifano ya kawaida.
+
+Madarasa ya vitu ni sintaksia maalum unayoweza kutumia kulinganisha seti au seti ndogo za herufi.
+
+Darasa la vitu la kwanza unalopaswa kujifunza ni darasa la wildcard.
+
+Wildcard inawakilishwa na nukta au dot (`.`), na inalinganisha herufi yoyote moja isipokuwa mapumziko ya mistari. Ili kuruhusu darasa la wildcard kulinganisha mapumziko ya mistari, kumbuka kwamba unahitaji kutumia bendera ya `s`.
+
+Usemi wa kawaida unaolingana na herufi `a` ikifuatiwa na herufi moja unaweza kuonekana kama:
+
+```js
+const regex = /a./;
+```
+
+Hii inaweza kusaidia unapokuwa unatafuta mifumo maalum katika mfuatano wa herufi, lakini hujui nini kinaweza kuwa kati ya mifumo hiyo miwili. Lakini pia unaweza kutumia madarasa ya vitu kupunguza muafaka wako.
+
+Kwa mfano, ungetaka kulinganisha herufi ya nambari? Labda ungetakiwa kuandika kila nambari inayowezekana, ukizitenganisha kwa mtaalamu wa au (`|`):
+
+```js
+const regex = /0|1|2|3|4|5|6|7|8|9/;
+```
+
+Kuna darasa la vitu linalokuwepo kwa mfano huu hasa, na linakupa sintaksia fupi ya kuandika kitu sawa. Katika kesi hii, darasa la vitu linaandikwa kama mkwaju wa nyuma (`\`) ukifuatiwa na herufi ya `d`:
+
+```js
+const regex = /\d/;
+```
+
+Usemi huu wa kawaida utalinganisha mfano huo huo kama usemi wetu wa awali: herufi moja ya nambari mahali popote katika mfuatano wa herufi.
+
+Sasa fikiria usemi wa kawaida unaohitaji pia kulinganisha herufi yoyote ya `a` hadi `z`. Unaweza kuandika kila herufi moja moja ukizitenganisha kwa mtaalamu wa au. Au unaweza kutumia darasa lingine la vitu.
+
+Darasa la `\w`, ambalo ni mkwaju wa nyuma ukifuatiwa na `w`, linawakilisha herufi yoyote ya neno:
+
+```js
+const regex = /\w/;
+```
+
+Herufi ya neno inafafanuliwa kama herufi yoyote, kutoka `a` hadi `z`, au nambari kutoka `0` hadi `9`, au herufi ya mstari wa chini (`_`).
+
+Kujumuisha mstari wa chini kunaweza kuonekana kuwa ajabu, lakini fikiria mkataba wa majina ya vigezo – majina ya vigezo mara nyingi yanaweza kujumuisha mistari ya chini, hivyo `\w` imeundwa kulinganisha hiyo pia.
+
+Kuna darasa moja maalum la herufi la kuzingatia: darasa la nafasi tupu `\s`, linalowakilishwa na mkwaju wa nyuma ukifuatiwa na `s`. Darasa hili la herufi litalinganisha nafasi yoyote tupu, ikiwa ni pamoja na mistari mipya, nafasi, tabo, na herufi maalum za nafasi za unicode.
+
+Madarasa haya maalum ya herufi yanaweza kukanushwa. Ili kukanusha moja ya madarasa haya ya herufi, badala ya kutumia herufi ndogo baada ya mkwaju wa nyuma, tumia sawa yake ya herufi kubwa:
+
+```js
+const regex = /\D/;
+```
+
+Usemi huu wa kawaida, kwa mfano, haualingani na herufi ya nambari. Badala yake, unalinganisha herufi yoyote moja ambayo si herufi ya nambari.
+
+Kukanusha darasa la `\w` kutalinganisha herufi yoyote ambayo si `a` hadi `z`, `0` hadi `9`, au mstari wa chini, na kukanusha darasa la herufi la `\s` kutalinganisha herufi yoyote ambayo si nafasi tupu.
+
+Lakini ungetaka kulinganisha seti ndogo zaidi za herufi?
+
+Labda wewe ni profesa anayeangalia karatasi, na unahitaji kuhakikisha alama zako ni halali. Alama halali inaweza kuwa `A`, `B`, `C`, `D`, au `F`. Unaweza kutumia mabano ya mraba kujenga darasa lako la herufi:
+
+```js
+const regex = /[abcdf]/;
+```
+
+Usemi huu wa kawaida utalinganisha herufi moja iliyomo kwenye orodha ya `a`, `b`, `c`, `d`, au `f`.
+
+Je, kuhusu kuangalia alama tu zinazopitisha? Alama inayopitisha itakuwa `A`, `B`, `C`, au `D`. Unaweza kubadilisha darasa lako la herufi kuacha kulinganisha `f` kwa kuondoa herufi hiyo kutoka kwenye orodha:
+
+```js
+const regex = /[abcd]/;
+```
+
+Umeona sasa kwamba darasa letu la herufi lina herufi mfululizo tu. `a`, `b`, `c`, na `d` zote ziko moja kwa moja karibu katika alfabeti. Kwa nambari, herufi mfululizo inaweza kuwa `4`, `5`, na `6`.
+
+Unapokuwa na herufi mfululizo, unaweza kuunda safu kwa kutumia alama ya msalaba.
+
+Kwa kutumia safu, tunaweza kubadilisha usemi wetu wa kawaida kuwa sintaksia fupi huku tukilinganisha mfano huo huo.
+
+```js
+const regex = /[a-d]/;
+```
+
+Kumbuka kuwa usemi wa kawaida ni wa kuzingatia herufi ndogo na kubwa kwa chaguo-msingi. Hii inamaanisha darasa letu la herufi litalinganisha tu aina za herufi ndogo za `a`, `b`, `c`, na `d`. Unaweza kutumia bendera ya `i` kufanikisha hili, lakini pia unaweza kuingiza moja kwa moja katika darasa lako la herufi kwa kujumuisha aina za herufi kubwa:
+
+```js
+const regex = /[a-zA-Z]/;
+```
+
+Unaweza pia kuchanganya nambari na herufi katika darasa lako la herufi. Kwa mfano, kama ungetaka tabia ya darasa la `\w` bila mstari wa chini, unaweza kujenga darasa lako mwenyewe:
+
+```js
+const regex = /[a-zA-Z0-9]/;
+```
+
+Kumbuka kwamba ikiwa unataka darasa lako la herufi kulinganisha msalaba halisi, unahitaji kuweka msalaba mwanzoni au mwisho wa darasa:
+
+```js
+const regex = /[-a-zA-Z0-9]/;
+```
+
+Na hatimaye, unaweza kujumuisha madarasa maalum ya herufi katika darasa lako maalum. Labda unataka kujumuisha msalaba katika seti inayolinganishwa na `\w`:
+
+```js
+const regex = /[-\w]/;
+```
+
+Madarasa ya vitu ni chombo chenye nguvu kinachokupa udhibiti mkubwa juu ya kulinganisha mifumo yako.
+
+# --questions--
+
+## --text--
+
+Ni darasa gani la vitu linalolinganishwa na herufi yoyote moja ISIPOKUWA na mapumziko ya mistari?
+
+## --answers--
+
+`\d`
+
+### --feedback--
+
+Funzo linataja darasa la "wild card" linalowakilishwa na alama maalum.
+
+---
+
+`\w`
+
+### --feedback--
+
+Funzo linataja darasa la "wild card" linalowakilishwa na alama maalum.
+
+---
+
+`\s`
+
+### --feedback--
+
+Funzo linataja darasa la "wild card" linalowakilishwa na alama maalum.
+
+---
+
+`.`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Darasa la vitu `\w` linalinganisha nini?
+
+## --answers--
+
+Herufi ndogo tu.
+
+### --feedback--
+
+Funzo linafafanua kinachojumuishwa kama "herufi ya neno" katika usemi wa kawaida.
+
+---
+
+Herufi kubwa tu.
+
+### --feedback--
+
+Funzo linafafanua kinachojumuishwa kama "herufi ya neno" katika usemi wa kawaida.
+
+---
+
+Herufi yoyote, nambari, au mstari wa chini.
+
+---
+
+Herufi za nafasi tupu tu.
+
+### --feedback--
+
+Funzo linafafanua kinachojumuishwa kama "herufi ya neno" katika usemi wa kawaida.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Ungeundaje darasa la vitu maalum linalolinganishwa na herufi yoyote kubwa au ndogo, LAKINI SIO nambari au mistari ya chini?
+
+## --answers--
+
+`[a-zA-Z]`
+
+---
+
+`[\w]`
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea kuunda safu ndani ya mabano ya mraba.
+
+---
+
+`[A-z]`
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea kuunda safu ndani ya mabano ya mraba.
+
+---
+
+`[a-Z]`
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea kuunda safu ndani ya mabano ya mraba.
+
+## --video-solution--
+
+1

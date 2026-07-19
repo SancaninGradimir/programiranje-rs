@@ -1,0 +1,290 @@
+---
+id: 66b62d0ad68488dd76228d6c
+title: Tafuta makosa katika mabadiliko ya rangi ya nyuma ya nasibu
+challengeType: 25
+dashedName: debug-a-random-background-color-changer
+demoType: onClick
+---
+
+# --description--
+
+Camperbot anajifunza JavaScript na amejaribu kujenga Mabadiliko ya Rangi ya Nyuma ya Nasibu. Hata hivyo, amefanya makosa kadhaa njiani.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili maabara ifanye kazi ipasavyo.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kurekebisha makosa ya sintaksia katika safu ya data ya `darkColorsArr`.
+1. Unapaswa kurekebisha `ReferenceError` inayotupwa wakati `math` inarejea ndani ya kitendakazi cha `getRandomIndex`.
+1. Unapaswa kupunguza `randomIndex` hadi nambari kamili iliyo karibu zaidi.
+1. Unapaswa kusahihisha thamani ya kigezo cha `body` ili itumie jina sahihi la njia na kurekebisha `TypeError` inayohusiana.
+1. Unapaswa kurekebisha `bgHexCodeSpanElement` ili ichague kwa usahihi kipengele chenye `id` ya `bg-hex-code`.
+1. Unapaswa kubadilisha kigezo cha `color` ndani ya `changeBackgroundColor` ili kiwe kimewekwa kuwa rangi ya nasibu kutoka kwenye safu ya data ya `darkColorsArr`.
+1. Unapaswa kusasisha kigezo cha `btn` ili kilenga kipengele cha kitufe. Fungua `index.html` kuona jina sahihi la `id` kwa kitufe hicho.
+1. Unapaswa kurekebisha mstari unaoongeza msikilizaji wa tukio la `click` kwa `btn` kwa kupitisha rejea ya kitendakazi cha `changeBackgroundColor` kwa njia hiyo.
+1. Rangi ya nyuma yako inapaswa kubadilika nasibu kuwa moja ya rangi zilizoko katika `darkColorsArr` kila mara kitufe cha `#btn` kinapobofya.
+
+# --hints--
+
+Unapaswa kutatua makosa ya sintaksia katika safu ya data ya `darkColorsArr`. Kumbuka kuwa vipengele vya safu ya data vinapaswa kutenganishwa kwa koma.
+
+```js
+assert.isArray(darkColorsArr);
+```
+
+Unapaswa kurekebisha kosa la herufi kubwa katika mstari wa `math.random()`.
+
+```js
+assert.match(getRandomIndex.toString(), /\s*(darkColorsArr\.length\s*\*\s*Math\.random\(\s*\)|Math\.random\(\s*\)\s*\*\s*darkColorsArr\.length)\s*/);
+```
+
+Unapaswa kupunguza `darkColorsArr.length * Math.random()` hadi nambari kamili iliyo karibu zaidi.
+
+```js
+assert.match(getRandomIndex.toString(), /Math\.floor\(\s*(darkColorsArr\.length\s*\*\s*Math\.random\(\s*\)|Math\.random\(\s*\)\s*\*\s*darkColorsArr\.length)\s*\)/);
+```
+
+Unapaswa kusasisha thamani ya kigezo chako cha `body` ili `queryselector` itumie camel case.
+
+```js
+assert.match(code, /const\s+body\s*=\s*document\.querySelector\s*\(\s*("|')body\1\s*\)/);
+```
+
+Unapaswa kurekebisha `"bg-hex-code"` ili i-rejea kwa usahihi `id` ya `bg-hex-code`. Kumbuka kuwa wachaguzi wa `id` katika CSS huanza na alama ya hash (`#`).
+
+```js
+assert.match(bgHexCodeSpanElement.id, /bg-hex-code/);
+```
+
+Unapaswa kuita kitendakazi cha `getRandomIndex` ndani ya mstari wa `darkColorsArr[getRandomIndex]`.
+
+```js
+assert.match(changeBackgroundColor.toString(), /darkColorsArr\[\s*getRandomIndex\(\s*\)\s*\]/);
+```
+
+Unapaswa kurekebisha jina la `id` la mstari wa `"#click-btn"` ili lilingane na jina sahihi la `id` katika faili ya `index.html`.
+
+```js
+assert.match(btn?.id, /btn/);
+```
+
+Hupaswi kuita kitendakazi cha `changeBackgroundColor`. Badala yake, unapaswa kupitisha rejea ya kitendakazi kwa njia ya `addEventListener`.
+
+```js
+assert.match(code, /btn\.addEventListener\s*\(\s*("|')click\1\s*,\s*changeBackgroundColor\s*\)/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debug a random background color changer</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <h1>Random Background Color changer</h1>
+
+    <main>
+        <section class="bg-information-container">
+            <p>Hex Code: <span id="bg-hex-code">#110815</span></p>
+        </section>
+
+        <button class="btn" id="btn">Change Background Color</button>
+    </main>
+    <script src="./script.js"></script>
+</body>
+
+</html>
+```
+
+```css
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --yellow: #f1be32;
+    --golden-yellow: #feac32;
+    --dark-purple: #110815;
+    --light-grey: #efefef;
+}
+
+body {
+    background-color: var(--dark-purple);
+    color: var(--light-grey);
+    text-align: center;
+}
+
+.bg-information-container {
+    margin: 15px 0 25px;
+    font-size: 1.2rem;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    color: var(--dark-purple);
+    background-color: var(--golden-yellow);
+    background-image: linear-gradient(#fecc4c, #ffac33);
+    border-color: var(--golden-yellow);
+    border-width: 3px;
+}
+
+.btn:hover {
+    background-image: linear-gradient(#ffcc4c, #f89808);
+}
+```
+
+```js
+const darkColorsArr = [
+    "#2C3E50",
+    "#34495E",
+    "#2C2C2C"
+    "#616A6B"
+    "#4A235A"
+    "#2F4F4F",
+    "#0E4B5A",
+    "#36454F",
+    "#2C3E50",
+    "#800020",
+  ];
+  
+  function getRandomIndex() {
+    const randomIndex = darkColorsArr.length * math.random();
+    return randomIndex;
+  }
+  console.log(getRandomIndex())
+  
+  const body = document.queryselector("body");
+  const bgHexCodeSpanElement = document.querySelector("bg-hex-code");
+  console.log(bgHexCodeSpanElement)
+  
+  function changeBackgroundColor() {
+    const color = darkColorsArr[getRandomIndex];
+  
+    bgHexCodeSpanElement.innerText = color;
+    body.style.backgroundColor = color;
+  }
+  const btn = document.querySelector("#click-btn");
+  console.log(btn)
+  
+  btn.addEventListener("click", changeBackgroundColor());
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debug a random background color changer</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <h1>Random Background Color changer</h1>
+
+    <main>
+        <section class="bg-information-container">
+            <p>Hex Code: <span id="bg-hex-code">#110815</span></p>
+        </section>
+
+        <button class="btn" id="btn">Change Background Color</button>
+    </main>
+    <script src="./script.js"></script>
+</body>
+
+</html>
+```
+
+```css
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --yellow: #f1be32;
+    --golden-yellow: #feac32;
+    --dark-purple: #110815;
+    --light-grey: #efefef;
+}
+
+body {
+    background-color: var(--dark-purple);
+    color: var(--light-grey);
+    text-align: center;
+}
+
+.bg-information-container {
+    margin: 15px 0 25px;
+    font-size: 1.2rem;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    color: var(--dark-purple);
+    background-color: var(--golden-yellow);
+    background-image: linear-gradient(#fecc4c, #ffac33);
+    border-color: var(--golden-yellow);
+    border-width: 3px;
+}
+
+.btn:hover {
+    background-image: linear-gradient(#ffcc4c, #f89808);
+}
+```
+
+```js
+const darkColorsArr = [
+  "#2C3E50",
+  "#34495E",
+  "#2C2C2C",
+  "#616A6B",
+  "#4A235A",
+  "#2F4F4F",
+  "#0E4B5A",
+  "#36454F",
+  "#2C3E50",
+  "#800020",
+];
+
+function getRandomIndex() {
+  const randomIndex = Math.floor(darkColorsArr.length * Math.random());
+  return randomIndex;
+}
+
+const body = document.querySelector("body");
+const bgHexCodeSpanElement = document.querySelector("#bg-hex-code");
+
+function changeBackgroundColor() {
+  const color = darkColorsArr[getRandomIndex()];
+
+  bgHexCodeSpanElement.innerText = color;
+  body.style.backgroundColor = color;
+}
+const btn = document.querySelector("#btn");
+
+btn.addEventListener("click", changeBackgroundColor);
+```

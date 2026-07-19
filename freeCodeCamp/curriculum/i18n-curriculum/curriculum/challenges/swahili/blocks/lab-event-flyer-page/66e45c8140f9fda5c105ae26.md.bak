@@ -1,0 +1,282 @@
+---
+id: 66e45c8140f9fda5c105ae26
+title: Jenga ukurasa wa vipeperushi vya tukio
+challengeType: 25
+dashedName: build-an-event-flyer-page
+demoType: onClick
+---
+
+# --description--
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuwa na kipengele cha `header` ndani ya mwili.
+1. Kipengele chako cha `header` kinapaswa kuwa na picha ndani yake kwa ajili ya tukio lako, na `h1` ndani yake yenye kichwa cha tukio lako, kwa mpangilio huo. Unaweza kutumia picha hii ikiwa unataka: `https://cdn.freecodecamp.org/curriculum/labs/event.jpg`
+1. Unapaswa kuwa na kipengele cha `main` ndani ya mwili.
+1. Kipengele chako cha `main` kinapaswa kuwa na angalau vipengele viwili vya `section` ndani yake vinavyoonyesha vipengele vya tukio.
+1. Vipengele vyako vya `section` kila kimoja kinapaswa kuwa na `h2` ndani yake.
+1. Mwili wako unapaswa kuwa na nafasi ya ndani ya juu na chini ya `50px`.
+1. Mwili wako unapaswa kuwa na ukingo wa juu na chini wa `0`, na ukingo wa kushoto na kulia unaojilaza katikati.
+1. Mwili wako unapaswa kuwa na upana uliowekwa kulingana na upana wa eneo la kuona.
+1. Mwili wako unapaswa kutumia kitendakazi cha `calc` kuweka sifa yake ya `min-height` kwa asilimia 100 ya urefu wa eneo la kuona ukiondoa nafasi zote za ndani zilizowekwa juu na chini ya mwili.
+1. Unapaswa kuwa na angalau kipengele kimoja cha `hr` ndani ya vipeperushi vyako.
+1. Unapaswa kuweka `width` ya vipengele vyote vya `hr` na `section` kwa thamani ya asilimia kulingana na mzazi wake.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo katika HTML yako na kutumia CSS yako.
+
+# --hints--
+
+Unapaswa kuwa na kipengele cha `header` ndani ya kipengele cha `body`.
+
+```js
+assert.exists(document.querySelector('body > header'));
+```
+
+Unapaswa kuwa na kipengele cha `img` kama mtoto wa kwanza katika `header`.
+
+```js
+assert.equal(document.querySelector('header')?.children?.[0].tagName, 'IMG');
+```
+
+Unapaswa kuwa na kipengele cha `h1` kama mtoto wa pili katika `header`.
+
+```js
+assert.equal(document.querySelector('header')?.children?.[1].tagName, 'H1');
+```
+
+Unapaswa kuwa na kipengele kimoja tu cha `h1`.
+
+```js
+assert.lengthOf(document.querySelectorAll('h1'), 1);
+```
+
+`h1` yako inapaswa kuwa na kichwa cha tukio lako.
+
+```js
+assert.isAtLeast(document.querySelector('h1').innerText.length, 1);
+```
+
+Unapaswa kuwa na kipengele cha `main` ndani ya kipengele cha `body`.
+
+```js
+assert.exists(document.querySelector('body > main'));
+```
+
+Unapaswa kuwa na angalau vipengele viwili vya `section` ndani ya kipengele chako cha `main`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('main > section').length, 2);
+```
+
+Vipengele vyako vya `section` kila kimoja kinapaswa kuwa na `h2` ndani yake.
+
+```js
+const sections = document.querySelectorAll('main > section');
+const headers = document.querySelectorAll('main > section > h2');
+assert.isAtLeast(sections.length, 1);
+assert.equal(sections.length, headers.length);
+```
+
+Vipengele vyako vya `h2` havipaswi kuwa tupu.
+
+```js
+const headers = document.querySelectorAll('main > section > h2');
+assert.isAtLeast(headers.length, 1);
+headers.forEach(header => assert.notEqual(header.innerHTML.trim(), ''));
+```
+
+Kipengele chako cha `body` kinapaswa kuwa na nafasi ya ndani ya juu na chini ya `50px`.
+
+```js
+const body = window.getComputedStyle(document.querySelector('body'));
+assert.equal(body?.paddingTop, '50px');
+assert.equal(body?.paddingBottom, '50px');
+```
+
+Kipengele chako cha `body` kinapaswa kuwa na ukingo wa juu na chini wa `0`.
+
+```js
+const body = new __helpers.CSSHelp(document).getStyle('body');
+assert.equal(body?.marginTop, '0px');
+assert.equal(body?.marginBottom, '0px');
+```
+
+Kipengele chako cha `body` kinapaswa kuwa na ukingo wa kushoto na kulia wa `auto`.
+
+```js
+const body = new __helpers.CSSHelp(document).getStyle('body');
+assert.equal(body?.marginRight, 'auto');
+assert.equal(body?.marginLeft, 'auto');
+```
+
+Kipengele chako cha `body` kinapaswa kuweka upana wake kwa kutumia `vw`.
+
+```js
+assert.isTrue(new __helpers.CSSHelp(document).getStyle('body')?.width?.endsWith('vw'));
+```
+
+`body` yako inapaswa kutumia `calc` kuweka `min-height` yake kuwa `100vh - 100px`.
+
+```js
+assert.oneOf(new __helpers.CSSHelp(document).getStyle('body')?.minHeight, ['calc(-100px + 100vh)', 'calc(100vh - 100px)']);
+```
+
+Unapaswa kuwa na angalau kipengele kimoja cha `hr`.
+
+```js
+assert.isAtLeast(document.querySelectorAll('hr')?.length, 1);
+```
+
+Upana wa vipengele vyako vya `hr` unapaswa kuwekwa kwa kutumia thamani ya asilimia.
+
+```js
+assert.isTrue([...new __helpers.CSSHelp(document).getCSSRules().values()].some(rule => 
+  rule.selectorText?.split(',').some(selector => 
+    selector.trim() === 'hr' && 
+    rule.style.width?.endsWith('%')
+  )
+));
+```
+
+Upana wa vipengele vyako vya `section` unapaswa kuwekwa kwa kutumia thamani ya asilimia.
+
+```js
+assert.isTrue([...new __helpers.CSSHelp(document).getCSSRules().values()].some(rule => 
+  rule.selectorText?.split(',').some(selector => 
+    selector.trim() === 'section' && 
+    rule.style.width?.endsWith('%')
+  )
+));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build an Event Flyer Page</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+```
+
+```css
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build an Event Flyer Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header>
+    <img src="https://cdn.freecodecamp.org/curriculum/labs/rock.jpg">
+    <h1>Pet Rock Festival</h1>
+    <p>Join us for the first annual Pet Rock Festival!</p>
+    <p><b>When:</b> <time datetime="2025-10-03">October 3rd</time> <b>Where:</b> Boulder Park</p>
+  </header>
+
+  <hr>
+
+  <main>
+    <section>
+      <h2>Festival Highlights</h2>
+      <ul>
+        <li>Pet Rock Obedience Shows</li>
+        <li>Best Dressed Pet Rock Contest</li>
+        <li>Pet Rock Uphill Racing</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Special Guests</h2>
+      <ul>
+        <li>John Gravel</li>
+        <li>Wendy Cobblestone</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Food Trucks</h2>
+      <ul>
+        <li>Rock 'n' Roll Tacos</li>
+        <li>Granite Grill</li>
+        <li>Stone Cold Smoothies</li>
+      </ul>
+    </section>
+  </main>
+
+  <hr>
+
+<footer>
+  <p>&copy; 2025 Pet Rock Festival</p>
+</footer>
+
+</body>
+
+</html>
+```
+
+```css
+html {
+  background-color: gray;
+}
+
+body {
+  padding: 50px 10px;
+  margin: 0 auto;
+  width: 90vw;
+  min-height: calc(100vh - 100px);
+  background-color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+hr {
+  margin: 30px auto;
+  width: 80%;
+  background-color: black;
+  height: 2px;
+}
+
+main {
+  margin: 0 auto;
+}
+
+section {
+  text-align: center;
+  padding: 50px 5px;
+  vertical-align: top;
+  display: inline-block;
+  min-height: 100px;
+  width: 30%;
+}
+
+ul {
+  text-align: left;
+  list-style: inside;
+  padding-left: 10px;
+}
+```

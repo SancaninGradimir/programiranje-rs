@@ -1,0 +1,59 @@
+---
+id: 65649122c7f77f519aaf0975
+title: Hatua 20
+challengeType: 20
+dashedName: step-20
+---
+
+# --description--
+
+Mwishowe, tangaza kigezo `new_password` na weka thamani yake kuwa matokeo ya wito wa `generate_password`. Pitia `8` kama hoja katika wito lako la `generate_password`.
+
+# --hints--
+
+Unapaswa kuita `generate_password` ukipitia `8` kama hoja.
+
+```js
+({ test: () => assert.match(code, /generate_password\s*\(\s*8\s*\)/) })
+```
+
+Unapaswa kuweka thamani ya `generate_password(8)` kwa kigezo `new_password`.
+
+```js
+({
+  test: () => {
+    assert(__userGlobals.has("new_password"));
+    assert.match(code, /^new_password\s*=\s*generate_password\s*\(\s*8\s*\)/m);
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+import secrets
+import string
+
+
+def generate_password(length):
+    # Define the possible characters for the password
+    letters = string.ascii_letters
+    digits = string.digits
+    symbols = string.punctuation
+
+    # Combine all characters
+    all_characters = letters + digits + symbols
+
+    password = ''
+    # Generate password
+    for _ in range(length):
+        password += secrets.choice(all_characters)
+        
+    return password
+    
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

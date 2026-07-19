@@ -1,0 +1,52 @@
+---
+id: 6819bc0637b80256a33adccc
+title: Hatua 16
+challengeType: 20
+dashedName: step-16
+---
+
+# --description--
+
+Sasa umeutekeleza utendakazi wa msingi wa usimbaji, ni wakati wa kuongeza uthibitisho. Kwa hilo, utahitaji tamko la `if`.
+
+Mwanzoni mwa mwili wa kitendakazi chako, tengeneza tamko la `if`. Kwa sasa, tumia `True` kama sharti, na ndani ya mwili wa tamko la `if` rudisha mfuatano wa herufi `Shift must be an integer value.`
+
+# --hints--
+
+Unapaswa kuwa na tamko la `if` ndani ya kitendakazi chako cha `caesar`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").find_ifs()[0]`)) })
+```
+
+Tamko lako la `if` linapaswa kutumia `True` kama sharti lake.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").find_ifs()[0].find_conditions()[0].is_equivalent("True")`)) })
+```
+
+Unapaswa kurudisha mfuatano wa herufi `Shift must be an integer value.` kutoka kwa tamko lako la `if`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_function("caesar").find_ifs()[0].find_bodies()[0].has_return("'Shift must be an integer value.'")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def caesar(text, shift):
+    
+--fcc-editable-region--
+    
+--fcc-editable-region--
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+    return text.translate(translation_table)
+
+encrypted_text = caesar('freeCodeCamp', 3)
+print(encrypted_text)
+```

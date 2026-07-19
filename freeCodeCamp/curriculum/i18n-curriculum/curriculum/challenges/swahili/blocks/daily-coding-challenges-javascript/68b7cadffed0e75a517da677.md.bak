@@ -1,0 +1,105 @@
+---
+id: 68b7cadffed0e75a517da677
+title: "Zoezi la 54: Uthabiti wa nenosiri P@ssw0rd Str3ngth!"
+challengeType: 28
+dashedName: challenge-54
+---
+
+# --description--
+
+Ukitoa mfuatano wa herufi wa nenosiri, rudisha `"weak"`, `"medium"`, au `"strong"` kulingana na uthabiti wa nenosiri hilo.
+
+Nenosiri hupimwa kwa mujibu wa sheria zifuatazo:
+
+- Lina angalau herufi nane.
+- Lina herufi kubwa na herufi ndogo zote mbili.
+- Lina angalau nambari moja.
+- Lina angalau herufi maalum moja kutoka kwenye seti hii: `!`, `@`, `#`, `$`, `%`, `^`, `&`, au `*`.
+
+Rudisha `"weak"` ikiwa nenosiri halikutimiza sheria mbili au chini.
+Rudisha `"medium"` ikiwa nenosiri linatimiza sheria 2 au 3.
+Rudisha `"strong"` ikiwa nenosiri linatimiza sheria zote 4.
+
+# --hints--
+
+`checkStrength("123456")` inapaswa kurudisha `"weak"`.
+
+```js
+assert.equal(checkStrength("123456"), "weak");
+```
+
+`checkStrength("pass!!!")` inapaswa kurudisha `"weak"`.
+
+```js
+assert.equal(checkStrength("pass!!!"), "weak");
+```
+
+`checkStrength("Qwerty")` inapaswa kurudisha `"weak"`.
+
+```js
+assert.equal(checkStrength("Qwerty"), "weak");
+```
+
+`checkStrength("PASSWORD")` inapaswa kurudisha `"weak"`.
+
+```js
+assert.equal(checkStrength("PASSWORD"), "weak");
+```
+
+`checkStrength("PASSWORD!")` inapaswa kurudisha `"medium"`.
+
+```js
+assert.equal(checkStrength("PASSWORD!"), "medium");
+```
+
+`checkStrength("PassWord%^!")` inapaswa kurudisha `"medium"`.
+
+```js
+assert.equal(checkStrength("PassWord%^!"), "medium");
+```
+
+`checkStrength("qwerty12345")` inapaswa kurudisha `"medium"`.
+
+```js
+assert.equal(checkStrength("qwerty12345"), "medium");
+```
+
+`checkStrength("S3cur3P@ssw0rd")` inapaswa kurudisha `"strong"`.
+
+```js
+assert.equal(checkStrength("S3cur3P@ssw0rd"), "strong");
+```
+
+`checkStrength("C0d3&Fun!")` inapaswa kurudisha `"strong"`.
+
+```js
+assert.equal(checkStrength("C0d3&Fun!"), "strong");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function checkStrength(password) {
+
+  return password;
+}
+```
+
+# --solutions--
+
+```js
+function checkStrength(password) {
+  let rulesMet = 0;
+
+  if (password.length >= 8) rulesMet++;
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) rulesMet++;
+  if (/\d/.test(password)) rulesMet++;
+  if (/[!@#$%^&*]/.test(password)) rulesMet++;
+
+  if (rulesMet < 2) return "weak";
+  if (rulesMet < 4) return "medium";
+  return "strong";
+}
+```

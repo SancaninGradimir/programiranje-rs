@@ -1,0 +1,128 @@
+---
+id: 5cc0bd7a49b71cb96132e54c
+title: Tengeneza kizalishaji cha safu ya nambari
+challengeType: 26
+dashedName: build-a-range-of-numbers-generator
+---
+
+# --description--
+
+Katika maabara hii, utatengeneza kitendakazi cha `rangeOfNumbers` kinachozalisha safu ya data ya nambari ndani ya anuwai iliyobainishwa.
+
+Mifano:
+
+- `rangeOfNumbers(3, 9)` hurudisha `[3, 4, 5, 6, 7, 8, 9]`
+- `rangeOfNumbers(5, 5)` hurudisha `[5]`
+
+Mahitaji:
+
+- Tumia kurudia (kitendakazi lazima kiite yenyewe)
+- Usitumie mizunguko au njia za safu ya data (`for`, `while`, `Array.from`, `forEach`, `map`, `filter`, `reduce`)
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuunda kitendakazi kinachoitwa `rangeOfNumbers` kinachopokea vigezo viwili: `startNum` na `endNum`.
+1. Kitendakazi kinapaswa kurudisha safu ya nambari kamili inayotangulia na nambari inayowakilishwa na kigezo cha `startNum` na kumalizika na nambari inayowakilishwa na kigezo cha `endNum` (ikiwa ni pamoja).
+1. `startNum` daima itakuwa ndogo au sawa na `endNum`.
+1. Kitendakazi chako lazima kitumie kurudia kwa kujiita mwenyewe. Hakipaswi kutumia sintaksia yoyote ya mizunguko (`for`, `while`, `Array.from()`, au njia za daraja la juu kama `forEach`, `map`, `filter`, au `reduce`).
+1. Kitendakazi kinapaswa kushughulikia kesi ya msingi ambapo `startNum` ni sawa na `endNum` kwa kurudisha safu yenye nambari hiyo moja tu.
+1. Kwa kesi ya kurudia, kitendakazi kinapaswa kujiita mwenyewe kwa vigezo vilivyobadilishwa ili kujenga safu, kisha kuongeza nambari ya sasa kwenye matokeo.
+1. Kitendakazi hakipaswi kutegemea vigezo vya kimataifa kuhifadhi au kujenga safu.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `rangeOfNumbers`.
+
+```js
+assert.isFunction(rangeOfNumbers);
+```
+
+Kitendakazi cha `rangeOfNumbers` kinapaswa kupokea vigezo viwili.
+
+```js
+assert.match(rangeOfNumbers.toString(), /rangeOfNumbers\s*\(\s*\w+\s*,\s*\w+\s*\)/);
+```
+
+Kitendakazi chako kinapaswa kurudisha safu ya data.
+
+```js
+assert(Array.isArray(rangeOfNumbers(5, 10)));
+```
+
+Msimbo wako haupaswi kutumia sintaksia yoyote ya mizunguko (`for`, `while`, `Array.from()` au njia za daraja la juu kama `forEach`, `map`, `filter`, au `reduce`).
+
+```js
+assert(
+  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce|Array\.from/g)
+);
+```
+
+`rangeOfNumbers` inapaswa kutumia kurudia (kujiita mwenyewe) kutatua changamoto hii.
+
+```js
+assert.isAtLeast(
+  __helpers.removeJSComments(rangeOfNumbers.toString()).match(/rangeOfNumbers\s*\(.+\)/g)?.length,
+  2
+);
+```
+
+`rangeOfNumbers(1, 5)` inapaswa kurudisha `[1, 2, 3, 4, 5]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(1, 5), [1, 2, 3, 4, 5]);
+```
+
+`rangeOfNumbers(6, 9)` inapaswa kurudisha `[6, 7, 8, 9]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(6, 9), [6, 7, 8, 9]);
+```
+
+`rangeOfNumbers(4, 4)` inapaswa kurudisha `[4]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(4, 4), [4]);
+```
+
+`rangeOfNumbers(10, 15)` inapaswa kurudisha `[10, 11, 12, 13, 14, 15]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(10, 15), [10, 11, 12, 13, 14, 15]);
+```
+
+`rangeOfNumbers(2, 8)` inapaswa kurudisha `[2, 3, 4, 5, 6, 7, 8]`.
+
+```js
+assert.deepStrictEqual(rangeOfNumbers(2, 8), [2, 3, 4, 5, 6, 7, 8]);
+```
+
+Haitakiwi kutumia vigezo vya kimataifa kuhifadhi safu ya data.
+
+```js
+rangeOfNumbers(1, 3);
+assert.deepStrictEqual(rangeOfNumbers(6, 9), [6, 7, 8, 9]);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function rangeOfNumbers(startNum, endNum) {
+  if (endNum - startNum === 0) {
+    return [startNum];
+  } else {
+    const numbers = rangeOfNumbers(startNum, endNum - 1);
+    numbers.push(endNum);
+    return numbers;
+  }
+}
+```

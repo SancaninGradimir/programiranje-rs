@@ -1,0 +1,240 @@
+---
+id: 67338e93b75977a344cf6d40
+title: Jinsi Tukio la Kupanda na Utoaji Tukio Hufanya Kazi
+challengeType: 19
+dashedName: how-do-event-bubbling-and-event-delegation-work
+---
+
+# --description--
+
+Kupanda kwa tukio, au usambazaji, kunahusu jinsi tukio linavyopanda hadi vitu vya mzazi linapochochewa. Kwa mfano, fikiria msimbo huu:
+
+```html
+<p>
+  <span>Click me~!</span>
+</p>
+```
+
+Kipengele cha `p` hapa kitachukuliwa kama mzazi wa kipengele cha `span`. 
+
+Unapobofya kipengele cha `span`, kama unavyoelekezwa, kipengele cha `span` kinakuwa lengo la tukio la `click`. Hata hivyo, tukio hilo pia linapanda hadi mzazi – kipengele cha `p` kinaweza kupokea na kutumia tukio hilo kama inavyohitajika.
+
+Lakini hii hasa inamaanisha nini? Naam, unaweza kuambatanisha msikilizaji wa tukio kwa kipengele cha `p`:
+
+```js
+const p = document.querySelector("p");
+p.addEventListener("click", (event) => {
+  console.log(event.target);
+});
+```
+
+Kisha, unapobofya kipengele cha `span` utaona maandishi ya `Click me~!` yakiandikwa kwenye konsoli.
+
+Tukio linapita hadi kwa mzazi kipengele cha `p`, ambacho kinalitumia katika msikilizaji wa tukio kuonyesha lengo la tukio. 
+
+Angalia jinsi lengo bado ni kipengele cha `span`. Hii ni kwa sababu kipengele cha `span` ndicho kilipokea bofya la awali.
+
+Ili kuhakikisha jinsi mambo yanavyofanya kazi, tutaongeza msimbo wetu:
+
+```js
+const p = document.querySelector("p");
+const span = document.querySelector("span");
+p.addEventListener("click", (event) => {
+  console.log("P listener: ");
+  console.log(event.target);
+});
+span.addEventListener("click", (event) => {
+  console.log("Span listener: ");
+  console.log(event.target);
+});
+```
+
+Ili kukupa wazo la jinsi tukio linavyopanda, hapa ni kile utakachoona kwenye konsoli baada ya kubofya kipengele cha `span`:
+
+```html
+"Span listener: "
+<span>Click me~!</span>
+"P listener: "
+<span>Click me~!</span>
+```
+
+Sasa tutaona kinachotokea unapozuia usambazaji wa tukio kwa `stopPropagation()`. Tutaitaja katika msikilizaji wa tukio wa `span`:
+
+```js
+const p = document.querySelector("p");
+const span = document.querySelector("span");
+p.addEventListener("click", (event) => {
+  console.log("P listener: ");
+  console.log(event.target);
+});
+span.addEventListener("click", (event) => {
+  console.log("Span listener: ");
+  console.log(event.target);
+  event.stopPropagation();
+});
+```
+
+Kisha bofya tena `span`:
+
+```html
+"Span listener: "
+<span>Click me~!</span>
+```
+ 
+Mara hii, hatuoni msikilizaji wa `p` ukichochewa. Tukio halijawahi kuwashwa kwa kipengele cha `p`, kwa sababu tulisema lisizidi kusambaa wakati lilipokuwa likishughulikiwa kwa kipengele cha mtoto `span`.
+
+Utoaji tukio unaweza kufikiriwa kama kinyume chake. Ni mchakato wa kuchukua tukio lililoshikiliwa, na kulipeleka kwa kipengele kingine. 
+
+Tukirudi kwenye msimbo wetu, tutauboresha ili kubofya kipengele cha `span` kubadilisha rangi yake kuwa nyekundu:
+
+```js
+const p = document.querySelector("p");
+const span = document.querySelector("span");
+p.addEventListener("click", (event) => {});
+span.addEventListener("click", (event) => {
+  event.target.style.color = "red";
+});
+```
+
+Lakini vipi kama una vipengele ishirini vya `span`? Au labda unatumia JavaScript kuunda vipengele zaidi vya `span` kwa haraka?
+
+Badala ya kuambatanisha msikilizaji wa tukio kwa kila kipengele cha `span`, unaweza kutumia msikilizaji kwenye kipengele cha `p` kwa wote. Kwa maneno mengine, unaweza kuhamisha usimamizi wa bofya za `span` kwa mzazi kipengele cha `p`.
+
+Msimbo wetu sasa unaweza kuonekana kama huu:
+
+```js
+const p = document.querySelector("p");
+p.addEventListener("click", (event) => {
+  event.target.style.color = "red";
+});
+```
+
+Angalia jinsi hatuna msikilizaji wowote uliounganishwa na kipengele cha `span` kabisa. Umehamisha usimamizi wa tukio kwa kipengele cha `p` kwa usahihi. Lakini je, inafanya kazi?
+
+Tuzalishe vipengele vichache vya ziada vya `span` na tuone:
+
+```html
+<p>
+  <span>Click me~!</span>
+  <span>Click me~!</span>
+  <span>Click me~!</span>
+  <span>Click me~!</span>
+</p>
+```
+
+Sasa, kila mara tunapobofya `span`, maandishi ya kipengele hicho yatakuwa mekundu. 
+
+Na kwa njia hiyo, kwa msikilizaji mmoja wa tukio tumeruhusu tukio la `click` lipande kutoka kwa vipengele vya `span` hadi mzazi `p`, na kuhamisha mantiki ya tukio la `click` kwa kipengele cha `p`.
+
+Usambazaji na utoaji wa tukio vinaweza kuwa mada ngumu, hasa unapojihusisha na vipengele vilivyopangwa ndani sana kama jedwali. Unahimizwa kuchunguza zaidi na kujaribu baadhi ya misimbo tuliyoandika hapa.
+
+
+# --questions--
+
+## --text--
+
+Kupanda kwa tukio ni nini katika JavaScript?
+
+## --answers--
+
+Mchakato wa kuunda matukio mapya.
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea "mwelekeo" wa usambazaji wa tukio.
+
+---
+
+Njia tukio linavyosafiri kutoka kwa vipengele vya watoto hadi kwa vipengele vya wazazi.
+
+---
+
+Njia ya kuzuia tabia ya kawaida ya matukio.
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea "mwelekeo" wa usambazaji wa tukio.
+
+---
+
+Mchakato wa kuambatanisha wasikilizaji wengi wa tukio kwa kipengele kimoja.
+
+### --feedback--
+
+Fikiria jinsi funzo linavyoelezea "mwelekeo" wa usambazaji wa tukio.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Lengo la njia ya `stopPropagation()` ni nini?
+
+## --answers--
+
+Kuzuia tabia ya kawaida ya tukio.
+
+### --feedback--
+
+Funzo linaonyesha athari ya njia hii kwenye kupanda kwa tukio.
+
+---
+
+Kutoa wasikilizaji wote wa tukio kutoka kwa kipengele.
+
+### --feedback--
+
+Funzo linaonyesha athari ya njia hii kwenye kupanda kwa tukio.
+
+---
+
+Kuzuia tukio lisipande hadi kwa vipengele vya mzazi.
+
+---
+
+Kuhamisha usimamizi wa tukio kwa vipengele vya watoto.
+
+### --feedback--
+
+Funzo linaonyesha athari ya njia hii kwenye kupanda kwa tukio.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Faida kuu ya kutumia utoaji tukio ni ipi?
+
+## --answers--
+
+Inaruhusu matukio kupanda hadi kwa vipengele vya mzazi.
+
+### --feedback--
+
+Fikiria mfano wa vipengele vingi vya `span` na jinsi usimamizi wa tukio ulivyo rahisishwa.
+
+---
+
+Inazuia tabia ya kawaida ya matukio.
+
+### --feedback--
+
+Fikiria mfano wa vipengele vingi vya `span` na jinsi usimamizi wa tukio ulivyo rahisishwa.
+
+---
+
+Inapunguza idadi ya wasikilizaji wa tukio unaohitajika kwa vipengele vingi.
+
+---
+
+Inazuia usambazaji wa tukio moja kwa moja.
+
+### --feedback--
+
+Fikiria mfano wa vipengele vingi vya `span` na jinsi usimamizi wa tukio ulivyo rahisishwa.
+
+## --video-solution--
+
+3

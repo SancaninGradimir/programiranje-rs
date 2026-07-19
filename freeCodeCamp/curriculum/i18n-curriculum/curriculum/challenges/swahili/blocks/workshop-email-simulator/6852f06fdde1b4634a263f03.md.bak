@@ -1,0 +1,67 @@
+---
+id: 6852f06fdde1b4634a263f03
+title: Hatua 4
+challengeType: 20
+dashedName: step-4
+---
+
+# --description--
+
+Sasa jaribu darasa la `Email` kwa kuunda kitu cha barua pepe na kukagua kama kinahifadhi taarifa kwa usahihi. Utachapisha sifa mbili za kipengele ili kuthibitisha kila kitu kinafanya kazi.
+
+Unda kitu cha barua pepe kinachoitwa `email_obj` kwa kutumia `alice@example.com` kama mtumaji, `bob@example.com` kama mpokeaji, `Hello` kama kichwa cha habari, na `Hi Bob!` kama mwili wa barua pepe. Kisha chapisha sifa za kipengele `sender` na `subject` kama maagizo ya kuchapisha tofauti ili kuthibitisha zimehifadhiwa kwa usahihi.
+
+# --hints--
+
+Unapaswa kuunda kitu cha barua pepe kinachoitwa `email_obj` kwa kutumia vigezo vilivyotajwa.
+
+```js
+({
+    test: () => 
+    {
+        assert(runPython(`_Node(_code).find_variable("email_obj").is_equivalent("email_obj = Email('alice@example.com', 'bob@example.com', 'Hello', 'Hi Bob!')")`))
+    }
+
+})
+```
+
+Unapaswa kuchapisha `email_obj.sender`.
+
+```js
+({
+    test: () => 
+    {
+        assert(runPython(`_Node(_code).has_call("print(email_obj.sender)")`))
+    }
+
+})
+```
+
+Unapaswa kuchapisha `email_obj.subject`.
+
+```js
+({
+    test: () => 
+    {
+        assert(runPython(`_Node(_code).has_call("print(email_obj.subject)")`))
+    }
+
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class Email:
+    def __init__(self, sender, receiver, subject, body):
+        self.sender = sender
+        self.receiver = receiver
+        self.subject = subject
+        self.body = body
+
+--fcc-editable-region--
+
+--fcc-editable-region--
+```

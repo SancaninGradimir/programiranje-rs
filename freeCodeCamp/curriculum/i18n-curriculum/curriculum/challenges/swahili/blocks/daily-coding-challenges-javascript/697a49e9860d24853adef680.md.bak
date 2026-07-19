@@ -1,0 +1,142 @@
+---
+id: 697a49e9860d24853adef680
+title: "Zoezi la 195: Michezo ya Majira ya Baridi 2026 Siku ya 16: Curling"
+challengeType: 28
+dashedName: challenge-195
+---
+
+# --description--
+
+Ikiwa na matriki ya 5x5 inayowakilisha "nyumba" mwishoni mwa raundi ya curling, amua ni timu gani inapata alama na ni alama ngapi wanazopata.
+
+Mpangilio:
+
+- Selimkubwa ya katikati (kielezo `[2, 2]`) ni "kitufe".
+- Selimkubwa 8 zinazozunguka kitufe moja kwa moja zinawakilisha pete ya 1.
+- Na selimkubwa 16 kwenye ukingo wa nje wa nyumba zinawakilisha pete ya 2.
+
+Katika matriki iliyotolewa:
+
+- `"."` inawakilisha nafasi tupu.
+- `"R"` inawakilisha nafasi yenye jiwe jekundu.
+- `"Y"` inawakilisha nafasi yenye jiwe la manjano.
+
+Sheria za kupata alama:
+
+- Timu moja tu inaweza kupata alama kwa kila raundi.
+- Timu yenye jiwe lililo karibu zaidi na kitufe ndiyo hupata alama.
+- Timu inayopata alama hupata alama 1 kwa kila jiwe lao lililo karibu zaidi na kitufe kuliko jiwe la karibu zaidi la mpinzani.
+- Nambari ya pete ndogo zaidi ina maana jiwe liko karibu zaidi na katikati.
+- Ikiwa jiwe la karibu zaidi la timu zote mbili liko umbali sawa kutoka katikati, hakuna timu inayopata alama.
+
+Rudisha:
+
+- Mfuatano wa herufi kwa muundo `"team: number_of_points"`. mfano: `"R: 2"`.
+- au `"No points awarded"` ikiwa hakuna timu iliyopata alama yoyote.
+
+Kwa mfano, ikitolewa:
+
+```js
+[
+  [".", ".", "R", ".", "."],
+  [".", "R", ".", ".", "."],
+  ["Y", ".", ".", ".", "."],
+  [".", "R", ".", ".", "."],
+  [".", ".", ".", ".", "."]
+]
+```
+
+Rudisha `"R: 2"`. Jiwe jekundu mbili katika pete ya 1 zimeshinda kwa kuwa ni karibu zaidi na ni jiwe pekee mbili zilizo karibu zaidi kuliko jiwe la manjano lililo karibu zaidi.
+
+# --hints--
+
+`scoreCurling([[".", ".", "R", ".", "."], [".", "R", ".", ".", "."], ["Y", ".", ".", ".", "."], [".", "R", ".", ".", "."], [".", ".", ".", ".", "."]])` inapaswa kurudisha `"R: 2"`.
+
+```js
+assert.equal(scoreCurling([[".", ".", "R", ".", "."], [".", "R", ".", ".", "."], ["Y", ".", ".", ".", "."], [".", "R", ".", ".", "."], [".", ".", ".", ".", "."]]), "R: 2");
+```
+
+`scoreCurling([[".", ".", "R", ".", "."], [".", ".", ".", ".", "."], [".", ".", "Y", ".", "R"], [".", ".", "Y", "Y", "."], [".", "Y", "R", "R", "."]])` inapaswa kurudisha `"Y: 3"`.
+
+```js
+assert.equal(scoreCurling([[".", ".", "R", ".", "."], [".", ".", ".", ".", "."], [".", ".", "Y", ".", "R"], [".", ".", "Y", "Y", "."], [".", "Y", "R", "R", "."]]), "Y: 3");
+```
+
+`scoreCurling([[".", "R", "Y", ".", "."], ["Y", ".", ".", ".", "."], [".", ".", ".", ".", "."], [".", "Y", "R", "Y", "."], [".", ".", "R", "R", "."]])` inapaswa kurudisha `"No points awarded"`.
+
+```js
+assert.equal(scoreCurling([[".", "R", "Y", ".", "."], ["Y", ".", ".", ".", "."], [".", ".", ".", ".", "."], [".", "Y", "R", "Y", "."], [".", ".", "R", "R", "."]]), "No points awarded");
+```
+
+`scoreCurling([[".", "Y", "Y", ".", "."], ["Y", ".", ".", "R", "."], [".", ".", "R", ".", "."], [".", ".", "R", "R", "."], [".", "Y", "R", "Y", "."]])` inapaswa kurudisha `"R: 4"`.
+
+```js
+assert.equal(scoreCurling([[".", "Y", "Y", ".", "."], ["Y", ".", ".", "R", "."], [".", ".", "R", ".", "."], [".", ".", "R", "R", "."], [".", "Y", "R", "Y", "."]]), "R: 4");
+```
+
+`scoreCurling([["Y", "Y", "Y", "Y", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "R", "Y", "R", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "Y", "Y", "Y", "Y"]])` inapaswa kurudisha `"Y: 1"`.
+
+```js
+assert.equal(scoreCurling([["Y", "Y", "Y", "Y", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "R", "Y", "R", "Y"], ["Y", "R", "R", "R", "Y"], ["Y", "Y", "Y", "Y", "Y"]]), "Y: 1");
+```
+
+`scoreCurling([["Y", "R", "Y", "R", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", ".", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", "R", "Y"]])` inapaswa kurudisha `"No points awarded"`.
+
+```js
+assert.equal(scoreCurling([["Y", "R", "Y", "R", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", ".", "Y"], ["R", ".", ".", ".", "R"], ["Y", ".", ".", "R", "Y"]]), "No points awarded");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function scoreCurling(house) {
+
+  return house;
+}
+```
+
+# --solutions--
+
+```js
+function scoreCurling(house) {
+  const stones = { R: [], Y: [] };
+
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 5; j++) {
+      const cell = house[i][j];
+      if (cell === 'R' || cell === 'Y') {
+        const distance = Math.max(Math.abs(i - 2), Math.abs(j - 2));
+        stones[cell].push(distance);
+      }
+    }
+  }
+
+  const redClosest = stones.R.length > 0 ? Math.min(...stones.R) : Infinity;
+  const yellowClosest = stones.Y.length > 0 ? Math.min(...stones.Y) : Infinity;
+
+  if (redClosest === Infinity && yellowClosest === Infinity) {
+    return "No points awarded";
+  }
+
+  if (redClosest === yellowClosest) {
+    return "No points awarded";
+  }
+
+let winner, opponentClosest, winningStones;
+  if (redClosest < yellowClosest) {
+    winner = 'R';
+    opponentClosest = yellowClosest;
+    winningStones = stones.R;
+  } else {
+    winner = 'Y';
+    opponentClosest = redClosest;
+    winningStones = stones.Y;
+  }
+
+  const points = winningStones.filter(d => d < opponentClosest).length;
+
+  return points === 0 ? "No points awarded" : `${winner}: ${points}`;
+}
+```

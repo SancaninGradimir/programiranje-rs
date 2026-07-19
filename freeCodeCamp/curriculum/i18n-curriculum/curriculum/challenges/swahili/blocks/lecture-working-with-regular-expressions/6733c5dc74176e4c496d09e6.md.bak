@@ -1,0 +1,229 @@
+---
+id: 6733c5dc74176e4c496d09e6
+title: "Uthibitisho wa angalizo la mbele na angalizo la nyuma ni nini, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-lookaheads-and-lookbehind-assertions-and-how-do-they-work
+---
+
+# --interactive--
+
+Uthibitisho wa angalizo la mbele na angalizo la nyuma hukuruhusu kulinganisha mifumo maalum kulingana na uwepo au ukosefu wa mifumo inayozunguka. Kuna aina nne za uthibitisho hizi.
+
+Ya kwanza ni uthibitisho chanya wa angalizo la mbele. Uthibitisho huu utalinganisha muundo wakati muundo unafuatiwa na muundo mwingine.
+
+Ili kuunda angalizo la mbele chanya, unahitaji kuanza na muundo unaotaka kulinganisha. Kisha, tumia mabano ya kawaida kufunika muundo unaotaka kutumia kama sharti lako. Baada ya mabano ya kawaida ya kufungua, tumia `?=` kuainisha muundo huo kama angalizo la mbele chanya.
+
+Muundo huu utalinganisha neno `free` tu ikiwa unafuatiwa na `code`:
+
+```js
+const regex = /free(?=code)/i;
+```
+
+Hebu jaribu tabia ya muundo wetu:
+
+:::interactive_editor
+
+```js
+const regex = /free(?=code)/i;
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("free code camp")); // false
+console.log(
+  regex.test("I need someone for free to write code for me")
+); // false
+```
+
+:::
+
+Angalia jinsi mfuatano wa herufi ambapo `free` unafuatiwa mara moja na `code` unavyopitisha mtihani.
+
+Lakini vipi kama unataka kulinganisha uwepo wa `free` wakati HAUFUATIWI na `code`? Unaweza kubadilisha angalizo lako la mbele chanya kuwa angalizo hasi la mbele ili kubadilisha tabia. Ili kufanya hivyo, badilisha `?=` kuwa `?!`:
+
+```js
+const regex = /free(?!code)/i;
+```
+
+Hebu jaribu hii dhidi ya mfuatano wetu uleule wa herufi:
+
+:::interactive_editor
+
+```js
+const regex = /free(?!code)/i;
+console.log(regex.test("freeCodeCamp")); // false
+console.log(regex.test("free code camp")); // true
+console.log(
+  regex.test("I need someone for free to write code for me")
+); // true
+```
+
+:::
+
+Kama ilivyotarajiwa, matokeo yamegeuzwa. Mfuatano pekee wa herufi unaoshindwa ni ule wa kwanza, ambapo `free` unafuatiwa mara moja na `code`.
+
+Uthibitisho wa angalizo la nyuma hufanya kazi kwa njia sawa na uthibitisho wa angalizo la mbele, isipokuwa badala ya kulinganisha kwa sharti kulingana na muundo unaofuata, hulinganisha kwa sharti kulingana na muundo uliotangulia. Hebu tuchunguze angalizo la nyuma chanya.
+
+Angalizo la nyuma chanya linaonyeshwa kwa `?<=` badala ya `?=`. Hebu tufanye usemi wetu wa kawaida ulinganishe `code` wakati unatanguliwa na `free`:
+
+```js
+const regex = /(?<=free)code/i;
+```
+
+Kama ilivyo kwa angalizo letu la mbele chanya, angalizo letu la nyuma chanya linalinganisha mfuatano wa kwanza kwa sababu `code` unatanguliwa mara moja na `free`:
+
+:::interactive_editor
+
+```js
+const regex = /(?<=free)code/i;
+console.log(regex.test("freeCodeCamp")); // true
+console.log(regex.test("free code camp")); // false
+console.log(
+  regex.test("I need someone for free to write code for me")
+); // false
+```
+
+:::
+
+Ili kulinganisha `code` wakati HAUTANGULIWI na `free`, tunaweza kutumia angalizo hasi la nyuma. Angalizo hasi la nyuma linafafanuliwa kwa kubadilisha `?<=` na `?<!`:
+
+```js
+const regex = /(?<!free)code/i;
+```
+
+Hii italinganisha tukio lolote la `code` ambalo HALITANGULIWI mara moja na `free`:
+
+:::interactive_editor
+
+```js
+const regex = /(?<!free)code/i;
+console.log(regex.test("freeCodeCamp")); // false
+console.log(regex.test("free code camp")); // true
+console.log(
+  regex.test("I need someone for free to write code for me")
+); // true
+```
+
+:::
+
+Kumbuka kuwa `Regex.prototype.test` inathibitisha tu kama mfuatano wa herufi unalingana na usemi wa kawaida. Hebu tumia angalizo letu hasi la nyuma na `String.prototype.match` kuona jinsi uthibitisho unavyoathiri hilo:
+
+```js
+const regex = /(?<!free)code/i;
+console.log("freeCodeCamp".match(regex)); // null
+console.log("free code camp".match(regex)); // ['code', index: 5, input: 'free code camp', groups: undefined]
+console.log(
+  "I need someone for free to write code for me".match(regex)
+); // ['code', index: 33, input: 'I need someone for free to write code for me', groups: undefined]
+```
+
+Angalia jinsi ingawa usemi wetu wa kawaida unatumia angalizo la nyuma kuangalia uwepo wa `free`, haulingani na `free`. Maandishi pekee yaliyomo katika kulinganisha ni `code`.
+
+Angalizo la mbele na angalizo la nyuma ni muhimu sana kwa kulinganisha maandishi kwa sharti bila kuathiri thamani inayorejeshwa ya kulinganisha kwako.
+
+# --questions--
+
+## --text--
+
+Sintaksia ya uthibitisho chanya wa angalizo la mbele katika usemi wa kawaida ni ipi?
+
+## --answers--
+
+`(?=pattern)`
+
+---
+
+`(?<=pattern)`
+
+### --feedback--
+
+Funzo linaelezea jinsi ya kuunda angalizo la mbele chanya kwa kutumia sintaksia maalum.
+
+---
+
+`(?!pattern)`
+
+### --feedback--
+
+Funzo linaelezea jinsi ya kuunda angalizo la mbele chanya kwa kutumia sintaksia maalum.
+
+---
+
+`(?<!pattern)`
+
+### --feedback--
+
+Funzo linaelezea jinsi ya kuunda angalizo la mbele chanya kwa kutumia sintaksia maalum.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni uthibitisho gani utakao tumia kulinganisha neno tu ikiwa HAUFUATIWI na muundo maalum?
+
+## --answers--
+
+Angalizo la mbele chanya.
+
+### --feedback--
+
+Fikiria uthibitisho gani "hubadilisha" tabia ya angalizo la mbele chanya.
+
+---
+
+Angalizo hasi la mbele.
+
+---
+
+Angalizo la nyuma chanya.
+
+### --feedback--
+
+Fikiria uthibitisho gani "hubadilisha" tabia ya angalizo la mbele chanya.
+
+---
+
+Angalizo hasi la nyuma.
+
+### --feedback--
+
+Fikiria uthibitisho gani "hubadilisha" tabia ya angalizo la mbele chanya.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unapotumia uthibitisho wa angalizo la nyuma na `String.prototype.match`, ni sehemu gani ya mfuatano wa herufi inayojumuishwa katika matokeo ya kulinganisha?
+
+## --answers--
+
+Mfuatano mzima wa herufi.
+
+### --feedback--
+
+Funzo linaonyesha hili kwa mfano unaotumia angalizo hasi la nyuma.
+
+---
+
+Muundo ulioko katika uthibitisho wa angalizo la nyuma.
+
+### --feedback--
+
+Funzo linaonyesha hili kwa mfano unaotumia angalizo hasi la nyuma.
+
+---
+
+Muundo ulioko baada ya uthibitisho wa angalizo la nyuma.
+
+---
+
+Pamoja na muundo wa angalizo la nyuma na muundo ulioko baada yake.
+
+### --feedback--
+
+Funzo linaonyesha hili kwa mfano unaotumia angalizo hasi la nyuma.
+
+## --video-solution--
+
+3

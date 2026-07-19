@@ -1,0 +1,113 @@
+---
+id: 5900f3a31000cf542c50feb6
+title: "'Zoezi la 55: Nambari za Lychrel'"
+challengeType: 1
+forumTopicId: 302166
+dashedName: problem-55-lychrel-numbers
+---
+
+# --description--
+
+Ikiwa tuchukue 47, turudishe na kuongeza, 47 + 74 = 121, ambayo ni palindromu.
+
+Sio nambari zote hutoa palindromu haraka hivyo. Kwa mfano,
+
+<div style="margin-left: 4em;">
+  349 + 943 = 1292,<br>
+  1292 + 2921 = 4213<br>
+  4213 + 3124 = 7337<br>
+</div>
+
+Yaani, 349 ilichukua mizunguko mitatu kufikia palindromu.
+
+Ingawa hakuna mtu aliyethibitisha bado, inadhaniwa kuwa baadhi ya nambari, kama 196, hazitawahi kutoa palindromu. Nambari ambayo haitaunda palindromu kupitia mchakato wa kurudisha na kuongeza huitwa nambari ya Lychrel. Kwa sababu ya asili ya nadharia ya nambari hizi, na kwa madhumuni ya zoezi hili, tutadhani nambari ni Lychrel hadi ithibitishwe vinginevyo. Zaidi ya hayo, unajulishwa kuwa kwa kila nambari chini ya elfu kumi, itakuwa (i) inakuwa palindromu katika mizunguko isiyozidi hamsini, au, (ii) hakuna mtu, kwa nguvu zote za kompyuta zilizopo, amefanikiwa hadi sasa kuibadilisha kuwa palindromu. Kwa kweli, 10677 ni nambari ya kwanza kuonyeshwa inahitaji mizunguko zaidi ya hamsini kabla ya kutoa palindromu: 4668731596684224866951378664 (mizunguko 53, tarakimu 28).
+
+Kwa kushangaza, kuna nambari palindromu ambazo ni nambari za Lychrel; mfano wa kwanza ni 4994.
+
+Kuna nambari ngapi za Lychrel chini ya `num`?
+
+**Kumbuka:** Maneno yalibadilishwa kidogo tarehe 24 Aprili 2007 kusisitiza asili ya nadharia ya nambari za Lychrel.
+
+# --hints--
+
+`countLychrelNumbers(1000)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof countLychrelNumbers(1000) === 'number');
+```
+
+`countLychrelNumbers(1000)` inapaswa kurudisha 13.
+
+```js
+assert.strictEqual(countLychrelNumbers(1000), 13);
+```
+
+`countLychrelNumbers(3243)` inapaswa kurudisha 39.
+
+```js
+assert.strictEqual(countLychrelNumbers(3243), 39);
+```
+
+`countLychrelNumbers(5000)` inapaswa kurudisha 76.
+
+```js
+assert.strictEqual(countLychrelNumbers(5000), 76);
+```
+
+`countLychrelNumbers(7654)` inapaswa kurudisha 140.
+
+```js
+assert.strictEqual(countLychrelNumbers(7654), 140);
+```
+
+`countLychrelNumbers(10000)` inapaswa kurudisha 249.
+
+```js
+assert.strictEqual(countLychrelNumbers(10000), 249);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function countLychrelNumbers(num) {
+
+  return true;
+}
+
+countLychrelNumbers(10000);
+```
+
+# --solutions--
+
+```js
+const countLychrelNumbers = (size) => {
+  const numReverse = (num) => {
+    return Number(num.toString().split('').reverse().join(''));
+  };
+  const isPalin = (num) => {
+    if (numReverse(num) === num) {
+      return true;
+    }
+    return false;
+  };
+  let total = 0;
+  for (let i = 1; i < size; i++) {
+    let loopCount = 1;
+    let sum = i;
+    while (loopCount < 50) {
+      sum = sum + numReverse(sum);
+      if (isPalin(sum)) {
+        break;
+      } else {
+        loopCount++;
+      }
+    }
+    if (loopCount === 50) {
+      total++;
+    }
+  }
+  return total;
+}
+```

@@ -1,0 +1,157 @@
+---
+id: bad87fee1348bd9aedf08805
+title: Tumia vichaguzi vya CSS kuboresha muonekano wa vipengele
+challengeType: 0
+videoUrl: 'https://scrimba.com/c/cJKMBT2'
+forumTopicId: 18349
+dashedName: use-css-selectors-to-style-elements
+---
+
+# --description--
+
+Kwa kutumia CSS, kuna sifa za CSS nyingi ambazo unaweza kutumia kubadilisha muonekano wa kipengele kwenye ukurasa wako.
+
+Ulikapoingiza `<h2 style="color: red;">CatPhotoApp</h2>`, ulikuwa unaboresha muonekano wa kipengele cha `h2` kwa kutumia CSS ndani ya mstari, ambayo inamaanisha Cascading Style Sheets.
+
+Hiyo ni njia moja ya kubainisha mtindo wa kipengele, lakini kuna njia bora zaidi ya kutumia CSS.
+
+Juu ya msimbo wako, tengeneza sehemu ya `style` kama hii:
+
+```html
+<style>
+</style>
+```
+
+Ndani ya sehemu hiyo ya mtindo, unaweza kutengeneza <dfn>kichaguzi cha CSS</dfn> kwa vipengele vyote vya `h2`. Kwa mfano, kama ungependa vipengele vyote vya `h2` viwe vyeupe, ungeongeza sheria ya mtindo kama hii:
+
+```html
+<style>
+  h2 {
+    color: red;
+  }
+</style>
+```
+
+Kumbuka ni muhimu kuwa na mabano ya mviringo ya kufungua na ya kufunga (`{` na `}`) kuzunguka sheria za mtindo za kila kipengele. Pia unahitaji kuhakikisha kwamba tamko la mtindo wa kipengele chako liko kati ya lebo za kufungua na kufunga za mtindo. Mwishowe, hakikisha unaongeza nukta ya nusu mwishoni mwa kila sheria ya mtindo ya kipengele chako.
+
+# --instructions--
+
+Futa sifa ya mtindo ya kipengele chako cha `h2`, na badala yake tengeneza sehemu ya `style` ya CSS. Ongeza CSS inayohitajika ili kufanya vipengele vyote vya `h2` viwe buluu.
+
+# --hints--
+
+Sifa ya `style` inapaswa kufutwa kutoka kwa kipengele chako cha `h2`.
+
+```js
+assert.notExists(document.querySelector('h2').getAttribute('style'));
+```
+
+Unapaswa kutengeneza kipengele cha `style`.
+
+```js
+assert.exists(document.querySelector('style:not(.fcc-hide-header)'));
+assert.isAtLeast(document.querySelectorAll('style:not(.fcc-hide-header)').length, 1);
+```
+
+Kipengele chako cha `h2` kinapaswa kuwa buluu.
+
+```js
+const h2Element = document.querySelector('h2');
+const color = window.getComputedStyle(h2Element)['color']; 
+assert.strictEqual(color, 'rgb(0, 0, 255)');
+```
+
+Tamko la `h2` la karatasi yako ya mtindo linapaswa kuwa halali na kuwa na nukta ya nusu na lebo ya kufunga.
+
+```js
+assert.match(__helpers.removeCssComments(code), /h2\s*\{\s*color\s*:.*;\s*\}/g);
+```
+
+Vipengele vyote vya `style` vinapaswa kuwa halali na kuwa na lebo za kufunga.
+
+```js
+assert.match(__helpers.removeHtmlComments(code), /<\/style>/g);
+
+const closingElementLength = __helpers.removeHtmlComments(code).match(/<\/style>/g).length;
+const openingElementsLength = __helpers.removeHtmlComments(code).match(/<style((\s)*((type|media|scoped|title|disabled)="[^"]*")?(\s)*)*>/g).length;
+assert.strictEqual(closingElementLength, openingElementsLength);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<h2 style="color: red;">CatPhotoApp</h2>
+<main>
+  <p>Click here to view more <a href="#">cat photos</a>.</p>
+
+  <a href="#"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+  <div>
+    <p>Things cats love:</p>
+    <ul>
+      <li>catnip</li>
+      <li>laser pointers</li>
+      <li>lasagna</li>
+    </ul>
+    <p>Top 3 things cats hate:</p>
+    <ol>
+      <li>flea treatment</li>
+      <li>thunder</li>
+      <li>other cats</li>
+    </ol>
+  </div>
+
+  <form action="https://freecatphotoapp.com/submit-cat-photo">
+    <label><input type="radio" name="indoor-outdoor" checked> Indoor</label>
+    <label><input type="radio" name="indoor-outdoor"> Outdoor</label><br>
+    <label><input type="checkbox" name="personality" checked> Loving</label>
+    <label><input type="checkbox" name="personality"> Lazy</label>
+    <label><input type="checkbox" name="personality"> Energetic</label><br>
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```
+
+# --solutions--
+
+```html
+<style>
+  h2 {
+    color: blue;
+  }
+</style>
+<h2>CatPhotoApp</h2>
+<main>
+  <p>Click here to view more <a href="#">cat photos</a>.</p>
+
+  <a href="#"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+
+  <div>
+    <p>Things cats love:</p>
+    <ul>
+      <li>catnip</li>
+      <li>laser pointers</li>
+      <li>lasagna</li>
+    </ul>
+    <p>Top 3 things cats hate:</p>
+    <ol>
+      <li>flea treatment</li>
+      <li>thunder</li>
+      <li>other cats</li>
+    </ol>
+  </div>
+
+  <form action="https://freecatphotoapp.com/submit-cat-photo">
+    <label><input type="radio" name="indoor-outdoor" checked> Indoor</label>
+    <label><input type="radio" name="indoor-outdoor"> Outdoor</label><br>
+    <label><input type="checkbox" name="personality" checked> Loving</label>
+    <label><input type="checkbox" name="personality"> Lazy</label>
+    <label><input type="checkbox" name="personality"> Energetic</label><br>
+    <input type="text" placeholder="cat photo URL" required>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+```

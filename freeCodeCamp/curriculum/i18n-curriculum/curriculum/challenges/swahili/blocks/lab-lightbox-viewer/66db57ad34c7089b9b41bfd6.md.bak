@@ -1,0 +1,399 @@
+---
+id: 66db57ad34c7089b9b41bfd6
+title: Jenga mtazamaji wa lightbox
+challengeType: 25
+dashedName: build-a-lightbox-viewer
+demoType: onClick
+---
+
+# --description--
+
+Lightbox hutumika kwenye tovuti kuonyesha maudhui ya multimedia kwa njia ya kuvutia zaidi kupitia matumizi ya dirisha la popup au modal juu ya maudhui kuu ya ukurasa.
+
+Katika maabara hii, utaunda maktaba ya lightbox inayowonyesha picha za ukubwa kamili wakati thumbnail inabofyiwa. Kwa kila picha, toleo mbili zinatolewa: thumbnail na picha ya ukubwa kamili. Picha ya ukubwa kamili ni sawa na thumbnail, lakini bila kiambishi `-thumbnail`.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kuwa na `div` yenye darasa la `gallery` ndani ya `body` yako.
+1. Ndani ya kipengele cha `.gallery`, unapaswa kuwa na thumbnails tatu za picha, kila moja ikiwa na darasa la `gallery-item`. Unapaswa kutumia viungo vifuatavyo kwa picha za thumbnail:
+   
+    - `https://cdn.freecodecamp.org/curriculum/labs/stonehenge-thumbnail.jpg`
+    - `https://cdn.freecodecamp.org/curriculum/labs/storm-thumbnail.jpg`
+    - `https://cdn.freecodecamp.org/curriculum/labs/trees-thumbnail.jpg`
+
+1. Unapaswa kuwa na `div` yenye darasa la `lightbox` ndani ya `body` yako.
+1. Unapaswa kuwa na `button` yenye sifa ya kipengele `id` ya `close-btn` ndani ya kipengele cha `.lightbox`. Unaweza kutumia `&times;` kama maandishi yake ikiwa unataka.
+1. Unapaswa kuwa na `img` yenye sifa ya kipengele `id` ya `lightbox-image` ndani ya kipengele cha `.lightbox`.
+1. Kipengele chako cha `.lightbox` kinapaswa kuwa na nafasi ya kudumu ili onyesho lifunguke juu ya picha zilizopo.
+1. Kipengele chako cha `.lightbox` kinapaswa kufunika eneo lote la kuona kwa kuweka urefu na upana kuwa asilimia 100 ya kontena. Unapaswa kuhakikisha kipengele cha `.lightbox` kinaanza kona ya juu kushoto ya kontena.
+1. `.lightbox` inapaswa kuwa na rangi ya nyuma. Awali, sifa yake ya `display` inapaswa kuwekwa kuwa `none` ili kuificha.
+1. Unapobofya mojawapo ya vipengele vyako vya `.gallery-item`, sifa ya `.lightbox` ya kipengele cha `display` inapaswa kuwekwa kuwa `flex` ili kufanya kipengele cha `.lightbox` na vipengele viwili ndani yake viwe vinaonekana.
+1. Unapobofya mojawapo ya vipengele vyako vya `.gallery-item`, sifa ya `#lightbox-image` ya kipengele cha `src` inapaswa kuwekwa kuwa toleo la picha ya ukubwa kamili kwa kuondoa `-thumbnail` kutoka kwenye sifa ya kipengele cha `src` ya picha. Picha za ukubwa kamili ziko kwenye viungo vifuatavyo:
+
+    - `https://cdn.freecodecamp.org/curriculum/labs/stonehenge.jpg`
+    - `https://cdn.freecodecamp.org/curriculum/labs/storm.jpg`
+    - `https://cdn.freecodecamp.org/curriculum/labs/trees.jpg`
+  
+1. Kipengele chako cha `.lightbox` kinapokuwa kinaonekana na unapobofya kipengele cha `#close-btn` au `.lightbox`, sifa ya `.lightbox` ya kipengele cha `display` inapaswa kurejeshwa kuwa `none`.
+
+**Kumbuka:** Hakikisha umeunganisha karatasi yako ya mtindo na faili ya JavaScript katika HTML yako.
+
+# --hints--
+
+Unapaswa kuwa na `div` yenye darasa la `gallery` ndani ya kipengele chako cha `body`.
+
+```js
+assert.equal(document.querySelector("body .gallery")?.tagName, "DIV");
+```
+
+Ndani ya kipengele cha `.gallery`, unapaswa kuwa na vipengele vitatu vya `img` vyenye darasa la `gallery-item`.
+
+```js
+assert.lengthOf(document.querySelectorAll(".gallery .gallery-item"), 3)
+```
+
+Ndani ya kipengele cha `.gallery`, unapaswa kuwa na kipengele cha `img` chenye sifa ya kipengele `src` iliyowekwa kuwa `https://cdn.freecodecamp.org/curriculum/labs/stonehenge-thumbnail.jpg`.
+
+```js
+const images = document.querySelectorAll(".gallery .gallery-item");
+let srcCount = 0; 
+const targetSrc = "https://cdn.freecodecamp.org/curriculum/labs/stonehenge-thumbnail.jpg";
+
+for (let image of images) {
+  if (image.src === targetSrc) { 
+    srcCount++; 
+  }
+}
+
+assert.strictEqual(srcCount, 1);
+```
+
+Ndani ya kipengele cha `.gallery`, unapaswa kuwa na kipengele cha `img` chenye sifa ya kipengele `src` iliyowekwa kuwa `https://cdn.freecodecamp.org/curriculum/labs/storm-thumbnail.jpg`.
+
+```js
+const images = document.querySelectorAll(".gallery .gallery-item");
+let srcCount = 0; 
+const targetSrc = "https://cdn.freecodecamp.org/curriculum/labs/storm-thumbnail.jpg";
+
+for (let image of images) {
+  if (image.src === targetSrc) { 
+    srcCount++; 
+  }
+}
+
+assert.strictEqual(srcCount, 1);
+```
+
+Ndani ya kipengele cha `.gallery`, unapaswa kuwa na kipengele cha `img` chenye sifa ya kipengele `src` iliyowekwa kuwa `https://cdn.freecodecamp.org/curriculum/labs/trees-thumbnail.jpg`.
+
+```js
+const images = document.querySelectorAll(".gallery .gallery-item");
+let srcCount = 0; 
+const targetSrc = "https://cdn.freecodecamp.org/curriculum/labs/trees-thumbnail.jpg";
+
+for (let image of images) {
+  if (image.src === targetSrc) { 
+    srcCount++; 
+  }
+}
+
+assert.strictEqual(srcCount, 1);
+```
+
+Unapaswa kuwa na kipengele cha `div` chenye darasa la `lightbox` ndani ya kipengele chako cha `body`.
+
+```js
+const lightboxEl = document.querySelector("body .lightbox");
+assert.exists(lightboxEl);
+assert.equal(lightboxEl?.tagName, "DIV");
+```
+
+Ndani ya kipengele chako cha `.lightbox`, unapaswa kuwa na kipengele cha `button` chenye sifa ya kipengele `id` iliyowekwa kuwa `close-btn`.
+
+```js
+assert.equal(document.querySelector(".lightbox #close-btn")?.tagName, "BUTTON");
+```
+
+Ndani ya kipengele cha `.lightbox`, unapaswa kuwa na kipengele cha `img` chenye sifa ya kipengele `id` iliyowekwa kuwa `lightbox-image`.
+
+```js
+assert.equal(document.querySelector(".lightbox #lightbox-image")?.tagName, "IMG");
+```
+
+Kipengele chako cha `.lightbox` kinapaswa kuwa na nafasi ya kudumu.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle(".lightbox")?.position, "fixed");
+```
+
+Kipengele chako cha `.lightbox` kinapaswa kufunika eneo lote la kuona.
+
+```js
+const style = new __helpers.CSSHelp(document).getStyle(".lightbox");
+
+const width = style?.width;
+const height = style?.height;
+
+assert.oneOf(
+  width,
+  ["100%", "100vw"]
+);
+
+assert.oneOf(
+  height,
+  ["100%", "100vh"]
+);
+```
+
+Kipengele chako cha `.lightbox` kinapaswa kuunganishwa na kona ya juu kushoto ya kontena.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle(".lightbox")?.top, "0px");
+assert.equal(new __helpers.CSSHelp(document).getStyle(".lightbox")?.left, "0px");
+```
+
+Kipengele chako cha `.lightbox` kinapaswa kuwa na rangi ya nyuma.
+
+```js
+assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle(".lightbox")?.backgroundColor);
+```
+
+Kipengele chako cha `.lightbox` kinapaswa kufichwa awali.
+
+```js
+assert.equal(new __helpers.CSSHelp(document).getStyle(".lightbox")?.display, "none");
+```
+
+Unapobofya mojawapo ya vipengele vyako vya `.gallery-item`, sifa ya `.lightbox` ya kipengele cha `display` inapaswa kuwekwa kuwa `flex` ili kufanya `.lightbox` na vipengele viwili ndani yake viwe vinaonekana.
+
+```js
+const lightbox = document.querySelector(".lightbox");
+
+function getComputedDisplay(element) {
+  return window.getComputedStyle(element).display;
+}
+
+assert.strictEqual(getComputedDisplay(lightbox), "none");
+
+const galleryItem = document.querySelector(".gallery-item");
+galleryItem.dispatchEvent(new Event("click", { bubbles: true }));
+
+assert.strictEqual(getComputedDisplay(lightbox), "flex");
+```
+
+Unapobofya mojawapo ya vipengele vyako vya `.gallery-item`, sifa ya `#lightbox-image` ya kipengele cha `src` inapaswa kuwekwa kuwa toleo la picha ya ukubwa kamili kwa kuondoa `-thumbnail` kutoka kwenye sifa ya kipengele cha `src` ya picha.
+
+```js
+const galleryItems = document.querySelectorAll(".gallery-item");
+const lightboxImage = document.getElementById("lightbox-image");
+
+assert.isAbove(galleryItems.length, 0);
+
+function getFullSizeImageUrl(thumbnailUrl) {
+  return thumbnailUrl.replace("-thumbnail", "");
+}
+
+galleryItems.forEach((item) => {
+  const thumbnailUrl = item.src; 
+  const expectedFullSizeUrl = getFullSizeImageUrl(thumbnailUrl);
+
+  item.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+  assert.strictEqual(lightboxImage.src, expectedFullSizeUrl);
+});
+```
+
+Kipengele chako cha `.lightbox` kinapokuwa kinaonekana na unapobofya kitufe cha `#close-btn`, sifa ya `.lightbox` ya kipengele cha `display` inapaswa kurejeshwa kuwa `none`.
+
+```js
+const lightbox = document.querySelector(".lightbox");
+const closeBtn = document.getElementById("close-btn"); 
+const galleryItem = document.querySelector(".gallery-item");
+
+function getComputedDisplay(element) {
+  return window.getComputedStyle(element).display;
+}
+
+galleryItem.dispatchEvent(new Event("click", { bubbles: true }));
+
+assert.strictEqual(getComputedDisplay(lightbox), "flex");
+
+closeBtn.dispatchEvent(new Event("click", { bubbles: true }));
+
+assert.strictEqual(getComputedDisplay(lightbox), "none");
+```
+
+Kipengele chako cha `.lightbox` kinapokuwa kinaonekana na unapobofya kipengele cha `.lightbox`, sifa ya `.lightbox` ya kipengele cha `display` inapaswa kurejeshwa kuwa `none`.
+
+```js
+const lightbox = document.querySelector(".lightbox");
+
+function getComputedDisplay(element) {
+  return window.getComputedStyle(element).display;
+}
+
+const galleryItem = document.querySelector(".gallery-item");
+galleryItem.dispatchEvent(new Event("click", { bubbles: true }));
+
+assert.strictEqual(getComputedDisplay(lightbox), "flex");
+
+lightbox.dispatchEvent(new Event("click", { bubbles: true }));
+
+assert.strictEqual(getComputedDisplay(lightbox), "none");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightbox Viewer</title>
+  </head>
+
+  <body>
+
+  </body>
+
+</html>
+```
+
+```css
+
+```
+
+```js
+
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightbox Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <h1 class="title">Museum Gallery</h1>
+
+    <div class="gallery">
+      <img src="https://cdn.freecodecamp.org/curriculum/labs/stonehenge-thumbnail.jpg" alt="Stonehenge landscape with large stone structures." class="gallery-item">
+      <img src="https://cdn.freecodecamp.org/curriculum/labs/trees-thumbnail.jpg" alt="A peaceful forest with tall green trees." class="gallery-item">
+      <img src="https://cdn.freecodecamp.org/curriculum/labs/storm-thumbnail.jpg" alt="A dramatic stormy sky with dark clouds and lightning." class="gallery-item">
+    </div>
+    <div id="lightbox" class="lightbox">
+      <button id="close-btn" class="close-btn">&times;</button>
+      <img id="lightbox-image" src="" alt="Lightbox Image">
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+```css
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.title {
+  margin-top: 100px;
+  text-align: center;
+  background-color: rgb(211, 221, 224);  
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gallery-item {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+```
+
+```js
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+
+function openLightbox(src) {
+  lightboxImage.src = src;
+  lightbox.style.display = "flex"; 
+}
+
+function closeLightbox() {
+  lightbox.style.display = "none"; 
+}
+
+const closeButton = document.getElementById("close-btn");
+
+closeButton.addEventListener("click", closeLightbox);
+
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    closeLightbox(); 
+  }
+});
+
+const galleryItems = document.querySelectorAll(".gallery-item");
+
+galleryItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    openLightbox(item.src.replace("-thumbnail", "")); 
+  });
+});
+```

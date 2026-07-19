@@ -1,0 +1,273 @@
+---
+id: 67d1ebb595f4f619c0e35d1a
+title: Jinsi ya kusahihisha vitu katika state?
+challengeType: 19
+dashedName: how-do-you-update-objects-in-state
+---
+
+# --description--
+
+Kusahihisha vitu katika state katika React kunaweza kuwa changamoto ikiwa umezoea kubadilisha thamani za sifa za kipengele moja kwa moja.
+
+React hutumia state kama isiyobadilika, ikimaanisha haupaswi kuibadilisha moja kwa moja.
+
+Tuchunguze kinachotokea ikiwa utajaribu kubadilisha vitu katika React state moja kwa moja, kisha tuchambue njia sahihi ya kufanya hivyo.
+
+Tuseme una kitu katika state ya sehemu yako kinawakilisha wasifu wa mtumizi, na unataka mtumizi asahihishe umri wake:
+
+```jsx
+import { useState } from "react";
+
+function Profile() {
+  const [user, setUser] = useState({
+    name: "John Doe",
+    age: 31,
+    city: "LA",
+  });
+
+  // Change user age directly
+  const handleAgeChange = (e) => {
+    user.age = e.target.value;
+    console.log(user);
+  };
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+      <p>City: {user.city}</p>
+
+      <h2>Update User Age </h2>
+      <input type="number" value={user.age} onChange={handleAgeChange} />
+    </div>
+  );
+}
+
+export default Profile;
+```
+
+Msimbo huu hautafanya kazi kwa sababu unabadilisha moja kwa moja sifa ya `user.age`.
+
+Ingawa `console.log(user)` itaonyesha umri mpya kwenye konsoli, React haitarudisha kuonyesha sehemu hiyo tena ili kuonyesha mabadiliko kwenye kiolesura cha mtumizi kwa sababu hukutumia kitendakazi cha kuweka, `setUser`.
+
+Ili kusahihisha kitu moja kwa moja katika state, unahitaji kutumia kitendakazi cha kuweka kuunda kitu kipya chenye thamani iliyosasishwa. Kwa mfano:
+
+```js
+const handleAgeChange = (e) => {
+  setUser({
+    age: e.target.value,
+  });
+};
+```
+
+Hiyo inafanya kazi. Lakini ukitazama ukurasa sasa, umri wa mtumizi unasasishwa, lakini thamani za jina na jiji hupotea.
+
+Hii ni kwa sababu kitu kipya ulichokipeleka kwa kitendakazi cha kuweka kilikuwa na jozi ya ufunguo/thamani tu kwa `age`.
+
+Ili kuzuia hili kutokea, unaweza kunakili kitu kilichopo kwanza, kisha kusahihisha tu sifa unayotaka kusahihisha, katika kesi hii, `age`.
+
+Ili kufanya hivyo, unaweza kupitisha kitendakazi maalum kinachoitwa kitendakazi cha kusasisha kwa kitendakazi chako cha kuweka, `setUser`. Kitendakazi cha kusasisha kinachukua state inayosubiri kama hoja, hapa, kinaitwa `prevUser`, na kinapaswa kurudisha state inayofuata:
+
+```js
+const handleAgeChange = (e) => {
+  setUser((prevUser) => {
+    const updatedUser = { ...prevUser, age: e.target.value };
+    console.log('Previous State:', prevUser);
+    console.log('Updated State:', updatedUser);
+    return updatedUser;
+  });
+};
+```
+
+Kama unavyoona, tunaunda kitu kipya cha mtumizi kinachoitwa `updatedUser` kwa kutumia sintaksia ya spread kunakili kitu cha mtumizi kinachosubiri, `...prevUser`. Kisha tunasasisha umri kulingana na ingizo la fomu na kurudisha `updatedUser` chini ya kitendakazi kama state inayofuata.
+
+Sasa mradi wako unafanya kazi kama inavyotarajiwa, na masasisho ya ingizo la umri hayabadili jina la mtumizi wala jina la jiji. Pia unaweza kuona state za awali na zilizosasishwa kwenye konsoli.
+
+Hii ndiyo njia bora ya kusahihisha kitu katika state, hasa wakati husasisahi sifa zote.
+
+Ili kusahihisha sifa zilizobaki za `name` na `city`, unaweza kuandika kama vitendakazi vya kuweka tofauti na kuviunganisha na sehemu zao za ingizo:
+
+```js
+const handleNameChange = (e) => {
+  setUser((prevUser) => ({
+    ...prevUser,
+    name: e.target.value,
+  }));
+};
+
+const handleCityChange = (e) => {
+  setUser((prevUser) => ({
+    ...prevUser,
+    city: e.target.value,
+  }));
+};
+```
+
+Au unaweza kuviunganisha kuwa kitendakazi kimoja cha kuweka kama hiki:
+
+```js
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setUser((prevUser) => ({
+    ...prevUser,
+    [name]: value,
+  }));
+};
+```
+
+Ili kufanya hii ifanye kazi, kila sehemu ya ingizo lazima iwe na sifa ya `name`.
+
+Hapa kuna msimbo kamili sasa:
+
+```jsx
+import { useState } from "react";
+
+function Profile() {
+  const [user, setUser] = useState({ name: "John Doe", age: 31, city: "LA" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setUser((prevUser) => ({...prevUser, [name]: value}));
+  };
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+      <p>City: {user.city}</p>
+
+      <h2>Update User Age </h2>
+      <input type="number" name="age" value={user.age} onChange={handleChange} />
+
+      <h2>Update User Name </h2>
+      <input type="text" name="name" value={user.name} onChange={handleChange} />
+
+      <h2>Update User City </h2>
+      <input type="text" name="city" value={user.city} onChange={handleChange} />
+    </div>
+  );
+}
+
+export default Profile;
+```
+
+# --questions--
+
+## --text--
+
+React hutumiaje state katika sehemu?
+
+## --answers--
+
+Kama isiyobadilika, ikiruhusu mabadiliko moja kwa moja.
+
+### --feedback--
+
+Fikiria jinsi React inavyohakikisha mabadiliko ya state yanabakia kuwa yanatarajiwa.
+
+---
+
+Kama isiyobadilika, ikimaanisha haipaswi kubadilishwa moja kwa moja.
+
+---
+
+Kama kigezo cha kimataifa kinachopatikana katika sehemu zote.
+
+### --feedback--
+
+Fikiria jinsi React inavyohakikisha mabadiliko ya state yanabakia kuwa yanatarajiwa.
+
+---
+
+Kama kigezo cha muda mfupi kinachorejeshwa kila mara baada ya kuonyesha tena.
+
+### --feedback--
+
+Fikiria jinsi React inavyohakikisha mabadiliko ya state yanabakia kuwa yanatarajiwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unapaswa kusahihisha kitu kilichohifadhiwa katika React state vipi?
+
+## --answers--
+
+Tumia kitendakazi cha kuweka kuunda kitu kipya.
+
+---
+
+Badilisha kitu moja kwa moja katika state.
+
+### --feedback--
+
+React hutumia state kama isiyobadilika, hivyo epuka mabadiliko ya moja kwa moja.
+
+---
+
+Tumia `Object.assign()` bila kuita kitendakazi cha kuweka.
+
+### --feedback--
+
+React hutumia state kama isiyobadilika, hivyo epuka mabadiliko ya moja kwa moja.
+
+---
+
+Tumia njia ya `push()` kuongeza sifa kwa kitu.
+
+### --feedback--
+
+React hutumia state kama isiyobadilika, hivyo epuka mabadiliko ya moja kwa moja.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Kitendakazi cha kuweka ni kipi katika msimbo huu?
+
+```js
+const [user, setUser] = useState({
+   name: 'John Doe',
+   age: 31,
+   city: 'LA',
+ });
+```
+
+## --answers--
+
+`user`
+
+### --feedback--
+
+Kitendakazi cha kuweka husasisha kigezo cha `state`.
+
+---
+
+`useState`
+
+### --feedback--
+
+Kitendakazi cha kuweka husasisha kigezo cha `state`.
+
+---
+
+`age`
+
+### --feedback--
+
+Kitendakazi cha kuweka husasisha kigezo cha `state`.
+
+---
+
+`setUser`
+
+## --video-solution--
+
+4

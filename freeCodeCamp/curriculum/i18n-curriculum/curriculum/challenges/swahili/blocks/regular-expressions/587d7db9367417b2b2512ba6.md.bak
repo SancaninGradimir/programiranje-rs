@@ -1,0 +1,95 @@
+---
+id: 587d7db9367417b2b2512ba6
+title: Taja Tu Nambari Ndogo ya Mifano
+challengeType: 1
+forumTopicId: 301366
+dashedName: specify-only-the-lower-number-of-matches
+---
+
+# --description--
+
+Unaweza kutaja nambari ndogo na kubwa ya mifumo kwa kutumia viashiria vya wingi kwa mabano ya mviringo. Wakati mwingine unataka tu kutaja nambari ndogo ya mifumo bila kikomo cha juu.
+
+Ili kutaja tu nambari ndogo ya mifumo, weka nambari ya kwanza ikifuatiwa na koma.
+
+Kwa mfano, ili kulinganisha tu mfuatano wa herufi `hah` na herufi `a` ikionekana angalau mara `3`, regex yako itakuwa `/ha{3,}h/`.
+
+```js
+let A4 = "haaaah";
+let A2 = "haah";
+let A100 = "h" + "a".repeat(100) + "h";
+let multipleA = /ha{3,}h/;
+multipleA.test(A4);
+multipleA.test(A2);
+multipleA.test(A100);
+```
+
+Kwa mpangilio, wito tatu za `test` zitarudisha `true`, `false`, na `true`.
+
+# --instructions--
+
+Badilisha regex `haRegex` ili ilinganishe neno `Hazzah` tu wakati lina herufi `z` nne au zaidi.
+
+# --hints--
+
+Regex yako inapaswa kutumia mabano ya mviringo.
+
+```js
+assert(haRegex.source.match(/{.*?}/).length > 0);
+```
+
+Regex yako haipaswi kulinganisha mfuatano wa herufi `Hazzah`
+
+```js
+haRegex.lastIndex = 0;
+assert(!haRegex.test('Hazzah'));
+```
+
+Regex yako haipaswi kulinganisha mfuatano wa herufi `Hazzzah`
+
+```js
+haRegex.lastIndex = 0;
+assert(!haRegex.test('Hazzzah'));
+```
+
+Regex yako inapaswa kulinganisha mfuatano wa herufi `Hazzzzah`
+
+```js
+assert('Hazzzzah'.match(haRegex)[0].length === 8);
+```
+
+Regex yako inapaswa kulinganisha mfuatano wa herufi `Hazzzzzah`
+
+```js
+assert('Hazzzzzah'.match(haRegex)[0].length === 9);
+```
+
+Regex yako inapaswa kulinganisha mfuatano wa herufi `Hazzzzzzah`
+
+```js
+assert('Hazzzzzzah'.match(haRegex)[0].length === 10);
+```
+
+Regex yako inapaswa kulinganisha mfuatano wa herufi `Hazzah` yenye herufi `z` 30 ndani yake.
+
+```js
+assert('Hazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzah'.match(haRegex)[0].length === 34);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let haStr = "Hazzzzah";
+let haRegex = /change/; // Change this line
+let result = haRegex.test(haStr);
+```
+
+# --solutions--
+
+```js
+let haStr = "Hazzzzah";
+let haRegex = /Haz{4,}ah/; // Change this line
+let result = haRegex.test(haStr);
+```

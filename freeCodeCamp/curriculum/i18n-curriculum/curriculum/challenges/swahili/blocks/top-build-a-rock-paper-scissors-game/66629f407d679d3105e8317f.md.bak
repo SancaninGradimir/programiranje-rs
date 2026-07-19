@@ -1,0 +1,260 @@
+---
+id: 66629f407d679d3105e8317f
+title: Jenga mchezo wa jiwe karatasi mkono
+challengeType: 25
+dashedName: top-build-a-rock-paper-scissors-game
+---
+
+# --description--
+Mchezo wako utaendeshwa dhidi ya kompyuta. Utaandika kitendakazi kinachorudisha kwa bahati `"rock"`, `"paper"` au `"scissors"`.
+
+Huna haja ya kuwa na wasiwasi kuhusu sehemu ya mbele ya mchezo. Utaandika tu mantiki ya mchezo. Fungua `script.js` na anza kufuata maelekezo.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `getComputerChoice`.
+
+1. Kitendakazi chako cha `getComputerChoice` kinapaswa kurudisha `"rock"`, `"paper"`, au `"scissors"` kwa bahati.
+
+**Kidokezo:** Njia ya [Math.random](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random) inarudisha nambari ya bahati ambayo ni kubwa au sawa na 0 na ndogo kuliko 1. Fikiria jinsi unavyoweza kutumia hii kurudisha mojawapo ya chaguzi nyingi kwa masharti.
+
+Mchezo wako utaendeshwa na mchezaji wa binadamu. Utaandika kitendakazi kinachochukua chaguo la mtumizi na kurudisha hilo.
+
+1. Tengeneza kitendakazi kinachoitwa `getHumanChoice`.
+
+1. Andika msimbo ili `getHumanChoice` irudishe mojawapo ya chaguzi halali kulingana na kile mtumizi anachochagua.
+
+**Kidokezo:** Tumia njia ya [prompt](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt) kupata ingizo la mtumizi.
+
+Mchezo wako utafuatilia alama za mchezaji. Utaandika vigezo vya kuhesabu alama za mchezaji.
+
+1. Tengeneza vigezo viwili vipya vinavyoitwa `humanScore` na `computerScore` katika wigo wa ulimwengu.
+
+1. Anzisha vigezo hivyo kwa thamani ya `0`.
+
+Mchezo wako utaendeshwa raundi kwa raundi. Utaandika kitendakazi kinachochukua chaguzi za mchezaji wa binadamu na kompyuta kama hoja, kucheza raundi moja, kuongeza alama ya mshindi wa raundi na kuandika tangazo la mshindi.
+
+1. Tengeneza kitendakazi kipya kinachoitwa `playRound`.
+
+1. Tambua vigezo viwili kwa `playRound`. Kigezo cha kwanza `humanChoice` na kigezo cha pili `computerChoice`. Tumia vigezo hivi viwili kuchukua chaguzi za binadamu na kompyuta kama hoja.
+
+1. Fanya kigezo cha `humanChoice` cha kitendakazi chako kisizingatie herufi kubwa au ndogo ili wachezaji waweze kuingiza `"rock"`, `"ROCK"`, `"RocK"`, au mabadiliko mengine.
+
+1. Andika msimbo wa kitendakazi chako cha `playRound` kinachorudisha thamani ya mfuatano wa herufi unaowakilisha mshindi wa raundi.
+
+- Ikiwa ni sare, inapaswa kurudisha `"It's a tie!"`.
+
+- Ikiwa mchezaji anashinda, inapaswa kurudisha `"You win! [player choice] beats [computer choice]"`.
+
+- Ikiwa kompyuta inashinda, inapaswa kurudisha `"You lose! [computer choice] beats [player choice]"`.
+
+1. Ongeza thamani ya vigezo vya `humanScore` au `computerScore` kulingana na mshindi wa raundi.
+
+Mchezo wako utaendeshwa raundi 3. Utaandika kitendakazi kinachoitwa `playGame` kinachoitisha `playRound` kucheza raundi 3, kufuatilia alama, na kutangaza mshindi mwishoni.
+
+1. Tengeneza kitendakazi kipya kinachoitwa `playGame`.
+
+1. Tengeneza mzunguko unaocheza raundi 3 na kuitisha kitendakazi cha `playRound` kila mara kwa chaguo la binadamu na chaguo la kompyuta kama hoja.
+
+1. Mwishoni mwa mchezo, rudisha mshindi wa mchezo kulingana na aliyeshinda raundi nyingi zaidi.
+
+- Ikiwa mchezaji wa binadamu anashinda raundi nyingi zaidi kuliko kompyuta, rudisha ujumbe unaosema `"You win the game!"`.
+
+- Ikiwa mchezaji wa kompyuta anashinda raundi nyingi zaidi kuliko binadamu, rudisha ujumbe unaosema `"You lose the game!"`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi kinachoitwa `getComputerChoice`
+
+```js
+assert.isFunction(getComputerChoice);
+```
+
+Kitendakazi chako cha `getComputerChoice` kinapaswa kurudisha `"rock"`, `"paper"`, au `"scissors"` kwa bahati.
+
+```js
+const counts = {}
+for (let i = 0; i < 100; i++) {
+  const result = getComputerChoice();
+  counts[result] = (counts[result] ?? 0) + 1;
+}
+assert.lengthOf(Object.keys(counts), 3);
+assert.include(Object.keys(counts), "rock");
+assert.include(Object.keys(counts), "paper"); 
+assert.include(Object.keys(counts), "scissors");
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `getHumanChoice`
+
+```js
+assert.isFunction(getHumanChoice);
+```
+
+Unapaswa kuwa na vigezo viwili vinavyoitwa `humanScore` na `computerScore` katika wigo wa ulimwengu.
+
+```js
+assert.exists(humanScore);
+assert.exists(computerScore);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `playRound`
+
+```js
+assert.isFunction(playRound);
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kuchukua chaguzi za mchezaji wa binadamu na kompyuta kama hoja na vigezo `humanChoice` na `computerChoice`.
+
+```js
+assert.match(playRound.toString(), /\s*(?:\bhumanChoice\b\s*,\s*\bcomputerChoice\b)/);
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kuwa kisizingatie herufi kubwa au ndogo ili wachezaji waweze kuingiza `"rock"`, `"ROCK"`, `"RocK"`, au mabadiliko mengine.
+
+```js
+assert.match(playRound.toString(), /\bhumanChoice\s*\.toLowerCase\(\)/);
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kurudisha mfuatano wa herufi `"It's a tie!"` ikiwa chaguzi za binadamu na kompyuta ni sawa.
+
+```js
+assert.equal(playRound("rock", "rock"), "It's a tie!");
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kurudisha mfuatano wa herufi `"You win! [player choice] beats [computer choice]"` ikiwa mchezaji anashinda.
+
+```js
+assert.equal(playRound("rock", "scissors"), "You win! rock beats scissors");
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kurudisha mfuatano wa herufi `"You lose! [computer choice] beats [player choice]"` ikiwa kompyuta inashinda.
+
+```js
+assert.equal(playRound("rock", "paper"), "You lose! paper beats rock");
+```
+
+Kitendakazi chako cha `playRound` kinapaswa kuongeza thamani ya vigezo vya `humanScore` au `computerScore` kulingana na mshindi wa raundi.
+
+```js
+humanScore = 0;
+computerScore = 0;
+playRound("rock", "scissors");
+assert.equal(humanScore, 1);
+```
+
+Unapaswa kuwa na kitendakazi kinachoitwa `playGame`.
+
+```js
+assert.isFunction(playGame);
+```
+
+Unapaswa kutumia mzunguko kucheza raundi 3.
+
+```js
+assert.match(playGame.toString(), /\bfor\s*\(/);
+```
+
+Unapaswa kurudisha mshindi wa mchezo kulingana na aliyeshinda raundi nyingi zaidi.
+
+```js
+window.prompt = () => "rock";
+assert.match(playGame(), /You (win|lose) the game!/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const hand = ['rock', 'paper', 'scissors'];
+```
+
+```html
+<html lang="en">
+<head>
+  <script src="script.js"></script>
+</head>
+</html>
+```
+
+# --solutions--
+
+```html
+<html lang="en">
+<head>
+  <script src="script.js"></script>
+</head>
+</html>
+```
+
+```js
+const hand = ['rock', 'paper', 'scissors'];
+
+
+let computerScore = 0;
+let humanScore = 0;
+
+const getComputerChoice = () => {
+  return hand[Math.floor(Math.random() * hand.length)];
+}
+
+const getHumanChoice = () => {
+  return prompt();
+}
+
+const playRound = (humanChoice, computerChoice) => {
+  humanChoice = humanChoice.toLowerCase()
+
+  const tie = "It's a tie!"
+  const win = `You win! ${humanChoice} beats ${computerChoice}`
+  const lose = `You lose! ${computerChoice} beats ${humanChoice}`
+
+
+  if (humanChoice == 'rock') {
+    if (computerChoice == 'rock') {
+      computerScore++;
+      humanScore++;
+      return tie;
+    } else if (computerChoice == 'paper') {
+      computerScore++;
+      return lose;
+    } else {
+      humanScore++;
+      return win;
+    }
+  } else if (humanChoice == 'paper') {
+    if (computerChoice == 'rock') {
+      humanScore++;
+      return win;
+    } else if (computerChoice == 'paper') {
+      computerScore++;
+      humanScore++;
+      return tie;
+    } else {
+      computerScore++;
+      return lose;
+    }
+  } else if (humanChoice == 'scissors') {
+    if (computerChoice == 'rock') {
+      computerScore++;
+      return lose;
+    } else if (computerChoice == 'paper') {
+      humanScore++;
+      return win;
+    } else {
+      computerScore++;
+      humanScore++;
+      return tie;
+    }
+  }
+}
+
+const playGame = () => {
+  for(let i = 0; i < 3; i++){
+    playRound(getHumanChoice(), getComputerChoice())
+  }
+
+  return humanScore > computerScore ? "You win the game!" : "You lose the game!"
+}
+
+```

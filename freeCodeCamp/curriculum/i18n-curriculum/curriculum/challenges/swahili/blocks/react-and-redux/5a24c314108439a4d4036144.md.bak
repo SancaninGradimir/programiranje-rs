@@ -1,0 +1,256 @@
+---
+id: 5a24c314108439a4d4036144
+title: Tumia Provider kuunganisha Redux na React
+challengeType: 6
+forumTopicId: 301435
+dashedName: use-provider-to-connect-redux-to-react
+---
+
+# --description--
+
+Katika changamoto iliyopita, uliunda hifadhi ya Redux kushughulikia safu ya data ya ujumbe na kuunda kitendo cha kuongeza ujumbe mpya. Hatua inayofuata ni kutoa upatikanaji wa React kwa hifadhi ya Redux na vitendo vinavyohitaji kutumwa kwa kusasisha. React Redux hutoa kifurushi chake cha `react-redux` kusaidia kutekeleza majukumu haya.
+
+React Redux hutoa API ndogo yenye vipengele viwili muhimu: `Provider` na `connect`. Changamoto nyingine inashughulikia `connect`. `Provider` ni sehemu ya kufunika kutoka React Redux inayozunguka programu yako ya React. Sehemu hii ya kufunika inakuwezesha kupata hifadhi ya Redux `store` na vitendo vya `dispatch` katika mti mzima wa sehemu zako. `Provider` hupokea vigezo viwili, hifadhi ya Redux na sehemu ndogo za programu yako. Kuweka `Provider` kwa sehemu ya App inaweza kuonekana hivi:
+
+```jsx
+<Provider store={store}>
+  <App/>
+</Provider>
+```
+
+# --instructions--
+
+Mhariri wa msimbo sasa unaonyesha msimbo wako wote wa Redux na React kutoka changamoto kadhaa zilizopita. Inajumuisha hifadhi ya Redux, vitendo, na sehemu ya `DisplayMessages`. Kipengele kipya pekee ni sehemu ya `AppWrapper` chini kabisa. Tumia sehemu hii ya ngazi ya juu kuonyesha `Provider` kutoka `ReactRedux`, na pitisha hifadhi ya Redux kama kigezo. Kisha onyesha sehemu ya `DisplayMessages` kama mtoto. Ukimaliza, unapaswa kuona sehemu yako ya React ikionyeshwa kwenye ukurasa.
+
+**Kumbuka:** React Redux inapatikana hapa kama kigezo cha kimataifa, hivyo unaweza kupata Provider kwa uandishi wa nukta. Msimbo katika mhariri unatumia fursa hii na kuuweka kama thabiti `Provider` ili utumie katika njia ya onyesha ya `AppWrapper`.
+
+# --hints--
+
+`AppWrapper` inapaswa kuonyesha.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return mockedComponent.find('AppWrapper').length === 1;
+  })()
+);
+```
+
+Sehemu ya kufunika ya `Provider` inapaswa kupokea kigezo cha `store` kinachopitishwa, sawa na hifadhi ya Redux.
+
+```js
+assert(
+    (function () {
+      const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+      return __helpers
+        .removeWhiteSpace(code)
+        .includes('<Providerstore={store}>');
+    })()
+  );
+```
+
+`DisplayMessages` inapaswa kuonyesha kama mtoto wa `AppWrapper`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return (
+      mockedComponent.find('AppWrapper').find('DisplayMessages').length === 1
+    );
+  })()
+);
+```
+
+Sehemu ya `DisplayMessages` inapaswa kuonyesha `h2`, `input`, `button`, na `ul`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));
+    return (
+      mockedComponent.find('div').length === 1 &&
+      mockedComponent.find('h2').length === 1 &&
+      mockedComponent.find('button').length === 1 &&
+      mockedComponent.find('ul').length === 1
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+// Redux:
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message
+  }
+};
+
+const messageReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+
+class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {  
+    this.setState((state) => {
+      const currentMessage = state.input;
+      return {
+        input: '',
+        messages: state.messages.concat(currentMessage)
+      };
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange}/><br/>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>
+          {this.state.messages.map( (message, idx) => {
+              return (
+                 <li key={idx}>{message}</li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+
+const Provider = ReactRedux.Provider;
+
+class AppWrapper extends React.Component {
+  // Render the Provider below this line
+
+  // Change code above this line
+};
+```
+
+# --solutions--
+
+```jsx
+// Redux:
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message
+  }
+};
+
+const messageReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+
+class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+ this.handleChange = this.handleChange.bind(this);
+ this.submitMessage = this.submitMessage.bind(this);
+ }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) => {
+      const currentMessage = state.input;
+      return {
+        input: '',
+        messages: state.messages.concat(currentMessage)
+      };  
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange}/><br/>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>
+          {this.state.messages.map( (message, idx) => {
+              return (
+                 <li key={idx}>{message}</li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+
+const Provider = ReactRedux.Provider;
+
+class AppWrapper extends React.Component {
+  // Change code below this line
+  render() {
+    return (
+      <Provider store = {store}>
+        <DisplayMessages/>
+      </Provider>
+    );
+  }
+  // Change code above this line
+};
+```

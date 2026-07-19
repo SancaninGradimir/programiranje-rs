@@ -1,0 +1,80 @@
+---
+id: 68e39ed6106dac2f0a98fd64
+title: "Zoezi la 82: SpOoKy~CaSe"
+challengeType: 28
+dashedName: challenge-82
+---
+
+# --description--
+
+Ikiwa umepewa mfuatano wa herufi unaowakilisha jina la kigezo, ubadilishe kuwa "spooky case" kwa kutumia masharti yafuatayo:
+
+- Badilisha alama zote za mstari chini (`_`) na alama za msalaba (`-`) kuwa tilde (`~`).
+- Andika herufi ya kwanza ya mfuatano wa herufi kwa herufi kubwa, na kila herufi nyingine mbadala baadaye pia kwa herufi kubwa. Puuza herufi ya tilde wakati wa kuhesabu. Andika herufi nyingine zote kwa herufi ndogo.
+
+Kwa mfano, ukipokea `hello_world`, rudisha `HeLlO~wOrLd`.
+
+# --hints--
+
+`spookify("hello_world")` inapaswa kurudisha `"HeLlO~wOrLd"`.
+
+```js
+assert.equal(spookify("hello_world"), "HeLlO~wOrLd");
+```
+
+`spookify("Spooky_Case")` inapaswa kurudisha `"SpOoKy~CaSe"`.
+
+```js
+assert.equal(spookify("Spooky_Case"), "SpOoKy~CaSe");
+```
+
+`spookify("TRICK-or-TREAT")` inapaswa kurudisha `"TrIcK~oR~tReAt"`.
+
+```js
+assert.equal(spookify("TRICK-or-TREAT"), "TrIcK~oR~tReAt");
+```
+
+`spookify("c_a-n_d-y_-b-o_w_l")` inapaswa kurudisha `"C~a~N~d~Y~~b~O~w~L"`.
+
+```js
+assert.equal(spookify("c_a-n_d-y_-b-o_w_l"), "C~a~N~d~Y~~b~O~w~L");
+```
+
+`spookify("thE_hAUntEd-hOUsE-Is-fUll_Of_ghOsts")` inapaswa kurudisha `"ThE~hAuNtEd~HoUsE~iS~fUlL~oF~gHoStS"`.
+
+```js
+assert.equal(spookify("thE_hAUntEd-hOUsE-Is-fUll_Of_ghOsts"), "ThE~hAuNtEd~HoUsE~iS~fUlL~oF~gHoStS");
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function spookify(boo) {
+
+  return boo;
+}
+```
+
+# --solutions--
+
+```js
+function spookify(boo) {
+  const replaced = boo.replace(/[_-]/g, "~");
+  
+  let result = "";
+  let capitalize = true;
+
+  for (let char of replaced) {
+    if (char === "~") {
+      result += char;
+    } else {
+      result += capitalize ? char.toUpperCase() : char.toLowerCase();
+      capitalize = !capitalize;
+    }
+  }
+
+  return result;
+}
+```

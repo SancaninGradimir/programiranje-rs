@@ -1,0 +1,76 @@
+---
+id: 660f4774e3e0df35a68bb5f2
+title: Hatua 90
+challengeType: 1
+dashedName: step-90
+---
+
+# --description--
+
+Ili kuifanya piramidi yako izalishwe tena, sukuma matokeo ya wito wa `padRow` ukiwa na `done` na `count` kama hoja kwenye safu ya data yako ya `rows`, kama ulivyofanya katika mzunguko wako wa kwanza.
+
+# --hints--
+
+Mzunguko wako unapaswa kuita njia ya `.push()` kwenye `rows` yako.
+
+```js
+assert.match(__helpers.removeJSComments(code), /while\s*\(\s*continueLoop\s*\)\s*\{\s*done\+\+;\s*rows\.push\(/);
+```
+
+Unapaswa kuita kitendakazi chako cha `padRow` katika njia yako ya `.push()`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /while\s*\(\s*continueLoop\s*\)\s*\{\s*done\+\+;\s*rows\.push\(\s*padRow\(/);
+```
+
+Unapaswa kupitisha `done` kama hoja ya kwanza katika wito wako wa `padRow`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /while\s*\(\s*continueLoop\s*\)\s*\{\s*done\+\+;\s*rows\.push\(\s*padRow\(\s*done/);
+```
+
+Unapaswa kupitisha `count` kama hoja ya pili katika wito wako wa `padRow`.
+
+```js
+assert.match(__helpers.removeJSComments(code), /while\s*\(\s*continueLoop\s*\)\s*\{\s*done\+\+;\s*rows\.push\(\s*padRow\(\s*done\s*,\s*count\s*\)/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const character = "#";
+const count = 8;
+const rows = [];
+
+function padRow(rowNumber, rowCount) {
+  return " ".repeat(rowCount - rowNumber) + character.repeat(2 * rowNumber - 1) + " ".repeat(rowCount - rowNumber);
+}
+
+// TODO: use a different type of loop
+/*for (let i = 1; i <= count; i++) {
+  rows.push(padRow(i, count));
+}*/
+
+let continueLoop = false;
+let done = 0;
+
+while (continueLoop) {
+  done++;
+--fcc-editable-region--
+
+--fcc-editable-region--
+  if (done === count) {
+    continueLoop = false;
+  } 
+}
+
+let result = ""
+
+for (const row of rows) {
+  result = result + row + "\n";
+}
+
+console.log(result);
+```

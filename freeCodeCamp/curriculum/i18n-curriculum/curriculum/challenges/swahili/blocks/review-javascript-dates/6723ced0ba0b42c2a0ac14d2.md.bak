@@ -1,0 +1,105 @@
+---
+id: 6723ced0ba0b42c2a0ac14d2
+title: Kagua tarehe za JavaScript
+challengeType: 31
+dashedName: review-javascript-dates
+---
+
+# --interactive--
+
+## Kifaa cha `date()` na Njia za Kawaida
+
+- **Ufafanuzi**: Kifaa cha `date()` kinatumika kuunda, kudhibiti, na kuunda muundo wa tarehe na saa katika JavaScript. Katika mfano ufuatao, neno kuu la `new` linatumika kuunda mfano mpya wa kifaa cha `Date`, na kifaa cha `Date` kisha kimepewa thamani ya mabadiliko `now`. Ikiwa ungeandika thamani ya `now` kwenye konsoli, utaona tarehe na saa za sasa kulingana na saa ya mfumo wa kompyuta inayotekeleza msimbo huo.
+
+:::interactive_editor
+
+```js
+const now = new Date();
+console.log(now); // prints the current date and time
+```
+
+:::
+
+- **Njia ya `Date.now()`**: Njia hii hutumika kupata tarehe na saa za sasa. `Date.now()` hurudisha idadi ya millisekunde tangu Januari 1, 1970, 00:00:00 UTC. Hii inajulikana kama wakati wa Unix epoch. Wakati wa Unix epoch ni njia ya kawaida ya kuwakilisha tarehe na saa katika mifumo ya kompyuta kwa sababu ni nambari kamili inayoweza kuhifadhiwa na kudhibitiwa kwa urahisi. UTC inasimama kwa Universal Time Coordinated, ambayo ni kiwango kikuu cha wakati kinachotumika duniani kusimamia saa na muda.
+- **Njia ya `getDate()`**: Njia hii hutumika kupata siku ya mwezi kulingana na tarehe ya sasa. `getDate()` itarudisha thamani ya nambari kamili kati ya 1 na 31, kulingana na siku ya mwezi. Ikiwa tarehe si halali, itarudisha `NaN` (Sio Nambari).
+
+:::interactive_editor
+
+```js
+const now = new Date("2014-10-15");
+const date = now.getDate();
+console.log(date); // 15
+```
+
+:::
+
+- **Njia ya `getMonth()`**: Njia hii hutumika kupata mwezi. Mwezi huanzia sufuri, kwa hivyo Januari ni 0, Februari ni 1, na kadhalika. Katika mfano huu, matokeo ni 9, ambayo inalingana na Oktoba. Ikiwa mwezi si halali, itarudisha `NaN`.
+
+:::interactive_editor
+
+```js
+const now = new Date("2014-10-15");
+const month = now.getMonth();
+console.log(month); // 9
+```
+
+:::
+
+- **Njia ya `getFullYear()`**: Njia hii hutumika kupata mwaka kamili. Ikiwa mwaka si halali, itarudisha `NaN`.
+
+:::interactive_editor
+
+```js
+const now = new Date("2014-10-15");
+const year = now.getFullYear();
+console.log(year); // 2014
+```
+
+:::
+
+## Njia Mbalimbali za Kuunda Muundo wa Tarehe
+
+- **Njia ya `toISOString()`**: Njia hii hutumika kuunda muundo wa tarehe katika muundo wa `ISO` (ISO 8601) uliopanuliwa. ISO 8601 ni kiwango cha kimataifa cha kuwakilisha tarehe na saa. Muundo ni `YYYY-MM-DDTHH:mm:ss.sssZ`.
+
+:::interactive_editor
+
+```js
+const date = new Date("2014-10-15");
+console.log(date.toISOString()); // "2014-10-15T00:00:00.000Z"
+```
+
+:::
+
+- **Njia ya `toLocaleDateString()`**: Njia hii hutumika kuunda muundo wa tarehe kulingana na eneo la mtumizi.
+
+:::interactive_editor
+
+```js
+const date = new Date("2014-10-15");
+console.log(date.toLocaleDateString("en-US"));  // "10/15/2014"
+```
+
+:::
+
+Njia ya `toLocaleDateString()` inakubali vigezo viwili hiari: locales na options.
+
+Kigezo cha locales ni mfuatano wa herufi unaowakilisha eneo la kutumia. Kwa mfano, unaweza kuingiza `"en-US"` kwa Kiingereza (Marekani) au `"fr-FR"` kwa Kifaransa (Ufaransa). Ikiwa hutoi kigezo cha locales, eneo la chaguo-msingi litatumika. Kigezo cha pili hiari ni options. Kigezo hiki ni kitu kinachokuwezesha kubainisha muundo wa mfuatano wa tarehe.
+
+:::interactive_editor
+
+```js
+const date = new Date("2014-10-15");
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+console.log(date.toLocaleDateString("en-GB", options)); // "Wednesday, 15 October 2014"
+```
+
+:::
+
+# --assignment--
+
+Kagua mada na dhana za tarehe za JavaScript.

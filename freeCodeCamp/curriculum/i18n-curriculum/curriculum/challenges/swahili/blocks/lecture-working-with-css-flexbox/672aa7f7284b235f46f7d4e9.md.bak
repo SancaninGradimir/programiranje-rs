@@ -1,0 +1,346 @@
+---
+id: 672aa7f7284b235f46f7d4e9
+title: "CSS flexbox ni nini, na unapaswa kuitumia lini?"
+challengeType: 19
+dashedName: what-is-css-flexbox
+---
+
+# --interactive--
+
+CSS flexbox ni mfano wa upangaji wa vipimo vya kipimo kimoja unaokuwezesha kupanga vipengele katika safu na nguzo ndani ya kontena. Pia unaweza kudhibiti mpangilio na mwelekeo wake. Wasanidi programu wa mtandao hutumia ili kuunda tovuti na programu za mtandao zinazojibadilisha kulingana na ukubwa na mwelekeo tofauti wa skrini. Tunarejelea flexbox kama mfano wa upangaji wa kipimo kimoja kwa sababu unazingatia kupanga vipengele kando ya mhimili mmoja kwa wakati mmoja. Mhili unaweza kuwa wa usawa au wima.
+
+Kuna dhana kuu mbili unazopaswa kujua kabla ya kuanza kufanya kazi na flexbox: kontena cha kubadilika na kipande cha kubadilika.
+
+Kontena cha kubadilika ni kipengele cha HTML chenye upangaji wa flex. Unaweza kupanga na kuoanisha vipengele kwa njia mbalimbali ndani ya kontena cha kubadilika. Ili kufanya kipengele cha HTML kuwa kontena cha kubadilika, unahitaji kuongeza `display: flex` kwenye mitindo yake ya CSS.
+
+Vipande vya kubadilika ni watoto wa moja kwa moja wa kontena cha kubadilika. Vipengele hivi vinaweza kupangwa na kuoanishwa ndani ya kontena cha kubadilika kulingana na sifa zake. Pia vinaweza kupungua au kupanuka ili kufaa nafasi inayopatikana.
+
+Huu ni mfano wenye kontena la `main` na vipengele vitatu vya mtoto `div`:
+
+```html
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+Ikiwa utaweka tu `width`, `height`, na `background-color` vya vipengele hivi vya `div` kwenye karatasi ya mtindo ya CSS, kila kipengele cha mtoto kitawekwa kwenye safu yake mwenyewe kwa sababu kontena si flex kwa chaguo-msingi.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+```css
+div {
+  width: 80px;
+  height: 50px;
+}
+
+#first-div {
+  background-color: #4d70b2;
+}
+
+#second-div {
+  background-color: #5c4db2;
+}
+
+#third-div {
+  background-color: #4da3b2;
+}
+```
+
+:::
+
+Lakini ikiwa utaongeza `display: flex` kwenye kontena la `main`, vipengele vya `div` vitaandaliwa upya ili kufaa kwenye safu moja na vitapungua ikiwa ni lazima (ili kuona maonyesho, wezesha mhariri wa mwingiliano):
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+```css
+main {
+  display: flex;
+}
+
+div {
+  width: 80px;
+  height: 50px;
+}
+
+#first-div {
+  background-color: #4d70b2;
+}
+
+#second-div {
+  background-color: #5c4db2;
+}
+
+#third-div {
+  background-color: #4da3b2;
+}
+```
+
+:::
+
+Kwa chaguo-msingi, kontena cha kubadilika kitakuwa kipengele cha ngazi ya block, hivyo kontena lenyewe litawekwa kwenye safu yake mwenyewe ikilinganishwa na vipengele na makontena mengine.
+
+Sasa unajua zaidi kuhusu makontena ya kubadilika na vipande vya kubadilika, unapaswa pia kujua kuhusu sifa za flex. Sifa hizi zinaamua jinsi vipande vya kubadilika vitakavyopangwa, kubadilishwa ukubwa, na kugawanywa ndani ya kontena cha kubadilika. Baadhi ya sifa zinazotumika sana ni `flex-direction`, `justify-content`, `align-items`, na `flex-wrap`.
+
+Nzuri. Sasa tuzungumzie kidogo kuhusu mfano wa flex. Mfano huu unaeleza jinsi vipande vya kubadilika vinavyopangwa ndani ya kontena cha kubadilika. Kila kontena cha kubadilika kina mihimili miwili:
+
+- Mhili mkuu.
+- Mhili wa msalaba.
+
+Mwelekeo wa mihimili hii unaamua jinsi sifa tofauti zitakavyoathiri upangaji na mgawanyo wa vipande vya kubadilika. Kwa chaguo-msingi, mhimili mkuu wa kontena cha kubadilika ni wa usawa na mhimili wa msalaba ni wa wima. Vipande vya kubadilika hupangwa kwa mwelekeo wa mhimili mkuu. Mhili wa msalaba ni wima kwa mhimili mkuu.
+
+Sifa ya `flex-direction` inaweka mwelekeo wa mhimili mkuu. Thamani ya chaguo-msingi ya `flex-direction` ni `row`, ambayo huweka vipande vyote vya kubadilika kwenye safu moja, kwa mwelekeo wa lugha ya chaguo-msingi ya kivinjari chako (kutoka kushoto kwenda kulia au kutoka kulia kwenda kushoto):
+
+```css
+flex-direction: row; /* Default */
+```
+
+Ili kubadilisha mpangilio wa vipande kwenye safu, unaweza kutumia `flex-direction: row-reverse`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+```css
+main {
+  display: flex;
+  flex-direction: row-reverse; 
+}
+
+div {
+  width: 80px;
+  height: 50px;
+}
+
+#first-div {
+  background-color: #4d70b2;
+}
+
+#second-div {
+  background-color: #5c4db2;
+}
+
+#third-div {
+  background-color: #4da3b2;
+}
+```
+
+:::
+
+Hii itageuza mpangilio wa vipande vya kubadilika. Ikiwa unataka kuoanisha vipande vya kubadilika wima badala yake, unahitaji tu kuweka `flex-direction` kuwa `column` kwenye kontena cha kubadilika. Hii itabadilisha mwelekeo wa mhimili mkuu:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+```css
+main {
+  display: flex;
+  flex-direction: column; 
+}
+
+div {
+  width: 80px;
+  height: 50px;
+}
+
+#first-div {
+  background-color: #4d70b2;
+}
+
+#second-div {
+  background-color: #5c4db2;
+}
+
+#third-div {
+  background-color: #4da3b2;
+}
+```
+
+:::
+
+Sasa vipande vya `div` vitaoanishwa wima kwa sababu mhimili mkuu utakuwa wima na mhimili wa msalaba utakuwa wa usawa.
+
+Unaweza pia kubadilisha mpangilio wa vipande vya kubadilika wima kwa `flex-direction: column-reverse`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<main>
+  <div id="first-div"></div>
+  <div id="second-div"></div>
+  <div id="third-div"></div>
+</main>
+```
+
+```css
+main {
+  display: flex;
+  flex-direction: column-reverse; 
+}
+
+div {
+  width: 80px;
+  height: 50px;
+}
+
+#first-div {
+  background-color: #4d70b2;
+}
+
+#second-div {
+  background-color: #5c4db2;
+}
+
+#third-div {
+  background-color: #4da3b2;
+}
+```
+
+:::
+
+CSS flexbox ni mfano wenye nguvu wa upangaji unaotoa njia inayobadilika na yenye ufanisi ya kupanga vipengele ndani ya kontena. Kwa kuelewa dhana kuu za makontena ya kubadilika, vipande vya kubadilika, na sifa mbalimbali za flex, unaweza kuunda tovuti zinazojibadilisha kulingana na kifaa na zinazobadilika kwa ukubwa na mwelekeo tofauti wa skrini.
+
+# --questions--
+
+## --text--
+
+Nini kusudi kuu la CSS Flexbox?
+
+## --answers--
+
+Kudhibiti ukubwa wa fonti wa vipengele vya maandishi.
+
+### --feedback--
+
+Fikiria jinsi flexbox inavyotumika kupanga na kuoanisha vipengele.
+
+---
+
+Kuunda upangaji unaojibadilisha na wenye nguvu.
+
+---
+
+Kufafanua rangi ya vipengele.
+
+### --feedback--
+
+Fikiria jinsi flexbox inavyotumika kupanga na kuoanisha vipengele.
+
+---
+
+Kurekebisha nafasi kati ya vipengele.
+
+### --feedback--
+
+Fikiria jinsi flexbox inavyotumika kupanga na kuoanisha vipengele.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni sifa gani za CSS zifuatazo hutumika kudhibiti mwelekeo ambao vipengele watoto hupangwa ndani ya kontena cha kubadilika?
+
+## --answers--
+
+`flex-wrap`
+
+### --feedback--
+
+Fikiria jinsi upangaji wa vipengele unavyoamuliwa ndani ya kontena cha kubadilika.
+
+---
+
+`align-items`
+
+### --feedback--
+
+Fikiria jinsi upangaji wa vipengele unavyoamuliwa ndani ya kontena cha kubadilika.
+
+---
+
+`justify-content`
+
+### --feedback--
+
+Fikiria jinsi upangaji wa vipengele unavyoamuliwa ndani ya kontena cha kubadilika.
+
+---
+
+`flex-direction`
+
+## --video-solution--
+
+4
+
+## --text--
+
+Katika mfano wa flex, ni uhusiano gani kati ya mhimili mkuu na mhimili wa msalaba?
+
+## --answers--
+
+Mhimili mkuu daima ni wa usawa, wakati mhimili wa msalaba daima ni wa wima.
+
+### --feedback--
+
+Fikiria mgawanyo wa vipengele ndani ya kontena cha kubadilika.
+
+---
+
+Mhimili mkuu daima ni wa wima, wakati mhimili wa msalaba daima ni wa usawa.
+
+### --feedback--
+
+Fikiria mgawanyo wa vipengele ndani ya kontena cha kubadilika.
+
+---
+
+Mhimili mkuu na mhimili wa msalaba daima ni wima kwa kila mmoja.
+
+---
+
+Mhimili mkuu na mhimili wa msalaba daima ni sambamba kwa kila mmoja.
+
+### --feedback--
+
+Fikiria mgawanyo wa vipengele ndani ya kontena cha kubadilika.
+
+## --video-solution--
+
+3

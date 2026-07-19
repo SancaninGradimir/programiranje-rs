@@ -1,0 +1,81 @@
+---
+id: 6876089f7a500b7c782e5b83
+title: Hatua 12
+challengeType: 20
+dashedName: step-12
+---
+
+# --description--
+
+Unahitaji kuamua kama nodi ya sasa ni chaguo bora kuliko ile uliyopata tayari (ikiwa ipo). Ili kufanya hivyo, utaongeza usemi wa masharti ndani ya mzunguko.
+
+Masharti yanapaswa kufanya mambo mawili:
+
+- Angalia kama nodi haijatembelewa bado.
+- Linganisha umbali unaojulikana na `min_distance` wa sasa.
+
+Ndani ya mzunguko wa ndani wa `for`, ongeza usemi wa `if` unaokagua kama `node_no` haijatembelewa **na** kama `distances[node_no]` ni ndogo kuliko `min_distance`.
+
+Ongeza `pass` kama kiwakilishi ndani ya sehemu ya masharti.
+
+# --hints--
+
+Unapaswa kuongeza usemi wa `if` ndani ya mzunguko wako wa ndani wa `for`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_for_loops()[0].find_bodies()[0].find_ifs()[0]`
+        )
+      );
+    }
+});
+```
+
+Usemi wako wa `if` unapaswa kukagua kama nodi haijatembelewa (`visited[node_no]` ni falsy) na `distances[node_no]` ni ndogo kuliko `min_distance`.
+
+```js
+({
+    test: () => {
+      assert(
+        runPython(
+          `_Node(_code).find_function("shortest_path").find_for_loops()[0].find_bodies()[0].find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0].is_equivalent("not visited[node_no] and distances[node_no] < min_distance")`
+        )
+      );
+    }
+});
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+INF = float('inf')
+adj_matrix = [
+    [0, 5, 3, INF, 11, INF],
+    [5, 0, 1, INF, INF, 2],
+    [3, 1, 0, 1, 5, INF],
+    [INF, INF, 1, 0, 9, 3],
+    [11, INF, 5, 9, 0, INF],
+    [INF, 2, INF, 3, INF, 0],
+]
+
+def shortest_path(matrix, start_node, target_node=None):
+    n = len(matrix)
+    distances = [INF] * n
+    distances[start_node] = 0
+    paths = [[node_no] for node_no in range(n)]
+    visited = [False] * n
+
+--fcc-editable-region--
+    for _ in range(n):  
+        min_distance = INF  
+        current = -1  
+        for node_no in range(n):  
+            pass
+
+--fcc-editable-region--
+```

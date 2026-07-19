@@ -1,0 +1,147 @@
+---
+id: 587d7b8c367417b2b2512b54
+title: Tumia getters na setters kudhibiti upatikanaji wa kitu
+challengeType: 1
+forumTopicId: 301220
+dashedName: use-getters-and-setters-to-control-access-to-an-object
+---
+
+# --description--
+
+Unaweza kupata thamani kutoka kwa kitu na kuweka thamani ya sifa ndani ya kitu.
+
+Hizi kwa kawaida huitwa <dfn>getters</dfn> na <dfn>setters</dfn>.
+
+Kitendakazi cha getter kimekusudiwa kurudisha (kupata) thamani ya kigezo binafsi cha kitu kwa mtumizi bila mtumizi kuupata moja kwa moja kigezo hicho binafsi.
+
+Kitendakazi cha setter kimekusudiwa kubadilisha (kuweka) thamani ya kigezo binafsi cha kitu kulingana na thamani inayopitishwa kwenye kitendakazi cha setter. Mabadiliko haya yanaweza kujumuisha hesabu, au hata kufuta kabisa thamani ya awali.
+
+```js
+class Book {
+  constructor(author) {
+    this._author = author;
+  }
+  // getter
+  get writer() {
+    return this._author;
+  }
+  // setter
+  set writer(updatedAuthor) {
+    this._author = updatedAuthor;
+  }
+}
+const novel = new Book('anonymous');
+console.log(novel.writer);
+novel.writer = 'newAuthor';
+console.log(novel.writer);
+```
+
+Konsoli itaonyesha mfuatano wa herufi `anonymous` na `newAuthor`.
+
+Angalia sintaksia inayotumika kuitisha getter na setter. Hata hazionekani kama vitendakazi. Getters na setters ni muhimu kwa sababu huficha maelezo ya utekelezaji wa ndani.
+
+**Kumbuka:** Ni mkataba kuanzisha jina la kigezo binafsi kwa mstari wa chini (`_`). Hata hivyo, tabia hiyo yenyewe haifanyi kigezo kuwa binafsi.
+
+# --instructions--
+
+Tumia neno kuu la `class` kuunda darasa la `Thermostat`. `constructor` inakubali joto la Fahrenheit.
+
+Ndani ya darasa, unda `getter` kupata joto kwa Celsius na `setter` inayokubali joto kwa Celsius.
+
+Kumbuka kuwa `C = 5/9 * (F - 32)` na `F = C * 9.0 / 5 + 32`, ambapo `F` ni thamani ya joto kwa Fahrenheit, na `C` ni thamani ya joto sawa kwa Celsius.
+
+**Kumbuka:** Unapotekeleza hili, utahifadhi joto ndani ya darasa kwa kipimo kimoja, iwe Fahrenheit au Celsius.
+
+Hii ni nguvu ya getter na setter. Unaunda API kwa mtumizi mwingine, ambaye anaweza kupata matokeo sahihi bila kujali ni ipi unayotumia kuhifadhi.
+
+Kwa maneno mengine, unaficha maelezo ya utekelezaji kutoka kwa mtumizi.
+
+# --hints--
+
+`Thermostat` inapaswa kuwa darasa la `class` lenye njia ya `constructor` iliyobainishwa.
+
+```js
+assert.isFunction(Thermostat);
+assert.isFunction(Thermostat?.constructor);
+```
+
+Neno kuu la `class` linapaswa kutumika.
+
+```js
+assert.match(code, /class/);
+```
+
+`Thermostat` inapaswa kuweza kuanzishwa.
+
+```js
+const _t = new Thermostat(122);
+assert.isObject(_t);
+```
+
+Inapoanzishwa na thamani ya Fahrenheit, `Thermostat` inapaswa kuweka `temperature` sahihi.
+
+```js
+const _t = new Thermostat(122);
+assert.strictEqual(_t?.temperature, 50);
+```
+
+`getter` inapaswa kubainishwa.
+
+```js
+const _desc = Object.getOwnPropertyDescriptor(Thermostat.prototype, 'temperature');
+assert.isFunction(_desc?.get);
+```
+
+`setter` inapaswa kubainishwa.
+
+```js
+const _desc = Object.getOwnPropertyDescriptor(Thermostat.prototype, 'temperature');
+assert.isFunction(_desc?.set);
+```
+
+Kuitisha `setter` na thamani ya Celsius inapaswa kuweka `temperature`.
+
+```js
+const _t = new Thermostat(32);
+_t.temperature = 26;
+const _u = new Thermostat(32);
+_u.temperature = 50;
+assert.approximately(_t.temperature, 26, 0.1);
+assert.approximately(_u.temperature, 50, 0.1);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+// Only change code below this line
+
+// Only change code above this line
+
+const thermos = new Thermostat(76); // Setting in Fahrenheit scale
+let temp = thermos.temperature; // 24.44 in Celsius
+thermos.temperature = 26;
+temp = thermos.temperature; // 26 in Celsius
+```
+
+# --solutions--
+
+```js
+class Thermostat {
+  constructor(fahrenheit) {
+    this._tempInCelsius = 5/9 * (fahrenheit - 32);
+  }
+  get temperature(){
+    return this._tempInCelsius;
+  }
+  set temperature(newTemp){
+    this._tempInCelsius = newTemp;
+  }
+}
+
+const thermos = new Thermostat(76); // Setting in Fahrenheit scale
+let temp = thermos.temperature; // 24.44 in Celsius
+thermos.temperature = 26;
+temp = thermos.temperature; // 26 in Celsius
+```

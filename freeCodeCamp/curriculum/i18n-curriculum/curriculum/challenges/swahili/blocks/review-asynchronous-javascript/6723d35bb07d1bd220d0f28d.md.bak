@@ -1,0 +1,223 @@
+---
+id: 6723d35bb07d1bd220d0f28d
+title: Ukaguzi wa JavaScript isiyo ya wakati mmoja
+challengeType: 31
+dashedName: review-asynchronous-javascript
+---
+
+# --description--
+
+- **JavaScript ya wakati mmoja** hufanyika mfululizo na husubiri operesheni iliyopita kumalizika kabla ya kuendelea na ile inayofuata.
+- **JavaScript isiyo ya wakati mmoja** huruhusu operesheni nyingi kufanyika nyuma bila kuzuia nyuzi kuu.
+- **Nyuzi** ni mfululizo wa maagizo yanayoweza kutekelezwa huru kutoka kwa mtiririko mkuu wa programu.
+- **Kitendakazi cha mwitiko** ni vitendakazi vinavyopitishwa kama hoja kwa vitendakazi vingine na hufanyika baada ya kumalizika kwa operesheni au kama matokeo ya tukio.
+
+## Injini ya JavaScript na mazingira ya utekelezaji ya JavaScript
+
+- **Injini ya JavaScript** ni programu inayotekeleza msimbo wa JavaScript katika kivinjari cha mtandao. Inafanya kazi kama mabadilishaji anayechukua msimbo wako, kuubadilisha kuwa maagizo ambayo kompyuta inaweza kuelewa na kufanya kazi kwa mujibu wake.
+- V8 ni mfano wa injini ya JavaScript iliyotengenezwa na Google.
+- **Mazingira ya utekelezaji ya JavaScript** ni mazingira ambayo msimbo wa JavaScript hufanyika ndani yake. Inajumuisha injini ya JavaScript inayosindika na kutekeleza msimbo, pamoja na vipengele vya ziada kama kivinjari cha mtandao au Node.js.
+
+## API ya Fetch
+
+- API ya Fetch huruhusu programu za mtandao kufanya maombi ya mtandao, kawaida kwa ajili ya kupata au kutuma data kwa seva. Inatoa njia ya `fetch()` ambayo unaweza kutumia kufanya maombi haya.
+- Unaweza kupata maandishi, picha, sauti, JSON, na aina nyingine za data kwa kutumia API ya Fetch.
+
+## Njia za HTTP kwa API ya Fetch
+
+API ya Fetch inaunga mkono njia mbalimbali za HTTP kuwasiliana na seva. Njia zinazotumika zaidi ni:
+
+- **GET**: Inatumika kupata data kutoka kwa seva. Kwa chaguo-msingi, API ya Fetch hutumia njia ya `GET` kupata data.
+
+```js
+fetch('https://api.example.com/data')
+```
+
+Ili kutumia data iliyopatikana, lazima ibadilishwe kuwa muundo wa JSON kwa kutumia njia ya `.json()`:
+
+```js
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data))
+```
+
+Katika msimbo huu, `fetch()` hurudisha Ahadi, na mshughulikiaji wa `.then()` hubadilisha jibu lililotatuliwa kuwa muundo wa JSON.
+
+- **POST**: Inatumika kutuma data kwa seva. Njia ya `POST` hutumika kuunda rasilimali mpya kwenye seva.
+
+```js
+fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    email: 'john@example.com'
+  })
+})
+```
+
+Katika mfano huu, tunatuma ombi la `POST` kuunda mtumizi mpya. Tumebainisha njia kama `POST`, kuweka vichwa vinavyofaa, na kuingiza mwili wenye data tunayotaka kutuma. Mwili unahitaji kuwa mfuatano wa herufi, hivyo tunatumia `JSON.stringify()` kubadilisha kitu chetu kuwa mfuatano wa herufi wa JSON.
+
+- **PUT**: Inatumika kusahihisha data kwenye seva. Njia ya `PUT` hutumika kusasisha rasilimali zilizopo kwenye seva.
+
+```js
+fetch('https://api.example.com/users/45', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'John Smith',
+    email: 'john@example.com'
+  })
+})
+```
+
+Katika mfano huu, tunasasisha ID ya `45` ambayo imebainishwa mwishoni mwa URL. Tumetumia njia ya `PUT` kwenye msimbo na pia tumeainisha data kama mwili ambao utatumika kusasisha data iliyotambuliwa.
+
+- **DELETE**: Inatumika kufuta data kwenye seva. Njia ya `DELETE` hutumika kufuta rasilimali kwenye seva.
+
+```js
+fetch('https://api.example.com/users/45', {
+  method: 'DELETE'
+})
+```
+
+Katika mfano huu, tunatuma ombi la `DELETE` kufuta mtumizi mwenye ID ya `45`.
+
+## Ahadi na uunganishaji wa ahadi
+
+- **Ahadi** ni vitu vinavyowakilisha kukamilika kwa hatima au kushindwa kwa operesheni isiyo ya wakati mmoja na thamani inayotokana nayo. Thamani ya ahadi inajulikana tu wakati operesheni isiyo ya wakati mmoja imemalizika.
+- Hapa kuna mfano wa kuunda ahadi rahisi:
+
+```js
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('Data received successfully');
+  }, 2000);
+});
+```
+
+- Njia ya `.then()` hutumika katika Ahadi kuonyesha kinachotakiwa kutokea wakati Ahadi inatimizwa, wakati `.catch()` hutumika kushughulikia makosa yoyote yanayotokea.
+- Hapa kuna mfano wa kutumia `.then()` na `.catch()` na Ahadi:
+
+```js
+promise
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
+Katika mfano uliotajwa, njia ya `.then()` hutumika kuandika data iliyopokelewa kutoka kwa Ahadi, wakati njia ya `.catch()` hutumika kuandika makosa yoyote yanayotokea.
+
+- **Uunganishaji wa ahadi**: Moja ya vipengele vyenye nguvu vya Ahadi ni kwamba tunaweza kuunganisha operesheni nyingi zisizo za wakati mmoja pamoja. Kila `.then()` inaweza kurudisha Ahadi mpya, ikiruhusu kufanya mfululizo wa operesheni zisizo za wakati mmoja moja baada ya nyingine.
+- Hapa kuna mfano wa uunganishaji wa Ahadi:
+
+```js
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    return fetch('https://api.example.com/other-data');
+  })
+  .then(response => response.json())
+  .then(otherData => {
+    console.log(otherData);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
+Katika mfano huu, kwanza tunapata data kutoka URL moja, kisha tunapata data kutoka URL nyingine kulingana na jibu la kwanza, na hatimaye tunaandika data ya pili iliyopokelewa.
+
+Njia ya `catch` itashughulikia makosa yoyote yanayotokea wakati wa mchakato. Hii inamaanisha hauhitaji kuongeza usimamizi wa makosa kwa kila hatua, jambo linalorahisisha msimbo wako sana.
+
+## Kutumia `async/await` kushughulikia ahadi
+
+`async`/`await` hufanya uandishi na usomaji wa msimbo usio wa wakati mmoja kuwa rahisi zaidi, ambao umejengwa juu ya Ahadi.
+
+- **async**: Neno kuu la `async` hutumika kufafanua kitendakazi kisicho wa wakati mmoja. Kitendakazi cha `async` hurudisha Ahadi, ambayo hutatuliwa na thamani inayorudishwa na kitendakazi cha `async`.
+- **await**: Neno kuu la `await` hutumika ndani ya kitendakazi cha `async` kusitisha utekelezaji wa kitendakazi hadi Ahadi itakapotatuliwa. Inaweza kutumika tu ndani ya kitendakazi cha `async`.
+- Hapa kuna mfano wa kutumia `async/await`:
+
+```js
+async function delayedGreeting(name) {
+  console.log("A Messenger entered the chat...");
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  console.log(`Hello, ${name}!`);
+}
+
+delayedGreeting("Alice");
+console.log("First Printed Message!");
+```
+
+Katika mfano huu, kitendakazi cha `delayedGreeting` ni kitendakazi cha `async` kinachosimama kwa sekunde 2 kabla ya kuchapisha ujumbe wa salamu. Neno kuu la `await` linatumika kusitisha utekelezaji wa kitendakazi hadi `Promise` itakapotatuliwa.
+
+- Moja ya faida kubwa za `async/await` ni usimamizi wa makosa kupitia sehemu za `try/catch`. Hapa kuna mfano:
+
+```js
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchData();
+```
+
+Katika mfano huu, sehemu ya `try` ina msimbo ambao unaweza kutupa kosa, na sehemu ya `catch` hushughulikia kosa ikiwa litatokea. Hii inafanya usimamizi wa makosa kuwa rahisi na wa kueleweka.
+
+## Sifa ya `async`
+
+- Sifa ya `async` inaeleza kivinjari kupakua faili la script isiyo ya wakati mmoja huku ikiendelea kuchambua hati ya HTML.
+- Mara script inapopakuliwa, uchambuzi wa HTML unasitishwa, script inatekelezwa, kisha uchambuzi wa HTML unaendelea tena.
+- Unapaswa kutumia `async` kwa script huru ambapo mpangilio wa utekelezaji haujaliwi.
+
+## Sifa ya `defer`
+
+- Sifa ya `defer` pia hupakua script isiyo ya wakati mmoja, lakini huahirisha utekelezaji wa script hadi baada ya hati ya HTML kuchambuliwa kikamilifu.
+- Script za `defer` huhifadhi mpangilio wa utekelezaji kama zinavyoonekana katika hati ya HTML.
+
+- Ni muhimu kutambua kwamba sifa zote za `async` na `defer` hazizingatiwi kwa script ndani ya mstari na hufanya kazi tu kwa faili za script za nje.
+
+- Wakati sifa za `async` na `defer` zipo pamoja, sifa ya `async` hupata kipaumbele.
+
+## API ya Geolocation
+
+- API ya Geolocation hutoa njia kwa tovuti kuomba eneo la mtumizi.
+
+- Mfano hapa chini unaonyesha njia ya `getCurrentPosition()` ya API ambayo hutumika kupata eneo la mtumizi kwa sasa.
+
+```js
+navigator.geolocation.getCurrentPosition(
+  (position) => {
+    console.log("Latitude: " + position.coords.latitude);
+    console.log("Longitude: " + position.coords.longitude);
+  },
+  (error) => {
+    console.log("Error: " + error.message);
+  }
+);
+```
+
+Katika msimbo huu, tunaita `getCurrentPosition` na kuipatia kitendakazi ambacho kitaitwa wakati nafasi itakapopatikana kwa mafanikio.
+
+Kitu cha `position` kina taarifa mbalimbali, lakini hapa tumechagua `latitude` na `longitude` pekee.
+
+Kama kuna tatizo kupata `position`, basi kosa litaandikwa kwenye konsoli.
+
+- Ni muhimu kuheshimu faragha ya mtumizi na kuomba eneo lake tu wakati ni lazima.
+
+# --assignment--
+
+Kagua mada na dhana za JavaScript isiyo ya wakati mmoja.

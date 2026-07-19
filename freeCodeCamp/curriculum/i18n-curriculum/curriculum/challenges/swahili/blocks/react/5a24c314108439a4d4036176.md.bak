@@ -1,0 +1,183 @@
+---
+id: 5a24c314108439a4d4036176
+title: Tumia state kubadili kipengele
+challengeType: 6
+forumTopicId: 301421
+dashedName: use-state-to-toggle-an-element
+---
+
+# --description--
+
+Wakati mwingine unaweza kuhitaji kujua hali ya awali unaposasisha hali. Hata hivyo, masasisho ya hali yanaweza kuwa isiyo ya wakati mmoja - hii inamaanisha React inaweza kuunganisha wito nyingi za `setState()` kuwa sasisho moja. Hii inamaanisha huwezi kutegemea thamani ya awali ya `this.state` au `this.props` wakati unahesabu thamani inayofuata. Kwa hivyo, haipaswi kutumia msimbo kama huu:
+
+```jsx
+this.setState({
+  counter: this.state.counter + this.props.increment
+});
+```
+
+Badala yake, unapaswa kumpitisha `setState` kitendakazi kinachokuwezesha kupata upatikanaji wa hali na vigezo vinavyopitishwa. Kutumia kitendakazi na `setState` kunahakikisha unafanya kazi na thamani za hivi karibuni zaidi za hali na vigezo vinavyopitishwa. Hii inamaanisha kuwa mfano uliotangulia unapaswa kuandikwa upya kama ifuatavyo:
+
+```jsx
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+```
+
+Unaweza pia kutumia aina isiyo na `props` ikiwa unahitaji tu `state`:
+
+```jsx
+this.setState(state => ({
+  counter: state.counter + 1
+}));
+```
+
+Kumbuka kuwa lazima ufunike literal ya kitu ndani ya mabano ya kawaida, vinginevyo JavaScript itadhani ni sehemu ya msimbo.
+
+# --instructions--
+
+`MyComponent` ina sifa ya `visibility` ambayo imeanzishwa kwa `false`. Njia ya onyesha inarudisha mtazamo mmoja ikiwa thamani ya `visibility` ni kweli, na mtazamo tofauti ikiwa ni potofu.
+
+Kwa sasa, hakuna njia ya kusasisha sifa ya `visibility` katika `state` ya sehemu hiyo. Thamani inapaswa kubadilika mfululizo kati ya kweli na potofu. Kuna mshughulikiaji wa bofya kwenye kitufe unaochochea njia ya darasa iitwayo `toggleVisibility()`. Pitisha kitendakazi kwa `setState` ili kufafanua njia hii ili `state` ya `visibility` ibadilike kuwa thamani kinyume wakati njia hiyo inaitwa. Ikiwa `visibility` ni `false`, njia hiyo inaiweka kuwa `true`, na kinyume chake.
+
+Mwishowe, bofya kitufe kuona onyesho la sehemu hiyo kulingana na `state` yake.
+
+**Kidokezo:** Usisahau kufunga neno kuu la `this` kwa njia hiyo katika `constructor`!
+
+# --hints--
+
+`MyComponent` inapaswa kurudisha kipengele cha `div` ambacho kina `button`.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(MyComponent)).find('div').find('button')
+    .length,
+  1
+);
+```
+
+Hali ya `MyComponent` inapaswa kuanzishwa na sifa ya `visibility` iliyowekwa kuwa `false`.
+
+```js
+assert.strictEqual(
+  Enzyme.mount(React.createElement(MyComponent)).state('visibility'),
+  false
+);
+```
+
+Kubofya kipengele cha kitufe kunapaswa kubadilisha sifa ya `visibility` katika hali kati ya `true` na `false` na kuonyesha kipengele cha `h1` kwa masharti.
+
+```js
+(() => {
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ visibility: false });
+    return mockedComponent.state('visibility');
+  };
+  const second = () => {
+    mockedComponent.find('button').simulate('click');
+    return mockedComponent.state('visibility') && mockedComponent.find('h1').exists();
+  };
+  const third = () => {
+    mockedComponent.find('button').simulate('click');
+    return mockedComponent.state('visibility') && mockedComponent.find('h1').exists();
+  };
+  const firstValue = first();
+  const secondValue = second();
+  const thirdValue = third();
+  assert(!firstValue && secondValue && !thirdValue);
+})();
+```
+
+Kitendakazi kisicho na jina kinapaswa kupitishwa kwa `setState`.
+
+```js
+const paramRegex = '[a-zA-Z$_]\\w*(,[a-zA-Z$_]\\w*)?';
+assert(
+  new RegExp(
+    'this\\.setState\\((function\\(' +
+      paramRegex +
+      '\\){|([a-zA-Z$_]\\w*|\\(' +
+      paramRegex +
+      '\\))=>)'
+  ).test(__helpers.removeWhiteSpace(code))
+);
+```
+
+`this` haipaswi kutumika ndani ya `setState`
+
+```js
+assert(!/this\.setState\([^}]*this/.test(code));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibility: false
+    };
+    // Change code below this line
+
+    // Change code above this line
+  }
+  // Change code below this line
+
+  // Change code above this line
+  render() {
+    if (this.state.visibility) {
+      return (
+        <div>
+          <button onClick={this.toggleVisibility}>Click Me</button>
+          <h1>Now you see me!</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button onClick={this.toggleVisibility}>Click Me</button>
+        </div>
+      );
+    }
+  }
+}
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibility: false
+    };
+    this.toggleVisibility = this.toggleVisibility.bind(this);
+  }
+  toggleVisibility() {
+    this.setState(state => ({
+      visibility: !state.visibility
+    }));
+  }
+  render() {
+    if (this.state.visibility) {
+      return (
+        <div>
+          <button onClick={this.toggleVisibility}>Click Me</button>
+          <h1>Now you see me!</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button onClick={this.toggleVisibility}>Click Me</button>
+        </div>
+      );
+    }
+  }
+}
+```

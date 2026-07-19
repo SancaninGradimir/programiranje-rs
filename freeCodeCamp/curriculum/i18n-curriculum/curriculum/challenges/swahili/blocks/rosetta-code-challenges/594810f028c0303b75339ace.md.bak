@@ -1,0 +1,79 @@
+---
+id: 594810f028c0303b75339ace
+title: Kiwanda cha mkusanyaji
+challengeType: 1
+forumTopicId: 302222
+dashedName: accumulator-factory
+---
+
+# --description--
+
+Changamoto iliyowasilishwa na Paul Graham ni kuunda kitendakazi kinachopokea hoja moja (ya nambari) na kurudisha kitendakazi kingine ambacho ni mkusanyaji. Kitendakazi cha mkusanyaji kinachorudishwa pia kinapokea hoja moja ya nambari, na kurudisha jumla ya thamani zote za nambari zilizopitishwa hadi sasa kwa mkusanyaji huyo (ikiwa ni pamoja na thamani ya awali iliyotolewa wakati mkusanyaji alipoanzishwa).
+
+# --instructions--
+
+Unda kitendakazi kinachopokea nambari $n$ na kuunda vitendakazi vya mkusanyaji vinavyorudisha jumla ya kila nambari iliyowahi kupitishwa kwao.
+
+**Sheria:**
+
+Usitumie vigezo vya kimataifa.
+
+**Kidokezo:**
+
+Ufungaji huhifadhi hali ya nje.
+
+# --hints--
+
+`accumulator` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof accumulator === 'function');
+```
+
+`accumulator(0)` inapaswa kurudisha kitendakazi.
+
+```js
+assert(typeof accumulator(0) === 'function');
+```
+
+`accumulator(0)(2)` inapaswa kurudisha nambari.
+
+```js
+assert(typeof accumulator(0)(2) === 'number');
+```
+
+Kupitisha thamani 3, -4, 1.5, na 5 kunapaswa kurudisha 5.5.
+
+```js
+assert(testFn && testFn(5) === 5.5);
+```
+
+# --before-each--
+
+```js
+const testFn = typeof accumulator === 'function' && accumulator(3);
+if (testFn) {
+  testFn(-4);
+  testFn(1.5);
+}
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function accumulator(sum) {
+
+}
+```
+
+# --solutions--
+
+```js
+function accumulator(sum) {
+  return function(n) {
+    return sum += n;
+  };
+}
+```

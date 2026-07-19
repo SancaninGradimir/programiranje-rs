@@ -1,0 +1,213 @@
+---
+id: 673284d5e52ef81a2169b097
+title: "Je, kitendakazi cha mshale ni nini, na hufanya kazi vipi?"
+challengeType: 19
+dashedName: what-are-arrow-functions-and-how-do-they-work
+---
+
+# --interactive--
+
+Katika funzo lililopita, ulijifunza jinsi ya kufanya kazi na vitendakazi, ambavyo ni vipande vya msimbo vinavyoweza kutumika tena vinavyosaidia kufanya msimbo wako kuwa wa moduli zaidi, rahisi kudumisha, na wenye ufanisi zaidi. Mifano yote ya awali ilitumia sintaksia ya kitendakazi ya kawaida, kama hii:
+
+```js
+function greetings(name) {
+  console.log("Hello, " + name + "!");
+}
+```
+
+Lakini njia nyingine ya kuandika vitendakazi katika JavaScript ni kuunda usemi wa kitendakazi cha mshale. Hapa ni jinsi unavyoweza kubadilisha mfano wa awali kutumia sintaksia ya kitendakazi cha mshale badala yake:
+
+```js
+const greetings = (name) => {
+  console.log("Hello, " + name + "!");
+};
+```
+
+Katika mfano huu uliorekebishwa, tunaunda tofauti `const` inayoitwa `greetings` na kuipa kitendakazi kisicho na jina. Sehemu kubwa ya sintaksia itakuonekana ya kawaida isipokuwa kwa kutokuwepo kwa neno kuu la `function` na kuongeza mshale (`=>`) kati ya kigezo cha `name` na mwili wa kitendakazi. Ikiwa orodha yako ya vigezo ina kigezo kimoja tu, basi unaweza kuondoa mabano ya kawaida kama hii:
+
+```js
+const greetings = name => {
+  console.log("Hello, " + name + "!");
+};
+```
+
+Ikiwa kitendakazi chako cha mshale hakina vigezo, basi lazima utumie mabano ya kawaida kama hii:
+
+```js
+const greetings = () => {
+  console.log("Hello");
+};
+```
+
+Unapojifunza vitendakazi kwa mara ya kwanza, ulilazimika kufunika mwili wa kitendakazi katika mabano ya mviringo. Lakini ikiwa mwili wa kitendakazi wako una mstari mmoja tu wa msimbo, unaweza kuondoa mabano ya mviringo kama hii:
+
+```js
+const greetings = name => console.log("Hello, " + name + "!");
+```
+
+Ni muhimu kutambua kwamba kuondoa mabano ya kawaida na mabano ya mviringo kwa sintaksia ya kitendakazi ya kawaida haitafanya kazi. Utapata makosa ikiwa utajaribu kufanya kitu kama hiki:
+
+```js
+// This will produce syntax errors 
+function greetings name console.log("Hello, " + name + "!");
+```
+
+Aina hizi za vitendakazi vya mstari mmoja hufanya kazi tu ikiwa unatumia sintaksia ya kitendakazi cha mshale. Dhana nyingine muhimu ni usemi wa `return`. Hapa kuna mfano wa kutumia sintaksia ya kitendakazi cha mshale kuhesabu eneo:
+
+:::interactive_editor
+
+```js
+const calculateArea = (width, height) => {
+  const area = width * height;
+  return area;
+};
+
+console.log(calculateArea(5, 3)); // 15
+```
+
+:::
+
+Tunaunda tofauti ndani ya kitendakazi inayoitwa `area` kisha kurudisha tofauti hiyo. Lakini tunaweza kusafisha msimbo wetu kidogo na kurudisha hesabu yenyewe:
+
+:::interactive_editor
+
+```js
+const calculateArea = (width, height) => {
+  return width * height;
+}; 
+
+console.log(calculateArea(5, 3)); // 15
+```
+
+:::
+
+Ikiwa utajaribu kuondoa mabano ya mviringo na kuweka hesabu kwenye mstari mmoja, basi utapata ujumbe wa `Uncaught SyntaxError: Unexpected token 'return'`:
+
+```js
+const calculateArea = (width, height) => return width * height;
+```
+
+Sababu ya kupata kosa hili ni kwa sababu unahitaji kuondoa usemi wa `return`. Unapoondoa usemi huo wa `return`, kosa litapotea na kitendakazi bado kitaendelea kurudisha hesabu kwa njia isiyo ya moja kwa moja.
+
+```js
+const calculateArea = (width, height) => width * height;
+```
+
+Basi ni lini unapaswa kutumia sintaksia ya kitendakazi cha mshale? Vizuri, inategemea. Wanasanidi programu wengi hutumia mara kwa mara katika miradi yao binafsi. Hata hivyo, unapo kazi katika timu, uchaguzi kawaida hutegemea kama msimbo uliopo unatumia vitendakazi vya kawaida au vitendakazi vya mshale. Katika mafundisho yajayo, tutajadili lini kutumia vitendakazi vya mshale na lini kuepuka.
+
+# --questions--
+
+## --text--
+
+Ni njia gani sahihi ya kuandika kitendakazi cha mshale kinachochukua vigezo viwili na kurudisha jumla yao?
+
+## --answers--
+
+`(a, b) => { a + b }`
+
+### --feedback--
+
+Kumbuka sintaksia ya kurudisha kwa njia isiyo ya moja kwa moja katika vitendakazi vya mshale.
+
+---
+
+`(a, b) => a + b`
+
+---
+
+`(a, b) => return a + b`
+
+### --feedback--
+
+Kumbuka sintaksia ya kurudisha kwa njia isiyo ya moja kwa moja katika vitendakazi vya mshale.
+
+---
+
+`a, b => a + b`
+
+### --feedback--
+
+Kumbuka sintaksia ya kurudisha kwa njia isiyo ya moja kwa moja katika vitendakazi vya mshale.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni njia gani sahihi ya kuandika kitendakazi cha mshale kisichochukua vigezo na kurudisha mfuatano wa herufi `"Hello"`?
+
+## --answers--
+
+`() => "Hello"`
+
+---
+
+`=> "Hello"`
+
+### --feedback--
+
+Kumbuka sintaksia ya vitendakazi vya mshale visivyo na vigezo na kurudisha usemi wa kihesabu mmoja.
+
+---
+
+`() => { "Hello" } `
+
+### --feedback--
+
+Kumbuka sintaksia ya vitendakazi vya mshale visivyo na vigezo na kurudisha usemi wa kihesabu mmoja.
+
+---
+
+`() => return "Hello"`
+
+### --feedback--
+
+Kumbuka sintaksia ya vitendakazi vya mshale visivyo na vigezo na kurudisha usemi wa kihesabu mmoja.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let multiply = (a, b = 1) => a * b;
+
+console.log(multiply(5));
+console.log(multiply(5, 2));
+```
+
+## --answers--
+
+`5`, `10`
+
+---
+
+`1`, `2`
+
+### --feedback--
+
+Fikiria jinsi vigezo vya chaguo-msingi vinavyofanya kazi katika vitendakazi vya mshale.
+
+---
+
+`undefined`, `10`
+
+### --feedback--
+
+Fikiria jinsi vigezo vya chaguo-msingi vinavyofanya kazi katika vitendakazi vya mshale.
+
+---
+
+Hii itatupa kosa.
+
+### --feedback--
+
+Fikiria jinsi vigezo vya chaguo-msingi vinavyofanya kazi katika vitendakazi vya mshale.
+
+## --video-solution--
+
+1

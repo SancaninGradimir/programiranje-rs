@@ -1,0 +1,163 @@
+---
+id: 66c06d618d075c7f7f1b890a
+title: Jenga mtabiri wa hatima
+challengeType: 26
+dashedName: build-a-fortune-teller
+---
+
+# --description--
+
+Katika maabara hii, utafafanua hatima tano na kuchagua moja yao kwa bahati nasibu kuonyesha hatima kwa mtumizi.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kuanzisha vigezo vitano `fortune1`, `fortune2`, `fortune3`, `fortune4`, na `fortune5` na thamani ya mfuatano wa herufi unayochagua. Unaweza kutumia chaguzi zilizo hapa chini ikiwa unataka:
+
+   - `"Your cat will look very cuddly today."`
+   - `"The weather will be nice tomorrow."`
+   - `"Be cautious of your new neighbors."`
+   - `"You will find a new hobby soon."`
+   - `"It would be wise to avoid the color red today."`
+
+2. Unapaswa kuchagua nambari ya bahati nasibu kati ya 1 na 5, ikijumuisha, na kuweka thamani hiyo kwenye kigezo `randomNumber`.
+
+3. Unapaswa kuunda kigezo `selectedFortune` na kuweka hatima inayofaa kulingana na sheria hizi:
+
+   - Ikiwa `randomNumber` ni 1, weka thamani ya `fortune1` kwenye `selectedFortune`.
+   - Ikiwa `randomNumber` ni 2, weka thamani ya `fortune2` kwenye `selectedFortune`.
+   - Ikiwa `randomNumber` ni 3, weka thamani ya `fortune3` kwenye `selectedFortune`.
+   - Ikiwa `randomNumber` ni 4, weka thamani ya `fortune4` kwenye `selectedFortune`.
+   - Ikiwa `randomNumber` ni 5, weka thamani ya `fortune5` kwenye `selectedFortune`.
+
+4. Unapaswa kuandika `selectedFortune` kwenye konsoli.
+
+# --hints--
+
+Unapaswa kuanzisha `fortune1` na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotNull(fortune1);
+assert.isString(fortune1);
+```
+
+Unapaswa kuanzisha `fortune2` na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotNull(fortune2);
+assert.isString(fortune2);
+```
+
+Unapaswa kuanzisha `fortune3` na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotNull(fortune3);
+assert.isString(fortune3);
+```
+
+Unapaswa kuanzisha `fortune4` na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotNull(fortune4);
+assert.isString(fortune4);
+```
+
+Unapaswa kuanzisha `fortune5` na thamani ya mfuatano wa herufi.
+
+```js
+assert.isNotNull(fortune5);
+assert.isString(fortune5);
+```
+
+Unapaswa kutumia njia ya `Math.random()` kuunda nambari ya bahati nasibu.
+
+```js
+assert.match(__helpers.removeJSComments(code), /Math\.random\(\)/);
+```
+
+Unapaswa kuunda nambari ya bahati nasibu kati ya 1 na 5, ikijumuisha, na kuipatia thamani kigezo `randomNumber`.
+
+```js
+assert.isNotNull(randomNumber);
+const originalRandom__test_code__ = Math.random;
+try {
+  const mockValues__test_code__ = [0.0, 0.2, 0.4, 0.6, 0.8];
+  let callCount__test_code__ = 0;
+  Math.random = () => mockValues__test_code__[callCount__test_code__++ % mockValues__test_code__.length]
+  const userCode__test_code__ = new Function(`${code};return randomNumber`);
+  for (let i = 0; i < 5; i++) {
+    const result = userCode__test_code__()
+    assert.strictEqual(result, i + 1);
+  }
+} finally {
+  Math.random = originalRandom__test_code__;
+}
+```
+
+Unapaswa kuwa na kigezo `selectedFortune` ambacho kimepewa thamani kulingana na thamani ya `randomNumber`.
+
+```js
+assert.isNotNull(selectedFortune);
+```
+
+`randomNumber` inapaswa kuendana na hatima yake. Kwa mfano, ikiwa `randomNumber` ni 1, `selectedFortune` inapaswa kuwa sawa na `fortune1` na kadhalika.
+
+```js
+const originalRandom__test_code__ = Math.random;
+try {
+  const mockValues__test_code__ = [0.0, 0.2, 0.4, 0.6, 0.8];
+  let callCount__test_code__ = 0;
+  Math.random = () => mockValues__test_code__[callCount__test_code__++ % mockValues__test_code__.length];
+  const fortunes__test_code__ = [fortune1, fortune2, fortune3, fortune4, fortune5,];
+  const userCode__test_code__ = new Function(`${code};return selectedFortune`);
+  for (let i = 0; i < 5; i++) {
+    const result = userCode__test_code__();
+    assert.strictEqual(result, fortunes__test_code__[i]);
+  }
+} finally {
+  Math.random = originalRandom__test_code__;
+}
+```
+
+Unapaswa kutoa `selectedFortune` kwenye konsoli.
+
+```js
+assert.match(__helpers.removeJSComments(code), /console\s*\.\s*log\s*\(\s*selectedFortune\s*\)\s*;?/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+const fortune1 = "Your cat will look very cuddly today.";
+const fortune2 = "The weather will be nice tomorrow.";
+const fortune3 = "Be cautious of your new neighbors.";
+const fortune4 = "You will find a new hobby soon.";
+const fortune5 = "It would be wise to avoid the color red today.";
+
+let randomNumber = Math.floor(Math.random() * 5) + 1;
+
+let selectedFortune;
+
+if (randomNumber === 1) {
+  selectedFortune = fortune1;
+} else if (randomNumber === 2) {
+  selectedFortune = fortune2;
+} else if (randomNumber === 3) {
+  selectedFortune = fortune3;
+} else if (randomNumber === 4) {
+  selectedFortune = fortune4;
+} else {
+  selectedFortune = fortune5;
+}
+
+console.log(selectedFortune);
+```

@@ -1,0 +1,88 @@
+---
+id: 6669539c1379793f9cb8917c
+title: Hatua 5
+challengeType: 20
+dashedName: step-5
+---
+
+# --description--
+
+Orodha za Python ni zinazobadilika, ambayo ina maana thamani ya vitu katika orodha inaweza kubadilishwa. Unaweza kubadilisha thamani ya kipengele kwa kutumia uandishi wa mabano.
+
+```py
+example_list = [4, 5, 6, 7]
+example_list[1] = 'oh'
+```
+
+Hii itafanya `example_list` kuwa na thamani ya `[4, 'oh', 6, 7]`.
+
+Badilisha kipengele cha kwanza cha `my_list` kuwa `0`, kisha chapisha orodha ili ukague thamani.
+
+# --hints--
+
+Usibadilishe tamko la orodha.
+
+```js
+({
+    test: () => runPython(`
+        assert _Node(_code).find_variable('my_list').is_equivalent("my_list = [1, 2]")
+    `)
+})
+```
+
+Kipengele cha kwanza cha `my_list` kinapaswa kuwa 0.
+
+```js
+({
+    test: () => runPython(`
+        assert my_list[0] == 0
+    `)
+})
+```
+
+Unapaswa kubadilisha kipengele cha kwanza kwa kutumia `my_list[0] = 0`.
+
+```js
+({
+    test: () => runPython(`
+    assert _Node(_code).has_stmt("my_list[0] = 0")
+    `)
+})
+```
+
+Unapaswa kuchapisha orodha.
+
+```js
+({
+    test: () => runPython(`
+        calls = _Node(_code).find_calls('print')
+        assert any(call.is_equivalent("print(my_list)") for call in calls)
+    `)
+})
+```
+
+Unapaswa kuchapisha orodha baada ya kubadilisha kipengele cha kwanza.
+
+```js
+({
+    test: () => runPython(`
+    assert _Node(_code).is_ordered("my_list[0] = 0", "print(my_list)")
+    `)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+--fcc-editable-region--
+my_list = [1, 2]
+
+my_list.append(3)
+print(my_list)
+
+print(my_list[0])
+
+--fcc-editable-region--
+```

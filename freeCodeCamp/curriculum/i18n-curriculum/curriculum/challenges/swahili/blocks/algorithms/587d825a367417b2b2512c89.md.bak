@@ -1,0 +1,141 @@
+---
+id: 587d825a367417b2b2512c89
+title: Tekeleza quick sort
+challengeType: 1
+forumTopicId: 301615
+dashedName: implement-quick-sort
+---
+
+# --description--
+
+Hapa tutaendelea na algoriti ya kupanga ya kiwango cha kati: quick sort. Quick sort ni njia yenye ufanisi, inayojirudia yenye mbinu ya kugawanya-na-kutawala (divide-and-conquer) kwa kupanga safu ya data. Katika njia hii, thamani ya pivot huchaguliwa katika safu ya data ya awali. Safu hiyo hugawanywa kuwa safu ndogo mbili za thamani zilizo chini na zilizo juu ya thamani ya pivot. Kisha tunachanganya matokeo ya wito wa kurudia wa algoriti ya quick sort kwenye safu ndogo zote mbili. Hii inaendelea hadi tukafikie kesi ya msingi ya safu tupu au yenye kipengele kimoja, ambayo tunarudisha. Kupungua kwa wito za kurudia kunaturudishia safu iliyopangwa.
+
+Quick sort ni njia yenye ufanisi sana ya kupanga, ikitoa utendaji wa *O(nlog(n))* kwa wastani. Pia ni rahisi kutekeleza. Sifa hizi zinaiifanya kuwa njia maarufu na yenye manufaa ya kupanga.
+
+**Maelekezo:** Andika kitendakazi `quickSort` kinachopokea safu ya nambari kamili kama ingizo na kurudisha safu ya nambari hizi zikiwa zimepangwa kutoka ndogo hadi kubwa. Ingawa uchaguzi wa thamani ya pivot ni muhimu, pivot yoyote itatosha kwa madhumuni yetu hapa. Kwa urahisi, kipengele cha kwanza au cha mwisho kinaweza kutumika.
+
+# --hints--
+
+`quickSort` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof quickSort == 'function');
+```
+
+`quickSort` inapaswa kurudisha safu iliyopangwa (kutoka ndogo hadi kubwa).
+
+```js
+function isSorted(a){
+  for(let i = 0; i < a.length - 1; i++)
+    if(a[i] > a[i + 1])
+      return false;
+  return true;
+}
+assert.isTrue(
+  isSorted(
+    quickSort([
+      1,
+      4,
+      2,
+      8,
+      345,
+      123,
+      43,
+      32,
+      5643,
+      63,
+      123,
+      43,
+      2,
+      55,
+      1,
+      234,
+      92
+    ])
+  )
+);
+```
+
+`quickSort([1,4,2,8,345,123,43,32,5643,63,123,43,2,55,1,234,92])` inapaswa kurudisha safu isiyobadilika isipokuwa kwa mpangilio.
+
+```js
+assert.sameMembers(
+  quickSort([
+    1,
+    4,
+    2,
+    8,
+    345,
+    123,
+    43,
+    32,
+    5643,
+    63,
+    123,
+    43,
+    2,
+    55,
+    1,
+    234,
+    92
+  ]),
+  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+);
+```
+
+`quickSort` haipaswi kutumia njia iliyoijengwa ndani ya `.sort()`.
+
+```js
+function isBuiltInSortUsed(){
+  let sortUsed = false;
+  const temp = Array.prototype.sort;
+  Array.prototype.sort = () => sortUsed = true;
+  try {
+    quickSort([0, 1]);
+  } finally {
+    Array.prototype.sort = temp;
+  }
+  return sortUsed;
+}
+assert.isFalse(isBuiltInSortUsed());
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function quickSort(array) {
+  // Only change code below this line
+  return array;
+  // Only change code above this line
+}
+```
+
+# --solutions--
+
+```js
+function quickSort(array) {
+  if (array.length === 0) {
+    return [];
+  } else {
+    const pivotValue = array[0];
+
+    // Sort elements into three piles
+    let lesser = [];
+    let equal = [];
+    let greater = [];
+    for (let e of array) {
+      if (e < pivotValue) {
+        lesser.push(e);
+      } else if (e > pivotValue) {
+        greater.push(e);
+      } else {
+        equal.push(e);
+      }
+    }
+
+    return [...quickSort(lesser), ...equal, ...quickSort(greater)];
+  }
+}
+```

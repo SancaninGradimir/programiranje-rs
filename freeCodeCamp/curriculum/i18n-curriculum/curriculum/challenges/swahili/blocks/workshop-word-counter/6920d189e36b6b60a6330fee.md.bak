@@ -1,0 +1,47 @@
+---
+id: 6920d189e36b6b60a6330fee
+title: Hatua 3
+challengeType: 1
+dashedName: step-3
+---
+
+# --description--
+
+Sasa, ndani ya mzunguko, andika thamani ya `char` kwenye konsoli.
+
+# --hints--
+
+Unapaswa kuwa na tamko la `console.log` lenye `char` kama hoja yake ndani ya mzunguko.
+
+```js
+const codeWithoutJSComments = __helpers.removeJSComments(code); 
+const functionRegex = __helpers.functionRegex('printCharacters', ['str'], { capture: true });
+const functionCode = codeWithoutJSComments.match(functionRegex)[1];
+const normalizedFunctionCode = __helpers.removeWhiteSpace(functionCode);
+const loopCodeBlock = normalizedFunctionCode.match(/for\(constcharofstr\)\{(\S*?)}/)[1]
+
+assert.match(loopCodeBlock, /console\.log\(char\)/);
+```
+
+Wakati kitendakazi cha `printCharacters` kinapoitwa na hoja `'test'`, tamko la `console.log()` ndani ya kitendakazi kinapaswa kuitwa mara nne na hoja zifuatazo, kwa mpangilio: `'t'`, `'e'`, `'s'`, na `'t'`. Badala yake, lilitumiwa na hoja zifuatazo: `--fcc-actual--`.
+
+```js
+const consoleLogSpy = __helpers.spyOn(console, 'log');
+printCharacters('test');
+assert.deepEqual(consoleLogSpy.calls, [['t'], ['e'], ['s'], ['t']]);
+consoleLogSpy.restore();
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function printCharacters(str) {
+  for (const char of str) {
+--fcc-editable-region--
+    
+--fcc-editable-region--
+  }
+}
+```

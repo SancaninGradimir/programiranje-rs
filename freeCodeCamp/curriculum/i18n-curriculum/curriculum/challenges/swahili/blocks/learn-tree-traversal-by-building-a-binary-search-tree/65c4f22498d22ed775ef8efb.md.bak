@@ -1,0 +1,73 @@
+---
+id: 65c4f22498d22ed775ef8efb
+title: Hatua 10
+challengeType: 20
+dashedName: step-10
+---
+
+# --description--
+
+Sasa unahitaji kukagua kama kigezo cha `node` ni `None`. Ikiwa ni kweli, hii ina maana kuwa njia imefikia nodi ya majani au sehemu tupu kwenye mti ambapo nodi mpya inapaswa kuingizwa.
+
+Ndani ya mwili wa njia ya `_insert`, badilisha `pass` kwa usemi wa `if` unaokagua kama `node is None`.
+
+Ndani ya blokki mpya ya `if`, rudisha `TreeNode(key)` ili kuunda mfano mpya wa `TreeNode` kwa kutumia ufunguo uliotolewa. Hii itakuwa nodi mpya ya majani, na kwa ufanisi itaingiza ufunguo kwenye mti.
+
+# --hints--
+
+Haupaswi kuwa na `pass` katika njia yako ya `_insert`.
+
+```js
+({ test: () => assert.isFalse(runPython(`_Node(_code).find_class("BinarySearchTree").find_function("_insert").has_pass()`)) })
+
+```
+
+Unapaswa kuandika usemi wa `if` ili kukagua kama `node is None`.
+
+```js
+({ test: () =>
+  {
+    const transformedCode = code.replace(/\r/g, "");        
+    const ins = __helpers.python.getDef("\n"+transformedCode, "_insert");
+    const {function_body} = ins;    
+    assert(function_body.match(/^\s{8}if\s+node\s+is\s+None\s*:/m));
+  }
+})
+```
+
+Unapaswa kurudisha `TreeNode(key)` kutoka kwenye blokki ya `if`.
+
+```js
+({ test: () =>
+  {
+    const transformedCode = code.replace(/\r/g, "");        
+    const ins = __helpers.python.getDef("\n"+transformedCode, "_insert");
+    const {function_body} = ins;    
+    assert(function_body.match(/^(\s{8})if\s+node\s+is\s+None\s*:\s*^\1\s{4}return\s+TreeNode\s*\(\s*key\s*\)/m));
+  }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+class TreeNode:
+
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+--fcc-editable-region--
+
+class BinarySearchTree:
+
+    def __init__(self):
+        self.root = None
+
+    def _insert(self, node, key):
+        pass
+--fcc-editable-region--
+```

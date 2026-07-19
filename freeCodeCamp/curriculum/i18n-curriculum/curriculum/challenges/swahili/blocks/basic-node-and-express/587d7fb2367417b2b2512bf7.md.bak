@@ -1,0 +1,50 @@
+---
+id: 587d7fb2367417b2b2512bf7
+title: Tumia kichanganuzi cha mwili kuchanganua maombi ya POST
+challengeType: 2
+forumTopicId: 301520
+dashedName: use-body-parser-to-parse-post-requests
+---
+
+# --description--
+
+Mbali na GET, kuna kitenzi kingine cha kawaida cha HTTP, ni POST. POST ni njia ya msingi inayotumika kutuma data ya mteja kupitia fomu za HTML. Kulingana na mkataba wa REST, POST hutumika kutuma data ili kuunda vitu vipya katika hifadhidata (mtumizi mpya, au chapisho jipya la blogu). Huna hifadhidata katika mradi huu, lakini utajifunza jinsi ya kushughulikia maombi ya POST hata hivyo.
+
+Katika aina hizi za maombi, data haionekani katika URL, imefichwa katika mwili wa ombi. Mwili ni sehemu ya ombi la HTTP, pia huitwa mzigo. Ingawa data haionekani katika URL, hii haimaanishi kuwa ni ya faragha. Ili kuona kwa nini, angalia maudhui ghafi ya ombi la HTTP POST:
+
+```http
+POST /path/subpath HTTP/1.0
+From: john@example.com
+User-Agent: someBrowser/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+name=John+Doe&age=25
+```
+
+Kama unavyoona, mwili umeandikwa kama mfuatano wa herufi wa hoja ya utafutaji. Huu ni muundo wa msingi unaotumika na fomu za HTML. Kwa Ajax, pia unaweza kutumia JSON kushughulikia data yenye muundo tata zaidi. Kuna pia aina nyingine ya uandikishaji: multipart/form-data. Hii hutumika kupakia mafaili ya binary. Katika zoezi hili, utatumia mwili uliandikwa kwa URL encoded. Ili kuchanganua data inayotoka katika maombi ya POST, lazima utumie kifurushi cha `body-parser`. Kifurushi hiki kinakuruhusu kutumia mfululizo wa programu za kati, ambazo zinaweza kuchanganua data katika miundo tofauti.
+
+# --instructions--
+
+`body-parser` tayari imewekwa na iko katika faili la `package.json` la mradi wako. `require` juu ya faili la `myApp.js` na uhifadhi katika kigezo kinachoitwa `bodyParser`. Programu ya kati ya kushughulikia data iliyosimbwa kwa URL inarudishwa na `bodyParser.urlencoded({extended: false})`. Pitia kitendakazi kilichorudishwa na wito wa njia iliyotangulia kwa `app.use()`. Kama kawaida, programu ya kati lazima iwekwe kabla ya njia zote za data zinazotegemea.
+
+**Kumbuka:** `extended` ni chaguo la usanidi linaloeleza `body-parser` ni uchanganuzi gani unapaswa kutumika. Wakati `extended=false` inatumika hutumia uandikishaji wa kawaida wa maktaba ya `querystring`. Wakati `extended=true` inatumika hutumia maktaba ya `qs` kwa uchanganuzi.
+
+Unapotumia `extended=false`, thamani zinaweza kuwa mfuatano wa herufi tu au safu za data. Kitu kinachorudishwa wakati wa kutumia `querystring` hakirithi moja kwa moja kutoka kwa `Object` ya JavaScript, ambayo inamaanisha vitendakazi kama `hasOwnProperty`, `toString` havitapatikana. Toleo lililopanuliwa lina kuruhusu unyumbufu zaidi wa data, lakini halilingani na JSON.
+
+# --hints--
+
+Programu ya kati ya 'body-parser' inapaswa kuwekwa
+
+```js
+  const response = await fetch(code + '/_api/add-body-parser');
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+  const data = await response.json();
+  assert.isAbove(
+    data.mountedAt,
+    0,
+    '"body-parser" is not mounted correctly'
+  );
+```

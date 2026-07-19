@@ -1,0 +1,179 @@
+---
+id: 6881705cd9860639e98d639d
+title: Tatizo la N+1 ni nini?
+challengeType: 19
+dashedName: what-is-the-n-plus-1-problem
+---
+
+# --description--
+
+Tatizo la N+1 ni kizuizi cha utendaji kinachotokea mara nyingi katika programu zinazotumia hifadhidata. Ikiwa umewahi kukumbana na muda mrefu wa kupakia wakati unapotumia programu, kuna uwezekano mkubwa tatizo hilo linahusiana na tatizo la N+1. Tatizo hili hutokea wakati hoja nyingi ndogo zinafanywa mfululizo ili kupata data uliyoiomba.
+
+Lakini kwa nini ungefanya hoja nyingi mfululizo? Unaweza kufanya hivi ili kutafuta orodha ya rekodi na taarifa za ziada kuhusu rekodi hizo. Utafanya hoja ya awali kupata orodha ya rekodi kisha ufanye hoja nyingine kwa kila rekodi ili kupata taarifa za ziada kuhusu hizo rekodi.
+
+Hata kama kwa hisia zako unadhani kufanya hoja nyingi ndogo na rahisi kutakuwa na ufanisi zaidi kuliko kufanya hoja moja kubwa na ngumu, kawaida si hivyo. Kadri unavyofanya hoja nyingi, ndivyo mchakato mzima unavyochukua muda mrefu kwa sababu unahitaji kutuma kila hoja kwa seva, kutafuta data kwenye hifadhidata, na kisha kupokea data iliyotumwa na seva kwa hoja hiyo. Hii inaweza kuwa na athari kubwa sana kwa utendaji wa programu yako.
+
+Ili kukuonyesha mfano wa vitendo, tuseme unatengeneza programu ya huduma ya usafirishaji chakula na unafanya hoja kupata maagizo 50 ya kwanza katika hifadhidata. Kwanza, utapata orodha ya maagizo haya kutoka kwenye jedwali la `orders`, kama ifuatavyo:
+
+```sql
+order_id | product   | quantity | customer_id
+1        | pizza     | 2        | 3422
+2        | salad     | 1        | 1255
+3        | ice cream | 4        | 2344
+4        | donuts    | 10       | 3455
+.        | .         | .        | .
+.        | .         | .        | .
+.        | .         | .        | .
+```
+
+Lakini vipi kama pia unahitaji kupata data za wateja waliowasilisha maagizo haya? Taarifa hii itahifadhiwa katika jedwali tofauti la `customers`.
+
+Njia moja ya kukabiliana na hili ni kupata orodha ya maagizo kwanza kisha kufanya hoja moja kwa kila agizo kupata taarifa za wateja. Ili kupata orodha ya maagizo, unaweza kufanya hoja kama hii, kupata rekodi 50 za kwanza kutoka kwenye jedwali la `orders`:
+
+```sql
+SELECT * FROM orders LIMIT 50;
+```
+
+Hapa ndipo nambari 1 katika N+1 inapotoka. Ni hoja ya awali inayokupa orodha ya rekodi. Kisha, utahitaji kufanya hoja nyingine kwa kila moja ya rekodi hizi kupata taarifa za mteja aliyewasilisha agizo. Kwa hili, unaweza kuandika mzunguko katika kitendakazi isiyo ya wakati mmoja ili kushughulikia maagizo na wateja. Kitendakazi cha `getCustomerData()` kitafanya hoja ya SQL kupata data za mteja aliyeweka agizo fulani. Kitafanya hivi mfululizo kwa kila agizo lililowekwa:
+
+```js
+for (const order of orders) {
+  const customerId = order.customer_id;
+  const customerData = await getCustomerData(customerId);
+  // Process the customer's data.
+}
+```
+
+Hapa ndipo nambari N katika N+1 inapotoka. N inawakilisha idadi ya hoja zitakazofanywa kupata data za ziada kwa kila moja ya rekodi.
+
+Njia hii inaweza kuonekana rahisi na ya hisia, lakini unaweza kushangaa kujua kwamba hii ndiyo hasa usiyopaswa kufanya. Unapaswa kuepuka kufanya hoja katika mzunguko kwa sababu kufanya hoja ndogo nyingi kutachukua muda mrefu zaidi kuliko kufanya hoja moja kubwa kupata data zote.
+
+Unapaswa kujaribu kutumia zana zinazotolewa na SQL kupunguza idadi ya hoja iwezekanavyo. Katika kesi hii, tunaweza kutumia operesheni ya `JOIN` kuunganisha jedwali la `orders` na `customers`.
+
+```sql
+SELECT 
+  orders.order_id,
+  orders.product,
+  orders.quantity,
+  customers.customer_id,
+  customers.name AS customer_name,
+  customers.email AS customer_email,
+  customers.address AS customer_address
+FROM orders
+JOIN customers ON orders.customer_id = customers.customer_id
+WHERE orders.order_id IN (SELECT order_id FROM orders LIMIT 50)
+```
+
+Kwa operesheni ya `JOIN`, tunaweza kupata data za maagizo 50 ya kwanza katika hifadhidata, ikiwa ni pamoja na data za wateja, majina yao, barua pepe, na anwani, kwa hoja moja tu. Inaweza kuonekana ngumu zaidi, lakini kwa kweli ni ufanisi zaidi kwa njia hii.
+
+Sasa unajua tatizo la N+1 linahusianaje, hivyo unaweza kulitambua na kulizuia, ili kuingiliana na hifadhidata yako kwa njia yenye ufanisi.
+
+# --questions--
+
+## --text--
+
+Ni sifa gani kuu ya tatizo la N+1 katika muktadha wa SQL?
+
+## --answers--
+
+Kurudishwa kwa data nyingi sana katika hoja moja.
+
+### --feedback--
+
+Fikiria idadi ya hoja zinazohusiana kawaida na ni nini husababisha hoja za ziada baada ya hoja ya kwanza.
+
+---
+
+Kutekeleza hoja moja ya awali ikifuatiwa na hoja N za ziada kwa data zinazohusiana.
+
+---
+
+Matumizi yasiyofaa ya viashiria vya hifadhidata.
+
+### --feedback--
+
+Fikiria idadi ya hoja zinazohusiana kawaida na ni nini husababisha hoja za ziada baada ya hoja ya kwanza.
+
+---
+
+Migogoro inayotokana na miamala ya hifadhidata inayofanyika kwa wakati mmoja.
+
+### --feedback--
+
+Fikiria idadi ya hoja zinazohusiana kawaida na ni nini husababisha hoja za ziada baada ya hoja ya kwanza.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni athari gani kuu ya utendaji inayosababishwa na tatizo la N+1?
+
+## --answers--
+
+Kuongezeka kwa matumizi ya prosesa (CPU) kwenye seva ya hifadhidata kutokana na kuunganishwa ngumu.
+
+### --feedback--
+
+Fikiria mzigo unaohusiana na mawasiliano kati ya programu na hifadhidata.
+
+---
+
+Kupungua kwa usahihi wa data kutokana na kutokufanana kwa data zinazohusiana.
+
+### --feedback--
+
+Fikiria mzigo unaohusiana na mawasiliano kati ya programu na hifadhidata.
+
+---
+
+Kuongezeka kwa matumizi ya kumbukumbu kwenye seva ya programu kutokana na matokeo makubwa.
+
+### --feedback--
+
+Fikiria mzigo unaohusiana na mawasiliano kati ya programu na hifadhidata.
+
+---
+
+Kuongezeka kwa idadi ya ziara za hifadhidata, na kusababisha muda mrefu wa kupakia.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Mbinu ya kupunguza idadi ya hoja za hifadhidata wakati wa kupata data zinazohusiana na kuepuka tatizo la N+1 ni:
+
+## --answers--
+
+Kuongeza ukubwa wa bwawa la muunganisho wa hifadhidata.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunganisha upatikanaji wa data kuu na taarifa zake zinazohusiana katika maingiliano moja ya hifadhidata.
+
+---
+
+Kuboresha hoja za SQL binafsi kwa kasi.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunganisha upatikanaji wa data kuu na taarifa zake zinazohusiana katika maingiliano moja ya hifadhidata.
+
+---
+
+Kupata data zinazohusiana ndani ya hoja ya awali kwa kutumia vifungu vya JOIN.
+
+---
+
+Kutekeleza uchujaji na upangaji wa data upande wa mteja.
+
+### --feedback--
+
+Fikiria jinsi unavyoweza kuunganisha upatikanaji wa data kuu na taarifa zake zinazohusiana katika maingiliano moja ya hifadhidata.
+
+## --video-solution--
+
+3

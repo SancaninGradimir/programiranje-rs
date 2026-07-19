@@ -1,0 +1,127 @@
+---
+id: 6437133052eaf04d7300e622
+title: Hatua 22
+challengeType: 0
+dashedName: step-22
+---
+
+# --description--
+
+Tangaza kitendakazi cha `average` kinachopokea safu ya data ya nambari kama kigezo cha `nums`. Kitendakazi hicho kinapaswa kurudisha wastani wa nambari zote katika safu ya data.
+
+Wastani unaweza kuhesabiwa kwa kugawanya jumla ya nambari zote katika safu ya data kwa urefu wa safu hiyo. Kumbuka kuwa una kitendakazi cha `sum` ambacho unaweza kutumia.
+
+# --hints--
+
+Unapaswa kutangaza kigezo cha `average`.
+
+```js
+assert.match(code, /(?:let|const|var)\s+average/);
+```
+
+Unapaswa kutumia `const` kutangaza kigezo chako cha `average`.
+
+```js
+assert.match(code, /const\s+average/);
+```
+
+Kigezo chako cha `average` kinapaswa kuwa kitendakazi.
+
+```js
+assert.isFunction(average);
+```
+
+Kitendakazi chako cha `average` kinapaswa kutumia sintaksia ya mshale.
+
+```js
+assert.match(code, /const\s+average\s*=\s*(\([^)]*\)|[^\s()]+)\s*=>/);
+```
+
+Kitendakazi chako cha `average` kinapaswa kuwa na kigezo cha `nums`.
+
+```js
+assert.match(code, /const\s+average\s*=\s*(\(\s*nums\s*\)|nums)/);
+```
+
+Kitendakazi chako cha `average` kinapaswa kutumia kurudisha thamani isiyo wazi (implicit return).
+
+```js
+assert.notMatch(code, /const\s+average\s*=\s*(\(\s*nums\s*\)|nums)\s*=>\s*{/);
+```
+
+Kitendakazi chako cha `average` kinapaswa kurudisha wastani wa safu ya data ya `nums`.
+
+```js
+assert.equal(average([1,2,3]), 2);
+assert.equal(average([1,2,3,4,5]), 3);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Functional Programming Spreadsheet</title>
+  </head>
+  <body>
+    <div id="container">
+      <div></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+```css
+#container {
+  display: grid;
+  grid-template-columns: 50px repeat(10, 200px);
+  grid-template-rows: repeat(11, 30px);
+}
+
+.label {
+  background-color: lightgray;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+```
+
+```js
+const isEven = num => num % 2 === 0;
+const sum = nums => nums.reduce((acc, el) => acc + el, 0);
+--fcc-editable-region--
+
+--fcc-editable-region--
+
+const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);
+const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));
+
+window.onload = () => {
+  const container = document.getElementById("container");
+  const createLabel = (name) => {
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = name;
+    container.appendChild(label);
+  }
+  const letters = charRange("A", "J");
+  letters.forEach(createLabel);
+  range(1, 99).forEach(number => {
+    createLabel(number);
+    letters.forEach(letter => {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = letter + number;
+      input.ariaLabel = letter + number;
+      container.appendChild(input);
+    })
+  })
+}
+```

@@ -1,0 +1,199 @@
+---
+id: 6732b76c03f7d825c7fc74ee
+title: "Nini ni operator ya uunganishaji wa mfululizo, na inafanya kazi vipi?"
+challengeType: 19
+dashedName: what-is-the-optional-chaining-operator-and-how-does-it-work
+---
+
+# --interactive--
+
+Operator ya uunganishaji wa mfululizo (`?.`) ni chombo muhimu katika JavaScript kinachokuwezesha kupata kwa usalama sifa za kitu au kuita njia bila kuwa na wasiwasi kama zipo au la. Ni kama mtandao wa usalama wa kufanya kazi na vitu ambavyo huenda vikawa na sehemu zilizokosekana.
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(person.name); // "Alice"
+console.log(person.job); // undefined
+```
+
+:::
+
+Katika mfano huu, `person.name` ipo, hivyo inarekodi `Alice`. Lakini `person.job` haipo, hivyo inatupa `undefined`.
+
+Sasa, tuseme tunataka kupata sifa ya kitu ambacho huenda hakipo:
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(person.address.street); // This will throw an error!
+```
+
+Mfano huu utatupa `Uncaught TypeError`. Kwa kuwa `person.address` ni `undefined`, hatuwezi kupata sifa ya `street`. Hapa ndipo operator ya uunganishaji wa mfululizo inakuwa na msaada. Hapa kuna mfano wa kutumia operator ya uunganishaji wa mfululizo:
+
+:::interactive_editor
+
+```ts
+const user = {
+  name: "John",
+  profile: {
+    email: "john@example.com",
+    address: {
+      street: "123 Main St",
+      city: "Somewhere"
+    }
+  }
+};
+
+console.log(user?.profile?.address?.street); // "123 Main St"
+console.log(user?.profile?.phone?.number);   // undefined
+```
+
+:::
+
+Kwa kutumia operator ya uunganishaji wa mfululizo, tunaambia JavaScript kuendelea na operesheni tu ikiwa kitu (au thamani kabla ya `?.`) kipo na si `null` au `undefined`. 
+
+Ikiwa thamani kabla ya `?.` ni `null` au `undefined`, JavaScript inarudisha `undefined` badala ya kujaribu kuendelea na operesheni na kutoa kosa.
+
+Kumbuka, operator ya uunganishaji wa mfululizo ni muhimu zaidi wakati hujui kama sifa au njia ipo. Husaidia kuzuia makosa na kufanya msimbo wako kuwa imara zaidi.
+
+# --questions--
+
+## --text--
+
+Operator ya uunganishaji wa mfululizo (`?.`) hufanya nini katika JavaScript?
+
+## --answers--
+
+Inaweka thamani ya msingi wakati sifa haipo.
+
+### --feedback--
+
+Operator ya uunganishaji wa mfululizo huzuia makosa tu wakati thamani ni `null` au `undefined`.
+
+---
+
+Inazuia thamani za `undefined` kuonekana katika vitu.
+
+### --feedback--
+
+Operator ya uunganishaji wa mfululizo huzuia makosa tu wakati thamani ni `null` au `undefined`.
+
+---
+
+Inapata kwa usalama sifa zilizopangwa ndani na inarudisha `undefined` badala ya kutoa kosa ikiwa thamani haipo.
+
+---
+
+Inalazimisha JavaScript kutathmini sifa zilizokosekana hata kama hazipo.
+
+### --feedback--
+
+Operator ya uunganishaji wa mfululizo huzuia makosa tu wakati thamani ni `null` au `undefined`.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+const person = {
+  name: "Alice",
+  age: 30
+};
+
+console.log(person.address.street);
+```
+
+## --answers--
+
+`undefined`
+
+### --feedback--
+
+Kupata sifa iliyokosekana iliyopangwa ndani bila uunganishaji wa mfululizo kunasimamisha utekelezaji wa msimbo.
+
+---
+
+`street`
+
+### --feedback--
+
+Kupata sifa iliyokosekana iliyopangwa ndani bila uunganishaji wa mfululizo kunasimamisha utekelezaji wa msimbo.
+
+---
+
+`{}`
+
+### --feedback--
+
+Kupata sifa iliyokosekana iliyopangwa ndani bila uunganishaji wa mfululizo kunasimamisha utekelezaji wa msimbo.
+
+---
+
+`TypeError` hutupwa kwa sababu `person.address` haijafafanuliwa.
+
+## --video-solution--
+
+4
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+const user = {
+  name: "John",
+  profile: {
+    email: "john@example.com",
+    "home address": {
+      street: "123 Main St",
+      city: "Somewhere"
+    }
+  }
+};
+
+console.log(user?.profile?.address?.street);
+```
+
+## --answers--
+
+`undefined`
+
+---
+
+`"123 Main St"`
+
+### --feedback--
+
+Fikiria kinawakilisha thamani ambayo haijapewa thamani.
+
+---
+
+`null`
+
+### --feedback--
+
+Fikiria kinawakilisha thamani ambayo haijapewa thamani.
+
+---
+
+`TypeError` hutupwa.
+
+### --feedback--
+
+Fikiria kinawakilisha thamani ambayo haijapewa thamani.
+
+## --video-solution--
+
+1

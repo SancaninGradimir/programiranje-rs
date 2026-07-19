@@ -1,0 +1,121 @@
+---
+id: 5a24c314108439a4d403617d
+title: Tumia njia ya maisha componentDidMount
+challengeType: 6
+forumTopicId: 301422
+dashedName: use-the-lifecycle-method-componentdidmount
+---
+
+# --description--
+
+Wasanidi programu wengi wa mtandao, wakati fulani, wanahitaji kuita kiishio cha API ili kupata data. Ikiwa unafanya kazi na React, ni muhimu kujua wapi pa kufanya kitendo hiki.
+
+Mbinu bora na React ni kuweka wito za API au wito wowote kwa seva yako katika njia ya maisha `componentDidMount()`. Njia hii huitwa baada ya sehemu kuwekewa kwenye DOM. Wito wowote wa `setState()` hapa utasababisha sehemu yako ionyeshwe tena. Unapoitisha API katika njia hii, na kuweka hali yako na data ambayo API inarudisha, itasababisha sasisho moja kwa moja mara unapopokea data hiyo.
+
+# --instructions--
+
+Kuna wito wa API wa mfano katika `componentDidMount()`. Unasasisha hali baada ya sekunde 2.5 kuiga wito kwa seva kupata data. Mfano huu unaomba jumla ya watumiaji hai wa sasa kwa tovuti. Katika njia ya onyesha, onyesha thamani ya `activeUsers` katika `h1` baada ya maandishi ya `Active Users:`. Tazama kinachotokea kwenye onyesho la awali, na jisikie huru kubadilisha muda wa kusubiri kuona athari tofauti.
+
+# --hints--
+
+`MyComponent` inapaswa kuonyesha kipengele cha `div` kinachozunguka lebo ya `h1`.
+
+```js
+assert(
+  (() => {
+    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+    return (
+      mockedComponent.find('div').length === 1 &&
+      mockedComponent.find('h1').length === 1
+    );
+  })()
+);
+```
+
+Hali ya sehemu inapaswa kusasishwa kwa kutumia kitendo cha muda wa kusubiri katika `componentDidMount`.
+
+```js
+assert(
+  (() => {
+    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+    return new RegExp('setTimeout(.|\n)+setState(.|\n)+activeUsers').test(
+      String(mockedComponent.instance().componentDidMount)
+    );
+  })()
+);
+```
+
+Lebo ya `h1` inapaswa kuonyesha thamani ya `activeUsers` kutoka hali ya `MyComponent`.
+
+```js
+(() => {
+  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+  const first = () => {
+    mockedComponent.setState({ activeUsers: 1237 });
+    return mockedComponent.find('h1').text();
+  };
+  const second = () => {
+    mockedComponent.setState({ activeUsers: 1000 });
+    return mockedComponent.find('h1').text();
+  };
+  assert(new RegExp('1237').test(first()) && new RegExp('1000').test(second()));
+})();
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      <div>
+        {/* Change code below this line */}
+        <h1>Active Users: </h1>
+        {/* Change code above this line */}
+      </div>
+    );
+  }
+}
+```
+
+# --solutions--
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      <div>
+        <h1>Active Users: {this.state.activeUsers}</h1>
+      </div>
+    );
+  }
+}
+```

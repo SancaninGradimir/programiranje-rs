@@ -1,0 +1,255 @@
+---
+id: 67d2f5f19a0f0b75343f1905
+title: "Je, React Server Components ni nini, na Hufanya Kazi Vipi?"
+challengeType: 19
+dashedName: what-are-react-server-components-and-how-do-they-work
+---
+
+# --description--
+
+React Server Components (RSCs) ni mtindo mpya ambao umebadilisha jinsi wasanidi programu wa React wanavyoshughulikia mambo. Kwa RSCs, kazi zaidi huhamishwa kwenda seva, jambo ambalo lina faida nyingi.
+
+Tuchunguze ni nini server components, zinafanya kazi vipi, na ni nini kilichosababisha kuanzishwa kwa server components.
+
+React Server Components ni sehemu za React zinazonyesha tu kwenye seva, ambayo hutuma HTML ya mwisho tu kwa mteja. Hii inamaanisha sehemu hizo zinaweza kupata rasilimali za upande wa seva moja kwa moja na kupunguza sana kiasi cha JavaScript kinachotumwa kwa kivinjari.
+
+Programu za React kwa kawaida zimekuwa zikitumia mfumo wa "client component" unaoshughulikia kila kitu katika programu ya kawaida ya React, kama vile kuonyesha, mwingiliano, na athari za pembeni. Neno "client component" halikutumika sana hadi kuanzishwa kwa React server components hivi karibuni.
+
+Lakini mfumo wa client component una hasara kama vile vifurushi vikubwa vya JavaScript na muda mrefu wa upakiaji wa awali.
+
+Mifumo ya React kama Next.js na Gatsby walipata mbinu za kuhamisha baadhi ya michakato kwenda seva ili kutatua matatizo hayo, lakini hakuna kati yao iliyokuwa na viwango rasmi. Ikiwa umewahi kutumia mojawapo ya mifumo hiyo, labda umesikia kuhusu `getServerSideProps` na `getServerData`.
+
+Kisha ikaja React Server Components, zinazokuwezesha kuendesha baadhi ya sehemu kabisa kwenye seva ili uweze kufanya mambo kama vile kupata data na kuhesabu kabla ya msimbo wowote kuendeshwa kwenye kivinjari cha mtumiaji.
+
+Server components zilipata umaarufu kwanza na zinapatikana kwa urahisi katika Next.js. Mifumo mingine kama Remix na Gatsby inazidi kufikia, na kuna kiendelezi cha majaribio kwa Vite kinachoitwa `vite-plugin-react-server` kinachokuwezesha kujenga server components.
+
+Basi server components hufanya kazi vipi?
+
+Moja ya njia bora za kuonyesha React Server Components ni kwa kutumia upatikanaji wa data.
+
+Katika client components za React za kawaida, unamruhusu kivinjari kushughulikia maombi ya API. Kwa kuwa upatikanaji wa data ni athari ya pembeni, unafanya wito wa API katika hook ya `useEffect`.
+
+Pia ni mazoea mazuri kuweka vigezo vya hali kama vile loading, data, na error ili uweze kuonyesha kuwa data inapakia, kuonyesha data wakati iko tayari, au kuonyesha kosa katika programu yako.
+
+Kwa React Server Components, unaweza kuhamisha sehemu nzima kwenda seva na kupata data hapo bila kutumia `useState` au `useEffect`:
+
+```jsx
+const Users = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await res.json();
+
+  return (
+    <>
+      <h1 className="text-4xl text-center mt-6">Users</h1>
+      <ul className="text-center mt-3">
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default Users;
+```
+
+Kwa sababu React Server Components zinaendeshwa tu kwenye seva, unaweza tu kupata data kutoka API na kuonyesha mara moja tu. Pia, kwa kuwa upatikanaji wa data hufanyika kwenye seva, karibu na chanzo, programu yako inaweza kufanya kazi vizuri zaidi, hasa kwa watu wenye muunganisho wa mtandao polepole.
+
+Kitu kimoja kikubwa cha kuzingatia ni kwamba msimbo wote wa server components hubaki kwenye seva, na haupelekwi kwenye kivinjari. Hii inamaanisha huwezi kutumia React hooks nazo, na hazina upatikanaji wa Web APIs au wasikilizaji wa matukio ya kivinjari. Basi unaweza kuongeza mwingiliano vipi?
+
+Katika kipanga-njia cha programu ya Next.js, sehemu zote ni server components kwa chaguo-msingi. Ikiwa unataka kuongeza mwingiliano, unahitaji kuweka sehemu hiyo kama client component kwa kutumia amri ya `"use client"`.
+
+Tuseme unataka kufanya mfano uliotangulia kuwa client component. Hivi ndivyo unavyoweza kufanya hivyo:
+
+```jsx
+"use client";
+
+import { useState, useEffect } from "react";
+
+const Users2 = () => {
+  const [status, setStatus] = useState({
+    users: [],
+    loading: true,
+    error: null,
+  });
+
+  async function fetchUsers() {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/users");
+      const data = await res.json();
+      setStatus((prevStatus) => ({
+        ...prevStatus,
+        users: data,
+        loading: false,
+      }));
+    } catch (err) {
+      setStatus((prevStatus) => ({
+        ...prevStatus,
+        error: err.message,
+        loading: false,
+      }));
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  if (status.loading) {
+    return <p>Loading Users...</p>;
+  }
+  if (status.error) {
+    return <p>Error getting users: {status.error}</p>;
+  }
+
+  return (
+    <>
+      <h1 className="text-4xl text-center mt-6">Users</h1>
+      <ul className="text-center mt-3">
+        {status.users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default Users2;
+```
+
+Ikiwa unataka kuongeza mwingiliano kama matukio ya bofya, sehemu hiyo pia lazima iwe client component:
+
+```jsx
+"use client";
+
+import { useState } from "react";
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <h1>Counter</h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <h2>{count}</h2>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+    </>
+  );
+};
+
+export default Counter;
+```
+
+Kama hutoi amri ya use client kwa sehemu hiyo, utapata kosa lenye ujumbe unaosema "Unaleta server component inayohitaji `useState`. Hook hii ya React hufanya kazi tu katika client component. Ili kutatua, weka faili (au mzazi wake) na amri ya `"use client"`."
+
+Faida kuu zinazokuja na React Server Components ni kwamba upatikanaji wa data unakuwa rahisi zaidi, msimbo unakuwa rahisi kusoma, na ugumu wa upande wa mteja unapunguzwa.
+
+# --questions--
+
+## --text--
+
+React Server Components hufanyika wapi?
+
+## --answers--
+
+Tu kwenye kivinjari.
+
+### --feedback--
+
+Fikiria jinsi RSCs zisizotekelezwa kwenye kivinjari na zinavyotumika kwa ajili ya kuonyesha data kabla.
+
+---
+
+Kwenye mteja na seva zote mbili.
+
+### --feedback--
+
+Fikiria jinsi RSCs zisizotekelezwa kwenye kivinjari na zinavyotumika kwa ajili ya kuonyesha data kabla.
+
+---
+
+Kabisa kwenye seva.
+
+---
+
+Katika Mfanyakazi wa Mtandao (Web Worker).
+
+### --feedback--
+
+Fikiria jinsi RSCs zisizotekelezwa kwenye kivinjari na zinavyotumika kwa ajili ya kuonyesha data kabla.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Kwa nini React Server Components hazina upatikanaji wa React hooks na Web APIs?
+
+## --answers--
+
+Zinaonyeshwa kabla ya kivinjari kupakia.
+
+### --feedback--
+
+Sehemu hizi hazitekelezwi kwenye kivinjari, hivyo haziwezi kutumia vipengele vya upande wa mteja.
+
+---
+
+Zinaendeshwa tu kwenye seva na hazipelekwi kwenye kivinjari.
+
+---
+
+Zimezuiliwa na mzunguko wa uonyeshaji wa React.
+
+### --feedback--
+
+Sehemu hizi hazitekelezwi kwenye kivinjari, hivyo haziwezi kutumia vipengele vya upande wa mteja.
+
+---
+
+Zinatumika tu kwa madhumuni ya mtindo.
+
+### --feedback--
+
+Sehemu hizi hazitekelezwi kwenye kivinjari, hivyo haziwezi kutumia vipengele vya upande wa mteja.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Utaongeza vipi mwingiliano kwa sehemu katika Next.js unapotumia kipanga-njia cha programu?
+
+## --answers--
+
+Zungusha sehemu hiyo katika lebo ya `<ClientProvider>`.
+
+### --feedback--
+
+Next.js inadhani sehemu zote ni server components isipokuwa kama imetajwa wazi vinginevyo.
+
+---
+
+Tumia kitendakazi cha `withClient()` kutoka Next.js.
+
+### --feedback--
+
+Next.js inadhani sehemu zote ni server components isipokuwa kama imetajwa wazi vinginevyo.
+
+---
+
+Washa uonyeshaji wa upande wa mteja katika `next.config.js`.
+
+### --feedback--
+
+Next.js inadhani sehemu zote ni server components isipokuwa kama imetajwa wazi vinginevyo.
+
+---
+
+Taja sehemu hiyo kama client component kwa amri ya "use client".
+
+## --video-solution--
+
+4

@@ -1,0 +1,95 @@
+---
+id: 68c1a929005bf54d342aa8d3
+title: "Challenge 56: Space Week Day 2: Exoplanet Search"
+challengeType: 29
+dashedName: challenge-56
+---
+
+# --description--
+
+Kwa siku ya pili ya Wiki ya Anga, unapewa mfuatano wa herufi ambapo kila herufi inawakilisha kipimo cha mwangaza wa nyota. Tambua kama vipimo vimegundua sayari nje ya mfumo kwa kutumia njia ya usafiri (transit method). Njia ya usafiri ni pale sayari inapopita mbele ya nyota, ikipunguza mwangaza unaoonekana.
+
+- Vipimo vya mwangaza vinajumuisha tu herufi `0-9` na `A-Z` ambapo kila kipimo kinahusiana na thamani za nambari zifuatazo:
+- Herufi `0-9` zinawakilisha viwango vya mwangaza `0-9`.
+- Herufi `A-Z` zinawakilisha viwango vya mwangaza `10-35`.
+
+Nyota inachukuliwa kuwa na sayari nje ya mfumo ikiwa kipimo chochote kimoja ni kidogo au sawa na asilimia 80 ya wastani wa vipimo vyote. Kwa mfano, ikiwa wastani wa mwangaza wa nyota ni 10, itachukuliwa kuwa na sayari nje ya mfumo ikiwa kipimo chochote kimoja ni 8 au chini yake.
+
+# --hints--
+
+`has_exoplanet("665544554")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("665544554"), False)`)
+}})
+```
+
+`has_exoplanet("FGFFCFFGG")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("FGFFCFFGG"), True)`)
+}})
+```
+
+`has_exoplanet("MONOPLONOMONPLNOMPNOMP")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("MONOPLONOMONPLNOMPNOMP"), False)`)
+}})
+```
+
+`has_exoplanet("FREECODECAMP")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("FREECODECAMP"), True)`)
+}})
+```
+
+`has_exoplanet("9AB98AB9BC98A")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("9AB98AB9BC98A"), False)`)
+}})
+```
+
+`has_exoplanet("ZXXWYZXYWYXZEGZXWYZXYGEE")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(has_exoplanet("ZXXWYZXYWYXZEGZXWYZXYGEE"), True)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def has_exoplanet(readings):
+
+    return readings
+```
+
+# --solutions--
+
+```py
+def has_exoplanet(readings):
+    values = [int(c, 36) for c in readings]
+    average = sum(values) / len(values)
+    threshold = average * 0.8
+    for v in values:
+        if v <= threshold:
+            return True
+    return False
+```

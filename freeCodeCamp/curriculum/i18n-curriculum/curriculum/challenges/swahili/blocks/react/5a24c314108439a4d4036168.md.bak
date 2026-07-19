@@ -1,0 +1,79 @@
+---
+id: 5a24c314108439a4d4036168
+title: Andika sehemu ya React kutoka mwanzo
+challengeType: 6
+forumTopicId: 301424
+dashedName: write-a-react-component-from-scratch
+---
+
+# --description--
+
+Sasa umejifunza misingi ya JSX na sehemu za React, ni wakati wa kuandika sehemu yako mwenyewe. Sehemu za React ni msingi wa miradi ya React, kwa hivyo ni muhimu kuzoea kuziandika vizuri. Kumbuka, sehemu ya kawaida ya React ni ES6 `class` inayoongeza `React.Component`. Ina njia ya onyesha (render) inayorejesha HTML (kutoka JSX) au `null`. Hii ni muundo wa msingi wa sehemu ya React. Ukielewa hili vizuri, utakuwa tayari kuanza kujenga miradi ya React yenye changamoto zaidi.
+
+# --instructions--
+
+Fafanua darasa la `MyComponent` linaloongeza `React.Component`. Njia yake ya onyesha inapaswa kurejesha `div` lenye lebo ya `h1` yenye maandishi: `My First React Component!` ndani yake. Tumia maandishi haya kama yalivyo, herufi kubwa ndogo na alama za uandishi ni muhimu. Hakikisha pia unaita kijenzi cha sehemu yako.
+
+Onyesha sehemu hii kwenye DOM kwa kutumia `ReactDOM.render()`. Kuna `div` yenye `id='challenge-node'` inayopatikana kwa ajili yako kutumia.
+
+# --hints--
+
+Kufaa kuwe na sehemu ya React iitwayo `MyComponent`.
+
+```js
+assert(__helpers.removeWhiteSpace(code).includes('classMyComponentextendsReact.Component{'));
+```
+
+`MyComponent` inapaswa kuwa na lebo ya `h1` yenye maandishi `My First React Component!` Herufi kubwa ndogo na alama za uandishi ni muhimu.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));
+    return mockedComponent.find('h1').text() === 'My First React Component!';
+  })()
+);
+```
+
+`MyComponent` inapaswa kuonyesha kwenye DOM.
+
+```js
+assert(document.getElementById('challenge-node').childNodes.length === 1);
+```
+
+`MyComponent` inapaswa kuwa na kijenzi kinachoitwa `super` na `props`.
+
+```js
+assert(
+  MyComponent.toString().includes('MyComponent(props)') &&
+    MyComponent.toString().includes('_super.call(this, props)')
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+// Change code below this line
+```
+
+# --solutions--
+
+```jsx
+// Change code below this line
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>My First React Component!</h1>
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(<MyComponent />, document.getElementById('challenge-node'));
+```

@@ -1,0 +1,113 @@
+---
+id: 69306364df283fcaff2e1ad7
+title: "Challenge 146: Left-Handed Seat at the Table"
+challengeType: 29
+dashedName: challenge-146
+---
+
+# --description--
+
+Kutolewa jedwali la 4x2 (safu ya safu) linalowakilisha mpangilio wa viti kwa chakula, amua ni viti vingapi mtu anayeandika kwa mkono wa kushoto anaweza kukaa.
+
+- Mtu anayeandika kwa mkono wa kushoto hawezi kukaa mahali ambapo mtu anayeandika kwa mkono wa kulia angekaa kwenye kiti kilicho upande wa kushoto wa mtu huyo.
+
+Katika matriki iliyotolewa:
+
+- `"R"` ni kiti kilichokaliwa na mtu anayeandika kwa mkono wa kulia.
+- `"L"` ni kiti kilichokaliwa na mtu anayeandika kwa mkono wa kushoto.
+- `"U"` ni kiti kisichokaliwa.
+- Ni viti visivyokaliwa tu vinavyopatikana kukaa.
+- Viti katika safu ya juu vinaangalia "chini", na viti katika safu ya chini vinaangalia "juu" (kama jedwali), hivyo kushoto na kulia ni kulingana na mwelekeo wa kiti.
+- Viti vya pembe vina kiti kimoja tu kando yao.
+
+Kwa mfano, katika jedwali lililotolewa:
+
+```json
+[
+  ["U", "R", "U", "L"],
+  ["U", "R", "R", "R"]
+]
+```
+
+Kiti cha juu-kushoto hakiwezi kukaliwa kwa sababu kuna mtu anayeandika kwa mkono wa kulia upande wa kushoto. Viti viwili vingine vilivyo wazi vinaweza kukaliwa kwa sababu hakuna mtu anayeandika kwa mkono wa kulia upande wa kushoto.
+
+# --hints--
+
+`find_left_handed_seats([["U", "R", "U", "L"], ["U", "R", "R", "R"]])` should return `2`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_left_handed_seats([["U", "R", "U", "L"], ["U", "R", "R", "R"]]), 2)`)
+}})
+```
+
+`find_left_handed_seats([["U", "U", "U", "U"], ["U", "U", "U", "U"]])` should return `8`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_left_handed_seats([["U", "U", "U", "U"], ["U", "U", "U", "U"]]), 8)`)
+}})
+```
+
+`find_left_handed_seats([["U", "R", "U", "R"], ["L", "R", "R", "U"]])` should return `0`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_left_handed_seats([["U", "R", "U", "R"], ["L", "R", "R", "U"]]), 0)`)
+}})
+```
+
+`find_left_handed_seats([["L", "U", "R", "R"], ["L", "U", "R", "R"]])` should return `1`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_left_handed_seats([["L", "U", "R", "R"], ["L", "U", "R", "R"]]), 1)`)
+}})
+```
+
+`find_left_handed_seats([["U", "R", "U", "U"], ["U", "U", "L", "U"]])` should return `5`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_left_handed_seats([["U", "R", "U", "U"], ["U", "U", "L", "U"]]), 5)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def find_left_handed_seats(table):
+
+    return table
+```
+
+# --solutions--
+
+```py
+def find_left_handed_seats(table):
+    available_seats = 0
+    top_row, bottom_row = table
+
+    for i in range(len(top_row)):
+        if top_row[i] == "U":
+            if i == len(top_row) - 1:
+                available_seats += 1
+            elif top_row[i + 1] != "R":
+                available_seats += 1
+
+    for i in range(len(bottom_row)):
+        if bottom_row[i] == "U":
+            if i == 0:
+                available_seats += 1
+            elif bottom_row[i - 1] != "R":
+                available_seats += 1
+
+    return available_seats
+```

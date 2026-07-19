@@ -1,0 +1,106 @@
+---
+id: 5a24c314108439a4d4036182
+title: Ongeza mitindo ndani ya mstari katika React
+challengeType: 6
+forumTopicId: 301378
+dashedName: add-inline-styles-in-react
+---
+
+# --description--
+
+Huenda umeona katika changamoto iliyopita kuwa kulikuwa na tofauti kadhaa za sintaksia kutoka kwa mitindo ya ndani ya mstari ya HTML pamoja na sifa ya `style` iliyowekwa kuwa kitu cha JavaScript. Kwanza, majina ya baadhi ya sifa za mtindo wa CSS hutumia camel case. Kwa mfano, changamoto ya mwisho iliweka ukubwa wa fonti kwa `fontSize` badala ya `font-size`. Maneno yenye kistari kama `font-size` si sintaksia halali kwa sifa za vitu vya JavaScript, kwa hivyo React hutumia camel case. Kwa kanuni, sifa zozote za mtindo zenye kistari huandikwa kwa kutumia camel case katika JSX.
+
+Vitengo vyote vya urefu vya thamani za sifa (kama `height`, `width`, na `fontSize`) vinadhaniwa kuwa katika `px` isipokuwa kama itaelezwa vinginevyo. Ikiwa unataka kutumia `em`, kwa mfano, unazunguka thamani na vitengo kwa nukuu, kama `{fontSize: "4em"}`. Mbali na thamani za urefu zinazochukua `px` kama chaguo-msingi, thamani zote nyingine za sifa zinapaswa kuzungukwa na nukuu.
+
+# --instructions--
+
+Ikiwa una seti kubwa ya mitindo, unaweza kuweka `object` ya mtindo katika kigezo cha kudumu ili kuweka msimbo wako umepangwa. Tangaza kigezo chako cha mitindo kama kigezo cha kimataifa juu ya faili. Anzisha kigezo cha `styles` na weka `object` yenye sifa tatu za mtindo na thamani zao. Toa `div` rangi ya `purple`, ukubwa wa fonti wa `40`, na mpaka wa `2px solid purple`. Kisha weka sifa ya `style` sawa na kigezo cha `styles`.
+
+# --hints--
+
+Kigezo cha `styles` kinapaswa kuwa `object` yenye sifa tatu.
+
+```js
+assert(Object.keys(styles).length === 3);
+```
+
+Kigezo cha `styles` kinapaswa kuwa na sifa ya `color` iliyowekwa thamani ya `purple`.
+
+```js
+assert(styles.color === 'purple');
+```
+
+Kigezo cha `styles` kinapaswa kuwa na sifa ya `fontSize` iliyowekwa thamani ya `40`.
+
+```js
+assert(styles.fontSize == 40);
+```
+
+Kigezo cha `styles` kinapaswa kuwa na sifa ya `border` iliyowekwa thamani ya `2px solid purple`.
+
+```js
+assert(styles.border === '2px solid purple');
+```
+
+Sehemu inapaswa onyesha kipengele cha `div`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.shallow(React.createElement(Colorful));
+    return mockedComponent.type() === 'div';
+  })()
+);
+```
+
+Kipengele cha `div` kinapaswa kuwa na mitindo iliyobainishwa na kitu cha `styles`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.shallow(React.createElement(Colorful));
+    return (
+      mockedComponent.props().style.color === 'purple' &&
+      mockedComponent.props().style.fontSize == 40 &&
+      mockedComponent.props().style.border === '2px solid purple'
+    );
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+// Change code above this line
+class Colorful extends React.Component {
+  render() {
+    // Change code below this line
+    return (
+      <div style={{color: "yellow", fontSize: 24}}>Style Me!</div>
+    );
+    // Change code above this line
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+const styles = {
+  color: "purple",
+  fontSize: 40,
+  border: "2px solid purple"
+};
+// Change code above this line
+class Colorful extends React.Component {
+  render() {
+    // Change code below this line
+    return (
+      <div style={styles}>Style Me!</div>
+    );
+    // Change code above this line
+  }
+};
+```

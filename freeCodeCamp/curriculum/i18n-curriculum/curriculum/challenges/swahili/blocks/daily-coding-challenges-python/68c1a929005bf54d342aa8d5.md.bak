@@ -1,0 +1,104 @@
+---
+id: 68c1a929005bf54d342aa8d5
+title: "Challenge 58: Space Week Day 4: Landing Spot"
+challengeType: 29
+dashedName: challenge-58
+---
+
+# --description--
+
+Katika siku ya nne ya Wiki ya Anga, unapewa matriki ya nambari (safu ya data ya safu za data), zinazowakilisha maeneo yanayoweza kutumiwa kutua kwa rover yako. Tafuta sehemu salama zaidi ya kutua kulingana na sheria zifuatazo:
+
+- Kila sehemu katika matriki itakuwa na nambari kutoka `0-9`, ikiwa ni pamoja.
+- Kila `0` inawakilisha sehemu inayowezekana ya kutua.
+- Kila nambari isipokuwa `0` ni hatari sana kutua. Kadri nambari inavyoongezeka, ndivyo hatari inavyoongezeka.
+- Sehemu salama zaidi inafafanuliwa kama seli ya `0` ambayo seli zinazozunguka (hadi majirani 4, usizingatie pembe) zina jumla ya hatari ndogo zaidi.
+- Puuza majirani walioko nje ya mipaka (kona na kingo zina majirani wachache tu).
+- Rudisha viashiria vya sehemu salama zaidi ya kutua. Daima kutakuwa na sehemu moja tu salama zaidi.
+
+Kwa mfano, ukipata:
+
+```js
+[
+  [1, 0],
+  [2, 0]
+]
+```
+
+Rudisha `[0, 1]`, viashiria vya `0` katika safu ya kwanza.
+
+# --hints--
+
+`find_landing_spot([[1, 0], [2, 0]])` should return `[0, 1]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_landing_spot([[1, 0], [2, 0]]), [0, 1])`)
+}})
+```
+
+`find_landing_spot([[9, 0, 3], [7, 0, 4], [8, 0, 5]])` should return `[1, 1]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_landing_spot([[9, 0, 3], [7, 0, 4], [8, 0, 5]]), [1, 1])`)
+}})
+```
+
+`find_landing_spot([[1, 2, 1], [0, 0, 2], [3, 0, 0]])` should return `[2, 2]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_landing_spot([[1, 2, 1], [0, 0, 2], [3, 0, 0]]), [2, 2])`)
+}})
+```
+
+`find_landing_spot([[9, 6, 0, 8], [7, 1, 1, 0], [3, 0, 3, 9], [8, 6, 0, 9]])` should return `[2, 1]`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertEqual(find_landing_spot([[9, 6, 0, 8], [7, 1, 1, 0], [3, 0, 3, 9], [8, 6, 0, 9]]), [2, 1])`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def find_landing_spot(matrix):
+
+    return matrix
+```
+
+# --solutions--
+
+```py
+def find_landing_spot(matrix):
+    best_spot = None
+    lowest_neighbor_sum = float('inf')
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if matrix[i][j] == 0:
+                current_neighbor_sum = 0
+
+                if i > 0:
+                    current_neighbor_sum += matrix[i - 1][j]
+                if j < len(matrix[i]) - 1:
+                    current_neighbor_sum += matrix[i][j + 1]
+                if i < len(matrix) - 1:
+                    current_neighbor_sum += matrix[i + 1][j]
+                if j > 0:
+                    current_neighbor_sum += matrix[i][j - 1]
+
+                if current_neighbor_sum < lowest_neighbor_sum:
+                    lowest_neighbor_sum = current_neighbor_sum
+                    best_spot = [i, j]
+
+    return best_spot
+```

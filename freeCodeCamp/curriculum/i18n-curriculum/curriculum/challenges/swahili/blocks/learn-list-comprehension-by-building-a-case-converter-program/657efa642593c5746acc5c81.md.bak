@@ -1,0 +1,62 @@
+---
+id: 657efa642593c5746acc5c81
+title: Hatua ya 5
+challengeType: 20
+dashedName: step-5
+---
+
+# --description--
+
+Ndani ya mwili wa tamko la `if`, unahitaji kubadilisha herufi yoyote kubwa kuwa herufi ndogo na kuambatanisha mstari chini kabla ya herufi hii ndogo.
+
+Tumia njia ya mfuatano wa herufi `.lower()` kubadilisha herufi kubwa kuwa herufi ndogo. Kisha, ambatanisha mstari chini kabla ya herufi hiyo. Weka matokeo katika kigezo kinachoitwa `converted_character`.
+
+# --hints--
+
+Unapaswa kuweka thamani ya herufi iliyobadilishwa katika kigezo kinachoitwa `converted_character`.
+
+```js
+({
+    test: () => {
+   assert(runPython(`
+      converted_character_variable = (
+          _Node(_code)
+          .find_function("convert_to_snake_case")
+          .find_for_loops()[0]
+          .find_ifs()[0]
+          .find_variable("converted_character")
+      )
+      
+      converted_character_variable.is_equivalent(
+          "converted_character = '_' + char.lower()"
+      ) or converted_character_variable.is_equivalent(
+          "converted_character = f'_{char.lower()}'"
+      )
+    `)); 
+    }
+})
+```
+
+Haupaswi kuwa na `pass` katika tamko lako la `if`.
+
+```js
+({
+    test: () => {
+        assert(runPython(`not _Node(_code).find_function("convert_to_snake_case").find_for_loops()[0].find_ifs()[0].has_stmt("pass")`)); 
+    }
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def convert_to_snake_case(pascal_or_camel_cased_string):
+    snake_cased_char_list = []
+    for char in pascal_or_camel_cased_string:
+--fcc-editable-region--
+        if char.isupper():
+            pass
+--fcc-editable-region--
+```

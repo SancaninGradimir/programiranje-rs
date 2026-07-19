@@ -1,0 +1,148 @@
+---
+id: 6882915386c73273ac489f38
+title: Ni mbinu bora gani za kuendeleza mkakati wa matawi ya Git?
+challengeType: 19
+dashedName: what-are-some-best-practices-for-developing-a-git-branching-strategy
+---
+
+# --description--
+
+Tumezungumza kidogo kuhusu matawi katika mafundisho yaliyopita. Umejifunza jinsi ya kuunda matawi, kwa nini haufai kufanya commit moja kwa moja kwenye `main`, na mambo yanayofanana. Lakini ni lini na kwa nini unapaswa kuunda matawi kweli?
+
+Kwanza, tuzungumzie kwa nini haufai tu kusukuma commits nyingi kwenye `main`. Tawi lako la msingi linapaswa kuwa thabiti kwa uhakika - yaani, wakati wowote naweza kuvuta tawi lako la sasa la `main` na kujenga, kuendesha, na kujaribu programu yako. Ikiwa unasukuma vipengele vilivyoanza tu, au commits za kazi inayoendelea (WIP), basi hii inaweza isiwe kweli kila wakati.
+
+Zaidi ya hayo, ni kawaida sana kufanya kazi kwenye vipengele vingi kwa wakati mmoja. Ikiwa unasukuma kazi ya sehemu tu kwenye `main` kwa vipengele vingi kwa wakati mmoja, inakuwa vigumu zaidi kutafuta hitilafu inayoweza kutokea kwa sababu huna mabadiliko yaliyotengwa. Zaidi ya hayo, kubadilisha muktadha (au kubadilisha kazi unazofanya) si rahisi kabisa.
+
+Basi ni lini unapaswa kuunda tawi? Kanuni ya jumla ni kuunda tawi kwa kila kitengo cha kazi kilichotengwa. Ya maana, ikiwa unafanya kazi kwenye kipengele kipya cha OAuth, kazi hiyo inapaswa kuwa kwenye tawi la pekee. Ikiwa unahitaji kurekebisha hitilafu kwenye uthibitisho wa nenosiri, kazi hiyo inapaswa kuwa kwenye tawi lake la pekee. Unahitaji kubuni upya ukurasa wa wasifu wa mtumiaji? Hilo ni tawi lingine.
+
+Kumbuka kwamba unapaswa kila mara kuunda matawi yako kutoka `main`. Kwa hivyo, ikiwa unafanya kazi kwenye tawi la kipengele cha OAuth, ungetumia `main` kabla ya kuunda tawi jipya la kurekebisha hitilafu ya nenosiri. Vinginevyo, ikiwa utaunda tawi la kurekebisha hitilafu moja kwa moja kutoka kwenye tawi la OAuth, utapata commits kutoka kwa kazi yako ya OAuth na historia itachafuka.
+
+Lakini unapaswa kuitaje matawi yako? Hiyo ni kwa hiari yako kabisa (au mradi unaochangia), lakini hapa kuna mkataba wa kawaida:
+
+`scope/description` - ambapo `scope` ni kitu kama `feat` au `fix`, na `description` ni maelezo mafupi sana ya mabadiliko ya tawi. Kwa mfano: `feat/oauth-support`.
+
+`scope/issue/description` - sawa na mkataba uliotangulia, lakini ukijumuisha nambari inayohusiana na tatizo husika. Kwa mfano: `fix/25/password-auth`.
+
+`username/scope/description` - Kwa miradi ambapo nyote mnafanya kazi kutoka matawi katika hifadhidata ya awali badala ya kuifurukuta (fork) (hii ni kawaida kwa hifadhidata za ndani za faragha), inaweza kusaidia kujumuisha jina lako la mtumiaji mwanzoni mwa tawi. Kwa mfano: `naomi-lgbt/feat/profile-redesign`.
+
+Tuchambue vidokezo vingine kuhusu mikakati ya matawi.
+
+Kwa kazi za vipengele vinavyoishi kwa muda mrefu, kama kipengele cha beta kinachohitaji saa nyingi za msanidi programu, unaweza kutumia lebo ya kipengele kuwezesha mantiki kwa hiari badala ya tawi. Kadri tawi linavyodumu bila kuunganishwa, ndivyo unavyoweza kukutana na migongano zaidi.
+
+Hata hivyo, unaweza kutaka kudumisha matawi maalum kwa mazingira ya usambazaji au toleo. Kwa mfano, hifadhidata ya freeCodeCamp hutumia `prod-staging` na `prod-current` kuanzisha usambazaji kwa seva za majaribio na uzalishaji, mtawalia. Hii inaweza kuwaruhusu timu kurudia haraka, kuunganisha mabadiliko yanapokuwa tayari na yameidhinishwa bila kuanzisha usambazaji kwa kila muunganiko. Badala yake, usambazaji hufanywa kwa kuunganisha toleo la hivi karibuni la `main` kwenye matawi hayo ya uzalishaji.
+
+Pia unaweza kutaka kudumisha "matawi ya toleo", au matawi yanayowakilisha toleo kuu la bidhaa yako. Hii inakuwezesha kuwa na hali safi kwa kila toleo kuu, hivyo ikiwa unahitaji kurejesha marekebisho muhimu ya usalama kwa toleo la awali unaweza kufanya hivyo bila kujumuisha mabadiliko yoyote ya toleo jipya.
+
+Na hatimaye, unapaswa kuepuka kuunganisha matawi yako kwenye `main` kwa kutumia CLI ya eneo lako. Badala yake, unda ombi la kuvuta mabadiliko na uunganishe kupitia mchakato huo. Hii inakupa nafasi ya kuhakikisha majaribio yoyote yanapita kwenye CI yako (ambayo utajifunza kuhusu katika funzo lijalo), na kukagua tofauti ili kuhakikisha umejumuisha tu mabadiliko unayotaka kuunganisha.
+
+Kwa vidokezo hivi, unaweza kuanza kutumia matawi kufanikisha mafanikio!
+
+# --questions--
+
+## --text--
+
+Kwa nini unapaswa kuepuka kufanya commit moja kwa moja kwenye tawi la `main`?
+
+## --answers--
+
+Kwa sababu Git hairuhusu commits moja kwa moja kwenye `main`.
+
+### --feedback--
+
+Fikiria kuhusu mahitaji ya utulivu na kuaminika ya tawi la msingi.
+
+---
+
+Kwa sababu tawi la `main` linapaswa kubaki thabiti kwa uhakika wakati wote.
+
+---
+
+Kwa sababu commits kwenye `main` zimefungwa kabisa na haziwezi kubadilishwa.
+
+### --feedback--
+
+Fikiria kuhusu mahitaji ya utulivu na kuaminika ya tawi la msingi.
+
+---
+
+Kwa sababu matawi ya `main` yana utendaji polepole zaidi kuliko matawi ya vipengele.
+
+### --feedback--
+
+Fikiria kuhusu mahitaji ya utulivu na kuaminika ya tawi la msingi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya zifuatazo ni mbinu bora wakati wa kuunda tawi jipya?
+
+## --answers--
+
+Unda matawi mapya kutoka kwenye tawi lako la kipengele la sasa.
+
+### --feedback--
+
+Fikiria kuhusu kuweka historia za matawi safi na kuepuka kujumuisha msimbo usiotarajiwa.
+
+---
+
+Daima unda matawi mapya kutoka `main`.
+
+---
+
+Unda matawi tu kwa vipengele vikuu.
+
+### --feedback--
+
+Fikiria kuhusu kuweka historia za matawi safi na kuepuka kujumuisha msimbo usiotarajiwa.
+
+---
+
+Jizuie kuwa na tawi moja kwa wiki.
+
+### --feedback--
+
+Fikiria kuhusu kuweka historia za matawi safi na kuepuka kujumuisha msimbo usiotarajiwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni njia gani inayopendekezwa kwa kushughulikia kazi za vipengele vinavyoishi kwa muda mrefu?
+
+## --answers--
+
+Unda tawi moja kubwa lenye kazi zote zinazohusiana.
+
+### --feedback--
+
+Fikiria uwezekano wa migongano ya muunganiko na matawi yanayodumu bila kuunganishwa kwa muda mrefu.
+
+---
+
+Tumia lebo za vipengele badala ya matawi yanayoishi kwa muda mrefu.
+
+---
+
+Daima unganisha moja kwa moja kwenye `main` kwa kutumia CLI ya eneo lako.
+
+### --feedback--
+
+Fikiria uwezekano wa migongano ya muunganiko na matawi yanayodumu bila kuunganishwa kwa muda mrefu.
+
+---
+
+Unda hifadhidata mpya kwa kila kipengele kikuu.
+
+### --feedback--
+
+Fikiria uwezekano wa migongano ya muunganiko na matawi yanayodumu bila kuunganishwa kwa muda mrefu.
+
+## --video-solution--
+
+2

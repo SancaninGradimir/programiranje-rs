@@ -1,0 +1,75 @@
+---
+id: 587d7dad367417b2b2512b76
+title: Fanya msimbo uweze kutumika tena kwa kutumia neno kuu this
+challengeType: 1
+forumTopicId: 301321
+dashedName: make-code-more-reusable-with-the-this-keyword
+---
+
+# --description--
+
+Changamoto ya mwisho ilitambulisha njia kwa kitu cha `duck`. Ilitumia uandishi wa nukta wa `duck.name` kupata thamani ya sifa ya `name` ndani ya taarifa ya return:
+
+```js
+sayName: function() {return "The name of this duck is " + duck.name + ".";}
+```
+
+Ingawa hii ni njia halali ya kupata sifa ya kitu, kuna hatari hapa. Ikiwa jina la kigezo litabadilika, msimbo wowote unaorejelea jina la awali utahitaji kusahihishwa pia. Katika ufafanuzi mfupi wa kitu, si tatizo, lakini ikiwa kitu kina rejea nyingi za sifa zake kuna uwezekano mkubwa wa makosa.
+
+Njia ya kuepuka matatizo haya ni kwa kutumia neno kuu la `this`:
+
+```js
+let duck = {
+  name: "Aflac",
+  numLegs: 2,
+  sayName: function() {return "The name of this duck is " + this.name + ".";}
+};
+```
+
+`this` ni mada pana, na mfano uliotolewa hapo juu ni njia moja tu ya kuitumia. Katika muktadha huu, `this` inarejelea kitu ambacho njia hii inahusiana nacho: `duck`. Ikiwa jina la kitu litabadilishwa kuwa `mallard`, haijalishi kutafuta rejea zote za `duck` katika msimbo. Hii inafanya msimbo uweze kutumika tena na kusomeka kwa urahisi zaidi.
+
+# --instructions--
+
+Badilisha njia ya `dog.sayLegs` kuondoa rejea zote za `dog`. Tumia mfano wa `duck` kama mwongozo.
+
+# --hints--
+
+`dog.sayLegs()` inapaswa kurudisha mfuatano wa herufi uliotolewa.
+
+```js
+assert(dog.sayLegs() === 'This dog has 4 legs.');
+```
+
+Msimbo wako unapaswa kutumia neno kuu la `this` kupata sifa ya `numLegs` ya `dog`.
+
+```js
+assert(__helpers.removeJSComments(code).match(/this\.numLegs/g));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let dog = {
+  name: "Spot",
+  numLegs: 4,
+  sayLegs: function() {return "This dog has " + dog.numLegs + " legs.";}
+};
+
+dog.sayLegs();
+```
+
+# --solutions--
+
+```js
+let dog = {
+  name: "Spot",
+  numLegs: 4,
+  sayLegs () {
+    return 'This dog has ' + this.numLegs + ' legs.';
+  }
+};
+
+dog.sayLegs();
+```

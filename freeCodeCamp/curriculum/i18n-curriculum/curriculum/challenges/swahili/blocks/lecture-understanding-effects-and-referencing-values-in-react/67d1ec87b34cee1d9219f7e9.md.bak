@@ -1,0 +1,246 @@
+---
+id: 67d1ec87b34cee1d9219f7e9
+title: Jinsi ya Kuunda Custom Hooks katika React?
+challengeType: 19
+dashedName: how-can-you-create-custom-hooks-in-react
+---
+
+# --description--
+
+React hutoa hooks nyingi zilizojengwa ndani zinazokuwezesha kutekeleza vipengele tofauti katika miradi yako. Hizi ni pamoja na `useState`, `useEffect`, `useContext`, na zingine.
+
+Lakini wakati mwingine, utahitaji kuongeza kipengele ambacho hakuna hata hook moja iliyojengwa ndani inayoweza kusaidia nacho. Kwa bahati nzuri, unaweza kuunda custom hooks zako mwenyewe katika React.
+
+Custom hooks si ngumu kama zinavyoonekana. Ni kitendakazi kinachoweza kutumika tena kinachokuwezesha kushiriki mantiki kati ya sehemu nyingi. Hii inamaanisha kwamba matumizi tena ni sababu nyingine kwa nini ungependa kujenga hook yako mwenyewe.
+
+Kwa custom hook, unaweza kutoa mantiki mbali na sehemu yoyote inayoitumia, kama vile kupata data, usimamizi wa hali, kubadili hali, athari za pembeni kama kuangalia hali ya mtumizi kuwa mtandaoni au nje ya mtandao, na kadhalika.
+
+Kisha unaweza import hook hiyo kuitumia katika sehemu yoyote, hivyo unaweza makini na kuonyesha na uwasilishaji ndani ya sehemu hizo. Hii inamaanisha kurudia kidogo na nakala kidogo, ambayo inamaanisha sehemu chache za kufanya mabadiliko unapotaka kufanya masasisho yoyote.
+
+Sasa, tuchunguze jinsi unavyoweza kutengeneza custom hook yako mwenyewe.
+
+Katika React, hooks zote zilizojengwa ndani huanza na neno `use`, hivyo custom hook yako inapaswa kufuata mkataba huo huo. Jina la custom hook yako pia linapaswa kueleza wazi kinachofanya.
+
+Kwa hivyo, kama custom hook yako…
+
+- hupata data, unaweza kuitaja `useFetch`
+
+- hubadili kitu kuwa on na off, unaweza kuitaja `useToggle`
+
+- au ikiwa inatekeleza debouncing, `useDebounce` ni jina zuri
+
+Tuseme unataka kujenga custom hook kuongeza debouncing kwenye app yako.
+
+Debouncing ni mbinu ya programu inayopunguza mara ngapi kitendakazi kinaendeshwa. Inafanya kazi kwa kusubiri mpaka mtumizi aache kufanya kitendo kwa muda maalum kabla ya kutekeleza kitendakazi. Kwa mfano, katika kisanduku cha utafutaji, badala ya kufanya wito wa API kwa kila herufi inayobonyezwa, debouncing husubiri mpaka mtumizi aache kuandika kwa, sema, millisekunde 500.
+
+Ili kuunda custom hook ya debouncing, kwanza unahitaji kuunda faili la `useDebounce.jsx` au `useDebounce.js`. Kwa mkataba, faili za custom hooks unazozitengeneza huhifadhiwa kwenye folda ya `hooks`.
+
+Unaweza kutumia baadhi ya hooks zilizojengwa ndani ndani ya custom hook yako mwenyewe. Kwa debouncing, unahitaji hooks za `useState` na `useEffect`, hivyo zi-import juu ya faili yako:
+
+```js
+import { useState, useEffect } from "react";
+```
+
+Ifuatayo, tengeneza kitendakazi cha `useDebounce` kinachopokea `value` na `delay` kama vigezo. `value` ni rasilimali unayotaka kusubiri, na `delay` ni muda unaotaka kusubiri. Kwa kuwa unataka kusubiri kwa muda fulani, kitendakazi cha `setTimeout` na `clearTimeout` kitakuwa na manufaa:
+
+```js
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export { useDebounce };
+```
+
+Hali ya `debouncedValue` huhifadhi na kurudisha thamani iliyochelewa, ambayo hubadilika tu baada ya muda uliobainishwa wa kusubiri.
+
+`useEffect` ndiko ambapo uchawi hutokea kweli. Ukikumbuka kutoka funzo lililopita, chochote kinachotokea nje ya mzunguko wa kuonyesha wa React, kama kuweka na kufuta kengele, ni athari ya pembeni, na unapaswa kutumia hook ya `useEffect` kuziendesha.
+
+Ndani ya hook ya `useEffect` hapa, unatumia `setTimeout` kuweka `debouncedValue`. Kisha unarudisha kitendakazi cha kusafisha kinachotumia `clearTimeout` kufuta muda uliopita wa kusubiri kila wakati `value` au `delay` inabadilika, au sehemu inapoondolewa.
+
+Ili kutumia hook hii, tumetayarisha safu ya `footballers` kuchuja kupitia na baa rahisi ya utafutaji:
+
+```js
+const footballers = [
+  'Lionel Messi', 'Cristiano Ronaldo', 'Neymar Jr',
+  'Kylian Mbappe', 'Mohamed Salah', 'Sadio Mane',
+  'Kevin De Bruyne', 'Robert Lewandowski', 'Harry Kane',
+  'Sergio Ramos', 'Virgil van Dijk', 'Alisson Becker', 
+  'Joshua Kimmich', 'Manuel Neuer', 'Karim Benzema', 
+  'Thibaut Courtois', 'Eden Hazard', 'Raheem Sterling',
+  'Bruno Fernandes', 'Trent Alexander-Arnold', 'Son Heung-min',
+  'Pierre-Emerick Aubameyang','Sergio Aguero', 'Luis Suarez', 
+  'Luka Modric', 'Casemiro', 'Frenkie de Jong', 'Gerard Pique',
+  'Marc-Andre ter Stegen', 'Keylor Navas', 'Angel Di Maria', 
+  "N'Golo Kante", 'Kai Havertz', 'Timo Werner', 'Hakim Ziyech', 
+  'Christian Pulisic', 'Mason Mount', 'Olivier Giroud', 'Tammy Abraham', 
+  'Kepa Arrizabalaga', 'Ben Chilwell', 'Thiago Silva', 'Kurt Zouma', 
+  'John Terry', 'Didier Drogba', 'Frank Lampard', 'Ashley Cole', 'Petr Cech',
+];
+
+export default footballers;
+```
+
+Na hapa kuna sehemu ya `FootballerSearch` inayotumia hook ya `useDebounce` kuchelewesha utafutaji kwa sekunde 1 baada ya mtumizi kuacha kuandika:
+
+```jsx
+import { useState, useEffect } from "react";
+import { useDebounce } from "./hooks/useDebounce";
+import footballers from "./footballers";
+
+const FootballerSearch = () => {
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 1000); // Start searching 1 second after the user stops typing
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      const results = footballers.filter((footballer) =>
+        footballer.toLowerCase().includes(debouncedQuery.toLowerCase()),
+      );
+      console.log("Search results:", results);
+    } else {
+      console.log("Search results: []");
+    }
+  }, [debouncedQuery]);
+
+  return (
+    <>
+      <h1 style={{ textAlign: "center" }}>Footballer Search App</h1>
+      <div style={{ textAlign: "center" }}>
+        <input
+          style={{ padding: "0.5rem", width: "30%" }}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for a footballer..."
+        />
+      </div>
+    </>
+  );
+};
+
+export default FootballerSearch;
+```
+
+Kama unavyoona, kigezo cha `debouncedQuery` ndicho kinachowezesha hook ya `useDebounce` na hali ya hoja ya utafutaji (kile mtumizi anaandika), na kuchelewesha kwa millisekunde 1,000, au sekunde 1. Utafutaji wenyewe unashughulikiwa ndani ya hook ya `useEffect`, na matokeo ya utafutaji yanaandikwa kwenye konsoli.
+
+# --questions--
+
+## --text--
+
+Ni faida gani muhimu ya kuunda custom hook katika React?
+
+## --answers--
+
+Hufanya sehemu zionyeshwe kwa kasi zaidi.
+
+### --feedback--
+
+Custom hooks husaidia kuepuka kurudia mantiki ile ile katika sehemu tofauti.
+
+---
+
+Inakuwezesha kutumia tena mantiki katika sehemu nyingi.
+
+---
+
+Inachukua nafasi ya hooks zilizojengwa ndani.
+
+### --feedback--
+
+Custom hooks husaidia kuepuka kurudia mantiki ile ile katika sehemu tofauti.
+
+---
+
+Inalazimisha sehemu kushiriki hali ile ile.
+
+### --feedback--
+
+Custom hooks husaidia kuepuka kurudia mantiki ile ile katika sehemu tofauti.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni mkataba gani sahihi wa kuitaja custom hook katika React?
+
+## --answers--
+
+Inapaswa kuanza na "`use`".
+
+---
+
+Inaweza kuwa na jina lolote.
+
+### --feedback--
+
+Fikiria kuhusu kiambishi awali maalum kwa hooks.
+
+---
+
+Inapaswa kumalizika na "`Hook`".
+
+### --feedback--
+
+Fikiria kuhusu kiambishi awali maalum kwa hooks.
+
+---
+
+Inapaswa kufanana na jina la hook iliyojengwa ndani.
+
+### --feedback--
+
+Fikiria kuhusu kiambishi awali maalum kwa hooks.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ungeitaaje custom hook inayobadili thamani kuwa on na off?
+
+## --answers--
+
+`useSwitch`
+
+### --feedback--
+
+Custom hooks zinapaswa kufuata mkataba wa majina wa React na kueleza wazi kusudi lao.
+
+---
+
+`useToggle`
+
+---
+
+`toggleHook`
+
+### --feedback--
+
+Custom hooks zinapaswa kufuata mkataba wa majina wa React na kueleza wazi kusudi lao.
+
+---
+
+`useBoolean`
+
+### --feedback--
+
+Custom hooks zinapaswa kufuata mkataba wa majina wa React na kueleza wazi kusudi lao.
+
+## --video-solution--
+
+2

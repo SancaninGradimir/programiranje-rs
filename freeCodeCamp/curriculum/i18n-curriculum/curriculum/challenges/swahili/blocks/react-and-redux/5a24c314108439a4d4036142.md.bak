@@ -1,0 +1,234 @@
+---
+id: 5a24c314108439a4d4036142
+title: Dhibiti hali kwanza kwa ndani
+challengeType: 6
+forumTopicId: 301431
+dashedName: manage-state-locally-first
+---
+
+# --description--
+
+Hapa utamalizia kuunda sehemu ya `DisplayMessages`.
+
+# --instructions--
+
+Kwanza, katika njia ya `render()`, fanya sehemu ionyeshe kipengele cha `input`, kipengele cha `button`, na kipengele cha `ul`. Kipengele cha `input` kinapobadilika, kinapaswa kusababisha njia ya `handleChange()`. Pia, kipengele cha `input` kinapaswa kuonyesha thamani ya `input` iliyoko katika hali ya sehemu hiyo. Kipengele cha `button` kinapaswa kusababisha njia ya `submitMessage()` inapobofyanwa.
+
+Pili, andika njia hizi mbili. Njia ya `handleChange()` inapaswa kusahihisha `input` na kile mtumizi anachokichapa. Njia ya `submitMessage()` inapaswa kuunganisha ujumbe wa sasa (uliohifadhiwa katika `input`) kwenye safu ya `messages` katika hali ya ndani, na kufuta thamani ya `input`.
+
+Mwishowe, tumia `ul` kupita safu ya `messages` na kuionyesha kwenye skrini kama orodha ya vipengele vya `li`.
+
+# --hints--
+
+Sehemu ya `DisplayMessages` inapaswa kuanzishwa na hali sawa na `{ input: "", messages: [] }`.
+
+```js
+assert(
+  (function () {
+    const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+    const initialState = mockedComponent.state();
+    return (
+      typeof initialState === 'object' &&
+      initialState.input === '' &&
+      initialState.messages.length === 0
+    );
+  })()
+);
+```
+
+Sehemu ya `DisplayMessages` inapaswa kuonyesha `div` inayojumuisha kipengele cha `h2`, kipengele cha `button`, kipengele cha `ul`, na vipengele vya `li` kama watoto.
+
+```js
+  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+  const state = () => {
+    mockedComponent.setState({ messages: ['__TEST__MESSAGE'] });
+    return mockedComponent;
+  };
+  const updated = state();
+  assert(
+    updated.find('div').length === 1 &&
+      updated.find('h2').length === 1 &&
+      updated.find('button').length === 1 &&
+      updated.find('ul').length === 1 &&
+      updated.find('li').length > 0
+  );
+```
+
+`.map` inapaswa kutumika kwenye safu ya `messages`.
+
+```js
+assert(code.match(/this\.state\.messages\.map/g));
+```
+
+Kipengele cha `input` kinapaswa kuonyesha thamani ya `input` katika hali ya ndani.
+
+```js
+  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+  const causeChange = (c, v) =>
+    c.find('input').simulate('change', { target: { value: v } });
+  const testValue = '__TEST__EVENT__INPUT';
+  const changed = () => {
+    causeChange(mockedComponent, testValue);
+    return mockedComponent;
+  };
+  const updated = changed();
+  assert(updated.find('input').props().value === testValue);
+```
+
+Kupiga wito kwa njia ya `handleChange` kunapaswa kusahihisha thamani ya `input` katika hali kwa ingizo la sasa.
+
+```js
+  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+  const causeChange = (c, v) =>
+    c.find('input').simulate('change', { target: { value: v } });
+  const initialState = mockedComponent.state();
+  const testMessage = '__TEST__EVENT__MESSAGE__';
+  const changed = () => {
+    causeChange(mockedComponent, testMessage);
+    return mockedComponent;
+  };
+  const afterInput = changed();
+  assert(
+    initialState.input === '' &&
+      afterInput.state().input === '__TEST__EVENT__MESSAGE__'
+  );
+```
+
+Kubofya kitufe cha `Add message` kunapaswa kupiga wito kwa njia ya `submitMessage` ambayo inapaswa kuongeza `input` ya sasa kwenye safu ya `messages` katika hali.
+
+```js
+  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+  const causeChange = (c, v) =>
+    c.find('input').simulate('change', { target: { value: v } });
+  const initialState = mockedComponent.state();
+  const testMessage_1 = '__FIRST__MESSAGE__';
+  const firstChange = () => {
+    causeChange(mockedComponent, testMessage_1);
+    return mockedComponent;
+  };
+  const firstResult = firstChange();
+  const firstSubmit = () => {
+    mockedComponent.find('button').simulate('click');
+    return mockedComponent;
+  };
+  const afterSubmit_1 = firstSubmit();
+  const submitState_1 = afterSubmit_1.state();
+  const testMessage_2 = '__SECOND__MESSAGE__';
+  const secondChange = () => {
+    causeChange(mockedComponent, testMessage_2);
+    return mockedComponent;
+  };
+  const secondResult = secondChange();
+  const secondSubmit = () => {
+    mockedComponent.find('button').simulate('click');
+    return mockedComponent;
+  };
+  const afterSubmit_2 = secondSubmit();
+  const submitState_2 = afterSubmit_2.state();
+  assert(
+    initialState.messages.length === 0 &&
+      submitState_1.messages.length === 1 &&
+      submitState_2.messages.length === 2 &&
+      submitState_2.messages[1] === testMessage_2
+  );
+```
+
+Njia ya `submitMessage` inapaswa kufuta ingizo la sasa.
+
+```js
+  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));
+  const causeChange = (c, v) =>
+    c.find('input').simulate('change', { target: { value: v } });
+  const initialState = mockedComponent.state();
+  const testMessage = '__FIRST__MESSAGE__';
+  const firstChange = () => {
+    causeChange(mockedComponent, testMessage);
+    return mockedComponent;
+  };
+  const firstResult = firstChange();
+  const firstState = firstResult.state();
+  const firstSubmit = () => {
+    mockedComponent.find('button').simulate('click');
+    return mockedComponent;
+  };
+  const afterSubmit = firstSubmit();
+  const submitState = afterSubmit.state();
+  assert(firstState.input === testMessage && submitState.input === '');
+```
+
+# --seed--
+
+## --seed-contents--
+
+```jsx
+class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+  }
+  // Add handleChange() and submitMessage() methods here
+
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        { /* Render an input, button, and ul below this line */ }
+
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+# --solutions--
+
+```jsx
+class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    }
+ this.handleChange = this.handleChange.bind(this);
+   this.submitMessage = this.submitMessage.bind(this);
+ }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) => {
+      const currentMessage = state.input;
+      return {
+        input: '',
+        messages: state.messages.concat(currentMessage)
+      };  
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input
+          value={this.state.input}
+          onChange={this.handleChange}/><br/>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>
+          {this.state.messages.map( (message, idx) => {
+              return (
+                 <li key={idx}>{message}</li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+```

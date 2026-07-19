@@ -1,0 +1,216 @@
+---
+id: 698f5a3a492176259d1afcf9
+title: "Je, Interfaces ni Nini na Zinavyofanya Kazi?"
+challengeType: 19
+dashedName: what-are-interfaces-and-how-do-they-work
+---
+
+# --description--
+
+Katika funzo lililopita, ulijifunza jinsi ya kufanya kazi na type aliases na ukaona mifano ya jinsi ya kuitaja aina za vitu.
+
+Kama unavyokumbuka, njia moja ya kuitaja aina ya kitu ni kutumia neno kuu la `type` kama ifuatavyo:
+
+```ts
+type ID = number | string;
+
+type User = {
+  id: ID;
+  name: string;
+};
+```
+
+Njia nyingine ya kuitaja aina ya kitu ni kutumia tamko la `interface` kama ifuatavyo:
+
+```ts
+type ID = number | string;
+
+interface User {
+  id: ID;
+  name: string;
+}
+```
+
+`type` na `interface` ni sawa lakini tofauti kuu ni kwamba interfaces hutumia neno kuu la `extends` kujenga juu ya interfaces au aina nyingine, wakati type aliases za `type` hutumia aina za intersection (`&`) kuunganisha aina.
+
+Tuchunguze mifano kadhaa:
+
+```ts
+interface User {
+  id: number | string;
+  name: string;
+}
+
+interface Admin extends User {
+  role: string;
+}
+
+const adminUser: Admin = {
+  id: 101,
+  name: "Alice",
+  role: "superadmin"
+};
+```
+
+Katika mfano huu, `User` huanza na `id` na `name`. Interface ya `Admin` inaongeza `User`, ikimaanisha inajumuisha `id` na `name` na kuongeza sifa mpya iitwayo `role`.
+
+Ikiwa ungependa kuongeza `type`, utatumia aina ya intersection (`&`) kama ifuatavyo:
+
+```ts
+type User = {
+  id: number | string;
+  name: string;
+};
+
+type Admin = User & {
+  role: string;
+};
+
+const adminUser: Admin = {
+  id: 101,
+  name: "Alice",
+  role: "superadmin"
+};
+```
+
+`Admin` huunganisha aina ya `User` na aina mpya ya kitu inayojumuisha `role`. Matokeo ni umbo sawa na mfano wa interface ambao ni kitu chenye `id`, `name`, na `role`.
+
+Zote `type` na `interface` zinaweza kuelezea umbo la kitu. Ikiwa huna uhakika ni ipi utumie, kumbuka kwamba `interface` imeundwa mahsusi kwa maumbo ya vitu, wakati `type` ni rahisi zaidi na inaweza pia kuwakilisha aina za muungano, primitives, na mchanganyiko tata zaidi wa aina.
+
+# --questions--
+
+## --text--
+
+Ni kipengele gani cha TypeScript kinachokuwezesha kuunda aina mpya kwa kuunganisha aina nyingi zilizopo kwa kutumia `&`?
+
+## --answers--
+
+`interface`
+
+### --feedback--
+
+Rudi katikati ya funzo ambapo aina za intersection zilijadiliwa.
+
+---
+
+`type`
+
+---
+
+`class`
+
+### --feedback--
+
+Rudi katikati ya funzo ambapo aina za intersection zilijadiliwa.
+
+---
+
+`enum`
+
+### --feedback--
+
+Rudi katikati ya funzo ambapo aina za intersection zilijadiliwa.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Ni ipi kati ya zifuatazo ndiyo njia sahihi ya kuunda `interface`?
+
+## --answers--
+
+```ts
+type ID = number | string;
+
+interface User {
+  id: ID;
+  name: string;
+}
+```
+
+---
+
+```ts
+type ID = number | string;
+
+interface User == {
+  id: ID;
+  name: string;
+}
+```
+
+### --feedback--
+
+Rejelea mwanzo wa funzo.
+
+---
+
+```ts
+type ID = number | string;
+
+interface > User {
+  id: ID;
+  name: string;
+}
+```
+
+### --feedback--
+
+Rejelea mwanzo wa funzo.
+
+---
+
+```ts
+type ID = number | string;
+
+interface User >> {
+  id: ID;
+  name: string;
+}
+```
+
+### --feedback--
+
+Rejelea mwanzo wa funzo.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya zifuatazo ni kweli kuhusu type aliases katika TypeScript?
+
+## --answers--
+
+Zinaweza kuwakilisha muungano na intersection.
+
+---
+
+Zinaweza kuelezea maumbo ya vitu tu.
+
+### --feedback--
+
+Rejelea mwisho wa funzo.
+
+---
+
+Zinapaswa kutumia extends kujenga juu ya aina nyingine.
+
+### --feedback--
+
+Rejelea mwisho wa funzo.
+
+---
+
+Haziwezi kuwekwa kwenye vigezo.
+
+### --feedback--
+
+Rejelea mwisho wa funzo.
+
+## --video-solution--
+
+1

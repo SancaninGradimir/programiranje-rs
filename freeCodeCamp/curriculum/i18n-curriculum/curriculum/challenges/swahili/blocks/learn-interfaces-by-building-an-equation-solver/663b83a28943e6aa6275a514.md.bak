@@ -1,0 +1,97 @@
+---
+id: 663b83a28943e6aa6275a514
+title: Hatua 19
+challengeType: 20
+dashedName: step-19
+---
+
+# --description--
+
+Bado ukiwa ndani ya darasa la `Equation`, tangaza njia ya `__str__` ili kutoa uwakilishi sahihi wa mfuatano wa herufi kwa vitu vya mlinganyo utakavyo tengeneza.
+
+Kwa sasa, ndani ya njia ya `__str__`, tangaza kigezo `terms` na weka thamani yake kuwa orodha tupu. Utatumia kigezo hiki kuhifadhi kila neno (kiasi cha mzunguko mara \\( x^n \\)) la mlinganyo wako.
+
+Kisha, tangaza kigezo `equation_string`, weka thamani yake kuwa matokeo ya kuunganisha vipengele vilivyomo kwenye orodha ya `terms` kwa kutumia nafasi. Mwishowe, rudisha `equation_string`.
+
+# --hints--
+
+Unapaswa kutangaza njia ya `__str__` ndani ya darasa la `Equation`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").has_function("__str__")`)) })
+```
+
+Njia yako ya `__str__` inapaswa kuchukua kigezo kimoja, `self`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__str__").has_args("self")`)) })
+```
+
+Unapaswa kutangaza kigezo `terms` na kuwekea thamani orodha tupu ndani ya njia ya `__str__`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__str__").has_stmt("terms = []")`)) })
+```
+
+Unapaswa kutangaza kigezo `equation_string` na kuwekea thamani matokeo ya kuunganisha vipengele vilivyomo ndani ya `terms` kwa nafasi ndani ya njia ya `__str__`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__str__").has_stmt("equation_string = ' '.join(terms)")`)) })
+```
+
+Unapaswa kurudisha `equation_string` kutoka kwa njia yako ya `__str__`.
+
+```js
+({ test: () => assert(runPython(`_Node(_code).find_class("Equation").find_function("__str__").has_return("equation_string")`)) })
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+from abc import ABC, abstractmethod
+
+class Equation(ABC):
+    degree: int
+    
+    def __init__(self, *args):
+        if (self.degree + 1) != len(args):
+            raise TypeError(
+                f"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given"
+            )
+        if any(not isinstance(arg, (int, float)) for arg in args):
+            raise TypeError("Coefficients must be of type 'int' or 'float'")
+        if args[0] == 0:
+            raise ValueError("Highest degree coefficient must be different from zero")
+        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}
+
+    def __init_subclass__(cls):
+        if not hasattr(cls, "degree"):
+            raise AttributeError(
+                f"Cannot create '{cls.__name__}' class: missing required attribute 'degree'"
+            )
+--fcc-editable-region--
+    
+--fcc-editable-region--    
+    @abstractmethod
+    def solve(self):
+        pass
+        
+    @abstractmethod
+    def analyze(self):
+        pass
+        
+class LinearEquation(Equation):
+    degree = 1
+    
+    def solve(self):
+        pass
+    
+    def analyze(self):
+        pass
+
+
+lin_eq = LinearEquation(2, 3)
+print(lin_eq)
+```

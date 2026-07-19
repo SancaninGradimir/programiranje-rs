@@ -1,0 +1,498 @@
+---
+id: 672a54f29d783890d1f94740
+title: Ni Hali Gani za ARIA Zinazotumika Kawaida kwa Vipengele vya Udhibiti Maalum?
+challengeType: 19
+dashedName: what-are-some-common-aria-states-used-on-custom-control-elements
+---
+
+# --interactive--
+
+Vipengele vya udhibiti wa fomu vya maana kama `input`, `select`, `textarea`, `button`, na `fieldset` vina hali zilizojengwa ndani ambazo huwasilishwa kwa teknolojia za kusaidia.
+
+Kwa mfano, unaweza kutumia sifa ya `disabled` kuzima kitufe au sifa ya `checked` kuonyesha kuwa kisanduku cha kuchagua kimechaguliwa.
+
+Lakini ikiwa unaunda kipengele cha udhibiti maalum, unahitaji kutumia sifa za ARIA kuwasilisha hali ya udhibiti kwa teknolojia za kusaidia.
+
+Katika funzo hili, tutajadili hali chache za ARIA zinazotumika kawaida kwenye vipengele vya udhibiti maalum.
+
+Hali ya kwanza ya ARIA tutakayojadili ni `aria-selected`. Hali hii hutumika kuonyesha kuwa kipengele kimechaguliwa. Unaweza kutumia hali hii kwenye vidhibiti maalum kama kiolesura cha tabo, kisanduku cha orodha, au gridi.
+
+Hapa kuna mfano wa jinsi unavyoweza kutumia `aria-selected` kwenye kidhibiti maalum cha tabo:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div role="tablist">
+  <button role="tab" aria-selected="true">Tab 1</button>
+  <button role="tab" aria-selected="false">Tab 2</button>
+  <button role="tab" aria-selected="false">Tab 3</button>
+</div>
+<script src="index.js"></script>
+```
+
+```css
+[role="tablist"] {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  gap: 0.25rem;
+  font-family: system-ui, sans-serif;
+}
+
+[role="tab"] {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #444;
+  border-radius: 4px 4px 0 0;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+[role="tab"]:hover {
+  background-color: #f3f3f3;
+}
+
+[role="tab"][aria-selected="true"] {
+  background-color: #fff;
+  color: #0078d4;
+  border: 2px solid #0078d4;
+  border-bottom: 2px solid #fff; 
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+[role="tab"]:focus {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+```
+
+```js
+document.addEventListener("click", (event) => {
+  const clickedTab = event.target.closest('[role="tab"]');
+  if (!clickedTab) return;
+
+  const tablist = clickedTab.closest('[role="tablist"]');
+  const tabs = tablist.querySelectorAll('[role="tab"]');
+
+  tabs.forEach((tab) => {
+    const isSelected = tab === clickedTab;
+    tab.setAttribute("aria-selected", isSelected);
+    tab.tabIndex = isSelected ? 0 : -1;
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  const activeTab = document.activeElement;
+  if (activeTab.getAttribute("role") !== "tab") return;
+
+  const tablist = activeTab.closest('[role="tablist"]');
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const index = tabs.indexOf(activeTab);
+
+  let newIndex = index;
+  if (event.key === "ArrowRight") newIndex = (index + 1) % tabs.length;
+  if (event.key === "ArrowLeft") newIndex = (index - 1 + tabs.length) % tabs.length;
+
+  if (newIndex !== index) {
+    tabs[newIndex].focus();
+    tabs[newIndex].click();
+  }
+});
+
+```
+
+:::
+
+Tabo hutumika kuonyesha paneli nyingi za maudhui katika nafasi ndogo. Hali ya `aria-selected` hutumika kuonyesha ni tabo gani imechaguliwa kwa sasa.
+
+Wakati mtumizi anapochagua tabo, hali ya `aria-selected` ya tabo iliyochaguliwa huwekwa kuwa `true`, na hali ya `aria-selected` ya tabo zingine huwekwa kuwa `false`.
+
+Hali nyingine ya kawaida ya ARIA ni `aria-disabled`. Hali hii hutumika kuonyesha kuwa kipengele kimezimwa kwa watu wanaotumia teknolojia za kusaidia, kama kisomaji cha skrini. Ni muhimu kuelewa kuwa `aria-disabled` haizimi kipengele kwa kweli. Ni jukumu lako, msanidi programu, kuifanya ionekane na itende kama kipengele kilichozimwa. Sifa hii pia hutumika mara nyingi kwenye vipengele vya asili vya HTML badala ya sifa ya `disabled`. Ni wewe utakaebeba uamuzi wa kutumia ipi kulingana na muktadha wa kitufe kinapotumika.
+
+Hapa kuna mfano wa jinsi unavyoweza kutumia `aria-disabled` kwenye kitufe maalum cha kuhariri:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div role="button" tabindex="-1" aria-disabled="true">Edit</div>
+```
+
+```css
+[role="button"] {
+  display: inline-block;
+  background-color: #0078d4;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
+}
+
+[role="button"]:not([aria-disabled="true"]):hover {
+  background-color: #005fa3;
+}
+
+[role="button"]:not([aria-disabled="true"]):focus {
+  outline: 2px solid #005fa3;
+  outline-offset: 2px;
+}
+
+[role="button"]:not([aria-disabled="true"]):active {
+  transform: scale(0.97);
+}
+
+[role="button"][aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #b0b0b0;
+  color: #f2f2f2;
+}
+```
+
+:::
+
+Sifa ya `aria-disabled` hutumika kuambia watumiaji wa kisomaji cha skrini kuwa kitufe cha kuhariri kimezimwa na hakiwezi kuingiliana nacho. Tena, haizimi kitufe kwa kweli. Unapotumia `aria-disabled`, utahitaji kutumia mtindo na JavaScript kuifanya kidhibiti ionekane na itende kama kitufe kilichozimwa.
+
+Katika hali nyingi, huenda ukatumia kipengele cha kitufe cha asili, lakini kuna nyakati ambapo unaweza kuhitaji kutumia kidhibiti maalum. Kwa hivyo, ni muhimu kujua jinsi ya kuwasilisha hali ya kidhibiti kwa teknolojia za kusaidia.
+
+Hali inayofuata ya ARIA tutakayojadili ni `aria-haspopup`. Hali hii hutumika kuonyesha kuwa kipengele cha kuingiliana kitasababisha kipengele cha popup kufunguka wakati kinapozimwa. Unaweza kutumia sifa ya `aria-haspopup` tu wakati popup ina mojawapo ya majukumu yafuatayo: `menu`, `listbox`, `tree`, `grid`, au `dialog`. Thamani ya `aria-haspopup` lazima iwe mojawapo ya majukumu haya au `true`, ambayo ni chaguo-msingi kwa jukumu la `menu`.
+
+Hapa kuna mfano wa menyu ya mhariri wa faili inayotumia `aria-haspopup`:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<button id="menubutton" aria-haspopup="menu" aria-controls="filemenu" aria-expanded="false">File</button>
+<ul id="filemenu" role="menu" aria-labelledby="menubutton" hidden>
+  <li role="menuitem" tabindex="-1">Open</li>
+  <li role="menuitem" tabindex="-1">New</li>
+  <li role="menuitem" tabindex="-1">Save</li>
+  <li role="menuitem" tabindex="-1">Delete</li>
+</ul>
+```
+
+```css
+#menubutton {
+  background-color: #0078d4;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+}
+
+#menubutton:hover,
+#menubutton:focus {
+  background-color: #005ea2;
+  outline: none;
+}
+
+#filemenu {
+  list-style: none;
+  padding: 4px 0;
+  margin: 4px 0 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 160px;
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#filemenu[hidden] {
+  display: none;
+}
+
+#filemenu [role="menuitem"] {
+  display: block;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+#filemenu [role="menuitem"]:hover,
+#filemenu [role="menuitem"]:focus {
+  background-color: #e5f1fb;
+  outline: none;
+}
+
+#filemenu [role="menuitem"]:focus-visible {
+  box-shadow: inset 0 0 0 2px #0078d4;
+}
+
+```
+
+:::
+
+Hali ya `aria-haspopup` hutumika kuonyesha kuwa kitufe cha menyu cha `File` kitafungua menyu ya popup wakati kinapozimwa. Watumiaji wa kisomaji cha skrini wanaweza kusikia taarifa hii ya ziada wanapofikia kitufe.
+
+Utahitaji kutumia JavaScript kuonyesha na kuficha menyu ya popup, na kutekeleza msaada sahihi wa kibodi kwa kuingiliana na menyu. Pia, tafadhali fahamu kuwa jukumu la ARIA `menu` linahusu aina maalum sana ya menyu. Kwa kawaida linahusu orodha ya vitendo ambavyo mtumizi anaweza kuitisha, sawa na menyu kwenye programu za desktop. Halihusishi matumizi ya kawaida ya "menyu" kama tunavyoyafahamu, kama menyu za urambazaji. Kwa kweli, menyu nyingi unazotengeneza mtandaoni hazitakuwa menyu za ARIA na hutatumia `aria-haspopup` nazo.
+
+Hali inayofuata ya ARIA tutakayojadili ni `aria-required`. Sifa ya `aria-required` hutumika kuonyesha kuwa sehemu fulani inahitaji kujazwa kabla ya fomu kuwasilishwa.
+
+Hapa kuna mfano wa kufanya kazi na sifa ya `aria-required` kwa kidhibiti maalum cha fomu.
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div id="name-label">Full Name*</div>
+<div role="textbox" contenteditable aria-labelledby="name-label" aria-required="true" id="name"></div>
+```
+
+```css
+#name-label {
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+[role="textbox"] {
+  display: block;
+  width: 100%;
+  min-height: 2rem;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  color: #222;
+  background-color: #fff;
+  line-height: 1.4;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+[role="textbox"]:hover {
+  border-color: #999;
+}
+
+[role="textbox"]:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.25);
+}
+
+[role="textbox"]:empty::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  pointer-events: none;
+}
+
+[role="textbox"][aria-required="true"] {
+  border-left: 3px solid #e81123;
+  padding-left: calc(0.75rem - 3px);
+}
+```
+
+:::
+
+Tunahitaji kutumia sifa ya `contenteditable` ili watumiaji waweze kuandika ingizo lao. Pia tunatumia sifa ya `aria-required` iliyowekwa kuwa `true` kuonyesha kuwa kidhibiti hiki maalum cha fomu ni cha lazima.
+
+Ili kufanya kidhibiti cha fomu kiwe kama kidhibiti cha kawaida, utahitaji kuongeza CSS. Pia utahitaji kuongeza JavaScript kuzuia fomu kuwasilishwa bila maudhui.
+
+Kama lebo tayari ina neno `required`, basi unapaswa kuacha sifa ya `aria-required`. Hii inahakikisha kuwa visomaji vya skrini hutoa neno "required" mara moja tu.
+
+Katika hali nyingi, huenda ukatumia vipengele vya asili vya `label` na `form` pamoja na sifa ya `required`. Lakini kama unahitaji kuunda kidhibiti maalum cha fomu, basi ni muhimu kuongeza sifa ya `aria-required` inapohitajika.
+
+Zaidi ya hayo, sifa ya `aria-required` pia inaweza kutumika kwenye ingizo za fomu za asili, kama vipengele vya `input`, `textarea`, na `select`. Hii mara nyingi hupendelewa kuliko sifa ya required ya asili, kwa sababu sifa ya required inaweza kuwa na changamoto za matumizi na ufikikaji, hasa kwa usimamizi wa makosa wa chaguo-msingi unaotolewa na kivinjari. Mwisho wa siku, utahitaji kufanya majaribio ili kubaini sifa gani ni bora kwa hali yako.
+
+Hali ya mwisho ya ARIA tutakayojadili ni `aria-checked`. Sifa hii hutumika kuonyesha kama kipengele kiko katika hali ya kuchaguliwa. Hutumika zaidi wakati wa kuunda visanduku maalum vya kuchagua, vitufe vya radio, vitufe vya kubadilisha, na kisanduku cha orodha.
+
+Hapa kuna mfano wa jinsi unavyoweza kutumia `aria-checked` kwenye kidhibiti maalum cha kisanduku cha kuchagua:
+
+:::interactive_editor
+
+```html
+<link rel="stylesheet" href="styles.css">
+<div role="checkbox" aria-checked="true" tabindex="0">Checkbox</div>
+```
+
+```css
+[role="checkbox"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  color: #222;
+}
+
+[role="checkbox"]::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #666;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+[role="checkbox"]:hover::before {
+  border-color: #0078d4;
+}
+
+[role="checkbox"]:focus::before {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+[role="checkbox"][aria-checked="true"]::before {
+  background-color: #0078d4;
+  border-color: #0078d4;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'><path fill='white' d='M5.2 10.4L2 7.2l1.1-1.1 2.1 2.1L10.9 2.5 12 3.6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+[role="checkbox"][aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+```
+
+:::
+
+Vipengele vya kisanduku cha kuchagua vya asili vina hali ya `checked` iliyojengwa ndani ambayo huwasilishwa kwa teknolojia za kusaidia. Lakini ikiwa unaunda kidhibiti maalum cha kisanduku cha kuchagua, utahitaji kutumia sifa ya `aria-checked` kuonyesha hali yake.
+
+Wakati mtumizi anaposhirikiana na kidhibiti maalum cha kisanduku cha kuchagua, utahitaji kutumia hali ya `aria-checked` kuonyesha hali mpya ya kisanduku. Wakati kisanduku kimechaguliwa, sifa ya `aria-checked` huwekwa kuwa `true`. Wakati hakijachaguliwa, huwekwa kuwa `false`.
+
+Vipengele vya asili kwa kawaida vina msaada bora na vipengele vya ufikikaji vilivyojengwa ndani.
+
+Hata hivyo, kama lazima uunde vidhibiti maalum, kutumia sifa za ARIA ni muhimu kuwasilisha hali ya vidhibiti hivi kwa teknolojia za kusaidia kwa ufanisi.
+
+Kama kawaida, hakikisha unakagua kazi yako ili kuhakikisha sifa za ARIA zimetumika ipasavyo na kidhibiti maalum kinafanya kazi kwa njia inayofaa na rahisi kwa mtumizi.
+
+# --questions--
+
+## --text--
+
+Ni hali gani ya ARIA ungetumia kuonyesha kuwa tabo imechaguliwa kwa sasa?
+
+## --answers--
+
+`aria-disabled`
+
+### --feedback--
+
+Hali hii inaonyesha ni tabo gani inafanya kazi.
+
+---
+
+`aria-selected`
+
+---
+
+`aria-haspopup`
+
+### --feedback--
+
+Hali hii inaonyesha ni tabo gani inafanya kazi.
+
+---
+
+`aria-checked`
+
+### --feedback--
+
+Hali hii inaonyesha ni tabo gani inafanya kazi.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika muktadha wa vidhibiti maalum, ni hali gani ya ARIA hutumika kuonyesha kuwa kipengele kimezimwa kwa sasa?
+
+## --answers--
+
+`aria-checked`
+
+### --feedback--
+
+Hali hii inaonyesha kuwa kipengele hakiwezi kuingiliana nacho.
+
+---
+
+`aria-disabled`
+
+---
+
+`aria-selected`
+
+### --feedback--
+
+Hali hii inaonyesha kuwa kipengele hakiwezi kuingiliana nacho.
+
+---
+
+`aria-haspopup`
+
+### --feedback--
+
+Hali hii inaonyesha kuwa kipengele hakiwezi kuingiliana nacho.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Unapotaka kuonyesha kuwa kipengele cha menyu kina menyu ndogo, ni hali gani ya ARIA inapaswa kutumika?
+
+## --answers--
+
+`aria-checked`
+
+### --feedback--
+
+Moja ya hali hizi inaashiria kwa nguvu kuwa popup ipo.
+
+---
+
+`aria-disabled`
+
+### --feedback--
+
+Moja ya hali hizi inaashiria kwa nguvu kuwa popup ipo.
+
+---
+
+`aria-haspopup`
+
+---
+
+`aria-selected`
+
+### --feedback--
+
+Moja ya hali hizi inaashiria kwa nguvu kuwa popup ipo.
+
+## --video-solution--
+
+3

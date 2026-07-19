@@ -1,0 +1,253 @@
+---
+id: 6732b73509f71f24ef05e86e
+title: Jinsi Unavyofanya Kazi na Upatikanaji wa Sifa Kutoka kwa Vitu Vilivyopangwa Ndani na Safu za Data katika Vitu?
+challengeType: 19
+dashedName: how-do-you-work-with-accessing-properties-from-nested-objects-and-arrays-in-objects
+---
+
+# --interactive--
+
+Unapofanya kazi na JavaScript, mara nyingi utakutana na miundo ya data tata inayojumuisha vitu vilivyopangwa ndani na safu za data ndani ya vitu. Miundo hii inaweza wakilisha data tajiri yenye ngazi nyingi, lakini pia inahitaji uelewa wazi wa jinsi ya kupata na kusimamia data ndani yake. Hebu tuchunguze jinsi ya kuvinjari miundo hii iliyopangwa ndani kwa ufanisi.
+
+Kupata sifa kutoka kwa vitu vilivyopangwa ndani kunahusisha kutumia uandishi wa nukta au uandishi wa mabano, kama vile unavyopata sifa kutoka kwa vitu rahisi. Hata hivyo, utahitaji kuunganisha njia hizi za upatikanaji ili kufikia ndani ya muundo uliopangwa ndani.
+
+Kwa mfano, tuchukulie kitu kilichopangwa ndani kinachowakilisha mtu mwenye taarifa za mawasiliano:
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+```
+
+Ili kupata nambari ya simu ya kazi ya `Alice`, utahitajika kuunganisha njia za upatikanaji wa sifa kama ifuatavyo:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+
+console.log(person.contact.phone.work); // "098-765-4321"
+```
+
+:::
+
+Pia unaweza kutumia uandishi wa mabano, ambao ni muhimu hasa wakati majina ya sifa yanajumuisha nafasi au herufi maalum, au unapotumia vigezo kupata sifa:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+
+console.log(person['contact']['phone']['work']); // "098-765-4321"
+```
+
+:::
+
+Sasa, tuchunguze jinsi tunavyoweza kupata data ambapo moja ya sifa za kitu ina thamani ya safu ya data. Hapa kuna mfano wa `person` uliobadilishwa unaojumuisha safu ya anwani:
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  addresses: [
+    { type: "home", street: "123 Main St", city: "Anytown" },
+    { type: "work", street: "456 Market St", city: "Workville" }
+  ]
+};
+```
+
+Hapa kuna mfano wa jinsi ya kupata jiji la anwani ya kazi ya `Alice`:
+
+:::interactive_editor
+
+```js
+const person = {
+  name: "Alice",
+  age: 30,
+  addresses: [
+    { type: "home", street: "123 Main St", city: "Anytown" },
+    { type: "work", street: "456 Market St", city: "Workville" }
+  ]
+};
+
+console.log(person.addresses[1].city); // "Workville"
+```
+
+:::
+
+Katika mfano huu, `person.addresses` inarejelea safu ya anwani. Ili kupata anwani ya pili katika safu hiyo, tunatumia uandishi wa mabano na kielezo cha `1`. Kisha, tunatumia uandishi wa nukta kupata `city` kutoka kwa kitu cha anwani hiyo.
+
+Kuelewa jinsi ya kupata sifa katika vitu vilivyopangwa ndani na safu za data ni muhimu unapofanya kazi na miundo ya data tata. Katika warsha na maabara zijazo, utapata fursa ya kufanya mazoezi ya kazi na aina hizi za miundo ya data.
+
+# --questions--
+
+## --text--
+
+Je, ungetumiaje kupata nambari ya simu ya `work` kutoka kwa kitu hiki?
+
+```js
+let person = {
+    contact: {
+        phone: {
+            home: "123-456-7890",
+            work: "098-765-4321"
+        }
+    }
+};
+```
+
+## --answers--
+
+`person.work`
+
+### --feedback--
+
+Fikiria jinsi tunavyopaswa kuvinjari kila ngazi ya kitu kilichopangwa ndani.
+
+---
+
+`person.contact.work`
+
+### --feedback--
+
+Fikiria jinsi tunavyopaswa kuvinjari kila ngazi ya kitu kilichopangwa ndani.
+
+---
+
+`person.contact.phone.work`
+
+---
+
+`person[contact][phone][work]`
+
+### --feedback--
+
+Fikiria jinsi tunavyopaswa kuvinjari kila ngazi ya kitu kilichopangwa ndani.
+
+## --video-solution--
+
+3
+
+## --text--
+
+Nini kitakuwa matokeo ya msimbo ufuatao?
+
+```js
+let person = {
+    name: "Alice",
+    details: {
+        age: 25,
+        hobbies: ["reading", "swimming"]
+    }
+};
+
+console.log(person.details.hobbies[1]);
+```
+
+## --answers--
+
+`reading`
+
+### --feedback--
+
+Tafakari jinsi ya kupata vipengele katika safu ya data iliyopangwa ndani ya kitu.
+
+---
+
+`swimming`
+
+---
+
+`undefined`
+
+### --feedback--
+
+Tafakari jinsi ya kupata vipengele katika safu ya data iliyopangwa ndani ya kitu.
+
+---
+
+Hii itatupa kosa.
+
+### --feedback--
+
+Tafakari jinsi ya kupata vipengele katika safu ya data iliyopangwa ndani ya kitu.
+
+## --video-solution--
+
+2
+
+## --text--
+
+Katika msimbo ufuatao, nini kitatangazwa kwenye konsoli?
+
+```js
+let data = {
+    results: [
+        { name: "Alice", score: 95 },
+        { name: "Bob", score: 80 },
+        { name: "Charlie", score: 90 }
+    ]
+};
+
+console.log(data.results[1].name);
+```
+
+## --answers--
+
+`Alice`
+
+### --feedback--
+
+Tafakari muundo wa kitu cha data na jinsi tunavyopata vipengele katika safu ya data.
+
+---
+
+`Bob`
+
+---
+
+`Charlie`
+
+### --feedback--
+
+Tafakari muundo wa kitu cha data na jinsi tunavyopata vipengele katika safu ya data.
+
+---
+
+`undefined`
+
+### --feedback--
+
+Tafakari muundo wa kitu cha data na jinsi tunavyopata vipengele katika safu ya data.
+
+## --video-solution--
+
+2

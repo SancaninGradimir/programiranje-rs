@@ -1,0 +1,106 @@
+---
+id: 69b1028d6e265413d0198a2a
+title: "Challenge 231: ISBN-10 Validator"
+challengeType: 29
+dashedName: challenge-231
+---
+
+# --description--
+
+Kutolewa mfuatano wa herufi, amua kama ni ISBN-10 halali.
+
+ISBN-10 ina viunganishi vya mkato (hyphens) (`"-"`) na herufi 10 nyingine. Baada ya kuondoa viunganishi vya mkato (`"-"`):
+
+- Herufi 9 za kwanza lazima ziwe nambari, na
+- Herufi ya mwisho inaweza kuwa nambari au herufi `"X"`, inayowakilisha nambari 10.
+
+Ili kuikagua:
+
+- Zidisha kila nambari (au thamani) kwa nafasi yake (zidisha nambari ya kwanza kwa 1, ya pili kwa 2, na kadhalika).
+- Jumlisha matokeo yote.
+- Ikiwa jumla inaweza kugawika kwa 11, basi ni halali.
+
+# --hints--
+
+`is_valid_isbn10("0-306-40615-2")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_isbn10("0-306-40615-2"), True)`)
+}})
+```
+
+`is_valid_isbn10("0-306-40615-1")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_isbn10("0-306-40615-1"), False)`)
+}})
+```
+
+`is_valid_isbn10("0-8044-2957-X")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_isbn10("0-8044-2957-X"), True)`)
+}})
+```
+
+`is_valid_isbn10("X-306-40615-2")` should return `False`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_isbn10("X-306-40615-2"), False)`)
+}})
+```
+
+`is_valid_isbn10("0-6822-2589-4")` should return `True`.
+
+```js
+({test: () => { runPython(`
+from unittest import TestCase
+TestCase().assertIs(is_valid_isbn10("0-6822-2589-4"), True)`)
+}})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+def is_valid_isbn10(s):
+
+    return s
+```
+
+# --solutions--
+
+```py
+def is_valid_isbn10(s):
+    isbn = s.replace("-", "")
+
+    if len(isbn) != 10:
+        return False
+
+    total = 0
+
+    for i in range(9):
+        if not isbn[i].isdigit():
+            return False
+        total += int(isbn[i]) * (i + 1)
+
+    last = isbn[9]
+
+    if last == "X":
+        total += 10 * 10
+    elif last.isdigit():
+        total += int(last) * 10
+    else:
+        return False
+
+    return total % 11 == 0
+```

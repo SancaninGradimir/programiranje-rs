@@ -1,0 +1,132 @@
+---
+id: 594faaab4e2a8626833e9c3d
+title: Gawanya mfuatano wa herufi kwa kutumia uhamisho
+challengeType: 1
+forumTopicId: 302338
+dashedName: tokenize-a-string-with-escaping
+---
+
+# --description--
+
+Andika kitendakazi au programu inayoweza kugawanya mfuatano wa herufi kila inapokutana na tabia ya kitenzi cha mgawanyiko isiyo na uhamisho.
+
+Inapaswa kupokea vigezo vitatu vya ingizo:
+
+<ul>
+  <li><strong>mfuatano wa herufi</strong></li>
+  <li><strong>tabia ya mgawanyiko</strong></li>
+  <li><strong>tabia ya uhamisho</strong></li>
+</ul>
+
+Inapaswa kutoa orodha ya mfuatano wa herufi.
+
+Sheria za kugawanya:
+
+<ul>
+  <li>Sehemu zilizogawanywa na tabia za mgawanyiko, zitakuwa vipengele vya orodha ya matokeo.</li>
+  <li>Sehemu tupu zinapaswa kuhifadhiwa, hata mwanzoni na mwishoni.</li>
+</ul>
+
+Sheria za uhamisho:
+
+<ul>
+  <li>"Uhamisho" maana yake ni tabia iliyotanguliwa na tabia ya uhamisho ambayo haijawa na uhamisho pia.</li>
+  <li>Tabia ya uhamisho ikifuata tabia isiyo na maana maalum, bado inahesabiwa kama uhamisho (lakini haifanyi kitu maalum).</li>
+  <li>Kila tabia ya uhamisho iliyotumika kuhamisha kitu, haipaswi kuwa sehemu ya matokeo.</li>
+</ul>
+
+Onyesha kuwa kitendakazi chako kinatimiza kesi ifuatayo ya mtihani:
+
+Ikiwa mfuatano wa herufi ni
+
+<pre>one^|uno||three^^^^|four^^^|^cuatro|</pre>
+
+na ukitumia `|` kama mgawanyiko na `^` kama tabia ya uhamisho, kitendakazi chako kinapaswa kutoa safu ya data ifuatayo:
+
+<pre>  ['one|uno', '', 'three^^', 'four^|cuatro', '']
+</pre>
+
+# --before-each--
+
+```js
+const testStr1 = 'one^|uno||three^^^^|four^^^|^cuatro|';
+const res1 = ['one|uno', '', 'three^^', 'four^|cuatro', ''];
+
+const testStr2 = 'a@&bcd&ef&&@@hi';
+const res2 = ['a&bcd', 'ef', '', '@hi'];
+
+const testStr3 = 'hello^|world|how^are^you^|';
+const res3 = ['hello|world', 'howareyou|'];
+```
+
+# --hints--
+
+`tokenize` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof tokenize === 'function');
+```
+
+`tokenize` inapaswa kurudisha safu ya data.
+
+```js
+assert(typeof tokenize('a', 'b', 'c') === 'object');
+```
+
+`tokenize('one^|uno||three^^^^|four^^^|^cuatro|', '|', '^')` inapaswa kurudisha `['one|uno', '', 'three^^', 'four^|cuatro', '']`
+
+```js
+assert.deepEqual(tokenize(testStr1, '|', '^'), res1);
+```
+
+`tokenize('a@&bcd&ef&&@@hi', '&', '@')` inapaswa kurudisha `['a&bcd', 'ef', '', '@hi']`
+
+```js
+assert.deepEqual(tokenize(testStr2, '&', '@'), res2);
+```
+
+`tokenize('hello^|world|how^are^you^|', '|', '^')` inapaswa kurudisha `['hello|world', 'howareyou|']`
+
+```js
+assert.deepEqual(tokenize(testStr3, '|', '^'), res3);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function tokenize(str, sep, esc) {
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+// tokenize :: String -> Character -> Character -> [String]
+function tokenize(str, charDelim, charEsc) {
+  const dctParse = str.split('')
+    .reduce((a, x) => {
+      const blnEsc = a.esc;
+      const blnBreak = !blnEsc && x === charDelim;
+      const blnEscChar = !blnEsc && x === charEsc;
+
+      return {
+        esc: blnEscChar,
+        token: blnBreak ? '' : (
+          a.token + (blnEscChar ? '' : x)
+        ),
+        list: a.list.concat(blnBreak ? a.token : [])
+      };
+    }, {
+      esc: false,
+      token: '',
+      list: []
+    });
+
+  return dctParse.list.concat(
+    dctParse.token
+  );
+}
+```

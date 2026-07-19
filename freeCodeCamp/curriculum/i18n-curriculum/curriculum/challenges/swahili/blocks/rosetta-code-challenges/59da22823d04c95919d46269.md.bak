@@ -1,0 +1,91 @@
+---
+id: 59da22823d04c95919d46269
+title: 'Wavuvi, nazi na changamoto ya tumbili'
+challengeType: 1
+forumTopicId: 302304
+dashedName: sailors-coconuts-and-a-monkey-problem
+---
+
+# --description--
+
+Wavuvi watano wameanguka baharini na kukutana kisiwa na kukusanya mzigo mkubwa wa nazi wakati wa mchana.
+
+Usiku huo mvuvi wa kwanza anaamka na kuamua kuchukua sehemu yake ya kwanza mapema, hivyo anajaribu kugawanya mzigo wa nazi kwa usawa katika makundi matano lakini anagundua kuna nazi moja iliyobaki, hivyo anaitupa kwa tumbili kisha anaficha moja ya makundi matano ya nazi yenye ukubwa sawa na kusukuma makundi mengine manne pamoja tena kuunda mzigo mmoja unaoonekana wa nazi na anarudi kulala.
+
+Ili kuufupisha hadithi, kila mvuvi kwa mfuatano anaamka mara moja usiku na kufanya vitendo sawa vya kugawanya mzigo wa nazi kwa makundi matano, kugundua kuna nazi moja iliyobaki na kumpa tumbili nazi hiyo moja iliyobaki, kisha kusukuma makundi manne pamoja kuunda mzigo mmoja.
+
+Asubuhi (baada ya vitendo vya siri na vya pekee vya kila mvuvi wa tano usiku), nazi zilizobaki hugawanywa kwa makundi matano sawa kwa kila mvuvi, ndipo kugundulika mzigo wa nazi hugawanyika kwa usawa kati ya wavuvi bila mabaki. (Hakuna nazi kwa tumbili asubuhi.)
+
+# --instructions--
+
+Tengeneza kitendakazi kinachorudisha ukubwa wa kiwango cha chini cha mzigo wa awali wa nazi uliokusanywa wakati wa mchana kwa wavuvi `N`. **Kumbuka:** Hadithi hii inasimuliwa katika dunia ambapo ukusanyaji wa idadi yoyote ya nazi kwa siku na mgawanyo wa mara kwa mara wa mzigo, n.k. vinaweza kufanyika kwa wakati unaolingana na hadithi, ili kutoathiri hesabu.
+
+# --hints--
+
+`splitCoconuts` inapaswa kuwa kitendakazi.
+
+```js
+assert(typeof splitCoconuts === 'function');
+```
+
+`splitCoconuts(5)` inapaswa kurudisha 3121.
+
+```js
+assert(splitCoconuts(5) === 3121);
+```
+
+`splitCoconuts(6)` inapaswa kurudisha 233275.
+
+```js
+assert(splitCoconuts(6) === 233275);
+```
+
+`splitCoconuts(7)` inapaswa kurudisha 823537.
+
+```js
+assert(splitCoconuts(7) === 823537);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function splitCoconuts(intSailors) {
+
+  return true;
+}
+```
+
+# --solutions--
+
+```js
+function splitCoconuts(intSailors) {
+  let intNuts = intSailors;
+  let result = splitCoconutsHelper(intNuts, intSailors);
+  while (!result) {
+    intNuts += 1;
+    result = splitCoconutsHelper(intNuts, intSailors);
+  }
+
+  return intNuts;
+}
+
+function splitCoconutsHelper(intNuts, intSailors, intDepth) {
+  const nDepth = intDepth !== undefined ? intDepth : intSailors;
+  const portion = Math.floor(intNuts / intSailors);
+  const remain = intNuts % intSailors;
+
+  if (portion <= 0 || remain !== (nDepth ? 1 : 0)) {
+    return null;
+  }
+
+  if (nDepth) {
+    return splitCoconutsHelper(
+      intNuts - portion - remain, intSailors, nDepth - 1
+    );
+  }
+
+  return intNuts;
+}
+```

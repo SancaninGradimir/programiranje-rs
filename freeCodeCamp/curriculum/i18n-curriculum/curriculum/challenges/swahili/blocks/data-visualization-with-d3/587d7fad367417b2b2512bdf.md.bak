@@ -1,0 +1,205 @@
+---
+id: 587d7fad367417b2b2512bdf
+title: Ongeza mhimili kwenye uchoraji wa picha
+challengeType: 6
+forumTopicId: 301472
+dashedName: add-axes-to-a-visualization
+---
+
+# --description--
+
+Njia nyingine ya kuboresha mchoro wa alama ni kuongeza mhimili wa x na mhimili wa y.
+
+D3 ina njia mbili, `axisLeft()` na `axisBottom()`, za kuonyesha mhimili wa y na mhimili wa x, mtawalia. Hapa kuna mfano wa kuunda mhimili wa x kulingana na `xScale` katika changamoto zilizopita:
+
+```js
+const xAxis = d3.axisBottom(xScale);
+```
+
+Hatua inayofuata ni kuonyesha mhimili kwenye SVG. Ili kufanya hivyo, unaweza kutumia sehemu ya jumla ya SVG, kipengele cha `g`. `g` inasimama kwa kundi. Tofauti na `rect`, `circle`, na `text`, mhimili ni mstari mwekundu tu unapoonyeshwa. Kwa sababu ni umbo rahisi, kutumia `g` hufanya kazi. Hatua ya mwisho ni kutumia sifa ya `transform` kuweka mhimili mahali sahihi kwenye SVG. Vinginevyo, mstari ungeonyeshwa kando ya mpaka wa SVG na usingeonekana. SVG inaunga mkono aina tofauti za `transforms`, lakini kuweka mhimili kunahitaji `translate`. Inapotumika kwenye kipengele cha `g`, inasogeza kundi lote upande na chini kwa kiasi kilichotolewa. Hapa kuna mfano:
+
+```js
+const xAxis = d3.axisBottom(xScale);
+
+svg
+  .append('g')
+  .attr('transform', 'translate(0, ' + (h - padding) + ')')
+  .call(xAxis);
+```
+
+Msimbo uliotajwa hapo juu unaweka mhimili wa x chini ya SVG. Kisha hupitishwa kama hoja kwa njia ya `call()`. Mhimili wa y hufanya kazi kwa njia ile ile, isipokuwa hoja ya `translate` iko katika fomu ya `(x, 0)`. Kwa sababu `translate` ni mfuatano wa herufi katika njia ya `attr()` hapo juu, unaweza kutumia concatenation kujumuisha thamani za mabadiliko kwa hoja zake.
+
+# --instructions--
+
+Mchoro wa alama sasa una mhimili wa x. Unda mhimili wa y katika mabadiliko yenye jina `yAxis` ukitumia njia ya `axisLeft()`. Kisha onyesha mhimili ukitumia kipengele cha `g`. Hakikisha kutumia sifa ya `transform` kutafsiri mhimili kwa kiasi cha vitengo vya nafasi ya ndani upande wa kulia, na vitengo vya `0` chini. Kumbuka kufanya `call()` kwa mhimili.
+
+# --hints--
+
+Msimbo wako unapaswa kutumia njia ya `axisLeft()` na `yScale` kupitishwa kama hoja.
+
+```js
+assert.match(code, /\.axisLeft\(yScale\)/g);
+```
+
+Kipengele cha `g` cha mhimili wa y kinapaswa kuwa na sifa ya `transform` kutafsiri mhimili kwa `(60, 0)`.
+
+```js
+const yAxis = document.querySelectorAll('g')[10];
+assert.match(yAxis?.getAttribute('transform'), /translate\(60\s*,\s*0\)/g);
+```
+
+Msimbo wako unapaswa kuita `yAxis`.
+
+```js
+assert.match(code, /\.call\(\s*yAxis\s*\)/g);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<body>
+  <script>
+    const dataset = [
+      [34, 78],
+      [109, 280],
+      [310, 120],
+      [79, 411],
+      [420, 220],
+      [233, 145],
+      [333, 96],
+      [222, 333],
+      [78, 320],
+      [21, 123]
+    ];
+
+    const w = 500;
+    const h = 500;
+    const padding = 60;
+
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[0])])
+      .range([padding, w - padding]);
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[1])])
+      .range([h - padding, padding]);
+
+    const svg = d3
+      .select('body')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    svg
+      .selectAll('circle')
+      .data(dataset)
+      .enter()
+      .append('circle')
+      .attr('cx', d => xScale(d[0]))
+      .attr('cy', d => yScale(d[1]))
+      .attr('r', d => 5);
+
+    svg
+      .selectAll('text')
+      .data(dataset)
+      .enter()
+      .append('text')
+      .text(d => d[0] + ',' + d[1])
+      .attr('x', d => xScale(d[0] + 10))
+      .attr('y', d => yScale(d[1]));
+
+    const xAxis = d3.axisBottom(xScale);
+    // Add your code below this line
+    const yAxis = undefined;
+    // Add your code above this line
+
+    svg
+      .append('g')
+      .attr('transform', 'translate(0,' + (h - padding) + ')')
+      .call(xAxis);
+
+    // Add your code below this line
+
+
+
+    // Add your code above this line
+  </script>
+</body>
+```
+
+# --solutions--
+
+```html
+<body>
+  <script>
+    const dataset = [
+      [34, 78],
+      [109, 280],
+      [310, 120],
+      [79, 411],
+      [420, 220],
+      [233, 145],
+      [333, 96],
+      [222, 333],
+      [78, 320],
+      [21, 123]
+    ];
+
+    const w = 500;
+    const h = 500;
+    const padding = 60;
+
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[0])])
+      .range([padding, w - padding]);
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(dataset, d => d[1])])
+      .range([h - padding, padding]);
+
+    const svg = d3
+      .select('body')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    svg
+      .selectAll('circle')
+      .data(dataset)
+      .enter()
+      .append('circle')
+      .attr('cx', d => xScale(d[0]))
+      .attr('cy', d => yScale(d[1]))
+      .attr('r', d => 5);
+
+    svg
+      .selectAll('text')
+      .data(dataset)
+      .enter()
+      .append('text')
+      .text(d => d[0] + ',' + d[1])
+      .attr('x', d => xScale(d[0] + 10))
+      .attr('y', d => yScale(d[1]));
+
+    const xAxis = d3.axisBottom(xScale);
+
+    const yAxis = d3.axisLeft(yScale);
+
+    svg
+      .append('g')
+      .attr('transform', 'translate(0,' + (h - padding) + ')')
+      .call(xAxis);
+
+    svg
+      .append('g')
+      .attr('transform', 'translate(' + padding + ',0)')
+      .call(yAxis);
+  </script>
+</body>
+```

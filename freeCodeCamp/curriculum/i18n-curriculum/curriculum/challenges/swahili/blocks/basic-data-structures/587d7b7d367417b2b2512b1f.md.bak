@@ -1,0 +1,112 @@
+---
+id: 587d7b7d367417b2b2512b1f
+title: Badilisha safu ya data iliyohifadhiwa katika kitu
+challengeType: 1
+forumTopicId: 301163
+dashedName: modify-an-array-stored-in-an-object
+---
+
+# --description--
+
+Sasa umeona shughuli zote za msingi kwa vitu vya JavaScript. Unaweza kuongeza, kubadilisha, na kuondoa jozi za ufunguo-thamani, kuangalia kama funguo zipo, na kurudia juu ya funguo zote katika kitu. Unapoendelea kujifunza JavaScript utaona matumizi zaidi yenye ufanisi ya vitu. Zaidi ya hayo, mafundisho ya Miundo ya Data yaliyoko katika sehemu ya Kujiandaa kwa Mahojiano ya Uandishi wa Msimbo pia yanashughulikia vitu vya ES6 <dfn>Map</dfn> na <dfn>Set</dfn>, ambavyo vyote ni sawa na vitu vya kawaida lakini vinatoa vipengele vya ziada. Sasa umejifunza misingi ya safu za data na vitu, uko tayari kabisa kuanza kushughulikia changamoto ngumu zaidi kwa kutumia JavaScript!
+
+# --instructions--
+
+Tazama kitu tulichokupa katika mhariri wa msimbo. Kitu cha `user` kina funguo tatu. Funguo ya `data` ina funguo tano, moja kati ya hizo ina safu ya `friends`. Kutoka hapa, unaweza kuona jinsi vitu ni vya kubadilika kama miundo ya data. Tumeanza kuandika kitendakazi `addFriend`. Malizia kuandika ili kipokee kitu cha `user` na kuongeza jina la hoja ya `friend` kwenye safu iliyohifadhiwa katika `user.data.friends` na kurudisha safu hiyo.
+
+# --hints--
+
+Kitu cha `user` kinapaswa kuwa na funguo za `name`, `age`, na `data`.
+
+```js
+assert('name' in user && 'age' in user && 'data' in user);
+```
+
+Kitendakazi cha `addFriend` kinapaswa kupokea kitu cha `user` na mfuatano wa herufi cha `friend` kama hoja na kuongeza rafiki kwenye safu ya `friends` katika kitu cha `user`.
+
+```js
+assert(
+  (function () {
+    let L1 = user.data.friends.length;
+    addFriend(user, 'Sean');
+    let L2 = user.data.friends.length;
+    return L2 === L1 + 1;
+  })()
+);
+```
+
+`addFriend(user, "Pete")` inapaswa kurudisha `["Sam", "Kira", "Tomo", "Pete"]`.
+
+```js
+assert.deepEqual(
+  (function () {
+    delete user.data.friends;
+    user.data.friends = ['Sam', 'Kira', 'Tomo'];
+    return addFriend(user, 'Pete');
+  })(),
+  ['Sam', 'Kira', 'Tomo', 'Pete']
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+let user = {
+  name: 'Kenneth',
+  age: 28,
+  data: {
+    username: 'kennethCodesAllDay',
+    joinDate: 'March 26, 2016',
+    organization: 'freeCodeCamp',
+    friends: [
+      'Sam',
+      'Kira',
+      'Tomo'
+    ],
+    location: {
+      city: 'San Francisco',
+      state: 'CA',
+      country: 'USA'
+    }
+  }
+};
+
+function addFriend(userObj, friend) {
+  // Only change code below this line
+
+  // Only change code above this line
+}
+
+console.log(addFriend(user, 'Pete'));
+```
+
+# --solutions--
+
+```js
+let user = {
+  name: 'Kenneth',
+  age: 28,
+  data: {
+    username: 'kennethCodesAllDay',
+    joinDate: 'March 26, 2016',
+    organization: 'freeCodeCamp',
+    friends: [
+      'Sam',
+      'Kira',
+      'Tomo'
+    ],
+    location: {
+      city: 'San Francisco',
+      state: 'CA',
+      country: 'USA'
+    }
+  }
+};
+
+function addFriend(userObj, friend) {
+  userObj.data.friends.push(friend);
+  return userObj.data.friends;
+}
+```

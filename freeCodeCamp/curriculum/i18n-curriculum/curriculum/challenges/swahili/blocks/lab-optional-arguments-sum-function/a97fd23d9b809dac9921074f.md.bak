@@ -1,0 +1,120 @@
+---
+id: a97fd23d9b809dac9921074f
+title: Jenga kitendakazi cha jumla ya hoja za hiari
+challengeType: 26
+dashedName: build-an-optional-arguments-sum-function
+---
+
+# --description--
+
+Katika maabara hii utajenga kitendakazi kinachokubali hoja hadi mbili, na kuzizidisha, lakini ikiwa kuna hoja moja tu kitendakazi kitarejesha kitendakazi kingine kinachosubiri nambari ya pili ili kuzidisha.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara.
+
+**Hadithi za mtumizi:**
+
+1. Tengeneza kitendakazi `addTogether`.
+2. Ikiwa kitendakazi kinapokea hoja mbili, kitendakazi kinapaswa kurudisha jumla ya hoja hizo mbili.
+3. Ikiwa hoja moja tu imetolewa, `addTogether` inapaswa kurudisha kitendakazi.
+   - Kitendakazi kilichorejeshwa kinapoitwa na hoja moja, kinapaswa kurudisha jumla.
+
+   ```js
+   const sumTwoAnd = addTogether(2);
+   sumTwoAnd(3); // 5
+   ```
+
+4. Ikiwa hoja yoyote si nambari halali, rudisha `undefined`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi `addTogether`.
+
+```js
+assert.isFunction(addTogether);
+```
+
+`addTogether(2, 3)` inapaswa kurudisha 5.
+
+```js
+assert.deepEqual(addTogether(2, 3), 5);
+```
+
+`addTogether(23.4, 30)` inapaswa kurudisha 53.4.
+
+```js
+assert.deepEqual(addTogether(23.4, 30), 53.4);
+```
+
+`addTogether("2", 3)` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(addTogether('2', 3));
+```
+
+`addTogether(5, undefined)` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(addTogether(5, undefined));
+```
+
+`addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ")` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(addTogether('https://www.youtube.com/watch?v=dQw4w9WgXcQ'));
+```
+
+`addTogether(5)` inapaswa kurudisha kitendakazi.
+
+```js
+assert.isFunction(addTogether(5));
+```
+
+`addTogether(5)(7)` inapaswa kurudisha 12.
+
+```js
+assert.deepEqual(addTogether(5)(7), 12);
+```
+
+`addTogether(2)([3])` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(addTogether(2)([3]));
+```
+
+`addTogether(2, "3")` inapaswa kurudisha `undefined`.
+
+```js
+assert.isUndefined(addTogether(2, '3'));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+
+```
+
+# --solutions--
+
+```js
+function addTogether() {
+  const first = arguments[0];
+  if (typeof(first) !== 'number') {
+    return undefined;
+  }
+  if (arguments.length === 1) {
+    return function(second) {
+      if (typeof(second) !== 'number') {
+        return undefined;
+      }
+      return first + second;
+    };
+  }
+  const second = arguments[1];
+  if (typeof(second) !== 'number') {
+    return undefined;
+  }
+  return first + second;
+}
+```

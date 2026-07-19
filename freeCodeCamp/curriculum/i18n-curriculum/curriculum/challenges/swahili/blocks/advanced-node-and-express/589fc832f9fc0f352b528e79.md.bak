@@ -1,0 +1,59 @@
+---
+id: 589fc832f9fc0f352b528e79
+title: Tuma na Onyesha Ujumbe wa Gumzo
+challengeType: 2
+forumTopicId: 301562
+dashedName: send-and-display-chat-messages
+---
+
+# --description--
+
+Ni wakati wako kuanza kuruhusu wateja kutuma ujumbe wa gumzo kwa seva ili udhihirishwe kwa wateja wote! Katika faili yako ya `client.js`, unapaswa kuona tayari kuna kipande cha msimbo kinachoshughulikia wakati fomu ya ujumbe inawasilishwa.
+
+```js
+$('form').submit(function() {
+  /*logic*/
+});
+```
+
+Ndani ya msimbo wa kuwasilisha fomu, unapaswa kutuma tukio baada ya kufafanua `messageToSend` lakini kabla ya kufuta kisanduku cha maandishi `#m`. Tukio hilo linapaswa kuitwa `'chat message'` na data iwe `messageToSend` tu.
+
+```js
+socket.emit('chat message', messageToSend);
+```
+
+Sasa, kwenye seva yako, unapaswa kusikiliza socket kwa tukio la `'chat message'` na data ikaitwa `message`. Mara tukio linapopokelewa, linapaswa kutuma tukio la `'chat message'` kwa sockets zote kwa kutumia `io.emit`, likituma kitu cha data chenye `username` na `message`.
+
+Katika `client.js`, sasa unapaswa kusikiliza tukio la `'chat message'` na, linapopokelewa, ongeza kipengee cha orodha kwenye `#messages` chenye jina la mtumiaji, nukta, na ujumbe!
+
+Kwa hatua hii, gumzo linapaswa kuwa linafanya kazi kikamilifu na kutuma ujumbe kwa wateja wote!
+
+Wasilisha ukurasa wako unapoona umefanya vizuri. Ikiwa unakutana na makosa, unaweza <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#send-and-display-chat-messages-11" target="_blank" rel="noopener noreferrer nofollow">kuangalia mradi uliofanyika hadi sasa</a>.
+
+# --hints--
+
+Seva inapaswa kusikiliza `'chat message'` kisha kuituma ipasavyo.
+
+```js
+  const url = new URL("/_api/server.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /socket.on.*('|")chat message('|")[^]*io.emit.*('|")chat message('|").*username.*message/s,
+    'Your server should listen to the socket for "chat message" then emit to all users "chat message" with name and message in the data object'
+  );
+```
+
+Mteja anapaswa kushughulikia na kuonyesha data mpya kutoka kwa tukio la `'chat message'` ipasavyo.
+
+```js
+  const url = new URL("/public/client.js", code);
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /socket.on.*('|")chat message('|")[^]*messages.*li/s,
+    'You should append a list item to #messages on your client within the "chat message" event listener to display the new message'
+  );
+```

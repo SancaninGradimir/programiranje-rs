@@ -1,0 +1,131 @@
+---
+id: 6842a6cd9836f0114a5b7a8a
+title: Tengeneza kizalishaji cha muundo wa nambari
+challengeType: 27
+dashedName: build-a-number-pattern-generator
+---
+
+# --description--
+
+Katika maabara hii utafundisha misingi ya Python kwa kutengeneza programu ndogo inayozalisha muundo wa nambari.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara.
+
+**Hadithi za watumizi:**
+
+1. Unapaswa kufafanua kitendakazi kinachoitwa `number_pattern` kinachopokea kigezo kimoja `n` (kinawakilisha nambari kamili chanya).
+1. `number_pattern` inapaswa kutumia mzunguko wa `for`.
+1. `number_pattern(n)` inapaswa kurudisha mfuatano wa herufi wenye nambari kamili zote kuanzia 1 hadi `n` (ikiwa ni pamoja) zikiwa zimegawanywa kwa nafasi. Kwa mfano, `number_pattern(4)` inapaswa kurudisha mfuatano wa herufi `1 2 3 4`.
+1. Ikiwa hoja iliyotumwa kwa kitendakazi si nambari kamili, kitendakazi kinapaswa kurudisha `Argument must be an integer value.`.
+1. Ikiwa hoja iliyotumwa kwa kitendakazi ni chini ya 1, kitendakazi kinapaswa kurudisha `Argument must be an integer greater than 0.`.
+
+# --hints--
+
+Unapaswa kuwa na kitendakazi cha `number_pattern`.
+
+```js
+({
+    test: () => runPython(`
+    assert _Node(_code).has_function('number_pattern')
+    `)
+})
+```
+
+Kitendakazi cha `number_pattern` kinapaswa kuwa na kigezo kimoja kinachoitwa `n`.
+
+```js
+({
+    test: () => runPython(`
+    assert _Node(_code).find_function('number_pattern').has_args('n')
+    `)
+})
+```
+
+`number_pattern(4)` inapaswa kurudisha `1 2 3 4`.
+
+```js
+({
+    test: () => runPython(`
+    assert number_pattern(4) == '1 2 3 4'
+    `)
+})
+```
+
+`number_pattern(12)` inapaswa kurudisha `1 2 3 4 5 6 7 8 9 10 11 12`.
+
+```js
+({
+    test: () => runPython(`
+    assert number_pattern(12) == '1 2 3 4 5 6 7 8 9 10 11 12'
+    `)
+})
+```
+
+`number_pattern` inapaswa kurudisha orodha ya nambari zilizo na nafasi kati yao kwa nambari kamili yoyote chanya.
+
+```js
+({
+    test: () => runPython(`
+    from random import randint
+    n = randint(1,65)
+    ls = ' '.join(map(lambda n: str(n), list(range(1, n+1))))
+    assert number_pattern(n) == ls
+
+    n2 = randint(34,122)
+    ls2 = ' '.join(map(lambda n: str(n), list(range(1, n2+1))))
+    assert number_pattern(n2) == ls2
+    
+    `)
+})
+```
+
+`number_pattern` inapaswa kurudisha `Argument must be an integer value.` wakati inapopewa thamani isiyo nambari kamili.
+
+```js
+({
+    test: () => runPython(`
+    string = 'Argument must be an integer value.'
+    assert number_pattern('a') == string
+    assert number_pattern(3.5) == string
+    assert number_pattern(lambda n: n) == string
+    `)
+})
+```
+
+`number_pattern` inapaswa kurudisha `Argument must be an integer greater than 0.` wakati inapopewa nambari isiyo chanya.
+
+```js
+({
+    test: () => runPython(`
+    from random import randint
+    string = 'Argument must be an integer greater than 0.'
+    assert number_pattern(0) == string
+    assert number_pattern(-1185) == string
+    assert number_pattern(-45) == string
+    assert number_pattern(randint(-9999999, 0)) == string
+    `)
+})
+```
+
+# --seed--
+
+## --seed-contents--
+
+```py
+
+```
+
+# --solutions--
+
+```py
+def number_pattern(n):
+    result = "1"
+    if isinstance(n, int):
+        if n > 0:
+            for i in range(2, n + 1):
+                result += f" {i}"
+            return result
+        return "Argument must be an integer greater than 0."
+    return "Argument must be an integer value."
+
+```

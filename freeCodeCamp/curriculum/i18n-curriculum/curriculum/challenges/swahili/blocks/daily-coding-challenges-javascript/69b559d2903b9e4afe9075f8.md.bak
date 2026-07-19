@@ -1,0 +1,70 @@
+---
+id: 69b559d2903b9e4afe9075f8
+title: "Zoezi la 238: Kutoroka kwa Mzunguko wa Nambari"
+challengeType: 28
+dashedName: challenge-238
+---
+
+# --description--
+
+Ikiwa nambari kamili chanya imetolewa, thibitisha kama nambari hiyo, au mizunguko yoyote ya nambari hiyo, inaweza kugawika sawasawa na idadi ya tarakimu zake.
+
+Mzunguko unamaanisha kusogeza tarakimu ya kwanza mwisho. Kwa mfano, baada ya mzunguko mmoja, 123 inakuwa 231.
+
+- Kagua mzunguko `0` (nambari iliyotolewa) kwanza.
+- Nambari zilizotolewa hazitakuwa na sifuri yoyote.
+- Rudisha nambari ya mzunguko wa kwanza ikiwa ipo, au `"none"` ikiwa hakuna.
+
+# --hints--
+
+`getRotation(123)` inapaswa kurudisha `0`.
+
+```js
+assert.equal(getRotation(123), 0);
+```
+
+`getRotation(13579)` inapaswa kurudisha `3`.
+
+```js
+assert.equal(getRotation(13579), 3);
+```
+
+`getRotation(24681)` inapaswa kurudisha `"none"`.
+
+```js
+assert.equal(getRotation(24681), "none");
+```
+
+`getRotation(84138789345)` inapaswa kurudisha `6`.
+
+```js
+assert.equal(getRotation(84138789345), 6);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function getRotation(n) {
+
+  return n;
+}
+```
+
+# --solutions--
+
+```js
+function getRotation(n) {
+  const str = String(n);
+  const digitCount = str.length;
+  let current = str;
+
+  for (let i = 0; i < digitCount; i++) {
+    if (Number(current) % digitCount === 0) return i;
+    current = current.slice(1) + current[0];
+  }
+
+  return "none";
+}
+```

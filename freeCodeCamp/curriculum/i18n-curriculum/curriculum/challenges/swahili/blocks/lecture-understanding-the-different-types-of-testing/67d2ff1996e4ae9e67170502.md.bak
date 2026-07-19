@@ -1,0 +1,247 @@
+---
+id: 67d2ff1996e4ae9e67170502
+title: "Je, ni nini upimaji wa kitendakazi?"
+challengeType: 19
+dashedName: what-is-unit-testing
+---
+
+# --description--
+
+Unapobuni programu zako, mara nyingi utakuwa na mfululizo wa vitendakazi vidogo vinavyohusika na jambo moja tu. Hii inajulikana kama "kanuni ya uwajibikaji mmoja." Unapokuwa na mfululizo wa vitendakazi vidogo, ni bora kupima vitendakazi hivi ili kuhakikisha kila kitu kinafanya kazi kama inavyotarajiwa. Katika funzo hili, tutaangalia jinsi ya kuunda upimaji wa kitendakazi kwa kutumia mfumo maarufu wa upimaji wa Jest.
+
+Katika mfano huu, tutaunda kitendakazi kinachohusika na kurudisha mfuatano mpya wa herufi uliopangwa upya:
+
+```js
+export function getFormattedWord(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+```
+
+Kitendakazi hiki cha `getFormattedWord` kina kigezo kinachoitwa `str` na kitaangalia kwanza kama `str` ni tupu. Ikiwa ni hivyo, basi mfuatano tupu utarudishwa. Vinginevyo, mfuatano mpya utarudishwa ambapo herufi ya kwanza imeandikwa kwa herufi kubwa. Tunatoa kitendakazi hiki ili tuweze kukitumia katika faili la upimaji.
+
+Katika faili tofauti la `getFormattedWord.test.js`, tunaweza kuandika baadhi ya vipimo ili kuthibitisha kuwa kitendakazi kinafanya kile kinachotakiwa.
+
+Juu ya faili la `getFormattedWord.test.js`, tunahitaji kwanza kuleta kitendakazi kama hii:
+
+```js
+import { getFormattedWord } from "./getFormattedWord.js";
+```
+
+Kisha tunahitaji kusakinisha kifurushi cha Jest kwa kutumia `npm i jest`. Kisha tunaweza kuongeza kipimo ili kuangalia kuwa neno lililoundwa kwa herufi ndogo, `hello`, limepangwa ipasavyo kuwa `Hello`, ambalo linaanza na herufi kubwa `H`:
+
+```js
+test('capitalizes the first letter of a word', () => {
+  expect(getFormattedWord('hello')).toBe('Hello');
+});
+```
+
+Kitendakazi cha `expect` kinatumika kupima thamani. Kinaunganishwa na matcher, ambayo ni kitendakazi kinachochunguza kama thamani inafanya kazi kama inavyotarajiwa. Katika kesi hii matcher ni `toBe()`. Jest ina aina mbalimbali za matcher kusaidia kupima ukweli, mfuatano wa herufi, nambari, na zaidi.
+
+Njia moja ya kuendesha vipimo vyako ni kwa kuongeza script ya npm katika faili lako la `package.json`. Hapa kuna mfano wa script kwa mfumo wa kazi wa Jest:
+
+```js
+"scripts": {
+  "test": "jest"
+},
+```
+
+Kisha endesha tu `npm run test` katika terminal yako kuendesha vipimo vyako. Ikiwa vipimo vyako vitapita, unapaswa kuona kitu kama hiki katika terminal:
+
+```sh
+PASS ./getFormattedWord.test.js
+  ✓ capitalizes the first letter of a word (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.103 s, estimated 1 s
+Ran all test suites.
+```
+
+Ili kuona jinsi kipimo kinavyoshindwa, tunaweza kwa makusudi kuvunja kipimo kwa kusasisha kitendakazi kama ifuatavyo:
+
+```js
+export function getFormattedWord(str) {
+  if (!str) return '';
+  return "This is incorrect";
+}
+```
+
+Sasa unapoendesha amri ya `npm run test`, kutakuwa na ujumbe wa hitilafu kwa sababu kipimo kilitarajia matokeo tofauti:
+
+```sh
+FAIL ./getFormattedWord.test.js
+  ✕ capitalizes the first letter of a word (1 ms)
+
+  ● capitalizes the first letter of a word
+
+  expect(received).toBe(expected) // Object.is equality
+
+  Expected: "Hello"
+  Received: "This is incorrect"
+
+    2 |
+    3 | test('capitalizes the first letter of a word', () => {
+    4 |   expect(getFormattedWord('hello')).toBe('Hello');
+                                            ^
+    5 | });
+    6 |
+
+    at Object.toBe (getFormattedWord.test.js:4:37)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        0.121 s, estimated 1 s
+Ran all test suites.
+```
+
+Sasa tunaweza kusasisha kitendakazi chetu kurudi kwenye asili hapa:
+
+```js
+export function getFormattedWord(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+```
+
+Ongeza kipimo kingine kuangalia kwa kesi ambapo hakuna hoja iliyopewa kwa `getFormattedWord`:
+
+```js
+test("returns an empty string when no argument is provided", () => {
+  expect(getFormattedWord()).toBe("");
+});
+```
+
+Kuna vipimo vingine ambavyo unaweza kuongeza ili kufanya mambo kuwa imara zaidi, lakini vipimo hivi viwili vya kwanza ni utangulizi mzuri wa upimaji wa kitendakazi.
+
+Linapokuja suala la kupima programu za JavaScript, baadhi ya mifumo ya kawaida ya upimaji ni pamoja na Jest, Mocha, na Vitest.
+
+Upimaji wa kitendakazi ni muhimu kwa sababu utakusaidia kugundua hitilafu zaidi katika programu zako, na kuhakikisha kila kitu kinafanya kazi kama inavyotarajiwa. Pia inaweza kutumika kama aina ya nyaraka kwa programu yako kwa sababu inakusudia wakilisha tabia inayotarajiwa ya msimbo wako.
+
+# --questions--
+
+## --text--
+
+Ni ipi kati ya zifuatazo inahusu kanuni ambapo kitendakazi kinapaswa kuwajibika kwa jambo moja tu?
+
+## --answers--
+
+Kanuni ya uwajibikaji mmoja
+
+---
+
+Kanuni ya uwajibikaji mwingi
+
+### --feedback--
+
+Rudia mwanzoni kabisa mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+Kanuni ya ombi moja
+
+### --feedback--
+
+Rudia mwanzoni kabisa mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+Kanuni ya majibu mengi
+
+### --feedback--
+
+Rudia mwanzoni kabisa mwa funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Ni ipi kati ya mifumo ifuatayo si mfumo wa kawaida wa upimaji katika mfumo wa ikolojia wa JavaScript?
+
+## --answers--
+
+JUnit
+
+---
+
+Jest
+
+### --feedback--
+
+Rudia mwishoni mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+Vitest
+
+### --feedback--
+
+Rudia mwishoni mwa funzo ambapo hili lilijadiliwa.
+
+---
+
+Mocha
+
+### --feedback--
+
+Rudia mwishoni mwa funzo ambapo hili lilijadiliwa.
+
+## --video-solution--
+
+1
+
+## --text--
+
+Unaweza kuongeza nini katika faili la `package.json` kuendesha vipimo vyako katika terminal?
+
+## --answers--
+
+```json
+"test": {
+  "test": "run test"
+},
+```
+
+### --feedback--
+
+Kumbuka kuwa unaweza kuunda script maalum katika faili lako la `package.json`.
+
+---
+
+```json
+"scriptings": {
+  "jest"
+},
+```
+
+### --feedback--
+
+Kumbuka kuwa unaweza kuunda script maalum katika faili lako la `package.json`.
+
+---
+
+```json
+"run": {
+  "test"
+},
+```
+
+### --feedback--
+
+Kumbuka kuwa unaweza kuunda script maalum katika faili lako la `package.json`.
+
+---
+
+```json
+"scripts": {
+  "test": "jest"
+}
+```
+
+## --video-solution--
+
+4

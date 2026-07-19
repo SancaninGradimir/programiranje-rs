@@ -1,0 +1,98 @@
+---
+id: 685239f0cad43c7a909cbd98
+title: Rekebisha ukurasa wa mtandao wa kuhamasisha wanyama wa kipenzi
+challengeType: 25
+dashedName: lab-debug-pet-adoption-page
+# Purposefully removed the demo type because I don't want any example to show since this is a debugging project.
+---
+
+# --description--
+
+Sally, mmiliki wa duka la kuhamasisha wanyama wa kipenzi, ameunda ukurasa wake wa mtandao wa kwanza lakini kuna matatizo kadhaa.
+
+Kazi yako ni kurekebisha makosa yote ili Sally aendelee kujenga ukurasa wake.
+
+**Lengo:** Timiza hadithi za watumizi zilizo hapa chini na upite vipimo vyote ili kumaliza maabara hii.
+
+**Hadithi za watumizi:**
+
+1. Sally anataka kutumia picha za paka lakini haionekani vizuri. Utahitaji kurekebisha yafuatayo katika kipengele cha `img`:
+   - Badilisha sifa ya kipengele ya `href` na sifa sahihi ya chanzo cha picha.
+   - Badilisha sifa ya kipengele ya `att` na sifa sahihi inayowakilisha maandishi mafupi, ya kuelezea kwa picha.
+   - Ondoa lebo ya kufunga ya `</img>` kwa sababu vipengele vya `img` ni vipengele visivyo na lebo ya kufunga.
+2. Sally anataka kutumia viungo kuongoza watumizi kwenye kurasa za mbwa na paka. Lakini viungo havifanyi kazi vizuri. Utahitaji kurekebisha yafuatayo katika vipengele vya `a`:
+   - Badilisha sifa zote mbili za kipengele za `src` na sifa sahihi zinazotumika kubainisha URL.
+
+# --hints--
+
+Kipengele chako cha `img` kinapaswa kuwa na sifa ya kipengele ya `src` badala ya sifa ya kipengele ya `href`.
+
+```js
+const imgEl = document.querySelector("img");
+assert.isTrue(imgEl.hasAttribute("src"));
+```
+
+Kipengele chako cha `img` kinapaswa kuwa na sifa ya kipengele ya `alt` badala ya sifa ya kipengele isiyopo ya `att`.
+
+```js
+const imgEl = document.querySelector("img");
+assert.isTrue(imgEl.hasAttribute("alt"));
+```
+
+Kipengele chako cha `img` hakipaswi kuwa na lebo ya kufunga ya `</img>`.
+
+```js
+assert.notMatch(code, /<\/img>/);
+```
+
+Kipengele chako cha `a` chenye maandishi ya `Visit cats page` kinahitaji kuwa na sifa ya kipengele ya `href` badala ya sifa ya kipengele ya `src`.
+
+```js
+const anchors = document.querySelectorAll("a");
+const catLink = Array.from(anchors).find(a => a.textContent.trim() === "Visit cats page");
+assert.isDefined(catLink);
+assert.isTrue(catLink.hasAttribute("href"));
+```
+
+Kipengele chako cha `a` chenye maandishi ya `Visit dogs page` kinahitaji kuwa na sifa ya kipengele ya `href` badala ya sifa ya kipengele ya `src`.
+
+```js
+const anchors = document.querySelectorAll("a");
+const dogLink = Array.from(anchors).find(a => a.textContent.trim() === "Visit dogs page");
+assert.isDefined(dogLink);
+assert.isTrue(dogLink.hasAttribute("href"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<h1>Welcome XYZ Pet Adoption!</h1>
+<p>Consider adopting a pet today. We have cats, dogs, rabbits and more.</p>
+
+<h2>See our cats!</h2>
+<img href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" att="Two tabby kittens sleeping together on a couch."></img>
+
+<h2>Adopt a cat!</h2>
+<a src="/cats">Visit cats page</a>
+
+<h2>Adopt a dog!</h2>
+<a src="/dogs">Visit dogs page</a>
+```
+
+# --solutions--
+
+```html
+<h1>Welcome XYZ Pet Adoption!</h1>
+<p>Consider adopting a pet today. We have cats, dogs, rabbits and more.</p>
+
+<h2>See our cats!</h2>
+<img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" alt="Two tabby kittens sleeping together on a couch.">
+
+<h2>Adopt a cat!</h2>
+<a href="/cats">Visit cats page</a>
+
+<h2>Adopt a dog!</h2>
+<a href="/dogs">Visit dogs page</a>
+```

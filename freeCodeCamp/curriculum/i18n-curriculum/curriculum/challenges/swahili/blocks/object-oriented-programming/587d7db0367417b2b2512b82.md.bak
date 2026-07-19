@@ -1,0 +1,74 @@
+---
+id: 587d7db0367417b2b2512b82
+title: Elewa mnyororo wa prototype
+challengeType: 1
+forumTopicId: 301329
+dashedName: understand-the-prototype-chain
+---
+
+# --description--
+
+Vitu vyote katika JavaScript (pamoja na baadhi ya matukio machache) vina `prototype`. Pia, `prototype` ya kitu ni kitu pia.
+
+```js
+function Bird(name) {
+  this.name = name;
+}
+
+typeof Bird.prototype;
+```
+
+Kwa sababu `prototype` ni kitu, `prototype` inaweza kuwa na `prototype` yake mwenyewe! Katika kesi hii, `prototype` ya `Bird.prototype` ni `Object.prototype`:
+
+```js
+Object.prototype.isPrototypeOf(Bird.prototype);
+```
+
+Hii ni muhimu vipi? Labda unakumbuka njia ya `hasOwnProperty` kutoka kwenye changamoto iliyopita:
+
+```js
+let duck = new Bird("Donald");
+duck.hasOwnProperty("name");
+```
+
+Njia ya `hasOwnProperty` imefafanuliwa katika `Object.prototype`, ambayo inaweza kufikiwa na `Bird.prototype`, ambayo kisha inaweza kufikiwa na `duck`. Hii ni mfano wa mnyororo wa `prototype`. Katika mnyororo huu wa `prototype`, `Bird` ni `supertype` kwa `duck`, wakati `duck` ni `subtype`. `Object` ni `supertype` kwa `Bird` na `duck`. `Object` ni `supertype` kwa vitu vyote katika JavaScript. Kwa hiyo, kitu chochote kinaweza kutumia njia ya `hasOwnProperty`.
+
+# --instructions--
+
+Badilisha msimbo ili uonyeshe mnyororo sahihi wa prototype.
+
+# --hints--
+
+Msimbo wako unapaswa kuonyesha kwamba `Object.prototype` ni prototype ya `Dog.prototype`
+
+```js
+assert(/Object\.prototype\.isPrototypeOf/.test(__helpers.removeJSComments(code)));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function Dog(name) {
+  this.name = name;
+}
+
+let beagle = new Dog("Snoopy");
+
+Dog.prototype.isPrototypeOf(beagle);  // yields true
+
+// Fix the code below so that it evaluates to true
+???.isPrototypeOf(Dog.prototype);
+```
+
+# --solutions--
+
+```js
+function Dog(name) {
+  this.name = name;
+}
+let beagle = new Dog("Snoopy");
+Dog.prototype.isPrototypeOf(beagle);
+Object.prototype.isPrototypeOf(Dog.prototype);
+```

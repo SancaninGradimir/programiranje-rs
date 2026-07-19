@@ -1,0 +1,108 @@
+---
+id: 5a24c314108439a4d4036150
+title: Shughulikia kitendo katika hifadhi
+challengeType: 6
+forumTopicId: 301444
+dashedName: handle-an-action-in-the-store
+---
+
+# --description--
+
+Baada ya kitendo kuundwa na kutumwa, hifadhi ya Redux inahitaji kujua jinsi ya kujibu kitendo hicho. Hii ni jukumu la kitendakazi cha `reducer`. Reducers katika Redux wanahusika na mabadiliko ya hali yanayotokea kama jibu kwa vitendo. Kitendakazi cha `reducer` kinapokea `state` na `action` kama hoja, na kila mara hurudisha `state` mpya. Ni muhimu kuona kwamba huu ndio **jukumu pekee** la reducer. Hakuna athari za pembeni — haifanyi wito wowote kwa kiishio cha API na haijumuishi mshangao wowote wa siri. Reducer ni kitendakazi safi kinachochukua hali na kitendo, kisha hurudisha hali mpya.
+
+Kanuni nyingine muhimu katika Redux ni kwamba `state` ni ya kusoma tu. Kwa maneno mengine, kitendakazi cha `reducer` lazima **kila mara** kirudishe nakala mpya ya `state` na kisibadilishe hali moja kwa moja. Redux haifanyi utekelezaji wa hali isiyobadilika, hata hivyo, wewe ndiye unawajibika kuitekeleza katika msimbo wa vitendakazi vyako vya reducer. Utazoea hili katika changamoto zijazo.
+
+# --instructions--
+
+Mhariri wa msimbo una mfano wa awali pamoja na mwanzo wa kitendakazi cha `reducer` kwako. Jaza mwili wa kitendakazi cha `reducer` ili ikiwa kitapokea kitendo cha aina ya `'LOGIN'` kirudishe kitu cha hali chenye `login` kikiwa na thamani ya `true`. Vinginevyo, kirudishe hali ya sasa ya `state`. Kumbuka kwamba hali ya sasa ya `state` na kitendo kilichotumwa cha `action` vinapitishwa kwa reducer, hivyo unaweza kupata aina ya kitendo moja kwa moja kwa `action.type`.
+
+# --hints--
+
+Kupiga wito kitendakazi cha `loginAction` kunapaswa kurudisha kitu chenye sifa ya type ikiwa na mfuatano wa herufi `LOGIN`.
+
+```js
+assert(loginAction().type === 'LOGIN');
+```
+
+Hifadhi inapaswa kuanzishwa na kitu chenye sifa ya `login` ikiwa na thamani ya `false`.
+
+```js
+assert(store.getState().login === false);
+```
+
+Kutuma `loginAction` kunapaswa kusasisha sifa ya `login` katika hali ya hifadhi kuwa `true`.
+
+```js
+assert(
+  (function () {
+    const initialState = store.getState();
+    store.dispatch(loginAction());
+    const afterState = store.getState();
+    return initialState.login === false && afterState.login === true;
+  })()
+);
+```
+
+Ikiwa kitendo si cha aina ya `LOGIN`, hifadhi inapaswa kurudisha hali ya sasa.
+
+```js
+assert(
+  (function () {
+    store.dispatch({ type: '__TEST__ACTION__' });
+    let afterTest = store.getState();
+    return typeof afterTest === 'object' && afterTest.hasOwnProperty('login');
+  })()
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const defaultState = {
+  login: false
+};
+
+const reducer = (state = defaultState, action) => {
+  // Change code below this line
+
+  // Change code above this line
+};
+
+const store = Redux.createStore(reducer);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+```
+
+# --solutions--
+
+```js
+const defaultState = {
+  login: false
+};
+
+const reducer = (state = defaultState, action) => {
+
+  if (action.type === 'LOGIN') {
+    return {login: true}
+  }
+
+  else {
+    return state
+  }
+
+};
+
+const store = Redux.createStore(reducer);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  }
+};
+```

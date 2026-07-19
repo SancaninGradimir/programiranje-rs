@@ -1,0 +1,186 @@
+---
+id: 690ddb5e6ee94eb73ed172b0
+title: Rekebisha fomu ya michango
+challengeType: 25
+dashedName: debug-donation-form
+# Purposefully removed the demo type because this is a debugging project.
+---
+
+# --description--
+
+Shirika la misaada la eneo limeunda tovuti ya fomu ya michango, lakini kuna matatizo kadhaa yanayohitaji kurekebishwa. Fomu haipatikani kwa urahisi na ina makosa ya sintaksia ya HTML.
+
+Kazi yako ni kurekebisha makosa yote ili fomu ifanye kazi ipasavyo na ipatikane kwa watumizi wote. Kamilisha vitu vilivyo kwenye hadithi za watumizi hapa chini na bofya "Kagua Msimbo Wako" kuona kama umeondoa makosa yote.
+
+**Hadithi za watumizi:**
+
+1. Vipengele vya `input` ni vipengele visivyo na lebo ya kufunga. Ondoa lebo zote za kufunga za `</input>` kutoka kwenye fomu.
+2. Ongeza vipengele vya `label` kwa kila sehemu ya ingizo la fomu ili watumizi wajue kila sehemu ni ya nini. Maandishi ya lebo yanapaswa kuendana na yaliyopo karibu na kila sehemu ya ingizo.
+3. Aina ya ingizo ya `Email Address:` inapaswa kuwa `email` badala ya `text`.
+4. Unapaswa kuhusisha kila kipengele cha `label` na kipengele kinacholingana cha `input` kwa kutumia sifa ya `for` kwenye `label` na sifa inayolingana ya `id` kwenye `input`.
+5. Ongeza sifa ya `required` kwa sehemu za ingizo za maandishi, barua pepe, na nambari (lakini si kwa kisanduku cha kuchagua au kitufe cha kuwasilisha) kuhakikisha watumizi wanaleta taarifa zinazohitajika.
+
+# --hints--
+
+Haufai kuwa na lebo za kufunga za `</input>` katika msimbo wako.
+
+```js
+assert.notMatch(code, /<\/input>/);
+```
+
+Unapaswa kuwa na vipengele vinne vya `input` katika fomu yako.
+
+```js
+assert.lengthOf(document.querySelectorAll("input"), 5);
+```
+
+Unapaswa kuwa na vipengele vinne vya `label` katika fomu yako.
+
+```js
+assert.lengthOf(document.querySelectorAll("label"), 4);
+```
+
+`label` yako ya kwanza inapaswa kuwa na maandishi ya `Full Name:`.
+
+```js
+const labels = document.querySelectorAll("label");
+assert.match(labels[0]?.textContent, /Full\s*Name\s*:/i);
+```
+
+`input` yako ya kwanza inapaswa kuwa na sifa ya `required`.
+
+```js
+const firstInput = document.querySelector("input[name='name']");
+assert.isTrue(firstInput?.hasAttribute("required"));
+```
+
+`label` yako ya pili inapaswa kuwa na maandishi ya `Email Address:`.
+
+```js
+const labels = document.querySelectorAll("label");
+assert.match(labels[1]?.textContent, /Email\s*Address\s*:/i);
+```
+
+`input` yako ya pili inapaswa kuwa na sifa ya `required`.
+
+```js
+const secondInput = document.querySelector("input[name='email']");
+assert.isTrue(secondInput?.hasAttribute("required"));
+```
+
+`label` yako ya tatu inapaswa kuwa na maandishi ya `Donation Amount ($):`.
+
+```js
+const labels = document.querySelectorAll("label");
+assert.match(labels[2]?.textContent, /Donation\s*Amount\s*\(\$\)\s*:/i);
+```
+
+`input` yako ya tatu inapaswa kuwa na sifa ya `required`.
+
+```js
+const thirdInput = document.querySelector("input[name='amount']");
+assert.isTrue(thirdInput?.hasAttribute("required"));
+```
+
+`label` yako ya nne inapaswa kuwa na maandishi ya `Subscribe`.
+
+```js
+const labels = document.querySelectorAll("label");
+assert.match(labels[3]?.textContent, /Subscribe/i);
+```
+
+Unapaswa kuhusisha kila kipengele cha `input` na kipengele cha `label` kwa kutumia sifa za `for` na `id`.
+
+```js 
+const els = document.querySelectorAll('input:not([type="submit"])'); 
+assert.isNotEmpty(els); 
+els.forEach(input => { 
+  const label = document.querySelector(`label[for="${input.id}"]`); 
+  assert.exists(label);  
+  assert.equal(label.tagName, "LABEL"); 
+})
+``` 
+
+`input` yako kwa anwani ya barua pepe inapaswa kuwa na aina ya `email`.
+
+```js
+const emailInput = document.querySelector("input[name='email']");
+assert.strictEqual(emailInput?.getAttribute("type"), "email");
+```
+
+Kisanduku chako cha kuchagua cha `input` hakipaswi kuwa na sifa ya `required`.
+
+```js
+const checkboxInput = document.querySelector("input[name='newsletter']");
+assert.isFalse(checkboxInput?.hasAttribute("required"));
+```
+
+Kitufe chako cha kuwasilisha cha `button` hakipaswi kuwa na sifa ya `required`.
+
+```js
+const submitButton = document.querySelector("input[type='submit']");
+assert.isFalse(submitButton?.hasAttribute("required"));
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donation Form</title>
+</head>
+<body>
+  <h1>Donation Form</h1>
+  <form>
+    
+    Full Name:
+    <input type="text" name="name"></input>
+
+    Email Address:
+    <input type="text" name="email">
+
+    Donation Amount ($):
+    <input type="number" name="amount"></input>
+
+    <input type="checkbox" name="newsletter"></input>
+    Subscribe
+
+    <input type="submit" value="Send"></input>
+  </form>
+</body>
+</html>
+```
+
+# --solutions--
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donation Form</title>
+</head>
+<body>
+  <h1>Donation Form</h1>
+  <form>
+    <label for="full-name">Full Name:</label>
+    <input id="full-name" type="text" name="name" required>
+
+    <label for="email">Email Address:</label>
+    <input id="email" type="email" name="email" required>
+
+    <label for="amount">Donation Amount ($):</label>
+    <input id="amount" type="number" name="amount" required>
+
+    <label for="newsletter">Subscribe</label>
+    <input id="newsletter" type="checkbox" name="newsletter">
+
+    <input type="submit" value="Send">
+  </form>
+</body>
+</html>
+```

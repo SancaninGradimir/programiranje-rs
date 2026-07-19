@@ -1,0 +1,86 @@
+---
+id: 587d824e367417b2b2512c58
+title: Endesha majaribio ya kitendakazi kwenye viishio vya API ukitumia Chai-HTTP
+challengeType: 2
+forumTopicId: 301593
+dashedName: run-functional-tests-on-api-endpoints-using-chai-http
+---
+
+# --description--
+
+Kama ukumbusho, mradi huu unajengwa juu ya mradi wa kuanzia uliochomwa kutoka <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+
+Mocha inakuwezesha kupima operesheni zisizo za wakati mmoja kama vile wito kwa viishio vya API kwa kutumia kiendelezi kinachoitwa `chai-http`.
+
+Ifuatayo ni mfano wa mtihani ukitumia `chai-http` kwa kundi linaloitwa `'GET /hello?name=[name] => "hello [name]"'`:
+
+```js
+suite('GET /hello?name=[name] => "hello [name]"', function () {
+  test('?name=John', function (done) {
+    chai
+      .request(server)
+      .keepOpen()
+      .get('/hello?name=John')
+      .end(function (err, res) {
+        assert.equal(res.status, 200, 'Response status should be 200');
+        assert.equal(res.text, 'hello John', 'Response should be "hello John"');
+        done();
+      });
+  });
+});
+```
+
+Mtihani huu unatumia ombi la `GET` kwa seva likiwa na jina kama hoja ya utafutaji ya URL (`?name=John`). Katika kitendakazi cha mwitiko cha njia ya `end`, kitu cha jibu (`res`) kinapokelewa na kina sifa ya `status`.
+
+Hoja ya kwanza ya `assert.equal` inakagua kama hali ni sawa na `200`. Hoja ya pili ya `assert.equal` inakagua kwamba mfuatano wa herufi wa jibu (`res.text`) ni sawa na `"hello John"`.
+
+Pia, angalia kigezo cha `done` katika kitendakazi cha mwitiko cha mtihani. Kuuita bila hoja mwishoni mwa mtihani ni muhimu kuashiria kuwa operesheni isiyo ya wakati mmoja imekamilika.
+
+Mwishowe, angalia njia ya `keepOpen` mara tu baada ya njia ya `request`. Kawaida ungeendesha majaribio yako kutoka kwenye mstari wa amri, au kama sehemu ya mchakato wa muunganisho wa moja kwa moja, na ungeweza kuruhusu `chai-http` kuanzisha na kusimamisha seva yako moja kwa moja.
+
+Hata hivyo, majaribio yanayoendeshwa unapo wasilisha kiungo cha mradi wako yanahitaji seva yako kuwa hai, kwa hivyo unahitaji kutumia njia ya `keepOpen` kuzuia `chai-http` kusimamisha seva yako.
+
+# --instructions--
+
+Ndani ya `tests/2_functional-tests.js`, badilisha mtihani wa `'Test GET /hello with no name'` (`// #1`) ili kuthibitisha `status` na `text` ya jibu ili mtihani upite. Usibadilishe hoja zinazotumwa kwa asserts.
+
+Hakuna hoja ya utafutaji ya URL inapaswa kuwepo. Bila hoja ya utafutaji ya jina ya URL, kiishio hutoa jibu la `hello Guest`.
+
+# --hints--
+
+Majaribio yote yanapaswa kupita
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=0');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.state, 'passed');
+```
+
+Unapaswa kupima kwa `res.status` == 200
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=0');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[0].method, 'equal');
+assert.equal(data.assertions[0].args[0], 'res.status');
+assert.equal(data.assertions[0].args[1], '200');
+```
+
+Unapaswa kupima kwa `res.text` == `'hello Guest'`
+
+```js
+const response = await fetch(code + '/_api/get-tests?type=functional&n=0');
+if (!response.ok) {
+  throw Error(await response.text());
+}
+const data = await response.json();
+assert.equal(data.assertions[1].method, 'equal');
+assert.equal(data.assertions[1].args[0], 'res.text');
+assert.match(data.assertions[1].args[1], /('|")hello Guest\1/);
+```

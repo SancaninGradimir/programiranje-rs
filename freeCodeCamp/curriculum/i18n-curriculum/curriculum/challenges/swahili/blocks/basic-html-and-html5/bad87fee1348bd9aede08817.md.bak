@@ -1,0 +1,142 @@
+---
+id: bad87fee1348bd9aede08817
+title: Panga ndani kipengele cha nanga ndani ya aya
+challengeType: 0
+forumTopicId: 18244
+dashedName: nest-an-anchor-element-within-a-paragraph
+---
+
+# --description--
+
+Unaweza kupanga ndani viungo ndani ya vipengele vingine vya maandishi.
+
+```html
+<p>
+  Here's a <a target="_blank" href="https://www.freecodecamp.org"> link to www.freecodecamp.org</a> for you to follow.
+</p>
+```
+
+Tuchambue mfano huu. Maandishi ya kawaida yamefungwa ndani ya kipengele cha `p`:
+
+```html
+<p> Here's a ... for you to follow. </p>
+```
+
+Ifuatayo ni kipengele cha *nanga* `<a>` (ambacho kinahitaji lebo ya kufunga `</a>`):  
+
+```html
+<a> ... </a>
+```
+
+`target` ni sifa ya kipengele cha nanga inayobainisha wapi pa kufungua kiungo. Thamani `_blank` inaeleza kufungua kiungo kwenye kichupo kipya. `href` ni sifa ya kipengele cha nanga inayoshikilia anwani ya URL ya kiungo:  
+
+```html
+<a href="https://www.freecodecamp.org" target="_blank"> ... </a>
+```
+
+Maandishi, `link to www.freecodecamp.org`, ndani ya kipengele cha `a` huitwa <dfn>maandishi ya nanga</dfn>, na yataonyesha kiungo cha kubofya:
+
+```html
+<a href=" ... " target="...">link to freecodecamp.org</a>
+```
+
+Matokeo ya mwisho ya mfano utaonekana hivi:  
+
+Hapa kuna <a href="https://www.freecodecamp.org" target="_blank">kiungo cha www.freecodecamp.org</a> kwa ajili yako kufuata.
+
+# --instructions--
+
+Panga ndani kipengele kilichopo cha `a` ndani ya kipengele kipya cha `p`. Usitengeneze lebo mpya ya nanga. Aya mpya inapaswa kuwa na maandishi yanayosema `View more cat photos`, ambapo `cat photos` ni kiungo, na mengine ni maandishi ya kawaida.
+
+# --hints--
+
+Unapaswa kuwa na kipengele kimoja tu cha `a`.
+
+```js
+assert.lengthOf(document.querySelectorAll('a'), 1 );
+```
+
+Kipengele cha `a` kinapaswa kuunganisha na "`https://www.freecatphotoapp.com`".
+
+```js
+assert.lengthOf(document.querySelectorAll('a[href="https://www.freecatphotoapp.com"]'),1);
+```
+
+Kipengele chako cha `a` kinapaswa kuwa na maandishi ya nanga ya `cat photos`
+
+```js
+assert.match(document.querySelector('a').textContent,/cat\sphotos/gi)
+```
+
+Unapaswa kutengeneza kipengele kipya cha `p`. Inapaswa kuwa na angalau lebo 3 za `p` katika msimbo wako wa HTML.
+
+```js
+assert.lengthOf(document.querySelectorAll('p'),3)
+```
+
+Kipengele chako cha `a` kinapaswa kupangwa ndani ya kipengele kipya cha `p`.
+
+```js
+const anchorParent = document.querySelector('a[href="https://www.freecatphotoapp.com"]').parentNode;
+assert.strictEqual(anchorParent.tagName,"P")
+```
+
+Kipengele chako cha `p` kinapaswa kuwa na maandishi ya `View more ` (ikiwa na nafasi baada yake).
+
+```js
+const textContent = document.querySelector('a[href="https://www.freecatphotoapp.com"]').parentNode.textContent;
+assert.match(textContent,/View\smore\s/gi);
+```
+
+Kipengele chako cha `a` hakipaswi <em>kuwa na</em> maandishi ya `View more`.
+
+```js
+assert.notMatch(document.querySelector('a').textContent,/View\smore/gi); 
+```
+
+Kila kipengele chako cha `p` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert.match(code,/<\/p>/g);
+assert.match(code,/<p/g);
+assert.strictEqual(code.match(/<\/p>/g).length,code.match(/<p/g).length);
+```
+
+Kila kipengele chako cha `a` kinapaswa kuwa na lebo ya kufunga.
+
+```js
+assert.match(code,/<\/a>/g);
+assert.match(code,/<a/g);
+assert.strictEqual(code.match(/<\/a>/g).length,code.match(/<a/g).length);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```html
+<h2>CatPhotoApp</h2>
+<main>
+
+  <a href="https://www.freecatphotoapp.com" target="_blank">cat photos</a>
+
+  <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back.">
+
+  <p>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.</p>
+  <p>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.</p>
+</main>
+```
+
+# --solutions--
+
+```html
+<h2>CatPhotoApp</h2>
+<main>
+  <p>View more <a target="_blank" href="https://www.freecatphotoapp.com">cat photos</a></p>
+
+  <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back.">
+
+  <p>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.</p>
+  <p>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.</p>
+</main>
+```

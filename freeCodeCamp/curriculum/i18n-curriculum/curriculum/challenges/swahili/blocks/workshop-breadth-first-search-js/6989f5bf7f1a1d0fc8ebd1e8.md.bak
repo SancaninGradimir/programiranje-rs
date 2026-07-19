@@ -1,0 +1,64 @@
+---
+id: 6989f5bf7f1a1d0fc8ebd1e8
+title: Hatua 11
+challengeType: 1
+dashedName: step-11
+---
+
+# --description--
+
+Sasa unahitaji kushughulikia kuongeza mabano ya kawaida ya kufunga. Kanuni kuu ni kwamba unaweza kuongeza mabano ya kawaida ya kufunga tu ikiwa inahakikisha usawa, yaani lazima kuwe na mabano ya kawaida ya kufungua zaidi kuliko mabano ya kawaida ya kufunga.
+
+Bado ndani ya sehemu ya `else`, ongeza tamko la pili la `if` ili ukague kama `closesUsed` ni ndogo kuliko `opensUsed`.
+
+Ikiwa hali hii ni kweli, sukuma safu mpya nyingine kwenye `queue`: `[current + ')', opensUsed, closesUsed + 1]`. Hii inawakilisha hali baada ya kuongeza mabano ya kawaida ya kufunga.
+
+# --hints--
+
+Unapaswa kuwa na tamko la pili la `if` lenye hali ya `closesUsed < opensUsed` ndani ya sehemu yako ya `else`.
+
+```js
+assert.match(genParentheses.toString(), /if\s*\(\s*closesUsed\s*<\s*opensUsed\s*\)/);
+```
+
+Unapaswa kusukuma `[current + ')', opensUsed, closesUsed + 1]` kwenye foleni wakati hali ni kweli.
+
+```js
+assert.match(genParentheses.toString(), /queue\.push\s*\(\s*\[\s*current\s*\+\s*['"`]\)['"`]/);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function genParentheses(pairs) {
+  if (!Number.isInteger(pairs)) {
+    return 'The number of pairs should be an integer';
+  }
+  if (pairs < 1) {
+    return 'The number of pairs should be at least 1';
+  }
+  
+  let queue = [['', 0, 0]];
+  let result = [];
+  
+  while (queue.length > 0) {
+    console.log(queue);
+    let [current, opensUsed, closesUsed] = queue.shift();
+    if (current.length === 2 * pairs) {
+      result.push(current);
+    } else {
+      if (opensUsed < pairs) {
+        queue.push([current + '(', opensUsed + 1, closesUsed]);
+      }
+--fcc-editable-region--
+      
+--fcc-editable-region--
+    }
+  }
+  return result;
+}
+
+console.log(genParentheses(1));
+```

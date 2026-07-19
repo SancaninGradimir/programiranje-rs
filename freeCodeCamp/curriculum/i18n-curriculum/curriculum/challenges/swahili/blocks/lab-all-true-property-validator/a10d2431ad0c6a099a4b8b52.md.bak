@@ -1,0 +1,181 @@
+---
+id: a10d2431ad0c6a099a4b8b52
+title: Jenga Kagua Sifa Zote Zenye Thamani ya Kweli
+challengeType: 26
+dashedName: build-an-all-true-property-validator
+---
+
+# --description--
+
+Katika maabara hii utapima sifa maalum ya kila kitu katika safu ya data kuona kama kila wakati ina thamani ya kweli au la.
+
+Kwa mfano, unaweza kuombwa kupima sifa moja ya vitu katika safu ya data kama ifuatavyo:
+
+```js
+[{
+    name: "Quincy",
+    role: "Founder",
+    isBot: false
+}, {
+    name: "Naomi",
+    role: "",
+    isBot: false
+}, {
+    name: "Camperbot",
+    role: "Bot",
+    isBot: true
+}]
+```
+
+Ikiwa utaombwa kupima sifa ya `name`, katika vitu vya safu hii sifa `name` ina thamani za `"Quincy"`, `"Naomi"`, na `"Camperbot"`, kwa hivyo kila wakati ni thamani ya kweli.
+
+Ikiwa utaombwa kupima sifa ya `role`, thamani ni `"Founder"`, `""`, na `"Bot"`, katika kesi hii `""` ni thamani ya uongo, kwa hivyo thamani si kila wakati ni ya kweli.
+
+**Lengo:** Timiza hadithi za mtumizi zilizo hapa chini na upite mitihani yote ili kumaliza maabara hii.
+
+**Hadithi za mtumizi:**
+
+1. Unapaswa kuwa na kitendakazi kinachoitwa `truthCheck`.
+1. Kitendakazi `truthCheck` kinapokea hoja mbili: safu ya vitu na mfuatano wa herufi unaowakilisha jina la sifa inayopatikana katika vitu hivyo.
+1. Kitendakazi kinapaswa kuangalia kama sifa yenye jina sawa na hoja ya pili ina thamani ya kweli katika vitu vyote vya safu, na kurudisha `true` ikiwa ina, na `false` vinginevyo.
+
+# --hints--
+
+`truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true }
+  ],
+  "isBot"), false);
+```
+
+`truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "name")` inapaswa kurudisha `true`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true }
+  ],
+  "name"), true);
+```
+
+`truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "role")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true }
+  ],
+  "role"), false);
+```
+
+`truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}], "number")` inapaswa kurudisha `true`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Pikachu", number: 25, caught: 3 },
+    { name: "Togepi", number: 175, caught: 1 },
+  ],
+  "number"), true);
+```
+
+`truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}, {name: "MissingNo", number: NaN, caught: 0}], "caught")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Pikachu", number: 25, caught: 3 },
+    { name: "Togepi", number: 175, caught: 1 },
+    { name: "MissingNo", number: NaN, caught: 0 },
+  ],
+  "caught"), false);
+```
+
+`truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}, {name: "MissingNo", number: NaN, caught: 0}], "number")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Pikachu", number: 25, caught: 3 },
+    { name: "Togepi", number: 175, caught: 1 },
+    { name: "MissingNo", number: NaN, caught: 0 },
+  ],
+  "number"), false);
+```
+
+`truthCheck([{name: "Quincy", username: "QuincyLarson"}, {name: "Naomi", username: "nhcarrigan"}, {name: "Camperbot"}], "username")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "Quincy", username: "QuincyLarson" },
+    { name: "Naomi", username: "nhcarrigan" },
+    { name: "Camperbot" }
+  ],
+  "username"), false);
+```
+
+`truthCheck([{name: "freeCodeCamp", users: [{name: "Quincy"}, {name: "Naomi"}]}, {name: "Code Radio", users: [{name: "Camperbot"}]}, {name: "", users: []}], "users")` inapaswa kurudisha `true`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { name: "freeCodeCamp", users: [{ name: "Quincy" }, { name: "Naomi" }] },
+    { name: "Code Radio", users: [{ name: "Camperbot" }] },
+    { name: "", users: [] },
+  ],
+  "users"), true);
+```
+
+`truthCheck([{id: 1, data: {url: "https://freecodecamp.org", name: "freeCodeCamp"}}, {id: 2, data: {url: "https://coderadio.freecodecamp.org/", name: "CodeRadio"}}, {id: null, data: {}}], "data")` inapaswa kurudisha `true`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { id: 1, data: { url: "https://freecodecamp.org", name: "freeCodeCamp" } },
+    { id: 2, data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" } },
+    { id: null, data: {} },
+  ],
+  "data"), true);
+```
+
+`truthCheck([{id: 1, data: {url: "https://freecodecamp.org", name: "freeCodeCamp"}}, {id: 2, data: {url: "https://coderadio.freecodecamp.org/", name: "CodeRadio"}}, {id: null, data: {}}], "id")` inapaswa kurudisha `false`.
+
+```js
+assert.strictEqual(truthCheck(
+  [
+    { id: 1, data: { url: "https://freecodecamp.org", name: "freeCodeCamp" } },
+    { id: 2, data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" } },
+    { id: null, data: {} },
+  ],
+  "id"), false);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+function truthCheck(collection, pre) {
+  return pre;
+}
+
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot");
+```
+
+# --solutions--
+
+```js
+function truthCheck(collection, pre) {
+  return collection.every(function(e) { return e[pre]; });
+}
+```

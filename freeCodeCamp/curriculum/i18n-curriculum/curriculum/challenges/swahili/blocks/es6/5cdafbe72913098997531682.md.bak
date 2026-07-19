@@ -1,0 +1,100 @@
+---
+id: 5cdafbe72913098997531682
+title: Shughulikia ahadi iliyokataliwa kwa kutumia catch
+challengeType: 1
+forumTopicId: 301204
+dashedName: handle-a-rejected-promise-with-catch
+---
+
+# --description--
+
+`catch` ni njia inayotumika wakati ahadi yako imelikwa. Inatekelezwa mara moja baada ya njia ya `reject` ya ahadi kuitwa. Hapa kuna sintaksia:
+
+```js
+myPromise.catch(error => {
+  
+});
+```
+
+`error` ni hoja inayopitishwa katika njia ya `reject`.
+
+# --instructions--
+
+Ongeza njia ya `catch` kwa ahadi yako. Tumia `error` kama kigezo cha kitendakazi chake cha mwitiko na andika `error` kwenye konsoli.
+
+# --hints--
+
+Unapaswa kuita njia ya `catch` kwenye ahadi.
+
+```js
+assert(
+  __helpers.removeWhiteSpace(__helpers.removeJSComments(code)).match(/(makeServerRequest|\))\.catch\(/g)
+);
+```
+
+Njia yako ya `catch` inapaswa kuwa na kitendakazi cha mwitiko chenye `error` kama kigezo chake.
+
+```js
+assert(
+  /\.catch\((function\(error\){|error|\(error\)=>)/.test(
+    __helpers.removeWhiteSpace(__helpers.removeJSComments(code))
+  )
+);
+```
+
+Unapaswa kuandika `error` kwenye konsoli.
+
+```js
+assert(
+  /\.catch\((function\(error\){|error|\(error\)=>)/.test(
+    __helpers.removeWhiteSpace(__helpers.removeJSComments(code))
+  ) &&
+    __helpers
+      .removeWhiteSpace(__helpers.removeJSComments(code))
+      .match(/\.catch\(.*?error.*?console.log\(error\).*?\)/)
+);
+```
+
+# --seed--
+
+## --seed-contents--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to false to represent an unsuccessful response from a server
+  let responseFromServer = false;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+makeServerRequest.then(result => {
+  console.log(result);
+});
+```
+
+# --solutions--
+
+```js
+const makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to false to represent an unsuccessful response from a server
+  let responseFromServer = false;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+makeServerRequest.then(result => {
+  console.log(result);
+});
+
+makeServerRequest.catch(error => {
+  console.log(error);
+});
+```
