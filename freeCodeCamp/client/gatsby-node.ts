@@ -62,6 +62,15 @@ exports.createPages = async function createPages({
   });
 };
 
+exports.onCreatePage = ({ page, actions }: any) => {
+  if (page.path === '/learn/' || page.path === '/learn') {
+    actions.createPage({
+      ...page,
+      matchPath: '/learn/*'
+    });
+  }
+};
+
 exports.onCreateWebpackConfig = ({ stage, actions }: any) => {
   const newPlugins = [
     // We add the shims of the node globals to the global scope

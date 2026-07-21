@@ -9,6 +9,7 @@ import { Container, Col, Row, Spacer } from '@freecodecamp/ui';
 import Intro from '../components/Intro';
 import Map from '../components/Map';
 import LearnLayout from '../components/layouts/learn';
+import ShowChallenge from '../client-only-routes/show-challenge';
 import {
   isSignedInSelector,
   userSelector,
@@ -49,6 +50,9 @@ interface Slug {
 interface LearnPageProps {
   isSignedIn: boolean;
   fetchState: FetchState;
+  location: {
+    pathname?: string;
+  };
   state: Record<string, unknown>;
   user: MaybeUser;
 }
@@ -58,6 +62,7 @@ const EMPTY_USER = { name: '', completedChallengeCount: 0, isDonating: false };
 function LearnPage({
   isSignedIn,
   fetchState: { pending, complete },
+  location,
   user
 }: LearnPageProps) {
   const { challengeNode } = useStaticQuery<{
@@ -88,6 +93,20 @@ function LearnPage({
 
   const { t } = useTranslation();
   useClaimableCertsNotification();
+
+  const pathname = location?.pathname ?? '';
+  const challengePathPrefix = '/learn/';
+  const isLearnLandingPath = pathname === '/learn' || pathname === '/learn/';
+
+  if (pathname.startsWith(challengePathPrefix) && !isLearnLandingPath) {
+    return (
+      <ShowChallenge
+        params={{
+          '*': pathname.slice(challengePathPrefix.length)
+        }}
+      />
+    );
+  }
 
   const slug = challengeNode?.challenge?.fields?.slug || '';
 
