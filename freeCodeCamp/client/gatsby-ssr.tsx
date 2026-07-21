@@ -62,5 +62,24 @@ export const onPreRenderHTML: GatsbySSR['onPreRenderHTML'] = ({
     }
     return 0;
   });
-  replaceHeadComponents(headComponents);
+
+  const normalizedHeadComponents = headComponents.map(component => {
+    if (
+      React.isValidElement(component) &&
+      component.props['data-identity'] === 'gatsby-global-css' &&
+      typeof component.props['data-href'] === 'string'
+    ) {
+      return (
+        <link
+          key={component.key ?? component.props['data-href']}
+          rel="stylesheet"
+          href={component.props['data-href']}
+        />
+      );
+    }
+
+    return component;
+  });
+
+  replaceHeadComponents(normalizedHeadComponents);
 };
