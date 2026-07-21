@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -51,13 +51,6 @@ interface LearnPageProps {
   fetchState: FetchState;
   state: Record<string, unknown>;
   user: MaybeUser;
-  data: {
-    challengeNode: {
-      challenge: {
-        fields: Slug;
-      };
-    } | null;
-  };
 }
 
 const EMPTY_USER = { name: '', completedChallengeCount: 0, isDonating: false };
@@ -65,9 +58,32 @@ const EMPTY_USER = { name: '', completedChallengeCount: 0, isDonating: false };
 function LearnPage({
   isSignedIn,
   fetchState: { pending, complete },
-  user,
-  data: { challengeNode }
+  user
 }: LearnPageProps) {
+  const { challengeNode } = useStaticQuery<{
+    challengeNode: {
+      challenge: {
+        fields: Slug;
+      };
+    } | null;
+  }>(graphql`
+    query LearnPageQuery {
+      challengeNode(
+        challenge: {
+          superOrder: { eq: 0 }
+          order: { eq: 0 }
+          challengeOrder: { eq: 0 }
+        }
+      ) {
+        challenge {
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  `);
+
   const { name, completedChallengeCount, isDonating } = user ?? EMPTY_USER;
 
   const { t } = useTranslation();
@@ -109,21 +125,3 @@ function LearnPage({
 LearnPage.displayName = 'LearnPage';
 
 export default connect(mapStateToProps)(LearnPage);
-
-export const query = graphql`
-  query LearnPageQuery {
-    challengeNode(
-      challenge: {
-        superOrder: { eq: 0 }
-        order: { eq: 0 }
-        challengeOrder: { eq: 0 }
-      }
-    ) {
-      challenge {
-        fields {
-          slug
-        }
-      }
-    }
-  }
-`;
