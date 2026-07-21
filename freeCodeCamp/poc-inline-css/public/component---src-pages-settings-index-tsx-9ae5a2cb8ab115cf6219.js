@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_freecodecamp_client=self.webpackChunk_freecodecamp_client||[]).push([[9459],{70147:function(e,c,l){l.r(c);var n=l(7378),t=l(61647);c.default=()=>n.createElement(t.A,null)}}]);
+//# sourceMappingURL=component---src-pages-settings-index-tsx-9ae5a2cb8ab115cf6219.js.map

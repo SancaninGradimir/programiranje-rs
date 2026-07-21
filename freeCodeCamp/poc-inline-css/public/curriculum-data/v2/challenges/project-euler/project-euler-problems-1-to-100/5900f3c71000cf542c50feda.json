@@ -1,0 +1,81 @@
+{
+  "id": "5900f3c71000cf542c50feda",
+  "title": "Vežba br. 91: Za desnu nogu sa punom koordinacijom",
+  "challengeType": 1,
+  "forumTopicId": 302208,
+  "dashedName": "problem-91-right-triangles-with-integer-coordinates",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function rightTrianglesIntCoords(limit) {\n\n  return true;\n}\n\nrightTrianglesIntCoords(2);",
+      "error": null,
+      "seed": "function rightTrianglesIntCoords(limit) {\n\n  return true;\n}\n\nrightTrianglesIntCoords(2);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function rightTrianglesIntCoords(limit) {\n  function isRightTriangle(points) {\n    for (let i = 0; i < points.length; i++) {\n      const pointA = points[i];\n      const pointB = points[(i + 1) % 3];\n      const pointC = points[(i + 2) % 3];\n      const vectorAB = [pointB[0] - pointA[0], pointB[1] - pointA[1]];\n      const vectorAC = [pointC[0] - pointA[0], pointC[1] - pointA[1]];\n\n      if (isRightAngleBetween(vectorAB, vectorAC)) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  function isRightAngleBetween(vector1, vector2) {\n    return vector1[0] * vector2[0] + vector1[1] * vector2[1] === 0;\n  }\n\n  function getSetKey(points) {\n    return (\n      '0.0,' +\n      points\n        .sort((a, b) => a[0] - b[0])\n        .map(point => point.join('.'))\n        .join(',')\n    );\n  }\n\n  const pointO = [0, 0];\n  const rightTriangles = new Set();\n  for (let x1 = 1; x1 <= limit; x1++) {\n    for (let y1 = 0; y1 <= limit; y1++) {\n      const pointP = [x1, y1];\n      for (let x2 = 0; x2 <= limit; x2++) {\n        for (let y2 = 1; y2 <= limit; y2++) {\n          const pointQ = [x2, y2];\n          if (pointP[0] === pointQ[0] && pointP[1] === pointQ[1]) {\n            continue;\n          }\n          if (isRightTriangle([pointO, pointP, pointQ])) {\n            rightTriangles.add(getSetKey([pointP, pointQ]));\n          }\n        }\n      }\n    }\n  }\n  return rightTriangles.size;\n}",
+        "error": null,
+        "seed": "function rightTrianglesIntCoords(limit) {\n  function isRightTriangle(points) {\n    for (let i = 0; i < points.length; i++) {\n      const pointA = points[i];\n      const pointB = points[(i + 1) % 3];\n      const pointC = points[(i + 2) % 3];\n      const vectorAB = [pointB[0] - pointA[0], pointB[1] - pointA[1]];\n      const vectorAC = [pointC[0] - pointA[0], pointC[1] - pointA[1]];\n\n      if (isRightAngleBetween(vectorAB, vectorAC)) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  function isRightAngleBetween(vector1, vector2) {\n    return vector1[0] * vector2[0] + vector1[1] * vector2[1] === 0;\n  }\n\n  function getSetKey(points) {\n    return (\n      '0.0,' +\n      points\n        .sort((a, b) => a[0] - b[0])\n        .map(point => point.join('.'))\n        .join(',')\n    );\n  }\n\n  const pointO = [0, 0];\n  const rightTriangles = new Set();\n  for (let x1 = 1; x1 <= limit; x1++) {\n    for (let y1 = 0; y1 <= limit; y1++) {\n      const pointP = [x1, y1];\n      for (let x2 = 0; x2 <= limit; x2++) {\n        for (let y2 = 1; y2 <= limit; y2++) {\n          const pointQ = [x2, y2];\n          if (pointP[0] === pointQ[0] && pointP[1] === pointQ[1]) {\n            continue;\n          }\n          if (isRightTriangle([pointO, pointP, pointQ])) {\n            rightTriangles.add(getSetKey([pointP, pointQ]));\n          }\n        }\n      }\n    }\n  }\n  return rightTriangles.size;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>rightTrianglesIntCoords(2)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof rightTrianglesIntCoords(2) === 'number');"
+    },
+    {
+      "text": "<p><code>rightTrianglesIntCoords(2)</code> treba da vrati <code>14</code>.</p>",
+      "testString": "assert.strictEqual(rightTrianglesIntCoords(2), 14);"
+    },
+    {
+      "text": "<p><code>rightTrianglesIntCoords(10)</code> inapaswa kurudisha <code>448</code>.</p>",
+      "testString": "assert.strictEqual(rightTrianglesIntCoords(10), 448);"
+    },
+    {
+      "text": "<p><code>rightTrianglesIntCoords(25)</code> treba da vrati <code>3207</code>.</p>",
+      "testString": "assert.strictEqual(rightTrianglesIntCoords(25), 3207);"
+    },
+    {
+      "text": "<p><code>rightTrianglesIntCoords(50)</code> bi trebalo da vrati <code>14234</code>.</p>",
+      "testString": "assert.strictEqual(rightTrianglesIntCoords(50), 14234);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Tačke ${P}(x_1, y_1)$ i ${Q}(x_2, y_2)$ nalaze se na celobrojnim koordinatama i povezane su sa koordinatnim početkom, ${O}(0, 0)$, formirajući trougao ${\\Delta}OPQ$.</p>\n<img alt=\"grafikon prikazuje tačke P (x_1, y_1) i Q(x_2, y_2) na celobrojnim koordinatama povezane sa koordinatnim početkom O (0, 0)\" src=\"https://cdn-media-1.freecodecamp.org/project-euler/right-triangles-integer-coordinates-1.png\" style=\"background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Postoji četrnaest trouglova, posebno sa pravim uglom, koji se mogu formirati kada je svaka koordinata između 0 i 2 uključivo; tj., $0 ≤ x_1, y_1, x_2, y_2 ≤ 2$.</p>\n<img alt=\"dijagram prikazuje 14 pravouglih trouglova koji se mogu formirati kada su sve koordinate između 0 i 2\" src=\"https://cdn-media-1.freecodecamp.org/project-euler/right-triangles-integer-coordinates-2.png\" style=\"background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Ako $0 ≤ x_1, y_1, x_2, y_2 ≤ limit$, koliko trouglova se može formirati?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 90,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

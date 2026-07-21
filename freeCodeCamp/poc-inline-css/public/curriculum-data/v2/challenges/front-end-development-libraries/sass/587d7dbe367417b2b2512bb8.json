@@ -1,0 +1,81 @@
+{
+  "id": "587d7dbe367417b2b2512bb8",
+  "title": "Koristite `@if` i `@else` za dodavanje logike vašim stilovima",
+  "challengeType": 0,
+  "forumTopicId": 301463,
+  "dashedName": "use-if-and-else-to-add-logic-to-your-styles",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style type='text/scss'>\n\n\n\n  #box {\n    width: 150px;\n    height: 150px;\n    background-color: red;\n    @include border-stroke(medium);\n  }\n</style>\n\n<div id=\"box\"></div>",
+      "error": null,
+      "seed": "<style type='text/scss'>\n\n\n\n  #box {\n    width: 150px;\n    height: 150px;\n    background-color: red;\n    @include border-stroke(medium);\n  }\n</style>\n\n<div id=\"box\"></div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style type='text/scss'>\n  @mixin border-stroke($val) {\n    @if $val == light {\n      border: 1px solid black;\n    }\n    @else if $val == medium {\n      border: 3px solid black;\n    }\n    @else if $val == heavy {\n      border: 6px solid black;\n    }\n    @else {\n      border: none;\n    }\n  }\n\n\n  #box {\n    width: 150px;\n    height: 150px;\n    background-color: red;\n    @include border-stroke(medium);\n  }\n</style>\n\n<div id=\"box\"></div>",
+        "error": null,
+        "seed": "<style type='text/scss'>\n  @mixin border-stroke($val) {\n    @if $val == light {\n      border: 1px solid black;\n    }\n    @else if $val == medium {\n      border: 3px solid black;\n    }\n    @else if $val == heavy {\n      border: 6px solid black;\n    }\n    @else {\n      border: none;\n    }\n  }\n\n\n  #box {\n    width: 150px;\n    height: 150px;\n    background-color: red;\n    @include border-stroke(medium);\n  }\n</style>\n\n<div id=\"box\"></div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoj kod mora da deklarše mixin nazvan <code>border-stroke</code> koji ima parametar nazvan <code>$val</code>.</p>",
+      "testString": "assert(code.match(/@mixin\\s+?border-stroke\\s*?\\(\\s*?\\$val\\s*?\\)\\s*?{/gi));"
+    },
+    {
+      "text": "<p>Vaš Mixin bi trebalo da ima komandu za <code>@if</code> da proveri da li <code>$val</code> je <code>light</code>, i postavi <code>border</code> kao <code>1px solid black</code>.</p>",
+      "testString": "assert(\n  code.match(\n    /@if\\s+?\\$val\\s*?===?\\s*?light\\s*?{\\s*?border\\s*?:\\s*?1px\\s+?solid\\s+?black\\s*?;\\s*?}/gi\n  )\n);"
+    },
+    {
+      "text": "<p>Tvoj Mixin treba da ima komandu za <code>@else if</code> proveravanje da li <code>$val</code> je <code>medium</code>, i postavljanje <code>border</code> na <code>3px solid black</code>.</p>",
+      "testString": "assert(\n  code.match(\n    /@else\\s+?if\\s+?\\$val\\s*?===?\\s*?medium\\s*?{\\s*?border\\s*?:\\s*?3px\\s+?solid\\s+?black\\s*?;\\s*?}/gi\n  )\n);"
+    },
+    {
+      "text": "<p>Vaš mixin treba da ima komandu za <code>@else if</code> da proveri da li <code>$val</code> je <code>heavy</code>, i postavlja <code>border</code> na <code>6px solid black</code>.</p>",
+      "testString": "assert(\n  code.match(\n    /@else\\s+?if\\s+?\\$val\\s*?===?\\s*?heavy\\s*?{\\s*?border\\s*?:\\s*?6px\\s+?solid\\s+?black\\s*?;\\s*?}/gi\n  )\n);"
+    },
+    {
+      "text": "<p>Mixin yako inapaswa kuwa na amri ya <code>@else</code> kuweka <code>border</code> kuwa <code>none</code>.</p>",
+      "testString": "assert(code.match(/@else\\s*?{\\s*?border\\s*?:\\s*?none\\s*?;\\s*?}/gi));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Komanda za <code>@if</code> u Sass-u je važna za testiranje specifičnih slučajeva - radi kao komanda za <code>if</code> u JavaScript.</p>\n<pre><code class=\"language-scss\">@mixin make-bold($bool) {\n  @if $bool == true {\n    font-weight: bold;\n  }\n}\n</code></pre>\n<p>Kao što je u JavaScript, komande za <code>@else if</code> i <code>@else</code> testiraju više uslova:</p>\n<pre><code class=\"language-scss\">@mixin text-effect($val) {\n  @if $val == danger {\n    color: red;\n  }\n  @else if $val == alert {\n    color: yellow;\n  }\n  @else if $val == success {\n    color: green;\n  }\n  @else {\n    color: black;\n  }\n}\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kreiraj mixin nazvan <code>border-stroke</code> koji prima parametar <code>$val</code>. Mixin mora da proveri sledeće uslove koristeći naredbe za <code>@if</code>, <code>@else if</code> i <code>@else</code>:</p>\n<pre><code class=\"language-scss\">light - 1px solid black\nmedium - 3px solid black\nheavy - 6px solid black\n</code></pre>\n<p>Ako je vrednost parametra <code>$val</code> različita od <code>light</code>, <code>medium</code>, ili <code>heavy</code>, onda svojstvo <code>border</code> treba da se postavi na <code>none</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "sass",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

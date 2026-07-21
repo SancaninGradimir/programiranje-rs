@@ -1,0 +1,55 @@
+{
+  "id": "6554ad2463b8892748f8efdd",
+  "title": "Korak 67",
+  "challengeType": 20,
+  "dashedName": "step-67",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        25
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "text = 'Hello Zaira'\ncustom_key = 'python'\n\ndef vigenere(message, key):\n    key_index = 0\n    alphabet = 'abcdefghijklmnopqrstuvwxyz'\n    encrypted_text = ''\n\n    for char in message.lower():\n    \n        # Append space to the message\n        if char == ' ':\n            encrypted_text += char\n        else:        \n            # Find the right key character to encode\n            key_char = key[key_index % len(key)]\n            key_index += 1\n            # Define the offset and the encrypted letter\n            offset = alphabet.index(key_char)\n            index = alphabet.find(char)\n            new_index = (index + offset) % len(alphabet)\n            encrypted_text += alphabet[new_index]\n    print('plain text:', message)\n    print('encrypted text:', encrypted_text)",
+      "error": null,
+      "seed": "text = 'Hello Zaira'\ncustom_key = 'python'\n\ndef vigenere(message, key):\n    key_index = 0\n    alphabet = 'abcdefghijklmnopqrstuvwxyz'\n    encrypted_text = ''\n\n    for char in message.lower():\n    \n        # Append space to the message\n        if char == ' ':\n            encrypted_text += char\n        else:        \n            # Find the right key character to encode\n            key_char = key[key_index % len(key)]\n            key_index += 1\n            # Define the offset and the encrypted letter\n            offset = alphabet.index(key_char)\n            index = alphabet.find(char)\n            new_index = (index + offset) % len(alphabet)\n            encrypted_text += alphabet[new_index]\n    print('plain text:', message)\n    print('encrypted text:', encrypted_text)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da uklonite dva poziva <code>print()</code> iz vaše funkcije.</p>",
+      "testString": "({ \n  test: () => {\n    const commentless_code = __helpers.python.removeComments(code);\n    assert.isFalse(/print\\s*\\(\\s*(\"|')plain\\stext:\\1\\s*,\\s*message\\s*\\)/.test(commentless_code))\n    assert.isFalse(/print\\s*\\(\\s*(\"|')encrypted\\stext:\\1\\s*,\\s*encrypted_text\\s*\\)/.test(commentless_code))\n  }\n})"
+    },
+    {
+      "text": "<p>Tvoja funkcija mora da vrati <code>encrypted_text</code>.</p>",
+      "testString": "({ test: () => {\n    const commentless_code = __helpers.python.removeComments(code);\n    const {function_body} = __helpers.python.getDef(commentless_code, \"vigenere\");\n    const {block_body} = __helpers.python.getBlock(commentless_code, /for\\s+char\\s+in\\s+message\\.lower\\s*\\(\\s*\\)\\s*/);\n    const regex = /return\\s+encrypted_text/\n    assert(function_body.match(regex));\n    assert.notMatch(block_body, regex);\n  }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Trenutno, tvoja funkcija ispisuje neke nizove znakova, ali ove vrednosti ne mogu se koristiti od strane drugih delova koda za izvršavanje bilo kakvih radnji.</p>\n<p>Za tu svrhu, morate koristiti deklaraciju <code>return</code>:</p>\n<pre><code class=\"language-python\">def foo():\n    return 'spam'\n</code></pre>\n<p>Potrebno je napisati <code>return</code> praćen razmakom i vrednošću koju funkcija mora da vrati. Kada se pronađe deklaracija <code>return</code>, ta vrednost se vraća i izvršavanje funkcije se zaustavlja, nastavljajući sa sledećim redom koda nakon poziva funkcije. U gornjem primeru, funkcija <code>foo</code> vraća niz karaktera <code>'spam'</code>.</p>\n<p>Uklonite dva poziva od <code>print()</code> iz vaše funkcije i vratite <code>encrypted_text</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-string-manipulation-by-building-a-cipher",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 66,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

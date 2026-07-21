@@ -1,0 +1,41 @@
+{
+  "id": "587d824e367417b2b2512c58",
+  "title": "Pokreni testiranje funkcija na API endpointima koristeći Chai-HTTP",
+  "challengeType": 2,
+  "forumTopicId": 301593,
+  "dashedName": "run-functional-tests-on-api-endpoints-using-chai-http",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Sve probne stvari moraju proći</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=0');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.state, 'passed');"
+    },
+    {
+      "text": "<p>Trebalo bi da testiraš za <code>res.status</code> == 200</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=0');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[0].method, 'equal');\nassert.equal(data.assertions[0].args[0], 'res.status');\nassert.equal(data.assertions[0].args[1], '200');"
+    },
+    {
+      "text": "<p>Trebalo bi da testiraš za <code>res.text</code> == <code>'hello Guest'</code></p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=0');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[1].method, 'equal');\nassert.equal(data.assertions[1].args[0], 'res.text');\nassert.match(data.assertions[1].args[1], /('|\")hello Guest\\1/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsjetnik, ovaj projekat je napravljen na osnovu početnog projekta kopiranog iz <a href=\"https://github.com/freeCodeCamp/boilerplate-mochachai/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>Mocha vam omogućava da testirate asinhrone operacije, kao što su pozivi na životni ciklus za API, koristeći ekstenziju nazvanu <code>chai-http</code>.</p>\n<p>Sledeći je primer testa koji koristi <code>chai-http</code> za grupu nazvanu <code>'GET /hello?name=[name] => \"hello [name]\"'</code>.</p>\n<pre><code class=\"language-js\">suite('GET /hello?name=[name] => \"hello [name]\"', function () {\n  test('?name=John', function (done) {\n    chai\n      .request(server)\n      .keepOpen()\n      .get('/hello?name=John')\n      .end(function (err, res) {\n        assert.equal(res.status, 200, 'Response status should be 200');\n        assert.equal(res.text, 'hello John', 'Response should be \"hello John\"');\n        done();\n      });\n  });\n});\n</code></pre>\n<p>Ovaj test koristi zahtev za <code>GET</code> na serveru sa imenom kao pretraga argumenta URL (<code>?name=John</code>). U funkciji povratnog poziva za putanju <code>end</code>, objekat odgovora (<code>res</code>) prima se i ima svojstvo <code>status</code>.</p>\n<p>Prvi red <code>assert.equal</code> proverava da li je stanje isto kao <code>200</code>. Drugi red <code>assert.equal</code> proverava da li niz karaktera odgovora (<code>res.text</code>) je isti kao <code>\"hello John\"</code>.</p>\n<p>Pia, proverite parametar <code>done</code> u funkciji povratnog poziva testa. Pozivanje bez argumenata na kraju testa je važno da signalizira da je asinhrotna operacija završena.</p>\n<p>Na kraju, proverite putanju <code>keepOpen</code> odmah nakon putanje <code>request</code>. Obično pokrećete svoje testove sa komandne linije, ili kao deo procesa direktnog povezivanja, i mogli biste dozvoliti <code>chai-http</code> da direktno pokrene i zaustavi vaš server.</p>\n<p>Međutim, testovi koji se pokreću kada pošaljete link vašeg projekta zahtevaju da je vaš server aktivan, tako da morate koristiti metodu <code>keepOpen</code> kako biste sprečili da <code>chai-http</code> zaustavi vaš server.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U okviru <code>tests/2_functional-tests.js</code>, izmenite test <code>'Test GET /hello with no name'</code> (<code>// #1</code>) tako da proverava ili <code>status</code> i <code>text</code> odgovora ili testira upit. Ne menjajte argumente koji se prosleđuju assert funkcijama.</p>\n<p>Nije potrebno postojanje pretrage za URL. Bez upita/pretrage imena URL, sistem vraća odgovor od <code>hello Guest</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "quality-assurance-and-testing-with-chai",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

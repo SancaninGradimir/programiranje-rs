@@ -1,0 +1,54 @@
+{
+  "id": "68e52994bc7ea2e3dec530a5",
+  "title": "Korak 27",
+  "challengeType": 20,
+  "dashedName": "step-27",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        57,
+        59
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nclass PremiumUserDiscount(DiscountStrategy):\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return user_tier.lower() == 'premium'\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * 0.8\n\nclass DiscountEngine:\n    def __init__(self, strategies: list[DiscountStrategy]) -> None:\n        self.strategies = strategies\n\n    def calculate_best_price(self, product: Product, user_tier: str) -> float:\n        prices = [product.price]\n\n        for strategy in self.strategies:\n            if strategy.is_applicable(product, user_tier):\n                discounted = strategy.apply_discount(product)\n                prices.append(discounted)\n        \nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n\ndiscount = PercentageDiscount(10)\nprint(discount.apply_discount(product))\n\nfixed_discount = FixedAmountDiscount(5)\nprint(fixed_discount.apply_discount(product))",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nclass PremiumUserDiscount(DiscountStrategy):\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return user_tier.lower() == 'premium'\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * 0.8\n\nclass DiscountEngine:\n    def __init__(self, strategies: list[DiscountStrategy]) -> None:\n        self.strategies = strategies\n\n    def calculate_best_price(self, product: Product, user_tier: str) -> float:\n        prices = [product.price]\n\n        for strategy in self.strategies:\n            if strategy.is_applicable(product, user_tier):\n                discounted = strategy.apply_discount(product)\n                prices.append(discounted)\n        \nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n\ndiscount = PercentageDiscount(10)\nprint(discount.apply_discount(product))\n\nfixed_discount = FixedAmountDiscount(5)\nprint(fixed_discount.apply_discount(product))"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša putanja za <code>calculate_best_price</code> treba da vrati minimalnu vrednost iz liste <code>prices</code> koristeći funkciju <code>min</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n    assert _Node(_code).find_class(\"DiscountEngine\").find_function(\"calculate_best_price\").find_return().is_equivalent(\"return min(prices)\")\n  `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Konačno, vratite minimalnu stopu sa liste <code>prices</code> koristeći funkciju <code>min()</code>. Ovo će vam dati najbolju cenu (najnižu) nakon uzimanja u obzir svih primenljivih popusta.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-discount-calculator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 47,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 26,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

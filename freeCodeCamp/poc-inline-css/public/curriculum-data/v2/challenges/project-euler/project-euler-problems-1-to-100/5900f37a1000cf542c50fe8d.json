@@ -1,0 +1,89 @@
+{
+  "id": "5900f37a1000cf542c50fe8d",
+  "title": "Vežba 14: najduža sekvenca Collatza",
+  "challengeType": 1,
+  "forumTopicId": 301768,
+  "dashedName": "problem-14-longest-collatz-sequence",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function longestCollatzSequence(limit) {\n\n  return true;\n}\n\nlongestCollatzSequence(14);",
+      "error": null,
+      "seed": "function longestCollatzSequence(limit) {\n\n  return true;\n}\n\nlongestCollatzSequence(14);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function longestCollatzSequence(limit) {\n  let longest = 1;\n  let maxLength = 1;\n  for (let i = Math.floor(limit / 2); i < limit; i++) {\n    let len = colLen(i);\n    if (len > maxLength) {\n      longest = i;\n      maxLength = len;\n    }\n  }\n  return longest;\n}\n\nconst knownSequence = { '1': 1 };\n\nfunction colLen(n) {\n  if (knownSequence[n]) {\n    return knownSequence[n];\n  } else {\n    const len = n % 2 === 0 ? colLen(n / 2) + 1 : colLen((3 * n + 1) / 2) + 2;\n    knownSequence[n] = len;\n    return len;\n  }\n}",
+        "error": null,
+        "seed": "function longestCollatzSequence(limit) {\n  let longest = 1;\n  let maxLength = 1;\n  for (let i = Math.floor(limit / 2); i < limit; i++) {\n    let len = colLen(i);\n    if (len > maxLength) {\n      longest = i;\n      maxLength = len;\n    }\n  }\n  return longest;\n}\n\nconst knownSequence = { '1': 1 };\n\nfunction colLen(n) {\n  if (knownSequence[n]) {\n    return knownSequence[n];\n  } else {\n    const len = n % 2 === 0 ? colLen(n / 2) + 1 : colLen((3 * n + 1) / 2) + 2;\n    knownSequence[n] = len;\n    return len;\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>longestCollatzSequence(14)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert.isNumber(longestCollatzSequence(14));"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(14)</code> Trebalo bi da vrati 9.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(14), 9);"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(5847)</code> treba vratiti 3711.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(5847), 3711);"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(46500)</code> trebao bi vratiti 35655.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(46500), 35655);"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(54512)</code> trebalo bi da vrati 52527.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(54512), 52527);"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(100000)</code> treba da vrati 77031.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(100000), 77031);"
+    },
+    {
+      "text": "<p><code>longestCollatzSequence(1000000)</code> trebalo bi da vrati 837799.</p>",
+      "testString": "assert.strictEqual(longestCollatzSequence(1000000), 837799);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sledeća ponavljajuća sekvenca je definisana skupom pozitivnih celih brojeva:</p>\n<div style='padding-left: 4em;'><var>n</var> → <var>n</var>/2 (<var>n</var> je ceo pozitivan broj)</div>\n<div style='padding-left: 4em;'><var>n</var> → 3<var>n</var> + 1 (<var>n</var> je nevažeći celobrojni broj)</div>\n<p>Koristeći pravilo navedeno iznad i počevši od 13, generišemo sledeću sekvencu:</p>\n<div style='text-align: center;'>13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1</div>\n<p>Izgleda da ova sekvenca (počevši od 13 i završavajući na 1) ima 10 brojeva. Iako još nije dokazano (Collatzova pretpostavka), veruje se da sve početne brojeve dosegnu 1.</p>\n<p>Koji je početni broj, ispod <code>limit</code>, koji stvara najduži niz?</p>\n<p><strong>Napomena:</strong> Kada lanac počne, reči su dozvoljene da idu preko <code>limit</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_freecodecamp_client=self.webpackChunk_freecodecamp_client||[]).push([[5833],{57769:function(e,c,l){l.r(c),l.d(c,{default:function(){return t}});var n=l(49337),r=l(7378);var t=e=>{let{params:c}=e;return(0,r.useEffect)(()=>{const e=c["*"].split("/").filter(Boolean),[l,r,t]=e;(0,n.oo)(function(e){let{block:c,challenge:l,superBlock:n}=e;return[n,c,l].reduce((e,c)=>c?`${e}/${c}`:e,"/learn")}({superBlock:l,block:r,challenge:t}))},[c]),null}}}]);
+//# sourceMappingURL=component---src-pages-challenges-tsx-bec29da82031a11782bb.js.map

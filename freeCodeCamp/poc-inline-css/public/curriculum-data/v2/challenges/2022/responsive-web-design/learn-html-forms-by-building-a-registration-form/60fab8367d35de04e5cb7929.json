@@ -1,0 +1,85 @@
+{
+  "id": "60fab8367d35de04e5cb7929",
+  "title": "Korak 31",
+  "challengeType": 0,
+  "dashedName": "step-31",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        23,
+        25
+      ],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <title>Registration Form</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <h1>Registration Form</h1>\n    <p>Please fill out this form with the required information</p>\n    <form method=\"post\" action='https://register-demo.freecodecamp.org'>\n      <fieldset>\n        <label for=\"first-name\">Enter Your First Name: <input id=\"first-name\" type=\"text\" required /></label>\n        <label for=\"last-name\">Enter Your Last Name: <input id=\"last-name\" type=\"text\" required /></label>\n        <label for=\"email\">Enter Your Email: <input id=\"email\" type=\"email\" required /></label>\n        <label for=\"new-password\">Create a New Password: <input id=\"new-password\" type=\"password\" pattern=\"[a-z0-5]{8,}\" required /></label>\n      </fieldset>\n      <fieldset>\n        <legend>Account type (required)</legend>\n        <label for=\"personal-account\"><input id=\"personal-account\" type=\"radio\" name=\"account-type\" checked /> Personal</label>\n        <label for=\"business-account\"><input id=\"business-account\" type=\"radio\" name=\"account-type\" /> Business</label>\n      </fieldset>\n      <fieldset></fieldset>\n      <label for=\"terms-and-conditions\"><input id=\"terms-and-conditions\" type=\"checkbox\" required /></label>\n      <input type=\"submit\" value=\"Submit\" />\n    </form>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <title>Registration Form</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <h1>Registration Form</h1>\n    <p>Please fill out this form with the required information</p>\n    <form method=\"post\" action='https://register-demo.freecodecamp.org'>\n      <fieldset>\n        <label for=\"first-name\">Enter Your First Name: <input id=\"first-name\" type=\"text\" required /></label>\n        <label for=\"last-name\">Enter Your Last Name: <input id=\"last-name\" type=\"text\" required /></label>\n        <label for=\"email\">Enter Your Email: <input id=\"email\" type=\"email\" required /></label>\n        <label for=\"new-password\">Create a New Password: <input id=\"new-password\" type=\"password\" pattern=\"[a-z0-5]{8,}\" required /></label>\n      </fieldset>\n      <fieldset>\n        <legend>Account type (required)</legend>\n        <label for=\"personal-account\"><input id=\"personal-account\" type=\"radio\" name=\"account-type\" checked /> Personal</label>\n        <label for=\"business-account\"><input id=\"business-account\" type=\"radio\" name=\"account-type\" /> Business</label>\n      </fieldset>\n      <fieldset></fieldset>\n      <label for=\"terms-and-conditions\"><input id=\"terms-and-conditions\" type=\"checkbox\" required /></label>\n      <input type=\"submit\" value=\"Submit\" />\n    </form>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "body {\n  width: 100%;\n  height: 100vh;\n  margin: 0;\n  background-color: #1b1b32;\n  color: #f5f6f7;\n}\n\nlabel {\n  display: block;\n  margin: 0.5rem 0;\n}\n",
+      "error": null,
+      "seed": "body {\n  width: 100%;\n  height: 100vh;\n  margin: 0;\n  background-color: #1b1b32;\n  color: #f5f6f7;\n}\n\nlabel {\n  display: block;\n  margin: 0.5rem 0;\n}\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da dodaš tekst <code>I accept the terms and conditions</code> nakon <code>label</code>, posle trećeg <code>fieldset</code>.</p>",
+      "testString": "assert.equal(document.querySelector('fieldset:nth-child(3) + label')?.innerText.trim(), 'I accept the terms and conditions');"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš element <code>a</code> za povezivanje sa uslovima i parametrima.</p>",
+      "testString": "assert.exists(document.querySelector('fieldset:nth-child(3) + label a'));"
+    },
+    {
+      "text": "<p>Treba da umetnete novi tekst odmah nakon elementa za <code>input</code> u <code>label</code>.</p>",
+      "testString": "assert.exists(document.querySelector('fieldset:nth-child(3) + label > input + a'));"
+    },
+    {
+      "text": "<p>Trebalo bi mu dati atribut <code>a</code> <code>href</code> od <code>https://www.freecodecamp.org/news/terms-of-service/</code>.</p>",
+      "testString": "assert.match(document.querySelector('fieldset:nth-child(3) + label > input + a')?.href, /https:\\/\\/www\\.freecodecamp\\.org\\/news\\/terms-of-service\\/?/);"
+    },
+    {
+      "text": "<p>Treba da kružiš samo oko elementa <code>a</code>, a ne oko teksta <code>terms and conditions</code>.</p>",
+      "testString": "assert.equal(document.querySelector('fieldset:nth-child(3) + label > input + a')?.textContent.trim(), 'terms and conditions');"
+    },
+    {
+      "text": "<p>Tekst unutar vašeg elementa sidrografa ima višak razmaka na početku ili na kraju. Razmak je dozvoljen samo u tekstu sidrografa između reči <code>terms</code>, <code>and</code>, i <code>conditions</code>.</p>",
+      "testString": "const nestedAnchor = document.querySelector('fieldset:nth-child(3) + label > input + a')?.textContent;\nconst innerContent = nestedAnchor?.innerHTML;\nassert.isNotTrue(/^\\s+|\\s+$/.test(innerContent));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Umetnite tekst <code>I accept the terms and conditions</code> odmah nakon elementa <code>input</code> u <code>label</code> koji je nedavno dodan. Zatim spojite tekst <code>terms and conditions</code> sa sledećom lokacijom:</p>\n<pre><code class=\"language-md\">https://www.freecodecamp.org/news/terms-of-service/\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "learn-html-forms-by-building-a-registration-form",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 3,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "2022/responsive-web-design",
+  "superOrder": 15,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

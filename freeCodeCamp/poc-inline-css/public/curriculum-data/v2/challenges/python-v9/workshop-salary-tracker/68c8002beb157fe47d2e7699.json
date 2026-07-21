@@ -1,0 +1,62 @@
+{
+  "id": "68c8002beb157fe47d2e7699",
+  "title": "Korak 20",
+  "challengeType": 20,
+  "dashedName": "step-20",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        27,
+        29
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        if not (isinstance(name, str) and isinstance(level, str)):\n            raise TypeError(\"'name' and 'level' attribute must be of type 'str'.\")\n        if level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{level}' for 'level' attribute.\")\n        self._name = name\n        self._level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    \n\n    @property\n    def level(self):\n        return self._level\n\n    @property\n    def salary(self):\n        return self._salary\n\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        if not (isinstance(name, str) and isinstance(level, str)):\n            raise TypeError(\"'name' and 'level' attribute must be of type 'str'.\")\n        if level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{level}' for 'level' attribute.\")\n        self._name = name\n        self._level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    \n\n    @property\n    def level(self):\n        return self._level\n\n    @property\n    def salary(self):\n        return self._salary\n\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša klasa za <code>Employee</code> bi trebalo da ima metodu <code>name</code> sa parametrima <code>self</code> i <code>new_name</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"name\")[1].has_args(\"self, new_name\")`)) })"
+    },
+    {
+      "text": "<p>Tvoj put/način <code>name</code> bi trebalo da bude dekorisan sa <code>@name.setter</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"name\")[1].has_decorators(\"name.setter\")`)) })"
+    },
+    {
+      "text": "<p>Tvoj setter za <code>name</code> treba da postavi <code>self._name</code> na <code>new_name</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"name\")[1].has_stmt(\"self._name = new_name\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Setter je metoda koja se koristi za postavljanje vrednosti svojstva, omogućavajući validaciju i ograničenja. Možete kreirati setter koristeći dekorator <code>@propertyName.setter</code>, gde <code>propertyName</code> treba da odgovara imenu svojstva za postavljanje:</p>\n<pre><code class=\"language-py\">class Person:\n    def __init__(self, name):\n        self.name = name  # Calling the setter\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, value):\n        self._name = value\n\np = Person('Alice')\np.name = 'Abigail' # Calls the setter\nprint(p.name) # Abigail\n</code></pre>\n<p>Nakon tvoje getter metode, kreiraj setter metodu za <code>name</code> sa parametrima <code>self</code> i <code>new_name</code>. Implementiraj je pomoću dekoratora <code>@name.setter</code>. Unutar metode postavi <code>self._name</code> na <code>new_name</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

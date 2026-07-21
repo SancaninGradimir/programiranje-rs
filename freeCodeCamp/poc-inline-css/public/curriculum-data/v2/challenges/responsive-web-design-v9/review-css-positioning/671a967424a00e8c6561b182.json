@@ -1,0 +1,184 @@
+{
+  "id": "671a967424a00e8c6561b182",
+  "title": "Inspektor rasporeda CSS-a",
+  "challengeType": 31,
+  "dashedName": "review-css-positioning",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa floatovima</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Floats se koriste za uklanjanje elementa iz njegovog normalnog toka na stranici i postavljanje ga sa leve ili desne strane njegovog kontejnera. Ovo uzrokuje da tekst obavija flotirani element.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-css\">float: left;\nfloat: right;\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Kufuta floats</strong>: Svojstvo <code>clear</code> se koristi za određivanje da li element treba da bude pomeren ispod plutajućeg elementa. Kada postoji mnogo elemenata raspoređenih jedan pored drugog, mogu nastati problemi sa spajanjem ili vezivanjem u strukturi. Stoga je metoda <code>clearfix</code> kreirana da reši ovaj problem.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"clearfix\">\n  <div class=\"box left\">Left</div>\n  <div class=\"box right\">Right</div>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"clearfix\">\n  &#x3C;div class=\"box left\">Left&#x3C;/div>\n  &#x3C;div class=\"box right\">Right&#x3C;/div>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".box {\n  width: 100px;\n  height: 60px;\n  color: white;\n  text-align: center;\n  line-height: 60px;\n}\n\n.left {\n  float: left;\n  background: teal;\n}\n\n.right {\n  float: right;\n  background: purple;\n}\n\n.clearfix::after {\n  content: \"\";\n  display: block;\n  clear: both;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.box {\n  width: 100px;\n  height: 60px;\n  color: white;\n  text-align: center;\n  line-height: 60px;\n}\n\n.left {\n  float: left;\n  background: teal;\n}\n\n.right {\n  float: right;\n  background: purple;\n}\n\n.clearfix::after {\n  content: \"\";\n  display: block;\n  clear: both;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Konfiguracija static, u odnosu na apsolutno</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Upangaji wa static</strong>: Ovo je standardni tok dokumenta. Elementi se postavljaju od vrha ka dnu i od leve ka desne, sekvencijalno.</li>\n<li><strong>Upangaji wa relative</strong>: Ovo vam omogućava da koristite svojstva <code>top</code>, <code>left</code>, <code>right</code> i <code>bottom</code> kako biste postavili element unutar standardnog toka dokumenta. Takođe možete koristiti relativni raspored da elementi zalepite za druge elemente na stranici.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"relative\">Relative Element</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"relative\">Relative Element&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".relative {\n    position: relative;\n    top: 30px;\n    left: 30px;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.relative {\n    position: relative;\n    top: 30px;\n    left: 30px;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Apsolutno pozicioniranje</strong>: Omogućava vam da izvučete element iz normalnog toka dokumenta, i da ga učinite samostalnim bez uticaja drugih elemenata.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"parent\">\n  Parent\n  <div class=\"positioned\">Absolute</div>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"parent\">\n  Parent\n  &#x3C;div class=\"positioned\">Absolute&#x3C;/div>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".parent {\n  position: relative;\n  height: 120px;\n  background: #eee;\n}\n\n.positioned {\n  position: absolute;\n  top: 30px;\n  left: 30px;\n  background-color: coral;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.parent {\n  position: relative;\n  height: 120px;\n  background: #eee;\n}\n\n.positioned {\n  position: absolute;\n  top: 30px;\n  left: 30px;\n  background-color: coral;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Pozicioniranje fixed i sticky</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Fiksno pozicioniranje</strong>: Element koji je postavljen na <code>position: fixed</code>, uklanja se iz normalnog toka dokumenta i postavlja prema vidljivom području (viewport), što znači da ostaje na mestu čak i kada korisnik skroluje dole ili gore. Ovo se često koristi za elemente kao što su zaglavlja stranice ili navigacione trake koji moraju biti vidljivi uvek.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"navbar\">Fixed Navbar</div>\n<div style=\"height: 600px;\"></div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"navbar\">Fixed Navbar&#x3C;/div>\n&#x3C;div style=\"height: 600px;\">&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".navbar {\n  position: fixed; \n  top: 0; \n  width: 100%;\n  background: #0077ff;\n  color: white;\n  padding: 8px; \n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.navbar {\n  position: fixed; \n  top: 0; \n  width: 100%;\n  background: #0077ff;\n  color: white;\n  padding: 8px; \n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Sticky pozicioniranje</strong>: Ovaj tip pozicioniranja je kombinacija relativnog i fiksiranog. Inicialno, element radi kao da je relativno pozicioniran, ostajući unutar toka dokumenta. Međutim, kada korisnik skroluje i element prođe određenu tačku, on se pričvršćuje za prikazni prozor (obično na vrhu) i funkcioniše kao fiksirani. Ovo je idealno za kreiranje elemenata poput <em>sticky</em> navigacionih traka, koje postaju fiksne tek kada korisnik stigne do određenog dela stranice.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<p>Scroll down</p>\n<div class=\"positioned\">Sticky Element</div>\n<div style=\"height: 500px;\"></div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;p>Scroll down&#x3C;/p>\n&#x3C;div class=\"positioned\">Sticky Element&#x3C;/div>\n&#x3C;div style=\"height: 500px;\">&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".positioned {\n  position: sticky;\n  top: 30px;\n  left: 30px;\n  background: #4caf50;\n  color: white;\n  padding: 6px;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.positioned {\n  position: sticky;\n  top: 30px;\n  left: 30px;\n  background: #4caf50;\n  color: white;\n  padding: 6px;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa svojstvom <code>z-index</code></h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Svojstvo <code>z-index</code> unutar CSS koristi se za kontrolisanje vertikalnog rasporeda elemenata sa posebnim pozicioniranjem koji su vezani za stranicu.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"container\">\n  <div class=\"box box1\">1</div>\n  <div class=\"box box2\">2</div>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box box1\">1&#x3C;/div>\n  &#x3C;div class=\"box box2\">2&#x3C;/div>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  position: relative;\n  width: 300px;\n  height: 300px;\n  border: 1px solid black;\n}\n\n.box {\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.box1 {\n  background: lightcoral;\n  top: 20px;\n  left: 20px;\n  z-index: 1;\n}\n\n.box2 {\n  background: steelblue;\n  top: 40px;\n  left: 40px;\n  z-index: 2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  position: relative;\n  width: 300px;\n  height: 300px;\n  border: 1px solid black;\n}\n\n.box {\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.box1 {\n  background: lightcoral;\n  top: 20px;\n  left: 20px;\n  z-index: 1;\n}\n\n.box2 {\n  background: steelblue;\n  top: 40px;\n  left: 40px;\n  z-index: 2;\n}\n</code></pre>"
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    "<p>Proveri teme i koncepte za konfigurisanje CSS.</p>"
+  ],
+  "tests": [],
+  "translationPending": false,
+  "block": "review-css-positioning",
+  "blockLabel": "review",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 125,
+  "description": "",
+  "instructions": "",
+  "questions": [],
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-positioning",
+  "certification": "responsive-web-design-v9"
+}

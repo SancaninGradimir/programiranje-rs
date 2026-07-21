@@ -1,0 +1,87 @@
+{
+  "id": "5a24c314108439a4d4036178",
+  "title": "Unda sehemu ya ingizo inayodhibitiwa",
+  "challengeType": 6,
+  "forumTopicId": 301385,
+  "dashedName": "create-a-controlled-input",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class ControlledInput extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: ''\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  // Change code below this line\n\n  // Change code above this line\n  render() {\n    return (\n      <div>\n        { /* Change code below this line */}\n\n        { /* Change code above this line */}\n        <h4>Controlled Input:</h4>\n        <p>{this.state.input}</p>\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class ControlledInput extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: ''\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  // Change code below this line\n\n  // Change code above this line\n  render() {\n    return (\n      <div>\n        { /* Change code below this line */}\n\n        { /* Change code above this line */}\n        <h4>Controlled Input:</h4>\n        <p>{this.state.input}</p>\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class ControlledInput extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  render() {\n    return (\n      <div>\n        <input\n          value={this.state.input}\n          onChange={this.handleChange} />\n        <h4>Controlled Input:</h4>\n\n        <p>{this.state.input}</p>\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "class ControlledInput extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  render() {\n    return (\n      <div>\n        <input\n          value={this.state.input}\n          onChange={this.handleChange} />\n        <h4>Controlled Input:</h4>\n\n        <p>{this.state.input}</p>\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>ControlledInput</code> treba da vrati element <code>div</code> koji sadrži <code>input</code> i oznaku <code>p</code>.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(ControlledInput))\n    .find('div')\n    .children()\n    .find('input').length === 1 &&\n    Enzyme.mount(React.createElement(ControlledInput))\n      .find('div')\n      .children()\n      .find('p').length === 1\n);"
+    },
+    {
+      "text": "<p>Stanje komponente <code>ControlledInput</code> treba da bude inicijalizovano svojstvom <code>input</code> postavljenim na prazan tekstualni niz.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(ControlledInput)).state('input'),\n  ''\n);"
+    },
+    {
+      "text": "<p>Kucanje u polje za unos treba da ažurira stanje i vrednost polja, a element <code>p</code> treba da prikazuje tu vrednost dok kucaš.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(ControlledInput));\n  const _1 = () => {\n    mockedComponent.setState({ input: '' });\n    return waitForIt(() => mockedComponent.state('input'));\n  };\n  const _2 = () => {\n    mockedComponent\n      .find('input')\n      .simulate('change', { target: { value: 'TestInput' } });\n    return waitForIt(() => ({\n      state: mockedComponent.state('input'),\n      text: mockedComponent.find('p').text(),\n      inputVal: mockedComponent.find('input').props().value\n    }));\n  };\n  const before = await _1();\n  const after = await _2();\n  assert(\n    before === '' &&\n      after.state === 'TestInput' &&\n      after.text === 'TestInput' &&\n      after.inputVal === 'TestInput'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vaša aplikacija može imati složeniju interakciju između <code>state</code> i prikazanog UI-a. Na primer, elementi kontrole formulara za unos teksta, kao što su <code>input</code> i <code>textarea</code>, čuvaju svoje lokalno stanje u DOM kada korisnik unosi podatke. Za React, možete prebaciti ovo dinamičko stanje unutar <code>state</code> dela React. Unos korisnika postaje deo <code>state</code> aplikacije, tako da React kontroliše vrednost tog polja za unos. Obično, ako imate elemente React sa poljima za unos u koje korisnik može da unese tekst, to će biti formular sa kontrolisanim unosom.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Uređivač koda sadrži strukturu komponente <code>ControlledInput</code> za kreiranje kontrolisanog polja za unos (<code>input</code>). Stanje komponente već je inicijalizovano svojstvom <code>input</code> koje sadrži prazan tekstualni niz. Ova vrednost predstavlja tekst koji korisnik unosi u polje.</p>\n<p>Najpre napravi metodu <code>handleChange()</code> koja prima argument <code>event</code>. Kada se metoda pozove, dobija objekat <code>event</code> koji sadrži tekst unet u polje <code>input</code>. Tom tekstu možeš pristupiti pomoću <code>event.target.value</code>. Ažuriraj svojstvo <code>input</code> u stanju komponente ovom novom vrednošću.</p>\n<p>U metodi <code>render</code> napravi element <code>input</code> iznad oznake <code>h4</code>. Dodaj svojstvo <code>value</code> koje je jednako vrednosti <code>input</code> iz stanja komponente. Zatim dodaj svojstvo <code>onChange</code> koje poziva metodu <code>handleChange()</code>.</p>\n<p>Kada kucaš u polje za unos, tekst obrađuje metoda <code>handleChange()</code>, čuva ga u svojstvu <code>input</code> lokalnog stanja i prikazuje ga kao vrednost u polju na stranici. Stanje komponente predstavlja jedini izvor istine za podatke unosa.</p>\n<p>Na kraju, ne zaboravi da povežeš (<code>bind</code>) potrebne metode u konstruktoru.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

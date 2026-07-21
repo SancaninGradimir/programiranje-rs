@@ -1,0 +1,84 @@
+{
+  "id": "5a23c84252665b21eecc803c",
+  "title": "Sudoku",
+  "challengeType": 1,
+  "forumTopicId": 302329,
+  "dashedName": "sudoku",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function solveSudoku(puzzle) {\n\n}",
+      "error": null,
+      "seed": "function solveSudoku(puzzle) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function solveSudoku(puzzle) {\n  var solution;\n\n  class DoX {\n    constructor(V, H) {\n      this.V = V;\n      this.L = this;\n      this.R = this;\n      this.U = this;\n      this.D = this;\n      this.S = 1;\n      this.H = H || this;\n      H && (H.S += 1);\n    }\n  }\n\n  const addRight = (e, n) => {\n    n.R = e.R;\n    n.L = e;\n    e.R.L = n;\n    return (e.R = n);\n  };\n\n  const addBelow = (e, n) => {\n    n.D = e.D;\n    n.U = e;\n    e.D.U = n;\n    return (e.D = n);\n  };\n\n  const search = function(h, s) {\n    if (h.R == h) {\n      printSol(s);\n    } else {\n      let c = chooseColumn(h);\n      cover(c);\n      for (let r = c.D; r != c; r = r.D) {\n        s.push(r);\n        for (let j = r.R; r != j; j = j.R) {\n          cover(j.H);\n        }\n        search(h, s);\n        r = s.pop();\n        for (let j = r.R; j != r; j = j.R) {\n          uncover(j.H);\n        }\n      }\n      uncover(c);\n    }\n  };\n\n  const chooseColumn = h => {\n    let s = Number.POSITIVE_INFINITY;\n    let c = h;\n    for (let j = h.R; j != h; j = j.R) {\n      if (j.S < s) {\n        c = j;\n        s = j.S;\n      }\n    }\n    return c;\n  };\n\n  const cover = c => {\n    c.L.R = c.R;\n    c.R.L = c.L;\n    for (let i = c.D; i != c; i = i.D) {\n      for (let j = i.R; j != i; j = j.R) {\n        j.U.D = j.D;\n        j.D.U = j.U;\n        j.H.S = j.H.S - 1;\n      }\n    }\n  };\n\n  const uncover = c => {\n    for (let i = c.U; i != c; i = i.U) {\n      for (let j = i.L; i != j; j = j.L) {\n        j.H.S = j.H.S + 1;\n        j.U.D = j;\n        j.D.U = j;\n      }\n    }\n    c.L.R = c;\n    c.R.L = c;\n  };\n\n  const printSol = a => {\n    solution = a.reduce((p, c) => {\n      let [i, v] = c.V.split(':');\n      p[i * 1] = v;\n      return p;\n    }, new Array(a.length).fill('.'));\n  };\n\n  const gridMeta = s => {\n    const g = s.split('');\n    const cellCount = g.length;\n    const tokenCount = Math.sqrt(cellCount);\n    const N = Math.sqrt(tokenCount);\n    const g2D = g.map(e =>\n      isNaN(e * 1)\n        ? new Array(tokenCount).fill(1).map((_, i) => i + 1)\n        : [e * 1]\n    );\n    return [cellCount, N, tokenCount, g2D];\n  };\n\n  const indexesN = n => i => {\n    let c = Math.floor(i / (n * n));\n    i %= n * n;\n    return [c, i, Math.floor(c / n) * n + Math.floor(i / n)];\n  };\n\n  const reduceGrid = puzString => {\n    const [\n      numCells, // The total number of cells in a grid (81 for a 9x9 grid)\n      N, // the 'n' value of the grid. (3 for a 9x9 grid)\n      U, // The total number of unique tokens to be placed.\n      g2D // A 2D array representation of the grid, with each element\n      // being an array of candidates for a cell. Known cells are\n      // single element arrays.\n    ] = gridMeta(puzString);\n\n    const getIndex = indexesN(N);\n\n    const headRow = new Array(4 * numCells)\n      .fill('')\n      .map((_, i) => new DoX(`H${i}`));\n\n    let H = new DoX('ROOT');\n    headRow.reduce((p, c) => addRight(p, c), H);\n\n    for (let i = 0; i < numCells; i++) {\n      const [ri, ci, bi] = getIndex(i);\n      g2D[i].forEach(num => {\n        let id = `${i}:${num}`;\n        let candIdx = num - 1;\n\n        // The 4 columns that we will populate.\n        const A = headRow[i];\n        const B = headRow[numCells + candIdx + ri * U];\n        const C = headRow[numCells * 2 + candIdx + ci * U];\n        const D = headRow[numCells * 3 + candIdx + bi * U];\n\n        // The Row-Column Constraint\n        let rcc = addBelow(A.U, new DoX(id, A));\n\n        // The Row-Number Constraint\n        let rnc = addBelow(B.U, addRight(rcc, new DoX(id, B)));\n\n        // The Column-Number Constraint\n        let cnc = addBelow(C.U, addRight(rnc, new DoX(id, C)));\n\n        // The Block-Number Constraint\n        addBelow(D.U, addRight(cnc, new DoX(id, D)));\n      });\n    }\n    search(H, []);\n  };\n\n  var stringPuzzle = '';\n\n  for (var i = 0; i < puzzle.length; i++) {\n    puzzle[i].forEach(function(e) {\n      if (e == -1) stringPuzzle += '.';\n      else stringPuzzle += e;\n    });\n  }\n\n  reduceGrid(stringPuzzle);\n\n  var result = [];\n\n  for (var i = 0; i < 9; i++) {\n    result.push(solution.slice(i * 9, (i + 1) * 9).map(e => parseInt(e)));\n  }\n\n  return result;\n}",
+        "error": null,
+        "seed": "function solveSudoku(puzzle) {\n  var solution;\n\n  class DoX {\n    constructor(V, H) {\n      this.V = V;\n      this.L = this;\n      this.R = this;\n      this.U = this;\n      this.D = this;\n      this.S = 1;\n      this.H = H || this;\n      H && (H.S += 1);\n    }\n  }\n\n  const addRight = (e, n) => {\n    n.R = e.R;\n    n.L = e;\n    e.R.L = n;\n    return (e.R = n);\n  };\n\n  const addBelow = (e, n) => {\n    n.D = e.D;\n    n.U = e;\n    e.D.U = n;\n    return (e.D = n);\n  };\n\n  const search = function(h, s) {\n    if (h.R == h) {\n      printSol(s);\n    } else {\n      let c = chooseColumn(h);\n      cover(c);\n      for (let r = c.D; r != c; r = r.D) {\n        s.push(r);\n        for (let j = r.R; r != j; j = j.R) {\n          cover(j.H);\n        }\n        search(h, s);\n        r = s.pop();\n        for (let j = r.R; j != r; j = j.R) {\n          uncover(j.H);\n        }\n      }\n      uncover(c);\n    }\n  };\n\n  const chooseColumn = h => {\n    let s = Number.POSITIVE_INFINITY;\n    let c = h;\n    for (let j = h.R; j != h; j = j.R) {\n      if (j.S < s) {\n        c = j;\n        s = j.S;\n      }\n    }\n    return c;\n  };\n\n  const cover = c => {\n    c.L.R = c.R;\n    c.R.L = c.L;\n    for (let i = c.D; i != c; i = i.D) {\n      for (let j = i.R; j != i; j = j.R) {\n        j.U.D = j.D;\n        j.D.U = j.U;\n        j.H.S = j.H.S - 1;\n      }\n    }\n  };\n\n  const uncover = c => {\n    for (let i = c.U; i != c; i = i.U) {\n      for (let j = i.L; i != j; j = j.L) {\n        j.H.S = j.H.S + 1;\n        j.U.D = j;\n        j.D.U = j;\n      }\n    }\n    c.L.R = c;\n    c.R.L = c;\n  };\n\n  const printSol = a => {\n    solution = a.reduce((p, c) => {\n      let [i, v] = c.V.split(':');\n      p[i * 1] = v;\n      return p;\n    }, new Array(a.length).fill('.'));\n  };\n\n  const gridMeta = s => {\n    const g = s.split('');\n    const cellCount = g.length;\n    const tokenCount = Math.sqrt(cellCount);\n    const N = Math.sqrt(tokenCount);\n    const g2D = g.map(e =>\n      isNaN(e * 1)\n        ? new Array(tokenCount).fill(1).map((_, i) => i + 1)\n        : [e * 1]\n    );\n    return [cellCount, N, tokenCount, g2D];\n  };\n\n  const indexesN = n => i => {\n    let c = Math.floor(i / (n * n));\n    i %= n * n;\n    return [c, i, Math.floor(c / n) * n + Math.floor(i / n)];\n  };\n\n  const reduceGrid = puzString => {\n    const [\n      numCells, // The total number of cells in a grid (81 for a 9x9 grid)\n      N, // the 'n' value of the grid. (3 for a 9x9 grid)\n      U, // The total number of unique tokens to be placed.\n      g2D // A 2D array representation of the grid, with each element\n      // being an array of candidates for a cell. Known cells are\n      // single element arrays.\n    ] = gridMeta(puzString);\n\n    const getIndex = indexesN(N);\n\n    const headRow = new Array(4 * numCells)\n      .fill('')\n      .map((_, i) => new DoX(`H${i}`));\n\n    let H = new DoX('ROOT');\n    headRow.reduce((p, c) => addRight(p, c), H);\n\n    for (let i = 0; i < numCells; i++) {\n      const [ri, ci, bi] = getIndex(i);\n      g2D[i].forEach(num => {\n        let id = `${i}:${num}`;\n        let candIdx = num - 1;\n\n        // The 4 columns that we will populate.\n        const A = headRow[i];\n        const B = headRow[numCells + candIdx + ri * U];\n        const C = headRow[numCells * 2 + candIdx + ci * U];\n        const D = headRow[numCells * 3 + candIdx + bi * U];\n\n        // The Row-Column Constraint\n        let rcc = addBelow(A.U, new DoX(id, A));\n\n        // The Row-Number Constraint\n        let rnc = addBelow(B.U, addRight(rcc, new DoX(id, B)));\n\n        // The Column-Number Constraint\n        let cnc = addBelow(C.U, addRight(rnc, new DoX(id, C)));\n\n        // The Block-Number Constraint\n        addBelow(D.U, addRight(cnc, new DoX(id, D)));\n      });\n    }\n    search(H, []);\n  };\n\n  var stringPuzzle = '';\n\n  for (var i = 0; i < puzzle.length; i++) {\n    puzzle[i].forEach(function(e) {\n      if (e == -1) stringPuzzle += '.';\n      else stringPuzzle += e;\n    });\n  }\n\n  reduceGrid(stringPuzzle);\n\n  var result = [];\n\n  for (var i = 0; i < 9; i++) {\n    result.push(solution.slice(i * 9, (i + 1) * 9).map(e => parseInt(e)));\n  }\n\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const puzzle1 = [\n  [8, 1, 9, -1, -1, 5, -1, -1, -1],\n  [-1, -1, 2, -1, -1, -1, 7, 5, -1],\n  [-1, 3, 7, 1, -1, 4, -1, 6, -1],\n  [4, -1, -1, 5, 9, -1, 1, -1, -1],\n  [7, -1, -1, 3, -1, 8, -1, -1, 2],\n  [-1, -1, 3, -1, 6, 2, -1, -1, 7],\n  [-1, 5, -1, 7, -1, 9, 2, 1, -1],\n  [-1, 6, 4, -1, -1, -1, 9, -1, -1],\n  [-1, -1, -1, 2, -1, -1, 4, 3, 8]\n];\nconst expected1 = [\n  [8, 1, 9, 6, 7, 5, 3, 2, 4],\n  [6, 4, 2, 9, 8, 3, 7, 5, 1],\n  [5, 3, 7, 1, 2, 4, 8, 6, 9],\n  [4, 2, 6, 5, 9, 7, 1, 8, 3],\n  [7, 9, 5, 3, 1, 8, 6, 4, 2],\n  [1, 8, 3, 4, 6, 2, 5, 9, 7],\n  [3, 5, 8, 7, 4, 9, 2, 1, 6],\n  [2, 6, 4, 8, 3, 1, 9, 7, 5],\n  [9, 7, 1, 2, 5, 6, 4, 3, 8]\n];\n\nconst puzzle2 = [\n  [5, 3, -1, -1, 2, 4, 7, -1, -1],\n  [-1, -1, 2, -1, -1, -1, 8, -1, -1],\n  [1, -1, -1, 7, -1, 3, 9, -1, 2],\n  [-1, -1, 8, -1, 7, 2, -1, 4, 9],\n  [-1, 2, -1, 9, 8, -1, -1, 7, -1],\n  [7, 9, -1, -1, -1, -1, -1, 8, -1],\n  [-1, -1, -1, -1, 3, -1, 5, -1, 6],\n  [9, 6, -1, -1, 1, -1, 3, -1, -1],\n  [-1, 5, -1, 6, 9, -1, -1, 1, -1]\n];\nconst expected2 = [\n  [5, 3, 9, 8, 2, 4, 7, 6, 1],\n  [6, 7, 2, 1, 5, 9, 8, 3, 4],\n  [1, 8, 4, 7, 6, 3, 9, 5, 2],\n  [3, 1, 8, 5, 7, 2, 6, 4, 9],\n  [4, 2, 5, 9, 8, 6, 1, 7, 3],\n  [7, 9, 6, 3, 4, 1, 2, 8, 5],\n  [8, 4, 1, 2, 3, 7, 5, 9, 6],\n  [9, 6, 7, 4, 1, 5, 3, 2, 8],\n  [2, 5, 3, 6, 9, 8, 4, 1, 7]\n];\n\nconst puzzle3 = [\n  [-1, -1, 3, -1, 2, -1, 6, -1, -1],\n  [9, -1, -1, 3, -1, 5, -1, -1, 1],\n  [-1, -1, 1, 8, -1, 6, 4, -1, -1],\n  [-1, -1, 8, 1, -1, 2, 9, -1, -1],\n  [7, -1, -1, -1, -1, -1, -1, -1, 8],\n  [-1, -1, 6, 7, -1, 8, 2, -1, -1],\n  [-1, -1, 2, 6, -1, 9, 5, -1, -1],\n  [8, -1, -1, 2, -1, 3, -1, -1, 9],\n  [-1, -1, 5, -1, 1, -1, 3, -1, -1]\n];\nconst expected3 = [\n  [4, 8, 3, 9, 2, 1, 6, 5, 7],\n  [9, 6, 7, 3, 4, 5, 8, 2, 1],\n  [2, 5, 1, 8, 7, 6, 4, 9, 3],\n  [5, 4, 8, 1, 3, 2, 9, 7, 6],\n  [7, 2, 9, 5, 6, 4, 1, 3, 8],\n  [1, 3, 6, 7, 9, 8, 2, 4, 5],\n  [3, 7, 2, 6, 8, 9, 5, 1, 4],\n  [8, 1, 4, 2, 5, 3, 7, 6, 9],\n  [6, 9, 5, 4, 1, 7, 3, 8, 2]\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>solveSudoku</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof solveSudoku == 'function');"
+    },
+    {
+      "text": "<p><code>solveSudoku([[8, 1, 9, -1, -1, 5, -1, -1, -1],[-1, -1, 2, -1, -1, -1, 7, 5, -1],[-1, 3, 7, 1, -1, 4, -1, 6, -1],[4, -1, -1, 5, 9, -1, 1, -1, -1],[7, -1, -1, 3, -1, 8, -1, -1, 2],[-1, -1, 3, -1, 6, 2, -1, -1, 7],[-1, 5, -1, 7, -1, 9, 2, 1, -1],[-1, 6, 4, -1, -1, -1, 9, -1, -1],[-1, -1, -1, 2, -1, -1, 4, 3, 8]])</code> treba da vrati niz.</p>",
+      "testString": "assert(Array.isArray(solveSudoku(puzzle1)));"
+    },
+    {
+      "text": "<p><code>solveSudoku([[8, 1, 9, -1, -1, 5, -1, -1, -1],[-1, -1, 2, -1, -1, -1, 7, 5, -1],[-1, 3, 7, 1, -1, 4, -1, 6, -1],[4, -1, -1, 5, 9, -1, 1, -1, -1],[7, -1, -1, 3, -1, 8, -1, -1, 2],[-1, -1, 3, -1, 6, 2, -1, -1, 7],[-1, 5, -1, 7, -1, 9, 2, 1, -1],[-1, 6, 4, -1, -1, -1, 9, -1, -1],[-1, -1, -1, 2, -1, -1, 4, 3, 8]])</code> inapaswa kurudisha <code>[[8, 1, 9, 6, 7, 5, 3, 2, 4],[6, 4, 2, 9, 8, 3, 7, 5, 1],[5, 3, 7, 1, 2, 4, 8, 6, 9],[4, 2, 6, 5, 9, 7, 1, 8, 3],[7, 9, 5, 3, 1, 8, 6, 4, 2],[1, 8, 3, 4, 6, 2, 5, 9, 7],[3, 5, 8, 7, 4, 9, 2, 1, 6],[2, 6, 4, 8, 3, 1, 9, 7, 5],[9, 7, 1, 2, 5, 6, 4, 3, 8]]</code>.</p>",
+      "testString": "assert.deepEqual(solveSudoku(puzzle1), expected1);"
+    },
+    {
+      "text": "<p><code>solveSudoku([[5, 3, -1, -1, 2, 4, 7, -1, -1],[-1, -1, 2, -1, -1, -1, 8, -1, -1],[1, -1, -1, 7, -1, 3, 9, -1, 2],[-1, -1, 8, -1, 7, 2, -1, 4, 9],[-1, 2, -1, 9, 8, -1, -1, 7, -1],[7, 9, -1, -1, -1, -1, -1, 8, -1],[-1, -1, -1, -1, 3, -1, 5, -1, 6],[9, 6, -1, -1, 1, -1, 3, -1, -1],[-1, 5, -1, 6, 9, -1, -1, 1, -1]])</code> inapaswa kurudisha <code>[[5, 3, 9, 8, 2, 4, 7, 6, 1],[6, 7, 2, 1, 5, 9, 8, 3, 4],[1, 8, 4, 7, 6, 3, 9, 5, 2],[3, 1, 8, 5, 7, 2, 6, 4, 9],[4, 2, 5, 9, 8, 6, 1, 7, 3],[7, 9, 6, 3, 4, 1, 2, 8, 5],[8, 4, 1, 2, 3, 7, 5, 9, 6],[9, 6, 7, 4, 1, 5, 3, 2, 8],[2, 5, 3, 6, 9, 8, 4, 1, 7]]</code>.</p>",
+      "testString": "assert.deepEqual(solveSudoku(puzzle2), expected2);"
+    },
+    {
+      "text": "<p><code>solveSudoku([[-1, -1, 3, -1, 2, -1, 6, -1, -1],[9, -1, -1, 3, -1, 5, -1, -1, 1],[-1, -1, 1, 8, -1, 6, 4, -1, -1],[-1, -1, 8, 1, -1, 2, 9, -1, -1],[7, -1, -1, -1, -1, -1, -1, -1, 8],[-1, -1, 6, 7, -1, 8, 2, -1, -1],[-1, -1, 2, 6, -1, 9, 5, -1, -1],[8, -1, -1, 2, -1, 3, -1, -1, 9],[-1, -1, 5, -1, 1, -1, 3, -1, -1]])</code> inapaswa kurudisha <code>[[4, 8, 3, 9, 2, 1, 6, 5, 7],[9, 6, 7, 3, 4, 5, 8, 2, 1],[2, 5, 1, 8, 7, 6, 4, 9, 3],[5, 4, 8, 1, 3, 2, 9, 7, 6],[7, 2, 9, 5, 6, 4, 1, 3, 8],[1, 3, 6, 7, 9, 8, 2, 4, 5],[3, 7, 2, 6, 8, 9, 5, 1, 4],[8, 1, 4, 2, 5, 3, 7, 6, 9],[6, 9, 5, 4, 1, 7, 3, 8, 2]]</code>.</p>",
+      "testString": "assert.deepEqual(solveSudoku(puzzle3), expected3);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napiši funkciju koja rešava standardni Sudoku 9x9 sa delimično popunjenom tablom i vraća rešenje. Nepopunjena polja predstavljena su vrednošću <code>-1</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 139,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

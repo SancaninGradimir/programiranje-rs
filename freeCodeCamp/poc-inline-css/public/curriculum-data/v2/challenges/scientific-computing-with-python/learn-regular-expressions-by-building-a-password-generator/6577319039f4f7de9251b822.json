@@ -1,0 +1,59 @@
+{
+  "id": "6577319039f4f7de9251b822",
+  "title": "Korak 61",
+  "challengeType": 20,
+  "dashedName": "step-61",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        35
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length, nums, special_chars, uppercase, lowercase):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n       \n        constraints = [\n            (nums, r'\\d'),\n            (lowercase, r'[a-z]'),\n            (uppercase, r'[A-Z]'),            \n            (special_chars, fr'[{symbols}]')            \n        ]\n\n        # Check constraints\n        count = 0\n        for constraint, pattern in constraints:\n            if constraint <= len(re.findall(pattern, password)):\n                count += 1\n            \n        if count == 4:\n            break\n\n    return password\n\n# new_password = generate_password(8)\n# print(new_password)",
+      "error": null,
+      "seed": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length, nums, special_chars, uppercase, lowercase):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n       \n        constraints = [\n            (nums, r'\\d'),\n            (lowercase, r'[a-z]'),\n            (uppercase, r'[A-Z]'),            \n            (special_chars, fr'[{symbols}]')            \n        ]\n\n        # Check constraints\n        count = 0\n        for constraint, pattern in constraints:\n            if constraint <= len(re.findall(pattern, password)):\n                count += 1\n            \n        if count == 4:\n            break\n\n    return password\n\n# new_password = generate_password(8)\n# print(new_password)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Morate da promenite svoj postojeći ciklus od <code>for</code> sa dve informacije za <code>if</code> u jednu informaciju za <code>if</code>.</p>",
+      "testString": "({ test: () => {\n  assert.match(code, /^(\\s{8})if\\s+.+:\\s*^\\1\\s{4}break/ms);\n  assert.isFalse(/if\\s+count\\s*==\\s*4\\s*:/.test(code));\n} })"
+    },
+    {
+      "text": "<p>Novi uslov za <code>if</code> mora biti <code>all([])</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n  _Node(_code).find_function(\"generate_password\").find_while(\"True\").find_bodies()[0].find_if(\"all([])\") != _Node()\n`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš <code>break</code> unutar tela <code>if</code> novog.</p>",
+      "testString": "({ test: () => assert(runPython(`\n  _Node(_code).find_function(\"generate_password\").find_while(\"True\").find_bodies()[0].find_if(\"all([])\").find_bodies()[0].is_equivalent(\"break\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Umjesto korišćenja stružnog kruga i parametra za izračunavanje, možeš dobiti isti rezultat na različite načine, što ćeš implementirati u sljedećim koracima.</p>\n<p><code>all()</code> je funkcija napravljena unutar Python koja vraća <code>True</code> ako su svi elementi unutar nekog iterabilnog objekta potvrđeni da su <code>True</code>. Inače, vraća <code>False</code>.</p>\n<p>Izmeni svoj postojeći tok <code>for</code> sa dve informacije za <code>if</code> na jednu informaciju od <code>if</code>. Pod uslovom <code>if</code>, koristi poziv funkcije <code>all()</code> i prosledi prazan niz kao argument funkciji.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-regular-expressions-by-building-a-password-generator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 60,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

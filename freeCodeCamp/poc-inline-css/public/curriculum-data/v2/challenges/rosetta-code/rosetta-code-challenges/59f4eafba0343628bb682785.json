@@ -1,0 +1,93 @@
+{
+  "id": "59f4eafba0343628bb682785",
+  "title": "Tarehe ya Discordian",
+  "challengeType": 1,
+  "forumTopicId": 302250,
+  "dashedName": "discordian-date",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function discordianDate(date) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function discordianDate(date) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "/**\n * All Hail Discordia! - this script prints Discordian date using system date.\n *\n * lang: JavaScript\n * author: jklu\n * contributors: JamesMcGuigan\n *\n * source: https://rosettacode.org/wiki/Discordian_date#JavaScript\n */\nconst seasons = [\n  'Chaos', 'Discord', 'Confusion',\n  'Bureaucracy', 'The Aftermath'\n];\nconst weekday = [\n  'Sweetmorn', 'Boomtime', 'Pungenday',\n  'Prickle-Prickle', 'Setting Orange'\n];\n\nconst apostle = [\n  'Mungday', 'Mojoday', 'Syaday',\n  'Zaraday', 'Maladay'\n];\n\nconst holiday = [\n  'Chaoflux', 'Discoflux', 'Confuflux',\n  'Bureflux', 'Afflux'\n];\n\n\nDate.prototype.isLeapYear = function() {\n  const year = this.getFullYear();\n  if ((year & 3) !== 0) { return false; }\n  return ((year % 100) !== 0 || (year % 400) === 0);\n};\n\n// Get Day of Year\nDate.prototype.getDOY = function() {\n  const dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];\n  const mn = this.getMonth();\n  const dn = this.getDate();\n  let dayOfYear = dayCount[mn] + dn;\n  if (mn > 1 && this.isLeapYear()) { dayOfYear += 1; }\n  return dayOfYear;\n};\n\nDate.prototype.isToday = function() {\n  const today = new Date();\n  return this.getDate() === today.getDate()\n      && this.getMonth() === today.getMonth()\n      && this.getFullYear() === today.getFullYear()\n  ;\n};\n\nfunction discordianDate(date) {\n  if (!date) { date = new Date(); }\n\n  const y = date.getFullYear();\n  const yold = y + 1166;\n  let dayOfYear = date.getDOY();\n  let celebrateHoliday = null;\n\n  if (date.isLeapYear()) {\n    if (dayOfYear === 60) {\n      celebrateHoliday = 'St. Tib\\'s Day';\n    }\n    else if (dayOfYear > 60) {\n      dayOfYear--;\n    }\n  }\n  dayOfYear--;\n\n  const divDay = Math.floor(dayOfYear / 73);\n\n  const seasonDay = (dayOfYear % 73) + 1;\n  if (seasonDay === 5) {\n    celebrateHoliday = apostle[divDay];\n  }\n  if (seasonDay === 50) {\n    celebrateHoliday = holiday[divDay];\n  }\n\n  const season = seasons[divDay];\n  const dayOfWeek = weekday[dayOfYear % 5];\n\n  const nth = (seasonDay % 10 === 1) ? 'st'\n          : (seasonDay % 10 === 2) ? 'nd'\n          : (seasonDay % 10 === 3) ? 'rd'\n                                  : 'th';\n\n  return ''\n         + dayOfWeek\n         + ', the ' + seasonDay + nth\n         + ' day of ' + season\n         + ' in the YOLD ' + yold\n         + (celebrateHoliday ? '. Celebrate ' + celebrateHoliday + '!' : '')\n    ;\n}",
+        "error": null,
+        "seed": "/**\n * All Hail Discordia! - this script prints Discordian date using system date.\n *\n * lang: JavaScript\n * author: jklu\n * contributors: JamesMcGuigan\n *\n * source: https://rosettacode.org/wiki/Discordian_date#JavaScript\n */\nconst seasons = [\n  'Chaos', 'Discord', 'Confusion',\n  'Bureaucracy', 'The Aftermath'\n];\nconst weekday = [\n  'Sweetmorn', 'Boomtime', 'Pungenday',\n  'Prickle-Prickle', 'Setting Orange'\n];\n\nconst apostle = [\n  'Mungday', 'Mojoday', 'Syaday',\n  'Zaraday', 'Maladay'\n];\n\nconst holiday = [\n  'Chaoflux', 'Discoflux', 'Confuflux',\n  'Bureflux', 'Afflux'\n];\n\n\nDate.prototype.isLeapYear = function() {\n  const year = this.getFullYear();\n  if ((year & 3) !== 0) { return false; }\n  return ((year % 100) !== 0 || (year % 400) === 0);\n};\n\n// Get Day of Year\nDate.prototype.getDOY = function() {\n  const dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];\n  const mn = this.getMonth();\n  const dn = this.getDate();\n  let dayOfYear = dayCount[mn] + dn;\n  if (mn > 1 && this.isLeapYear()) { dayOfYear += 1; }\n  return dayOfYear;\n};\n\nDate.prototype.isToday = function() {\n  const today = new Date();\n  return this.getDate() === today.getDate()\n      && this.getMonth() === today.getMonth()\n      && this.getFullYear() === today.getFullYear()\n  ;\n};\n\nfunction discordianDate(date) {\n  if (!date) { date = new Date(); }\n\n  const y = date.getFullYear();\n  const yold = y + 1166;\n  let dayOfYear = date.getDOY();\n  let celebrateHoliday = null;\n\n  if (date.isLeapYear()) {\n    if (dayOfYear === 60) {\n      celebrateHoliday = 'St. Tib\\'s Day';\n    }\n    else if (dayOfYear > 60) {\n      dayOfYear--;\n    }\n  }\n  dayOfYear--;\n\n  const divDay = Math.floor(dayOfYear / 73);\n\n  const seasonDay = (dayOfYear % 73) + 1;\n  if (seasonDay === 5) {\n    celebrateHoliday = apostle[divDay];\n  }\n  if (seasonDay === 50) {\n    celebrateHoliday = holiday[divDay];\n  }\n\n  const season = seasons[divDay];\n  const dayOfWeek = weekday[dayOfYear % 5];\n\n  const nth = (seasonDay % 10 === 1) ? 'st'\n          : (seasonDay % 10 === 2) ? 'nd'\n          : (seasonDay % 10 === 3) ? 'rd'\n                                  : 'th';\n\n  return ''\n         + dayOfWeek\n         + ', the ' + seasonDay + nth\n         + ' day of ' + season\n         + ' in the YOLD ' + yold\n         + (celebrateHoliday ? '. Celebrate ' + celebrateHoliday + '!' : '')\n    ;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>discordianDate</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof discordianDate === 'function');"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2010, 6, 22))</code> inapaswa kurudisha <code>\"Pungenday, the 57th day of Confusion in the YOLD 3176\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2010, 6, 22)) ===\n    'Pungenday, the 57th day of Confusion in the YOLD 3176'\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2012, 1, 28))</code> inapaswa kurudisha <code>\"Prickle-Prickle, the 59th day of Chaos in the YOLD 3178\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2012, 1, 28)) ===\n    'Prickle-Prickle, the 59th day of Chaos in the YOLD 3178'\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2012, 1, 29))</code> trebalo bi da vrati <code>\"Setting Orange, the 60th day of Chaos in the YOLD 3178. Celebrate St. Tib\\'s Day!\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2012, 1, 29)) ===\n    \"Setting Orange, the 60th day of Chaos in the YOLD 3178. Celebrate St. Tib's Day!\"\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2012, 2, 1))</code> inapaswa kurudisha <code>\"Setting Orange, the 60th day of Chaos in the YOLD 3178\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2012, 2, 1)) ===\n    'Setting Orange, the 60th day of Chaos in the YOLD 3178'\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2010, 0, 5))</code> treba da vrati <code>\"Setting Orange, the 5th day of Chaos in the YOLD 3176. Celebrate Mungday!\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2010, 0, 5)) ===\n    'Setting Orange, the 5th day of Chaos in the YOLD 3176. Celebrate Mungday!'\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2011, 4, 3))</code> trebalo bi da vrati <code>\"Pungenday, the 50th day of Discord in the YOLD 3177. Celebrate Discoflux!\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2011, 4, 3)) ===\n    'Pungenday, the 50th day of Discord in the YOLD 3177. Celebrate Discoflux!'\n);"
+    },
+    {
+      "text": "<p><code>discordianDate(new Date(2015, 9, 19))</code> treba da vrati <code>\"Boomtime, the 73rd day of Bureaucracy in the YOLD 3181\"</code>.</p>",
+      "testString": "assert(\n  discordianDate(new Date(2015, 9, 19)) ===\n    'Boomtime, the 73rd day of Bureaucracy in the YOLD 3181'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Gregorijanski kalendar je solarni kalendar sa 12 meseci od po 28–31 dana. Sedmica ima sedam dana, a godina ima 52 sedmice i 1 dan. Godina ima 365 dana, a dodatni prestupni dan dodaje se u februaru svake prestupne godine. Prestupna godina javlja se svake četvrte godine, osim prve tri godine svakog veka koji nije deljiv sa 400.</p>\n<p>Kalenda ya <a href=\"http://www.rosettacode.org/wiki/Discordian_date\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Discordian</a> je usklađena paralelno sa gregoriјанskim kalendarom i počinje 1. januara. Nedelja ima pet dana, a godišnje ima 73 nedelje. Godina takođe ima 365 dana, a dodatni dan se ubacuje između Chaosa 59 i Chaosa 60 svake prolećne godine.</p>\n<p>Meseci, dani u nedelji, događaji poslanika, i praznici u Discordijanskom kalendaru predstavljeni su na sledeći način:</p>\n<p>Misimu: <code>'Chaos', 'Discord', 'Confusion', 'Bureaucracy', 'The Aftermath'</code>.</p>\n<p>Siku za wiki: <code>'Sweetmorn', 'Boomtime', 'Pungenday', 'Prickle-Prickle', 'Setting Orange'</code>.</p>\n<p>Mtume: <code>'Mungday', 'Mojoday', 'Syaday', 'Zaraday', 'Maladay'</code>.</p>\n<p>Sikukuu: <code>'Chaoflux', 'Discoflux', 'Confuflux', 'Bureflux', 'Afflux'</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni datum dat iz gregorskog kalendara u Discordijanski kalendar.</p>\n<p>Zapamti da je dan Haosa 1, 3188 YOLD u Discordijanskom kalendaru 1. januar 2022. godine po Gregoriјанskom kalendaru.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 33,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

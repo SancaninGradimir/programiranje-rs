@@ -1,0 +1,74 @@
+{
+  "id": "587d78b0367417b2b2512b08",
+  "title": "Unda media query",
+  "challengeType": 0,
+  "videoUrl": "https://scrimba.com/p/pzrPu4/cqwKrtm",
+  "forumTopicId": 301139,
+  "dashedName": "create-a-media-query",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style>\n  p {\n    font-size: 20px;\n  }\n\n  /* Only change code below this line */\n\n  /* Only change code above this line */\n</style>\n\n<p>\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus\n  massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet\n  lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac\n  habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem.\n  Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida\n  consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.\n</p>",
+      "error": null,
+      "seed": "<style>\n  p {\n    font-size: 20px;\n  }\n\n  /* Only change code below this line */\n\n  /* Only change code above this line */\n</style>\n\n<p>\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus\n  massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet\n  lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac\n  habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem.\n  Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida\n  consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.\n</p>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style>\n  p {\n    font-size: 20px;\n  }\n\n  @media (max-height: 800px) {\n    p {\n      font-size: 10px;\n    }\n  }\n</style>\n\n<p>\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus\n  massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet\n  lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac\n  habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem.\n  Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida\n  consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.\n</p>",
+        "error": null,
+        "seed": "<style>\n  p {\n    font-size: 20px;\n  }\n\n  @media (max-height: 800px) {\n    p {\n      font-size: 10px;\n    }\n  }\n</style>\n\n<p>\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus\n  massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet\n  lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac\n  habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem.\n  Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida\n  consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.\n</p>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da se navede pretraga po kriterijumu za <code>@media</code> za uređaje koji imaju <code>height</code> manji ili jednaki <code>800px</code>.</p>",
+      "testString": "const media = new __helpers.CSSHelp(document).getCSSRules('media');\nassert.isTrue(\n  media.some(x => x.media?.mediaText?.includes('(max-height: 800px)'))\n);"
+    },
+    {
+      "text": "<p>Tvoj atribut od <code>p</code> treba da ima <code>font-size</code> od <code>10px</code> kada je <code>height</code> uređaja manje ili jednako od <code>800px</code>.</p>",
+      "testString": "const rules = new __helpers.CSSHelp(document).getRuleListsWithinMedia(\n  '(max-height: 800px)'\n);\nassert.strictEqual(\n  rules?.find(x => x.selectorText === 'p')?.style?.fontSize,\n  '10px'\n);"
+    },
+    {
+      "text": "<p>Vaša karakteristika za <code>p</code> treba da ima početnu vrednost od <code>font-size</code> sa <code>20px</code> kada je vrednost uređaja za <code>height</code> veća od <code>800px</code>.</p>",
+      "testString": "const ifPFirst = new __helpers.CSSHelp(document)\n  .getCSSRules()\n  ?.find(x => x?.selectorText === 'p' || x?.media);\nassert.strictEqual(ifPFirst?.style?.fontSize, '20px');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Media Queries je nova tehnika uvedena u CSS3 koja menja izgled sadržaja u zavisnosti od različitih veličina vidokruga. Vidokrug je oblast koja je vidljiva korisniku web stranice, i menja se u zavisnosti od uređaja koji se koristi za pristup veb sajtu.</p>\n<p>Media Queries uključuju tip medija, a ako se taj tip medija poklapa sa tipom uređaja na kojem je dokument prikazan, primenjuju se stilovi. Možete imati mnogo selektora i stilova unutar vaše media queries kako god želite.</p>\n<p>Ovo je primer media query-a koji vraća sadržaj kada je širina uređaja manja ili jednaka <code>100px</code>:</p>\n<pre><code class=\"language-css\">@media (max-width: 100px) {\n  /* CSS Rules */\n}\n</code></pre>\n<p>i sledeći medijski upit vraća sadržaj kada je širina uređaja veća ili jednaka <code>350px</code>:</p>\n<pre><code class=\"language-css\">@media (min-height: 350px) {\n  /* CSS Rules */\n}\n</code></pre>\n<p>Zapamtite, CSS unutar <code>media query</code>-ja se koristi samo ako tip medija odgovara onom sa korišćenog uređaja.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dodajte medijski upit, da oznaka <code>p</code> ima <code>font-size</code> od <code>10px</code> kada je visina uređaja manja ili jednaka <code>800px</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "responsive-web-design-principles",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "responsive-web-design",
+  "superOrder": 27,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

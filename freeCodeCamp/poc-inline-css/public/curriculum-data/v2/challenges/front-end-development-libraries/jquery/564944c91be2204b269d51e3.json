@@ -1,0 +1,88 @@
+{
+  "id": "564944c91be2204b269d51e3",
+  "title": "Promeni tekst unutar elementa koristeći jQuery",
+  "challengeType": 6,
+  "forumTopicId": 16773,
+  "dashedName": "change-text-inside-an-element-using-jquery",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<script>\n  $(document).ready(function() {\n    $(\"#target1\").css(\"color\", \"red\");\n\n  });\n</script>\n\n<!-- Only change code above this line -->\n\n<div class=\"container-fluid\">\n  <h3 class=\"text-primary text-center\">jQuery Playground</h3>\n  <div class=\"row\">\n    <div class=\"col-xs-6\">\n      <h4>#left-well</h4>\n      <div class=\"well\" id=\"left-well\">\n        <button class=\"btn btn-default target\" id=\"target1\">#target1</button>\n        <button class=\"btn btn-default target\" id=\"target2\">#target2</button>\n        <button class=\"btn btn-default target\" id=\"target3\">#target3</button>\n      </div>\n    </div>\n    <div class=\"col-xs-6\">\n      <h4>#right-well</h4>\n      <div class=\"well\" id=\"right-well\">\n        <button class=\"btn btn-default target\" id=\"target4\">#target4</button>\n        <button class=\"btn btn-default target\" id=\"target5\">#target5</button>\n        <button class=\"btn btn-default target\" id=\"target6\">#target6</button>\n      </div>\n    </div>\n  </div>\n</div>",
+      "error": null,
+      "seed": "<script>\n  $(document).ready(function() {\n    $(\"#target1\").css(\"color\", \"red\");\n\n  });\n</script>\n\n<!-- Only change code above this line -->\n\n<div class=\"container-fluid\">\n  <h3 class=\"text-primary text-center\">jQuery Playground</h3>\n  <div class=\"row\">\n    <div class=\"col-xs-6\">\n      <h4>#left-well</h4>\n      <div class=\"well\" id=\"left-well\">\n        <button class=\"btn btn-default target\" id=\"target1\">#target1</button>\n        <button class=\"btn btn-default target\" id=\"target2\">#target2</button>\n        <button class=\"btn btn-default target\" id=\"target3\">#target3</button>\n      </div>\n    </div>\n    <div class=\"col-xs-6\">\n      <h4>#right-well</h4>\n      <div class=\"well\" id=\"right-well\">\n        <button class=\"btn btn-default target\" id=\"target4\">#target4</button>\n        <button class=\"btn btn-default target\" id=\"target5\">#target5</button>\n        <button class=\"btn btn-default target\" id=\"target6\">#target6</button>\n      </div>\n    </div>\n  </div>\n</div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<script>\n  $(document).ready(function() {\n    $(\"#target1\").css(\"color\", \"red\");\n    $(\"#target4\").html('<em>#target4</em>');\n  });\n</script>\n\n<div class=\"container-fluid\">\n  <h3 class=\"text-primary text-center\">jQuery Playground</h3>\n  <div class=\"row\">\n    <div class=\"col-xs-6\">\n      <h4>#left-well</h4>\n      <div class=\"well\" id=\"left-well\">\n        <button class=\"btn btn-default target\" id=\"target1\">#target1</button>\n        <button class=\"btn btn-default target\" id=\"target2\">#target2</button>\n        <button class=\"btn btn-default target\" id=\"target3\">#target3</button>\n      </div>\n    </div>\n    <div class=\"col-xs-6\">\n      <h4>#right-well</h4>\n      <div class=\"well\" id=\"right-well\">\n        <button class=\"btn btn-default target\" id=\"target4\">#target4</button>\n        <button class=\"btn btn-default target\" id=\"target5\">#target5</button>\n        <button class=\"btn btn-default target\" id=\"target6\">#target6</button>\n      </div>\n    </div>\n  </div>\n</div>",
+        "error": null,
+        "seed": "<script>\n  $(document).ready(function() {\n    $(\"#target1\").css(\"color\", \"red\");\n    $(\"#target4\").html('<em>#target4</em>');\n  });\n</script>\n\n<div class=\"container-fluid\">\n  <h3 class=\"text-primary text-center\">jQuery Playground</h3>\n  <div class=\"row\">\n    <div class=\"col-xs-6\">\n      <h4>#left-well</h4>\n      <div class=\"well\" id=\"left-well\">\n        <button class=\"btn btn-default target\" id=\"target1\">#target1</button>\n        <button class=\"btn btn-default target\" id=\"target2\">#target2</button>\n        <button class=\"btn btn-default target\" id=\"target3\">#target3</button>\n      </div>\n    </div>\n    <div class=\"col-xs-6\">\n      <h4>#right-well</h4>\n      <div class=\"well\" id=\"right-well\">\n        <button class=\"btn btn-default target\" id=\"target4\">#target4</button>\n        <button class=\"btn btn-default target\" id=\"target5\">#target5</button>\n        <button class=\"btn btn-default target\" id=\"target6\">#target6</button>\n      </div>\n    </div>\n  </div>\n</div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da naglasiš tekst na svom dugmetu <code>target4</code> dodavanjem oznaka <code>HTML</code>.</p>",
+      "testString": "assert.isTrue(\n  /<em>|<i>\\s*#target4\\s*<\\/em>|<\\/i>/gi.test($('#target4').html())\n);"
+    },
+    {
+      "text": "<p>Ostali tekstovi treba da ostanu nepromenjeni.</p>",
+      "testString": "assert($('#target4') && $('#target4').text().trim() === '#target4');"
+    },
+    {
+      "text": "<p>Ne smijete mijenjati nijedan drugi tekst.</p>",
+      "testString": "assert.isFalse(/<em>|<i>/gi.test($('h3').html()));"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>.html()</code>, a ne <code>.text()</code>.</p>",
+      "testString": "assert(code.match(/\\.html\\(/g));"
+    },
+    {
+      "text": "<p>Trebalo bi da izaberete <code>button id=\"target4\"</code> koristeći jQuery.</p>",
+      "testString": "assert(code.match(/\\$\\(\\s*?(\\\"|\\')#target4(\\\"|\\')\\s*?\\)\\.html\\(/));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Koristeći jQuery, možete promeniti tekst između početnih i krajnjih tagova elementa. Možete čak promeniti atribute za pisanje HTML.</p>\n<p>jQuery ima funkciju pod nazivom <code>.html()</code> koja omogućava dodavanje HTML oznaka i teksta unutar elementa. Sadržaj koji se ranije nalazio u tom elementu biće potpuno zamenjen sadržajem koji prosledite ovoj funkciji.</p>\n<p>Evo kako možete da ponovo napišete i naglasite tekst našeg naslova sekcije:</p>\n<pre><code class=\"language-js\">$(\"h3\").html(\"&#x3C;em>jQuery Playground&#x3C;/em>\");\n</code></pre>\n<p>jQuery takođe ima sličnu funkciju nazvanu <code>.text()</code> koja menja samo tekst bez dodavanja labela. Drugim rečima, ova funkcija neće evaluirati nijednu oznaku od HTML koje joj se šalju, već će ga tretirati kao tekst koji želite da promenite postojeći sadržaj.</p>\n<p>Promeni dugme sa identifikatorom <code>target4</code> da bi naglasio njegov tekst.</p>\n<p><a href=\"https://www.freecodecamp.org/news/html-elements-explained-what-are-html-tags/#em-element\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Pogledajte naš članak o vestima o &#x3C;em></a> razliku između <code>&#x3C;i></code> i <code>&#x3C;em></code> i njihove upotrebe.</p>\n<p>Zapamtite da, iako je oznaka <code>&#x3C;i></code> obično korišćena za naglašavanje teksta, sada se koristi kao oznaka za markere slika. Oznaka <code>&#x3C;em></code> je sada veoma prihvaćena kao oznaka za naglašavanje. Moja od njih će raditi za ovaj izazov.</p>\n</section>",
+  "translationPending": false,
+  "block": "jquery",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "link": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css"
+    },
+    {
+      "src": "https://code.jquery.com/jquery-3.6.0.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

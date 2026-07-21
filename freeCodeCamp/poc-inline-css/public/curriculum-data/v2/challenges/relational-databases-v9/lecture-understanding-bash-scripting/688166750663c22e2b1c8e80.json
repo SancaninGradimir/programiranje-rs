@@ -1,0 +1,109 @@
+{
+  "id": "688166750663c22e2b1c8e80",
+  "title": "Šta je Bash skriptovanje, i koje su prednosti za korišćenje?",
+  "challengeType": 19,
+  "dashedName": "what-is-bash-scripting-and-what-are-some-advantages-to-using-it",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja je svrha linije \"shebang\" u Bash skripti?</p>",
+      "answers": [
+        {
+          "answer": "<p>Komentari koji objašnjavaju šta skript radi.</p>",
+          "feedback": "<p>Shebang se nalazi na samom početku skript fajla.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koja interpretacija treba da se koristi za skriptu.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objašnjava parametre koji se koriste u skripti.</p>",
+          "feedback": "<p>Shebang se pojavljuje na samom početku skript fajla.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ukazuje na početak ciklusa for.</p>",
+          "feedback": "<p>Shebang se pojavljuje na samom početku skript fajla.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>U primerkoj skripti, linija <code>for server in \"${servers[@]}\"</code> šta radi?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kreira novi niz servera.</p>",
+          "feedback": "<p>Zamisli šta kolo for obično radi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ponavlja svaki element u nizu servera.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Broji koliko servera je u redu.</p>",
+          "feedback": "<p>Zamisli šta taj ciklus for obično radi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Brisanje reda servera.</p>",
+          "feedback": "<p>Zamisli kako taj krug od for obično radi.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koji od navedenog nije spomenut kao prednost pisanja Bash skripta?</p>",
+      "answers": [
+        {
+          "answer": "<p>Bash je dostupan skoro u svakom Unix okruženju.</p>",
+          "feedback": "<p>Pregledajte koristi navedene u lekciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Možete pronaći sve binarne programe na sistemu.</p>",
+          "feedback": "<p>Pregledajte prednosti navedene u lekciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Skripta za Bash radi brže od Python ili JavaScript.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Možete testirati delove vašeg skripta direktno u terminalu.</p>",
+          "feedback": "<p>Proverite koristi navedene u lekciji.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U prethodnim lekcijama, naučili ste o Bash-u i nekim osnovnim komandama koje možete koristiti. Ali Bash podržava kompletan jezik za skripte, koji možete koristiti za izvršavanje složenijih automatskih zadataka.</p>\n<p>Pisanje Bash skripta podrazumeva pisanje sekvence Bash komandi u fajl, koji zatim možete izvršiti sa Bash-om kako biste pokrenuli sadržaj tog fajla.</p>\n<p>Istražimo kako se bash skript može videti:</p>\n<pre><code class=\"language-bash\">#!/bin/bash\n\nservers=(\"prod\" \"dev\")\n\nfor server in \"${servers[@]}\"\ndo\n  echo \"Pulling $server\"\n  rsync --archive --verbose $server:/etc/nginx/conf.d/server.conf configs/$server.conf\ndone\n</code></pre>\n<p>Ovaj skript uzima NGINX konfiguraacione fajlove sa liste udaljenih servera, što može biti korisno za skladištenje kopija tih konfiguracija u lokalnoj bazi podataka. NGINX je popularni web server i naučićete više o radu sa serverima u sledećem modulu.</p>\n<p>Prvi red se zove \"shebang\" (<code>#!</code>) i kaže koji interpretator sistem treba da koristi za pokretanje skripte. Uobičajene vrednosti ovde su <code>/usr/bin/bash</code>, <code>/bin/bash</code>, ili <code>/bin/sh</code>.</p>\n<p>Prvi red, <code>servers=(\"prod\" \"dev\")</code>, inicijalizuje listu sekvenci karaktera koje predstavljaju imena servera. <code>\"prod\"</code> se često koristi za referenciranje produkcionog sajta, dok <code>\"dev\"</code> ukazuje na razvojni sajt, koji se obično koristi za testiranje novih funkcija i promena pre nego što budu puštene u direktno proizvodno okruženje.</p>\n<p>Zatim, lista se iterira koristeći <code>for</code> - sintaksu <code>servers[@]</code> i proširuje listu u pojedinačne elemente. Svaki element dobija vrednost na serveru u svakoj iteraciji.</p>\n<p>Kauli ya <code>do</code> pokazuje početak logičkog dela ciklusa, ili kod koji se mora izvršiti u svakom ciklusu.</p>\n<p><code>echo \"Pulling $server\"</code> Unesite trenutnu vrednost server parametra, koji će biti prod ili dev u ovom slučaju, i upišite ga u terminal.</p>\n<p>Zatim <code>rsync</code> se koristi za preuzimanje stvarnog fajla sa servera i skladištenje ga lokalno, korišćenjem dodatnih unosa vrednosti za kontrolu te komande.</p>\n<p><code>done</code> pokazuje kraj logičke sekcije kola.</p>\n<p>Postoji nekoliko važnih prednosti razumevanja i korišćenja Bash skriptovanja.</p>\n<p>Prvo je da gotovo svako Unix okruženje dolazi sa predinstaliranim Bash-om, što znači da možete pokrenuti svoj skript kao što jeste bez potrebe za konfiguracijom okruženja jezika poput Node.js ili Python.</p>\n<p>Drugo je da imaš pristup svim binarnim programima koji su dostupni na sistemu uz malo truda. Ako je na tvom sistemu instaliran <code>doctl</code>, tvoj skript može pokrenuti tu binarni program. Binarni je kompajlirani program koji računar pokreće. Sa <code>bash</code> skriptom, možeš pokrenuti binarni program koji će pokrenuti aplikaciju.</p>\n<p>Konačno, sintaksa koju koristiš za svoj skript takođe može da se pokrene direktno u terminalu. To znači da testiranje malog dela tvog skripta postaje lakše – možeš kopirati i zalepiti taj deo direktno u svoj terminal i videti rezultate!</p>\n<p>Razumevanje Basha neće samo da ti doda veštine pisanja skripata, već će te učiniti majstorom komandne linije!</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-bash-scripting",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 10,
+  "instructions": "",
+  "superBlock": "relational-databases-v9",
+  "superOrder": 4,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Backend Development",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "relational-databases",
+  "module": "bash-scripting",
+  "certification": "relational-databases-v9"
+}

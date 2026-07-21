@@ -1,0 +1,63 @@
+{
+  "id": "65f9dd6e5a08af19c196c2df",
+  "title": "Korak 45",
+  "challengeType": 20,
+  "dashedName": "step-45",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        25
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da deklarišete varijablu <code>kwargs</code> i dodelite joj vrednost dictionary comprehension koja iterira kroz atribute objekta.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_variable(\"kwargs\").find_comp_iters()[0]\nnode.is_equivalent(\"vars(self)\") or node.is_equivalent(\"self.__dict__\")`)) })"
+    },
+    {
+      "text": "<p>Komprehensija rečnika koja je data <code>kwargs</code> mora da koristi varijablu <code>i</code> za iteraciju preko svojstava atributa objekta.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_variable(\"kwargs\").find_comp_targets()[0].is_equivalent(\"i\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Komprehensija rečnika koji je dat <code>kwargs</code> treba da koristi <code>i</code> kao ključ.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_variable(\"kwargs\").find_comp_key().is_equivalent(\"i\")`)) })"
+    },
+    {
+      "text": "<p>Diktionaralna kompozicija koja je dodeljena <code>kwargs</code> treba da postavi razliku između atributa <code>i</code> od <code>self</code> i atributa <code>i</code> od <code>other</code> za ključ <code>i</code> za svaki <code>i</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_variable(\"kwargs\").find_comp_expr()\nnode.is_equivalent(\"getattr(self, i) - getattr(other, i)\") or node.is_equivalent(\"self.__getattribute__(i) - other.__getattribute__(i)\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vektor dobijen oduzimanjem jednog vektora od drugog nalazi se iz računanja razlike svake njihove komponente. Na primer, oduzimanje <code>(2, 4)</code> od <code>(7, 3)</code> stvara treći vektor <code>(5, -1)</code>, gde je <code>5</code> razlika između <code>7</code> i <code>2</code>, a <code>-1</code> je razlika između <code>3</code> i <code>4</code>.</p>\n<p>Kao što ste prethodno učinili unutar putanje <code>__add__</code>, deklarišite varijablu <code>kwargs</code> nakon deklaracije <code>if</code>. Postavite vrednost <em>dictionary comprehension</em>-a koji iterira kroz atribute elementa objekta i kreira par ključ-vrednost za svaki ključ <code>i</code>, gde je ključ isti ključ trenutne petlje, a njegova vrednost je razlika između atributnih vrednosti dva borca iz <code>i</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 44,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

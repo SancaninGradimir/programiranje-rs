@@ -1,0 +1,69 @@
+{
+  "id": "587d7db1367417b2b2512b88",
+  "title": "Ghairi njia zilizopokelewa",
+  "challengeType": 1,
+  "forumTopicId": 301322,
+  "dashedName": "override-inherited-methods",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Bird() { }\n\nBird.prototype.fly = function() { return \"I am flying!\"; };\n\nfunction Penguin() { }\nPenguin.prototype = Object.create(Bird.prototype);\nPenguin.prototype.constructor = Penguin;\n\n// Only change code below this line\n\n\n\n// Only change code above this line\n\nlet penguin = new Penguin();\nconsole.log(penguin.fly());",
+      "error": null,
+      "seed": "function Bird() { }\n\nBird.prototype.fly = function() { return \"I am flying!\"; };\n\nfunction Penguin() { }\nPenguin.prototype = Object.create(Bird.prototype);\nPenguin.prototype.constructor = Penguin;\n\n// Only change code below this line\n\n\n\n// Only change code above this line\n\nlet penguin = new Penguin();\nconsole.log(penguin.fly());"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Bird() { }\n\nBird.prototype.fly = function() { return \"I am flying!\"; };\n\nfunction Penguin() { }\nPenguin.prototype = Object.create(Bird.prototype);\nPenguin.prototype.constructor = Penguin;\nPenguin.prototype.fly = () => 'Alas, this is a flightless bird.';\nlet penguin = new Penguin();\nconsole.log(penguin.fly());",
+        "error": null,
+        "seed": "function Bird() { }\n\nBird.prototype.fly = function() { return \"I am flying!\"; };\n\nfunction Penguin() { }\nPenguin.prototype = Object.create(Bird.prototype);\nPenguin.prototype.constructor = Penguin;\nPenguin.prototype.fly = () => 'Alas, this is a flightless bird.';\nlet penguin = new Penguin();\nconsole.log(penguin.fly());"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>penguin.fly()</code> treba da vrati niz slova <code>Alas, this is a flightless bird.</code></p>",
+      "testString": "assert(penguin.fly() === 'Alas, this is a flightless bird.');"
+    },
+    {
+      "text": "<p>Metoda <code>bird.fly()</code> treba da vrati string <code>I am flying!</code></p>",
+      "testString": "assert(new Bird().fly() === 'I am flying!');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U prethodnim lekcijama, naučili ste da nešto može nasleđivati svoje karakteristike (metodu) iz drugog objekta referenciranjem njegovog <code>prototype</code>:</p>\n<pre><code class=\"language-js\">ChildObject.prototype = Object.create(ParentObject.prototype);\n</code></pre>\n<p>Zatim, <code>ChildObject</code> je primio sopstvene puteve za povezivanje sa svojim <code>prototype</code>:</p>\n<pre><code class=\"language-js\">ChildObject.prototype.methodName = function() {...};\n</code></pre>\n<p>Moguće je zameniti nasleđenu metodu. To se radi na isti način – dodavanjem metode u <code>ChildObject.prototype</code> sa istim imenom kao metoda koju želiš da zameniš. Evo primera u kojem <code>Bird</code> zamenjuje metodu <code>eat()</code> nasleđenu od <code>Animal</code>:</p>\n<pre><code class=\"language-js\">function Animal() { }\nAnimal.prototype.eat = function() {\n  return \"nom nom nom\";\n};\nfunction Bird() { }\n\nBird.prototype = Object.create(Animal.prototype);\n\nBird.prototype.eat = function() {\n  return \"peck peck peck\";\n};\n</code></pre>\n<p>Ako imaš instancu <code>let duck = new Bird();</code> i pozoveš <code>duck.eat()</code>, JavaScript će ovako tražiti metodu u lancu <code>prototype</code> objekta <code>duck</code>:</p>\n<ol>\n<li><code>duck</code> => Je, <code>eat()</code> imefafanuliwa hapa? Hapana.</li>\n<li><code>Bird</code> => Je, <code>eat()</code> imefafanuliwa hapa? => Ndiyo. Iite na acha kutafuta.</li>\n<li><code>Animal</code> => <code>eat()</code> je takođe definisana, ali je JavaScript prekinuo pretragu pre nego što je stigao do ovog nivoa.</li>\n<li><code>Object</code> => JavaScript je prekinuo pretragu pre nego što je stigao do ovog nivoa.</li>\n</ol>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Zameni metodu <code>fly()</code> za <code>Penguin</code> tako da vraća string <code>Alas, this is a flightless bird.</code></p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "bd7158d8c443edefaeb5bd0e",
+  "title": "Mikroservis za skraćivanje URL-ova",
+  "challengeType": 4,
+  "forumTopicId": 301509,
+  "dashedName": "url-shortener-microservice",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebate da dostavite sopstveni projekat, ne URL sa primera.</p>",
+      "testString": "  assert(\n    !/.*\\/url-shortener-microservice\\.freecodecamp\\.rocks/.test(\n      code\n    )\n  );"
+    },
+    {
+      "text": "<p>Možete poslati URL na <code>/api/shorturl</code> pomoću POST metode i dobiti JSON odgovor sa parametrima <code>original_url</code> i <code>short_url</code>. Evo primera: <code>{ original_url : 'https://freeCodeCamp.org', short_url : 1}</code></p>",
+      "testString": "  const url = code;\n  const urlVariable = Date.now();\n  const fullUrl = `${url}/?v=${urlVariable}`\n  const res = await fetch(url + '/api/shorturl', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n    body: `url=${fullUrl}`\n  });\n  if (res.ok) {\n    const { short_url, original_url } = await res.json();\n    assert.isNotNull(short_url);\n    assert.strictEqual(original_url, `${url}/?v=${urlVariable}`);\n  } else {\n    throw new Error(`${res.status} ${res.statusText}`);\n  }"
+    },
+    {
+      "text": "<p>Kada posetite <code>/api/shorturl/&#x3C;short_url></code>, bićete preusmereni na pravi URL.</p>",
+      "testString": "  const url = code;\n  const urlVariable = Date.now();\n  const fullUrl = `${url}/?v=${urlVariable}`\n  let shortenedUrlVariable;\n  const postResponse = await fetch(url + '/api/shorturl', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n    body: `url=${fullUrl}`\n  });\n  if (postResponse.ok) {\n    const { short_url } = await postResponse.json();\n    shortenedUrlVariable = short_url;\n  } else {\n    throw new Error(`${postResponse.status} ${postResponse.statusText}`);\n  }\n  // Ensure a new URL is reached\n  const getResponse = await fetch(\n    url + '/api/shorturl/' + shortenedUrlVariable, {redirect:'follow'}\n  );\n  if (getResponse) {\n    const { url } = getResponse; // status is always 200 for some reason\n    assert.strictEqual(url,fullUrl);\n  } else {\n    throw new Error(`${getResponse.status} ${getResponse.statusText}`);\n  }\n\n  // No more auto follow\n  const getManualResponse = await fetch(\n    url + '/api/shorturl/' + shortenedUrlVariable, {redirect:'manual'}\n  );\n  if (getManualResponse) {\n    const { status } = getManualResponse; // if a redirect happens, it won't reach the new resource\n    assert.strictEqual(status,0);\n  } else {\n    throw new Error(`${getManualResponse.status} ${getManualResponse.statusText}`);\n  }\n"
+    },
+    {
+      "text": "<p>Ako prosledite nevažeći URL koji ne prati ispravan format <code>http://www.example.com</code>, JSON odgovor će sadržati <code>{ error: 'invalid url' }</code></p>",
+      "testString": "  const url = code;\n  const res = await fetch(url + '/api/shorturl', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n    body: `url=ftp:/john-doe.invalidTLD`\n  });\n  if (res.ok) {\n    const { error } = await res.json();\n    assert.isNotNull(error);\n    assert.strictEqual(error.toLowerCase(), 'invalid url');\n  } else {\n    throw new Error(`${res.status} ${res.statusText}`);\n  }"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napravite klijentski i serverski JavaScript program koji funkcionalno odgovara ovom: <a href=\"https://url-shortener-microservice.freecodecamp.rocks\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">https://url-shortener-microservice.freecodecamp.rocks</a>. Rad na ovom projektu će zahtevati pisanje vašeg koda koristeći jedan od sledećih načina:</p>\n<ul>\n<li>Kopirajte <a href=\"https://github.com/freeCodeCamp/boilerplate-project-urlshortener/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ovaj GitHub repozitorijum</a> i završite svoj projekat lokalno na vašem računaru.</li>\n<li>Koristite svoj omiljeni web okvir da biste završili projekat. Obavezno uključite sve fajlove iz našeg GitHub repozitorijuma.</li>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p><strong>NAPOMENA:</strong> Ne zaboravite da koristite middleware za parsiranje tela zahteva za obradu POST zahteva. Takođe, možete koristiti funkciju <code>dns.lookup(host, cb)</code> iz osnovnog <code>dns</code> modula za validaciju prosleđenog URL-a.</p>\n</section>",
+  "translationPending": false,
+  "block": "back-end-development-and-apis-projects",
+  "blockLayout": "project-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

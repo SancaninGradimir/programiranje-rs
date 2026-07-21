@@ -1,0 +1,62 @@
+{
+  "id": "68777816e95d4936f129819f",
+  "title": "Korak 17",
+  "challengeType": 20,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        33
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n              min_distance = distances[node_no]\n              current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n        for node_no in range(n):  \n            distance = matrix[current][node_no]\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n              min_distance = distances[node_no]\n              current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n        for node_no in range(n):  \n            distance = matrix[current][node_no]\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš deklaraciju <code>if</code> koja proverava da li <code>distance</code> nije jednako <code>INF</code> i da li susedni čvor nije posetađen.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`_Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].find_ifs()[0].find_conditions()[0].is_equivalent(\"distance != INF and not visited[node_no]\") \n      `)\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Treba da napraviš parametar koji se zove <code>new_distance</code> unutar bloka <code>if</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(\n          `_Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_variable(\"new_distance\")`\n        )\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Trebalo bi da postaviš vrednost <code>new_distance</code> kao zbir <code>distances[current]</code> i <code>distance</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(\n          `_Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].find_ifs()[0].find_bodies()[0].find_variable(\"new_distance\").is_equivalent(\"new_distance = distances[current] + distance\")`\n        )\n      );\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pre nego što pokušate da izračunate udaljenost do suseda, morate potvrditi da je taj sused dostupan i da nije posetjen. Zatim ćete izračunati ukupnu udaljenost koja bi stigla do tog suseda preko trenutnog čvora.</p>\n<p>Unutar ciklusa od <code>for</code>, dodaj izjavu za <code>if</code> koja proverava:</p>\n<ul>\n<li>Ako je <code>distance</code> jednak <code>INF</code> (što znači da postoji most između ovih čvorova)</li>\n<li>Susjed <code>node_no</code> još uvek nije poseta/posećen</li>\n</ul>\n<p>Unutar bloka <code>if</code>, kreiraj parametar nazvan <code>new_distance</code> i postavi mu vrednost zbir <code>distances[current]</code> (najkraća udaljenost do trenutnog čvora) i <code>distance</code> (udaljenost od trenutnog čvora do suseda).</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

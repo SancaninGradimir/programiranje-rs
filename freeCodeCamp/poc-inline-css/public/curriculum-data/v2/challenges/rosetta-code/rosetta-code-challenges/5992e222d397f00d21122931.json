@@ -1,0 +1,80 @@
+{
+  "id": "5992e222d397f00d21122931",
+  "title": "Neno la Fibonacci",
+  "challengeType": 1,
+  "forumTopicId": 302269,
+  "dashedName": "fibonacci-word",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function fibWord(n) {\n\n}",
+      "error": null,
+      "seed": "function fibWord(n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// Round to digits\nfunction roundFloat(num, digits) {\n  return Math.round(num * 10.0**digits) / (10.0**digits);\n}\n\n// Entropy calculation for string with only 0 and 1\nfunction entropy(word) {\n  function digitEntropy(count) {\n    return count < 1 ? 0\n      : - count / word.length * Math.log2(count / word.length);\n  }\n  const numZeros = word.split('').filter(e => e === '0').length;\n  const numOnes  = word.length - numZeros;\n  return roundFloat(digitEntropy(numZeros) + digitEntropy(numOnes), 8);\n}\n\n// Compute array of Fibonacci words\nfunction fibWord(n) {\n  return [...Array(n).keys()]\n    .reduce((words, i) => {\n      const word = i === 0 ? \"1\"\n                 : i === 1 ? \"0\"\n                 : words[i - 1].Word + words[i - 2].Word;\n      words.push(\n        { N: i + 1, Length: word.length, Entropy: entropy(word), Word: word }\n      );\n      return words;\n    }, []);\n}",
+        "error": null,
+        "seed": "// Round to digits\nfunction roundFloat(num, digits) {\n  return Math.round(num * 10.0**digits) / (10.0**digits);\n}\n\n// Entropy calculation for string with only 0 and 1\nfunction entropy(word) {\n  function digitEntropy(count) {\n    return count < 1 ? 0\n      : - count / word.length * Math.log2(count / word.length);\n  }\n  const numZeros = word.split('').filter(e => e === '0').length;\n  const numOnes  = word.length - numZeros;\n  return roundFloat(digitEntropy(numZeros) + digitEntropy(numOnes), 8);\n}\n\n// Compute array of Fibonacci words\nfunction fibWord(n) {\n  return [...Array(n).keys()]\n    .reduce((words, i) => {\n      const word = i === 0 ? \"1\"\n                 : i === 1 ? \"0\"\n                 : words[i - 1].Word + words[i - 2].Word;\n      words.push(\n        { N: i + 1, Length: word.length, Entropy: entropy(word), Word: word }\n      );\n      return words;\n    }, []);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "globalThis.words5 = [\n  { N: 1, Length: 1, Entropy: 0, Word: '1' },\n  { N: 2, Length: 1, Entropy: 0, Word: '0' },\n  { N: 3, Length: 2, Entropy: 1, Word: '01' },\n  { N: 4, Length: 3, Entropy: 0.91829583, Word: '010' },\n  { N: 5, Length: 5, Entropy: 0.97095059, Word: '01001' }\n];\n\nglobalThis.words7 = [\n  { N: 1, Length: 1, Entropy: 0, Word: '1' },\n  { N: 2, Length: 1, Entropy: 0, Word: '0' },\n  { N: 3, Length: 2, Entropy: 1, Word: '01' },\n  { N: 4, Length: 3, Entropy: 0.91829583, Word: '010' },\n  { N: 5, Length: 5, Entropy: 0.97095059, Word: '01001' },\n  { N: 6, Length: 8, Entropy: 0.954434, Word: '01001010' },\n  { N: 7, Length: 13, Entropy: 0.9612366, Word: '0100101001001' }\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>fibWord</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof fibWord === 'function');"
+    },
+    {
+      "text": "<p><code>fibWord(5)</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(fibWord(5)));"
+    },
+    {
+      "text": "<p><code>fibWord(5)</code> inapaswa kurudisha <code>[{ N:1, Length:1, Entropy:0, Word:\"1\" },{ N:2, Length:1, Entropy:0, Word:\"0\" },{ N:3, Length:2, Entropy:1, Word:\"01\" },{ N:4, Length:3, Entropy:0.91829583, Word:\"010\" },{ N:5, Length:5, Entropy:0.97095059, Word:\"01001\" }]</code>.</p>",
+      "testString": "assert.deepEqual(fibWord(5), globalThis.words5);"
+    },
+    {
+      "text": "<p><code>fibWord(7)</code> trebalo bi da vrati <code>[{ N:1, Length:1, Entropy:0, Word:\"1\" },{ N:2, Length:1, Entropy:0, Word:\"0\" },{ N:3, Length:2, Entropy:1, Word:\"01\" },{ N:4, Length:3, Entropy:0.91829583, Word:\"010\" },{ N:5, Length:5, Entropy:0.97095059, Word:\"01001\" }, { N:6, Length:8, Entropy:0.954434, Word:'01001010' }, { N:7, Length:13, Entropy:0.9612366, Word:'0100101001001' }]</code>.</p>",
+      "testString": "assert.deepEqual(fibWord(7), globalThis.words7);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Niz Fibonacijevih reči može se konstruisati na sličan način kao Fibonacijev niz, ali se zasniva na uzastopnom spajanju niski znakova.</p>\n<pre>Tambua  F_Word<sub>1</sub>  kama  <strong>1</strong>\nTambua  F_Word<sub>2</sub>  kama  <strong>0</strong>\nUnda   F_Word<sub>3</sub>  kama  F_Word<sub>2</sub>   kuunganishwa na  F_Word<sub>1</sub>   yaani:  <strong>01</strong>\nUnda   F_Word<sub>n</sub>  kama  F_Word<sub>n-1</sub>  kuunganishwa na  F_word<sub>n-2</sub>\n</pre>\n<p>Za ovaj zadatak potrebno je izračunati entropiju, <a href=\"https://www.freecodecamp.org/learn/coding-interview-prep/rosetta-code/entropy\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">kao što je prikazano u ovom Rosetta Code zadatku</a>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja vraća prvih <code>n</code> Fibonacijevih reči. Broj <code>n</code> se prosleđuje kao argument funkciji. Funkcija treba da vrati niz objekata u obliku: <code>{ N: 1, Length: 1, Entropy: 0, Word: '1' }</code>. Vrednost <code>Entropy</code> izračunava se za nisku <code>Word</code> i zaokružuje na 8 decimalnih mesta. Imaj na umu da ovaj niz počinje sa <code>1</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 51,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

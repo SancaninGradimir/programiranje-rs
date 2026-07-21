@@ -1,0 +1,45 @@
+{
+  "id": "589fc831f9fc0f352b528e77",
+  "title": "Autentifikacija sa Socket.IO",
+  "challengeType": 2,
+  "forumTopicId": 301548,
+  "dashedName": "authentication-with-socket-io",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>passport.socketio</code> treba da bude zavisnost.</p>",
+      "testString": "  const url = new URL(\"/_api/package.json\", code);\n  const res = await fetch(url);\n  const packJson = await res.json();\n  assert.property(\n    packJson.dependencies,\n    'passport.socketio',\n    'Your project should list \"passport.socketio\" as a dependency'\n  );"
+    },
+    {
+      "text": "<p><code>cookie-parser</code> treba da bude zavisnost.</p>",
+      "testString": "  const url = new URL(\"/_api/package.json\", code);\n  const res = await fetch(url);\n  const packJson = await res.json();\n  assert.property(\n    packJson.dependencies,\n    'cookie-parser',\n    'Your project should list \"cookie-parser\" as a dependency'\n  );"
+    },
+    {
+      "text": "<p>passportSocketIo treba da bude ispravno zahtevan.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /require\\((['\"])passport\\.socketio\\1\\)/gi,\n    'You should correctly require and instantiate \"passport.socketio\"'\n  );"
+    },
+    {
+      "text": "<p>passportSocketIo treba da bude ispravno konfigurisan.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /io\\.use\\(\\s*\\w+\\.authorize\\(/,\n    'You should register \"passport.socketio\" as socket.io middleware and provide it correct options'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Trenutno, ne možete znati ko je povezao sa vašom web socket. Kada <code>req.user</code> ima korisnički objekat, to je samo kada vaš korisnik interaguje sa web serverom, a za web socket-ove nemate <code>req</code> (request) i zato nemate korisničke podatke. Jedan način da rešite problem znanja ko je povezao sa vašim web socket-om je da parsirate i interpretirate cookie koji drži passport sesiju i pretvorte je u korisnički objekat. Srećom, postoji paket na NPM-u koji je specifično za ovo što čini ovu tešku vežbu lakšom!</p>\n<p><code>passport.socketio@~3.7.0</code>, <code>connect-mongo@~3.2.0</code>, i <code>cookie-parser@~1.4.5</code> su već dodati kao zavisnosti. Uvezi ih kao <code>passportSocketIo</code>, <code>MongoStore</code>, i <code>cookieParser</code> redom. Takođe, trebamo da inicijalizujemo novi store za sesije, iz <code>express-session</code> koje smo koristili ranije. Treba da izgleda ovako:</p>\n<pre><code class=\"language-js\">const MongoStore = require('connect-mongo')(session);\nconst URI = process.env.MONGO_URI;\nconst store = new MongoStore({ url: URI });\n</code></pre>\n<p>Sada trebamo samo da kažemo Socket.IO da koristi ovo i postavi opcije. Osigurajte da je ovo dodato pre postojećeg socket koda a ne unutar postojećeg connection listener-a. Za vaš server, treba da izgleda ovako:</p>\n<pre><code class=\"language-js\">io.use(\n  passportSocketIo.authorize({\n    cookieParser: cookieParser,\n    key: 'express.sid',\n    secret: process.env.SESSION_SECRET,\n    store: store,\n    success: onAuthorizeSuccess,\n    fail: onAuthorizeFail\n  })\n);\n</code></pre>\n<p>Imajte na umu da konfigurisanje Passport autentifikacije za Socket.IO je veoma slično načinu na koji smo konfigurisali <code>session</code> middleware za API. To je zato što su oba dizajnirana da koriste isti metod autentifikacije - uzmi ID sesije iz cookie-a i autentifikuj.</p>\n<p>Ranije, kada smo konfigurisali <code>session</code> middleware, nismo otkrili ime cookie-a za sesiju (<code>key</code>). To je zato što je <code>session</code> paket koristio podrazumevanu vrednost opcije. Sada smo dodali drugi paket koji zahteva pristup istoj vrednosti iz cookie-ova, trebamo da eksplicitno postavimo <code>key</code> vrednost u oba dela konfiguracije.</p>\n<p>Osigurajte da dodajete <code>key</code> sa imenom cookie-a u <code>session</code> middleware koji odgovara Socket.IO ključu. Takođe, dodajte referencu na <code>store</code> u opcije, blizu mesta gde postavljate <code>saveUninitialized: true</code>. Ovo je ključno za saopštavanje Socket.IO-u koja sesija je povezana.</p>\n<hr>\n<p>Sada, definišite callback funkcije za <code>success</code> i <code>fail</code>:</p>\n<pre><code class=\"language-js\">function onAuthorizeSuccess(data, accept) {\n  console.log('successful connection to socket.io');\n\n  accept(null, true);\n}\n\nfunction onAuthorizeFail(data, message, error, accept) {\n  if (error) throw new Error(message);\n  console.log('failed connection to socket.io:', message);\n  accept(null, false);\n}\n</code></pre>\n<p>Korisnički objekat je sada dostupan na vašem socket objektu kao <code>socket.request.user</code>. Na primer, sada možete da dodate sledeće:</p>\n<pre><code class=\"language-js\">console.log('user ' + socket.request.user.username + ' connected');\n</code></pre>\n<p>To će pisati u konzoli servera ko je povezao!</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#authentication-with-socketio-9\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

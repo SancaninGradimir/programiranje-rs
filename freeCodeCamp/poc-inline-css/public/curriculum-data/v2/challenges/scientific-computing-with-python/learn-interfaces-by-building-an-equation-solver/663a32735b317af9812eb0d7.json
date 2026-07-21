@@ -1,0 +1,59 @@
+{
+  "id": "663a32735b317af9812eb0d7",
+  "title": "Korak 27",
+  "challengeType": 20,
+  "dashedName": "step-27",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        49,
+        56
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n    def analyze(self):\n        pass\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\nprint(lin_eq.solve())",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n    def analyze(self):\n        pass\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\nprint(lin_eq.solve())"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da izvadiš vrednosti sačuvane u atributu elementa <code>coefficients</code> i sačuvaš ih u parametre <code>slope</code> i <code>intercept</code> unutar putanje <code>analyze</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"analyze\").has_stmt(\"slope, intercept = self.coefficients.values()\")`)) })"
+    },
+    {
+      "text": "<p>Njia ya <code>analyze</code> treba da vrati rečnik sa ključevima <code>'slope'</code> i <code>'intercept'</code> sa vrednostima nagiba i preseka sa y-osom, respektivno.</p>",
+      "testString": "({ test: () => runPython(`\neq = LinearEquation(2.2, 1.5)\na = eq.analyze()\nassert a['slope'] == 2.2, \"Expected different slope\"\nassert a['intercept'] == 1.5, \"Expected different intercept\"\n`) })"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>analyze</code> za svoj predmet <code>lin_eq</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_call(\"print(lin_eq.analyze())\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U linearnoj jednačini tipa \\( ax + b = 0 \\), nagib je samo zasnovan na broju \\( a \\), a presek sa y-osom je zasnovan na broju \\( b \\).</p>\n<img alt=\"a plot of a linear function\" src=\"https://cdn.freecodecamp.org/curriculum/python/linear-equation.png\" style=\"background-color: white; height: 350px; width: auto; padding: 15px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Koristite putanju <code>analyze</code> da dobijete više informacija o tom jednačinu. Unutar putanje <code>analyze</code>, otvorite osnovne brojeve i sačuvajte ih u parametre <code>slope</code> i <code>intercept</code>.</p>\n<p>Zatim, postavi rečnik sa ključevima <code>'slope'</code> i <code>'intercept'</code> na vrednosti nagiba i preseka y-ose, po redosledu. Kasnije, pozovi <code>analyze</code> za <code>lin_eq</code> i ispiši rezultate.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 26,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

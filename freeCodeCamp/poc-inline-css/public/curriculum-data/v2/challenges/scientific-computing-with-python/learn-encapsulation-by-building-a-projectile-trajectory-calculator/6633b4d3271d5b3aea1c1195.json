@@ -1,0 +1,63 @@
+{
+  "id": "6633b4d3271d5b3aea1c1195",
+  "title": "Korak 15",
+  "challengeType": 20,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        91,
+        101
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.speed} m/s\r\nheight: {self.height} m\r\nangle: {self.angle}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    @property\r\n    def height(self):\r\n        return self.__height\r\n\r\n    @property\r\n    def angle(self):\r\n        return round(math.degrees(self.__angle))\r\n\r\n    @property\r\n    def speed(self):\r\n        return self.__speed\r\n\r\n    @height.setter\r\n    def height(self, n):\r\n        self.__height = n\r\n\r\n    @angle.setter\r\n    def angle(self, n):\r\n        self.__angle = math.radians(n)\r\n\r\n    @speed.setter\r\n    def speed(self, s):\r\n       self.__speed = s\r\n    \r\n    def __repr__(self):\r\n        return f'{self.__class__}({self.speed}, {self.height}, {self.angle})'\r\n\r\nclass Graph:\r\n    __slots__ = ('__coordinates')\r\n\r\n    def __init__(self, coord):\r\n        self.__coordinates = coord\r\n\r\n    def __repr__(self):\r\n        return f\"Graph({self.__coordinates})\"\r\n\r\n    def create_coordinates_table(self):\r\n        table = '\\n  x      y\\n'\r\n        for x, y in self.__coordinates:\r\n            table += f'{x:>3}{y:>7.2f}\\n'\r\n\r\n        return table\r\n\r\n    \r\n        \r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\ngraph = Graph(coordinates)\r\nprint(graph.create_coordinates_table())\r\n\r\n   ",
+      "error": null,
+      "seed": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.speed} m/s\r\nheight: {self.height} m\r\nangle: {self.angle}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    @property\r\n    def height(self):\r\n        return self.__height\r\n\r\n    @property\r\n    def angle(self):\r\n        return round(math.degrees(self.__angle))\r\n\r\n    @property\r\n    def speed(self):\r\n        return self.__speed\r\n\r\n    @height.setter\r\n    def height(self, n):\r\n        self.__height = n\r\n\r\n    @angle.setter\r\n    def angle(self, n):\r\n        self.__angle = math.radians(n)\r\n\r\n    @speed.setter\r\n    def speed(self, s):\r\n       self.__speed = s\r\n    \r\n    def __repr__(self):\r\n        return f'{self.__class__}({self.speed}, {self.height}, {self.angle})'\r\n\r\nclass Graph:\r\n    __slots__ = ('__coordinates')\r\n\r\n    def __init__(self, coord):\r\n        self.__coordinates = coord\r\n\r\n    def __repr__(self):\r\n        return f\"Graph({self.__coordinates})\"\r\n\r\n    def create_coordinates_table(self):\r\n        table = '\\n  x      y\\n'\r\n        for x, y in self.__coordinates:\r\n            table += f'{x:>3}{y:>7.2f}\\n'\r\n\r\n        return table\r\n\r\n    \r\n        \r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\ngraph = Graph(coordinates)\r\nprint(graph.create_coordinates_table())\r\n\r\n   "
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete put nazvan <code>create_trajectory</code>.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `_Node(_code).find_class('Graph').has_function('create_trajectory')`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Treba da zameniš <code>print(graph.create_coordinates_table())</code> sa <code>print(graph.create_trajectory())</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(`\r\n    prints = _Node(_code).find_calls('print')\r\n\r\n    assert all(not p.is_equivalent('print(graph.create_coordinates_table())') for p in prints), \"print(graph.create_coordinates_table()) should not be present\"\r\n\r\n    assert any(p.is_equivalent('print(graph.create_trajectory())') for p in prints), \"print(graph.create_trajectory()) not found\"\r\n    `)\r\n})"
+    },
+    {
+      "text": "<p>Funkcija mora da vrati <code>rounded_coords</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(`\r\n    assert _Node(_code).find_class('Graph').find_function('create_trajectory').has_return('rounded_coords'), \"return rounded_coords missing\"\r\n    `)\r\n})"
+    },
+    {
+      "text": "<p>Parametar <code>rounded_coords</code> bi trebalo da ima prekomerne koordinate konvertovane u kompletan broj.</p>",
+      "testString": "({\r\n    test: () => {\r\n        runPython(`\r\n            ball = Projectile(10, 3, 45)\r\n            coordinates = ball.calculate_all_coordinates()\r\n            graph = Graph(coordinates)\r\n            assert [(round(x), round(y)) for x,y in coordinates] == graph.create_trajectory(), \"coordinates are not rounded correctly\"\r\n        `)\r\n    }\r\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada je vreme za grafikon. Kreiraj putanju <code>create_trajectory</code> i zameni zadnji poziv od <code>print</code> ispod vašeg koda sa <code>print(graph.create_trajectory())</code>.</p>\n<p>Kao prvi korak ovog novog načina, kreiraj interni kopiju koordinacije/formatiranja, ali gde su sve vrednosti konvertovane u pune brojeve. Sačuvaj ovu novu koordinacionu verziju u parametru nazvanom <code>rounded_coords</code> i vrati ovaj parametar.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-encapsulation-by-building-a-projectile-trajectory-calculator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 17,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

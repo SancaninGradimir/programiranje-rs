@@ -1,0 +1,109 @@
+{
+  "id": "67d1a99d10fd509c88faf3bf",
+  "title": "Kako pristup podacima funkcioniše u Reactu?",
+  "challengeType": 19,
+  "dashedName": "how-does-data-fetching-work-in-react",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koji su dva parametra za hook <code>useSWR</code> u datom primeru?</p>",
+      "answers": [
+        {
+          "answer": "<p>URL na keš sloju.</p>",
+          "feedback": "<p>Prvi indikator predstavlja izvor podataka, a drugi se bavi dostupnošću podataka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Put do API na funkciju za fetchera.</p>",
+          "feedback": "<p>Prvi parametar predstavlja izvor podataka, a drugi upravlja pristupom podacima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Povezivanje i funkcija fetchera.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ključ i element konfiguracije.</p>",
+          "feedback": "<p>Prvi kriterijum predstavlja izvor podataka, a drugi se bavi dostupnošću podataka.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Zašto moraš da se baviš logikom pristupa podacima unutar <code>useEffect</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Zato što pristup podacima treba da se izvrši samo jednom.</p>",
+          "feedback": "<p>Dostupnost podataka utiče na spoljne faktore i ne sme da spreči prikaz.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zato što dostupnost podataka ne bi trebalo da bude deo procesa prikaza.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zato što <code>useEffect</code> se dešava pre prikaza sekcije.</p>",
+          "feedback": "<p>Dostupnost podataka utiče na eksterne elemente i ne sme da onemogući prikaz.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zbog što se <code>useEffect</code> dešava paralelno sa ciklusom izlaganja.</p>",
+          "feedback": "<p>Dostupnost podataka utiče na eksterne faktore i ne bi smela da onemogući prikaz.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Na čemu je Axios napravljen?</p>",
+      "answers": [
+        {
+          "answer": "<p>API od Fetch.</p>",
+          "feedback": "<p>Ovo je API, starija verzija koja se koristi za zahtjeve iz HTTP prije Fetch-a.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objekat za XMLHttpRequest.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>API za WebSocket.</p>",
+          "feedback": "<p>To je prethodni API koji se koristi za zahteve HTTP pre Fetch-a.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>API od DOM.</p>",
+          "feedback": "<p>To je API prethodni koji se koristi za upite HTTP prije Fetch-a.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>React aplikacije se često oslanjaju na spoljne API-je i baze podataka za dinamički sadržaj. Da biste preuzeli podatke iz tih API-ja i baza podataka, potrebno je koristiti određene tehnike za pribavljanje podataka.</p>\n<p>Istražite kako funkcioniše dostupnost podataka u React i različite opcije koje imate za pristup podacima.</p>\n<p>React ne ima specifičnih zahteva za način dohvaćanja vaših podataka, što znači da na osnovnom nivou možete koristiti ugrađeni Fetch API, koji podržavaju svi savremeni pretravači.</p>\n<p>Takođe možete koristiti Axios i SWR. Axios je biblioteka zahteva HTTP koja se oslanja na obećanja izgrađena na objektu XMLHttpRequest, a SWR je hook React za pristup podacima kreiranim od strane tima Vercel.</p>\n<p>Počnimo sa primerom. Prvo treba da uvezete hook-ove <code>useState</code> i <code>useEffect</code>:</p>\n<pre><code class=\"language-js\">import { useState, useEffect } from \"react\";\n</code></pre>\n<p>Zatim ćete morati da kreirate tri stanja parametra, nazvana <code>loading</code>, <code>data</code>, i <code>error</code>:</p>\n<pre><code class=\"language-js\">const [data, setData] = useState(null);\nconst [loading, setLoading] = useState(true);\nconst [error, setError] = useState(null);\n</code></pre>\n<p>Parametar <code>loading</code> će pratiti da li su podaci još uvek dostupni. Parametar <code>data</code> predstavlja same podatke, a parametar <code>error</code> će uhvatiti sve greške koje se mogu pojaviti tokom procesa dohvaćanja podataka.</p>\n<p>Pošto je pribavljanje podataka sporedni efekat, najbolje je koristiti Fetch API unutar hook-a <code>useEffect</code>.</p>\n<p>Evo primera toga:</p>\n<pre><code class=\"language-js\">useEffect(() => {\n  fetch(\"https://jsonplaceholder.typicode.com/posts\")\n    .then((res) => res.json())\n    .then((data) => {\n      setData(data);\n      setLoading(false);\n    })\n    .catch((err) => {\n      setError(err);\n      setLoading(false);\n    });\n}, []);\n</code></pre>\n<p>Hook za <code>useEffect</code> dobija podatke koristeći API sa Fetch-om i postavlja sve stanja.</p>\n<p>Možete poboljšati stvari koristeći <code>async</code>/<code>await</code> umesto sintakse od <code>.then()</code>. To znači da morate imati različitu funkciju unutar <code>useEffect</code> jer ne možete staviti prefiks <code>useEffect</code> i glavnu reč od <code>async</code>:</p>\n<pre><code class=\"language-js\">useEffect(() => {\n  const fetchData = async () => {\n    try {\n      const res = await fetch(\"https://jsonplaceholder.typicode.com/posts\");\n       \n      if (!res.ok) {\n        throw new Error(\"Network response was not ok\");\n      }\n\n      const data = await res.json();\n      setData(data);\n    } catch (err) {\n      setError(err);\n    } finally {\n      setLoading(false);\n    }\n  };\n\n  fetchData();\n}, []);\n</code></pre>\n<p>Zatim možete koristiti sva ta stanja za prikaz podataka sa API.</p>\n<p>Evo kompletnog koda:</p>\n<pre><code class=\"language-jsx\">import { useState, useEffect } from \"react\";\n\nconst FetchPosts = () => {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    const fetchData = async () => {\n      try {\n        const res = await fetch(\"https://jsonplaceholder.typicode.com/posts\");\n       \n        if (!res.ok) {\n          throw new Error(\"Network response was not ok\");\n        }\n\n        const data = await res.json();\n        setData(data);\n      } catch (err) {\n        setError(err);\n      } finally {\n        setLoading(false);\n      }\n    };\n\n    fetchData();\n  }, []);\n\n  if (loading) {\n    return &#x3C;p>Loading...&#x3C;/p>;\n  }\n\n  if (error) {\n    return &#x3C;p>{error.message}&#x3C;/p>;\n  }\n\n  return (\n    &#x3C;ul>\n      {data.map((post) => (\n        &#x3C;li key={post.id}>{post.title}&#x3C;/li>\n      ))}\n    &#x3C;/ul>\n  );\n};\n\nexport default FetchPosts;\n</code></pre>\n<p>Na UI-u, ćete videti <code>Loading...</code> na ekranu kada su podaci dostupni, zatim će se prikazati podaci ili greška, zavisno od toga da li je dohvaćanje podataka bilo uspešno.</p>\n<p>Zapamtite da smo razgovarali i o pristupu podacima koristeći Axios i SWR. Pogledajmo primer korišćenja Axios-a.</p>\n<p>Prvo ćeš morati da instaliraš Axios sa komandne linije kao što je ovo:</p>\n<pre><code class=\"language-sh\">npm i axios\n</code></pre>\n<p>Zatim ćete morati da uključite Axios ovako:</p>\n<pre><code class=\"language-js\">import axios from \"axios\";\n</code></pre>\n<p>Zatim možete koristiti prethodno pomenute status parametre i dobiti podatke od API koristeći <code>axios.get</code>:</p>\n<pre><code class=\"language-js\">const [data, setData] = useState(null);\nconst [loading, setLoading] = useState(true);\nconst [error, setError] = useState(null);\n\nuseEffect(() => {\n  const fetchData = async () => {\n    try {\n      const res = await axios.get(\n        \"https://jsonplaceholder.typicode.com/users\"\n      );\n      setData(res.data);\n    } catch (err) {\n      setError(err);\n    } finally {\n      setLoading(false);\n    }\n  };\n\n  fetchData();\n}, []);\n</code></pre>\n<p>Možda ste primetili da nema linije <code>await res.json()</code> u ovom primeru. To je zato što Axios direktno obrađuje JSON, pa nema potrebe za tom linijom.</p>\n<p>Poslednji primer koji ćemo pogledati jeste korišćenje hook-a <code>useSWR</code> za preuzimanje podataka.</p>\n<p>Kao sa Axios-om, moraćete da instalirate SWR ovako:</p>\n<pre><code class=\"language-sh\">npm install swr\n</code></pre>\n<p>Zatim ćete morati da dodate hook <code>useSWR</code> unutar fajla kao što je ovaj:</p>\n<pre><code class=\"language-js\">import useSWR from \"swr\";\n</code></pre>\n<p>U poređenju sa prethodnim primerima, sintaksa SWR je kraća. Potrebno je kreirati <em>fetcher</em> funkciju i proslediti joj hook <code>useSWR</code> kao njen drugi parametar (poslednji je prvi parametar).</p>\n<p>Takođe, pošto možete pristupiti stanjima podataka i grešaka iz hook-a <code>useSWR</code>, stoga ne zahteva hook <code>useState</code>.</p>\n<p>Ovo je sintaksa:</p>\n<pre><code class=\"language-js\">const fetcher = (url) => fetch(url).then((res) => res.json());\nconst { data, error } = useSWR(endpoint, fetcher);\n</code></pre>\n<p>Zapamti da je naziv \"fetcher\" ovde samo ugovor (konvencija), tako da ga možete nazvati bilo kojim parametrom koji želite.</p>\n<p>Ovo je deo koji dobija podatke od API iz JSON Placeholder:</p>\n<pre><code class=\"language-jsx\">import useSWR from \"swr\";\n\nconst fetcher = (url) => fetch(url).then((res) => res.json());\n\nconst FetchTodos = () => {\n  const { data, error } = useSWR(\n    \"https://jsonplaceholder.typicode.com/todos\",\n    fetcher\n  );\n\n  if (!data) {\n    return &#x3C;h2>Loading...&#x3C;/h2>;\n  }\n  if (error) {\n    return &#x3C;h2>Error: {error.message}&#x3C;/h2>;\n  }\n\n  return (\n    &#x3C;>\n      &#x3C;h2>Todos&#x3C;/h2>\n      &#x3C;div>\n        {data.map((todo) => (\n          &#x3C;h3 key={todo.id}>{todo.title}&#x3C;/h3>\n        ))}\n      &#x3C;/div>\n    &#x3C;/>\n  );\n};\n\nexport default FetchTodos;\n</code></pre>\n<p>Kao što ste naučeni u početnoj obuci o specifičnim hook-ovima, pristup podacima je logika koju možete pružiti unutar određenog hook-a. Stoga, ako dobijate podatke u mnogo sekcija i stranica, bolje je kreirati hook za <code>useFetch</code>.</p>\n<p>Ovo je hook <code>useFetch</code> koji koristi SWR za pristup podacima:</p>\n<pre><code class=\"language-jsx\">import useSWR from \"swr\";\n\nconst fetcher = (url) => fetch(url).then((res) => res.json());\n\nconst useFetch = (url) => {\n  const { data, error } = useSWR(url, fetcher);\n\n  return {\n    data,\n    loading: !data &#x26;&#x26; !error,\n    error,\n  };\n};\n\nexport default useFetch;\n</code></pre>\n<p>Evo kako da se koristi hook <code>useFetch</code> za preuređivanje prvog primera koji dobija objave od API iz JSON Placeholder:</p>\n<pre><code class=\"language-jsx\">import useFetch from \"./useFetch\";\n\nconst FetchPosts = () => {\n  const { data, loading, error } = useFetch(\n    \"https://jsonplaceholder.typicode.com/posts\"\n  );\n\n  if (loading) {\n    return &#x3C;h2>Loading...&#x3C;/h2>;\n  }\n\n  if (error) {\n    return &#x3C;h2>{error.message}&#x3C;/h2>;\n  }\n\n  return (\n    &#x3C;>\n      &#x3C;h2>Posts&#x3C;/h2>\n      &#x3C;ul>\n        {data.map((post) => (\n          &#x3C;li key={post.id}>{post.title}&#x3C;/li>\n        ))}\n      &#x3C;/ul>\n    &#x3C;/>\n  );\n};\n\nexport default FetchPosts;\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-data-fetching-and-memoization-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 19,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

@@ -1,0 +1,89 @@
+{
+  "id": "587d7b8c367417b2b2512b54",
+  "title": "Koristi getter-e i setter-e za kontrolu pristupa objekta",
+  "challengeType": 1,
+  "forumTopicId": 301220,
+  "dashedName": "use-getters-and-setters-to-control-access-to-an-object",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "// Only change code below this line\r\n\r\n// Only change code above this line\r\n\r\nconst thermos = new Thermostat(76); // Setting in Fahrenheit scale\r\nlet temp = thermos.temperature; // 24.44 in Celsius\r\nthermos.temperature = 26;\r\ntemp = thermos.temperature; // 26 in Celsius",
+      "error": null,
+      "seed": "// Only change code below this line\r\n\r\n// Only change code above this line\r\n\r\nconst thermos = new Thermostat(76); // Setting in Fahrenheit scale\r\nlet temp = thermos.temperature; // 24.44 in Celsius\r\nthermos.temperature = 26;\r\ntemp = thermos.temperature; // 26 in Celsius"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class Thermostat {\r\n  constructor(fahrenheit) {\r\n    this._tempInCelsius = 5/9 * (fahrenheit - 32);\r\n  }\r\n  get temperature(){\r\n    return this._tempInCelsius;\r\n  }\r\n  set temperature(newTemp){\r\n    this._tempInCelsius = newTemp;\r\n  }\r\n}\r\n\r\nconst thermos = new Thermostat(76); // Setting in Fahrenheit scale\r\nlet temp = thermos.temperature; // 24.44 in Celsius\r\nthermos.temperature = 26;\r\ntemp = thermos.temperature; // 26 in Celsius",
+        "error": null,
+        "seed": "class Thermostat {\r\n  constructor(fahrenheit) {\r\n    this._tempInCelsius = 5/9 * (fahrenheit - 32);\r\n  }\r\n  get temperature(){\r\n    return this._tempInCelsius;\r\n  }\r\n  set temperature(newTemp){\r\n    this._tempInCelsius = newTemp;\r\n  }\r\n}\r\n\r\nconst thermos = new Thermostat(76); // Setting in Fahrenheit scale\r\nlet temp = thermos.temperature; // 24.44 in Celsius\r\nthermos.temperature = 26;\r\ntemp = thermos.temperature; // 26 in Celsius"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Thermostat</code> treba da bude klasa od <code>class</code> sa metodom <code>constructor</code> definisanog.</p>",
+      "testString": "assert.isFunction(Thermostat);\r\nassert.isFunction(Thermostat?.constructor);"
+    },
+    {
+      "text": "<p>Glavna reč za <code>class</code> mora se koristiti.</p>",
+      "testString": "assert.match(code, /class/);"
+    },
+    {
+      "text": "<p><code>Thermostat</code> Trebalo bi da se inicijalizuje.</p>",
+      "testString": "const _t = new Thermostat(122);\r\nassert.isObject(_t);"
+    },
+    {
+      "text": "<p>Kada se inicijalizuje sa vrednošću Farenhajta, <code>Thermostat</code> mora da postavi ispravan <code>temperature</code>.</p>",
+      "testString": "const _t = new Thermostat(122);\r\nassert.strictEqual(_t?.temperature, 50);"
+    },
+    {
+      "text": "<p><code>getter</code> mora biti specificirano.</p>",
+      "testString": "const _desc = Object.getOwnPropertyDescriptor(Thermostat.prototype, 'temperature');\r\nassert.isFunction(_desc?.get);"
+    },
+    {
+      "text": "<p><code>setter</code> Trebalo bi da bude definisano.</p>",
+      "testString": "const _desc = Object.getOwnPropertyDescriptor(Thermostat.prototype, 'temperature');\r\nassert.isFunction(_desc?.set);"
+    },
+    {
+      "text": "<p>Postavljanje <code>setter</code> sa vrednošću Celzija mora da postavi <code>temperature</code>.</p>",
+      "testString": "const _t = new Thermostat(32);\r\n_t.temperature = 26;\r\nconst _u = new Thermostat(32);\r\n_u.temperature = 50;\r\nassert.approximately(_t.temperature, 26, 0.1);\r\nassert.approximately(_u.temperature, 50, 0.1);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Možete dobiti vrednost iz objekta i postaviti vrednost svojstva unutar tog objekta.</p>\n<p>Ove se obično zovu <dfn>getters</dfn> i <dfn>setters</dfn>.</p>\n<p>Getter metoda je namenjena da vrati (dobije) vrednost privatnog atributa objekta korisniku, bez toga što korisnik direktno pristupa tom privatnom atributu.</p>\n<p>Setter funkcija je namenjena za menjanje (postavljanje) vrednosti privatnog atributa objekta na osnovu vrednosti koja se prosleđuje setter funkciji. Ove promene mogu uključivati proračune, ili čak potpuno prepisanje originalne vrednosti.</p>\n<pre><code class=\"language-js\">class Book {\r\n  constructor(author) {\r\n    this._author = author;\r\n  }\r\n  // getter\r\n  get writer() {\r\n    return this._author;\r\n  }\r\n  // setter\r\n  set writer(updatedAuthor) {\r\n    this._author = updatedAuthor;\r\n  }\r\n}\r\nconst novel = new Book('anonymous');\r\nconsole.log(novel.writer);\r\nnovel.writer = 'newAuthor';\r\nconsole.log(novel.writer);\n</code></pre>\n<p>Konsola će prikazati niz znakova <code>anonymous</code> i <code>newAuthor</code>.</p>\n<p>Posmatrajte sintaksu koja se koristi za pozivanje getter-a i setter-a. Čak i ne izgledaju kao metode. Getter-i i setter-i su važni jer skrivaju detalje unutrašnje implementacije.</p>\n<p><strong>Napomena:</strong> To je mehanizam za definisanje imena privatnog parametra na donjoj liniji (<code>_</code>). Međutim, sama ta karakteristika ne čini parametar privatnim.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristi glavnu reč <code>class</code> da kreira klasu <code>Thermostat</code>. <code>constructor</code> prihvata temperaturu u Farenhajtu.</p>\n<p>U učionici, i <code>getter</code> dobijanje temperature u Celzijusima i <code>setter</code> koja prihvata temperaturu u Celzijusima.</p>\n<p>Zapamtite da <code>C = 5/9 * (F - 32)</code> i <code>F = C * 9.0 / 5 + 32</code>, gde <code>F</code> je vrednost temperature u Fahrenhajtu, i <code>C</code> je ekvivalentna vrednost temperature u Celzijusu.</p>\n<p><strong>Napomena:</strong> Kada ovo implementirate, temperatura će biti sačuvana u prostoru koristeći jednu jedinicu mere, bilo da je to Fahrenheit ili Celsius.</p>\n<p>Ovo je funkcija getera i seta. Napravljaš API za drugu aplikaciju, koja može dobiti tačne rezultate bez obzira na šta koristiš za skladištenje.</p>\n<p>Drugim rečima, sakrivaš detalje implementacije od korisnika.</p>\n</section>",
+  "translationPending": false,
+  "block": "es6",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

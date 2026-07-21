@@ -1,0 +1,89 @@
+{
+  "id": "587d8251367417b2b2512c65",
+  "title": "Uklonite elemente iz povezanog spiska po uzorku",
+  "challengeType": 1,
+  "forumTopicId": 301711,
+  "dashedName": "remove-elements-from-a-linked-list-by-index",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element){\r\n    var node = new Node(element);\r\n    if(head === null){\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while(currentNode.next){\r\n        currentNode  = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n\r\n    length++;\r\n  };\r\n\r\n  // Only change code below this line\r\n\r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element){\r\n    var node = new Node(element);\r\n    if(head === null){\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while(currentNode.next){\r\n        currentNode  = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n\r\n    length++;\r\n  };\r\n\r\n  // Only change code below this line\r\n\r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function (element) {\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function () {\r\n    return length;\r\n  };\r\n\r\n  this.head = function () {\r\n    return head;\r\n  };\r\n\r\n  this.add = function (element) {\r\n    var node = new Node(element);\r\n    if (head === null) {\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n\r\n    length++;\r\n  };\r\n\r\n  this.removeAt = function (index) {\r\n    var currentNode = head;\r\n    var previous = head;\r\n    var count = 0;\r\n    if (index >= length || index < 0) {\r\n      return null;\r\n    }\r\n    if (index === 0) {\r\n      var removed = head.element;\r\n      head = currentNode.next;\r\n    } else {\r\n      while (count < index) {\r\n        previous = currentNode;\r\n        currentNode = currentNode.next;\r\n        count++;\r\n      }\r\n      var removed = previous.next.element;\r\n      previous.next = currentNode.next;\r\n    }\r\n    length--;\r\n    return removed;\r\n  };\r\n}",
+        "error": null,
+        "seed": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function (element) {\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function () {\r\n    return length;\r\n  };\r\n\r\n  this.head = function () {\r\n    return head;\r\n  };\r\n\r\n  this.add = function (element) {\r\n    var node = new Node(element);\r\n    if (head === null) {\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n\r\n    length++;\r\n  };\r\n\r\n  this.removeAt = function (index) {\r\n    var currentNode = head;\r\n    var previous = head;\r\n    var count = 0;\r\n    if (index >= length || index < 0) {\r\n      return null;\r\n    }\r\n    if (index === 0) {\r\n      var removed = head.element;\r\n      head = currentNode.next;\r\n    } else {\r\n      while (count < index) {\r\n        previous = currentNode;\r\n        currentNode = currentNode.next;\r\n        count++;\r\n      }\r\n      var removed = previous.next.element;\r\n      previous.next = currentNode.next;\r\n    }\r\n    length--;\r\n    return removed;\r\n  };\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoja klasa za <code>LinkedList</code> treba da ima metod <code>removeAt</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    return typeof test.removeAt === 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja za <code>removeAt</code> bi trebalo da smanji <code>length</code> pojedinačnog spiska.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('kitten');\r\n    test.removeAt(1);\r\n    return test.size() === 2;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja za <code>removeAt</code> treba da ukloni element koji se nalazi u pomenutom primeru iz povezanog spiska.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('kitten');\r\n    test.add('bird');\r\n    test.removeAt(1);\r\n    return (\r\n      JSON.stringify(test.head()) ===\r\n      '{\"element\":\"cat\",\"next\":{\"element\":\"kitten\",\"next\":{\"element\":\"bird\",\"next\":null}}}'\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Kada postoji samo jedan element u povezanoj listi, vaša metoda za <code>removeAt</code> treba da ukloni i vrati element koji se nalazi u pomenutom modelu, i smanji dužinu povezanoj liste.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    var removedItem = test.removeAt(0);\r\n    return test.head() === null && test.size() === 0 && removedItem === 'cat';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja za <code>removeAt</code> treba da vrati dostavljeni element čvora.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('kitten');\r\n    return test.removeAt(1) === 'dog';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Vaš put za <code>removeAt</code> treba da vrati <code>null</code> i nepromenjenu listu ako je model koji je dostavljen manji od <code>0</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('kitten');\r\n    var removedItem = test.removeAt(-1);\r\n    return (\r\n      removedItem === null &&\r\n      JSON.stringify(test.head()) ===\r\n        '{\"element\":\"cat\",\"next\":{\"element\":\"dog\",\"next\":{\"element\":\"kitten\",\"next\":null}}}'\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Vaša putanja za <code>removeAt</code> treba da vrati <code>null</code> i listu nepromenjenu ako je dostavljen model veći ili jednak <code>length</code> liste.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('kitten');\r\n    var removedItem = test.removeAt(3);\r\n    return (\r\n      removedItem === null &&\r\n      JSON.stringify(test.head()) ===\r\n        '{\"element\":\"cat\",\"next\":{\"element\":\"dog\",\"next\":{\"element\":\"kitten\",\"next\":null}}}'\r\n    );\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pre nego što pređemo na drugu strukturu podataka, napravimo nekoliko poslednjih vežbi sa povezanim listama.</p>\n<p>Definisati putanju za <code>removeAt</code> koja isporučuje <code>element</code> u nekom <code>index</code>. Ta putanja bi trebalo da se zove <code>removeAt(index)</code>. Da bismo obrisali <code>element</code> u nekom <code>index</code>, moraćemo da prebrojimo čvorove svaki put kada prođemo kroz spojenu listu.</p>\n<p>Metoda koja se najčešće koristi za iteraciju kroz elemente spojenog popisa je korišćenje <dfn>'mwendeshaji'</dfn>, ili sentinel-a, koji 'pokazuje' čvorove koje vaš kod poredi. U našem slučaju, počevši od <code>head</code> naše liste, inicijalizujemo varijablu <code>currentIndex</code> koja počinje na <code>0</code>. <code>currentIndex</code> treba da se inkrementira za jedan za svaki čvor koji prođemo.</p>\n<p>Kao i sa našim putem <code>remove(element)</code>, koji smo naučili u prethodnoj lekciji <a href=\"/learn/coding-interview-prep/data-structures/remove-elements-from-a-linked-list\" target=\"_blank\" rel=\"noopener noreferrer nofollow\"></a>, moramo biti pažljivi da ne ostavimo drugi deo naše liste bez čvora kada uklanjamo čvor na našem putu <code>removeAt(index)</code>. Osiguravamo da naši čvorovi nastavljaju sekvencijalno osiguravanjem da čvor koji pokazuje na uklonjeni čvor ukazuje na sledeći čvor.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napravi funkciju za <code>removeAt(index)</code> koja emituje i vraća čvorove u nekom <code>index</code>. Funkcija treba da vrati <code>null</code> ako je dati <code>index</code> negativan, ili veći ili jednak <code>length</code> iz spojenog spiska.</p>\n<p><strong>Kumbuka:</strong> Kumbuka kuhesabu <code>currentIndex</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

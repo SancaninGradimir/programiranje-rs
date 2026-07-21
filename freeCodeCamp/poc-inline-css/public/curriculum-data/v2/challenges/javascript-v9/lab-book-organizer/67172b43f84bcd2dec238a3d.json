@@ -1,0 +1,107 @@
+{
+  "id": "67172b43f84bcd2dec238a3d",
+  "title": "Napravi bibliotekar (ili katalogizator) za knjige",
+  "challengeType": 26,
+  "dashedName": "build-a-book-organizer",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function sortByYear(book1, book2) {\r\n  if (book1.releaseYear < book2.releaseYear) {\r\n    return -1;\r\n  }\r\n\r\n  if (book1.releaseYear > book2.releaseYear) {\r\n    return 1;\r\n  }\r\n\r\n  return 0;\r\n}\r\n\r\nconst books = [\r\n  {\r\n    title: \"The Great Gatsby\",\r\n    authorName: \"F. Scott Fitzgerald\",\r\n    releaseYear: 1925,\r\n  },\r\n  {\r\n    title: \"In Search of Lost Time\",\r\n    authorName: \"Marcel Proust\",\r\n    releaseYear: 1913,\r\n  },\r\n  {\r\n    title: \"Ulysses\",\r\n    authorName: \"James Joyce\",\r\n    releaseYear: 1922,\r\n  },\r\n  {\r\n    title: \"One Hundred Years of Solitude\",\r\n    authorName: \"Gabriel García Márquez\",\r\n    releaseYear: 1967,\r\n  },\r\n  {\r\n    title: \"The Catcher in the Rye\",\r\n    authorName: \"J. D. Salinger\",\r\n    releaseYear: 1951,\r\n  },\r\n];\r\n\r\nlet filteredBooks = books.filter((book) => book.releaseYear < 1950);\r\n\r\nfilteredBooks.sort(sortByYear);\r\n\r\nconsole.log(\"Books Written Before 1950 (sorted according to release year)\");\r\nfilteredBooks.forEach((book) => {\r\n  console.log(`${book.title} by ${book.authorName} (${book.releaseYear})`);\r\n});",
+        "error": null,
+        "seed": "function sortByYear(book1, book2) {\r\n  if (book1.releaseYear < book2.releaseYear) {\r\n    return -1;\r\n  }\r\n\r\n  if (book1.releaseYear > book2.releaseYear) {\r\n    return 1;\r\n  }\r\n\r\n  return 0;\r\n}\r\n\r\nconst books = [\r\n  {\r\n    title: \"The Great Gatsby\",\r\n    authorName: \"F. Scott Fitzgerald\",\r\n    releaseYear: 1925,\r\n  },\r\n  {\r\n    title: \"In Search of Lost Time\",\r\n    authorName: \"Marcel Proust\",\r\n    releaseYear: 1913,\r\n  },\r\n  {\r\n    title: \"Ulysses\",\r\n    authorName: \"James Joyce\",\r\n    releaseYear: 1922,\r\n  },\r\n  {\r\n    title: \"One Hundred Years of Solitude\",\r\n    authorName: \"Gabriel García Márquez\",\r\n    releaseYear: 1967,\r\n  },\r\n  {\r\n    title: \"The Catcher in the Rye\",\r\n    authorName: \"J. D. Salinger\",\r\n    releaseYear: 1951,\r\n  },\r\n];\r\n\r\nlet filteredBooks = books.filter((book) => book.releaseYear < 1950);\r\n\r\nfilteredBooks.sort(sortByYear);\r\n\r\nconsole.log(\"Books Written Before 1950 (sorted according to release year)\");\r\nfilteredBooks.forEach((book) => {\r\n  console.log(`${book.title} by ${book.authorName} (${book.releaseYear})`);\r\n});"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju <code>sortByYear</code> u svom kodu.</p>",
+      "testString": "assert.isFunction(sortByYear);"
+    },
+    {
+      "text": "<p>Tvoja funkcija za <code>sortByYear</code> mora da prihvati dva parametra.</p>",
+      "testString": "assert.lengthOf(sortByYear, 2);"
+    },
+    {
+      "text": "<p>Vaša funkcija za <code>sortByYear</code> treba da vrati <code>-1</code> ako je <code>releaseYear</code> od stavke <code>book1</code> manje od onoga za stavku <code>book2</code>, <code>1</code> ako je <code>releaseYear</code> od stavke <code>book1</code> veće od onoga za stavku <code>book2</code>, i <code>0</code> u svim drugim slučajevima.</p>",
+      "testString": "assert.equal(sortByYear({releaseYear: 1913}, {releaseYear: 1925}), -1);\r\nassert.equal(sortByYear({releaseYear: 1925}, {releaseYear: 1913}), 1);\r\nassert.equal(sortByYear({releaseYear: 1925}, {releaseYear: 1925}), 0);"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš red podataka <code>books</code> u svom kodu.</p>",
+      "testString": "assert.isArray(books)"
+    },
+    {
+      "text": "<p>Vaš red za <code>books</code> mora imati najmanje tri stavke knjiga.</p>",
+      "testString": "assert.isAtLeast(books.length, 3)"
+    },
+    {
+      "text": "<p>Vaš red za <code>books</code> treba da ima elemente sa sekvencom slova <code>title</code>, drugi niz slova <code>authorName</code>, i broj <code>releaseYear</code>.</p>",
+      "testString": "\r\nbooks.forEach((book) => {\r\n  assert.isObject(book);\r\n  assert.sameMembers(Object.keys(book), [\"title\", \"authorName\", \"releaseYear\"]);\r\n  assert.isString(book.title);\r\n  assert.isNotEmpty(book.title);\r\n  assert.isString(book.authorName);\r\n  assert.isNotEmpty(book.authorName);\r\n  assert.isNumber(book.releaseYear);\r\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš red podataka <code>filteredBooks</code> u svom kodu.</p>",
+      "testString": "assert.isArray(filteredBooks)"
+    },
+    {
+      "text": "<p>Safu ya <code>filteredBooks</code> bi trebalo da sadrži neke knjige filtrirane iz safu ya <code>books</code> i ne sme biti prazna.</p>",
+      "testString": "assert.isBelow(filteredBooks.length, books.length)\r\nassert.isNotEmpty(filteredBooks)"
+    },
+    {
+      "text": "<p>Serija <code>filteredBooks</code> mora da sadrži samo knjige iz prethodne serije <code>books</code>.</p>",
+      "testString": "filteredBooks.forEach(book => {\r\n  assert.isTrue(\r\n    books.some(original => \r\n      original.title === book.title &&\r\n      original.authorName === book.authorName &&\r\n      original.releaseYear === book.releaseYear\r\n    )\r\n  );\r\n});"
+    },
+    {
+      "text": "<p>Linija od <code>filteredBooks</code> treba da uključuje knjige objavljene te godine ili ranije.</p>",
+      "testString": "const maxYear = Math.max(...filteredBooks.map(book => book.releaseYear));\r\nconst removedYears = books.filter(book => !filteredBooks.includes(book)).map(book => book.releaseYear);\r\nassert.isTrue(removedYears.every(year => year > maxYear));"
+    },
+    {
+      "text": "<p>Trebalo bi da pozovete funkciju višegrađenog nivoa <code>sort</code> prosleđivanjem callback funkcije <code>sortByYear</code> u niz <code>filteredBooks</code>.</p>",
+      "testString": "assert.match(__helpers.removeJSComments(code), /\\s*filteredBooks\\s*\\.\\s*sort\\s*\\(\\s*sortByYear\\s*\\)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>Cilj:</strong> Popunite korisničke priče navedene ispod i prođite sve testove da biste završili laboratoriju.</p>\n<p><strong>Priče korisnika:</strong></p>\n<p>Trebalo bi da imaš niz podataka stavki nazvanih <code>books</code> gde svaka stavka u tom nizu treba da ima sekvencu slova <code>title</code>, drugu sekvencu slova <code>authorName</code> i broj <code>releaseYear</code>.</p>\n<ol start=\"2\">\n<li>\n<p>Vaš red od <code>books</code> mora imati najmanje tri stavke.</p>\n</li>\n<li>\n<p>Mora da ima funkciju koja se može pozvati, nazvanu <code>sortByYear</code>, koja prima dva parametra za sortiranje redova podataka.</p>\n</li>\n<li>\n<p>Funkcija za <code>sortByYear</code> treba da vrati <code>-1</code> ako je <code>releaseYear</code> iz prve knjige manje od onoga iz druge knjige.</p>\n</li>\n<li>\n<p>Funkcija za <code>sortByYear</code> treba da vrati <code>1</code> ako je <code>releaseYear</code> iz prve knjige veće od onog iz druge knjige.</p>\n</li>\n<li>\n<p>Funkcija za <code>sortByYear</code> treba da vrati <code>0</code> ako su sve vrednosti <code>releaseYear</code> jednake.</p>\n</li>\n<li>\n<p>Treba da filtrirate knjige napisane nakon određene godine, kao što je 1950, iz kolone <code>books</code> i sačuvate filtrirani red u novu kolonu pod nazivom <code>filteredBooks</code>.</p>\n</li>\n<li>\n<p>Treba da sortirate knjige u redu <code>filteredBooks</code> prema <code>releaseYear</code> po uzlaznom poretku. Naučili ste u prethodnom kursu da će metoda <code>sort()</code> sortirati taj red na svom mestu. To znači da će red <code>filteredBooks</code> biti izmenjen.</p>\n</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-book-organizer",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 109,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "higher-order-functions-and-callbacks",
+  "certification": "javascript-v9"
+}

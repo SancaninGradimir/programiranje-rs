@@ -1,0 +1,51 @@
+{
+  "id": "655791e6cf5e03be3de73451",
+  "title": "Korak 50",
+  "challengeType": 20,
+  "dashedName": "step-50",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        18,
+        21
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node][-1] == node:\n                    paths[node] = paths[current]\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \n#shortest_path(my_graph, 'A')\n",
+      "error": null,
+      "seed": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node][-1] == node:\n                    paths[node] = paths[current]\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \n#shortest_path(my_graph, 'A')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Morate dodati <code>paths[node]</code> kao prvi uslov u vašu izjavu od <code>if</code> koja je postavljena unutar. Koristite komparator <code>and</code> za povezivanje vaših uslova.</p>",
+      "testString": "({ test: () =>  {\n    const shortest = __helpers.python.getDef(code, \"shortest_path\");\n    const {function_body} = shortest;    \n    assert(function_body.match(/if\\s+paths\\s*\\[\\s*node\\s*\\]\\s+and\\s+paths\\s*\\[\\s*node\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*==\\s*node\\s*:/));\n  }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako pokušaš da ukloniš komentare iz poziva funkcije, neće raditi. Ima nekoliko grešaka koje treba ispraviti. Prva greška se javlja zato što u strukturiranim elementima unutar <code>if</code> pokušavaš da dobiješ element koji možda ne postoji u listi <code>paths[node]</code>. Stoga, moraš osigurati da <code>paths[node]</code> nije prazan pre nego što pristupiš <code>paths[node][-1]</code>.</p>\n<p>Dodajte dodatni uslov u vaš izraz za <code>if</code>, da bi se osiguralo da <code>paths[node]</code> nije prazno pre dobijanja <code>paths[node][-1]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-algorithm-design-by-building-a-shortest-path-algorithm",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 7,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 49,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

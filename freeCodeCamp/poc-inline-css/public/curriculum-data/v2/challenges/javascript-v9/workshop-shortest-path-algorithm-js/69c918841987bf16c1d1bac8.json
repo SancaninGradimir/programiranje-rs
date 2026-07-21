@@ -1,0 +1,58 @@
+{
+  "id": "69c918841987bf16c1d1bac8",
+  "title": "Korak 17",
+  "challengeType": 1,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        33,
+        35
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n\n    }\n  }\n}",
+      "error": null,
+      "seed": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n\n    }\n  }\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da dodaš deklaraciju <code>if</code> sa uslovom <code>distance !== INF &#x26;&#x26; !visited[nodeNo]</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /if\\s*\\(\\s*distance\\s*!==\\s*INF\\s*&&\\s*!\\s*visited\\s*\\[\\s*\\w+\\s*\\]\\s*\\)/\n);"
+    },
+    {
+      "text": "<p>Moraš da objaviš <code>newDistance</code> sa vrednošću <code>distances[current] + distance</code> unutar bloka <code>if</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /(const|let|var)\\s+newDistance\\s*=\\s*distances\\s*\\[\\s*current\\s*\\]\\s*\\+\\s*distance/\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prije korekcije udaljenosti, morate potvrditi da je susjed pogodan za razmatranje. Mora imati stvarni rub (<code>distance !== INF</code>) i još nije posjećen.</p>\n<p>Unutar susjednog ciklusa <code>for</code>, dodaj izjavu za <code>if</code> koja provjerava da <code>distance</code> nije sasvim jednako sa <code>INF</code> <strong>i</strong> da <code>nodeNo</code> nije posjećeno.</p>\n<p>Unutar bloka <code>if</code>, deklarisan je parametar <code>newDistance</code> sa vrednošću <code>distances[current] + distance</code>. Ovo je ukupna cena dostizanja suseda preko trenutnog čvora.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm-js",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 206,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "graphs-and-trees",
+  "certification": "javascript-v9"
+}

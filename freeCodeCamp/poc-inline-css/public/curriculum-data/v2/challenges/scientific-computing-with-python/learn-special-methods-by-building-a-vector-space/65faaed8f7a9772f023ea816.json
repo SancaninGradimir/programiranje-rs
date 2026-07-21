@@ -1,0 +1,55 @@
+{
+  "id": "65faaed8f7a9772f023ea816",
+  "title": "Korak 52",
+  "challengeType": 20,
+  "dashedName": "step-52",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        27,
+        30
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __mul__(self, other):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __mul__(self, other):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Putanja bi trebalo da vrati samo novu instancu trenutne klase kada je tip <code>other</code> jednak <code>int</code> ili <code>float</code>.</p>",
+      "testString": "({ test: () => runPython(`\nv1 = R2Vector(x=0, y=0)\nv2 = R3Vector(x=0, y=0, z=0)\ntypes = [\"\", True, [], {}]\nassert all((v1 * i) is None for i in types)\ntypes = [1, 1.0]\nassert all(type(v1 * i) is type(v1) for i in types)\nassert all(type(v2 * i) is type(v2) for i in types)\n`) })"
+    },
+    {
+      "text": "<p>Vektor koji proističe množenjem sa skalarom mora imati svaki komponenta originalnog vektora pomnožen sa tim skalarom.</p>",
+      "testString": "({ test: () => runPython(`\nv1 = R2Vector(x=1, y=1.5)\nv2 = R3Vector(x=2.2, y=3, z=-1)\nassert vars(v1 * 3) == vars(R2Vector(x=3, y=4.5))\nassert vars(v2 * (-2.0)) == vars(R3Vector(x=-4.4, y=-6.0, z=2.0))\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vektori se mogu množiti skalarom, odnosno brojem koji množi svaku komponentu pojedinačno. Rezultat množenja skalarom je vektor koji ima isti pravac kao početni vektor, ali drugačiju veličinu.</p>\n<p>Implementiraj množenje sa skalarom proveravanjem da li je <code>other</code> jednako <code>int</code> ili <code>float</code>. Ako je tako, vrati novi instancu trenutne klase gde je svaki komponent inicialnog vektora pomnožen sa <code>other</code>. Ovo će biti vektor rezultat množenja sa skalarom.</p>\n<p>Osigurati da se metode mogu koristiti za izračunavanje množenja skalarom za vektore bilo kog broja dimenzija.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 51,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

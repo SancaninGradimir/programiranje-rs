@@ -1,0 +1,96 @@
+{
+  "id": "5a24c314108439a4d4036157",
+  "title": "Napiši indikator u Reduxu",
+  "challengeType": 6,
+  "forumTopicId": 301453,
+  "dashedName": "write-a-counter-with-redux",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INCREMENT = null; // Define a constant for increment action types\nconst DECREMENT = null; // Define a constant for decrement action types\n\nconst counterReducer = null; // Define the counter reducer which will increment or decrement the state based on the action it receives\n\nconst incAction = null; // Define an action creator for incrementing\n\nconst decAction = null; // Define an action creator for decrementing\n\nconst store = null; // Define the Redux store here, passing in your reducers",
+      "error": null,
+      "seed": "const INCREMENT = null; // Define a constant for increment action types\nconst DECREMENT = null; // Define a constant for decrement action types\n\nconst counterReducer = null; // Define the counter reducer which will increment or decrement the state based on the action it receives\n\nconst incAction = null; // Define an action creator for incrementing\n\nconst decAction = null; // Define an action creator for decrementing\n\nconst store = null; // Define the Redux store here, passing in your reducers"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst incAction = () => {\n  return {\n    type: INCREMENT\n  }\n};\n\nconst decAction = () => {\n  return {\n    type: DECREMENT\n  }\n};\n\nconst store = Redux.createStore(counterReducer);",
+        "error": null,
+        "seed": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst incAction = () => {\n  return {\n    type: INCREMENT\n  }\n};\n\nconst decAction = () => {\n  return {\n    type: DECREMENT\n  }\n};\n\nconst store = Redux.createStore(counterReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Kreator akcije <code>incAction</code> mora vratiti objekat akcije sa <code>type</code>, jednak vrednosti <code>INCREMENT</code>.</p>",
+      "testString": "assert(incAction().type === INCREMENT);"
+    },
+    {
+      "text": "<p>Generator akcije <code>decAction</code> mora da vrati objekat akcije koji ima <code>type</code>, jednak vrednosti <code>DECREMENT</code></p>",
+      "testString": "assert(decAction().type === DECREMENT);"
+    },
+    {
+      "text": "<p>Pokretanje <code>store.getState()</code> treba da vrati broj</p>",
+      "testString": "assert(typeof store.getState() === 'number');"
+    },
+    {
+      "text": "<p>Redux skladište treba da se inicijalizuje sa <code>state</code> od 0.</p>",
+      "testString": "assert(\n  (function () {\n    const _store = Redux.createStore(counterReducer);\n    return _store.getState() === 0;\n  })()\n);"
+    },
+    {
+      "text": "<p>Slanje <code>incAction</code> u Redux store bi trebalo da poveća <code>state</code> za 1.</p>",
+      "testString": "assert(\n  (function () {\n    const _store = Redux.createStore(counterReducer);\n    const initialState = _store.getState();\n    _store.dispatch(incAction());\n    const incState = _store.getState();\n    return initialState + 1 === incState;\n  })()\n);"
+    },
+    {
+      "text": "<p>Slanje <code>decAction</code> u Redux store bi trebalo da smanji <code>state</code> za 1.</p>",
+      "testString": "assert(\n  (function () {\n    const _store = Redux.createStore(counterReducer);\n    const initialState = _store.getState();\n    _store.dispatch(decAction());\n    const decState = _store.getState();\n    return initialState - 1 === decState;\n  })()\n);"
+    },
+    {
+      "text": "<p><code>counterReducer</code> Trebalo bi da bude funkcija</p>",
+      "testString": "assert(typeof counterReducer === 'function');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada si naučio sve osnovne principe Redux-a! Video kako da kreiraš akcije i <em>action creators</em>, kreiraš Redux store, dispatchuje svoje akcije ka store-u, i dizajnira ažuriranja stanja korišćenjem čistih reducera. Video si čak ni kako da upravljaš kompleksnim stanjem sa strukturom reducera i obrađuješ asinhrone akcije. Ovi primeri su jednostavni, ali ovi koncepti su osnovni principi Redux-a. Ako ih dobro razumeš, spreman si da počneš da gradiš svoju Redux aplikaciju. Sledeći izazovi se tiču nekih detalja o nemenjivosti (immutability) za <code>state</code>, ali prvo, evo pregleda svega što si naučio do sada.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U ovoj lekciji/kursu, kreiraćete jednostavan store koristeći Redux od nule. Osnove su date u editoru koda, ali ćete morati da popunite detalje! Koristite zadate imena i definišite <em>action creator</em>-e <code>incAction</code> i <code>decAction</code>, tipove akcija <code>counterReducer()</code>, <code>INCREMENT</code> i <code>DECREMENT</code>, a na kraju Redux store <code>store</code>. Kada završite, trebalo bi da budete u stanju da dispatch-ujete akcije <code>INCREMENT</code> ili <code>DECREMENT</code> kako biste povećali ili smanjili stanje sačuvano u <code>store</code>. Srećno sa izgradnjom vaše prve Redux aplikacije!</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

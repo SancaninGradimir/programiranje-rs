@@ -1,0 +1,89 @@
+{
+  "id": "5eb3e4b5f629b9a07429a5d2",
+  "title": "SHA-1",
+  "challengeType": 1,
+  "forumTopicId": 385326,
+  "dashedName": "sha-1",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function SHA1(input) {\n\n}",
+      "error": null,
+      "seed": "function SHA1(input) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function SHA1(input) {\n  var hexcase = 0;\n  var b64pad = '';\n  var chrsz = 8;\n\n  function hex_sha1(s) {\n    return binb2hex(core_sha1(str2binb(s), s.length * chrsz));\n  }\n\n  function core_sha1(x, len) {\n    x[len >> 5] |= 0x80 << (24 - (len % 32));\n    x[(((len + 64) >> 9) << 4) + 15] = len;\n\n    var w = Array(80);\n    var a = 1732584193;\n    var b = -271733879;\n    var c = -1732584194;\n    var d = 271733878;\n    var e = -1009589776;\n\n    for (var i = 0; i < x.length; i += 16) {\n      var olda = a;\n      var oldb = b;\n      var oldc = c;\n      var oldd = d;\n      var olde = e;\n\n      for (var j = 0; j < 80; j++) {\n        if (j < 16) w[j] = x[i + j];\n        else w[j] = rol(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1);\n        var t = safe_add(\n          safe_add(rol(a, 5), sha1_ft(j, b, c, d)),\n          safe_add(safe_add(e, w[j]), sha1_kt(j))\n        );\n        e = d;\n        d = c;\n        c = rol(b, 30);\n        b = a;\n        a = t;\n      }\n\n      a = safe_add(a, olda);\n      b = safe_add(b, oldb);\n      c = safe_add(c, oldc);\n      d = safe_add(d, oldd);\n      e = safe_add(e, olde);\n    }\n    return Array(a, b, c, d, e);\n  }\n\n  function sha1_ft(t, b, c, d) {\n    if (t < 20) return (b & c) | (~b & d);\n    if (t < 40) return b ^ c ^ d;\n    if (t < 60) return (b & c) | (b & d) | (c & d);\n    return b ^ c ^ d;\n  }\n\n  function sha1_kt(t) {\n    return t < 20\n      ? 1518500249\n      : t < 40\n      ? 1859775393\n      : t < 60\n      ? -1894007588\n      : -899497514;\n  }\n\n  function safe_add(x, y) {\n    var lsw = (x & 0xffff) + (y & 0xffff);\n    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);\n    return (msw << 16) | (lsw & 0xffff);\n  }\n\n  function rol(num, cnt) {\n    return (num << cnt) | (num >>> (32 - cnt));\n  }\n\n  function str2binb(str) {\n    var bin = Array();\n    var mask = (1 << chrsz) - 1;\n    for (var i = 0; i < str.length * chrsz; i += chrsz)\n      bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (24 - (i % 32));\n    return bin;\n  }\n\n  function binb2hex(binarray) {\n    var hex_tab = hexcase ? '0123456789ABCDEF' : '0123456789abcdef';\n    var str = '';\n    for (var i = 0; i < binarray.length * 4; i++) {\n      str +=\n        hex_tab.charAt((binarray[i >> 2] >> ((3 - (i % 4)) * 8 + 4)) & 0xf) +\n        hex_tab.charAt((binarray[i >> 2] >> ((3 - (i % 4)) * 8)) & 0xf);\n    }\n    return str;\n  }\n\n  return hex_sha1(input);\n}",
+        "error": null,
+        "seed": "function SHA1(input) {\n  var hexcase = 0;\n  var b64pad = '';\n  var chrsz = 8;\n\n  function hex_sha1(s) {\n    return binb2hex(core_sha1(str2binb(s), s.length * chrsz));\n  }\n\n  function core_sha1(x, len) {\n    x[len >> 5] |= 0x80 << (24 - (len % 32));\n    x[(((len + 64) >> 9) << 4) + 15] = len;\n\n    var w = Array(80);\n    var a = 1732584193;\n    var b = -271733879;\n    var c = -1732584194;\n    var d = 271733878;\n    var e = -1009589776;\n\n    for (var i = 0; i < x.length; i += 16) {\n      var olda = a;\n      var oldb = b;\n      var oldc = c;\n      var oldd = d;\n      var olde = e;\n\n      for (var j = 0; j < 80; j++) {\n        if (j < 16) w[j] = x[i + j];\n        else w[j] = rol(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1);\n        var t = safe_add(\n          safe_add(rol(a, 5), sha1_ft(j, b, c, d)),\n          safe_add(safe_add(e, w[j]), sha1_kt(j))\n        );\n        e = d;\n        d = c;\n        c = rol(b, 30);\n        b = a;\n        a = t;\n      }\n\n      a = safe_add(a, olda);\n      b = safe_add(b, oldb);\n      c = safe_add(c, oldc);\n      d = safe_add(d, oldd);\n      e = safe_add(e, olde);\n    }\n    return Array(a, b, c, d, e);\n  }\n\n  function sha1_ft(t, b, c, d) {\n    if (t < 20) return (b & c) | (~b & d);\n    if (t < 40) return b ^ c ^ d;\n    if (t < 60) return (b & c) | (b & d) | (c & d);\n    return b ^ c ^ d;\n  }\n\n  function sha1_kt(t) {\n    return t < 20\n      ? 1518500249\n      : t < 40\n      ? 1859775393\n      : t < 60\n      ? -1894007588\n      : -899497514;\n  }\n\n  function safe_add(x, y) {\n    var lsw = (x & 0xffff) + (y & 0xffff);\n    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);\n    return (msw << 16) | (lsw & 0xffff);\n  }\n\n  function rol(num, cnt) {\n    return (num << cnt) | (num >>> (32 - cnt));\n  }\n\n  function str2binb(str) {\n    var bin = Array();\n    var mask = (1 << chrsz) - 1;\n    for (var i = 0; i < str.length * chrsz; i += chrsz)\n      bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (24 - (i % 32));\n    return bin;\n  }\n\n  function binb2hex(binarray) {\n    var hex_tab = hexcase ? '0123456789ABCDEF' : '0123456789abcdef';\n    var str = '';\n    for (var i = 0; i < binarray.length * 4; i++) {\n      str +=\n        hex_tab.charAt((binarray[i >> 2] >> ((3 - (i % 4)) * 8 + 4)) & 0xf) +\n        hex_tab.charAt((binarray[i >> 2] >> ((3 - (i % 4)) * 8)) & 0xf);\n    }\n    return str;\n  }\n\n  return hex_sha1(input);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>SHA1</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof SHA1 === 'function');"
+    },
+    {
+      "text": "<p><code>SHA1(\"abc\")</code> Trebalo bi da vrati sekvencu karaktera.</p>",
+      "testString": "assert(typeof SHA1('abc') === 'string');"
+    },
+    {
+      "text": "<p><code>SHA1(\"abc\")</code> treba da vrati <code>\"a9993e364706816aba3e25717850c26c9cd0d89d\"</code>.</p>",
+      "testString": "assert.equal(SHA1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d');"
+    },
+    {
+      "text": "<p><code>SHA1(\"Rosetta Code\")</code> bi trebalo da vrati <code>\"48c98f7e5a6e736d790ab740dfc3f51a61abe2b5\"</code>.</p>",
+      "testString": "assert.equal(SHA1('Rosetta Code'), '48c98f7e5a6e736d790ab740dfc3f51a61abe2b5');"
+    },
+    {
+      "text": "<p><code>SHA1(\"Hello world\")</code> treba vratiti <code>\"7b502c3a1f48c8609ae212cdfb639dee39673f5e\"</code>.</p>",
+      "testString": "assert.equal(SHA1('Hello world'), '7b502c3a1f48c8609ae212cdfb639dee39673f5e');"
+    },
+    {
+      "text": "<p><code>SHA1(\"Programming\")</code> trebalo bi da vrati <code>\"d1a946bf8b2f2a7292c250063ee28989d742cd4b\"</code>.</p>",
+      "testString": "assert.equal(SHA1('Programming'), 'd1a946bf8b2f2a7292c250063ee28989d742cd4b');"
+    },
+    {
+      "text": "<p><code>SHA1(\"is Awesome\")</code> treba da vrati <code>\"6537205da59c72b57ed3881843c2d24103d683a3\"</code>.</p>",
+      "testString": "assert.equal(SHA1('is Awesome'), '6537205da59c72b57ed3881843c2d24103d683a3');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>SHA-1</strong> ili <strong>SHA1</strong> je jednosmerna hash funkcija; izračunava digest poruke od 160 bitova.</p>\n<p>SHA-1 se često pojavljuje u protokolima bezbednosti; na primer, mnoge sajtove za HTTPS koriste RSA zajedno sa SHA-1 kako bi obezbedile sigurnost svoje veze.</p>\n<p>BitTorrent koristi SHA-1 za verifikovanje preuzimanja.</p>\n<p>Git na Mercurial koristi SHA-1 zažetak da identifikuje commits.</p>\n<p>Američki državni standard, <a href=\"https://rosettacode.org/wiki/SHA-1/FIPS-180-1\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">FIPS 180-1</a>, definiše SHA-1.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja vraća sažetak poruke SHA-1 za dati niz karaktera.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 114,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

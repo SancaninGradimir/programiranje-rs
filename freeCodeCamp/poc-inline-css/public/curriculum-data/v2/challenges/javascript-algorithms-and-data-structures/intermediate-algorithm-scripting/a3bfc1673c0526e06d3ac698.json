@@ -1,0 +1,73 @@
+{
+  "id": "a3bfc1673c0526e06d3ac698",
+  "title": "Izračunaj ukupan zbir svih osnovnih brojeva",
+  "challengeType": 1,
+  "forumTopicId": 16085,
+  "dashedName": "sum-all-primes",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function sumPrimes(num) {\r\n  return num;\r\n}\r\n\r\nsumPrimes(10);",
+      "error": null,
+      "seed": "function sumPrimes(num) {\r\n  return num;\r\n}\r\n\r\nsumPrimes(10);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class PrimeSeive {\r\n  constructor(num) {\r\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\r\n    const upper = Math.floor((num - 1) / 2);\r\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\r\n\r\n    for (let i = 0; i <= sqrtUpper; i++) {\r\n      if (seive[i]) {\r\n        // Mark value in seive array\r\n        const prime = 2 * i + 3;\r\n        // Mark all multiples of this number as false (not prime)\r\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\r\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\r\n          seive[j] = false;\r\n        }\r\n      }\r\n    }\r\n\r\n    this._seive = seive;\r\n  }\r\n\r\n  isPrime(num) {\r\n    return num === 2\r\n      ? true\r\n      : num % 2 === 0\r\n        ? false\r\n        : this.isOddPrime(num);\r\n  }\r\n\r\n  isOddPrime(num) {\r\n    return this._seive[(num - 3) / 2];\r\n  }\r\n};\r\n\r\nfunction sumPrimes(num) {\r\n  const primeSeive = new PrimeSeive(num);\r\n\r\n  let sum = 2;\r\n  for (let i = 3; i <= num; i += 2) {\r\n    if (primeSeive.isOddPrime(i)) sum += i;\r\n  }\r\n  return sum;\r\n}\r\n\r\nsumPrimes(10);",
+        "error": null,
+        "seed": "class PrimeSeive {\r\n  constructor(num) {\r\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\r\n    const upper = Math.floor((num - 1) / 2);\r\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\r\n\r\n    for (let i = 0; i <= sqrtUpper; i++) {\r\n      if (seive[i]) {\r\n        // Mark value in seive array\r\n        const prime = 2 * i + 3;\r\n        // Mark all multiples of this number as false (not prime)\r\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\r\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\r\n          seive[j] = false;\r\n        }\r\n      }\r\n    }\r\n\r\n    this._seive = seive;\r\n  }\r\n\r\n  isPrime(num) {\r\n    return num === 2\r\n      ? true\r\n      : num % 2 === 0\r\n        ? false\r\n        : this.isOddPrime(num);\r\n  }\r\n\r\n  isOddPrime(num) {\r\n    return this._seive[(num - 3) / 2];\r\n  }\r\n};\r\n\r\nfunction sumPrimes(num) {\r\n  const primeSeive = new PrimeSeive(num);\r\n\r\n  let sum = 2;\r\n  for (let i = 3; i <= num; i += 2) {\r\n    if (primeSeive.isOddPrime(i)) sum += i;\r\n  }\r\n  return sum;\r\n}\r\n\r\nsumPrimes(10);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>sumPrimes(10)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert.deepEqual(typeof sumPrimes(10), 'number');"
+    },
+    {
+      "text": "<p><code>sumPrimes(10)</code> Trebalo bi da vrati 17.</p>",
+      "testString": "assert.deepEqual(sumPrimes(10), 17);"
+    },
+    {
+      "text": "<p><code>sumPrimes(977)</code> trebalo bi da vrati 73156.</p>",
+      "testString": "assert.deepEqual(sumPrimes(977), 73156);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prost broj je prirodan broj veći od 1 koji ima tačno dva delitelja: 1 i sam sebe. Na primer, 2 je prost broj jer se deli samo sa 1 i 2. Naspravno, 4 nije prost broj jer se deli sa 1, 2 i 4.</p>\n<p>Prepisati <code>sumPrimes</code> ili vratiti sve osnovne brojeve koji su manji ili jednaki num.</p>\n</section>",
+  "translationPending": false,
+  "block": "intermediate-algorithm-scripting",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

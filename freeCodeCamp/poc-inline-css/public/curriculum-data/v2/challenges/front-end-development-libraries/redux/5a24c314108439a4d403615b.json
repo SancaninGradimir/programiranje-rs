@@ -1,0 +1,84 @@
+{
+  "id": "5a24c314108439a4d403615b",
+  "title": "Kopiraj objekat sa Object.assign",
+  "challengeType": 6,
+  "forumTopicId": 301437,
+  "dashedName": "copy-an-object-with-object-assign",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const defaultState = {\n  user: 'CamperBot',\n  status: 'offline',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\n\nconst immutableReducer = (state = defaultState, action) => {\n  switch(action.type) {\n    case 'ONLINE':\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst wakeUp = () => {\n  return {\n    type: 'ONLINE'\n  }\n};\n\nconst store = Redux.createStore(immutableReducer);",
+      "error": null,
+      "seed": "const defaultState = {\n  user: 'CamperBot',\n  status: 'offline',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\n\nconst immutableReducer = (state = defaultState, action) => {\n  switch(action.type) {\n    case 'ONLINE':\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst wakeUp = () => {\n  return {\n    type: 'ONLINE'\n  }\n};\n\nconst store = Redux.createStore(immutableReducer);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const defaultState = {\n  user: 'CamperBot',\n  status: 'offline',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\n\nconst immutableReducer = (state = defaultState, action) => {\n  switch(action.type) {\n    case 'ONLINE':\n      return Object.assign({}, state, {\n        status: 'online'\n      });\n    default:\n      return state;\n  }\n};\n\nconst wakeUp = () => {\n  return {\n    type: 'ONLINE'\n  }\n};\n\nconst store = Redux.createStore(immutableReducer);",
+        "error": null,
+        "seed": "const defaultState = {\n  user: 'CamperBot',\n  status: 'offline',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\n\nconst immutableReducer = (state = defaultState, action) => {\n  switch(action.type) {\n    case 'ONLINE':\n      return Object.assign({}, state, {\n        status: 'online'\n      });\n    default:\n      return state;\n  }\n};\n\nconst wakeUp = () => {\n  return {\n    type: 'ONLINE'\n  }\n};\n\nconst store = Redux.createStore(immutableReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Redux skladište treba da postoji i bude inicijalizovano stanjem koje odgovara objektu <code>defaultState</code> deklarisanom na liniji 1.</p>",
+      "testString": "const expectedState = {\n  user: 'CamperBot',\n  status: 'offline',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\nconst initialState = store.getState();\nassert.deepEqual(expectedState, initialState);"
+    },
+    {
+      "text": "<p><code>wakeUp</code> na <code>immutableReducer</code> sve mora biti funkcionalno.</p>",
+      "testString": "assert(typeof wakeUp === 'function' && typeof immutableReducer === 'function');"
+    },
+    {
+      "text": "<p>Slanje akcije tipa <code>ONLINE</code> treba da ažurira svojstvo <code>status</code> u stanje koje je <code>online</code> i NE SME menjati stanje direktno.</p>",
+      "testString": "\nconst initialState = store.getState();\nconst isFrozen = !!DeepFreeze(initialState);\nstore.dispatch({ type: 'ONLINE' });\nconst finalState = store.getState();\nconst expectedState = {\n  user: 'CamperBot',\n  status: 'online',\n  friends: '732,982',\n  community: 'freeCodeCamp'\n};\nassert(isFrozen);\nassert.deepEqual(finalState, expectedState);"
+    },
+    {
+      "text": "<p><code>Object.assign</code> Trebalo bi da se koristi za vraćanje novog stanja.</p>",
+      "testString": "assert(code.includes('Object.assign'));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nedavni izazovi su bili povezani sa redovima podataka, ali postoje načini za pomoć u primeni nemene promenljive čak i kada je stanje <code>object</code>. Važan alat za rad sa objektima je alat <code>Object.assign()</code>. <code>Object.assign()</code> uzima ciljni objekat i izvorne objekte, pa spaja svojstva iz izvornih objekata na ciljni objekat. Bilo koja poklapanja svojstva prepisuju se svojstvima koji postoje u izvornim objektima. Ova funkcija se često koristi za kreiranje dubokih kopija objekata, prosleđivanjem praznog objekta kao prvog argumenta, praćenog objektom (izvorom) koji želite da kopirate. Evo primera:</p>\n<pre><code class=\"language-js\">const newObject = Object.assign({}, obj1, obj2);\n</code></pre>\n<p>Ovo kreira <code>newObject</code> kao novi <code>object</code>, koji ima funkcije trenutno dostupne u <code>obj1</code> i <code>obj2</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Redux stanje i akcije su modifikovane da obrađuju <code>object</code> za <code>state</code>. Izmijenite kod kako biste vratili novu vrijednost od <code>state</code> za akcije tipa <code>ONLINE</code>, koje postavljaju svojstvo <code>status</code> na niz znakova <code>online</code>. Pokušajte da koristite <code>Object.assign()</code> da završite izazov.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": true,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

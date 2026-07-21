@@ -1,0 +1,59 @@
+{
+  "id": "662fc3eba556a6bf800d48c1",
+  "title": "Korak 14",
+  "challengeType": 20,
+  "dashedName": "step-14",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        1,
+        10
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi ti da napraviš krug <code>for</code> koji se ponavlja na <code>args</code> nakon tvog izjave <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_for_loops()[0].find_for_iter().is_equivalent(\"args\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da napravite deklaraciju za <code>if</code> koja proverava da li trenutni koeficijent nije primer od <code>int</code> ili <code>float</code> unutar opsega <code>for</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nvar = str(_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_for_loops()[0].find_for_vars())\ncond1 = f'not isinstance({var}, (int, float))'\ncond2 = f'not isinstance({var}, (float, int))'\nif_stmt = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_for_loops()[0].find_ifs()[0].find_conditions()[0]\nif_stmt.is_equivalent(cond1) or if_stmt.is_equivalent(cond2)\n`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da koristite niz znakova navedenog za prikaz <code>TypeError</code> unutar deklaracije <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_for_loops()[0].find_ifs()[0].find_bodies()[0].has_stmt(\"raise TypeError(\\\\\"Coefficients must be of type 'int' or 'float'\\\\\")\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Funkcija izgrađena unutar <code>isinstance()</code> koja prima dva argumenta i vraća booleanski vrednost, pokazujući da li je nešto što je prosleđeno kao prvi argument instanca klase objekata prosleđenih kao drugi argument.</p>\n<pre><code class=\"language-py\">isinstance(7, int) # True\n</code></pre>\n<p>Još jedna stvar koju želite da proverite je da je svaki argument broj. Nakon vašeg <code>if</code>, kreirajte petlju <code>for</code> koja iterira preko <code>args</code> i proverite da li argument u trenutnoj petlji nije instanca od <code>int</code> ili <code>float</code>. Koristite funkciju <code>isinstance()</code> i prosledite tuple koji sadrži <code>int</code> i <code>float</code> kao drugi argument.</p>\n<p>Ako je argument broj, prikaži <code>TypeError</code> ako kaže <code>\"Coefficients must be of type 'int' or 'float'\"</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

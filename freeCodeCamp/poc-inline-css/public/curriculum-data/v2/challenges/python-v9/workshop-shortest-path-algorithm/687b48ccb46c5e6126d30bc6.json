@@ -1,0 +1,54 @@
+{
+  "id": "687b48ccb46c5e6126d30bc6",
+  "title": "Korak 25",
+  "challengeType": 20,
+  "dashedName": "step-25",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        37,
+        45
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n                min_distance = distances[node_no]\n                current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n        for node_no in range(n):\n            distance = matrix[current][node_no]\n            if distance != INF and not visited[node_no]:\n                new_distance = distances[current] + distance\n                if new_distance < distances[node_no]:\n                    distances[node_no] = new_distance\n                    paths[node_no] = paths[current] + [node_no]\n\n    targets = [target_node] if target_node is not None else range(n)\n    for node_no in targets:\n        if node_no == start_node or distances[node_no] == INF:\n            continue\n        string_path = (str(n) for n in paths[node_no])\n        path = ' -> '.join(string_path)\n        ",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n                min_distance = distances[node_no]\n                current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n        for node_no in range(n):\n            distance = matrix[current][node_no]\n            if distance != INF and not visited[node_no]:\n                new_distance = distances[current] + distance\n                if new_distance < distances[node_no]:\n                    distances[node_no] = new_distance\n                    paths[node_no] = paths[current] + [node_no]\n\n    targets = [target_node] if target_node is not None else range(n)\n    for node_no in targets:\n        if node_no == start_node or distances[node_no] == INF:\n            continue\n        string_path = (str(n) for n in paths[node_no])\n        path = ' -> '.join(string_path)\n        "
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da ispišete tačne rezultate koristeći <code>print(f'\\n{start_node}-{node_no} distance: {distances[node_no]}\\nPath: {path}')</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(\n          `_Node(_code).find_function('shortest_path').find_for_loops()[1].has_call('print(f\"\\\\\\\\n{start_node}-{node_no} distance: {distances[node_no]}\\\\\\\\nPath: {path}\")')`\n        )\n      );\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Konačno, ispišite rezultate na trenutni čvor.</p>\n<p>Vaši rezultati bi trebalo da prikažu dve stvari: rastojanje od <code>start_node</code> do <code>node_no</code> i rutu koja je pređena za dolazak tamo.</p>\n<p>Koristite <code>f-string</code> da kreirate format rezultata koji prikazuje udaljenost i kompletan put koristeći format:</p>\n<pre><code class=\"language-md\">\\n[starting node]-[node number] distance: [distance]\\nPath: [path]\n</code></pre>\n<p>Gde:</p>\n<ul>\n<li><code>[starting node]</code> je <code>start_node</code></li>\n<li><code>[node number]</code> je <code>node_no</code></li>\n<li><code>[distance]</code> je udaljenost od <code>start_node</code> do <code>node_no</code></li>\n<li><code>[path]</code> je putanja koja vodi ka <code>node_no</code></li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 24,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

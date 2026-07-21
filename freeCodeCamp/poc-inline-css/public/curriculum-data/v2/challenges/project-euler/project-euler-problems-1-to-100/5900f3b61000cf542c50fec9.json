@@ -1,0 +1,81 @@
+{
+  "id": "5900f3b61000cf542c50fec9",
+  "title": "Vežba 74: Niz brojeva",
+  "challengeType": 1,
+  "forumTopicId": 302187,
+  "dashedName": "problem-74-digit-factorial-chains",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function digitFactorialChains(n) {\n\n  return true;\n}\n\ndigitFactorialChains(2000);",
+      "error": null,
+      "seed": "function digitFactorialChains(n) {\n\n  return true;\n}\n\ndigitFactorialChains(2000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function digitFactorialChains(n) {\n  function sumDigitsFactorials(number) {\n    let sum = 0;\n    while (number > 0) {\n      sum += factorials[number % 10];\n      number = Math.floor(number / 10);\n    }\n    return sum;\n  }\n\n  const factorials = [1];\n  for (let i = 1; i < 10; i++) {\n    factorials.push(factorials[factorials.length - 1] * i);\n  }\n\n  const sequences = {\n    169: 3,\n    871: 2,\n    872: 2,\n    1454: 3,\n    45362: 2,\n    45461: 2,\n    3693601: 3\n  };\n  let result = 0;\n\n  for (let i = 2; i < n; i++) {\n    let curNum = i;\n    let chainLength = 0;\n    const curSequence = [];\n    while (curSequence.indexOf(curNum) === -1) {\n      curSequence.push(curNum);\n      curNum = sumDigitsFactorials(curNum);\n      chainLength++;\n      if (sequences.hasOwnProperty(curNum) > 0) {\n        chainLength += sequences[curNum];\n        break;\n      }\n    }\n    if (chainLength === 60) {\n      result++;\n    }\n    for (let j = 1; j < curSequence.length; j++) {\n      sequences[curSequence[j]] = chainLength - j;\n    }\n  }\n  return result;\n}",
+        "error": null,
+        "seed": "function digitFactorialChains(n) {\n  function sumDigitsFactorials(number) {\n    let sum = 0;\n    while (number > 0) {\n      sum += factorials[number % 10];\n      number = Math.floor(number / 10);\n    }\n    return sum;\n  }\n\n  const factorials = [1];\n  for (let i = 1; i < 10; i++) {\n    factorials.push(factorials[factorials.length - 1] * i);\n  }\n\n  const sequences = {\n    169: 3,\n    871: 2,\n    872: 2,\n    1454: 3,\n    45362: 2,\n    45461: 2,\n    3693601: 3\n  };\n  let result = 0;\n\n  for (let i = 2; i < n; i++) {\n    let curNum = i;\n    let chainLength = 0;\n    const curSequence = [];\n    while (curSequence.indexOf(curNum) === -1) {\n      curSequence.push(curNum);\n      curNum = sumDigitsFactorials(curNum);\n      chainLength++;\n      if (sequences.hasOwnProperty(curNum) > 0) {\n        chainLength += sequences[curNum];\n        break;\n      }\n    }\n    if (chainLength === 60) {\n      result++;\n    }\n    for (let j = 1; j < curSequence.length; j++) {\n      sequences[curSequence[j]] = chainLength - j;\n    }\n  }\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>digitFactorialChains(2000)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof digitFactorialChains(2000) === 'number');"
+    },
+    {
+      "text": "<p><code>digitFactorialChains(2000)</code> inapaswa kurudisha <code>6</code>.</p>",
+      "testString": "assert.strictEqual(digitFactorialChains(2000), 6);"
+    },
+    {
+      "text": "<p><code>digitFactorialChains(100000)</code> treba da vrati <code>42</code>.</p>",
+      "testString": "assert.strictEqual(digitFactorialChains(100000), 42);"
+    },
+    {
+      "text": "<p><code>digitFactorialChains(500000)</code> treba vratiti <code>282</code>.</p>",
+      "testString": "assert.strictEqual(digitFactorialChains(500000), 282);"
+    },
+    {
+      "text": "<p><code>digitFactorialChains(1000000)</code> trebalo bi da vrati <code>402</code>.</p>",
+      "testString": "assert.strictEqual(digitFactorialChains(1000000), 402);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Broj 145 poznat je po tome što je zbir faktorijela njegovih cifara jednak 145:</p>\n<p>$$1! + 4! + 5! = 1 + 24 + 120 = 145$$</p>\n<p>Manje je poznato da broj 169 formira najduži lanac brojeva koji se vraća na 169; ispostavlja se da postoje samo tri takva ciklusa:</p>\n<p>$$\\begin{align}\n&#x26;169 → 363601 → 1454 → 169\\\\\n&#x26;871 → 45361 → 871\\\\\n&#x26;872 → 45362 → 872\\\\\n\\end{align}$$</p>\n<p>Nije teško dokazati da će se SVAKI početni broj na kraju zaglaviti u ciklusu. Na primer,</p>\n<p>$$\\begin{align}\n&#x26;69 → 363600 → 1454 → 169 → 363601\\ (→ 1454)\\\\\n&#x26;78 → 45360 → 871 → 45361\\ (→ 871)\\\\\n&#x26;540 → 145\\ (→ 145)\\\\\n\\end{align}$$</p>\n<p>Počevši sa 69, stvara niz od pet neponavljanih brojeva, ali najduži neponavljajući niz sa brojem koji počinje ispod miliona je šadeset.</p>\n<p>Koliko lanaca, sa početnim brojem manjim od <code>n</code>, ima tačno šezdeset različitih članova pre nego što se prvi put ponovi?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 73,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

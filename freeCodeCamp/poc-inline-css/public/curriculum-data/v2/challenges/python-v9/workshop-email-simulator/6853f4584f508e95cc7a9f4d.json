@@ -1,0 +1,66 @@
+{
+  "id": "6853f4584f508e95cc7a9f4d",
+  "title": "Korak 30",
+  "challengeType": 20,
+  "dashedName": "step-30",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        40,
+        42
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    \n",
+      "error": null,
+      "seed": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    \n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da definišete metodu pod nazivom <code>list_emails</code> u klasu objekata <code>Inbox</code> koja uzima <code>self</code> kao parametar.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"list_emails\").has_args(\"self\")`))\n    }\n})"
+    },
+    {
+      "text": "<p>Treba da proveriš da li je <code>self.emails</code> prazno korišćenjem <code>if not self.emails</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"list_emails\").find_ifs()[0].find_conditions()[0].is_equivalent(\"not self.emails\")`))\n    }\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da odštampate poruku <code>Your inbox is empty.\\n</code> ako nema e-pošte.</p>",
+      "testString": "({\n    test: () => \n    { \n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"list_emails\").find_ifs()[0].find_body()[0].is_equivalent(\"print('Your inbox is empty.\\\\\\\\n')\")`))\n    }\n})"
+    },
+    {
+      "text": "<p>Treba da imaš izraz <code>return</code> na kraju izraza <code>if</code>.</p>",
+      "testString": "({ \n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"list_emails\").find_ifs()[0].find_body()[1].is_equivalent(\"return\")`))\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ćete kreirati metodu za listanje svih e-poštama u poštanskom sandučić́u. Ova metoda treba da obradi slučaj kada je poštanski sandučić prazan i prikaže listu adresa e-pošte tamo gde postoje poruke.</p>\n<p>Dodaj metodu nazvanu <code>list_emails</code> u klasu <code>Inbox</code> koja uzima <code>self</code> kao parametar. Prvo, kreiraj metodu <code>if</code> da proveri da li je poštansko sanduče prazno proveravanjem liste <code>emails</code>. Ako je prazno, odštapi poruku <code>Your inbox is empty.\\n</code>. Dodaj metodu <code>return</code> za izlazak iz te metode.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 29,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "587d7b8a367417b2b2512b4e",
+  "title": "Napravi niz slova koristeći slova iz ćibice",
+  "challengeType": 1,
+  "forumTopicId": 301200,
+  "dashedName": "create-strings-using-template-literals",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const result = {\n  success: [\"max-length\", \"no-amd\", \"prefer-arrow-functions\"],\n  failure: [\"no-var\", \"var-on-top\", \"linebreak\"],\n  skipped: [\"no-extra-semi\", \"no-dup-keys\"]\n};\nfunction makeList(arr) {\n  // Only change code below this line\n  const failureItems = [];\n  // Only change code above this line\n\n  return failureItems;\n}\n\nconst failuresList = makeList(result.failure);",
+      "error": null,
+      "seed": "const result = {\n  success: [\"max-length\", \"no-amd\", \"prefer-arrow-functions\"],\n  failure: [\"no-var\", \"var-on-top\", \"linebreak\"],\n  skipped: [\"no-extra-semi\", \"no-dup-keys\"]\n};\nfunction makeList(arr) {\n  // Only change code below this line\n  const failureItems = [];\n  // Only change code above this line\n\n  return failureItems;\n}\n\nconst failuresList = makeList(result.failure);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const result = {\n  success: [\"max-length\", \"no-amd\", \"prefer-arrow-functions\"],\n  failure: [\"no-var\", \"var-on-top\", \"linebreak\"],\n  skipped: [\"no-extra-semi\", \"no-dup-keys\"]\n};\nfunction makeList(arr) {\n  return arr.map(val => `<li class=\"text-warning\">${val}</li>`);\n}\n\nconst failuresList = makeList(result.failure);",
+        "error": null,
+        "seed": "const result = {\n  success: [\"max-length\", \"no-amd\", \"prefer-arrow-functions\"],\n  failure: [\"no-var\", \"var-on-top\", \"linebreak\"],\n  skipped: [\"no-extra-semi\", \"no-dup-keys\"]\n};\nfunction makeList(arr) {\n  return arr.map(val => `<li class=\"text-warning\">${val}</li>`);\n}\n\nconst failuresList = makeList(result.failure);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>failuresList</code> treba da bude podatni red koji sadrži poruku <code>result failure</code>.</p>",
+      "testString": "assert(\n  typeof makeList(result.failure) === 'object' && failuresList.length === 3\n);"
+    },
+    {
+      "text": "<p><code>failuresList</code> Trebalo bi da bude jednako navedenim rezultatima.</p>",
+      "testString": "assert(\n  makeList(result.failure).every(\n    (v, i) =>\n      v === `<li class=\"text-warning\">${result.failure[i]}</li>` ||\n      v === `<li class='text-warning'>${result.failure[i]}</li>`\n  )\n);"
+    },
+    {
+      "text": "<p>Koristite niz karakterima i unos vrednosti.</p>",
+      "testString": "assert.match(code, /(`.*\\${.*}.*`)/);"
+    },
+    {
+      "text": "<p>Koristite ponovnu rutu.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/for|map|reduce|forEach|while/));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Novi element ES6 je <dfn>šablonski literal</dfn>. Ovo je poseban tip sekvence znakova koji pojednostavljuje kreiranje složenih sekvenci znakova.</p>\n<p>Karakteri omogućavaju vam da kreirate višelinijske nizove karaktera i koristite komponente za unos vrednosti kako biste sastavili niz karaktera.</p>\n<p>Razmotri kod koji je dole:</p>\n<pre><code class=\"language-js\">const person = {\n  name: \"Zodiac Hasbro\",\n  age: 56\n};\n\nconst greeting = `Hello, my name is ${person.name}!\nI am ${person.age} years old.`;\n\nconsole.log(greeting);\n</code></pre>\n<p>Konsole prikazuju sekvencu karaktera <code>Hello, my name is Zodiac Hasbro!</code> i <code>I am 56 years old.</code>.</p>\n<p>Desilo se mnogo stvari ovde. Prvo, ovaj primer koristi oznake za šablonske stringove (<code>`</code>), a ne navodnike (<code>'</code> ili <code>\"</code>), za obuhvatanje stringa. Drugo, primetite da je string višelinijski, i u kodu i u izlazu. Ovo štedi potrebu za ubacivanjem <code>\\n</code> unutar stringova. Sintaksa <code>${variable}</code> koja je korišćena iznad predstavlja mesto za ubacivanje vrednosti. Više nećete morati da koristite konkatenaciju pomoću operatora <code>+</code>. Da biste dodali promenljive u stringove, samo ubacite promenljivu u template string i obuhvatite je sa <code>${</code> i <code>}</code>. Na sličan način možete uključiti i druge izraze u string literal, na primer <code>${a + b}</code>. Ovaj novi način pravljenja stringova daje vam veću fleksibilnost za kreiranje složenijih stringova.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristite sintaksu literala sa šablonima i markere za interpolaciju kako biste kreirali niz podataka u obliku inline koda/stringa (<code>li</code>). Svaki stav u listi mora imati jedan od elemenata niza podataka iz svojstva <code>failure</code> na objektu <code>result</code> i mora posedovati svojstvo elementa <code>class</code> sa vrednošću <code>text-warning</code>. Funkcija <code>makeList</code> treba da vrati niz podataka u obliku inline koda/stringa.</p>\n<p>Koristite metode ponavljanja (bilo koji tip kruga/ciklus) da biste dobili očekivane rezultate (prikazani ispod).</p>\n<pre><code class=\"language-js\">[\n  '&#x3C;li class=\"text-warning\">no-var&#x3C;/li>',\n  '&#x3C;li class=\"text-warning\">var-on-top&#x3C;/li>',\n  '&#x3C;li class=\"text-warning\">linebreak&#x3C;/li>'\n]\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "es6",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

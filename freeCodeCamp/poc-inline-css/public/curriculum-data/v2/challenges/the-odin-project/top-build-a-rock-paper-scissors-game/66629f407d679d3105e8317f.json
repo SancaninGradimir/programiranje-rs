@@ -1,0 +1,143 @@
+{
+  "id": "66629f407d679d3105e8317f",
+  "title": "Jenga mchezo wa jiwe karatasi mkono",
+  "challengeType": 25,
+  "dashedName": "top-build-a-rock-paper-scissors-game",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const hand = ['rock', 'paper', 'scissors'];",
+      "error": null,
+      "seed": "const hand = ['rock', 'paper', 'scissors'];"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<html lang=\"en\">\n<head>\n  <script src=\"script.js\"></script>\n</head>\n</html>",
+      "error": null,
+      "seed": "<html lang=\"en\">\n<head>\n  <script src=\"script.js\"></script>\n</head>\n</html>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<html lang=\"en\">\n<head>\n  <script src=\"script.js\"></script>\n</head>\n</html>",
+        "error": null,
+        "seed": "<html lang=\"en\">\n<head>\n  <script src=\"script.js\"></script>\n</head>\n</html>"
+      },
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const hand = ['rock', 'paper', 'scissors'];\n\n\nlet computerScore = 0;\nlet humanScore = 0;\n\nconst getComputerChoice = () => {\n  return hand[Math.floor(Math.random() * hand.length)];\n}\n\nconst getHumanChoice = () => {\n  return prompt();\n}\n\nconst playRound = (humanChoice, computerChoice) => {\n  humanChoice = humanChoice.toLowerCase()\n\n  const tie = \"It's a tie!\"\n  const win = `You win! ${humanChoice} beats ${computerChoice}`\n  const lose = `You lose! ${computerChoice} beats ${humanChoice}`\n\n\n  if (humanChoice == 'rock') {\n    if (computerChoice == 'rock') {\n      computerScore++;\n      humanScore++;\n      return tie;\n    } else if (computerChoice == 'paper') {\n      computerScore++;\n      return lose;\n    } else {\n      humanScore++;\n      return win;\n    }\n  } else if (humanChoice == 'paper') {\n    if (computerChoice == 'rock') {\n      humanScore++;\n      return win;\n    } else if (computerChoice == 'paper') {\n      computerScore++;\n      humanScore++;\n      return tie;\n    } else {\n      computerScore++;\n      return lose;\n    }\n  } else if (humanChoice == 'scissors') {\n    if (computerChoice == 'rock') {\n      computerScore++;\n      return lose;\n    } else if (computerChoice == 'paper') {\n      humanScore++;\n      return win;\n    } else {\n      computerScore++;\n      humanScore++;\n      return tie;\n    }\n  }\n}\n\nconst playGame = () => {\n  for(let i = 0; i < 3; i++){\n    playRound(getHumanChoice(), getComputerChoice())\n  }\n\n  return humanScore > computerScore ? \"You win the game!\" : \"You lose the game!\"\n}\n",
+        "error": null,
+        "seed": "const hand = ['rock', 'paper', 'scissors'];\n\n\nlet computerScore = 0;\nlet humanScore = 0;\n\nconst getComputerChoice = () => {\n  return hand[Math.floor(Math.random() * hand.length)];\n}\n\nconst getHumanChoice = () => {\n  return prompt();\n}\n\nconst playRound = (humanChoice, computerChoice) => {\n  humanChoice = humanChoice.toLowerCase()\n\n  const tie = \"It's a tie!\"\n  const win = `You win! ${humanChoice} beats ${computerChoice}`\n  const lose = `You lose! ${computerChoice} beats ${humanChoice}`\n\n\n  if (humanChoice == 'rock') {\n    if (computerChoice == 'rock') {\n      computerScore++;\n      humanScore++;\n      return tie;\n    } else if (computerChoice == 'paper') {\n      computerScore++;\n      return lose;\n    } else {\n      humanScore++;\n      return win;\n    }\n  } else if (humanChoice == 'paper') {\n    if (computerChoice == 'rock') {\n      humanScore++;\n      return win;\n    } else if (computerChoice == 'paper') {\n      computerScore++;\n      humanScore++;\n      return tie;\n    } else {\n      computerScore++;\n      return lose;\n    }\n  } else if (humanChoice == 'scissors') {\n    if (computerChoice == 'rock') {\n      computerScore++;\n      return lose;\n    } else if (computerChoice == 'paper') {\n      humanScore++;\n      return win;\n    } else {\n      computerScore++;\n      humanScore++;\n      return tie;\n    }\n  }\n}\n\nconst playGame = () => {\n  for(let i = 0; i < 3; i++){\n    playRound(getHumanChoice(), getComputerChoice())\n  }\n\n  return humanScore > computerScore ? \"You win the game!\" : \"You lose the game!\"\n}\n"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da postoji funkcija pod nazivom <code>getComputerChoice</code>.</p>",
+      "testString": "assert.isFunction(getComputerChoice);"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>getComputerChoice</code> treba nasumično da vraća <code>\"rock\"</code>, <code>\"paper\"</code> ili <code>\"scissors\"</code>.</p>",
+      "testString": "const counts = {}\nfor (let i = 0; i < 100; i++) {\n  const result = getComputerChoice();\n  counts[result] = (counts[result] ?? 0) + 1;\n}\nassert.lengthOf(Object.keys(counts), 3);\nassert.include(Object.keys(counts), \"rock\");\nassert.include(Object.keys(counts), \"paper\"); \nassert.include(Object.keys(counts), \"scissors\");"
+    },
+    {
+      "text": "<p>Treba da postoji funkcija pod nazivom <code>getHumanChoice</code>.</p>",
+      "testString": "assert.isFunction(getHumanChoice);"
+    },
+    {
+      "text": "<p>Treba da postoje dve promenljive pod nazivom <code>humanScore</code> i <code>computerScore</code> u globalnom opsegu.</p>",
+      "testString": "assert.exists(humanScore);\nassert.exists(computerScore);"
+    },
+    {
+      "text": "<p>Treba da postoji funkcija pod nazivom <code>playRound</code>.</p>",
+      "testString": "assert.isFunction(playRound);"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> treba da prihvata izbor igrača i izbor računara kao argumente putem parametara <code>humanChoice</code> i <code>computerChoice</code>.</p>",
+      "testString": "assert.match(playRound.toString(), /\\s*(?:\\bhumanChoice\\b\\s*,\\s*\\bcomputerChoice\\b)/);"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> ne treba da razlikuje velika i mala slova, tako da igrači mogu da unesu <code>\"rock\"</code>, <code>\"ROCK\"</code>, <code>\"RocK\"</code> ili bilo koju drugu varijaciju.</p>",
+      "testString": "assert.match(playRound.toString(), /\\bhumanChoice\\s*\\.toLowerCase\\(\\)/);"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> treba da vrati string <code>\"It's a tie!\"</code> ako su izbor igrača i računara isti.</p>",
+      "testString": "assert.equal(playRound(\"rock\", \"rock\"), \"It's a tie!\");"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> treba da vrati string <code>\"You win! [player choice] beats [computer choice]\"</code> ako igrač pobedi.</p>",
+      "testString": "assert.equal(playRound(\"rock\", \"scissors\"), \"You win! rock beats scissors\");"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> treba da vrati string <code>\"You lose! [computer choice] beats [player choice]\"</code> ako računar pobedi.</p>",
+      "testString": "assert.equal(playRound(\"rock\", \"paper\"), \"You lose! paper beats rock\");"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>playRound</code> treba da poveća vrednost promenljive <code>humanScore</code> ili <code>computerScore</code> u zavisnosti od pobednika runde.</p>",
+      "testString": "humanScore = 0;\ncomputerScore = 0;\nplayRound(\"rock\", \"scissors\");\nassert.equal(humanScore, 1);"
+    },
+    {
+      "text": "<p>Treba da postoji funkcija pod nazivom <code>playGame</code>.</p>",
+      "testString": "assert.isFunction(playGame);"
+    },
+    {
+      "text": "<p>Treba da koristite petlju za odigravanje 3 runde.</p>",
+      "testString": "assert.match(playGame.toString(), /\\bfor\\s*\\(/);"
+    },
+    {
+      "text": "<p>Treba da vratite pobednika igre na osnovu toga ko je pobedio u više rundi.</p>",
+      "testString": "window.prompt = () => \"rock\";\nassert.match(playGame(), /You (win|lose) the game!/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Tvoja igra će se igrati protiv računara. Napisaćeš funkciju koja nasumično vraća <code>\"rock\"</code>, <code>\"paper\"</code> ili <code>\"scissors\"</code>.</p>\n<p>Ne moraš da brineš o korisničkom interfejsu igre. Pisaćeš samo logiku igre. Otvori <code>script.js</code> i počni da pratiš uputstva.</p>\n<p><strong>Hadithi za mtumizi:</strong></p>\n<ol>\n<li>\n<p>Treba da imaš funkciju pod nazivom <code>getComputerChoice</code>.</p>\n</li>\n<li>\n<p>Funkcija <code>getComputerChoice</code> treba nasumično da vraća <code>\"rock\"</code>, <code>\"paper\"</code> ili <code>\"scissors\"</code>.</p>\n</li>\n</ol>\n<p><strong>Savet:</strong> Metoda <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random\">Math.random</a> vraća nasumičan broj veći ili jednak 0, a manji od 1. Razmisli kako možeš da je iskoristiš da nasumično vrati jednu od više mogućih opcija.</p>\n<p>Igrom će upravljati ljudski igrač. Napisaćeš funkciju koja prihvata izbor korisnika i vraća ga.</p>\n<ol>\n<li>\n<p>Tengeneza kitendakazi kinachoitwa <code>getHumanChoice</code>.</p>\n</li>\n<li>\n<p>Napiši kod tako da <code>getHumanChoice</code> vrati jednu od važećih opcija na osnovu korisnikovog izbora.</p>\n</li>\n</ol>\n<p><strong>Savet:</strong> Koristi metodu <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt\">prompt</a> da dobiješ korisnički unos.</p>\n<p>Tvoja igra će pratiti rezultat igrača. Napisaćeš promenljive za čuvanje rezultata.</p>\n<ol>\n<li>\n<p>Napravi dve nove globalne promenljive pod nazivom <code>humanScore</code> i <code>computerScore</code>.</p>\n</li>\n<li>\n<p>Inicijalizuj obe promenljive vrednošću <code>0</code>.</p>\n</li>\n</ol>\n<p>Igra će se igrati rundu po rundu. Napisaćeš funkciju koja prima izbor igrača i računara kao argumente, odigrava jednu rundu, uvećava rezultat pobednika i ispisuje poruku o pobedniku.</p>\n<ol>\n<li>\n<p>Tengeneza kitendakazi kipya kinachoitwa <code>playRound</code>.</p>\n</li>\n<li>\n<p>Definiši dva parametra za <code>playRound</code>. Prvi parametar neka bude <code>humanChoice</code>, a drugi <code>computerChoice</code>. Koristi ih da primiš izbore igrača i računara kao argumente.</p>\n</li>\n<li>\n<p>Omogući da parametar <code>humanChoice</code> u funkciji <code>playRound</code> ne razlikuje velika i mala slova, tako da igrači mogu uneti <code>\"rock\"</code>, <code>\"ROCK\"</code>, <code>\"RocK\"</code> ili bilo koju drugu kombinaciju.</p>\n</li>\n<li>\n<p>Napiši kod za funkciju <code>playRound</code> tako da vraća tekstualnu poruku koja predstavlja pobednika runde.</p>\n</li>\n</ol>\n<ul>\n<li>\n<p>Ako je nerešeno, treba da vrati <code>\"It's a tie!\"</code>.</p>\n</li>\n<li>\n<p>Ako igrač pobedi, treba da vrati <code>\"You win! [player choice] beats [computer choice]\"</code>.</p>\n</li>\n<li>\n<p>Ako računar pobedi, treba da vrati <code>\"You lose! [computer choice] beats [player choice]\"</code>.</p>\n</li>\n</ul>\n<ol>\n<li>Uvećaj vrednost promenljive <code>humanScore</code> ili <code>computerScore</code> u zavisnosti od pobednika runde.</li>\n</ol>\n<p>Igra će trajati 3 runde. Napisaćeš funkciju <code>playGame</code> koja poziva <code>playRound</code> tri puta, prati rezultat i na kraju proglašava pobednika.</p>\n<ol>\n<li>\n<p>Tengeneza kitendakazi kipya kinachoitwa <code>playGame</code>.</p>\n</li>\n<li>\n<p>Napravi petlju koja igra 3 runde i pri svakom prolazu poziva funkciju <code>playRound</code> sa izborom igrača i izborom računara kao argumentima.</p>\n</li>\n<li>\n<p>Mwishoni mwa mchezo, rudisha mshindi wa mchezo kulingana na aliyeshinda raundi nyingi zaidi.</p>\n</li>\n</ol>\n<ul>\n<li>\n<p>Ako ljudski igrač pobedi u više rundi od računara, vrati poruku <code>\"You win the game!\"</code>.</p>\n</li>\n<li>\n<p>Ako računar pobedi u više rundi od ljudskog igrača, vrati poruku <code>\"You lose the game!\"</code>.</p>\n</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "top-build-a-rock-paper-scissors-game",
+  "blockLayout": "project-list",
+  "hasEditableBoundaries": false,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "the-odin-project",
+  "superOrder": 11,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Odin",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "the-odin-project"
+}

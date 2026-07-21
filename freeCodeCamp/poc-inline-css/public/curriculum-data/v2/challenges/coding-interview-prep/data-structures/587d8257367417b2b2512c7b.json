@@ -1,0 +1,80 @@
+{
+  "id": "587d8257367417b2b2512c7b",
+  "title": "Dodaj novu karakteristiku u binarno stablo pretrage",
+  "challengeType": 1,
+  "forumTopicId": 301618,
+  "dashedName": "add-a-new-element-to-a-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.add = function(element) {\r\n    let current = this.root;\r\n    if (!current) {\r\n      this.root = new Node(element);\r\n      return;\r\n    } else {\r\n      const searchTree = function(current) {\r\n        if (current.value > element) {\r\n          if (current.left) {\r\n            return searchTree(current.left);\r\n          } else {\r\n            current.left = new Node(element);\r\n            return;\r\n          }\r\n        } else if (current.value < element) {\r\n          if (current.right) {\r\n            return searchTree(current.right);\r\n          } else {\r\n            current.right = new Node(element);\r\n            return;\r\n          }\r\n        } else {\r\n          return null;\r\n        }\r\n      };\r\n      return searchTree(current);\r\n    }\r\n  };\r\n}",
+        "error": null,
+        "seed": "function Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.add = function(element) {\r\n    let current = this.root;\r\n    if (!current) {\r\n      this.root = new Node(element);\r\n      return;\r\n    } else {\r\n      const searchTree = function(current) {\r\n        if (current.value > element) {\r\n          if (current.left) {\r\n            return searchTree(current.left);\r\n          } else {\r\n            current.left = new Node(element);\r\n            return;\r\n          }\r\n        } else if (current.value < element) {\r\n          if (current.right) {\r\n            return searchTree(current.right);\r\n          } else {\r\n            current.right = new Node(element);\r\n            return;\r\n          }\r\n        } else {\r\n          return null;\r\n        }\r\n      };\r\n      return searchTree(current);\r\n    }\r\n  };\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype = Object.assign(\r\n  BinarySearchTree.prototype,\r\n  {\r\n    inOrder() {\r\n      if (!this.root) {\r\n        return null;\r\n      }\r\n      var result = new Array();\r\n      function traverseInOrder(node) {\r\n        node.left && traverseInOrder(node.left);\r\n        result.push(node.value);\r\n        node.right && traverseInOrder(node.right);\r\n      }\r\n      traverseInOrder(this.root);\r\n      return result;\r\n    }\r\n  }\r\n);"
+  },
+  "tests": [
+    {
+      "text": "<p>Struktura podataka za <code>BinarySearchTree</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Stablo binarnog pretraživanja treba da ima metodu nazvanu <code>add</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.add == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Metoda ubacivanja treba da unosi elemente prema pravilima binarnog stablastog traženja.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.add !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(4);\r\n    test.add(1);\r\n    test.add(1);\r\n    test.add(7);\r\n    test.add(87);\r\n    test.add(34);\r\n    test.add(45);\r\n    test.add(73);\r\n    test.add(8);\r\n    const expectedResult = [1, 4, 7, 8, 34, 45, 73, 87];\r\n    const result = test.inOrder();\r\n    return expectedResult.toString() === result.toString();\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Dodavanje funkcije koja već postoji treba da vrati <code>null</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.add !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(4);\r\n    return test.add(4) == null;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ova serija izazova će uvesti strukturu podataka drvo. Drveće je važna i široko korišćena struktura u računarskoj nauci. Naravno, njegovo ime potiče od činjenice da kada pogledaš njegovu sliku, izgleda kao drveće koje poznajemo u stvarnom svetu. Struktura podataka drvo počinje sa jednim čvorom, obično nazvanim koren, i odatle se širi na druge čvorove, svaki sa više potomaka čvorova, i tako dalje. Ova struktura podataka je obično prikazana sa korenom na vrhu; možeš je zamisliti kao prirodno drvo okrenuto naopako.</p>\n<p>Prvo, objasnićemo neke uobičajene termine koje ćemo naići kada je reč o drveću. Koren (root) je na vrhu drveća. Tačke podataka unutar drveća nazivaju se čvorovi (nodes). Čvorovi koji imaju grane koje vode ka drugom čvoru nazivaju se roditelji tog grana (grana koja vodi do čvora, odnosno čvor deteta). Ostali terminološki pojmovi koriste se kao što očekujete. Poddrvo odnosi se na sve potomke određenog čvora; grane mogu se zvati ivice (edges), a listni čvorovi su konačni čvorovi drveća koji nemaju potomke. Na kraju, zapamtite da su drveći strukture podataka sa rekurentnom (rekurzivnom) strukturom. To znači da su deca čvora roditelji njihovog poddrveća, i tako dalje. Razumevanje rekurzivne prirode drveća je ključno kada dizajnirate algoritme za standardne operacije na drveću.</p>\n<p>Početi ćemo sa diskusijom o specifičnom tipu drveća, binarnom drvetu. Zapravo, govorićemo o binarnom stablu za pretragu. Hajde da objasnimo šta to znači. Iako struktura podataka drvo može imati bilo koje grane za jedan čvor, binarno stablo može imati samo dve grane po čvoru. Štaviše, binarno stablo za pretragu je organizovano prema svojim podstablima; tako da je vrednost svakog čvora u levom podstablu manja ili jednaka vrednosti roditeljskog čvora, a vrednost svakog čvora u desnom podstablu je veća ili jednaka vrednosti roditeljskog čvora. Veoma je korisno videti ovu vezu kako bi se bolje razumelo:</p>\n<div style='width: 100%; display: flex; justify-content: center; align-items: center;'><img alt=\"an example of a binary search tree\" style='width: 100%; max-width: 350px; background-color: var(--gray-05);' src='https://user-images.githubusercontent.com/18563015/32136009-1e665d98-bbd6-11e7-9133-63184f9f9182.png'></div>\n<p>Sada je ovaj organizovani odnos veoma lako vidljiv. Zapamtite da je svaka vrednost sa leve strane čvora korena 8 manja od 8, a svaka vrednost sa desne strane veća od 8. Takođe pogledajte da se ovaj odnos primenjuje i na svako poddrvo. Na primer, prvi levi detilji je poddrvo. 3 je roditeljski čvor i ima samo dva detilja: po pravilima binarnog stabla pretrage, znamo bez čak i proveravanja da će levi detilji ovog čvora (i sva njegova detilja) biti manji od 3, a desni detilji (i sva njihova detilja) bit će veći od 3 (ali takođe manji od vrednosti korena strukture), i tako dalje.</p>\n<p>Binarni stabljici za pretragu su strukture podataka koje su veoma dostupne i korisne jer pružaju logaritamsko vreme u proseku za nekoliko standardnih operacija kao što su pretraživanje, ubacivanje i brisanje.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Počećemo lako. Ovde smo objasnili osnovnu strukturu binarnog stabla pretrage, zajedno sa funkcijom za kreiranje čvorova našeg stabla. Napomena: Svaki čvor može imati levu i desnu vrednost. Oni će dobiti podstabla dece, ako postoje. U našem binarnom stablu pretrage, kreiraćete metodu za dodavanje nove vrednosti u stablo. Ova metoda treba da se zove <code>add</code> i mora primiti celobrojnu vrednost za dodavanje u stablo. Pazite da održavate pravilo binarnog stabla pretrage: vrednost u svakom levom detetu mora biti manja ili jednaka vrednosti roditelja, a vrednost u svakom desnom detetu mora biti veća ili jednaka vrednosti roditelja. Ovde, učini da naše stablo ne može da sadrži duplikovane vrednosti. Ako pokušamo dodati vrednost koja već postoji, metoda treba da vrati <code>null</code>. Inače, ako je dodavanje uspešno, treba da se vrati <code>undefined</code>.</p>\n<p><strong>Napomena:</strong> Drvo je struktura podataka sa prirodnom rekurzivnom strukturom!</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 26,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

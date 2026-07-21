@@ -1,0 +1,480 @@
+{
+  "id": "672bd658c0e190f674a5e057",
+  "title": "Koje su karakteristike Flexa koje se često koriste, i kako funkcionišu?",
+  "challengeType": 19,
+  "dashedName": "what-are-some-common-flex-properties",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Svojstva flex-a su svojstva koja možete koristiti na fleksibilnim kontejnerima kako biste odredili raspodelu malih elemenata. Razgovaraćemo o nekim često korišćenim svojstvima: <code>flex-wrap</code>, <code>justify-content</code>, i <code>align-items</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Počinjemo sa <code>flex-wrap</code>. Ovo svojstvo određuje kako se fleksibilni delovi pakuju unutar fleksibilnog kontejnera da bi odgovarali dostupnom prostoru. <code>flex-wrap</code> može uzeti tri moguća vrednosti: <code>nowrap</code>, <code>wrap</code> i <code>wrap-reverse</code>. <code>nowrap</code> je podrazumevana vrednost — fleksibilni delovi neće biti pakovani na novu liniju, čak i ako njihova širina premašuje širinu kontejnera.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U kodu ispod, imamo nas tri komada <code>div</code>. Obratite pažnju na <code>width</code>. Kontejner za <code>main</code> napunjen do crvene linije ima <code>width</code> od <code>200px</code>, dok tri komada <code>div</code> unutar njega imaju <code>width</code> od <code>240px</code> (<code>80px</code> svako):</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  width: 200px;\n  display: flex;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  width: 200px;\n  display: flex;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Širina delova <code>div</code> prelazi širinu njihovog kontejnera, ali će podrazumevano biti smanjeni da odgovaraju dostupnom prostoru. Ako želite da se delovi prenesu na novu liniju kada premaše širinu svog kontejnera, možete postaviti <code>flex-wrap: wrap</code> u dinamički element:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  width: 200px;\n  display: flex;\n  flex-wrap: wrap;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  width: 200px;\n  display: flex;\n  flex-wrap: wrap;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Komadi <code>div</code> će se ponovo rasporediti u redove kada premaše širinu svog kontejnera. Možete učitati fleksibilne komadiće u obrnutom redosledu koristeći <code>flex-wrap: wrap-reverse</code>. Svojstvo <code>flex-flow</code> je svojstvo skraćivanja za <code>flex-direction</code> i <code>flex-wrap</code>. U ovom primeru, postavili smo <code>flex-direction</code> na <code>column</code> i <code>flex-wrap</code> na <code>wrap-reverse</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  width: 200px;\n  display: flex;\n  flex-flow: column wrap-reverse;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  width: 200px;\n  display: flex;\n  flex-flow: column wrap-reverse;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dobro. Sada hajde da pričamo o <code>justify-content</code>. <code>justify-content</code> postavlja male komponente paralelno sa glavnom osom prilagodljivog uređaja. Ako postavite vrednost <code>flex-start</code> za <code>justify-content</code>, prilagodljivi delovi će biti postavljeni na početku glavne ose. Ovo može biti horizontalno ili vertikalno:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: flex-start;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: flex-start;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za <code>justify-content: flex-end</code>, prilagodljivi delovi se postavljaju na kraju glavne ose, horizontalno ili vertikalno.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: flex-end;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: flex-end;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da postavite varijabilne komponente na glavnu osu, možete koristiti <code>justify-content: center</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: center;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: center;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste ravnomerno podelili komponente na glavnoj osi, možete koristiti <code>justify-content: space-between</code>. Ovo će dodati prostor između podesivih delova ako je potrebno.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: space-between;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: space-between;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>justify-content: space-around</code> deliće promenljivih delova ravnomerno unutar glavne ose, dodajući razmak pre prvog dela i posle poslednjeg. Ovaj dodatni razmak je pola prostora između svakog para susednih delova. Ako postoji samo jedan deo za podelu, on će biti postavljen u sredinu.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: space-around;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: space-around;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ipak, ali nije najniži, imamo <code>justify-content: space-evenly</code>, koji deli komade ravnomerno na glavnoj osi. Razmak između komada i razmak pre i posle prvog i poslednjeg elementa je potpuno jednak:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  display: flex;\n  justify-content: space-evenly;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  display: flex;\n  justify-content: space-evenly;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dobro. Sada znate kako da podelite varijabilne komade na glavnoj osi. Ali možda želite da ih postavite na poprečnu osu. Zapamtite da je poprečna osa vertikalna u odnosu na glavnu osu. Ovo možete uraditi koristeći svojstvo <code>align-items</code>. Da postavite komade u sredinu poprečne ose, samo morate dodati <code>align-items: center</code> na varijabilni kontejner:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  height: 300px;\n  display: flex;\n  align-items: center;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  height: 300px;\n  display: flex;\n  align-items: center;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, pokretni delovi su postavljeni u sredinu križne ose, koja je po defaultu vertikalna. Ako je križna osa horizontalna, biće centrirani horizontalno umesto toga. Nasuprot tome, <code>align-items: flex-start</code> postavlja delove na početak križne ose:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  height: 300px;\n  display: flex;\n  align-items: flex-start;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  height: 300px;\n  display: flex;\n  align-items: flex-start;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Suprotno mu je <code>align-items: flex-end</code>. Ovo će postaviti promenljive delove na kraju križne osi, vertikalno ili horizontalno.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<main>\n  <div id=\"first-div\"></div>\n  <div id=\"second-div\"></div>\n  <div id=\"third-div\"></div>\n</main>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;main>\n  &#x3C;div id=\"first-div\">&#x3C;/div>\n  &#x3C;div id=\"second-div\">&#x3C;/div>\n  &#x3C;div id=\"third-div\">&#x3C;/div>\n&#x3C;/main>\n</code></pre>"
+        },
+        {
+          "contents": "main {\n  height: 300px;\n  display: flex;\n  align-items: flex-end;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">main {\n  height: 300px;\n  display: flex;\n  align-items: flex-end;\n  border: 2px solid red;\n}\n\ndiv {\n  width: 80px;\n  height: 50px;\n}\n\n#first-div {\n  background-color: #4d70b2;\n}\n\n#second-div {\n  background-color: #5c4db2;\n}\n\n#third-div {\n  background-color: #4da3b2;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste poravnali zamenske delove na poprečnoj osovini, možete koristiti <code>align-items: stretch</code>. Ovo takođe radi sa komponentama koje se automatski mere, kao što su one bez instaliranih <code>width</code> ili <code>height</code>, ili one merene samo do minimalnog standarda od <code>width</code> ili <code>height</code>. Zamenski delovi se poravnaju kako bi popunili kontejner u smeru poprečne osovine.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"container\">\n  <div class=\"box\">One</div>\n  <div class=\"box\">Two</div>\n  <div class=\"box\">Three</div>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box\">One&#x3C;/div>\n  &#x3C;div class=\"box\">Two&#x3C;/div>\n  &#x3C;div class=\"box\">Three&#x3C;/div>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  display: flex;\n  align-items: stretch; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;           \n  border: 1px solid #888;\n  background-color: lightblue;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  display: flex;\n  align-items: stretch; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;           \n  border: 1px solid #888;\n  background-color: lightblue;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Konačno, možete koristiti svojstvo <code>align-self</code> da postavite različito poravnanje na poprečnoj osi za samostalni element. Na primer, možete ga izravnati na <code>align-self: stretch</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"container\">\n  <div class=\"box\">One</div>\n  <div class=\"box\">Two</div>\n  <div class=\"box special\">Three</div>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box\">One&#x3C;/div>\n  &#x3C;div class=\"box\">Two&#x3C;/div>\n  &#x3C;div class=\"box special\">Three&#x3C;/div>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: stretch; \n  background-color: lightcoral;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: stretch; \n  background-color: lightcoral;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete ga postaviti u sredinu za <code>align-self: center</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"container\">\n  <div class=\"box\">One</div>\n  <div class=\"box\">Two</div>\n  <div class=\"box special\">Three</div>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box\">One&#x3C;/div>\n  &#x3C;div class=\"box\">Two&#x3C;/div>\n  &#x3C;div class=\"box special\">Three&#x3C;/div>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: center; \n  background-color: lightcoral;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: center; \n  background-color: lightcoral;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete ga postaviti na početak ose mriža za <code>align-self: flex-start</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"container\">\n  <div class=\"box\">One</div>\n  <div class=\"box\">Two</div>\n  <div class=\"box special\">Three</div>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box\">One&#x3C;/div>\n  &#x3C;div class=\"box\">Two&#x3C;/div>\n  &#x3C;div class=\"box special\">Three&#x3C;/div>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: flex-start; \n  background-color: lightcoral;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: flex-start; \n  background-color: lightcoral;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ili ga možete postaviti na kraj ose krsta za <code>align-self: flex-end</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"container\">\n  <div class=\"box\">One</div>\n  <div class=\"box\">Two</div>\n  <div class=\"box special\">Three</div>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"container\">\n  &#x3C;div class=\"box\">One&#x3C;/div>\n  &#x3C;div class=\"box\">Two&#x3C;/div>\n  &#x3C;div class=\"box special\">Three&#x3C;/div>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: flex-end; \n  background-color: lightcoral;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  display: flex;\n  align-items: flex-start; \n  border: 2px solid #444;\n  height: 200px; \n}\n\n.box {\n  width: 100px;\n  border: 1px solid #888;\n  background-color: lightblue;\n  margin: 4px;\n}\n\n.special {\n  align-self: flex-end; \n  background-color: lightcoral;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Postoje druga svojstva i vrednosti fleksa koje možete izabrati ili kreirati raspored koji se prilagođava uređaju koji želite, ali ovo su najčešće korišćeni. Sa ovim svojstvima CSS fleks i vašim novim znanjem primera CSS fleks, možete početi da kreirate rasporede koji se prilagođavaju uređaju kako biste pružili glatko i inkluzivno iskustvo korisnicima na različitim uređajima.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koji atribut CSS se koristi za poravnavanje malih elemenata (po defaultu) unutar fleksibilnog kontejnera?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>flex-direction</code></p>",
+          "feedback": "<p>Zamislite kako su elementi raspoređeni ravnomerno unutar fleksibilnog kontejnera.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>justify-content</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>align-items</code></p>",
+          "feedback": "<p>Razmislite kako su elementi poređani ravnomerno unutar promenljivog kontejnera.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>flex-wrap</code></p>",
+          "feedback": "<p>Razmislite kako su elementi raspoređeni ravnomerno unutar dinamičkog kontejnera.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koji je atribut CSS koji se koristi za postavljanje malih elemenata vertikalno (po podrazumevanju) unutar kontejnera?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>flex-direction</code></p>",
+          "feedback": "<p>Razmislite kako su elementi postavljeni vertikalno unutar mutabilnog kontejnera.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>justify-content</code></p>",
+          "feedback": "<p>Zamislite kako su komponente postavljene vertikalno unutar promenljivog kontejnera.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>align-items</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>flex-wrap</code></p>",
+          "feedback": "<p>Zamislite kako su elemente postavljeni vertikalno unutar fleksibilnog kontejnera.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja svojstva među ovim mogu se kombinovati u svojstvo <code>flex-flow</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>flex-direction</code> na <code>justify-content</code>.</p>",
+          "feedback": "<p>Razmotrite dve glavne stvari o tome kako su promenljivi delovi organizovani.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>flex-direction</code> na <code>align-items</code>.</p>",
+          "feedback": "<p>Razmislite o dve glavne stvari kako su modularni delovi organizovani.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>flex-direction</code> na <code>align-content</code>.</p>",
+          "feedback": "<p>Razmislite o dve glavne stvari u vezi sa načinom na koji su varijabilni delovi organizovani.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>flex-direction</code> na <code>flex-wrap</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-css-flexbox",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 105,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-flexbox",
+  "certification": "responsive-web-design-v9"
+}

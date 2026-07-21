@@ -1,0 +1,88 @@
+{
+  "id": "68e9a73075dc26207320811a",
+  "title": "Korak 11",
+  "challengeType": 0,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Game Settings Panel</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <div class=\"settings-card\">\n      <h1>Game Settings</h1>\n      <label> <input type=\"checkbox\" />Sound Effects</label>\n      <label> <input type=\"checkbox\" />Background Music</label>\n      <label> <input type=\"checkbox\" />Hard Mode</label>\n      <label> <input type=\"checkbox\" />Haptic feedback</label>\n    </div>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Game Settings Panel</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <div class=\"settings-card\">\n      <h1>Game Settings</h1>\n      <label> <input type=\"checkbox\" />Sound Effects</label>\n      <label> <input type=\"checkbox\" />Background Music</label>\n      <label> <input type=\"checkbox\" />Hard Mode</label>\n      <label> <input type=\"checkbox\" />Haptic feedback</label>\n    </div>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        31,
+        33
+      ],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "body {\n  height: 100vh;\n  background-color: #f0f0f0;\n  text-align: center;\n}\n\n.settings-card {\n  max-width: 250px;\n  padding: 20px;\n  border-radius: 10px;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n  margin: auto;\n  text-align: left;\n}\n\nh1 {\n  text-align: center;\n}\n\nlabel {\n  display: block;\n  cursor: pointer;\n  margin: 8px auto;\n}\n\ninput[type='checkbox'] {\n  width: 20px;\n  height: 20px;\n  cursor: pointer;\n  appearance: none;\n  border: 2px solid #f1be32;\n  \n}",
+      "error": null,
+      "seed": "body {\n  height: 100vh;\n  background-color: #f0f0f0;\n  text-align: center;\n}\n\n.settings-card {\n  max-width: 250px;\n  padding: 20px;\n  border-radius: 10px;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n  margin: auto;\n  text-align: left;\n}\n\nh1 {\n  text-align: center;\n}\n\nlabel {\n  display: block;\n  cursor: pointer;\n  margin: 8px auto;\n}\n\ninput[type='checkbox'] {\n  width: 20px;\n  height: 20px;\n  cursor: pointer;\n  appearance: none;\n  border: 2px solid #f1be32;\n  \n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da dodate svojstvo <code>border-radius</code> vašem selektoru <code>input[type=\"checkbox\"]</code>.</p>",
+      "testString": "assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('input[type=\"checkbox\"]')?.borderRadius);"
+    },
+    {
+      "text": "<p>Trebalo bi da imate svojstvo <code>border-radius</code> sa vrednošću <code>4px</code>.</p>",
+      "testString": "assert.strictEqual(new __helpers.CSSHelp(document).getStyle('input[type=\"checkbox\"]')?.borderRadius, \"4px\");"
+    },
+    {
+      "text": "<p>Trebalo bi da dodate <code>background-color</code> svojstvo na vaš <code>input[type=\"checkbox\"]</code> selektor.</p>",
+      "testString": "assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('input[type=\"checkbox\"]')?.backgroundColor);"
+    },
+    {
+      "text": "<p>Trebalo bi da imate svojstvo <code>background-color</code> sa vrednošću <code>white</code>.</p>",
+      "testString": "assert.oneOf(new __helpers.CSSHelp(document).getStyle('input[type=\"checkbox\"]')?.backgroundColor, [\"white\", \"rgb(255,255,255)\", \"#ffffff\"]);"
+    },
+    {
+      "text": "<p>Trebalo bi da dodate svojstvo <code>transition</code> vašem selektoru <code>input[type=\"checkbox\"]</code>.</p>",
+      "testString": "assert.isNotEmpty(new __helpers.CSSHelp(document).getStyle('input[type=\"checkbox\"]')?.transition);"
+    },
+    {
+      "text": "<p>Trebalo bi da imate <code>transition</code> sa vrednošću <code>all 0.3s</code>.</p>",
+      "testString": "/**\n * Because CSS is simply the most lovely thing to ever exist, the behaviour of the `all` shorthand does wonky things and will not show up\n * in the computed stylesheet. Instead, we need to query the actual style element and extract the selector, checking the properties as written\n * by the camper.\n * I really hate CSS.\n * <3 Naomi\n */\nconst { props } = document.querySelector('.fcc-injected-styles')?.innerText?.match(/input\\[type=('|\")checkbox\\1\\]\\s*\\{(?<props>.*)\\}/s)?.groups;\nassert.match(props, /transition\\s*\\:\\s*all\\s+0.3\\s*/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada kada ponovo vidite svoju prokupljicu, završićete neke opcije stilizovanja za nju. Dajte im zaobljen ivica dodavanjem <code>border-radius</code> od <code>4px</code> vašem selektoru <code>input[type=\"checkbox\"]</code>.</p>\n<p>Zatim mu dajte <code>background-color</code> od <code>white</code> kako biste centar vaše prokupljice istakli iz pozadine kontejnera.</p>\n<p>Pošto ćete postaviti prilagođeni prelaz (transition) za slučaj kada korisnik klikne na prokupljice, postavite <code>transition</code> sa vrednošću <code>all</code> i <code>0.3s</code> kako bi prelaz tekao glatko tokom 0.3 sekunde umesto trenutno.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-game-settings-panel",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 96,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "styling-forms",
+  "certification": "responsive-web-design-v9"
+}

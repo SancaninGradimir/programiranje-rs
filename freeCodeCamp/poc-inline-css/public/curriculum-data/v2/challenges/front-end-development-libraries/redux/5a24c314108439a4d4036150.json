@@ -1,0 +1,84 @@
+{
+  "id": "5a24c314108439a4d4036150",
+  "title": "Izvršite akciju u skladištu",
+  "challengeType": 6,
+  "forumTopicId": 301444,
+  "dashedName": "handle-an-action-in-the-store",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const defaultState = {\n  login: false\n};\n\nconst reducer = (state = defaultState, action) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(reducer);\n\nconst loginAction = () => {\n  return {\n    type: 'LOGIN'\n  }\n};",
+      "error": null,
+      "seed": "const defaultState = {\n  login: false\n};\n\nconst reducer = (state = defaultState, action) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(reducer);\n\nconst loginAction = () => {\n  return {\n    type: 'LOGIN'\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const defaultState = {\n  login: false\n};\n\nconst reducer = (state = defaultState, action) => {\n\n  if (action.type === 'LOGIN') {\n    return {login: true}\n  }\n\n  else {\n    return state\n  }\n\n};\n\nconst store = Redux.createStore(reducer);\n\nconst loginAction = () => {\n  return {\n    type: 'LOGIN'\n  }\n};",
+        "error": null,
+        "seed": "const defaultState = {\n  login: false\n};\n\nconst reducer = (state = defaultState, action) => {\n\n  if (action.type === 'LOGIN') {\n    return {login: true}\n  }\n\n  else {\n    return state\n  }\n\n};\n\nconst store = Redux.createStore(reducer);\n\nconst loginAction = () => {\n  return {\n    type: 'LOGIN'\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Poziv funkcije <code>loginAction</code> treba da vrati objekat sa svojstvom tipa ako ima niz karaktera <code>LOGIN</code>.</p>",
+      "testString": "assert(loginAction().type === 'LOGIN');"
+    },
+    {
+      "text": "<p>Hifadhi inapaswa kuanzishwa na kitu chenye sifa ya <code>login</code> ikiwa na thamani ya <code>false</code>.</p>",
+      "testString": "assert(store.getState().login === false);"
+    },
+    {
+      "text": "<p>Kutuma <code>loginAction</code> kunapaswa kusasisha sifa ya <code>login</code> katika hali ya hifadhi kuwa <code>true</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    store.dispatch(loginAction());\n    const afterState = store.getState();\n    return initialState.login === false && afterState.login === true;\n  })()\n);"
+    },
+    {
+      "text": "<p>Ikiwa kitendo si cha aina ya <code>LOGIN</code>, hifadhi inapaswa kurudisha hali ya sasa.</p>",
+      "testString": "assert(\n  (function () {\n    store.dispatch({ type: '__TEST__ACTION__' });\n    let afterTest = store.getState();\n    return typeof afterTest === 'object' && afterTest.hasOwnProperty('login');\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon što je akcija kreirana i poslata, Redux skladište mora da zna kako da reaguje na tu akciju. Ovo je zadatak funkcije <code>reducer</code>. Reduceri u Redux-u odgovorni su za promene stanja koje nastaju kao odgovor na akcije. Funkcija <code>reducer</code> prima <code>state</code> i <code>action</code> kao argumente, i uvek vraća novo <code>state</code>. Važno je znati da je ovo <strong>isključiva uloga</strong> reducera. Nema nuspojava — ne poziva nikakvu funkciju za API i ne uključuje nikakve skrivene efekte. Reducer je čista funkcija koja uzima stanje i akciju, a zatim vraća novo stanje.</p>\n<p>Kanuni nyingine muhimu katika Redux ni kwamba <code>state</code> ni ya kusoma tu. Kwa maneno mengine, kitendakazi cha <code>reducer</code> lazima <strong>kila mara</strong> kirudishe nakala mpya ya <code>state</code> na kisibadilishe hali moja kwa moja. Redux haifanyi utekelezaji wa hali isiyobadilika, hata hivyo, wewe ndiye unawajibika kuitekeleza katika msimbo wa vitendakazi vyako vya reducer. Utazoea hili katika changamoto zijazo.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Mhariri wa msimbo una mfano wa awali pamoja na mwanzo wa kitendakazi cha <code>reducer</code> kwako. Jaza mwili wa kitendakazi cha <code>reducer</code> ili ikiwa kitapokea kitendo cha aina ya <code>'LOGIN'</code> kirudishe kitu cha hali chenye <code>login</code> kikiwa na thamani ya <code>true</code>. Vinginevyo, kirudishe hali ya sasa ya <code>state</code>. Kumbuka kwamba hali ya sasa ya <code>state</code> na kitendo kilichotumwa cha <code>action</code> vinapitishwa kwa reducer, hivyo unaweza kupata aina ya kitendo moja kwa moja kwa <code>action.type</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

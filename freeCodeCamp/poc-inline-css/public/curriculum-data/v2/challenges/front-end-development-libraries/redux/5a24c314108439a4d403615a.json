@@ -1,0 +1,80 @@
+{
+  "id": "5a24c314108439a4d403615a",
+  "title": "Uklonite element iz niza podataka",
+  "challengeType": 6,
+  "forumTopicId": 301447,
+  "dashedName": "remove-an-item-from-an-array",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const immutableReducer = (state = [0,1,2,3,4,5], action) => {\n  switch(action.type) {\n    case 'REMOVE_ITEM':\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst removeItem = (index) => {\n  return {\n    type: 'REMOVE_ITEM',\n    index\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);",
+      "error": null,
+      "seed": "const immutableReducer = (state = [0,1,2,3,4,5], action) => {\n  switch(action.type) {\n    case 'REMOVE_ITEM':\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst removeItem = (index) => {\n  return {\n    type: 'REMOVE_ITEM',\n    index\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const immutableReducer = (state = [0,1,2,3,4,5], action) => {\n  switch(action.type) {\n    case 'REMOVE_ITEM':\n      return [\n        ...state.slice(0, action.index),\n        ...state.slice(action.index + 1)\n      ];\n    default:\n      return state;\n  }\n};\n\nconst removeItem = (index) => {\n  return {\n    type: 'REMOVE_ITEM',\n    index\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);",
+        "error": null,
+        "seed": "const immutableReducer = (state = [0,1,2,3,4,5], action) => {\n  switch(action.type) {\n    case 'REMOVE_ITEM':\n      return [\n        ...state.slice(0, action.index),\n        ...state.slice(action.index + 1)\n      ];\n    default:\n      return state;\n  }\n};\n\nconst removeItem = (index) => {\n  return {\n    type: 'REMOVE_ITEM',\n    index\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Redux skladište treba da postoji i da se inicijalizuje sa stanjem jednakim <code>[0,1,2,3,4,5]</code></p>",
+      "testString": "const initialState = store.getState();\nassert.isArray(initialState) \nassert.deepEqual(initialState, [0, 1, 2, 3, 4, 5])"
+    },
+    {
+      "text": "<p><code>removeItem</code> i <code>immutableReducer</code> sve treba da bude funkcionalno.</p>",
+      "testString": "assert(\n  typeof removeItem === 'function' && typeof immutableReducer === 'function'\n);"
+    },
+    {
+      "text": "<p>Akcija kreatora od <code>removeItem</code> treba da ukloni elemente iz stanja i NE ŽELI da direktno promeni to stanje.</p>",
+      "testString": "const initialState = store.getState();\nconst isFrozen = !!DeepFreeze(initialState);\nstore.dispatch(removeItem(3));\nconst state_1 = store.getState();\nstore.dispatch(removeItem(2));\nconst state_2 = store.getState();\nstore.dispatch(removeItem(0));\nstore.dispatch(removeItem(0));\nstore.dispatch(removeItem(0));\nconst state_3 = store.getState();\n\nassert(isFrozen)\nassert.deepEqual(state_1, [0, 1, 2, 4, 5]) \nassert.deepEqual(state_2, [0, 1, 4, 5]) \nassert.deepEqual(state_3, [5])\n"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Doslo je vreme za vežbanje uklanjanja elemenata iz niza podataka. Spread operator se takođe može koristiti ovde. Drugi važni načini za JavaScript su <code>slice()</code> i <code>concat()</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Reducer-i i kreatori akcija su modifikovani da uklone element iz niza podataka na osnovu predikata tog elementa. Završi pisanje reducer-a kako bi se vratila novi niz stanja sa uklonjenim elementom koji odgovara određenom kriterijumu.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

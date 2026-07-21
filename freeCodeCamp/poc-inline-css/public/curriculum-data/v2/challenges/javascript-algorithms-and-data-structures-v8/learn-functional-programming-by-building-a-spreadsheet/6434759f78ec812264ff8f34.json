@@ -1,0 +1,103 @@
+{
+  "id": "6434759f78ec812264ff8f34",
+  "title": "Korak 16",
+  "challengeType": 0,
+  "dashedName": "step-16",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        13,
+        17
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n\r\n  })\r\n}",
+      "error": null,
+      "seed": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n\r\n  })\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozoveš svoju funkciju <code>createLabel()</code>.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)\\.forEach\\(\\s*(\\(\\s*number\\s*\\)|number)\\s*=>\\s*\\{\\s*createLabel\\(/);"
+    },
+    {
+      "text": "<p>Treba da prođeš kroz <code>number</code> za svoj poziv od <code>createLabel()</code>.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)\\.forEach\\(\\s*(\\(\\s*number\\s*\\)|number)\\s*=>\\s*\\{\\s*createLabel\\(/)"
+    },
+    {
+      "text": "<p>Treba ti da pozoveš putanju <code>.forEach()</code> na red podataka <code>letters</code>.</p>",
+      "testString": "assert.lengthOf(code.match(/letters\\.forEach\\(/g), 2)"
+    },
+    {
+      "text": "<p>Trebalo bi da prođeš kroz funkciju povratne veze sa sintaksom strelice na način vašeg <code>.forEach()</code>.</p>",
+      "testString": "assert.match(code, /letters\\.forEach\\(\\s*(\\([^)]*\\)|[^\\s()]+)\\s*=>\\s*\\{/)"
+    },
+    {
+      "text": "<p>Vaša funkcija za povratni poziv treba da ima parametar <code>letter</code>.</p>",
+      "testString": "assert.match(code, /letters\\.forEach\\(\\s*(\\(\\s*letter\\s*\\)|letter)\\s*=>\\s*\\{/)"
+    },
+    {
+      "text": "<p>Funkcija tvog odgovora mora biti prazna.</p>",
+      "testString": "assert.match(code, /letters\\.forEach\\(\\s*(\\(\\s*letter\\s*\\)|letter)\\s*=>\\s*\\{\\s*\\}/)"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>letters.forEach()</code> treba da bude smeštena unutar funkcije <code>range(1, 99).forEach(number => {}</code>.</p>",
+      "testString": "assert.match(code, /range\\s*\\(\\s*1\\s*,\\s*99\\s*\\)\\s*.forEach\\s*\\(\\s*(\\(\\s*number\\s*\\)|number)\\s*=>\\s*\\{\\s*[^}]*letters\\.forEach\\(\\s*(\\(\\s*letter\\s*\\)|letter)\\s*=>\\s*\\{\\s*\\}\\s*\\)\\s*;?\\s*\\}\\s*\\)/)"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada ga pozovete nazad, moraćete izvršiti dva funkcionalna poziva. Počnite pozivanjem <code>createLabel()</code> i prosleđivanjem <code>number</code> kao argumenta. Trebalo bi da vidite neke brojeve na vašem kalkulacionom listu.</p>\n<p>Zatim prati put <code>.forEach()</code> na redu podataka za <code>letters</code>. Pozovi praznu funkciju povratnog poziva koja prima parametar sa <code>letter</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

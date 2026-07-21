@@ -1,0 +1,77 @@
+{
+  "id": "5900f37d1000cf542c50fe90",
+  "title": "Vežba 17: Brojanje slova brojeva",
+  "challengeType": 1,
+  "forumTopicId": 301804,
+  "dashedName": "problem-17-number-letter-counts",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function numberLetterCounts(limit) {\n\n  return true;\n}\n\nnumberLetterCounts(5);",
+      "error": null,
+      "seed": "function numberLetterCounts(limit) {\n\n  return true;\n}\n\nnumberLetterCounts(5);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function numberLetterCounts(limit) {\n  const dictionary = {\n    0: '',\n    1: 'one',\n    2: 'two',\n    3: 'three',\n    4: 'four',\n    5: 'five',\n    6: 'six',\n    7: 'seven',\n    8: 'eight',\n    9: 'nine',\n    10: 'ten',\n    11: 'eleven',\n    12: 'twelve',\n    13: 'thirteen',\n    14: 'fourteen',\n    15: 'fifteen',\n    16: 'sixteen',\n    17: 'seventeen',\n    18: 'eighteen',\n    19: 'nineteen',\n    20: 'twenty',\n    30: 'thirty',\n    40: 'forty',\n    50: 'fifty',\n    60: 'sixty',\n    70: 'seventy',\n    80: 'eighty',\n    90: 'ninety',\n    1000: 'onethousand'\n  };\n\n  let numString = '';\n\n  function convertToString(num) {\n    // check dictionary for number\n    if (dictionary[num]) {\n      return dictionary[num];\n    } else {\n      const hundreds = Math.floor(num / 100);\n      const tens =  Math.floor((num / 10) % 10) * 10;\n      const remainder = num % 10;\n\n      let tempStr = '';\n\n      if (hundreds === 0) {\n        tempStr += dictionary[tens] + dictionary[remainder];\n      } else {\n        tempStr += dictionary[hundreds] + 'hundred';\n\n        if (tens !== 0 || remainder !== 0) {\n          tempStr += 'and';\n        }\n\n        if (tens < 20) {\n          const lessThanTwenty = tens + remainder;\n          tempStr += dictionary[lessThanTwenty];\n        } else {\n          tempStr += dictionary[tens] + dictionary[remainder];\n        }\n      }\n      return tempStr;\n    }\n  }\n\n  for (let i = 1; i <= limit; i++) {\n    numString += convertToString(i);\n  }\n  return numString.length;\n}",
+        "error": null,
+        "seed": "function numberLetterCounts(limit) {\n  const dictionary = {\n    0: '',\n    1: 'one',\n    2: 'two',\n    3: 'three',\n    4: 'four',\n    5: 'five',\n    6: 'six',\n    7: 'seven',\n    8: 'eight',\n    9: 'nine',\n    10: 'ten',\n    11: 'eleven',\n    12: 'twelve',\n    13: 'thirteen',\n    14: 'fourteen',\n    15: 'fifteen',\n    16: 'sixteen',\n    17: 'seventeen',\n    18: 'eighteen',\n    19: 'nineteen',\n    20: 'twenty',\n    30: 'thirty',\n    40: 'forty',\n    50: 'fifty',\n    60: 'sixty',\n    70: 'seventy',\n    80: 'eighty',\n    90: 'ninety',\n    1000: 'onethousand'\n  };\n\n  let numString = '';\n\n  function convertToString(num) {\n    // check dictionary for number\n    if (dictionary[num]) {\n      return dictionary[num];\n    } else {\n      const hundreds = Math.floor(num / 100);\n      const tens =  Math.floor((num / 10) % 10) * 10;\n      const remainder = num % 10;\n\n      let tempStr = '';\n\n      if (hundreds === 0) {\n        tempStr += dictionary[tens] + dictionary[remainder];\n      } else {\n        tempStr += dictionary[hundreds] + 'hundred';\n\n        if (tens !== 0 || remainder !== 0) {\n          tempStr += 'and';\n        }\n\n        if (tens < 20) {\n          const lessThanTwenty = tens + remainder;\n          tempStr += dictionary[lessThanTwenty];\n        } else {\n          tempStr += dictionary[tens] + dictionary[remainder];\n        }\n      }\n      return tempStr;\n    }\n  }\n\n  for (let i = 1; i <= limit; i++) {\n    numString += convertToString(i);\n  }\n  return numString.length;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>numberLetterCounts(5)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert.isNumber(numberLetterCounts(5));"
+    },
+    {
+      "text": "<p><code>numberLetterCounts(5)</code> Trebalo bi da vrati 19.</p>",
+      "testString": "assert.strictEqual(numberLetterCounts(5), 19);"
+    },
+    {
+      "text": "<p><code>numberLetterCounts(150)</code> mora vratiti 1903.</p>",
+      "testString": "assert.strictEqual(numberLetterCounts(150), 1903);"
+    },
+    {
+      "text": "<p><code>numberLetterCounts(1000)</code> treba vratiti 21124.</p>",
+      "testString": "assert.strictEqual(numberLetterCounts(1000), 21124);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako se brojevi od 1 do 5 napišu rečima: one, two, three, four, five, onda je ukupan broj slova korišćen 3 + 3 + 5 + 4 + 4 = 19.</p>\n<p>Ako se svi brojevi od 1 do <code>limit</code> napišu rečima, koliko će slova biti korišćeno?</p>\n<p><strong>Napomena:</strong> Ne računajte razmake ili crtice (hyphens). Na primer, 342 (three hundred and forty-two) ima 23 slova, a 115 (one hundred and fifteen) ima 20 slova. Korišćenje \"and\" prilikom pisanja brojeva prati upotrebu britanskog engleskog jezika.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

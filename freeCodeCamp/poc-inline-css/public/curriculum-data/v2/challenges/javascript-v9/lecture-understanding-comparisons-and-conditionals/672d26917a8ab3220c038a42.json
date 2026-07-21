@@ -1,0 +1,206 @@
+{
+  "id": "672d26917a8ab3220c038a42",
+  "title": "Kako poređenje funkcioniše sa tipovima podataka Null i Undefined?",
+  "challengeType": 19,
+  "dashedName": "how-do-comparisons-work-with-null-and-undefined-data-types",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>U JavaScript, <code>null</code> i <code>undefined</code> postoje dva različita tipa podataka koji predstavljaju odsustvo vrednosti, ali funkcionišu drugačije u upoređivanju. Razumevanje kako ovi tipovi interaguju u različitim scenarijima upoređivanja je važno za pisanje stabilnog i bezgrešnog koda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Počinjemo sa tipom <code>undefined</code>. Parametar nazvan <code>undefined</code>, kada je deklarisan, ali mu nije dodeljena vrednost. Ovo je podrazumevana vrednost za nedeklarisane parametre i funkcionalne parametre kojima nije dodeljen argument.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Tip za <code>null</code>, sa druge strane, je nulta vrednost koja predstavlja namerno odsustvo vrednosti. Često se koristi da pokaže da parametar nema vrednost po želji.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada uporedite <code>null</code> sa <code>undefined</code> koristeći operator jednakosti (<code>==</code>), JavaScript vrši konverziju tipa. To znači da pokušava da konvertuje varijable u isti tip pre nego što obavi poređenje. U ovom slučaju, <code>null</code> i <code>undefined</code> se smatraju jednakima:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "console.log(null == undefined); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">console.log(null == undefined); // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Međutim, kada koristite operator stroge jednakosti (<code>===</code>), koji proverava vrednost i tip bez nametanja tipa, <code>null</code> i <code>undefined</code> se ne poklapaju:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "console.log(null === undefined); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">console.log(null === undefined); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ova razlika je važna da se uzme u obzir kada pišete uslovne izjave ili izvršavate provere jednakosti u vašem kodu. Kada poredite <code>null</code> ili <code>undefined</code> sa drugom vrednošću koristeći operater jednakosti (<code>==</code>), ponašanje može biti nepredvidivo. Na primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "console.log(null == 0);  // false\nconsole.log(null == ''); // false\nconsole.log(undefined == 0); // false\nconsole.log(undefined == ''); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">console.log(null == 0);  // false\nconsole.log(null == ''); // false\nconsole.log(undefined == 0); // false\nconsole.log(undefined == ''); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo poređenje vraća <code>false</code> jer su <code>null</code> i <code>undefined</code> jednaki za svako (i za sebe) samo prilikom korišćenja operatorsa jednakosti. Ponašanje <code>null</code> u drugim poređenjima je posebno teško:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "console.log(null > 0);  // false\nconsole.log(null == 0); // false\nconsole.log(null >= 0); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">console.log(null > 0);  // false\nconsole.log(null == 0); // false\nconsole.log(null >= 0); // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>undefined</code>, s druge strane, konstantno se menja u <code>NaN</code> u kontekstu brojeva, što uzrokuje da sve poređenja brojeva sa <code>undefined</code> vrate <code>false</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "console.log(undefined > 0);  // false\nconsole.log(undefined < 0);  // false\nconsole.log(undefined == 0); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">console.log(undefined > 0);  // false\nconsole.log(undefined &#x3C; 0);  // false\nconsole.log(undefined == 0); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>S obzi maže na ove male razlike, generalno se savetuje korišćenje operatorsa strogo jednakosti prilikom poređenja vrednosti, posebno kada gledate <code>null</code> i <code>undefined</code>. Ova metoda pomaže u izbegavanju prisile nepouzdljivog tipa i čini ponašanje vašeg koda predvidivim.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ukratko, iako su i <code>null</code> i <code>undefined</code> korišćene za predstavljanje nepostojanja vrednosti, one obavljaju različite funkcije u poređenju. Razumevanje ovih razlika je ključno za pisanje čistog i bezgrešnog koda JavaScript.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta su rezultati izreke: <code>null === undefined</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>true</code></p>",
+          "feedback": "<p>Zamislite taj operet o strogoj jednakosti (<code>===</code>) koji proverava.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>false</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Zamisli taj operet o strogoj jednakosti (<code>===</code>) proverava.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>null</code></p>",
+          "feedback": "<p>Zamisli kako stroga jednakost (<code>===</code>) proverava.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>U JavaScript, šta je rezultat poređenja: <code>null >= 0</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>true</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>false</code></p>",
+          "feedback": "<p>Obratite pažnju kako <code>null</code> funkcioniše u poređenju brojeva.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Obratite pažnju kako <code>null</code> radi u poređenju brojeva.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>Error</code></p>",
+          "feedback": "<p>Obrati pažnju kako <code>null</code> radi u poređenju brojeva.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja od sledećih rečenica o <code>undefined</code> je tačna?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>undefined == null</code> se procenjuje da je <code>false</code>.</p>",
+          "feedback": "<p>Zamislite kako <code>undefined</code> radi u različitim vrstama poređenja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined === null</code> procjenjuje se da <code>true</code>.</p>",
+          "feedback": "<p>Razmislite kako <code>undefined</code> funkcioniše u različitim vrstama poređenja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined &#x3C; 0</code> procjenjuje se da je <code>true</code>.</p>",
+          "feedback": "<p>Razmislite kako <code>undefined</code> radi u različitim vrstama poređenja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined == 0</code> procjenjuje se da je <code>false</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-comparisons-and-conditionals",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 33,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-booleans-and-numbers",
+  "certification": "javascript-v9"
+}

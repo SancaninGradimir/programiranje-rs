@@ -1,0 +1,91 @@
+{
+  "id": "5a24c314108439a4d4036184",
+  "title": "Prikaži u slučaju ako-иначе",
+  "challengeType": 6,
+  "forumTopicId": 301410,
+  "dashedName": "render-with-an-if-else-condition",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      display: true\n    }\n    this.toggleDisplay = this.toggleDisplay.bind(this);\n  }\n  toggleDisplay() {\n    this.setState((state) => ({\n      display: !state.display\n    }));\n  }\n  render() {\n    // Change code below this line\n\n    return (\n       <div>\n         <button onClick={this.toggleDisplay}>Toggle Display</button>\n         <h1>Displayed!</h1>\n       </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      display: true\n    }\n    this.toggleDisplay = this.toggleDisplay.bind(this);\n  }\n  toggleDisplay() {\n    this.setState((state) => ({\n      display: !state.display\n    }));\n  }\n  render() {\n    // Change code below this line\n\n    return (\n       <div>\n         <button onClick={this.toggleDisplay}>Toggle Display</button>\n         <h1>Displayed!</h1>\n       </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      display: true\n    }\n this.toggleDisplay = this.toggleDisplay.bind(this);\n }\n  toggleDisplay() {\n    this.setState((state) => ({\n      display: !state.display\n    }));\n  }\n  render() {\n    // Change code below this line\n    if (this.state.display) {\n      return (\n         <div>\n           <button onClick={this.toggleDisplay}>Toggle Display</button>\n           <h1>Displayed!</h1>\n         </div>\n      );\n    } else {\n      return (\n        <div>\n           <button onClick={this.toggleDisplay}>Toggle Display</button>\n         </div>\n      );\n    }\n  }\n};",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      display: true\n    }\n this.toggleDisplay = this.toggleDisplay.bind(this);\n }\n  toggleDisplay() {\n    this.setState((state) => ({\n      display: !state.display\n    }));\n  }\n  render() {\n    // Change code below this line\n    if (this.state.display) {\n      return (\n         <div>\n           <button onClick={this.toggleDisplay}>Toggle Display</button>\n           <h1>Displayed!</h1>\n         </div>\n      );\n    } else {\n      return (\n        <div>\n           <button onClick={this.toggleDisplay}>Toggle Display</button>\n         </div>\n      );\n    }\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyComponent</code> Mora da postoji da se prikaže.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n    return mockedComponent.find('MyComponent').length === 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Kada je <code>display</code> postavljeno na <code>true</code>, <code>div</code>, <code>button</code>, na <code>h1</code> treba da se prikaže.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const state_1 = () => {\n    mockedComponent.setState({ display: true });\n    return waitForIt(() => mockedComponent);\n  };\n  const updated = await state_1();\n  assert(\n    mockedComponent.find('div').length === 1 &&\n      mockedComponent.find('div').children().length === 2 &&\n      mockedComponent.find('button').length === 1 &&\n      mockedComponent.find('h1').length === 1\n  );"
+    },
+    {
+      "text": "<p>Kada je <code>display</code> postavljen na <code>false</code>, treba da budu prikazani samo <code>div</code> i <code>button</code>.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const state_1 = () => {\n    mockedComponent.setState({ display: false });\n    return waitForIt(() => mockedComponent);\n  };\n  const updated = await state_1();\n  assert(\n    mockedComponent.find('div').length === 1 &&\n      mockedComponent.find('div').children().length === 1 &&\n      mockedComponent.find('button').length === 1 &&\n      mockedComponent.find('h1').length === 0\n  );"
+    },
+    {
+      "text": "<p>Način prikaza mora koristiti deklaraciju <code>if/else</code> za proveru stanja <code>this.state.display</code>.</p>",
+      "testString": "assert(code.includes('if') && code.includes('else'));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Druge upotrebe korišćenjem JavaScript za kontrolu prikazanog izgleda su kombinovanje prikazanih elemenata sa određenim uslovom. Kada je taj uslov tačan, prikazuje se jedan izgled. Kada nije tačan, prikazuje se drugi izgled. Ovo možete uraditi korišćenjem deklaracije <code>if/else</code> u metodi <code>render()</code> sekcije React.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Komponenta MyComponent ima <code>boolean</code> u svom stanju koje prati da li želite da prikažete određenu funkciju (ili element) u korisničkom interfejsu (UI) ili ne. <code>button</code> menja stanje ove vrednosti. Trenutno, prikazuje isti UI uvek. Ponovo napiš metodu <code>render()</code> koristeći deklaraciju <code>if/else</code> tako da, ako je <code>display</code> jednako <code>true</code>, vrati trenutne oznake. Inače, vrati oznake bez funkcije <code>h1</code>.</p>\n<p><strong>Napomena:</strong> Morate napisati deklaraciju za <code>if/else</code> ili položiti ispite. Upotreba ternarnog operatora ovde nije dozvoljena.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 38,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

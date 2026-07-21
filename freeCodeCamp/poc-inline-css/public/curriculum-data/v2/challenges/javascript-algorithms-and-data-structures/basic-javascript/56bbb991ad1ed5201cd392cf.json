@@ -1,0 +1,76 @@
+{
+  "id": "56bbb991ad1ed5201cd392cf",
+  "title": "Napisite Ponovo Iskoristiv JavaScript Pomocu Funkcije",
+  "challengeType": 1,
+  "forumTopicId": 18378,
+  "dashedName": "write-reusable-javascript-with-functions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function reusableFunction() {\n  console.log(\"Hi World\");\n}\nreusableFunction();",
+        "error": null,
+        "seed": "function reusableFunction() {\n  console.log(\"Hi World\");\n}\nreusableFunction();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "function testConsole() {\n  var originalConsole = console;\n  var nativeLog = console.log;\n  var hiWorldWasLogged = false;\n  console.log = function (message) {\n    if (message === 'Hi World') {\n      console.warn(message);\n      hiWorldWasLogged = true;\n    }\n    if (nativeLog.apply) {\n      nativeLog.apply(originalConsole, arguments);\n    } else {\n      var nativeMsg = Array.prototype.slice.apply(arguments).join(' ');\n      nativeLog(nativeMsg);\n    }\n  };\n  reusableFunction();\n  console.log = nativeLog;\n  return hiWorldWasLogged;\n}"
+  },
+  "tests": [
+    {
+      "text": "<p><code>reusableFunction</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof reusableFunction === 'function');"
+    },
+    {
+      "text": "<p>Kada se <code>reusableFunction</code> pozove, treba da ispisuje string <code>Hi World</code> u konzoli.</p>",
+      "testString": "assert(testConsole());"
+    },
+    {
+      "text": "<p>Treba da pozovete <code>reusableFunction</code> nakon sto je definisana.</p>",
+      "testString": "const functionStr = reusableFunction && __helpers.removeWhiteSpace(reusableFunction.toString());\nconst codeWithoutFunction = __helpers.removeWhiteSpace(__helpers.removeJSComments(code)).replace(/reusableFunction\\(\\)\\{/g, '');\nassert(/reusableFunction\\(\\)/.test(codeWithoutFunction));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U JavaScript-u, mozemo podeliti kod na ponovo iskoristive delove koji se zovu <dfn>funkcije</dfn>.</p>\n<p>Evo primera funkcije:</p>\n<pre><code class=\"language-js\">function functionName() {\n  console.log(\"Hello World\");\n}\n</code></pre>\n<p>Mozete pozvati ovu funkciju tako sto koristite njeno ime praceno obicnim zagradama, ovako: <code>functionName();</code> Svaki put kada se funkcija pozove, ispisace poruku <code>Hello World</code> u developerskoj konzoli. Sav kod unutar viticastih zagrada se izvrsi svaki put kada se funkcija pozove.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<ol>\n  <li>\n    Napravite funkciju pod nazivom <code>reusableFunction</code> koja ispisuje string <code>Hi World</code> u developerskoj konzoli.\n  </li>\n  <li>\n    Pozovite tu funkciju.\n  </li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "basic-javascript",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 48,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,364 @@
+{
+  "id": "672a549231b8728f7171ed9d",
+  "title": "Ni jukumu gani la ARIA?",
+  "challengeType": 19,
+  "dashedName": "what-are-aria-roles",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p><strong>NAPOMENA</strong>: Neki od ovih primera interakcije mogu da sadrže kod CSS i JavaScript. Ne brinite o razumevanju tog koda. Te demonstracije su tu da pomognu u objašnjavanju nekih glavnih tačaka diskutovanih u lekciji. Da biste videli te demonstracije, moraćete da omogućite editor interakcije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>ARIA inasimama kwa Accessible Rich Internet Applications.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uloge ARIA definišu opisno značenje elemenata HTML. To je važno za čineње sadržaja na mreži dostupnim osobama koje koriste asistivne tehnologije, kao što su čitači ekrana.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>HTML ima deskriptivne i nedeskriptivne elemente, u zavisnosti od toga da li predstavljaju značenje o njihovom sadržaju.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Mnogi semantički HTML elementi već imaju podrazumevano dodeljenu ARIA ulogu. Na primer, element <code>button</code> podrazumevano ima ARIA ulogu <code>button</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<button>Example button</button>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;button>Example button&#x3C;/button>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Međutim, nesemantički elementi nemaju podrazumevanu ulogu. Na primer, čitači ekrana neće znati svrhu elementa <code>div</code> ako mu je izričito ne dodeliš.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;div>\n  &#x3C;!-- more elements go here -->\n&#x3C;/div>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da bi dodelio ARIA ulogu elementu, dovoljno je da dodaš atribut <code>role</code>, na primer <code>role=\"ARIA role\"</code>, gde je vrednost naziv uloge iz ARIA specifikacije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera korišćenja atributa <code>role</code> sa vrednošću <code>\"alert\"</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"alert\" id=\"exp-warning\" role=\"alert\">\n  <span class=\"hidden\">Your log in session will expire in 3 minutes.</span>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"alert\" id=\"exp-warning\" role=\"alert\">\n  &#x3C;span class=\"hidden\">Your log in session will expire in 3 minutes.&#x3C;/span>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".alert {\n  background-color: #fff3cd;\n  border: 1px solid #ffeeba;\n  color: #856404;\n  padding: 1em;\n  margin-top: 1em;\n  border-radius: 4px;\n  font-weight: bold;\n}\n\n.alert span {\n  display: inline-block;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.alert {\n  background-color: #fff3cd;\n  border: 1px solid #ffeeba;\n  color: #856404;\n  padding: 1em;\n  margin-top: 1em;\n  border-radius: 4px;\n  font-weight: bold;\n}\n\n.alert span {\n  display: inline-block;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Važno je razumeti da dodeljivanje uloge elementu radi samo jednu stvar: obaveštava pomoćne tehnologije o svrsi elementa. Ne dodaje nikakvu funkcionalnost niti ponašanje. Ako korisnici očekuju određeno ponašanje za tu ulogu, na tebi je kao programeru da ga implementiraš.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na primer, dodavanje <code>role</code> od <code>button</code> u <code>div</code> ne čini automatski klikabilnim mišem ili upotrebljivim tastaturom. To je odgovornost programera da doda očekivano ponašanje koje omogućava <code>div</code> da funkcioniše kao dugme, a u većini slučajeva, bolje je koristiti karakteristiku od <code>button</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Postoje šest glavnih grupa zadataka za ARIA:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li>Funkcije strukture dokumenta</li>\n<li>Funkcije widget-a</li>\n<li>Funkcije markera važnih sekcija</li>\n<li>Funkcije direktnih područja</li>\n<li>Funkcije prozora</li>\n<li>I funkcije sažetka</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Istražite detaljnije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uloge strukture dokumenta definišu celokupnu strukturu veb stranice. Za ove uloge, asistivne tehnologije mogu razumeti odnos između različitih delova i pomoći korisnicima da pretražuju sadržaj.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Međutim, veliki deo funkcija strukture dokumenata nije primjenjiv u modernom web razvoju jer pretraživači već podržavaju slične semantičke elemente HTML, koji bi trebalo dati prioritet kada je to moguće.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Trebalo bi da postavite zadatke koji nemaju sličan opisni atribut. Primer: <code>toolbar</code>, <code>tooltip</code>, <code>feed</code>, <code>math</code>, <code>presentation</code>, <code>none</code>, i <code>note</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Postoje druge slične uloge, ali ove su najčešće korišćene. Ovo je primer za <code>div</code> sa ARIA ulogom od <code>math</code>. <code>div</code> ima matematičku jednačinu.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div role=\"math\" aria-label=\"x squared + y squared = 3\">\n  x<sup>2</sup> + y<sup>2</sup> = 3\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div role=\"math\" aria-label=\"x squared + y squared = 3\">\n  x&#x3C;sup>2&#x3C;/sup> + y&#x3C;sup>2&#x3C;/sup> = 3\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".math-expression {\n  font-family: \"Times New Roman\", serif;\n  font-size: 1.2rem;\n  background-color: #f4f4f4;\n  border-left: 4px solid #007acc;\n  padding: 0.75em 1em;\n  margin-top: 1em;\n  display: inline-block;\n}\n\n.math-expression sup {\n  font-size: 0.8em;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.math-expression {\n  font-family: \"Times New Roman\", serif;\n  font-size: 1.2rem;\n  background-color: #f4f4f4;\n  border-left: 4px solid #007acc;\n  padding: 0.75em 1em;\n  margin-top: 1em;\n  display: inline-block;\n}\n\n.math-expression sup {\n  font-size: 0.8em;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe ćete videti da <code>div</code> ima svojstvo <code>aria-label</code>. Vrednost ovog svojstva bi trebalo da bude niz karaktera koji predstavlja matematički izraz.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Funkcije widgeta definišu svrhu i funkcionalnost interaktivnih komponenti, kao što su klizači.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Primjeri funkcija vidžeta uključuju <code>scrollbar</code>, <code>searchbox</code>, <code>separator</code> (kada je primjenjivo), <code>slider</code>, <code>spinbutton</code>, <code>switch</code>, <code>tab</code>, <code>tabpanel</code>, i <code>treeitem</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je primer polja za pretragu:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"search-container\" role=\"search\">\n  <label for=\"searchbox\" class=\"visually-hidden\">Search</label>\n\n  <div\n    id=\"searchbox\"\n    class=\"searchbox\"\n    role=\"searchbox\"\n    aria-label=\"Search the site\"\n    tabindex=\"0\"\n    contenteditable=\"true\">\n  </div>\n\n  <button type=\"button\" aria-label=\"Submit search\">Search</button>\n</div>\n",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"search-container\" role=\"search\">\n  &#x3C;label for=\"searchbox\" class=\"visually-hidden\">Search&#x3C;/label>\n\n  &#x3C;div\n    id=\"searchbox\"\n    class=\"searchbox\"\n    role=\"searchbox\"\n    aria-label=\"Search the site\"\n    tabindex=\"0\"\n    contenteditable=\"true\">\n  &#x3C;/div>\n\n  &#x3C;button type=\"button\" aria-label=\"Submit search\">Search&#x3C;/button>\n&#x3C;/div>\n\n</code></pre>"
+        },
+        {
+          "contents": ".search-container {\n  display: flex;\n  align-items: center;\n  gap: 0.5em;\n  margin-top: 1em;\n}\n\n.searchbox {\n  flex: 1;\n  padding: 0.5em;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  font-size: 1em;\n  min-height: 1.5em;\n}\n\n.searchbox:focus {\n  border-color: #007acc;\n  outline: none;\n  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.3);\n}\n\nbutton {\n  padding: 0.5em 1em;\n  background-color: #007acc;\n  color: #fff;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n/* Hide visually but keep for screen readers */\n.visually-hidden {\n  position: absolute;\n  left: -9999px;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.search-container {\n  display: flex;\n  align-items: center;\n  gap: 0.5em;\n  margin-top: 1em;\n}\n\n.searchbox {\n  flex: 1;\n  padding: 0.5em;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  font-size: 1em;\n  min-height: 1.5em;\n}\n\n.searchbox:focus {\n  border-color: #007acc;\n  outline: none;\n  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.3);\n}\n\nbutton {\n  padding: 0.5em 1em;\n  background-color: #007acc;\n  color: #fff;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n/* Hide visually but keep for screen readers */\n.visually-hidden {\n  position: absolute;\n  left: -9999px;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Neki od ovih zadataka imaju slične opisne elemente. Trebalo bi da prioritet date opisnom elementu umesto zadatka, ukoliko on postoji. Na primer, trebalo bi da preferirate korišćenje elementa HTML od <code>button</code> umesto dodavanja <code>role</code> od <code>button</code> na <code>div</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uloge orijentira (landmark roles) označavaju i imenuju glavne delove veb stranice. Čitači ekrana koriste ove uloge kako bi omogućili lakšu navigaciju kroz važne delove stranice. Treba ih koristiti umereno kako bi struktura stranice ostala jednostavna i razumljiva. Primeri ovih uloga su <code>banner</code>, <code>complementary</code>, <code>contentinfo</code>, <code>form</code>, <code>main</code>, <code>navigation</code>, <code>region</code> i <code>search</code>. Svaka od njih ima odgovarajući HTML element, kao što su <code>header</code>, <code>footer</code>, <code>aside</code>, <code>form</code>, <code>main</code>, <code>nav</code>, <code>section</code> i <code>search</code>. Ako koristiš odgovarajuće HTML elemente za označavanje delova stranice, nije potrebno dodavati atribut <code>role</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera banera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n\n<div role=\"banner\" class=\"site-banner\">\n  <h1>Accessible Web Design</h1>\n  <nav>\n    <ul>\n      <li><a href=\"#\">Home</a></li>\n      <li><a href=\"#\">Articles</a></li>\n      <li><a href=\"#\">About</a></li>\n      <li><a href=\"#\">Contact</a></li>\n    </ul>\n  </nav>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n\n&#x3C;div role=\"banner\" class=\"site-banner\">\n  &#x3C;h1>Accessible Web Design&#x3C;/h1>\n  &#x3C;nav>\n    &#x3C;ul>\n      &#x3C;li>&#x3C;a href=\"#\">Home&#x3C;/a>&#x3C;/li>\n      &#x3C;li>&#x3C;a href=\"#\">Articles&#x3C;/a>&#x3C;/li>\n      &#x3C;li>&#x3C;a href=\"#\">About&#x3C;/a>&#x3C;/li>\n      &#x3C;li>&#x3C;a href=\"#\">Contact&#x3C;/a>&#x3C;/li>\n    &#x3C;/ul>\n  &#x3C;/nav>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".site-banner {\n  background-color: #007acc;\n  color: #fff;\n  padding: 1em 1.5em;\n  border-radius: 4px;\n}\n\n.site-banner h1 {\n  margin: 0 0 0.5em;\n  font-size: 1.5em;\n}\n\n.site-banner nav ul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  gap: 1em;\n}\n\n.site-banner nav a {\n  color: #fff;\n  text-decoration: none;\n  font-weight: 500;\n}\n\n.site-banner nav a:hover {\n  text-decoration: underline;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.site-banner {\n  background-color: #007acc;\n  color: #fff;\n  padding: 1em 1.5em;\n  border-radius: 4px;\n}\n\n.site-banner h1 {\n  margin: 0 0 0.5em;\n  font-size: 1.5em;\n}\n\n.site-banner nav ul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  gap: 1em;\n}\n\n.site-banner nav a {\n  color: #fff;\n  text-decoration: none;\n  font-weight: 500;\n}\n\n.site-banner nav a:hover {\n  text-decoration: underline;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uloge direktnih područja definišu elemente sa sadržajem koji se menja u realnom vremenu. Ovo omogućava čitačima ekrana i drugim asistivnim tehnologijama da najave promene korisnicima sa smanjenim vidom. Ove uloge uključuju: <code>alert</code>, <code>log</code>, <code>marquee</code>, <code>status</code>, i <code>timer</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera situacije:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<div class=\"status-demo\">\n  <button id=\"update-status-btn\">Check Status</button>\n  <div id=\"status-msg\" role=\"status\" class=\"status-message\">\n    No updates yet.\n  </div>\n</div>\n\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;div class=\"status-demo\">\n  &#x3C;button id=\"update-status-btn\">Check Status&#x3C;/button>\n  &#x3C;div id=\"status-msg\" role=\"status\" class=\"status-message\">\n    No updates yet.\n  &#x3C;/div>\n&#x3C;/div>\n\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": ".status-demo {\n  margin-top: 1em;\n}\n\nbutton {\n  padding: 0.5em 1em;\n  background-color: #007acc;\n  color: #fff;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n.status-message {\n  margin-top: 0.75em;\n  padding: 0.75em;\n  background-color: #e8f4ff;\n  border: 1px solid #b3d8ff;\n  border-radius: 4px;\n  font-weight: 500;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.status-demo {\n  margin-top: 1em;\n}\n\nbutton {\n  padding: 0.5em 1em;\n  background-color: #007acc;\n  color: #fff;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n.status-message {\n  margin-top: 0.75em;\n  padding: 0.75em;\n  background-color: #e8f4ff;\n  border: 1px solid #b3d8ff;\n  border-radius: 4px;\n  font-weight: 500;\n}\n</code></pre>"
+        },
+        {
+          "contents": "const button = document.getElementById(\"update-status-btn\");\nconst statusMessage = document.getElementById(\"status-msg\");\n\nbutton.addEventListener(\"click\", () => {\n  statusMessage.textContent = \"Your upload has completed successfully.\";\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const button = document.getElementById(\"update-status-btn\");\nconst statusMessage = document.getElementById(\"status-msg\");\n\nbutton.addEventListener(\"click\", () => {\n  statusMessage.textContent = \"Your upload has completed successfully.\";\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Funkcije prozora definišu male prozorčiće, kao što su modalni pop-up dijalogovi. Ove funkcije uključuju <code>alertdialog</code> i <code>dialog</code>. Molimo vas da znate da je sada najbolja praksa koristiti karakteristiku HTML iz <code>dialog</code> i njegove metode JavaScript umesto ručnog kreiranja dijaloga.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je primer korišćenja loge <code>dialog</code> za posebne razgovore:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n\n<button id=\"open-dialog\">Open Dialog</button>\n\n<div id=\"custom-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"dialog-title\" class=\"dialog\">\n  <div class=\"dialog-content\">\n    <h3 id=\"dialog-title\">Confirm Action</h3>\n    <p>Are you sure you want to delete this file?</p>\n    <div class=\"dialog-actions\">\n      <button id=\"confirm-btn\">Yes</button>\n      <button id=\"close-dialog\">Cancel</button>\n    </div>\n  </div>\n</div>\n\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n\n&#x3C;button id=\"open-dialog\">Open Dialog&#x3C;/button>\n\n&#x3C;div id=\"custom-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"dialog-title\" class=\"dialog\">\n  &#x3C;div class=\"dialog-content\">\n    &#x3C;h3 id=\"dialog-title\">Confirm Action&#x3C;/h3>\n    &#x3C;p>Are you sure you want to delete this file?&#x3C;/p>\n    &#x3C;div class=\"dialog-actions\">\n      &#x3C;button id=\"confirm-btn\">Yes&#x3C;/button>\n      &#x3C;button id=\"close-dialog\">Cancel&#x3C;/button>\n    &#x3C;/div>\n  &#x3C;/div>\n&#x3C;/div>\n\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "body {\n  font-family: Arial, sans-serif;\n  margin: 2em;\n}\n\nbutton {\n  padding: 0.5em 1em;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  background-color: #007acc;\n  color: white;\n  font-size: 1em;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n.dialog {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); \n  justify-content: center; \n  align-items: center;   \n  z-index: 1000;\n}\n\n.dialog-content {\n  background-color: white;\n  padding: 1.5em;\n  border-radius: 8px;\n  width: 90%;\n  max-width: 400px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n}\n\n.dialog-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 0.5em;\n  margin-top: 1em;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">body {\n  font-family: Arial, sans-serif;\n  margin: 2em;\n}\n\nbutton {\n  padding: 0.5em 1em;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  background-color: #007acc;\n  color: white;\n  font-size: 1em;\n}\n\nbutton:hover {\n  background-color: #005fa3;\n}\n\n.dialog {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); \n  justify-content: center; \n  align-items: center;   \n  z-index: 1000;\n}\n\n.dialog-content {\n  background-color: white;\n  padding: 1.5em;\n  border-radius: 8px;\n  width: 90%;\n  max-width: 400px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n}\n\n.dialog-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 0.5em;\n  margin-top: 1em;\n}\n</code></pre>"
+        },
+        {
+          "contents": "const dialog = document.getElementById(\"custom-dialog\");\nconst openBtn = document.getElementById(\"open-dialog\");\nconst closeBtn = document.getElementById(\"close-dialog\");\nconst confirmBtn = document.getElementById(\"confirm-btn\");\n\nopenBtn.addEventListener(\"click\", () => {\n  dialog.style.display = \"flex\";\n});\n\ncloseBtn.addEventListener(\"click\", () => {\n  dialog.style.display = \"none\";\n});\n\nconfirmBtn.addEventListener(\"click\", () => {\n  alert(\"File deleted.\");\n  dialog.style.display = \"none\";\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dialog = document.getElementById(\"custom-dialog\");\nconst openBtn = document.getElementById(\"open-dialog\");\nconst closeBtn = document.getElementById(\"close-dialog\");\nconst confirmBtn = document.getElementById(\"confirm-btn\");\n\nopenBtn.addEventListener(\"click\", () => {\n  dialog.style.display = \"flex\";\n});\n\ncloseBtn.addEventListener(\"click\", () => {\n  dialog.style.display = \"none\";\n});\n\nconfirmBtn.addEventListener(\"click\", () => {\n  alert(\"File deleted.\");\n  dialog.style.display = \"none\";\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na kraju, imamo nasumične funkcije/module. Ove funkcije pomažu u organizovanju dokumenata. One su namenjene za korišćenje samo unutar pregledača, a ne za programere, pa biste trebali znati da postoje, ali ih ne koristite na svojim sajtovima ili veb aplikacijama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za uloge ARIA, možete kreirati veb-sajtove i web aplikacije koje su pristupačne i inkluzivne. Pružaju opisne informacije o nameni i funkciji elemenata HTML.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Čitači ekrana i druge asistivne tehnologije koriste ove informacije kako bi pomogle korisnicima da razumeju sadržaj vaše stranice i postave očekivanja o načinu korišćenja, što pomaže osigurati da svako ima dobro iskustvo korisnika.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna uloga ARIA?</p>",
+      "answers": [
+        {
+          "answer": "<p>Podešavanje izgleda elemenata.</p>",
+          "feedback": "<p>Razmislite kako uloge ARIA pomažu asistivnoj tehnologiji da razume sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšanje performansi sajta.</p>",
+          "feedback": "<p>Razmislite kako ARIA uloge pomažu tehnologiji za pomoć da razume sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pružiti opisne informacije o svrsi komponenti.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšati sinhronizaciju pretraživača.</p>",
+          "feedback": "<p>Zamislite kako ARIA uloge pomažu asistivnoj tehnologiji da razume sadržaj.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja grupa ARIA uloga se koristi za klasifikovanje namene i ponašanja malog prozora, poput modalnog pop-up dijaloga?</p>",
+      "answers": [
+        {
+          "answer": "<p>Funkcije widgeta.</p>",
+          "feedback": "<p>Razmislite kako da definišete mali prozor za ARIA uloge.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije strukture dokumenta.</p>",
+          "feedback": "<p>Razmislite kako da klasifikujete mali prozor za ARIA uloge.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije znakova za važne delove.</p>",
+          "feedback": "<p>Razmislite kako da definisujete mali prozor za uloge ARIA-e.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije prozora.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Koji je skup ARIA uloga koji se koristi za prikaz dinamičnog sadržaja koji mora biti saopšten korisnicima?</p>",
+      "answers": [
+        {
+          "answer": "<p>Funkcije widgeta.</p>",
+          "feedback": "<p>Razmislite o načinu dostavljanja informacija ili upozorenja korisnicima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije strukture dokumenta.</p>",
+          "feedback": "<p>Razmislite kako da izdajete informacije ili upozorenja korisnicima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije simbola za važne delove.</p>",
+          "feedback": "<p>Razmislite o načinu dostavljanja informacija ili upozorenja korisnicima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Obaveze direktnih područja.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-introduction-to-aria",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 47,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "html",
+  "module": "html-and-accessibility",
+  "certification": "responsive-web-design-v9"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "587d7daf367417b2b2512b80",
+  "title": "Zapamtite da dodelite atribut komponenti kada menjate model",
+  "challengeType": 1,
+  "forumTopicId": 301323,
+  "dashedName": "remember-to-set-the-constructor-property-when-changing-the-prototype",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Dog(name) {\n  this.name = name;\n}\n\n// Only change code below this line\nDog.prototype = {\n\n  numLegs: 4,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  },\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};",
+      "error": null,
+      "seed": "function Dog(name) {\n  this.name = name;\n}\n\n// Only change code below this line\nDog.prototype = {\n\n  numLegs: 4,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  },\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Dog(name) {\n  this.name = name;\n}\nDog.prototype = {\n  constructor: Dog,\n  numLegs: 4,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  },\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};",
+        "error": null,
+        "seed": "function Dog(name) {\n  this.name = name;\n}\nDog.prototype = {\n  constructor: Dog,\n  numLegs: 4,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  },\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Dog.prototype</code> treba da postavi svojstvo od <code>constructor</code>.</p>",
+      "testString": "assert(Dog.prototype.constructor === Dog);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Postoji jedan važan nuspojavak ručnog postavljanja modela na nešto novo. Briše svojstvo <code>constructor</code>! Ovo svojstvo se može koristiti za potvrđivanje koja je komponentna funkcija kreirala model, ali pošto je ovo svojstvo prepisano, sada daje netačne rezultate:</p>\n<pre><code class=\"language-js\">duck.constructor === Bird;\nduck.constructor === Object;\nduck instanceof Bird;\n</code></pre>\n<p>Redosledom, ova fraza bi bila smatrana kao <code>false</code>, <code>true</code>, i <code>true</code>.</p>\n<p>Kada ovo menjate, šablon će biti ručno postavljen kao novi element, zapamtite da definišete svojstvo za <code>constructor</code>:</p>\n<pre><code class=\"language-js\">Bird.prototype = {\n  constructor: Bird,\n  numLegs: 2,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  },\n  describe: function() {\n    console.log(\"My name is \" + this.name); \n  }\n};\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Definišite svojstvo <code>constructor</code> na <code>Dog</code> <code>prototype</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

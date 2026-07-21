@@ -1,0 +1,105 @@
+{
+  "id": "5a24c314108439a4d4036143",
+  "title": "Premesti logiku stanja u Redux",
+  "challengeType": 6,
+  "forumTopicId": 301429,
+  "dashedName": "extract-state-logic-to-redux",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "// Define ADD, addMessage(), messageReducer(), and store here:",
+      "error": null,
+      "seed": "// Define ADD, addMessage(), messageReducer(), and store here:"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const ADD = 'ADD';\n\nconst addMessage = (message) => {\n  return {\n    type: ADD,\n    message\n  }\n};\n\nconst messageReducer = (state = [], action) => {\n  switch (action.type) {\n    case ADD:\n      return [\n        ...state,\n        action.message\n      ];\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(messageReducer);",
+        "error": null,
+        "seed": "const ADD = 'ADD';\n\nconst addMessage = (message) => {\n  return {\n    type: ADD,\n    message\n  }\n};\n\nconst messageReducer = (state = [], action) => {\n  switch (action.type) {\n    case ADD:\n      return [\n        ...state,\n        action.message\n      ];\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(messageReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Konstanta <code>ADD</code> treba da postoji i da ima vrednost stringa <code>ADD</code>.</p>",
+      "testString": "assert(ADD === 'ADD');"
+    },
+    {
+      "text": "<p>Generator akcije <code>addMessage</code> mora da vrati nešto sa <code>type</code> jednako kao <code>ADD</code> i <code>message</code> jednako kao poruka koja se prenosi.</p>",
+      "testString": "assert(\n  (function () {\n    const addAction = addMessage('__TEST__MESSAGE__');\n    return addAction.type === ADD && addAction.message === '__TEST__MESSAGE__';\n  })()\n);"
+    },
+    {
+      "text": "<p><code>messageReducer</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof messageReducer === 'function');"
+    },
+    {
+      "text": "<p>Skladište treba da postoji i da ima početno stanje postavljeno na prazan niz.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    return typeof store === 'object' && initialState.length === 0;\n  })()\n);"
+    },
+    {
+      "text": "<p>Slanje <code>addMessage</code> akcije prema skladištu treba bezbedno da doda novu poruku u niz poruka sačuvan u stanju.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    const isFrozen = DeepFreeze(initialState);\n    store.dispatch(addMessage('__A__TEST__MESSAGE'));\n    const addState = store.getState();\n    return isFrozen && addState[0] === '__A__TEST__MESSAGE';\n  })()\n);"
+    },
+    {
+      "text": "<p><code>messageReducer</code> treba da vrati trenutno stanje ako se pozove sa bilo kojom drugom akcijom.</p>",
+      "testString": "assert(\n  (function () {\n    const addState = store.getState();\n    store.dispatch({ type: 'FAKE_ACTION' });\n    const testState = store.getState();\n    return addState === testState;\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada si završio deo React, moraš da premestiš logiku koja je implementirana unutar <code>state</code> ka Redux-u. Ovo je prvi korak za povezivanje jednostavne aplikacije/programa React sa Redux-om. Jedina funkcija tvog programa je dodavanje nove poruke od korisnika u neuređenu listu. Primer je jednostavan da pokaže kako React i Redux rade zajedno.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Prvo, definiš tip akcije <code>ADD</code> i postavi ga kao const <code>ADD</code>. Zatim, definiši kreator akcije <code>addMessage()</code> koji kreira akciju dodavanja poruke. Moraćeš da proslediš <code>message</code> ovom kreatoru akcije i uključiš poruku u vraćeni <code>action</code>.</p>\n<p>Zatim kreiraj reducer nazvan <code>messageReducer()</code> koji obrađuje stanje poruke. Početno stanje bi trebalo da bude prazan niz podataka. Ovaj reducer bi trebalo da doda poruku u niz poruka sačuvanih u stanju, ili da vrati trenutno stanje. Na kraju, kreiraj svoj Redux store i prosledi mu reducer.</p>\n</section>",
+  "translationPending": false,
+  "block": "react-and-redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 5,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

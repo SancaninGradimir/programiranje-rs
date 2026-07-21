@@ -1,0 +1,69 @@
+{
+  "id": "5956795bc9e2c415eb244de1",
+  "title": "Povezivanje hasha",
+  "challengeType": 1,
+  "forumTopicId": 302284,
+  "dashedName": "hash-join",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function hashJoin(hash1, hash2) {\n\n  return [];\n}",
+      "error": null,
+      "seed": "function hashJoin(hash1, hash2) {\n\n  return [];\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function hashJoin(hash1, hash2) {\n  const hJoin = (tblA, tblB, strJoin) => {\n    const [jA, jB] = strJoin.split('=');\n    const M = tblB.reduce((a, x) => {\n      const id = x[jB];\n      return (\n        a[id] ? a[id].push(x) : (a[id] = [x]),\n        a\n      );\n    }, {});\n\n    return tblA.reduce((a, x) => {\n      const match = M[x[jA]];\n      return match ? (\n                a.concat(match.map(row => dictConcat(x, row)))\n            ) : a;\n    }, []);\n  };\n\n  const dictConcat = (dctA, dctB) => {\n    const ok = Object.keys;\n    return ok(dctB).reduce(\n            (a, k) => (a[`B_${k}`] = dctB[k]) && a,\n            ok(dctA).reduce(\n                (a, k) => (a[`A_${k}`] = dctA[k]) && a, {}\n            )\n        );\n  };\n\n  return hJoin(hash1, hash2, 'name=character');\n}",
+        "error": null,
+        "seed": "function hashJoin(hash1, hash2) {\n  const hJoin = (tblA, tblB, strJoin) => {\n    const [jA, jB] = strJoin.split('=');\n    const M = tblB.reduce((a, x) => {\n      const id = x[jB];\n      return (\n        a[id] ? a[id].push(x) : (a[id] = [x]),\n        a\n      );\n    }, {});\n\n    return tblA.reduce((a, x) => {\n      const match = M[x[jA]];\n      return match ? (\n                a.concat(match.map(row => dictConcat(x, row)))\n            ) : a;\n    }, []);\n  };\n\n  const dictConcat = (dctA, dctB) => {\n    const ok = Object.keys;\n    return ok(dctB).reduce(\n            (a, k) => (a[`B_${k}`] = dctB[k]) && a,\n            ok(dctA).reduce(\n                (a, k) => (a[`A_${k}`] = dctA[k]) && a, {}\n            )\n        );\n  };\n\n  return hJoin(hash1, hash2, 'name=character');\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>hashJoin</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof hashJoin === 'function');"
+    },
+    {
+      "text": "<p><code>hashJoin([{ age: 27, name: \"Jonah\" }, { age: 18, name: \"Alan\" }, { age: 28, name: \"Glory\" }, { age: 18, name: \"Popeye\" }, { age: 28, name: \"Alan\" }], [{ character: \"Jonah\", nemesis: \"Whales\" }, { character: \"Jonah\", nemesis: \"Spiders\" }, { character: \"Alan\", nemesis: \"Ghosts\" }, { character:\"Alan\", nemesis: \"Zombies\" }, { character: \"Glory\", nemesis: \"Buffy\" }, { character: \"Bob\", nemesis: \"foo\" }])</code> treba da vrati <code>[{\"A_age\": 27,\"A_name\": \"Jonah\", \"B_character\": \"Jonah\", \"B_nemesis\": \"Whales\"}, {\"A_age\": 27,\"A_name\": \"Jonah\", \"B_character\": \"Jonah\", \"B_nemesis\": \"Spiders\"}, {\"A_age\": 18,\"A_name\": \"Alan\", \"B_character\": \"Alan\", \"B_nemesis\": \"Ghosts\"}, {\"A_age\": 18,\"A_name\": \"Alan\", \"B_character\": \"Alan\", \"B_nemesis\": \"Zombies\"}, {\"A_age\": 28,\"A_name\": \"Glory\", \"B_character\": \"Glory\", \"B_nemesis\": \"Buffy\"}, {\"A_age\": 28,\"A_name\": \"Alan\", \"B_character\": \"Alan\", \"B_nemesis\": \"Ghosts\"}, {\"A_age\": 28,\"A_name\": \"Alan\", \"B_character\": \"Alan\", \"B_nemesis\": \"Zombies\"}]</code></p>",
+      "testString": "const hash1 = [\n    { age: 27, name: 'Jonah' },\n    { age: 18, name: 'Alan' },\n    { age: 28, name: 'Glory' },\n    { age: 18, name: 'Popeye' },\n    { age: 28, name: 'Alan' }\n];\n\nconst hash2 = [\n    { character: 'Jonah', nemesis: 'Whales' },\n    { character: 'Jonah', nemesis: 'Spiders' },\n    { character: 'Alan', nemesis: 'Ghosts' },\n    { character: 'Alan', nemesis: 'Zombies' },\n    { character: 'Glory', nemesis: 'Buffy' },\n    { character: 'Bob', nemesis: 'foo' }\n];\n\nconst res = [\n    { A_age: 27, A_name: 'Jonah', B_character: 'Jonah', B_nemesis: 'Whales' },\n    { A_age: 27, A_name: 'Jonah', B_character: 'Jonah', B_nemesis: 'Spiders' },\n    { A_age: 18, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Ghosts' },\n    { A_age: 18, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Zombies' },\n    { A_age: 28, A_name: 'Glory', B_character: 'Glory', B_nemesis: 'Buffy' },\n    { A_age: 28, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Ghosts' },\n    { A_age: 28, A_name: 'Alan', B_character: 'Alan', B_nemesis: 'Zombies' }\n];\n\nconst bench1 = [{ name: 'u2v7v', num: 1 }, { name: 'n53c8', num: 10 }, { name: 'oysce', num: 9 }, { name: '0mto2s', num: 1 }, { name: 'vkh5id', num: 4 }, { name: '5od0cf', num: 8 }, { name: 'uuulue', num: 10 }, { name: '3rgsbi', num: 9 }, { name: 'kccv35r', num: 4 }, { name: '80un74', num: 9 }, { name: 'h4pp3', num: 6 }, { name: '51bit', num: 7 }, { name: 'j9ndf', num: 8 }, { name: 'vf3u1', num: 10 }, { name: 'g0bw0om', num: 10 }, { name: 'j031x', num: 7 }, { name: 'ij3asc', num: 9 }, { name: 'byv83y', num: 8 }, { name: 'bjzp4k', num: 4 }, { name: 'f3kbnm', num: 10 }];\nconst bench2 = [{ friend: 'o8b', num: 8 }, { friend: 'ye', num: 2 }, { friend: '32i', num: 5 }, { friend: 'uz', num: 3 }, { friend: 'a5k', num: 4 }, { friend: 'uad', num: 7 }, { friend: '3w5', num: 10 }, { friend: 'vw', num: 10 }, { friend: 'ah', num: 4 }, { friend: 'qv', num: 7 }, { friend: 'ozv', num: 2 }, { friend: '9ri', num: 10 }, { friend: '7nu', num: 4 }, { friend: 'w3', num: 9 }, { friend: 'tgp', num: 8 }, { friend: 'ibs', num: 1 }, { friend: 'ss7', num: 6 }, { friend: 'g44', num: 9 }, { friend: 'tab', num: 9 }, { friend: 'zem', num: 10 }];\nassert.deepEqual(hashJoin(hash1, hash2), res);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Inner Join je operacija koja spaja dve tabele podataka u jednu tabelu, na osnovu odgovarajućih vrednosti redova. Najjednostavniji način za izvršavanje ove operacije su algoritmi spajanja bazirani na petljama (loop-based join), ali skalabilnija alternativa je Hash Join algoritam.</p>\n<p>Algoriti ya \"kuunganisha kwa hash\" ina hatua mbili:</p>\n<ol>\n  <li><strong>Hash korak:</strong> Kreiranje multimapa iz jedne od dve tabele, mapiranjem sa svake vrednosti spajnog reda na sve redove koji je sadrže.</li>\n  <ul>\n    <li> Multimap mora da podrži pretraživanje bazirano na hash-u, koje je efikasnije od jednostavnog pretraživanja po redovima, jer je to glavna svrha ovog algoritma.</li>\n    <li> Obično bi trebalo da kreirate multimap za manju tabelu, čime smanjujete vreme kreiranja i veličinu memorije.</li>\n  </ul>\n  <li><strong>Korak spajanja:</strong> Iterirajte kroz drugu tabelu i pronađite odgovarajuće redove proveravanjem u prethodno kreiranom multimapu.</li>\n</ol>\n<p>U pseudokodu, algoritam se može prikazati ovako:</p>\n<pre><strong>let</strong> <i>A</i> = prva ulazna tabela (ili obično veća)\n<strong>let</strong> <i>B</i> = druga ulazna tabela (ili obično manja)\n<strong>let</strong> <i>j<sub>A</sub></i> = kitambulisho cha safu ya kuunganisha ya jedwali <i>A</i>\n<strong>let</strong> <i>j<sub>B</sub></i> = kitambulisho cha safu ya kuunganisha ya jedwali <i>B</i>\n<strong>let</strong> <i>M<sub>B</sub></i> = multimap koji preslikava jednu vrednost na više redova tabele <i>B</i> (u početku prazan)\n<strong>let</strong> <i>C</i> = jedwali la matokeo (huanza tupu)\n<strong>for each</strong> mstari <i>b</i> katika jedwali <i>B</i>:\n<strong>ubaci</strong> <i>b</i> u multimap <i>M<sub>B</sub></i> pod ključem <i>b(j<sub>B</sub>)</i>\n<strong>for each</strong> mstari <i>a</i> katika jedwali <i>A</i>:\n<strong>za svaki</strong> red <i>b</i> u multimapi <i>M<sub>B</sub></i> pod ključem <i>a(j<sub>A</sub>)</i>:\n    <strong>let</strong> <i>c</i> = mchanganyiko wa mstari <i>a</i> na mstari <i>b</i>\n<strong>ubaci</strong> red <i>c</i> u tabelu <i>C</i>\n</pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Implementirajte algoritam 'hash spajanja' kao funkciju i pokažite da prolazi kroz sledeći test slučaj. Funkcija bi trebalo da primi dva niza objekata i vrati niz spojenih objekata.</p>\n<p><strong>Ulaz</strong></p>\n<table>\n  <tr>\n    <td style=\"padding: 4px; margin: 5px;\">\n      <table style=\"border:none; border-collapse:collapse;\">\n        <tr>\n          <td style=\"border:none\"><i>A =</i></td>\n          <td style=\"border:none\">\n            <table>\n              <tr>\n                <th style=\"padding: 4px; margin: 5px;\">Umri</th>\n                <th style=\"padding: 4px; margin: 5px;\">Jina</th>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">27</td>\n                <td style=\"padding: 4px; margin: 5px;\">Jonah</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">18</td>\n                <td style=\"padding: 4px; margin: 5px;\">Alan</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">28</td>\n                <td style=\"padding: 4px; margin: 5px;\">Glory</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">18</td>\n                <td style=\"padding: 4px; margin: 5px;\">Popeye</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">28</td>\n                <td style=\"padding: 4px; margin: 5px;\">Alan</td>\n              </tr>\n            </table>\n          </td>\n          <td style=\"border:none; padding-left:1.5em;\" rowspan=\"2\"></td>\n          <td style=\"border:none\"><i>B =</i></td>\n          <td style=\"border:none\">\n            <table>\n              <tr>\n                <th style=\"padding: 4px; margin: 5px;\">Mhusika</th>\n                <th style=\"padding: 4px; margin: 5px;\">Adui</th>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">Jonah</td>\n                <td style=\"padding: 4px; margin: 5px;\">Whales</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">Jonah</td>\n                <td style=\"padding: 4px; margin: 5px;\">Spiders</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">Alan</td>\n                <td style=\"padding: 4px; margin: 5px;\">Ghosts</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">Alan</td>\n                <td style=\"padding: 4px; margin: 5px;\">Zombies</td>\n              </tr>\n              <tr>\n                <td style=\"padding: 4px; margin: 5px;\">Glory</td>\n                <td style=\"padding: 4px; margin: 5px;\">Buffy</td>\n              </tr>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style=\"border:none\">\n            <i>j<sub>A</sub> =</i>\n          </td>\n          <td style=\"border:none\">\n            <i><code>Jina</code> (yaani safu ya 1)</i>\n          </td>\n          <td style=\"border:none\">\n            <i>j<sub>B</sub> =</i>\n          </td>\n          <td style=\"border:none\">\n            <i><code>Mhusika</code> (yaani safu ya 0)</i>\n          </td>\n        </tr>\n      </table>\n    </td>\n  </tr>\n</table>\n<p><strong>Matokeo</strong></p>\n<table>\n<thead>\n<tr>\n<th>A_umri</th>\n<th>A_jina</th>\n<th>B_mhusika</th>\n<th>B_adui</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>27</td>\n<td>Jonah</td>\n<td>Jonah</td>\n<td>Whales</td>\n</tr>\n<tr>\n<td>27</td>\n<td>Jonah</td>\n<td>Jonah</td>\n<td>Spiders</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Alan</td>\n<td>Alan</td>\n<td>Ghosts</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Alan</td>\n<td>Alan</td>\n<td>Zombies</td>\n</tr>\n<tr>\n<td>28</td>\n<td>Glory</td>\n<td>Glory</td>\n<td>Buffy</td>\n</tr>\n<tr>\n<td>28</td>\n<td>Alan</td>\n<td>Alan</td>\n<td>Ghosts</td>\n</tr>\n<tr>\n<td>28</td>\n<td>Alan</td>\n<td>Alan</td>\n<td>Zombies</td>\n</tr>\n</tbody>\n</table>\n<p>Redosled redova u rezultujućoj tabeli nije bitan.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 66,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

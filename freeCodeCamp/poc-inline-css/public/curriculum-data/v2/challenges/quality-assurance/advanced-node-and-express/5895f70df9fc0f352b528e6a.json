@@ -1,0 +1,37 @@
+{
+  "id": "5895f70df9fc0f352b528e6a",
+  "title": "Kreiraj novi middleware",
+  "challengeType": 2,
+  "forumTopicId": 301551,
+  "dashedName": "create-new-middleware",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Middleware <code>ensureAuthenticated</code> treba da bude implementiran i povezan sa <code>/profile</code> rutom.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /ensureAuthenticated[^]*req.isAuthenticated/,\n    'Your ensureAuthenticated middleware should be defined and utilize the req.isAuthenticated function'\n  );\n  assert.match(\n    data,\n    /profile[^]*get[^]*ensureAuthenticated/,\n    'Your ensureAuthenticated middleware should be attached to the /profile route'\n  );"
+    },
+    {
+      "text": "<p>Neautentifikovani GET zahtev za <code>/profile</code> treba da bude ispravno preusmeren na <code>/</code>.</p>",
+      "testString": "  const url = new URL(\"/profile\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /Home page/,\n    'An attempt to go to the profile at this point should redirect to the homepage since we are not logged in'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao što je sada, bilo koji korisnik može jednostavno otići na <code>/profile</code> bio autentifikovan ili ne kucanjem URL-a. Želiš da sprečiš ovo proveravanjem da li je korisnik prvo autentifikovan pre prikazivanja stranice profila. Ovo je dobar primer kada se kreira middleware.</p>\n<p>Izazov ovde je kreirati middleware funkciju <code>ensureAuthenticated(req, res, next)</code>, koja će proveriti da li je korisnik autentifikovan pozivanjem Passport-ovog <code>isAuthenticated</code> metoda na <code>request</code> koji proverava da li je <code>req.user</code> definisan. Ako postoji, onda <code>next()</code> treba da bude pozvan. U suprotnom, možeš odgovoriti na zahtev preusmeravanjem na početnu stranicu za prijavu.</p>\n<p>Implementacija ovog middleware-a je:</p>\n<pre><code class=\"language-javascript\">function ensureAuthenticated(req, res, next) {\n  if (req.isAuthenticated()) {\n    return next();\n  }\n  res.redirect('/');\n};\n</code></pre>\n<p>Kreiraj gore pomenutu middleware funkciju, zatim prosledi <code>ensureAuthenticated</code> kao middleware za zahteve stranice profila pre argumenta GET zahteva:</p>\n<pre><code class=\"language-javascript\">app\n  .route('/profile')\n  .get(ensureAuthenticated, (req,res) => {\n    res.render('profile');\n  });\n</code></pre>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#create-new-middleware-8\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

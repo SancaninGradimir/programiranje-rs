@@ -1,0 +1,62 @@
+{
+  "id": "69779dcb44016eccc05c15a4",
+  "title": "Korak 5",
+  "challengeType": 20,
+  "dashedName": "step-5",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        12,
+        14
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\nrunning_total += appetizers + main_courses + desserts + drinks\nprint('Total bill so far:', running_total)\n\n",
+      "error": null,
+      "seed": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\nrunning_total += appetizers + main_courses + desserts + drinks\nprint('Total bill so far:', running_total)\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš parametar nazvan <code>tip</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n    _Node(_code).has_variable('tip')\n    `))\n})"
+    },
+    {
+      "text": "<p>Vaš parametar za <code>tip</code> treba da bude rezultat <code>running_total * 0.25</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    t = _Node(_code).find_variable('tip')\n    assert t.is_equivalent('tip = running_total * 0.25') or t.is_equivalent('tip = 0.25 * running_total')`)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da ispišete niz znakova <code>Tip amount:</code> praćen razmakom i kriterijumom <code>tip</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\nimport io, contextlib, re\n\nbuffer = io.StringIO()\nwith contextlib.redirect_stdout(buffer):\n    exec(_code)\n\nmatch = re.search(r\"Tip amount: ([0-9]+(?:\\\\.[0-9]+)?)\", buffer.getvalue())\n\nassert match\nassert abs(float(match.group(1)) - ((37.89 + 57.34 + 39.39 + 64.21) * 0.25)) < 1e-6\n`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Usluga je bila greške dobra, pa je grupa odlučila da ostavi 25% napojnica. Da biste izračunali procenat u Python, možete ukupan iznos pomnožiti sa decimalnim ekvivalentom tog procenta.</p>\n<p>Primer, da biste dobili 10 procenata vrednosti, pomnožili biste sa <code>0.10</code> koristeći operator <code>*</code>:</p>\n<pre><code class=\"language-py\">tax = total * 0.10\n</code></pre>\n<p>Definiši parametar nazvan <code>tip</code> i postavi vrednost na rezultat množenja <code>running_total</code> sa <code>0.25</code>.</p>\n<p>Konačno, koristi <code>print()</code> da prikaže niz slova <code>Tip amount:</code> praćen razmakom i vrednošću tvog parametra <code>tip</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-bill-splitter",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-basics",
+  "certification": "python-v9"
+}

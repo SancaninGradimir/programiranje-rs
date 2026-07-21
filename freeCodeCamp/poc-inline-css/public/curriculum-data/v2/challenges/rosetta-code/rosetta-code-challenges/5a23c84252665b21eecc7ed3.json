@@ -1,0 +1,81 @@
+{
+  "id": "5a23c84252665b21eecc7ed3",
+  "title": "Izazov torbe/nastavka",
+  "challengeType": 1,
+  "forumTopicId": 323654,
+  "dashedName": "knapsack-problemcontinuous",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function knapContinuous(items, maxweight) {\n\n}",
+      "error": null,
+      "seed": "function knapContinuous(items, maxweight) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function knapContinuous(items, maxweight) {\n  function item_cmp(a, b) {\n    const ua = a.unitVal,\n      ub = b.unitVal;\n    return ua < ub ? 1 : ua > ub ? -1 : 0;\n  }\n  items = items.map(({ value, weight }) => ({\n    unitVal: value / weight,\n    weight\n  }));\n  items.sort(item_cmp);\n\n  let val = 0;\n  let wt = 0;\n  for (let { unitVal, weight } of items) {\n    var portion = Math.min(maxweight - wt, weight);\n    wt += portion;\n    var addVal = portion * unitVal;\n    val += addVal;\n    if (wt >= maxweight) {\n      break;\n    }\n  }\n  return val;\n}",
+        "error": null,
+        "seed": "function knapContinuous(items, maxweight) {\n  function item_cmp(a, b) {\n    const ua = a.unitVal,\n      ub = b.unitVal;\n    return ua < ub ? 1 : ua > ub ? -1 : 0;\n  }\n  items = items.map(({ value, weight }) => ({\n    unitVal: value / weight,\n    weight\n  }));\n  items.sort(item_cmp);\n\n  let val = 0;\n  let wt = 0;\n  for (let { unitVal, weight } of items) {\n    var portion = Math.min(maxweight - wt, weight);\n    wt += portion;\n    var addVal = portion * unitVal;\n    val += addVal;\n    if (wt >= maxweight) {\n      break;\n    }\n  }\n  return val;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>knapContinuous([{ \"weight\":3.8, \"value\":36, name:\"beef\" }, { \"weight\":5.4, \"value\":43, name:\"pork\" }, { \"weight\":3.6, \"value\":90, name:\"ham\" }, { \"weight\":2.4, \"value\":45, name:\"greaves\" }, { \"weight\":4.0, \"value\":30, name:\"flitch\" }, { \"weight\":2.5, \"value\":56, name:\"brawn\" }, { \"weight\":3.7, \"value\":67, name:\"welt\" }, { \"weight\":3.0, \"value\":95, name:\"salami\" }, { \"weight\":5.9, \"value\":98, name:\"sausage\" }], 10)</code> treba da vrati <code>257.875</code>.</p>",
+      "testString": "assert.equal(\n  knapContinuous(\n    [\n      { weight: 3.8, value: 36, name: 'beef' },\n      { weight: 5.4, value: 43, name: 'pork' },\n      { weight: 3.6, value: 90, name: 'ham' },\n      { weight: 2.4, value: 45, name: 'greaves' },\n      { weight: 4.0, value: 30, name: 'flitch' },\n      { weight: 2.5, value: 56, name: 'brawn' },\n      { weight: 3.7, value: 67, name: 'welt' },\n      { weight: 3.0, value: 95, name: 'salami' },\n      { weight: 5.9, value: 98, name: 'sausage' }\n    ],\n    10\n  ),\n  257.875\n);"
+    },
+    {
+      "text": "<p><code>knapContinuous([{ \"weight\":3.8, \"value\":36, name:\"beef\" }, { \"weight\":5.4, \"value\":43, name:\"pork\" }, { \"weight\":3.6, \"value\":90, name:\"ham\" }, { \"weight\":2.4, \"value\":45, name:\"greaves\" }, { \"weight\":4.0, \"value\":30, name:\"flitch\" }, { \"weight\":2.5, \"value\":56, name:\"brawn\" }, { \"weight\":3.7, \"value\":67, name:\"welt\" }, { \"weight\":3.0, \"value\":95, name:\"salami\" }, { \"weight\":5.9, \"value\":98, name:\"sausage\" }], 12)</code> treba da vrati <code>295.05405405405406</code>.</p>",
+      "testString": "assert.equal(\n  knapContinuous(\n    [\n      { weight: 3.8, value: 36, name: 'beef' },\n      { weight: 5.4, value: 43, name: 'pork' },\n      { weight: 3.6, value: 90, name: 'ham' },\n      { weight: 2.4, value: 45, name: 'greaves' },\n      { weight: 4.0, value: 30, name: 'flitch' },\n      { weight: 2.5, value: 56, name: 'brawn' },\n      { weight: 3.7, value: 67, name: 'welt' },\n      { weight: 3.0, value: 95, name: 'salami' },\n      { weight: 5.9, value: 98, name: 'sausage' }\n    ],\n    12\n  ),\n  295.05405405405406\n);"
+    },
+    {
+      "text": "<p><code>knapContinuous([{ \"weight\":3.8, \"value\":36, name:\"beef\" }, { \"weight\":5.4, \"value\":43, name:\"pork\" }, { \"weight\":3.6, \"value\":90, name:\"ham\" }, { \"weight\":2.4, \"value\":45, name:\"greaves\" }, { \"weight\":4.0, \"value\":30, name:\"flitch\" }, { \"weight\":2.5, \"value\":56, name:\"brawn\" }, { \"weight\":3.7, \"value\":67, name:\"welt\" }, { \"weight\":3.0, \"value\":95, name:\"salami\" }, { \"weight\":5.9, \"value\":98, name:\"sausage\" }], 15)</code> treba da vrati <code>349.3783783783784</code>.</p>",
+      "testString": "assert.equal(\n  knapContinuous(\n    [\n      { weight: 3.8, value: 36, name: 'beef' },\n      { weight: 5.4, value: 43, name: 'pork' },\n      { weight: 3.6, value: 90, name: 'ham' },\n      { weight: 2.4, value: 45, name: 'greaves' },\n      { weight: 4.0, value: 30, name: 'flitch' },\n      { weight: 2.5, value: 56, name: 'brawn' },\n      { weight: 3.7, value: 67, name: 'welt' },\n      { weight: 3.0, value: 95, name: 'salami' },\n      { weight: 5.9, value: 98, name: 'sausage' }\n    ],\n    15\n  ),\n  349.3783783783784\n);"
+    },
+    {
+      "text": "<p><code>knapContinuous([{ \"weight\":3.8, \"value\":36, name:\"beef\" }, { \"weight\":5.4, \"value\":43, name:\"pork\" }, { \"weight\":3.6, \"value\":90, name:\"ham\" }, { \"weight\":2.4, \"value\":45, name:\"greaves\" }, { \"weight\":4.0, \"value\":30, name:\"flitch\" }, { \"weight\":2.5, \"value\":56, name:\"brawn\" }, { \"weight\":3.7, \"value\":67, name:\"welt\" }, { \"weight\":3.0, \"value\":95, name:\"salami\" }, { \"weight\":5.9, \"value\":98, name:\"sausage\" }], 22)</code> treba da vrati <code>459.5263157894737</code>.</p>",
+      "testString": "assert.equal(\n  knapContinuous(\n    [\n      { weight: 3.8, value: 36, name: 'beef' },\n      { weight: 5.4, value: 43, name: 'pork' },\n      { weight: 3.6, value: 90, name: 'ham' },\n      { weight: 2.4, value: 45, name: 'greaves' },\n      { weight: 4.0, value: 30, name: 'flitch' },\n      { weight: 2.5, value: 56, name: 'brawn' },\n      { weight: 3.7, value: 67, name: 'welt' },\n      { weight: 3.0, value: 95, name: 'salami' },\n      { weight: 5.9, value: 98, name: 'sausage' }\n    ],\n    22\n  ),\n  459.5263157894737\n);"
+    },
+    {
+      "text": "<p><code>knapContinuous([{ \"weight\":3.8, \"value\":36, name:\"beef\" }, { \"weight\":5.4, \"value\":43, name:\"pork\" }, { \"weight\":3.6, \"value\":90, name:\"ham\" }, { \"weight\":2.4, \"value\":45, name:\"greaves\" }, { \"weight\":4.0, \"value\":30, name:\"flitch\" }, { \"weight\":2.5, \"value\":56, name:\"brawn\" }, { \"weight\":3.7, \"value\":67, name:\"welt\" }, { \"weight\":3.0, \"value\":95, name:\"salami\" }, { \"weight\":5.9, \"value\":98, name:\"sausage\" }], 24)</code> treba da vrati <code>478.4736842105263</code>.</p>",
+      "testString": "assert.equal(\n  knapContinuous(\n    [\n      { weight: 3.8, value: 36, name: 'beef' },\n      { weight: 5.4, value: 43, name: 'pork' },\n      { weight: 3.6, value: 90, name: 'ham' },\n      { weight: 2.4, value: 45, name: 'greaves' },\n      { weight: 4.0, value: 30, name: 'flitch' },\n      { weight: 2.5, value: 56, name: 'brawn' },\n      { weight: 3.7, value: 67, name: 'welt' },\n      { weight: 3.0, value: 95, name: 'salami' },\n      { weight: 5.9, value: 98, name: 'sausage' }\n    ],\n    24\n  ),\n  478.4736842105263\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Krađač ukrao je mesnicu, gde može da odabere neke stvari.</p>\n<p>Krađač zna težinu i cenu svake stavke. Budući da ima torbu sa apsolutnim maksimalnim ograničenjem težine koje može nositi, želi da odabere predmete na način kojim će njegova profit biti što veća. Može da iseče predmete; predmet ima smanjenu cenu nakon sečenja koja je jednaka prvobitnoj ceni po odnosu težine. To znači: pola predmeta ima polovinu originalne cene.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napravite funkciju koja prima niz podataka o artiklima dostupnim u prodavnici. Svaki artikal ima tri atributa: ime, težinu i vrednost. Funkcija takođe prima maksimalnu težinu kao parametar. Funkcija treba da vrati najveću moguću vrednost, a ukupna težina izabranih artikala ne sme da prekorači maksimalnu težinu.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 81,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "6859400f8f7f872e50e1238c",
+  "title": "Korak 11",
+  "challengeType": 20,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        11,
+        16
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n",
+      "error": null,
+      "seed": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da definišete metodu za <code>send_email</code> u klasi <code>User</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"User\").has_function(\"send_email\")`))\n    }\n\n})"
+    },
+    {
+      "text": "<p>Putanja za <code>send_email</code> treba da ima parametre: <code>self</code>, <code>receiver</code>, <code>subject</code>, na <code>body</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"User\").find_function(\"send_email\").has_args(\"self, receiver, subject, body\")`))\n    }\n\n})"
+    },
+    {
+      "text": "<p>Ova putanja treba da kreira objekat <code>Email</code>, nazvanog <code>email</code> sa tačnim parametrima.</p>",
+      "testString": "({\n  test: () => {\n    assert(runPython(`\ncond = _Node(_code).find_class(\"User\").find_function(\"send_email\").find_body()[0]\ncond.is_equivalent(\"email = Email(sender=self, receiver=receiver, subject=subject, body=body)\") or cond.is_equivalent(\"email = Email(self, receiver, subject, body)\")\n    `));\n  }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Darasa <code>User</code> zahteva način za slanje e-pošte drugim korisnicima. Kada pošaljete e-mail, kreiraćete novi objekat <code>Email</code> i dodati ga u kutiju primaoca.</p>\n<p>Kreiraj metodu nazvanu <code>send_email</code> u svojoj klasi <code>User</code>. Ova metoda treba da primi parametre za <code>receiver</code>, <code>subject</code>, i <code>body</code>.</p>\n<p>U okviru tog puta, kreiraj novi objekat za <code>Email</code> sa sledećim parametrima i postavi njegovu vrednost u parametar nazvan <code>email</code>:</p>\n<ul>\n<li><code>sender</code>: <code>self</code> (Pošiljalac)</li>\n<li><code>receiver</code>: <code>receiver</code> (Primaocu e-pošte)</li>\n<li><code>subject</code>: <code>subject</code> (Predmet e-pošte)</li>\n<li><code>body</code>: <code>body</code> (Sadržaj e-pošte)</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

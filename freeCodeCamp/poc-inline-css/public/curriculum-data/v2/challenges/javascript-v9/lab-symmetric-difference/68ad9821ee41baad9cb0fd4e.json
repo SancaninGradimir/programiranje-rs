@@ -1,0 +1,107 @@
+{
+  "id": "68ad9821ee41baad9cb0fd4e",
+  "title": "Kreiraj funkciju za razliku jednačine",
+  "challengeType": 26,
+  "dashedName": "lab-symmetric-difference",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function diffArray(arr1, arr2) {\r\n  return arr1\r\n    .filter(item => !arr2.includes(item))\r\n    .concat(arr2.filter(item => !arr1.includes(item)));\r\n}",
+        "error": null,
+        "seed": "function diffArray(arr1, arr2) {\r\n  return arr1\r\n    .filter(item => !arr2.includes(item))\r\n    .concat(arr2.filter(item => !arr1.includes(item)));\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju nazvanu <code>diffArray</code>.</p>",
+      "testString": "assert.isFunction(diffArray);"
+    },
+    {
+      "text": "<p>Funkcija <code>diffArray</code> mora da koristi metodu <code>filter</code> za filtriranje stavki koje su prisutne u oba reda.</p>",
+      "testString": "assert(/\\.filter\\(/.test(diffArray.toString()));"
+    },
+    {
+      "text": "<p><code>diffArray([\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"])</code> trebalo bi da vrati <code>[\"pink wool\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"],\r\n  [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"]\r\n), [\"pink wool\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"])</code> trebalo bi da vrati <code>[\"diorite\", \"pink wool\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"],\r\n  [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"]\r\n), [\"diorite\", \"pink wool\"]);"
+    },
+    {
+      "text": "<p><code>diffArray</code> Trebalo bi da vrati prazan red kada ga pozovu dva identična reda.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"],\r\n  [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"]\r\n), []);"
+    },
+    {
+      "text": "<p><code>diffArray([\"pen\", \"book\"], [\"book\", \"pencil\", \"notebook\"])</code> treba da vrati <code>[\"pen\", \"pencil\", \"notebook\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"pen\", \"book\"],\r\n  [\"book\", \"pencil\", \"notebook\"]\r\n), [\"pen\", \"pencil\", \"notebook\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([\"car\", \"bike\", \"bus\"], [\"bike\", \"train\", \"plane\", \"bus\"])</code> treba da vrati <code>[\"car\", \"train\", \"plane\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"car\", \"bike\", \"bus\"],\r\n  [\"bike\", \"train\", \"plane\", \"bus\"]\r\n), [\"car\", \"train\", \"plane\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([\"apple\", \"orange\"], [\"apple\", \"orange\", \"banana\", \"grape\"])</code> trebalo bi da vrati <code>[\"banana\", \"grape\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"apple\", \"orange\"],\r\n  [\"apple\", \"orange\", \"banana\", \"grape\"]\r\n), [\"banana\", \"grape\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([], [\"apple\", \"banana\"])</code> treba da vrati <code>[\"apple\", \"banana\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [],\r\n  [\"apple\", \"banana\"]\r\n), [\"apple\", \"banana\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([\"apple\", \"banana\"], [])</code> treba da vrati <code>[\"apple\", \"banana\"]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [\"apple\", \"banana\"],\r\n  []\r\n), [\"apple\", \"banana\"]);"
+    },
+    {
+      "text": "<p><code>diffArray([], [])</code> trebalo bi da vrati <code>[]</code>.</p>",
+      "testString": "assert.deepEqual(diffArray(\r\n  [], \r\n  []\r\n), []);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Uporedite dve redne podatke i vratite novi red sa svim elementima koji se nalaze samo u jednom od ova dva reda, ali ne u oba. Drugim rečima, vratite razliku između ta dva reda.</p>\n<p>Primer:</p>\n<ul>\n<li>\n<p>Red A: <code>[\"diamond\", \"stick\", \"apple\"]</code></p>\n</li>\n<li>\n<p>Red B: <code>[\"stick\", \"emerald\", \"bread\"]</code></p>\n</li>\n</ul>\n<p>Rezultati: <code>[\"diamond\", \"apple\", \"emerald\", \"bread\"]</code></p>\n<p><strong>Cilj:</strong> Popunite priče korisnika navedene ispod i položite sve testove kako biste završili ovaj laboratorijski rad.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Tvoja funkcija <code>diffArray</code> mora da vrati red podataka.</li>\n<li>Tvoja funkcija mora da primi dva argumenta, oba u obliku redova podataka.</li>\n<li>Tvoja funkcija mora da koristi metodu <code>filter</code>.</li>\n<li>Tvoja funkcija mora da vrati razliku u jednakosti ova dva reda.</li>\n<li>Tvoja funkcija mora da vrati prazan red ako ne postoji razlika u jednakosti.</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-symmetric-difference",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 111,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "higher-order-functions-and-callbacks",
+  "certification": "javascript-v9"
+}

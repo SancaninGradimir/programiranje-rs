@@ -1,0 +1,81 @@
+{
+  "id": "5900f3901000cf542c50fea3",
+  "title": "Zoezi la 36: Palindromu za misingi miwili",
+  "challengeType": 1,
+  "forumTopicId": 302020,
+  "dashedName": "problem-36-double-base-palindromes",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function doubleBasePalindromes(n) {\n\n  return n;\n}\n\ndoubleBasePalindromes(1000000);",
+      "error": null,
+      "seed": "function doubleBasePalindromes(n) {\n\n  return n;\n}\n\ndoubleBasePalindromes(1000000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function buildPalindromesBase10(len) {\n  // Base cases\n  const palindromes = [];\n  if (len > 0) {\n    palindromes.push([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);\n  }\n  if (len > 1) {\n    palindromes.push([11, 22, 33, 44, 55, 66, 77, 88, 99, 0]);\n  }\n\n  for (let i = 3; i <= len; i++) {\n    const lengthIPalindromes = [];\n\n    for (let j = 1; j < 10; j++) {\n      const firstDigit = j * (10 ** (i - 1));\n      const lastDigit = j;\n      // Build off of palindromes 2 digits shorter\n      {\n        const shorterPalindromes = palindromes[i - 3];\n\n        for (const palindrome of shorterPalindromes) {\n          lengthIPalindromes.push(firstDigit + palindrome * 10 + lastDigit);\n        }\n      }\n      // Build off of palindromes 4 digits shorter\n      if (i > 4) {\n        const shorterPalindromes = palindromes[i - 5];\n\n        for (const palindrome of shorterPalindromes) {\n          lengthIPalindromes.push(firstDigit + palindrome * 100 + lastDigit);\n        }\n      }\n    }\n    palindromes.push(lengthIPalindromes);\n  }\n  return palindromes.flat();\n}\n\nfunction isPalindrome(num) {\n  const numAsString = num.toString();\n  const numDigits = numAsString.length;\n  for (let i = 0; i < numDigits / 2; i++) {\n    if (numAsString[i] !== numAsString[numDigits - 1 - i]) {\n      return false;\n    }\n  }\n  return true;\n}\n\nfunction isPalindromeBase2(num) {\n  return isPalindrome(num.toString(2));\n}\n\nfunction doubleBasePalindromes(n) {\n  let palindromeSum = 0;\n  const maxDigits = Math.ceil(Math.log10(n));\n  const palindromesBase10 = buildPalindromesBase10(maxDigits);\n\n  // Loop over all palindromes less than n\n  for (let i = 0; i < palindromesBase10.length && palindromesBase10[i] < n; i++) {\n    if (isPalindromeBase2(palindromesBase10[i])) {\n      palindromeSum += palindromesBase10[i];\n    }\n  }\n  return palindromeSum;\n}",
+        "error": null,
+        "seed": "function buildPalindromesBase10(len) {\n  // Base cases\n  const palindromes = [];\n  if (len > 0) {\n    palindromes.push([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);\n  }\n  if (len > 1) {\n    palindromes.push([11, 22, 33, 44, 55, 66, 77, 88, 99, 0]);\n  }\n\n  for (let i = 3; i <= len; i++) {\n    const lengthIPalindromes = [];\n\n    for (let j = 1; j < 10; j++) {\n      const firstDigit = j * (10 ** (i - 1));\n      const lastDigit = j;\n      // Build off of palindromes 2 digits shorter\n      {\n        const shorterPalindromes = palindromes[i - 3];\n\n        for (const palindrome of shorterPalindromes) {\n          lengthIPalindromes.push(firstDigit + palindrome * 10 + lastDigit);\n        }\n      }\n      // Build off of palindromes 4 digits shorter\n      if (i > 4) {\n        const shorterPalindromes = palindromes[i - 5];\n\n        for (const palindrome of shorterPalindromes) {\n          lengthIPalindromes.push(firstDigit + palindrome * 100 + lastDigit);\n        }\n      }\n    }\n    palindromes.push(lengthIPalindromes);\n  }\n  return palindromes.flat();\n}\n\nfunction isPalindrome(num) {\n  const numAsString = num.toString();\n  const numDigits = numAsString.length;\n  for (let i = 0; i < numDigits / 2; i++) {\n    if (numAsString[i] !== numAsString[numDigits - 1 - i]) {\n      return false;\n    }\n  }\n  return true;\n}\n\nfunction isPalindromeBase2(num) {\n  return isPalindrome(num.toString(2));\n}\n\nfunction doubleBasePalindromes(n) {\n  let palindromeSum = 0;\n  const maxDigits = Math.ceil(Math.log10(n));\n  const palindromesBase10 = buildPalindromesBase10(maxDigits);\n\n  // Loop over all palindromes less than n\n  for (let i = 0; i < palindromesBase10.length && palindromesBase10[i] < n; i++) {\n    if (isPalindromeBase2(palindromesBase10[i])) {\n      palindromeSum += palindromesBase10[i];\n    }\n  }\n  return palindromeSum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>doubleBasePalindromes(1000)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof doubleBasePalindromes(1000) === 'number');"
+    },
+    {
+      "text": "<p><code>doubleBasePalindromes(1000)</code> inapaswa kurudisha 1772.</p>",
+      "testString": "assert(doubleBasePalindromes(1000) == 1772);"
+    },
+    {
+      "text": "<p><code>doubleBasePalindromes(50000)</code> trebalo bi da vrati 105795.</p>",
+      "testString": "assert(doubleBasePalindromes(50000) == 105795);"
+    },
+    {
+      "text": "<p><code>doubleBasePalindromes(500000)</code> inapaswa kurudisha 286602.</p>",
+      "testString": "assert(doubleBasePalindromes(500000) == 286602);"
+    },
+    {
+      "text": "<p><code>doubleBasePalindromes(1000000)</code> treba da vrati 872187.</p>",
+      "testString": "assert(doubleBasePalindromes(1000000) == 872187);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Decimalni broj 585 = 1001001001<sub>2</sub> (binarno), predstavlja palindrom u oba brojna sistema.</p>\n<p>Pronađi zbir svih brojeva, ispod <code>n</code>, gde su 1000 ≤ <code>n</code> ≤ 1000000, koji su palindromi u bazi 10 i bazi 2.</p>\n<p>(Molimo vas zapamtite da palindromski broj, u bilo kojoj bazi, ne sme imati vođuju nule.)</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 35,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

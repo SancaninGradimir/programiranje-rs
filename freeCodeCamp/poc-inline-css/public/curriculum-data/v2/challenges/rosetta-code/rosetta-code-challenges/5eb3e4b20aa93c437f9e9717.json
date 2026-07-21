@@ -1,0 +1,89 @@
+{
+  "id": "5eb3e4b20aa93c437f9e9717",
+  "title": "Skup stvarnih brojeva",
+  "challengeType": 1,
+  "forumTopicId": 385322,
+  "dashedName": "set-of-real-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function realSet(set1, set2, operation, values) {\n\n}",
+      "error": null,
+      "seed": "function realSet(set1, set2, operation, values) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function realSet(set1, set2, operation, values) {\n  const RangeType = {\n    CLOSED: 0,\n    BOTH_OPEN: 1,\n    LEFT_OPEN: 2,\n    RIGHT_OPEN: 3\n  };\n\n  function Predicate(test) {\n    this.test = test;\n    this.or = function(other) {\n      return new Predicate(t => this.test(t) || other.test(t));\n    };\n    this.and = function(other) {\n      return new Predicate(t => this.test(t) && other.test(t));\n    };\n    this.negate = function() {\n      return new Predicate(t => !this.test(t));\n    };\n  }\n\n  function RealSet(start, end, rangeType, predF) {\n    this.low = start;\n    this.high = end;\n\n    if (predF) {\n      this.predicate = new Predicate(predF);\n    } else {\n      this.predicate = new Predicate(d => {\n        switch (rangeType) {\n          case RangeType.CLOSED:\n            return start <= d && d <= end;\n          case RangeType.BOTH_OPEN:\n            return start < d && d < end;\n          case RangeType.LEFT_OPEN:\n            return start < d && d <= end;\n          case RangeType.RIGHT_OPEN:\n            return start <= d && d < end;\n        }\n      });\n    }\n\n    this.contains = function(d) {\n      return this.predicate.test(d);\n    };\n\n    this.union = function(other) {\n      var low2 = Math.min(this.low, other.low);\n      var high2 = Math.max(this.high, other.high);\n      return new RealSet(low2, high2, null, d =>\n        this.predicate.or(other.predicate).test(d)\n      );\n    };\n\n    this.intersect = function(other) {\n      var low2 = Math.min(this.low, other.low);\n      var high2 = Math.max(this.high, other.high);\n      return new RealSet(low2, high2, null, d =>\n        this.predicate.and(other.predicate).test(d)\n      );\n    };\n\n    this.subtract = function(other) {\n      return new RealSet(this.low, this.high, null, d =>\n        this.predicate.and(other.predicate.negate()).test(d)\n      );\n    };\n  }\n  set1 = new RealSet(set1.low, set1.high, set1.rangeType);\n  set2 = new RealSet(set2.low, set2.high, set2.rangeType);\n  var result = [];\n  values.forEach(function(value) {\n    result.push(set1[operation](set2).contains(value));\n  });\n  return result;\n}",
+        "error": null,
+        "seed": "function realSet(set1, set2, operation, values) {\n  const RangeType = {\n    CLOSED: 0,\n    BOTH_OPEN: 1,\n    LEFT_OPEN: 2,\n    RIGHT_OPEN: 3\n  };\n\n  function Predicate(test) {\n    this.test = test;\n    this.or = function(other) {\n      return new Predicate(t => this.test(t) || other.test(t));\n    };\n    this.and = function(other) {\n      return new Predicate(t => this.test(t) && other.test(t));\n    };\n    this.negate = function() {\n      return new Predicate(t => !this.test(t));\n    };\n  }\n\n  function RealSet(start, end, rangeType, predF) {\n    this.low = start;\n    this.high = end;\n\n    if (predF) {\n      this.predicate = new Predicate(predF);\n    } else {\n      this.predicate = new Predicate(d => {\n        switch (rangeType) {\n          case RangeType.CLOSED:\n            return start <= d && d <= end;\n          case RangeType.BOTH_OPEN:\n            return start < d && d < end;\n          case RangeType.LEFT_OPEN:\n            return start < d && d <= end;\n          case RangeType.RIGHT_OPEN:\n            return start <= d && d < end;\n        }\n      });\n    }\n\n    this.contains = function(d) {\n      return this.predicate.test(d);\n    };\n\n    this.union = function(other) {\n      var low2 = Math.min(this.low, other.low);\n      var high2 = Math.max(this.high, other.high);\n      return new RealSet(low2, high2, null, d =>\n        this.predicate.or(other.predicate).test(d)\n      );\n    };\n\n    this.intersect = function(other) {\n      var low2 = Math.min(this.low, other.low);\n      var high2 = Math.max(this.high, other.high);\n      return new RealSet(low2, high2, null, d =>\n        this.predicate.and(other.predicate).test(d)\n      );\n    };\n\n    this.subtract = function(other) {\n      return new RealSet(this.low, this.high, null, d =>\n        this.predicate.and(other.predicate.negate()).test(d)\n      );\n    };\n  }\n  set1 = new RealSet(set1.low, set1.high, set1.rangeType);\n  set2 = new RealSet(set2.low, set2.high, set2.rangeType);\n  var result = [];\n  values.forEach(function(value) {\n    result.push(set1[operation](set2).contains(value));\n  });\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>realSet</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof realSet == 'function');"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":1, \"rangeType\":2}, {\"low\":0, \"high\":2, \"rangeType\":3}, \"union\", [1, 2, 3])</code> treba da vrati niz.</p>",
+      "testString": "assert(\n  Array.isArray(\n    realSet(\n      { low: 0, high: 1, rangeType: 2 },\n      { low: 0, high: 2, rangeType: 3 },\n      'union',\n      [1, 2, 3]\n    )\n  )\n);"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":1, \"rangeType\":2}, {\"low\":0, \"high\":2, \"rangeType\":3}, \"union\", [1, 2, 3])</code> treba da vrati <code>[true, false, false]</code>.</p>",
+      "testString": "assert.deepEqual(\n  realSet(\n    { low: 0, high: 1, rangeType: 2 },\n    { low: 0, high: 2, rangeType: 3 },\n    'union',\n    [1, 2, 3]\n  ),\n  [true, false, false]\n);"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":2, \"rangeType\":3}, {\"low\":1, \"high\":2, \"rangeType\":2}, \"intersect\", [0, 1, 2])</code> trebalo bi da vrati <code>[false, false, false]</code>.</p>",
+      "testString": "assert.deepEqual(\n  realSet(\n    { low: 0, high: 2, rangeType: 3 },\n    { low: 1, high: 2, rangeType: 2 },\n    'intersect',\n    [0, 1, 2]\n  ),\n  [false, false, false]\n);"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":3, \"rangeType\":3}, {\"low\":0, \"high\":1, \"rangeType\":1}, \"subtract\", [0, 1, 2])</code> treba vratiti <code>[true, true, true]</code>.</p>",
+      "testString": "assert.deepEqual(\n  realSet(\n    { low: 0, high: 3, rangeType: 3 },\n    { low: 0, high: 1, rangeType: 1 },\n    'subtract',\n    [0, 1, 2]\n  ),\n  [true, true, true]\n);"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":3, \"rangeType\":3}, {\"low\":0, \"high\":1, \"rangeType\":0}, \"subtract\", [0, 1, 2])</code> trebalo bi da vrati <code>[false, false, true]</code>.</p>",
+      "testString": "assert.deepEqual(\n  realSet(\n    { low: 0, high: 3, rangeType: 3 },\n    { low: 0, high: 1, rangeType: 0 },\n    'subtract',\n    [0, 1, 2]\n  ),\n  [false, false, true]\n);"
+    },
+    {
+      "text": "<p><code>realSet({\"low\":0, \"high\":33, \"rangeType\":1}, {\"low\":30, \"high\":31, \"rangeType\":0}, \"intersect\", [30, 31, 32])</code> treba vratiti <code>[true, true, false]</code>.</p>",
+      "testString": "assert.deepEqual(\n  realSet(\n    { low: 0, high: 33, rangeType: 1 },\n    { low: 30, high: 31, rangeType: 0 },\n    'intersect',\n    [30, 31, 32]\n  ),\n  [true, true, false]\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Svi realni brojevi čine beskonačni skup ℝ. Među njegovim podskupovima, jednostavan skup je konveksni skup, svaki predstavljen kao interval između dva realna broja <em>a</em> i <em>b</em> gde je <em>a</em> ≤ <em>b</em>. Zapravo postoji četiri slučaja značenja „između“, u zavisnosti od otvorenih ili zatvorenih granica:</p>\n<ul>\n  <li>[<i>a</i>, <i>b</i>]: {<i>x</i> | <i>a</i> ≤ <i>x</i> na <i>x</i> ≤ <i>b</i> }</li>\n  <li>(<i>a</i>, <i>b</i>): {<i>x</i> | <i>a</i> < <i>x</i> na <i>x</i> < <i>b</i> }</li>\n  <li>[<i>a</i>, <i>b</i>): {<i>x</i> | <i>a</i> ≤ <i>x</i> na <i>x</i> < <i>b</i> }</li>\n  <li>(<i>a</i>, <i>b</i>]: {<i>x</i> | <i>a</i> < <i>x</i> na <i>x</i> ≤ <i>b</i> }</li>\n</ul>\n<p>Zapamti da ako je <em>a</em> = <em>b</em>, samo od ovih četiri [<em>a</em>, <em>a</em>] će imati sadržaj.</p>\n<p><strong>Zoezi</strong></p>\n<ul>\n<li>Osmisli način predstavljanja proizvoljnog skupa realnih brojeva, pri čemu „proizvoljan“ ima značenje opisano u napomenama o implementaciji.</li>\n<li>Obezbedi način izvođenja sledećih standardnih operacija nad skupovima (`x` je realan broj; `A` i `B` su skupovi):</li>\n  <ul>\n    <li>\n      <i>x</i> ∈ <i>A</i>: amua kama <i>x</i> ni kipengele cha <i>A</i><br>\nPrimer: 1 pripada intervalu [1, 2), dok 2, 3, ... ne pripadaju.\n    </li>\n    <li>\n      <i>A</i> ∪ <i>B</i>: muungano wa <i>A</i> na <i>B</i>, yaani {<i>x</i> | <i>x</i> ∈ <i>A</i> au <i>x</i> ∈ <i>B</i>}<br>\n      mfano: [0, 2) ∪ (1, 3) = [0, 3); [0, 1) ∪ (2, 3] = sawa, [0, 1) ∪ (2, 3]\n    </li>\n    <li>\n      <i>A</i> ∩ <i>B</i>: mkusanyiko wa <i>A</i> na <i>B</i>, yaani {<i>x</i> | <i>x</i> ∈ <i>A</i> na <i>x</i> ∈ <i>B</i>}<br>\n      mfano: [0, 2) ∩ (1, 3) = (1, 2); [0, 1) ∩ (2, 3] = seti tupu\n    </li>\n    <li>\n<i>A</i> - <i>B</i>: razlika skupova <i>A</i> i <i>B</i>, zapisuje se i kao <i>A</i> \\ <i>B</i>, odnosno {<i>x</i> | <i>x</i> ∈ <i>A</i> i <i>x</i> ∉ <i>B</i>}<br>\n      mfano: [0, 2) − (1, 3) = [0, 1]\n    </li>\n  </ul>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prihvata dva objekta, nisku i niz kao argumente. Objekti predstavljaju skupove i imaju svojstva: <code>low</code>, <code>high</code> i <code>rangeType</code>.</p>\n<p><code>rangeType</code> može imati vrednosti 0, 1, 2 i 3 za <code>CLOSED</code>, <code>BOTH_OPEN</code>, <code>LEFT_OPEN</code> na <code>RIGHT_OPEN</code>, respektivno. Funkcija bi trebalo da implementira skup koristeći ove podatke.</p>\n<p>Niska predstavlja operaciju koja treba da se izvrši nad skupovima. Može biti: <code>\"union\"</code>, <code>\"intersect\"</code> ili <code>\"subtract\"</code> (razlika).</p>\n<p>Nakon izvršavanja operacije, funkcija bi trebalo da proveri da li vrednosti u nizu podataka postoje u dobijenom skupu i da sačuva tačno ili netačno (boolean) vrednost u niz podataka. Funkcija bi trebalo da vrati ovaj niz tačnih ili netačnih vrednosti.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 113,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

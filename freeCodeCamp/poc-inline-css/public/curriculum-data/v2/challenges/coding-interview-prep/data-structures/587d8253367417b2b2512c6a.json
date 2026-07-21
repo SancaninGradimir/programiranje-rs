@@ -1,0 +1,73 @@
+{
+  "id": "587d8253367417b2b2512c6a",
+  "title": "Redak sa posebnim tipom",
+  "challengeType": 1,
+  "forumTopicId": 301716,
+  "dashedName": "typed-arrays",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var buffer;\nvar i32View;",
+      "error": null,
+      "seed": "var buffer;\nvar i32View;"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var buffer = new ArrayBuffer(64);\nvar i32View = new Int32Array(buffer);",
+        "error": null,
+        "seed": "var buffer = new ArrayBuffer(64);\nvar i32View = new Int32Array(buffer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoj <code>buffer</code> treba da ima veličinu od 64 bajta.</p>",
+      "testString": "assert(buffer.byteLength === 64);"
+    },
+    {
+      "text": "<p>Tvoj prikaz bafera <code>i32View</code> treba da ima veličinu od 64 bajta.</p>",
+      "testString": "assert(i32View.byteLength === 64);"
+    },
+    {
+      "text": "<p>Vaš prikaz <code>i32View</code> za privremeni keš mora imati dužinu od 16 elemenata.</p>",
+      "testString": "assert(i32View.length === 16);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Redovi podataka su stvari od JavaScript koji mogu da sadrže mnogo različitih elemenata.</p>\n<pre><code class=\"language-js\">var complexArr = [1, 5, \"2\", \"Word\", {\"name\": \"James\"}];\n</code></pre>\n<p>U suštini, ono što se dešava u pozadini je da vaš pretraživač direktno dodeljuje odgovarajući memorijski prostor za taj red. Takođe, taj prostor se menja po potrebi ako dodate ili uklonite podatke.</p>\n<p>Međutim, u svetu visoke performansi i različitih komponenti, ponekad je potrebno biti precizniji o koliko memorije se dodeljuje redu.</p>\n<p><dfn>Niz specifičnog tipa</dfn> je rešenje za ovaj problem. Sada možete odrediti koliko memorije želite dodeliti nizu. Ispod je pregled različitih vrsta nizova dostupnih i veličina svakog elementa u bajtovima.</p>\n<table><tbody><tr><th>Tip</th><th>Veličina elemenata po bajtu</th></tr><tr><td><code>Int8Array</code></td><td>1</td></tr><tr><td><code>Uint8Array</code></td><td>1</td></tr><tr><td><code>Uint8ClampedArray</code></td><td>1</td></tr><tr><td><code>Int16Array</code></td><td>2</td></tr><tr><td><code>Uint16Array</code></td><td>2</td></tr><tr><td><code>Int32Array</code></td><td>4</td></tr><tr><td><code>Uint32Array</code></td><td>4</td></tr><tr><td><code>Float32Array</code></td><td>4</td></tr><tr><td><code>Float64Array</code></td><td>8</td></tr></tbody></table>\n<p>Postoje dva načina za kreiranje ovih vrsta redova. Jedan način je direktno kreiranje. Ispod je kako da se kreira <code>Int16Array</code> dužine 3.</p>\n<pre><code class=\"language-js\">var i8 = new Int16Array(3);\nconsole.log(i8);\n// Returns [0, 0, 0]\n</code></pre>\n<p>Takođe možete kreirati <dfn>privremeno skladište</dfn> kako biste odredili količinu podataka (u bajtovima) koju želite da red zauzme. <strong>Napomena</strong>\nDa biste kreirali red sa određenim tipom koristeći privremeno skladište, morate postaviti broj bajtova na višestruki broj bajtova navedenih iznad.</p>\n<pre><code class=\"language-js\">// Create same Int16Array array differently\nvar byteSize = 6; // Needs to be multiple of 2\nvar buffer = new ArrayBuffer(byteSize);\nvar i8View = new Int16Array(buffer);\nbuffer.byteLength; // Returns 6\ni8View.byteLength; // Returns 6\nconsole.log(i8View); // Returns [0, 0, 0]\n</code></pre>\n<p><dfn>Privremeni skladište</dfn> su opšti predmeti koji nose samo podatke. Ne možete im pristupiti direktno. Da biste im pristupili, prvo morate kreirati <dfn>pogled</dfn>.</p>\n<pre><code class=\"language-js\">i8View[0] = 42;\nconsole.log(i8View); // Returns [42, 0, 0]\n</code></pre>\n<p><strong>Napomena</strong>\nRed specifičnog tipa nema neke metode koje redovi opšteg tipa imaju, kao što su <code>.pop()</code> ili <code>.push()</code>. Ovi redovi takođe ne mogu da prođu/obrade <code>Array.isArray()</code> koji proverava da li je nešto red podataka (data row). Iako je ovo jednostavniji, to može biti prednost za motore JavaScript koji nisu dovoljno sposobni da izvrše ove redove.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Prvo kreiraj <code>buffer</code> sa veličinom od 64 bajta. Zatim kreiraj niz specifičnog tipa <code>Int32Array</code> sa pogledom nazvanim <code>i32View</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

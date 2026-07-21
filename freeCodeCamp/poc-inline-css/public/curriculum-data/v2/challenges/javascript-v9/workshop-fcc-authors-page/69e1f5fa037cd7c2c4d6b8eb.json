@@ -1,0 +1,139 @@
+{
+  "id": "69e1f5fa037cd7c2c4d6b8eb",
+  "title": "Korak 29",
+  "challengeType": 0,
+  "dashedName": "step-29",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}",
+      "error": null,
+      "seed": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        9,
+        19
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "\nconst authorContainer = document.getElementById('author-container');\nconst loadMoreBtn = document.getElementById('load-more-btn');\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nconst initialFetch = async () => {\n  \n  const res = await fetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json');\n  authorDataArr = await res.json();\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n\n  .catch((err) => {\n  authorContainer.innerHTML = '<p class=\"error-msg\">There was an error loading the authors</p>';\n  });\n  \n}\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  if (authorDataArr.length <= endingIndex) {\n    loadMoreBtn.disabled = true;\n    loadMoreBtn.style.cursor = \"not-allowed\"\n    loadMoreBtn.textContent = 'No more data to load';\n  }\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\">\n      <div class=\"purple-divider\"></div>\n      <p class=\"bio\">${bio.length > 50 ? bio.slice(0, 50) + '...' : bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author} author page</a>\n    </div>\n  `;\n  });\n};\n\ninitialFetch();\nloadMoreBtn.addEventListener('click', fetchMoreAuthors);",
+      "error": null,
+      "seed": "\nconst authorContainer = document.getElementById('author-container');\nconst loadMoreBtn = document.getElementById('load-more-btn');\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nconst initialFetch = async () => {\n  \n  const res = await fetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json');\n  authorDataArr = await res.json();\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n\n  .catch((err) => {\n  authorContainer.innerHTML = '<p class=\"error-msg\">There was an error loading the authors</p>';\n  });\n  \n}\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  if (authorDataArr.length <= endingIndex) {\n    loadMoreBtn.disabled = true;\n    loadMoreBtn.style.cursor = \"not-allowed\"\n    loadMoreBtn.textContent = 'No more data to load';\n  }\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\">\n      <div class=\"purple-divider\"></div>\n      <p class=\"bio\">${bio.length > 50 ? bio.slice(0, 50) + '...' : bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author} author page</a>\n    </div>\n  `;\n  });\n};\n\ninitialFetch();\nloadMoreBtn.addEventListener('click', fetchMoreAuthors);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+        "error": null,
+        "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+      },
+      {
+        "id": "",
+        "history": [
+          "styles.css"
+        ],
+        "name": "styles",
+        "ext": "css",
+        "path": "styles.css",
+        "fileKey": "stylescss",
+        "contents": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}",
+        "error": null,
+        "seed": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}"
+      },
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const authorContainer = document.getElementById(\"author-container\");\nconst loadMoreBtn = document.getElementById(\"load-more-btn\");\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nconst initialFetch = async () => {\n  try {\n    const res = await fetch(\n      \"https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json\"\n    );\n    authorDataArr = await res.json();\n    displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  } catch (err) {\n    authorContainer.innerHTML =\n      '<p class=\"error-msg\">There was an error loading the authors</p>';\n  }\n}\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  if (authorDataArr.length <= endingIndex) {\n    loadMoreBtn.disabled = true;\n    loadMoreBtn.style.cursor = \"not-allowed\";\n    loadMoreBtn.textContent = \"No more data to load\";\n  }\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\">\n      <div class=\"purple-divider\"></div>\n      <p class=\"bio\">${bio.length > 50 ? bio.slice(0, 50) + \"...\" : bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author} author page</a>\n    </div>\n  `;\n  });\n};\n\ninitialFetch();\nloadMoreBtn.addEventListener(\"click\", fetchMoreAuthors);",
+        "error": null,
+        "seed": "const authorContainer = document.getElementById(\"author-container\");\nconst loadMoreBtn = document.getElementById(\"load-more-btn\");\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nconst initialFetch = async () => {\n  try {\n    const res = await fetch(\n      \"https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json\"\n    );\n    authorDataArr = await res.json();\n    displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  } catch (err) {\n    authorContainer.innerHTML =\n      '<p class=\"error-msg\">There was an error loading the authors</p>';\n  }\n}\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n  if (authorDataArr.length <= endingIndex) {\n    loadMoreBtn.disabled = true;\n    loadMoreBtn.style.cursor = \"not-allowed\";\n    loadMoreBtn.textContent = \"No more data to load\";\n  }\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\">\n      <div class=\"purple-divider\"></div>\n      <p class=\"bio\">${bio.length > 50 ? bio.slice(0, 50) + \"...\" : bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author} author page</a>\n    </div>\n  `;\n  });\n};\n\ninitialFetch();\nloadMoreBtn.addEventListener(\"click\", fetchMoreAuthors);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "const testData = [{ author: 'Whoever', image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==', url: \"http://not-a-real-url.nowhere/\", bio: 'words go here' }];\nwindow.fetch = () => Promise.resolve({json: () => Promise.resolve(testData)});"
+  },
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da kreirate blok <code>try/catch</code></p>",
+      "testString": "assert.match(code, /try\\s*\\{[\\s\\S]*?\\}\\s*catch\\s*\\([^)]*\\)\\s*\\{/);"
+    },
+    {
+      "text": "<p>The <code>catch</code> ne bi trebalo da bude više lančani metod</p>",
+      "testString": "assert.notMatch(code, /\\.catch/);"
+    },
+    {
+      "text": "<p>The <code>try</code> blok treba da sadrži tri naredbe koje fetch podatke, kreiraju <code>json</code> i zatim ga prikažu.</p>",
+      "testString": "const tryBlockRegex =\n  /try\\s*\\{([\\s\\S]*?)\\}(?=\\s*(catch|finally)\\b|\\s*$)/;\n\nconst fetchLineRegex = \n  /const\\s+res\\s*=\\s*await\\s+fetch\\(\\s*('|\"|`)https:\\/\\/cdn\\.freecodecamp\\.org\\/curriculum\\/news\\-author\\-page\\/authors\\.json\\1,*\\s*\\)/;\n\nconst jsonLineRegex =\n  /authorDataArr\\s*=\\s*await\\s+res\\.json\\(\\)/;\n\nconst displayLineRegex =\n  /displayAuthors\\(authorDataArr\\.slice\\(startingIndex,\\s*endingIndex\\)\\)/;\n\nconst match = code.match(tryBlockRegex);\n\nassert.isDefined(match);\n\nconst tryBlockContents = match[1];\n\nassert.isTrue(fetchLineRegex.test(tryBlockContents));\nassert.isTrue(jsonLineRegex.test(tryBlockContents));\nassert.isTrue(displayLineRegex.test(tryBlockContents));"
+    },
+    {
+      "text": "<p>Stranica autora fCC bi trebalo da se pravilno renderuje</p>",
+      "testString": "assert.equal(document.querySelector('.author-name').innerText, `Whoever`);\nassert.equal(document.querySelector('img')?.getAttribute('alt'), `Whoever avatar`);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Na kraju, morate se baviti metodom <code>catch</code>. Prvo, ugnjezdite izjavu <code>fetch</code>, izjavu <code>json</code> i poziv displayAuthors u blok <code>try</code> unutar <code>initialFetch</code>. Zatim, modifikujte lančani metod <code>catch</code> tako da bude <code>catch</code> blok umesto toga, kao što je prikazano u primeru ispod.</p>\n<pre><code class=\"language-js\">try {\n  // code that can cause or throw an error goes in this block\n} catch (error) {\n  // error handling code here\n}\n</code></pre>\n<p>Ako ste ovo ispravno uradili, blok <code>try</code> će sadržati tri linije koda i blok <code>catch</code> će sadržavati samo jednu liniju koda. Takođe, <code>SyntaxError</code> će biti rešen i aplikacija bi trebalo da funkcioniše normalno.</p>\n<p>Pokažite sebi kompliment! Naučili ste kako da učinite svoj asinhroni kod čitljivijim korišćenjem operatora <code>async</code> i <code>await</code>! Sada je vaša stranica autora kompletirana.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-fcc-authors-page",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 225,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "asynchronous-javascript",
+  "certification": "javascript-v9"
+}

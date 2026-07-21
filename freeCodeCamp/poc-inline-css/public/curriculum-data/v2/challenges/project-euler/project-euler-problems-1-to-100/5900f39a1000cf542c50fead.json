@@ -1,0 +1,69 @@
+{
+  "id": "5900f39a1000cf542c50fead",
+  "title": "Zadatak 46: Još jedna Goldbach teorija",
+  "challengeType": 1,
+  "forumTopicId": 302134,
+  "dashedName": "problem-46-goldbachs-other-conjecture",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function goldbachsOtherConjecture() {\n\n  return true;\n}\n\ngoldbachsOtherConjecture();",
+      "error": null,
+      "seed": "function goldbachsOtherConjecture() {\n\n  return true;\n}\n\ngoldbachsOtherConjecture();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function goldbachsOtherConjecture() {  function isPrime(num) {\n    if (num < 2) {\n      return false;\n    } else if (num === 2) {\n      return true;\n    }\n    const sqrtOfNum = Math.floor(num ** 0.5);\n    for (let i = 2; i <= sqrtOfNum + 1; i++) {\n      if (num % i === 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  function isSquare(num) {\n    return Math.sqrt(num) % 1 === 0;\n  }\n\n  // construct a list of prime numbers\n  const primes = [];\n  for (let i = 2; primes.length < 1000; i++) {\n    if (isPrime(i)) primes.push(i);\n  }\n\n  let num = 3;\n  let answer;\n  while (!answer) {\n    num += 2;\n    if (!isPrime(num)) {\n      let found = false;\n      for (let primeI = 0; primeI < primes.length && !found; primeI++) {\n        const square = (num - primes[primeI]) / 2;\n        if (isSquare(square)) {\n          found = true;\n          break;\n        }\n      }\n      if (!found) answer = num;\n    }\n  }\n  return answer;\n}",
+        "error": null,
+        "seed": "function goldbachsOtherConjecture() {  function isPrime(num) {\n    if (num < 2) {\n      return false;\n    } else if (num === 2) {\n      return true;\n    }\n    const sqrtOfNum = Math.floor(num ** 0.5);\n    for (let i = 2; i <= sqrtOfNum + 1; i++) {\n      if (num % i === 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  function isSquare(num) {\n    return Math.sqrt(num) % 1 === 0;\n  }\n\n  // construct a list of prime numbers\n  const primes = [];\n  for (let i = 2; primes.length < 1000; i++) {\n    if (isPrime(i)) primes.push(i);\n  }\n\n  let num = 3;\n  let answer;\n  while (!answer) {\n    num += 2;\n    if (!isPrime(num)) {\n      let found = false;\n      for (let primeI = 0; primeI < primes.length && !found; primeI++) {\n        const square = (num - primes[primeI]) / 2;\n        if (isSquare(square)) {\n          found = true;\n          break;\n        }\n      }\n      if (!found) answer = num;\n    }\n  }\n  return answer;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>goldbachsOtherConjecture()</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof goldbachsOtherConjecture() === 'number');"
+    },
+    {
+      "text": "<p><code>goldbachsOtherConjecture()</code> trebalo bi da vrati 5777.</p>",
+      "testString": "assert.strictEqual(goldbachsOtherConjecture(), 5777);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Christian Goldbach predložio je da svaki neparan broj može biti napisan kao zbir prostog broja i dvostrukog kvadrata.</p>\n<div style='margin-left: 2em;'>\n  9 = 7 + 2×1<sup>2</sup><br>\n  15 = 7 + 2×2<sup>2</sup><br>\n  21 = 3 + 2×3<sup>2</sup><br>\n  25 = 7 + 2×3<sup>2</sup><br>\n  27 = 19 + 2×2<sup>2</sup><br>\n  33 = 31 + 2×1<sup>2</sup>\n</div>\n<p>Potvrđeno je da ta teorija nije bila istinitost.</p>\n<p>Koji je najmanji kompozitni broj koji ne može biti predstavljen kao zbir premijnog broja i dva puta kvadrat?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 45,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "699d20623e57e8ffee885456",
+  "title": "Korak 7",
+  "challengeType": 1,
+  "dashedName": "step-7",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        32
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const rawCatalogCards = [\n  \"From a Buick 8 | King, Stephen | 2002 | Shelf K7\",\n  \"The Shining | King, Stephen | 1977 | Shelf K1\",\n  \"The Stand | King, Stephen | 1978 | Shelf K2\",\n  \"It | King, Stephen | 1986 | Shelf K3\",\n  \"Misery | King, Stephen | 1987 | Shelf K4\",\n  \"Do Androids Dream of Electric Sheep? | Dick, Philip K. | 1968 | Shelf D5\",\n  \"I, Robot | Asimov, Isaac | 1950 | Shelf A8\",\n  \"Foundation | Asimov, Isaac | 1951 | Shelf A9\",\n  \"Dune | Herbert, Frank | 1965 | Shelf H3\",\n  \"Neuromancer | Gibson, William | 1984 | Shelf G8\",\n  \"Snow Crash | Stephenson, Neal | 1992 | Shelf S6\",\n  \"The Martian | Weir, Andy | 2011 | Shelf W5\",\n  \"Ender's Game | Card, Orson Scott | 1985 | Shelf C2\",\n  \"The Hitchhiker's Guide to the Galaxy | Adams, Douglas | 1979 | Shelf A1\",\n  \"Ready Player One | Cline, Ernest | 2011 | Shelf C7\",\n  \"The Dark Tower: The Gunslinger | King, Stephen | 1982 | Shelf K5\",\n  // edge cases: missing data\n  \"Unknown Title |  | 1975 | Shelf X1\",\n  \"Mysterious Manuscript | Unknown Author |  | Shelf Z9\",\n  \"Ancient Scroll | Anonymous | 850 | \",\n];\n\nfunction parseCard(rawString) {\n  const parts = rawString.split(\"|\");\n  const trimmedParts = [];\n  for (let i = 0; i < parts.length; i++) {\n    trimmedParts.push(parts[i].trim());\n  }\n\n  return trimmedParts;\n}\n\nconst cardResult = parseCard(rawCatalogCards[2]);\nconsole.log(cardResult);",
+      "error": null,
+      "seed": "const rawCatalogCards = [\n  \"From a Buick 8 | King, Stephen | 2002 | Shelf K7\",\n  \"The Shining | King, Stephen | 1977 | Shelf K1\",\n  \"The Stand | King, Stephen | 1978 | Shelf K2\",\n  \"It | King, Stephen | 1986 | Shelf K3\",\n  \"Misery | King, Stephen | 1987 | Shelf K4\",\n  \"Do Androids Dream of Electric Sheep? | Dick, Philip K. | 1968 | Shelf D5\",\n  \"I, Robot | Asimov, Isaac | 1950 | Shelf A8\",\n  \"Foundation | Asimov, Isaac | 1951 | Shelf A9\",\n  \"Dune | Herbert, Frank | 1965 | Shelf H3\",\n  \"Neuromancer | Gibson, William | 1984 | Shelf G8\",\n  \"Snow Crash | Stephenson, Neal | 1992 | Shelf S6\",\n  \"The Martian | Weir, Andy | 2011 | Shelf W5\",\n  \"Ender's Game | Card, Orson Scott | 1985 | Shelf C2\",\n  \"The Hitchhiker's Guide to the Galaxy | Adams, Douglas | 1979 | Shelf A1\",\n  \"Ready Player One | Cline, Ernest | 2011 | Shelf C7\",\n  \"The Dark Tower: The Gunslinger | King, Stephen | 1982 | Shelf K5\",\n  // edge cases: missing data\n  \"Unknown Title |  | 1975 | Shelf X1\",\n  \"Mysterious Manuscript | Unknown Author |  | Shelf Z9\",\n  \"Ancient Scroll | Anonymous | 850 | \",\n];\n\nfunction parseCard(rawString) {\n  const parts = rawString.split(\"|\");\n  const trimmedParts = [];\n  for (let i = 0; i < parts.length; i++) {\n    trimmedParts.push(parts[i].trim());\n  }\n\n  return trimmedParts;\n}\n\nconst cardResult = parseCard(rawCatalogCards[2]);\nconsole.log(cardResult);"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>parseCard</code> bi trebalo da return objekat sa <code>title</code>, <code>author</code>, <code>year</code>, i <code>location</code> svojstava.</p>",
+      "testString": "const result = parseCard(\"The Stand | King, Stephen | 1978 | Shelf K2\");\nassert.isObject(result);\nassert.property(result, \"title\");\nassert.property(result, \"author\");\nassert.property(result, \"year\");\nassert.property(result, \"location\");"
+    },
+    {
+      "text": "<p>Svojstvo <code>title</code> objekta vraćenog od strane <code>parseCard(\"The Stand | King, Stephen | 1978 | Shelf K2\")</code> treba da ima vrednost <code>\"The Stand\"</code>.</p>",
+      "testString": "assert.strictEqual(parseCard(\"The Stand | King, Stephen | 1978 | Shelf K2\").title, \"The Stand\");"
+    },
+    {
+      "text": "<p>Svojstvo <code>author</code> objekta koji je vraćen od <code>parseCard(\"The Stand | King, Stephen | 1978 | Shelf K2\")</code> trebalo bi da ima vrednost <code>\"King, Stephen\"</code>.</p>",
+      "testString": "assert.strictEqual(parseCard(\"The Stand | King, Stephen | 1978 | Shelf K2\").author, \"King, Stephen\");"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada kada su delovi čisti, možete ih pretvoriti u strukturirani objekat. U JavaScriptu, objekti koriste vitičaste zagrade sa parovima \"ključ: vrednost\". Primer je, <code>{ title: \"Dune\", year: 1965 }</code>.</p>\n<p>Deklarišete četiri promenljive: <code>title</code>, <code>author</code>, <code>year</code>, i <code>location</code>. Dodelite svakoj od njih odgovarajući element iz <code>trimmedParts</code>. Zatim ažurirajte deklaraciju <code>return</code> da vrati objekat sa ovim četiri svojstva.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-heritage-library-catalog",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 69,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

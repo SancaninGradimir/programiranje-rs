@@ -1,0 +1,67 @@
+{
+  "id": "667a8d7a735cf221729570ff",
+  "title": "Korak 64",
+  "challengeType": 20,
+  "dashedName": "step-64",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        117,
+        123
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\nimport re\n\n\nclass Equation(ABC):\n    degree: int\n    type: str\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n        if not hasattr(cls, \"type\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'type'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')\n            else:\n                terms.append(f\"{coefficient:+}x**{n}\")\n        equation_string = ' '.join(terms) + ' = 0'\n        return re.sub(r\"(?<!\\d)1(?=x)\", \"\", equation_string.strip(\"+\"))        \n\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n\n\nclass LinearEquation(Equation):\n    degree = 1\n    type = 'Linear Equation'\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return [x]\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\n\nclass QuadraticEquation(Equation):\n    degree = 2\n    type = 'Quadratic Equation'\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n\n    def solve(self):\n        if self.delta < 0:\n            return []\n        a, b, _ = self.coefficients.values()\n        x1 = (-b + (self.delta) ** 0.5) / (2 * a)\n        x2 = (-b - (self.delta) ** 0.5) / (2 * a)\n        if self.delta == 0:\n            return [x1]\n\n        return [x1, x2]\n\n    def analyze(self):\n        a, b, c = self.coefficients.values()\n        x = -b / (2 * a)\n        y = a * x**2 + b * x + c\n        if a > 0:\n            concavity = 'upwards'\n            min_max = 'min'\n        else:\n            concavity = 'downwards'\n            min_max = 'max'\n        return {'x': x, 'y': y, 'min_max': min_max, 'concavity': concavity}\n\n\ndef solver(equation):\n    if not isinstance(equation, Equation):\n        raise TypeError(\"Argument must be an Equation object\")\n\n    output_string = f'\\n{equation.type:-^24}'\n    output_string += f'\\n\\n{equation!s:^24}\\n\\n'\n    output_string += f'{\"Solutions\":-^24}\\n\\n'\n    results = equation.solve()\n    match results:\n        case []:\n            result_list = ['No real roots']\n        case [x]:\n            result_list = [f'x = {x:+.3f}']\n        case [x1, x2]:\n            result_list = [f'x1 = {x1:+.3f}', f'x2 = {x2:+.3f}']\n    for result in result_list:\n        output_string += f'{result:^24}\\n'\n    output_string += f'\\n{\"Details\":-^24}\\n\\n'\n    details = equation.analyze()\n    match details:\n        case {'slope': slope, 'intercept': intercept}:\n            details_list = [f'slope = {slope:.3f}', f'y-intercept = {intercept:.3f}']\n    \n    return output_string\n\nlin_eq = LinearEquation(2, 3)\nquadr_eq = QuadraticEquation(1, 2, 1)\nprint(solver(lin_eq))\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\nimport re\n\n\nclass Equation(ABC):\n    degree: int\n    type: str\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n        if not hasattr(cls, \"type\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'type'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')\n            else:\n                terms.append(f\"{coefficient:+}x**{n}\")\n        equation_string = ' '.join(terms) + ' = 0'\n        return re.sub(r\"(?<!\\d)1(?=x)\", \"\", equation_string.strip(\"+\"))        \n\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n\n\nclass LinearEquation(Equation):\n    degree = 1\n    type = 'Linear Equation'\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return [x]\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\n\nclass QuadraticEquation(Equation):\n    degree = 2\n    type = 'Quadratic Equation'\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n\n    def solve(self):\n        if self.delta < 0:\n            return []\n        a, b, _ = self.coefficients.values()\n        x1 = (-b + (self.delta) ** 0.5) / (2 * a)\n        x2 = (-b - (self.delta) ** 0.5) / (2 * a)\n        if self.delta == 0:\n            return [x1]\n\n        return [x1, x2]\n\n    def analyze(self):\n        a, b, c = self.coefficients.values()\n        x = -b / (2 * a)\n        y = a * x**2 + b * x + c\n        if a > 0:\n            concavity = 'upwards'\n            min_max = 'min'\n        else:\n            concavity = 'downwards'\n            min_max = 'max'\n        return {'x': x, 'y': y, 'min_max': min_max, 'concavity': concavity}\n\n\ndef solver(equation):\n    if not isinstance(equation, Equation):\n        raise TypeError(\"Argument must be an Equation object\")\n\n    output_string = f'\\n{equation.type:-^24}'\n    output_string += f'\\n\\n{equation!s:^24}\\n\\n'\n    output_string += f'{\"Solutions\":-^24}\\n\\n'\n    results = equation.solve()\n    match results:\n        case []:\n            result_list = ['No real roots']\n        case [x]:\n            result_list = [f'x = {x:+.3f}']\n        case [x1, x2]:\n            result_list = [f'x1 = {x1:+.3f}', f'x2 = {x2:+.3f}']\n    for result in result_list:\n        output_string += f'{result:^24}\\n'\n    output_string += f'\\n{\"Details\":-^24}\\n\\n'\n    details = equation.analyze()\n    match details:\n        case {'slope': slope, 'intercept': intercept}:\n            details_list = [f'slope = {slope:.3f}', f'y-intercept = {intercept:.3f}']\n    \n    return output_string\n\nlin_eq = LinearEquation(2, 3)\nquadr_eq = QuadraticEquation(1, 2, 1)\nprint(solver(lin_eq))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Ne smijete mijenjati vrijednost polja vaše deklaracije <code>match</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_function(\"solver\").find_matches()[1].find_match_subject().is_equivalent(\"details\")`)) })"
+    },
+    {
+      "text": "<p>Ne biste trebali da menjate svoj postojeći deo od <code>case</code>.</p>",
+      "testString": "({ test: () => runPython(`\ncase = _Node(_code).find_function(\"solver\").find_matches()[1].find_match_cases()[0]\nassert case.find_case_pattern().is_equivalent(\"{'slope': slope, 'intercept': intercept}\")\nassert case.find_body().is_equivalent(\"details_list = [f'slope = {slope:.3f}', f'y-intercept = {intercept:.3f}']\")\n`) })"
+    },
+    {
+      "text": "<p>Treba da kreiraš novi deo od <code>case</code> u trenutku <code>equation</code>, to je jednačina drugog stepenja.</p>",
+      "testString": "({ test: () => assert(runPython(`len(_Node(_code).find_function(\"solver\").find_matches()[1].find_match_cases()) == 2`)) })"
+    },
+    {
+      "text": "<p>Treba da kreiraš ciklus od <code>for</code> ponavljanja preko <code>details_list</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_function(\"solver\").find_for_loops()[1].find_for_iter().is_equivalent(\"details_list\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja funkcija za <code>solver</code> treba da vrati sekvencu različitih slova.</p>",
+      "testString": "({ test: () => runPython(`\nexpected1 = \"\"\"\n----Linear Equation-----\n\n       4x +3 = 0        \n\n-------Solutions--------\n\n       x = -0.750       \n\n--------Details---------\n\nslope = 4.000\ny-intercept = 3.000\n\"\"\"\neq1 = LinearEquation(4, 3)\nactual1 = solver(eq1)\nassert expected1 == actual1\n\nexpected2 = \"\"\"\n---Quadratic Equation---\n\n    x**2 -3x +1 = 0     \n\n-------Solutions--------\n\n      x1 = +2.618       \n      x2 = +0.382       \n\n--------Details---------\n\nconcavity = upwards\nmin = (1.500, -1.250)\n\"\"\"\neq2 = QuadraticEquation(1, -3, 1)\nactual2 = solver(eq2)\nassert expected2 == actual2\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dodajte <code>case</code> druge kada je jednačina drugog stepena. Koristite rečnik sa istom strukturom vraćenom metodom <code>analyze</code> od <code>QuadraticEquation</code>.</p>\n<p>Zatim, unesite <code>details_list</code> listu koja sadrži sekvencu od dva slova sa strukturom <code>concavity = &#x3C;concavity></code> i <code>&#x3C;min_max> = (&#x3C;x>, &#x3C;y>)</code>, respektivno. Podesite <code>&#x3C;x></code> i <code>&#x3C;y></code> da prikažu decimalnu cifru <code>3</code>.</p>\n<p>Na kraju, nakon dela <code>match</code>/<code>case</code>, ponovite kroz <code>details_list</code> povećavanjem svakog elementa u trenutnoj vrednosti <code>output_string</code>. Osigurajte da svaki element sekvence karaktera završi znakom novog reda. Ne koristite nikakve dodatne opcije formatiranja ovde.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 63,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

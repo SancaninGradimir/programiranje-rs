@@ -1,0 +1,109 @@
+{
+  "id": "67d2f4ddb4a4306fdf5bbaee",
+  "title": "Šta je Memoization, i kako funkcioniše Hook useMemo?",
+  "challengeType": 19,
+  "dashedName": "what-is-memoization-and-how-does-the-usememo-hook-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Memoizacija šta je u React?</p>",
+      "answers": [
+        {
+          "answer": "<p>Metoda koja sačuvava vrednost i funkcionalnosti radi sprečavanja nepotrebnih proračuna.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Metoda koja omogućava upravljanje delimičnim ažuriranjima stanja radi sprečavanja nepotrebnih proračuna.</p>",
+          "feedback": "<p>Pomaže u poboljšanju performansi čuvanjem prethodno izračunatih rezultata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proces poređenja Virtual DOM sa DOM stvarnog.</p>",
+          "feedback": "<p>Pomaže u poboljšanju performansi čuvanjem prethodno izračunatih rezultata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Način rukovanja sporednim efektima u funkcionalskim oblastima.</p>",
+          "feedback": "<p>Pomaže u poboljšanju performansi čuvanjem prethodno izračunatih rezultata.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja je razlika između izračunatih vrednosti i referenci funkcija?</p>",
+      "answers": [
+        {
+          "answer": "<p>Izračunate vrednosti su funkcionalni elementi, dok su reference funkcija rezultati izvršenja.</p>",
+          "feedback": "<p>Moj je rezultat funkcije, drugi je samo indikator te funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izračunate vrednosti su rezultati izvršavanja funkcije, dok su reference na funkcije funkcionalni objekti u memoriji.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vrednosti izračunate i reference zaposlenika su iste.</p>",
+          "feedback": "<p>Ovo je rezultat funkcije, a drugo je samo indikator te funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Registrar za funkcije čuva izračunate vrednosti.</p>",
+          "feedback": "<p>Jedno su rezultati funkcije, a drugi samo indikatori te funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja je od ovih alata koje React pruža za memoizaciju?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>React.memo</code></p>",
+          "feedback": "<p>Alati za memoizaciju se fokusiraju na skladištenje vrednosti i funkcije, dok ova opcija rukuje nuspojavama.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useMemo</code></p>",
+          "feedback": "<p>Alati za memoizaciju fokusiraju se na skladištenje vrednosti i funkcija, dok ova opcija obrađuje sporedne efekte.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useCallback</code></p>",
+          "feedback": "<p>Alati za memoizaciju fokusiraju se na skladištenje vrednosti i funkcije, dok ova opcija obrađuje sporedne efekte.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useEffect</code></p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Kako vaša React aplikacija raste, nepotrebna ponovna renderovanja i skupe kalkulacije mogu usporiti performanse, što dovodi do sporijeg ažuriranja korisničkog interfejsa i veće potrošnje resursa.</p>\n<p>Ovo može biti problem posebno u aplikacijama koje imaju složeno upravljanje stanjem, velike liste, funkcije koje zahtevaju intenzivne proračune i mnogo sekcija sa jednim roditeljem.</p>\n<p>Ovo omogućava poboljšanje vašeg programa React radi boljih performansi, smanjenjem redundantnih proračuna i osiguravanjem glatkijeg interfejsa.</p>\n<p>React rešava ovaj problem procesom koji se zove memoizacija, metodom koja skladišti vrednosti i funkcije kako bi sprečila nepotrebne proračune, tako da je vaš program brz i prilagodljiv uređaju.</p>\n<p>Za pojašnjenje, memoizacija je tehnika za poboljšanje performansi gde se rezultati pozivanja skupih funkcija skladište (memoriraju) na osnovu specifičnih argumenata. Kada se ponovo pruže isti argumenti, vraćaju se sačuvani rezultati umesto da se funkcija ponovno izvrši/izračuna.</p>\n<p>Proces memoizacije odvija se na ovaj način:</p>\n<ul>\n<li>\n<p>Sačuvajte rezultate poziva funkcije zajedno sa njenim ulaznim argumentima.</p>\n</li>\n<li>\n<p>Pre izvršavanja funkcije, proverite da li rezultati za trenutne argumente već postoje u skladištu.</p>\n</li>\n<li>\n<p>Ukoliko je dostupan, vratite sačuvane rezultate umesto ponovnog izvršavanja kalkulacija.</p>\n</li>\n<li>\n<p>Ako nije dostupan, izračunaj rezultat, sačuvaj ga u skladište, a zatim ga vrati.</p>\n</li>\n</ul>\n<p>Za poboljšanje iskustva programera (developer experience) uz memoizaciju, React nudi tri alata – <code>React.memo</code> (ili <code>memo</code>), <code>useMemo</code> na <code>useCallback</code>.</p>\n<p>Kako možete da pogodite, <code>useMemo</code> i na <code>useCallback</code> su sve hookovi, ali <code>React.memo</code> je omotač komponente, deo višeslojnog mosta (HOC).</p>\n<p>U sledećoj lekciji, videćemo kako hook-ovi za <code>useCallback</code> i <code>React.memo</code> funkcionišu.</p>\n<p><code>useMemo</code> omogućava vam da sačuvate izračunate vrednosti kada <code>useCallback</code> radi isto i za reference funkcija.</p>\n<p>Ako se pitate šta su izračunate vrednosti i reference na funkcije, izračunate vrednosti se odnose na rezultate izvršavanja funkcije, dok su reference na funkcije pokazivači na funkcije – objekat funkcije u memoriji.</p>\n<p>Pogledajmo kako da koristimo hook <code>useMemo</code> prvo. Ovo je osnovna sintaksa za hook <code>useMemo</code>:</p>\n<pre><code class=\"language-js\">const memoizedValue = useMemo(\n  function () {\n    return computeExpensiveValue(a, b);\n  },\n  [a, b]\n);\n</code></pre>\n<p>Potrebno je pokriti hak <code>useMemo</code> blizu funkcije.</p>\n<p>Ovaj deo <code>ExpensiveSquare</code> primaće parametre za <code>num</code>, koje će koristiti za izračunavanje kvadrata:</p>\n<pre><code class=\"language-jsx\">function ExpensiveSquare({ num }) {\n  function calculateSquare(n) {\n    console.log(\"Calculating square...\");\n    return n * n;\n  }\n\n  const squared = calculateSquare(num);\n  return (\n    &#x3C;p>\n      Square of {num}: {squared}\n    &#x3C;/p>\n  );\n}\nexport default ExpensiveSquare;\n</code></pre>\n<p>Ovo je deo <code>App</code> gde se koristi <code>ExpensiveSquare</code>:</p>\n<pre><code class=\"language-jsx\">import { useState, useEffect } from \"react\";\nimport ExpensiveSquare from \"./components/ExpensiveSquare\";\n\nfunction App() {\n const [timer, setTimer] = useState(0);\n const [num, setNum] = useState(0);\n\n useEffect(() => {\n   const interval = setInterval(() => setTimer((c) => c + 1), 1000);\n   return () => clearInterval(interval);\n }, []);\n\n return (\n   &#x3C;div>\n     &#x3C;h1>Timer: {timer} seconds gone&#x3C;/h1>\n     &#x3C;ExpensiveSquare num={num} />\n     &#x3C;button onClick={() => setNum((n) => n + 1)}>Increase Number&#x3C;/button>\n   &#x3C;/div>\n );\n}\n\nexport default App;\n</code></pre>\n<p><code>timer</code> u <code>useEffect</code>, koji radi svake sekunde, izvršiće funkciju <code>calculateSquare</code> svaki put kada se pokrene, čak i ako ne dodaje vrednost stanja <code>num</code>.</p>\n<p>Da bismo rešili ovaj problem, možemo koristiti hook <code>useMemo</code> za obavijanje poziva funkcije unutar njega i specificirati promenu <code>num</code> kao zavisnost:</p>\n<pre><code class=\"language-jsx\">// import the useMemo hook\nimport { useMemo } from \"react\";\n\nfunction ExpensiveSquare({ num }) {\n  function calculateSquare(n) {\n    console.log(\"Calculating square...\");\n    return n * n;\n  }\n\n  // const squared = calculateSquare(num);\n  // Wrap the function call in useMemo instead\n  const squared = useMemo(() => calculateSquare(num), [num]);\n\n  return (\n    &#x3C;p>\n      Square of {num}: {squared}\n    &#x3C;/p>\n  );\n}\n\nexport default ExpensiveSquare;\n</code></pre>\n<p>Ovo osigurava da je funkcija sačuvana skladištenjem rezultata. Čak i ako deo <code>ExpensiveSquare</code> i dalje ponovo obrađuje svaki put kada se stanje roditelja <code>timer</code> ažurira, proračuni za <code>calculateSquare</code> će se izvršiti samo prilikom prvog prikaza i kada <code>num</code> promeni.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-data-fetching-and-memoization-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 19,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

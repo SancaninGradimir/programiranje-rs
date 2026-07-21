@@ -1,0 +1,109 @@
+{
+  "id": "673500abfe36cd015b67b1b7",
+  "title": "Kako funkcioniše uslovno renderovanje u komponentama React-a?",
+  "challengeType": 19,
+  "dashedName": "how-does-conditional-rendering-work-in-react-components",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Šta od sledećeg NIJE uobičajen način uslovnog prikazivanja u React-u?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristeći izjavu o <code>if</code>.</p>",
+          "feedback": "<p>Razmotrite metode koje su diskutovane u tutorijalima za rukovanje prikazivanjem uslova u React.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Upotreba ternarnog operatera.</p>",
+          "feedback": "<p>Razmislite o metodama diskutovanima u tutorijalima za rukovanje uslovnim prikazom u React.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Korišćenje logičkog operatera AND (<code>&#x26;&#x26;</code>)</p>",
+          "feedback": "<p>Razmislite o načinima koji su diskutovani u obukama za rukovanje prikazom uslova u React.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristeći deklaraciju <code>switch</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Šta će biti prikazano sa sledećim kodom ako je <code>message</code> niz praznih karaktera?</p>\n<pre><code class=\"language-jsx\">function Alert({ message }) {\n  return (\n    &#x3C;div>\n      {message &#x26;&#x26; &#x3C;p>{message}&#x3C;/p>}\n    &#x3C;/div>\n  );\n}\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>&#x3C;div>&#x3C;p>&#x3C;/p>&#x3C;/div></code></p>",
+          "feedback": "<p>Razmislite kako operater logičkog AND-a (<code>&#x26;&#x26;</code>) radi sa lažnim vrednostima unutar JSX-a.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;div>&#x3C;/div></code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;div>false&#x3C;/div></code></p>",
+          "feedback": "<p>Razmislite kako operater logičkog AND-a (<code>&#x26;&#x26;</code>) radi sa lažnim vrednostima unutar JSX-a.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovo će nam otpasti kosu.</p>",
+          "feedback": "<p>Razmislite kako operater logičkog AND-a (<code>&#x26;&#x26;</code>) radi sa lažnim vrednostima unutar JSX-a.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koji je tip uslovne izjave koja se koristi u sledećem kodu?</p>\n<pre><code class=\"language-jsx\">function Greeting({ name }) {\n  return &#x3C;h1>{name ? `Hello, ${name}!` : 'Hello, Guest!'}&#x3C;/h1>;\n}\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p>Izjava za <code>if</code>.</p>",
+          "feedback": "<p>Pogledajte sintaksu koja se koristi unutar JSX-a za uslovno prikazivanje različitog sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izjava o <code>switch</code>.</p>",
+          "feedback": "<p>Pogledajte sintaksu koja se koristi unutar JSX-a za prikaz različitog sadržaja uslovno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ternarni operator</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Logička operacija AND (<code>&#x26;&#x26;</code>).</p>",
+          "feedback": "<p>Pogledajte sintaksu koja se koristi u JSX-u za uslovno prikazivanje različitih sadržaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Onyesho uslova u React vam omogućava da kreirate dinamičke korisničke interfejse. Koristi se za prikaz različitog sadržaja u zavisnosti od određenih uslova ili stanja unutar vaše aplikacije.</p>\n<p>Najčešće korišćene metode za prikaz uslova uključuju upotrebu izraza <code>if</code>, funkcije tri-argumentnog kalkulatora (<code>?:</code>) i logičke operacije AND (<code>&#x26;&#x26;</code>).</p>\n<p>Najjednostavniji način za prikaz uslova je korišćenje deklaracije <code>if</code>. Evo primera:</p>\n<pre><code class=\"language-jsx\">function Greeting({ isLoggedIn }) {\n  if (isLoggedIn) {\n    return &#x3C;h1>Welcome back!&#x3C;/h1>;\n  }\n  return &#x3C;h1>Please sign in&#x3C;/h1>;\n}\n</code></pre>\n<p>U ovom primeru, deo <code>Greeting</code> proverava parametre <code>isLoggedIn</code>. Ako je <code>true</code>, vraća poruku dobrodošlice, inače podstiče korisnika da se prijavi.</p>\n<p>Evo primera koji koristi komponentu <code>Greeting</code> unutar roditeljske komponente <code>App</code>:</p>\n<pre><code class=\"language-jsx\">function App() {\n  return (\n    &#x3C;div className=\"App\">\n      &#x3C;Greeting isLoggedIn={false} />\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>Za jednostavne uslove, ternarni operator (<code>?:</code>) se često koristi direktno u JSX-u. To omogućava uslovno prikazivanje u jednoj liniji, što kod može učiniti kraćim.</p>\n<pre><code class=\"language-jsx\">function Greeting({ isLoggedIn }) {\n  return &#x3C;h1>{isLoggedIn ? \"Welcome back!\" : \"Please sign in.\"}&#x3C;/h1>;\n}\n</code></pre>\n<p>Ovaj kod postiže rezultate slične prethodnom primeru, ali na sažetiji način. Ternarni operator proverava <code>isLoggedIn</code> i prikazuje odgovarajuću poruku.</p>\n<p>Drugi uobičajeni način za prikaz uslova je korišćenje logičkog operatora AND (<code>&#x26;&#x26;</code>). Ovo je posebno korisno kada želite da prikažete nešto, ili da ne prikažete ništa, u zavisnosti od uslova:</p>\n<pre><code class=\"language-jsx\">function Notification({ message }) {\n  return (\n    &#x3C;div>\n      {message &#x26;&#x26; &#x3C;p>{message}&#x3C;/p>}\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>U ovom primeru, element paragrafa sa porukom je prikazan samo ako su uslovi za <code>message</code> tačni. Ako je <code>message</code> lažna vrednost - što znači prazan niz karaktera, <code>null</code>, ili <code>undefined</code>, ništa se ne prikazuje na ekranu.</p>\n<p>Koristeći ove metode uslovnog prikazivanja, možete izgraditi aplikacije koje su više angažujuće i korisnički prijateljske, a koje se menjaju na osnovu podataka i interakcije korisnika.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-data-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

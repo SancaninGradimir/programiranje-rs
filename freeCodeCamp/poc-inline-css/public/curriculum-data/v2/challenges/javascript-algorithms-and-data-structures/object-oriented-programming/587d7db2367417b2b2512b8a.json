@@ -1,0 +1,73 @@
+{
+  "id": "587d7db2367417b2b2512b8a",
+  "title": "Koristi enkapsulaciju da zaštitiš svojstva objekta od izmena spolja.",
+  "challengeType": 1,
+  "forumTopicId": 18234,
+  "dashedName": "use-closure-to-protect-properties-within-an-object-from-being-modified-externally",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Bird() {\n  this.weight = 15;\n\n\n}",
+      "error": null,
+      "seed": "function Bird() {\n  this.weight = 15;\n\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Bird() {\n  let weight = 15;\n\n  this.getWeight = () => weight;\n}",
+        "error": null,
+        "seed": "function Bird() {\n  let weight = 15;\n\n  this.getWeight = () => weight;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Atribut za <code>weight</code> treba da bude privatni parametar i trebalo bi mu se dodeliti vrednost od <code>15</code>.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/(var|let|const)\\s+weight\\s*\\=\\s*15\\;?/g));"
+    },
+    {
+      "text": "<p>Vaš kod bi trebalo da kreira putanju u <code>Bird</code>, pod nazivom <code>getWeight</code>, koja dohvaća vrednost parametra privatnosti <code>weight</code>.</p>",
+      "testString": "assert(new Bird().getWeight() === 15);"
+    },
+    {
+      "text": "<p>Vaš modul za <code>getWeight</code> treba da vrati podešavanje privatnosti <code>weight</code>.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/((return\\s+)|(\\(\\s*\\)\\s*\\=\\>\\s*))weight\\;?/g));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U prethodnom izazovu, <code>bird</code> je imao javni atribut <code>name</code>. Smatra se da je javno jer ga je moguće pristupiti i menjati izvan definicije <code>bird</code>.</p>\n<pre><code class=\"language-js\">bird.name = \"Duffy\";\n</code></pre>\n<p>Stoga, bilo koji deo vašeg koda može lako da promeni ime <code>bird</code> u bilo koju vrednost. Zamislite stvari kao što su lozinke i bankovni računi koji mogu lako da se izmene bilo kojim delom vašeg koda. To može izazvati mnogo problema.</p>\n<p>Najlakši način da se ovaj javni atribut učini privatnim je kreiranje parametra unutar funkcije komponente. Ovo menja opseg tog parametra na unutrašnjost funkcije komponente umesto da bude dostupan globalno. Na ovaj način, parametar se može pristupiti i modifikovati samo iz metoda koje su takođe unutar funkcije komponente.</p>\n<pre><code class=\"language-js\">function Bird() {\n  let hatchedEgg = 10;\n\n  this.getHatchedEggCount = function() { \n    return hatchedEgg;\n  };\n}\nlet ducky = new Bird();\nducky.getHatchedEggCount();\n</code></pre>\n<p>Ovo <code>getHatchedEggCount</code> je jedinstveni način, jer ima pristup privatnom parametru <code>hatchedEgg</code>. Ovo je moguće zato što <code>hatchedEgg</code> je deklarisano u istom kontekstu kao i <code>getHatchedEggCount</code>. U JavaScript, funkcija uvek ima pristup kontekstu u kojem je kreirana. Ovo se zove <code>closure</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni kako <code>weight</code> je deklarisano u funkciji <code>Bird</code> da bude privatni parametar. Zatim, kreiraj metod <code>getWeight</code> koji vraća vrednost od <code>weight</code> 15.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 23,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

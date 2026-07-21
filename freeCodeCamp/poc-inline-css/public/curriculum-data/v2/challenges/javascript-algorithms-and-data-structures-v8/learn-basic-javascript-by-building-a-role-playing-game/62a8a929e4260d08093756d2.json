@@ -1,0 +1,87 @@
+{
+  "id": "62a8a929e4260d08093756d2",
+  "title": "Korak 47",
+  "challengeType": 0,
+  "dashedName": "step-47",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}",
+      "error": null,
+      "seed": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        18,
+        20
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\n\n\n// initialize buttons\nbutton1.onclick = goStore;\nbutton2.onclick = goCave;\nbutton3.onclick = fightDragon;\n\nfunction update(location) {\n\n}\n\nfunction goTown() {\n  button1.innerText = \"Go to store\";\n  button2.innerText = \"Go to cave\";\n  button3.innerText = \"Fight dragon\";\n  button1.onclick = goStore;\n  button2.onclick = goCave;\n  button3.onclick = fightDragon;\n  text.innerText = \"You are in the town square. You see a sign that says \\\"Store\\\".\";\n}\n\nfunction goStore() {\n  button1.innerText = \"Buy 10 health (10 gold)\";\n  button2.innerText = \"Buy weapon (30 gold)\";\n  button3.innerText = \"Go to town square\";\n  button1.onclick = buyHealth;\n  button2.onclick = buyWeapon;\n  button3.onclick = goTown;\n  text.innerText = \"You enter the store.\";\n}\n\nfunction goCave() {\n  console.log(\"Going to cave.\");\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}\n\nfunction buyHealth() {\n\n}\n\nfunction buyWeapon() {\n\n}",
+      "error": null,
+      "seed": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\n\n\n// initialize buttons\nbutton1.onclick = goStore;\nbutton2.onclick = goCave;\nbutton3.onclick = fightDragon;\n\nfunction update(location) {\n\n}\n\nfunction goTown() {\n  button1.innerText = \"Go to store\";\n  button2.innerText = \"Go to cave\";\n  button3.innerText = \"Fight dragon\";\n  button1.onclick = goStore;\n  button2.onclick = goCave;\n  button3.onclick = fightDragon;\n  text.innerText = \"You are in the town square. You see a sign that says \\\"Store\\\".\";\n}\n\nfunction goStore() {\n  button1.innerText = \"Buy 10 health (10 gold)\";\n  button2.innerText = \"Buy weapon (30 gold)\";\n  button3.innerText = \"Go to town square\";\n  button1.onclick = buyHealth;\n  button2.onclick = buyWeapon;\n  button3.onclick = goTown;\n  text.innerText = \"You enter the store.\";\n}\n\nfunction goCave() {\n  console.log(\"Going to cave.\");\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}\n\nfunction buyHealth() {\n\n}\n\nfunction buyWeapon() {\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za objavu <code>locations</code>.</p>",
+      "testString": "assert.match(code, /const\\s+locations/);"
+    },
+    {
+      "text": "<p><code>locations</code> treba da bude red podataka.</p>",
+      "testString": "assert.isArray(locations);"
+    },
+    {
+      "text": "<p><code>locations</code> Trebalo bi da bude prazno.</p>",
+      "testString": "assert.equal(locations.length, 0);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U vašoj igri sa ulogama, moći ćete da posetite različita mesta kao što su <strong>prodavnica</strong>, <strong>pećina</strong>, i <strong>gradsko trgušte</strong>. Moraćete da kreirate strukturu podataka koja skladišti različite lokacije.</p>\n<p>Koristi <code>const</code> da deklarira parametar nazvan <code>locations</code> i postavi mu vrednost praznog niza podataka.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-basic-javascript-by-building-a-role-playing-game",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 2,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 46,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

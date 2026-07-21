@@ -1,0 +1,58 @@
+{
+  "id": "68efb04d5ea87cf267192ed4",
+  "title": "Korak 30",
+  "challengeType": 20,
+  "dashedName": "step-30",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        59,
+        69
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nclass PremiumUserDiscount(DiscountStrategy):\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return user_tier.lower() == 'premium'\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * 0.8\n\nclass DiscountEngine:\n    def __init__(self, strategies: list[DiscountStrategy]) -> None:\n        self.strategies = strategies\n\n    def calculate_best_price(self, product: Product, user_tier: str) -> float:\n        prices = [product.price]\n\n        for strategy in self.strategies:\n            if strategy.is_applicable(product, user_tier):\n                discounted = strategy.apply_discount(product)\n                prices.append(discounted)\n\n        return min(prices)\nif __name__ == '__main__':\n    product = Product('Wireless Mouse', 50.0)\n    user_tier = 'Premium'\n\n    strategies = [\n        PercentageDiscount(10),\n        FixedAmountDiscount(5),\n        PremiumUserDiscount()\n    ]",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nclass PremiumUserDiscount(DiscountStrategy):\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return user_tier.lower() == 'premium'\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * 0.8\n\nclass DiscountEngine:\n    def __init__(self, strategies: list[DiscountStrategy]) -> None:\n        self.strategies = strategies\n\n    def calculate_best_price(self, product: Product, user_tier: str) -> float:\n        prices = [product.price]\n\n        for strategy in self.strategies:\n            if strategy.is_applicable(product, user_tier):\n                discounted = strategy.apply_discount(product)\n                prices.append(discounted)\n\n        return min(prices)\nif __name__ == '__main__':\n    product = Product('Wireless Mouse', 50.0)\n    user_tier = 'Premium'\n\n    strategies = [\n        PercentageDiscount(10),\n        FixedAmountDiscount(5),\n        PremiumUserDiscount()\n    ]"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da kreiraš primer <code>DiscountEngine</code> koristeći listu <code>strategies</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_ifs()[0].has_stmt('engine = DiscountEngine(strategies)')`)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da pozovete <code>engine.calculate_best_price(product, user_tier)</code> za čuvanje rezultata u <code>best_price</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_ifs()[0].has_stmt('best_price = engine.calculate_best_price(product, user_tier)')\n`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kreiraj primer <code>DiscountEngine</code> i sačuvaj ga u parametar <code>engine</code>. Nakon toga, izračunaj najbolju cenu koristeći metodu <code>calculate_best_price</code> i sačuvaj je u polje nazvano <code>best_price</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-discount-calculator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 47,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 29,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

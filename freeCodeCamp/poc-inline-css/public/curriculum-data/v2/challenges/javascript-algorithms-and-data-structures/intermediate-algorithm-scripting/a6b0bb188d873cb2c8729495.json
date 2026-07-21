@@ -1,0 +1,89 @@
+{
+  "id": "a6b0bb188d873cb2c8729495",
+  "title": "Promeni HTML elemente",
+  "challengeType": 1,
+  "forumTopicId": 16007,
+  "dashedName": "convert-html-entities",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function convertHTML(str) {\r\n  return str;\r\n}\r\n\r\nconvertHTML(\"Dolce & Gabbana\");",
+      "error": null,
+      "seed": "function convertHTML(str) {\r\n  return str;\r\n}\r\n\r\nconvertHTML(\"Dolce & Gabbana\");"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var MAP = { '&': '&amp;',\r\n            '<': '&lt;',\r\n            '>': '&gt;',\r\n            '\"': '&quot;',\r\n            \"'\": '&apos;'};\r\n\r\nfunction convertHTML(str) {\r\n  return str.replace(/[&<>\"']/g, function(c) {\r\n    return MAP[c];\r\n  });\r\n}",
+        "error": null,
+        "seed": "var MAP = { '&': '&amp;',\r\n            '<': '&lt;',\r\n            '>': '&gt;',\r\n            '\"': '&quot;',\r\n            \"'\": '&apos;'};\r\n\r\nfunction convertHTML(str) {\r\n  return str.replace(/[&<>\"']/g, function(c) {\r\n    return MAP[c];\r\n  });\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>convertHTML(\"Dolce &#x26; Gabbana\")</code> trebalo bi vratiti sekvencu karaktera <code>Dolce &#x26;amp; Gabbana</code>.</p>",
+      "testString": "assert.match(convertHTML('Dolce & Gabbana'), /Dolce &amp; Gabbana/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Hamburgers &#x3C; Pizza &#x3C; Tacos\")</code> treba da vrati sekvencu karaktera <code>Hamburgers &#x26;lt; Pizza &#x26;lt; Tacos</code>.</p>",
+      "testString": "assert.match(\r\n  convertHTML('Hamburgers < Pizza < Tacos'),\r\n  /Hamburgers &lt; Pizza &lt; Tacos/\r\n);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Sixty > twelve\")</code> treba da vrati sekvencu karaktera <code>Sixty &#x26;gt; twelve</code>.</p>",
+      "testString": "assert.match(convertHTML('Sixty > twelve'), /Sixty &gt; twelve/);"
+    },
+    {
+      "text": "<p><code>convertHTML('Stuff in \"quotation marks\"')</code> treba da vrati sekvencu karaktera <code>Stuff in &#x26;quot;quotation marks&#x26;quot;</code>.</p>",
+      "testString": "assert.match(\r\n  convertHTML('Stuff in \"quotation marks\"'),\r\n  /Stuff in &quot;quotation marks&quot;/\r\n);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Schindler's List\")</code> bi trebalo da vrati sekvencu slova <code>Schindler&#x26;apos;s List</code>.</p>",
+      "testString": "assert.match(convertHTML(\"Schindler's List\"), /Schindler&apos;s List/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"&#x3C;>\")</code> trebalo bi da vrati sekvencu karaktera <code>&#x26;lt;&#x26;gt;</code>.</p>",
+      "testString": "assert.match(convertHTML('<>'), /&lt;&gt;/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"abc\")</code> trebalo bi vratiti niz znakova <code>abc</code>.</p>",
+      "testString": "assert.strictEqual(convertHTML('abc'), 'abc');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Zameni karaktere <code>&#x26;</code>, <code>&#x3C;</code>, <code>></code>, <code>\"</code> (dvostruki navodnik), sa <code>'</code> (jednostruki navodnik), u sekvenci karaktera u odgovarajuće stavke za HTML.</p>\n</section>",
+  "translationPending": false,
+  "block": "intermediate-algorithm-scripting",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "58a25c98f9fc0f352b528e7f",
+  "title": "Heširanje tvojih lozinki",
+  "challengeType": 2,
+  "forumTopicId": 301553,
+  "dashedName": "hashing-your-passwords",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>BCrypt treba da bude zavisnost.</p>",
+      "testString": "  const url = new URL(\"/_api/package.json\", code);\n  const res = await fetch(url);\n  const packJson = await res.json()\n  assert.property(\n    packJson.dependencies,\n    'bcrypt',\n    'Your project should list \"bcrypt\" as a dependency'\n  );"
+    },
+    {
+      "text": "<p>BCrypt treba da bude zahtevan i implementiran ispravno.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /require.*(\"|')bcrypt\\1/gi,\n    'You should have required bcrypt'\n  );\n  assert.match(\n    data,\n    /bcrypt.hashSync/gi,\n    'You should use hash the password in the registration'\n  );\n  assert.match(\n    data,\n    /bcrypt.compareSync/gi,\n    'You should compare the password to the hash in your strategy'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vraćajući se na deo o bezbednosti informacija, možeš se setiti da čuvanje lozinki u otvorenom tekstu <em>nikada nije ispravno</em>. Sada je vreme da implementiraš BCrypt da rešiš ovaj problem.</p>\n<p><code>bcrypt@~5.0.0</code> je već dodata kao zavisnost, pa je uvezi na svom serveru. Moraćeš da obradiš heširanje lozinki na dva ključna mesta: kada registruješ/čuvaš novi nalog, i kada proveravaš da li je lozinka ispravna prilikom prijave.</p>\n<p>Trenutno na tvojoj ruti za registraciju, unosiš korisničku lozinku kao otvoreni tekst u bazu podataka na sledeći način: <code>password: req.body.password</code>. Umesto toga, heširaj lozinku dodavanjem sledećeg pre logike baze podataka: <code>const hash = bcrypt.hashSync(req.body.password, 12);</code>, i zameni <code>req.body.password</code> u čuvanju baze podataka sa <code>password: hash</code> samo.</p>\n<p>U tvojoj strategiji autentifikacije, proveravaš sledeće u svom kodu pre završetka procesa: <code>if (password !== user.password) return done(null, false);</code>. Nakon što si napravio prethodne izmene, sada <code>user.password</code> je heš. Pre nego što promeniš postojeći kod, proveri kako ta izjava proverava da li lozinka <strong>nije</strong> ispravna i zatim vraća neautentifikovano stanje. Imajući ovo u vidu, promeni taj kod da izgleda ovako kako bi ispravno proverio unetu lozinku protiv heša:</p>\n<pre><code class=\"language-js\">if (!bcrypt.compareSync(password, user.password)) { \n  return done(null, false);\n}\n</code></pre>\n<p>To je sve što je potrebno da se implementira jedna od ključnih bezbednosnih karakteristika kada čuvaš lozinke.</p>\n<p>Predaj svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#hashing-your-passwords-1\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

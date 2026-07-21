@@ -1,0 +1,85 @@
+{
+  "id": "5a23c84252665b21eecc7ed1",
+  "title": "Izazov za fond 0-1",
+  "challengeType": 1,
+  "forumTopicId": 323649,
+  "dashedName": "knapsack-problem0-1",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function knapsack(items, maxweight) {\n\n}",
+      "error": null,
+      "seed": "function knapsack(items, maxweight) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function knapsack(items, maxweight) {\n  var _ = {\n    max: function(e) {\n      var mx = e[0];\n      e.forEach(function(f) {\n        if (mx < f) mx = f;\n      });\n      return mx;\n    },\n    map: function(array, func) {\n      return array.map(func);\n    },\n    isUndefined: function(a) {\n      if (a) {\n        return false;\n      }\n      return true;\n    },\n    range: function(start, end, step) {\n      var a = [];\n      var f = (f = (i, end) => i < end);\n      if (start > end) f = (i, end) => i > end;\n\n      for (var i = start; f(i, end); i += step) a.push(i);\n      return a;\n    }\n  };\n\n  var valuefn = e => e.value;\n  var weightfn = e => e.weight;\n  var _epsilon = 0.01;\n  var _p = _.max(_.map(items, valuefn));\n  var _k = (_epsilon * _p) / items.length;\n\n  var _memo = (function() {\n    var _mem = {};\n    var _key = function(i, w) {\n      return i + '::' + w;\n    };\n    return {\n      get: function(i, w) {\n        return _mem[_key(i, w)];\n      },\n      put: function(i, w, r) {\n        _mem[_key(i, w)] = r;\n        return r;\n      }\n    };\n  })();\n\n  var _m = function(i, w) {\n    i = Math.round(i);\n    w = Math.round(w);\n\n    if (i < 0 || w === 0) {\n      // empty base case\n      return { items: [], totalWeight: 0, totalValue: 0 };\n    }\n\n    var mm = _memo.get(i, w);\n    if (!_.isUndefined(mm)) {\n      return mm;\n    }\n\n    var item = items[i];\n    if (weightfn(item) > w) {\n      //item does not fit, try the next item\n      return _memo.put(i, w, _m(i - 1, w));\n    }\n    // this item could fit.\n    // are we better off excluding it?\n    var excluded = _m(i - 1, w);\n    // or including it?\n    var included = _m(i - 1, w - weightfn(item));\n    if (\n      included.totalValue + Math.floor(valuefn(item) / _k) >\n      excluded.totalValue\n    ) {\n      // better off including it\n      // make a copy of the list\n      var i1 = included.items.slice();\n      i1.push(item);\n      return _memo.put(i, w, {\n        items: i1,\n        totalWeight: included.totalWeight + weightfn(item),\n        totalValue: included.totalValue + Math.floor(valuefn(item) / _k)\n      });\n    }\n    //better off excluding it\n    return _memo.put(i, w, excluded);\n  };\n  var scaled = _m(items.length - 1, maxweight);\n\n  var val = 0;\n  scaled.items.forEach(function(e) {\n    val += e.value;\n  });\n  return val;\n}",
+        "error": null,
+        "seed": "function knapsack(items, maxweight) {\n  var _ = {\n    max: function(e) {\n      var mx = e[0];\n      e.forEach(function(f) {\n        if (mx < f) mx = f;\n      });\n      return mx;\n    },\n    map: function(array, func) {\n      return array.map(func);\n    },\n    isUndefined: function(a) {\n      if (a) {\n        return false;\n      }\n      return true;\n    },\n    range: function(start, end, step) {\n      var a = [];\n      var f = (f = (i, end) => i < end);\n      if (start > end) f = (i, end) => i > end;\n\n      for (var i = start; f(i, end); i += step) a.push(i);\n      return a;\n    }\n  };\n\n  var valuefn = e => e.value;\n  var weightfn = e => e.weight;\n  var _epsilon = 0.01;\n  var _p = _.max(_.map(items, valuefn));\n  var _k = (_epsilon * _p) / items.length;\n\n  var _memo = (function() {\n    var _mem = {};\n    var _key = function(i, w) {\n      return i + '::' + w;\n    };\n    return {\n      get: function(i, w) {\n        return _mem[_key(i, w)];\n      },\n      put: function(i, w, r) {\n        _mem[_key(i, w)] = r;\n        return r;\n      }\n    };\n  })();\n\n  var _m = function(i, w) {\n    i = Math.round(i);\n    w = Math.round(w);\n\n    if (i < 0 || w === 0) {\n      // empty base case\n      return { items: [], totalWeight: 0, totalValue: 0 };\n    }\n\n    var mm = _memo.get(i, w);\n    if (!_.isUndefined(mm)) {\n      return mm;\n    }\n\n    var item = items[i];\n    if (weightfn(item) > w) {\n      //item does not fit, try the next item\n      return _memo.put(i, w, _m(i - 1, w));\n    }\n    // this item could fit.\n    // are we better off excluding it?\n    var excluded = _m(i - 1, w);\n    // or including it?\n    var included = _m(i - 1, w - weightfn(item));\n    if (\n      included.totalValue + Math.floor(valuefn(item) / _k) >\n      excluded.totalValue\n    ) {\n      // better off including it\n      // make a copy of the list\n      var i1 = included.items.slice();\n      i1.push(item);\n      return _memo.put(i, w, {\n        items: i1,\n        totalWeight: included.totalWeight + weightfn(item),\n        totalValue: included.totalValue + Math.floor(valuefn(item) / _k)\n      });\n    }\n    //better off excluding it\n    return _memo.put(i, w, excluded);\n  };\n  var scaled = _m(items.length - 1, maxweight);\n\n  var val = 0;\n  scaled.items.forEach(function(e) {\n    val += e.value;\n  });\n  return val;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>knapsack([{ name:'map', weight:9, value:150 }, { name:'compass', weight:13, value:35 }, { name:'water', weight:153, value:200 }, { name:'sandwich', weight:50, value:160 }, { name:'glucose', weight:15, value:60 }, { name:'tin', weight:68, value:45 }, { name:'banana', weight:27, value:60 }, { name:'apple', weight:39, value:40 }], 100)</code> treba da vrati <code>405</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'map', weight: 9, value: 150 },\n      { name: 'compass', weight: 13, value: 35 },\n      { name: 'water', weight: 153, value: 200 },\n      { name: 'sandwich', weight: 50, value: 160 },\n      { name: 'glucose', weight: 15, value: 60 },\n      { name: 'tin', weight: 68, value: 45 },\n      { name: 'banana', weight: 27, value: 60 },\n      { name: 'apple', weight: 39, value: 40 }\n    ],\n    100\n  ),\n  405\n);"
+    },
+    {
+      "text": "<p><code>knapsack([{ name:'map', weight:9, value:150 }, { name:'compass', weight:13, value:35 }, { name:'water', weight:153, value:200 }, { name:'sandwich', weight:50, value:160 }, { name:'glucose', weight:15, value:60 }, { name:'tin', weight:68, value:45 }, { name:'banana', weight:27, value:60 }, { name:'apple', weight:39, value:40 }], 200)</code> treba da vrati <code>510</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'map', weight: 9, value: 150 },\n      { name: 'compass', weight: 13, value: 35 },\n      { name: 'water', weight: 153, value: 200 },\n      { name: 'sandwich', weight: 50, value: 160 },\n      { name: 'glucose', weight: 15, value: 60 },\n      { name: 'tin', weight: 68, value: 45 },\n      { name: 'banana', weight: 27, value: 60 },\n      { name: 'apple', weight: 39, value: 40 }\n    ],\n    200\n  ),\n  510\n);"
+    },
+    {
+      "text": "<p><code>knapsack([{ name:'cheese', weight:23, value:30 }, { name:'beer', weight:52, value:10 }, { name:'suntan cream', weight:11, value:70 }, { name:'camera', weight:32, value:30 }, { name:'T-shirt', weight:24, value:15 }, { name:'trousers', weight:48, value:10 }, { name:'umbrella', weight:73, value:40 }], 100)</code> treba da vrati <code>145</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'cheese', weight: 23, value: 30 },\n      { name: 'beer', weight: 52, value: 10 },\n      { name: 'suntan cream', weight: 11, value: 70 },\n      { name: 'camera', weight: 32, value: 30 },\n      { name: 'T-shirt', weight: 24, value: 15 },\n      { name: 'trousers', weight: 48, value: 10 },\n      { name: 'umbrella', weight: 73, value: 40 }\n    ],\n    100\n  ),\n  145\n);"
+    },
+    {
+      "text": "<p><code>knapsack([{ name:'cheese', weight:23, value:30 }, { name:'beer', weight:52, value:10 }, { name:'suntan cream', weight:11, value:70 }, { name:'camera', weight:32, value:30 }, { name:'T-shirt', weight:24, value:15 }, { name:'trousers', weight:48, value:10 }, { name:'umbrella', weight:73, value:40 }], 200)</code> treba da vrati <code>185</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'cheese', weight: 23, value: 30 },\n      { name: 'beer', weight: 52, value: 10 },\n      { name: 'suntan cream', weight: 11, value: 70 },\n      { name: 'camera', weight: 32, value: 30 },\n      { name: 'T-shirt', weight: 24, value: 15 },\n      { name: 'trousers', weight: 48, value: 10 },\n      { name: 'umbrella', weight: 73, value: 40 }\n    ],\n    200\n  ),\n  185\n);"
+    },
+    {
+      "text": "<p><code>knapsack([{ name:'waterproof trousers', weight:42, value:70 }, { name:'waterproof overclothes', weight:43, value:75 }, { name:'note-case', weight:22, value:80 }, { name:'sunglasses', weight:7, value:20 }, { name:'towel', weight:18, value:12 }, { name:'socks', weight:4, value:50 }, { name:'book', weight:30, value:10 }], 100)</code> treba da vrati <code>237</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'waterproof trousers', weight: 42, value: 70 },\n      { name: 'waterproof overclothes', weight: 43, value: 75 },\n      { name: 'note-case', weight: 22, value: 80 },\n      { name: 'sunglasses', weight: 7, value: 20 },\n      { name: 'towel', weight: 18, value: 12 },\n      { name: 'socks', weight: 4, value: 50 },\n      { name: 'book', weight: 30, value: 10 }\n    ],\n    100\n  ),\n  237\n);"
+    },
+    {
+      "text": "<p><code>knapsack([{ name:'waterproof trousers', weight:42, value:70 }, { name:'waterproof overclothes', weight:43, value:75 }, { name:'note-case', weight:22, value:80 }, { name:'sunglasses', weight:7, value:20 }, { name:'towel', weight:18, value:12 }, { name:'socks', weight:4, value:50 }, { name:'book', weight:30, value:10 }], 200)</code> treba da vrati <code>317</code>.</p>",
+      "testString": "assert.equal(\n  knapsack(\n    [\n      { name: 'waterproof trousers', weight: 42, value: 70 },\n      { name: 'waterproof overclothes', weight: 43, value: 75 },\n      { name: 'note-case', weight: 22, value: 80 },\n      { name: 'sunglasses', weight: 7, value: 20 },\n      { name: 'towel', weight: 18, value: 12 },\n      { name: 'socks', weight: 4, value: 50 },\n      { name: 'book', weight: 30, value: 10 }\n    ],\n    200\n  ),\n  317\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Izazov fonda 0-1 definisan je kao što sledi:</p>\n<p>Dobićete niz podataka o predmetima koji predstavljaju predmete za stavljanje u torbu. Ti predmeti imaju tri atributa: ime, težina i vrednost. Predmeti treba da se izaberu na način tako da ukupna težina ne prelazi maksimalnu težinu, a da je vrednost što veća moguća.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja rešava problem fonda (ili: problema sa fondom). Funkcija prima niz podataka o predmetima i njihovim maksimalnim težinama kao parametre. Trebalo bi da vrati najveću moguću ukupnu vrednost.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 79,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

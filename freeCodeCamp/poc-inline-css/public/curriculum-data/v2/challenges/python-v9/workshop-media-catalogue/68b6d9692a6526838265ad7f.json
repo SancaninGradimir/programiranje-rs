@@ -1,0 +1,66 @@
+{
+  "id": "68b6d9692a6526838265ad7f",
+  "title": "Korak 17",
+  "challengeType": 20,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        20
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nclass TVSeries(Movie):\n    pass\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nclass TVSeries(Movie):\n    pass\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Your <code>TVSeries</code> class should have an <code>__init__</code> method.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"TVSeries\").has_function(\"__init__\")`)\n})"
+    },
+    {
+      "text": "<p>Your <code>__init__</code> method should have the following parameters: <code>self</code>, <code>title</code>, <code>year</code>, <code>director</code>, <code>duration</code>, <code>seasons</code>, and <code>total_episodes</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"TVSeries\").find_function(\"__init__\").has_args(\"self, title, year, director, duration, seasons, total_episodes\")`)\n})"
+    },
+    {
+      "text": "<p>You should assign <code>seasons</code> to <code>self.seasons</code> inside your <code>__init__</code> method.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"TVSeries\").find_function(\"__init__\").has_stmt(\"self.seasons = seasons\")`)\n})"
+    },
+    {
+      "text": "<p>You should assign <code>total_episodes</code> to <code>self.total_episodes</code> inside your <code>__init__</code> method.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"TVSeries\").find_function(\"__init__\").has_stmt(\"self.total_episodes = total_episodes\")`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Objekat <code>TVSeries</code> će biti instanciran sa dodatnim atributima u odnosu na svog roditeljskog <code>Movie</code>. Stoga, kreirajte metod <code>__init__</code> sa sledećim parametrima: <code>self</code>, <code>title</code>, <code>year</code>, <code>director</code>, <code>duration</code>, <code>seasons</code>, i <code>total_episodes</code>.</p>\n<p>Unutar metode <code>__init__</code>, dodelite <code>seasons</code> i <code>total_episodes</code> atributima istog imena.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

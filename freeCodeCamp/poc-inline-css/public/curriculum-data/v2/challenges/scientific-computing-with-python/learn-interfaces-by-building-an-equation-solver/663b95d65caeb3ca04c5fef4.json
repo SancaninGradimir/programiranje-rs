@@ -1,0 +1,55 @@
+{
+  "id": "663b95d65caeb3ca04c5fef4",
+  "title": "Korak 21",
+  "challengeType": 20,
+  "dashedName": "step-21",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        29
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n        equation_string = ' '.join(terms)\n        return equation_string\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n        equation_string = ' '.join(terms)\n        return equation_string\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebali biste kreirati deklaraciju za <code>if</code> ili proveriti da li je <code>n</code> jednako <code>0</code> nakon vaše postojeće deklaracije <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[1].find_conditions()[0].is_equivalent(\"n==0\")`)) })"
+    },
+    {
+      "text": "<p>Treba da dodate <code>f'{coefficient}'</code> na spisku od <code>terms</code> unutar vaše nove izjave <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[1].find_bodies()[0].is_equivalent(\"terms.append(f'{coefficient}')\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako koeficijent ima ne-nultu vrednost, mogu postojati različiti scenariji. Ako <code>n == 0</code>, reč se sastoji od samog koeficijenta.</p>\n<p>Nakon tvog deklarisanja za <code>if</code>, kreiraj još jednu deklaraciju za <code>if</code> za ovaj događaj i dodaj sekvencijalni niz karaktera koji pokazuje koeficijent u listi <code>terms</code>. Koristi f-string za to.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 20,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,55 @@
+{
+  "id": "65c9ddd336596e30a4266a50",
+  "title": "Korak 31",
+  "challengeType": 20,
+  "dashedName": "step-31",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        8,
+        12
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        pass\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\nprint('Search for 80:', bst.search(80))\n",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        pass\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\nprint('Search for 80:', bst.search(80))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebaš obrisati glavnu reč <code>pass</code> iz puta <code>__str__</code>.</p>",
+      "testString": "({\n  test: () => {\n    assert.isFalse(\n      runPython(\n        `_Node(_code).find_class(\"TreeNode\").find_function(\"__str__\").has_pass()`\n      )\n    );\n  },\n});\n"
+    },
+    {
+      "text": "<p>Trebalo bi vratiti vrednost niza znakova od <code>self.key</code> iz vašeg puta/metode <code>__str__</code>.</p>",
+      "testString": "({ test: () => assert.match(code, /^\\s{8}return\\s+str\\(\\s*self\\.key\\s*\\)/m) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U telu putanje <code>__str__</code>, izbriši <code>pass</code> i vrati rezultat poziva funkcije <code>str()</code> sa <code>self.key</code> kao argumentom. Ovo je svojstvo elementa trenutnog čvora koje skladišti vrednost povezanu sa tim čvorom.</p>\n<p>Nakon osvežavanja rezultata, trebalo bi da vidite grešku kako nestaje u konzoli i rezultati sada bi trebalo da prikažu vrednost <code>key</code> koja je povezana sa tom čvorom.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,80 @@
+{
+  "id": "5a24c314108439a4d4036158",
+  "title": "Nemoj menjati stanje direktno",
+  "challengeType": 6,
+  "forumTopicId": 301445,
+  "dashedName": "never-mutate-state",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const ADD_TO_DO = 'ADD_TO_DO';\n\n// A list of strings representing tasks to do:\nconst todos = [\n  'Go to the store',\n  'Clean the house',\n  'Cook dinner',\n  'Learn to code',\n];\n\nconst immutableReducer = (state = todos, action) => {\n  switch(action.type) {\n    case ADD_TO_DO:\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst addToDo = (todo) => {\n  return {\n    type: ADD_TO_DO,\n    todo\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);",
+      "error": null,
+      "seed": "const ADD_TO_DO = 'ADD_TO_DO';\n\n// A list of strings representing tasks to do:\nconst todos = [\n  'Go to the store',\n  'Clean the house',\n  'Cook dinner',\n  'Learn to code',\n];\n\nconst immutableReducer = (state = todos, action) => {\n  switch(action.type) {\n    case ADD_TO_DO:\n      // Don't mutate state here or the tests will fail\n      return\n    default:\n      return state;\n  }\n};\n\nconst addToDo = (todo) => {\n  return {\n    type: ADD_TO_DO,\n    todo\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const ADD_TO_DO = 'ADD_TO_DO';\n\nconst todos = [\n  'Go to the store',\n  'Clean the house',\n  'Cook dinner',\n  'Learn to code',\n];\n\nconst immutableReducer = (state = todos, action) => {\n  switch(action.type) {\n    case ADD_TO_DO:\n      return state.concat(action.todo);\n    default:\n      return state;\n  }\n};\n\nconst addToDo = (todo) => {\n  return {\n    type: ADD_TO_DO,\n    todo\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);",
+        "error": null,
+        "seed": "const ADD_TO_DO = 'ADD_TO_DO';\n\nconst todos = [\n  'Go to the store',\n  'Clean the house',\n  'Cook dinner',\n  'Learn to code',\n];\n\nconst immutableReducer = (state = todos, action) => {\n  switch(action.type) {\n    case ADD_TO_DO:\n      return state.concat(action.todo);\n    default:\n      return state;\n  }\n};\n\nconst addToDo = (todo) => {\n  return {\n    type: ADD_TO_DO,\n    todo\n  }\n}\n\nconst store = Redux.createStore(immutableReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Redux skladište treba da postoji i bude inicijalizovano sa stanjem sličnim liniji <code>todos</code> u editoru koda.</p>",
+      "testString": "assert(\n  (function () {\n    const todos = [\n      'Go to the store',\n      'Clean the house',\n      'Cook dinner',\n      'Learn to code'\n    ];\n    const initialState = store.getState();\n    return (\n      Array.isArray(initialState) && initialState.join(',') === todos.join(',')\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p><code>addToDo</code> na <code>immutableReducer</code> sve bi trebalo da budu putevi.</p>",
+      "testString": "assert(typeof addToDo === 'function' && typeof immutableReducer === 'function');"
+    },
+    {
+      "text": "<p>Slanje akcije tipa <code>ADD_TO_DO</code> u Redux store bi trebalo da doda funkciju <code>todo</code> i ne treba da menja stanje po komadu.</p>",
+      "testString": "const initialState = store.getState();\nconst isFrozen = !!DeepFreeze(initialState);\nstore.dispatch(addToDo('__TEST__TO__DO__'));\nconst finalState = store.getState();\nconst expectedState = [\n  'Go to the store',\n  'Clean the house',\n  'Cook dinner',\n  'Learn to code',\n  '__TEST__TO__DO__'\n];\nassert(isFrozen);\nassert.deepEqual(finalState, expectedState);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ovi poslednji izazovi opisuju nekoliko načina za implementaciju glavnog principa neizmenjavanja stanja u Redux-u. Neizmenljivo stanje znači da ne možete direktno menjati stanje, već vraćate novu kopiju tog stanja.</p>\n<p>Ako uzmete snimak stanja Redux aplikacije na trenutak, videćete nešto poput <code>state 1</code>, <code>state 2</code>, <code>state 3</code>,<code>state 4</code>, <code>...</code> i slično, gde može svaki stani biti isti kao prethodni, ali je svaki drugačiji komad podataka. Nepromenljivost ovog stanja zapravo omogućava funkcije kao što je debagovanje korišćenjem putovanja kroz vreme o kojima ste možda čuli.</p>\n<p>Redux ne nameće imutabilnost stanja u svom store-u ili reducerima; to je odgovornost programa. Srećom, JavaScript (posebno ES6) pruža nekoliko korisnih alata koje možete koristiti za implementaciju imutabilnosti vašeg stanja, bilo da je to <code>string</code>, <code>number</code>, <code>array</code>, ili <code>object</code>. Zapamtite da su nizovi slova i brojeva primitive vrednosti koje su po prirodi nemeneškim. Drugim rečima, 3 je uvek 3. Ne možete promeniti vrednost broja 3. Međutim, <code>array</code> ili <code>object</code> su mutabilni. U praksi, vaše stanje može uključivati <code>array</code> ili <code>object</code>, jer su ovo strukture podataka važne za predstavljanje različitih vrsta informacija.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoji <code>store</code> i <code>reducer</code> u editoru koda za upravljanje akcijama. Završite pisanje slučaja <code>ADD_TO_DO</code> u reduceru kako biste dodali novu akcionu karakteristiku u stanje. Postoji nekoliko načina za ovo korišćenjem standardnog JavaScript ili ES6-a. Proverite da li možete pronaći način za vraćanje novog niza podataka koji ima karakteristiku iz <code>action.todo</code> dodatu na kraj.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

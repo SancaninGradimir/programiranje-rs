@@ -1,0 +1,105 @@
+{
+  "id": "587d7dbb367417b2b2512baa",
+  "title": "Ponovo koristi obrasce pomoću grupa za hvatanje",
+  "challengeType": 1,
+  "forumTopicId": 301364,
+  "dashedName": "reuse-patterns-using-capture-groups",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let repeatNum = \"42 42 42\";\nlet reRegex = /change/; // Change this line\nlet result = reRegex.test(repeatNum);",
+      "error": null,
+      "seed": "let repeatNum = \"42 42 42\";\nlet reRegex = /change/; // Change this line\nlet result = reRegex.test(repeatNum);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "let repeatNum = \"42 42 42\";\nlet reRegex = /^(\\d+) \\1 \\1$/;\nlet result = reRegex.test(repeatNum);",
+        "error": null,
+        "seed": "let repeatNum = \"42 42 42\";\nlet reRegex = /^(\\d+) \\1 \\1$/;\nlet result = reRegex.test(repeatNum);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša uobičajena upotreba bi trebalo da koristi klasu kratkih karaktera za brojeve.</p>",
+      "testString": "assert(reRegex.source.match(/\\\\d/));"
+    },
+    {
+      "text": "<p>Regularni izraz treba da ponovo iskoristi grupu za hvatanje dva puta.</p>",
+      "testString": "assert(reRegex.source.match(/\\\\1|\\\\2/g).length >= 2);"
+    },
+    {
+      "text": "<p>Vaša uobičajena upotreba bi trebalo da uporedi sekvencu karaktera <code>42 42 42</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(reRegex.test('42 42 42'));"
+    },
+    {
+      "text": "<p>Regularni izraz treba da pronađe niz <code>100 100 100</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(reRegex.test('100 100 100'));"
+    },
+    {
+      "text": "<p>Vaša uobičajena upotreba ne bi trebalo da upoređuje sekvencu karaktera <code>42 42 42 42</code>.</p>",
+      "testString": "assert.equal('42 42 42 42'.match(reRegex.source), null);"
+    },
+    {
+      "text": "<p>Vaša uobičajena upotreba ne bi trebalo da poredi niz znakova <code>42 42</code>.</p>",
+      "testString": "assert.equal('42 42'.match(reRegex.source), null);"
+    },
+    {
+      "text": "<p>Vaša uobičajena upotreba ne bi trebalo da odgovara nizu znakova <code>101 102 103</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(!reRegex.test('101 102 103'));"
+    },
+    {
+      "text": "<p>Vaše standardno korišćenje ne bi trebalo da poredi sekvencu karaktera <code>1 2 3</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(!reRegex.test('1 2 3'));"
+    },
+    {
+      "text": "<p>Vaš uobiđi unos treba da odgovara nizu znakova <code>10 10 10</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(reRegex.test('10 10 10'));"
+    },
+    {
+      "text": "<p>Vaša standardna upotreba ne bi trebalo da upoređuje sekvencu karaktera <code>42\\t42\\t42</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(!reRegex.test('42\\t42\\t42'));"
+    },
+    {
+      "text": "<p>Vaše standardno korišćenje ne bi trebalo da upoređuje niz karaktera <code>42  42  42</code>.</p>",
+      "testString": "reRegex.lastIndex = 0;\nassert(!reRegex.test('42  42  42'));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Reci da želiš/želite da uporediš reč koja se ponavlja više puta, kao što je prikazano ispod.</p>\n<pre><code class=\"language-js\">let repeatStr = \"row row row your boat\";\n</code></pre>\n<p>Možete koristiti <code>/row row row/</code>, ali šta ako ne znate specifičnu ponavljajuću reč? <dfn>Grupe za hvatanje</dfn> mogu se koristiti za pronalaženje delova ponavljajuće sekvence slova.</p>\n<p>Grupe za hvatanje se kreiraju postavljanjem obrasca regulare izraze koji je potrebno uhvatiti unutar običnih zagrada. U ovom slučaju, cilj je uhvatiti reč koja sadrži slova i brojeve, pa će grupa za hvatanje biti <code>\\w+</code> okružena običnim zagradama: <code>/(\\w+)/</code>.</p>\n<p>Dio sekvence slova koji odgovara toj grupi pohranjen je u privremeni „parametar“, pristupačan unutar istog regulacionog izraza korišćenjem povratnog kosog crte i broja uhvatne grupe (primer <code>\\1</code>). Uhvatne grupe se numerišu direktno prema poziciji njihovih otvarajućih zagrada (od leve ka desnoj), počevši od broja 1.</p>\n<p>Primer ispod poredi reč koja se ponavlja tri puta, razdvojena razmakom:</p>\n<pre><code class=\"language-js\">let repeatRegex = /(\\w+) \\1 \\1/;\nrepeatRegex.test(repeatStr); // Returns true\nrepeatStr.match(repeatRegex); // Returns [\"row row row\", \"row\"]\n</code></pre>\n<p>Koristeći način <code>.match()</code> u nizu znakova za vraćanje grupe podataka sa odgovarajućim delovima i njihovim grupama za hvatanje.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristite grupe hvatanja u <code>reRegex</code> za poređenje sekvence slova koja sadrži isti broj koji se ponavlja tri puta uz razmak od jednog mesta.</p>\n</section>",
+  "translationPending": false,
+  "block": "regular-expressions",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

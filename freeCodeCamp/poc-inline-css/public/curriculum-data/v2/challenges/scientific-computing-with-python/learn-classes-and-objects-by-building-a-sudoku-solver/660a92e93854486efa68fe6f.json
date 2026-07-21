@@ -1,0 +1,51 @@
+{
+  "id": "660a92e93854486efa68fe6f",
+  "title": "Korak 63",
+  "challengeType": 20,
+  "dashedName": "step-63",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        46,
+        49
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Board:\n    def __init__(self, board):\n        self.board = board\n\n    def find_empty_cell(self):\n        for row, contents in enumerate(self.board):\n            try:\n                col = contents.index(0)\n                return row, col\n            except ValueError:\n                pass\n        return None\n\n    def valid_in_row(self, row, num):\n        return num not in self.board[row]\n\n    def valid_in_col(self, col, num):\n        return all(self.board[row][col] != num for row in range(9))\n\n    def valid_in_square(self, row, col, num):\n        row_start = (row // 3) * 3\n        col_start = (col // 3) * 3\n        for row_no in range(row_start, row_start + 3):\n            for col_no in range(col_start, col_start + 3):\n                if self.board[row_no][col_no] == num:\n                    return False\n        return True\n\n    def is_valid(self, empty, num):\n        row, col = empty\n        valid_in_row = self.valid_in_row(row, num)\n        valid_in_col = self.valid_in_col(col, num)\n        valid_in_square = self.valid_in_square(row, col, num)\n        return all([valid_in_row, valid_in_col, valid_in_square])\n\n    def solver(self):\n        if (next_empty := self.find_empty_cell()) is None:\n            return True\n        for guess in range(1, 10):\n            if self.is_valid(next_empty, guess):\n                row, col = next_empty\n                self.board[row][col] = guess\n                if self.solver():\n                    return True\n                self.board[row][col] = 0\n        return False\ndef solve_sudoku(board):\n    pass\npuzzle = [\n  [0, 0, 2, 0, 0, 8, 0, 0, 0],\n  [0, 0, 0, 0, 0, 3, 7, 6, 2],\n  [4, 3, 0, 0, 0, 0, 8, 0, 0],\n  [0, 5, 0, 0, 3, 0, 0, 9, 0],\n  [0, 4, 0, 0, 0, 0, 0, 2, 6],\n  [0, 0, 0, 4, 6, 7, 0, 0, 0],\n  [0, 8, 6, 7, 0, 4, 0, 0, 0],\n  [0, 0, 0, 5, 1, 9, 0, 0, 8],\n  [1, 7, 0, 0, 0, 6, 0, 0, 5]\n]\n\ngameboard = Board(puzzle)",
+      "error": null,
+      "seed": "class Board:\n    def __init__(self, board):\n        self.board = board\n\n    def find_empty_cell(self):\n        for row, contents in enumerate(self.board):\n            try:\n                col = contents.index(0)\n                return row, col\n            except ValueError:\n                pass\n        return None\n\n    def valid_in_row(self, row, num):\n        return num not in self.board[row]\n\n    def valid_in_col(self, col, num):\n        return all(self.board[row][col] != num for row in range(9))\n\n    def valid_in_square(self, row, col, num):\n        row_start = (row // 3) * 3\n        col_start = (col // 3) * 3\n        for row_no in range(row_start, row_start + 3):\n            for col_no in range(col_start, col_start + 3):\n                if self.board[row_no][col_no] == num:\n                    return False\n        return True\n\n    def is_valid(self, empty, num):\n        row, col = empty\n        valid_in_row = self.valid_in_row(row, num)\n        valid_in_col = self.valid_in_col(col, num)\n        valid_in_square = self.valid_in_square(row, col, num)\n        return all([valid_in_row, valid_in_col, valid_in_square])\n\n    def solver(self):\n        if (next_empty := self.find_empty_cell()) is None:\n            return True\n        for guess in range(1, 10):\n            if self.is_valid(next_empty, guess):\n                row, col = next_empty\n                self.board[row][col] = guess\n                if self.solver():\n                    return True\n                self.board[row][col] = 0\n        return False\ndef solve_sudoku(board):\n    pass\npuzzle = [\n  [0, 0, 2, 0, 0, 8, 0, 0, 0],\n  [0, 0, 0, 0, 0, 3, 7, 6, 2],\n  [4, 3, 0, 0, 0, 0, 8, 0, 0],\n  [0, 5, 0, 0, 3, 0, 0, 9, 0],\n  [0, 4, 0, 0, 0, 0, 0, 2, 6],\n  [0, 0, 0, 4, 6, 7, 0, 0, 0],\n  [0, 8, 6, 7, 0, 4, 0, 0, 0],\n  [0, 0, 0, 5, 1, 9, 0, 0, 8],\n  [1, 7, 0, 0, 0, 6, 0, 0, 5]\n]\n\ngameboard = Board(puzzle)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da zamenite <code>pass</code> sa parametrom <code>gameboard</code>, a zatim unesete vrednost <code>Board(board)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_function(\"solve_sudoku\").find_body().is_equivalent(\"gameboard = Board(board)\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U funkciji <code>solve_sudoku</code> ukloni <code>pass</code>, zatim napravi promenljivu <code>gameboard</code> i dodeli joj instancu klase <code>Board</code>, prosleđujući <code>board</code> kao argument.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-classes-and-objects-by-building-a-sudoku-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 11,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 62,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

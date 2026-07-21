@@ -1,0 +1,109 @@
+{
+  "id": "67d311627010a0efa127b651",
+  "title": "Kako radi tok podataka u Reactu?",
+  "challengeType": 19,
+  "dashedName": "how-does-routing-work-in-react",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>React Za šta se koristi ruter?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristi se za uklanjanje putanja promena iz vaših aplikacija React.</p>",
+          "feedback": "<p>Pregledajte početak lekcije gde je React Router bio diskutovan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi se samo stalne putanje podataka za vaše aplikacije React.</p>",
+          "feedback": "<p>Proverite početak obuke gde je React Router bio diskutovan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi se za uklanjanje puteva podataka iz vaših aplikacija React.</p>",
+          "feedback": "<p>Pregledajte početak obuke gde je React Router bio diskutovan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi se za dodavanje putanje podataka u vaše aplikacije React.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Koji se hook koristi za dobijanje parametra promene za URL?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>usePar</code></p>",
+          "feedback": "<p>Pregledajte poslednje minute lekcije (ili treninga) gde je ovo diskutovano.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useParams</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useParameters</code></p>",
+          "feedback": "<p>Proverite poslednjih minuta treninga gde je ovo diskutovano.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>usePara</code></p>",
+          "feedback": "<p>Pregledajte zadnjih minuta obuke gde je ovo diskutovano.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Da li je bilo koji od ovih načina ispravan za predstavljanje segmenta promene u putanji podataka?</p>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-jsx\">&#x3C;Route path=\":category\" element={&#x3C;Category />} />\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-jsx\">&#x3C;Route path=\"/category\" element={&#x3C;Category />} />\n</code></pre>",
+          "feedback": "<p>Pregledajte zadnje minute treninga gde je ovo diskutovano.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-jsx\">&#x3C;Route path=\"\\category\" element={&#x3C;Category />} />\n</code></pre>",
+          "feedback": "<p>Pregledajte poslednje minute lekcije gde je ovo diskutovano.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-jsx\">&#x3C;Route path=\"?category\" element={&#x3C;Category />} />\n</code></pre>",
+          "feedback": "<p>Pregledajte poslednje minute lekcije gde je ovo diskutovano.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U početnoj obuci, naučili ste da je React jednopage aplikacija. Jednopage aplikacije su programi koji uključuju jednu datoteku od HTML i koristeći JavaScript da ažuriraju bilo koji sadržaj na stranici putem direktnih promena.</p>\n<p>Pa, šta se dešava kada želite dodati mnogo \"stranica\" u vašu aplikaciju za React? Kako ćete prelistati te različite komentare/sekcije?</p>\n<p>Tamo React Router ulazi.</p>\n<p>React Router je biblioteka treće strane koja vam omogućava dodavanje rute podataka u vaše aplikacije za React. Da biste počeli, moraćete instalirati React Router u postojeći projekat React kao što sledi:</p>\n<pre><code class=\"language-sh\">npm i react-router\n</code></pre>\n<p>Kada pregledate fajl la <code>package.json</code>, videćete da <code>react-router</code> je dodato u listu zavisnosti:</p>\n<pre><code class=\"language-json\">\"dependencies\": {\n  \"react\": \"^18.3.1\",\n  \"react-dom\": \"^18.3.1\",\n  \"react-router\": \"^7.2.0\"\n}\n</code></pre>\n<p>Zatim unutar tvog fajla sa <code>main.jsx</code> ili <code>index.jsx</code>, biće ti potrebno import <code>BrowserRouter</code> i da prikažeš <code>BrowserRouter</code> oko tvoje sekcije <code>App</code>:</p>\n<pre><code class=\"language-jsx\">import { StrictMode } from \"react\";\nimport { createRoot } from \"react-dom/client\";\nimport { BrowserRouter } from \"react-router\";\nimport App from \"./App.jsx\";\n\nimport \"./index.css\";\n\ncreateRoot(document.getElementById(\"root\")).render(\n  &#x3C;StrictMode>\n    &#x3C;BrowserRouter>\n      &#x3C;App />\n    &#x3C;/BrowserRouter>\n  &#x3C;/StrictMode>\n);\n</code></pre>\n<p>Da biste omogućili putanje podataka u vašoj aplikaciji, moraćete da ažurirate svoju deklaraciju <code>import</code> kako biste uključili delove <code>Routes</code> i <code>Route</code>, kao što je prikazano:</p>\n<pre><code class=\"language-js\">import { BrowserRouter, Routes, Route } from \"react-router\";\n</code></pre>\n<p>Zatim unutar <code>BrowserRouter</code>, dodajte sekcije za <code>Routes</code> i <code>Route</code>:</p>\n<pre><code class=\"language-jsx\">createRoot(document.getElementById(\"root\")).render(\n  &#x3C;StrictMode>\n    &#x3C;BrowserRouter>\n      &#x3C;Routes>\n        &#x3C;Route path=\"/\" element={&#x3C;App />} />\n      &#x3C;/Routes>\n    &#x3C;/BrowserRouter>\n  &#x3C;/StrictMode>\n);\n</code></pre>\n<p><code>path</code> i <code>element</code> se koriste za povezivanje URL sa UI sekcijom. U ovom slučaju, konfigurišemo rutu početne stranice koja je predstavljena sekcijom <code>App</code>.</p>\n<p>Nije uobičajeno u velikim programima imati mnogo komentara i strukturirane putanje podataka kao ove:</p>\n<pre><code class=\"language-jsx\">&#x3C;Routes>\n  &#x3C;Route index element={&#x3C;Home />} />\n  &#x3C;Route path=\"about\" element={&#x3C;About />} />\n\n  &#x3C;Route path=\"products\">\n    &#x3C;Route index element={&#x3C;ProductsHome />} />\n    &#x3C;Route path=\":category\" element={&#x3C;Category />} />\n    &#x3C;Route path=\":category/:productId\" element={&#x3C;ProductDetail />} />\n    &#x3C;Route path=\"trending\" element={&#x3C;Trending />} />\n  &#x3C;/Route>\n&#x3C;/Routes>\n</code></pre>\n<p>Parametri za <code>index</code> u ovim primerima namenjeni su da predstavljaju podrazumevanu putanju za određeni deo putanje. Stoga deo <code>Home</code> će biti prikazan na korenskoj putanji (<code>/</code>) kada je deo <code>ProductsHome</code> prikazan na putanji <code>products</code>.</p>\n<p>Takođe ste možda primetili da organizujemo nekoliko puteva unutar drugih puteva, kao što sledi:</p>\n<pre><code class=\"language-jsx\">&#x3C;Route path=\"products\">\n  &#x3C;Route path=\"trending\" element={&#x3C;Trending />} />\n&#x3C;/Route>\n</code></pre>\n<p>Ovo znači da put za manji put će biti spojen sa putem glavnog puta. U ovom primeru, <code>path</code> za omiljene proizvode biće <code>products/trending</code>.</p>\n<p>Kama <code>path</code> počinje sa dve tačke (<code>:</code>), to znači da predstavlja deo modifikacije u putanji podataka:</p>\n<pre><code class=\"language-jsx\">&#x3C;Route path=\":category\" element={&#x3C;Category />} />\n</code></pre>\n<p>U ovom primeru imamo sekciju izmene nazvanu <code>category</code>. Kada korisnik navigira na URL kao <code>products/brass-instruments</code>, onda će komentar promeniti u sekciju od <code>Category</code> i možete dobiti odgovarajuće podatke putem izmene.</p>\n<p>Možete dobiti vrednost dela promene korišćenjem hook-a <code>useParams</code> u manjem delu kao što je sledeće:</p>\n<pre><code class=\"language-jsx\">import { useParams } from \"react-router\";\n\nexport default function Category() {\n  let params = useParams();\n   {/* Accessing the category param: params.category */}\n   {/* rest of code goes here */}\n}\n</code></pre>\n<p>Dinamičke putanje su korisne jer vam omogućavaju kreiranje dinamičkih i ponovo upotrebljivih sekcija koje prikazuju različit sadržaj u zavisnosti od parametara koji se nalaze u URL. Umesto definisanja statične liste putanja za svaki mogući način, možete koristiti dinamičke sekcije za prikaz raznolikog sadržaja u zavisnosti od zahteva korisnika.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-routing-react-frameworks-and-dependency-management-tools",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 21,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

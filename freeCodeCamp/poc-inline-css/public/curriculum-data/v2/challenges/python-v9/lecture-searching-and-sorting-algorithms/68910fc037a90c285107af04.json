@@ -1,0 +1,109 @@
+{
+  "id": "68910fc037a90c285107af04",
+  "title": "Šta je tehnika podjele i osvajanja, i kako radi algoritam Merge Sort?",
+  "challengeType": 19,
+  "dashedName": "what-is-divide-and-conquer-and-how-does-merge-sort-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Šta je razdvajanje i pobeda u računarskoj nauci?</p>",
+      "answers": [
+        {
+          "answer": "<p>Metoda detektovanja kruga u testovima funkcionalnih vrednosti koristeći samo dva operatera.</p>",
+          "feedback": "<p>Proveri početak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Algoritam za poređenje dva elementa i zamenu ih od manjeg ka većem, ukoliko je potrebno.</p>",
+          "feedback": "<p>Proveri početak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Metodologija razbijanja izazova na manje delove korišćenjem iterativnog procesa.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Algoritam za izračunavanje najkraćeg puta koji povezuje tačke u grafu.</p>",
+          "feedback": "<p>Proveri početak obuke.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja je vremenska složenost za Merge Sort algoritam?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>O(n log n)</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(log n²)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(n³ log n)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(log n³)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja je prostorna složenost za algoritam Merge Sort?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>O(n²)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(1)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(n log n)</code></p>",
+          "feedback": "<p>Proveri završetak obuke.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>O(n)</code></p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Metoda \"podeljivanja i osvajanja\" u računarskoj nauci je tehnika razbijanja problema na manje probleme korišćenjem rekurzivnog procesa. Jedna od ključnih komponenti ove metode je rekurzija, koja nastaje kada funkcija poziva samu sebe više puta dok ne dođe do osnovnog slučaja (base case). U ovom lekciji, pregledaćemo Merge Sort algoritam kako bismo bolje razumeli kako metoda \"podeljivanja i osvajanja\" funkcioniše.</p>\n<p>Recimo da imamo ovu listu brojeva:</p>\n<pre><code class=\"language-md\">42 37 53 17\n</code></pre>\n<p>Cilj je da se sortira ta lista od manjeg ka većem koristeći Merge Sort algoritam. Prvi korak je podeliti tu listu na pola:</p>\n<pre><code class=\"language-md\">42 37 | 53 17\n</code></pre>\n<p>Zatim moramo pogledati levu stranu liste:</p>\n<pre><code class=\"language-md\">42 37\n</code></pre>\n<p>Uzimamo taj manji spisak i delimo ga na pola dok svaki manji spisak ne sadrži samo jedan element unutar sebe:</p>\n<pre><code class=\"language-md\">42 | 37\n</code></pre>\n<p>Lista koja ima samo jedan element je podešena po podrazumevanju. Sledeći korak je da spojimo svaku malu listu sa jednim elementom u organizovanu listu:</p>\n<pre><code class=\"language-md\">37 42\n</code></pre>\n<p>Zatim sledimo isti proces sa desne strane početne liste:</p>\n<pre><code class=\"language-py\"># right side of original list\n53 17\n\n# divide the list in half\n53 | 17\n\n# merge the lists in sorted order\n17 53\n</code></pre>\n<p>Budući da su oba dela inicijalne liste obrađene, spajamo ta dva dela i sortiramo elemente:</p>\n<pre><code class=\"language-markdown\">17 37 42 53\n</code></pre>\n<p>Ovo je kako algoritam izgleda u kodu:</p>\n<pre><code class=\"language-py\">def merge_sort(arr):\n    if len(arr) &#x3C;= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n\n    sorted_list = []\n    i = 0\n    j = 0\n\n    while i &#x3C; len(left) and j &#x3C; len(right):\n        if left[i] &#x3C;= right[j]:\n            sorted_list.append(left[i])\n            i += 1\n        else:\n            sorted_list.append(right[j])\n            j += 1\n\n    sorted_list.extend(left[i:])\n    sorted_list.extend(right[j:])\n\n    return sorted_list\n</code></pre>\n<p>Vremenska složenost za algoritma merge sort će biti <code>O(n log n)</code> jer se lista stalno deli na pola (<code>log n</code>) a zatim spaja (<code>O(n)</code>). Za razliku od drugih algoritama za sortiranje kao što je bubble sort, merge sort ne radi na mestu i ima prostornu složenost <code>O(n)</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-searching-and-sorting-algorithms",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 57,
+  "instructions": "",
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-algorithms",
+  "certification": "python-v9"
+}

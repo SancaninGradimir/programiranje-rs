@@ -1,0 +1,51 @@
+{
+  "id": "657db4cb77190e33a20e852a",
+  "title": "Korak 69",
+  "challengeType": 20,
+  "dashedName": "step-69",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        36,
+        39
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length=16, nums=1, special_chars=1, uppercase=1, lowercase=1):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n        \n        constraints = [\n            (nums, r'\\d'),\n            (special_chars, fr'[{symbols}]'),\n            (uppercase, r'[A-Z]'),\n            (lowercase, r'[a-z]')\n        ]\n\n        # Check constraints        \n        if all(\n            constraint <= len(re.findall(pattern, password))\n            for constraint, pattern in constraints\n        ):\n            break\n    \n    return password\n    \nnew_password = generate_password(nums=1, length=8, special_chars=1, uppercase=1, lowercase=1)\nprint(new_password)",
+      "error": null,
+      "seed": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length=16, nums=1, special_chars=1, uppercase=1, lowercase=1):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n        \n        constraints = [\n            (nums, r'\\d'),\n            (special_chars, fr'[{symbols}]'),\n            (uppercase, r'[A-Z]'),\n            (lowercase, r'[a-z]')\n        ]\n\n        # Check constraints        \n        if all(\n            constraint <= len(re.findall(pattern, password))\n            for constraint, pattern in constraints\n        ):\n            break\n    \n    return password\n    \nnew_password = generate_password(nums=1, length=8, special_chars=1, uppercase=1, lowercase=1)\nprint(new_password)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da proslediš samo <code>length=8</code> u svoj poziv <code>generate_password()</code>.</p>",
+      "testString": "({ test: () => assert.match(code, /^new_password\\s*=\\s*generate_password\\s*\\(\\s*length\\s*=\\s*8\\s*\\)/m) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada kombinujete argumente sa podrazumevanim vrednostima i argumente po ključu, možete proslediti manje argumenata od onih koje funkcija zahteva. Argumenti koji nisu eksplicitno prosleđeni u pozivu funkcije uzimaće svoje zadane vrednosti.</p>\n<p>Promeni svoj poziv <code>generate_password()</code> ili samo primi <code>length=8</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-regular-expressions-by-building-a-password-generator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 68,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

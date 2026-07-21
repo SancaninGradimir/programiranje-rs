@@ -1,0 +1,62 @@
+{
+  "id": "6977a8bbcbdd557886bd0718",
+  "title": "Korak 7",
+  "challengeType": 20,
+  "dashedName": "step-7",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        18,
+        20
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\nrunning_total += appetizers + main_courses + desserts + drinks\nprint('Total bill so far:', running_total)\n\ntip = running_total * 0.25\nprint('Tip amount:', tip)\n\nrunning_total += tip\nprint('Total with tip:', running_total)\n\n",
+      "error": null,
+      "seed": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\nrunning_total += appetizers + main_courses + desserts + drinks\nprint('Total bill so far:', running_total)\n\ntip = running_total * 0.25\nprint('Tip amount:', tip)\n\nrunning_total += tip\nprint('Total with tip:', running_total)\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete parametar nazvan <code>final_bill</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n    _Node(_code).has_variable('final_bill')\n    `))\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš operator <code>/</code> za podelu <code>running_total</code> po <code>num_of_friends</code> i postavljanje rezultata u tvoju varijablu <code>final_bill</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n    _Node(_code).find_variable('final_bill').is_equivalent('final_bill = running_total / num_of_friends')\n    `))\n})"
+    },
+    {
+      "text": "<p>Treba da odštampate sekvencu karaktera <code>Bill per person:</code> praćenu razmakom i kriterijumom <code>final_bill</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\nimport io, contextlib, re\n\nbuffer = io.StringIO()\nwith contextlib.redirect_stdout(buffer):\n    exec(_code)\n\nmatch = re.search(r\"Bill per person: ([0-9]+(?:\\\\.[0-9]+)?)\", buffer.getvalue())\n\nassert match\nassert abs(float(match.group(1)) - (((37.89 + 57.34 + 39.39 + 64.21) * 1.25) / 4)) < 1e-6\n`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, nakon dodavanja napiwaka/troška za napitak, imate konačan iznos za celu grupu. Morate odlučiti koliko svaki član mora da plati tako što ćete celokupni račun podeliti sa brojem ljudi.</p>\n<p>U Python, koristiš znak kvačice <code>/</code> za deljenje. Primer:</p>\n<pre><code class=\"language-py\">half = 10 / 2\n</code></pre>\n<p>Kreiraj parametar nazvan <code>final_bill</code> i postavi mu vrednost rezultata deljenja <code>running_total</code> sa <code>num_of_friends</code>.</p>\n<p>Na kraju, koristi funkciju <code>print()</code> da prikaže sekvencu znakova <code>Bill per person:</code> praćen razmakom i vrednošću <code>final_bill</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-bill-splitter",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-basics",
+  "certification": "python-v9"
+}

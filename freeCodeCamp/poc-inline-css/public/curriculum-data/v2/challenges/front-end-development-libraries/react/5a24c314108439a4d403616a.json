@@ -1,0 +1,103 @@
+{
+  "id": "5a24c314108439a4d403616a",
+  "title": "Prošaljite red podataka kao parametre",
+  "challengeType": 6,
+  "forumTopicId": 301401,
+  "dashedName": "pass-an-array-as-props",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "const List = (props) => {\n  { /* Change code below this line */ }\n  return <p>{}</p>\n  { /* Change code above this line */ }\n};\n\nclass ToDo extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>To Do Lists</h1>\n        <h2>Today</h2>\n        { /* Change code below this line */ }\n        <List/>\n        <h2>Tomorrow</h2>\n        <List/>\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "const List = (props) => {\n  { /* Change code below this line */ }\n  return <p>{}</p>\n  { /* Change code above this line */ }\n};\n\nclass ToDo extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>To Do Lists</h1>\n        <h2>Today</h2>\n        { /* Change code below this line */ }\n        <List/>\n        <h2>Tomorrow</h2>\n        <List/>\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const List= (props) => {\n  return <p>{props.tasks.join(', ')}</p>\n};\n\nclass ToDo extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>To Do Lists</h1>\n        <h2>Today</h2>\n        <List tasks={['study', 'exercise']} />\n        <h2>Tomorrow</h2>\n        <List tasks={['call Sam', 'grocery shopping', 'order tickets']} />\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "const List= (props) => {\n  return <p>{props.tasks.join(', ')}</p>\n};\n\nclass ToDo extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>To Do Lists</h1>\n        <h2>Today</h2>\n        <List tasks={['study', 'exercise']} />\n        <h2>Tomorrow</h2>\n        <List tasks={['call Sam', 'grocery shopping', 'order tickets']} />\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Dio <code>ToDo</code> mora da vrati <code>div</code> jednu instancu.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return mockedComponent.children().first().type() === 'div';\n  })()\n);"
+    },
+    {
+      "text": "<p>Treće dete komponente <code>ToDo</code> treba da bude instanca komponente <code>List</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return mockedComponent.children().first().childAt(2).name() === 'List';\n  })()\n);"
+    },
+    {
+      "text": "<p>Peteti element sekcije <code>ToDo</code> treba da bude primer sekcije <code>List</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return mockedComponent.children().first().childAt(4).name() === 'List';\n  })()\n);"
+    },
+    {
+      "text": "<p>Oba primera sekcije <code>List</code> moraju imati svojstvo nazvano <code>tasks</code>, a <code>tasks</code> mora biti tipa niza podataka.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return (\n      Array.isArray(mockedComponent.find('List').get(0).props.tasks) &&\n      Array.isArray(mockedComponent.find('List').get(1).props.tasks)\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Prvi deo <code>List</code> koji predstavlja današnju vežbu treba da ima najmanje 2 stavke.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return mockedComponent.find('List').get(0).props.tasks.length >= 2;\n  })()\n);"
+    },
+    {
+      "text": "<p>Drugi deo <code>List</code> koji predstavlja vežbe za sutra mora imati 3 ili više stavki.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return mockedComponent.find('List').get(1).props.tasks.length >= 3;\n  })()\n);"
+    },
+    {
+      "text": "<p>Deo <code>List</code> treba da prikaže vrednost iz atributa <code>tasks</code> u labeli <code>p</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ToDo));\n    return (\n      mockedComponent\n        .find('p')\n        .get(0)\n        .props.children.replace(/\\s*,\\s*/g, ',') ===\n        mockedComponent\n          .find('List')\n          .get(0)\n          .props.tasks.join(',')\n          .replace(/\\s*,\\s*/g, ',') &&\n      mockedComponent\n        .find('p')\n        .get(1)\n        .props.children.replace(/\\s*,\\s*/g, ',') ===\n        mockedComponent\n          .find('List')\n          .get(1)\n          .props.tasks.join(',')\n          .replace(/\\s*,\\s*/g, ',')\n    );\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prethodni izazov pokazao je kako se informacije prosleđuju iz roditeljske komponente u podređenu preko <code>props</code>. Ovaj izazov pokazuje kako se nizovi podataka mogu proslediti kao <code>props</code>. Da bi prosledio niz podataka JSX elementu, moraš ga tretirati kao JavaScript i staviti u vitičaste zagrade.</p>\n<pre><code class=\"language-jsx\">&#x3C;ParentComponent>\n  &#x3C;ChildComponent colors={[\"green\", \"blue\", \"red\"]} />\n&#x3C;/ParentComponent>\n</code></pre>\n<p>Detilji deo zatim ima pristup svojstvu niza podataka <code>colors</code>. Metode nizova kao što su <code>join()</code> mogu se koristiti prilikom dobijanja tog svojstva.</p>\n<pre><code class=\"language-jsx\">const ChildComponent = (props) => &#x3C;p>{props.colors.join(', ')}&#x3C;/p>\n</code></pre>\n<p>Ovo će spojiti sve elemente niza <code>colors</code> u tekstualni niz razdvojen zarezima i prikazati: <code>&#x3C;p>green, blue, red&#x3C;/p></code>. Kasnije ćeš naučiti i druge uobičajene načine prikazivanja nizova u React-u.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoje sekcije <code>List</code> i <code>ToDo</code> u editoru koda. Kada prikažete svaki <code>List</code> iz sekcije <code>ToDo</code>, prođe svojstvo <code>tasks</code> koje je postavljeno na vrednost niza vežbi za rad, na primer <code>[\"walk dog\", \"workout\"]</code>. Zatim pronađite ovaj niz <code>tasks</code> u sekciji <code>List</code> i prikažite njegovu vrednost unutar elementa <code>p</code>. Koristite <code>join(\", \")</code> da prikažete niz <code>props.tasks</code> u elementu <code>p</code> kao listu od vrednosti razdvojenih zarezima. Današnja lista treba da ima najmanje 2 vežbe, a ona za sutra treba da ima najmanje 3 vežbe.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

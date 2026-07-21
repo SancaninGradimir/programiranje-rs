@@ -1,0 +1,55 @@
+{
+  "id": "65d8a6fcb15a3a239ba35dfd",
+  "title": "Korak 46",
+  "challengeType": 20,
+  "dashedName": "step-46",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        40,
+        56
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        return str(self.key)\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\n    def _delete(self, node, key):\n        if node is None:\n            return node\n        if key < node.key:\n            node.left = self._delete(node.left, key)\n        elif key > node.key:\n            node.right = self._delete(node.right, key)\n        else:\n            if node.left is None:\n                return node.right\n            elif node.right is None:\n                return node.left\n\n            node.key = self._min_value(node.right) \n            \n    def _min_value(self, node):\n        while node.left is not None:\n            node = node.left\n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\n# print('Search for 80:', bst.search(80))\n\n",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        return str(self.key)\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\n    def _delete(self, node, key):\n        if node is None:\n            return node\n        if key < node.key:\n            node.left = self._delete(node.left, key)\n        elif key > node.key:\n            node.right = self._delete(node.right, key)\n        else:\n            if node.left is None:\n                return node.right\n            elif node.right is None:\n                return node.left\n\n            node.key = self._min_value(node.right) \n            \n    def _min_value(self, node):\n        while node.left is not None:\n            node = node.left\n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\n# print('Search for 80:', bst.search(80))\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba ti da pozoveš putanju <code>_delete</code> za ponavljanje korišćenjem <code>node.right</code> i <code>node.key</code> kao argumenata.</p>",
+      "testString": "assert.match(code, /self\\._delete\\(\\s*node\\.right\\s*,\\s*node\\.key\\s*/);"
+    },
+    {
+      "text": "<p>Trebalo bi da postaviš vrednost return poziva <code>_delete()</code> za desetić trenutnog čvora.</p>",
+      "testString": "assert.match(code, /node\\.right\\s*=\\s*self\\._delete\\(\\s*node\\.right\\s*,\\s*node\\.key/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon pronalaženja minimalne vrednosti, moraćete da obrišete čvor sa minimalnom vrednošću iz desnog poddrva rekurzivno.</p>\n<p>Ovaj korak osigurava da se čvor sa minimalnom vrednošću briše iz stabla uz održavanje svojstva binarnog stabla pretrage (BST).</p>\n<p>Izvrši poziv puta <code>_delete</code> za ponavljanje korišćenjem <code>node.right</code> i <code>node.key</code> kao argumenata. Postavi vrednost return poziva <code>_delete()</code> za desetić (desni) čvor trenutnog čvora.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 45,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

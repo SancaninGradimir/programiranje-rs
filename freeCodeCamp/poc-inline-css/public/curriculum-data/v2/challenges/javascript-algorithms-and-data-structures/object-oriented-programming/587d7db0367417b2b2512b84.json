@@ -1,0 +1,85 @@
+{
+  "id": "587d7db0367417b2b2512b84",
+  "title": "Urithi wa tabia kutoka kwa supertype",
+  "challengeType": 1,
+  "forumTopicId": 301319,
+  "dashedName": "inherit-behaviors-from-a-supertype",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\n// Only change code below this line\n\nlet duck; // Change this line\nlet beagle; // Change this line",
+      "error": null,
+      "seed": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\n// Only change code below this line\n\nlet duck; // Change this line\nlet beagle; // Change this line"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\nlet duck = Object.create(Animal.prototype);\nlet beagle = Object.create(Animal.prototype);\n\nduck.eat();\nbeagle.eat();",
+        "error": null,
+        "seed": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\nlet duck = Object.create(Animal.prototype);\nlet beagle = Object.create(Animal.prototype);\n\nduck.eat();\nbeagle.eat();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Kigezo cha <code>duck</code> kinapaswa kufafanuliwa.</p>",
+      "testString": "assert(typeof duck !== 'undefined');"
+    },
+    {
+      "text": "<p>Kigezo cha <code>beagle</code> kinapaswa kufafanuliwa.</p>",
+      "testString": "assert(typeof beagle !== 'undefined');"
+    },
+    {
+      "text": "<p>Parametar za <code>duck</code> mora biti inicijalizovan sa <code>Object.create</code>.</p>",
+      "testString": "assert(\n  /(let|const|var)\\s{1,}duck\\s*=\\s*Object\\.create\\s*\\(\\s*Animal\\.prototype\\s*\\)\\s*/.test(\n    __helpers.removeJSComments(code)\n  )\n);"
+    },
+    {
+      "text": "<p>Kigezo cha <code>beagle</code> kinapaswa kuanzishwa na <code>Object.create</code>.</p>",
+      "testString": "assert(\n  /(let|const|var)\\s{1,}beagle\\s*=\\s*Object\\.create\\s*\\(\\s*Animal\\.prototype\\s*\\)\\s*/.test(\n    __helpers.removeJSComments(code)\n  )\n);"
+    },
+    {
+      "text": "<p><code>duck</code> treba da ima <code>prototype</code> od <code>Animal</code>.</p>",
+      "testString": "assert(duck instanceof Animal);"
+    },
+    {
+      "text": "<p><code>beagle</code> treba da ima <code>prototype</code> sa <code>Animal</code>.</p>",
+      "testString": "assert(beagle instanceof Animal);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U prethodnom izazovu napravio si nadtip (<code>supertype</code>) pod nazivom <code>Animal</code>, koji definiše ponašanja zajednička svim životinjama:</p>\n<pre><code class=\"language-js\">function Animal() { }\nAnimal.prototype.eat = function() {\n  console.log(\"nom nom nom\");\n};\n</code></pre>\n<p>Ovaj i sledeći izazov pokazaće kako da ponovo koristiš metode objekta <code>Animal</code> u objektima <code>Bird</code> i <code>Dog</code> bez njihovog ponovnog pisanja. To se postiže tehnikom koja se zove nasleđivanje. Ovaj izazov se bavi prvim korakom: kreiranjem instance nadtipa (ili roditelja). Već znaš jedan način za kreiranje instance objekta <code>Animal</code> pomoću operatora <code>new</code>:</p>\n<pre><code class=\"language-js\">let animal = new Animal();\n</code></pre>\n<p>Postoje određeni nedostatci prilikom korišćenja ove sintakse za nasleđivanje, što je veoma teško u opsegu ovog izazova. Umesto toga, ovde je alternativa metoda koja nema te gubitke:</p>\n<pre><code class=\"language-js\">let animal = Object.create(Animal.prototype);\n</code></pre>\n<p><code>Object.create(obj)</code> kreira novi objekat, i postavlja <code>obj</code> kao <code>prototype</code> tog novog objekta. Zapamtite da je <code>prototype</code> kao \"recept\" za kreiranje objekta. Postavljanjem <code>prototype</code> od <code>animal</code> u <code>prototype</code> od <code>Animal</code>, dajete primer za <code>animal</code> \"recept\" sličan bilo kom drugom primeru od <code>Animal</code>.</p>\n<pre><code class=\"language-js\">animal.eat();\nanimal instanceof Animal;\n</code></pre>\n<p>Put do <code>instanceof</code> ovde će vratiti <code>true</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Tumia <code>Object.create</code> kutengeneza mifano miwili ya <code>Animal</code> iitwayo <code>duck</code> na <code>beagle</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

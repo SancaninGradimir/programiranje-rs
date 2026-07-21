@@ -1,0 +1,109 @@
+{
+  "id": "67d2f759154eac7b4d5cb1bf",
+  "title": "Kako poboljšati vidljivu performansu komponenti?",
+  "challengeType": 19,
+  "dashedName": "how-to-improve-the-perceived-performance-of-features",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Šta je vidljiva funkcija?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kako sajt oseća korisniku.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kako stranica brzo učitava.</p>",
+          "feedback": "<p>Zamisli kako korisnik čeka da se web stranica učita.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kako stranica sporo učitava.</p>",
+          "feedback": "<p>Zamislite kako korisnik čeka da se web stranica učita.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kako je performanse korisnika brze.</p>",
+          "feedback": "<p>Razmislite o tome kako korisnik čeka da se veb-stranica učita.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koji od sledećih primeraka predstavlja preloading?</p>",
+      "answers": [
+        {
+          "answer": "<p>Dohvatanje sledeće stranice prije nego što korisnik zatraži.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dohvatanje sadržaja web stranice nakon interakcije korisnika sa tom stranicom.</p>",
+          "feedback": "<p>Razmislite o predviđanju šta će korisnik sledeće kliknuti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kuonyesha maudhui ya kiwakilishi wakati wa kusubiri rasilimali zipakie.</p>",
+          "feedback": "<p>Razmislite o predviđanju šta će korisnik sledeće kliknuti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Keširanje resursa za korišćenje van mreže nakon što se stranica učita.</p>",
+          "feedback": "<p>Razmislite o predviđanju šta će korisnik sledeće kliknuti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koji je model koštane mreže?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ekran koji prikazuje sliku kosti.</p>",
+          "feedback": "<p>Zamislite kako korisnici osećaju kada se stranica popunjava korak po korak, umesto da čekaju u mraku.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Osnovi web stranice.</p>",
+          "feedback": "<p>Zamislite kako korisnici osećaju kada se stranica popunjava korak po korak, umesto da čekaju u mraku.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Siva reprezentacija koja liči na stvarni sadržaj i postupno ga popunjava.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ekran učitavanja koji prikazuje jednostavne oblike ili tekst dok se sadržaj stranice učitava.</p>",
+          "feedback": "<p>Zamislite kako korisnici osećaju kada se stranica popunjava korak po korak, umesto da čekaju u mraku.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Kao što znamo, percipirana performansa nije samo o stvarnoj brzini sajta — već o tome kako se korisnici osećaju. Na primer, da li ste ikada koristili sajt koji je delovao spor, iako nije bio? To je percipirana performansa — kako se sajt oseća za korisnika.</p>\n<p>Male izmene mogu napraviti veliku razliku u korisničkom iskustvu. Pogledajmo praktične načine za unapređenje vidljivih performansi!</p>\n<p>Spineri mogu učiniti da korisnici imaju osećaj da čekaju duže nego što zaista čekaju. Umesto toga, koristite skeleton ekrane — sive prikaze koji liče na stvarni sadržaj i postepeno se popunjavaju:</p>\n<pre><code class=\"language-html\">&#x3C;div class=\"skeleton\">&#x3C;/div>\n&#x3C;script>\n  setTimeout(() => {\n    document.querySelector(\".skeleton\").innerHTML = \"✅ Content Loaded!\";\n  }, 2000);\n&#x3C;/script>\n</code></pre>\n<p>Korisnici imaju utisak da se stranica postepeno popunjava, umesto da čekaju u neizvesnosti.</p>\n<p>Pored toga, korisnici ne bi trebalo da čekaju da se sve učita pre nego što počnu sa interakcijom. Prvo učitajte najvažniji sadržaj, a zatim u pozadini učitajte ostatak. Ovo smo ranije videli kroz lazy loading.</p>\n<pre><code class=\"language-html\">&#x3C;img src=\"placeholder.jpg\" data-src=\"real-image.jpg\" class=\"lazy\">\n&#x3C;script>\n  document.addEventListener(\"DOMContentLoaded\", function () {\n    const lazyImages = document.querySelectorAll(\"img.lazy\");\n    lazyImages.forEach(img => {\n      img.src = img.dataset.src;\n    });\n  });\n&#x3C;/script>\n</code></pre>\n<p>To čini da stranica deluje responzivno, čak i ako još nije sav sadržaj učitan.</p>\n<p>A sada – šta ako bi vaš veb-sajt mogao da predvidi šta će korisnik sledeće kliknuti? Uz preloading možete unapred učitati sledeću stranicu pre nego što je korisnik zatraži:</p>\n<pre><code class=\"language-html\">&#x3C;link rel=\"preload\" href=\"next-page.html\" as=\"document\">\n</code></pre>\n<p>Ovo smanjuje prividno vreme učitavanja gotovo na nulu dok se korisnici kreću kroz sajt.</p>\n<p>I na kraju, korisnici ne vole neizvesnost. Kada kliknu na dugme, odmah potvrdite njihovu radnju.</p>\n<pre><code class=\"language-html\">&#x3C;button onclick=\"this.innerText='⏳ Processing...'; setTimeout(() => this.innerText='✅ Done!', 2000);\">\n  Click Me\n&#x3C;/button>\n</code></pre>\n<p>To znači da, čak i kada postoji kašnjenje, korisnik ima osećaj da se nešto dešava.</p>\n<p>Dakle, za kraj, poboljšanje percipiranih performansi nije samo pitanje stvarne brzine, već i toga koliko brzo sajt deluje korisniku. Koristite skeleton ekrane, prvo prikažite najvažniji sadržaj, pametno koristite preloading i pružite trenutne povratne informacije kako bi vaš veb-sajt delovao brže.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-performance-in-web-applications",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 27,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "performance",
+  "certification": "front-end-development-libraries-v9"
+}

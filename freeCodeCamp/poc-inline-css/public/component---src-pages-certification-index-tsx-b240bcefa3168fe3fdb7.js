@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_freecodecamp_client=self.webpackChunk_freecodecamp_client||[]).push([[4884],{28969:function(e,n,c){var t=c(49337),u=c(38470);n.A=(0,u.A)((0,t.Fe)("/"))},38470:function(e,n,c){var t=c(49337);n.A=function(e){return void 0===e&&(e="/"),()=>("undefined"!=typeof window&&(0,t.oo)(e),null)}},95278:function(e,n,c){c.r(n);var t=c(7378),u=c(28969);n.default=()=>t.createElement(u.A,null)}}]);
+//# sourceMappingURL=component---src-pages-certification-index-tsx-b240bcefa3168fe3fdb7.js.map

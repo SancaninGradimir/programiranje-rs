@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc7e7b",
+  "title": "izvori/brojevi visine",
+  "challengeType": 1,
+  "forumTopicId": 302275,
+  "dashedName": "generatorexponential",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function exponentialGenerator(n) {\n\n}",
+      "error": null,
+      "seed": "function exponentialGenerator(n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function exponentialGenerator(n){\n  function* PowersGenerator(m) {\n    var n=0;\n    while(1) {\n        yield Math.pow(n, m);\n        n += 1;\n    }\n  }\n\n  function* FilteredGenerator(g, f){\n    var value = g.next().value;\n    var filter = f.next().value;\n    while(1) {\n        if( value < filter ) {\n            yield value;\n            value = g.next().value;\n        } else if ( value > filter ) {\n            filter = f.next().value;\n        } else {\n            value = g.next().value;\n            filter = f.next().value;\n        }\n    }\n  }\n\n  var squares = PowersGenerator(2);\n  var cubes = PowersGenerator(3);\n\n  var filtered = FilteredGenerator(squares, cubes);\n\n  var curr=0;\n  for(var i=0;i<n;i++) curr=filtered.next();\n\n  return curr.value;\n}",
+        "error": null,
+        "seed": "function exponentialGenerator(n){\n  function* PowersGenerator(m) {\n    var n=0;\n    while(1) {\n        yield Math.pow(n, m);\n        n += 1;\n    }\n  }\n\n  function* FilteredGenerator(g, f){\n    var value = g.next().value;\n    var filter = f.next().value;\n    while(1) {\n        if( value < filter ) {\n            yield value;\n            value = g.next().value;\n        } else if ( value > filter ) {\n            filter = f.next().value;\n        } else {\n            value = g.next().value;\n            filter = f.next().value;\n        }\n    }\n  }\n\n  var squares = PowersGenerator(2);\n  var cubes = PowersGenerator(3);\n\n  var filtered = FilteredGenerator(squares, cubes);\n\n  var curr=0;\n  for(var i=0;i<n;i++) curr=filtered.next();\n\n  return curr.value;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>exponentialGenerator</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof exponentialGenerator == 'function');"
+    },
+    {
+      "text": "<p><code>exponentialGenerator()</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof exponentialGenerator(10) == 'number');"
+    },
+    {
+      "text": "<p><code>exponentialGenerator(10)</code> trebalo bi da vrati <code>144</code>.</p>",
+      "testString": "assert.equal(exponentialGenerator(10), 144);"
+    },
+    {
+      "text": "<p><code>exponentialGenerator(12)</code> inapaswa kurudisha <code>196</code>.</p>",
+      "testString": "assert.equal(exponentialGenerator(12), 196);"
+    },
+    {
+      "text": "<p><code>exponentialGenerator(14)</code> trebalo bi da vrati <code>256</code>.</p>",
+      "testString": "assert.equal(exponentialGenerator(14), 256);"
+    },
+    {
+      "text": "<p><code>exponentialGenerator(20)</code> treba vratiti <code>484</code>.</p>",
+      "testString": "assert.equal(exponentialGenerator(20), 484);"
+    },
+    {
+      "text": "<p><code>exponentialGenerator(25)</code> bi trebalo da vrati <code>784</code>.</p>",
+      "testString": "assert.equal(exponentialGenerator(25), 784);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Generator je izvršivi objekat (kao funkcija ili procedura) sa kodom koji proizvodi sekvencu vrednosti, tako da svaki put kada pozovete generator, vraća se sledeća vrednost u sekvenci.</p>\n<p>Generatori se često grade na coroutine-ima ili objektima kako bi je unutrašnje stanje tog objekta održavano \"po defaultu\".</p>\n<p>Generatori se često koriste u situacijama gde sekvenca može biti beskonačna, i gde je moguće izračunati sledeću vrednost sekvence koristeći samo ograničeno stanje.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja koristi generatore za generisanje kvadrata i brojeva visine. Kreiraj novi generator koji filtrira sve brojeve visine iz generatora kvadrata.</p>\n<p>Funkcija mora da vrati vrednost od \\( n^{th} \\) iz filtrisanog izvora.</p>\n<p>Na primer, za \\(n=7\\), funkcija treba da vrati 81, jer bi niz bio 4, 9, 16, 25, 36, 49, 81. Broj 64 je izostavljen zato što je kubni broj.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 58,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

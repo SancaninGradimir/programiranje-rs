@@ -1,0 +1,97 @@
+{
+  "id": "5ea2815e364d9a2222ea55f8",
+  "title": "Kompresija LZW",
+  "challengeType": 1,
+  "forumTopicId": 385288,
+  "dashedName": "lzw-compression",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function LZW (compressData, input) {\n\n}",
+      "error": null,
+      "seed": "function LZW (compressData, input) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function LZW (compressData, input) {\n  function compress(uncompressed) {\n    // Build the dictionary.\n    var i,\n      dictionary = {},\n      c,\n      wc,\n      w = \"\",\n      result = [],\n      dictSize = 256;\n    for (i = 0; i < 256; i += 1) {\n      dictionary[String.fromCharCode(i)] = i;\n    }\n\n    for (i = 0; i < uncompressed.length; i += 1) {\n      c = uncompressed.charAt(i);\n      wc = w + c;\n      //Do not use dictionary[wc] because javascript arrays\n      //will return values for array['pop'], array['push'] etc\n      // if (dictionary[wc]) {\n      if (dictionary.hasOwnProperty(wc)) {\n        w = wc;\n      } else {\n        result.push(dictionary[w]);\n        // Add wc to the dictionary.\n        dictionary[wc] = dictSize++;\n        w = String(c);\n      }\n    }\n\n    // Output the code for w.\n    if (w !== \"\") {\n      result.push(dictionary[w]);\n    }\n    return result;\n  }\n\n\n  function decompress(compressed) {\n    // Build the dictionary.\n    var i,\n      dictionary = [],\n      w,\n      result,\n      k,\n      entry = \"\",\n      dictSize = 256;\n    for (i = 0; i < 256; i += 1) {\n      dictionary[i] = String.fromCharCode(i);\n    }\n\n    w = String.fromCharCode(compressed[0]);\n    result = w;\n    for (i = 1; i < compressed.length; i += 1) {\n      k = compressed[i];\n      if (dictionary[k]) {\n        entry = dictionary[k];\n      } else {\n        if (k === dictSize) {\n          entry = w + w.charAt(0);\n        } else {\n          return null;\n        }\n      }\n\n      result += entry;\n\n      // Add w+entry[0] to the dictionary.\n      dictionary[dictSize++] = w + entry.charAt(0);\n\n      w = entry;\n    }\n    return result;\n  }\n\n  if(compressData){\n    return compress(input)\n  }else{\n    return decompress(input)\n  }\n}",
+        "error": null,
+        "seed": "function LZW (compressData, input) {\n  function compress(uncompressed) {\n    // Build the dictionary.\n    var i,\n      dictionary = {},\n      c,\n      wc,\n      w = \"\",\n      result = [],\n      dictSize = 256;\n    for (i = 0; i < 256; i += 1) {\n      dictionary[String.fromCharCode(i)] = i;\n    }\n\n    for (i = 0; i < uncompressed.length; i += 1) {\n      c = uncompressed.charAt(i);\n      wc = w + c;\n      //Do not use dictionary[wc] because javascript arrays\n      //will return values for array['pop'], array['push'] etc\n      // if (dictionary[wc]) {\n      if (dictionary.hasOwnProperty(wc)) {\n        w = wc;\n      } else {\n        result.push(dictionary[w]);\n        // Add wc to the dictionary.\n        dictionary[wc] = dictSize++;\n        w = String(c);\n      }\n    }\n\n    // Output the code for w.\n    if (w !== \"\") {\n      result.push(dictionary[w]);\n    }\n    return result;\n  }\n\n\n  function decompress(compressed) {\n    // Build the dictionary.\n    var i,\n      dictionary = [],\n      w,\n      result,\n      k,\n      entry = \"\",\n      dictSize = 256;\n    for (i = 0; i < 256; i += 1) {\n      dictionary[i] = String.fromCharCode(i);\n    }\n\n    w = String.fromCharCode(compressed[0]);\n    result = w;\n    for (i = 1; i < compressed.length; i += 1) {\n      k = compressed[i];\n      if (dictionary[k]) {\n        entry = dictionary[k];\n      } else {\n        if (k === dictSize) {\n          entry = w + w.charAt(0);\n        } else {\n          return null;\n        }\n      }\n\n      result += entry;\n\n      // Add w+entry[0] to the dictionary.\n      dictionary[dictSize++] = w + entry.charAt(0);\n\n      w = entry;\n    }\n    return result;\n  }\n\n  if(compressData){\n    return compress(input)\n  }else{\n    return decompress(input)\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>LZW</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof LZW === 'function');"
+    },
+    {
+      "text": "<p><code>LZW(true, \"TOBEORNOTTOBEORTOBEORNOT\")</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(LZW(true, 'TOBEORNOTTOBEORTOBEORNOT')));"
+    },
+    {
+      "text": "<p><code>LZW(false, [84, 79, 66, 69, 79, 82, 78, 79, 84, 256, 258, 260, 265, 259, 261, 263])</code> Trebalo bi da vrati sekvencu slova.</p>",
+      "testString": "assert(\n  typeof LZW(false, [\n    84,\n    79,\n    66,\n    69,\n    79,\n    82,\n    78,\n    79,\n    84,\n    256,\n    258,\n    260,\n    265,\n    259,\n    261,\n    263\n  ]) === 'string'\n);"
+    },
+    {
+      "text": "<p><code>LZW(true, \"TOBEORNOTTOBEORTOBEORNOT\")</code> treba da vrati <code>[84, 79, 66, 69, 79, 82, 78, 79, 84, 256, 258, 260, 265, 259, 261, 263]</code>.</p>",
+      "testString": "assert.deepEqual(LZW(true, 'TOBEORNOTTOBEORTOBEORNOT'), [\n  84,\n  79,\n  66,\n  69,\n  79,\n  82,\n  78,\n  79,\n  84,\n  256,\n  258,\n  260,\n  265,\n  259,\n  261,\n  263\n]);"
+    },
+    {
+      "text": "<p><code>LZW(false, [84, 79, 66, 69, 79, 82, 78, 79, 84, 256, 258, 260, 265, 259, 261, 263])</code> treba da vrati <code>\"TOBEORNOTTOBEORTOBEORNOT\"</code>.</p>",
+      "testString": "assert.equal(\n  LZW(false, [\n    84,\n    79,\n    66,\n    69,\n    79,\n    82,\n    78,\n    79,\n    84,\n    256,\n    258,\n    260,\n    265,\n    259,\n    261,\n    263\n  ]),\n  'TOBEORNOTTOBEORTOBEORNOT'\n);"
+    },
+    {
+      "text": "<p><code>LZW(true, \"0123456789\")</code> trebalo bi da vrati <code>[48, 49, 50, 51, 52, 53, 54, 55, 56, 57]</code>.</p>",
+      "testString": "assert.deepEqual(LZW(true, '0123456789'), [\n  48,\n  49,\n  50,\n  51,\n  52,\n  53,\n  54,\n  55,\n  56,\n  57\n]);"
+    },
+    {
+      "text": "<p><code>LZW(false, [48, 49, 50, 51, 52, 53, 54, 55, 56, 57])</code> trebalo bi vratiti <code>\"0123456789\"</code>.</p>",
+      "testString": "assert.equal(\n  LZW(false, [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]),\n  '0123456789'\n);"
+    },
+    {
+      "text": "<p><code>LZW(true, \"BABAABAAA\")</code> treba vratiti <code>[66, 65, 256, 257, 65, 260]</code>.</p>",
+      "testString": "assert.deepEqual(LZW(true, 'BABAABAAA'), [66, 65, 256, 257, 65, 260]);"
+    },
+    {
+      "text": "<p><code>LZW(false, [66, 65, 256, 257, 65, 260])</code> bi trebalo da vrati <code>\"BABAABAAA\"</code>.</p>",
+      "testString": "assert.equal(LZW(false, [66, 65, 256, 257, 65, 260]), 'BABAABAAA');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Algoritmi Lempel-Ziv-Welch (LZW) obezbeđuje bezgubitku kompresiju podataka.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja prima dva parametra. Prvi parametar je boolean vrednost gde <code>true</code> ukazuje na kompresiju, a <code>false</code> ukazuje na dekompresiju. Drugi parametar je niz znakova ili niz podataka koji treba da se obradi. Ako je to string koji treba komprimovati, vratite niz brojeva. Ako je to niz brojeva koji treba dekomprimovati, vratite string (niz znakova).</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 104,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

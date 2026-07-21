@@ -1,0 +1,85 @@
+{
+  "id": "5a23c84252665b21eecc8043",
+  "title": "Jumlisha hadi 100",
+  "challengeType": 1,
+  "forumTopicId": 302335,
+  "dashedName": "sum-to-100",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function sumTo100(n) {\n\n}",
+      "error": null,
+      "seed": "function sumTo100(n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function sumTo100(n) {\n  var permutationsWithRepetition = function(n, as) {\n    return as.length > 0\n      ? foldl1(curry(cartesianProduct)(as), replicate(n, as))\n      : [];\n  };\n\n  var cartesianProduct = function(xs, ys) {\n    return [].concat.apply(\n      [],\n      xs.map(function(x) {\n        return [].concat.apply(\n          [],\n          ys.map(function(y) {\n            return [[x].concat(y)];\n          })\n        );\n      })\n    );\n  };\n\n  var curry = function(f) {\n    return function(a) {\n      return function(b) {\n        return f(a, b);\n      };\n    };\n  };\n\n  var flip = function(f) {\n    return function(a, b) {\n      return f.apply(null, [b, a]);\n    };\n  };\n\n  var foldl1 = function(f, xs) {\n    return xs.length > 0 ? xs.slice(1).reduce(f, xs[0]) : [];\n  };\n\n  var replicate = function(n, a) {\n    var v = [a],\n      o = [];\n    if (n < 1) return o;\n    while (n > 1) {\n      if (n & 1) o = o.concat(v);\n      n >>= 1;\n      v = v.concat(v);\n    }\n    return o.concat(v);\n  };\n\n  var asSum = function(xs) {\n    var dct = xs.reduceRight(\n      function(a, sign, i) {\n        var d = i + 1; //  zero-based index to [1-9] positions\n        if (sign !== 0) {\n          // Sum increased, digits cleared\n          return {\n            digits: [],\n            n: a.n + sign * parseInt([d].concat(a.digits).join(''), 10)\n          };\n        } else\n          return {\n            // Digits extended, sum unchanged\n            digits: [d].concat(a.digits),\n            n: a.n\n          };\n      },\n      {\n        digits: [],\n        n: 0\n      }\n    );\n    return (\n      dct.n + (dct.digits.length > 0 ? parseInt(dct.digits.join(''), 10) : 0)\n    );\n  };\n\n  var asString = function(xs) {\n    var ns = xs.reduce(function(a, sign, i) {\n      var d = (i + 1).toString();\n      return sign === 0 ? a + d : a + (sign > 0 ? '+' : '-') + d;\n    }, '');\n\n    return ns[0] === '+' ? tail(ns) : ns;\n  };\n\n  var universe = permutationsWithRepetition(9, [0, 1, -1])\n    .filter(function(x) {\n      return x[0] !== 1 && asSum(x) === n;\n    })\n    .map(asString);\n  return universe.sort();\n}",
+        "error": null,
+        "seed": "function sumTo100(n) {\n  var permutationsWithRepetition = function(n, as) {\n    return as.length > 0\n      ? foldl1(curry(cartesianProduct)(as), replicate(n, as))\n      : [];\n  };\n\n  var cartesianProduct = function(xs, ys) {\n    return [].concat.apply(\n      [],\n      xs.map(function(x) {\n        return [].concat.apply(\n          [],\n          ys.map(function(y) {\n            return [[x].concat(y)];\n          })\n        );\n      })\n    );\n  };\n\n  var curry = function(f) {\n    return function(a) {\n      return function(b) {\n        return f(a, b);\n      };\n    };\n  };\n\n  var flip = function(f) {\n    return function(a, b) {\n      return f.apply(null, [b, a]);\n    };\n  };\n\n  var foldl1 = function(f, xs) {\n    return xs.length > 0 ? xs.slice(1).reduce(f, xs[0]) : [];\n  };\n\n  var replicate = function(n, a) {\n    var v = [a],\n      o = [];\n    if (n < 1) return o;\n    while (n > 1) {\n      if (n & 1) o = o.concat(v);\n      n >>= 1;\n      v = v.concat(v);\n    }\n    return o.concat(v);\n  };\n\n  var asSum = function(xs) {\n    var dct = xs.reduceRight(\n      function(a, sign, i) {\n        var d = i + 1; //  zero-based index to [1-9] positions\n        if (sign !== 0) {\n          // Sum increased, digits cleared\n          return {\n            digits: [],\n            n: a.n + sign * parseInt([d].concat(a.digits).join(''), 10)\n          };\n        } else\n          return {\n            // Digits extended, sum unchanged\n            digits: [d].concat(a.digits),\n            n: a.n\n          };\n      },\n      {\n        digits: [],\n        n: 0\n      }\n    );\n    return (\n      dct.n + (dct.digits.length > 0 ? parseInt(dct.digits.join(''), 10) : 0)\n    );\n  };\n\n  var asString = function(xs) {\n    var ns = xs.reduce(function(a, sign, i) {\n      var d = (i + 1).toString();\n      return sign === 0 ? a + d : a + (sign > 0 ? '+' : '-') + d;\n    }, '');\n\n    return ns[0] === '+' ? tail(ns) : ns;\n  };\n\n  var universe = permutationsWithRepetition(9, [0, 1, -1])\n    .filter(function(x) {\n      return x[0] !== 1 && asSum(x) === n;\n    })\n    .map(asString);\n  return universe.sort();\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>sumTo100</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof sumTo100 == 'function');"
+    },
+    {
+      "text": "<p><code>sumTo100(199)</code> treba da vrati niz.</p>",
+      "testString": "assert(Array.isArray(sumTo100(199)));"
+    },
+    {
+      "text": "<p><code>sumTo100(199)</code> trebalo bi da vrati <code>[\"-1+2-3+45+67+89\", \"123-4+5+6+78-9\", \"123-4+56+7+8+9\"]</code>.</p>",
+      "testString": "assert.deepEqual(sumTo100(199), [\n  '-1+2-3+45+67+89',\n  '123-4+5+6+78-9',\n  '123-4+56+7+8+9'\n]);"
+    },
+    {
+      "text": "<p><code>sumTo100(209)</code> inapaswa kurudisha <code>[\"1+234+56+7-89\"]</code>.</p>",
+      "testString": "assert.deepEqual(sumTo100(209), ['1+234+56+7-89']);"
+    },
+    {
+      "text": "<p><code>sumTo100(243)</code> inapaswa kurudisha <code>[\"-1-234+567-89\", \"-12+345+6-7-89\", \"123+45+6+78-9\"]</code>.</p>",
+      "testString": "assert.deepEqual(sumTo100(243), [\n  '-1-234+567-89',\n  '-12+345+6-7-89',\n  '123+45+6+78-9'\n]);"
+    },
+    {
+      "text": "<p><code>sumTo100(197)</code> inapaswa kurudisha <code>[\"1-2-3+45+67+89\", \"12+34-5+67+89\", \"123+4-5+6+78-9\"]</code>.</p>",
+      "testString": "assert.deepEqual(sumTo100(197), [\n  '1-2-3+45+67+89',\n  '12+34-5+67+89',\n  '123+4-5+6+78-9'\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Tafuta suluhisho za changamoto ya <em>jumlisha hadi mia moja</em>.</p>\n<p>Umetni matematičke operatore <strong>+</strong> ili <strong>−</strong> (sabiranje ili oduzimanje) ispred bilo koje cifre u nizu <strong>123456789</strong> tako da dobijeni izraz daje određeni zbir (u ovom poznatom primeru <strong>100</strong>).</p>\n<p>Primer:</p>\n<pre><b>123 + 4 - 5 + 67 - 89 = 100</b></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prihvata broj kao argument. Funkcija treba da vrati niz koji sadrži sva rešenja za taj broj. Rešenja treba da budu niske koje predstavljaju matematičke izraze, na primer: <code>\"1+23-456+78-9\"</code>. Sortiraj niz pre nego što ga vratiš.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 144,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

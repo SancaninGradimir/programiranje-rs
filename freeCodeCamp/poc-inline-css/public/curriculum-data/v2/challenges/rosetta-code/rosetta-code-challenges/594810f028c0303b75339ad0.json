@@ -1,0 +1,80 @@
+{
+  "id": "594810f028c0303b75339ad0",
+  "title": "Povežite redove podataka",
+  "challengeType": 1,
+  "forumTopicId": 302224,
+  "dashedName": "align-columns",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function formatText(input, justification) {\n\n}\n\nconst testText = [\n  'Given$a$text$file$of$many$lines',\n  'where$fields$within$a$line$',\n  'are$delineated$by$a$single$\"dollar\"$character',\n  'write$a$program',\n  'that$aligns$each$column$of$fields$',\n  'by$ensuring$that$words$in$each$',\n  'column$are$separated$by$at$least$one$space.',\n  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',\n  'justified,$right$justified',\n  'or$center$justified$within$its$column.'\n];",
+      "error": null,
+      "seed": "function formatText(input, justification) {\n\n}\n\nconst testText = [\n  'Given$a$text$file$of$many$lines',\n  'where$fields$within$a$line$',\n  'are$delineated$by$a$single$\"dollar\"$character',\n  'write$a$program',\n  'that$aligns$each$column$of$fields$',\n  'by$ensuring$that$words$in$each$',\n  'column$are$separated$by$at$least$one$space.',\n  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',\n  'justified,$right$justified',\n  'or$center$justified$within$its$column.'\n];"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "String.prototype.repeat = function (n) { return new Array(1 + parseInt(n)).join(this); };\n\nfunction formatText(input, justification) {\n  let x, y, max, cols = 0, diff, left, right;\n  for (x = 0; x < input.length; x++) {\n    input[x] = input[x].split('$');\n    if (input[x].length > cols) {\n      cols = input[x].length;\n    }\n  }\n  for (x = 0; x < cols; x++) {\n    max = 0;\n    for (y = 0; y < input.length; y++) {\n      if (input[y][x] && max < input[y][x].length) {\n        max = input[y][x].length;\n      }\n    }\n    for (y = 0; y < input.length; y++) {\n      if (input[y][x]) {\n        diff = (max - input[y][x].length) / 2;\n        left = ' '.repeat(Math.floor(diff));\n        right = ' '.repeat(Math.ceil(diff));\n        if (justification === 'left') {\n          right += left; left = '';\n        }\n        if (justification === 'right') {\n          left += right; right = '';\n        }\n        input[y][x] = left + input[y][x] + right;\n      }\n    }\n  }\n  for (x = 0; x < input.length; x++) {\n    input[x] = input[x].join(' ');\n  }\n  input = input.join('\\n');\n  return input;\n}",
+        "error": null,
+        "seed": "String.prototype.repeat = function (n) { return new Array(1 + parseInt(n)).join(this); };\n\nfunction formatText(input, justification) {\n  let x, y, max, cols = 0, diff, left, right;\n  for (x = 0; x < input.length; x++) {\n    input[x] = input[x].split('$');\n    if (input[x].length > cols) {\n      cols = input[x].length;\n    }\n  }\n  for (x = 0; x < cols; x++) {\n    max = 0;\n    for (y = 0; y < input.length; y++) {\n      if (input[y][x] && max < input[y][x].length) {\n        max = input[y][x].length;\n      }\n    }\n    for (y = 0; y < input.length; y++) {\n      if (input[y][x]) {\n        diff = (max - input[y][x].length) / 2;\n        left = ' '.repeat(Math.floor(diff));\n        right = ' '.repeat(Math.ceil(diff));\n        if (justification === 'left') {\n          right += left; left = '';\n        }\n        if (justification === 'right') {\n          left += right; right = '';\n        }\n        input[y][x] = left + input[y][x] + right;\n      }\n    }\n  }\n  for (x = 0; x < input.length; x++) {\n    input[x] = input[x].join(' ');\n  }\n  input = input.join('\\n');\n  return input;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const _testText = [\n  'Given$a$text$file$of$many$lines',\n  'where$fields$within$a$line$',\n  'are$delineated$by$a$single$\"dollar\"$character',\n  'write$a$program',\n  'that$aligns$each$column$of$fields$',\n  'by$ensuring$that$words$in$each$',\n  'column$are$separated$by$at$least$one$space.',\n  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',\n  'justified,$right$justified',\n  'or$center$justified$within$its$column.'\n];\n\nconst rightAligned = '     Given          a      text   file     of     many     lines\\n' +\n'     where     fields    within      a   line \\n' +\n'       are delineated        by      a single \"dollar\" character\\n' +\n'     write          a   program\\n' +\n'      that     aligns      each column     of   fields \\n' +\n'        by   ensuring      that  words     in     each \\n' +\n'    column        are separated     by     at    least       one space.\\n' +\n'  Further,      allow       for   each   word       in         a column to be either left \\n' +\n'justified,      right justified\\n' +\n'        or     center justified within    its  column.';\n\nconst leftAligned = 'Given      a          text      file   of     many     lines    \\n' +\n'where      fields     within    a      line   \\n' +\n'are        delineated by        a      single \"dollar\" character\\n' +\n'write      a          program  \\n' +\n'that       aligns     each      column of     fields   \\n' +\n'by         ensuring   that      words  in     each     \\n' +\n'column     are        separated by     at     least    one       space.\\n' +\n'Further,   allow      for       each   word   in       a         column to be either left \\n' +\n'justified, right      justified\\n' +\n'or         center     justified within its    column. ';\n\nconst centerAligned = '  Given        a        text     file    of     many     lines  \\n' +\n'  where      fields    within     a     line  \\n' +\n'   are     delineated    by       a    single \\\"dollar\\\" character\\n' +\n'  write        a       program \\n' +\n'   that      aligns     each    column   of    fields  \\n' +\n'    by      ensuring    that    words    in     each   \\n' +\n'  column      are     separated   by     at    least      one    space.\\n' +\n' Further,    allow       for     each   word     in        a     column to be either left \\n' +\n'justified,   right    justified\\n' +\n'    or       center   justified within  its   column. ';"
+  },
+  "tests": [
+    {
+      "text": "<p><code>formatText</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof formatText === 'function');"
+    },
+    {
+      "text": "<p><code>formatText(testText, 'right')</code> trebalo bi da prikaže tekst sa redovima poravnati desno.</p>",
+      "testString": "assert.strictEqual(formatText(_testText, 'right'), rightAligned);"
+    },
+    {
+      "text": "<p><code>formatText(testText, 'left')</code> Trebalo bi da izbaci tekst sa redovima poravnati na lijevo.</p>",
+      "testString": "assert.strictEqual(formatText(_testText, 'left'), leftAligned);"
+    },
+    {
+      "text": "<p><code>formatText(testText, 'center')</code> Trebalo bi da izbaci tekst sa centriranim redovima.</p>",
+      "testString": "assert.strictEqual(formatText(_testText, 'center'), centerAligned);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako vam je dat red više linija, gde su delovi unutar linije podeljeni jednim karakterom <code>$</code>, napišite program koji poredi svaki red delova, osiguravajući da su reči u svakom redu razdvojene sa najmanje jednim razmakom. Pored toga, dozvolite da svaka reč u redu bude poravnana levo, desno ili centrirano unutar svog reda.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristite sledeći tekst za testiranje svojih programa:</p>\n<pre><code class=\"language-js\">const testText = [\n  'Given$a$text$file$of$many$lines',\n  'where$fields$within$a$line$',\n  'are$delineated$by$a$single$\"dollar\"$character',\n  'write$a$program',\n  'that$aligns$each$column$of$fields',\n  'by$ensuring$that$words$in$each$',\n  'column$are$separated$by$at$least$one$space.',\n  'Further,$allow$for$each$word$in$a$column$to$be$either$left$',\n  'justified,$right$justified',\n  'or$center$justified$within$its$column.'\n];\n</code></pre>\n<p><strong>Zapamtite da:</strong></p>\n<ul>\n<li>Linije tekstualnog primjera unosa mogu imati ili ne imati dolarske znakove na kraju.</li>\n<li>Sve redove treba da dele istu poravnanost.</li>\n<li>Ponovljeno razmak koji se generiše blizu kraja linija nije bitan za potrebe vežbanja.</li>\n<li>Tekst rezultata će biti prikazan u monospacen fontu u standardnom tekst editoru ili jednostavnom terminalu. Linije unutar njega treba da se spoje korišćenjem znaka novog reda (<code>\\n</code>).</li>\n<li>Minimalni razmak između redova treba da se izračuna na osnovu teksta, a ne da bude hardkodiran.</li>\n<li>Nije potrebno dodavati razdvajajuće znakove između ili blizu redova.</li>\n</ul>\n<p>Na primer, jedna od linija iz <code>testText</code>, nakon poređanja desne strane, leve i srednje za taj tok:</p>\n<pre><code class=\"language-js\">'    column        are separated     by     at    least       one space.\\n'\n'column     are        separated by     at     least    one       space.\\n'\n'  column      are     separated   by     at    least      one    space.\\n'\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

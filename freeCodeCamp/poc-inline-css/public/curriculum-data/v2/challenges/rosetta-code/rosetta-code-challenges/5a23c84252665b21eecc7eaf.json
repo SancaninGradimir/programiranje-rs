@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc7eaf",
+  "title": "IBAN",
+  "challengeType": 1,
+  "forumTopicId": 302289,
+  "dashedName": "iban",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function isValid(iban) {\n\n}",
+      "error": null,
+      "seed": "function isValid(iban) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function isValid(iban) {\n  var ibanLen = {\n    NO:15, BE:16, DK:18, FI:18, FO:18, GL:18, NL:18, MK:19,\n    SI:19, AT:20, BA:20, EE:20, KZ:20, LT:20, LU:20, CR:21,\n    CH:21, HR:21, LI:21, LV:21, BG:22, BH:22, DE:22, GB:22,\n    GE:22, IE:22, ME:22, RS:22, AE:23, GI:23, IL:23, AD:24,\n    CZ:24, ES:24, MD:24, PK:24, RO:24, SA:24, SE:24, SK:24,\n    VG:24, TN:24, PT:25, IS:26, TR:26, FR:27, GR:27, IT:27,\n    MC:27, MR:27, SM:27, AL:28, AZ:28, CY:28, DO:28, GT:28,\n    HU:28, LB:28, PL:28, BR:29, PS:29, KW:30, MU:30, MT:31\n  }\n    iban = __helpers.removeWhiteSpace(iban)\n    if (!iban.match(/^[\\dA-Z]+$/)) return false\n    var len = iban.length\n    if (len != ibanLen[iban.substring(0,2)]) return false\n    iban = iban.substring(4) + iban.substring(0,4)\n    for (var s='', i=0; i<len; i+=1) s+=parseInt(iban.charAt(i),36)\n    for (var m=s.substring(0,15)%97, s=s.substring(15); s; s=s.substring(13)) m=(m+s.substring(0,13))%97\n    return m == 1\n}",
+        "error": null,
+        "seed": "function isValid(iban) {\n  var ibanLen = {\n    NO:15, BE:16, DK:18, FI:18, FO:18, GL:18, NL:18, MK:19,\n    SI:19, AT:20, BA:20, EE:20, KZ:20, LT:20, LU:20, CR:21,\n    CH:21, HR:21, LI:21, LV:21, BG:22, BH:22, DE:22, GB:22,\n    GE:22, IE:22, ME:22, RS:22, AE:23, GI:23, IL:23, AD:24,\n    CZ:24, ES:24, MD:24, PK:24, RO:24, SA:24, SE:24, SK:24,\n    VG:24, TN:24, PT:25, IS:26, TR:26, FR:27, GR:27, IT:27,\n    MC:27, MR:27, SM:27, AL:28, AZ:28, CY:28, DO:28, GT:28,\n    HU:28, LB:28, PL:28, BR:29, PS:29, KW:30, MU:30, MT:31\n  }\n    iban = __helpers.removeWhiteSpace(iban)\n    if (!iban.match(/^[\\dA-Z]+$/)) return false\n    var len = iban.length\n    if (len != ibanLen[iban.substring(0,2)]) return false\n    iban = iban.substring(4) + iban.substring(0,4)\n    for (var s='', i=0; i<len; i+=1) s+=parseInt(iban.charAt(i),36)\n    for (var m=s.substring(0,15)%97, s=s.substring(15); s; s=s.substring(13)) m=(m+s.substring(0,13))%97\n    return m == 1\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>isValid</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof isValid == 'function');"
+    },
+    {
+      "text": "<p><code>isValid(\"GB82 WEST 1234 5698 7654 32\")</code> Trebalo bi da vrati vrednost tačno ili netačno.</p>",
+      "testString": "assert(typeof isValid('GB82 WEST 1234 5698 7654 32') == 'boolean');"
+    },
+    {
+      "text": "<p><code>isValid(\"GB82 WEST 1234 5698 7654 32\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(isValid('GB82 WEST 1234 5698 7654 32'), true);"
+    },
+    {
+      "text": "<p><code>isValid(\"GB82 WEST 1.34 5698 7654 32\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(isValid('GB82 WEST 1.34 5698 7654 32'), false);"
+    },
+    {
+      "text": "<p><code>isValid(\"GB82 WEST 1234 5698 7654 325\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(isValid('GB82 WEST 1234 5698 7654 325'), false);"
+    },
+    {
+      "text": "<p><code>isValid(\"GB82 TEST 1234 5698 7654 32\")</code> treba vratiti <code>false</code>.</p>",
+      "testString": "assert.equal(isValid('GB82 TEST 1234 5698 7654 32'), false);"
+    },
+    {
+      "text": "<p><code>isValid(\"SA03 8000 0000 6080 1016 7519\")</code> trebalo bi da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(isValid('SA03 8000 0000 6080 1016 7519'), true);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Međunarodni broj bankovnog računa (IBAN) je globalno prihvaćena metoda za identifikaciju bankovnih računa preko nacionalnih granica, sa manjim rizikom širenja grešaka prilikom unosa.</p>\n<p><abbr title=\"International Bank Account Number\">IBAN</abbr> Sastoji se od do 34 slova i brojeva:</p>\n<ul>\n  <li>prvo dvosločani kod države od <abbr title=\"International Organization for Standardization\">ISO</abbr> 3166-1 alpha-2</li>\n  <li>zatim dva kontrolna broja, i</li>\n  <li>konačno Osnovni broj bankovnog računa (BBAN) specifičan za odgovarajuću zemlju.</li>\n</ul>\n<p>Brojevi za proveru omogućavaju pametnu proveru broja bankovnog računa radi potvrđivanja njegovog integriteta čak i pre izvršavanja transakcije.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prima IBAN niz karaktera kao parametar. Ako je validan, vrati tačno. Inače, vrati netačno.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 71,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

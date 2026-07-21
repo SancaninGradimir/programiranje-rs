@@ -1,0 +1,62 @@
+{
+  "id": "6855918e87c33c6979d21d3f",
+  "title": "Korak 14",
+  "challengeType": 20,
+  "dashedName": "step-14",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        5,
+        7
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        secret_code += str(len(words[line_index]))\n    return secret_code\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and bright\nuntil the end of the night\"\"\"\n\nprint(pin_extractor(poem))\n",
+      "error": null,
+      "seed": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        secret_code += str(len(words[line_index]))\n    return secret_code\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and bright\nuntil the end of the night\"\"\"\n\nprint(pin_extractor(poem))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Inside the loop you should have an <code>if</code> statement.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].find_ifs()[0]\n    `)\n})"
+    },
+    {
+      "text": "<p>The if statement condition should be <code>len(words) > line_index</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    _cond = _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0]\n    assert _cond.is_equivalent('len(words) > line_index') or _cond.is_equivalent('line_index < len(words)')\n    `)\n})"
+    },
+    {
+      "text": "<p>Inside the <code>if</code> statement you should have <code>secret_code += str(len(words[line_index]))</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_stmt('secret_code += str(len(words[line_index]))')\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada funkcija dobro radi u izvlačenju koda iz pesme, ali postoji grančan slučaj koji treba uzeti u obzir: stih pesme bi mogao biti kraći nego što se očekuje, a to bi uzrokovalo grešku u funkciji (možete pokušati da ovo uradite uklanjanjem reči <code>bright</code> iz pesme).</p>\n<p>Stavite liniju <code>secret_code += str(len(words[line_index]))</code> u izjavu <code>if</code> koja proverava da li ima dovoljno reči u listi <code>words</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-pin-extractor",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 20,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-loops-and-sequences",
+  "certification": "python-v9"
+}

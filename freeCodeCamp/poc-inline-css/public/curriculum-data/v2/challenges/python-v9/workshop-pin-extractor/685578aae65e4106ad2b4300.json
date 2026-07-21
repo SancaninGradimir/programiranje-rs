@@ -1,0 +1,62 @@
+{
+  "id": "685578aae65e4106ad2b4300",
+  "title": "Korak 7",
+  "challengeType": 20,
+  "dashedName": "step-7",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        3,
+        6
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line in lines:\n        print(line)\n        words = line.split()\n        print(words)\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and bright\nuntil the end of the night\"\"\"\n\npin_extractor(poem)\n",
+      "error": null,
+      "seed": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line in lines:\n        print(line)\n        words = line.split()\n        print(words)\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and bright\nuntil the end of the night\"\"\"\n\npin_extractor(poem)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>The loop should iterate over <code>enumerate(lines)</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_for_iter().is_equivalent('enumerate(lines)')\n    `)\n})"
+    },
+    {
+      "text": "<p>The loop should have <code>line_index, line</code> as loop variable.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_for_vars().is_equivalent('line_index, line')\n    `)\n})"
+    },
+    {
+      "text": "<p>You should have <code>print(line_index, line)</code> inside the loop.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].has_call('print(line_index, line)')\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao što ste naučili u prethodnoj lekciji, funkcija <code>enumerate</code> omogućava vam da pratite indeks dok iterirate preko nečega što je iterabilno:</p>\n<pre><code class=\"language-py\">fruits = ['apple', 'plum', 'bananas']\n\nfor index, item in enumerate(fruits):\n    print(index, item)\n\n# 0 apple\n# 1 plum\n# 2 bananas\n</code></pre>\n<p>n-ta cifra tajnog koda dolazi iz n-te reči na n-tom redu, pa morate znati koji je broj svakog reda.</p>\n<p>Izmenite petlju tako da iterira na <code>enumerate(lines)</code>, i dodajte još jednu promenljivu petlje pre <code>line</code> pod nazivom <code>line_index</code>.</p>\n<p>Takođe, ažurirajte poziv <code>print</code> na <code>print(line_index, line)</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-pin-extractor",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 20,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-loops-and-sequences",
+  "certification": "python-v9"
+}

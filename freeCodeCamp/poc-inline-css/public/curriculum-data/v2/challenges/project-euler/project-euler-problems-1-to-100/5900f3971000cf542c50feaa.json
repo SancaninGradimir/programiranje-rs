@@ -1,0 +1,81 @@
+{
+  "id": "5900f3971000cf542c50feaa",
+  "title": "Zoezi la 43: Ugawaji wa mfuatano wa herufi ndogo",
+  "challengeType": 1,
+  "forumTopicId": 302100,
+  "dashedName": "problem-43-sub-string-divisibility",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function substringDivisibility(n) {\n\n  return true;\n}\n\nsubstringDivisibility(5);",
+      "error": null,
+      "seed": "function substringDivisibility(n) {\n\n  return true;\n}\n\nsubstringDivisibility(5);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function substringDivisibility(n) {\n  function isSubDivisible(digits) {\n    const factors = [2, 3, 5, 7, 11, 13, 17];\n\n    for (let i = 1; i < digits.length - 2; i++) {\n      const subNumber = digits[i] * 100 + digits[i + 1] * 10 + digits[i + 2];\n      if (subNumber % factors[i - 1] !== 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  function heapsPermutations(k, digits, conditionCheck, results) {\n    if (k === 1) {\n      if (conditionCheck(digits)) {\n        const number = parseInt(digits.join(''), 10);\n        results.push(number);\n      }\n      return;\n    }\n\n    heapsPermutations(k - 1, digits, conditionCheck, results);\n\n    for (let i = 0; i < k - 1; i++) {\n      if (k % 2 === 0) {\n        [digits[i], digits[k - 1]] = [digits[k - 1], digits[i]];\n      } else {\n        [digits[0], digits[k - 1]] = [digits[k - 1], digits[0]];\n      }\n      heapsPermutations(k - 1, digits, conditionCheck, results);\n    }\n    return;\n  }\n\n  const allowedDigits = [...new Array(n + 1).keys()];\n  const divisiblePandigitals = [];\n  heapsPermutations(\n    allowedDigits.length,\n    allowedDigits,\n    isSubDivisible,\n    divisiblePandigitals\n  );\n\n  let sum = 0;\n  for (let i = 0; i < divisiblePandigitals.length; i++) {\n    sum += divisiblePandigitals[i];\n  }\n\n  return sum;\n}",
+        "error": null,
+        "seed": "function substringDivisibility(n) {\n  function isSubDivisible(digits) {\n    const factors = [2, 3, 5, 7, 11, 13, 17];\n\n    for (let i = 1; i < digits.length - 2; i++) {\n      const subNumber = digits[i] * 100 + digits[i + 1] * 10 + digits[i + 2];\n      if (subNumber % factors[i - 1] !== 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  function heapsPermutations(k, digits, conditionCheck, results) {\n    if (k === 1) {\n      if (conditionCheck(digits)) {\n        const number = parseInt(digits.join(''), 10);\n        results.push(number);\n      }\n      return;\n    }\n\n    heapsPermutations(k - 1, digits, conditionCheck, results);\n\n    for (let i = 0; i < k - 1; i++) {\n      if (k % 2 === 0) {\n        [digits[i], digits[k - 1]] = [digits[k - 1], digits[i]];\n      } else {\n        [digits[0], digits[k - 1]] = [digits[k - 1], digits[0]];\n      }\n      heapsPermutations(k - 1, digits, conditionCheck, results);\n    }\n    return;\n  }\n\n  const allowedDigits = [...new Array(n + 1).keys()];\n  const divisiblePandigitals = [];\n  heapsPermutations(\n    allowedDigits.length,\n    allowedDigits,\n    isSubDivisible,\n    divisiblePandigitals\n  );\n\n  let sum = 0;\n  for (let i = 0; i < divisiblePandigitals.length; i++) {\n    sum += divisiblePandigitals[i];\n  }\n\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>substringDivisibility(5)</code> trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof substringDivisibility(5) === 'number');"
+    },
+    {
+      "text": "<p><code>substringDivisibility(5)</code> treba da vrati <code>12444480</code>.</p>",
+      "testString": "assert.strictEqual(substringDivisibility(5), 12444480)"
+    },
+    {
+      "text": "<p><code>substringDivisibility(7)</code> treba da vrati <code>1099210170</code>.</p>",
+      "testString": "assert.strictEqual(substringDivisibility(7), 1099210170)"
+    },
+    {
+      "text": "<p><code>substringDivisibility(8)</code> trebalo bi da vrati <code>1113342912</code>.</p>",
+      "testString": "assert.strictEqual(substringDivisibility(8), 1113342912)"
+    },
+    {
+      "text": "<p><code>substringDivisibility(9)</code> inapaswa kurudisha <code>16695334890</code>.</p>",
+      "testString": "assert.strictEqual(substringDivisibility(9), 16695334890)"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Broj 1406357289 je pandigitalni broj jer sadrži svaku cifru od 0 do 9 tačno jednom, ali poseduje i zanimljivo svojstvo deljivosti podnizova.</p>\n<p>Neka je $d_1$ prva cifra, $d_2$ druga cifra i tako dalje. Tada važi sledeće:</p>\n<ul>\n<li>${d_2}{d_3}{d_4} = 406$ inagawika kwa 2</li>\n<li>${d_3}{d_4}{d_5} = 063$ inagawika kwa 3</li>\n<li>${d_4}{d_5}{d_6} = 635$ inagawika kwa 5</li>\n<li>${d_5}{d_6}{d_7} = 357$ inagawika kwa 7</li>\n<li>${d_6}{d_7}{d_8} = 572$ inagawika kwa 11</li>\n<li>${d_7}{d_8}{d_9} = 728$ inagawika kwa 13</li>\n<li>${d_8}{d_9}{d_{10}} = 289$ inagawika kwa 17</li>\n</ul>\n<p>Pronađite zbir svih brojeva sa svim ciframa od 0 do <code>n</code> koji imaju sekvencu malih slova koja zadovoljava <code>n - 2</code> ovih kriterijuma distribucije.</p>\n<p><strong>Napomena:</strong> Brojevi sa svim ciframa koji počinju od <code>0</code> moraju biti uzeti u obzir u rezultatima.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 42,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

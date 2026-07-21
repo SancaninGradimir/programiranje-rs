@@ -1,0 +1,274 @@
+{
+  "id": "6733b02d1e556005a544c5e3",
+  "title": "Šta je rekurzija, i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-recursion-and-how-does-it-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Rekurzija je moćan mehanizam koji vam omogućava ponovno pozivanje funkcije sve dok ne stignete do osnovnog slučaja (baze). Za razliku od standardne petlje, rekurzija vam omogućava da obrađujete nešto sa nepoznatom dubinom, kao što su duboko ugnježdeni elementi ili strukture, ili sistem fajlova. Međutim, možete je koristiti i za jednostavnije zadatke, kao što je brojanje nazad od određenog broja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kreiraćemo funkciju koja radi upravo tako. Nazivaćemo našu funkciju <code>recursiveCountdown</code>, i ona zahteva da primi broj. Napravićemo da odštampa ovaj broj u konzolu:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const recursiveCountdown = (number) => {\n  console.log(number);\n};\n\nrecursiveCountdown(5);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const recursiveCountdown = (number) => {\n  console.log(number);\n};\n\nrecursiveCountdown(5);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada ako pozovemo i prosledimo broj 5, videćemo taj broj ispisano na našem terminalu. Ali ništa drugo se ne dešava – i broj 5 definitivno nije brojač koji pada.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pre nego što počnemo da gradimo rekurzivni deo naše funkcije, moramo prvo postaviti osnovni slučaj. Ako ne postavite osnovni slučaj, vaš kod će nastaviti da radi sve dok ne pređe dodeljenu memoriju i izazove pad.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const recursiveCountdown = (number) => {\n  if (number < 1) {\n    return;\n  }\n  console.log(number);\n};\n\nrecursiveCountdown(5);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const recursiveCountdown = (number) => {\n  if (number &#x3C; 1) {\n    return;\n  }\n  console.log(number);\n};\n\nrecursiveCountdown(5);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za naše osnovne uslove, želimo da proverimo/prebrojimo ako je broj manji od 1. Kada dođemo do tog podrazumevanog stanja, možemo se vratiti kako bismo prekinuli izvršavanje funkcije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada smo sigurno postavili osnovni slučaj, pa možemo implementirati rekurziju. Ključna stvar koja čini funkciju rekurzivnom je što ona poziva samu sebe tokom izvršavanja. U ovom slučaju, želimo da pozovemo funkciju nakon štampanja broja. Ali da bismo brojali nadole, naš novi broj mora biti jedan manji:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const recursiveCountdown = (number) => {\n  if (number < 1) {\n    return;\n  }\n  console.log(number);\n  recursiveCountdown(number - 1);\n};\n\nrecursiveCountdown(5); ",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const recursiveCountdown = (number) => {\n  if (number &#x3C; 1) {\n    return;\n  }\n  console.log(number);\n  recursiveCountdown(number - 1);\n};\n\nrecursiveCountdown(5); \n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo će ispisati brojeve 5, 4, 3, 2 i 1 na konzoli.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dobijamo naše pet brojeva! Ali šta ako bismo hteli da brojimo uzlazno umesto toga? Umesto pisanja potpuno nove funkcije, možemo promeniti strukturu našeg posta sa rekurzivnim pozivom:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const recursiveCountdown = (number) => {\n    if (number < 1) {\n        return;\n    }\n    recursiveCountdown(number - 1);\n    console.log(number);\n  };\n\nrecursiveCountdown(5);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const recursiveCountdown = (number) => {\n    if (number &#x3C; 1) {\n        return;\n    }\n    recursiveCountdown(number - 1);\n    console.log(number);\n  };\n\nrecursiveCountdown(5);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo će ispisati brojeve 1, 2, 3, 4 i 5 na konzolu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ali, zašto to radi? Da biste ovo razumeli, morate da razumete <em>call stack</em>. Call stack je način na koji JavaScript prati i rešava pozive funkcija. Stak funkcioniše kao Last-In-First-Out (LIFO) red. Da biste bolje razumeli, dodajmo objavu u našu funkciju:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const recursiveCountdown = (number) => {\n  console.log(`Function execution started for number: ${number}`);\n  if (number < 1) {\n    console.log(`Base case reached, begin resolving stack`);\n    return;\n  }\n  console.log(`Calling recursiveCountdown with number: ${number - 1}`);\n  recursiveCountdown(number - 1);\n  console.log(`Function execution completed for number: ${number}`);\n};\n\nrecursiveCountdown(5);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const recursiveCountdown = (number) => {\n  console.log(`Function execution started for number: ${number}`);\n  if (number &#x3C; 1) {\n    console.log(`Base case reached, begin resolving stack`);\n    return;\n  }\n  console.log(`Calling recursiveCountdown with number: ${number - 1}`);\n  recursiveCountdown(number - 1);\n  console.log(`Function execution completed for number: ${number}`);\n};\n\nrecursiveCountdown(5);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dodali smo četiri važne informacije ovde. Prvi događaj se izvršava kada počinje poziv funkcije. Treći događaj se izvršava pre nego što se pozove rekurzivna funkcija. I četvrti događaj se izvršava kada je izvršavanje funkcije završeno. Rezultat je:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-md\">Function execution started for number: 5\nCalling recursiveCountdown with number: 4\nFunction execution started for number: 4\nCalling recursiveCountdown with number: 3\nFunction execution started for number: 3\nCalling recursiveCountdown with number: 2\nFunction execution started for number: 2\nCalling recursiveCountdown with number: 1\nFunction execution started for number: 1\nCalling recursiveCountdown with number: 0\nFunction execution started for number: 0\nBase case reached, begin resolving stack\nFunction execution completed for number: 1\nFunction execution completed for number: 2\nFunction execution completed for number: 3\nFunction execution completed for number: 4\nFunction execution completed for number: 5\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ali kako se ovo radi? Ovde ulazi steka poziva (call stack). Kada pomenemo <code>recursiveCountdown(5)</code>, taj poziv funkcije dodaje se na call stack.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada taj poziv funkcije stigne do mesta pozivanja <code>recursiveCountdown(4)</code>, mora da stane i sačeka te rezultate. Istovremeno, <code>recursiveCountdown(4)</code> dodaje se u call stack, iznad <code>recursiveCountdown(5)</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada taj poziv funkcije stigne do sekcije za pozivanje <code>recursiveCountdown(3)</code>, mora da se zaustavi i sačeka te rezultate. Istovremeno, <code>recursiveCountdown(3)</code> se dodaje u <em>call stack</em>, iznad <code>recursiveCountdown(4)</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada taj poziv funkcije stigne do mesta koje poziva <code>recursiveCountdown(2)</code>, mora da stane i sačeka te rezultate. Istovremeno, <code>recursiveCountdown(2)</code> se dodaje na pilu poziva (call stack), iznad <code>recursiveCountdown(3)</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada taj poziv funkcije dođe do tačke pozivanja <code>recursiveCountdown(1)</code>, mora da stane i sačeka te rezultate. Istovremeno, <code>recursiveCountdown(1)</code> se dodaje u <em>call stack</em>, iznad <code>recursiveCountdown(2)</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na kraju, kada taj poziv funkcije stigne do sekcije pozivanja <code>recursiveCountdown(0)</code>, mora da se zaustavi i sačeka ti rezultati. Istovremeno, <code>recursiveCountdown(0)</code> se dodaje u call stack (stak slova poziva), iznad <code>recursiveCountdown(1)</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ali <code>recursiveCountdown(0)</code> ne poziva drugu funkciju – doseže naš bazni status, gde se vraća rano. Zato što je izvršenje te funkcije završeno, poziv funkcije može se smatrati \"rešenim\". Kada je poziv rešen, uklanja se sa stack-a.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada <code>recursiveCountdown(1)</code> više ne mora da čeka taj poziv – nalazi se na steku i može nastaviti izvršavanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>recursiveCountdown(1)</code> se rešava, uklanja sa steka, i omogućava <code>recursiveCountdown(2)</code> da nastavi izvršenje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>recursiveCountdown(2)</code> se izvukuva, uklanja se sa steka, i omogućava <code>recursiveCountdown(3)</code> da nastavi izvršavanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>recursiveCountdown(3)</code> se razrešava, uklanja sa steka, i omogućavajući <code>recursiveCountdown(4)</code> da nastavi izvršavanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>recursiveCountdown(4)</code> se rešava, uklanja sa steka, i omogućavajući <code>recursiveCountdown(5)</code> da nastavi izvršavanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na <code>recursiveCountdown(5)</code> se rešava uklanjanjem sa steka. Naš call stack je sada prazan, pa je rekurzija završena!</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je osnovni pregled kako rekurzija radi u JavaScript. To je teška koncepcija, i trebalo bi da testirate kod i informacije iz objave dok ne osetite se udobno sa ponašanjem steka poziva (call stack).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za malo zanimljivu lekciju, razgovarali smo kako nedostatak osnovnog slučaja može uzrokovati da vaš kod padne kada mu nestane memorija. To je zato što rekurzija nastavlja dodavati sve više funkcionalskih poziva na <em>call stack</em> dok ne dođe do preljeva steka (<em>stack overflow</em>). Kao ime popularne programerske zajednice.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta je glavna svrha baznog slučaja u rekurentnoj funkciji?</p>",
+      "answers": [
+        {
+          "answer": "<p>Početak rekurzivnih poziva.</p>",
+          "feedback": "<p>Objašnjava šta se dešava ako nema definisanog podrazumevanog stanja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sprečavanje beskonačne rekurzije i prepunosti steka.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšati funkcionalnost / Performanse</p>",
+          "feedback": "<p>Vodič navodi šta se dešava ako nema podešenog podrazumevanog stanja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Rukovanje grešnim stanjima.</p>",
+          "feedback": "<p>Uputstvo navodi šta se dešava ako ne postoji definisano osnovno stanje.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>U kontekstu rekurzije, za šta se koristi stack poziva?</p>",
+      "answers": [
+        {
+          "answer": "<p>Sačuvajte lokalne parametre.</p>",
+          "feedback": "<p>Lekcija objašnjava kako <code>call stack</code> upravlja pozivima funkcija tokom rekurzije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Praćenje i rešavanje poziva funkcija.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšati performanse rekurzivne funkcije.</p>",
+          "feedback": "<p>Lekcija objašnjava kako stak poziva upravlja pozivima funkcija tokom rekurzije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Upravljati neistovremenim aktivnostima.</p>",
+          "feedback": "<p>Lekcija objašnjava kako stak poziva upravlja pozivima funkcija tokom rekurzije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta se dešava kada rekurzivni poziv funkcije dostigne svoju baznu tačku?</p>",
+      "answers": [
+        {
+          "answer": "<p>Počni novi rekurzivni ciklus.</p>",
+          "feedback": "<p>Razmislite kako funkcija radi kada dođe do stanja koje zaustavlja rekurziju.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Napravlja grešku.</p>",
+          "feedback": "<p>Zamislite kako funkcija se ponaša kada dostigne stanje koje zaustavlja rekurziju.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vraća se i omogućava početnom pozivu da nastavi sa izvršavanjem.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nastavlja da se naziva samim sobom bez granica.</p>",
+          "feedback": "<p>Zamislite kako funkcija radi kada dođe do stanja koje zaustavlja rekurziju.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-recursion-and-the-call-stack",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 181,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "recursion",
+  "certification": "javascript-v9"
+}

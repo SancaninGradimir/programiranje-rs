@@ -1,0 +1,207 @@
+{
+  "id": "672bccae6e556cd81cef6af2",
+  "title": "Je, Margin Collapsing ni Nini, na Inafanya Kazi Vipi?",
+  "challengeType": 19,
+  "dashedName": "what-is-margin-collapsing",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Collapsing margina je osnovni CSS koncept koji često zbunjuje početnike u veb razvoju.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ova karakteristika nastaje kada vertikalne ivice susednih elemenata interaguju, stvarajući samo jednu ivicu koja je jednaka najvećoj od dve te ivice.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Razumevanje collapsing margina je važno za pravilnu kontrolu razmaka i rasporeda u veb dizajnu. Zato hajde da pogledamo kako funkcioniše i istražimo neke uobičajene situacije u kojima se javlja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U CSS-u, kada se dve vertikalne margine dodirnu, one se spajaju. To znači da se umesto sabiranja primenjuje veća margina, koja određuje razmak između elemenata. Ovo ponašanje važi samo za vertikalne margine (gornju i donju), a ne za horizontalne (levu i desnu). Evo primera koji objašnjava ovaj koncept:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<style>\n  .box1 {\n    margin-bottom: 20px;\n    background-color: lightblue;\n  }\n  .box2 {\n    margin-top: 30px;\n    background-color: lightgreen;\n  }\n</style>\n\n<div class=\"box1\">Box 1</div>\n<div class=\"box2\">Box 2</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;style>\n  .box1 {\n    margin-bottom: 20px;\n    background-color: lightblue;\n  }\n  .box2 {\n    margin-top: 30px;\n    background-color: lightgreen;\n  }\n&#x3C;/style>\n\n&#x3C;div class=\"box1\">Box 1&#x3C;/div>\n&#x3C;div class=\"box2\">Box 2&#x3C;/div>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, možete pretpostaviti da je ukupni prostor između <code>.box1</code> i <code>.box2</code> od 50 piksela (20 piksela plus 30). Međutim, zbog kolaps margina, stvarni prostor će biti od 30 piksela, što je veći razmak između ta dva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kao što smo videli u prethodnom primeru, margine susednih elemenata se spajaju. To je najjednostavniji slučaj collapsing margina. Pogledajmo još neke situacije u kojima može doći do njihovog spajanja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Margine se takođe mogu spojiti između roditeljskog elementa i njegovog prvog ili poslednjeg deteta. Ako nema ivice, unutrašnjeg razmaka, sadržaja u liniji ili razmaka koji ih razdvaja, njihove margine će se spojiti.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<style>\n  .parent {\n    margin-top: 40px;\n    background-color: lightyellow;\n  }\n  .child {\n    margin-top: 30px;\n    background-color: lightpink;\n  }\n</style>\n\n<div class=\"parent\">\n  <div class=\"child\">Child element</div>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;style>\n  .parent {\n    margin-top: 40px;\n    background-color: lightyellow;\n  }\n  .child {\n    margin-top: 30px;\n    background-color: lightpink;\n  }\n&#x3C;/style>\n\n&#x3C;div class=\"parent\">\n  &#x3C;div class=\"child\">Child element&#x3C;/div>\n&#x3C;/div>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, možete pretpostaviti da dete ima prostor od 70 piksela odozgo (pikseli 40 plus 30). Međutim, ivice se sudaraju sa većom stranom od 40 piksela, i ona je korišćena.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako element nema sadržaj, unutrašnji razmak ili ivicu, njegove gornja i donja margina mogu se spojiti u jednu marginu.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<style>\n  .empty-block {\n    margin-top: 20px;\n    margin-bottom: 10px;\n    height: 0;\n  }\n  .next-block {\n    background-color: lightgray;\n  }\n</style>\n\n<div class=\"empty-block\"></div>\n<div class=\"next-block\">Next block</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;style>\n  .empty-block {\n    margin-top: 20px;\n    margin-bottom: 10px;\n    height: 0;\n  }\n  .next-block {\n    background-color: lightgray;\n  }\n&#x3C;/style>\n\n&#x3C;div class=\"empty-block\">&#x3C;/div>\n&#x3C;div class=\"next-block\">Next block&#x3C;/div>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, gornja i donja margina elementa <code>empty-block</code> spajaju se u jednu marginu od 20 piksela, odnosno veću od te dve vrednosti.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera kako sprečiti spajanje margina pomoću unutrašnjeg razmaka:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<style>\n  .parent {\n    margin-top: 40px;\n    padding-top: 1px;\n    background-color: lightyellow;\n  }\n  .child {\n    margin-top: 30px;\n    background-color: lightpink;\n  }\n</style>\n\n<div class=\"parent\">\n  <div class=\"child\">Child element</div>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;style>\n  .parent {\n    margin-top: 40px;\n    padding-top: 1px;\n    background-color: lightyellow;\n  }\n  .child {\n    margin-top: 30px;\n    background-color: lightpink;\n  }\n&#x3C;/style>\n\n&#x3C;div class=\"parent\">\n  &#x3C;div class=\"child\">Child element&#x3C;/div>\n&#x3C;/div>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, unutrašnji prostor jednog piksela na roditelju sprečava koliziju ivica i stvara ukupni prostor od 71 piksela od vrha roditelja do vrha sadržaja deteta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Razumeti kolaps margina je važno za pravilnu kontrolu rasporeda i razmaka u CSS. Iako ponekad može izazvati nepredvidive rezultate, radi se o karakteristici dizajniranoj da pruži bolji i stabilniji razmak u dokumentu. Znanjem kada se dešava kolaps margina i kako ga sprečiti kada je potrebno, možete kreirati očekivane i lako održive postavke u vašim web dizajnovima.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>U kom pravcu se događa kolizija sa obalom?</p>",
+      "answers": [
+        {
+          "answer": "<p>Samo granice jednakosti.</p>",
+          "feedback": "<p>Zamislite koje ivice (gore, dole, levo, desno) su pogođene ovim svojstvom.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Samo vertikalne ivice.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Profile za sve horizontalne i vertikalne rubove.</p>",
+          "feedback": "<p>Zamislite koje ivice (gore, dole, levo, desno) su utječene ovim svojstvom.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Obrici za elevaciju.</p>",
+          "feedback": "<p>Razmisli koje ivice (gore, dole, levo, desno) su pogođene ovom karakteristikom.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta se dešava kada su dva susedna elementa različitih ivičnih vrednosti?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kingo se generalizuje.</p>",
+          "feedback": "<p>Razmisli o kojoj je strani \"pobedi\" kada dođe do kolizije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Mala strana se koristi.</p>",
+          "feedback": "<p>Zamislite koju stranu „pobedi“ kada dođe do sukoba.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi se velika strana.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi se prosek obe ivice.</p>",
+          "feedback": "<p>Zamisli koju stranu koja \"pobedi\" kada dođe do sudara/sukoba.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koje od sledećih NE SPREČAVA sudar uglom između roditelja i njihove prve dece?</p>",
+      "answers": [
+        {
+          "answer": "<p>Dodavanje <code>border</code> roditelju.</p>",
+          "feedback": "<p>Razmislite koji su faktori koji čine razdvajanje između roditelja i deteta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postaviti <code>padding-top: 1px;</code> za roditelja.</p>",
+          "feedback": "<p>Razmislite o kriterijumima koji određuju razmak između roditeljskog i detinjeg obala.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi <code>display: inline-block;</code> za dete.</p>",
+          "feedback": "<p>Razmislite koji su kriterijumi koji formiraju razdvajanje između granica roditelja i deteta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da stavi <code>margin-top: 0;</code> za dete.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-css-transforms-overflow-and-filters",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 100,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-box-model",
+  "certification": "responsive-web-design-v9"
+}

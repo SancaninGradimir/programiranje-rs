@@ -1,0 +1,85 @@
+{
+  "id": "5900f3c51000cf542c50fed8",
+  "title": "Vežba 87: Tri osnovna broja sa snagom",
+  "challengeType": 1,
+  "forumTopicId": 302201,
+  "dashedName": "problem-87-prime-power-triples",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function primePowerTriples(n) {\n\n  return true;\n}\n\nprimePowerTriples(50);",
+      "error": null,
+      "seed": "function primePowerTriples(n) {\n\n  return true;\n}\n\nprimePowerTriples(50);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function primePowerTriples(n) {\n  function getSievePrimes(max) {\n    const primes = [];\n    const primesMap = new Array(max).fill(true);\n    primesMap[0] = false;\n    primesMap[1] = false;\n\n    for (let i = 2; i <= max; i += 2) {\n      if (primesMap[i]) {\n        primes.push(i);\n        for (let j = i * i; j <= max; j = j + i) {\n          primesMap[j] = false;\n        }\n      }\n      if (i === 2) {\n        i = 1;\n      }\n    }\n    return primes;\n  }\n\n  function getPowersSummed(numbers, powers, limit, curSum) {\n    if (curSum >= limit) {\n      return [];\n    } else if (powers.length === 0) {\n      return [curSum];\n    }\n\n    const powersSummed = [];\n\n    const curPower = powers[0];\n    const powersLeft = powers.slice(1);\n    for (let i = 0; i < numbers.length; i++) {\n      const curNumber = numbers[i];\n      const nextSum = curSum + curNumber ** curPower;\n      if (nextSum >= limit) {\n        return powersSummed;\n      }\n      const result = getPowersSummed(\n        numbers,\n        powersLeft,\n        limit,\n        curSum + curNumber ** curPower\n      );\n      powersSummed.push(...result);\n    }\n    return powersSummed;\n  }\n\n  const maximumBaseNumber = Math.floor(Math.sqrt(n - 2 ** 3 - 2 ** 4)) + 1;\n  const primes = getSievePrimes(maximumBaseNumber);\n  const uniqueSums = new Set(getPowersSummed(primes, [2, 3, 4], n, 0));\n\n  return uniqueSums.size;\n}",
+        "error": null,
+        "seed": "function primePowerTriples(n) {\n  function getSievePrimes(max) {\n    const primes = [];\n    const primesMap = new Array(max).fill(true);\n    primesMap[0] = false;\n    primesMap[1] = false;\n\n    for (let i = 2; i <= max; i += 2) {\n      if (primesMap[i]) {\n        primes.push(i);\n        for (let j = i * i; j <= max; j = j + i) {\n          primesMap[j] = false;\n        }\n      }\n      if (i === 2) {\n        i = 1;\n      }\n    }\n    return primes;\n  }\n\n  function getPowersSummed(numbers, powers, limit, curSum) {\n    if (curSum >= limit) {\n      return [];\n    } else if (powers.length === 0) {\n      return [curSum];\n    }\n\n    const powersSummed = [];\n\n    const curPower = powers[0];\n    const powersLeft = powers.slice(1);\n    for (let i = 0; i < numbers.length; i++) {\n      const curNumber = numbers[i];\n      const nextSum = curSum + curNumber ** curPower;\n      if (nextSum >= limit) {\n        return powersSummed;\n      }\n      const result = getPowersSummed(\n        numbers,\n        powersLeft,\n        limit,\n        curSum + curNumber ** curPower\n      );\n      powersSummed.push(...result);\n    }\n    return powersSummed;\n  }\n\n  const maximumBaseNumber = Math.floor(Math.sqrt(n - 2 ** 3 - 2 ** 4)) + 1;\n  const primes = getSievePrimes(maximumBaseNumber);\n  const uniqueSums = new Set(getPowersSummed(primes, [2, 3, 4], n, 0));\n\n  return uniqueSums.size;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>primePowerTriples(50)</code> trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof primePowerTriples(50) === 'number');"
+    },
+    {
+      "text": "<p><code>primePowerTriples(50)</code> trebalo bi da vrati <code>4</code>.</p>",
+      "testString": "assert.strictEqual(primePowerTriples(50), 4);"
+    },
+    {
+      "text": "<p><code>primePowerTriples(10035)</code> treba da vrati <code>684</code>.</p>",
+      "testString": "assert.strictEqual(primePowerTriples(10035), 684);"
+    },
+    {
+      "text": "<p><code>primePowerTriples(500000)</code> treba da vrati <code>18899</code>.</p>",
+      "testString": "assert.strictEqual(primePowerTriples(500000), 18899);"
+    },
+    {
+      "text": "<p><code>primePowerTriples(5000000)</code> inapaswa kurudisha <code>138932</code>.</p>",
+      "testString": "assert.strictEqual(primePowerTriples(5000000), 138932);"
+    },
+    {
+      "text": "<p><code>primePowerTriples(50000000)</code> trebalo bi da vrati <code>1097343</code>.</p>",
+      "testString": "assert.strictEqual(primePowerTriples(50000000), 1097343);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Najmanji broj koji se može predstaviti kao zbir kvadrata osnovnih brojeva, kub osnovnog broja i četvrti stepen osnovnog broja je <code>28</code>. Zapravo, postoji samo četiri broja ispod pedeset koji se mogu tako predstaviti:</p>\n<div style='margin-left: 4em;'>\n  28 = 2<sup>2</sup> + 2<sup>3</sup> + 2<sup>4</sup><br>\n  33 = 3<sup>2</sup> + 2<sup>3</sup> + 2<sup>4</sup><br>\n  49 = 5<sup>2</sup> + 2<sup>3</sup> + 2<sup>4</sup><br>\n  47 = 2<sup>2</sup> + 3<sup>3</sup> + 2<sup>4</sup>\n</div><br>\n<p>Koliko brojeva ispod <code>n</code> može se predstaviti kao zbir kvadrata osnovnog broja, kubusa osnovnog broja i četvrte moći osnovnog broja?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 86,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

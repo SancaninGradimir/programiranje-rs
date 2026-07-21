@@ -1,0 +1,289 @@
+{
+  "id": "6723c77d1a44b8a7599277dd",
+  "title": "Pregledaj JavaScript",
+  "challengeType": 31,
+  "dashedName": "review-javascript-objects",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<h2>Osnovi nečega</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Objekt je struktura podataka napravljena od svojstava. Svako svojstvo ima ključeve i vrednosti. Da biste dobili podatke iz objekta, možete koristiti tačka-notaciju ili zagradnu notaciju.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30,\n  city: \"New York\"\n};\n\nconsole.log(person.name);  // Alice\nconsole.log(person[\"name\"]); // Alice",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30,\n  city: \"New York\"\n};\n\nconsole.log(person.name);  // Alice\nconsole.log(person[\"name\"]); // Alice\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste postavili atribut nečega što već postoji, možete koristiti dot notaciju ili zagradnu notaciju zajedno sa operatorom dodeljivanja.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nperson.job = \"Engineer\"\nperson[\"hobby\"] = \"Knitting\"\nconsole.log(person);  // {name: 'Alice', age: 30, job: 'Engineer', hobby: 'Knitting'}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nperson.job = \"Engineer\"\nperson[\"hobby\"] = \"Knitting\"\nconsole.log(person);  // {name: 'Alice', age: 30, job: 'Engineer', hobby: 'Knitting'}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Uklanjanje atributa sa objekta</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Operacija za <code>delete</code></strong>: Ova operacija se koristi za uklanjanje svojstava sa objekta.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30,\n  job: \"Engineer\"\n};\n\ndelete person.job;\n\nconsole.log(person.job); // undefined",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30,\n  job: \"Engineer\"\n};\n\ndelete person.job;\n\nconsole.log(person.job); // undefined\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Proveriti da li nešto ima određena svojstva</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Njia ya <code>hasOwnProperty()</code></strong>: Ova metoda vraća boolean vrednost (tačno ili netačno) koja ukazuje da li objekat poseduje pomenuto svojstvo.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.hasOwnProperty(\"name\")); // true\nconsole.log(person.hasOwnProperty(\"job\")); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.hasOwnProperty(\"name\")); // true\nconsole.log(person.hasOwnProperty(\"job\")); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Metoda za <code>Object.hasOwn()</code></strong>: Ovo je moderni, preporučeni način proveravanja da li objekat poseduje sopstveno svojstvo (nije nasleđeno). Sintaksa je <code>Object.hasOwn(object, propertyName)</code>. Vraća <code>true</code> ako svojstvo postoji na objektu i <code>false</code> ako ne postoji — bez obzira na vrednost svojstva. Ovo ga čini sigurnijim od <code>hasOwnProperty()</code> i pouzdanijim od <code>if (obj.prop)</code> kada vrednosti mogu biti <code>0</code>, <code>false</code>, <code>null</code> ili <code>undefined</code>.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(Object.hasOwn(person, \"name\")); // true\nconsole.log(Object.hasOwn(person, \"job\")); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(Object.hasOwn(person, \"name\")); // true\nconsole.log(Object.hasOwn(person, \"job\")); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo detaljnog primera koji pokazuje zašto <code>Object.hasOwn()</code> je pouzdaniji od direktne provere vrednosti:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const settings = {\n  darkMode: false,\n  fontSize: 0,\n  language: null\n};\n\n// Object.hasOwn() correctly sees these properties exist\nconsole.log(Object.hasOwn(settings, \"darkMode\")); // true (value is false, but exists)\nconsole.log(Object.hasOwn(settings, \"fontSize\")); // true (value is 0, but exists)\nconsole.log(Object.hasOwn(settings, \"theme\"));    // false (property was never added)\n\n// Using if() directly is unsafe for falsy values!\nif (settings.darkMode) {\n  console.log(\"Dark mode on\"); // Does NOT print — misleading!\n}\n\n// Object.hasOwn() is the safe way\nif (Object.hasOwn(settings, \"darkMode\")) {\n  console.log(\"darkMode exists, value is:\", settings.darkMode); // darkMode exists, value is: false\n}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const settings = {\n  darkMode: false,\n  fontSize: 0,\n  language: null\n};\n\n// Object.hasOwn() correctly sees these properties exist\nconsole.log(Object.hasOwn(settings, \"darkMode\")); // true (value is false, but exists)\nconsole.log(Object.hasOwn(settings, \"fontSize\")); // true (value is 0, but exists)\nconsole.log(Object.hasOwn(settings, \"theme\"));    // false (property was never added)\n\n// Using if() directly is unsafe for falsy values!\nif (settings.darkMode) {\n  console.log(\"Dark mode on\"); // Does NOT print — misleading!\n}\n\n// Object.hasOwn() is the safe way\nif (Object.hasOwn(settings, \"darkMode\")) {\n  console.log(\"darkMode exists, value is:\", settings.darkMode); // darkMode exists, value is: false\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Opereta ya <code>in</code></strong>: Ovo svojstvo vraća <code>true</code> ako postoji na objektu.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Bob\",\n  age: 25\n};\n\nconsole.log(\"name\" in person);  // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Bob\",\n  age: 25\n};\n\nconsole.log(\"name\" in person);  // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Dohvatanje svojstava iz interno definisanih elemenata</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Dobijanje podataka</strong>: Dohvatanje svojstava iz ugnježdjenih objekata podrazumeva korišćenje dot notacije ili bracket notacije, kao što dobijate svojstva iz jednostavnih objekata. Međutim, biće vam potreban niz poziva ovih getter-a kako biste došli do ugnježdene strukture.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30,\n  contact: {\n    email: \"alice@example.com\",\n    phone: {\n      home: \"123-456-7890\",\n      work: \"098-765-4321\"\n    }\n  }\n};\n\nconsole.log(person.contact.phone.work); // \"098-765-4321\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30,\n  contact: {\n    email: \"alice@example.com\",\n    phone: {\n      home: \"123-456-7890\",\n      work: \"098-765-4321\"\n    }\n  }\n};\n\nconsole.log(person.contact.phone.work); // \"098-765-4321\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Tip podataka za primarne i sekundarne podatke</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Primativni tipovi podataka</strong>: Ovi tipovi podataka uključuju brojeve, nizove karaktera, logičke vrednosti (tačno ili netačno), <code>null</code>, <code>undefined</code> i simbole. Ovi tipovi se nazivaju \"primativni\" jer predstavljaju jednu vrednost, a ne objekte. Primativne vrednosti su nepromenljive, što znači da kada se kreiraju, njihova vrednost ne može biti promenjena.</li>\n<li><strong>Neprimativni tipovi podataka</strong>: U JavaScript, ovo su objekti, uključujući obične objekte, nizove podataka i funkcije. Za razliku od primativnih, neprimativni tipovi mogu skladištiti više vrednosti kao atribute ili komponente.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Načini za nešto</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Metode objekta su funkcije povezane sa objektom. Definisane su kao svojstva objekta i mogu dohvatiti i izvršiti podatke tog objekta. Token <code>this</code> unutar metode se odnosi na sam objekat, omogućavajući pristup njegovim svojstvima.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Bob\",\n  age: 30,\n  sayHello: function() {\n    return \"Hello, my name is \" + this.name;\n  }\n};\n\nconsole.log(person.sayHello()); // \"Hello, my name is Bob\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Bob\",\n  age: 30,\n  sayHello: function() {\n    return \"Hello, my name is \" + this.name;\n  }\n};\n\nconsole.log(person.sayHello()); // \"Hello, my name is Bob\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Komponenta predmeta</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: U JavaScript, komponenta je specijalni tip funkcije koji se koristi za kreiranje i inicijalizovanje objekata. Naziva se sa rečima <code>new</code> i može da inicijalizuje svojstva i metode na novokreiranom objektu. Komponenta <code>Object()</code> kreira novi prazan objekat.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">new Object()\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa operacijom serijskog povezivanja (<code>?.</code>)</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Ova operacija omogućava vam da sigurno dobijete atribute objekta ili pozovete metodu bez brige da li postoje ili ne.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const user = {\n  name: \"John\",\n  profile: {\n    email: \"john@example.com\",\n    address: {\n      street: \"123 Main St\",\n      city: \"Somewhere\"\n    }\n  }\n};\n\nconsole.log(user.profile?.address?.street); // \"123 Main St\"\nconsole.log(user.profile?.phone?.number);   // undefined",
+          "ext": "ts",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-ts\">const user = {\n  name: \"John\",\n  profile: {\n    email: \"john@example.com\",\n    address: {\n      street: \"123 Main St\",\n      city: \"Somewhere\"\n    }\n  }\n};\n\nconsole.log(user.profile?.address?.street); // \"123 Main St\"\nconsole.log(user.profile?.phone?.number);   // undefined\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rešenje strukture objekta</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Dekonstrukcija objekta omogućava vam da izvučete vrednosti iz objekata i dodelite ih varijable na kraći i čitljiviji način.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = { name: \"Alice\", age: 30, city: \"New York\" };\n\nconst { name, age } = person;\n\nconsole.log(name); // Alice\nconsole.log(age);  // 30",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = { name: \"Alice\", age: 30, city: \"New York\" };\n\nconst { name, age } = person;\n\nconsole.log(name); // Alice\nconsole.log(age);  // 30\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa JSON</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: JSON je skraćenica za JavaScript Object Notation. To je lagani tekstualni format podataka koji se široko koristi za razmenu podataka između servera i mrežnih aplikacija.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">{\n  \"name\": \"Alice\",\n  \"age\": 30,\n  \"isStudent\": false,\n  \"list of courses\": [\"Mathematics\", \"Physics\", \"Computer Science\"]\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Putanja za <code>JSON.stringify()</code></strong>: Ova putanja se koristi za konverziju objekta JavaScript u niz karaktera JSON. Ovo je važno kada vam je potrebno sačuvati ili preneti podatke u format koji se lako deli ili prenosi između sistema.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const user = {\n  name: \"John\",\n  age: 30,\n  isAdmin: true\n};\n\nconst jsonString = JSON.stringify(user);\nconsole.log(jsonString); // '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}'",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const user = {\n  name: \"John\",\n  age: 30,\n  isAdmin: true\n};\n\nconst jsonString = JSON.stringify(user);\nconsole.log(jsonString); // '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}'\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Njia ya <code>JSON.parse()</code></strong>: Ova metoda konvertuje niz znakova od JSON nazad u objekat/strukturu JavaScript. Ovo je važno kada dobijete podatke za JSON sa mrežnog servera ili localStorage i morate te podatke pokrenuti u vašoj aplikaciji.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const jsonString = '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}';\nconst userObject = JSON.parse(jsonString);\n\n// result: { name: 'John', age: 30, isAdmin: true }\nconsole.log(userObject);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const jsonString = '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}';\nconst userObject = JSON.parse(jsonString);\n\n// result: { name: 'John', age: 30, isAdmin: true }\nconsole.log(userObject);\n</code></pre>"
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    "<p>Proveri teme i koncepte za stavke JavaScript.</p>"
+  ],
+  "tests": [],
+  "translationPending": false,
+  "block": "review-javascript-objects",
+  "blockLabel": "review",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 63,
+  "description": "",
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-objects",
+  "certification": "javascript-v9"
+}

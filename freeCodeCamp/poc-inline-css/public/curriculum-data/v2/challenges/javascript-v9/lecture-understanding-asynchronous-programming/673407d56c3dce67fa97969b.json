@@ -1,0 +1,150 @@
+{
+  "id": "673407d56c3dce67fa97969b",
+  "title": "Šta `async`/`async`, i kako radi?",
+  "challengeType": 19,
+  "dashedName": "what-is-async-await-and-how-does-it-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>U prethodnim lekcijama, naučili ste o asinhronom programiranju, koje omogućava drugom kodu da nastavi da se izvršava dok čekamo zadatke koji zahtevaju vreme, kao što je dobijanje podataka sa servera, čitanje podataka iz fajla i slično.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>async</code>/<code>await</code>, izgrađen na obećanjima, olakšava pisanje i čitanje asinhronnog koda. Kada stavite ključnu reč <code>async</code> ispred funkcije, to znači da će ta funkcija uvek vraćati <code>Promise</code>. Ključna reč <code>await</code>, koja vam omogućava da sačekate da se <code>Promise</code> reši pre nego što nastavite sa sledećim redom koda, može se koristiti samo unutar asinhronih funkcija ili višeslojnih struktura modula. Evo primera koji pokazuje kako <code>async</code>/<code>await</code> funkcioniše:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "async function delayedGreeting(name) {\n  console.log(\"A Messenger entered the chat...\");\n  await new Promise(resolve => setTimeout(resolve, 2000));\n  console.log(`Hello, ${name}!`);\n}\n\ndelayedGreeting(\"Alice\");\nconsole.log(\"First Printed Message!\");",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">async function delayedGreeting(name) {\n  console.log(\"A Messenger entered the chat...\");\n  await new Promise(resolve => setTimeout(resolve, 2000));\n  console.log(`Hello, ${name}!`);\n}\n\ndelayedGreeting(\"Alice\");\nconsole.log(\"First Printed Message!\");\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom kodu, definišemo funkciju <code>async</code> koja je nazvana <code>delayedGreeting</code>. Unutar ove funkcije, koristimo <code>await</code> da zaustavimo izvršavanje na 2 sekunde. Nakon kašnjenja, ispisuje pozdrav.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada pozovemo ovu funkciju, videćeš da se <code>First Printed Message!</code> ispisuje pre pozdrava. To je zato što je funkcija asinhrona — ne blokira izvršavanje ostatka koda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Jedna od najvećih prednosti <code>async</code>/<code>await</code> je upravljanje greškama. Ranije, često smo morali da koristimo metodu <code>.catch()</code> za obradu grešaka. Sa <code>async</code>/<code>await</code>, možemo koristiti klauzule <code>try</code>/<code>catch</code>. Evo primera:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">async function fetchUserData() {\n  try {\n    let response = await fetch(`https://api.example.com/users`);\n    let userData = await response.json();\n    console.log(userData);\n  } catch (error) {\n    console.log(\"Error fetching user data:\", error);\n  }\n}\n\nfetchUserData();\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru koristimo <code>async</code>/<code>await</code> za preuzimanje podataka o korisniku iz API-ja. Ključna reč <code>await</code> koristi se dva puta: jednom da sačeka završetak <code>fetch</code> operacije, a drugi put da sačeka završetak parsiranja JSON-a. Ako tokom ovog procesa dođe do bilo kakve greške, ona će biti obrađena u <code>catch</code> bloku.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna svrha ključne reči <code>async</code> u JavaScript-u?</p>",
+      "answers": [
+        {
+          "answer": "<p>Da omogući da se funkcija izvršava brže.</p>",
+          "feedback": "<p>Razmisli šta <code>async</code> radi sa povratnom vrednošću funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da označi da će funkcija uvek vraćati Promise.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da kreira novu nit za izvršavanje funkcije.</p>",
+          "feedback": "<p>Razmisli o tome šta <code>async</code> radi sa vrednošću return funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sprečavanje da se funkcija pozove više puta.</p>",
+          "feedback": "<p>Razmislite o tome šta <code>async</code> radi na vrednosti return funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Glavna funkcija za <code>await</code>, gde se može koristiti u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Na bilo kom mestu u kodu.</p>",
+          "feedback": "<p>Razmislite o ograničenjima lokacije gde se <code>await</code> može postaviti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Na samom početku tvog koda.</p>",
+          "feedback": "<p>Razmislite o ograničenjima lokacije gde se <code>await</code> može postaviti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Unutar funkcija <code>async</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>U odlomcima <code>try...catch</code> samo.</p>",
+          "feedback": "<p>Razmislite o ograničenjima lokacije gde se <code>await</code> može postaviti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta se dešava kada dođe do greške u očekivanom Promise?</p>",
+      "answers": [
+        {
+          "answer": "<p>Program ne može da se nastavi.</p>",
+          "feedback": "<p>Razmislite kako upravljanje greškama radi sa <code>async</code>/<code>await</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prikazuje se direktno u konzoli.</p>",
+          "feedback": "<p>Zamislite kako upravljanje greškama radi sa <code>async</code>/<code>await</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ništa se ne dešava, greške u obećanjima nisu uzimate u obzir.</p>",
+          "feedback": "<p>Zamislite kako upravljanje greškama funkcioniše sa <code>async</code>/<code>await</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Greška se može identifikovati korišćenjem sekcije <code>try...catch</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-asynchronous-programming",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 224,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "asynchronous-javascript",
+  "certification": "javascript-v9"
+}

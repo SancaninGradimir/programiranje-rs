@@ -1,0 +1,55 @@
+{
+  "id": "65fa9402d1fb5516aa42159d",
+  "title": "Korak 50",
+  "challengeType": 20,
+  "dashedName": "step-50",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        32,
+        39
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da objaviš parametar <code>v4</code> i postavi vrednost razlike između <code>v1</code> i <code>v2</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).has_stmt(\"v4 = v1 - v2\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da ispišete <code>f'v1 - v2 = {v4}'</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_call(\"print(f'v1 - v2 = {v4}')\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Slobodno promenite <code>v3</code> ili kombinujte primer od <code>R2Vector</code> sa nečim drugačijeg tipa, kao što su pun broj ili niz slova. Bićete u mogućnosti da vidite poruku <code>TypeError</code> ispisanu na konzolu.</p>\n<p>Zatim, ponovo učitaj originalnu liniju i kreiraj novu varijablu <code>v4</code>. Postavi vrednost razlike između <code>v1</code> i <code>v2</code> u svoju novu varijablu i odštapi rezultat prateći isti format prvobitnog f-stringa.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 49,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

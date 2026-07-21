@@ -1,0 +1,85 @@
+{
+  "id": "ab306dbdcc907c7ddfc30830",
+  "title": "Sortiraj red podataka",
+  "challengeType": 1,
+  "forumTopicId": 16079,
+  "dashedName": "steamroller",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function steamrollArray(arr) {\r\n  return arr;\r\n}\r\n\r\nsteamrollArray([1, [2], [3, [[4]]]]);",
+      "error": null,
+      "seed": "function steamrollArray(arr) {\r\n  return arr;\r\n}\r\n\r\nsteamrollArray([1, [2], [3, [[4]]]]);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function steamrollArray(arr) {\r\n  if (!Array.isArray(arr)) {\r\n    return [arr];\r\n  }\r\n  var out = [];\r\n  arr.forEach(function(e) {\r\n    steamrollArray(e).forEach(function(v) {\r\n      out.push(v);\r\n    });\r\n  });\r\n  return out;\r\n}",
+        "error": null,
+        "seed": "function steamrollArray(arr) {\r\n  if (!Array.isArray(arr)) {\r\n    return [arr];\r\n  }\r\n  var out = [];\r\n  arr.forEach(function(e) {\r\n    steamrollArray(e).forEach(function(v) {\r\n      out.push(v);\r\n    });\r\n  });\r\n  return out;\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>steamrollArray([[[\"a\"]], [[\"b\"]]])</code> treba vratiti <code>[\"a\", \"b\"]</code>.</p>",
+      "testString": "assert.deepEqual(steamrollArray([[['a']], [['b']]]), ['a', 'b']);"
+    },
+    {
+      "text": "<p><code>steamrollArray([1, [2], [3, [[4]]]])</code> treba vratiti <code>[1, 2, 3, 4]</code>.</p>",
+      "testString": "assert.deepEqual(steamrollArray([1, [2], [3, [[4]]]]), [1, 2, 3, 4]);"
+    },
+    {
+      "text": "<p><code>steamrollArray([1, [], [3, [[4]]]])</code> trebalo bi da vrati <code>[1, 3, 4]</code>.</p>",
+      "testString": "assert.deepEqual(steamrollArray([1, [], [3, [[4]]]]), [1, 3, 4]);"
+    },
+    {
+      "text": "<p><code>steamrollArray([1, {}, [3, [[4]]]])</code> trebalo bi da vrati <code>[1, {}, 3, 4]</code>.</p>",
+      "testString": "assert.deepEqual(steamrollArray([1, {}, [3, [[4]]]]), [1, {}, 3, 4]);"
+    },
+    {
+      "text": "<p>Vaše rešenje ne bi trebalo da koristi metode <code>Array.prototype.flat()</code> ili <code>Array.prototype.flatMap()</code>.</p>",
+      "testString": "assert(!__helpers.removeJSComments(code).match(/\\.\\s*flat\\s*\\(/) && !__helpers.removeJSComments(code).match(/\\.\\s*flatMap\\s*\\(/));"
+    },
+    {
+      "text": "<p>Međunarodni standard ne bi trebalo koristiti.</p>",
+      "testString": "steamrollArray([1, {}, [3, [[4]]]])\r\nassert.deepEqual(steamrollArray([1, {}, [3, [[4]]]]), [1, {}, 3, 4])"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Organizujte red strukturiranih podataka unutar. Morate uzeti u obzir različite standarde internog sortiranja.</p>\n</section>",
+  "translationPending": false,
+  "block": "intermediate-algorithm-scripting",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "5900f39c1000cf542c50feae",
+  "title": "Vežba 47: Deljenje različitih baza",
+  "challengeType": 1,
+  "forumTopicId": 302145,
+  "dashedName": "problem-47-distinct-primes-factors",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function distinctPrimeFactors(targetNumPrimes, targetConsecutive) {\n\n  return true;\n}\n\ndistinctPrimeFactors(4, 4);",
+      "error": null,
+      "seed": "function distinctPrimeFactors(targetNumPrimes, targetConsecutive) {\n\n  return true;\n}\n\ndistinctPrimeFactors(4, 4);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function distinctPrimeFactors(targetNumPrimes, targetConsecutive) {\n  const primeLimit = targetNumPrimes * targetConsecutive * 10000;\n  const numFactors = Array(primeLimit).fill(0);\n\n  let numConsecutive = 0;\n  for (let i = 2; i < primeLimit; i++) {\n    if (numFactors[i] === targetNumPrimes) {\n      // Current number is composite with target num factors\n      numConsecutive++;\n      if (numConsecutive === targetConsecutive) {\n        return i - numConsecutive + 1;\n      }\n    } else {\n      // Current number is not matching composite\n      numConsecutive = 0;\n      if (numFactors[i] === 0) {\n        // Current number is prime\n        for (let j = i; j < primeLimit; j += i) {\n          numFactors[j]++;\n        }\n      }\n    }\n  }\n}",
+        "error": null,
+        "seed": "function distinctPrimeFactors(targetNumPrimes, targetConsecutive) {\n  const primeLimit = targetNumPrimes * targetConsecutive * 10000;\n  const numFactors = Array(primeLimit).fill(0);\n\n  let numConsecutive = 0;\n  for (let i = 2; i < primeLimit; i++) {\n    if (numFactors[i] === targetNumPrimes) {\n      // Current number is composite with target num factors\n      numConsecutive++;\n      if (numConsecutive === targetConsecutive) {\n        return i - numConsecutive + 1;\n      }\n    } else {\n      // Current number is not matching composite\n      numConsecutive = 0;\n      if (numFactors[i] === 0) {\n        // Current number is prime\n        for (let j = i; j < primeLimit; j += i) {\n          numFactors[j]++;\n        }\n      }\n    }\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>distinctPrimeFactors(2, 2)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof distinctPrimeFactors(2, 2) === 'number');"
+    },
+    {
+      "text": "<p><code>distinctPrimeFactors(2, 2)</code> trebalo bi da vrati 14.</p>",
+      "testString": "assert.strictEqual(distinctPrimeFactors(2, 2), 14);"
+    },
+    {
+      "text": "<p><code>distinctPrimeFactors(3, 3)</code> treba da vrati 644.</p>",
+      "testString": "assert.strictEqual(distinctPrimeFactors(3, 3), 644);"
+    },
+    {
+      "text": "<p><code>distinctPrimeFactors(4, 4)</code> trebalo bi da vrati 134043.</p>",
+      "testString": "assert.strictEqual(distinctPrimeFactors(4, 4), 134043);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prvih dva broja koja imaju deljivost po dve različite osnove su:</p>\n<div style='padding-left: 4em;'>\n  14 = 2 × 7<br>\n  15 = 3 × 5\n</div>\n<p>Tri uzastopna broja iz prve sekvence koja je deljiva sa tri različita osnovna broja su:</p>\n<div style='padding-left: 4em;'>\n  644 = 2<sup>2</sup> × 7 × 23<br>\n  645 = 3 × 5 × 43<br>\n  646 = 2 × 17 × 19\n</div>\n<p>Pronađi četiri broja iz prve sekvence koja imaju po četiri različita premička faktora. Koji je prvi broj među njima?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 46,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

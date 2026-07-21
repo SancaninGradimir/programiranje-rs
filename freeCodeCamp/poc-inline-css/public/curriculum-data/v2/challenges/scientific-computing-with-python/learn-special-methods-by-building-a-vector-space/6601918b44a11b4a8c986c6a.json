@@ -1,0 +1,67 @@
+{
+  "id": "6601918b44a11b4a8c986c6a",
+  "title": "Korak 67",
+  "challengeType": 20,
+  "dashedName": "step-67",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        44,
+        51
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    def __lt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() < other.norm()\n\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    def __lt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() < other.norm()\n\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete putanju <code>__gt__</code> unutar klase objekata <code>R2Vector</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").has_function(\"__gt__\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>__lt__</code> mora imati dva parametra, <code>self</code> i <code>other</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__gt__\").has_args(\"self, other\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da kreirate deklaraciju <code>if</code> koja proverava da li <code>self</code> i <code>other</code> pripadaju istoj klasi objekata.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__gt__\").find_ifs()[0].find_conditions()[0]\nnode.is_equivalent(\"type(self) != type(other)\") or node.is_equivalent(\"type(other) != type(self)\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da vratiš <code>NotImplemented</code> iz tela svog puta <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__gt__\").find_ifs()[0].find_bodies()[0].has_return(\"NotImplemented\")`)) })"
+    },
+    {
+      "text": "<p>Njia ya <code>__gt__</code> mora vratiti rezultat poređenja norme trenutnog primera sa normom <code>other</code> koristeći operator veće od.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__gt__\").has_return(\"self.norm() > other.norm()\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Putanja za <code>__gt__</code> se poziva ispod poklopca kada je operater <code>></code> korišćen za poređenje nečega sa nečim drugim.</p>\n<p>Nakon puta <code>__lt__</code>, istim putem koji si napravio za <code>__lt__</code>, izvrši put <code>__gt__</code>. Pažljivo koristi odgovarajući operator.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 66,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

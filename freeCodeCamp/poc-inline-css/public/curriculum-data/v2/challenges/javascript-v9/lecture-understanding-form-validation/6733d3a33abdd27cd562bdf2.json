@@ -1,0 +1,247 @@
+{
+  "id": "6733d3a33abdd27cd562bdf2",
+  "title": "Šta je svrha metode preventDefault()?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-purpose-of-e-preventdefault",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Naučite se o nameni puta <code>preventDefault()</code> u događajima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svaki događaj koji se dešava u DOM ima određeno podrazumevano ponašanje. Događaj <code>click</code> u padajućem izborniku menja stanje tog elementa, po podrazumevanom. Pritiskanje tastera za razmak (space bar) na fokusiranom elementu aktivira taj element. Metoda <code>preventDefault()</code> na ovim elementima događaja sprečava da se to ponašanje desi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uzmimo primer. Objasnićmo element od <code>input</code> za korisnika da unese unutra:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<label>Enter some characters:\n  <input type=\"text\">\n</label>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;label>Enter some characters:\n  &#x3C;input type=\"text\">\n&#x3C;/label>\n</code></pre>"
+        },
+        {
+          "contents": "label {\n  display: flex;\n  flex-direction: column;\n  font-family: Arial, sans-serif;\n  font-size: 14px;\n  color: #333;\n  margin-bottom: 12px;\n}\n\ninput[type=\"text\"] {\n  padding: 8px 12px;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  font-size: 14px;\n  margin-top: 4px;\n  width: 100%;\n  box-sizing: border-box;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #0078d4;\n  box-shadow: 0 0 3px rgba(0, 120, 212, 0.5);\n  outline: none;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">label {\n  display: flex;\n  flex-direction: column;\n  font-family: Arial, sans-serif;\n  font-size: 14px;\n  color: #333;\n  margin-bottom: 12px;\n}\n\ninput[type=\"text\"] {\n  padding: 8px 12px;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  font-size: 14px;\n  margin-top: 4px;\n  width: 100%;\n  box-sizing: border-box;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #0078d4;\n  box-shadow: 0 0 3px rgba(0, 120, 212, 0.5);\n  outline: none;\n}\n\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada pogledamo rezultate, možemo napisati u polje za unos kako je očekivano. Ali možda ne želimo to. Možda, umesto toga, želeli bismo da prikažemo slovo koje korisnik piše u drugom polju. Prvo, definišimo naše polje za to:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<label>Enter some characters:\n  <input type=\"text\">\n</label>\n<p id=\"output\"></p>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;label>Enter some characters:\n  &#x3C;input type=\"text\">\n&#x3C;/label>\n&#x3C;p id=\"output\">&#x3C;/p>\n</code></pre>"
+        },
+        {
+          "contents": "body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim, moramo uhvatiti događaj <code>keydown</code> ili pratiti karakter unet na tastaturi. Zapamtite da ne želimo događaje <code>change</code> niti <code>input</code> ovde, jer nam trebaju podatke sa tastature.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const input = document.querySelector(\"input\");\n\ninput.addEventListener(\"keydown\", (e) => {\n    \n})\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Događaj <code>keydown</code> se dešava kada pritisnete taster na tastaturi. Kada se ovaj događaj desi, prikazaćemo slovo u našem polju <code>p</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<label>Enter some characters:\n  <input type=\"text\">\n</label>\n<p id=\"output\"></p>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;label>Enter some characters:\n  &#x3C;input type=\"text\">\n&#x3C;/label>\n&#x3C;p id=\"output\">&#x3C;/p>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n\n</code></pre>"
+        },
+        {
+          "contents": "const input = document.querySelector(\"input\");\nconst output = document.getElementById(\"output\");\n\ninput.addEventListener(\"keydown\", (e) => {\n  output.innerText = `You pressed the ${e.key} key`;\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const input = document.querySelector(\"input\");\nconst output = document.getElementById(\"output\");\n\ninput.addEventListener(\"keydown\", (e) => {\n  output.innerText = `You pressed the ${e.key} key`;\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>e.key</code> daje vrednost pritisnutog dugmeta, kao <code>a</code> za dugme <code>a</code> ili <code>Enter</code> za dugme <code>Enter</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za gore navedeni kod, kada kucate u <code>input</code>, slovo koje unosite biće prikazano u elementu <code>p</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je dobro, ali ne želimo da se ti znakovi prikažu i u <code>input</code>. Ovde ulazi naša metoda za <code>preventDefault()</code>. Podrazumevano ponašanje <code>keydown</code> je prikazivanje znakova u polju za unos. Spreći ćemo to pozivanjem <code>e.preventDefault()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<label>Enter some characters:\n  <input type=\"text\">\n</label>\n<p id=\"output\"></p>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;label>Enter some characters:\n  &#x3C;input type=\"text\">\n&#x3C;/label>\n&#x3C;p id=\"output\">&#x3C;/p>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">body {\n  font-family: Arial, sans-serif;\n  background-color: #f0f0f0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh;\n  margin: 0;\n}\n\nlabel {\n  font-size: 1.2rem;\n  color: #333;\n  margin-bottom: 1rem;\n  display: flex;\n  flex-direction: column;\n}\n\ninput[type=\"text\"] {\n  padding: 0.5rem;\n  font-size: 1rem;\n  border: 2px solid #ccc;\n  border-radius: 5px;\n  margin-top: 0.5rem;\n  outline: none;\n}\n\ninput[type=\"text\"]:focus {\n  border-color: #007BFF;\n}\n\n#output {\n  margin-top: 1rem;\n  font-size: 1.1rem;\n  color: #555;\n}\n\n</code></pre>"
+        },
+        {
+          "contents": "const input = document.querySelector(\"input\");\nconst output = document.getElementById(\"output\");\n\ninput.addEventListener(\"keydown\", (e) => {\n  e.preventDefault();\n  output.innerText = `You pressed the ${e.key} key`;\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const input = document.querySelector(\"input\");\nconst output = document.getElementById(\"output\");\n\ninput.addEventListener(\"keydown\", (e) => {\n  e.preventDefault();\n  output.innerText = `You pressed the ${e.key} key`;\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Stoga, onemogućili ste podrazumevano ponašanje kako biste mogli da izvršite vaš specifični obradu događaja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Još jedan uobičajen primer korišćenja metode <code>e.preventDefault</code> vezuje se za slanje forme. Podrazumevano, slanje forme šalje podatke na server i preusmerava stranicu. Korišćenjem <code>e.preventDefault()</code> sprečava se da se ovo desi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const form = document.querySelector(\"form\");\n\nform.addEventListener(\"submit\", (e) => {\n  e.preventDefault();\n  // rest of code goes here\n});\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Onemogućavanje podrazumevanog ponašanja je korisno kada vam treba veća kontrola nad načinom na koji korisnik koristi stranicu, ali važno je uzeti u obzir stvari kao što je Pristupačnost – vaše prilagođeno ponašanje mora pružati iste funkcije kao i podrazumevano ponašanje.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna svrha puta <code>preventDefault()</code> u obradi događaja?</p>",
+      "answers": [
+        {
+          "answer": "<p>Sprečavanje širenja incidenta.</p>",
+          "feedback": "<p>Učenje objašnjava šta ova metoda radi za podrazumevano ponašanje događaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pružanje usluge za uklanjanje slušalica događaja.</p>",
+          "feedback": "<p>Lekcija objašnjava šta ova metoda radi za podrazumevano ponašanje događaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Blokiranje podrazumevanog ponašanja događaja.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izazivanje posebnih događaja.</p>",
+          "feedback": "<p>Učenje objašnjava šta ova metoda radi za podrazumevano ponašanje događaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>U datom primeru, koje podrazumevano ponašanje sprečava kada <code>preventDefault()</code> bude pozvano na događaju <code>keydown</code> za karakteristiku <code>input</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Sekcija unosa je izgubila fokus.</p>",
+          "feedback": "<p>Zamislite šta se obično dešava kada kucate u polje za unos.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Tasteri su prikazani u polju za unos.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Formular je podnet.</p>",
+          "feedback": "<p>Zamislite šta se obično dešava kada kucate u polje za unos.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Skrolujte stranicu.</p>",
+          "feedback": "<p>Razmislite o tome šta se obično događa kada kucate u polje za unos.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kada koristite <code>preventDefault()</code>, na šta programer mora da obrati pažnju?</p>",
+      "answers": [
+        {
+          "answer": "<p>Mora se koristiti samo prilikom podaju forme.</p>",
+          "feedback": "<p>Vodič navodi specifično upozorenje povezano sa interakcijom korisnika prilikom korišćenja određene karakteristike.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>To će direktno poboljšati funkcionalnost/performanse.</p>",
+          "feedback": "<p>Vodič spominje specifičnu zabrinutost vezanu za interakciju korisnika prilikom korišćenja specifičnih ponašanja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcionalnosti treba da zadrže isto podrazumevano ponašanje za pristupačnost.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>To će blokirati sve buduće događaje na tom polju.</p>",
+          "feedback": "<p>Vodič pominje određenu zabrinutost povezanu sa interakcijom korisnika prilikom korišćenja specifične funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-form-validation",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 151,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "form-validation",
+  "certification": "javascript-v9"
+}

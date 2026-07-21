@@ -1,0 +1,89 @@
+{
+  "id": "5966c21cf732a95f1b67dd28",
+  "title": "Operacija datuma",
+  "challengeType": 1,
+  "forumTopicId": 302244,
+  "dashedName": "date-manipulation",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function add12Hours(dateString) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function add12Hours(dateString) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function add12Hours(dateString) {\n  const months = ['January', 'February', 'March', 'April', 'May', 'June',\n    'July', 'August', 'September', 'October', 'November', 'December'];\n  // Get the parts of the string\n  const parts = dateString.split(' ');\n  const month = months.indexOf(parts[0]);\n  const day = parseInt(parts[1], 10);\n  const year = parseInt(parts[2], 10);\n  const time = parts[3].split(':');\n  let hours = parseInt(time[0], 10);\n  if (time[1].slice(-2) === 'pm') {\n    hours += 12;\n  }\n  const minutes = parseInt(time[1].slice(0, -2), 10);\n\n  // Create a date with given parts, and updated hours\n  const date = new Date();\n  date.setFullYear(year, month, day);\n  date.setHours(hours + 12);  // Add 12 hours\n  date.setMinutes(minutes);\n\n  let hoursOutput = date.getHours();\n  let abbreviation = 'am';\n  if (hoursOutput > 12) {\n    hoursOutput -= 12;\n    abbreviation = 'pm';\n  }\n\n  return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()} ${hoursOutput}:${date.getMinutes()}${abbreviation} EST`;\n}",
+        "error": null,
+        "seed": "function add12Hours(dateString) {\n  const months = ['January', 'February', 'March', 'April', 'May', 'June',\n    'July', 'August', 'September', 'October', 'November', 'December'];\n  // Get the parts of the string\n  const parts = dateString.split(' ');\n  const month = months.indexOf(parts[0]);\n  const day = parseInt(parts[1], 10);\n  const year = parseInt(parts[2], 10);\n  const time = parts[3].split(':');\n  let hours = parseInt(time[0], 10);\n  if (time[1].slice(-2) === 'pm') {\n    hours += 12;\n  }\n  const minutes = parseInt(time[1].slice(0, -2), 10);\n\n  // Create a date with given parts, and updated hours\n  const date = new Date();\n  date.setFullYear(year, month, day);\n  date.setHours(hours + 12);  // Add 12 hours\n  date.setMinutes(minutes);\n\n  let hoursOutput = date.getHours();\n  let abbreviation = 'am';\n  if (hoursOutput > 12) {\n    hoursOutput -= 12;\n    abbreviation = 'pm';\n  }\n\n  return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()} ${hoursOutput}:${date.getMinutes()}${abbreviation} EST`;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>add12Hours</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof add12Hours === 'function');"
+    },
+    {
+      "text": "<p><code>add12Hours(dateString)</code> Trebalo bi da vrati sekvencu slova.</p>",
+      "testString": "assert(typeof add12Hours('January 17 2017 11:43am EST') === 'string');"
+    },
+    {
+      "text": "<p><code>add12Hours(\"January 17 2017 11:43am EST\")</code> treba da vrati <code>\"January 17 2017 11:43pm EST\"</code></p>",
+      "testString": "assert(\n  add12Hours('January 17 2017 11:43am EST') === 'January 17 2017 11:43pm EST'\n);"
+    },
+    {
+      "text": "<p>Trebalo bi da se obrade promene dana. <code>add12Hours(\"March 6 2009 7:30pm EST\")</code> treba da vrati <code>\"March 7 2009 7:30am EST\"</code></p>",
+      "testString": "assert(add12Hours('March 6 2009 7:30pm EST') === 'March 7 2009 7:30am EST');"
+    },
+    {
+      "text": "<p>Trebalo bi da se obrade promene meseca u godinama skokova. <code>add12Hours(\"February 29 2004 9:15pm EST\")</code> treba vratiti <code>\"March 1 2004 9:15am EST\"</code></p>",
+      "testString": "assert(add12Hours('February 29 2004 9:15pm EST') === 'March 1 2004 9:15am EST');"
+    },
+    {
+      "text": "<p>Trebalo bi da se obrade mesečnu promenu u običnim godinama. <code>add12Hours(\"February 28 1999 3:15pm EST\")</code> treba da vrati <code>\"March 1 1999 3:15am EST\"</code></p>",
+      "testString": "assert(add12Hours('February 28 1999 3:15pm EST') === 'March 1 1999 3:15am EST');"
+    },
+    {
+      "text": "<p>Trebalo bi da obradi promenu godine. <code>add12Hours(\"December 31 2020 1:45pm EST\")</code> trebalo bi da vrati <code>\"January 1 2021 1:45am EST\"</code></p>",
+      "testString": "assert(\n  add12Hours('December 31 2020 1:45pm EST') === 'January 1 2021 1:45am EST'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako dobijete datum u stringu u EST vremenskoj zoni, konvertujte taj datum u niz znakova i dodajte 12 sati na vreme. Polje za vreme mora biti sačuvano.</p>\n<p>Primer unosa: <code>\"March 6 2009 7:30pm EST\"</code></p>\n<p>Primer rezultata: <code>\"March 7 2009 7:30am EST\"</code></p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

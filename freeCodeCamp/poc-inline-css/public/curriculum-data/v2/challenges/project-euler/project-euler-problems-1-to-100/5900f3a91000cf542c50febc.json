@@ -1,0 +1,81 @@
+{
+  "id": "5900f3a91000cf542c50febc",
+  "title": "Vežba 61: Brojevi za niz ciklusa",
+  "challengeType": 1,
+  "forumTopicId": 302173,
+  "dashedName": "problem-61-cyclical-figurate-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function cyclicalFigurateNums(n) {\n\n  return true;\n}\n\ncyclicalFigurateNums(3);",
+      "error": null,
+      "seed": "function cyclicalFigurateNums(n) {\n\n  return true;\n}\n\ncyclicalFigurateNums(3);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function cyclicalFigurateNums(n) {\n  function getChains(chain, n, numberTypes, numsExcludingLastNeededType) {\n    if (chain.length === n) {\n      return [chain];\n    }\n\n    const nextNumbers = getNextNumbersInChain(\n      chain[chain.length - 1],\n      numsExcludingLastNeededType\n    );\n\n    const chains = [];\n    for (let j = 0; j < nextNumbers.length; j++) {\n      const nextNumber = nextNumbers[j];\n      if (chain.indexOf(nextNumber) === -1) {\n        const nextChain = [...chain, nextNumber];\n        chains.push(\n          ...getChains(nextChain, n, numberTypes, numsExcludingLastNeededType)\n        );\n      }\n    }\n    return chains;\n  }\n\n  function getNextNumbersInChain(num, numsExcludingLastNeededType) {\n    const results = [];\n    const beginning = num % 100;\n    numsExcludingLastNeededType.forEach(number => {\n      if (Math.floor(number / 100) === beginning) {\n        results.push(number);\n      }\n    });\n    return results;\n  }\n\n  function fillNumberTypes(n, numberTypes, numsExcludingLastNeededType) {\n    const [, lastTypeCheck, lastTypeArr] = numberTypes[n - 1];\n\n    for (let i = 1000; i <= 9999; i++) {\n      for (let j = 0; j < n - 1; j++) {\n        const [, typeCheck, typeArr] = numberTypes[j];\n        if (typeCheck(i)) {\n          typeArr.push(i);\n          numsExcludingLastNeededType.add(i);\n        }\n      }\n\n      if (lastTypeCheck(i)) {\n        lastTypeArr.push(i);\n      }\n    }\n  }\n\n  function isCyclicalChain(chain, n, numberTypes) {\n    const numberTypesInChain = getNumberTypesInChain(chain, numberTypes);\n\n    if (!isChainAllowed(numberTypesInChain, n)) {\n      return false;\n    }\n\n    const isChainCyclic =\n      Math.floor(chain[0] / 100) === chain[chain.length - 1] % 100;\n    return isChainCyclic;\n  }\n\n  function getNumberTypesInChain(chain, numberTypes) {\n    const numbersInChain = {};\n    for (let i = 0; i < numberTypes.length; i++) {\n      const numberTypeName = numberTypes[i][0];\n      numbersInChain[numberTypeName] = [];\n    }\n\n    for (let i = 0; i < chain.length; i++) {\n      for (let j = 0; j < n; j++) {\n        const [typeName, , typeNumbers] = numberTypes[j];\n        const typeNumbersInChain = numbersInChain[typeName];\n        if (typeNumbers.indexOf(chain[i]) !== -1) {\n          typeNumbersInChain.push(chain[i]);\n        }\n      }\n    }\n    return numbersInChain;\n  }\n\n  function isChainAllowed(numberTypesInChain, n) {\n    for (let i = 0; i < n; i++) {\n      const typeName = numberTypes[i][0];\n      const isNumberWithTypeInChain = numberTypesInChain[typeName].length > 0;\n      if (!isNumberWithTypeInChain) {\n        return false;\n      }\n\n      for (let j = i + 1; j < n; j++) {\n        const otherTypeName = numberTypes[j][0];\n        if (\n          isNumberRepeatedAsOnlyNumberInTwoTypes(\n            numberTypesInChain[typeName],\n            numberTypesInChain[otherTypeName]\n          )\n        ) {\n          return false;\n        }\n      }\n    }\n    return true;\n  }\n\n  function isNumberRepeatedAsOnlyNumberInTwoTypes(\n    typeNumbers,\n    otherTypeNumbers\n  ) {\n    return (\n      typeNumbers.length === 1 &&\n      otherTypeNumbers.length === 1 &&\n      typeNumbers[0] === otherTypeNumbers[0]\n    );\n  }\n\n  function isTriangle(num) {\n    return ((8 * num + 1) ** 0.5 - 1) % 2 === 0;\n  }\n\n  function isSquare(num) {\n    return num ** 0.5 === parseInt(num ** 0.5, 10);\n  }\n\n  function isPentagonal(num) {\n    return ((24 * num + 1) ** 0.5 + 1) % 6 === 0;\n  }\n\n  function isHexagonal(num) {\n    return ((8 * num + 1) ** 0.5 + 1) % 4 === 0;\n  }\n\n  function isHeptagonal(num) {\n    return ((40 * num + 9) ** 0.5 + 3) % 10 === 0;\n  }\n\n  function isOctagonal(num) {\n    return ((3 * num + 1) ** 0.5 + 1) % 3 === 0;\n  }\n\n  const numberTypes = [\n    ['triangle', isTriangle, []],\n    ['square', isSquare, []],\n    ['pentagonal', isPentagonal, []],\n    ['hexagonal', isHexagonal, []],\n    ['heptagonal', isHeptagonal, []],\n    ['octagonal', isOctagonal, []]\n  ];\n  const numsExcludingLastNeededType = new Set();\n  fillNumberTypes(n, numberTypes, numsExcludingLastNeededType);\n\n  const nNumberChains = [];\n  const [, , lastType] = numberTypes[n - 1];\n  for (let i = 0; i < lastType.length; i++) {\n    const startOfChain = lastType[i];\n    nNumberChains.push(\n      ...getChains([startOfChain], n, numberTypes, numsExcludingLastNeededType)\n    );\n  }\n\n  const cyclicalChains = nNumberChains.filter(chain =>\n    isCyclicalChain(chain, n, numberTypes)\n  );\n\n  let sum = 0;\n  for (let i = 0; i < cyclicalChains.length; i++) {\n    for (let j = 0; j < cyclicalChains[0].length; j++) {\n      sum += cyclicalChains[i][j];\n    }\n  }\n  return sum;\n}",
+        "error": null,
+        "seed": "function cyclicalFigurateNums(n) {\n  function getChains(chain, n, numberTypes, numsExcludingLastNeededType) {\n    if (chain.length === n) {\n      return [chain];\n    }\n\n    const nextNumbers = getNextNumbersInChain(\n      chain[chain.length - 1],\n      numsExcludingLastNeededType\n    );\n\n    const chains = [];\n    for (let j = 0; j < nextNumbers.length; j++) {\n      const nextNumber = nextNumbers[j];\n      if (chain.indexOf(nextNumber) === -1) {\n        const nextChain = [...chain, nextNumber];\n        chains.push(\n          ...getChains(nextChain, n, numberTypes, numsExcludingLastNeededType)\n        );\n      }\n    }\n    return chains;\n  }\n\n  function getNextNumbersInChain(num, numsExcludingLastNeededType) {\n    const results = [];\n    const beginning = num % 100;\n    numsExcludingLastNeededType.forEach(number => {\n      if (Math.floor(number / 100) === beginning) {\n        results.push(number);\n      }\n    });\n    return results;\n  }\n\n  function fillNumberTypes(n, numberTypes, numsExcludingLastNeededType) {\n    const [, lastTypeCheck, lastTypeArr] = numberTypes[n - 1];\n\n    for (let i = 1000; i <= 9999; i++) {\n      for (let j = 0; j < n - 1; j++) {\n        const [, typeCheck, typeArr] = numberTypes[j];\n        if (typeCheck(i)) {\n          typeArr.push(i);\n          numsExcludingLastNeededType.add(i);\n        }\n      }\n\n      if (lastTypeCheck(i)) {\n        lastTypeArr.push(i);\n      }\n    }\n  }\n\n  function isCyclicalChain(chain, n, numberTypes) {\n    const numberTypesInChain = getNumberTypesInChain(chain, numberTypes);\n\n    if (!isChainAllowed(numberTypesInChain, n)) {\n      return false;\n    }\n\n    const isChainCyclic =\n      Math.floor(chain[0] / 100) === chain[chain.length - 1] % 100;\n    return isChainCyclic;\n  }\n\n  function getNumberTypesInChain(chain, numberTypes) {\n    const numbersInChain = {};\n    for (let i = 0; i < numberTypes.length; i++) {\n      const numberTypeName = numberTypes[i][0];\n      numbersInChain[numberTypeName] = [];\n    }\n\n    for (let i = 0; i < chain.length; i++) {\n      for (let j = 0; j < n; j++) {\n        const [typeName, , typeNumbers] = numberTypes[j];\n        const typeNumbersInChain = numbersInChain[typeName];\n        if (typeNumbers.indexOf(chain[i]) !== -1) {\n          typeNumbersInChain.push(chain[i]);\n        }\n      }\n    }\n    return numbersInChain;\n  }\n\n  function isChainAllowed(numberTypesInChain, n) {\n    for (let i = 0; i < n; i++) {\n      const typeName = numberTypes[i][0];\n      const isNumberWithTypeInChain = numberTypesInChain[typeName].length > 0;\n      if (!isNumberWithTypeInChain) {\n        return false;\n      }\n\n      for (let j = i + 1; j < n; j++) {\n        const otherTypeName = numberTypes[j][0];\n        if (\n          isNumberRepeatedAsOnlyNumberInTwoTypes(\n            numberTypesInChain[typeName],\n            numberTypesInChain[otherTypeName]\n          )\n        ) {\n          return false;\n        }\n      }\n    }\n    return true;\n  }\n\n  function isNumberRepeatedAsOnlyNumberInTwoTypes(\n    typeNumbers,\n    otherTypeNumbers\n  ) {\n    return (\n      typeNumbers.length === 1 &&\n      otherTypeNumbers.length === 1 &&\n      typeNumbers[0] === otherTypeNumbers[0]\n    );\n  }\n\n  function isTriangle(num) {\n    return ((8 * num + 1) ** 0.5 - 1) % 2 === 0;\n  }\n\n  function isSquare(num) {\n    return num ** 0.5 === parseInt(num ** 0.5, 10);\n  }\n\n  function isPentagonal(num) {\n    return ((24 * num + 1) ** 0.5 + 1) % 6 === 0;\n  }\n\n  function isHexagonal(num) {\n    return ((8 * num + 1) ** 0.5 + 1) % 4 === 0;\n  }\n\n  function isHeptagonal(num) {\n    return ((40 * num + 9) ** 0.5 + 3) % 10 === 0;\n  }\n\n  function isOctagonal(num) {\n    return ((3 * num + 1) ** 0.5 + 1) % 3 === 0;\n  }\n\n  const numberTypes = [\n    ['triangle', isTriangle, []],\n    ['square', isSquare, []],\n    ['pentagonal', isPentagonal, []],\n    ['hexagonal', isHexagonal, []],\n    ['heptagonal', isHeptagonal, []],\n    ['octagonal', isOctagonal, []]\n  ];\n  const numsExcludingLastNeededType = new Set();\n  fillNumberTypes(n, numberTypes, numsExcludingLastNeededType);\n\n  const nNumberChains = [];\n  const [, , lastType] = numberTypes[n - 1];\n  for (let i = 0; i < lastType.length; i++) {\n    const startOfChain = lastType[i];\n    nNumberChains.push(\n      ...getChains([startOfChain], n, numberTypes, numsExcludingLastNeededType)\n    );\n  }\n\n  const cyclicalChains = nNumberChains.filter(chain =>\n    isCyclicalChain(chain, n, numberTypes)\n  );\n\n  let sum = 0;\n  for (let i = 0; i < cyclicalChains.length; i++) {\n    for (let j = 0; j < cyclicalChains[0].length; j++) {\n      sum += cyclicalChains[i][j];\n    }\n  }\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>cyclicalFigurateNums(3)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof cyclicalFigurateNums(3) === 'number');"
+    },
+    {
+      "text": "<p><code>cyclicalFigurateNums(3)</code> Trebalo bi da vrati <code>19291</code>.</p>",
+      "testString": "assert.strictEqual(cyclicalFigurateNums(3), 19291);"
+    },
+    {
+      "text": "<p><code>cyclicalFigurateNums(4)</code> treba da vrati <code>28684</code>.</p>",
+      "testString": "assert.strictEqual(cyclicalFigurateNums(4), 28684);"
+    },
+    {
+      "text": "<p><code>cyclicalFigurateNums(5)</code> treba da vrati <code>76255</code>.</p>",
+      "testString": "assert.strictEqual(cyclicalFigurateNums(5), 76255);"
+    },
+    {
+      "text": "<p><code>cyclicalFigurateNums(6)</code> trebalo bi da vrati <code>28684</code>.</p>",
+      "testString": "assert.strictEqual(cyclicalFigurateNums(6), 28684);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Brojevi za pentagon, kvadrat, pentagonalni, heksagonalni, heptagonalni i oktagonalni su svi poligonalni brojevi (brojevi sekvence poligona) koji se generišu po sledećim formulama:</p>\n<table>\n<thead>\n<tr>\n<th>Vrsta broja</th>\n<th>Formula</th>\n<th>Niz</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Trokutasti</td>\n<td>$P_3(n) = \\frac{n(n+1)}{2}$</td>\n<td>1, 3, 6, 10, 15, ...</td>\n</tr>\n<tr>\n<td>Kvadratički</td>\n<td>$P_4(n) = n^2$</td>\n<td>1, 4, 9, 16, 25, ...</td>\n</tr>\n<tr>\n<td>Pentagonalni</td>\n<td>$P_5(n) = \\frac{n(3n−1)}2$</td>\n<td>1, 5, 12, 22, 35, ...</td>\n</tr>\n<tr>\n<td>Hekzagonalni</td>\n<td>$P_6(n) = n(2n−1)$</td>\n<td>1, 6, 15, 28, 45, ...</td>\n</tr>\n<tr>\n<td>Heptagonalni</td>\n<td>$P_7(n) = \\frac{n(5n−3)}{2}$</td>\n<td>1, 7, 18, 34, 55, ...</td>\n</tr>\n<tr>\n<td>Oktagonalni</td>\n<td>$P_8(n) = n(3n−2)$</td>\n<td>1, 8, 21, 40, 65, ...</td>\n</tr>\n</tbody>\n</table>\n<p>Skup od tri četvorocifrena broja: 8128, 2882, 8281, poseduje tri zanimljiva svojstva.</p>\n<ol>\n<li>Taj set je cikličan, jer su poslednje dve cifre svake brojne prve dve cifre sledeće brojne (uključujući zadnju i prvu brojku).</li>\n<li>Svaka vrsta poligona: trougaoni ($P_3(127) = 8128$), kvadratni ($P_4(91) = 8281$), i pentagonalni ($P_5(44) = 2882$), predstavljen je različitom brojkama u tom setu.</li>\n<li>Ovo je jedini skup četvorocifrenih brojeva sa ovim svojstvom.</li>\n</ol>\n<p>Pronađite sumu svih brojeva u organizovanom skupu za <code>n</code> četvorostavnih cikličkih brojeva koji svaki tip poligona od $P_3$ do $P_{n + 2}$ predstavlja različitim brojem u tom skupu.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 60,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

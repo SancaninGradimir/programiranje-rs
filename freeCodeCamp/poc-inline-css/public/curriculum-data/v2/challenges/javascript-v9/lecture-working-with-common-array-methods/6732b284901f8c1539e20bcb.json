@@ -1,0 +1,241 @@
+{
+  "id": "6732b284901f8c1539e20bcb",
+  "title": "Kako dodati i ukloniti elemente iz niza podataka?",
+  "challengeType": 19,
+  "dashedName": "how-do-you-add-remove-elements-from-the-middle-of-an-array",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda <code>splice()</code> u <code>JavaScript</code> je moćan način za modifikovanje nizova podataka. Omogućava vam da dodajete ili uklonite elemente bilo gde u nizu podataka, uključujući i sredinu. Vrednost <code>return</code> metode <code>splice()</code> biće niz uklonjenih elemenata iz niza podataka. Ako ništa nije uklonjeno, vraća se prazan niz.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Važno je razumeti da će ova metoda modifikovati originalni red podataka, menjajući ga na mestu umesto kreiranja novog reda. Ovo je nešto što treba uzeti u obzir kada koristite <code>splice()</code>. Evo osnovne sintakse:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">array.splice(startIndex, itemsToRemove, item1, item2)\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>startIndex</code> opisuje obrazac koji počinje da menja red podataka, dok je <code>itemsToRemove</code> opcioni parametar koji pokazuje koliko elemenata treba obrisati. Ako <code>itemsToRemove</code> nije navedeno, <code>splice()</code> će pronaći sve elemente od <code>startIndex</code> do kraja reda podataka. Sledeći parametri (<code>item1</code>, <code>item2</code>, itd.) su elementi koji se dodaju u red podataka, počevši od početnog obrasca.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Počnimo sa primerom brisanja elemenata u sredini reda podataka:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let fruits = [\"apple\", \"banana\", \"orange\", \"mango\", \"kiwi\"];\nlet removed = fruits.splice(2, 2);\n\nconsole.log(fruits);  // [\"apple\", \"banana\", \"kiwi\"]\nconsole.log(removed); // [\"orange\", \"mango\"]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let fruits = [\"apple\", \"banana\", \"orange\", \"mango\", \"kiwi\"];\nlet removed = fruits.splice(2, 2);\n\nconsole.log(fruits);  // [\"apple\", \"banana\", \"kiwi\"]\nconsole.log(removed); // [\"orange\", \"mango\"]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, <code>splice(2, 2)</code> počinje od indeksa <code>2</code> i uklanja <code>2</code> elementa. Izmenjeni niz će sada sadržati samo <code>apple</code>, <code>banana</code> i <code>kiwi</code>. Sada pogledajmo kako da dodamo elemente u sredinu niza:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let colors = [\"red\", \"green\", \"blue\"];\ncolors.splice(1, 0, \"yellow\", \"purple\");\n\nconsole.log(colors); // [\"red\", \"yellow\", \"purple\", \"green\", \"blue\"]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let colors = [\"red\", \"green\", \"blue\"];\ncolors.splice(1, 0, \"yellow\", \"purple\");\n\nconsole.log(colors); // [\"red\", \"yellow\", \"purple\", \"green\", \"blue\"]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde, <code>splice(1, 0, \"yellow\", \"purple\")</code> počinje na modelu <code>1</code>, briše elemente <code>0</code>, i dodaje <code>yellow</code> i <code>purple</code>. Drugi parametar (<code>0</code>) znači da se ne brišu elementi pre dodavanja. Takođe možete koristiti <code>splice()</code> za brisanje i dodavanje elemenata istovremeno:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let numbers = [1, 2, 3, 4, 5];\nnumbers.splice(1, 2, 6, 7, 8);\n\nconsole.log(numbers); // [1, 6, 7, 8, 4, 5]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let numbers = [1, 2, 3, 4, 5];\nnumbers.splice(1, 2, 6, 7, 8);\n\nconsole.log(numbers); // [1, 6, 7, 8, 4, 5]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, <code>splice(1, 2, 6, 7, 8)</code> počinje na modelu <code>1</code>, briše elemente <code>2</code> (<code>2</code> i <code>3</code>), i unosi <code>6</code>, <code>7</code>, i <code>8</code>. Ako želite da originalni red podataka ostane nepromenjen, trebate kreirati kopiju pre korišćenja <code>splice()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let original = [1, 2, 3, 4, 5];\nlet copy = [...original];\ncopy.splice(2, 1, 6);\n\nconsole.log(original); // [1, 2, 3, 4, 5]\nconsole.log(copy);     // [1, 2, 6, 4, 5]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let original = [1, 2, 3, 4, 5];\nlet copy = [...original];\ncopy.splice(2, 1, 6);\n\nconsole.log(original); // [1, 2, 3, 4, 5]\nconsole.log(copy);     // [1, 2, 6, 4, 5]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, da bismo napravili kopiju niza <code>original</code> bez njegovog menjanja, koristimo spread operator (<code>...</code>). Spread operator pravi plitku kopiju elemenata niza <code>original</code> u novi niz. Više o tome naučićete u narednim predavanjima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada koristimo <code>copy.splice(2, 1, 6)</code>, menja se kopija niza tako što se uklanja element na indeksu <code>2</code> (što je <code>3</code>) i na njegovo mesto ubacuje novi element <code>6</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uobičajena upotreba <code>splice()</code> je brisanje jednog elementa iz reda podataka kada znate njegov šablon:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let fruits = [\"apple\", \"banana\", \"orange\", \"mango\"];\nlet indexToRemove = fruits.indexOf(\"orange\");\nif (indexToRemove !== -1) {\n    fruits.splice(indexToRemove, 1);\n}\n\nconsole.log(fruits); // [\"apple\", \"banana\", \"mango\"]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let fruits = [\"apple\", \"banana\", \"orange\", \"mango\"];\nlet indexToRemove = fruits.indexOf(\"orange\");\nif (indexToRemove !== -1) {\n    fruits.splice(indexToRemove, 1);\n}\n\nconsole.log(fruits); // [\"apple\", \"banana\", \"mango\"]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, prvo koristimo metodu <code>indexOf()</code> da dobijemo instancu elementa <code>orange</code> u nizu <code>fruits</code>. Metoda <code>indexOf()</code> vraća instancu kada se element prvi put pojavi ili <code>-1</code> ako element nije dostupan u nizu podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim upoređujemo <code>indexToRemove</code> sa <code>-1</code> kako bismo osigurali da element postoji u nizu podataka pre pokušaja brisanja. Ako <code>indexToRemove</code> nije jednako <code>-1</code> (što znači da je element pronađen), koristimo <code>splice()</code> za brisanje jednog elementa počevši od pozicije <code>indexToRemove</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe možete koristiti <code>splice()</code> da obrišete red podataka tako što ćete obrisati sve elemente:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let array = [1, 2, 3, 4, 5];\narray.splice(0);\n\nconsole.log(array); // []",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let array = [1, 2, 3, 4, 5];\narray.splice(0);\n\nconsole.log(array); // []\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako je <code>splice()</code> moćan, treba napomenuti da za veoma velike nizove može imati nisku efikasnost u poređenju sa drugim metodama, posebno kada želite da promenite početak niza podataka. To je zato što <code>splice()</code> može zahtevati pomeranje svih sledećih elemenata. U takvim slučajevima, ako želite samo dodati ili izbrisati elemente na kraju niza podataka, metode kao što su <code>push()</code>, <code>pop()</code>, <code>unshift()</code>, i <code>shift()</code> mogu biti bolje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na kraju, <code>splice()</code> je veoma korišćena metoda za modifikovanje redova podataka u JavaScript. Omogućava vam da precizno kontrolišete dodavanje i brisanje elemenata iz bilo kog dela reda podataka. Razumevanje kako efikasno koristiti <code>splice()</code> može povećati vašu sposobnost rukovanja redovima podataka u vašem kodu JavaScript.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let arr = [1, 2, 3, 4, 5];\narr.splice(2, 0, 6, 7);\nconsole.log(arr);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>[1, 2, 6, 7, 3, 4, 5]</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>[1, 2, 3, 4, 5, 6, 7]</code></p>",
+          "feedback": "<p>Razmotrite značenje drugog parametra (<code>0</code>) u funkciji <code>splice()</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>[1, 2, 3, 6, 7, 4, 5]</code></p>",
+          "feedback": "<p>Razmislite o značenju drugog parametra (<code>0</code>) u putanji <code>splice()</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>[1, 2, 6, 7, 4, 5]</code></p>",
+          "feedback": "<p>Razmislite o značenju drugog parametra (<code>0</code>) u putanji <code>splice()</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koji poziv među sledećih poziva za <code>splice()</code> će obrisati broj 3 iz reda podataka?</p>\n<pre><code class=\"language-js\">let arr = [1, 2, 3, 4, 5];\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>arr.splice(3, 1)</code></p>",
+          "feedback": "<p>Zapamti, indeksi redova podataka počinju od 0.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>arr.splice(3, 0)</code></p>",
+          "feedback": "<p>Zapamtite, indeksi redova podataka počinju od 0.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>arr.splice(2, 1)</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>arr.splice(arr.length - 2, 1)</code></p>",
+          "feedback": "<p>Zapamtite, indeksi redova podataka počinju od 0.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta <code>splice()</code> vraća?</p>",
+      "answers": [
+        {
+          "answer": "<p>Red izmenjenih podataka.</p>",
+          "feedback": "<p>Razmislite o tome koja informacija može biti važna nakon brisanja elemenata iz reda podataka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Broj obrisanih elemenata.</p>",
+          "feedback": "<p>Razmislite o tome koja informacija bi mogla biti važna nakon brisanja elemenata iz skupa podataka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Red podataka sa izbrisanim elementima.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Razmislite o tome koja informacija može biti važna nakon brisanja elemenata iz reda podataka.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-common-array-methods",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 52,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-arrays",
+  "certification": "javascript-v9"
+}

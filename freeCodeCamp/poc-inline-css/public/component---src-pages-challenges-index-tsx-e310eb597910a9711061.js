@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_freecodecamp_client=self.webpackChunk_freecodecamp_client||[]).push([[3782],{85514:function(e,c,f){f.r(c);var l=f(49337),n=f(7378);c.default=()=>((0,n.useEffect)(()=>{(0,l.oo)("/learn")},[]),null)}}]);
+//# sourceMappingURL=component---src-pages-challenges-index-tsx-e310eb597910a9711061.js.map

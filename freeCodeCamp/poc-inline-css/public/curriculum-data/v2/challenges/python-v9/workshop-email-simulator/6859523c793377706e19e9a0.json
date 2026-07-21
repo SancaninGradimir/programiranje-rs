@@ -1,0 +1,54 @@
+{
+  "id": "6859523c793377706e19e9a0",
+  "title": "Korak 42",
+  "challengeType": 20,
+  "dashedName": "step-42",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        2,
+        11
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')",
+      "error": null,
+      "seed": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Moraš imati <code>self.timestamp</code> na putanji klase Email <code>__init__</code> i stavi <code>datetime.datetime.now()</code> tamo.</p>",
+      "testString": "({\n    test: () => {\n        assert(runPython(`_Node(_code).find_class(\"Email\").find_function(\"__init__\").has_stmt(\"self.timestamp = datetime.datetime.now()\")`));\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada dodajte vremenske oznake na e-poštu. U metodi klase Email <code>__init__</code>, kreirajte svojstvo elementa <code>timestamp</code> i postavite trenutnu vrednost vremena kako biste automatski dodali vremensku oznaku kada je e-pošta kreirana.</p>\n<p>Ovo pomaže u praćenju kada je poruka poslata i primljena.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 41,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

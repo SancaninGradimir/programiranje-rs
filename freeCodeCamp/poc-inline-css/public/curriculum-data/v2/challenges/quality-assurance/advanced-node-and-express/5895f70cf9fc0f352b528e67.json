@@ -1,0 +1,37 @@
+{
+  "id": "5895f70cf9fc0f352b528e67",
+  "title": "Implementiraj serijalizaciju Passport korisnika",
+  "challengeType": 2,
+  "forumTopicId": 301556,
+  "dashedName": "implement-the-serialization-of-a-passport-user",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Konekcija sa bazom podataka treba da postoji.</p>",
+      "testString": "  const url = new URL(\"/\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /Connected to Database/gi,\n    'You successfully connected to the database!'\n  );"
+    },
+    {
+      "text": "<p>Deserijalizacija sada treba da koristi bazu podataka ispravno i <code>done(null, null)</code> treba da bude pozvan sa <code>doc</code>.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /null,\\s*doc/gi,\n    'The callback in deserializeUser of (null, null) should be altered to (null, doc)'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nisi učitao pravi korisnički objekat jer baza podataka nije podešena. Poveži se sa bazom podataka odmah, kada pokreneš server, i sačuvaj trajnu konekciju za ceo životni ciklus aplikacije. Da bi ovo uradio, dodaj string konekcije tvoje baze podataka (na primer: <code>mongodb+srv://&#x3C;username>:&#x3C;password>@cluster0-jvwxi.mongodb.net/?retryWrites=true&#x26;w=majority</code>) u promenljivu okruženja <code>MONGO_URI</code>. Ovo se koristi u <code>connection.js</code> fajlu.</p>\n<p><em>Ako naiđeš na probleme sa postavljanjem besplatne baze podataka na MongoDB Atlas, pogledaj <a href=\"https://www.freecodecamp.org/news/get-started-with-mongodb-atlas/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ovaj tutorijal</a>.</em></p>\n<p>Sada želiš da se povežeš sa svojom bazom podataka, zatim počni da slušaš zahteve. Svrha ovoga je da se ne dozvole zahtevi pre nego što se baza podataka poveže ili ako postoji greška u bazi podataka. Da bi ovo postigao, stavi svoj kod i rute aplikacije unutar sledećeg koda:</p>\n<pre><code class=\"language-javascript\">myDB(async client => {\n  const myDataBase = await client.db('database').collection('users');\n\n  // Be sure to change the title\n  app.route('/').get((req, res) => {\n    // Change the response to render the Pug template\n    res.render('index', {\n      title: 'Connected to Database',\n      message: 'Please login'\n    });\n  });\n\n  // Serialization and deserialization here...\n\n  // Be sure to add this...\n}).catch(e => {\n  app.route('/').get((req, res) => {\n    res.render('index', { title: e, message: 'Unable to connect to database' });\n  });\n});\n// app.listen out here...\n</code></pre>\n<p>Uveri se da si iskomentarisao <code>myDataBase</code> kod u <code>deserializeUser</code>, i izmeni svoj <code>done(null, null)</code> da uključi <code>doc</code>.</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#implement-the-serialization-of-a-passport-user-5\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do ovog koraka</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

@@ -1,0 +1,246 @@
+{
+  "id": "6733d608654c17868e01c0a2",
+  "title": "Koje su različite načine kreiranja datuma?",
+  "challengeType": 19,
+  "dashedName": "what-are-the-different-ways-to-format-dates",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Na prošloj lekciji, naučili ste kako da radite sa nečim iz <code>Date</code> u JavaScript. Ali postoji nekoliko različitih načina za kreiranje datuma u JavaScript.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom tutorijalu, ćemo pogledati kako da radimo sa metodama <code>toISOString()</code>, <code>toString()</code>, i <code>toLocaleDateString()</code> za kreiranje datuma u JavaScript.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pre nego što pogledamo različite načine, prvo da pregledamo izgled stvari od <code>Date</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const date = new Date();\nconsole.log(date);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const date = new Date();\nconsole.log(date);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada zalepiš nešto sa <code>date</code> u konzolu, videćeš trenutni datum i vreme prema podešavanjima sistema korisnika. Evo primera rezultata koje ćeš videti:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">Sun Sep 29 2024 19:45:37 GMT-0700 (Pacific Daylight Time)\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako koristiš metodu <code>toString()</code> na objektu <code>date</code>, videćeš rezultate slične onima prethodnim.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste kreirali datum u proširenom ISO formatu (ISO 8601), možete koristiti metodu <code>toISOString()</code> kao što sledi:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const date = new Date();\nconsole.log(date.toISOString());",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const date = new Date();\nconsole.log(date.toISOString());\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>ISO 8601 je međunarodni standard za predstavljanje datuma i vremena. Njegov format je <code>YYYY-MM-DDTHH:mm:ss.sssZ</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera rezultata koje ćete videti:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">2024-09-30T02:47:20.292Z\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Drugi način za kreiranje datuma je korišćenje metode <code>toLocaleDateString()</code>. Ova metoda vam omogućava kreiranje datuma u zavisnosti od jezika i lokacije korisnika. Evo osnovne sintakse za korišćenje metode <code>toLocaleDateString()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const date = new Date();\nconsole.log(date.toLocaleDateString());",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const date = new Date();\nconsole.log(date.toLocaleDateString());\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera rezultata koje ćete videti:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">9/29/2024\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Putanj za <code>toLocaleDateString()</code> prima dva opciona parametra: <code>locales</code> i <code>options</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Parametar za <code>locales</code> je niz znakova koji predstavlja željenu lokaciju jezika. Na primer, možete uneti <code>en-US</code> za engleski jezik (SAD) ili <code>fr-FR</code> za francuski jezik (Francuska). Ako ne navedete parametar <code>locales</code>, koristi se podrazumevana lokacija jezika. Evo primera kako koristiti parametar <code>locales</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const date = new Date();\nconsole.log(date.toLocaleDateString(\"fr-FR\"));",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const date = new Date();\nconsole.log(date.toLocaleDateString(\"fr-FR\"));\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Drugi opcioni parametar je parametar <code>options</code>. Ovaj parametar je nešto što vam omogućava da odredite strukturu sekvence znakova datuma. Evo primera kako koristiti parametar <code>options</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const date = new Date();\nconst options = {\n  weekday: \"long\",\n  year: \"numeric\",\n  month: \"long\",\n  day: \"numeric\",\n};\nconsole.log(date.toLocaleDateString(\"en-GB\", options));",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const date = new Date();\nconst options = {\n  weekday: \"long\",\n  year: \"numeric\",\n  month: \"long\",\n  day: \"numeric\",\n};\nconsole.log(date.toLocaleDateString(\"en-GB\", options));\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U prethodnom primeru, identifikovali smo opciju korišćenja engleskog jezika (Velika Britanija) i prikazivanje punog dana u nedelji, godine, meseca i dana.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera rezultata koje ćete videti:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">Sunday, September 29, 2024\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom tutorijalu, dotakli smo samo neke načine za kreiranje datuma u JavaScript. Postoji mnogo više metoda i biblioteka dostupnih koje mogu pomoći pri kreiranju datuma u JavaScript. Međutim, metode <code>toISOString()</code> i <code>toLocaleDateString()</code> su dobar početak za kreiranje datuma u JavaScript.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koju metodu ćete koristiti za kreiranje datuma u formatu ISO 8601?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>toString()</code></p>",
+          "feedback": "<p>Ova metoda vraća sekvencu znakova formatiranu prema standardnom datumskom formatu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>toLocaleDateString()</code></p>",
+          "feedback": "<p>Ova metoda vraća niz karaktera formatiran po standardnom datumu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>toISOString()</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>getDate()</code></p>",
+          "feedback": "<p>Ova putanja vraća niz znakova formatiran prema standardnom datumu.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja je metoda za formatiranje datuma u zavisnosti od lokalnog regiona korisnika?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>toUTCString()</code></p>",
+          "feedback": "<p>Ova putanja omogućava kreiranje datuma sa formatom lokacije jezika.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>toLocaleDateString()</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>toISOString()</code></p>",
+          "feedback": "<p>Ovaj put omogućava generisanje datuma prema lokalizaciji jezika.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>getTime()</code></p>",
+          "feedback": "<p>Ova metoda omogućava kreiranje datuma prema formatu regionalnog jezika.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja su opciona parametra koja možete pružiti putem <code>toLocaleDateString()</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>locales</code> na <code>options</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>format</code> na <code>timezone</code>.</p>",
+          "feedback": "<p>Ovi kriterijumi pomažu u preciziranju strukture rezultata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>day</code> na <code>month</code>.</p>",
+          "feedback": "<p>Ovi parametri pomažu u usavršavanju strukture rezultata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>style</code> na <code>language</code>.</p>",
+          "feedback": "<p>Ovi kriterijumi pomažu da se usavrši struktura rezultata.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-dates",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 156,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-dates",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "660a8c3b21100c6b83e57cb0",
+  "title": "Korak 60",
+  "challengeType": 20,
+  "dashedName": "step-60",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        34,
+        44
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Board:\r\n    def __init__(self, board):\r\n        self.board = board\r\n\r\n    def find_empty_cell(self):\r\n        for row, contents in enumerate(self.board):\r\n            try:\r\n                col = contents.index(0)\r\n                return row, col\r\n            except ValueError:\r\n                pass\r\n        return None\r\n\r\n    def valid_in_row(self, row, num):\r\n        return num not in self.board[row]\r\n\r\n    def valid_in_col(self, col, num):\r\n        return all(self.board[row][col] != num for row in range(9))\r\n\r\n    def valid_in_square(self, row, col, num):\r\n        row_start = (row // 3) * 3\r\n        col_start = (col // 3) * 3\r\n        for row_no in range(row_start, row_start + 3):\r\n            for col_no in range(col_start, col_start + 3):\r\n                if self.board[row_no][col_no] == num:\r\n                    return False\r\n        return True\r\n\r\n    def is_valid(self, empty, num):\r\n        row, col = empty\r\n        valid_in_row = self.valid_in_row(row, num)\r\n        valid_in_col = self.valid_in_col(col, num)\r\n        valid_in_square = self.valid_in_square(row, col, num)\r\n        return all([valid_in_row, valid_in_col, valid_in_square])\r\n    def solver(self):\r\n        if (next_empty := self.find_empty_cell()) is None:\r\n            return True\r\n        for guess in range(1, 10):\r\n            if self.is_valid(next_empty, guess):\r\n                row, col = next_empty\r\n                self.board[row][col] = guess\r\n                if self.solver():\r\n                    return True\r\npuzzle = [\r\n  [0, 0, 2, 0, 0, 8, 0, 0, 0],\r\n  [0, 0, 0, 0, 0, 3, 7, 6, 2],\r\n  [4, 3, 0, 0, 0, 0, 8, 0, 0],\r\n  [0, 5, 0, 0, 3, 0, 0, 9, 0],\r\n  [0, 4, 0, 0, 0, 0, 0, 2, 6],\r\n  [0, 0, 0, 4, 6, 7, 0, 0, 0],\r\n  [0, 8, 6, 7, 0, 4, 0, 0, 0],\r\n  [0, 0, 0, 5, 1, 9, 0, 0, 8],\r\n  [1, 7, 0, 0, 0, 6, 0, 0, 5]\r\n]\r\n\r\ngameboard = Board(puzzle)",
+      "error": null,
+      "seed": "class Board:\r\n    def __init__(self, board):\r\n        self.board = board\r\n\r\n    def find_empty_cell(self):\r\n        for row, contents in enumerate(self.board):\r\n            try:\r\n                col = contents.index(0)\r\n                return row, col\r\n            except ValueError:\r\n                pass\r\n        return None\r\n\r\n    def valid_in_row(self, row, num):\r\n        return num not in self.board[row]\r\n\r\n    def valid_in_col(self, col, num):\r\n        return all(self.board[row][col] != num for row in range(9))\r\n\r\n    def valid_in_square(self, row, col, num):\r\n        row_start = (row // 3) * 3\r\n        col_start = (col // 3) * 3\r\n        for row_no in range(row_start, row_start + 3):\r\n            for col_no in range(col_start, col_start + 3):\r\n                if self.board[row_no][col_no] == num:\r\n                    return False\r\n        return True\r\n\r\n    def is_valid(self, empty, num):\r\n        row, col = empty\r\n        valid_in_row = self.valid_in_row(row, num)\r\n        valid_in_col = self.valid_in_col(col, num)\r\n        valid_in_square = self.valid_in_square(row, col, num)\r\n        return all([valid_in_row, valid_in_col, valid_in_square])\r\n    def solver(self):\r\n        if (next_empty := self.find_empty_cell()) is None:\r\n            return True\r\n        for guess in range(1, 10):\r\n            if self.is_valid(next_empty, guess):\r\n                row, col = next_empty\r\n                self.board[row][col] = guess\r\n                if self.solver():\r\n                    return True\r\npuzzle = [\r\n  [0, 0, 2, 0, 0, 8, 0, 0, 0],\r\n  [0, 0, 0, 0, 0, 3, 7, 6, 2],\r\n  [4, 3, 0, 0, 0, 0, 8, 0, 0],\r\n  [0, 5, 0, 0, 3, 0, 0, 9, 0],\r\n  [0, 4, 0, 0, 0, 0, 0, 2, 6],\r\n  [0, 0, 0, 4, 6, 7, 0, 0, 0],\r\n  [0, 8, 6, 7, 0, 4, 0, 0, 0],\r\n  [0, 0, 0, 5, 1, 9, 0, 0, 8],\r\n  [1, 7, 0, 0, 0, 6, 0, 0, 5]\r\n]\r\n\r\ngameboard = Board(puzzle)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi postaviti vrednost trenutne ćelije na <code>0</code> nakon najdubljeg izraza od <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Board\").find_function(\"solver\").find_for_loops()[0].find_ifs()[0].find_bodies()[0].is_equivalent(\"row, col = next_empty\\\\nself.board[row][col] = guess\\\\nif self.solver():\\\\n  return True\\\\nself.board[row][col] = 0\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako rekurzivni poziv vraća <code>False</code>, to znači da su te pretpostavke uzrokovale nerješiv sudoku. Stoga ćete morati da resetujete ćeliju i istražite druge pretpostavke.</p>\n<p>Nakon dubinskog pregleda <code>if</code>, postavite trenutnu vrednost ćelije da se vrati na <code>0</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-classes-and-objects-by-building-a-sudoku-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 11,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 59,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

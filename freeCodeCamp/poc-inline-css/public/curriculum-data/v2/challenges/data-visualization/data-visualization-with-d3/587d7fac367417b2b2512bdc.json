@@ -1,0 +1,73 @@
+{
+  "id": "587d7fac367417b2b2512bdc",
+  "title": "Koristite funkcije `d3.max` i `d3.min` da biste pronašli maksimalnu i minimalnu vrednost u skupu podataka.",
+  "challengeType": 6,
+  "forumTopicId": 301496,
+  "dashedName": "use-the-d3-max-and-d3-min-functions-to-find-minimum-and-maximum-values-in-a-dataset",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<body>\n  <script>\n    const positionData = [\n      [1, 7, -4],\n      [6, 3, 8],\n      [2, 9, 3]\n    ];\n    // Add your code below this line\n\n    const output = undefined; // Change this line\n\n    // Add your code above this line\n\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>",
+      "error": null,
+      "seed": "<body>\n  <script>\n    const positionData = [\n      [1, 7, -4],\n      [6, 3, 8],\n      [2, 9, 3]\n    ];\n    // Add your code below this line\n\n    const output = undefined; // Change this line\n\n    // Add your code above this line\n\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<body>\n  <script>\n    const positionData = [\n      [1, 7, -4],\n      [6, 3, 8],\n      [2, 9, 3]\n    ];\n\n    const output = d3.max(positionData, d => d[2]);\n\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>",
+        "error": null,
+        "seed": "<body>\n  <script>\n    const positionData = [\n      [1, 7, -4],\n      [6, 3, 8],\n      [2, 9, 3]\n    ];\n\n    const output = d3.max(positionData, d => d[2]);\n\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tekst u <code>h2</code> bi trebalo da bude <code>8</code>.</p>",
+      "testString": "assert.strictEqual(output, 8);\nassert.strictEqual(document.querySelector('h2')?.textContent, '8');"
+    },
+    {
+      "text": "<p>Vaš kod treba da koristi metodu <code>max()</code>.</p>",
+      "testString": "assert.match(\n  code,\n  /\\.max/g,\n  'Your code should use the <code>max()</code> method.'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Načini D3 <code>domain()</code> i <code>range()</code> postavljaju te informacije na vašem nivou u zavisnosti od podataka. Postoji nekoliko načina da se to uradi lakše.</p>\n<p>Često kada definišete domen, želite da koristite minimalne i maksimalne vrednosti unutar skupa podataka. Pokušaj ručnog određivanja ovih nivoa, posebno u velikom skupu podataka, može izazvati greške.</p>\n<p>D3 ima dva načina - <code>min()</code> i <code>max()</code> za vraćanje ovih informacija. Evo primera:</p>\n<pre><code class=\"language-js\">const exampleData = [34, 234, 73, 90, 6, 52];\nd3.min(exampleData);\nd3.max(exampleData);\n</code></pre>\n<p>Skup podataka može sadržati ugnježdeni nizove podataka, kao što su parovi koordinata <code>[x, y]</code> koji se nalaze u primeru raspršenog grafikona. U tom slučaju, morate reći D3 kako da izračuna maksimum i minimum. Srećom, metode <code>min()</code> i <code>max()</code> sve uzimaju funkciju povratne pozive (callback function). U ovom primeru, argument funkcije povratne pozive <code>d</code> je namenjen trenutnom unutrašnjem nizu. Funkcija povratne pozive mora vratiti element iz unutrašnjeg niza (vrednost <code>x</code> ili <code>y</code>) za koji želite da izračunate maksimum ili minimum. Evo primera kako dobiti vrednosti minima i maksimuma za niz niza podataka:</p>\n<pre><code class=\"language-js\">const locationData = [\n  [1, 7],\n  [6, 3],\n  [8, 3]\n];\nconst minX = d3.min(locationData, d => d[0]);\n</code></pre>\n<p><code>minX</code> ima vrednost od <code>1</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Red <code>positionData</code> ima podredove koordinata x, y i z. Koristite funkciju D3 da dobijete najvišu koordinatnu vrednost za z (treća vrednost) iz tih redova i unesite je u parametar <code>output</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-visualization-with-d3",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "data-visualization",
+  "superOrder": 18,
+  "challengeOrder": 25,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "data-visualization"
+}

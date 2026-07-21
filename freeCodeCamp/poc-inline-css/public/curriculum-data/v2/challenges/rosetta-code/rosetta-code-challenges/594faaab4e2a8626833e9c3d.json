@@ -1,0 +1,84 @@
+{
+  "id": "594faaab4e2a8626833e9c3d",
+  "title": "Razdvoj niz znakova koristeći prenos (ili: translaciju)",
+  "challengeType": 1,
+  "forumTopicId": 302338,
+  "dashedName": "tokenize-a-string-with-escaping",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function tokenize(str, sep, esc) {\n  return true;\n}",
+      "error": null,
+      "seed": "function tokenize(str, sep, esc) {\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// tokenize :: String -> Character -> Character -> [String]\nfunction tokenize(str, charDelim, charEsc) {\n  const dctParse = str.split('')\n    .reduce((a, x) => {\n      const blnEsc = a.esc;\n      const blnBreak = !blnEsc && x === charDelim;\n      const blnEscChar = !blnEsc && x === charEsc;\n\n      return {\n        esc: blnEscChar,\n        token: blnBreak ? '' : (\n          a.token + (blnEscChar ? '' : x)\n        ),\n        list: a.list.concat(blnBreak ? a.token : [])\n      };\n    }, {\n      esc: false,\n      token: '',\n      list: []\n    });\n\n  return dctParse.list.concat(\n    dctParse.token\n  );\n}",
+        "error": null,
+        "seed": "// tokenize :: String -> Character -> Character -> [String]\nfunction tokenize(str, charDelim, charEsc) {\n  const dctParse = str.split('')\n    .reduce((a, x) => {\n      const blnEsc = a.esc;\n      const blnBreak = !blnEsc && x === charDelim;\n      const blnEscChar = !blnEsc && x === charEsc;\n\n      return {\n        esc: blnEscChar,\n        token: blnBreak ? '' : (\n          a.token + (blnEscChar ? '' : x)\n        ),\n        list: a.list.concat(blnBreak ? a.token : [])\n      };\n    }, {\n      esc: false,\n      token: '',\n      list: []\n    });\n\n  return dctParse.list.concat(\n    dctParse.token\n  );\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const testStr1 = 'one^|uno||three^^^^|four^^^|^cuatro|';\nconst res1 = ['one|uno', '', 'three^^', 'four^|cuatro', ''];\n\nconst testStr2 = 'a@&bcd&ef&&@@hi';\nconst res2 = ['a&bcd', 'ef', '', '@hi'];\n\nconst testStr3 = 'hello^|world|how^are^you^|';\nconst res3 = ['hello|world', 'howareyou|'];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>tokenize</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof tokenize === 'function');"
+    },
+    {
+      "text": "<p><code>tokenize</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(typeof tokenize('a', 'b', 'c') === 'object');"
+    },
+    {
+      "text": "<p><code>tokenize('one^|uno||three^^^^|four^^^|^cuatro|', '|', '^')</code> treba da vrati <code>['one|uno', '', 'three^^', 'four^|cuatro', '']</code></p>",
+      "testString": "assert.deepEqual(tokenize(testStr1, '|', '^'), res1);"
+    },
+    {
+      "text": "<p><code>tokenize('a@&#x26;bcd&#x26;ef&#x26;&#x26;@@hi', '&#x26;', '@')</code> treba da vrati <code>['a&#x26;bcd', 'ef', '', '@hi']</code></p>",
+      "testString": "assert.deepEqual(tokenize(testStr2, '&', '@'), res2);"
+    },
+    {
+      "text": "<p><code>tokenize('hello^|world|how^are^you^|', '|', '^')</code> treba da vrati <code>['hello|world', 'howareyou|']</code></p>",
+      "testString": "assert.deepEqual(tokenize(testStr3, '|', '^'), res3);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napišite funkciju ili program koji može da razdvoji niz karaktera svaki put kada naiđe na netransitivni delimiter uzorak.</p>\n<p>Trebalo bi da primi tri ulazna parametra:</p>\n<ul>\n  <li><strong>sekvenca slova</strong></li>\n  <li><strong>svojstvo segmentacije</strong></li>\n  <li><strong>svojstvo prenosa</strong></li>\n</ul>\n<p>Treba da vrati listu stringova.</p>\n<p>Sheria za kugawanya:</p>\n<ul>\n  <li>Sekcije podeljene separatorima biće stavke u listi rezultata.</li>\n  <li>Prazne sekcije takođe treba sačuvati, čak i na početku i na kraju.</li>\n</ul>\n<p>Pravila transfera:</p>\n<ul>\n  <li>\"Transfer\" znači svojstvo prethodno praćeno svojstvom transfera koje nema niti transfer.</li>\n  <li>Svojstvo transfera koje sledi za svojstvom bez specifičnog značenja, i dalje se računa kao transfer (ali ne radi ništa specifično).</li>\n  <li>Svako svojstvo transfera korišćeno za prebacivanje nečega, ne bi trebalo da bude deo rezultata.</li>\n</ul>\n<p>Pokažite da vaša funkcija zadovoljava sledeći test slučaj:</p>\n<p>Ako je niz slova</p>\n<pre>one^|uno||three^^^^|four^^^|^cuatro|</pre>\n<p>i koristeći <code>|</code> kao delimiter i <code>^</code> kao svojstvo prenosa, vaša funkcija bi trebalo da izbaci sledeći red podataka:</p>\n<pre>  ['one|uno', '', 'three^^', 'four^|cuatro', '']\n</pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 148,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

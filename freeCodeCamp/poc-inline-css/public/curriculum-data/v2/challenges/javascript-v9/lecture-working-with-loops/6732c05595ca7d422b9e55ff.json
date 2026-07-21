@@ -1,0 +1,244 @@
+{
+  "id": "6732c05595ca7d422b9e55ff",
+  "title": "Šta je petlja for...in, i na liniji ga treba koristiti?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-for-in-loop-and-when-should-you-use-it",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Petlja <code>for...in</code> je najkorisnija kada treba da prolaziš kroz svojstva objekta. Ona prolazi kroz sva nabrojiva svojstva objekta, uključujući nasleđena svojstva iz prototype lanca i svojstva koja nisu numerička.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dobijeno svojstvo je svojstvo koje se može dobiti iz lanca prototipa objekta. Nenumeričko svojstvo je svojstvo koje nije broj ili niz slova koji se može konvertovati u broj.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo osnovne sintakse <code>for...in</code> petlje:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">for (variable in object) {\n  // code block to be executed\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Parametar u primeru predstavlja trenutni atribut ponovnog objekta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Istražite nekoliko primera ili razumevanje kako radi ciklus <code>for...in</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom prvom primeru imamo nešto sa <code>fruit</code> i želimo da iteriramo kroz svaki atribut i izpišemo vrednost na konzolu.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const fruit = {\n  name: 'apple',\n  color: 'red',\n  price: 0.99\n};\n\nfor (const prop in fruit) {\n  console.log(fruit[prop]);\n}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const fruit = {\n  name: 'apple',\n  color: 'red',\n  price: 0.99\n};\n\nfor (const prop in fruit) {\n  console.log(fruit[prop]);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Promenljiva <code>prop</code> predstavlja trenutno svojstvo objekta. <code>fruit[prop]</code> koristi se za pristup vrednosti svakog svojstva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U prvoj iteraciji <code>prop</code> će biti <code>name</code>. U drugoj iteraciji <code>prop</code> će biti <code>color</code>, i tako dalje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Rezultati ispisani na konzolu će biti <code>apple</code>, <code>red</code>, i <code>0.99</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U drugom primeru imamo ugnježdeni objekat i želimo da prođemo kroz svako svojstvo i ispišemo njegovu vrednost u konzolu.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: 'John',\n  age: 30,\n  address: {\n    street: '123 Main St',\n    city: 'Anytown',\n    state: 'CA'\n  }\n};\n\nfor (const prop in person) {\n  console.log(person[prop]);\n}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: 'John',\n  age: 30,\n  address: {\n    street: '123 Main St',\n    city: 'Anytown',\n    state: 'CA'\n  }\n};\n\nfor (const prop in person) {\n  console.log(person[prop]);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svojstvo <code>address</code> je objekat. Petlja <code>for...in</code> će takođe proći kroz svojstva objekta <code>person</code> i ispisati ceo objekat <code>address</code> u konzolu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kako će rezultati izgledati na konzoli:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-md\">John\n30\n{ street: '123 Main St', city: 'Anytown', state: 'CA' }\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako želite da iterirate preko svojstava objekta <code>address</code>, možete ga postaviti unutar druge petlje od <code>for...in</code> i unutar prve.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: 'John',\n  age: 30,\n  address: {\n    street: '123 Main St',\n    city: 'Anytown',\n    state: 'CA'\n  }\n};\n\nfunction isObject(obj) {\n  return typeof obj === 'object' && !Array.isArray(obj) && obj !== null;\n}\n\nfor (const prop in person) {\n  if (isObject(person[prop])) {\n    for (const nestedProp in person[prop]) {\n      console.log(person[prop][nestedProp]);\n    }\n  } else {\n    console.log(person[prop]);\n  }\n}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: 'John',\n  age: 30,\n  address: {\n    street: '123 Main St',\n    city: 'Anytown',\n    state: 'CA'\n  }\n};\n\nfunction isObject(obj) {\n  return typeof obj === 'object' &#x26;&#x26; !Array.isArray(obj) &#x26;&#x26; obj !== null;\n}\n\nfor (const prop in person) {\n  if (isObject(person[prop])) {\n    for (const nestedProp in person[prop]) {\n      console.log(person[prop][nestedProp]);\n    }\n  } else {\n    console.log(person[prop]);\n  }\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, imamo specijalnu funkciju za <code>isObject</code> koja proverava da li je vrednost nešto.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Funkcija <code>Array.isArray</code> se koristi za proveru da li vrednost predstavlja niz podataka. Dodavanjem logičkog operatora NOT (<code>!</code>) pre ove funkcije, proveravamo da li vrednost NIJE niz podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Razlog zašto ne možemo koristiti <code>typeof</code> jednako kao <code>'object'</code> je zato što se redovi podataka takođe smatraju objektima u JavaScript. Želimo da uklonimo redove podataka iz validacije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe, zbog istorijske greške u JavaScript, <code>typeof null</code> vraća <code>'object'</code>. Stoga želimo da takođe uklonimo vrednosti <code>null</code> iz pregleda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako je uslov istinit, pokreće se još jedan ciklus za <code>for...in</code> koji će iterirati kroz svojstva objekta definisanog unutra i napisati vrednost na konzolu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svojstvo <code>nestedProp</code> predstavlja trenutno svojstvo objekta definisanog unutra.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kako će izgledati modifikovani rezultati na konzoli:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-md\">\"John\"\n30\n\"123 Main St\"\n\"Anytown\"\n\"CA\"\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Petlja za <code>for...in</code> je važna kada vam treba iterirati preko svojstava objekta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Nije preporučljivo koristiti petlju <code>for...in</code> za iteraciju po elementima niza podataka. Umesto toga, koristite petlju <code>for...of</code> ili druge metode za nizove kao što su <code>forEach</code>, <code>map</code>, <code>filter</code> i <code>reduce</code>, koje ćete naučiti u budućim lekcijama.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koji će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">const fruit = {\n  name: 'apple',\n  color: 'red',\n  price: 0.99\n};\n\nfor (const prop in fruit) {\n  console.log(fruit[prop]);\n}\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-md\">apple\napple\napple\n</code></pre>",
+          "feedback": "<p>Pregledajte početak obuke da naučite šta ciklus <code>for...in</code> radi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-md\">name\ncolor\nprice\n</code></pre>",
+          "feedback": "<p>Pregledajte početak treninga kako biste naučili šta petlja <code>for...in</code> radi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-md\">apple\nred\n0.99\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-md\">fruit\nfruit\nfruit\n</code></pre>",
+          "feedback": "<p>Proverite početak treniranja da biste saznali šta ta petlja <code>for...in</code> radi.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Zašto generalno nije preporučljivo koristiti petlju <code>for...in</code> za iteraciju preko elemenata niza podataka?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>for...in</code> Ponavlja se samo po redovima, a ne po elementima.</p>",
+          "feedback": "<p>Razmislite o vrstama svojstava i indikatora koje <code>for...in</code> može dobiti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>for...in</code> ponavlja se na svim brojivim atributima, uključujući pronađene i nenumeričke atribute, što može dovesti do nepouzdanih rezultata.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Petlje <code>for...in</code> su sporije u poređenju sa drugim metodama iteracije redova.</p>",
+          "feedback": "<p>Razmotrite vrste svojstava i atributa koje <code>for...in</code> može dobiti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>for...in</code> Ne može da obrađuje redove sa nenumeričkim indeksima.</p>",
+          "feedback": "<p>Razmislite o vrstama svojstava i indikatora koje <code>for...in</code> može dobiti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Zašto funkcija <code>isObject</code> je potrebna u primeru unutrašnjeg kola?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ili proveriti da li je vrednost niz slova.</p>",
+          "feedback": "<p>Razmislite o dodatnoj validaciji koja je potrebna za proveru da li je vrednost stvarna.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da bi se osiguralo da vrednost nije red podataka niti <code>null</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da bi se potvrdilo da je vrednost ceo broj.</p>",
+          "feedback": "<p>Razmislite o dodatnoj proveri koja je potrebna da bi se utvrdilo da li je vrednost autentična/validna.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da biste promenili vrednost u nešto.</p>",
+          "feedback": "<p>Razmislite o dodatnoj proveri koja je potrebna da bi se utvrdilo da li je vrednost realna/stvarna.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-loops",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 65,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,89 @@
+{
+  "id": "5eb3e4a21f462f409d656c73",
+  "title": "Samoreferencijalni niz",
+  "challengeType": 1,
+  "forumTopicId": 385317,
+  "dashedName": "self-referential-sequence",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function selfReferential(n) {\n\n}",
+      "error": null,
+      "seed": "function selfReferential(n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function selfReferential(n) {\n  var descending,\n    i,\n    incr,\n    j,\n    max_i,\n    max_len,\n    max_seq,\n    seq,\n    sequence,\n    indexOf =\n      [].indexOf ||\n      function(item) {\n        for (var i = 0, l = this.length; i < l; i++) {\n          if (i in this && this[i] === item) return i;\n        }\n        return -1;\n      };\n\n  sequence = function(n) {\n    var c, cnt, cnts, d, digit, i, j, l, len, new_cnts, ref, s, seq;\n    cnts = {};\n    ref = n.toString();\n    for (j = 0, len = ref.length; j < len; j++) {\n      c = ref[j];\n      d = parseInt(c);\n      incr(cnts, d);\n    }\n    seq = [ref];\n    while (true) {\n      s = '';\n      for (i = l = 9; l >= 0; i = --l) {\n        if (cnts[i]) {\n          s += '' + cnts[i] + i;\n        }\n      }\n      if (indexOf.call(seq, s) >= 0) {\n        break;\n      }\n      seq.push(s);\n      new_cnts = {};\n      for (digit in cnts) {\n        cnt = cnts[digit];\n        incr(new_cnts, cnt);\n        incr(new_cnts, digit);\n      }\n      cnts = new_cnts;\n    }\n    return seq;\n  };\n\n  incr = function(h, k) {\n    if (h[k] == null) {\n      h[k] = 0;\n    }\n    return (h[k] += 1);\n  };\n\n  descending = function(n) {\n    var tens;\n    if (n < 10) {\n      return true;\n    }\n    tens = n / 10;\n    if (n % 10 > tens % 10) {\n      return false;\n    }\n    return descending(tens);\n  };\n\n  return sequence(n);\n}",
+        "error": null,
+        "seed": "function selfReferential(n) {\n  var descending,\n    i,\n    incr,\n    j,\n    max_i,\n    max_len,\n    max_seq,\n    seq,\n    sequence,\n    indexOf =\n      [].indexOf ||\n      function(item) {\n        for (var i = 0, l = this.length; i < l; i++) {\n          if (i in this && this[i] === item) return i;\n        }\n        return -1;\n      };\n\n  sequence = function(n) {\n    var c, cnt, cnts, d, digit, i, j, l, len, new_cnts, ref, s, seq;\n    cnts = {};\n    ref = n.toString();\n    for (j = 0, len = ref.length; j < len; j++) {\n      c = ref[j];\n      d = parseInt(c);\n      incr(cnts, d);\n    }\n    seq = [ref];\n    while (true) {\n      s = '';\n      for (i = l = 9; l >= 0; i = --l) {\n        if (cnts[i]) {\n          s += '' + cnts[i] + i;\n        }\n      }\n      if (indexOf.call(seq, s) >= 0) {\n        break;\n      }\n      seq.push(s);\n      new_cnts = {};\n      for (digit in cnts) {\n        cnt = cnts[digit];\n        incr(new_cnts, cnt);\n        incr(new_cnts, digit);\n      }\n      cnts = new_cnts;\n    }\n    return seq;\n  };\n\n  incr = function(h, k) {\n    if (h[k] == null) {\n      h[k] = 0;\n    }\n    return (h[k] += 1);\n  };\n\n  descending = function(n) {\n    var tens;\n    if (n < 10) {\n      return true;\n    }\n    tens = n / 10;\n    if (n % 10 > tens % 10) {\n      return false;\n    }\n    return descending(tens);\n  };\n\n  return sequence(n);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>selfReferential</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof selfReferential === 'function');"
+    },
+    {
+      "text": "<p><code>selfReferential(40)</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(selfReferential(40)));"
+    },
+    {
+      "text": "<p><code>selfReferential(40)</code> treba da vrati <code>[\"40\", \"1410\", \"142110\", \"14123110\", \"1413124110\", \"2413125110\", \"151413224110\", \"152413225110\", \"251413324110\", \"152423224110\", \"152413423110\"]</code>.</p>",
+      "testString": "assert.deepEqual(selfReferential(40), [\n  '40',\n  '1410',\n  '142110',\n  '14123110',\n  '1413124110',\n  '2413125110',\n  '151413224110',\n  '152413225110',\n  '251413324110',\n  '152423224110',\n  '152413423110'\n]);"
+    },
+    {
+      "text": "<p><code>selfReferential(132110)</code> bi trebalo da vrati <code>[\"132110\", \"13123110\", \"23124110\", \"1413223110\", \"1423224110\", \"2413323110\", \"1433223110\"]</code>.</p>",
+      "testString": "assert.deepEqual(selfReferential(132110), [\n  '132110',\n  '13123110',\n  '23124110',\n  '1413223110',\n  '1423224110',\n  '2413323110',\n  '1433223110'\n]);"
+    },
+    {
+      "text": "<p><code>selfReferential(132211)</code> treba vratiti <code>[\"132211\", \"132231\", \"232221\", \"134211\", \"14131231\", \"14231241\", \"24132231\", \"14233221\"]</code>.</p>",
+      "testString": "assert.deepEqual(selfReferential(132211), [\n  '132211',\n  '132231',\n  '232221',\n  '134211',\n  '14131231',\n  '14231241',\n  '24132231',\n  '14233221'\n]);"
+    },
+    {
+      "text": "<p><code>selfReferential(1413223110)</code> treba da vrati <code>[\"1413223110\", \"1423224110\", \"2413323110\", \"1433223110\"]</code>.</p>",
+      "testString": "assert.deepEqual(selfReferential(1413223110), [\n  '1413223110',\n  '1423224110',\n  '2413323110',\n  '1433223110'\n]);"
+    },
+    {
+      "text": "<p><code>selfReferential(251413126110)</code> treba da vrati <code>[\"251413126110\", \"16151413225110\", \"16251413226110\", \"26151413325110\", \"16251423225110\", \"16251413424110\", \"16153413225110\"]</code>.</p>",
+      "testString": "assert.deepEqual(selfReferential(251413126110), [\n  '251413126110',\n  '16151413225110',\n  '16251413226110',\n  '26151413325110',\n  '16251423225110',\n  '16251413424110',\n  '16153413225110'\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Postoje nekoliko načina za generisanje rekurentne sekvence. Jedan od najčešće korišćenih metoda (mfululizo wa <a href=\"https://rosettacode.org/wiki/Look-and-say_sequence\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Look-and-say</a>) je početi sa pozitivnim celobrojnim brojem, a zatim generisati sledeći element kombinovanjem grupi prebrojenih sličnih susednih cifara:</p>\n<pre>0, 10, 1110, 3110, 132110, 1113122110, 311311222110 ...</pre>\n<p>Generisani elementi rastu dužinom po geometrijskom skalovanju i nikada se nisu spojili.</p>\n<p>Drug način za generisanje rekurentne sekvence je skraćivanje/koristiti prethodni element.</p>\n<p>Izračunajte koliko je cifara svake vrste prisutno, a zatim spojite ukupan broj i cifre za svaku cifru poređane po numeričkom redosledu. Zapamtite da su prvih pet elemenata isti kao prethodna sekvenca.</p>\n<pre>0, 10, 1110, 3110, 132110, 13123110, 23124110 ...</pre>\n<p>Sortiraj brojeve od najvećeg do najmanjeg. Ne uključujte brojeve koji nisu vidljivi u prethodnom elementu.</p>\n<p>Na osnovu vrednosti seme, niz generisan ovim putem uvek konvergira na konstantnu vrednost ili kratak ciklus. (Za naše svrhe, konvergencija znači da je element sličan prethodno viđenom elementu.) Prikazani niz, sa vrednošću seme 0, konvergira ka konstantnoj vrednosti 1433223110 nakon 11 ciklusa. Najbrža vrednost seme koja konvergirira je 22. Može da se stabilizuje nakon prvog elementa. (Sledeći element je 22, koji je već viđen.)</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja prima početnu vrednost kao parametar, generiše rekurzivnu sekvencu dok ne konvergira, i vraća je kao niz podataka.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 110,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

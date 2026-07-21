@@ -1,0 +1,51 @@
+{
+  "id": "6567722f53ad97d7ea6bb082",
+  "title": "Korak 51",
+  "challengeType": 20,
+  "dashedName": "step-51",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        18,
+        30
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node] and paths[node][-1] == node:\n                    paths[node] = paths[current]\n\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \n#shortest_path(my_graph, 'A')",
+      "error": null,
+      "seed": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node] and paths[node][-1] == node:\n                    paths[node] = paths[current]\n\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \n#shortest_path(my_graph, 'A')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da obnovite vaš poziv za <code>shortest_path(my_graph, 'A')</code>.</p>",
+      "testString": "({ test: () => assert.match(code, /^shortest_path\\s*\\(\\s*my_graph\\s*,\\s*(\"|')A\\1\\s*\\)/m) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ostavite komentare na poziv vaše funkcije.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-algorithm-design-by-building-a-shortest-path-algorithm",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 7,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 50,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

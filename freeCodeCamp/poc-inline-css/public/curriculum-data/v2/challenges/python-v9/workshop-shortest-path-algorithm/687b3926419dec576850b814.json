@@ -1,0 +1,58 @@
+{
+  "id": "687b3926419dec576850b814",
+  "title": "Korak 18",
+  "challengeType": 20,
+  "dashedName": "step-18",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        35
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:  \n            break  \n        visited[current] = True  \n\n        for node_no in range(n):\n            distance = matrix[current][node_no]  \n            if distance != INF and not visited[node_no]:  \n                new_distance = distances[current] + distance\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:  \n            break  \n        visited[current] = True  \n\n        for node_no in range(n):\n            distance = matrix[current][node_no]  \n            if distance != INF and not visited[node_no]:  \n                new_distance = distances[current] + distance\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš izraz <code>if</code> koji je definisan unutra i proverava da li je <code>new_distance</code> manji od <code>distances[node_no]</code>.</p>",
+      "testString": "({\n    test: () => {\n      runPython(`  \n      cond = _Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].find_ifs()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0]  \n      assert cond.is_equivalent(\"new_distance < distances[node_no]\") or cond.is_equivalent(\"distances[node_no] > new_distance\")  \n      `);\n    }\n});"
+    },
+    {
+      "text": "<p>Treba da ažuriraš <code>distances[node_no]</code> da sačuva <code>new_distance</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`_Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].find_ifs()[0].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_stmt(\"distances[node_no] = new_distance\")\n      `)\n      );\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada nakon izračunavanja nove moguće udaljenosti za suseda, proverite da li je bolja od onoga što je trenutno sačuvano u listi <code>distances</code>. Ako jeste, ažurirajte tu udaljenost.</p>\n<p>Unutar postojećeg dela <code>if</code>, dodaj deklaraciju <code>if</code> koja proverava da li <code>new_distance</code> je manje od <code>distances[node_no]</code>.</p>\n<p>Unutar ovog novog dela uslova, ažuriraj <code>distances[node_no]</code> da sačuva <code>new_distance</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

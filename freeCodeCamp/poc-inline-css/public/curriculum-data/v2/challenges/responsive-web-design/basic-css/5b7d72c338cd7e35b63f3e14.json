@@ -1,0 +1,65 @@
+{
+  "id": "5b7d72c338cd7e35b63f3e14",
+  "title": "Poboljsaj Kompatibilnost Uz Browser Fallback Vrednosti",
+  "challengeType": 0,
+  "forumTopicId": 301087,
+  "dashedName": "improve-compatibility-with-browser-fallbacks",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style>\n  :root {\n    --red-color: red;\n  }\n  .red-box {\n\n    background: var(--red-color);\n    height: 200px;\n    width:200px;\n  }\n</style>\n<div class=\"red-box\"></div>",
+      "error": null,
+      "seed": "<style>\n  :root {\n    --red-color: red;\n  }\n  .red-box {\n\n    background: var(--red-color);\n    height: 200px;\n    width:200px;\n  }\n</style>\n<div class=\"red-box\"></div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style>\n  :root {\n    --red-color: red;\n  }\n  .red-box {\n    background: red;\n    background: var(--red-color);\n    height: 200px;\n    width:200px;\n  }\n</style>\n<div class=\"red-box\"></div>",
+        "error": null,
+        "seed": "<style>\n  :root {\n    --red-color: red;\n  }\n  .red-box {\n    background: red;\n    background: var(--red-color);\n    height: 200px;\n    width:200px;\n  }\n</style>\n<div class=\"red-box\"></div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vase <code>.red-box</code> pravilo treba da sadrzi fallback <code>background</code> postavljen na <code>red</code>, odmah pre postojece <code>background</code> deklaracije.</p>",
+      "testString": "const spacelessCode = __helpers.removeWhiteSpace(__helpers.removeCssComments(code));\nassert.match(\n  spacelessCode,\n  /\\.red-box{background:(red|#ff0000|#f00|rgb\\(255,0,0\\)|rgb\\(100%,0%,0%\\)|hsl\\(0,100%,50%\\));background:var\\(--red-color\\);height:200px;width:200px;}/gi\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada radite sa CSS-om, mozete naici na probleme kompatibilnosti izmedju pregledača. Zato je vazno obezbediti fallback vrednosti kako biste izbegli moguce probleme.</p>\n<p>Kada pregledač cita CSS stranice, ignorise svojstva koja ne prepoznaje ili ne podrzava. Na primer, ako koristite CSS promenljivu za boju pozadine, Internet Explorer ce je ignorisati jer ne podrzava CSS promenljive. U tom slucaju pregledač koristi neku drugu dostupnu vrednost tog svojstva. Ako je nema, vraca se na podrazumevanu vrednost, sto cesto nije pozeljno.</p>\n<p>To znaci da fallback mozete dodati vrlo jednostavno: navedite podrzaniju vrednost odmah pre postojece deklaracije. Tako stariji pregledači imaju sta da koriste, dok noviji pregledači primenjuju kasniju deklaraciju u nizu.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Izgleda da se promenljiva koristi za postavljanje boje pozadine klase <code>.red-box</code>. Poboljsajte kompatibilnost dodavanjem jos jedne <code>background</code> deklaracije odmah pre postojece, sa vrednoscu <code>red</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-css",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "responsive-web-design",
+  "superOrder": 27,
+  "challengeOrder": 40,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

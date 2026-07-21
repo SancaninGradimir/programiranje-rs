@@ -1,0 +1,88 @@
+{
+  "id": "594ecc0d9a8cf816e3340187",
+  "title": "Brojevi za taksi",
+  "challengeType": 1,
+  "forumTopicId": 302337,
+  "dashedName": "taxicab-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function taxicabNumbers(n) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function taxicabNumbers(n) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function taxicabNumbers(nNumbers) {\n  const cubeN = [];\n  const s3s = {};\n\n  const e = 100;\n  for (let n = 1; n < e; n += 1) {\n    cubeN[n] = n * n * n;\n  }\n\n  for (let a = 1; a < e - 1; a += 1) {\n    const a3 = cubeN[a];\n    for (let b = a; b < e; b += 1) {\n      const b3 = cubeN[b];\n      const s3 = a3 + b3;\n\n      let abs = s3s[s3];\n      if (!abs) {\n        s3s[s3] = abs = [];\n      }\n      abs.push([a, b]);\n    }\n  }\n\n  let i = 0;\n  const res = [];\n  Object.keys(s3s).forEach(s3 => {\n    const abs = s3s[s3];\n    if (abs.length >= 2) { // No two cube pairs found\n      i += 1;\n      if (i <= nNumbers) {\n        res.push(s3);\n      }\n    }\n  });\n  return res.map(item => parseInt(item, 10));\n}",
+        "error": null,
+        "seed": "function taxicabNumbers(nNumbers) {\n  const cubeN = [];\n  const s3s = {};\n\n  const e = 100;\n  for (let n = 1; n < e; n += 1) {\n    cubeN[n] = n * n * n;\n  }\n\n  for (let a = 1; a < e - 1; a += 1) {\n    const a3 = cubeN[a];\n    for (let b = a; b < e; b += 1) {\n      const b3 = cubeN[b];\n      const s3 = a3 + b3;\n\n      let abs = s3s[s3];\n      if (!abs) {\n        s3s[s3] = abs = [];\n      }\n      abs.push([a, b]);\n    }\n  }\n\n  let i = 0;\n  const res = [];\n  Object.keys(s3s).forEach(s3 => {\n    const abs = s3s[s3];\n    if (abs.length >= 2) { // No two cube pairs found\n      i += 1;\n      if (i <= nNumbers) {\n        res.push(s3);\n      }\n    }\n  });\n  return res.map(item => parseInt(item, 10));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const res4 = [1729, 4104, 13832, 20683];\nconst res25 = [\n  1729, 4104, 13832, 20683, 32832, 39312, 40033, 46683, 64232, 65728, 110656,\n  110808, 134379, 149389, 165464, 171288, 195841, 216027, 216125, 262656, 314496, 320264, 327763,\n  373464, 402597\n];\n\nconst res39From20To29 = [314496, 320264, 327763, 373464, 402597, 439101, 443889, 513000, 513856];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>taxicabNumbers</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof taxicabNumbers === 'function');"
+    },
+    {
+      "text": "<p><code>taxicabNumbers</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(typeof taxicabNumbers(2) === 'object');"
+    },
+    {
+      "text": "<p><code>taxicabNumbers</code> Trebalo bi da vrati red brojeva.</p>",
+      "testString": "assert(typeof taxicabNumbers(100)[0] === 'number');"
+    },
+    {
+      "text": "<p><code>taxicabNumbers(4)</code> trebalo bi vratiti [1729, 4104, 13832, 20683].</p>",
+      "testString": "assert.deepEqual(taxicabNumbers(4), res4);"
+    },
+    {
+      "text": "<p><code>taxicabNumbers(25)</code> treba da vrati [1729, 4104, 13832, 20683, 32832, 39312, 40033, 46683, 64232, 65728, 110656, 110808, 134379, 149389, 165464, 171288, 195841, 216027, 216125, 262656, 314496, 320264, 327763, 373464, 402597]</p>",
+      "testString": "assert.deepEqual(taxicabNumbers(25), res25);"
+    },
+    {
+      "text": "<p><code>taxicabNumbers(39)</code> Brojevi koji potiču iz raspona 20–29 bi trebalo da budu [314496,320264,327763,373464,402597,439101,443889,513000,513856].</p>",
+      "testString": "assert.deepEqual(taxicabNumbers(39).slice(20, 29), res39From20To29);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Taxicab broj (definicija korišćena ovde) je pozitivan ceo broj koji se može predstaviti kao zbir dva kvadrata pozitivnih celih brojeva na više od jednog načina.</p>\n<p>Prvi broj taksija je <code>1729</code>, koji je:</p>\n<p>1<sup>3</sup> + 12<sup>3</sup> i</p>\n<p>9<sup>3</sup> + 10<sup>3</sup>.</p>\n<p>Brojevi za taksi kabl su takođe poznati kao:</p>\n<ul>\n  <li>brojevi za taksi</li>\n  <li>brojevi za taksij-kab</li>\n  <li>brojevi za taksi kabl</li>\n  <li>brojevi Hardija-Ramanucana</li>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja vraća najniže dostupne brojeve taksija <code>n</code>. Za svaki broj taksija, prikažite taj broj zajedno sa njegovim podacima o dogovoru.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 147,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

@@ -1,0 +1,249 @@
+{
+  "id": "673271f39f124ddac28866d5",
+  "title": "Šta su bitwise operateri, i kako rade?",
+  "challengeType": 19,
+  "dashedName": "what-are-bitwise-operators-and-how-do-they-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Bitwise operateri u JavaScript su specijalni operateri koji rade na binarnom predstavljanju brojeva. Da bismo razumeli bitwise operatore, prvo moramo razumeti koncept bita i binarnih brojeva. U računaru, bit je najosnovnija jedinica informacija. Može imati samo dve vrednosti: <code>0</code> ili <code>1</code>. Binarni sistem je sistem brojeva koji koristi samo ove dve cifre za predstavljanje svih brojeva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Primer, binarna reprezentacija decimalnog broja <code>10</code> je <code>1010</code>. U ovom sistemu, svaka cifra predstavlja stepen <code>2</code>, počevši od najdesnije cifre i povećavajući se kako pomeramo ulevo.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<table>\n  <tr>\n    <td>1</td>\n    <td>0</td>\n    <td>1</td>\n    <td>0</td>\n  </tr>\n  <tr>\n    <td role=\"math\" aria-label=\"1 times 2 to the power of 3\">1 · 2<sup>3</sup></td>\n    <td role=\"math\" aria-label=\"0 times 2 to the power of 2\">0 · 2<sup>2</sup></td>\n    <td role=\"math\" aria-label=\"1 times 2 to the power of 1\">1 · 2<sup>1</sup></td>\n    <td role=\"math\" aria-label=\"0 times 2 to the power of 0\">0 · 2<sup>0</sup></td>\n  </tr>\n  <tr>\n    <td>8</td>\n    <td>0</td>\n    <td>2</td>\n    <td>0</td>\n  </tr>\n<table>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U tabeli iznad, prvi red prikazuje binarni broj <code>1010</code>, drugi red prikazuje moć <code>2</code> predstavljenu svaku binarnoj poziciji, i treći red prikazuje rezultat svakog množenja. Sumirajući sve vrednosti u trećem redu, ukupan je <code>10</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada, hajde da pogledamo bitwise operatore. Ovi operateri obavljaju operacije na binarnom predstavljanju brojeva. JavaScript nudi nekoliko bitwise operatera, uključujući AND (<code>&#x26;</code>), OR (<code>|</code>), XOR (<code>^</code>), NOT (<code>~</code>), levakrenje (<code>&#x3C;&#x3C;</code>), i desakrenje (<code>>></code>).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori bitwise AND-a (<code>&#x26;</code>) vraćaju <code>1</code> u svakoj bitnoj poziciji gde su odgovarajući biti obe strane <code>1</code>. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a & b);  // 1 (Binary: 001)",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a &#x26; b);  // 1 (Binary: 001)\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, izvršavamo operaciju bitwise AND na <code>5</code> (<code>101</code> u binarnom) i <code>3</code> (<code>011</code> u binarnom). Rezultat je <code>1</code> (<code>001</code> u binarnom) jer je samo najdesni bit <code>1</code> u oba broja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori bitwise OR (<code>|</code>) izvršavaju <code>1</code> na svakoj bit poziciji gde su odgovarajući biti sa obe strane <code>1</code>. Primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a | b);  // 7 (Binary: 111)",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a | b);  // 7 (Binary: 111)\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde, rezultat je <code>7</code> (<code>111</code> u binarnom) zato što najmanje jedan bit je <code>1</code> u svakoj poziciji.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori bitwise XOR (<code>^</code>) vraćaju <code>1</code> na svakoj bitnoj poziciji gdje su odgovarajući biti sa obe strane, ali ne i oba, <code>1</code>. Primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a ^ b);  // 6 (Binary: 110)",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a ^ b);  // 6 (Binary: 110)\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Rezultat je <code>6</code> (<code>110</code> u binarnom) jer su prvi i drugi bit od desna različiti u ova dva broja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori bitwise NOT (<code>~</code>) menjaju sve bite svog operanda. Primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nconsole.log(~a);  // -6",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nconsole.log(~a);  // -6\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo može delovati iznenađujuće, ali je zbog načina na koji se negativni brojevi predstavljaju u binarnom sistemu korišćenjem dopune dva (two's complement).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori za pomeranje ulevo (<code>&#x3C;&#x3C;</code>) pomeraju sve bite ulevo za određeni broj pozicija. Na primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nconsole.log(a << 1);  // 10 (Binary: 1010)",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nconsole.log(a &#x3C;&#x3C; 1);  // 10 (Binary: 1010)\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovdje, svi bitovi se pomeraju za jednu poziciju ulevo, što efikasno povećava broj sa <code>2</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operatori za pomeranje udesno (<code>>></code>) pomeraju sve bita udesno. Primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let a = 5;  // Binary: 101\nconsole.log(a >> 1);  // 2 (Binary: 10)",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nconsole.log(a >> 1);  // 2 (Binary: 10)\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde, svi biti se pomeraju za jednu poziciju udesno, radi efikasnog deljenja broja sa <code>2</code> i prebacivanja ih nadole.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Bitovni operateri se često koriste u niskonivo programiranju i kriptografiji. Iako se možda ne koriste mnogo u standardnim aplikacijama od JavaScript, razumevanje ovih operatera može biti korisno za neke specifične zadatke i može povećati vaše razumevanje kako računari rade na osnovnom nivou.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let a = 5;  // Binary: 101\nlet b = 3;  // Binary: 011\nconsole.log(a &#x26; b);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>8</code></p>",
+          "feedback": "<p>Operateri za bitsku manipulaciju <code>AND</code> vraćaju <code>1</code> tamo gde obe strane imaju <code>1</code> u svojoj binarnoj reprezentaciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>1</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>7</code></p>",
+          "feedback": "<p>Bitwise operateri <code>AND</code> postavljaju <code>1</code> samo tamo gde obe strane imaju <code>1</code> u svom binarnom predstavljanju.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>15</code></p>",
+          "feedback": "<p>Operatori bitnog operiranja <code>AND</code> vraćaju <code>1</code> samo gde obe strane imaju <code>1</code> u svom binarnom predstavljanju.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledeće operacije?</p>\n<pre><code class=\"language-js\">let x = 8;  // Binary: 1000\nconsole.log(x &#x3C;&#x3C; 2);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>4</code></p>",
+          "feedback": "<p>Operatori za pomeranje ulevo pomeraju sve bite ulevo za definisan broj pozicija.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>16</code></p>",
+          "feedback": "<p>Operacija pomeranja ulevo pomera sve bitove ulevo za određeni broj pozicija.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>32</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>2</code></p>",
+          "feedback": "<p>Operatori pomeranja ulevo pomera sve bite ulevo za određeni broj pozicija.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koji je binarni predstavnik broja <code>6</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>101</code></p>",
+          "feedback": "<p>Zapamtite da u binarnom sistemu, svaki bit predstavlja stepen 2, počevši od najdesavije cifre.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>110</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>111</code></p>",
+          "feedback": "<p>Zapamtite da u binarnom sistemu, svaka cifra predstavlja stepen 2, počevši od najdesnije cifre.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>100</code></p>",
+          "feedback": "<p>Zapamtite da u binarnom sistemu svaka cifra predstavlja stepen 2, počevši od najdesnije cifre.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-unary-and-bitwise-operators",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 26,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-booleans-and-numbers",
+  "certification": "javascript-v9"
+}

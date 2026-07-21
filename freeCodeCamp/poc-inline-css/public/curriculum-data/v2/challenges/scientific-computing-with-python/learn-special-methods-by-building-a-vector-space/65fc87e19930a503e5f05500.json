@@ -1,0 +1,51 @@
+{
+  "id": "65fc87e19930a503e5f05500",
+  "title": "Korak 53",
+  "challengeType": 20,
+  "dashedName": "step-53",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        27,
+        32
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da kreirate sekciju za <code>elif</code> koja proverava da li je <code>other</code> objekat direktne klase i trenutni primer.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__mul__\").find_ifs()[0].find_conditions()[1]\nnode.is_equivalent(\"type(self) == type(other)\") or node.is_equivalent(\"type(other) == type(self)\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vektor se može množiti sa drugim vektorom takođe. Ova operacija se zove <em>utočnik</em>, ili <em>skalarni proizvod</em>.</p>\n<p>Generiši sekciju za <code>elif</code> koja proverava da li je <code>other</code> objekat direktne klase i trenutnog primera.</p>\n<p>Izvršićete postavljanje tačke unutar ovog dela u sledećem koraku.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 52,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

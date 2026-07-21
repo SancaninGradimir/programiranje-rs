@@ -1,0 +1,205 @@
+{
+  "id": "672bccc8ea33bad87abb3c56",
+  "title": "Šta je razlika između `content-box` i `border-box`?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-difference-between-content-box-and-border-box",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Svojstvo <code>box-sizing</code> može se postaviti na <code>content-box</code> ili <code>border-box</code> za kontrolisanje kako širina i visina merenih elemenata.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo svojstvo se može postaviti na globalni selektor (<code>*</code>) da bi važio za sve elemente u dokumentu:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-css\">* {\n  box-sizing: border-box;\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Vrednost svojstva <code>box-sizing</code> je <code>content-box</code> podrazumevano, ali možete odabrati <code>border-box</code> ako je potrebno. Proverićemo <code>content-box</code> prvo, a zatim ćemo ući na/u <code>border-box</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste razumeli kako modeli funkcionišu, morate shvatiti četiri glavna koncepta iz primjera kutije CSS. Hajde da brzo pregledamo.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li>Eneo la maudhui ni nafasi inayochukuliwa na maudhui ya kipengele.</li>\n<li>Unutrašnji razmak (<code>padding</code>) je prostor između oblasti sadržaja i ivice.</li>\n<li>Ivica (<code>border</code>) je linija koja okružuje oblast sadržaja i unutrašnji razmak.</li>\n<li>Margina (<code>margin</code>) je prostor izvan ivice koji razdvaja element od drugih elemenata.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U primeru <code>content-box</code>, širina i visina koje postaviš za element određuju dimenzije oblasti sadržaja, ali ne uključuju unutrašnji razmak, ivicu niti marginu. Koristi <code>content-box</code> kada ti je potrebna precizna kontrola nad oblašću sadržaja. Kada postaviš <code>width</code> i <code>height</code>, određuješ samo veličinu samog sadržaja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste dobili ukupnu širinu elementa, morate dodati unutrašnji padding sa leve i desne strane, kao i levu i desnu granicu. Slično tome, ukupna visina elementa može se dobiti sabiranjem visine sadržaja, gornjeg i donjeg unutrašnjeg padding-a, i gornje i donje granice.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na primer, ovde imamo CSS selektor tipa za sve <code>div</code> elemente.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div></div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div>&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": "div {\n  width: 300px;\n  height: 200px;\n  padding: 20px;\n  border: 4px solid black;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">div {\n  width: 300px;\n  height: 200px;\n  padding: 20px;\n  border: 4px solid black;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, ako se koristi <code>content-box</code>, oblast sadržaja biće veličine 300px × 200px. Ukupna prikazana veličina uključuje unutrašnji razmak i ivice — na primer, ukupna širina = 300px (sadržaj) + 40px (unutrašnji razmak) + 8px (ivice) = 348px; ukupna visina računa se na isti način.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Odlično! Sada hajde da pogledamo <code>border-box</code>. On se razlikuje po tome što širina i visina koje postaviš uključuju sadržaj elementa, unutrašnji razmak i ivicu (ali ne i marginu). Koristi <code>border-box</code> kada želiš da ukupna veličina elementa ostane ista čak i ako se promene unutrašnji razmak ili ivice — to često pomaže pri izradi responzivnih rasporeda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za <code>border-box</code>, unutrašnji razmak i granice uključeni su u definisanu veličinu elementa. <code>width</code> i <code>height</code> postavljaju se kao ukupne dimenzije elementa: sadržaj + unutrašnji razmak + granica; ivice nisu uključene.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U sledećem primeru, postoje dva elementa sa <code>div</code> koji imaju iste dimenzije, ali različite vrednosti za <code>box-sizing</code>. Pogledajte kako ovo uzrokuje različitu ukupnu veličinu kada se gleda u pretraživaču:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"box\" id=\"red-div\"></div>\n<div class=\"box\" id=\"blue-div\"></div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"box\" id=\"red-div\">&#x3C;/div>\n&#x3C;div class=\"box\" id=\"blue-div\">&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".box {\n  width: 300px;\n  height: 200px;\n  padding: 20px;\n  border: 4px solid black;\n  margin: 10px;\n}\n\n#red-div {\n  box-sizing: content-box;\n  background-color: red;\n}\n\n#blue-div {\n  box-sizing: border-box;\n  background-color: blue;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.box {\n  width: 300px;\n  height: 200px;\n  padding: 20px;\n  border: 4px solid black;\n  margin: 10px;\n}\n\n#red-div {\n  box-sizing: content-box;\n  background-color: red;\n}\n\n#blue-div {\n  box-sizing: border-box;\n  background-color: blue;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete videti da sve imaju <code>width</code>, <code>height</code>, <code>padding</code>, <code>border</code> na <code>margin</code> jednako. Jedina razlika je u boji i vrednosti svojstva <code>box-sizing</code>. Ova mala razlika ima veoma značajan uticaj na konačne mere.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Izaberite između <code>content-box</code> i <code>border-box</code> u zavisnosti od specifičnih zahteva vašeg projekta. Iako je <code>border-box</code> izuzetno popularan zbog svoje jednostavne upotrebe i fleksibilnosti, razumevanje oba primera ključno je za implementaciju robustnih podešavanja CSS.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja od sledećih je podrazumevana vrednost svojstva <code>box-sizing</code> u mnogim pregledačima?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>content-box</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>border-box</code></p>",
+          "feedback": "<p>Razmotrite podrazumevano ponašanje za veličinu elemenata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>padding-box</code></p>",
+          "feedback": "<p>Razmislite o podrazumevanom ponašanju za veličinu elemenata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>margin-box</code></p>",
+          "feedback": "<p>Razmisli o podrazumevanom ponašanju određivanja veličine elemenata.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja je glavna korist korišćenja <code>border-box</code> za kreiranje podešavanja koja se menjaju u zavisnosti od uređaja?</p>",
+      "answers": [
+        {
+          "answer": "<p>Otežava proračune.</p>",
+          "feedback": "<p>Razmislite kako model <code>border-box</code> obrađuje <code>padding</code> i <code>border</code> unutar <code>width</code> i <code>height</code> definisanih.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Omogućava precizniju kontrolu parametara elementa.</p>",
+          "feedback": "<p>Razmislite kako primer <code>border-box</code> obrađuje <code>padding</code> i <code>border</code> unutar <code>width</code> i <code>height</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Osigurava da komponente održavaju navedene specifikacije bez obzira na promene u <code>padding</code> ili <code>border</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšava sinhronizaciju pretraživača.</p>",
+          "feedback": "<p>Razmislite kako primer <code>border-box</code> obrađuje <code>padding</code> i <code>border</code> unutar <code>width</code> i <code>height</code>, definisanih.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>U primeru <code>content-box</code>, <code>width</code>, šta predstavlja definisani element?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ukupna veličina <code>width</code> elementa, uključujući <code>padding</code>, <code>border</code> i <code>margin</code>.</p>",
+          "feedback": "<p>Razmotrite odnos između područja sadržaja i ukupnih dimenzija elementa u primeru <code>content-box</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ukubwa wa <code>width</code> wa eneo la maudhui tu.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Veličina <code>width</code> od <code>border</code>.</p>",
+          "feedback": "<p>Razmislite o odnosu između područja sadržaja i ukupnih dimenzija elementa u primeru <code>content-box</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Veličina <code>width</code> od <code>padding</code>.</p>",
+          "feedback": "<p>Razmotrite odnos između oblasti sadržaja i ukupnih dimenzija elementa u primeru od <code>content-box</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-css-transforms-overflow-and-filters",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 100,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-box-model",
+  "certification": "responsive-web-design-v9"
+}

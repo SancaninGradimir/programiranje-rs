@@ -1,0 +1,66 @@
+{
+  "id": "6846b0048f71fc4efd786b42",
+  "title": "Korak 18",
+  "challengeType": 20,
+  "dashedName": "step-18",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        52,
+        54
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "medical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }   \n]\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n    key_set = set(\n        ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']\n    )\n\n    for index, dictionary in enumerate(data):\n        if not isinstance(dictionary, dict):\n            print(f'Invalid format: expected a dictionary at position {index}.')\n            is_invalid = True\n\n        \n\n    if is_invalid:\n        return False\n    print('Valid format.')\n    return True\n\nvalidate(medical_records)",
+      "error": null,
+      "seed": "medical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }   \n]\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n    key_set = set(\n        ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']\n    )\n\n    for index, dictionary in enumerate(data):\n        if not isinstance(dictionary, dict):\n            print(f'Invalid format: expected a dictionary at position {index}.')\n            is_invalid = True\n\n        \n\n    if is_invalid:\n        return False\n    print('Valid format.')\n    return True\n\nvalidate(medical_records)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have a second <code>if</code> statement inside your <code>for</code> loop.</p>",
+      "testString": "({ test: () => runPython(`\nassert _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[1]\n`) })"
+    },
+    {
+      "text": "<p>Your new <code>if</code> statement should run when <code>set(dictionary.keys())</code> is different from <code>key_set</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_condition = _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[1].find_conditions()[0]\n\n_condition.is_equivalent(\"set(dictionary.keys()) != key_set\") or _condition.is_equivalent(\"key_set != set(dictionary.keys())\")\n`)) })"
+    },
+    {
+      "text": "<p>You should print <code>Invalid format: &#x3C;dictionary> at position &#x3C;index> has missing and/or invalid keys.</code> (where <code>&#x3C;dictionary></code> and <code>&#x3C;index></code> should be replaced by the dictionary and index at the current iteration) inside your new <code>if</code> statement.</p>",
+      "testString": "({ test: () => assert(runPython(`\nbuilt_in_print = print\nout = []\n\ndef custom_print(*args, **kwargs):\n    call_args = [arg for arg in args]\n    out.extend(call_args)\n    \nprint = custom_print\n_test_data = [\n  {'testing': 'stuff'},\n  {\n    'patient_id': 'P1003',\n    'age': 29,\n    'gender': 'Female',\n    'diagnosis': 'Asthma',\n    'medications': ['Albuterol'],\n    'last_visit_id': 'V2303',\n  },\n  {'keep testing': 'stuff'}\n]\nvalidate(_test_data)\nprint = built_in_print\n\n_first = f\"Invalid format: {_test_data[0]} at position 0 has missing and/or invalid keys.\"\n_second = f\"Invalid format: {_test_data[2]} at position 2 has missing and/or invalid keys.\"\nlen(out) >= 2 and _first in out and _second in out\n`)) })"
+    },
+    {
+      "text": "<p>You should set <code>is_invalid</code> to <code>True</code> inside your new <code>if</code> statement.</p>",
+      "testString": "({ test: () => runPython(`\nassert _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[1].find_bodies()[0].has_stmt(\"is_invalid = True\")\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Metoda <code>keys()</code> vraća objekat prikaza koji sadrži sve ključeve iz rečnika:</p>\n<pre><code class=\"language-py\">person = {\n   'name': 'John',\n   'age': 33\n}\n\nprint(person.keys()) # dict_keys(['name, 'age'])\n</code></pre>\n<p>Unutar vaše petlje <code>for</code>, nakon prvog <code>if</code> izjave, kreirajte <code>if</code> izjavu koja se izvršava kada je skup ključeva trenutnog rečnika drugačiji od <code>key_set</code>. Ovo služi da se osigura da u rečniku ne nedostaju niti su nevažeći ključevi.</p>\n<p>Unutar nove <code>if</code> izjave, ispišite <code>Invalid format: &#x3C;dictionary> at position &#x3C;index> has missing and/or invalid keys.</code> (gde bi <code>&#x3C;dictionary></code> i <code>&#x3C;index></code> trebalo da budu zamenjeni rečnikom i indeksom u trenutnoj iteraciji) i postavite <code>is_invalid</code> na <code>True</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-medical-data-validator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 26,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-dictionaries-and-sets",
+  "certification": "python-v9"
+}

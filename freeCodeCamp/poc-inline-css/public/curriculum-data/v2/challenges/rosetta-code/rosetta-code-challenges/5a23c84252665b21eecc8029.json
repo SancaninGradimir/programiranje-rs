@@ -1,0 +1,101 @@
+{
+  "id": "5a23c84252665b21eecc8029",
+  "title": "Bodi ya mviringo ya straddling",
+  "challengeType": 1,
+  "forumTopicId": 302325,
+  "dashedName": "straddling-checkerboard",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function straddle(message, alphabet) {\n\n}\n\nfunction unstraddle(message, alphabet) {\n\n}",
+      "error": null,
+      "seed": "function straddle(message, alphabet) {\n\n}\n\nfunction unstraddle(message, alphabet) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function straddle(message, alphabet) {\n  var prefixes = new Array(\n    '',\n    alphabet[0].indexOf(' '),\n    alphabet[0].lastIndexOf(' ')\n  );\n\n  var out = '';\n  message = message.toUpperCase();\n  message = message.replace(/([0-9])/g, '/$1'); // dumb way to escape numbers\n  for (var i = 0; i < message.length; i++) {\n    var chr = message[i];\n    if (chr == ' ') continue;\n    for (var j = 0; j < 3; j++) {\n      var k = alphabet[j].indexOf(chr);\n      if (k < 0) continue;\n      out += prefixes[j].toString() + k;\n    }\n    if (chr == '/') out += message[++i];\n  }\n  return out;\n}\nfunction unstraddle(message, alphabet) {\n  var prefixes = new Array(\n    '',\n    alphabet[0].indexOf(' '),\n    alphabet[0].lastIndexOf(' ')\n  );\n  var out = '';\n  var n, o;\n  for (var i = 0; i < message.length; i++) {\n    n = message[i] * 1;\n    switch (n) {\n      case prefixes[1]:\n        o = alphabet[1][message[++i]];\n        break;\n      case prefixes[2]:\n        o = alphabet[2][message[++i]];\n        break;\n      default:\n        o = alphabet[0][n];\n    }\n    o == '/' ? (out += message[++i]) : (out += o);\n  }\n  return out;\n}",
+        "error": null,
+        "seed": "function straddle(message, alphabet) {\n  var prefixes = new Array(\n    '',\n    alphabet[0].indexOf(' '),\n    alphabet[0].lastIndexOf(' ')\n  );\n\n  var out = '';\n  message = message.toUpperCase();\n  message = message.replace(/([0-9])/g, '/$1'); // dumb way to escape numbers\n  for (var i = 0; i < message.length; i++) {\n    var chr = message[i];\n    if (chr == ' ') continue;\n    for (var j = 0; j < 3; j++) {\n      var k = alphabet[j].indexOf(chr);\n      if (k < 0) continue;\n      out += prefixes[j].toString() + k;\n    }\n    if (chr == '/') out += message[++i];\n  }\n  return out;\n}\nfunction unstraddle(message, alphabet) {\n  var prefixes = new Array(\n    '',\n    alphabet[0].indexOf(' '),\n    alphabet[0].lastIndexOf(' ')\n  );\n  var out = '';\n  var n, o;\n  for (var i = 0; i < message.length; i++) {\n    n = message[i] * 1;\n    switch (n) {\n      case prefixes[1]:\n        o = alphabet[1][message[++i]];\n        break;\n      case prefixes[2]:\n        o = alphabet[2][message[++i]];\n        break;\n      default:\n        o = alphabet[0][n];\n    }\n    o == '/' ? (out += message[++i]) : (out += o);\n  }\n  return out;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>straddle</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof straddle == 'function');"
+    },
+    {
+      "text": "<p><code>straddle(\"One night-it was on the twentieth of March, 1888-I was returning.\",[\"ESTONIA  R\", \"BCDFGHJKLM\", \"PQUVWXYZ./\"])</code> trebalo bi da vrati sekvencu slova.</p>",
+      "testString": "assert(\n  typeof straddle(\n    'One night-it was on the twentieth of March, 1888-I was returning.',\n    ['ESTONIA  R', 'BCDFGHJKLM', 'PQUVWXYZ./']\n  ) == 'string'\n);"
+    },
+    {
+      "text": "<p><code>straddle(\"One night-it was on the twentieth of March, 1888-I was returning.\",[\"ESTONIA  R\", \"BCDFGHJKLM\", \"PQUVWXYZ./\"])</code> inapaswa kurudisha <code>\"34045747525284613427502840425027537379697175891898898898584619028294547488\"</code>.</p>",
+      "testString": "assert.equal(\n  straddle(\n    'One night-it was on the twentieth of March, 1888-I was returning.',\n    ['ESTONIA  R', 'BCDFGHJKLM', 'PQUVWXYZ./']\n  ),\n  '34045747525284613427502840425027537379697175891898898898584619028294547488'\n);"
+    },
+    {
+      "text": "<p><code>straddle(\"One night-it was on the twentieth of March, 1888-I was returning\",[\"HOL MES RT\", \"ABCDFGIJKN\", \"PQUVWXYZ./\"])</code> inapaswa kurudisha <code>\"139539363509369743061399059745399365901344308320791798798798367430685972839363935\"</code>.</p>",
+      "testString": "assert.equal(\n  straddle('One night-it was on the twentieth of March, 1888-I was returning', [\n    'HOL MES RT',\n    'ABCDFGIJKN',\n    'PQUVWXYZ./'\n  ]),\n  '139539363509369743061399059745399365901344308320791798798798367430685972839363935'\n);"
+    },
+    {
+      "text": "<p><code>straddle(\"Thecheckerboardcakerecipespecifies3largeeggsand2.25cupsofflour.\",[\"ET AON RIS\", \"BCDFGHJKLM\", \"PQ/UVWXYZ.\"])</code> inapaswa kurudisha <code>\"125021250212707204372221327070218600960021823809623283724002424935226226962262521636094232328463769\"</code>.</p>",
+      "testString": "assert.equal(\n  straddle('Thecheckerboardcakerecipespecifies3largeeggsand2.25cupsofflour.', [\n    'ET AON RIS',\n    'BCDFGHJKLM',\n    'PQ/UVWXYZ.'\n  ]),\n  '125021250212707204372221327070218600960021823809623283724002424935226226962262521636094232328463769'\n);"
+    },
+    {
+      "text": "<p><code>unstraddle</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof unstraddle == 'function');"
+    },
+    {
+      "text": "<p><code>unstraddle(\"34045747525284613427502840425027537379697175891898898898584619028294547488\",[\"ESTONIA R\", \"BCDFGHJKLM\", \"PQUVWXYZ./\"])</code> treba da vrati nisku.</p>",
+      "testString": "assert(\n  typeof unstraddle(\n    '34045747525284613427502840425027537379697175891898898898584619028294547488',\n    ['ESTONIA  R', 'BCDFGHJKLM', 'PQUVWXYZ./']\n  ) == 'string'\n);"
+    },
+    {
+      "text": "<p><code>unstraddle(\"34045747525284613427502840425027537379697175891898898898584619028294547488\",[\"ESTONIA  R\", \"BCDFGHJKLM\", \"PQUVWXYZ./\"])</code> treba da vrati <code>\"ONENIGHTITWASONTHETWENTIETHOFMARCH1888IWASRETURNING.\"</code>.</p>",
+      "testString": "assert.equal(\n  unstraddle(\n    '34045747525284613427502840425027537379697175891898898898584619028294547488',\n    ['ESTONIA  R', 'BCDFGHJKLM', 'PQUVWXYZ./']\n  ),\n  'ONENIGHTITWASONTHETWENTIETHOFMARCH1888IWASRETURNING.'\n);"
+    },
+    {
+      "text": "<p><code>unstraddle(\"139539363509369743061399059745399365901344308320791798798798367430685972839363935\",[\"HOL MES RT\", \"ABCDFGIJKN\", \"PQUVWXYZ./\"])</code> treba da vrati <code>\"ONENIGHTITWASONTHETWENTIETHOFMARCH1888IWASRETURNING\"</code>.</p>",
+      "testString": "assert.equal(\n  unstraddle(\n    '139539363509369743061399059745399365901344308320791798798798367430685972839363935',\n    ['HOL MES RT', 'ABCDFGIJKN', 'PQUVWXYZ./']\n  ),\n  'ONENIGHTITWASONTHETWENTIETHOFMARCH1888IWASRETURNING'\n);"
+    },
+    {
+      "text": "<p><code>unstraddle(\"125021250212707204372221327070218600960021823809623283724002424935226226962262521636094232328463769\",[\"ET AON RIS\", \"BCDFGHJKLM\", \"PQ/UVWXYZ.\"])</code> trebalo bi da vrati <code>\"THECHECKERBOARDCAKERECIPESPECIFIES3LARGEEGGSAND2.25CUPSOFFLOUR.\"</code>.</p>",
+      "testString": "assert.equal(\n  unstraddle(\n    '125021250212707204372221327070218600960021823809623283724002424935226226962262521636094232328463769',\n    ['ET AON RIS', 'BCDFGHJKLM', 'PQ/UVWXYZ.']\n  ),\n  'THECHECKERBOARDCAKERECIPESPECIFIES3LARGEEGGSAND2.25CUPSOFFLOUR.'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Implementirati metode za skrivanje i otključavanje poruka korišćenjem metoda <strong>straddling kružne ploče</strong>.</p>\n<p>Svaki put će uzeti dve argumente, <code>message</code> niz znakova i <code>alphabet</code> red podataka. Red <code>alphabet</code> će imati niz od 3 znaka koji predstavljaju 3 reda na krugarnoj mati.</p>\n<p>Rezultat funkcije <code>straddle()</code> treba da bude niz decimalnih cifara. Brojevi moraju biti escape-ovani unosom escape karaktera pre svake cifre, a zatim unesite tu cifru <em>bez escape-ovanja</em>.</p>\n<p>Ovo treba da se promeni pri otvaranju funkcije <code>unstraddle()</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 135,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

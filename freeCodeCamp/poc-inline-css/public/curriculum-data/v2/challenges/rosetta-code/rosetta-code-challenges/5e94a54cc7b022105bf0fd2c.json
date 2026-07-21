@@ -1,0 +1,93 @@
+{
+  "id": "5e94a54cc7b022105bf0fd2c",
+  "title": "Ciklus reči",
+  "challengeType": 1,
+  "forumTopicId": 393913,
+  "dashedName": "word-frequency",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function wordFrequency(txt, n) {\n\n}",
+      "error": null,
+      "seed": "function wordFrequency(txt, n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function wordFrequency(txt, n) {\n  var words = txt.split(/\\s+/);\n  var wordCount = {};\n  words.forEach(word => {\n    if (word == '') {\n      return;\n    }\n    const lowerWord = word.toLowerCase();\n    wordCount[lowerWord] =\n      lowerWord in wordCount ? wordCount[lowerWord] + 1 : 1;\n  });\n\n  var wordsArray = [];\n  for (let [word, count] of Object.entries(wordCount)) {\n    wordsArray.push([word, count]);\n  }\n\n  wordsArray.sort((a, b) => {\n    if (a[1] !== b[1]) {\n      return b[1] - a[1];\n    } else if (a[0] !== b[0]) {\n      return a[0] < b[0] ? -1 : 1;\n    }\n    return 0;\n  });\n  return wordsArray.slice(0, n);\n}",
+        "error": null,
+        "seed": "function wordFrequency(txt, n) {\n  var words = txt.split(/\\s+/);\n  var wordCount = {};\n  words.forEach(word => {\n    if (word == '') {\n      return;\n    }\n    const lowerWord = word.toLowerCase();\n    wordCount[lowerWord] =\n      lowerWord in wordCount ? wordCount[lowerWord] + 1 : 1;\n  });\n\n  var wordsArray = [];\n  for (let [word, count] of Object.entries(wordCount)) {\n    wordsArray.push([word, count]);\n  }\n\n  wordsArray.sort((a, b) => {\n    if (a[1] !== b[1]) {\n      return b[1] - a[1];\n    } else if (a[0] !== b[0]) {\n      return a[0] < b[0] ? -1 : 1;\n    }\n    return 0;\n  });\n  return wordsArray.slice(0, n);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>wordFrequency</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert.isFunction(wordFrequency);"
+    },
+    {
+      "text": "<p><code>wordFrequency</code> trebalo bi da vrati red podataka.</p>",
+      "testString": "assert.isArray(wordFrequency('test'));"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"Hello hello world\", 2)</code> treba da vrati <code>[['hello', 2], ['world', 1]]</code></p>",
+      "testString": "const example_1 = 'Hello hello world';\nconst example_1_solution = [['hello', 2], ['world', 1]];\n\nassert.deepEqual(wordFrequency(example_1, 2), example_1_solution);"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"The quick brown fox jumped over the lazy dog\", 1)</code> treba vratiti <code>[['the', 2]]</code></p>",
+      "testString": "const example_2 = 'The quick brown fox jumped over the lazy dog';\nconst example_2_solution = [['the', 2]];\n\nassert.deepEqual(wordFrequency(example_2, 1), example_2_solution);"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"Opensource opensource open-source open source\", 1)</code> treba da vrati <code>[['opensource', 2]]</code></p>",
+      "testString": "const example_3 = 'Opensource opensource open-source open source';\nconst example_3_solution = [['opensource', 2]];\n\nassert.deepEqual(wordFrequency(example_3, 1), example_3_solution);"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"Apple App apply aPP aPPlE\", 3)</code> treba da vrati <code>[['app', 2], ['apple', 2], ['apply', 1]]</code> ili <code>[['apple', 2], ['app', 2], ['apply', 1]]</code></p>",
+      "testString": "const example_4 = 'Apple App apply aPP aPPlE';\nconst example_4_solution = [[\"app\", 2],[\"apple\", 2],[\"apply\", 1]];\n\nconst arr = wordFrequency(example_4, 3);\nassert.includeDeepMembers(arr, example_4_solution);"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"c d a d c a b d d c\", 4)</code> treba da vrati <code>[['d', 4], ['c', 3], ['a', 2], ['b', 1]]</code></p>",
+      "testString": "const example_5 = 'c d a d c a b d d c';\nconst example_5_solution = [['d', 4], ['c', 3], ['a', 2], ['b', 1]];\n\nassert.deepEqual(wordFrequency(example_5, 4), example_5_solution);"
+    },
+    {
+      "text": "<p><code>wordFrequency(\"\", 5)</code> treba da vrati <code>[]</code></p>",
+      "testString": "const example_6 = '';\nconst example_6_solution = [];\n\nassert.deepEqual(wordFrequency(example_6, 5), example_6_solution);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Uzimajući u obzir kompletnu sekvencu slova i brojeva, vratite najčešće reč u fajlu (uz broj pojavljivanja) u décrošujućem redosledu.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja broji pojavljivanje svake reči i vraća najčešće reči zajedno sa njihovom frekvencijom u opadajućem redosledu.</p>\n<p>Funkcija treba da vrati niz podataka sa dva elementa za svaki element u sledećem formatu: <code>[word, freq]</code>. <code>word</code> treba da bude mala slova reči, a <code>freq</code> je broj koji predstavlja brojač/količinu.</p>\n<p>Funkcija treba da vrati prazan niz podataka, ukoliko nije dostavljena sekvenca karaktera.</p>\n<p>Funkcija ne bi trebalo da razlikuje razlike između velikih i malih slova; na primer, niz karaktera \"Hello\" i \"hello\" treba da se tretiraju isto.</p>\n<p>Možete prepoznati reči sa specijalnim karakterima kao što su donje linije, diakritici, navodnici, zarezi, itd., kao zasebne reči.</p>\n<p>Na primer, uzimajući u obzir niz slova \"Hello hello goodbye\", vaša funkcija bi trebalo da vrati <code>[['hello', 2], ['goodbye', 1]]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 154,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

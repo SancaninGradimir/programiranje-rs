@@ -1,0 +1,79 @@
+{
+  "id": "587d825a367417b2b2512c89",
+  "title": "Implementiraj algoritam Quicksort",
+  "challengeType": 26,
+  "dashedName": "implement-the-quicksort-algorithm",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function quicksort(array) {\r\n  if (array.length === 0) {\r\n    return [];\r\n  } else {\r\n    const pivotValue = array[0];\r\n\r\n    // Sort elements into three piles\r\n    let lesser = [];\r\n    let equal = [];\r\n    let greater = [];\r\n    for (let e of array) {\r\n      if (e < pivotValue) {\r\n        lesser.push(e);\r\n      } else if (e > pivotValue) {\r\n        greater.push(e);\r\n      } else {\r\n        equal.push(e);\r\n      }\r\n    }\r\n\r\n    return [...quicksort(lesser), ...equal, ...quicksort(greater)];\r\n  }\r\n}",
+        "error": null,
+        "seed": "function quicksort(array) {\r\n  if (array.length === 0) {\r\n    return [];\r\n  } else {\r\n    const pivotValue = array[0];\r\n\r\n    // Sort elements into three piles\r\n    let lesser = [];\r\n    let equal = [];\r\n    let greater = [];\r\n    for (let e of array) {\r\n      if (e < pivotValue) {\r\n        lesser.push(e);\r\n      } else if (e > pivotValue) {\r\n        greater.push(e);\r\n      } else {\r\n        equal.push(e);\r\n      }\r\n    }\r\n\r\n    return [...quicksort(lesser), ...equal, ...quicksort(greater)];\r\n  }\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju <code>quicksort</code>.</p>",
+      "testString": "assert.isFunction(quicksort);"
+    },
+    {
+      "text": "<p><code>quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92])</code> Trebalo bi da vrati nepromenjiv red podataka, osim po redu.</p>",
+      "testString": "assert.sameMembers(\r\n  quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),\r\n  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]\r\n);"
+    },
+    {
+      "text": "<p><code>quicksort</code> trebalo bi da vrati sortiran red podataka (od najmanjeg do najvećeg).</p>",
+      "testString": "assert.sameOrderedMembers(\r\n  quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]),\r\n  [1, 1, 2, 2, 4, 8, 32, 43, 43, 55, 63, 92, 123, 123, 234, 345, 5643]\r\n);"
+    },
+    {
+      "text": "<p><code>quicksort</code> ne bi trebalo da koristi metod ugrađen u <code>.sort()</code>.</p>",
+      "testString": "function isBuiltInSortUsed(){\r\n  let sortUsed = false;\r\n  const temp = Array.prototype.sort;\r\n  Array.prototype.sort = () => sortUsed = true;\r\n  try {\r\n    quicksort([0, 1]);\r\n  } finally {\r\n    Array.prototype.sort = temp;\r\n  }\r\n  return sortUsed;\r\n}\r\nassert.isFalse(isBuiltInSortUsed());"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovom laboratoriju ćeš implementirati sortirujući algoritam: quicksort.</p>\n<p>Quicksort je efikasan metod za rekurentne podelu i osvajanje (recursive divide-and-conquer) za sortiranje niza podataka. U ovom metodu, vrednost pivota se bira iz početnog niza podataka. Niz se deli na dva manja niza sa vrednostima koje su manje i veće od vrednosti pivota. Zatim se rezultati pozivanja Quicksort algoritma rekurentno na oba manja niza spajaju. Ovo se nastavlja sve dok se ne dosegne osnovni slučaj praznog ili jednoelementnog niza, koji se vraća. Smanjenje rekurentnih poziva vraća sortirani niz.</p>\n<p>Iako je izbor vrednosti pivota važan, bilo koji pivot biće dovoljan za naše svrhe ovde. Za jednostavnost, može se koristiti prvi ili poslednji element.</p>\n<p>Quicksort je vrlo efikasna metoda sortiranja, pružajući performanse od <em>O(nlog(n))</em> u proseku. Takođe je laka za implementaciju. Ove karakteristike ga čine popularnom i korisnom metodom sortiranja.</p>\n<p><strong>Cilj:</strong> Popunite korisničke priče navedene ispod i prođite sve testove da biste završili laboratoriju.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Trebalo bi da postoji funkcija za <code>quicksort</code> koja prima niz celobrojnih brojeva kao ulaz.</li>\n<li>Funkcija za <code>quicksort</code> treba da vrati niz podataka sa celobrojnim brojevima jednakim ulazu, ali u redosledu od dna ka vrhu.</li>\n<li>Funkcija za <code>quicksort</code> treba da se pozove rekurzivno radi sortiranja niza podataka.</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-quicksort-js",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 202,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "algorithms",
+  "certification": "javascript-v9"
+}

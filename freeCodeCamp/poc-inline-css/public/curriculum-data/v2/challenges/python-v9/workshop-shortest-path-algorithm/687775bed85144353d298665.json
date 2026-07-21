@@ -1,0 +1,66 @@
+{
+  "id": "687775bed85144353d298665",
+  "title": "Korak 16",
+  "challengeType": 20,
+  "dashedName": "step-16",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        31
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF\n        current = -1\n        for node_no in range(n):\n            if not visited[node_no] and distances[node_no] < min_distance:\n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:\n            break\n        visited[current] = True\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi dodati ciklus <code>for</code> nakon označavanja trenutnog čvora kao posetjenog.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`\nfunc = _Node(_code).find_function(\"shortest_path\")\nouter_loop = func.find_for_loops()[0]\nlen(outer_loop.find_bodies()[0].find_for_loops()) >= 2\n      `)\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Ciklus treba da prođe kroz <code>node_no</code> u <code>range(n)</code>.</p>",
+      "testString": "({\n    test: () => {\n      runPython(`  \nloop = _Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1]  \nassert loop.find_for_vars().is_equivalent(\"node_no\")  \nassert loop.find_for_iter().is_equivalent(\"range(n)\")  \n`);\n    }\n});"
+    },
+    {
+      "text": "<p>Moraš definisati parametar <code>distance</code> unutar petlje.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`\nfunc = _Node(_code).find_function(\"shortest_path\")\nouter_loop = func.find_for_loops()[0]\nneighbor_loop = outer_loop.find_bodies()[0].find_for_loops()[1]\nneighbor_loop.find_bodies()[0].has_variable(\"distance\")\n      `)\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Parametar <code>distance</code> mora biti postavljen na <code>matrix[current][node_no]</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`_Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0].find_for_loops()[1].find_bodies()[0].is_equivalent(\"distance = matrix[current][node_no]\")\n      `)\n      );\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada si izabrao i označio čvor kao poseta, vreme je da proveriš sve njegove susede kako bi mogao pronaći najkraće puteve do dolaska.</p>\n<p>Nakon linije <code>visited[current] = True</code>, dodaj petlju za <code>for</code> koja prolazi kroz <code>node_no</code> u <code>range(n)</code>.</p>\n<p>U ovom ciklusu, kreiraj varijablu <code>distance</code> i postavi joj vrednost na <code>matrix[current][node_no]</code>. Ovo će ti dati rastojanje od trenutnog čvora do susednog čvora.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

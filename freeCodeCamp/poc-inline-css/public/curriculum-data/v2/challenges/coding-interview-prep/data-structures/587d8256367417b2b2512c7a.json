@@ -1,0 +1,88 @@
+{
+  "id": "587d8256367417b2b2512c7a",
+  "title": "Pronađi minimalnu i maksimalnu vrednost u binarnom stablu pretrage",
+  "challengeType": 1,
+  "forumTopicId": 301642,
+  "dashedName": "find-the-minimum-and-maximum-value-in-a-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\n\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\n\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.findMin = function() {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    let currentNode = this.root;\r\n    while (currentNode.left) {\r\n      currentNode = currentNode.left;\r\n    }\r\n    return currentNode.value;\r\n  };\r\n  this.findMax = function() {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    let currentNode = this.root;\r\n    while (currentNode.right) {\r\n      currentNode = currentNode.right;\r\n    }\r\n    return currentNode.value;\r\n  };\r\n  this.add = function(value) {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      this.root = new Node(value);\r\n      return undefined;\r\n    }\r\n    return this.addNode(this.root, value);\r\n  };\r\n  this.addNode = function(node, value) {\r\n    // Check if value already exists.\r\n    if (node.value === value) return null;\r\n    if (value < node.value) {\r\n      if (node.left) {\r\n        return this.addNode(node.left, value);\r\n      } else {\r\n        node.left = new Node(value);\r\n        return undefined;\r\n      }\r\n    } else {\r\n      if (node.right) {\r\n        return this.addNode(node.right, value);\r\n      } else {\r\n        node.right = new Node(value);\r\n        return undefined;\r\n      }\r\n    }\r\n  };\r\n  this.isPresent = function(value) {\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    return this.isNodePresent(this.root, value);\r\n  };\r\n  this.isNodePresent = function(node, value) {\r\n    if (node.value === value) return true;\r\n    if (value < node.value) {\r\n      return node.left ? this.isNodePresent(node.left, value) : false;\r\n    } else {\r\n      return node.right ? this.isNodePresent(node.right, value) : false;\r\n    }\r\n    return false;\r\n  };\r\n  this.findMinHeight = function() {\r\n    if (!this.root) {\r\n      return -1;\r\n    }\r\n    let heights = {};\r\n    let height = 0;\r\n    this.traverseTree(this.root, height, heights);\r\n    return Math.min(...Object.keys(heights));\r\n  };\r\n  this.findMaxHeight = function() {\r\n    if (!this.root) {\r\n      return -1;\r\n    }\r\n    let heights = {};\r\n    let height = 0;\r\n    this.traverseTree(this.root, height, heights);\r\n    return Math.max(...Object.keys(heights));\r\n  };\r\n  this.traverseTree = function(node, height, heights) {\r\n    if (node.left === null && node.right === null) {\r\n      return (heights[height] = true);\r\n    }\r\n    if (node.left) {\r\n      this.traverseTree(node.left, height + 1, heights);\r\n    }\r\n    if (node.right) {\r\n      this.traverseTree(node.right, height + 1, heights);\r\n    }\r\n  };\r\n  this.isBalanced = function() {\r\n    return this.findMaxHeight() > this.findMinHeight() + 1;\r\n  };\r\n  // DFS tree traversal.\r\n  this.inorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      if (node.left) traverseInOrder(node.left);\r\n      result.push(node.value);\r\n      if (node.right) traverseInOrder(node.right);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  this.preorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      result.push(node.value);\r\n      if (node.left) traverseInOrder(node.left);\r\n      if (node.right) traverseInOrder(node.right);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  this.postorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      if (node.left) traverseInOrder(node.left);\r\n      if (node.right) traverseInOrder(node.right);\r\n      result.push(node.value);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  // BFS tree traversal.\r\n  this.levelOrder = function() {\r\n    if (!this.root) return null;\r\n    let queue = [this.root];\r\n    let result = [];\r\n    while (queue.length) {\r\n      let node = queue.shift();\r\n      result.push(node.value);\r\n      if (node.left) queue.push(node.left);\r\n      if (node.right) queue.push(node.right);\r\n    }\r\n    return result;\r\n  };\r\n  this.reverseLevelOrder = function() {\r\n    if (!this.root) return null;\r\n    let queue = [this.root];\r\n    let result = [];\r\n    while (queue.length) {\r\n      let node = queue.shift();\r\n      result.push(node.value);\r\n      if (node.right) queue.push(node.right);\r\n      if (node.left) queue.push(node.left);\r\n    }\r\n    return result;\r\n  };\r\n  // Delete a leaf node.\r\n}\r\nlet bst = new BinarySearchTree();",
+        "error": null,
+        "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\n\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\n\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.findMin = function() {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    let currentNode = this.root;\r\n    while (currentNode.left) {\r\n      currentNode = currentNode.left;\r\n    }\r\n    return currentNode.value;\r\n  };\r\n  this.findMax = function() {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    let currentNode = this.root;\r\n    while (currentNode.right) {\r\n      currentNode = currentNode.right;\r\n    }\r\n    return currentNode.value;\r\n  };\r\n  this.add = function(value) {\r\n    // Empty tree.\r\n    if (!this.root) {\r\n      this.root = new Node(value);\r\n      return undefined;\r\n    }\r\n    return this.addNode(this.root, value);\r\n  };\r\n  this.addNode = function(node, value) {\r\n    // Check if value already exists.\r\n    if (node.value === value) return null;\r\n    if (value < node.value) {\r\n      if (node.left) {\r\n        return this.addNode(node.left, value);\r\n      } else {\r\n        node.left = new Node(value);\r\n        return undefined;\r\n      }\r\n    } else {\r\n      if (node.right) {\r\n        return this.addNode(node.right, value);\r\n      } else {\r\n        node.right = new Node(value);\r\n        return undefined;\r\n      }\r\n    }\r\n  };\r\n  this.isPresent = function(value) {\r\n    if (!this.root) {\r\n      return null;\r\n    }\r\n    return this.isNodePresent(this.root, value);\r\n  };\r\n  this.isNodePresent = function(node, value) {\r\n    if (node.value === value) return true;\r\n    if (value < node.value) {\r\n      return node.left ? this.isNodePresent(node.left, value) : false;\r\n    } else {\r\n      return node.right ? this.isNodePresent(node.right, value) : false;\r\n    }\r\n    return false;\r\n  };\r\n  this.findMinHeight = function() {\r\n    if (!this.root) {\r\n      return -1;\r\n    }\r\n    let heights = {};\r\n    let height = 0;\r\n    this.traverseTree(this.root, height, heights);\r\n    return Math.min(...Object.keys(heights));\r\n  };\r\n  this.findMaxHeight = function() {\r\n    if (!this.root) {\r\n      return -1;\r\n    }\r\n    let heights = {};\r\n    let height = 0;\r\n    this.traverseTree(this.root, height, heights);\r\n    return Math.max(...Object.keys(heights));\r\n  };\r\n  this.traverseTree = function(node, height, heights) {\r\n    if (node.left === null && node.right === null) {\r\n      return (heights[height] = true);\r\n    }\r\n    if (node.left) {\r\n      this.traverseTree(node.left, height + 1, heights);\r\n    }\r\n    if (node.right) {\r\n      this.traverseTree(node.right, height + 1, heights);\r\n    }\r\n  };\r\n  this.isBalanced = function() {\r\n    return this.findMaxHeight() > this.findMinHeight() + 1;\r\n  };\r\n  // DFS tree traversal.\r\n  this.inorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      if (node.left) traverseInOrder(node.left);\r\n      result.push(node.value);\r\n      if (node.right) traverseInOrder(node.right);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  this.preorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      result.push(node.value);\r\n      if (node.left) traverseInOrder(node.left);\r\n      if (node.right) traverseInOrder(node.right);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  this.postorder = function() {\r\n    if (!this.root) return null;\r\n    let result = [];\r\n\r\n    function traverseInOrder(node) {\r\n      if (node.left) traverseInOrder(node.left);\r\n      if (node.right) traverseInOrder(node.right);\r\n      result.push(node.value);\r\n    }\r\n    traverseInOrder(this.root);\r\n    return result;\r\n  };\r\n  // BFS tree traversal.\r\n  this.levelOrder = function() {\r\n    if (!this.root) return null;\r\n    let queue = [this.root];\r\n    let result = [];\r\n    while (queue.length) {\r\n      let node = queue.shift();\r\n      result.push(node.value);\r\n      if (node.left) queue.push(node.left);\r\n      if (node.right) queue.push(node.right);\r\n    }\r\n    return result;\r\n  };\r\n  this.reverseLevelOrder = function() {\r\n    if (!this.root) return null;\r\n    let queue = [this.root];\r\n    let result = [];\r\n    while (queue.length) {\r\n      let node = queue.shift();\r\n      result.push(node.value);\r\n      if (node.right) queue.push(node.right);\r\n      if (node.left) queue.push(node.left);\r\n    }\r\n    return result;\r\n  };\r\n  // Delete a leaf node.\r\n}\r\nlet bst = new BinarySearchTree();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype = Object.assign(\r\n  BinarySearchTree.prototype,\r\n  {\r\n    add: function(value) {\r\n      function searchTree(node) {\r\n        if (value < node.value) {\r\n          if (node.left == null) {\r\n            node.left = new Node(value);\r\n            return;\r\n          } else if (node.left != null) {\r\n            return searchTree(node.left);\r\n          }\r\n        } else if (value > node.value) {\r\n          if (node.right == null) {\r\n            node.right = new Node(value);\r\n            return;\r\n          } else if (node.right != null) {\r\n            return searchTree(node.right);\r\n          }\r\n        } else {\r\n          return null;\r\n        }\r\n      }\r\n\r\n      var node = this.root;\r\n      if (node == null) {\r\n        this.root = new Node(value);\r\n        return;\r\n      } else {\r\n        return searchTree(node);\r\n      }\r\n    }\r\n  }\r\n);"
+  },
+  "tests": [
+    {
+      "text": "<p>Struktura podataka <code>BinarySearchTree</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Stab binarnog pretraživanja treba da ima put nazvan <code>findMin</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.findMin == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Binarni stab za pretragu treba da ima putanju nazvanu <code>findMax</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.findMax == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>findMin</code> treba da vrati minimalnu vrednost u binarni stab za pretragu.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.findMin !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(4);\r\n    test.add(1);\r\n    test.add(7);\r\n    test.add(87);\r\n    test.add(34);\r\n    test.add(45);\r\n    test.add(73);\r\n    test.add(8);\r\n    return test.findMin() == 1;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja <code>findMax</code> treba da vrati prethodno stanje u binarnoj stablu za pretragu.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.findMax !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(4);\r\n    test.add(1);\r\n    test.add(7);\r\n    test.add(87);\r\n    test.add(34);\r\n    test.add(45);\r\n    test.add(73);\r\n    test.add(8);\r\n    return test.findMax() == 87;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanje za <code>findMin</code> i <code>findMax</code> treba da vrate <code>null</code> na prazno stablo.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.findMin !== 'function') {\r\n      return false;\r\n    }\r\n    if (typeof test.findMax !== 'function') {\r\n      return false;\r\n    }\r\n    return test.findMin() == null && test.findMax() == null;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovom zadatku ćete definisati dve metode, <code>findMin</code> i <code>findMax</code>. Ove metode treba da vrate minimalnu i maksimalnu vrednost sačuvanu u binarnom stablu pretrage (ne brinite o dodavanju vrednosti u stablo za sada, mi smo neke sakrili). Ako naiđete na problem, razmislite o invarijantnom pravilu koje mora biti tačno za binarna stabla pretrage: svako leve podstablo je manje ili jednako svog roditelja, a svako desno podstablo je veće ili jednako svog roditelja. Takođe pretpostavite da naše stablo može da skladišti samo vrednosti celih brojeva. Ako je stablo prazno, svaka metoda treba da vrati <code>null</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "68b702892910ab7b495de081",
+  "title": "Korak 11",
+  "challengeType": 20,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        26
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    \ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    \ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have a <code>__str__</code> method in your <code>MediaCatalogue</code> class.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"MediaCatalogue\").has_function(\"__str__\")`)\n})"
+    },
+    {
+      "text": "<p>Your <code>__str__</code> method should return <code>Media Catalogue (empty)</code> when <code>self.items</code> is empty.</p>",
+      "testString": "({\n  test: () => runPython(`\n    import io\n    import sys\n        \n    captured_output = io.StringIO()\n    sys.stdout = captured_output\n        \n    print(MediaCatalogue())\n        \n    sys.stdout = sys.__stdout__\n    output = captured_output.getvalue()\n        \n    assert \"Media Catalogue (empty)\" in output\n  `)\n})"
+    },
+    {
+      "text": "<p>Your <code>__str__</code> method <strong>should not</strong> return <code>Media Catalogue (empty)</code> when <code>self.items</code> is <strong>not</strong> empty.</p>",
+      "testString": "({\n  test: () => runPython(`\n    import io\n    import sys\n        \n    captured_output = io.StringIO()\n    sys.stdout = captured_output\n    _catalogue = MediaCatalogue()\n    _catalogue.add(Movie('The Matrix', 1999, 'The Wachowskis', 136))\n    try:\n      print(_catalogue)\n    except TypeError:\n      pass\n        \n    sys.stdout = sys.__stdout__\n    output = captured_output.getvalue()\n        \n    assert \"Media Catalogue (empty)\" not in output\n  `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Potrebno će vam odgovarajući način za vizuelno predstavljanje kataloga. Stoga kreirajte metod <code>__str__</code> u vašoj klasi <code>MediaCatalogue</code>.</p>\n<p>Ako je lista <code>items</code> prazna, uverite se da metod <code>__str__</code> vraća <code>Media Catalogue (empty)</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

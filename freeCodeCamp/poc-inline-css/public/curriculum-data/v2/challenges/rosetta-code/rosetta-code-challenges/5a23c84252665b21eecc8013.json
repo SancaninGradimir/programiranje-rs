@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc8013",
+  "title": "Algoritmi za sortiranje niza",
+  "challengeType": 1,
+  "forumTopicId": 302319,
+  "dashedName": "sorting-algorithmsstrand-sort",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function strandSort(list) {\n\n}",
+      "error": null,
+      "seed": "function strandSort(list) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function strandSort(list) {\n  function merge(left, right) {\n    var result = [];\n    while (left.length != 0 && right.length != 0) {\n      if (left[0] <= right[0]) result.push(left.shift());\n      else result.push(right.shift());\n    }\n    result.push.apply(result, left);\n    result.push.apply(result, right);\n    return result;\n  }\n\n  if (list.length <= 1) return list;\n  var result = [];\n  while (list.length > 0) {\n    var sorted = [];\n    sorted.push(list.shift());\n    var len = list.length;\n    for (var i = 1; i < len; i++) {\n      var elem = list[i];\n      if (sorted[i - 1] <= elem) {\n        sorted.push(elem);\n        sorted.splice(i, 1);\n      }\n    }\n\n    result = merge(result, sorted);\n  }\n  return result;\n}",
+        "error": null,
+        "seed": "function strandSort(list) {\n  function merge(left, right) {\n    var result = [];\n    while (left.length != 0 && right.length != 0) {\n      if (left[0] <= right[0]) result.push(left.shift());\n      else result.push(right.shift());\n    }\n    result.push.apply(result, left);\n    result.push.apply(result, right);\n    return result;\n  }\n\n  if (list.length <= 1) return list;\n  var result = [];\n  while (list.length > 0) {\n    var sorted = [];\n    sorted.push(list.shift());\n    var len = list.length;\n    for (var i = 1; i < len; i++) {\n      var elem = list[i];\n      if (sorted[i - 1] <= elem) {\n        sorted.push(elem);\n        sorted.splice(i, 1);\n      }\n    }\n\n    result = merge(result, sorted);\n  }\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>strandSort</code> trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof strandSort == 'function');"
+    },
+    {
+      "text": "<p><code>strandSort([25, 32, 12, 7, 20])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(strandSort([25, 32, 12, 7, 20])));"
+    },
+    {
+      "text": "<p><code>strandSort([25, 32, 12, 7, 20])</code> trebalo bi da vrati <code>[7, 12, 20, 25, 32]</code>.</p>",
+      "testString": "assert.deepEqual(strandSort([25, 32, 12, 7, 20]), [7, 12, 20, 25, 32]);"
+    },
+    {
+      "text": "<p><code>strandSort([38, 45, 35, 8, 13])</code> trebalo bi da vrati <code>[8, 13, 35, 38, 45]</code>.</p>",
+      "testString": "assert.deepEqual(strandSort([38, 45, 35, 8, 13]), [8, 13, 35, 38, 45]);"
+    },
+    {
+      "text": "<p><code>strandSort([43, 36, 20, 34, 24])</code> inapaswa kurudisha <code>[20, 24, 34, 36, 43]</code>.</p>",
+      "testString": "assert.deepEqual(strandSort([43, 36, 20, 34, 24]), [20, 24, 34, 36, 43]);"
+    },
+    {
+      "text": "<p><code>strandSort([12, 33, 26, 18, 1, 16, 38])</code> trebalo bi da vrati <code>[1, 12, 16, 18, 26, 33, 38]</code>.</p>",
+      "testString": "assert.deepEqual(strandSort([12, 33, 26, 18, 1, 16, 38]), [\n  1,\n  12,\n  16,\n  18,\n  26,\n  33,\n  38\n]);"
+    },
+    {
+      "text": "<p><code>strandSort([3, 39, 48, 16, 1, 4, 29])</code> treba da vrati <code>[1, 3, 4, 16, 29, 39, 48]</code>.</p>",
+      "testString": "assert.deepEqual(strandSort([3, 39, 48, 16, 1, 4, 29]), [\n  1,\n  3,\n  4,\n  16,\n  29,\n  39,\n  48\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>Strand sort</strong> formira sortirane podnizove koji se zatim spajaju u konačan rezultat.</p>\n<p>Zamislite rednu grupu podataka <code>unsortedArray = [3, 1, 4, 2]</code>. Izaberite prvi element <code>3</code> i kopirajte ga u drugu rednu grupu podataka. Pronađite bilo koji veći element koji sledi ovaj element. Kada pronađete veći element, u ovom slučaju <code>4</code>, kopirajte ga u drugu rednu grupu podataka, <code>[3, 4]</code>, i uporedite sledeće elemente sa ovom novom vrednošću, <code>4</code>.</p>\n<p>Kada dođeš do kraja niza, izdvoji elemente koje si prikupio, <code>[3, 4]</code>, i počni ponovo od prvog preostalog elementa u <code>unsortedArray</code>, u ovom slučaju <code>1</code>.</p>\n<p>Prateći ovaj proces, rezultira dve strukturirane linije podataka, <code>[3, 4]</code> i <code>[1, 2]</code>. Povežite ove dve linije da biste stvorili <code>strandSortedArray</code>.</p>\n<pre><code class=\"language-js\">const unsortedArray = [3, 1, 4, 2];\nconst strandsortedArray = [1, 2, 3, 4];\n</code></pre>\n<p>Napišite funkciju za sortiranje niza podataka koristeći <strong>Strand sort</strong>. Funkcija treba da vrati sortirani niz podataka.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 129,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

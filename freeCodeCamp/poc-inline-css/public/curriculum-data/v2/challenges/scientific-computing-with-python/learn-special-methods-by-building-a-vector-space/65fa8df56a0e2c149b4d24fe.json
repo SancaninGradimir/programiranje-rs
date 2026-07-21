@@ -1,0 +1,51 @@
+{
+  "id": "65fa8df56a0e2c149b4d24fe",
+  "title": "Korak 49",
+  "challengeType": 20,
+  "dashedName": "step-49",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        32,
+        38
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da odštampate <code>f'v1 + v2 = {v3}'</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_call(\"print(f'v1 + v2 = {v3}')\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sledeće, obezbedite novi vektor za ispisivanje sledećeg f-stringa <code>f'v1 + v2 = {v3}'</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 48,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

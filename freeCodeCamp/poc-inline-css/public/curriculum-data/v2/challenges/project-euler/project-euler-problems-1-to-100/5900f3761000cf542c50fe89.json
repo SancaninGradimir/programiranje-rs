@@ -1,0 +1,81 @@
+{
+  "id": "5900f3761000cf542c50fe89",
+  "title": "Vežba 10: Zbir osnovnih brojeva",
+  "challengeType": 1,
+  "forumTopicId": 301723,
+  "dashedName": "problem-10-summation-of-primes",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function primeSummation(n) {\n\n  return true;\n}\n\nprimeSummation(2000000);",
+      "error": null,
+      "seed": "function primeSummation(n) {\n\n  return true;\n}\n\nprimeSummation(2000000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction primeSummation(num) {\n  const primeSeive = new PrimeSeive(num);\n\n  let sum = 2;\n  for (let i = 3; i < num; i += 2) {\n    if (primeSeive.isOddPrime(i)) sum += i;\n  }\n  return sum;\n}",
+        "error": null,
+        "seed": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction primeSummation(num) {\n  const primeSeive = new PrimeSeive(num);\n\n  let sum = 2;\n  for (let i = 3; i < num; i += 2) {\n    if (primeSeive.isOddPrime(i)) sum += i;\n  }\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>primeSummation(17)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert.isNumber(primeSummation(17));"
+    },
+    {
+      "text": "<p><code>primeSummation(17)</code> trebalo bi vratiti 41.</p>",
+      "testString": "assert.strictEqual(primeSummation(17), 41);"
+    },
+    {
+      "text": "<p><code>primeSummation(2001)</code> trebalo bi da vrati 277050.</p>",
+      "testString": "assert.strictEqual(primeSummation(2001), 277050);"
+    },
+    {
+      "text": "<p><code>primeSummation(140759)</code> trebalo bi vratiti 873608362.</p>",
+      "testString": "assert.strictEqual(primeSummation(140759), 873608362);"
+    },
+    {
+      "text": "<p><code>primeSummation(2000000)</code> trebalo bi da vrati 142913828922.</p>",
+      "testString": "assert.strictEqual(primeSummation(2000000), 142913828922);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Suma prostih brojeva manjih od 10 je 2 + 3 + 5 + 7 = 17.</p>\n<p>Pronađi zbir svih osnovnih brojeva ispod <code>n</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

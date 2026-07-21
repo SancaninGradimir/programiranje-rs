@@ -1,0 +1,37 @@
+{
+  "id": "587d8247367417b2b2512c38",
+  "title": "Smanite rizik od clickjackinga pomoću helmet.frameguard()",
+  "challengeType": 2,
+  "forumTopicId": 301582,
+  "dashedName": "mitigate-the-risk-of-clickjacking-with-helmet-frameguard",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Za centralni program, helmet.frameguard() treba biti pravilno postavljen.</p>",
+      "testString": "const response = await fetch(code + '/_api/app-info');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.json();\r\nassert.include(\r\n  data.appStack,\r\n  'frameguard',\r\n  'helmet.frameguard() middleware is not mounted correctly'\r\n);"
+    },
+    {
+      "text": "<p>helmet.frameguard() 'action' treba ga postaviti na 'DENY'</p>",
+      "testString": "const response = await fetch(code + '/_api/app-info');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.json();\r\nassert.property(data.headers, 'x-frame-options');\r\nassert.equal(data.headers['x-frame-options'], 'DENY');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je baziran na osnovnom projektu preuzetom iz <a href=\"https://github.com/freeCodeCamp/boilerplate-infosec/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>Vaša stranica može biti postavljena u <code>&#x3C;frame></code> ili <code>&#x3C;iframe></code> bez vaše dozvole. Ovo može izazvati napade clickjacking-a, između ostalog. Clickjacking je tehnika prevare korisnika da interaguje sa drugom stranicom od one koju misli. To se može postići pokretanjem vaše stranice u opasnom kontekstu, putem iframinga. U tom kontekstu, napadač može postaviti skriveni sloj preko vaše stranice. Skrivena dugmad mogu se koristiti za pokretanje zlonamernog koda. Ovaj middleware postavlja zaglavlje X-Frame-Options. On sprečava ko može da stavi vaš sajt u okvir (frame). Ima tri stanja: DENY, SAMEORIGIN, i ALLOW-FROM.</p>\n<p>Ne trebaju nam da naša aplikacija bude postavljena u okvir.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristi <code>helmet.frameguard()</code> kada prolaziš kroz nešto za konfiguraciju <code>{action: 'deny'}</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "information-security-with-helmetjs",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "information-security",
+  "superOrder": 24,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "information-security"
+}

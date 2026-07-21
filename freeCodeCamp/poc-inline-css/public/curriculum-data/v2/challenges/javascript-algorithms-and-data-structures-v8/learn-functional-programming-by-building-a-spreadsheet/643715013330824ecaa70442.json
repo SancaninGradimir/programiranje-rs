@@ -1,0 +1,119 @@
+{
+  "id": "643715013330824ecaa70442",
+  "title": "Korak 23",
+  "challengeType": 0,
+  "dashedName": "step-23",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        4,
+        6
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\n\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}",
+      "error": null,
+      "seed": "const isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\n\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš parametar <code>median</code>.</p>",
+      "testString": "assert.match(code, /(?:let|const|var)\\s+median/);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za deklarisanje svog parametra <code>median</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median/);"
+    },
+    {
+      "text": "<p>Vaš parametar za <code>median</code> bi trebalo da bude funkcionalan.</p>",
+      "testString": "assert.isFunction(median);"
+    },
+    {
+      "text": "<p>Tvoja funkcija za <code>median</code> mora koristiti sintaksu sa strelicom.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*\\(?/);"
+    },
+    {
+      "text": "<p>Vaša funkcija za <code>median</code> mora imati parametar za <code>nums</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)/);"
+    },
+    {
+      "text": "<p>Vaša funkcija <code>median</code> ne bi trebalo da koristi implicitno vraćanje vrednosti.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{/);"
+    },
+    {
+      "text": "<p>Tvoja funkcija za <code>median</code> treba da ima parametar <code>sorted</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{\\s*(?:let|var|const)\\s+sorted/);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za deklarisanje svog parametra <code>sorted</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{\\s*const\\s+sorted/);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>.slice()</code> za umetanje kopije rednog broja <code>nums</code> u <code>sorted</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{\\s*const\\s+sorted\\s*=\\s*nums\\.slice\\(\\s*\\)/);"
+    },
+    {
+      "text": "<p>Treba da povežete putanju <code>.sort()</code> i vašu putanju <code>.slice()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{\\s*const\\s+sorted\\s*=\\s*nums\\.slice\\(\\s*\\)\\.sort\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da prosledite funkciju povratnog poziva vašoj metodi od <code>sort</code> kako biste tačno sortirali brojeve u uzlaznom redosledu. Koristite vraćanje vrednosti eksplicitnim načinom radi jasnoće.</p>",
+      "testString": "assert.match(code, /const\\s+median\\s*=\\s*(\\(\\s*nums\\s*\\)|nums)\\s*=>\\s*\\{\\s*const\\s+sorted\\s*=\\s*nums\\.slice\\(\\s*\\)\\.sort\\(\\s*\\(\\s*a\\s*,\\s*b\\s*\\)\\s*=>\\s*a\\s*-\\s*b\\s*\\)\\s*\\s*;?\\s*\\}/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sledeća tvoja funkcija će izračunati vrednost <code>median</code> brojne sekvence. Počni deklarisanjem strelične funkcije sa parametrom <code>nums</code>.</p>\n<p>Unutar funkcije, deklariraj parametar <code>sorted</code> i postavi mu vrednost na rezultat sortiranja kopije reda <code>nums</code>.</p>\n<p>Trebalo bi da koristiš metodu <code>slice()</code> za kreiranje duboke kopije tog reda.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

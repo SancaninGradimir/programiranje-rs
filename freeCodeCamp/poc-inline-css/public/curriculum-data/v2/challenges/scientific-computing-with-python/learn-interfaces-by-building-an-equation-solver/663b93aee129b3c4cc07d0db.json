@@ -1,0 +1,67 @@
+{
+  "id": "663b93aee129b3c4cc07d0db",
+  "title": "Korak 20",
+  "challengeType": 20,
+  "dashedName": "step-20",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        25
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        \n        equation_string = ' '.join(terms)\n        return equation_string        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        \n        equation_string = ' '.join(terms)\n        return equation_string        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da napraviš krug koji se ponavlja preko <code>for</code> na <code>coefficients.items()</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_for_iter().is_equivalent(\"self.coefficients.items()\")`)) })"
+    },
+    {
+      "text": "<p>Tvoj krug od <code>for</code> treba da koristi <code>n</code> i <code>coefficient</code> preko <code>coefficients.items()</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_for_vars().is_equivalent(\"n, coefficient\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da napraviš deklaraciju <code>if</code> koja proverava da li <code>coefficient</code> ima lažnu vrednost unutar tvog ciklusa <code>for</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nif_cond = _Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[0].find_conditions()[0]\nconditions = [\"not coefficient\", \"coefficient == 0\", \"0 == coefficient\"]\nany(if_cond.is_equivalent(condition) for condition in conditions)\n`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš glavnu reč od <code>continue</code> unutar svog novog izjava <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[0].find_bodies()[0].has_stmt(\"continue\")\n`)) })"
+    },
+    {
+      "text": "<p>Tvoj krug od <code>for</code> treba da bude postavljen odmah nakon izjave <code>terms</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nloop = str(_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0])\n_Node(_code).find_class(\"Equation\").find_function(\"__str__\").is_ordered(\"terms = []\", loop, \"equation_string = ' '.join(terms)\", \"return equation_string\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon liste <code>terms</code>, kreirajte iteraciju za <code>for</code> i koristite metodu <code>.items()</code> da prođete kroz ključeve i vrednosti sačuvane u svojstvu elementa <code>coefficients</code>. Koristite <code>n</code> i <code>coefficient</code> kao parametre iteracije.</p>\n<p>Unutar petlje, kreiraj deklaraciju <code>if</code> koja proverava da li baza trenutne petlje ima lažnu vrednost i preskače tu petlju ako je tako. Ovo je zato što ne želiš da predstavljaš baze sa nulom vrednosti.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

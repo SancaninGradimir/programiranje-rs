@@ -1,0 +1,76 @@
+{
+  "id": "59713da0a428c1a62d7db430",
+  "title": "Pravilo Kramera",
+  "challengeType": 1,
+  "forumTopicId": 302239,
+  "dashedName": "cramers-rule",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function cramersRule(matrix, freeTerms) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function cramersRule(matrix, freeTerms) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "/**\n * Compute Cramer's Rule\n * @param  {array} matrix    x,y,z, etc. terms\n * @param  {array} freeTerms\n * @return {array}           solution for x,y,z, etc.\n */\nfunction cramersRule(matrix, freeTerms) {\n  const det = detr(matrix);\n  const returnArray = [];\n  let i;\n\n  for (i = 0; i < matrix[0].length; i++) {\n    const tmpMatrix = insertInTerms(matrix, freeTerms, i);\n    returnArray.push(detr(tmpMatrix) / det);\n  }\n  return returnArray;\n}\n\n/**\n * Inserts single dimensional array into\n * @param  {array} matrix multidimensional array to have ins inserted into\n * @param  {array} ins single dimensional array to be inserted vertically into matrix\n * @param  {array} at  zero based offset for ins to be inserted into matrix\n * @return {array}     New multidimensional array with ins replacing the at column in matrix\n */\nfunction insertInTerms(matrix, ins, at) {\n  const tmpMatrix = clone(matrix);\n  let i;\n  for (i = 0; i < matrix.length; i++) {\n    tmpMatrix[i][at] = ins[i];\n  }\n  return tmpMatrix;\n}\n/**\n * Compute the determinate of a matrix.  No protection, assumes square matrix\n * function borrowed, and adapted from MIT Licensed numericjs library (www.numericjs.com)\n * @param  {array} m Input Matrix (multidimensional array)\n * @return {number}   result rounded to 2 decimal\n */\nfunction detr(m) {\n  let ret = 1;\n  let j;\n  let k;\n  const A = clone(m);\n  const n = m[0].length;\n  let alpha;\n\n  for (j = 0; j < n - 1; j++) {\n    k = j;\n    for (let i = j + 1; i < n; i++) { if (Math.abs(A[i][j]) > Math.abs(A[k][j])) { k = i; } }\n    if (k !== j) {\n      const temp = A[k]; A[k] = A[j]; A[j] = temp;\n      ret *= -1;\n    }\n    const Aj = A[j];\n    for (let i = j + 1; i < n; i++) {\n      const Ai = A[i];\n      alpha = Ai[j] / Aj[j];\n      for (k = j + 1; k < n - 1; k += 2) {\n        const k1 = k + 1;\n        Ai[k] -= Aj[k] * alpha;\n        Ai[k1] -= Aj[k1] * alpha;\n      }\n      if (k !== n) { Ai[k] -= Aj[k] * alpha; }\n    }\n    if (Aj[j] === 0) { return 0; }\n    ret *= Aj[j];\n  }\n  return Math.round(ret * A[j][j] * 100) / 100;\n}\n\n/**\n * Clone two dimensional Array using ECMAScript 5 map function and EcmaScript 3 slice\n * @param  {array} m Input matrix (multidimensional array) to clone\n * @return {array}   New matrix copy\n */\nfunction clone(m) {\n  return m.map(a => a.slice());\n}",
+        "error": null,
+        "seed": "/**\n * Compute Cramer's Rule\n * @param  {array} matrix    x,y,z, etc. terms\n * @param  {array} freeTerms\n * @return {array}           solution for x,y,z, etc.\n */\nfunction cramersRule(matrix, freeTerms) {\n  const det = detr(matrix);\n  const returnArray = [];\n  let i;\n\n  for (i = 0; i < matrix[0].length; i++) {\n    const tmpMatrix = insertInTerms(matrix, freeTerms, i);\n    returnArray.push(detr(tmpMatrix) / det);\n  }\n  return returnArray;\n}\n\n/**\n * Inserts single dimensional array into\n * @param  {array} matrix multidimensional array to have ins inserted into\n * @param  {array} ins single dimensional array to be inserted vertically into matrix\n * @param  {array} at  zero based offset for ins to be inserted into matrix\n * @return {array}     New multidimensional array with ins replacing the at column in matrix\n */\nfunction insertInTerms(matrix, ins, at) {\n  const tmpMatrix = clone(matrix);\n  let i;\n  for (i = 0; i < matrix.length; i++) {\n    tmpMatrix[i][at] = ins[i];\n  }\n  return tmpMatrix;\n}\n/**\n * Compute the determinate of a matrix.  No protection, assumes square matrix\n * function borrowed, and adapted from MIT Licensed numericjs library (www.numericjs.com)\n * @param  {array} m Input Matrix (multidimensional array)\n * @return {number}   result rounded to 2 decimal\n */\nfunction detr(m) {\n  let ret = 1;\n  let j;\n  let k;\n  const A = clone(m);\n  const n = m[0].length;\n  let alpha;\n\n  for (j = 0; j < n - 1; j++) {\n    k = j;\n    for (let i = j + 1; i < n; i++) { if (Math.abs(A[i][j]) > Math.abs(A[k][j])) { k = i; } }\n    if (k !== j) {\n      const temp = A[k]; A[k] = A[j]; A[j] = temp;\n      ret *= -1;\n    }\n    const Aj = A[j];\n    for (let i = j + 1; i < n; i++) {\n      const Ai = A[i];\n      alpha = Ai[j] / Aj[j];\n      for (k = j + 1; k < n - 1; k += 2) {\n        const k1 = k + 1;\n        Ai[k] -= Aj[k] * alpha;\n        Ai[k1] -= Aj[k1] * alpha;\n      }\n      if (k !== n) { Ai[k] -= Aj[k] * alpha; }\n    }\n    if (Aj[j] === 0) { return 0; }\n    ret *= Aj[j];\n  }\n  return Math.round(ret * A[j][j] * 100) / 100;\n}\n\n/**\n * Clone two dimensional Array using ECMAScript 5 map function and EcmaScript 3 slice\n * @param  {array} m Input matrix (multidimensional array) to clone\n * @return {array}   New matrix copy\n */\nfunction clone(m) {\n  return m.map(a => a.slice());\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const matrices = [\n  [\n    [2, -1, 5, 1],\n    [3, 2, 2, -6],\n    [1, 3, 3, -1],\n    [5, -2, -3, 3]\n  ],\n  [\n    [3, 1, 1],\n    [2, 2, 5],\n    [1, -3, -4]\n  ]\n];\nconst freeTerms = [[-3, -32, -47, 49], [3, -1, 2]];\nconst answers = [[2, -12, -4, 1], [1, 1, -1]];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>cramersRule</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof cramersRule === 'function');"
+    },
+    {
+      "text": "<p><code>cramersRule([[2, -1, 5, 1], [3, 2, 2, -6], [1, 3, 3, -1], [5, -2, -3, 3]], [-3, -32, -47, 49])</code> treba da vrati <code>[2, -12, -4, 1]</code>.</p>",
+      "testString": "assert.deepEqual(cramersRule(matrices[0], freeTerms[0]), answers[0]);"
+    },
+    {
+      "text": "<p><code>cramersRule([[3, 1, 1], [2, 2, 5], [1, -3, -4]], [3, -1, 2])</code> bi trebalo da vrati <code>[1, 1, -1]</code>.</p>",
+      "testString": "assert.deepEqual(cramersRule(matrices[1], freeTerms[1]), answers[1]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><a href=\"https://rosettacode.org/wiki/Cramer%27s_rule\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Kremerevo pravilo</a> je formula za rešavanje sistema linearnih jednačina korišćenjem determinanti matrica formiranih iz podskupa koeficijenata i vrednosti sa desne strane.</p>\n<p>Determinat matrice sa 2 reda i 2 kolone izračunava se po:</p>\n<p>$\\begin{aligned}|A|={\\begin{vmatrix}a&#x26;b\\\\c&#x26;d\\end{vmatrix}}=ad-bc.\\end{aligned}$</p>\n<p>Sistem linearnih jednačina:</p>\n<p>$\\left\\{\\begin{matrix}a_1x + b_1y + c_1z&#x26;= {\\color{red}d_1}\\\\a_2x + b_2y + c_2z&#x26;= {\\color{red}d_2}\\\\a_3x + b_3y + c_3z&#x26;= {\\color{red}d_3}\\end{matrix}\\right.$</p>\n<p>koji za strukturu matrice je</p>\n<p>$\\begin{bmatrix} a_1 &#x26; b_1 &#x26; c_1 \\\\ a_2 &#x26; b_2 &#x26; c_2 \\\\ a_3 &#x26; b_3 &#x26; c_3 \\end{bmatrix}\\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix}=\\begin{bmatrix} {\\color{red}d_1} \\\\ {\\color{red}d_2} \\\\ {\\color{red}d_3} \\end{bmatrix}.$</p>\n<p>Dakle, vrednosti $x, y$ i $z$ mogu se pronaći na sledeći način:</p>\n<p>$x = \\frac{\\begin{vmatrix} {\\color{red}d_1} &#x26; b_1 &#x26; c_1 \\\\ {\\color{red}d_2} &#x26; b_2 &#x26; c_2 \\\\ {\\color{red}d_3} &#x26; b_3 &#x26; c_3 \\end{vmatrix} } { \\begin{vmatrix} a_1 &#x26; b_1 &#x26; c_1 \\\\ a_2 &#x26; b_2 &#x26; c_2 \\\\ a_3 &#x26; b_3 &#x26; c_3 \\end{vmatrix}}, \\quad y = \\frac {\\begin{vmatrix} a_1 &#x26; {\\color{red}d_1} &#x26; c_1 \\\\ a_2 &#x26; {\\color{red}d_2} &#x26; c_2 \\\\ a_3 &#x26; {\\color{red}d_3} &#x26; c_3 \\end{vmatrix}} {\\begin{vmatrix} a_1 &#x26; b_1 &#x26; c_1 \\\\ a_2 &#x26; b_2 &#x26; c_2 \\\\ a_3 &#x26; b_3 &#x26; c_3 \\end{vmatrix}}, \\text{ and }z = \\frac { \\begin{vmatrix} a_1 &#x26; b_1 &#x26; {\\color{red}d_1} \\\\ a_2 &#x26; b_2 &#x26; {\\color{red}d_2} \\\\ a_3 &#x26; b_3 &#x26; {\\color{red}d_3} \\end{vmatrix}} {\\begin{vmatrix} a_1 &#x26; b_1 &#x26; c_1 \\\\ a_2 &#x26; b_2 &#x26; c_2 \\\\ a_3 &#x26; b_3 &#x26; c_3 \\end{vmatrix} }.$</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dat je sledeći sistem jednačina:</p>\n<p>$\\begin{cases} 2w-x+5y+z=-3 \\\\ 3w+2x+2y-6z=-32 \\\\ w+3x+3y-z=-47 \\\\ 5w-2x-3y+3z=49 \\\\ \\end{cases}$</p>\n<p>Rešiti za $w$, $x$, $y$ i $z$, koristeći pravilo Kramera.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

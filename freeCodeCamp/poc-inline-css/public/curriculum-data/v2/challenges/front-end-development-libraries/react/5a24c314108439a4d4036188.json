@@ -1,0 +1,103 @@
+{
+  "id": "5a24c314108439a4d4036188",
+  "title": "Prikaži po uslovima iz prosleđene parametre",
+  "challengeType": 6,
+  "forumTopicId": 301405,
+  "dashedName": "render-conditionally-from-props",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class Results extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    {/* Change code below this line */}\n    return <h1></h1>;\n    {/* Change code above this line */}\n  }\n}\n\nclass GameOfChance extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 1\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState(prevState => {\n      // Complete the return statement:\n      return {\n        counter: prevState\n      }\n    });\n  }\n  render() {\n    const expression = null; // Change this line\n    return (\n      <div>\n        <button onClick={this.handleClick}>Play Again</button>\n        {/* Change code below this line */}\n\n        {/* Change code above this line */}\n        <p>{'Turn: ' + this.state.counter}</p>\n      </div>\n    );\n  }\n}",
+      "error": null,
+      "seed": "class Results extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    {/* Change code below this line */}\n    return <h1></h1>;\n    {/* Change code above this line */}\n  }\n}\n\nclass GameOfChance extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 1\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState(prevState => {\n      // Complete the return statement:\n      return {\n        counter: prevState\n      }\n    });\n  }\n  render() {\n    const expression = null; // Change this line\n    return (\n      <div>\n        <button onClick={this.handleClick}>Play Again</button>\n        {/* Change code below this line */}\n\n        {/* Change code above this line */}\n        <p>{'Turn: ' + this.state.counter}</p>\n      </div>\n    );\n  }\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "// We want this to be deterministic for testing purposes.\nconst randomSequence = [true, false, false, true, true, false, false, true, true, false];\nlet index = 0;\nconst fiftyFifty = () => randomSequence[index++ % randomSequence.length];\n\nclass Results extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h1>{this.props.fiftyFifty ? 'You Win!' : 'You Lose!'}</h1>;\n  }\n}\n\nclass GameOfChance extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 1\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState(prevState => {\n      return {\n        counter: prevState.counter + 1\n      }\n    });\n  }\n  render() {\n    return (\n      <div>\n        <button onClick={this.handleClick}>Play Again</button>\n        <Results fiftyFifty={fiftyFifty()} />\n        <p>{'Turn: ' + this.state.counter}</p>\n      </div>\n    );\n  }\n}",
+        "error": null,
+        "seed": "// We want this to be deterministic for testing purposes.\nconst randomSequence = [true, false, false, true, true, false, false, true, true, false];\nlet index = 0;\nconst fiftyFifty = () => randomSequence[index++ % randomSequence.length];\n\nclass Results extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h1>{this.props.fiftyFifty ? 'You Win!' : 'You Lose!'}</h1>;\n  }\n}\n\nclass GameOfChance extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 1\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState(prevState => {\n      return {\n        counter: prevState.counter + 1\n      }\n    });\n  }\n  render() {\n    return (\n      <div>\n        <button onClick={this.handleClick}>Play Again</button>\n        <Results fiftyFifty={fiftyFifty()} />\n        <p>{'Turn: ' + this.state.counter}</p>\n      </div>\n    );\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Deo <code>GameOfChance</code> mora da postoji i bude prikazan na stranici.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(GameOfChance)).find('GameOfChance').length,\n  1\n);"
+    },
+    {
+      "text": "<p><code>GameOfChance</code> trebalo bi da vrati jedan element od <code>button</code>.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(GameOfChance)).find('button').length,\n  1\n);"
+    },
+    {
+      "text": "<p><code>GameOfChance</code> treba da vrati jedan primer dela <code>Results</code>, koji ima svojstvo (prop) nazvano <code>fiftyFifty</code>.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(GameOfChance)).find('Results').length ===\n    1 &&\n    Enzyme.mount(React.createElement(GameOfChance))\n      .find('Results')\n      .props()\n      .hasOwnProperty('fiftyFifty') === true\n);"
+    },
+    {
+      "text": "<p>Stanje <code>GameOfChance</code> treba da se postavi atributom <code>counter</code> sa vrednošću <code>1</code>.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(GameOfChance)).state().counter,\n  1\n);"
+    },
+    {
+      "text": "<p>Kada se deo <code>GameOfChance</code> prvi put prikazuje na DOM, element <code>p</code> treba da se vrati sa internim tekstom <code>Turn: 1</code>.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(GameOfChance)).find('p').text(),\n  'Turn: 1'\n);"
+    },
+    {
+      "text": "<p>Svaki put kada se dugme klikne, status inkrementa treba da se poveća za vrednost od 1, i jedan element od <code>p</code> prikazuje se u DOM sa tekstom <code>Turn: N</code>, gde je <code>N</code> vrednost statusa inkrementa.</p>",
+      "testString": "(() => {\n  const comp = Enzyme.mount(React.createElement(GameOfChance));\n  const simulate = () => {\n    comp.find('button').simulate('click');\n  };\n  const result = () => ({\n    count: comp.state('counter'),\n    text: comp.find('p').text()\n  });\n  const _1 = () => {\n    simulate();\n    return result();\n  };\n  const _2 = () => {\n    simulate();\n    return result();\n  };\n  const _3 = () => {\n    simulate();\n    return result();\n  };\n  const _4 = () => {\n    simulate();\n    return result();\n  };\n  const _5 = () => {\n    simulate();\n    return result();\n  };\n  const _1_val = _1();\n  const _2_val = _2();\n  const _3_val = _3();\n  const _4_val = _4();\n  const _5_val = _5();\n  assert(\n    _1_val.count === 2 &&\n      _1_val.text === 'Turn: 2' &&\n      _2_val.count === 3 &&\n      _2_val.text === 'Turn: 3' &&\n      _3_val.count === 4 &&\n      _3_val.text === 'Turn: 4' &&\n      _4_val.count === 5 &&\n      _4_val.text === 'Turn: 5' &&\n      _5_val.count === 6 &&\n      _5_val.text === 'Turn: 6'\n  );\n})();"
+    },
+    {
+      "text": "<p>Kada se deo <code>GameOfChance</code> inicijalizuje na DOM prvi put i svaki put kada se dugme klikne kasnije, treba da se vrati jedan element <code>h1</code> koji nasumično prikazuje jednu od <code>You Win!</code> ili <code>You Lose!</code>. Napomena: ovo može da ne uspe slučajno. Ako se to dogodi, molimo pokušajte ponovo.</p>",
+      "testString": "(() => {\n  const comp = Enzyme.mount(React.createElement(GameOfChance));\n  const simulate = () => {\n    comp.find('button').simulate('click');\n  };\n  const result = () => ({\n    h1: comp.find('h1').length,\n    text: comp.find('h1').text()\n  });\n  const _1 = result();\n  const _2 = () => {\n    simulate();\n    return result();\n  };\n  const _3 = () => {\n    simulate();\n    return result();\n  };\n  const _4 = () => {\n    simulate();\n    return result();\n  };\n  const _5 = () => {\n    simulate();\n    return result();\n  };\n  const _6 = () => {\n    simulate();\n    return result();\n  };\n  const _7 = () => {\n    simulate();\n    return result();\n  };\n  const _8 = () => {\n    simulate();\n    return result();\n  };\n  const _9 = () => {\n    simulate();\n    return result();\n  };\n  const _10 = () => {\n    simulate();\n    return result();\n  };\n  const _2_val = _2();\n  const _3_val = _3();\n  const _4_val = _4();\n  const _5_val = _5();\n  const _6_val = _6();\n  const _7_val = _7();\n  const _8_val = _8();\n  const _9_val = _9();\n  const _10_val = _10();\n  const __text = new Set([\n    _1.text,\n    _2_val.text,\n    _3_val.text,\n    _4_val.text,\n    _5_val.text,\n    _6_val.text,\n    _7_val.text,\n    _8_val.text,\n    _9_val.text,\n    _10_val.text\n  ]);\n  const __h1 = new Set([\n    _1.h1,\n    _2_val.h1,\n    _3_val.h1,\n    _4_val.h1,\n    _5_val.h1,\n    _6_val.h1,\n    _7_val.h1,\n    _8_val.h1,\n    _9_val.h1,\n    _10_val.h1\n  ]);\n  assert(__text.size === 2 && __h1.size === 1);\n})();"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ste videli kako da koristite <code>if/else</code>, <code>&#x26;&#x26;</code> i ternarni operator (<code>condition ? expressionIfTrue : expressionIfFalse</code>) za donošenje uslovnih odluka o tome šta i kada prikazati. Međutim, postoji još jedna važna tema koju treba da pokrijemo, koja vam omogućava da kombinujete sve ili neke od ovih koncepata sa još jednom moćnom karakteristikom: propovima (vrednostima koje se prosleđuju) React. Korišćenje propova za uslovno prikazivanje koda je veoma uobičajeno kod programera React — to jest, koristite vrednost određenog prop-a da donosite direktne odluke o tome šta treba prikazati.</p>\n<p>U ovom izazovu, treba da napraviš deo za dete da donosi odluke na osnovu prosleđenih kriterijuma. Takođe ćeš koristiti ternarni operator, ali ćeš videti kako neke druge koncepte diskutovane u prethodnim izazovima mogu biti korisne i u ovom kontekstu.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Editor koda ima dva dela definisana za vas: roditelja nazvan <code>GameOfChance</code> i deteta nazvano <code>Results</code>. Oni se koriste za kreiranje jednostavne igre gde korisnik klikne na dugme da vidi da li je pobedio ili izgubio.</p>\n<p>Prvo će ti biti potreban jednostavan matematički izraz koji pri svakom izvršavanju vraća nasumičnu vrednost. Možeš koristiti <code>Math.random()</code>. Ova metoda vraća broj između <code>0</code> (uključujući) i <code>1</code> (isključujući). Za verovatnoću 50/50 koristi izraz <code>Math.random() >= .5</code>. Ovaj izraz će vratiti <code>true</code> u približno 50% slučajeva, a <code>false</code> u preostalih 50%. U metodi <code>render</code> zameni <code>null</code> ovim izrazom da dovršiš deklaraciju promenljive.</p>\n<p>Sada imate matematički izraz koji možete koristiti za donošenje nasumične odluke u kodu. Sledeće je implementacija toga. Prikazati sekciju <code>Results</code> kao dete od <code>GameOfChance</code>, i proslediti <code>expression</code> kao prop nazvanu <code>fiftyFifty</code>. U sekciji <code>Results</code>, napisati ternarni izraz da prikaže komponentu <code>h1</code> sa tekstom <code>You Win!</code> ili <code>You Lose!</code>, u zavisnosti od propa <code>fiftyFifty</code> koji se prosleđuje iz <code>GameOfChance</code>. Na kraju, osigurati da metoda <code>handleClick()</code> pravilno broji svaki potez kako bi korisnik znao koliko je puta igrao. Ovo takođe osigurava da korisnik zna zaista li se sekcija promenila ako osvoji ili izgubi dva puta zaredom.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 41,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "66680ddfd0f8c76782923cb0",
+  "title": "Korak 22",
+  "challengeType": 20,
+  "dashedName": "step-22",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        5,
+        8
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n    def norm(self):\n        return sum(val**2 for val in self.__dict__.values())**0.5\n    def __str__(self):\n        return f'{self.x, self.y}'\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(v1.norm())\nprint(v2.norm())\n",
+      "error": null,
+      "seed": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n    def norm(self):\n        return sum(val**2 for val in self.__dict__.values())**0.5\n    def __str__(self):\n        return f'{self.x, self.y}'\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(v1.norm())\nprint(v2.norm())\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebali biste da promenite vaš način za <code>norm</code> ili koristite <code>vars(self)</code> umesto <code>self.__dict__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"norm\").has_return(\"sum(val**2 for val in vars(self).values())**0.5\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Metoda <code>norm()</code> vraća tačnu vrednost, ali postoji nešto što možete poboljšati: čitanje.</p>\n<p>Funkcija sadržana u <code>vars()</code> uzima objekat kao svoj argument i vraća svojstvo elementa/polja <code>__dict__</code> tog objekta.</p>\n<p>Umesto direktnog dobijanja svojstva elementa <code>__dict__</code> iz <code>self</code>, promenite metodu <code>norm</code> da koristi funkciju <code>vars()</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

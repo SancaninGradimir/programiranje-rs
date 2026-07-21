@@ -1,0 +1,101 @@
+{
+  "id": "587d7fa7367417b2b2512bc5",
+  "title": "Radi sa promenljivim podacima u D3",
+  "challengeType": 6,
+  "forumTopicId": 301498,
+  "dashedName": "work-with-dynamic-data-in-d3",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n\n    d3.select('body')\n      .selectAll('h2')\n      .data(dataset)\n      .enter()\n      .append('h2')\n      // Add your code below this line\n\n      .text('New Title');\n\n    // Add your code above this line\n  </script>\n</body>",
+      "error": null,
+      "seed": "<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n\n    d3.select('body')\n      .selectAll('h2')\n      .data(dataset)\n      .enter()\n      .append('h2')\n      // Add your code below this line\n\n      .text('New Title');\n\n    // Add your code above this line\n  </script>\n</body>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n\n    d3.select('body')\n      .selectAll('h2')\n      .data(dataset)\n      .enter()\n      .append('h2')\n      .text(d => `${d} USD`);\n  </script>\n</body>",
+        "error": null,
+        "seed": "<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n\n    d3.select('body')\n      .selectAll('h2')\n      .data(dataset)\n      .enter()\n      .append('h2')\n      .text(d => `${d} USD`);\n  </script>\n</body>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Prvi naslov za <code>h2</code> treba da sadrži tekst <code>12 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[0]?.textContent, '12 USD');"
+    },
+    {
+      "text": "<p>Drugi <code>h2</code> treba da ima tekst <code>31 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[1]?.textContent, '31 USD');"
+    },
+    {
+      "text": "<p>Treći <code>h2</code> treba da ima tekst <code>22 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[2]?.textContent, '22 USD');"
+    },
+    {
+      "text": "<p>Četvrti <code>h2</code> treba da ima tekst <code>17 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[3]?.textContent, '17 USD');"
+    },
+    {
+      "text": "<p>Peti <code>h2</code> treba da ima tekst <code>25 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[4]?.textContent, '25 USD');"
+    },
+    {
+      "text": "<p>Šesti <code>h2</code> treba da ima tekst <code>18 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[5]?.textContent, '18 USD');"
+    },
+    {
+      "text": "<p>Sedmi <code>h2</code> treba da ima tekst <code>29 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[6]?.textContent, '29 USD');"
+    },
+    {
+      "text": "<p>Osmi <code>h2</code> treba da ima tekst <code>14 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[7]?.textContent, '14 USD');"
+    },
+    {
+      "text": "<p>Deveti <code>h2</code> treba da ima tekst <code>9 USD</code>.</p>",
+      "testString": "assert.strictEqual(document.querySelectorAll('h2')[8]?.textContent, '9 USD');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dve poslednje izazova se tiču osnova za prikazivanje dinamičkih podataka korišćenjem D3 za metode <code>data()</code> i <code>enter()</code>. Ove metode uzimaju set podataka i, zajedno sa metodom <code>append()</code>, kreiraju novi element DOM za svaki element u setu podataka.</p>\n<p>U prethodnom izazovu, kreirao si novi element <code>h2</code> za svaku stavku u redu podataka <code>dataset</code>, ali svi su imali isti sadržaj, <code>New Title</code>. To je zato što ne koristiš podatke povezane sa svakim elementom od <code>h2</code>.</p>\n<p>Putanja D3 za <code>text()</code> može prihvatiti niz znakova ili funkciju povratnog poziva kao argument:</p>\n<pre><code class=\"language-js\">selection.text(d => d);\n</code></pre>\n<p>U gornjem primeru, parametar <code>d</code> se odnosi na jedan element u skupu podataka kojem je izabranje vezano.</p>\n<p>Koristeći ovaj primer kao kontekst, prvi element od <code>h2</code> je povezan sa 12, drugi element od <code>h2</code> je povezan sa 31, treći element od <code>h2</code> je povezan sa 22, i tako dalje.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni putanju <code>text()</code> tako da svaki element <code>h2</code> ima odgovarajuću vrednost iz kolone podataka <code>dataset</code>, zajedno sa jednim razmakom i nizom slova <code>USD</code>. Na primer, prva zaglavlja bi trebalo da budu <code>12 USD</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-visualization-with-d3",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "data-visualization",
+  "superOrder": 18,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "data-visualization"
+}

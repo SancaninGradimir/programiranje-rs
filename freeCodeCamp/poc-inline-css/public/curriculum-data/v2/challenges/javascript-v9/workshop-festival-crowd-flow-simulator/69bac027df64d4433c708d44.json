@@ -1,0 +1,54 @@
+{
+  "id": "69bac027df64d4433c708d44",
+  "title": "Korak 12",
+  "challengeType": 1,
+  "dashedName": "step-12",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        37,
+        39
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n\n}",
+      "error": null,
+      "seed": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da koristite modulo tehniku za pristup i dodelu sledećeg indeksa from <code>currentIndex</code> u niz <code>gates</code> promenljivoj nazvanoj <code>nextGateIndex</code>. Pratite isti jednostrukorak pattern iz primera.</p>",
+      "testString": "const rawFuncStr = __helpers.removeJSComments(rerouteOverflow.toString());\nassert.match(\n  rawFuncStr,\n  /(var|const|let)\\s+nextGateIndex/,\n  \"You must have at least one space between the declaration keyword (let/const) and 'nextGateIndex'.\"\n);\n\nconst cleaned = __helpers.removeWhiteSpace(rawFuncStr);\nconst solution = /(var|const|let)nextGateIndex=\\((currentIndex\\+1|1\\+currentIndex)\\)%gates\\.length;?}$/;\n\nassert(\n  solution.test(cleaned),\n  \"Inside your `rerouteOverflow` function, use the modulo technique to create a variable named `nextGateIndex` that stores the index of the next gate.\"\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada preusmeravate višak (overflow), treba da pošaljete učesnike na sledeću kapiju u nizu <code>gates</code>. Da biste to uradili, morate pronaći indeks sledeće kapije. Normalno, možete dodati 1 trenutnom indeksu. Međutim, ako je trenutna kapija poslednja u nizu, morate se vratiti na prvu kapiju.</p>\n<p>Možete koristiti modulo operator (<code>%</code>) za rešavanje ovoga:</p>\n<pre><code class=\"language-js\">const nextIndex = (currentIndex + 1) % array.length;\n</code></pre>\n<p>Ovo funkcioniše jer kada <code>currentIndex + 1</code> jednako <code>array.length</code>, rezultat postaje 0.</p>\n<p>Koristeći ovaj pristup, kreirajte varijablu pod nazivom <code>nextGateIndex</code> koja čuva indeks sledeće kapije u nizu <code>gates</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-festival-crowd-flow-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 76,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

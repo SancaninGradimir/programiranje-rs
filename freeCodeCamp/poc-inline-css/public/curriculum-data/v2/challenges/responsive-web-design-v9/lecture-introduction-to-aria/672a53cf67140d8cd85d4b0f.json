@@ -1,0 +1,202 @@
+{
+  "id": "672a53cf67140d8cd85d4b0f",
+  "title": "Šta je svrha WAI-ARIA, i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-purpose-of-wai-aria",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Činiti statični sadržaj lako dostupnim može biti jednostavno, ali često menjajući sadržaj može predstavljati veći izazov. Ovde ulazi WAI-ARIA.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Istražimo šta je WAI-ARIA, njegova svrha, kako funkcioniše, i nekoliko primera.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>WAI-ARIA predstavlja Web Accessibility Initiative - Accessible Rich Internet Applications. To su uputstva koja povećavaju pristupačnost dinamičnog sadržaja i elemenata korisničkog interfejsa (UI).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zapamtite da WCAG i WAI-ARIA nisu isto. WCAG pruža opšte smernice za pristupačnost veb sajtova, dok WAI-ARIA pruža specifična pravila za omogućavanje da su dinamični i interaktivni sadržaji dostupni korisnicima asistivne tehnologije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Glavna svrha WAI-ARIA je da poboljša pristupačnost dinamičkog sadržaja i delova korisničkog interfejsa koji nemaju odgovarajuće izvorne HTML elemente.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>WAI-ARIA radi tako što uspostavlja skup svojstava elemenata koja možete dodati elementima HTML kako bi pružila više semantičke informacije. Ova svojstva elemenata su podeljena na uloge, stanja i atribute.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uloga ARIA definiše svrhu elementa unutar sajta ili web aplikacije. Evo primera kako postaviti ulogu na <code>button</code> za element <code>div</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;div role=\"button\">Click Me&#x3C;/div>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada ovo uradiš, pokazuješ asistencijskoj tehnologiji da je element dugme. Međutim, atributi ne pružaju nikakvu akciju. Pružanje <code>div</code> ovo <code>role</code> od <code>button</code> neće ga učiniti da izgleda ili radi kao dugme. Da bi izgledalo i radilo kao dugme, moraš da koristiš CSS i JavaScript kako bi postigao željeni rezultat.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera korišćenja HTML-a, CSS-a i JavaScript-a za kreiranje prilagođenog <code>button</code> elementa.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><strong>NAPOMENA</strong>: Ne brinite zbog razumevanja koda CSS i JavaScript. Naučićete te jezike u budućim modulima.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link href=\"styles.css\" rel=\"stylesheet\">\n<div id=\"custom-btn\" role=\"button\">Click Me</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link href=\"styles.css\" rel=\"stylesheet\">\n&#x3C;div id=\"custom-btn\" role=\"button\">Click Me&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "#custom-btn {\n  display: inline-block;\n  padding: 0.4em 1em;\n  font-size: 1rem;\n  font-family: sans-serif;\n  color: buttontext;\n  background-color: buttonface;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  cursor: pointer;\n  user-select: none;\n  text-align: center;\n}\n\n#custom-btn:focus {\n  outline: 2px solid Highlight;\n  outline-offset: 2px;\n}\n\n#custom-btn:active {\n  background-color: #ddd;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">#custom-btn {\n  display: inline-block;\n  padding: 0.4em 1em;\n  font-size: 1rem;\n  font-family: sans-serif;\n  color: buttontext;\n  background-color: buttonface;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  cursor: pointer;\n  user-select: none;\n  text-align: center;\n}\n\n#custom-btn:focus {\n  outline: 2px solid Highlight;\n  outline-offset: 2px;\n}\n\n#custom-btn:active {\n  background-color: #ddd;\n}\n</code></pre>"
+        },
+        {
+          "contents": "const button = document.getElementById(\"custom-btn\");\n\nbutton.addEventListener(\"click\", () => {\n  alert(\"Button clicked!\");\n});\n\nbutton.addEventListener(\"keydown\", (e) => {\n  if (e.key === \"Enter\" || e.key === \" \") {\n    e.preventDefault(); \n    button.click();\n  }\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const button = document.getElementById(\"custom-btn\");\n\nbutton.addEventListener(\"click\", () => {\n  alert(\"Button clicked!\");\n});\n\nbutton.addEventListener(\"keydown\", (e) => {\n  if (e.key === \"Enter\" || e.key === \" \") {\n    e.preventDefault(); \n    button.click();\n  }\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uvek je bolje koristiti ugrađenu funkciju <code>button</code> ili <code>input</code> umesto <code>type=\"button\"</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Atributi ARIA pružaju dodatne informacije o elementima. Na primer, atribut <code>aria-labelledby</code> vam omogućava da povežete element sa specifičnom oznakom:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;h2 id=\"header-id\">About freeCodeCamp&#x3C;/h2>\n&#x3C;button id=\"button-id\" aria-labelledby=\"header-id button-id\">Learn More&#x3C;/button>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo će učiniti funkcije razumljivim i dostupnim za korisnike asistivne tehnologije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste dobili najbolju korist od WAI-ARIA, pokušajte da koristite HTML nativno kada je to moguće jer obično pruža bolji direktan pristup.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Koristi WAI-ARIA samo kada HTML ne radi, i nemoj zaboraviti da testiraš sa asistivnim tehnologijama kao što su čitači ekrana, ili da pustiš osobe sa invaliditetom da testiraju svoj rad. Takođe, osiguraj da su tvoji WAI-ARIA stanja i atributi ažurirani zajedno sa sadržajem u realnom vremenu. Izbegavaj prekomerno korišćenje ARIA-a, jer to često može zbuniti.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta je glavna svrha atributa WAI-ARIA u HTML?</p>",
+      "answers": [
+        {
+          "answer": "<p>Menjajte izgled elemenata.</p>",
+          "feedback": "<p>Razmotrite kako WAI-ARIA poboljšava pristupačnost elemenata HTML.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pružiti više informacija za pristup.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prikazivanje privremenih napomena na elementima.</p>",
+          "feedback": "<p>Razmotrite kako WAI-ARIA povećava pristupačnost elemenata za HTML.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dodati motivacioni crteži na elemente.</p>",
+          "feedback": "<p>Obratite pažnju kako WAI-ARIA poboljšava pristupačnost elemenata za HTML.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kako WAI-ARIA funkcioniše za poboljšanje pristupačnosti na vebu?</p>",
+      "answers": [
+        {
+          "answer": "<p>Radi poboljšanja brzine učitavanja stranice.</p>",
+          "feedback": "<p>Razmislite kako WAI-ARIA deli uloge, stanja i atribute.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Za inicijalizovanje atributa elemenata koji pružaju više semantičke informacije.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Za kodiranje podataka.</p>",
+          "feedback": "<p>Razmislite kako WAI-ARIA deli uloge, stanja i atribute.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Za kreiranje vizuelnih efekata za elemente.</p>",
+          "feedback": "<p>Razmislite kako WAI-ARIA deli uloge, stanja i atribute.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Zašto stoji WAI-ARIA?</p>",
+      "answers": [
+        {
+          "answer": "<p>Inicijativa za pristupačnost web-a - Napredne responzivne internet aplikacije</p>",
+          "feedback": "<p>Obratite pažnju na aspekt pristupačnosti i njen uticaj na dinamički sadržaj i elemente korisničkog interfejsa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Interfejs pristupačnosti web sadržaja - Pristupne internet aplikacije resursi</p>",
+          "feedback": "<p>Razmotrite funkciju pristupačnosti i njen uticaj na dinamički sadržaj i elemente korisničkog interfejsa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Inicijativa za pristupačnost na webu - Pristupačne bogate internet aplikacije</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Interfejs veb aplikacije - Pristupačnost i bogatstvo</p>",
+          "feedback": "<p>Uzmite u obzir funkcionalnost pristupačnosti i njen uticaj na dinamički sadržaj i elemente korisničkog interfejsa.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-introduction-to-aria",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 47,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "html",
+  "module": "html-and-accessibility",
+  "certification": "responsive-web-design-v9"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "68e5293bd00d2fe134f5898a",
+  "title": "Korak 19",
+  "challengeType": 20,
+  "dashedName": "step-19",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        44,
+        46
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n\ndiscount = PercentageDiscount(10)\nprint(discount.apply_discount(product))\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nclass FixedAmountDiscount(DiscountStrategy):\n    def __init__(self, amount: int) -> None:\n        self.amount = amount\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return product.price * 0.9 > self.amount\n\n    def apply_discount(self, product: Product) -> float:\n        return product.price - self.amount\n\nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n\ndiscount = PercentageDiscount(10)\nprint(discount.apply_discount(product))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da napraviš parametar koji se zove <code>fixed_discount</code> sa primerom <code>FixedAmountDiscount</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n    assert _Node(_code).has_variable(\"fixed_discount\")\n    assert isinstance(fixed_discount, FixedAmountDiscount)\n  `)\n})"
+    },
+    {
+      "text": "<p>Vaš primer za <code>FixedAmountDiscount</code> treba da bude inicijalizovan sa vrednošću <code>5</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert fixed_discount.amount == 5`)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da pozovete <code>fixed_discount.apply_discount(product)</code> za štampanje rezultata.</p>",
+      "testString": "({\n  test: () => runPython(`\n    assert _Node(_code).has_call(\"print(fixed_discount.apply_discount(product))\")\n  `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada možete da isprobate novu strategiju popusta. Nakon postojećeg koda, kreirajte instancu <code>FixedAmountDiscount</code> sa količinom <code>5</code> i postavite njegovu vrednost u parametar nazvan <code>fixed_discount</code>. Zatim primenite ovaj popust na proizvod i ispišite rezultate.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-discount-calculator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 47,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "65f9bc10a9fb1612e066e9e8",
+  "title": "Korak 42",
+  "challengeType": 20,
+  "dashedName": "step-42",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        15,
+        20
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {}\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {}\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da promeniš prazan rečnik koji je inicijalizovan vrednošću <code>kwargs</code> u kreiranje rečnika koji se ponavlja na osnovu <code>vars(self)</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").find_variable(\"kwargs\").find_comp_iters()[0].is_equivalent(\"vars(self)\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Generisanje rečnika je dobilo vrednost <code>kwargs</code>, treba da koristi parametar <code>i</code> za ponavljanje nad <code>vars(self)</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").find_variable(\"kwargs\").find_comp_targets()[0].is_equivalent(\"i\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Generisanje rečnika dobilo je vrednost <code>kwargs</code> i treba da koristi <code>i</code> kao ključ.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").find_variable(\"kwargs\").find_comp_key().is_equivalent(\"i\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Generisanje rečnika je dobilo vrednost <code>kwargs</code> i treba da postavi sumu atributa elementa <code>i</code> od <code>self</code> na atribut elementa <code>i</code> od <code>other</code> za ključ <code>i</code> za svaki <code>i</code> u <code>vars(self)</code>. Koristite funkciju <code>getattr()</code> za to.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").find_variable(\"kwargs\").find_comp_expr()\nnode.is_equivalent(\"getattr(self, i) + getattr(other, i)\") or node.is_equivalent(\"getattr(other, i) + getattr(self, i)\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada sabirate dva vektora, svaka komponenta jednog vektora dodaje se odgovarajućoj komponenti drugog vektora. Na primer, sabiranje <code>(1, 2)</code> i <code>(2, 4)</code> stvara treći vektor <code>(3, 6)</code>, gde je <code>3</code> zbir <code>1</code> i <code>2</code>, a <code>6</code> je zbir <code>2</code> i <code>4</code>.</p>\n<p>Rečnik <code>kwargs</code> će imati parove ključ-vrednost potrebne za inicijalizovanje novog vektora klase jednakog dva vektora dodata zajedno.</p>\n<p>Konvertujte prazan rečnik u razumevanje rečnika korišćenjem <code>vars(self)</code> i za svaki ključ (<code>i</code>) kreirajte par ključ-vrednost, gde je ključ trenutni iterativni ključ, a njegova vrednost je zbir vrednosti atributa <code>i</code> za dva posrednika.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 41,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

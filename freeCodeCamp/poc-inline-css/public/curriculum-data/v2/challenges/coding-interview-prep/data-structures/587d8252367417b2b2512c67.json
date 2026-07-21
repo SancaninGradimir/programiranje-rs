@@ -1,0 +1,73 @@
+{
+  "id": "587d8252367417b2b2512c67",
+  "title": "Dodaj elemente u specifičan šablon u povezanoj listi",
+  "challengeType": 1,
+  "forumTopicId": 301619,
+  "dashedName": "add-elements-at-a-specific-index-in-a-linked-list",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element) {\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function() {\r\n    return length;\r\n  };\r\n\r\n  this.head = function() {\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element) {\r\n    var node = new Node(element);\r\n    if (head === null) {\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n    length++;\r\n  };\r\n\r\n  // Only change code below this line\r\n\r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element) {\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function() {\r\n    return length;\r\n  };\r\n\r\n  this.head = function() {\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element) {\r\n    var node = new Node(element);\r\n    if (head === null) {\r\n      head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n    length++;\r\n  };\r\n\r\n  // Only change code below this line\r\n\r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element){\r\n    var node = new Node(element);\r\n    if (head === null){\r\n        head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n    length++;\r\n  };\r\n  this.addAt = function (index, element) {\r\n    if (index > length || index < 0) {\r\n      return false;\r\n    }\r\n    var newNode = new Node(element);\r\n    var currentNode = head;\r\n    if (index === 0) {\r\n      head = newNode;\r\n    } else {\r\n      var previousNode = null;\r\n      var i = 0;\r\n      while (currentNode && i < index) {\r\n        previousNode = currentNode;\r\n        currentNode = currentNode.next;\r\n        i++;\r\n      }\r\n      previousNode.next = newNode;\r\n    }\r\n    newNode.next = currentNode;\r\n    length++;\r\n  }\r\n}",
+        "error": null,
+        "seed": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.add = function(element){\r\n    var node = new Node(element);\r\n    if (head === null){\r\n        head = node;\r\n    } else {\r\n      var currentNode = head;\r\n\r\n      while (currentNode.next) {\r\n        currentNode = currentNode.next;\r\n      }\r\n\r\n      currentNode.next = node;\r\n    }\r\n    length++;\r\n  };\r\n  this.addAt = function (index, element) {\r\n    if (index > length || index < 0) {\r\n      return false;\r\n    }\r\n    var newNode = new Node(element);\r\n    var currentNode = head;\r\n    if (index === 0) {\r\n      head = newNode;\r\n    } else {\r\n      var previousNode = null;\r\n      var i = 0;\r\n      while (currentNode && i < index) {\r\n        previousNode = currentNode;\r\n        currentNode = currentNode.next;\r\n        i++;\r\n      }\r\n      previousNode.next = newNode;\r\n    }\r\n    newNode.next = currentNode;\r\n    length++;\r\n  }\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoja putanja za <code>addAt</code> treba da postavi vrednost <code>head</code> na novi čvor kada je dato nulti.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.addAt(0, 'fish');\r\n    return test.head().element === 'fish' && test.head().next.element === 'cat';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>addAt</code> bi trebalo da poveća dužinu spojenog popisa za svaki novi čvor koji se dodaje.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.addAt(0, 'cat');\r\n    return test.size() === 3;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>addAt</code> bi trebalo da vrati <code>false</code> ako čvor nije mogao biti dodan.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    return test.addAt(4, 'cat') === false;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napravimo metodu <code>addAt(index,element)</code> koja dodaje element u zadatu strukturu. Kao što koristimo za uklanjanje elemenata iz određene strukture, moramo pratiti <code>currentIndex</code> dok prolazimo kroz spojenu listu. Kada se <code>currentIndex</code> poklapa sa zadatom strukturom, moramo postaviti novu vrednost za svojstvo <code>next</code> prethodnog čvora (node) tako da on referencira novi dodati čvor. A novi čvor treba da ima referencu na sledeći čvor na poziciji <code>currentIndex</code>. Vraćajući se na primer sa konge linije, nova osoba želi da se pridruži liniji, ali želi da se pridruži usred. Ti si usred linije, pa protežeš ruke osobi koja je bila ispred tebe. Nova osoba dolazi i stavlja svoje ruke na osobu čije su ruke bile u tvojim rukama, a sada ti imaš ruke sa novom osobom.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napravi put <code>addAt(index,element)</code> koji dodaje element na dati model. Vrati false ako ne može da se doda element. <strong>Zapamti:</strong> Proveri da li je dati model negativan ili da je prešao dužinu povezanog popisa.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 23,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

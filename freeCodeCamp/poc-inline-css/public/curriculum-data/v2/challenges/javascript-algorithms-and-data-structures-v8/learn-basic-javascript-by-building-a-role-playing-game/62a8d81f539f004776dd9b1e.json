@@ -1,0 +1,131 @@
+{
+  "id": "62a8d81f539f004776dd9b1e",
+  "title": "Korak 110",
+  "challengeType": 0,
+  "dashedName": "step-110",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}",
+      "error": null,
+      "seed": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        24,
+        26
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\nconst weapons = [\n  { name: 'stick', power: 5 },\n  { name: 'dagger', power: 30 },\n  { name: 'claw hammer', power: 50 },\n  { name: 'sword', power: 100 }\n];\n\nconst locations = [\n  {\n    name: \"town square\",\n    \"button text\": [\"Go to store\", \"Go to cave\", \"Fight dragon\"],\n    \"button functions\": [goStore, goCave, fightDragon],\n    text: \"You are in the town square. You see a sign that says \\\"Store\\\".\"\n  },\n  {\n    name: \"store\",\n    \"button text\": [\"Buy 10 health (10 gold)\", \"Buy weapon (30 gold)\", \"Go to town square\"],\n    \"button functions\": [buyHealth, buyWeapon, goTown],\n    text: \"You enter the store.\"\n  },\n  {\n    name: \"cave\",\n    \"button text\": [\"Fight slime\", \"Fight fanged beast\", \"Go to town square\"],\n    \"button functions\": [fightSlime, fightBeast, goTown],\n    text: \"You enter the cave. You see some monsters.\"\n  }\n];\n\n// initialize buttons\nbutton1.onclick = goStore;\nbutton2.onclick = goCave;\nbutton3.onclick = fightDragon;\n\nfunction update(location) {\n  button1.innerText = location[\"button text\"][0];\n  button2.innerText = location[\"button text\"][1];\n  button3.innerText = location[\"button text\"][2];\n  button1.onclick = location[\"button functions\"][0];\n  button2.onclick = location[\"button functions\"][1];\n  button3.onclick = location[\"button functions\"][2];\n  text.innerText = location.text;\n}\n\nfunction goTown() {\n  update(locations[0]);\n}\n\nfunction goStore() {\n  update(locations[1]);\n}\n\nfunction goCave() {\n  update(locations[2]);\n}\n\nfunction buyHealth() {\n  if (gold >= 10) {\n    gold -= 10;\n    health += 10;\n    goldText.innerText = gold;\n    healthText.innerText = health;\n  } else {\n    text.innerText = \"You do not have enough gold to buy health.\";\n  }\n}\n\nfunction buyWeapon() {\n  if (currentWeaponIndex < weapons.length - 1) {\n    if (gold >= 30) {\n      gold -= 30;\n      currentWeaponIndex++;\n      goldText.innerText = gold;\n      let newWeapon = weapons[currentWeaponIndex].name;\n      text.innerText = \"You now have a \" + newWeapon + \".\";\n      inventory.push(newWeapon);\n      text.innerText += \" In your inventory you have: \" + inventory;\n    } else {\n      text.innerText = \"You do not have enough gold to buy a weapon.\";\n    }\n  } else {\n    text.innerText = \"You already have the most powerful weapon!\";\n    button2.innerText = \"Sell weapon for 15 gold\";\n    button2.onclick = sellWeapon;\n  }\n}\n\nfunction sellWeapon() {\n  if (inventory.length > 1) {\n    gold += 15;\n    goldText.innerText = gold;\n    let currentWeapon = inventory.shift();\n    text.innerText = \"You sold a \" + currentWeapon + \".\";\n    text.innerText += \" In your inventory you have: \" + inventory;\n  } else {\n    text.innerText = \"Don't sell your only weapon!\";\n  }\n}\n\nfunction fightSlime() {\n\n}\n\nfunction fightBeast() {\n\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}",
+      "error": null,
+      "seed": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\nconst weapons = [\n  { name: 'stick', power: 5 },\n  { name: 'dagger', power: 30 },\n  { name: 'claw hammer', power: 50 },\n  { name: 'sword', power: 100 }\n];\n\nconst locations = [\n  {\n    name: \"town square\",\n    \"button text\": [\"Go to store\", \"Go to cave\", \"Fight dragon\"],\n    \"button functions\": [goStore, goCave, fightDragon],\n    text: \"You are in the town square. You see a sign that says \\\"Store\\\".\"\n  },\n  {\n    name: \"store\",\n    \"button text\": [\"Buy 10 health (10 gold)\", \"Buy weapon (30 gold)\", \"Go to town square\"],\n    \"button functions\": [buyHealth, buyWeapon, goTown],\n    text: \"You enter the store.\"\n  },\n  {\n    name: \"cave\",\n    \"button text\": [\"Fight slime\", \"Fight fanged beast\", \"Go to town square\"],\n    \"button functions\": [fightSlime, fightBeast, goTown],\n    text: \"You enter the cave. You see some monsters.\"\n  }\n];\n\n// initialize buttons\nbutton1.onclick = goStore;\nbutton2.onclick = goCave;\nbutton3.onclick = fightDragon;\n\nfunction update(location) {\n  button1.innerText = location[\"button text\"][0];\n  button2.innerText = location[\"button text\"][1];\n  button3.innerText = location[\"button text\"][2];\n  button1.onclick = location[\"button functions\"][0];\n  button2.onclick = location[\"button functions\"][1];\n  button3.onclick = location[\"button functions\"][2];\n  text.innerText = location.text;\n}\n\nfunction goTown() {\n  update(locations[0]);\n}\n\nfunction goStore() {\n  update(locations[1]);\n}\n\nfunction goCave() {\n  update(locations[2]);\n}\n\nfunction buyHealth() {\n  if (gold >= 10) {\n    gold -= 10;\n    health += 10;\n    goldText.innerText = gold;\n    healthText.innerText = health;\n  } else {\n    text.innerText = \"You do not have enough gold to buy health.\";\n  }\n}\n\nfunction buyWeapon() {\n  if (currentWeaponIndex < weapons.length - 1) {\n    if (gold >= 30) {\n      gold -= 30;\n      currentWeaponIndex++;\n      goldText.innerText = gold;\n      let newWeapon = weapons[currentWeaponIndex].name;\n      text.innerText = \"You now have a \" + newWeapon + \".\";\n      inventory.push(newWeapon);\n      text.innerText += \" In your inventory you have: \" + inventory;\n    } else {\n      text.innerText = \"You do not have enough gold to buy a weapon.\";\n    }\n  } else {\n    text.innerText = \"You already have the most powerful weapon!\";\n    button2.innerText = \"Sell weapon for 15 gold\";\n    button2.onclick = sellWeapon;\n  }\n}\n\nfunction sellWeapon() {\n  if (inventory.length > 1) {\n    gold += 15;\n    goldText.innerText = gold;\n    let currentWeapon = inventory.shift();\n    text.innerText = \"You sold a \" + currentWeapon + \".\";\n    text.innerText += \" In your inventory you have: \" + inventory;\n  } else {\n    text.innerText = \"Don't sell your only weapon!\";\n  }\n}\n\nfunction fightSlime() {\n\n}\n\nfunction fightBeast() {\n\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za deklarisanje varijable <code>monsters</code>.</p>",
+      "testString": "assert.match(code, /const\\s+monsters/);"
+    },
+    {
+      "text": "<p>Varijabla <code>monsters</code> treba da bude red podataka.</p>",
+      "testString": "assert.isArray(monsters);"
+    },
+    {
+      "text": "<p>Vaša promenljiva <code>monsters</code> mora imati vrednost 3.</p>",
+      "testString": "assert.lengthOf(monsters, 3);"
+    },
+    {
+      "text": "<p>Red vaših podataka <code>monsters</code> trebalo bi da ima 3 stavke.</p>",
+      "testString": "assert(monsters.every(val => typeof val === \"object\"));"
+    },
+    {
+      "text": "<p>Prvi element u vašem nizu <code>monsters</code> treba da bude nešto sa karakteristikom <code>name</code> postavljeno na <code>\"slime\"</code>.</p>",
+      "testString": "assert.equal(monsters[0].name, \"slime\");"
+    },
+    {
+      "text": "<p>Prvi element u vašoj sekvenci <code>monsters</code> treba da bude nešto sa karakteristikom <code>level</code> postavljeno na <code>2</code>.</p>",
+      "testString": "assert.equal(monsters[0].level, 2);"
+    },
+    {
+      "text": "<p>Prvi element u vašem nizu <code>monsters</code> treba da bude nešto sa karakteristikom <code>health</code> postavljeno na <code>15</code>.</p>",
+      "testString": "assert.equal(monsters[0].health, 15);"
+    },
+    {
+      "text": "<p>Vrednost u drugom redu vašeg <code>monsters</code> treba da bude element sa karakteristikom <code>name</code>, postavljen na <code>\"fanged beast\"</code>.</p>",
+      "testString": "assert.equal(monsters[1].name, \"fanged beast\");"
+    },
+    {
+      "text": "<p>Vrednost polja <code>monsters</code> u vašem nizu treba da bude nešto sa karakteristikom <code>level</code> postavljeno na <code>8</code>.</p>",
+      "testString": "assert.equal(monsters[1].level, 8);"
+    },
+    {
+      "text": "<p>Vrednost drugog elementa u vašem nizu <code>monsters</code> mora biti nešto sa karakteristikom <code>health</code> postavljeno na <code>60</code>.</p>",
+      "testString": "assert.equal(monsters[1].health, 60);"
+    },
+    {
+      "text": "<p>Treća vrednost u vašem redu od <code>monsters</code> treba da ima svojstvo <code>name</code> postavljeno na <code>\"dragon\"</code>.</p>",
+      "testString": "assert.equal(monsters[2].name, \"dragon\");"
+    },
+    {
+      "text": "<p>Treća vrednost u vašem redu od <code>monsters</code> treba da bude nešto sa karakteristikom <code>level</code> postavljeno na <code>20</code>.</p>",
+      "testString": "assert.equal(monsters[2].level, 20);"
+    },
+    {
+      "text": "<p>Treća vrednost u vašem redu od <code>monsters</code> treba da bude element sa svojstvom <code>health</code>, postavljen na <code>300</code>.</p>",
+      "testString": "assert.equal(monsters[2].health, 300);"
+    },
+    {
+      "text": "<p>Ne smete dodavati nikakve dodatne atribute svojim stavkama.</p>",
+      "testString": "assert.deepEqual(monsters, [\n  {name: \"slime\", level: 2, health: 15},\n  {name: \"fanged beast\", level: 8, health: 60},\n  {name: \"dragon\", level: 20, health: 300}\n])"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada možete započeti kod za borbu protiv monstrima. Da bi vaš kod bio dobro organizovan, vaša funkcija za <code>fightDragon</code> je premještena da bude blizu drugih funkcija od <code>fight</code>.</p>\n<p>Ispod vašeg niza podataka <code>weapons</code>, deklariš varijablu <code>monsters</code> i postavi njenu vrednost kao niz podataka. Postavi taj niz da ima tri elementa, svaki sa svojstvima <code>name</code>, <code>level</code> i <code>health</code>. Vrednosti prvog elementa treba da budu <code>\"slime\"</code>, <code>2</code> i <code>15</code>, u tom redosledu. Drugi element treba da ima <code>\"fanged beast\"</code>, <code>8</code> i <code>60</code>. Treći element treba da ima <code>\"dragon\"</code>, <code>20</code> i <code>300</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-basic-javascript-by-building-a-role-playing-game",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 2,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 109,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

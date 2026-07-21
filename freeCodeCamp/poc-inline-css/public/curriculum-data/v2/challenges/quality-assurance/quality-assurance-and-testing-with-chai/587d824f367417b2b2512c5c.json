@@ -1,0 +1,32 @@
+{
+  "id": "587d824f367417b2b2512c5c",
+  "title": "Kreiranje akcija korišćenjem pretraživača bez inspektora",
+  "challengeType": 2,
+  "dashedName": "simulate-actions-using-a-headless-browser",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Sve mere moraju proći.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=4');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.state, 'passed');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je baziran na osnovnom projektu preuzetom iz <a href=\"https://github.com/freeCodeCamp/boilerplate-mochachai/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>U sledećim izazovima, generisaćete ljudsko ponašanje na stranici koristeći bezglavi pretraživač.</p>\n<p>Headless pretraživači su web pregledači bez GUI-a. Oni imaju sposobnost da prikazuju i interpretiraju HTML, CSS, i JavaScript na isti način kao normalni pregledač, pa je to veoma važno za testiranje web stranica.</p>\n<p>Za sledeće izazove ćete koristiti Zombie.js, koji je lagani pretraživač bez debagera i koji ne zavisi od instaliranja dodatnih binarnih fajlova. Međutim, postoji mnogo drugih opcija za moćnije pretraživače bez debagera.</p>\n<p>Mocha vam omogućava da pokrenete kod pre nego što počnu svi stvarni testovi. Ovo može biti korisno za stvari kao što je dodavanje unosa u bazu podataka koja će se koristiti u drugim testovima.</p>\n<p>Koristeći pretraživač bez ekstenzija, pre pokretanja testova, morate <strong>posetiti</strong> stranicu koju ćete testirati.</p>\n<p>Dugme za <code>suiteSetup</code> će se izvršiti samo jednom na početku paketa testova.</p>\n<p>Postoje i druge vrste hook-ova koji mogu pokrenuti kod pre svakog testa, posle svakog testa ili na kraju skupa testova. Pogledajte Mocha dokumentaciju za više detalja.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Unutar <code>tests/2_functional-tests.js</code>, odmah nakon deklaracije <code>Browser</code>, dodajte URL vašeg projekta u <code>site</code> svojstvo promenljive:</p>\n<pre><code class=\"language-js\">Browser.site = 'http://0.0.0.0:3000'; // Your URL here\n</code></pre>\n<p>Zatim, na višoj razini reda <code>'Functional Tests with Zombie.js'</code>, kreiraj novi primer objekta <code>Browser</code> sa sledećim kodom:</p>\n<pre><code class=\"language-js\">const browser = new Browser();\n</code></pre>\n<p>Koristite dugme <code>suiteSetup</code> za usmeravanje <code>browser</code> na putanju podataka <code>/</code> sa sledećim kodom. <strong>Napomena</strong>: <code>done</code> se prenosi kao povratni poziv za <code>browser.visit</code>, ne bi trebalo da ga koristite direktno.</p>\n<pre><code class=\"language-js\">suiteSetup(function(done) {\n  return browser.visit('/', done);\n});\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "quality-assurance-and-testing-with-chai",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

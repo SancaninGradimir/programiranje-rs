@@ -1,0 +1,93 @@
+{
+  "id": "5ea2815a8640bcc6cb7dab3c",
+  "title": "Brojevi za Lychrel",
+  "challengeType": 1,
+  "forumTopicId": 385287,
+  "dashedName": "lychrel-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function isLychrel(n) {\n\n}",
+      "error": null,
+      "seed": "function isLychrel(n) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function isLychrel(n) {\n  function reverse(num) {\n    return parseInt(\n      num\n        .toString()\n        .split('')\n        .reverse()\n        .join('')\n    );\n  }\n\n  var i;\n  for (i = 0; i < 500; i++) {\n    n = n + reverse(n);\n    if (n == reverse(n)) break;\n  }\n\n  return i == 500;\n}",
+        "error": null,
+        "seed": "function isLychrel(n) {\n  function reverse(num) {\n    return parseInt(\n      num\n        .toString()\n        .split('')\n        .reverse()\n        .join('')\n    );\n  }\n\n  var i;\n  for (i = 0; i < 500; i++) {\n    n = n + reverse(n);\n    if (n == reverse(n)) break;\n  }\n\n  return i == 500;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>isLychrel</code> trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof isLychrel === 'function');"
+    },
+    {
+      "text": "<p><code>isLychrel(12)</code> trebalo bi da vrati boolean vrednost.</p>",
+      "testString": "assert(typeof isLychrel(12) === 'boolean');"
+    },
+    {
+      "text": "<p><code>isLychrel(12)</code> trebalo bi vratiti <code>false</code>.</p>",
+      "testString": "assert.equal(isLychrel(12), false);"
+    },
+    {
+      "text": "<p><code>isLychrel(55)</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(isLychrel(55), false);"
+    },
+    {
+      "text": "<p><code>isLychrel(196)</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(isLychrel(196), true);"
+    },
+    {
+      "text": "<p><code>isLychrel(879)</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(isLychrel(879), true);"
+    },
+    {
+      "text": "<p><code>isLychrel(44987)</code> trebalo bi da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(isLychrel(44987), false);"
+    },
+    {
+      "text": "<p><code>isLychrel(7059)</code> bi trebalo da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(isLychrel(7059), true);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<ol>\n  <li>Uzmite ceo broj <code>n₀</code>, veći od nule.</li>\n  <li>Kreirajte sledeći broj u sekvenci <code>n</code> konvertovanjem <code>n₀</code> i dodavanjem ga <code>n₀</code></li>\n  <li>Zaustavite kada <code>n</code> postane palindrom - tj., cifre <code>n</code> u obrnutom redosledu su jednake <code>n</code>.</li>\n</ol>\n<p>Rekurentna relacija navedena iznad, kada se poveže sa mnogo brojeva počevši od <code>n</code> = 1, 2, ... vrlo brzo završava palindromom.</p>\n<p>Primer ako <code>n₀</code> = 12 dobijamo:</p>\n<pre><code class=\"language-md\">12\n12 + 21 = 33,  a palindrome!\n</code></pre>\n<p>Ako <code>n₀</code> = 55 dobijamo:</p>\n<pre><code class=\"language-md\">55\n55 + 55 = 110\n110 + 011 = 121,  a palindrome!\n</code></pre>\n<p>Proverite da se palindromska provera izvrši <em>nakon</em> dodavanja.</p>\n<p>Neki početni brojevi izgledaju da traju zauvek; relacija ponavljanja 196 je izračunata za milione iteracija, stvarajući brojeve sa milionima cifara, bez formiranja palindroma. Ovi brojevi koji ne završavaju sa palindromom nazivaju se <strong>Lychrel brojevi</strong>.</p>\n<p>Za potrebe ove vežbe, Lychrel broj je bilo koji početni broj koji ne stvara palindrom u roku od 500 iteracija (ili više).</p>\n<p><strong>Povezani brojevi semena i Lychrel brojevi:</strong></p>\n<p>Svaki cijeli broj generisan u sekvenci broja Lychrela takođe je broj Lychrel.</p>\n<p>Generalno, bilo koja sekvenca od jednog broja Lychrela može da se spoji sa sekvencijom prethodnog kandidata broja Lychrela; na primer, sekvenca brojeva 196 i zatim 689 počinje:</p>\n<pre><code class=\"language-md\">    196\n    196 + 691 = 887\n    887 + 788 = 1675\n    1675 + 5761 = 7436\n    7436 + 6347 = 13783\n    13783 + 38731 = 52514\n    52514 + 41525 = 94039\n    ...\n    689\n    689 + 986 = 1675\n    1675 + 5761 = 7436\n    ...\n</code></pre>\n<p>Dakle vidimo da niz koji počinje sa 689 se spaja i nastavlja sa brojevima sličnim onim od 196.</p>\n<p>Iz ovoga možemo dalje podeliti Lychrel brojeve na stvarni kandidatima za Lychrel brojeve od <strong>semena</strong>, i povezanih brojeva koji ne generišu palindrom, ali imaju potpune brojeve u svojoj sekvenci poznate kao deo sekvence koja potiče od nižeg Lychrel broja.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja uzima broj kao parametar. Vratite true ako je broj Lychrel broj. Inače, vratite false. Zapamtite da je granica iteracija 500.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 103,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

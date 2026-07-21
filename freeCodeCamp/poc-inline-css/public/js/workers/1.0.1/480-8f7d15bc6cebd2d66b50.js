@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_freecodecamp_browser_scripts=self.webpackChunk_freecodecamp_browser_scripts||[]).push([[480],{480(e,r,s){var t=function(){if("undefined"!=typeof self)return self;if("undefined"!=typeof window)return window;if(void 0!==s.g)return s.g;throw new Error("unable to locate global object")}();e.exports=r=t.fetch,t.fetch&&(r.default=t.fetch.bind(t)),r.Headers=t.Headers,r.Request=t.Request,r.Response=t.Response}}]);
+//# sourceMappingURL=480-8f7d15bc6cebd2d66b50.js.map

@@ -1,0 +1,55 @@
+{
+  "id": "6675a38a8b535e4ff3274520",
+  "title": "Korak 11",
+  "challengeType": 20,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        8,
+        23
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self):\n        pass\n    def __init_subclass__(cls):\n        pass\n\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n\n\nclass LinearEquation(Equation):\n    \n    def solve(self):\n        pass\n\n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation()",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self):\n        pass\n    def __init_subclass__(cls):\n        pass\n\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n\n\nclass LinearEquation(Equation):\n    \n    def solve(self):\n        pass\n\n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation()"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi kreirati deklaraciju za <code>if</code> koja proverava da li <code>cls</code> nema svojstvo elementa <code>degree</code> unutar puta <code>__init_subclass__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init_subclass__\").find_ifs()[0].find_conditions()[0].is_equivalent(\"not hasattr(cls, 'degree')\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da prikažete <code>AttributeError</code> koristeći niz slova dat unutar vašeg izraza <code>if</code>.</p>",
+      "testString": "({ test: () => runPython(`\nraise_stmt = 'raise AttributeError(f\"Cannot create \\\\'{cls.__name__}\\\\' class: missing required attribute \\\\'degree\\\\'\")'\nnode = _Node(_code).find_class(\"Equation\").find_function(\"__init_subclass__\").find_ifs()[0].find_bodies()[0]\nassert node.has_stmt(raise_stmt) \n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Funkcija <code>hasattr</code> koja je ugrađena uzima objekat kao svoj prvi argument i niz znakova koji predstavlja ime svojstva elementa kao svoj drugi argument. Vraća vrednost tačno ili netačno da pokaže da li objekat poseduje pomenuto svojstvo elementa.</p>\n<p>Sada ćete koristiti metodu <code>__init_subclass__</code> da proverite da li podklasa ima svojstvo elementa <code>degree</code> tokom njegove inicijalizacije.</p>\n<p>Kreiraj deklaraciju za <code>if</code> da proveri da li <code>cls</code> nema atribut od <code>degree</code>. Ako je tako, prikaži <code>AttributeError</code> i koristi niz karaktera <code>f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"</code> da generiše specifičnu poruku.</p>\n<p>Nakon toga, ispravi grešku koja je nastala u terminalu deklarisanjem atributa člana klase <code>degree</code> unutar klase <code>LinearEquation</code>. Ovaj atribut treba da predstavlja stepen jednačine, koji je moć najvišeg eksponenta za <code>\\\\( x \\\\)</code>. Stoga, postavi vrednost celog broja <code>1</code> za atribut člana <code>degree</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

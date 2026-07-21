@@ -1,0 +1,75 @@
+{
+  "id": "662f96576ef178927de87975",
+  "title": "Korak 7",
+  "challengeType": 20,
+  "dashedName": "step-7",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        16
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC\n\n\nclass Equation(ABC):\n    def solve(self):\n        pass\n        \n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    pass\n\neq = Equation()\nlin_eq = LinearEquation()",
+      "error": null,
+      "seed": "from abc import ABC\n\n\nclass Equation(ABC):\n    def solve(self):\n        pass\n        \n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    pass\n\neq = Equation()\nlin_eq = LinearEquation()"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba ti da dovedeš <code>abstractmethod</code> iz modula <code>abc</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_Node(_code).has_import(\"from abc import ABC, abstractmethod\") or \\\\\n_Node(_code).has_import(\"from abc import abstractmethod, ABC\") or \\\\\n(_Node(_code).has_import(\"from abc import abstractmethod\") and _Node(_code).has_import(\"from abc import ABC\"))\n`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da se ukrasi na <code>@abstractmethod</code> putem <code>solve</code> unutar klase <code>Equation</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"solve\").has_decorators(\"abstractmethod\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da se ukrasi na <code>@abstractmethod</code> put putem <code>analyze</code> unutar klase <code>Equation</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"analyze\").has_decorators(\"abstractmethod\")`)) })"
+    },
+    {
+      "text": "<p>Treba da napraviš metod koji se zove <code>solve</code> unutar klase <code>LinearEquation</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").has_function(\"solve\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>solve</code> treba da uzme jedan parametar, <code>self</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"solve\").has_args(\"self\")`)) })"
+    },
+    {
+      "text": "<p>Kreiraj metod pod nazivom <code>analyze</code> unutar klase <code>LinearEquation</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").has_function(\"analyze\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>solve</code> mora uzeti jedan parametar, <code>self</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"analyze\").has_args(\"self\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako se prepozna kao apstraktan način, način mora biti ukrašen dekorativnim elementom <code>@abstractmethod</code>.</p>\n<p><dfn>Dekoratori</dfn> koriste se u Python da bi promenili ponašanje funkcije. Evo primera kako koristiti dekorator nazvan <code>spam</code>:</p>\n<pre><code class=\"language-py\">@spam\ndef foo():\n    pass\n</code></pre>\n<p>Promenite svoju deklaraciju od import ili unesete dekorator za <code>abstractmethod</code> i na oba puta za <code>solve</code> i <code>analyze</code> za klasu <code>Equation</code>. Ovo će uzrokovati dve greške.</p>\n<p>Kada klasa nasleđuje od <code>ABC</code> i ima apstraktnu metodu, ta klasa ne može biti instancirana. Zbog toga, obrišite primer <code>Equation</code> da biste uklonili tu grešku.</p>\n<p>Druga greška se javlja zato što klasa <code>LinearEquation</code> mora da implementira sve apstraktne metode definisane u interfejsu. Uverite se da ih implementirate unutar klase <code>LinearEquation</code>. Nije vam dozvoljeno da koristite dekorator <code>abstractmethod</code> u stvarnoj klasi.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

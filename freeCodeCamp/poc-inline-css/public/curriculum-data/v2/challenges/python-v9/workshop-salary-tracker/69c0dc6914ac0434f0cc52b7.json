@@ -1,0 +1,62 @@
+{
+  "id": "69c0dc6914ac0434f0cc52b7",
+  "title": "Korak 28",
+  "challengeType": 20,
+  "dashedName": "step-28",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        38,
+        40
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        if level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{level}' for 'level' attribute.\")\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        \n        self._level = new_level\n\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        if level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{level}' for 'level' attribute.\")\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        \n        self._level = new_level\n\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš vrednost <code>if</code> unutar svog setera <code>level</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[0]`)) })"
+    },
+    {
+      "text": "<p>Treba da podigneš <code>TypeError</code> sa porukom <code>'level' must be a string.</code> kada <code>new_level</code> nije instanca klase <code>str</code>.</p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'trainee')\n  non_levels = [0, True, []]\n  for i in non_levels:\n    try:\n      emp.level = i\n    except TypeError as e:\n      assert str(e) == \"'level' must be a string.\"\n    else:\n      assert False, \"Expected to raise TypeError with non-string new_level\"\n`) })"
+    },
+    {
+      "text": "<p>Ne smete da podignete nijedan kos mišić dok je <code>new_level</code> niz slova.</p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'trainee')\n  try:\n    emp.level = \"junior\"\n  except TypeError:\n    assert False, \"Expected not to raise TypeError with string new_level\"\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da bi se osiguralo da <code>new_level</code> je tačan tip, kreiraj izraz za <code>if</code> koji podiže <code>TypeError</code> sa porukom <code>'level' must be a string.</code> kada <code>new_level</code> nije primer od <code>str</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

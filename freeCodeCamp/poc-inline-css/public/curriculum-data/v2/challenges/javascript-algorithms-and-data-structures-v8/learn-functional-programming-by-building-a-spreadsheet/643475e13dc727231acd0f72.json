@@ -1,0 +1,111 @@
+{
+  "id": "643475e13dc727231acd0f72",
+  "title": "Korak 17",
+  "challengeType": 0,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        15,
+        19
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n\r\n    })\r\n  })\r\n}",
+      "error": null,
+      "seed": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n\r\n    })\r\n  })\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš parametar <code>input</code>.</p>",
+      "testString": "assert.match(code, /(?:var|let|const)\\s+input/)"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za deklarisanje svog parametra <code>input</code>.</p>",
+      "testString": "assert.match(code, /const\\s+input/)"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>.createElement()</code> elementa <code>document</code>.</p>",
+      "testString": "assert.lengthOf(code.match(/document\\.createElement\\(/g), 2)"
+    },
+    {
+      "text": "<p>Trebalo bi da prođete niz slova <code>\"input\"</code> putem <code>.createElement()</code>.</p>",
+      "testString": "assert.match(code, /document\\.createElement\\(\\s*('|\"|`)input\\1\\s*\\)/)"
+    },
+    {
+      "text": "<p>Treba da staviš svoj novi element <code>input</code> u svoj atribut <code>input</code>.</p>",
+      "testString": "assert.match(code, /const\\s+input\\s*=\\s*document\\.createElement\\(\\s*('|\"|`)input\\1\\s*\\)/)"
+    },
+    {
+      "text": "<p>Trebalo bi da dobiješ pristup atributu elementa <code>type</code> tvog elementa <code>input</code>.</p>",
+      "testString": "assert.match(code, /input\\.type/);"
+    },
+    {
+      "text": "<p>Treba da postavite atribut elementa za <code>type</code> vašeg elementa <code>input</code> na <code>\"text\"</code>.</p>",
+      "testString": "assert.match(code, /input\\.type\\s*=\\s*('|\"|`)text\\1/)"
+    },
+    {
+      "text": "<p>Trebaće vam pristup atributu elementa <code>id</code> vašeg elementa <code>input</code>.</p>",
+      "testString": "assert.match(code, /input\\.id/);"
+    },
+    {
+      "text": "<p>Trebalo bi da postaviš atribut elementa <code>id</code> tvog elementa <code>input</code> na <code>letter + number</code>.</p>",
+      "testString": "assert.match(code, /input\\.id\\s*=\\s*letter\\s\\+\\snumber/)"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, unutar vašeg definisanog poziva u <code>.forEach()</code>, deklarišite parametar za <code>input</code>. Koristite metodu <code>.createElement()</code> elementa/svojstva <code>document</code> za kreiranje elementa/svojstva <code>input</code>. Postavite svojstvo elementa <code>type</code> na <code>\"text\"</code> i svojstvo elementa <code>id</code> na <code>letter + number</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

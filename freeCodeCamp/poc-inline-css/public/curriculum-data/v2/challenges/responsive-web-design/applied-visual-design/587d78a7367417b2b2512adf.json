@@ -1,0 +1,86 @@
+{
+  "id": "587d78a7367417b2b2512adf",
+  "title": "Nauci kako rade CSS @keyframes i animation svojstva",
+  "challengeType": 0,
+  "videoUrl": "https://scrimba.com/c/cakprhv",
+  "forumTopicId": 301059,
+  "dashedName": "learn-how-the-css-keyframes-and-animation-properties-work",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style>\n  div {\n    height: 40px;\n    width: 70%;\n    background: black;\n    margin: 50px auto;\n    border-radius: 5px;\n  }\n\n  #rect {\n\n\n  }\n\n\n\n\n</style>\n<div id=\"rect\"></div>",
+      "error": null,
+      "seed": "<style>\n  div {\n    height: 40px;\n    width: 70%;\n    background: black;\n    margin: 50px auto;\n    border-radius: 5px;\n  }\n\n  #rect {\n\n\n  }\n\n\n\n\n</style>\n<div id=\"rect\"></div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style>\n  div {\n    height: 40px;\n    width: 70%;\n    background: black;\n    margin: 50px auto;\n    border-radius: 5px;\n  }\n\n  #rect {\n    animation-name: rainbow;\n    animation-duration: 4s;\n  }\n\n  @keyframes rainbow {\n    0% {\n      background-color: blue;\n    }\n    50% {\n      background-color: green;\n    }\n    100% {\n      background-color: yellow;\n    }\n  }\n</style>\n<div id=\"rect\"></div>",
+        "error": null,
+        "seed": "<style>\n  div {\n    height: 40px;\n    width: 70%;\n    background: black;\n    margin: 50px auto;\n    border-radius: 5px;\n  }\n\n  #rect {\n    animation-name: rainbow;\n    animation-duration: 4s;\n  }\n\n  @keyframes rainbow {\n    0% {\n      background-color: blue;\n    }\n    50% {\n      background-color: green;\n    }\n    100% {\n      background-color: yellow;\n    }\n  }\n</style>\n<div id=\"rect\"></div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Element sa id <code>rect</code> treba da ima <code>animation-name</code> svojstvo sa vrednoscu <code>rainbow</code>.</p>",
+      "testString": "const rectElement = document.querySelector('#rect');\nconst rectStyle = window.getComputedStyle(rectElement);\nassert.equal(rectStyle?.animationName, 'rainbow');"
+    },
+    {
+      "text": "<p>Element sa id <code>rect</code> treba da ima <code>animation-duration</code> svojstvo sa vrednoscu <code>4s</code>.</p>",
+      "testString": "const rectElement = document.querySelector('#rect');\nconst rectStyle = window.getComputedStyle(rectElement);\nassert.equal(rectStyle?.animationDuration, '4s');"
+    },
+    {
+      "text": "<p><code>@keyframes</code> pravilo treba da koristi ime animacije <code>rainbow</code>.</p>",
+      "testString": "assert.match(code ,/@keyframes\\s+?rainbow\\s*?{/g);"
+    },
+    {
+      "text": "<p><code>@keyframes</code> pravilo za <code>rainbow</code> treba da koristi <code>background-color</code> vrednost <code>blue</code> na 0%.</p>",
+      "testString": "assert.match(code,/0%\\s*?{\\s*?background-color:\\s*?blue;\\s*?}/gi);"
+    },
+    {
+      "text": "<p><code>@keyframes</code> pravilo za <code>rainbow</code> treba da koristi <code>background-color</code> vrednost <code>green</code> na 50%.</p>",
+      "testString": "assert.match(code,/50%\\s*?{\\s*?background-color:\\s*?green;\\s*?}/gi);"
+    },
+    {
+      "text": "<p><code>@keyframes</code> pravilo za <code>rainbow</code> treba da koristi <code>background-color</code> vrednost <code>yellow</code> na 100%.</p>",
+      "testString": "assert.match(code,/100%\\s*?{\\s*?background-color:\\s*?yellow;\\s*?}/gi);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste animirali element, potrebno je da razumete animation svojstva i <code>@keyframes</code> pravilo. Animation svojstva odreduju kako animacija treba da se ponasa, a <code>@keyframes</code> pravilo odreduje sta se desava tokom same animacije. Ukupno postoji osam animation svojstava. Ovaj izazov ce prvo pokriti dva osnovna:</p>\n<p><code>animation-name</code> postavlja ime animacije, koje <code>@keyframes</code> kasnije koristi da poveze pravila sa tom animacijom.</p>\n<p><code>animation-duration</code> postavlja trajanje animacije.</p>\n<p><code>@keyframes</code> omogucava da precizno definisete sta se desava tokom cele animacije. To se radi tako sto se CSS svojstva dodeljuju odredenim \"frejmovima\" animacije, u procentima od 0% do 100%. Ako to uporedimo sa filmom, CSS svojstva na 0% prikazuju kako element izgleda na pocetku, a svojstva na 100% kako izgleda na kraju. CSS zatim interpolira promene kroz zadato vreme trajanja. Evo primera koji prikazuje upotrebu <code>@keyframes</code> i animation svojstava:</p>\n<pre><code class=\"language-css\">#anim {\n  animation-name: colorful;\n  animation-duration: 3s;\n}\n\n@keyframes colorful {\n  0% {\n    background-color: blue;\n  }\n  100% {\n    background-color: yellow;\n  }\n}\n</code></pre>\n<p>Za element sa id <code>anim</code>, gornji kod postavlja <code>animation-name</code> na <code>colorful</code> i <code>animation-duration</code> na 3 sekunde. <code>@keyframes</code> pravilo je povezano sa istim imenom <code>colorful</code>. Ono postavlja plavu boju na pocetku animacije (0%), koja se menja u zutu na kraju (100%). Niste ograniceni samo na pocetak i kraj, mozete definisati svojstva za bilo koji procenat izmedu 0% i 100%.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napravite animaciju za element sa id <code>rect</code> tako sto cete postaviti <code>animation-name</code> na <code>rainbow</code> i <code>animation-duration</code> na 4 sekunde. Zatim deklarisite <code>@keyframes</code> pravilo i postavite <code>background-color</code> na pocetku animacije (<code>0%</code>) na plavu, u sredini (<code>50%</code>) na zelenu, a na kraju (<code>100%</code>) na zutu.</p>\n</section>",
+  "translationPending": false,
+  "block": "applied-visual-design",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "responsive-web-design",
+  "superOrder": 27,
+  "challengeOrder": 39,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

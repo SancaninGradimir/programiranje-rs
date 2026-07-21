@@ -1,0 +1,51 @@
+{
+  "id": "666832e427d70bc5219dc62a",
+  "title": "Korak 36",
+  "challengeType": 20,
+  "dashedName": "step-36",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        28,
+        31
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __getattr__(self, attr):                \n        return 'calling __getattr__'\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\n# print(f'v1 = {v1}', f'\\nrepr = {repr(v1)}')\n# print(f'v2 = {v2}', f'\\nrepr = {repr(v2)}')\nprint(v1.x)\nprint(getattr(v1, 'x'))",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __getattr__(self, attr):                \n        return 'calling __getattr__'\n\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\n# print(f'v1 = {v1}', f'\\nrepr = {repr(v1)}')\n# print(f'v2 = {v2}', f'\\nrepr = {repr(v2)}')\nprint(v1.x)\nprint(getattr(v1, 'x'))"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da promeniš svoj kod kako bi izpisao svojstvo elementa <code>z</code> od <code>v1</code> koristeći operator tačke i funkciju <code>getattr()</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nn = _Node(_code)\n(n.has_call(\"print(v1.z)\") and n.has_call(\"print(getattr(v1, 'z'))\")) or n.has_call(\"print(v1.z, getattr(v1, 'z'))\") or n.has_call(\"print(getattr(v1, 'z'), v1.z)\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao što vidite iz rezultata, iako ste kreirali <code>__getattr__</code> u vašoj klasi objekata, ova metoda još nije pozvana. Ovo se dešava zato što pristup običnom svojstvu se obavlja putem <code>__getattribute__</code>. Stoga, možete videti vrednost svojstva ispisanu na terminalu.</p>\n<p>Sada promenite poslednje dve linije koda da dobijete svojstvo elementa <code>z</code> od <code>v1</code> u svim vašim pozivima <code>print()</code>. U ovom trenutku, dobićete svojstvo koje <code>v1</code> nema. Kao rezultat, <code>__getattribute__</code> će baciti grešku i pozivaće se <code>__getattr__</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 35,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

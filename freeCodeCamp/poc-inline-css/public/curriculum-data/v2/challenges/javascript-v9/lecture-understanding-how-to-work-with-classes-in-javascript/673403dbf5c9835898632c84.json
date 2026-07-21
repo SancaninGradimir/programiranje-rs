@@ -1,0 +1,329 @@
+{
+  "id": "673403dbf5c9835898632c84",
+  "title": "Koje su karakteristike statičkih metoda u klasama?",
+  "challengeType": 19,
+  "dashedName": "what-are-static-properties-and-methods-in-classes",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Statička svojstva i metode pripadaju samoj klasi, a ne pojedinačnim instancama te klase. Možeš im pristupiti direktno pomoću imena klase, bez kreiranja instance. Definišu se unutar klase kako bi objedinjavale povezanu funkcionalnost.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete definisati putanju za static tako što ćete napisati glavnu reč <code>static</code> pre imena putanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class MyClass {\n  static staticMethod() { ... }\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim, možete pozvati metodu static direktno u klasi, koristeći notaciju tačka i prosleđujući sve potrebne argumente:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">MyClass.staticMethod();\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Obrati pažnju da ovu metodu možeš pozvati bez kreiranja instance klase. To je jedna od glavnih osobina statičkih metoda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera. Pretpostavimo da pravimo aplikaciju za filmove i želimo da možemo da upoređujemo filmove na osnovu njihovih ocena.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možemo smatrati ovu komparativnu metodu kao pristup višeg nivoa koji nije specifičan za bilo koje kino:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">if (movieA.rating &#x3C; movieB.rating) {\n  console.log(`${movieB.title} has a higher rating.`);\n} \n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>To je opštija metoda koja je povezana sa klasom <code>Movie</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Radi lakšanja i dobrog održavanja, biće korisno definisati ga unutar klase <code>Movie</code> ili postaviti sve povezane metode blizu svake.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zbog toga je ovo dobar kandidat za statičku metodu. Možeš je videti odmah ispod konstruktora:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "class Movie {\n\n  constructor(title, rating) {\n    this.title = title;\n    this.rating = rating;\n  }\n\n  static compareMovies(movieA, movieB) {\n    if (movieA.rating > movieB.rating) {\n      console.log(`${movieA.title} has a higher rating.`);\n    } else if (movieA.rating < movieB.rating) {\n      console.log(`${movieB.title} has a higher rating.`);\n    } else {\n      console.log(\"These movies have the same rating.\");\n    }\n  }\n\n}\n\nlet movieA = new Movie(\"Movie A\", 80);\nlet movieB = new Movie(\"Movie B\", 45);\nconsole.log(movieA);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">class Movie {\n\n  constructor(title, rating) {\n    this.title = title;\n    this.rating = rating;\n  }\n\n  static compareMovies(movieA, movieB) {\n    if (movieA.rating > movieB.rating) {\n      console.log(`${movieA.title} has a higher rating.`);\n    } else if (movieA.rating &#x3C; movieB.rating) {\n      console.log(`${movieB.title} has a higher rating.`);\n    } else {\n      console.log(\"These movies have the same rating.\");\n    }\n  }\n\n}\n\nlet movieA = new Movie(\"Movie A\", 80);\nlet movieB = new Movie(\"Movie B\", 45);\nconsole.log(movieA);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Statička metoda je definisana ključnom rečju <code>static</code> i zove se <code>compareMovies</code>. Prima dva parametra: <code>movieA</code> i <code>movieB</code>. Oni predstavljaju instance klase <code>Movie</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uporedićemo ih na osnovu njihovih ocena, u opsegu od <code>0</code> do <code>100</code>. Ova logika je implementirana pomoću uslovnih izraza i ispisuje odgovarajuću poruku u zavisnosti od toga koji film ima veću ocenu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada je put definisan, možete ga pozvati u klasi. Ali prvo, morate imati spreman argument i deklarisani su u vašem programu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, metoda uzima dva filmska događaja kao argumente, pa definišemo ove događaje ovde:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let movieA = new Movie(\"Movie A\", 80);\nlet movieB = new Movie(\"Movie B\", 45);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možeš videti da <code>movieA</code> ima veću ocenu od <code>movieB</code>. Pogledajmo rezultat ove metode.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste pozvali metodu, samo je potrebno koristiti notaciju tačke na samoj klasi.\nPišete ime klase (<code>Movie</code>), praćeno tačkom, zatim naziv metode static (<code>compareMovies</code>).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim, prosleđujete/unesete izjavu unutar običnih zagrada. U ovom slučaju, potrebni su dva filmska događaja koje put zahteva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">Movie.compareMovies(movieA, movieB);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je ažurirani primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "class Movie {\n\n  constructor(title, rating) {\n    this.title = title;\n    this.rating = rating;\n  }\n\n  static compareMovies(movieA, movieB) {\n    if (movieA.rating > movieB.rating) {\n      console.log(`${movieA.title} has a higher rating.`);\n    } else if (movieA.rating < movieB.rating) {\n      console.log(`${movieB.title} has a higher rating.`);\n    } else {\n      console.log(\"These movies have the same rating.\");\n    }\n  }\n\n}\n\nlet movieA = new Movie(\"Movie A\", 80);\nlet movieB = new Movie(\"Movie B\", 45);\nMovie.compareMovies(movieA, movieB);\nconsole.log(movieA);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">class Movie {\n\n  constructor(title, rating) {\n    this.title = title;\n    this.rating = rating;\n  }\n\n  static compareMovies(movieA, movieB) {\n    if (movieA.rating > movieB.rating) {\n      console.log(`${movieA.title} has a higher rating.`);\n    } else if (movieA.rating &#x3C; movieB.rating) {\n      console.log(`${movieB.title} has a higher rating.`);\n    } else {\n      console.log(\"These movies have the same rating.\");\n    }\n  }\n\n}\n\nlet movieA = new Movie(\"Movie A\", 80);\nlet movieB = new Movie(\"Movie B\", 45);\nMovie.compareMovies(movieA, movieB);\nconsole.log(movieA);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metode za static takođe pomažu u implementaciji \"factory\" metoda. Factory metoda je način kojim definišete, zajedno sa komponentom, kako biste kreirali objekte na osnovu specifičnih parametara.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde je primer sa klasom <code>Pizza</code>. Metoda static <code>createMargherita</code> je fabrička metoda koju možete pozvati da biste kreirali instancu pizze Margherita sa njenim tipom i cenom koji su već postavljeni.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Pizza {\n  constructor(type, price) {\n    this.type = type;\n    this.price = price;\n  }\n\n  static createMargherita() {\n    return new this(\"Margherita\", 6.99);\n  }\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo takođe predstavlja veoma važnu stvar o static.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Vrednost ključne reči <code>this</code> u metodama static je sama klasa, jer metoda static pripada klasi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Stoga možemo koristiti <code>this</code> da kreiramo novi događaj klase za <code>Pizza</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ukoliko pozovete ovu metodu u klasi <code>Pizza</code> sama i postavite vraćeni događaj kao parametar, kao što je ovde primer:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let myPizza = Pizza.createMargherita();\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete ga koristiti bilo gde želite u vašem kodu. Na primer, možete ga ispisati na konzolu:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">console.log(myPizza);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo su rezultati:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">Pizza { type: 'Margherita', price: 6.99 }\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe možete koristiti dot notaciju za pozivanje njegovih putanja i pristup njihovim svojstvima, kao što je ovo:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">console.log(myPizza.type);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kompletan primer:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Pizza {\n  constructor(type, price) {\n    this.type = type;\n    this.price = price;\n  }\n\n  static createMargherita() {\n    return new this(\"Margherita\", 6.99);\n  }\n}\n\nlet myPizza = Pizza.createMargherita();\nconsole.log(myPizza);\nconsole.log(myPizza.type);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pored toga, takođe možete definisati karakteristike static sa glavnom rečju <code>static</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, imamo karakteristiku od static <code>numberOfPizzasSold</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Pizza {\n  static numberOfPizzasSold = 0;\n\n  constructor(type) {\n    this.type = type;\n    Pizza.numberOfPizzasSold++;\n  }\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ni static zato što ne poseduje bilo koji događaj sa pizzom, to je svojstvo same klase.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ima početnu vrednost od <code>0</code> i ažurira se svaki put kada se kreira novi događaj.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako kreirate dva događaja pizze, vrednost će biti ažurirana dvaput:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let pizza1 = new Pizza(\"Margherita\");\nlet pizza2 = new Pizza(\"Neapolitan\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste pristupili vrednosti svojstva static, samo morate koristiti notaciju tačke na samoj klasi, jer je svojstvo član te klase.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Pizza {\n  static numberOfPizzasSold = 0;\n\n  constructor(type) {\n    this.type = type;\n    Pizza.numberOfPizzasSold++;\n  }\n}\n\nlet pizza1 = new Pizza(\"Margherita\");\nlet pizza2 = new Pizza(\"Neapolitan\");\n\nconsole.log(Pizza.numberOfPizzasSold);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, rezultat je <code>2</code> zato što su bile prodane dve pice.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo su osnove karakteristika i metoda za static u JavaScript. Razumevanje članova od static je važno za kreiranje ponovo upotrebljivih i efikasnih klasa.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koji je glavni cilj metode static u klasi JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kreirati nove događaje za razred.</p>",
+          "feedback": "<p>Razmislite kako putevi static jesu povezani sa samom klasom, a ne ličnim stvarima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dobiti pohvale za događaj u razredu.</p>",
+          "feedback": "<p>Razmislite kako putevi/načini za static se odnose na samu klasu, a ne na privatne stvari.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objašnjavanje načina koji se mogu dostignuti bez kreiranja klasnog događaja.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nasleđuje osobine i metode od roditeljske klase.</p>",
+          "feedback": "<p>Razmislite kako putevi static se odnose na sam razred, a ne na lične stvari.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja je glavna razlika između putanje u static i događajne putanje u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Metode za static mogu se koristiti samo unutar klase, dok događajne metode mogu se koristiti van klase.</p>",
+          "feedback": "<p>Razmotrite opseg i dostupnost putanja za static i putanja događaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Putevi static mogu pristupiti svojstvima događaja, dok putevi događaja ne mogu pristupiti svojstvima događaja.</p>",
+          "feedback": "<p>Razmislite o opsegu i dostupnosti puteva za static i događajnih puteva.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Metode za static su povezane sa samom klasom, dok su metode događaja povezane sa specifičnim događajima klase.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Putanje za static su uvek javne, dok putanje događaja mogu biti javne ili privatne.</p>",
+          "feedback": "<p>Razmotrite opseg i dostupnost putanja static i putanja događaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Kako možete pristupiti svojstvu static klase u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristeći glavnu reč od <code>this</code>.</p>",
+          "feedback": "<p>Razmislite kako svojstva static su povezana sa samim klasom.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kroz kreiranje/izvršavanje klasne aktivnosti i ostvarenjem kredita putem te aktivnosti.</p>",
+          "feedback": "<p>Razmislite kako su svojstva static povezana sa samom klasom.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Korišćenjem direktno imena klase i imena svojstva (ili: atributa).</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Korišćenjem karakteristike prototipa klase.</p>",
+          "feedback": "<p>Razmislite kako su svojstva static povezana sa samom klasom.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-how-to-work-with-classes-in-javascript",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 175,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "classes-and-the-this-keyword",
+  "certification": "javascript-v9"
+}

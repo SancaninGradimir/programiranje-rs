@@ -1,0 +1,69 @@
+{
+  "id": "5900f38d1000cf542c50fea0",
+  "title": "Vežba 33: Sekcija za brisanje brojeva",
+  "challengeType": 1,
+  "forumTopicId": 301987,
+  "dashedName": "problem-33-digit-cancelling-fractions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function digitCancellingFractions() {\n\n  return true;\n}\n\ndigitCancellingFractions();",
+      "error": null,
+      "seed": "function digitCancellingFractions() {\n\n  return true;\n}\n\ndigitCancellingFractions();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function digitCancellingFractions() {\n  function isCurious(numerator, denominator) {\n    const fraction = numerator / denominator;\n    const numString = numerator.toString();\n    const denString = denominator.toString();\n\n    if (numString[1] === '0' && denString[1] === '0') {\n      // trivial\n      return false;\n    }\n    for (let i = 0; i < 2; i++) {\n      for (let j = 0; j < 2; j++) {\n        if (numString[i] === denString[j]) {\n          const newNum = parseInt(numString[1 - i], 10);\n          const newDen = parseInt(denString[1 - j], 10);\n          if (newNum / newDen === fraction) {\n            return true;\n          }\n        }\n      }\n    }\n    return false;\n  }\n  function findLargestDivisor(a, b) {\n    let gcd = a > b ? b : a;\n    while (gcd > 1) {\n      if (a % gcd === 0 && b % gcd === 0) {\n        return gcd;\n      }\n      gcd--;\n    }\n    return gcd;\n  }\n\n  function simplifyFraction(numerator, denominator) {\n    const divisor = findLargestDivisor(numerator, denominator);\n    return [numerator / divisor, denominator / divisor];\n  }\n\n  let multipleNumerator = 1;\n  let multipleDenominator = 1;\n\n  for (let denominator = 11; denominator < 100; denominator++) {\n    for (let numerator = 10; numerator < denominator; numerator++) {\n      if (isCurious(numerator, denominator)) {\n        multipleNumerator *= numerator;\n        multipleDenominator *= denominator;\n      }\n    }\n  }\n\n  return simplifyFraction(multipleNumerator, multipleDenominator)[1];\n}",
+        "error": null,
+        "seed": "function digitCancellingFractions() {\n  function isCurious(numerator, denominator) {\n    const fraction = numerator / denominator;\n    const numString = numerator.toString();\n    const denString = denominator.toString();\n\n    if (numString[1] === '0' && denString[1] === '0') {\n      // trivial\n      return false;\n    }\n    for (let i = 0; i < 2; i++) {\n      for (let j = 0; j < 2; j++) {\n        if (numString[i] === denString[j]) {\n          const newNum = parseInt(numString[1 - i], 10);\n          const newDen = parseInt(denString[1 - j], 10);\n          if (newNum / newDen === fraction) {\n            return true;\n          }\n        }\n      }\n    }\n    return false;\n  }\n  function findLargestDivisor(a, b) {\n    let gcd = a > b ? b : a;\n    while (gcd > 1) {\n      if (a % gcd === 0 && b % gcd === 0) {\n        return gcd;\n      }\n      gcd--;\n    }\n    return gcd;\n  }\n\n  function simplifyFraction(numerator, denominator) {\n    const divisor = findLargestDivisor(numerator, denominator);\n    return [numerator / divisor, denominator / divisor];\n  }\n\n  let multipleNumerator = 1;\n  let multipleDenominator = 1;\n\n  for (let denominator = 11; denominator < 100; denominator++) {\n    for (let numerator = 10; numerator < denominator; numerator++) {\n      if (isCurious(numerator, denominator)) {\n        multipleNumerator *= numerator;\n        multipleDenominator *= denominator;\n      }\n    }\n  }\n\n  return simplifyFraction(multipleNumerator, multipleDenominator)[1];\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>digitCancellingFractions()</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof digitCancellingFractions() === 'number');"
+    },
+    {
+      "text": "<p><code>digitCancellingFractions()</code> Trebalo bi da vrati 100.</p>",
+      "testString": "assert.strictEqual(digitCancellingFractions(), 100);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sehemu <sup>49</sup>/<sub>98</sub> je iznenađujući deo, jer neiskusan fizičar kada pokuša da ga pojednostavi može pogrešno pretpostaviti da <sup>49</sup>/<sub>98</sub> = <sup>4</sup>/<sub>8</sub>, što je tačno, nalazi se eliminacijom broja 9.</p>\n<p>Razmotrićemo delove kao, <sup>30</sup>/<sub>50</sub> = <sup>3</sup>/<sub>5</sub>, da budu jednostavni primeri.</p>\n<p>Postoje samo četiri primera ovoga tipa komponente, koje su komplikovane, imaju vrijednost manju od jednog, i sadrže dva broja u lancu i podjelama.</p>\n<p>Ako proizvod ovih četiri dela bude pušten u svom najnižem stanju, pronađi vrednost podela.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 32,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

@@ -1,0 +1,290 @@
+{
+  "id": "673368d97e8ce232cdcd6b68",
+  "title": "Kako dodati i ukloniti čvor iz DOM-a korišćenjem appendChild() i removeChild()?",
+  "challengeType": 19,
+  "dashedName": "how-do-you-add-and-remove-nodes-from-the-dom-with-appendchild-and-removechild",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Biće vremena kada ćete morati da dodate ili uklonite čvorove sa DOM i postoje neke API mreže koje možete koristiti.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovoj lekciji govorićemo o metodama <code>appendChild()</code> i <code>removeChild()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda <code>appendChild()</code> se koristi za dodavanje čvora na kraj liste potomaka navedenog roditeljskog čvora.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo osnovne sintakse za metodu <code>appendChild()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">parentNode.appendChild(newNode);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pogledajte primer kako biste bolje razumeli način korišćenja metode <code>appendChild()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru imamo neuređenu listu sa identifikatorom <code>desserts</code> unutar HTML-a. Ova lista sadrži dve stavke: <code>Cake</code> i <code>Pie</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;ul id=\"desserts\">\n  &#x3C;li>Cake&#x3C;/li>\n  &#x3C;li>Pie&#x3C;/li>\n&#x3C;/ul>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da bismo pristupili toj listi u JavaScript datoteci, možemo koristiti metodu <code>getElementById()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const dessertsList = document.getElementById(\"desserts\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Imamo promenljivu koja se zove <code>dessertsList</code> i koja čuva referencu na <code>ul</code> element sa identifikatorom <code>desserts</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim treba da kreiramo novi element stavke liste koristeći metodu <code>createElement()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sledeći kod će kreirati novi element stavke liste i sačuvati ga u promenljivoj koja se zove <code>listItem</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da bismo dodali taj čvor na kraj liste dece elementa <code>ul</code>, možemo koristiti metodu <code>appendChild()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n\ndessertsList.appendChild(listItem);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada pokrenete ovaj kod, videćete da je dodato novo polje liste na kraj liste potomaka svojstva za <code>ul</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<ul id=\"desserts\">\n  <li>Cake</li>\n  <li>Pie</li>\n</ul>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;ul id=\"desserts\">\n  &#x3C;li>Cake&#x3C;/li>\n  &#x3C;li>Pie&#x3C;/li>\n&#x3C;/ul>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n\ndessertsList.appendChild(listItem);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n\ndessertsList.appendChild(listItem);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Problem je što novo polje elementa liste je prazno. Da biste dodali tekstualni sadržaj u novo polje elementa liste, možete koristiti svojstvo <code>textContent</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<ul id=\"desserts\">\n  <li>Cake</li>\n  <li>Pie</li>\n</ul>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;ul id=\"desserts\">\n  &#x3C;li>Cake&#x3C;/li>\n  &#x3C;li>Pie&#x3C;/li>\n&#x3C;/ul>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n\nlistItem.textContent = \"Cookies\";\ndessertsList.appendChild(listItem);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dessertsList = document.getElementById(\"desserts\");\nconst listItem = document.createElement(\"li\");\n\nlistItem.textContent = \"Cookies\";\ndessertsList.appendChild(listItem);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada će lista prikazati <code>Cake</code>, <code>Pie</code>, i <code>Cookies</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste uklonili čvor iz DOM, možete koristiti način <code>removeChild()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je osnovna sintaksa na način od <code>removeChild()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">parentNode.removeChild(childNode);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pogledaćemo primer gde želimo da uklonimo element poslednjeg pasusa iz elementa <code>section</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;section id=\"example-section\">\n  &#x3C;h2>Example sub heading&#x3C;/h2>\n  &#x3C;p>first paragraph&#x3C;/p>\n  &#x3C;p>second paragraph&#x3C;/p>\n&#x3C;/section>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možemo dobiti element za <code>section</code> unutar fajla JavaScript koristeći metodu <code>getElementById()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const sectionEl = document.getElementById(\"example-section\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada dobijemo referencu za element <code>section</code>, možemo zatim dobiti poslednji pasus koristeći metodu <code>querySelector()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const sectionEl = document.getElementById(\"example-section\");\nconst lastParagraph = document.querySelector(\"#example-section p:last-of-type\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Koristimo veštačku klasu <code>:last-of-type</code> za odabir elementa poslednjeg pasusa unutar elementa <code>section</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada kada imamo roditeljski i podređeni čvor, možemo ukloniti poslednji element pasusa iz elementa <code>section</code> pomoću metode <code>removeChild()</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<section id=\"example-section\">\n  <h2>Example sub heading</h2>\n  <p>first paragraph</p>\n  <p>second paragraph</p>\n</section>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;section id=\"example-section\">\n  &#x3C;h2>Example sub heading&#x3C;/h2>\n  &#x3C;p>first paragraph&#x3C;/p>\n  &#x3C;p>second paragraph&#x3C;/p>\n&#x3C;/section>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const sectionEl = document.getElementById(\"example-section\");\nconst lastParagraph = document.querySelector(\"#example-section p:last-of-type\");\n\nsectionEl.removeChild(lastParagraph);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const sectionEl = document.getElementById(\"example-section\");\nconst lastParagraph = document.querySelector(\"#example-section p:last-of-type\");\n\nsectionEl.removeChild(lastParagraph);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada biste želeli da dodate ili uklonite čvor iz DOM-a?</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako radite sa dinamičkim sadržajem, možda ćete morati da dodajete ili uklanjate čvorove iz DOM-a. Realni primeri uključuju korpe za kupovinu, liste zadataka i izvore vesti sa društvenih mreža.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Njia ya <code>appendChild()</code> hufanya nini?</p>",
+      "answers": [
+        {
+          "answer": "<p>Inaondoa nodi kutoka DOM.</p>",
+          "feedback": "<p>Razmislite o tome gde je čvor postavljen u odnosu na svoje susedne čvorove.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dodaje čvor na kraj liste dece navedenog roditeljskog čvora.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zamenjuje postojeći čvor novim čvorom.</p>",
+          "feedback": "<p>Razmislite o poziciji čvora u odnosu na njegove simbole/braće.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Premosti čvor na drugo mesto unutar DOM.</p>",
+          "feedback": "<p>Razmislite o lokaciji čvora u poređenju sa njegovim braćarima i sestrima.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kako dodati tekstualni sadržaj na novokreirani stav liste?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristi putanju <code>setText()</code> na čvoru (node) u novom čvoru.</p>",
+          "feedback": "<p>Razmislite o atributu koji omogućava unos teksta unutar polja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postavi direktno sekvencu karaktera na svojstvo <code>innerHTML</code> novog čvora.</p>",
+          "feedback": "<p>Razmislite o svojstvu koje omogućava postavljanje teksta unutar elementa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postavi atribut <code>textContent</code> novog čvora za zahtevani niz karaktera.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi putanju <code>appendChild()</code> i tekstualni čvor kao argument.</p>",
+          "feedback": "<p>Razmislite o atributu koji omogućava unos teksta unutar polja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Kako da uklonite element poslednjeg pasusa iz sekcije koristeći JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristite <code>removeChild()</code> u polju delova zajedno sa referencom na deo paragrafa na kraju.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristite <code>deleteChild()</code> u elementu sekcije zajedno sa referencom na poslednji element paragrafa.</p>",
+          "feedback": "<p>Razmislite o metodi koja uklanja čvor dete iz njegovog roditelja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristite <code>detachChild()</code> u element sekcije zajedno sa referencom na element poslednjeg odlomka.</p>",
+          "feedback": "<p>Razmislite o načinu koji uklanja čvor deteta iz njegovog roditelja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristite <code>removeNode()</code> na elementu sekcije zajedno sa referencom na poslednji element pasusa.</p>",
+          "feedback": "<p>Zamisli način koji uklanja čvor deteta od njegovog roditelja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

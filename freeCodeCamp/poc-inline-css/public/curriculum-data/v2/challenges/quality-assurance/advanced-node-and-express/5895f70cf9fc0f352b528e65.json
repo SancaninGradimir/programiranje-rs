@@ -1,0 +1,45 @@
+{
+  "id": "5895f70cf9fc0f352b528e65",
+  "title": "Podesi Passport",
+  "challengeType": 2,
+  "forumTopicId": 301565,
+  "dashedName": "set-up-passport",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Passport i Express-session treba da budu zavisnosti.</p>",
+      "testString": "  const url = new URL(\"/_api/package.json\", code);\n  const res = await fetch(url);\n  const packJson = await res.json();\n  assert.property(\n    packJson.dependencies,\n    'passport',\n    'Your project should list \"passport\" as a dependency'\n  );\n  assert.property(\n    packJson.dependencies,\n    'express-session',\n    'Your project should list \"express-session\" as a dependency'\n  );"
+    },
+    {
+      "text": "<p>Zavisnosti treba da budu zahtevane ispravno.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /require.*(\"|')passport(\"|')/,\n    'You should have required passport'\n  );\n  assert.match(\n    data,\n    /require.*(\"|')express-session(\"|')/,\n    'You should have required express-session'\n  );"
+    },
+    {
+      "text": "<p>Express aplikacija treba da koristi nove zavisnosti.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(data, /passport\\.initialize/, 'Your express app should use \"passport.initialize()\"');\n  assert.match(data, /passport\\.session/, 'Your express app should use \"passport.session()\"');"
+    },
+    {
+      "text": "<p>Sesija i tajna sesije treba da budu konfigurisani ispravno.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /secret *:\\s*process\\.env(\\.SESSION_SECRET|\\[(?<q>\"|')SESSION_SECRET\\k<q>\\])/,\n    'Your express app should have express-session set up with your secret as process.env.SESSION_SECRET'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vreme je da podesiš <em>Passport</em> kako bi mogao da počneš da dozvoljavaš korisniku da se registruje ili prijavi na nalog. Pored Passport-a, koristićeš Express-session za upravljanje sesijama. Express-session ima mnoge napredne funkcije koje možeš koristiti, ali za sada ćeš koristiti samo osnovne. Korišćenje ovog middleware-a čuva identifikator sesije kao kolačić kod klijenta, i omogućava nam da dobijemo podatke sesije koristeći taj identifikator na serveru. Na ovaj način, čuvaš privatne informacije naloga van kolačića koji klijent koristi da kaže tvom serveru da su klijenti autentifikovani i čuvaš <em>ključ</em> za pristup podacima sačuvanim na serveru.</p>\n<p><code>passport@~0.4.1</code> i <code>express-session@~1.17.1</code> su već instalirani, i oba su navedena kao zavisnosti u tvom <code>package.json</code> fajlu.</p>\n<p>Moraćeš da podesiš podešavanja sesije i inicijalizuješ Passport. Prvo, napravi varijable <code>session</code> i <code>passport</code> zahtevanjem <code>express-session</code> i <code>passport</code> respektivno.</p>\n<p>Zatim, podesi svoju Express aplikaciju da koristi sesiju definisanjem sledećih opcija:</p>\n<pre><code class=\"language-javascript\">app.use(session({\n  secret: process.env.SESSION_SECRET,\n  resave: true,\n  saveUninitialized: true,\n  cookie: { secure: false }\n}));\n</code></pre>\n<p>Uveri se da dodaš <code>SESSION_SECRET</code> u tvoj <code>.env</code> fajl, i daj mu neočekivanu vrednost. Ovo se koristi za izračunavanje heša koji se koristi za zaštitu tvog kolačića!</p>\n<p>Nakon što si sve to uradio, reci svojoj express aplikaciji da <strong>koristi</strong> <code>passport.initialize()</code> i <code>passport.session()</code>.</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#set-up-passport-3\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat koji je stigao do ovog koraka</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

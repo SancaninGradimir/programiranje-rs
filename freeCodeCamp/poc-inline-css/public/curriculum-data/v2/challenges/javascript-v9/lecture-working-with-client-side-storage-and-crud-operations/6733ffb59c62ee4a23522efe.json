@@ -1,0 +1,194 @@
+{
+  "id": "6733ffb59c62ee4a23522efe",
+  "title": "Šta je IndexedDB, i kako radi?",
+  "challengeType": 19,
+  "dashedName": "what-is-indexeddb-and-how-does-it-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p><code>IndexedDB</code> je alat za čuvanje strukturiranih podataka u pregledaču. Ugrađen je u moderne veb pregledače i omogućava veb aplikacijama da efikasno čuvaju i preuzimaju JavaScript objekte.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za razliku od drugih metoda skladištenja kao što je <code>localStorage</code>, koji ograničava čuvanje samo stringova, <code>IndexedDB</code> može da čuva JavaScript objekte, fajlove i skoro bilo koju vrstu podataka. Ovo ga čini pogodnim za veb aplikacije koje moraju da rade sa velikim i složenim strukturama podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada, pogledajmo kako <code>IndexedDB</code> funkcioniše.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Prvi korak je otvaranje baze podataka. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let request = indexedDB.open(\"Sample DB\", 1);\n\nrequest.onerror = function(event) {\n  console.log(\"Error opening database\");\n};\n\nrequest.onsuccess = function(event) {\n  let db = event.target.result;\n  console.log(\"Database opened successfully\");\n};",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let request = indexedDB.open(\"Sample DB\", 1);\n\nrequest.onerror = function(event) {\n  console.log(\"Error opening database\");\n};\n\nrequest.onsuccess = function(event) {\n  let db = event.target.result;\n  console.log(\"Database opened successfully\");\n};\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom kodu otvaramo bazu podataka pod nazivom <code>\"Sample DB\"</code> i verzijom 1. Definišemo dve funkcije povratnog poziva: jednu za obradu grešaka i drugu kada se baza podataka uspešno otvori. <code>db</code> objekat koji dobijemo u uspešnom povratnom pozivu koristićemo za rad sa bazom podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako proverite interfejs alata za programere u pregledaču, videćete svoju <code>Sample DB</code> bazu u odeljku <code>IndexedDB</code>. Kada imate otvorenu bazu podataka, možete početi da radite sa skladištima objekata.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Skladišta objekata u IndexedDB-u slična su tabelama u klasičnim bazama podataka. Ona čuvaju stvarne podatke koje želite da sačuvate. Evo kako se kreira skladište objekata:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let request = indexedDB.open(\"Sample DB\", 1);\n\nrequest.onupgradeneeded = function(event) {\n  let db = event.target.result;\n  let objectStore = db.createObjectStore(\"customers\", { keyPath: \"id\" });\n};\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovaj kod kreira skladište objekata pod nazivom <code>\"customers\"</code> i koristi <code>\"id\"</code> kao ključni put. Ključni put je poput primarnog ključa u običnoj bazi podataka - koristi se za jedinstvenu identifikaciju svakog zapisa.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kako bismo dodali podatke u našu prodavnicu predmeta, uradili bismo nešto ovako. <code>db</code> Ovaj primer predstavlja strukturu baze podataka za <code>IndexedDB</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let transaction = db.transaction([\"customers\"], \"readwrite\");\nlet objectStore = transaction.objectStore(\"customers\");\nlet request = objectStore.add({ id: 1, name: \"John Doe\", email: \"john@example.com\" });\n\nrequest.onerror = function(event) {\n  console.log(\"Error adding data\");\n};\n\nrequest.onsuccess = function(event) {\n  console.log(\"Data added successfully\");\n};\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovaj kod dodaje novog korisnika u naše skladište objekata <code>\"customers\"</code>. Pokrećemo transakciju (što je način na koji grupišemo operacije baze podataka), dobijamo referencu na naše skladište objekata, a zatim dodajemo podatke.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dohvatanje podataka se dešava na isti način. Pokrećemo transakciju, dobijamo našu prodavnicu stvari, pa koristimo metod kao <code>get</code> za dohvaćanje podataka:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let transaction = db.transaction([\"customers\"]);\nlet objectStore = transaction.objectStore(\"customers\");\nlet request = objectStore.get(1);\n\nrequest.onerror = function(event) {\n  console.log(\"Error retrieving data\");\n};\n\nrequest.onsuccess = function(event) {\n  console.log(\"Customer:\", request.result);\n};\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovaj kod preuzima korisnika sa <code>id</code> vrednošću <code>1</code> iz našeg skladišta objekata <code>\"customers\"</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Jedna od ključnih karakteristika za <code>IndexedDB</code> je što je asinhrono.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo znači da kada interagujete sa <code>IndexedDB</code>, aktivnosti ne blokiraju glavne niti mrežne aplikacije. Ovo osigurava da vaša mrežna aplikacija ostaje adaptivna za uređaj čak i kada koristite velike količine podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako <code>IndexedDB</code> nudi veliki kapacitet, ima strmu krivulju učenja u poređenju sa drugim jednostavnim opcijama skladištenja API koje mogu biti izazovne za početnike. Međutim, za aplikacije koje moraju da obrađuju velike količine strukturiranih podataka na strani klijenta, <code>IndexedDB</code> nudi neuporediv kapacitet.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna karakteristika aktivnosti za <code>IndexedDB</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Uvek je za jedan trenutak.</p>",
+          "feedback": "<p>Razmislite kako operacije za <code>IndexedDB</code> interaguju sa glavnim nitima mrežne aplikacije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uvek su to stvari koje nisu iz istog trenutka.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Radi samo sa podacima u obliku niza znakova.</p>",
+          "feedback": "<p>Razmislite kako operacije za <code>IndexedDB</code> interaguju sa glavnim nitima mrežne aplikacije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zahteva stalnu mrežnu konekciju.</p>",
+          "feedback": "<p>Razmislite kako operacije za <code>IndexedDB</code> interaguju sa glavnim nitima mrežne aplikacije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja je glavna prednost korišćenja <code>IndexedDB</code> umesto <code>localStorage</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>IndexedDB</code> Lakše je za korišćenje.</p>",
+          "feedback": "<p>Razmislite o tipovima podataka koje svaka metoda skladištenja može da obradi i kako to utiče na njihovu upotrebu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>IndexedDB</code> podržava čuvanje složenih stavki JavaScript direktno.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>IndexedDB</code> ni za wakati mmoja.</p>",
+          "feedback": "<p>Razmislite o vrstama podataka koje svaki metod skladištenja može da obrađuje i kako to utiče na njihovu upotrebu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>IndexedDB</code> inaungwa mkono katika vivinjari vya zamani.</p>",
+          "feedback": "<p>Razmislite o tipovima podataka koje svaka metoda skladištenja može da obradi i kako to utiče na njihovu upotrebu.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>U <code>IndexedDB</code>-u, sa čim se skladište objekata najviše poredi u tradicionalnim relacionim bazama podataka?</p>",
+      "answers": [
+        {
+          "answer": "<p>Baza podataka</p>",
+          "feedback": "<p>Razmislite kako su podaci strukturirani u <code>IndexedDB</code>, upoređeno sa standardnom bazom podataka SQL.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Tabela.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Red.</p>",
+          "feedback": "<p>Zamislite kako su podaci organizovani u <code>IndexedDB</code> uporedno sa standardnom bazom podataka SQL.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poglavlje.</p>",
+          "feedback": "<p>Zamislite kako su podaci organizovani u <code>IndexedDB</code> u poređenju sa bazom podataka SQL standardnom.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-client-side-storage-and-crud-operations",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 170,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "localstorage-and-crud-operations",
+  "certification": "javascript-v9"
+}

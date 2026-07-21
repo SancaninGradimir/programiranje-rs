@@ -1,0 +1,76 @@
+{
+  "id": "59667989bf71cf555dd5d2ff",
+  "title": "Izgovor S",
+  "challengeType": 1,
+  "forumTopicId": 302303,
+  "dashedName": "s-expressions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function parseSexpr(str) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function parseSexpr(str) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function parseSexpr(str) {\n  const t = str.match(/\\s*(\"[^\"]*\"|\\(|\\)|\"|[^\\s()\"]+)/g);\n  for (var o, c = 0, i = t.length - 1; i >= 0; i--) {\n    var n,\n      ti = t[i].trim();\n    if (ti == '\"') return;\n    else if (ti == '(') t[i] = '[', c += 1;\n    else if (ti == ')') t[i] = ']', c -= 1;\n    else if ((n = +ti) == ti) t[i] = n;\n    else t[i] = `'${ti.replace('\\'', '\\\\\\'')}'`;\n    if (i > 0 && ti != ']' && t[i - 1].trim() != '(') t.splice(i, 0, ',');\n    if (!c) if (!o) o = true; else return;\n  }\n  return c ? undefined : eval(t.join(''));\n}",
+        "error": null,
+        "seed": "function parseSexpr(str) {\n  const t = str.match(/\\s*(\"[^\"]*\"|\\(|\\)|\"|[^\\s()\"]+)/g);\n  for (var o, c = 0, i = t.length - 1; i >= 0; i--) {\n    var n,\n      ti = t[i].trim();\n    if (ti == '\"') return;\n    else if (ti == '(') t[i] = '[', c += 1;\n    else if (ti == ')') t[i] = ']', c -= 1;\n    else if ((n = +ti) == ti) t[i] = n;\n    else t[i] = `'${ti.replace('\\'', '\\\\\\'')}'`;\n    if (i > 0 && ti != ']' && t[i - 1].trim() != '(') t.splice(i, 0, ',');\n    if (!c) if (!o) o = true; else return;\n  }\n  return c ? undefined : eval(t.join(''));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const simpleSExpr = '(data1 data2 data3)';\nconst simpleSolution = ['data1', 'data2', 'data3'];\n\nconst basicSExpr = '((data \"quoted data\" 123 4.5) (data (!@# (4.5) \"(more\" \"data)\")))';\nconst basicSolution = [[\"data\",\"\\\"quoted data\\\"\",123,4.5],[\"data\",[\"!@#\",[4.5],\"\\\"(more\\\"\",\"\\\"data)\\\"\"]]];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>parseSexpr</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof parseSexpr === 'function');"
+    },
+    {
+      "text": "<p><code>parseSexpr('(data1 data2 data3)')</code> treba da vrati <code>['data1', 'data2', 'data3']</code></p>",
+      "testString": "assert.deepEqual(parseSexpr(simpleSExpr), simpleSolution);"
+    },
+    {
+      "text": "<p><code>parseSexpr('((data \"quoted data\" 123 4.5) (data (!@# (4.5) \"(more\" \"data)\")))')</code> treba da vrati <code>[['data', '\"quoted data\"', 123, 4.5], ['data', ['!@#', [4.5], '\"(more\"', '\"data)\"']]]</code>.</p>",
+      "testString": "assert.deepEqual(parseSexpr(basicSExpr), basicSolution);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><a href=\"https://rosettacode.org/wiki/S-expressions\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">S-izrazi</a> predstavljaju jednostavan način za parsiranje i čuvanje podataka.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Implementirajte jednostavan čitač/analizator S Formata koji obrađuje sekvence znakova sa i bez navodnika, celi brojeve i decimalne brojeve.</p>\n<p>Funkcija treba da pročita tačno jedan, potencijalno ugnježden, S-izraz iz niske i da ga vrati kao (ugnježdeni) niz.</p>\n<p>Novi redovi i ostali prazni znakovi mogu se zanemariti, osim ako se nalaze unutar niske pod navodnicima.</p>\n<p>\"<code>()</code>\" unutar sekvence karaktera sa navodnicima smatra se delom sekvence karaktera, a ne prevodi se.</p>\n<p>Podrška za escape navodnike unutar niske je opciona; zato se \"<code>(foo\"bar)</code>\" može tretirati kao niska \"<code>foo\"bar</code>\" ili kao greška.</p>\n<p>Za ovaj zadatak parser ne mora da prepoznaje <code>\\</code> kao escape znak, ali treba da prepoznaje brojeve ako jezik podržava odgovarajuće tipove podataka.</p>\n<p>Zapamtite da, osim <code>()\"</code> (<code>\\</code> ako trčanje pomaže) i praznih mesta, nema posebnih slova. Ništa drugo nije dozvoljeno bez navodnika.</p>\n<p>Msomaji anapaswa kuwa na uwezo wa kusoma ingizo lifuatalo</p>\n<pre>((data \"quoted data\" 123 4.5)\n(data (!@# (4.5) \"(more\" \"data)\")))\n</pre>\n<p>na kulibadilisha kuwa muundo wa data wa asili.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 105,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

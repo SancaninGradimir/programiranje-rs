@@ -1,0 +1,84 @@
+{
+  "id": "59694356a6e7011f7f1c5f4e",
+  "title": "Napravi karticu za FreeCell",
+  "challengeType": 1,
+  "forumTopicId": 302246,
+  "dashedName": "deal-cards-for-freecell",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function dealFreeCell(seed) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function dealFreeCell(seed) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// RNG\nfunction FreeCellRNG(seed) {\n  return {\n    lastNum: seed,\n    next() {\n      this.lastNum = ((214013 * this.lastNum) + 2531011) % (Math.pow(2, 31));\n      return this.lastNum >> 16;\n    }\n  };\n}\n// Get cards\nfunction getDeck() {\n  const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'];\n  const suits = ['C', 'D', 'H', 'S'];\n  const cards = [];\n  for (let i = 0; i < ranks.length; i += 1) {\n    for (let j = 0; j < suits.length; j += 1) {\n      cards.push(`${ranks[i]}${suits[j]}`);\n    }\n  }\n  return cards;\n}\nfunction dealFreeCell(seed) {\n  const rng = FreeCellRNG(seed);\n  const deck = getDeck();\n\n  const dealtCards = [[], [], [], [], [], [], []];\n  let currentColumn = 0;\n  let currentRow = 0;\n\n  let rand;\n  let temp;\n  let card;\n  while (deck.length > 0) {\n    // Choose a random card\n    rand = rng.next() % deck.length;\n\n    // Swap this random card with the last card in the array\n    temp = deck[deck.length - 1];\n    deck[deck.length - 1] = deck[rand];\n    deck[rand] = temp;\n\n    // Remove this card from the array\n    card = deck.pop();\n\n    // Deal this card\n    dealtCards[currentRow].push(card);\n    currentColumn += 1;\n    if (currentColumn === 8) {\n      currentColumn = 0;\n      currentRow += 1;\n    }\n  }\n\n  return dealtCards;\n}",
+        "error": null,
+        "seed": "// RNG\nfunction FreeCellRNG(seed) {\n  return {\n    lastNum: seed,\n    next() {\n      this.lastNum = ((214013 * this.lastNum) + 2531011) % (Math.pow(2, 31));\n      return this.lastNum >> 16;\n    }\n  };\n}\n// Get cards\nfunction getDeck() {\n  const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'];\n  const suits = ['C', 'D', 'H', 'S'];\n  const cards = [];\n  for (let i = 0; i < ranks.length; i += 1) {\n    for (let j = 0; j < suits.length; j += 1) {\n      cards.push(`${ranks[i]}${suits[j]}`);\n    }\n  }\n  return cards;\n}\nfunction dealFreeCell(seed) {\n  const rng = FreeCellRNG(seed);\n  const deck = getDeck();\n\n  const dealtCards = [[], [], [], [], [], [], []];\n  let currentColumn = 0;\n  let currentRow = 0;\n\n  let rand;\n  let temp;\n  let card;\n  while (deck.length > 0) {\n    // Choose a random card\n    rand = rng.next() % deck.length;\n\n    // Swap this random card with the last card in the array\n    temp = deck[deck.length - 1];\n    deck[deck.length - 1] = deck[rand];\n    deck[rand] = temp;\n\n    // Remove this card from the array\n    card = deck.pop();\n\n    // Deal this card\n    dealtCards[currentRow].push(card);\n    currentColumn += 1;\n    if (currentColumn === 8) {\n      currentColumn = 0;\n      currentRow += 1;\n    }\n  }\n\n  return dealtCards;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const replaceThis = 3;\nconst game1 = [\n  ['JD', '2D', '9H', 'JC', '5D', '7H', '7C', '5H'],\n  ['KD', 'KC', '9S', '5S', 'AD', 'QC', 'KH', '3H'],\n  ['2S', 'KS', '9D', 'QD', 'JS', 'AS', 'AH', '3C'],\n  ['4C', '5C', 'TS', 'QH', '4H', 'AC', '4D', '7S'],\n  ['3S', 'TD', '4S', 'TH', '8H', '2C', 'JH', '7D'],\n  ['6D', '8S', '8D', 'QS', '6C', '3D', '8C', 'TC'],\n  ['6S', '9C', '2H', '6H']\n];\nconst game617 = [\n  ['7D', 'AD', '5C', '3S', '5S', '8C', '2D', 'AH'],\n  ['TD', '7S', 'QD', 'AC', '6D', '8H', 'AS', 'KH'],\n  ['TH', 'QC', '3H', '9D', '6S', '8D', '3D', 'TC'],\n  ['KD', '5H', '9S', '3C', '8S', '7H', '4D', 'JS'],\n  ['4C', 'QS', '9C', '9H', '7C', '6H', '2C', '2S'],\n  ['4S', 'TS', '2H', '5D', 'JC', '6C', 'JH', 'QH'],\n  ['JD', 'KS', 'KC', '4H']\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>dealFreeCell</code> trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof dealFreeCell === 'function');"
+    },
+    {
+      "text": "<p><code>dealFreeCell(seed)</code> Trebalo bi da vrati nešto.</p>",
+      "testString": "assert(typeof dealFreeCell(1) === 'object');"
+    },
+    {
+      "text": "<p><code>dealFreeCell(seed)</code> Treba da vrati red podataka sa dužinom od 7.</p>",
+      "testString": "assert(dealFreeCell(1).length === 7);"
+    },
+    {
+      "text": "<p><code>dealFreeCell(1)</code> trebalo bi da vrati red podataka kao primer \"Mchezo #1\"</p>",
+      "testString": "assert.deepEqual(dealFreeCell(1), game1);"
+    },
+    {
+      "text": "<p><code>dealFreeCell(617)</code> Trebalo bi da vrati red podataka kao što je primer \"Igra #617\"</p>",
+      "testString": "assert.deepEqual(dealFreeCell(617), game617);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><em>FreeCell</em> je kartaška igra pasijansa koju je napravio Pol Alfil (Paul Alfille) za sistem PLATO 1978. godine. Džim Horn (Jim Horne) iz Microsofta preimenovao ju je u FreeCell i ponovo implementirao za DOS, a zatim za Windows. Ta verzija je sadržala 32000 numerisanih deljenja karata.</p>\n<p>Kada je igra postala popularna, Džim Horn je objavio algoritam, pa su druge implementacije FreeCell-a počele da reprodukuju Microsoftova deljenja. Ta deljenja imaju brojeve od 1 do 32000. Novije Microsoft verzije imaju milion deljenja, numerisanih od 1 do 1000000, a neke implementacije dozvoljavaju i brojeve van tog opsega.</p>\n<p>Algoritam koristi Microsoft C linearni kongruentni generator slučajnih brojeva:</p>\n<ul>\n  <li>$state_{n + 1} \\equiv 214013 \\times state_n + 2531011 \\pmod{2^{31}}$</li>\n  <li>$rand_n = state_n \\div 2^{16}$</li>\n<li>`rand_n` je u opsegu od 0 do 32767.</li>\n</ul>\n<p>Algoriti inafuata hatua hizi:</p>\n<ol>\n  <li>Weka mbegu (seed) ya RNG kwa nambari ya gawio.\n</li><li>Napravi niz od 52 karte: As tref, As karo, As herc, As pik, zatim dvojke svih boja i tako redom do Kralja. Indeksi niza idu od 0 do 51, pri čemu je As tref na indeksu 0, a Kralj pik na indeksu 51.</li>\n  <li>Mpaka safu ya data iwe tupu:</li>\n    <ul>\n<li>Izaberi nasumičnu kartu pomoću <i>indeksa</i> ≡ <i>sledeći slučajni broj</i> (mod <i>dužina niza</i>).</li>\n<li>Zameni tu nasumično izabranu kartu poslednjom kartom u nizu.</li>\n<li>Ukloni nasumično izabranu kartu iz niza. (Dužina niza se smanjuje za 1.)</li>\n      <li>Gawa kadi hii ya nasibu.</li>\n    </ul>\n<li>Podeli svih 52 karte licem nagore u 8 kolona. Prvih 8 karata ide u svih 8 kolona, narednih 8 na njih i tako redom.</li>\n</ol>\n<p><strong>Primer:</strong></p>\n<p><strong>Mpangilio wa kugawa kadi</strong></p>\n<pre> 1  2  3  4  5  6  7  8\n 9 10 11 12 13 14 15 16\n17 18 19 20 21 22 23 24\n25 26 27 28 29 30 31 32\n33 34 35 36 37 38 39 40\n41 42 43 44 45 46 47 48\n49 50 51 52</pre>\n<p><strong>Igra #1</strong></p>\n<pre><code class=\"language-js\">[\n  ['JD', '2D', '9H', 'JC', '5D', '7H', '7C', '5H'],\n  ['KD', 'KC', '9S', '5S', 'AD', 'QC', 'KH', '3H'],\n  ['2S', 'KS', '9D', 'QD', 'JS', 'AS', 'AH', '3C'],\n  ['4C', '5C', 'TS', 'QH', '4H', 'AC', '4D', '7S'],\n  ['3S', 'TD', '4S', 'TH', '8H', '2C', 'JH', '7D'],\n  ['6D', '8S', '8D', 'QS', '6C', '3D', '8C', 'TC'],\n  ['6S', '9C', '2H', '6H']\n]\n</code></pre>\n<p><strong>Igra #617</strong></p>\n<pre><code class=\"language-js\">[\n  ['7D', 'AD', '5C', '3S', '5S', '8C', '2D', 'AH'],\n  ['TD', '7S', 'QD', 'AC', '6D', '8H', 'AS', 'KH'],\n  ['TH', 'QC', '3H', '9D', '6S', '8D', '3D', 'TC'],\n  ['KD', '5H', '9S', '3C', '8S', '7H', '4D', 'JS'],\n  ['4C', 'QS', '9C', '9H', '7C', '6H', '2C', '2S'],\n  ['4S', 'TS', '2H', '5D', 'JC', '6C', 'JH', 'QH'],\n  ['JD', 'KS', 'KC', '4H']\n]\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prihvata broj deljenja i raspoređuje karte na isti način kao ovaj algoritam. Funkcija treba da vrati dvodimenzionalni niz koji predstavlja FreeCell tablu.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 29,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

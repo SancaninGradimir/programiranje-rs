@@ -1,0 +1,234 @@
+{
+  "id": "673369829e232835c2732656",
+  "title": "Kako otvoriti i zatvoriti dijalog okvirima pomoću JavaScript-a?",
+  "challengeType": 19,
+  "dashedName": "how-do-you-open-and-close-dialog-elements-using-javascript",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Dijalozi vam omogućavaju prikazivanje važnih informacija ili radnji korisnicima. Korišćenjem ugrađenog HTML <code>dialog</code> elementa možete jednostavno kreirati ove dijaloge (modalne i nemodalne) u svojim veb aplikacijama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Modalni dijalog je tip dijaloga koji primorava korisnika da stupi u interakciju sa njim pre nego što dobije pristup drugim delovima aplikacije ili veb stranice. Potpuno blokira interakciju sa drugim sadržajem dok korisnik ne završi radnju, kao što je zatvaranje dijaloga ili slanje forme.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Nasuprot tome, nemodalni dijalog omogućava korisniku da nastavi interakciju sa drugim delovima stranice ili aplikacije čak i dok je dijalog otvoren. On ne blokira pristup drugom sadržaju.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovoj lekciji naučićete kako da otvorite i zatvorite modal pomoću metoda <code>showModal()</code> i <code>close()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada želite da osigurate da se korisnik fokusira na određenu radnju ili poruku modala, možete otvoriti modalni dijalog pomoću metode <code>showModal()</code>. Ovo će dodati pozadinski sloj preko drugih elemenata stranice i odvojiti ih. Ovo je najbolje za modale koji prikazuju forme, potvrde i važne informacije koje zahtevaju radnju korisnika.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo HTML-a za modalni dijalog:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<dialog id=\"my-modal\">\n  <p>This is a modal dialog.</p>\n</dialog>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;dialog id=\"my-modal\">\n  &#x3C;p>This is a modal dialog.&#x3C;/p>\n&#x3C;/dialog>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za sada ne možete videti ništa na stranici jer je modal zatvoren pri početnom prikazu. Modal možete otvoriti direktno pomoću metode <code>showModal()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<dialog id=\"modal\">\n  <p>This is a modal dialog.</p>\n</dialog>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;dialog id=\"modal\">\n  &#x3C;p>This is a modal dialog.&#x3C;/p>\n&#x3C;/dialog>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dialog = document.getElementById(\"modal\");\ndialog.showModal();",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dialog = document.getElementById(\"modal\");\ndialog.showModal();\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Rezultat u pregledaču će prikazati modal sa tekstom <code>This is a modal dialog.</code></p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Bolje je dati korisniku kontrolu. Da biste to postigli, možete dodati osluškivač događaja klika na dugme i koristiti metodu <code>showModal()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<dialog id=\"modal\">\n  <p>This is a modal dialog.</p>\n</dialog>\n<button id=\"open-modal-btn\">Open Modal Dialog</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;dialog id=\"modal\">\n  &#x3C;p>This is a modal dialog.&#x3C;/p>\n&#x3C;/dialog>\n&#x3C;button id=\"open-modal-btn\">Open Modal Dialog&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.showModal();\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.showModal();\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako treba da prikažete dijalog dok dozvoljavate interakciju sa sadržajem izvan dijaloga, možete koristiti metodu <code>show()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<dialog id=\"modal\">\n  <p>This is a modal dialog.</p>\n</dialog>\n<button id=\"open-modal-btn\">Open Modal Dialog</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;dialog id=\"modal\">\n  &#x3C;p>This is a modal dialog.&#x3C;/p>\n&#x3C;/dialog>\n&#x3C;button id=\"open-modal-btn\">Open Modal Dialog&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.show();\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.show();\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste zatvorili modal, možete dodati dugme unutar <code>dialog</code> elementa modala i koristiti metodu <code>close()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<dialog id=\"modal\">\n  <p>This is a modal dialog.</p>\n  <button id=\"close-modal-btn\">Close Modal</button>\n</dialog>\n<button id=\"open-modal-btn\">Open Modal Dialog</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;dialog id=\"modal\">\n  &#x3C;p>This is a modal dialog.&#x3C;/p>\n  &#x3C;button id=\"close-modal-btn\">Close Modal&#x3C;/button>\n&#x3C;/dialog>\n&#x3C;button id=\"open-modal-btn\">Open Modal Dialog&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\nconst closeButton = document.getElementById(\"close-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.show();\n});\n\ncloseButton.addEventListener(\"click\", () => {\n  dialog.close();\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const dialog = document.getElementById(\"modal\");\nconst openButton = document.getElementById(\"open-modal-btn\");\nconst closeButton = document.getElementById(\"close-modal-btn\");\n\nopenButton.addEventListener(\"click\", () => {\n  dialog.show();\n});\n\ncloseButton.addEventListener(\"click\", () => {\n  dialog.close();\n});\n</code></pre>"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je razlika između modalnog dijaloga i nemodalnog dijaloga?</p>",
+      "answers": [
+        {
+          "answer": "<p>Modalni dijalog omogućava interakciju sa drugim delovima stranice, dok ne-modalni dijalog to ne radi.</p>",
+          "feedback": "<p>Zamislite kakav dijalog može da blokira pažnju korisnika.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Modalni dijalog sprečava interakciju sa drugim delovima stranice, dok nemodalni dijalog dozvoljava.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nemorijalni dijalogovi prisiljavaju korisnika da sa njima interaguje.</p>",
+          "feedback": "<p>Razmislite kakav je dijalog koji blokira pažnju korisnika.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Modalski dijalogovi se automatski zatvaraju, dok nemodalski dijalogovi zahtevaju akciju korisnika za zatvaranje.</p>",
+          "feedback": "<p>Razmislite kakav je dijalog koji blokira pažnju korisnika.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja se metoda koristi za otvaranje modala u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>open()</code> na <code>display()</code>.</p>",
+          "feedback": "<p>Razmislite načine koji su specifično dizajnirani za modal.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>displayModal()</code> na <code>activate()</code>.</p>",
+          "feedback": "<p>Razmislite o načinima dizajniranim posebno za modal.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>launch()</code> na <code>trigger()</code>.</p>",
+          "feedback": "<p>Razmislite o načinima dizajniranim posebno za modal.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>showModal()</code> na <code>show()</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Da li možete implementirati metode za <code>show()</code>, <code>close()</code>, na <code>showModal()</code> za otvaranje i zatvaranje modala?</p>",
+      "answers": [
+        {
+          "answer": "<p>Pozivanjem tih ruta direktno bez bilo kakvog događaja.</p>",
+          "feedback": "<p>Zamislite kako interakcija korisnika uzrokuje izvršavanje ovih putanja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Za povezivanje sa događajima slanja forme.</p>",
+          "feedback": "<p>Zamislite kako interakcija korisnika uzrokuje da se ove putanje izvrše.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dodavanjem slušaoca događaja klika na dugme i korišćenjem odgovarajuće metode.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Korišćenjem funkcije isteka vremena (timeout).</p>",
+          "feedback": "<p>Razmislite kako interakcija korisnika izaziva izvršenje ovih staza.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

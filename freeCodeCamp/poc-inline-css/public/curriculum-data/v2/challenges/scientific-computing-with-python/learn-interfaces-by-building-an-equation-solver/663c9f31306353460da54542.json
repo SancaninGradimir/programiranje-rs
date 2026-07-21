@@ -1,0 +1,55 @@
+{
+  "id": "663c9f31306353460da54542",
+  "title": "Korak 23",
+  "challengeType": 20,
+  "dashedName": "step-23",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        33
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient}')\n            elif n == 1:\n                terms.append(f'{coefficient}x')                \n        equation_string = ' '.join(terms)        \n        return equation_string\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient}')\n            elif n == 1:\n                terms.append(f'{coefficient}x')                \n        equation_string = ' '.join(terms)        \n        return equation_string\n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da promenite niz slova kako biste dodali na listu <code>terms</code> unutar vašeg izjava/deklaracije <code>if</code> u <code>f'{coefficient:+}'</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[1].find_bodies()[0].is_equivalent(\"terms.append(f'{coefficient:+}')\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da promeniš niz karaktera kako bi uvrstio <code>terms</code> u svoj deo <code>elif</code>, tako da postane <code>f'{coefficient:+}x'</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").find_for_loops()[0].find_ifs()[1].find_bodies()[1].is_equivalent(\"terms.append(f'{coefficient:+}x')\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao što možete da vidite, oznaka <code>+</code> nije prikazana u rezultatima. Oznaka broja se podrazumevano prikazuje samo ako je negativna. Da biste promenili ovo ponašanje, možete napisati dve tačke nakon izrasčunske ekspresije koja treba da se proceni unutar zagrada vaše f-string komponente, i navesti opciju <code>+</code>. Ovo će vam omogućiti da prikažete oznaku za pozitivne i negativne brojeve.</p>\n<p>Promeni sekvencu karaktera u vašim dva uslovna bloka dodavanjem <code>:+</code> unutar zagrade nakon <code>coefficient</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

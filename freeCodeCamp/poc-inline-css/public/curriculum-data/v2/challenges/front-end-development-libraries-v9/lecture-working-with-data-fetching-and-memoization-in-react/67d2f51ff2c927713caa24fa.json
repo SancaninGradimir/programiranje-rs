@@ -1,0 +1,109 @@
+{
+  "id": "67d2f51ff2c927713caa24fa",
+  "title": "Kako funkcionišu useCallback i React.memo?",
+  "challengeType": 19,
+  "dashedName": "how-do-the-usecallback-hook-and-react-memo-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p><code>useCallback</code> Šta ovo dugme snima?</p>",
+      "answers": [
+        {
+          "answer": "<p>Izračunate vrednosti.</p>",
+          "feedback": "<p>Pomaže da spreči ponovno kreiranje novog funkcionalnog primera/komponente svaki put kada se prikaže.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Povratak na funkciju.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prikazivanje dela.</p>",
+          "feedback": "<p>Pomaže da spreči ponovno kreiranje novog funkcionalnog primera svaki put kada se prikaže.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Promene stanja.</p>",
+          "feedback": "<p>Pomaže u sprečavanju ponovnog kreiranja novog funkcionalnog primera svaki put kada se prikaže.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koji je među ovim tačan sintaks za dugme <code>useCallback</code>?</p>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-js\">const handleClick = useCallback(() => { /* code */ });\n</code></pre>",
+          "feedback": "<p>Drugi sloj bi trebalo da bude sloj zavisnosti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">const handleClick = useCallback(() => { /* code */ }, dependency);\n</code></pre>",
+          "feedback": "<p>Drugi argument treba da bude niz zavisnosti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-jsx\">const handleClick = useCallback(() => { /* code */ }, [dependency]);\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">const handleClick = useCallback(() => { dependency }, {});\n</code></pre>",
+          "feedback": "<p>Drugi argument treba da bude lista zavisnosti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p><code>React.memo</code> Šta snima/zapisuje?</p>",
+      "answers": [
+        {
+          "answer": "<p>Vrati se na funkciju.</p>",
+          "feedback": "<p>Sprečava ponovno prikazivanje kada parametri ostanu isti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Stanje komponente.</p>",
+          "feedback": "<p>Sprečava ponovno prikazivanje kada parametri ostanu isti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prikazivanje dela prema fiksnim kriterijumima.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije DOM.</p>",
+          "feedback": "<p>Sprečava ponovno prikazivanje kada parametri ostanu isti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U poslednjoj lekciji, naučili ste o memoizaciji i kako radi dugme <code>useMemo</code>.</p>\n<p>U ovom tutorijalu, naučićete kako dugme <code>useCallback</code> i <code>React.memo</code> funkcionišu.</p>\n<p>U prethodnoj lekciji pomenuli smo da je <code>useCallback</code> namenjen memorisanju referenci na funkcije.</p>\n<p>Kwa <code>React.memo</code>, omogućava vam da sačuvate memorijski deo kako bi sprečio ponovno prikazivanje bez razloga kada se njegovi parametri nisu promenili.</p>\n<p>Ovo je osnovna sintaksa za <code>useCallback</code>:</p>\n<pre><code class=\"language-js\">const handleClick = useCallback(() => {\n  // code goes here\n}, [dependency]);\n</code></pre>\n<p>Ovde je osnovna sintaksa <code>React.memo</code>:</p>\n<pre><code class=\"language-jsx\">const MemoizedComponent = React.memo(({ prop }) => {\n  return (\n    &#x3C;>\n      {/* Presentation */}\n    &#x3C;/>\n  )\n});\n</code></pre>\n<p>Tuchunguze mfano wa kitufe cha <code>useCallback</code>:</p>\n<pre><code class=\"language-jsx\">import { useState, useEffect } from \"react\";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  const handleClick = () => {\n    setCount((prevCount) => prevCount + 1);\n  };\n\n  useEffect(() => {\n    console.log(\"useEffect runs\");\n  }, [handleClick]);\n\n  return (\n    &#x3C;div>\n      &#x3C;p>Count: {count}&#x3C;/p>\n      &#x3C;button onClick={handleClick}>Increment&#x3C;/button>\n    &#x3C;/div>\n  );\n}\n\nexport default Counter;\n</code></pre>\n<p>U ovom delu efekat se izvršava svaki put kada se <code>handleClick</code> promeni, zato što se funkcija <code>handleClick</code> ponovo kreira pri svakom renderovanju.</p>\n<p>Da biste ovo popravili, morate reći React da prikaže funkciju <code>handleClick</code> kao jedan stavak u svim prikazima za zapisivanje memorije na dugme <code>useCallback</code>, kako bi se ne regenerisao:</p>\n<pre><code class=\"language-jsx\">import { useState, useEffect, useCallback } from \"react\";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  // Memoize the handleClick function with useCallback\n  const handleClick = useCallback(() => {\n    setCount((prevCount) => prevCount + 1);\n  }, []);\n\n  useEffect(() => {\n    console.log(\"useEffect runs\");\n  }, [handleClick]);\n\n  return (\n    &#x3C;div>\n      &#x3C;p>Count: {count}&#x3C;/p>\n      &#x3C;button onClick={handleClick}>Increment&#x3C;/button>\n    &#x3C;/div>\n  );\n}\n\nexport default Counter;\n</code></pre>\n<p>Sada funkcija <code>handleClick</code> nije ponovo kreirana pri svakom prikazivanju.</p>\n<p>Da bismo vam pokazali kako funkcija višeg reda <code>React.memo</code> (ili <code>memo</code>) i hook <code>useCallback</code> rade zajedno, evo komponente <code>Counter</code> sa funkcijom <code>handleClick</code> kojoj je potreban <code>useCallback</code>, ali ga trenutno ne koristi.</p>\n<pre><code class=\"language-jsx\">import { useState, useEffect, useCallback } from \"react\";\nimport CounterChild from \"./CounterChild\";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  const [timer, setTimer] = useState(new Date().toLocaleTimeString());\n\n  const handleClick = () => {\n    setCount(count + 1);\n  };\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      setTimer(new Date().toLocaleTimeString());\n    }, 1000);\n\n    return () => clearInterval(interval);\n  }, []);\n\n  return (\n    &#x3C;div>\n      &#x3C;h1>Time: {timer}&#x3C;/h1>\n      &#x3C;p>Count: {count}&#x3C;/p>\n      &#x3C;button onClick={handleClick}>Increment&#x3C;/button>\n      &#x3C;CounterChild onClick={handleClick} />\n    &#x3C;/div>\n  );\n}\n\nexport default Counter;\n</code></pre>\n<p>Ova funkcija takođe ima indikator vremena u stanju koje se ažurira svake sekunde. Ovo uzrokuje da se deo ponovo prikaže svaki put kada <code>timer</code> promeni, što rezultira ponovnim kreiranjem funkcije <code>handleClick</code> prilikom svakog prikazivanja.</p>\n<p>Stoga <code>handleClick</code> mora da se snimi zapis za <code>useCallback</code>.</p>\n<p>Ovo je deo <code>CounterChild</code>:</p>\n<pre><code class=\"language-jsx\">const CounterChild = ({ onClick }) => {\n  console.log(\"CounterChild component rendered\");\n  return &#x3C;button onClick={onClick}>Increment from Child&#x3C;/button>;\n};\n\nexport default CounterChild;\n</code></pre>\n<p>Ovaj deo od <code>CounterChild</code> prima parametar sa <code>onClick</code>, što mu daje mogućnost da takođe doda indikator iz njega.</p>\n<p>Pošto je deo <code>CounterChild</code> zavisno od dela <code>Counter</code>, takođe će se ponovo prikazati svaki put kada <code>Counter</code> bude prikazan zbog promenljivog indikatora. Stoga, <code>CounterChild</code> takođe zahteva beleženje.</p>\n<p>Bez snimanja memorije, jer se deo ponovo prikazuje zbog indikatora koji se ažurira svake sekunde, deo <code>CounterChild</code> takođe se ponovo prikazuje.</p>\n<p>Da bi se ovo spriječilo, morate dodati memorijski dio za <code>CounterChild</code> za <code>React.memo</code>:</p>\n<pre><code class=\"language-jsx\">import React from \"react\";\n\nconst CounterChild = React.memo(({ onClick }) => {\n  console.log(\"CounterChild component rendered\");\n  return &#x3C;button onClick={onClick}>Increment from Child&#x3C;/button>;\n});\n\nexport default CounterChild;\n</code></pre>\n<p>Stvari i dalje ne idu dobro čak ni nakon pisanja zapisa <code>CounterChild</code> za <code>React.memo</code>.</p>\n<p>Ovo se dešava zato što funkcija <code>handleClick</code> je ponovo kreirana svaki put kada se prikaže, pa tako i zahteva zapisivanje u <code>useCallback</code>, kako bi rekla React da funkcija mora ostati ista za sve prikaze:</p>\n<pre><code class=\"language-js\">const handleClick = useCallback(() => {\n  setCount((prevCount) => prevCount + 1);\n}, [count]);\n</code></pre>\n<p>Sada, sekcija će biti prikazana ponovo samo kada se status <code>count</code> promeni.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-data-fetching-and-memoization-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 19,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

@@ -1,0 +1,340 @@
+{
+  "id": "673368ccf52205329b729378",
+  "title": "Šta je razlika između innerText, textContent i innerHTML?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-difference-between-innertext-textcontent-and-innerhtml",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Saznajte o <code>innerText</code>, <code>textContent</code>, i <code>innerHTML</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo su osobine koje možete pronaći u JavaScript-u za dobijanje ili menjanje sadržaja HTML elementa. Iako u početku mogu izgledati slično, imaju važne razlike. Izbor odgovarajuće osobine zavisi od vaše konkretne potrebe, pa počnimo.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Tuanze na <code>innerText</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>innerText</code> predstavlja vidljivi tekstualni sadržaj HTML elementa i njegovih potomaka. Ova osobina ne uključuje skriveni tekst niti HTML oznake, već samo prikazani tekst.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na primer, ovde možete videti <code>div</code> element sa dva pasusa:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako dobijemo referencu na ovaj HTML element u našem JavaScript kodu pomoću metode <code>getElementById()</code>, možemo pristupiti njegovom svojstvu <code>innerText</code>.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\nconsole.log(container.innerText);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\nconsole.log(container.innerText);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je unutrašnji sadržaj ovog elementa:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-md\">Hello, World!\nI'm learning JavaScript\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ova osobina vraća tekstualni niz koji sadrži tekst unutar elementa, uključujući tekst iz njegovih potomaka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Treba da znate da <code>innerText</code> vraća samo tekst koji je vidljiv u trenutku kada se vrednost traži. Ako je potomak skriven, njegov tekst neće biti vidljiv.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera gde je drugi pasus sakriven:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p hidden>I'm learning JavaScript</p>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p hidden>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako pokušamo ponovo da ispišemo <code>innerText</code>, rezultat sada neće sadržati tekst drugog pasusa:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p hidden>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p hidden>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\nconsole.log(container.innerText);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\nconsole.log(container.innerText);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možete umetnuti <code>innerText</code> elementa HTML ovako, ali ovo će modifikovati postojeći tekst i dodati funkciju prekoračivanja linije (<code>br</code>) za svaki prekid linije:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\ncontainer.innerText = \"JavaScript is awesome!\";",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\ncontainer.innerText = \"JavaScript is awesome!\";\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto <code>innerText</code> se bavi vizuelnim aspektima, dobijanje njegove vrednosti izaziva proces koji se naziva \"reflow\", koji ponovo računa pozicije određenih elemenata na veb stranici. Ovaj proces može biti težak za računar, stoga ga treba izbegavati ako je to moguće.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dobro. Sada hajde da pričamo o <code>textContent</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>textContent</code> Obnavlja standardni tekstualni sadržaj elementa, uključujući sav tekst unutar njegovih potomaka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ključna razlika između <code>innerText</code> i <code>textContent</code> je u tome što <code>textContent</code> uvek vraća sav tekstualni sadržaj elementa sa HTML i njegove potomke, bez obzira na to da li su vidljivi ili skriveni.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde imamo isti primer u HTML:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako pokušate da dobijete ovaj atribut, videćete tekst elementa i njegovog potomka kao rezultate, čuvajući doslednost i poziciju:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\nconsole.log(container.textContent);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\nconsole.log(container.textContent);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako element HTML nije vidljiv, kao što možete da vidite ovde gde smo sakrili drugi pasus, njegov tekst će i dalje biti uključen u ovaj atribut:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p hidden>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p hidden>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\nconsole.log(container.textContent);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\nconsole.log(container.textContent);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>textContent</code> takođe uključuje sadržaj komponenti kao <code>script</code> i <code>style</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako pokušate da promenite vrednost <code>textContent</code> na čvoru, on će pronaći sve svoje potomke čvorove i zameni ih jednim tekstualnim čvorom sa novom sekvencijom:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <p>Hello, World!</p>\n  <p hidden>I'm learning JavaScript</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;p>Hello, World!&#x3C;/p>\n  &#x3C;p hidden>I'm learning JavaScript&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\ncontainer.textContent = \"New content\";",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\ncontainer.textContent = \"New content\";\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na hatimaye, tuzungumzie jinsi <code>textContent</code> na <code>innerText</code> zinavyotofautiana na <code>innerHTML</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zapamtite da za <code>innerHTML</code> možete umetnuti sadržaj HTML unutar elementa. Ovo je pomoć pri unosu novog HTML u DOM putem promena.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Međutim, imajte na umu da ovo predstavlja bezbednosni rizik ako nemate kontrolu nad nizom, kao što je niz koji sadrži podatke koje je uneo korisnik. Ako su ti podaci zlonamerni, mogu izazvati ozbiljne bezbednosne probleme.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste ovo izbegli, preporučuje se korišćenje osobine <code>textContent</code> za ubacivanje običnog teksta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Osobine <code>innerText</code>, <code>textContent</code> i <code>innerHTML</code> u JavaScript-u pružaju različite načine za pristupanje i upravljanje sadržajem HTML elemenata. Trebalo bi da razumete razlike između ovih osobina ako želite efikasno da radite sa HTML sadržajem u JavaScript-u.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja od sledećih osobina vraća vidljivi tekstualni sadržaj HTML elementa, ne uključujući skriveni tekst ili tekst unutar skrivenih elemenata?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>innerHTML</code></p>",
+          "feedback": "<p>Zamislite kako ove karakteristike obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>textContent</code></p>",
+          "feedback": "<p>Zamislite kako ove funkcije obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>innerText</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sve gore navedeno.</p>",
+          "feedback": "<p>Zamislite kako ove karakteristike obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koje svojstvo među sljedećih može se koristiti za unos novog sadržaja za HTML putem uređivanja unutar elementa?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>innerHTML</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>textContent</code></p>",
+          "feedback": "<p>Razmislite o kojem svojstvu koje vam omogućava da promenite strukturu HTML elementa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>innerText</code></p>",
+          "feedback": "<p>Koje svojstvo vam omogućava menjanje strukture elementa HTML.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nije ništa od ovoga.</p>",
+          "feedback": "<p>Razmislite o kojoj slici vam je potrebno da biste promenili strukturu HTML elementa.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koji od sledećih svojstava vraća standardni tekstualni sadržaj elementa, uključujući sav tekst unutar pod-elemenata, bez obzira da li su vidljivi ili skriveni?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>innerHTML</code></p>",
+          "feedback": "<p>Zamislite kako ove funkcije obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>textContent</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>innerText</code></p>",
+          "feedback": "<p>Zamislite kako ove funkcije obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sve gore navedeno.</p>",
+          "feedback": "<p>Zamislite kako ove funkcije obrađuju skriveni sadržaj.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

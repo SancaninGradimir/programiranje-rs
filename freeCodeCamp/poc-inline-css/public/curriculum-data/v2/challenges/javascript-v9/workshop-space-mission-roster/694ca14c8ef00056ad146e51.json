@@ -1,0 +1,58 @@
+{
+  "id": "694ca14c8ef00056ad146e51",
+  "title": "Korak 5",
+  "challengeType": 1,
+  "dashedName": "step-5",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        19
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n\n}",
+      "error": null,
+      "seed": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da umetnete <code>astronaut</code> unutar redova podataka za <code>crew</code>.</p>",
+      "testString": "const crew = [];\nconst astronauts = [\n  { id: 1, name: \"Abraham\", role: \"Commander\", isEVAEligible: true, priority: 1 },\n  { id: 2, name: \"Boris\", role: \"Pilot\", isEVAEligible: false, priority: 2 },\n  { id: 3, name: \"Catarina\", role: \"Engineer\", isEVAEligible: true, priority: 3 }\n];\n\nastronauts.forEach(astro => addCrewMember(crew, astro));\n\nassert.strictEqual(crew.length, astronauts.length);\nastronauts.forEach((astro, idx) => {\n  assert.deepEqual(crew[idx], astro);\n});"
+    },
+    {
+      "text": "<p>Treba da ispišete ime astronauta u sledećem formatu: <code>Added {astronaut.name} as {astronaut.role}</code>.</p>",
+      "testString": "function captureConsoleLogs(fn) {\n  const originalLog = console.log;\n  const logs = [];\n\n  console.log = function (...args) {\n    logs.push(args.join(\" \"));\n  };\n\n  try {\n    fn();\n  } finally {\n    console.log = originalLog;\n  }\n\n  return logs;\n}\n\nconst crewForLogging = [];\nconst astronautsToLog = [\n  { id: 1, name: \"Abraham\", role: \"Commander\" },\n  { id: 2, name: \"Boris\", role: \"Pilot\" },\n  { id: 3, name: \"Catarina\", role: \"Engineer\" }\n];\n\nconst logs = captureConsoleLogs(() => {\n  astronautsToLog.forEach(astro => addCrewMember(crewForLogging, astro));\n});\n\nassert.strictEqual(logs.length, astronautsToLog.length);\n\nastronautsToLog.forEach((astro, idx) => {\n  assert.match(\n    logs[idx],\n    new RegExp(`Added\\\\s*${astro.name}\\\\s*as\\\\s*${astro.role}`, 'i'),\n  );\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Gurnite stavku <code>astronaut</code> unutar reda podataka <code>crew</code> i napišite <code>Added ${astronaut.name} as ${astronaut.role}</code> u konzolu. Možete koristiti placeholder karaktere ili kombinovati niz karaktera za poruku.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-space-mission-roster",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

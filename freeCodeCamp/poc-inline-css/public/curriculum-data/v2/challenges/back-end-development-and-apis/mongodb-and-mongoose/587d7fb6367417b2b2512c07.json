@@ -1,0 +1,33 @@
+{
+  "id": "587d7fb6367417b2b2512c07",
+  "title": "Na primer",
+  "challengeType": 2,
+  "forumTopicId": 301535,
+  "dashedName": "create-a-model",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Kreiranje događaja iz <code>mongoose</code> šeme bi trebalo da uspe</p>",
+      "testString": "  const response = await fetch(code + '/_api/mongoose-model', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify({\n      name: 'Mike',\n      age: 28,\n      favoriteFoods: ['pizza', 'cheese']\n    })\n  });\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.equal(data.name, 'Mike', '\"model.name\" is not what expected');\n  assert.equal(data.age, '28', '\"model.age\" is not what expected');\n  assert.isArray(\n    data.favoriteFoods,\n    '\"model.favoriteFoods\" is not an Array'\n  );\n  assert.include(\n    data.favoriteFoods,\n    'pizza',\n    '\"model.favoriteFoods\" does not include the expected items'\n  );\n  assert.include(\n    data.favoriteFoods,\n    'cheese',\n    '\"model.favoriteFoods\" does not include the expected items'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>C</strong>RUD Dio 1 - UNDA</p>\n<p>Prvo svega, nam treba dijagram šeme. Svaka šema odgovara kolekciji MongoDB. Ona određuje strukturu dokumenata unutar te kolekcije. Šema je osnovni deo Modela (Models). Može se organizovati unutar da bi stvorila složene strukture, ali u ovom slučaju, zadržaćemo stvari jednostavnim. Na primer, omogućava vam da kreirate instance vaših objekata, koji se nazivaju dokumenti.</p>\n<p>Na serveru, interakcija sa bazom podataka se dešava u <em>handler</em> funkcijama. Ove funkcije se izvršavaju kada dođe određeni događaj (primer, kada neko klikne na link na vašem API). Pratićemo isti metod u ovim vežbama. Funkcija <code>done()</code> je povratni poziv koji nam govori da možemo nastaviti nakon završetja asinhronih operacija kao što su unos, pretraga, ispravljanje ili brisanje. Prati ugovor Node-a i treba ga pozvati kao <code>done(null, data)</code> kada je uspešno, ili <code>done(err)</code> kada postoji greška.</p>\n<p>Upozorenje - Kada koristite udaljene servise, mogući su greške!</p>\n<pre><code class=\"language-js\">/* Example */\n\nconst someFunc = function(done) {\n  //... do something (risky) ...\n  if (error) return done(error);\n  done(null, result);\n};\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kreirajte šemu entiteta pod nazivom <code>personSchema</code> sa sledećom strukturom:</p>\n<ul>\n<li>Deo <code>name</code> koji je potreban tipa <code>String</code></li>\n<li>Deo <code>age</code> koji je potreban tipa <code>Number</code></li>\n<li>Deo <code>favoriteFoods</code> koji je potreban tipa <code>[String]</code></li>\n</ul>\n<p>Koristite osnovne tipove šema za Mongoose. Ako želite, možete dodati i više polja, koristite jednostovne validatore kao što su required ili unique, i postaviti podrazumevane vrednosti. Pogledajte <a href=\"https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">makala yetu ya Mongoose</a>.</p>\n<p>Sada, kreiraj primer iz <code>personSchema</code> i postavi njegovu vrednost u postojeći parametar <code>Person</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "mongodb-and-mongoose",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

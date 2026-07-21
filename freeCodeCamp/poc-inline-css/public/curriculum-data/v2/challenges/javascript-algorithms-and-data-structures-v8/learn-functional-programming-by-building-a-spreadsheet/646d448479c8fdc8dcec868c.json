@@ -1,0 +1,87 @@
+{
+  "id": "646d448479c8fdc8dcec868c",
+  "title": "Korak 83",
+  "challengeType": 0,
+  "dashedName": "step-83",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        34,
+        41
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const infixToFunction = {\r\n  \"+\": (x, y) => x + y,\r\n  \"-\": (x, y) => x - y,\r\n  \"*\": (x, y) => x * y,\r\n  \"/\": (x, y) => x / y,\r\n}\r\n\r\nconst infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](parseFloat(arg1), parseFloat(arg2)));\r\n\r\nconst highPrecedence = str => {\r\n  const regex = /([\\d.]+)([*\\/])([\\d.]+)/;\r\n  const str2 = infixEval(str, regex);\r\n  return str === str2 ? str : highPrecedence(str2);\r\n}\r\n\r\nconst isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\nconst median = nums => {\r\n  const sorted = nums.slice().sort((a, b) => a - b);\r\n  const length = sorted.length;\r\n  const middle = length / 2 - 1;\r\n  return isEven(length)\r\n    ? average([sorted[middle], sorted[middle + 1]])\r\n    : sorted[Math.ceil(middle)];\r\n}\r\n\r\nconst spreadsheetFunctions = {\r\n  sum,\r\n  average,\r\n  median\r\n}\r\n\r\nconst applyFunction = str => {\r\n  const noHigh = highPrecedence(str);\r\n  const infix = /([\\d.]+)([+-])([\\d.]+)/;\r\n  const str2 = infixEval(noHigh, infix);\r\n\r\n}\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nconst evalFormula = (x, cells) => {\r\n  const idToText = id => cells.find(cell => cell.id === id).value;\r\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\r\n  const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));\r\n  const elemValue = num => character => idToText(character + num);\r\n  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));\r\n  const rangeExpanded = x.replace(rangeRegex, (_match, char1, num1, char2, num2) => rangeFromString(num1, num2).map(addCharacters(char1)(char2)));\r\n  const cellRegex = /[A-J][1-9][0-9]?/gi;\r\n  const cellExpanded = rangeExpanded.replace(cellRegex, match => idToText(match.toUpperCase()));\r\n}\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      input.onchange = update;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}\r\n\r\nconst update = event => {\r\n  const element = event.target;\r\n  const value = element.value.replace(/\\s/g, \"\");\r\n  if (!value.includes(element.id) && value.startsWith('=')) {\r\n\r\n  }\r\n}",
+      "error": null,
+      "seed": "const infixToFunction = {\r\n  \"+\": (x, y) => x + y,\r\n  \"-\": (x, y) => x - y,\r\n  \"*\": (x, y) => x * y,\r\n  \"/\": (x, y) => x / y,\r\n}\r\n\r\nconst infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](parseFloat(arg1), parseFloat(arg2)));\r\n\r\nconst highPrecedence = str => {\r\n  const regex = /([\\d.]+)([*\\/])([\\d.]+)/;\r\n  const str2 = infixEval(str, regex);\r\n  return str === str2 ? str : highPrecedence(str2);\r\n}\r\n\r\nconst isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\nconst median = nums => {\r\n  const sorted = nums.slice().sort((a, b) => a - b);\r\n  const length = sorted.length;\r\n  const middle = length / 2 - 1;\r\n  return isEven(length)\r\n    ? average([sorted[middle], sorted[middle + 1]])\r\n    : sorted[Math.ceil(middle)];\r\n}\r\n\r\nconst spreadsheetFunctions = {\r\n  sum,\r\n  average,\r\n  median\r\n}\r\n\r\nconst applyFunction = str => {\r\n  const noHigh = highPrecedence(str);\r\n  const infix = /([\\d.]+)([+-])([\\d.]+)/;\r\n  const str2 = infixEval(noHigh, infix);\r\n\r\n}\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nconst evalFormula = (x, cells) => {\r\n  const idToText = id => cells.find(cell => cell.id === id).value;\r\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\r\n  const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));\r\n  const elemValue = num => character => idToText(character + num);\r\n  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));\r\n  const rangeExpanded = x.replace(rangeRegex, (_match, char1, num1, char2, num2) => rangeFromString(num1, num2).map(addCharacters(char1)(char2)));\r\n  const cellRegex = /[A-J][1-9][0-9]?/gi;\r\n  const cellExpanded = rangeExpanded.replace(cellRegex, match => idToText(match.toUpperCase()));\r\n}\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      input.onchange = update;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}\r\n\r\nconst update = event => {\r\n  const element = event.target;\r\n  const value = element.value.replace(/\\s/g, \"\");\r\n  if (!value.includes(element.id) && value.startsWith('=')) {\r\n\r\n  }\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš parametar <code>functionCall</code>.</p>",
+      "testString": "assert.match(code, /const\\s+applyFunction\\s*=\\s*(\\(\\s*str\\s*\\)|str)\\s*=>\\s*\\{\\s*const\\s+noHigh\\s*=\\s*highPrecedence\\(\\s*str\\s*\\)\\s*;?\\s*const\\s+infix\\s*=\\s*\\/\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\(\\[(?:\\+-|-\\+)\\]\\)\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\/\\s*;?\\s*const\\s+str2\\s*=\\s*infixEval\\(\\s*noHigh\\s*,\\s*infix\\s*\\)\\s*;?\\s*(?:const|let|var)\\s+functionCall\\s*=/);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš <code>const</code> za deklarisanje svog parametra <code>functionCall</code>.</p>",
+      "testString": "assert.match(code, /const\\s+applyFunction\\s*=\\s*(\\(\\s*str\\s*\\)|str)\\s*=>\\s*\\{\\s*const\\s+noHigh\\s*=\\s*highPrecedence\\(\\s*str\\s*\\)\\s*;?\\s*const\\s+infix\\s*=\\s*\\/\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\(\\[(?:\\+-|-\\+)\\]\\)\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\/\\s*;?\\s*const\\s+str2\\s*=\\s*infixEval\\(\\s*noHigh\\s*,\\s*infix\\s*\\)\\s*;?\\s*const\\s+functionCall\\s*=/);"
+    },
+    {
+      "text": "<p>Morate postaviti vrednost za <code>functionCall</code> na zadatu podrazumevanu vrednost.</p>",
+      "testString": "assert.match(code, /const\\s+applyFunction\\s*=\\s*(\\(\\s*str\\s*\\)|str)\\s*=>\\s*\\{\\s*const\\s+noHigh\\s*=\\s*highPrecedence\\(\\s*str\\s*\\)\\s*;?\\s*const\\s+infix\\s*=\\s*\\/\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\(\\[(?:\\+-|-\\+)\\]\\)\\(\\[(?:\\\\d\\.|\\.\\\\d)\\]\\+\\)\\/\\s*;?\\s*const\\s+str2\\s*=\\s*infixEval\\(\\s*noHigh\\s*\\,\\s*infix\\s*\\)\\s*;?\\s*const\\s+functionCall\\s*=\\s*\\/\\(\\[a-z0-9\\]\\*\\)\\\\\\(\\(\\[0-9\\., \\]\\*\\)\\\\\\)\\(\\?!\\.\\*\\\\\\(\\)\\/i/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Deklariši parametar <code>functionCall</code>, i postavi mu vrednost na ovu podrazumevanu izraz: <code>/([a-z0-9]*)\\(([0-9., ]*)\\)(?!.*\\()/i</code></p>\n<p>Ovaj upotreb će proveriti pozive funkcija kao <code>sum(1, 4)</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 82,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

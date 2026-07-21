@@ -1,0 +1,109 @@
+{
+  "id": "697dc755c709772fad37de9e",
+  "title": "Kako funkcionišu matrice u spisku susjednih kuća?",
+  "challengeType": 19,
+  "dashedName": "how-do-matrices-and-adjacency-lists-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>U kojim uslovima je među sledećim najbolji izbor za predstavljanje grafa matrica susednosti?</p>",
+      "answers": [
+        {
+          "answer": "<p>Društvena mreža sa milijardama ljudi i malim vezama za svakoga.</p>",
+          "feedback": "<p>Razmislite koliko memorije matrice koristi i kako se menja u zavisnosti od broja veza/odnosa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Mreža računara sa samo pet povezanosti.</p>",
+          "feedback": "<p>Razmislite koliko memorije matrica koristi i kako se ona menja u zavisnosti od broja veza/poveznica.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Graf sa visokom gustinom gde je svaki čvor povezan sa mnogo drugih čvorova.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Graf sa kojim je glavna operacija dohvaćanje svih suseda određenog čvora.</p>",
+          "feedback": "<p>Razmislite koliko memorije matrice koristi i kako se ona menja u zavisnosti od broja relacija.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Kada bi bilo bolje koristiti listu susjedstava umjesto matrice susjedstva?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kada je graf visokog stepena gušći i ima mnogo ivica.</p>",
+          "feedback": "<p>Razmislite kako lista susjedstva smanjuje potrošnju memorije kada graf nema mnogo veza/ivica.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada je potrebno brzo proveriti da li postoji veza između dva čvora.</p>",
+          "feedback": "<p>Razmislite kako lista susjedstva smanjuje potrošnju memorije kada graf nema mnogo veza.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada graf ima veliki broj vrhova i mnogo ivica.</p>",
+          "feedback": "<p>Zamislite kako lista susjednosti smanjuje potrošnju memorije kada graf nema mnogo ivica.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada graf ima malo ivica, sa velikim brojem vrhova i malim brojem ivica.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Koja operacija među sledećim je najbrža u matrici susednosti u poređenju sa listom susednosti?</p>",
+      "answers": [
+        {
+          "answer": "<p>Dobijanje svih suseda jednog čvora.</p>",
+          "feedback": "<p>Zamislite kako biste implementirali svaku od ovih operacija u mrežnoj strukturi i lističkoj strukturi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proveriti da li postoji direktna veza između dva specifična čvora.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Traversovati sve čvorove u grafu.</p>",
+          "feedback": "<p>Zamislite kako biste implementirali svaku od ovih operacija u mrežnoj strukturi i lističkoj strukturi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dodavanje novog čvora u graf.</p>",
+          "feedback": "<p>Zamislite kako biste implementirali svaku od ovih operacija u mrežnoj strukturi i lističkoj strukturi.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Graf je veoma moćna struktura podataka koja je formirana skupom čvorova, takođe poznatih kao verteksi, i ivicama koje ih povezuju.</p>\n<p>Postoji dva uobičajena načina za implementaciju grafa u vašem kodu:</p>\n<ul>\n<li>\n<p>Matrica susjedstva</p>\n</li>\n<li>\n<p>Lista za susjedstvo</p>\n</li>\n</ul>\n<p>Proučimo ovo dalje i pregledajmo njihove prednosti i nedostatke.</p>\n<h2>Matrica susednosti</h2>\n<p>Počećemo sa matricom susjedstva.</p>\n<p>Matrica susednosti je dvodimenziona matrica podataka gde redovi i kolone predstavljaju verštinje grafa.</p>\n<p>Vrednosti u matrici predstavljaju ivice ili odnose između čvorova.</p>\n<p>Na primer, ako imate matricu sačuvanu u parametru nazvanom <code>matrix</code>, vrednost sačuvanu u <code>matrix[i][j]</code>, gde <code>i</code> je red a <code>j</code> je kolona, predstavlja jednačinu ili odnos između čvora <code>i</code> i čvora <code>j</code>.</p>\n<p>Ove vrednosti mogu imati različita značenja u zavisnosti od toga da li je graf ponderisan ili neponderisan:</p>\n<ul>\n<li>\n<p>Ako graf nema težinu, vrednost <code>1</code> znači da postoji veza koja povezuje ove čvorove, dok vrednost <code>0</code> znači da ne postoji veza između njih.</p>\n</li>\n<li>\n<p>Ako graf ima težinu, ta vrednost će prikazati težinu veze koja povezuje te čvorove.</p>\n</li>\n</ul>\n<p>Jedna od velikih prednosti korišćenja matrice susjedstva je da provera da li postoji veza između dva čvora traje samo <code>O(1)</code>. To je zato što program treba samo da pristupi tačnoj vrednosti u dvodimenzionalnom nizu podataka.</p>\n<p>Međutim, ova efikasnost pri pronalaženju grana ima svoju cenu. Matrice susedstva zahtevaju kvadratni prostor <code>O(V²)</code>, gde je <code>V</code> broj čvorova u grafu.</p>\n<p>Ovo nije pogodno za grafe sa malo ivica, što su razređeni grafovi. Zašto? Zato što ako graf ima malo ivica, skladištićete mnogo nula u matrici da pokažu odsustvo ivica između čvorova, a te nule će i dalje zauzimati prostor u memoriji.</p>\n<p>Matrice susjedstva takođe nisu pogodne za dobijanje svih susjeda čvora jer program mora da iterira kroz ceo red ili kolonu da bi dobio 0 i 1 koji pokazuju veze. U najgorem slučaju, ovaj proces može trajati <code>O(V)</code>, gde je <code>V</code> broj čvorova u grafu.</p>\n<p>Razmotrimo primer matrice susedstva za ovaj konkretan graf:</p>\n<img src=\"https://cdn.freecodecamp.org/curriculum/lecture-transcripts/how-do-matrices-and-adjacency-lists-work-1.png\" alt=\"Graf sa četiri čvora označena kao A, B, C i D. Čvor A je povezan sa B, C i D. Čvor B je povezan sa A i D. Čvor C je povezan sa A. Čvor D je povezan sa A i B.\">\n<p>U matrici susjedstva:</p>\n<ul>\n<li>\n<p>Svaki red predstavlja čvor. Prvi red predstavlja čvor A, drugi red predstavlja čvor B, i tako dalje.</p>\n</li>\n<li>\n<p>Svaka kolona takođe predstavlja čvor.</p>\n</li>\n<li>\n<p>Svaka vrednost u matrici pokazuje da li postoji ivica između svake pare čvorova. Vrednost 0 znači da ne postoji ivica koja povezuje ove čvorove, dok vrednost 1 znači da postoji ivica.</p>\n</li>\n</ul>\n<p>Vrednosti na dijagonali pokazuju da li čvor ima samoreferencijalnu jednačinu, odnosno jednačinu koja ga povezuje sa samim sobom. U našem primeru, sve su nule jer graf nema jednačinu tog tipa.</p>\n<p>Ovo je vizuelna reprezentacija matrice susjednosti koja pokazuje kako redovi i kolone predstavljaju odgovarajuće čvorove.</p>\n<p>Na primer, prvi red je <code>[0, 1, 1, 1]</code> jer čvor A ima ivice koje ga povezuju sa čvorima B, C i D:</p>\n<pre><code class=\"language-markdown\">#      A  B  C  D\n# A   [0, 1, 1, 1],\n# B   [1, 0, 0, 1],\n# C   [1, 0, 0, 0],\n# D   [1, 1, 0, 0]\n</code></pre>\n<p>I ovo je ista matrica komšiluka, ali implementirana kod JavaScript:</p>\n<pre><code class=\"language-javascript\">const adjacencyMatrix = [\n  [0, 1, 1, 1], // The neighbors of A are B, C, and D\n  [1, 0, 0, 1], // The neighbors of B are A and D\n  [1, 0, 0, 0], // The only neighbor of C is A\n  [1, 1, 0, 0]  // The neighbors of D are A and B\n];\n</code></pre>\n<h2>Lista za komšiluk</h2>\n<p>Drugi uobičajeni način predstavljanja grafa je korišćenje lista susjedstva.</p>\n<p>Lista susjedstva je niz podataka ili objekat (ili <code>Map</code>) koji skladišti sve susjednike svakog čvora.</p>\n<p>Postoje dva uobičajena načina za implementaciju lista susjedstva:</p>\n<ul>\n<li>Kao niz podataka, gde svaki element predstavlja čvor, a sekvenca sačuvana u tom elementu ima svoje susede.</li>\n<li>Kao objekat (ili <code>Map</code>), gde svaki ključ predstavlja čvor, a vrednost povezana sa tim ključem (sekvenca) ima svoje susede.</li>\n</ul>\n<p>Liste susedstva su prostorno efikasnije od matrica susedstva. Zahtevaju prostor <code>O(V + E)</code>, gde je <code>V</code> broj čvorova (vertices), a <code>E</code> broj grana.</p>\n<p>Takođe je učinkovito za dobijanje svih suseda čvora, jer operacija samo zahteva pristup listi povezanoj sa čvorom.</p>\n<p>Međutim, postoji i gubitak.</p>\n<p>Liste susjedstva nisu pogodne kao matrice susjedstva za određivanje da li postoji veza između dva čvora.</p>\n<p>Proces pretraživanja obično traje <code>O(deg(v))</code> (gde je <code>deg(v)</code> broj suseda čvora koji ispitujete), i u najgorem slučaju može biti <code>O(V)</code> ako je čvor povezan sa svim ostalim čvorovima u grafu.</p>\n<p>Ovde je primer liste susjedstva za ovaj graf:</p>\n<img src=\"https://cdn.freecodecamp.org/curriculum/lecture-transcripts/how-do-matrices-and-adjacency-lists-work-1.png\" alt=\"Graf sa četiri čvora označena kao A, B, C i D. Čvor A je povezan sa B, C i D. Čvor B je povezan sa A i D. Čvor C je povezan sa A. Čvor D je povezan sa A i B. Ovo je ista slika kao prethodno.\">\n<p>Ova lista susjedstva je implementirana kao objekat. Svaki ključ u objektu predstavlja čvor, a vrijednost povezana sa tim ključem je niz koji sadrži sve susjedne čvorove odgovarajućeg čvora:</p>\n<pre><code class=\"language-javascript\">const adjacencyList = {\n  A: [\"B\", \"C\", \"D\"],\n  B: [\"A\", \"D\"],\n  C: [\"A\"],\n  D: [\"A\", \"B\"]\n};\n</code></pre>\n<p>Alternativno, možemo ga implementirati kao dvodimenzionalnu matricu podataka, gdje svaki element predstavlja čvor. Na primjer, element 0 predstavlja čvor A, element 1 predstavlja čvor B, i tako dalje:</p>\n<pre><code class=\"language-javascript\">const adjacencyList = [\n  [\"B\", \"C\", \"D\"], // Neighbors of A (index 0)\n  [\"A\", \"D\"],      // Neighbors of B (index 1)\n  [\"A\"],           // Neighbors of C (index 2)\n  [\"A\", \"B\"]       // Neighbors of D (index 3)\n];\n</code></pre>\n<p>Napomena da, čak i ako ova dvodimenzionalna matrica može izgledati kao adiacencijska matrica, ona je potpuno drugačija.</p>\n<ul>\n<li>\n<p>Matrica susedstva čuva 0, 1 ili druge vrednosti koje predstavljaju ivice ili težinu ivica u grafu.</p>\n</li>\n<li>\n<p>Lista susjedstva čuva stvarni spisak svih susjeda svakog čvora.</p>\n</li>\n</ul>\n<p>Ovo je veoma važna razlika koju treba da znaš.</p>\n<p>I matrice susjednosti i liste susjednosti veoma su važne za implementaciju grafa. Izbor između njih zavisi od veličine grafa i načina na koji želite da koristite podatke. Matrice susjednosti su korisne za grafe sa mnogo ivica, dok liste susjednosti obično predstavljaju bolji izbor za stvarni slučaj, gdje su grafe s malo ivica češći.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-graphs-and-trees-js",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 205,
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "graphs-and-trees",
+  "certification": "javascript-v9"
+}

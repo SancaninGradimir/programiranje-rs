@@ -1,0 +1,81 @@
+{
+  "id": "5900f4231000cf542c50ff35",
+  "title": "Vežba 182: RSA Šifrovanje",
+  "challengeType": 1,
+  "forumTopicId": 301818,
+  "dashedName": "problem-182-rsa-encryption",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function RSAEncryption(p, q) {\n\n  return true;\n}\n\nRSAEncryption(19, 37);",
+      "error": null,
+      "seed": "function RSAEncryption(p, q) {\n\n  return true;\n}\n\nRSAEncryption(19, 37);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function gcd(a, b) {\n    if (b)\n        return gcd(b, a % b);\n    else\n        return a;\n}\n\nfunction RSAEncryption(p, q) {\n    let phi = (p - 1) * (q - 1);\n\n    let best = Number.MAX_SAFE_INTEGER;\n    let sum = 0;\n\n    for (let e = 0; e < phi; ++e) {\n        if (!(gcd(e, phi) == 1))\n            continue;\n\n        let msg = (gcd(p - 1, e - 1) + 1) * (gcd(q - 1, e - 1) + 1);\n\n        if (best == msg) {\n            sum += e;\n        } else if (best > msg) {\n            best = msg;\n            sum = e;\n        }\n    }\n\n    return sum;\n}",
+        "error": null,
+        "seed": "function gcd(a, b) {\n    if (b)\n        return gcd(b, a % b);\n    else\n        return a;\n}\n\nfunction RSAEncryption(p, q) {\n    let phi = (p - 1) * (q - 1);\n\n    let best = Number.MAX_SAFE_INTEGER;\n    let sum = 0;\n\n    for (let e = 0; e < phi; ++e) {\n        if (!(gcd(e, phi) == 1))\n            continue;\n\n        let msg = (gcd(p - 1, e - 1) + 1) * (gcd(q - 1, e - 1) + 1);\n\n        if (best == msg) {\n            sum += e;\n        } else if (best > msg) {\n            best = msg;\n            sum = e;\n        }\n    }\n\n    return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>RSAEncryption</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert.isFunction(RSAEncryption);"
+    },
+    {
+      "text": "<p><code>RSAEncryption</code> trebalo bi da vrati broj.</p>",
+      "testString": "assert.strictEqual(typeof RSAEncryption(19, 37), 'number');"
+    },
+    {
+      "text": "<p><code>RSAEncryption(19, 37)</code> mora vratiti <code>17766</code>.</p>",
+      "testString": "assert.strictEqual(RSAEncryption(19, 37), 17766);"
+    },
+    {
+      "text": "<p><code>RSAEncryption(283, 409)</code> trebalo bi da vrati <code>466196580</code>.</p>",
+      "testString": "assert.strictEqual(RSAEncryption(283, 409), 466196580);"
+    },
+    {
+      "text": "<p><code>RSAEncryption(1009, 3643)</code> trebalo bi da vrati <code>399788195976</code>.</p>",
+      "testString": "assert.strictEqual(RSAEncryption(19, 37), 17766);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>RSA šifrovanje zavisi od sljedećih procedura:</p>\n<p>Kreiraj dva različita bazna broja <code>p</code> i <code>q</code>.\nIzračunaj <code>n=p*q</code> i <code>φ=(p-1)(q-1)</code>.\nPronađi kompletan broj <code>e</code>, <code>1 &#x3C; e &#x3C; φ</code>, na način da <code>gcd(e,φ) = 1</code></p>\n<p>Poruka u ovom sistemu je broj u opsegu <code>[0,n-1]</code>.\nŠifrovirani tekst se zatim na neki način pretvara u poruku (broj u opsegu <code>[0,n-1]</code>).\nZa šifrovanje teksta, za svaku poruku, <code>m</code>, c=m<sup>e</sup> mod n se računa.</p>\n<p>Da bi se poruka dešifrovala, potrebno je izračunati <code>d</code> tako da važi <code>ed=1 mod φ</code>, a zatim za svaku šifrovanu poruku <code>c</code> izračunati m=c<sup>d</sup> mod n.</p>\n<p>Postoje vrednosti <code>e</code> i <code>m</code> takve da m<sup>e</sup> mod n = m.\nNazivamo poruku <code>m</code> koja je m<sup>e</sup> mod n=m nezaštićena poruka.</p>\n<p>Problem nastaje prilikom izbora <code>e</code> jer ne bi trebalo da ima previše vidljivih poruka.\nNa primer, uzmite <code>p=19</code> i <code>q=37</code>.\nZatim <code>n=19*37=703</code> i <code>φ=18*36=648</code>.\nAko izaberemo <code>e=181</code>, onda, iako <code>gcd(181,648)=1</code> ukazuje da su sve moguće poruke m <code>(0≤m≤n-1)</code> vidljive prilikom računanja m<sup>e</sup> mod n.\nZa bilo koji validan izbor od <code>e</code> postoji određena vidljiva poruka.\nVažno je da broj vidljivih poruka bude na najnižem nivou.</p>\n<p>Na osnovu <code>p</code> i <code>q</code> koji su dati, pronađi ukupan zbir svih vrednosti za <code>e</code>, <code>1 &#x3C; e &#x3C; φ(p,q)</code> i <code>gcd(e,φ)=1</code>, ili da broj skrivnih poruka za ovu vrednost od <code>e</code> bude na nivou najmanje.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-101-to-200",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 81,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": true,
+  "certification": "project-euler"
+}

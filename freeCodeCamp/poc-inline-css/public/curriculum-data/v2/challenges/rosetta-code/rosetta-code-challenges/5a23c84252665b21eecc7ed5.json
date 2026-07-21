@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc7ed5",
+  "title": "Ziara ya Knight",
+  "challengeType": 1,
+  "forumTopicId": 302297,
+  "dashedName": "knights-tour",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function knightTour(width, height) {\n\n}",
+      "error": null,
+      "seed": "function knightTour(width, height) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function knightTour(width, height) {\n  function createBoards(rows, columns) {\n    const board = [];\n    const visited = [];\n    for (let i = 0; i < rows; i++) {\n      board.push(new Array(columns).fill(-1));\n      visited.push(new Array(columns).fill(false));\n    }\n    return [board, visited];\n  }\n\n  function copyBoard(board) {\n    const copied = [];\n    for (let i = 0; i < board.length; i++) {\n      copied.push([...board[i]]);\n    }\n    return copied;\n  }\n\n  function isOnBoard(value, limit) {\n    return value >= 0 && value < limit;\n  }\n\n  function markVisited(board, visited, row, column) {\n    visited[row][column] = true;\n    board[row][column] = -1;\n  }\n\n  function areAllVisited(visited) {\n    return (\n      visited.filter(row => row.filter(column => column === false).length !== 0)\n        .length === 0\n    );\n  }\n\n  function getMovesFrom(board, row, column) {\n    const possibleMoves = [];\n    for (let i = 0; i < moves.length; i++) {\n      const [rowChange, colChange] = moves[i];\n      const [rowN, colN] = [row + rowChange, column + colChange];\n      if (!isOnBoard(rowN, board.length) || !isOnBoard(colN, board[0].length)) {\n        continue;\n      }\n      possibleMoves.push([rowN, colN]);\n    }\n    return possibleMoves;\n  }\n\n  function fillAllowedMovesCounts(board) {\n    for (let row = 0; row < board.length; row++) {\n      for (let column = 0; column < board[0].length; column++) {\n        board[row][column] = getMovesFrom(board, row, column).length;\n      }\n    }\n  }\n\n  function updateAllowedMovesCounts(board, possibleMoves) {\n    for (let i = 0; i < possibleMoves.length; i++) {\n      const [row, column] = possibleMoves[i];\n      if (board[row][column] > 0) {\n        board[row][column]--;\n      }\n    }\n  }\n\n  function getBestNextMoves(board, allowedMoves) {\n    let bestMoves = [];\n    let fewestNextMoves = Infinity;\n    let zeroMove = [];\n    for (let i = 0; i < allowedMoves.length; i++) {\n      const [moveRow, moveCol] = allowedMoves[i];\n      const numMoves = board[moveRow][moveCol];\n      if (numMoves === -1) {\n        continue;\n      }\n      if (numMoves === 0) {\n        zeroMove.push(allowedMoves[i]);\n      }\n      if (numMoves < fewestNextMoves) {\n        bestMoves = [allowedMoves[i]];\n        fewestNextMoves = numMoves;\n      } else if (numMoves === fewestNextMoves) {\n        bestMoves.push(allowedMoves[i]);\n      }\n    }\n\n    if (bestMoves.length > 0) {\n      return bestMoves;\n    }\n    return zeroMove;\n  }\n\n  function solve(board, visited, lastRow, lastColumn) {\n    if (areAllVisited(visited)) {\n      return true;\n    }\n    const nextMoves = getMovesFrom(board, lastRow, lastColumn);\n    updateAllowedMovesCounts(board, nextMoves);\n    const allowedMoves = nextMoves.filter(\n      ([row, column]) => !visited[row][column]\n    );\n\n    const bestMoves = getBestNextMoves(board, allowedMoves);\n    const restMoves = allowedMoves.filter(\n      move => bestMoves.indexOf(move) === -1\n    );\n    const possibleMoves = [...bestMoves];\n    possibleMoves.push(...getBestNextMoves(board, restMoves));\n\n    for (let i = 0; i < possibleMoves.length; i++) {\n      const [moveRow, moveCol] = possibleMoves[i];\n      const newBoard = copyBoard(board);\n      const newVisited = copyBoard(visited);\n      markVisited(newBoard, newVisited, moveRow, moveCol);\n      if (solve(newBoard, newVisited, moveRow, moveCol)) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  function solveStart(board, visited, startRow, startColumn) {\n    const newBoard = copyBoard(board);\n    const newVisited = copyBoard(visited);\n    markVisited(newBoard, newVisited, startRow, startColumn);\n    return solve(newBoard, newVisited, startRow, startColumn);\n  }\n\n  const moves = [\n    [-1, -2],\n    [-2, -1],\n    [-2, 1],\n    [-1, 2],\n    [1, 2],\n    [2, 1],\n    [2, -1],\n    [1, -2]\n  ];\n\n  const [baseBoard, baseVisited] = createBoards(height, width);\n  fillAllowedMovesCounts(baseBoard);\n  let solvedCount = 0;\n  for (let row = 0; row < height; row++) {\n    for (let column = 0; column < width; column++) {\n      if (solveStart(baseBoard, baseVisited, row, column)) {\n        solvedCount++;\n      }\n    }\n  }\n  return solvedCount;\n}",
+        "error": null,
+        "seed": "function knightTour(width, height) {\n  function createBoards(rows, columns) {\n    const board = [];\n    const visited = [];\n    for (let i = 0; i < rows; i++) {\n      board.push(new Array(columns).fill(-1));\n      visited.push(new Array(columns).fill(false));\n    }\n    return [board, visited];\n  }\n\n  function copyBoard(board) {\n    const copied = [];\n    for (let i = 0; i < board.length; i++) {\n      copied.push([...board[i]]);\n    }\n    return copied;\n  }\n\n  function isOnBoard(value, limit) {\n    return value >= 0 && value < limit;\n  }\n\n  function markVisited(board, visited, row, column) {\n    visited[row][column] = true;\n    board[row][column] = -1;\n  }\n\n  function areAllVisited(visited) {\n    return (\n      visited.filter(row => row.filter(column => column === false).length !== 0)\n        .length === 0\n    );\n  }\n\n  function getMovesFrom(board, row, column) {\n    const possibleMoves = [];\n    for (let i = 0; i < moves.length; i++) {\n      const [rowChange, colChange] = moves[i];\n      const [rowN, colN] = [row + rowChange, column + colChange];\n      if (!isOnBoard(rowN, board.length) || !isOnBoard(colN, board[0].length)) {\n        continue;\n      }\n      possibleMoves.push([rowN, colN]);\n    }\n    return possibleMoves;\n  }\n\n  function fillAllowedMovesCounts(board) {\n    for (let row = 0; row < board.length; row++) {\n      for (let column = 0; column < board[0].length; column++) {\n        board[row][column] = getMovesFrom(board, row, column).length;\n      }\n    }\n  }\n\n  function updateAllowedMovesCounts(board, possibleMoves) {\n    for (let i = 0; i < possibleMoves.length; i++) {\n      const [row, column] = possibleMoves[i];\n      if (board[row][column] > 0) {\n        board[row][column]--;\n      }\n    }\n  }\n\n  function getBestNextMoves(board, allowedMoves) {\n    let bestMoves = [];\n    let fewestNextMoves = Infinity;\n    let zeroMove = [];\n    for (let i = 0; i < allowedMoves.length; i++) {\n      const [moveRow, moveCol] = allowedMoves[i];\n      const numMoves = board[moveRow][moveCol];\n      if (numMoves === -1) {\n        continue;\n      }\n      if (numMoves === 0) {\n        zeroMove.push(allowedMoves[i]);\n      }\n      if (numMoves < fewestNextMoves) {\n        bestMoves = [allowedMoves[i]];\n        fewestNextMoves = numMoves;\n      } else if (numMoves === fewestNextMoves) {\n        bestMoves.push(allowedMoves[i]);\n      }\n    }\n\n    if (bestMoves.length > 0) {\n      return bestMoves;\n    }\n    return zeroMove;\n  }\n\n  function solve(board, visited, lastRow, lastColumn) {\n    if (areAllVisited(visited)) {\n      return true;\n    }\n    const nextMoves = getMovesFrom(board, lastRow, lastColumn);\n    updateAllowedMovesCounts(board, nextMoves);\n    const allowedMoves = nextMoves.filter(\n      ([row, column]) => !visited[row][column]\n    );\n\n    const bestMoves = getBestNextMoves(board, allowedMoves);\n    const restMoves = allowedMoves.filter(\n      move => bestMoves.indexOf(move) === -1\n    );\n    const possibleMoves = [...bestMoves];\n    possibleMoves.push(...getBestNextMoves(board, restMoves));\n\n    for (let i = 0; i < possibleMoves.length; i++) {\n      const [moveRow, moveCol] = possibleMoves[i];\n      const newBoard = copyBoard(board);\n      const newVisited = copyBoard(visited);\n      markVisited(newBoard, newVisited, moveRow, moveCol);\n      if (solve(newBoard, newVisited, moveRow, moveCol)) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  function solveStart(board, visited, startRow, startColumn) {\n    const newBoard = copyBoard(board);\n    const newVisited = copyBoard(visited);\n    markVisited(newBoard, newVisited, startRow, startColumn);\n    return solve(newBoard, newVisited, startRow, startColumn);\n  }\n\n  const moves = [\n    [-1, -2],\n    [-2, -1],\n    [-2, 1],\n    [-1, 2],\n    [1, 2],\n    [2, 1],\n    [2, -1],\n    [1, -2]\n  ];\n\n  const [baseBoard, baseVisited] = createBoards(height, width);\n  fillAllowedMovesCounts(baseBoard);\n  let solvedCount = 0;\n  for (let row = 0; row < height; row++) {\n    for (let column = 0; column < width; column++) {\n      if (solveStart(baseBoard, baseVisited, row, column)) {\n        solvedCount++;\n      }\n    }\n  }\n  return solvedCount;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>knightTour</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof knightTour == 'function');"
+    },
+    {
+      "text": "<p><code>knightTour(6, 6)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof knightTour(6, 6) == 'number');"
+    },
+    {
+      "text": "<p><code>knightTour(6, 6)</code> inapaswa kurudisha <code>36</code>.</p>",
+      "testString": "assert.equal(knightTour(6, 6), 36);"
+    },
+    {
+      "text": "<p><code>knightTour(5, 6)</code> treba da vrati <code>30</code>.</p>",
+      "testString": "assert.equal(knightTour(5, 6), 30);"
+    },
+    {
+      "text": "<p><code>knightTour(4, 6)</code> trebalo bi da vrati <code>12</code>.</p>",
+      "testString": "assert.equal(knightTour(4, 6), 12);"
+    },
+    {
+      "text": "<p><code>knightTour(7, 3)</code> trebalo bi da vrati <code>10</code>.</p>",
+      "testString": "assert.equal(knightTour(7, 3), 10);"
+    },
+    {
+      "text": "<p><code>knightTour(8, 6)</code> inapaswa kurudisha <code>48</code>.</p>",
+      "testString": "assert.equal(knightTour(8, 6), 48);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Knightova šetnja: Imaš šahovsku tablu od <code>width</code> * <code>height</code> koja je prazna, osim jednog Knjazova (Knighta) na određenom kvadratiću. Knight mora da napravi niz validnih poteza koji će ga naterati da poseti svaki kvadratić na šahovskoj tabli samo jednom. Zapamti da nije nužno da je šetnja \"zatvorena\"; to jest, nije bitno da završi na udaljenosti od jednog poteza od mesta gde je počeo.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prima <code>width</code> i <code>height</code> kao parametre i vraća broj početnih pozicija sa kojih je moguće izvršiti gore opisani zadatak.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 83,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

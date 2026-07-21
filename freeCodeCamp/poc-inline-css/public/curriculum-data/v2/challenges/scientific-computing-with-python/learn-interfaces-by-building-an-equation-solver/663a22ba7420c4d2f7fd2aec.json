@@ -1,0 +1,59 @@
+{
+  "id": "663a22ba7420c4d2f7fd2aec",
+  "title": "Korak 25",
+  "challengeType": 20,
+  "dashedName": "step-25",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        44,
+        47
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da pristupi sačuvane vrednosti unutar atributa elementa <code>coefficients</code> i sačuvaš ih u parametre <code>a</code> i <code>b</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"solve\").has_stmt(\"a, b = self.coefficients.values()\")`)) })"
+    },
+    {
+      "text": "<p>Treba da deklariš parametar nazvan <code>x</code> i dodeli mu vrednost rešenja linearnog jednačine.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"solve\").has_stmt(\"x = -b/a\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da vratiš <code>x</code> putem svog <code>solve</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"LinearEquation\").find_function(\"solve\").has_return(\"x\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vreme je da se primeni metoda <code>solve</code>. Ako postoji linearna jednačina u formi \\( ax + b = 0 \\), rešenje je \\(x = -\\frac{b}{a}\\).</p>\n<p>Izvuci vrednosti koeficijenata sačuvanih u svojstvu elementa <code>coefficients</code> i sačuvajte ih u parametre <code>a</code> i <code>b</code>. Zapamtite da ćete morati da koristite metodu <code>.values()</code>.</p>\n<p>Zatim, deklariši parametar <code>x</code>, postavi mu vrednost na rešenje jednačine i vrati iz metode <code>solve</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 24,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

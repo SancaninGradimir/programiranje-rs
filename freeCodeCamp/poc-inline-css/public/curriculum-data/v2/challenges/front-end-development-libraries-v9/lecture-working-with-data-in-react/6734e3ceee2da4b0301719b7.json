@@ -1,0 +1,109 @@
+{
+  "id": "6734e3ceee2da4b0301719b7",
+  "title": "Kako preneti parametre od roditeljske komponente ka detinjarskoj komponenti u React-u?",
+  "challengeType": 19,
+  "dashedName": "how-do-you-pass-props-from-a-parent-component-to-a-child-component-in-react",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>U React, kako prosleđujete svojstvo (prop) nazvano <code>message</code> sa nizom slova <code>Hello</code> za child komponentu?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>&#x3C;ChildComponent message=\"Hello\" /></code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent props.message=\"Hello\" /></code></p>",
+          "feedback": "<p>Razmislite kako se svojstva komponente dodeljuju na JSX elemente.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent>message=\"Hello\"&#x3C;/ChildComponent></code></p>",
+          "feedback": "<p>Razmislite kako svojstva komponente se dodaju na JSX komponente.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent {message: \"Hello\"} /></code></p>",
+          "feedback": "<p>Razmislite kako se svojstva komponente dodaju u JSX komponente.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Kako se dobija svojstvo nazvano <code>userName</code> unutar funkcionalnog dela deteta, uzimajući u obzir prosleđene parametre, je nešto od <code>props</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>this.props.userName</code></p>",
+          "feedback": "<p>Razmislite kako parametri se prenose u funkcionalne module unutar React.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>props.userName</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>this.userName</code></p>",
+          "feedback": "<p>Razmislite kako se parametri prenose u funkcionalne delove u React.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>children.userName</code></p>",
+          "feedback": "<p>Razmotrite kako parametri se prosleđuju funkcionalnim komponentama u React.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja je pravilna metoda prenosa svih svojstava nečega, kao genetskih karakteristika koje se prenose pojedinačno na dete?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>&#x3C;ChildComponent props={objectName} /></code></p>",
+          "feedback": "<p>Zapamtite posebnu sintaksu koja se koristi za proširivanje svojstava objekta kao parametara koji se prosleđuju ručno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent {...objectName} /></code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent objectName /></code></p>",
+          "feedback": "<p>Zapamtite posebnu sintaksu koja se koristi za proširivanje svojstava objekta kao prilagođeni parametri.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>&#x3C;ChildComponent>{objectName}&#x3C;/ChildComponent></code></p>",
+          "feedback": "<p>Zapamtite posebnu sintaksu koja se koristi za proširivanje svojstava objekta kao što su privatni parametri.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U prethodnim lekcijama, naučili smo kako da izgradimo male komponente u React kao što je ovo:</p>\n<pre><code class=\"language-jsx\">function Greeting() {\n  const developerName = \"Jessica\";\n  return &#x3C;h1>Hi {developerName}!&#x3C;/h1>;\n}\n</code></pre>\n<p>Možemo da odaberemo da organizujemo ovu sekciju unutar drugog roditeljskog dela ili korenskog dela, kao što je ovo:</p>\n<pre><code class=\"language-jsx\">function App() {\n  return &#x3C;Greeting />;\n}\n\nfunction Greeting() {\n  const developerName = \"Jessica\";\n  return &#x3C;h1>Hi {developerName}!&#x3C;/h1>;\n}\n</code></pre>\n<p>Iako će ovaj kod dobro funkcionisati i prikazati rezultate <code>Hi Jessica!</code> na ekranu, to nije previše dinamičan deo.</p>\n<p>Da li bismo hteli da prikažemo različito ime kao Naomi, Tom ili Oliver? Ovde ulaze prosleđeni parametri (props) za React. Props, koji su skraćenica od <em>properties</em>, je način na koji rodenski komponenti prosleđuju podatke u dete komponentu. Props mogu biti bilo kog tipa: niz znakova (string), broj, vrednost tačno ili netačno (boolean), objekti ili nizovi podataka.</p>\n<p>Ažurirajte naš početni primer kako bi sada prihvatio parametar <code>name</code>:</p>\n<pre><code class=\"language-jsx\">function App() {\n  return &#x3C;Greeting name=\"Jessica\" />;\n}\n\nexport default App;\n\nfunction Greeting(props) {\n  console.log(props);\n  return &#x3C;h1>Hi {props.name}!&#x3C;/h1>;\n}\n</code></pre>\n<p>Za deo deteta koji se zove <code>Greeting</code>, sada koristimo <code>props.name</code> umesto da direktno postavimo ime <code>\"Jessica\"</code>. Takođe snimamo <code>props</code> u konzoli koja prikazuje nešto.</p>\n<p>Zatim, unutar parent komponente <code>App</code>, prosleđujemo vrednost na prop-u <code>name</code> da bi bilaći. Rezultat će biti isti na ekranu kao i ranije, ali smo sada kreirali fleksibilniju komponentu.</p>\n<p>Sada imamo mogućnost ponovnog korišćenja detetkog dela više puta i prosleđivanja različitih imena svaki put:</p>\n<pre><code class=\"language-jsx\">function App() {\n  return (\n    &#x3C;>\n      &#x3C;Greeting name=\"Naomi\" />\n      &#x3C;Greeting name=\"Tom\" />\n      &#x3C;Greeting name=\"Jessica\" />\n      &#x3C;Greeting name=\"Oliver\" />\n    &#x3C;/>\n  );\n}\n</code></pre>\n<p>Takođe možete izabrati da koristite uzorak rešenja na prosleđene parametre kako bi bilo lakše za čitanje. Evo kako možete prepisati deo <code>Greeting</code>:</p>\n<pre><code class=\"language-jsx\">function Greeting({ name }) {\n  return &#x3C;h1>Hi {name}!&#x3C;/h1>;\n}\n</code></pre>\n<p>Ovaj kod postiže iste rezultate, ali čini jasno koji parametar ta sekcija očekuje da primi.</p>\n<p>React takođe pruža poseban prop pod nazivom <code>children</code>. Sav JSX koji postaviš između otvarajuće i zatvarajuće oznake komponente prosleđuje se toj komponenti kao <code>children</code>.</p>\n<p>Na primer:</p>\n<pre><code class=\"language-jsx\">function Card({ children }) {\n  return &#x3C;div className=\"card\">{children}&#x3C;/div>;\n}\n\nfunction App() {\n  return (\n    &#x3C;Card>\n      &#x3C;h2>Hello&#x3C;/h2>\n    &#x3C;/Card>\n  );\n}\n</code></pre>\n<p>U ovom slučaju, JSX unutar <code>&#x3C;Card>...&#x3C;/Card></code> postaje prop za <code>children</code>. Rezultat prikazan na DOM će biti:</p>\n<pre><code class=\"language-html\">&#x3C;div class=\"card\">\n  &#x3C;h2>Hello&#x3C;/h2>\n&#x3C;/div>\n</code></pre>\n<p>Ovaj sistem se često koristi za dizajn sekcije, gde sekcija obuhvata druge elemente korisničkog interfejsa (UI).</p>\n<p>Ponekad, možete imati mnogo svojstava koja morate proslediti kao prosljeđene parametre. Umjesto da ih prosleđujete jedno po jedno, možete koristiti spread operator (<code>...</code>), nakon što ih pretvorite u objekat.</p>\n<p>Ovo je primer nove sekcije koja se zove <code>DeveloperCard</code>:</p>\n<pre><code class=\"language-jsx\">function DeveloperCard({ name, age, country }) {\n  return (\n    &#x3C;div className=\"developer-card\">\n      &#x3C;h1>Developer: {name}&#x3C;/h1>\n      &#x3C;p>Age: {age}&#x3C;/p>\n      &#x3C;p>Country: {country}&#x3C;/p>\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>Ovaj deo od <code>DeveloperCard</code> prima tri prosleđena parametra: <code>name</code>, <code>age</code>, i <code>country</code>.</p>\n<p>U roditeljskom delu <code>App</code>, možemo koristiti spread sintaksu za prosleđivanje svih svojstava iz objekta kao pojedinačnih argumenata u dete del:</p>\n<pre><code class=\"language-jsx\">function App() {\n  const developerObj = {\n    name: \"Alice\",\n    age: 30,\n    country: \"USA\",\n  };\n\n  return (\n    &#x3C;div className=\"App\">\n      &#x3C;DeveloperCard {...developerObj} />\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>Ovo je važno posebno kada radite sa redovima podataka i prosleđujete mnogo skupova parametara koji se predaju komponentama. Na primer, možete imati listu programera gde svaki red ima istu strukturu, ali predstavlja različitu osobu.</p>\n<p>Naučićete više o tome kako prikazati listu u redovima/nizu u narednim lekcijama.</p>\n<p>Korišćenje prosleđenih parametara u React čini vaše komponente dinamičnijim i ponovo upotrebljivijim, omogućavajući vam da izgradite složeniji UI. Međutim, važno je napomenuti da prosleđeni parametri ne mogu se menjati, što znači da se ne mogu modifikovati nakon renderovanja komponente. Ako morate da rukujete unosom korisnika i menjate podatke, trebalo bi da koristite <code>state</code> umesto toga. Naučićete više o upravljanju stanjem (state) u narednim lekcijama.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-data-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

@@ -1,0 +1,84 @@
+{
+  "id": "5a23c84252665b21eecc8045",
+  "title": "Kukata mstatili wa Sutherland-Hodgman",
+  "challengeType": 1,
+  "forumTopicId": 302336,
+  "dashedName": "sutherland-hodgman-polygon-clipping",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function clip(subjectPolygon, clipPolygon) {\n\n}",
+      "error": null,
+      "seed": "function clip(subjectPolygon, clipPolygon) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function clip(subjectPolygon, clipPolygon) {\n  var cp1, cp2, s, e, i, j;\n  var inside = function(p) {\n    return (\n      (cp2[0] - cp1[0]) * (p[1] - cp1[1]) > (cp2[1] - cp1[1]) * (p[0] - cp1[0])\n    );\n  };\n  var intersection = function() {\n    var dc = [cp1[0] - cp2[0], cp1[1] - cp2[1]],\n      dp = [s[0] - e[0], s[1] - e[1]],\n      n1 = cp1[0] * cp2[1] - cp1[1] * cp2[0],\n      n2 = s[0] * e[1] - s[1] * e[0],\n      n3 = 1.0 / (dc[0] * dp[1] - dc[1] * dp[0]);\n    return [(n1 * dp[0] - n2 * dc[0]) * n3, (n1 * dp[1] - n2 * dc[1]) * n3];\n  };\n  var outputList = subjectPolygon;\n  cp1 = clipPolygon[clipPolygon.length - 1];\n  for (j in clipPolygon) {\n    var cp2 = clipPolygon[j];\n    var inputList = outputList;\n    outputList = [];\n    s = inputList[inputList.length - 1]; //last on the input list\n    for (i in inputList) {\n      var e = inputList[i];\n      if (inside(e)) {\n        if (!inside(s)) {\n          outputList.push(intersection());\n        }\n        outputList.push(e);\n      } else if (inside(s)) {\n        outputList.push(intersection());\n      }\n      s = e;\n    }\n    cp1 = cp2;\n  }\n  return outputList.map(e => e.map(f => Math.round(f * 1000) / 1000));\n}",
+        "error": null,
+        "seed": "function clip(subjectPolygon, clipPolygon) {\n  var cp1, cp2, s, e, i, j;\n  var inside = function(p) {\n    return (\n      (cp2[0] - cp1[0]) * (p[1] - cp1[1]) > (cp2[1] - cp1[1]) * (p[0] - cp1[0])\n    );\n  };\n  var intersection = function() {\n    var dc = [cp1[0] - cp2[0], cp1[1] - cp2[1]],\n      dp = [s[0] - e[0], s[1] - e[1]],\n      n1 = cp1[0] * cp2[1] - cp1[1] * cp2[0],\n      n2 = s[0] * e[1] - s[1] * e[0],\n      n3 = 1.0 / (dc[0] * dp[1] - dc[1] * dp[0]);\n    return [(n1 * dp[0] - n2 * dc[0]) * n3, (n1 * dp[1] - n2 * dc[1]) * n3];\n  };\n  var outputList = subjectPolygon;\n  cp1 = clipPolygon[clipPolygon.length - 1];\n  for (j in clipPolygon) {\n    var cp2 = clipPolygon[j];\n    var inputList = outputList;\n    outputList = [];\n    s = inputList[inputList.length - 1]; //last on the input list\n    for (i in inputList) {\n      var e = inputList[i];\n      if (inside(e)) {\n        if (!inside(s)) {\n          outputList.push(intersection());\n        }\n        outputList.push(e);\n      } else if (inside(s)) {\n        outputList.push(intersection());\n      }\n      s = e;\n    }\n    cp1 = cp2;\n  }\n  return outputList.map(e => e.map(f => Math.round(f * 1000) / 1000));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const subjectPolygon1 = [\n  [50, 150],\n  [200, 50],\n  [350, 150],\n  [350, 300],\n  [250, 300],\n  [200, 250],\n  [150, 350],\n  [100, 250],\n  [100, 200]\n];\nconst clipPolygon1 = [\n  [100, 100],\n  [300, 100],\n  [300, 300],\n  [100, 300]\n];\nconst expected1 = [\n  [100, 116.667],\n  [125, 100],\n  [275, 100],\n  [300, 116.667],\n  [300, 300],\n  [250, 300],\n  [200, 250],\n  [175, 300],\n  [125, 300],\n  [100, 250]\n];\n\nconst subjectPolygon2 = [\n  [150, 200],\n  [400, 450],\n  [30, 50]\n];\nconst clipPolygon2 = [\n  [10, 10],\n  [300, 200],\n  [400, 600],\n  [100, 300]\n];\nconst expected2 = [\n  [150, 200],\n  [350, 400],\n  [348.611, 394.444],\n  [30, 50]\n];\n\nconst subjectPolygon3 = [\n  [250, 200],\n  [100, 450],\n  [130, 250]\n];\nconst clipPolygon3 = [\n  [50, 60],\n  [100, 230],\n  [400, 600],\n  [100, 300]\n];\nconst expected3 = [\n  [129.167, 329.167],\n  [119.565, 319.565],\n  [121.854, 304.305]\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>clip</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof clip == 'function');"
+    },
+    {
+      "text": "<p><code>clip([[50, 150], [200, 50], [350, 150], [350, 300], [250, 300], [200, 250], [150, 350], [100, 250], [100, 200]], [[100, 100], [300, 100], [300, 300], [100, 300]])</code> treba da vrati niz.</p>",
+      "testString": "assert(Array.isArray(clip(subjectPolygon1, clipPolygon1)));"
+    },
+    {
+      "text": "<p><code>clip([[50, 150], [200, 50], [350, 150], [350, 300], [250, 300], [200, 250], [150, 350], [100, 250], [100, 200]], [[100, 100], [300, 100], [300, 300], [100, 300]])</code> trebalo bi da vrati <code>[[100, 116.667], [125, 100], [275, 100], [300, 116.667], [300, 300], [250, 300], [200, 250], [175, 300], [125, 300], [100, 250]]</code>.</p>",
+      "testString": "assert.deepEqual(clip(subjectPolygon1, clipPolygon1), expected1);"
+    },
+    {
+      "text": "<p><code>clip([[150, 200], [400, 450], [30, 50]], [[10, 10], [300, 200], [400, 600], [100, 300]])</code> trebalo bi da vrati <code>[[150, 200], [350, 400], [348.611, 394.444], [30, 50]]</code>.</p>",
+      "testString": "assert.deepEqual(clip(subjectPolygon2, clipPolygon2), expected2);"
+    },
+    {
+      "text": "<p><code>clip([[250, 200], [100, 450], [130, 250]], [[50, 60], [100, 230], [400, 600], [100, 300]])</code> inapaswa kurudisha <code>[[129.167, 329.167], [119.565, 319.565], [121.854, 304.305]]</code>.</p>",
+      "testString": "assert.deepEqual(clip(subjectPolygon3, clipPolygon3), expected3);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sutherland-Hodgman algoritam za odsecanje pronalazi mnogougao koji predstavlja presek proizvoljnog mnogougla (ulaznog mnogougla) i konveksnog mnogougla (mnogougla za odsecanje). Koristi se u računarskoj grafici (posebno 2D grafici) radi smanjenja složenosti scene uklanjanjem delova mnogougla koje nije potrebno prikazati. Posmatraj zatvoreni mnogougao definisan tačkama:</p>\n<pre>[(50, 150), (200, 50), (350, 150), (350, 300), (250, 300), (200, 250), (150, 350), (100, 250), (100, 200)]</pre>\n<p>Za pravougaonik definisan tačkama:</p>\n<pre>[(100, 100), (300, 100), (300, 300), (100, 300)]</pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja prihvata dva niza kao argumente. Prvi niz sadrži tačke ulaznog mnogougla, a drugi niz tačke mnogougla za odsecanje. Funkcija treba da vrati niz tačaka odsečenog mnogougla. Svaki broj treba zaokružiti na tri decimalna mesta.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 145,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

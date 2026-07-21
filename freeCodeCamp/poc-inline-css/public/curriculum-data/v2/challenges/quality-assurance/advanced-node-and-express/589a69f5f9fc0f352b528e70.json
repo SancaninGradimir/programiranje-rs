@@ -1,0 +1,37 @@
+{
+  "id": "589a69f5f9fc0f352b528e70",
+  "title": "Implementacija socijalne autentifikacije",
+  "challengeType": 2,
+  "forumTopicId": 301559,
+  "dashedName": "implementation-of-social-authentication",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Ruta <code>/auth/github</code> treba da bude tačna.</p>",
+      "testString": "  try {\n    const res = await fetch(code + '/_api/routes.js');\n    if (res.ok) {\n      const data = await res.text();\n      assert.match(\n          data.replace(/\\s/g, ''),\n          /passport.authenticate.*?github/g,\n          'Route auth/github should only call passport.authenticate with github'\n        );\n    } else {\n      throw new Error(res.statusText);\n    }\n    const res2 = await fetch(code + '/_api/app-stack');\n    if (res2.ok) {\n      const data2 = JSON.parse(await res2.json());\n      const dataLayer = data2.find(layer => layer?.route?.path === '/auth/github');\n      assert.deepInclude(dataLayer?.route, { methods: {get: true}, path: \"/auth/github\"});\n      assert.deepInclude(dataLayer?.route?.stack?.[0], {method: \"get\", name: \"authenticate\"});\n    } else {\n      throw new Error(res2.statusText);\n    }\n  } catch (err) {\n    throw new Error(err);\n  }"
+    },
+    {
+      "text": "<p>Ruta <code>/auth/github/callback</code> treba da bude tačna.</p>",
+      "testString": "  try {\n    const res = await fetch(code + '/_api/routes.js');\n    if (res.ok) {\n      const data = await res.text();\n      assert.match(\n        data.replace(/\\s/g, ''),\n        /failureRedirect:(\"|')\\/\\1/g,\n        'Route auth/github/callback should accept a get request and call passport.authenticate for github with a failure redirect to home'\n      );\n    } else {\n      throw new Error(res.statusText);\n    }\n    const res2 = await fetch(code + '/_api/app-stack');\n    if (res2.ok) {\n      const data2 = JSON.parse(await res2.json());\n      const dataLayer = data2.find(layer => layer?.route?.path === '/auth/github/callback');\n      assert.deepInclude(dataLayer?.route, { methods: {get: true}, path: \"/auth/github/callback\"});\n      assert.deepInclude(dataLayer?.route?.stack?.[0], {method: \"get\", name: \"authenticate\"});\n    } else {\n      throw new Error(res2.statusText);\n    }\n  } catch (err) {\n    throw new Error(err);\n  }"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Osnovni način na koji ćeš implementirati ovu vrstu autentifikacije u tvojoj aplikaciji je:</p>\n<ol>\n<li>Korisnik klikne na dugme ili link koji ga šalje na tvoju rutu za autentifikaciju kako bi se autentifikovao korišćenjem određenog strategije (npr. GitHub).</li>\n<li>Tvoja ruta poziva <code>passport.authenticate('github')</code> koja preusmerava korisnika na GitHub.</li>\n<li>Stranica na koju korisnik stiže, na GitHub-u, mu dozvoljava da se uloguje ako još nije. Zatim ga traži da odobri pristup svom profilu iz tvoje aplikacije.</li>\n<li>Korisnik se zatim vraća na tvoju aplikaciju na specifičan URL za povratak sa svojim profilom ako je odobrio.</li>\n<li>Sada je autentifikovan, i tvoja aplikacija treba da proveri da li je to profil koji se vraća, ili da ga sačuva u tvojoj bazi podataka ako nije.</li>\n</ol>\n<p>OAuth strategije zahtevaju da imate najmanje <em>Client ID</em> i <em>Client Secret</em> koji su način za servis da verifikuje ko šalje zahtev za autentifikaciju i da li je validan. Ovi se dobijaju sa stranice koju pokušavate da autentifikujete, kao što je GitHub, i su jedinstveni za tvoju aplikaciju--<strong>NE SMETJU da se dele</strong> i ne smeju nikako da se objave u javnoj bazi podataka ili direktno u kodu. Uobičajena praksa je da se sačuvaju u tvom <code>.env</code> fajlu i referencišu ih kao <code>process.env.GITHUB_CLIENT_ID</code>. Za ovaj izazov koristićeš GitHub strategiju.</p>\n<p>Prati <a href=\"https://www.freecodecamp.org/news/how-to-set-up-a-github-oauth-application/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ova uputstva</a> da bi dobio <em>Client ID i Secret</em> od GitHub-a. Postavi URL početne stranice da bude tvoja početna stranica (<strong>NIJE URL koda projekta</strong>), i postavi URL za povratak da bude isti URL početne stranice sa <code>/auth/github/callback</code> dodatim na kraj. Sačuvaj client ID i client secret u <code>.env</code> fajlu tvog projekta kao <code>GITHUB_CLIENT_ID</code> i <code>GITHUB_CLIENT_SECRET</code>.</p>\n<p>U tvom <code>routes.js</code> fajlu, dodaj <code>showSocialAuth: true</code> na rutu za početnu stranicu, nakon <code>showRegistration: true</code>. Sada, kreiraj dve GET rute koje prihvataju zahteve: <code>/auth/github</code> i <code>/auth/github/callback</code>. Prva treba samo da pozove passport da autentifikuje <code>'github'</code>. Druga treba da pozove passport da autentifikuje <code>'github'</code> i ako ne uspe, preusmeri na <code>/</code>, a ako uspe, preusmeri na <code>/profile</code> (kao u tvom poslednjem projektu).</p>\n<p>Primer kako <code>/auth/github/callback</code> treba da izgleda je kao što si radio sa običnom prijavom:</p>\n<pre><code class=\"language-js\">app.route('/login')\n  .post(passport.authenticate('local', { failureRedirect: '/' }), (req,res) => {\n    res.redirect('/profile');\n  });\n</code></pre>\n<p>Pošalji svoju stranicu kada osećaš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#implementation-of-social-authentication-3\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

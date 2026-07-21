@@ -1,0 +1,262 @@
+{
+  "id": "6732720e95f6a0db526a2e4d",
+  "title": "Šta su logičke operacije za binarni sistem, i kako funkcionišu?",
+  "challengeType": 19,
+  "dashedName": "what-are-binary-logical-operators-and-how-do-they-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Binarni logički operatori pomažu u proceni dve matematičke izraze i vraćaju rezultate na osnovu njihove istinitosti. Pogledaćemo tri poznata binarna logička operatera: logical AND, logical OR, i nullish coalescing.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Opereta za logički AND predstavljena je sa dva ampersand znaka (<code>&#x26;&#x26;</code>). Proverava da li su obe strane tačne i vraća rezultat. Ako su obe strane tačne, vraća vrednost druge strane, tj. one desne:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = true && 'hello';\n\nconsole.log(result); // hello",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = true &#x26;&#x26; 'hello';\n\nconsole.log(result); // hello\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U gornjem primeru, tekst <code>hello</code> je ispisan u konzoli jer su obe strane <code>true</code>. Ako je bilo koja strana lažna vrednost, vraća lažnu vrednost:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = 0 && 3;\n\nconsole.log(result); // 0",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = 0 &#x26;&#x26; 3;\n\nconsole.log(result); // 0\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto je <code>0</code> lažna vrednost, broj <code>0</code> je ispisana u konzolu. A ako su obe strane lažne vrednosti, vraća prvu lažnu vrednost:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = false && 0;\n\nconsole.log(result); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = false &#x26;&#x26; 0;\n\nconsole.log(result); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto je <code>false</code> lažno/netačno vrednost, onda je <code>false</code> ispisan na konzolu. Logički AND operator je važan kada želite da proverite više uslova i osigurate da su svi istiniti pre nastavka. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "if (2 < 3 && 3 < 4) {\n console.log('The if block runs'); \n} else {\n console.log('The else block runs');\n} ",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">if (2 &#x3C; 3 &#x26;&#x26; 3 &#x3C; 4) {\n console.log('The if block runs'); \n} else {\n console.log('The else block runs');\n} \n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako je <code>2</code> manje od <code>3</code> I <code>3</code> je manje od <code>4</code>, onda će string <code>The if block runs</code> biti ispisano na konzoli.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operacija logičkog ILI proverava da li je barem jedna strana tačna. Ako je prva strana tačna, vraća tu vrednost:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = 'This is truthy' || false;\n\nconsole.log(result); // This is truthy",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = 'This is truthy' || false;\n\nconsole.log(result); // This is truthy\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako je prva strana lažna vrednost, ali druga strana istinita, druga vrednost će biti ispisana na konzoli:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = 0 || 'This is truthy';\n\nconsole.log(result); // This is truthy",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = 0 || 'This is truthy';\n\nconsole.log(result); // This is truthy\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Uobičajeno je koristiti operater logičkog ILI u izjavama za <code>if/else</code> kao što su sledeće:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let userInput;\n\nif (userInput || 'Guest') {\n console.log('A user is present');\n} else {\n console.log('No user detected');\n}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let userInput;\n\nif (userInput || 'Guest') {\n console.log('A user is present');\n} else {\n console.log('No user detected');\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto nismo postavili vrednost za promenu <code>userInput</code>, trenutno je <code>undefined</code>. Uslov u izveštaju <code>if</code> proverava da li je promena <code>userInput</code> ili niz karaktera <code>Guest</code> tačan. Pošto je niz karaktera <code>Guest</code> tačan u kontekstu takve vrednosti, niz karaktera <code>A user is present</code> će biti ispisano na konzolu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Operator za nullish coalescing je napredniji od logičkog OR i logičkog AND. Predstavljen sa dva znaka upitnika (<code>??</code>), pomaže u situacijama kada želite da vratite vrednost samo ako je prva <code>null</code> ili <code>undefined</code>. Evo primera korišćenja operatera nullish coalescing:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = null ?? 'default';\n\nconsole.log(result); // default",
+          "ext": "ts",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-ts\">const result = null ?? 'default';\n\nconsole.log(result); // default\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto je <code>null</code> nulizna vrednost, niz znakova <code>default</code> će biti ispisano u konzolu. Operator za kondenzovanje nule (nullish coalescing) je veoma koristan u situacijama gde su <code>null</code> ili <code>undefined</code> jedine vrednosti koje bi trebalo da izazovu alternativnu putanju ili podrazumevanu vrednost. Evo primera za rukovanje podešavanjima korisničkih preferencija:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const userSettings = {\n theme: null,\n volume: 0,\n notifications: false,\n};\n\nlet theme = userSettings.theme ?? 'light';\nconsole.log(theme); // light",
+          "ext": "ts",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-ts\">const userSettings = {\n theme: null,\n volume: 0,\n notifications: false,\n};\n\nlet theme = userSettings.theme ?? 'light';\nconsole.log(theme); // light\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U gornjem primeru imamo objekat pod nazivom <code>userSettings</code> koji sadrži svojstva <code>theme</code>, <code>volume</code> i <code>notifications</code>. Svojstvu <code>theme</code> pristupamo pomoću tačkaste notacije, kao u <code>userSettings.theme</code>. Više o radu sa objektima naučićeš u sledećoj lekciji. Pošto je korisnička postavka <code>theme</code> trenutno postavljena na <code>null</code>, u konzoli će biti ispisan string <code>light</code>.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Operacija logičkog AND-a (<code>&#x26;&#x26;</code>) kako radi?</p>",
+      "answers": [
+        {
+          "answer": "<p>Proverava da li su obje strane <code>false</code>.</p>",
+          "feedback": "<p>Zamislite kada oba uslova bi trebalo da budu <code>true</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proverava da li su obje strane <code>true</code> i vraća rezultate</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vraća <code>true</code> ako je jedna strana <code>true</code>.</p>",
+          "feedback": "<p>Razmislite o situaciji kada oba uslova treba da budu <code>true</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ignoriše drugu stranu.</p>",
+          "feedback": "<p>Razmisli kada oba uslova treba da budu <code>true</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta radi operater za nul-spajanje (nullish coalescing <code>??</code>)?</p>",
+      "answers": [
+        {
+          "answer": "<p>Vraća prvu vrednost, bez obzira da li je <code>null</code> ili <code>undefined</code>.</p>",
+          "feedback": "<p>Razmislite kada želite da date vrednost alternative.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vraća samo drugu vrednost ako je prva <code>null</code> ili <code>undefined</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proverava da li su obe vrednosti jednake.</p>",
+          "feedback": "<p>Razmislite o trenutku kada želite da pružite vrednost alternative.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Upoređuje dve vrednosti da bi prisilila tip.</p>",
+          "feedback": "<p>Razmislite o trenutku kada želite da pružite alternativnu vrednost.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Operator logičkog ILI (<code>||</code>) kako funkcioniše u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Proverava da li su obe strane tačne.</p>",
+          "feedback": "<p>Zamislite kada vam je potreban samo jedan uslov koji je <code>true</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vraća <code>true</code> samo ako su obje strane <code>false</code>.</p>",
+          "feedback": "<p>Zamislite kada je potrebno samo jedno uslov da bude <code>true</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proverava da li je barem jedna strana tačna.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vraća <code>true</code> samo ako su obe strane tačne.</p>",
+          "feedback": "<p>Razmislite o trenutku kada je potrebno samo jedno uslov da bude <code>true</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-conditional-logic-and-math-methods",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 27,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-booleans-and-numbers",
+  "certification": "javascript-v9"
+}

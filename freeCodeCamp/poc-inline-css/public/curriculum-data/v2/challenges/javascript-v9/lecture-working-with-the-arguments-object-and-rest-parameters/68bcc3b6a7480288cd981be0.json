@@ -1,0 +1,210 @@
+{
+  "id": "68bcc3b6a7480288cd981be0",
+  "title": "Šta su argumenti?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-arguments-object",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Kao što se sećate iz prethodnih lekcija i radionica, možete kreirati funkciju sa nekoliko parametara i pozvati tu funkciju sa argumentima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je podsetnik:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">// function definition\nfunction getSum(num1, num2) {\n  return num1 + num2;\n}\n\n// function call\ngetSum(3, 4); // 7\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ali šta ako imate funkciju koja se poziva sa više argumenata nego što je deklarisano da prima?</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "// function definition\nfunction getSum(num1, num2) {\n  return num1 + num2;\n}\n\n// function call with extra argument\nconsole.log(getSum(3, 4, 5)); // 7",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">// function definition\nfunction getSum(num1, num2) {\n  return num1 + num2;\n}\n\n// function call with extra argument\nconsole.log(getSum(3, 4, 5)); // 7\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>JavaScript neće vratiti grešku u ovom slučaju. Umesto toga, ignoriše dodatni argument i samo sabira brojeve <code>3</code> i <code>4</code> zajedno. Funkcije koje prihvataju promenljiv broj argumenata poznate su kao <dfn>vitendakcije variadic</dfn>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako radiš sa variadičkim funkcijama, onda možeš koristiti nešto poput <code>arguments</code>. Ovo nešto koje liči na niz podataka sadrži vrednosti argumenata prosleđenih u funkciju.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function logArgs() {\n  for (const arg of arguments) {\n    console.log(arg);\n  }\n}\n\nlogArgs(1, 2, 3);\n// result:\n// 1\n// 2\n// 3\n\nlogArgs(\"example\"); // \"example\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function logArgs() {\n  for (const arg of arguments) {\n    console.log(arg);\n  }\n}\n\nlogArgs(1, 2, 3);\n// result:\n// 1\n// 2\n// 3\n\nlogArgs(\"example\"); // \"example\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto je stav <code>arguments</code> sličan redu podataka, možete dobiti argument sa ovim specifičnim primerom:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function getArg() {\n  return arguments[1];\n}\n\nconsole.log(getArg(2, 4, 6)); // 4",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function getArg() {\n  return arguments[1];\n}\n\nconsole.log(getArg(2, 4, 6)); // 4\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe možete koristiti atribut <code>length</code> da biste dobili broj argumenata koje je funkcija primila:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function getArgs() {\n  return arguments.length;\n}\n\nconsole.log(getArgs(\"Example\")); // 1\nconsole.log(getArgs(\"Another\", \"Example\")); // 2",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function getArgs() {\n  return arguments.length;\n}\n\nconsole.log(getArgs(\"Example\")); // 1\nconsole.log(getArgs(\"Another\", \"Example\")); // 2\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako je objekat <code>arguments</code> prikazan kao prava red, nema ugrađene metode poput <code>Array</code> kao što su <code>includes</code> ili <code>push</code>. Da biste dobili pristup tim metodama, prvo morate konvertovati objekat <code>arguments</code> u pravi red koristeći nešto poput <code>slice</code>, <code>Array.from()</code> ili operaciju raspršivanja:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function hasCat() {\n  return [...arguments].includes(\"cat\");\n}\n\nconsole.log(hasCat(\"dog\", \"chicken\", \"cat\")); // true\nconsole.log(hasCat(\"dog\", \"chicken\", \"horse\")); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function hasCat() {\n  return [...arguments].includes(\"cat\");\n}\n\nconsole.log(hasCat(\"dog\", \"chicken\", \"cat\")); // true\nconsole.log(hasCat(\"dog\", \"chicken\", \"horse\")); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako je moguće raditi sa nečim kao što je <code>arguments</code> za variadijske funkcije, moderne aplikacije JavaScript obično koriste sintaksu rest parametra. Naučićete više o tome u sledećoj lekciji.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta je variadna funkcija?</p>",
+      "answers": [
+        {
+          "answer": "<p>Izjave koje prihvaćaju dve teze.</p>",
+          "feedback": "<p>Osvratite se na početak lekcije za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcije koje primaju promenljiv broj argumenata.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Radnici koji pristaju samo na jednu tezu.</p>",
+          "feedback": "<p>Vratite se na početak vežbe za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Radnici koji prihvaćaju više od tri tačke.</p>",
+          "feedback": "<p>Pogledajte početak lekcije/obuke radi odgovora.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta je ovo <code>arguments</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Specijalni rečnik koji čuva vrednosti argumenata prosleđenih u funkciju.</p>",
+          "feedback": "<p>Pogledajte početak lekcije radi odgovora.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Struktura koja liči na red podataka i koja čuva vrednosti prosleđenih argumenata u funkciji.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Parametar koji sadrži samo prvi argument prebačen u funkciju.</p>",
+          "feedback": "<p>Osvratite se na početak lekcije za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Živa linija koja se automatski ažurira kada se parametri funkcije ponovo postave.</p>",
+          "feedback": "<p>Osvratite se na početak lekcije za odgovor.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Zašto ne možete koristiti ugrađene metode <code>Array</code> kao <code>includes</code> ili <code>push</code> na objektu od <code>arguments</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kitu cha <code>arguments</code> je uvek prazno osim ako nije eksplicitno inicijalizovano.</p>",
+          "feedback": "<p>Pogledajte kraj lekcije za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>JavaScript sprečava poziv metode na objektu <code>arguments</code> zbog performansi.</p>",
+          "feedback": "<p>Pogledajte na kraju lekcije za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Putanje za <code>includes</code> ili <code>push</code> ne funkcionišu pouzdano na stvari od <code>arguments</code>, stoga bi te putanje trebalo izbegavati.</p>",
+          "feedback": "<p>Pogledajte na kraju lekcije za odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Element <code>arguments</code> nije pravi redak, stoga nema te ugrađene metode.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-arguments-object-and-rest-parameters",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 96,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "review-javascript-fundamentals",
+  "certification": "javascript-v9"
+}

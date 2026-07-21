@@ -1,0 +1,187 @@
+{
+  "id": "672a5507d857a891139abc7f",
+  "title": "Šta je atribut `aria-controls` i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-aria-controls-attribute",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Atribut elementa <code>aria-controls</code> se koristi za kreiranje programskog odnosa između elementa koji kontroliše postojanje drugog elementa na stranici i kontrolovisanog elementa. Ovaj odnos može pomoći korisnicima čitača ekrana da bolje razumeju kako kontroler funkcioniše. Uobičajene primere su skup kartica koji kontrolišu vidljivost različitih delova sadržaja, ili dugme koje menja vidljivost menija.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pogledajmo primer da vidimo kako ovo funkcioniše. U ovom primeru interfejsa sa karticama, imamo element <code>div</code> koji ima set od tri dugmeta:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div role=\"tablist\">\n  <button role=\"tab\" id=\"tab1\" aria-controls=\"section1\" aria-selected=\"true\">\n    Tab 1\n  </button>\n  <button role=\"tab\" id=\"tab2\" aria-controls=\"section2\" aria-selected=\"false\">\n    Tab 2\n  </button>\n  <button role=\"tab\" id=\"tab3\" aria-controls=\"section3\" aria-selected=\"false\">\n    Tab 3\n  </button>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div role=\"tablist\">\n  &#x3C;button role=\"tab\" id=\"tab1\" aria-controls=\"section1\" aria-selected=\"true\">\n    Tab 1\n  &#x3C;/button>\n  &#x3C;button role=\"tab\" id=\"tab2\" aria-controls=\"section2\" aria-selected=\"false\">\n    Tab 2\n  &#x3C;/button>\n  &#x3C;button role=\"tab\" id=\"tab3\" aria-controls=\"section3\" aria-selected=\"false\">\n    Tab 3\n  &#x3C;/button>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": "[role=\"tablist\"] {\n  display: flex;\n  border-bottom: 2px solid #ccc;\n  margin-bottom: 1em;\n  gap: 4px;\n}\n\n[role=\"tab\"] {\n  background: #f5f5f5;\n  border: 1px solid #ccc;\n  border-bottom: none;\n  border-radius: 4px 4px 0 0;\n  padding: 8px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #333;\n  transition: background 0.2s, color 0.2s;\n}\n\n[role=\"tab\"]:hover,\n[role=\"tab\"]:focus {\n  background: #e8f0fe;\n  outline: none;\n}\n\n[role=\"tab\"][aria-selected=\"true\"] {\n  background: #fff;\n  border-color: #ccc;\n  border-bottom: 2px solid #fff;\n  color: #000;\n  font-weight: 600;\n  position: relative;\n  top: 1px; \n}\n\n[role=\"tab\"]:focus-visible {\n  outline: 2px solid #0078d4;\n  outline-offset: 2px;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">[role=\"tablist\"] {\n  display: flex;\n  border-bottom: 2px solid #ccc;\n  margin-bottom: 1em;\n  gap: 4px;\n}\n\n[role=\"tab\"] {\n  background: #f5f5f5;\n  border: 1px solid #ccc;\n  border-bottom: none;\n  border-radius: 4px 4px 0 0;\n  padding: 8px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #333;\n  transition: background 0.2s, color 0.2s;\n}\n\n[role=\"tab\"]:hover,\n[role=\"tab\"]:focus {\n  background: #e8f0fe;\n  outline: none;\n}\n\n[role=\"tab\"][aria-selected=\"true\"] {\n  background: #fff;\n  border-color: #ccc;\n  border-bottom: 2px solid #fff;\n  color: #000;\n  font-weight: 600;\n  position: relative;\n  top: 1px; \n}\n\n[role=\"tab\"]:focus-visible {\n  outline: 2px solid #0078d4;\n  outline-offset: 2px;\n}\n\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>div</code> koristi <code>role=\"tablist\"</code> da pokaže da je kontejnerski element za grupu tabova.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svaki dugme predstavlja karticu i ima atribut elementa <code>role</code> podešen na <code>tab</code>. U interfejsima sa više kartica, prvi panel kartice je vidljiv po podrazumevanju, pa dugme prve kartice ima atribut elementa <code>aria-selected</code> podešen na <code>true</code> da pokaže da je njegov sadržaj trenutno vidljiv. Atribut elementa <code>aria-controls</code> koristi se za povezivanje svakog dugmeta sa sadržajnim delom koji kontroliše.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde postoje tri sekcije sadržaja koje odgovaraju karticama:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div role=\"tablist\">\n  <button role=\"tab\" id=\"tab1\" aria-controls=\"section1\" aria-selected=\"true\">\n    Tab 1\n  </button>\n  <button role=\"tab\" id=\"tab2\" aria-controls=\"section2\" aria-selected=\"false\">\n    Tab 2\n  </button>\n  <button role=\"tab\" id=\"tab3\" aria-controls=\"section3\" aria-selected=\"false\">\n    Tab 3\n  </button>\n</div>\n\n<div id=\"section1\" role=\"tabpanel\" aria-labelledby=\"tab1\">\n  Section 1 content\n</div>\n\n<div id=\"section2\" role=\"tabpanel\" aria-labelledby=\"tab2\" hidden>\n  Section 2 content\n</div>\n\n<div id=\"section3\" role=\"tabpanel\" aria-labelledby=\"tab3\" hidden>\n  Section 3 content\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div role=\"tablist\">\n  &#x3C;button role=\"tab\" id=\"tab1\" aria-controls=\"section1\" aria-selected=\"true\">\n    Tab 1\n  &#x3C;/button>\n  &#x3C;button role=\"tab\" id=\"tab2\" aria-controls=\"section2\" aria-selected=\"false\">\n    Tab 2\n  &#x3C;/button>\n  &#x3C;button role=\"tab\" id=\"tab3\" aria-controls=\"section3\" aria-selected=\"false\">\n    Tab 3\n  &#x3C;/button>\n&#x3C;/div>\n\n&#x3C;div id=\"section1\" role=\"tabpanel\" aria-labelledby=\"tab1\">\n  Section 1 content\n&#x3C;/div>\n\n&#x3C;div id=\"section2\" role=\"tabpanel\" aria-labelledby=\"tab2\" hidden>\n  Section 2 content\n&#x3C;/div>\n\n&#x3C;div id=\"section3\" role=\"tabpanel\" aria-labelledby=\"tab3\" hidden>\n  Section 3 content\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "[role=\"tablist\"] {\n  display: flex;\n  border-bottom: 2px solid #ccc;\n  margin-bottom: 1em;\n  gap: 4px;\n  background: #fafafa;\n  padding: 0.25em;\n}\n\n[role=\"tab\"] {\n  background: #f5f5f5;\n  border: 1px solid #ccc;\n  border-bottom: none;\n  border-radius: 4px 4px 0 0;\n  padding: 8px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #333;\n  transition: background 0.2s, color 0.2s;\n}\n\n[role=\"tab\"]:hover,\n[role=\"tab\"]:focus {\n  background: #e8f0fe;\n  outline: none;\n}\n\n[role=\"tab\"][aria-selected=\"true\"] {\n  background: #fff;\n  border-color: #ccc;\n  border-bottom: 2px solid #fff;\n  color: #000;\n  font-weight: 600;\n  position: relative;\n  top: 1px;\n}\n\n[role=\"tab\"]:focus-visible {\n  outline: 2px solid #0078d4;\n  outline-offset: 2px;\n}\n\n[role=\"tabpanel\"] {\n  border: 1px solid #ccc;\n  border-radius: 0 4px 4px 4px;\n  padding: 16px;\n  background-color: #fff;\n  color: #333;\n  font-size: 15px;\n  line-height: 1.4;\n}\n\n[role=\"tabpanel\"][hidden] {\n  display: none;\n}\n",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">[role=\"tablist\"] {\n  display: flex;\n  border-bottom: 2px solid #ccc;\n  margin-bottom: 1em;\n  gap: 4px;\n  background: #fafafa;\n  padding: 0.25em;\n}\n\n[role=\"tab\"] {\n  background: #f5f5f5;\n  border: 1px solid #ccc;\n  border-bottom: none;\n  border-radius: 4px 4px 0 0;\n  padding: 8px 16px;\n  cursor: pointer;\n  font-size: 14px;\n  color: #333;\n  transition: background 0.2s, color 0.2s;\n}\n\n[role=\"tab\"]:hover,\n[role=\"tab\"]:focus {\n  background: #e8f0fe;\n  outline: none;\n}\n\n[role=\"tab\"][aria-selected=\"true\"] {\n  background: #fff;\n  border-color: #ccc;\n  border-bottom: 2px solid #fff;\n  color: #000;\n  font-weight: 600;\n  position: relative;\n  top: 1px;\n}\n\n[role=\"tab\"]:focus-visible {\n  outline: 2px solid #0078d4;\n  outline-offset: 2px;\n}\n\n[role=\"tabpanel\"] {\n  border: 1px solid #ccc;\n  border-radius: 0 4px 4px 4px;\n  padding: 16px;\n  background-color: #fff;\n  color: #333;\n  font-size: 15px;\n  line-height: 1.4;\n}\n\n[role=\"tabpanel\"][hidden] {\n  display: none;\n}\n\n</code></pre>"
+        },
+        {
+          "contents": "const tabs = document.querySelectorAll('[role=\"tab\"]');\nconst tabList = document.querySelector('[role=\"tablist\"]');\n\ntabs.forEach(tab => {\n  tab.addEventListener('click', () => {\n    activateTab(tab);\n  });\n\n  tab.addEventListener('keydown', (e) => {\n    const key = e.key;\n    const currentIndex = Array.from(tabs).indexOf(tab);\n    let newIndex = null;\n\n    if (key === 'ArrowRight') {\n      newIndex = (currentIndex + 1) % tabs.length;\n    } else if (key === 'ArrowLeft') {\n      newIndex = (currentIndex - 1 + tabs.length) % tabs.length;\n    } else if (key === 'Home') {\n      newIndex = 0;\n    } else if (key === 'End') {\n      newIndex = tabs.length - 1;\n    }\n\n    if (newIndex !== null) {\n      tabs[newIndex].focus();\n      activateTab(tabs[newIndex]);\n    }\n  });\n});\n\nfunction activateTab(tab) {\n  const tabPanels = document.querySelectorAll('[role=\"tabpanel\"]');\n\n  tabs.forEach(t => {\n    t.setAttribute('aria-selected', 'false');\n    t.setAttribute('tabindex', '-1');\n  });\n\n  tabPanels.forEach(panel => panel.hidden = true);\n\n  tab.setAttribute('aria-selected', 'true');\n  tab.removeAttribute('tabindex');\n\n  const panelId = tab.getAttribute('aria-controls');\n  const panel = document.getElementById(panelId);\n  panel.hidden = false;\n  tab.focus();\n}\n",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const tabs = document.querySelectorAll('[role=\"tab\"]');\nconst tabList = document.querySelector('[role=\"tablist\"]');\n\ntabs.forEach(tab => {\n  tab.addEventListener('click', () => {\n    activateTab(tab);\n  });\n\n  tab.addEventListener('keydown', (e) => {\n    const key = e.key;\n    const currentIndex = Array.from(tabs).indexOf(tab);\n    let newIndex = null;\n\n    if (key === 'ArrowRight') {\n      newIndex = (currentIndex + 1) % tabs.length;\n    } else if (key === 'ArrowLeft') {\n      newIndex = (currentIndex - 1 + tabs.length) % tabs.length;\n    } else if (key === 'Home') {\n      newIndex = 0;\n    } else if (key === 'End') {\n      newIndex = tabs.length - 1;\n    }\n\n    if (newIndex !== null) {\n      tabs[newIndex].focus();\n      activateTab(tabs[newIndex]);\n    }\n  });\n});\n\nfunction activateTab(tab) {\n  const tabPanels = document.querySelectorAll('[role=\"tabpanel\"]');\n\n  tabs.forEach(t => {\n    t.setAttribute('aria-selected', 'false');\n    t.setAttribute('tabindex', '-1');\n  });\n\n  tabPanels.forEach(panel => panel.hidden = true);\n\n  tab.setAttribute('aria-selected', 'true');\n  tab.removeAttribute('tabindex');\n\n  const panelId = tab.getAttribute('aria-controls');\n  const panel = document.getElementById(panelId);\n  panel.hidden = false;\n  tab.focus();\n}\n\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svaka sekcija sadržaja ima atribut elementa <code>role</code> postavljen na <code>tabpanel</code> i atribut elementa <code>aria-labelledby</code> koji se odnosi na odgovarajuću karticu radi pružanja dostupnog imena za panel. Atribut elementa <code>hidden</code> koristi se za skrivanje sekcija sadržaja koje trenutno nisu odabrane. Svaki ID sekcije odgovara vrednosti atributa elementa <code>aria-controls</code> na odgovarajućem dugmetu. ID <code>section1</code> odgovara atributu elementa <code>aria-controls</code> na prvom dugmetu, <code>section2</code> odgovara <code>aria-controls</code> na drugom dugmetu, i <code>section3</code> odgovara <code>aria-controls</code> na trećem dugmetu. Na ovakav način se uspostavlja veza između kartica i njihovih sekcija sadržaja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste prebacili između različitih sekcija, ćete morati da koristite JavaScript da modifikujete atribut elementa <code>hidden</code> na sekciji i atribut elementa <code>aria-selected</code> na dugmetu, u zavisnosti od toga koja je sekcija trenutno prikazana. Samo jedna sekcija može biti vidljiva u isto vreme i ne bi trebalo da ima atribut elementa <code>hidden</code> i <code>aria-selected</code>, već treba da bude postavljena na <code>true</code> na svom dugmetu. Sve skrivene sekcije treba da imaju atribut elementa <code>hidden</code> i <code>aria-selected</code>, te treba da se postave na <code>false</code> na svojim dugmetima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Tabovi su česta primena atributa <code>aria-controls</code>, ali on se može koristiti i kada jedan element upravlja prikazom ili ponašanjem drugog, na primer kod harmonika, padajućih menija i modalnih prozora.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sledeći put kada praviš korisnički interfejs u kojem jedan element upravlja drugim, razmisli o korišćenju atributa <code>aria-controls</code> za uspostavljanje te veze.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je svrha atributa <code>aria-controls</code> u kontekstu tabova?</p>",
+      "answers": [
+        {
+          "answer": "<p>Da označi koji je tab trenutno aktivan.</p>",
+          "feedback": "<p>Razmisli o vezi između tabova i panela sa sadržajem.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sakriti ili prikazati delove sadržaja.</p>",
+          "feedback": "<p>Razmislite o odnosu između kartice i sekcija sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uključiti karticu i kontrolni deo.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postavljanje uloge komponente/elementa.</p>",
+          "feedback": "<p>Razmislite o odnosu između kartica i sekcija sadržaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Da li svojstvo elementa <code>aria-controls</code> utiče na sekciju sadržaja u ovom primeru?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ažurira sadržaj direktno prema unosu korisnika.</p>",
+          "feedback": "<p>Razmislite kako se atribut elementa koristi za kontrolisanje izgleda sekcija sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Skriva ili prikazuje deo u zavisnosti od izabličenog kartice.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Promenjuje stil kartice kako bi pokazao/pokazala da je izabran.</p>",
+          "feedback": "<p>Razmislite kako atribut elementa se koristi za kontrolisanje izgleda sekcija sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objašnjava izgled kartice.</p>",
+          "feedback": "<p>Razmislite kako se svojstvo elementa koristi za kontrolisanje izgleda sekcija sadržaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>U datom primeru, kako se koristi svojstvo atributa <code>aria-labelledby</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koja kartica kontroliše koji deo sadržaja?</p>",
+          "feedback": "<p>Uključuje karticu i kontrolisani deo sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Identifikujte sekciju sadržaja koja je kontrolisana karticama.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postavljanje funkcionalnosti kartica i sekcija sadržaja.</p>",
+          "feedback": "<p>Uključuje karticu i kontrolisanu oblast sadržaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Automatska promena sekcija sadržaja prilikom klika na karticu.</p>",
+          "feedback": "<p>Uključuje karticu i sekciju sadržaja koja je kontrolisana.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-aria-expanded-aria-live-and-common-aria-states",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 131,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "js-a11y",
+  "certification": "javascript-v9"
+}

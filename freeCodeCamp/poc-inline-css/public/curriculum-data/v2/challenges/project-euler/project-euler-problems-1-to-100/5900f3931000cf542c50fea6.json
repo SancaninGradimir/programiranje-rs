@@ -1,0 +1,81 @@
+{
+  "id": "5900f3931000cf542c50fea6",
+  "title": "Vežba 39: Trokuti u krugovima sa celim brojevima",
+  "challengeType": 1,
+  "forumTopicId": 302054,
+  "dashedName": "problem-39-integer-right-triangles",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function intRightTriangles(n) {\n\n  return n;\n}\n\nintRightTriangles(500);",
+      "error": null,
+      "seed": "function intRightTriangles(n) {\n\n  return n;\n}\n\nintRightTriangles(500);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// Original idea for this solution came from\n// https://www.xarg.org/puzzle/project-euler/problem-39/\n\nfunction intRightTriangles(n) {\n  // store the number of triangles with a given perimeter\n  let triangles = {};\n  // a is the shortest side\n  for (let a = 3; a < n / 3; a++)\n  // o is the opposite side and is at least as long as a\n    for (let o = a; o < n / 2; o++) {\n      let h = Math.sqrt(a * a + o * o); // hypotenuse\n      let p = a + o + h;  // perimeter\n      if ((h % 1) === 0 && p <= n) {\n        triangles[p] = (triangles[p] || 0) + 1;\n      }\n    }\n\n  let max = 0, maxp = null;\n  for (let p in triangles) {\n    if (max < triangles[p]) {\n      max = triangles[p];\n      maxp = parseInt(p);\n    }\n  }\n  return maxp;\n}",
+        "error": null,
+        "seed": "// Original idea for this solution came from\n// https://www.xarg.org/puzzle/project-euler/problem-39/\n\nfunction intRightTriangles(n) {\n  // store the number of triangles with a given perimeter\n  let triangles = {};\n  // a is the shortest side\n  for (let a = 3; a < n / 3; a++)\n  // o is the opposite side and is at least as long as a\n    for (let o = a; o < n / 2; o++) {\n      let h = Math.sqrt(a * a + o * o); // hypotenuse\n      let p = a + o + h;  // perimeter\n      if ((h % 1) === 0 && p <= n) {\n        triangles[p] = (triangles[p] || 0) + 1;\n      }\n    }\n\n  let max = 0, maxp = null;\n  for (let p in triangles) {\n    if (max < triangles[p]) {\n      max = triangles[p];\n      maxp = parseInt(p);\n    }\n  }\n  return maxp;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>intRightTriangles(500)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof intRightTriangles(500) === 'number');"
+    },
+    {
+      "text": "<p><code>intRightTriangles(500)</code> trebalo bi da vrati 420.</p>",
+      "testString": "assert(intRightTriangles(500) == 420);"
+    },
+    {
+      "text": "<p><code>intRightTriangles(800)</code> Trebalo bi da vrati 720.</p>",
+      "testString": "assert(intRightTriangles(800) == 720);"
+    },
+    {
+      "text": "<p><code>intRightTriangles(900)</code> Trebalo bi da vrati 840.</p>",
+      "testString": "assert(intRightTriangles(900) == 840);"
+    },
+    {
+      "text": "<p><code>intRightTriangles(1000)</code> trebalo bi da vrati 840.</p>",
+      "testString": "assert(intRightTriangles(1000) == 840);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako <code>p</code> je krug trougla sa pravim uglom i stranama čija su dužina celih brojeva, {a,b,c}, postoji samo tri rešenja za p = 120.</p>\n<p>{20,48,52}, {24,45,51}, {30,40,50}</p>\n<p>Za koju vrednost <code>p</code> ≤ <code>n</code>, broj rešenja postaje veći?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 38,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

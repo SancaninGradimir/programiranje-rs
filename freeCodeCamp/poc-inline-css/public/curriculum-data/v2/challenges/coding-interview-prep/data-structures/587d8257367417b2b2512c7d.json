@@ -1,0 +1,100 @@
+{
+  "id": "587d8257367417b2b2512c7d",
+  "title": "Tafuta kiwango cha chini na cha juu cha mti wa utafutaji wa kibainari",
+  "challengeType": 1,
+  "forumTopicId": 301641,
+  "dashedName": "find-the-minimum-and-maximum-height-of-a-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n  // Only change code below this line\n  \n  // Only change code above this line\n}",
+      "error": null,
+      "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n  // Only change code below this line\n  \n  // Only change code above this line\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n  // Only change code below this line\n  \n  // Only change code above this line\n  this.findMinHeight = function(root = this.root) {\n    // empty tree.\n    if (root === null) {\n      return -1;\n    }\n    // leaf node.\n    if (root.left === null && root.right === null) {\n      return 0;\n    }\n    if (root.left === null) {\n      return this.findMinHeight(root.right) + 1;\n    }\n    if (root.right === null) {\n      return this.findMinHeight(root.left) + 1;\n    }\n    const lHeight = this.findMinHeight(root.left);\n    const rHeight = this.findMinHeight(root.right);\n    return Math.min(lHeight, rHeight) + 1;\n  };\n  this.findMaxHeight = function(root = this.root) {\n    // empty tree.\n    if (root === null) {\n      return -1;\n    }\n    // leaf node.\n    if (root.left === null && root.right === null) {\n      return 0;\n    }\n    if (root.left === null) {\n      return this.findMaxHeight(root.right) + 1;\n    }\n    if (root.right === null) {\n      return this.findMaxHeight(root.left) + 1;\n    }\n    const lHeight = this.findMaxHeight(root.left);\n    const rHeight = this.findMaxHeight(root.right);\n    return Math.max(lHeight, rHeight) + 1;\n  };\n  this.isBalanced = function(root = this.root) {\n    if (root === null) {\n      return true;\n    }\n\n    if (root.left === null && root.right === null) {\n      return true;\n    }\n\n    if (root.left === null) {\n      return this.findMaxHeight(root.right) <= 0;\n    }\n\n    if (root.right === null) {\n      return this.findMaxHeight(root.left) <= 0;\n    }\n\n    const lHeight = this.findMaxHeight(root.left);\n    const rHeight = this.findMaxHeight(root.right);\n    if (Math.abs(lHeight - rHeight) > 1) {\n      return false;\n    }\n    return this.isBalanced(root.left) && this.isBalanced(root.right);\n  };\n}",
+        "error": null,
+        "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n  // Only change code below this line\n  \n  // Only change code above this line\n  this.findMinHeight = function(root = this.root) {\n    // empty tree.\n    if (root === null) {\n      return -1;\n    }\n    // leaf node.\n    if (root.left === null && root.right === null) {\n      return 0;\n    }\n    if (root.left === null) {\n      return this.findMinHeight(root.right) + 1;\n    }\n    if (root.right === null) {\n      return this.findMinHeight(root.left) + 1;\n    }\n    const lHeight = this.findMinHeight(root.left);\n    const rHeight = this.findMinHeight(root.right);\n    return Math.min(lHeight, rHeight) + 1;\n  };\n  this.findMaxHeight = function(root = this.root) {\n    // empty tree.\n    if (root === null) {\n      return -1;\n    }\n    // leaf node.\n    if (root.left === null && root.right === null) {\n      return 0;\n    }\n    if (root.left === null) {\n      return this.findMaxHeight(root.right) + 1;\n    }\n    if (root.right === null) {\n      return this.findMaxHeight(root.left) + 1;\n    }\n    const lHeight = this.findMaxHeight(root.left);\n    const rHeight = this.findMaxHeight(root.right);\n    return Math.max(lHeight, rHeight) + 1;\n  };\n  this.isBalanced = function(root = this.root) {\n    if (root === null) {\n      return true;\n    }\n\n    if (root.left === null && root.right === null) {\n      return true;\n    }\n\n    if (root.left === null) {\n      return this.findMaxHeight(root.right) <= 0;\n    }\n\n    if (root.right === null) {\n      return this.findMaxHeight(root.left) <= 0;\n    }\n\n    const lHeight = this.findMaxHeight(root.left);\n    const rHeight = this.findMaxHeight(root.right);\n    if (Math.abs(lHeight - rHeight) > 1) {\n      return false;\n    }\n    return this.isBalanced(root.left) && this.isBalanced(root.right);\n  };\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype = Object.assign(\n  BinarySearchTree.prototype,\n  {\n    add: function(value) {\n      function searchTree(node) {\n        if (value < node.value) {\n          if (node.left == null) {\n            node.left = new Node(value);\n            return;\n          } else if (node.left != null) {\n            return searchTree(node.left);\n          }\n        } else if (value > node.value) {\n          if (node.right == null) {\n            node.right = new Node(value);\n            return;\n          } else if (node.right != null) {\n            return searchTree(node.right);\n          }\n        } else {\n          return null;\n        }\n      }\n\n      var node = this.root;\n      if (node == null) {\n        this.root = new Node(value);\n        return;\n      } else {\n        return searchTree(node);\n      }\n    }\n  }\n);"
+  },
+  "tests": [
+    {
+      "text": "<p>Struktura podataka <code>BinarySearchTree</code> treba da postoji.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    }\n    return typeof test == 'object';\n  })()\n);"
+    },
+    {
+      "text": "<p>Binarno stablo pretrage treba da ima put nazvan <code>findMinHeight</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    return typeof test.findMinHeight == 'function';\n  })()\n);"
+    },
+    {
+      "text": "<p>Binarni stab za pretraživanje mora imati metodu nazvanu <code>findMaxHeight</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    return typeof test.findMaxHeight == 'function';\n  })()\n);"
+    },
+    {
+      "text": "<p>Binarno stabljiko za pretraživanje mora da ima putanju nazvanu <code>isBalanced</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    return typeof test.isBalanced == 'function';\n  })()\n);"
+    },
+    {
+      "text": "<p>Ruta za <code>findMinHeight</code> bi trebalo da vrati minimalnu visinu drveta.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    if (typeof test.findMinHeight !== 'function') {\n      return false;\n    }\n    test.add(4);\n    test.add(1);\n    test.add(7);\n    test.add(87);\n    test.add(34);\n    test.add(45);\n    test.add(73);\n    test.add(8);\n    return test.findMinHeight() == 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>findMaxHeight</code> treba da vrati maksimalnu visinu drveta.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    if (typeof test.findMaxHeight !== 'function') {\n      return false;\n    }\n    test.add(4);\n    test.add(1);\n    test.add(7);\n    test.add(87);\n    test.add(34);\n    test.add(45);\n    test.add(73);\n    test.add(8);\n    return test.findMaxHeight() == 5;\n  })()\n);"
+    },
+    {
+      "text": "<p>Prazno stablo treba da vrati visinu <code>-1</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    if (typeof test.findMaxHeight !== 'function') {\n      return false;\n    }\n    return test.findMaxHeight() == -1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Put za <code>isBalanced</code> bi trebalo da vrati <code>false</code> ako je drvo neravnotežno binarno stablo pretrage.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    if (typeof test.isBalanced !== 'function') {\n      return false;\n    }\n    test.add(4);\n    test.add(1);\n    test.add(7);\n    test.add(87);\n    test.add(34);\n    test.add(45);\n    test.add(73);\n    test.add(8);\n    return test.isBalanced() === false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>isBalanced</code> bi trebalo da vrati <code>true</code> ako je stablo balansirano binarno stablo pretrage.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    if (typeof test.isBalanced !== 'function') {\n      return false;\n    }\n    test.add(10);\n    test.add(3);\n    test.add(22);\n    test.add(1);\n    test.add(4);\n    test.add(17);\n    test.add(32);\n    return test.isBalanced() === true;\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U poslednjem izazovu napisali smo situaciju u kojoj drvo može biti neizbalansirano. Da bismo razumeli koncept balansa, istražujemo drugu osobinu drveća: visinu. Visina u drvetu predstavlja rastojanje od korenovog čvora do bilo kog listnog čvora. Različiti putevi u strukturi graneastog drveća mogu imati različite visine, ali za određeno drvo će postojati minimalna i maksimalna visina. Ako je drvo balansirano, ove vrednosti će se razlikovati najviše za jedan nivo. To znači da u balansiranom drvetu su svi listni čvorovi na istom nivou, ili ako nisu na istom nivou, onda su barem jedan nivo udaljeni.</p>\n<p>Svojstvo ravnoteže je važno za drveće jer određuje efikasnost operacija na drveću. Kao što smo objasnili u poslednjem izazovu, susrećemo se sa problemom najgoreg slučaja kod potpuno neravnoteženog drveća. Samoravnotežna drveća često se koriste za rešavanje ovog problema u drvećima sa promenljivim skupovima podataka. Uobičajeni primeri su AVL drveće, crveno-crno drvo i B drvo. Sva ova drveća imaju dodatnu internu logiku koja ispravlja ravnotežu drveća kada ubacivanje ili brisanje uzrokuje neravnoteženost.</p>\n<p><strong>Napomena:</strong> Atribut sličan dužini je dubina, koja se odnosi na udaljenost određenog čvora od korenovog čvora.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite dve metode za naš binarni stablo: <code>findMinHeight</code> i <code>findMaxHeight</code>. Ove metode treba da vraćaju celobrojnu vrednost minimalne i maksimalne visine unutar datih binarnog stabla, respektivno. Ako je čvor prazan (null), molim vas postavite vrednost visine <code>-1</code> (to je osnovni slučaj). Na kraju, dodajte treću metodu <code>isBalanced</code> koja vraća <code>true</code> ili <code>false</code> u zavisnosti od toga da li je stablo balansirano. Možete koristiti dve metode koje ste ranije napisali za određivanje ovoga.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

@@ -1,0 +1,109 @@
+{
+  "id": "5a23c84252665b21eecc8017",
+  "title": "Soundex",
+  "challengeType": 1,
+  "forumTopicId": 302320,
+  "dashedName": "soundex",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function soundex(s) {\n\n}",
+      "error": null,
+      "seed": "function soundex(s) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function soundex(s) {\n  var a = s.toLowerCase().split('');\n  var f = a.shift(),\n    r = '',\n    codes = {\n      a: '',\n      e: '',\n      i: '',\n      o: '',\n      u: '',\n      b: 1,\n      f: 1,\n      p: 1,\n      v: 1,\n      c: 2,\n      g: 2,\n      j: 2,\n      k: 2,\n      q: 2,\n      s: 2,\n      x: 2,\n      z: 2,\n      d: 3,\n      t: 3,\n      l: 4,\n      m: 5,\n      n: 5,\n      r: 6\n    };\n  r =\n    f +\n    a\n      .map(function(v, i, a) {\n        return codes[v];\n      })\n      .filter(function(v, i, a) {\n        return i === 0 ? v !== codes[f] : v !== a[i - 1];\n      })\n      .join('');\n\n  return (r + '000').slice(0, 4).toUpperCase();\n}",
+        "error": null,
+        "seed": "function soundex(s) {\n  var a = s.toLowerCase().split('');\n  var f = a.shift(),\n    r = '',\n    codes = {\n      a: '',\n      e: '',\n      i: '',\n      o: '',\n      u: '',\n      b: 1,\n      f: 1,\n      p: 1,\n      v: 1,\n      c: 2,\n      g: 2,\n      j: 2,\n      k: 2,\n      q: 2,\n      s: 2,\n      x: 2,\n      z: 2,\n      d: 3,\n      t: 3,\n      l: 4,\n      m: 5,\n      n: 5,\n      r: 6\n    };\n  r =\n    f +\n    a\n      .map(function(v, i, a) {\n        return codes[v];\n      })\n      .filter(function(v, i, a) {\n        return i === 0 ? v !== codes[f] : v !== a[i - 1];\n      })\n      .join('');\n\n  return (r + '000').slice(0, 4).toUpperCase();\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>soundex</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof soundex == 'function');"
+    },
+    {
+      "text": "<p><code>soundex(\"Soundex\")</code> treba da vrati string.</p>",
+      "testString": "assert(typeof soundex('Soundex') == 'string');"
+    },
+    {
+      "text": "<p><code>soundex(\"Soundex\")</code> inapaswa kurudisha <code>\"S532\"</code>.</p>",
+      "testString": "assert.equal(soundex('Soundex'), 'S532');"
+    },
+    {
+      "text": "<p><code>soundex(\"Example\")</code> treba da vrati <code>\"E251\"</code>.</p>",
+      "testString": "assert.equal(soundex('Example'), 'E251');"
+    },
+    {
+      "text": "<p><code>soundex(\"Sownteks\")</code> trebalo bi da vrati <code>\"S532\"</code>.</p>",
+      "testString": "assert.equal(soundex('Sownteks'), 'S532');"
+    },
+    {
+      "text": "<p><code>soundex(\"Ekzampul\")</code> trebalo bi vratiti <code>\"E251\"</code>.</p>",
+      "testString": "assert.equal(soundex('Ekzampul'), 'E251');"
+    },
+    {
+      "text": "<p><code>soundex(\"Euler\")</code> treba da vrati <code>\"E460\"</code>.</p>",
+      "testString": "assert.equal(soundex('Euler'), 'E460');"
+    },
+    {
+      "text": "<p><code>soundex(\"Gauss\")</code> treba da vrati <code>\"G200\"</code>.</p>",
+      "testString": "assert.equal(soundex('Gauss'), 'G200');"
+    },
+    {
+      "text": "<p><code>soundex(\"Hilbert\")</code> treba da vrati <code>\"H416\"</code>.</p>",
+      "testString": "assert.equal(soundex('Hilbert'), 'H416');"
+    },
+    {
+      "text": "<p><code>soundex(\"Knuth\")</code> treba da vrati <code>\"K530\"</code>.</p>",
+      "testString": "assert.equal(soundex('Knuth'), 'K530');"
+    },
+    {
+      "text": "<p><code>soundex(\"Lloyd\")</code> treba da vrati <code>\"L300\"</code>.</p>",
+      "testString": "assert.equal(soundex('Lloyd'), 'L300');"
+    },
+    {
+      "text": "<p><code>soundex(\"Lukasiewicz\")</code> treba da vrati <code>\"L222\"</code>.</p>",
+      "testString": "assert.equal(soundex('Lukasiewicz'), 'L222');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>Soundeks algoritam</strong> se odnosi na <em>zvuk</em> reči. Kreira reprezentaciju reči koje zvuče slično.</p>\n<p>Koristi se za pretraživanje <em>imena</em> i <em>adrese</em>. To znači da osoba koja popunjava <em>ime</em> može obratiti pažnju na kako zvuči umesto ispravljanja pravopisa za <em>imena</em>.</p>\n<p>Na primer:</p>\n<p>Ako čujete ime <code>Quenci</code> prvi put, i ako ga pogrešno izgovorite, dobićete kod <strong>Soundex</strong> <code>Q520</code>.</p>\n<p>Kada pravilno ispišete ime <code>Quincy</code> još jednom, i dalje ćete dobiti isti kod <code>Q520</code>, što znači da može povezati različite izgovore jednog imena za jednu osobu bez potrebe dodavanja svakog pravopisa.</p>\n<p>Ovo su pravila:</p>\n<ul>\n<li>Ako samoglasnik (A, E, I, O, U) razdvaja dva suglasnika sa istim Soundex kodom, kodira se suglasnik sa desne strane samoglasnika. Tymczak dobija kod T-522 (T, 5 za M, 2 za C, Z se zanemaruje (pogledaj pravilo „Jedan pored drugog“ iznad), 2 za K). Pošto samoglasnik „A“ razdvaja Z i K, K dobija kod.</li>\n<li>Ako slova „H“ ili „W“ razdvajaju dva suglasnika sa istim Soundex kodom, suglasnik sa desne strane se ne kodira. Na primer: Ashcraft dobija kod A-261 (A, 2 za S, C se zanemaruje, 6 za R, 1 za F), a ne A-226.</li>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja prima niz znakova kao argument i vraća taj niz znakova konvertovan u kod/šifru.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 130,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

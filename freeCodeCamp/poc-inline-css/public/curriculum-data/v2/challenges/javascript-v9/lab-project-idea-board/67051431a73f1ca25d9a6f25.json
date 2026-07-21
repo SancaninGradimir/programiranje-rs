@@ -1,0 +1,135 @@
+{
+  "id": "67051431a73f1ca25d9a6f25",
+  "title": "Izgradnja Konceptne Tablice Projekta",
+  "challengeType": 26,
+  "dashedName": "build-a-project-idea-board",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const projectStatus = {\n  PENDING: { description: \"Pending Execution\" },\n  SUCCESS: { description: \"Executed Successfully\" },\n  FAILURE: { description: \"Execution Failed\" },\n};\n\nclass ProjectIdea {\n  constructor(title, description) {\n    this.title = title;\n    this.description = description;\n    this.status = projectStatus.PENDING;\n  }\n\n  updateProjectStatus(newStatus) {\n    this.status = newStatus;\n  }\n}\n\nclass ProjectIdeaBoard {\n  constructor(title) {\n    this.title = title;\n    this.ideas = [];\n  }\n\n  pin(newIdea) {\n    this.ideas.push(newIdea);\n  }\n\n  unpin(idea) {\n    this.ideas.splice(this.ideas.indexOf(idea), 1);\n  }\n\n  count() {\n    return this.ideas.length;\n  }\n\n  formatToString() {\n    let representation = `${this.title} has ${this.count()} idea(s)\\n`;\n\n    this.ideas.forEach(\n      (idea) =>\n        (representation += `${idea.title} (${idea.status.description}) - ${idea.description}\\n`),\n    );\n    return representation;\n  }\n}\n\nlet windowLocks = new ProjectIdea(\n  \"Smart Window Locks\",\n  \"An automation project allowing users to lock, unlock windows automatically based on weather conditions.\"\n);\n\nlet breakfastChef = new ProjectIdea(\n  \"Breakfast Chef Robot\",\n  \"A robot that can follow a given list of instructions and prepare breakfast for the user and let them know through their phone.\"\n);\nbreakfastChef.updateProjectStatus(projectStatus.FAILURE);\n\nlet usedVideoGamesStore = new ProjectIdea(\n  \"Online Used Video Games Store\",\n  \"An online platform where users can buy second hand physical copies of video games from other users.\"\n);\nusedVideoGamesStore.updateProjectStatus(projectStatus.SUCCESS);\n\nlet hardwareProjectIdeas = new ProjectIdeaBoard(\"Hardware Project Board\");\nhardwareProjectIdeas.pin(windowLocks);\nhardwareProjectIdeas.pin(breakfastChef);\n\nlet softwareProjectIdeas = new ProjectIdeaBoard(\"Software Project Board\");\nsoftwareProjectIdeas.pin(usedVideoGamesStore);\n\nconsole.log(softwareProjectIdeas.formatToString());\n\nconsole.log(hardwareProjectIdeas.formatToString());\nhardwareProjectIdeas.unpin(breakfastChef);\nconsole.log(hardwareProjectIdeas.formatToString());",
+        "error": null,
+        "seed": "const projectStatus = {\n  PENDING: { description: \"Pending Execution\" },\n  SUCCESS: { description: \"Executed Successfully\" },\n  FAILURE: { description: \"Execution Failed\" },\n};\n\nclass ProjectIdea {\n  constructor(title, description) {\n    this.title = title;\n    this.description = description;\n    this.status = projectStatus.PENDING;\n  }\n\n  updateProjectStatus(newStatus) {\n    this.status = newStatus;\n  }\n}\n\nclass ProjectIdeaBoard {\n  constructor(title) {\n    this.title = title;\n    this.ideas = [];\n  }\n\n  pin(newIdea) {\n    this.ideas.push(newIdea);\n  }\n\n  unpin(idea) {\n    this.ideas.splice(this.ideas.indexOf(idea), 1);\n  }\n\n  count() {\n    return this.ideas.length;\n  }\n\n  formatToString() {\n    let representation = `${this.title} has ${this.count()} idea(s)\\n`;\n\n    this.ideas.forEach(\n      (idea) =>\n        (representation += `${idea.title} (${idea.status.description}) - ${idea.description}\\n`),\n    );\n    return representation;\n  }\n}\n\nlet windowLocks = new ProjectIdea(\n  \"Smart Window Locks\",\n  \"An automation project allowing users to lock, unlock windows automatically based on weather conditions.\"\n);\n\nlet breakfastChef = new ProjectIdea(\n  \"Breakfast Chef Robot\",\n  \"A robot that can follow a given list of instructions and prepare breakfast for the user and let them know through their phone.\"\n);\nbreakfastChef.updateProjectStatus(projectStatus.FAILURE);\n\nlet usedVideoGamesStore = new ProjectIdea(\n  \"Online Used Video Games Store\",\n  \"An online platform where users can buy second hand physical copies of video games from other users.\"\n);\nusedVideoGamesStore.updateProjectStatus(projectStatus.SUCCESS);\n\nlet hardwareProjectIdeas = new ProjectIdeaBoard(\"Hardware Project Board\");\nhardwareProjectIdeas.pin(windowLocks);\nhardwareProjectIdeas.pin(breakfastChef);\n\nlet softwareProjectIdeas = new ProjectIdeaBoard(\"Software Project Board\");\nsoftwareProjectIdeas.pin(usedVideoGamesStore);\n\nconsole.log(softwareProjectIdeas.formatToString());\n\nconsole.log(hardwareProjectIdeas.formatToString());\nhardwareProjectIdeas.unpin(breakfastChef);\nconsole.log(hardwareProjectIdeas.formatToString());"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Morate definisati tabelu nečega pod nazivom <code>projectStatus</code>, sa ispravnim statusima projekata i njihovim opisima.</p>",
+      "testString": "assert.isObject(projectStatus);\nassert.sameMembers(Object.keys(projectStatus), [\"PENDING\", \"SUCCESS\", \"FAILURE\"]);\nassert.deepEqual(projectStatus.PENDING, { description: \"Pending Execution\" });\nassert.deepEqual(projectStatus.SUCCESS, { description: \"Executed Successfully\" });\nassert.deepEqual(projectStatus.FAILURE, { description: \"Execution Failed\" });"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš klasu <code>ProjectIdea</code>.</p>",
+      "testString": "assert.isFunction(ProjectIdea);\nassert.isObject(new ProjectIdea());"
+    },
+    {
+      "text": "<p>Tvoja klasa za <code>ProjectIdea</code> treba da inicijalizuje svojstva za <code>title</code> i <code>description</code> prema navedenim kriterijumima. Takođe mora da postavi stanje na <code>projectStatus.PENDING</code>.</p>",
+      "testString": "const test = new ProjectIdea(\"sample title\", \"sample description\");\nassert.isAbove(test.title.length, 0);\nassert.isAbove(test.description.length, 0);\nassert.strictEqual(test.status.description, \"Pending Execution\");"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>ProjectIdea</code> treba da ima metod za <code>updateProjectStatus</code>.</p>",
+      "testString": "const projectIdea = new ProjectIdea();\nassert.isFunction(projectIdea.updateProjectStatus);"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš razred <code>ProjectIdeaBoard</code>.</p>",
+      "testString": "assert.isFunction(ProjectIdeaBoard);\nassert.isObject(new ProjectIdeaBoard());"
+    },
+    {
+      "text": "<p><code>ProjectIdeaBoard</code> treba da inicijalizuje svojstvo <code>title</code> prema datoj vrednosti i kreira prazan niz podataka nazvan <code>ideas</code> za skladištenje zapisa klase <code>ProjectIdea</code>.</p>",
+      "testString": "const test = new ProjectIdeaBoard(\"Sample Title\");\nassert.isArray(test.ideas);\nassert.lengthOf(test.ideas, 0);\nassert.exists(test.title);"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>ProjectIdeaBoard</code> treba da ima metodu za <code>pin</code>.</p>",
+      "testString": "const projectIdeaBoard = new ProjectIdeaBoard();\nassert.isFunction(projectIdeaBoard.pin);"
+    },
+    {
+      "text": "<p>Darasa lako za <code>ProjectIdeaBoard</code> treba da ima metodu <code>unpin</code>.</p>",
+      "testString": "const projectIdeaBoard = new ProjectIdeaBoard();\nassert.isFunction(projectIdeaBoard.unpin);"
+    },
+    {
+      "text": "<p>Vaša klasa od <code>ProjectIdeaBoard</code> treba da ima metodu za <code>count</code>.</p>",
+      "testString": "const projectIdeaBoard = new ProjectIdeaBoard();\nassert.isFunction(projectIdeaBoard.count);"
+    },
+    {
+      "text": "<p>Tvoja klasa za <code>ProjectIdeaBoard</code> treba da ima metodu <code>formatToString</code>.</p>",
+      "testString": "const projectIdeaBoard = new ProjectIdeaBoard();\nassert.isFunction(projectIdeaBoard.formatToString);"
+    },
+    {
+      "text": "<p><code>new ProjectIdea(\"Smart Window Locks\", \"An automation project allowing users to lock, unlock windows automatically based on weather conditions.\")</code> treba da vrati <code>{ title: 'Smart Window Locks', description: 'An automation project allowing users to lock, unlock windows automatically based on weather conditions.', status: { description: 'Pending Execution' } }</code>.</p>",
+      "testString": "const windowLocks = new ProjectIdea(\n  \"Smart Window Locks\",\n  \"An automation project allowing users to lock, unlock windows automatically based on weather conditions.\"\n);\nassert.deepEqual(windowLocks, {\n  title: \"Smart Window Locks\",\n  description:\n    \"An automation project allowing users to lock, unlock windows automatically based on weather conditions.\",\n  status: { description: \"Pending Execution\" },\n});"
+    },
+    {
+      "text": "<p>Poziv za <code>updateProjectStatus(projectStatus.SUCCESS)</code> na <code>new ProjectIdea(\"Fitness Tracker App\", \"An app that tracks user workouts, diet, and sleep patterns.\")</code> treba ažurirati status na <code>{ description: 'Executed Successfully' }</code>.</p>",
+      "testString": "let mobileApp = new ProjectIdea(\n  \"Fitness Tracker App\",\n  \"An app that tracks user workouts, diet, and sleep patterns.\"\n);\n\n// Update the project status to SUCCESS\nmobileApp.updateProjectStatus(projectStatus.SUCCESS);\nassert.deepEqual(mobileApp, {\n  title: \"Fitness Tracker App\",\n  description: \"An app that tracks user workouts, diet, and sleep patterns.\",\n  status: { description: \"Executed Successfully\" },\n});"
+    },
+    {
+      "text": "<p>Poziv za <code>updateProjectStatus(projectStatus.FAILURE)</code> na <code>new ProjectIdea(\"Breakfast Chef Robot\", \"A robot that can follow a given list of instructions and prepare breakfast for the user and let them know through their phone.\")</code> treba da ažurira status u <code>{ description: 'Execution Failed' }</code>.</p>",
+      "testString": "let breakfastChef = new ProjectIdea(\n  \"Breakfast Chef Robot\",\n  \"A robot that can follow a given list of instructions and prepare breakfast for the user and let them know through their phone.\"\n);\n\n// Update the project status to FAILURE\nbreakfastChef.updateProjectStatus(projectStatus.FAILURE);\n\nassert.deepEqual(breakfastChef, {\n  title: \"Breakfast Chef Robot\",\n  description:\n    \"A robot that can follow a given list of instructions and prepare breakfast for the user and let them know through their phone.\",\n  status: { description: \"Execution Failed\" },\n});"
+    },
+    {
+      "text": "<p>Poziv <code>updateProjectStatus(projectStatus.SUCCESS)</code> na <code>new ProjectIdea(\"Online Used Video Games Store\", \"An online platform where users can buy second hand physical copies of video games from other users.\")</code> treba da ažurira status u <code>{ description: 'Executed Successfully' }</code>.</p>",
+      "testString": "let usedVideoGamesStore = new ProjectIdea(\n  \"Online Used Video Games Store\",\n  \"An online platform where users can buy second hand physical copies of video games from other users.\"\n);\n\n// Update the project status set to SUCCESS\nusedVideoGamesStore.updateProjectStatus(projectStatus.SUCCESS);\n\nassert.deepEqual(usedVideoGamesStore, {\n  title: \"Online Used Video Games Store\",\n  description:\n    \"An online platform where users can buy second hand physical copies of video games from other users.\",\n  status: { description: \"Executed Successfully\" },\n});"
+    },
+    {
+      "text": "<p>Trebalo bi da možeš postaviti nešto iz <code>ProjectIdea</code> u <code>ProjectIdeaBoard</code> koristeći način <code>pin</code>.</p>",
+      "testString": "let smartHome = new ProjectIdea(\n  \"Smart Home System\",\n  \"An integrated system to control lighting, temperature, and security devices remotely.\"\n);\n\n// Create a project board and pin the idea\nlet techProjects = new ProjectIdeaBoard(\"Tech Projects Board\");\ntechProjects.pin(smartHome);\n\n// Correct the assertion to compare the first idea in the array\nassert.deepEqual(techProjects.ideas[0], {\n    title: 'Smart Home System',\n    description: 'An integrated system to control lighting, temperature, and security devices remotely.',\n    status: { description: 'Pending Execution' }\n});"
+    },
+    {
+      "text": "<p>Trebalo bi da možete ukloniti nešto iz <code>ProjectIdea</code> na <code>ProjectIdeaBoard</code> koristeći metod <code>unpin</code>.</p>",
+      "testString": "let smartHome = new ProjectIdea(\n  \"Smart Home System\",\n  \"An integrated system to control lighting, temperature, and security devices remotely.\"\n);\n\n// Create a project board and pin ideas\nlet techProjects = new ProjectIdeaBoard(\"Tech Projects Board\");\n\ntechProjects.pin(smartHome);\ntechProjects.unpin(smartHome);\n\nassert.isEmpty(techProjects.ideas);"
+    },
+    {
+      "text": "<p>Kada je <code>new ProjectIdeaBoard(\"Empty Board\")</code> prazno, <code>emptyBoard.formatToString()</code> treba da restaurira <code>Empty Board has 0 idea(s)\\n</code>.</p>",
+      "testString": "let emptyBoard = new ProjectIdeaBoard(\"Empty Board\");\n\nassert.equal(emptyBoard.formatToString(), \"Empty Board has 0 idea(s)\\n\");"
+    },
+    {
+      "text": "<p>Kada postavite <code>new ProjectIdea(\"Smart Home System\", \"An integrated system to control lighting, temperature, and security devices remotely.\")</code> u <code>new ProjectIdeaBoard(\"Tech Projects Board\")</code>, <code>techProjects.formatToString()</code> treba da restaurira <code>Tech Projects Board has 1 idea(s)\\nSmart Home System (Pending Execution) - An integrated system to control lighting, temperature, and security devices remotely.\\n</code>.</p>",
+      "testString": "let techProjectsBoard = new ProjectIdeaBoard(\"Tech Projects Board\");\nlet smartHome = new ProjectIdea(\"Smart Home System\", \"An integrated system to control lighting, temperature, and security devices remotely.\");\ntechProjectsBoard.pin(smartHome);\n\nassert.equal(techProjectsBoard.formatToString(), \"Tech Projects Board has 1 idea(s)\\nSmart Home System (Pending Execution) - An integrated system to control lighting, temperature, and security devices remotely.\\n\"); "
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>Cilj:</strong> Popunite korisničke priče ispod i prođite sve testove kako biste završili ovaj laboratorijski rad.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Treba da definišeš konstantni objekat pod nazivom <code>projectStatus</code> sa tri ključa: <code>PENDING</code>, <code>SUCCESS</code> i <code>FAILURE</code>. Svakom statusu dodeli objekat sa svojstvom <code>description</code> čije su vrednosti redom <code>Pending Execution</code>, <code>Executed Successfully</code> i <code>Execution Failed</code>.</li>\n<li>Treba da definišeš klasu <code>ProjectIdea</code> sa <code>constructor</code> metodom koja prima parametre <code>title</code> i <code>description</code>. Inicijalizuj svojstva <code>title</code> i <code>description</code> prosleđenim vrednostima. Klasa takođe treba da ima svojstvo <code>status</code> koje je podrazumevano postavljeno na <code>projectStatus.PENDING</code>.</li>\n<li>Treba da definišeš metodu <code>updateProjectStatus</code> unutar klase <code>ProjectIdea</code>. Ova metoda prima parametar <code>newStatus</code> i ažurira svojstvo <code>status</code> na prosleđenu vrednost.</li>\n<li>Treba da definišeš klasu <code>ProjectIdeaBoard</code> sa <code>constructor</code> metodom koja prima parametar <code>title</code> i inicijalizuje prazan niz <code>ideas</code> za čuvanje instanci klase <code>ProjectIdea</code>.</li>\n<li>Treba da definišeš metodu <code>pin</code> unutar klase <code>ProjectIdeaBoard</code> koja prima instancu klase <code>ProjectIdea</code> i dodaje je u niz <code>ideas</code>.</li>\n<li>Treba da definišeš metodu <code>unpin</code> unutar klase <code>ProjectIdeaBoard</code>. Ova metoda prima instancu klase <code>ProjectIdea</code> i uklanja je iz niza <code>ideas</code>.</li>\n<li>Treba da definišeš metodu <code>count</code> koja vraća broj projektnih ideja u nizu <code>ideas</code> objekta <code>ProjectIdeaBoard</code>.</li>\n<li>Treba da definišeš metodu <code>formatToString</code> koja vraća nazive projektnih ideja, njihove opise i njihov status u sledećem formatu:</li>\n</ol>\n<pre><code class=\"language-js\">&#x3C;ProjectIdeaBoard title> has &#x3C;ProjectIdeaBoard count> idea(s)\n&#x3C;ProjectIdea title> (&#x3C;ProjectIdea status description>) - &#x3C;ProjectIdea description>\n&#x3C;ProjectIdea title> (&#x3C;ProjectIdea status description>) - &#x3C;ProjectIdea description>\n.\n.\n.\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "lab-project-idea-board",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 177,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "classes-and-the-this-keyword",
+  "certification": "javascript-v9"
+}

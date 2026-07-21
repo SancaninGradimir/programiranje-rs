@@ -1,0 +1,112 @@
+{
+  "id": "59622f89e4e137560018a40e",
+  "title": "Niz Hofstadter Figure-Figure",
+  "challengeType": 1,
+  "forumTopicId": 302286,
+  "dashedName": "hofstadter-figure-figure-sequences",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function ffr(n) {\n  return n;\n}\n\nfunction ffs(n) {\n  return n;\n}",
+      "error": null,
+      "seed": "function ffr(n) {\n  return n;\n}\n\nfunction ffs(n) {\n  return n;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const R = [null, 1];\nconst S = [null, 2];\n\nfunction extendSequences (n) {\n  let current = Math.max(R[R.length - 1], S[S.length - 1]);\n  let i;\n  while (R.length <= n || S.length <= n) {\n    i = Math.min(R.length, S.length) - 1;\n    current += 1;\n    if (current === R[i] + S[i]) {\n      R.push(current);\n    } else {\n      S.push(current);\n    }\n  }\n}\n\nfunction ffr (n) {\n  extendSequences(n);\n  return R[n];\n}\n\nfunction ffs (n) {\n  extendSequences(n);\n  return S[n];\n}",
+        "error": null,
+        "seed": "const R = [null, 1];\nconst S = [null, 2];\n\nfunction extendSequences (n) {\n  let current = Math.max(R[R.length - 1], S[S.length - 1]);\n  let i;\n  while (R.length <= n || S.length <= n) {\n    i = Math.min(R.length, S.length) - 1;\n    current += 1;\n    if (current === R[i] + S[i]) {\n      R.push(current);\n    } else {\n      S.push(current);\n    }\n  }\n}\n\nfunction ffr (n) {\n  extendSequences(n);\n  return R[n];\n}\n\nfunction ffs (n) {\n  extendSequences(n);\n  return S[n];\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const ffrParamRes = [[10, 69], [50, 1509], [100, 5764], [1000, 526334]];\nconst ffsParamRes = [[10, 14], [50, 59], [100, 112], [1000, 1041]];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>ffr</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof ffr === 'function');"
+    },
+    {
+      "text": "<p><code>ffs</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof ffs === 'function');"
+    },
+    {
+      "text": "<p><code>ffr</code> treba da vrati kompletan broj.</p>",
+      "testString": "assert(Number.isInteger(ffr(1)));"
+    },
+    {
+      "text": "<p><code>ffs</code> trebalo bi da vrati kompletan broj.</p>",
+      "testString": "assert(Number.isInteger(ffs(1)));"
+    },
+    {
+      "text": "<p><code>ffr(10)</code> inapaswa kurejesha <code>69</code></p>",
+      "testString": "assert.equal(ffr(ffrParamRes[0][0]), ffrParamRes[0][1]);"
+    },
+    {
+      "text": "<p><code>ffr(50)</code> inapaswa kurejesha <code>1509</code></p>",
+      "testString": "assert.equal(ffr(ffrParamRes[1][0]), ffrParamRes[1][1]);"
+    },
+    {
+      "text": "<p><code>ffr(100)</code> inapaswa kurejesha <code>5764</code></p>",
+      "testString": "assert.equal(ffr(ffrParamRes[2][0]), ffrParamRes[2][1]);"
+    },
+    {
+      "text": "<p><code>ffr(1000)</code> treba da restaurira <code>526334</code></p>",
+      "testString": "assert.equal(ffr(ffrParamRes[3][0]), ffrParamRes[3][1]);"
+    },
+    {
+      "text": "<p><code>ffs(10)</code> inapaswa kurejesha <code>14</code></p>",
+      "testString": "assert.equal(ffs(ffsParamRes[0][0]), ffsParamRes[0][1]);"
+    },
+    {
+      "text": "<p><code>ffs(50)</code> treba da restaurira <code>59</code></p>",
+      "testString": "assert.equal(ffs(ffsParamRes[1][0]), ffsParamRes[1][1]);"
+    },
+    {
+      "text": "<p><code>ffs(100)</code> trebalo bi da vrati <code>112</code></p>",
+      "testString": "assert.equal(ffs(ffsParamRes[2][0]), ffsParamRes[2][1]);"
+    },
+    {
+      "text": "<p><code>ffs(1000)</code> treba da restaurira <code>1041</code></p>",
+      "testString": "assert.equal(ffs(ffsParamRes[3][0]), ffsParamRes[3][1]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Mfululizo wa Hofstadter Figure-Figure $R_n$ na $S_n$ unatolewa na</p>\n<p>$R_1 = 1\\ ;\\ S_1 = 2 \\\\R_n = R_{n-1} + S_{n-1}, \\quad n>1.$</p>\n<p>Hasa, mfululizo $R_n$ una thamani</p>\n<pre>1, 3, 7, 12, 18, ...</pre>\n<p>na mfululizo $S_n$ una thamani</p>\n<pre>2, 4, 5, 6, 8, ...</pre>\n<p>Niz $R_n$ definiše se rekurentnom relacijom $R_n = R_{n-1} + S_{n-1}$, dok je $S_n$ definisan kao niz pozitivnih celih brojeva koji se ne pojavljuju u nizu $R_n$.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kreiraj dve funkcije nazvane <code>ffr</code> i <code>ffs</code> koje vraćaju <code>R(n)</code> ili <code>S(n)</code>, respektivno, za bilo koji primer <code>n</code>. Zapamtite da Hofstadter Figure-Figure sekvenca ima primer koji počinje od 1, sa $R_1 = 1$ i $S_1 = 2$.</p>\n<p>Hakuna thamani kubwa ya <code>n</code> inayopaswa kudhaniwa.</p>\n<p><strong>Vrati se</strong></p>\n<p>Rosetta: <a href='https://rosettacode.org/wiki/Hofstadter_Figure-Figure_sequences' target='_blank'>Niz Hofstadter Figure-Figure</a></p>.\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 68,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

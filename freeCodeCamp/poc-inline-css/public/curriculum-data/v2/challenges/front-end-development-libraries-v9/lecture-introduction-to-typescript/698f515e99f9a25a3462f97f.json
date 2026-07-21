@@ -1,0 +1,109 @@
+{
+  "id": "698f515e99f9a25a3462f97f",
+  "title": "Kako funkcionišu vrste aktera (ili funkcija)",
+  "challengeType": 19,
+  "dashedName": "how-do-function-types-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja vrsta TypeScript pokazuje da vrednost može imati bilo koju vrstu?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>any</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>unknown</code></p>",
+          "feedback": "<p>Ponavljaj od početka lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>optional</code></p>",
+          "feedback": "<p>Ponovi na početku lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>generic</code></p>",
+          "feedback": "<p>Ponavi od samog početka lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Šta se dešava ako podnesete previše argumenata u pozivu funkcije?</p>",
+      "answers": [
+        {
+          "answer": "<p>TypeScript On/Ona će zaboraviti napomenu za više.</p>",
+          "feedback": "<p>Ponavite to tokom lekcije gde je ovo raspravljeno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nemaće nikakvih rezultata.</p>",
+          "feedback": "<p>Ponaviti to tokom lekcije gde je ovo diskutovano.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>TypeScript Prikazaće grešku poruke.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>TypeScript koristiće sve tačke.</p>",
+          "feedback": "<p>Ponović u sredini lekcije gde je to diskutovano.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta je kontekstualna klasifikacija?</p>",
+      "answers": [
+        {
+          "answer": "<p>Identifikuje tip iz konteksta u kojem se pojavljuje.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uvek stavljaš promene u tip <code>any</code>.</p>",
+          "feedback": "<p>Ponovite na kraju lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nateraće vas da svaki put jasno navedete tip.</p>",
+          "feedback": "<p>Ponovite na kraju lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Automatski menja tip promene kako bi odgovarao početnoj vrednosti.</p>",
+          "feedback": "<p>Ponoviti na kraju lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U ovoj lekciji naučićete kako da radite sa tipovima funkcija. Počnimo sa objašnjenjem tipova parametara.</p>\n<p>Ovde je primer osnovne funkcije:</p>\n<pre><code class=\"language-ts\">function circleArea(radius) {\n  return Math.PI * radius * radius;\n}\n</code></pre>\n<p>Trenutno, TypeScript će prikazati poruku za <code>Parameter 'radius' implicitly has an 'any' type</code>. Tip od <code>any</code> pokazuje da vrednost može imati bilo koji tip. Naučićete više o ovom tipu u sledećoj lekciji.</p>\n<p>Da biste uklonili grešku i eksplicitno postavili tip parametra, možete ga napisati na način kao što je ovo:</p>\n<pre><code class=\"language-ts\">function circleArea(radius: number) {\n  return Math.PI * radius * radius;\n}\n</code></pre>\n<p>Ako pokušate da pozovete funkciju <code>circleArea</code> sa različitim nebrojnim tipom, TypeScript će prikazati grešku kao što je ovo:</p>\n<pre><code class=\"language-ts\">function circleArea(radius: number) {\n  return Math.PI * radius * radius;\n}\n\n// Argument of type 'string' is not assignable to parameter of type 'number'\ncircleArea(\"3\");\n</code></pre>\n<p>Ako pokušate da pružite više argumenata nego što funkcija očekuje, TypeScript će prikazati grešku:</p>\n<pre><code class=\"language-ts\">function circleArea(radius: number) {\n  return Math.PI * radius * radius;\n}\n\n// Expected 1 arguments, but got 2.\ncircleArea(3, 4);\n</code></pre>\n<p>Ako pružite previše malo argumenata, onda TypeScript takođe će prikazati grešku:</p>\n<pre><code class=\"language-ts\">function circleArea(radius: number) {\n  return Math.PI * radius * radius;\n}\n\n// Expected 1 arguments, but got 0.\n// An argument for 'radius' was not provided.\ncircleArea();\n</code></pre>\n<p>Možete učiniti parametre opcionim koristeći oznaku <code>?</code> pored parametra kao što je ovo:</p>\n<pre><code class=\"language-ts\">function area(radius: number, height?: number): number {\n  const baseArea = Math.PI * radius * radius;\n\n  if (height !== undefined) {\n    const sideArea = 2 * Math.PI * radius * height;\n    return baseArea + sideArea;\n  }\n\n  return baseArea;\n}\n</code></pre>\n<p>Imajte na umu da opcioni parametri uvek moraju biti posle obaveznih parametara. Postavljanje obaveznog parametra nakon opcionog izazvaće TypeScript grešku.</p>\n<p>Provera uslova unutar funkcije postoji u slučaju da argument <code>height</code> nije prosleđen.</p>\n<p>Ako želite da postavite tip povratne vrednosti, možete dodati anotaciju tipa povratne vrednosti ovako:</p>\n<pre><code class=\"language-ts\">function circleArea(radius: number): number {\n  return Math.PI * radius * radius;\n}\n</code></pre>\n<p>Opis tipa povratne vrednosti piše se nakon liste parametara. Za opise tipova promenljivih, TypeScript često može sam da detektuje tip povratne vrednosti. Zato koristite jasne opise tipa povratne vrednosti kada želite da učinite namenu funkcije jasnijom ili sprečite neželjene promene vrednosti povratne vrednosti.</p>\n<p>Sledeći primer koji ćemo pogledati imaće asinhronu funkciju i obećanje. Ako vaša funkcija vraća obećanje, možete koristiti tip kao što je <code>Promise</code>:</p>\n<pre><code class=\"language-ts\">async function getCityTemperature(city: string): Promise&#x3C;number> {\n  const response = await fetch(`https://api.example.com/weather?city=${city}`);\n  const data = await response.json(); \n  return data.temperature;\n}\n</code></pre>\n<p>U ovom stanju, ako pokušate da uklonite tip povratne vrednosti, TypeScript može da detektuje povratnu vrednost kao <code>Promise&#x3C;any></code>. Zato je ovo dobro stanje za postavljanje tipa povratne vrednosti.</p>\n<p>Sad, videli smo samo primere funkcija koje imaju imena. Ali, kako tipovi rade sa funkcijama bez imena?</p>\n<p>Ovde je primer korišćenja anonimne funkcije u pozivu povratka koji se prosleđuje za <code>forEach</code>:</p>\n<pre><code class=\"language-ts\">const languages = [\"JavaScript\", \"Python\", \"TypeScript\"];\n\nlanguages.forEach((lang) => {\n  console.log(`${lang.toUpperCase()} has ${lang.length} characters`);\n});\n</code></pre>\n<p>Kigezo cha <code>lang</code> nema specifikacije tipa. Umesto toga, TypeScript koristi kontekstualnu klasifikaciju, što znači da prepoznaje tip iz konteksta u kojem se pojavljuje.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-introduction-to-typescript",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 41,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "typescript-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

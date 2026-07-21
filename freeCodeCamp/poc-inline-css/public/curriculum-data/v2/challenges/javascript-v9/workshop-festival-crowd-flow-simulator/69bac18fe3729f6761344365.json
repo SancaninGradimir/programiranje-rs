@@ -1,0 +1,54 @@
+{
+  "id": "69bac18fe3729f6761344365",
+  "title": "Korak 27",
+  "challengeType": 1,
+  "dashedName": "step-27",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        74,
+        76
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n  console.log(\"\\nThroughput Summary\");\n  for (const gateId in summary) {\n    console.log(\n      gateId + \": \" + summary[gateId] +\n      \" attendees processed\"\n    );\n  }\n}\n\nfunction simulateFestival(gates, timeBlock) {\n  console.log(\"\\n\" + timeBlock + \" Simulation\");\n  const throughputSummary = initializeThroughput(gates);\n\n}",
+      "error": null,
+      "seed": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n  console.log(\"\\nThroughput Summary\");\n  for (const gateId in summary) {\n    console.log(\n      gateId + \": \" + summary[gateId] +\n      \" attendees processed\"\n    );\n  }\n}\n\nfunction simulateFestival(gates, timeBlock) {\n  console.log(\"\\n\" + timeBlock + \" Simulation\");\n  const throughputSummary = initializeThroughput(gates);\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da kreirate varijablu pod imenom <code>maxTicks</code> i dodelite joj vrednost <code>gates[0].queue.length</code>.</p>",
+      "testString": "const rawFuncStr = __helpers.removeJSComments(simulateFestival.toString());\nassert.match(\n  rawFuncStr,\n  /(var|const|let)\\s+maxTicks/,\n  \"You must have at least one space between the declaration keyword (let/const) and 'maxTicks'.\"\n);\n\nconst cleaned = __helpers.removeWhiteSpace(rawFuncStr);\nconst solution = /(var|const|let)maxTicks=gates\\[0\\]\\.queue\\.length;?}$/;\n\nassert(\n  solution.test(cleaned),\n  \"Inside your `simulateFestival` function, create a variable named `maxTicks` and assign it the value of `gates[0].queue.length`.\"\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Treba vam da znate koliko tikova bi simulacija trebalo da radi. Zapamtite da:</p>\n<ul>\n<li>Svaka kapija ima niz <code>queue</code> koji pokazuje koliko dolaznika stiže na svakom tiku.</li>\n<li>Pošto sve kapije imaju isti broj tikova, možete jednostavno koristiti dužinu reda prve kapije.</li>\n</ul>\n<p>Kreirajte varijablu pod nazivom <code>maxTicks</code> i dodelite joj vrednost <code>gates[0].queue.length</code>.</p>\n<p>Ova vrednost će se koristiti za kontrolu vaše simulacione petlje, osiguravajući da je svaki tik obrađen za sve kapije.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-festival-crowd-flow-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 76,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 26,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

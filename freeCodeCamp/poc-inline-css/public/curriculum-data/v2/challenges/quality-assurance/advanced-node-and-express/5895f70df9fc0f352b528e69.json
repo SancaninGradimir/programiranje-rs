@@ -1,0 +1,37 @@
+{
+  "id": "5895f70df9fc0f352b528e69",
+  "title": "Kako koristiti Passport strategije",
+  "challengeType": 2,
+  "forumTopicId": 301555,
+  "dashedName": "how-to-use-passport-strategies",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Svi koraci treba da budu implementirani ispravno u <code>server.js</code>.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /showLogin:( |)true/,\n    'You should be passing the variable \"showLogin\" as true to your render function for the homepage'\n  );\n  assert.match(\n    data,\n    /failureRedirect:( |)('|\")\\/('|\")/,\n    'Your code should include a failureRedirect to the \"/\" route'\n  );\n  assert.match(\n    data,\n    /login[^]*post[^]*local/,\n    'You should have a route for login which accepts a POST and passport.authenticates local'\n  );"
+    },
+    {
+      "text": "<p>POST zahtev na <code>/login</code> treba da preusmeri ispravno na <code>/</code>.</p>",
+      "testString": "  const url = new URL(\"/login\", code);\n  const res = await fetch(url, { method: 'POST' });\n  const data = await res.text();\n  assert.match(\n    data,\n    /Looks like this page is being rendered from Pug into HTML!/,\n    'A login attempt at this point should redirect to the homepage since we do not have any registered users'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U datom <code>index.pug</code> fajlu, postoji forma za prijavu. Sakrivena je zbog JavaScript-a unutar linije <code>if showLogin</code> i forma je ugnježdena unutar nje.</p>\n<p>U <code>res.render</code> za tu stranicu, dodaj novu varijablu u objekat, <code>showLogin: true</code>. Kada osvežiš svoju stranicu, trebalo bi da vidiš tu formu! Ova forma je podešena da šalje <strong>POST</strong> na <code>/login</code>. Dakle, ovde treba da pripremiš primanje POST zahteva i autentifikaciju korisnika.</p>\n<p>Za ovaj izazov, treba da dodaš rutu <code>/login</code> koja prihvata POST zahtev. Da bi autentifikovao na ovoj ruti, treba da dodaš middleware koji to radi pre slanja odgovora. Ovo se radi prosleđivanjem dodatnog argumenta sa middleware-om pre tvog odgovora. Middleware koji treba koristiti je <code>passport.authenticate('local')</code>.</p>\n<p><code>passport.authenticate</code> takođe može uzeti opcije kao argument poput <code>{ failureRedirect: '/' }</code> što je od velike pomoći, pa se uveri da to dodaš. Dodaj odgovor nakon korišćenja middleware-a (koji će biti pozvan samo ako middleware za autentifikaciju prođe) koji će preusmeriti korisnika na <code>/profile</code>. Dodaj i tu rutu, i neka prikazuje <code>profile.pug</code> prikaz.</p>\n<p>Ako je autentifikacija bila uspešna, korisnički objekat će biti postavljen u <code>req.user</code>.</p>\n<p>U ovom koraku, ako uneseš korisničko ime i lozinku u formu, trebalo bi da preusmeri na početnu stranicu <code>/</code>, i konzola tvog servera bi trebalo da prikaže <code>'User {USERNAME} attempted to log in.'</code>, jer trenutno ne možemo prijaviti korisnika koji nije registrovan.</p>\n<p>Predaj svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#how-to-use-passport-strategies-7\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do ovog koraka</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

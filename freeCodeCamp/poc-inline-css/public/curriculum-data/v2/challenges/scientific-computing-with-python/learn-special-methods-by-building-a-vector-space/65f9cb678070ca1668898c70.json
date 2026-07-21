@@ -1,0 +1,63 @@
+{
+  "id": "65f9cb678070ca1668898c70",
+  "title": "Korak 44",
+  "challengeType": 20,
+  "dashedName": "step-44",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        23
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da definišete putanju <code>__sub__</code> unutar klase objekta <code>R2Vector</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").has_function(\"__sub__\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Tvoj put/način za <code>__sub__</code> treba da ima dva parametra, <code>self</code> i <code>other</code>.</p>",
+      "testString": "({\n    test: () => assert(runPython(`\n      _Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").has_args(\"self, other\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da kreirate informaciju za <code>if</code> koja proverava da li <code>self</code> i <code>other</code> pripadaju istoj klasi objekata.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_ifs()[0].find_conditions()[0]\nnode.is_equivalent(\"type(self) != type(other)\") or node.is_equivalent(\"type(other) != type(self)\")\n    `))\n})"
+    },
+    {
+      "text": "<p>Treba ti da vratiš <code>NotImplemented</code> iznutra tela <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__sub__\").find_ifs()[0].find_bodies()[0].has_return(\"NotImplemented\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Na isti način kako se <code>__add__</code> poziva ispod poklopca kada se dve stvari dodaju zajedno, putanja <code>__sub__</code> se poziva indirektno u stanju izlaska.</p>\n<p>Sada, definiši praznu funkciju/metodu za <code>__sub__</code> i ukloni dva parametra: <code>self</code>, i <code>other</code>. Unutar svoje nove metode, kreiraj deklaraciju za <code>if</code> da proveriš da li <code>self</code> i <code>other</code> nisu u istoj klasi objekata i vrati <code>NotImplemented</code>, kao što si ranije uradio.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 43,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "587d7fad367417b2b2512bdf",
+  "title": "Dodajte osu na crtež slike",
+  "challengeType": 6,
+  "forumTopicId": 301472,
+  "dashedName": "add-axes-to-a-visualization",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n    const padding = 60;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const svg = d3\n      .select('body')\n      .append('svg')\n      .attr('width', w)\n      .attr('height', h);\n\n    svg\n      .selectAll('circle')\n      .data(dataset)\n      .enter()\n      .append('circle')\n      .attr('cx', d => xScale(d[0]))\n      .attr('cy', d => yScale(d[1]))\n      .attr('r', d => 5);\n\n    svg\n      .selectAll('text')\n      .data(dataset)\n      .enter()\n      .append('text')\n      .text(d => d[0] + ',' + d[1])\n      .attr('x', d => xScale(d[0] + 10))\n      .attr('y', d => yScale(d[1]));\n\n    const xAxis = d3.axisBottom(xScale);\n    // Add your code below this line\n    const yAxis = undefined;\n    // Add your code above this line\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(0,' + (h - padding) + ')')\n      .call(xAxis);\n\n    // Add your code below this line\n\n\n\n    // Add your code above this line\n  </script>\n</body>",
+      "error": null,
+      "seed": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n    const padding = 60;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const svg = d3\n      .select('body')\n      .append('svg')\n      .attr('width', w)\n      .attr('height', h);\n\n    svg\n      .selectAll('circle')\n      .data(dataset)\n      .enter()\n      .append('circle')\n      .attr('cx', d => xScale(d[0]))\n      .attr('cy', d => yScale(d[1]))\n      .attr('r', d => 5);\n\n    svg\n      .selectAll('text')\n      .data(dataset)\n      .enter()\n      .append('text')\n      .text(d => d[0] + ',' + d[1])\n      .attr('x', d => xScale(d[0] + 10))\n      .attr('y', d => yScale(d[1]));\n\n    const xAxis = d3.axisBottom(xScale);\n    // Add your code below this line\n    const yAxis = undefined;\n    // Add your code above this line\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(0,' + (h - padding) + ')')\n      .call(xAxis);\n\n    // Add your code below this line\n\n\n\n    // Add your code above this line\n  </script>\n</body>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n    const padding = 60;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const svg = d3\n      .select('body')\n      .append('svg')\n      .attr('width', w)\n      .attr('height', h);\n\n    svg\n      .selectAll('circle')\n      .data(dataset)\n      .enter()\n      .append('circle')\n      .attr('cx', d => xScale(d[0]))\n      .attr('cy', d => yScale(d[1]))\n      .attr('r', d => 5);\n\n    svg\n      .selectAll('text')\n      .data(dataset)\n      .enter()\n      .append('text')\n      .text(d => d[0] + ',' + d[1])\n      .attr('x', d => xScale(d[0] + 10))\n      .attr('y', d => yScale(d[1]));\n\n    const xAxis = d3.axisBottom(xScale);\n\n    const yAxis = d3.axisLeft(yScale);\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(0,' + (h - padding) + ')')\n      .call(xAxis);\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(' + padding + ',0)')\n      .call(yAxis);\n  </script>\n</body>",
+        "error": null,
+        "seed": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n    const padding = 60;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const svg = d3\n      .select('body')\n      .append('svg')\n      .attr('width', w)\n      .attr('height', h);\n\n    svg\n      .selectAll('circle')\n      .data(dataset)\n      .enter()\n      .append('circle')\n      .attr('cx', d => xScale(d[0]))\n      .attr('cy', d => yScale(d[1]))\n      .attr('r', d => 5);\n\n    svg\n      .selectAll('text')\n      .data(dataset)\n      .enter()\n      .append('text')\n      .text(d => d[0] + ',' + d[1])\n      .attr('x', d => xScale(d[0] + 10))\n      .attr('y', d => yScale(d[1]));\n\n    const xAxis = d3.axisBottom(xScale);\n\n    const yAxis = d3.axisLeft(yScale);\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(0,' + (h - padding) + ')')\n      .call(xAxis);\n\n    svg\n      .append('g')\n      .attr('transform', 'translate(' + padding + ',0)')\n      .call(yAxis);\n  </script>\n</body>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaš kod treba da koristi metodu <code>axisLeft()</code> i <code>yScale</code>, prosleđene kao argumente.</p>",
+      "testString": "assert.match(code, /\\.axisLeft\\(yScale\\)/g);"
+    },
+    {
+      "text": "<p>Komponenta za <code>g</code> Y ose mora imati atribut <code>transform</code> da transformiše osu za <code>(60, 0)</code>.</p>",
+      "testString": "const yAxis = document.querySelectorAll('g')[10];\nassert.match(yAxis?.getAttribute('transform'), /translate\\(60\\s*,\\s*0\\)/g);"
+    },
+    {
+      "text": "<p>Vaš kod treba da pozove <code>yAxis</code>.</p>",
+      "testString": "assert.match(code, /\\.call\\(\\s*yAxis\\s*\\)/g);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Drug način za poboljšanje grafikona tačaka je dodavanje X ose i Y ose.</p>\n<p>D3 ima dve metode, <code>axisLeft()</code> i <code>axisBottom()</code>, za prikaz Y-ose i X-ose, po odvojeno. Ovde je primer kreiranja X-ose na osnovu <code>xScale</code> iz prethodnih izazova:</p>\n<pre><code class=\"language-js\">const xAxis = d3.axisBottom(xScale);\n</code></pre>\n<p>Sledeći korak je prikazivanje ose na SVG-u. Da biste to uradili, možete koristiti opštu sekciju SVG-a, element <code>g</code>. <code>g</code> predstavlja grupu. Za razliku od <code>rect</code>, <code>circle</code> i <code>text</code>, osa je samo crvena linija kada se prikaže. Pošto je jednostavna figura, korišćenje <code>g</code> funkcioniše. Poslednji korak je korišćenje atributa <code>transform</code> za postavljanje ose na ispravno mesto u SVG-u. Inače, linija bi bila prikazana pored granice SVG-a i nije vidljiva. SVG podržava različite tipove <code>transforms</code>, ali postavljanje ose zahteva <code>translate</code>. Kada se koristi na elementu <code>g</code>, pomera celu grupu u bočno i dole za navedanu količinu. Evo primera:</p>\n<pre><code class=\"language-js\">const xAxis = d3.axisBottom(xScale);\n\nsvg\n  .append('g')\n  .attr('transform', 'translate(0, ' + (h - padding) + ')')\n  .call(xAxis);\n</code></pre>\n<p>Kod pomenut iznad postavlja x-osu ispod SVG. Zatim se prosleđuje kao argument putem <code>call()</code>. Y-osa radi na isti način, osim što je argument <code>translate</code> u formatu <code>(x, 0)</code>. Budući da je <code>translate</code> sekvenca karaktera na način <code>attr()</code> iznad, možete koristiti konkatenaciju za kombinovanje vrednosti promena za njegove argumente.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dijagram rasiporednih podataka sada ima X osu. Kreiraj Y osu u transformaciji sa imenom <code>yAxis</code> koristeći metodu <code>axisLeft()</code>. Zatim prikaži osu koristeći funkciju <code>g</code>. Osiguraj da koristiš svojstvo <code>transform</code> za translaciju ose za količinu jedinica unutrašnjeg prostora sa desne strane, i jedinice <code>0</code> dole. Zapamti da izvršiš <code>call()</code> na osi.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-visualization-with-d3",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "data-visualization",
+  "superOrder": 18,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": true,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "data-visualization"
+}

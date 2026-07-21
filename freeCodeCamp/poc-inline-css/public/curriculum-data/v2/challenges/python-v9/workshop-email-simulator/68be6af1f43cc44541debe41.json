@@ -1,0 +1,62 @@
+{
+  "id": "68be6af1f43cc44541debe41",
+  "title": "Korak 37",
+  "challengeType": 20,
+  "dashedName": "step-37",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        58,
+        64
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n            \n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        \n",
+      "error": null,
+      "seed": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n            \n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        \n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da uzmeš 1 iz parametra <code>index</code> i sačuvati u parametru nazvanom <code>actual_index</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_body().find_variable(\"actual_index\").is_equivalent(\"actual_index = index - 1\")`))\n    }\n})"
+    },
+    {
+      "text": "<p>Treba da kreirate izveštaj za if ili proverite da li <code>actual_index</code> je manje od 0 ili veće ili jednako dužini liste za <code>self.emails</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_ifs()[1].find_conditions()[0].is_equivalent(\"actual_index < 0 or actual_index >= len(self.emails)\")`))\n    }\n})"
+    },
+    {
+      "text": "<p>Unutar izveštaja za <code>if</code>, treba da objavite poruku <code>Invalid email number.\\n</code> koristeći <code>return</code> iz tog puta.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_ifs()[1].find_body()[0].is_equivalent(\"print('Invalid email number.\\\\\\\\n')\")`))\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_ifs()[1].find_body()[1].is_equivalent(\"return\")`))\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Treba da obradite situaciju u kojoj korisnik pokušava da izbriše e-mail koristeći nevažeći obrazac, kao što ste to učinili na putanji <code>read_email</code>.</p>\n<p>U putanji od <code>delete_email</code>:</p>\n<ul>\n<li>Izmeni parametar <code>index</code> koji počinje sa 1 u izraz koji počinje sa 0, emitujući 1 i čuvajući ga u parametru nazvanom <code>actual_index</code>.</li>\n<li>Kreiraj izjavu if da bi proverio/proverila da li je <code>actual_index</code> manje od 0 ili veće/jednako dužini liste <code>self.emails</code>. Ako jeste, štapi poruku <code>Invalid email number.\\n</code> i koristi <code>return</code> iz te putanje.</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 36,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

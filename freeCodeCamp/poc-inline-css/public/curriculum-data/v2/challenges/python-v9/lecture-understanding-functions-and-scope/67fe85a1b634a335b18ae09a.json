@@ -1,0 +1,109 @@
+{
+  "id": "67fe85a1b634a335b18ae09a",
+  "title": "Šta je Scope u Python-u i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-scope-in-python-and-how-does-it-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koji je princip koji prati Python i određuje opseg parametra?</p>",
+      "answers": [
+        {
+          "answer": "<p>STAK: Statički, Privremeno, Aktivno, Konstanta, Ključna reč</p>",
+          "feedback": "<p>Sastoji se od četiri nivoa, počevši od najspecifičnijeg do najopštijeg.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>DRVO: Privremeno, Rezervisano, Okružujući, Eksterni</p>",
+          "feedback": "<p>Sastoji se od četiri nivoa, počevši od najspecifičnijeg do najopštijeg.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>LEGB: Lokalni, Okružujući, Globalni, Ugrađeni</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>SCOPE: Script, Constant, Outer, Python, Embedded</p>",
+          "feedback": "<p>Sastoji se od četiri nivoa, počevši od najspecifičnijeg do najopštijeg.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta je funkcija ključne reči za <code>nonlocal</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Čini kriterijum međunarodnim.</p>",
+          "feedback": "<p>Pomaže u promeni parametara u eksternoj funkciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Generiše novi lokalni parametar.</p>",
+          "feedback": "<p>Pomaže da se izmene parametri u eksternoj funkciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sprečava ponovno dodeljivanje parametra.</p>",
+          "feedback": "<p>Pomaže da promeni parametre u eksternoj funkciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dozvolite da promenim parametar iz ugrađene funkcije</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Koja je važna reč koju možete koristiti da promenite globalni parametar u Python?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>global</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>local</code></p>",
+          "feedback": "<p>Omogućiti promene parametra van funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>static</code></p>",
+          "feedback": "<p>Omogućiti promene parametra izvan funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>nonlocal</code></p>",
+          "feedback": "<p>Omogućiti izmene parametra van funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U Python, opseg određuje gde možete pristupiti promenljivoj. On kontroliše životni vek promenljive i kako se ona rešava u različitim delovima koda.</p>\n<p>Da bi se tačno utvrdio opseg, Python prati princip <strong>LEGB</strong>, koji stoji za sledeće:</p>\n<ul>\n<li>\n<p><strong>Lokalni opseg (L)</strong>: Parametri deklarisani unutar funkcija ili klasa objekata.</p>\n</li>\n<li>\n<p><strong>Okružni opseg (E)</strong>: Parametri deklarisani u funkcijama koje su ugnježđene ili još više ugnježđene.</p>\n</li>\n<li>\n<p><strong>Globalni opseg (G):</strong> Parametri deklarisani na nivou modula ili fajla.</p>\n</li>\n<li>\n<p><strong>Ugrađeni opseg (B)</strong>: Imena sačuvana u Python za prethodno deklarisane funkcije, module, ključne reči i objekte.</p>\n</li>\n</ul>\n<p>Python koristi pravilo LEGB za rešavanje opsega varijabli u vašoj aplikaciji. Analiziraćemo svako od ovih pravila kako biste dobili bolje razumevanje procesa.</p>\n<p><strong>Lokalni opseg</strong> znači da varijabla deklarisana unutar funkcije ili klase objekata može se pristupiti samo unutar te funkcije ili te klase.</p>\n<p>Evo primera:</p>\n<pre><code class=\"language-python\">def my_func():\n    my_var = 10\n    print(my_var)\n</code></pre>\n<p>U ovom slučaju, funkcija <code>my_func</code> ima svoj opseg koji ne može biti dostupan izvan funkcije. Pozivanje <code>my_func</code> će prikazati <code>10</code>, ali štampanje <code>my_var</code> izvan funkcije će dovesti do <code>NameError</code>:</p>\n<pre><code class=\"language-python\">def my_func():\n    my_var = 10 # Locally scoped to my_func\n    print(my_var)\n\nmy_func() # 10\n\nprint(my_var) # NameError: name 'my_var' is not defined\n</code></pre>\n<p><strong>Opseg dometa</strong> znači da funkcija definisana unutar druge funkcije može pristupiti parametrima funkcije koja je definisana unutar nje.</p>\n<p>Na primer:</p>\n<pre><code class=\"language-python\">def outer_func():\n    msg = 'Hello there!'\n\n    def inner_func():\n        print(msg)\n\n    inner_func()\n\nouter_func() # Hello there!\n</code></pre>\n<p>U ovom primeru, unutrašnja funkcija, <code>inner_func</code>, može slobodno pristupiti parametru <code>msg</code> deklarisanom u spoljašnjoj funkciji, <code>outer_func</code>. Međutim, zapamtite da spoljne funkcije ne mogu pristupiti parametrima deklarisanim unutar ugnježdene funkcije:</p>\n<pre><code class=\"language-python\">def outer_func():\n    msg = 'Hello there!'\n    print(res)\n\n    def inner_func():\n        res = 'How are you?'\n        print(msg)\n\n    inner_func()\n\nouter_func() # NameError: name 'res' is not defined\n</code></pre>\n<p>Ovo je zato što <code>res</code> je lokalni opseg za <code>inner_func</code>. Takođe, proverite da <code>outer_func</code> pokušava da objavi <code>res</code> pre nego što <code>inner_func</code> bude pozvan.</p>\n<p>Jedno rešenje je da se kreira <code>res</code> kao prazan niz znakova u obuhvatu, koji je unutar <code>outer_func</code>. Zatim unutar <code>inner_func</code>, učinite <code>res</code> opcionalnim parametrom i ključnom rečju <code>nonlocal</code>:</p>\n<pre><code class=\"language-python\">def outer_func():\n    msg = 'Hello there!'\n    res = \"\"  # Declare res in the enclosing scope\n\n    def inner_func():\n        nonlocal res  # Allow modification of an enclosing variable\n        res = 'How are you?'\n        print(msg)  # Accessing msg from outer_func()\n\n    inner_func()\n    print(res)  # Now res is accessible and modified\n\nouter_func()\n\n# Output:\n# Hello there!\n# How are you?\n</code></pre>\n<p><strong>Globalni opseg</strong> odnosi se na varijable deklarisane van funkcija ili klasa objekata koje se mogu pristupiti bilo gde u programu. Ovde, <code>my_var</code> može se pristupiti bilo gde, čak ni unutar funkcije koja ga ne deklarše:</p>\n<pre><code class=\"language-python\">my_var = 100\n\ndef show_var():\n    print(my_var)\n\nshow_var() # 100\nprint(my_var) # 100\n</code></pre>\n<p>I ako želite da deklarisani parametar unutar funkcije ima globalnu dostupnost, možete koristiti ključnu reč <code>global</code>:</p>\n<pre><code class=\"language-python\">my_var_1 = 7\n\ndef show_vars():\n    global my_var_2\n    my_var_2 = 10\n    print(my_var_1)\n    print(my_var_2)\n\nshow_vars() # 7 10\n\n# my_var_2 is now a global variable and can be accessed anywhere in the program\nprint(my_var_2) # 10\n</code></pre>\n<p>Takođe možete koristiti ključnu reč za <code>global</code> da promenite globalni parametar:</p>\n<pre><code class=\"language-python\">my_var = 10  # A global variable\n\ndef change_var():\n    global my_var  # Allows modification of a global variable\n    my_var = 20\n\nchange_var()\n\nprint(my_var)  # my_var is now modified globally to 20\n</code></pre>\n<p>Konačno, <strong>ugrađeni opseg</strong> obuhvata sve prethodno deklarisane funkcije za Python, module i ključne riječi, dostupne bilo gdje u vašem programu:</p>\n<pre><code class=\"language-python\">print(str(45)) # '45'\nprint(type(3.14)) # &#x3C;class 'float'>\nprint(isinstance(3, str)) # False\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-functions-and-scope",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 10,
+  "instructions": "",
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-basics",
+  "certification": "python-v9"
+}

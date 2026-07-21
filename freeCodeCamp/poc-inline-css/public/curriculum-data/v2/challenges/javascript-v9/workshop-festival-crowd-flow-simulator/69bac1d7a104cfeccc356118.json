@@ -1,0 +1,54 @@
+{
+  "id": "69bac1d7a104cfeccc356118",
+  "title": "Korak 31",
+  "challengeType": 1,
+  "dashedName": "step-31",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        83,
+        85
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n  console.log(\"\\nThroughput Summary\");\n  for (const gateId in summary) {\n    console.log(\n      gateId + \": \" + summary[gateId] +\n      \" attendees processed\"\n    );\n  }\n}\n\nfunction simulateFestival(gates, timeBlock) {\n  console.log(\"\\n\" + timeBlock + \" Simulation\");\n  const throughputSummary = initializeThroughput(gates);\n  const maxTicks = gates[0].queue.length;\n  let tickIndex = 0;\n  while (tickIndex < maxTicks) {\n    console.log(\"\\nTick \" + (tickIndex + 1));\n    for (const gate of gates) {\n      handleGateAtTick(gates, gate, tickIndex, throughputSummary);\n    }\n    tickIndex++;\n  }\n\n}",
+      "error": null,
+      "seed": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n  console.log(\"\\nThroughput Summary\");\n  for (const gateId in summary) {\n    console.log(\n      gateId + \": \" + summary[gateId] +\n      \" attendees processed\"\n    );\n  }\n}\n\nfunction simulateFestival(gates, timeBlock) {\n  console.log(\"\\n\" + timeBlock + \" Simulation\");\n  const throughputSummary = initializeThroughput(gates);\n  const maxTicks = gates[0].queue.length;\n  let tickIndex = 0;\n  while (tickIndex < maxTicks) {\n    console.log(\"\\nTick \" + (tickIndex + 1));\n    for (const gate of gates) {\n      handleGateAtTick(gates, gate, tickIndex, throughputSummary);\n    }\n    tickIndex++;\n  }\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozovete <code>printSummary()</code> sa <code>throughputSummary</code>.</p>",
+      "testString": "const testGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] }\n];\n\nconst originalPrintSummary = printSummary;\nlet printSummaryCallCount = 0;\nlet printSummaryArg = null;\n\ntry {\n  printSummary = function (arg) {\n    printSummaryCallCount++;\n    printSummaryArg = arg;\n    return originalPrintSummary(arg);\n  };\n\n  const consoleSpy = __helpers.spyOn(console, \"log\");\n  \n  try {\n    simulateFestival(testGates, \"Morning\");\n    \n    assert.strictEqual(\n      printSummaryCallCount,\n      1,\n      \"printSummary should be called exactly once\"\n    );\n    \n    assert.isObject(\n      printSummaryArg,\n      \"printSummary should be called with an object\"\n    );\n    \n    assert.strictEqual(\n      printSummaryArg.North,\n      14,\n      \"After simulation, North should have processed 14 attendees total\"\n    );\n    assert.strictEqual(\n      printSummaryArg.East,\n      11,\n      \"After simulation, East should have processed 11 attendees total\"\n    );\n    assert.strictEqual(\n      printSummaryArg.South,\n      11,\n      \"After simulation, South should have processed 11 attendees total\"\n    );\n    assert.strictEqual(\n      printSummaryArg.West,\n      7,\n      \"After simulation, West should have processed 7 attendees total\"\n    );\n    \n    const allLogs = consoleSpy.calls.map(call => call[0]).join(\"\");\n    assert.include(\n      allLogs,\n      \"Throughput Summary\",\n      \"Summary should be printed with 'Throughput Summary' header\"\n    );\n\n  } finally {\n    consoleSpy.restore();\n  }\n\n} catch (err) {\n  assert.fail(err);\n} finally {\n  printSummary = originalPrintSummary;\n}"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste dovršili svoju <code>simulateFestival</code> funkciju, prikažite sažetak rezultata simulacije. Pozovite <code>printSummary()</code> sa vašim lokalnim objektom <code>throughputSummary</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-festival-crowd-flow-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 76,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,89 @@
+{
+  "id": "587d7db1367417b2b2512b87",
+  "title": "Dodaj metode nakon nasleđivanja",
+  "challengeType": 1,
+  "forumTopicId": 301315,
+  "dashedName": "add-methods-after-inheritance",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Animal() { }\nAnimal.prototype.eat = function() { console.log(\"nom nom nom\"); };\n\nfunction Dog() { }\n\n// Only change code below this line\n\n\n\n\n// Only change code above this line\n\nlet beagle = new Dog();",
+      "error": null,
+      "seed": "function Animal() { }\nAnimal.prototype.eat = function() { console.log(\"nom nom nom\"); };\n\nfunction Dog() { }\n\n// Only change code below this line\n\n\n\n\n// Only change code above this line\n\nlet beagle = new Dog();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Animal() { }\nAnimal.prototype.eat = function() { console.log(\"nom nom nom\"); };\n\nfunction Dog() { }\nDog.prototype = Object.create(Animal.prototype);\nDog.prototype.constructor = Dog;\nDog.prototype.bark = function () {\n  console.log('Woof!');\n};\nlet beagle = new Dog();\n\nbeagle.eat();\nbeagle.bark();",
+        "error": null,
+        "seed": "function Animal() { }\nAnimal.prototype.eat = function() { console.log(\"nom nom nom\"); };\n\nfunction Dog() { }\nDog.prototype = Object.create(Animal.prototype);\nDog.prototype.constructor = Dog;\nDog.prototype.bark = function () {\n  console.log('Woof!');\n};\nlet beagle = new Dog();\n\nbeagle.eat();\nbeagle.bark();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Animal</code> ne treba da ima metodu <code>bark()</code>.</p>",
+      "testString": "assert(typeof Animal.prototype.bark == 'undefined');"
+    },
+    {
+      "text": "<p><code>Dog</code> treba da nasledi metodu <code>eat()</code> od objekta <code>Animal</code>.</p>",
+      "testString": "assert(typeof Dog.prototype.eat == 'function');"
+    },
+    {
+      "text": "<p>Prototip za <code>Dog</code> mora imati način za <code>bark()</code>.</p>",
+      "testString": "assert('bark' in Dog.prototype);"
+    },
+    {
+      "text": "<p><code>beagle</code> treba da bude instanca (<code>instanceof</code>) objekta <code>Animal</code>.</p>",
+      "testString": "assert(beagle instanceof Animal);"
+    },
+    {
+      "text": "<p>Polje <code>beagle</code> treba da se postavi na <code>Dog</code>.</p>",
+      "testString": "assert(beagle.constructor === Dog);"
+    },
+    {
+      "text": "<p><code>beagle.eat()</code> mora napisati sekvencu slova <code>nom nom nom</code></p>",
+      "testString": "const spy = __helpers.spyOn(console, 'log');\nbeagle.eat();\nassert.lengthOf(spy.calls,1);\nassert(spy.calls[0][0] == 'nom nom nom');"
+    },
+    {
+      "text": "<p><code>beagle.bark()</code> treba da napiše niz slova <code>Woof!</code></p>",
+      "testString": "const spy = __helpers.spyOn(console, 'log');\nbeagle.bark();\nassert.lengthOf(spy.calls,1);\nassert(spy.calls[0][0] == 'Woof!');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Funkcija konstruktora koja nasleđuje <code>prototype</code> od nadtipa može da ima i sopstvene metode, pored onih koje je nasledila.</p>\n<p>Na primer, <code>Bird</code> je konstruktor koji nasleđuje <code>prototype</code> od konstruktora <code>Animal</code>:</p>\n<pre><code class=\"language-js\">function Animal() { }\nAnimal.prototype.eat = function() {\n  console.log(\"nom nom nom\");\n};\nfunction Bird() { }\nBird.prototype = Object.create(Animal.prototype);\nBird.prototype.constructor = Bird;\n</code></pre>\n<p>Pored svega što nasleđuje od <code>Animal</code>, želiš da dodaš ponašanje koje je jedinstveno za objekte <code>Bird</code>. Ovde će <code>Bird</code> dobiti metodu <code>fly()</code>. Metoda se dodaje u <code>Bird.prototype</code> na isti način kao i kod bilo kog drugog konstruktora:</p>\n<pre><code class=\"language-js\">Bird.prototype.fly = function() {\n  console.log(\"I'm flying!\");\n};\n</code></pre>\n<p>Sasa matoleo ya <code>Bird</code> yatakuwa na njia za <code>eat()</code> na <code>fly()</code>:</p>\n<pre><code class=\"language-js\">let duck = new Bird();\nduck.eat();\nduck.fly();\n</code></pre>\n<p><code>duck.eat()</code> će ispisati string <code>nom nom nom</code> u konzoli, a <code>duck.fly()</code> će ispisati string <code>I'm flying!</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dodaj sav potreban kod kako bi objekat <code>Dog</code> nasledio <code>Animal</code>, a konstruktor <code>Dog</code> imao svoj <code>prototype</code> pravilno postavljen. Zatim dodaj metodu <code>bark()</code> objektu <code>Dog</code> kako bi <code>beagle</code> mogao da koristi metode <code>eat()</code> i <code>bark()</code>. Metoda <code>bark()</code> treba da ispiše <code>Woof!</code> u konzoli.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 20,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

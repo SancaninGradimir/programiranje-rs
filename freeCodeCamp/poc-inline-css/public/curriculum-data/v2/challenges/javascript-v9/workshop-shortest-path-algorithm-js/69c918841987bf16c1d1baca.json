@@ -1,0 +1,58 @@
+{
+  "id": "69c918841987bf16c1d1baca",
+  "title": "Korak 19",
+  "challengeType": 1,
+  "dashedName": "step-19",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        37,
+        39
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n      if (distance !== INF && !visited[nodeNo]) {\n        const newDistance = distances[current] + distance;\n        if (newDistance < distances[nodeNo]) {\n          distances[nodeNo] = newDistance;\n\n        }\n      }\n    }\n  }\n}",
+      "error": null,
+      "seed": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n      if (distance !== INF && !visited[nodeNo]) {\n        const newDistance = distances[current] + distance;\n        if (newDistance < distances[nodeNo]) {\n          distances[nodeNo] = newDistance;\n\n        }\n      }\n    }\n  }\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da ispraviš <code>paths[nodeNo]</code> unutar bloka definisanog u <code>if</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /paths\\s*\\[\\s*\\w+\\s*\\]\\s*=/\n);"
+    },
+    {
+      "text": "<p><code>paths[nodeNo]</code> treba biti postavljeno na <code>[...paths[current], nodeNo]</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /paths\\s*\\[\\s*\\w+\\s*\\]\\s*=\\s*\\[\\s*\\.\\.\\.\\s*paths\\s*\\[\\s*current\\s*\\]\\s*,\\s*\\w+\\s*\\]/\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada pronađeš najkraći put do suseda, moraš takođe ispraviti snimljen put do tog suseda.</p>\n<p>U JavaScript, možete kreirati novi red podataka kombinovanjem postojećeg reda i novog elementa koristeći spread operator:</p>\n<pre><code class=\"language-js\">const newPath = [...existingArray, newElement];\n</code></pre>\n<p>Unutar bloka definisanog unutar <code>if</code>, ažurirajte <code>paths[nodeNo]</code> tako da bude put do trenutnog čvora i dodate <code>nodeNo</code> na kraj koristeći spread sintaksu, kao što je prikazano: <code>[...paths[current], nodeNo]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm-js",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 206,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "graphs-and-trees",
+  "certification": "javascript-v9"
+}

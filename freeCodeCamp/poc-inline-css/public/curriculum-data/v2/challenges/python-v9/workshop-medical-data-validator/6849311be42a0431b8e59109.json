@@ -1,0 +1,66 @@
+{
+  "id": "6849311be42a0431b8e59109",
+  "title": "Korak 9",
+  "challengeType": 20,
+  "dashedName": "step-9",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        45,
+        47
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "medical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }\n]\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n\n    for index, dictionary in enumerate(data):\n        pass",
+      "error": null,
+      "seed": "medical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }\n]\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n\n    for index, dictionary in enumerate(data):\n        pass"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have an <code>if</code> statement inside your <code>for</code> loop.</p>",
+      "testString": "({ test: () => runPython(`\nassert _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[0]\n`) })"
+    },
+    {
+      "text": "<p>Your <code>if</code> statement should check if <code>dictionary</code> is not an instance of <code>dict</code>.</p>",
+      "testString": "({ test: () => runPython(`\nassert _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_conditions()[0].is_equivalent(\"not isinstance(dictionary, dict)\")\n`) })"
+    },
+    {
+      "text": "<p>You should print <code>Invalid format: expected a dictionary at position &#x3C;index>.</code> (where <code>&#x3C;index></code> should be replaced by the current index) inside your <code>if</code> statement.</p>",
+      "testString": "({ test: () => assert(runPython(`\nbuilt_in_print = print\nout = []\n\ndef custom_print(*args, **kwargs):\n    call_args = [arg for arg in args]\n    out.extend(call_args)\n    \nprint = custom_print\nvalidate([{}, \"\", {}, [], 0])\nprint = built_in_print\n\n_first = 'Invalid format: expected a dictionary at position 1.'\n_second = 'Invalid format: expected a dictionary at position 3.'\n_third = 'Invalid format: expected a dictionary at position 4.'\nlen(out) >= 3 and _first in out and _second in out and _third in out\n`)) })"
+    },
+    {
+      "text": "<p>You should set <code>is_invalid</code> to <code>True</code> inside your <code>if</code> statement.</p>",
+      "testString": "({ test: () => runPython(`\nassert _Node(_code).find_function(\"validate\").find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_bodies()[0].has_stmt(\"is_invalid = True\")\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Proveravate da li su podaci prosleđeni vašoj funkciji lista ili tupel. Još morate osigurati da je svaki element u sekvenci rečnik.</p>\n<p>Unutar vaše petlje <code>for</code>, ako element u <code>dictionary</code> nije instanca od <code>dict</code>, štampajte <code>Invalid format: expected a dictionary at position &#x3C;index>.</code> (gde se <code>&#x3C;index></code> treba zameniti trenutnim indeksom) i postavite <code>is_invalid</code> na <code>True</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-medical-data-validator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 26,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-dictionaries-and-sets",
+  "certification": "python-v9"
+}

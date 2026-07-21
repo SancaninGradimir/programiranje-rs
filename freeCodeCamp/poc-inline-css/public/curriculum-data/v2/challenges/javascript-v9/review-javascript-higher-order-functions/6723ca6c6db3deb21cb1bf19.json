@@ -1,0 +1,208 @@
+{
+  "id": "6723ca6c6db3deb21cb1bf19",
+  "title": "Pregled visokonivojne funkcionalnosti JavaScript-a",
+  "challengeType": 31,
+  "dashedName": "review-javascript-higher-order-functions",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<h2>Funkcija odgovora i metoda za <code>forEach</code></h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: U JavaScript, callback funkcija je funkcija koja se prosleđuje kao argument drugoj funkciji i izvršava se nakon što glavna funkcija završi svoje izvršavanje.</li>\n<li><strong>Metoda za <code>forEach()</code></strong>: Ova metoda se koristi za iteraciju kroz svaki element u nizu podataka i izvršavanje operacije za svaki element. Callback funkcija u <code>forEach</code> može prihvatiti tri argumenta: trenutni element, indeks trenutnog elementa i niz podataka koji je <code>forEach</code> korišćen.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [1, 2, 3, 4, 5];\n\n// Result: 2 4 6 8 10\nnumbers.forEach((number) => {\n  console.log(number * 2);\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [1, 2, 3, 4, 5];\n\n// Result: 2 4 6 8 10\nnumbers.forEach((number) => {\n  console.log(number * 2);\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Funkcionisanje nadzemnog mosta</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Funkcija višeg reda uzima jednu ili više funkcija kao argumente i vraća funkciju ili vrednost kao rezultat.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function operateOnArray(arr, operation) {\n  const result = [];\n  for (let i = 0; i < arr.length; i++) {\n    result.push(operation(arr[i]));\n  }\n  return result;\n}\n\nfunction double(x) {\n  return x * 2;\n}\n\nconst numbers = [1, 2, 3, 4, 5];\nconst doubledNumbers = operateOnArray(numbers, double);\nconsole.log(doubledNumbers); // [2, 4, 6, 8, 10]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function operateOnArray(arr, operation) {\n  const result = [];\n  for (let i = 0; i &#x3C; arr.length; i++) {\n    result.push(operation(arr[i]));\n  }\n  return result;\n}\n\nfunction double(x) {\n  return x * 2;\n}\n\nconst numbers = [1, 2, 3, 4, 5];\nconst doubledNumbers = operateOnArray(numbers, double);\nconsole.log(doubledNumbers); // [2, 4, 6, 8, 10]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Metoda <code>map()</code></strong>: Ova metoda se koristi za kreiranje novog reda korišćenjem određene funkcije za svaki element originalnog reda. Callback funkcija može primiti tri argumenta: trenutni element, indeks trenutnog elementa i red podataka koji je <code>map</code> korišćen.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [1, 2, 3, 4, 5];\nconst doubled = numbers.map((num) => num * 2);\n\nconsole.log(numbers); // [1, 2, 3, 4, 5]\nconsole.log(doubled); // [2, 4, 6, 8, 10]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [1, 2, 3, 4, 5];\nconst doubled = numbers.map((num) => num * 2);\n\nconsole.log(numbers); // [1, 2, 3, 4, 5]\nconsole.log(doubled); // [2, 4, 6, 8, 10]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Metoda za <code>filter()</code></strong>: Ova metoda se koristi za kreiranje nove liste sa elementima koji prolaze kroz određeni test, pa je korisna za filtriranje stavki prema kriterijumima. Kao metoda <code>map</code>, funkcija povratnog poziva za metodu <code>filter</code> prima tri argumenta: element koji se trenutno obrađuje, predikat i listu.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nconst evenNumbers = numbers.filter((num) => num % 2 === 0);\n\nconsole.log(evenNumbers); // [2, 4, 6, 8, 10]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nconst evenNumbers = numbers.filter((num) => num % 2 === 0);\n\nconsole.log(evenNumbers); // [2, 4, 6, 8, 10]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Metoda za <code>reduce()</code></strong>: Ova metoda se koristi za obradu niza i smanjenje ga na jednu vrednost. Ta vrednost može biti broj, niz karaktera (string), objekat ili čak drugi niz. Metoda <code>reduce()</code> radi korišćenjem funkcije za svaki element u nizu, sekvencijalno, i prosleđuje rezultat svake kalkulacije sledećoj. Ova funkcija se često naziva redukciona funkcija (reducer). Redukciona funkcija prima dva glavna parametra: akumulator i trenutnu vrednost. Akumulator je mesto gde čuvate tekuće rezultate vaših operacija, a trenutna vrednost je element niza koji se obrađuje.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [1, 2, 3, 4, 5];\nconst sum = numbers.reduce(\n  (accumulator, currentValue) => accumulator + currentValue,\n  0\n);\n\nconsole.log(sum); // 15",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [1, 2, 3, 4, 5];\nconst sum = numbers.reduce(\n  (accumulator, currentValue) => accumulator + currentValue,\n  0\n);\n\nconsole.log(sum); // 15\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Povezivanje ruta</h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Method chaining je programski metod koji vam omogućava pozivanje više metoda na jednom objektu u jednoj liniji koda. Ovaj pristup može učiniti vaš kod lakšim za čitanje i kraćim, posebno kada izvršavate niz operacija na istom objektu.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const result = \"  Hello, World!  \"\n  .trim()\n  .toLowerCase()\n  .replace(\"world\", \"JavaScript\");\n\nconsole.log(result); // \"hello, JavaScript!\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const result = \"  Hello, World!  \"\n  .trim()\n  .toLowerCase()\n  .replace(\"world\", \"JavaScript\");\n\nconsole.log(result); // \"hello, JavaScript!\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa metodom <code>sort</code></h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Definicija</strong>: Metoda <code>sort</code> se koristi za sortiranje elemenata niza i vraća referencu na sortirani niz. Ne stvara se kopija jer se elementi sortiraju na mestu.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const fruits = [\"Banana\", \"Orange\", \"Apple\", \"Mango\"];\nfruits.sort();\n\nconsole.log(fruits); // [\"Apple\", \"Banana\", \"Mango\", \"Orange\"]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const fruits = [\"Banana\", \"Orange\", \"Apple\", \"Mango\"];\nfruits.sort();\n\nconsole.log(fruits); // [\"Apple\", \"Banana\", \"Mango\", \"Orange\"]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako treba da sortiraš brojeve, moraćeš koristiti funkciju za poređenje. Metoda <code>sort</code> konvertuje elemente u niz karaktera, a zatim poredi sekvencu vrednosti jedinica koda UTF-16. Jedinice koda UTF-16 su numeričke vrednosti koje predstavljaju karaktere u sekvenci karaktera. Primeri jedinica koda UTF-16 su brojevi 65, 66 i 67 koji odgovaraju slovima \"A\", \"B\" i \"C\" respektivno. Stoga je broj 200 vidljiv pre broja 3 u nizu, jer se sekvenca karaktera \"200\" nalazi pre sekvence karaktera \"3\" prilikom poređenja jedinica koda UTF-16.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [414, 200, 5, 10, 3];\n\nnumbers.sort((a, b) => a - b);\n\nconsole.log(numbers); // [3, 5, 10, 200, 414]",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [414, 200, 5, 10, 3];\n\nnumbers.sort((a, b) => a - b);\n\nconsole.log(numbers); // [3, 5, 10, 200, 414]\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Parametri <code>a</code> i <code>b</code> su dva poremljena elementa. Funkcija za poređenje treba da vrati negativnu vrednost ako <code>a</code> mora da dođe pre od <code>b</code>, pozitivnu vrednost ako <code>a</code> mora da dođe posle od <code>b</code>, i nulu ako su <code>a</code> i <code>b</code> jednaki.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<h2>Rad sa metodama <code>every</code> i <code>some</code></h2>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Metoda za <code>every()</code></strong>: Ova metoda proverava da li svi elementi u nizu prolaze test koji je izvršio priložena funkcija. Metoda <code>every()</code> vraća <code>true</code> ako priložena funkcija vrati <code>true</code> za sve elemente u nizu. Ako bilo koji element ne prođe test, ta metoda odmah vraća <code>false</code> i prestaje sa proverom preostalih elemenata.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [2, 4, 6, 8, 10];\nconst hasAllEvenNumbers = numbers.every((num) => num % 2 === 0);\n\nconsole.log(hasAllEvenNumbers); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [2, 4, 6, 8, 10];\nconst hasAllEvenNumbers = numbers.every((num) => num % 2 === 0);\n\nconsole.log(hasAllEvenNumbers); // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><strong>Funkcija za <code>some()</code></strong>: Ova funkcija proverava da li barem jedan element prolazi test. Funkcija <code>some()</code> vraća <code>true</code> čim pronađe element koji prolazi test. Ako nijedan element ne prođe test, vraća <code>false</code>.</li>\n</ul>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const numbers = [1, 3, 5, 7, 8, 9];\nconst hasSomeEvenNumbers = numbers.some((num) => num % 2 === 0);\n\nconsole.log(hasSomeEvenNumbers); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const numbers = [1, 3, 5, 7, 8, 9];\nconst hasSomeEvenNumbers = numbers.some((num) => num % 2 === 0);\n\nconsole.log(hasSomeEvenNumbers); // true\n</code></pre>"
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    "<p>Pregledaj podatke i koncepte funkcije visokog nivoa od JavaScript.</p>"
+  ],
+  "tests": [],
+  "translationPending": false,
+  "block": "review-javascript-higher-order-functions",
+  "blockLabel": "review",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 117,
+  "description": "",
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "higher-order-functions-and-callbacks",
+  "certification": "javascript-v9"
+}

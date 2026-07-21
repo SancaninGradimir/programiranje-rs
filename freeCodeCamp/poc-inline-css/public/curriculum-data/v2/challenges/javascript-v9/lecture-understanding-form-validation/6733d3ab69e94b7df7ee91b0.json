@@ -1,0 +1,109 @@
+{
+  "id": "6733d3ab69e94b7df7ee91b0",
+  "title": "Kako događaj za slanje funkcioniše sa formularom?",
+  "challengeType": 19,
+  "dashedName": "how-does-the-submit-event-work-with-forms",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Nije ni jedna od sledećih načina za slanje obrasca HTML?</p>",
+      "answers": [
+        {
+          "answer": "<p>Pritisnite dugme sa <code>type=\"submit\"</code>.</p>",
+          "feedback": "<p>Funzo nudi tri posebna načina za slanje forme.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pritisnite Enter u polje za unos koje se može uređivati.</p>",
+          "feedback": "<p>Funzo pominje tri specifična načina za podnošenje forme.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pozovi putanju <code>requestSubmit()</code> forme.</p>",
+          "feedback": "<p>Vodič pominje tri specifična načina za slanje forme.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kliknite dva puta bilo gde unutar forme.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Šta se dešava kada atribut <code>action</code> forme nije postavljen?</p>",
+      "answers": [
+        {
+          "answer": "<p>Pošiljanje forme je blokirano.</p>",
+          "feedback": "<p>Funkcija opisuje podrazumevano ponašanje kada svojstvo <code>action</code> ne postoji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Podaci obrasca se šalju na URL sa trenutne stranice.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Greška je bačena.</p>",
+          "feedback": "<p>Funkcija opisuje podrazumevano ponašanje kada svojstvo <code>action</code> ne postoji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Podaci formulara se šalju na podrazumevani server.</p>",
+          "feedback": "<p>Model opisuje podrazumevano ponašanje kada svojstvo <code>action</code> ne postoji.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja je vrednost <code>enctype</code> treba da se koristi kada forma ima upload fajlova?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>application/x-www-form-urlencoded</code></p>",
+          "feedback": "<p>Lekcija spominje <code>enctype</code> specifično za obradu obrazaca sa postavljanjem fajlova.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>text/plain</code></p>",
+          "feedback": "<p>Ovaj modul je namenjen za <code>enctype</code> obradu obrazaca sa otpremanjem datoteka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>multipart/form-data</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>application/json</code></p>",
+          "feedback": "<p>Atribut navodi poseban <code>enctype</code> za obrađivanje formulara sa otpremanjem fajlova.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Naučićemo se kako događaj <code>submit</code> radi sa formularima HTML. Prvo, moramo razumeti kako poslati formular. Postoji tri načina za slanje formulara.</p>\n<p>Prvo je kada korisnik klikne na dugme koje se nalazi u formularu i koje ima atribut <code>type</code> podešeno na <code>submit</code>.</p>\n<p>Drugi je slučaj kada korisnik pritisne dugme Enter u bilo kom polju za unos koje se može uređivati na obrascu.</p>\n<p>Treće je putem poziva JavaScript, preko metoda <code>requestSubmit()</code> ili <code>submit()</code> elementa forme.</p>\n<p>Ali šta se dešava kada je formular poslat? Dešavaju se nekoliko stvari, a ponašanje formulara zavisi od njegovih atributa.</p>\n<p>Prvi atribut koji moramo proveriti je atribut <code>action</code>. Atribut <code>action</code> bi trebalo da ima <code>URL</code> ili relativnu putanju za trenutni domen. Ova vrednost određuje gde forma pokušava da pošalje podatke. Ako ne postavite atribut <code>action</code>, forma će poslati podatke na <code>URL</code> trenutne stranice. Evo primera forme sa atributom <code>action</code> podešenim na specifični <code>URL</code>:</p>\n<pre><code class=\"language-html\">&#x3C;form action=\"https://freecodecamp.org\">\n  &#x3C;input type=\"number\" id=\"input\" placeholder=\"Enter a number\" name=\"number\" />\n  &#x3C;button type=\"submit\">Submit&#x3C;/button>\n&#x3C;/form>\n</code></pre>\n<p>Kada se ovaj formular pošalje, poslaće podatke na početnu stranicu freeCodeCamp-a, što možda neće ništa učiniti.</p>\n<p>Ovde je drugi formular, koji šalje putem srodne metode/načina.</p>\n<pre><code class=\"language-html\">&#x3C;form action=\"/data\">\n  &#x3C;input type=\"number\" id=\"input\" placeholder=\"Enter a number\" name=\"number\" />\n  &#x3C;button type=\"submit\">Submit&#x3C;/button>\n&#x3C;/form>\n</code></pre>\n<p>Ovo šalje putem <code>/data</code> na trenutnu domenu. U našem slučaju, to će poslati na <code>http://127.0.0.1:5500/data</code>.</p>\n<p>Drugo svojstvo koje kontroliše kako radi dostava je svojstvo <code>method</code>. Ovo svojstvo prihvata standardnu metodu za HTTP, kao što su <code>GET</code> ili <code>POST</code>, i koristi tu metodu prilikom slanja zahteva za URL od <code>action</code>.</p>\n<p>HTTP znači Hypertext Transfer Protocol i koristi se za prenos podataka preko mreže.</p>\n<p>Metode za HTTP koriste se za definisanje akcija koje mogu biti izvršene na resursima, kao što su <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, i slično. Vi ćete saznati više o ovim metodama u budućim časovima.</p>\n<p>Kada putanja nije postavljena, formular će koristiti zahtev za <code>GET</code> podrazumevano. Zahtev za <code>GET</code> se koristi za dobijanje podataka sa definisanim resursom bez vršenja bilo kakvih promena, a parametri se obično dodaju u URL putem sekvence pretraga argumenata.</p>\n<p>Podaci u formi će biti zapisani kao parovi ključ-vrednost za <code>name=value</code> i dodati na URL od <code>action</code> kao parametri pretrage. Na primer, slanjem forme iz našeg prethodnog primera i vrednost za <code>3342</code> za sekciju <code>input</code>, forma bi pokušala da <code>GET</code> URL od <code>http://127.0.0.1:5500/data?number=3342</code>.</p>\n<p>Ovo je dobro za nešto kao obrazac za pretragu, gde vaš korisnik traži podatke. Ali ako želite da vaš korisnik pošalje nove podatke, kao u obrascu za registraciju, odgovarajuća metoda za korišćenje je <code>POST</code>. Metoda <code>POST</code> se koristi za slanje podataka na serveru radi kreiranja ili ažuriranja resursa.</p>\n<p>Stavimo atribut <code>method</code> na vrednost <code>POST</code>:</p>\n<pre><code class=\"language-xml\">&#x3C;form action=\"/data\" method=\"POST\">\n  &#x3C;input type=\"number\" id=\"input\" placeholder=\"Enter a number\" name=\"number\" />\n  &#x3C;button type=\"submit\">Submit&#x3C;/button>\n&#x3C;/form>\n</code></pre>\n<p>Kada pošaljete zahtev za <code>POST</code>, telo može da sadrži podatke vašeg zahteva. Stoga, za razliku od <code>GET</code>, podaci se ne dodaju u URL, i naš formular šalje zahtev za <code>POST</code> ka <code>http://127.0.0.1:5500/data</code>. Podaci, umesto toga, mogu se pronaći u telu zahteva, i dalje kao podaci iz formulara kreirani sa URL.</p>\n<p>Podaci iz forme za URL su kada se podaci iz forme konvertuju u sekvencu parova ključ-vrednost, kao što je <code>name=John+Doe&#x26;email=john%40example.com</code>, gde se specijalni znakovi kodiraju u enkodovane formate radi sigilnog slanja podataka preko mreže. Naučićete više o ovome u narednim lekcijama.</p>\n<p>Ali možda ne želiš da pošalješ podatke kao opterećenje forme napisano za URL?</p>\n<p>Karakteristika <code>form</code> prima svojstvo <code>enctype</code>, što predstavlja tip kodiranja za korišćenje podataka.</p>\n<p>Ova svojstvo prihvata samo tri vrednosti: <code>application/x-www-form-urlencoded</code> (koje je podrazumevano, šaljući podatke kao telo forme napisano za URL), <code>text/plain</code> (koji šalje podatke u čistom tekstu, u parovima <code>name=value</code> ostavljenim na novim redovima), ili <code>multipart/form-data</code>, koji je namenjen za obradu formulara sa otpremanjem fajlova.</p>\n<p>U ovom kursu, naučili ste osnove podnošenja formulara. Na narednim časovima, ćemo ući dublje u funkcije i formulare i kako oni komuniciraju sa serverom.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-form-validation",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 151,
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "form-validation",
+  "certification": "javascript-v9"
+}

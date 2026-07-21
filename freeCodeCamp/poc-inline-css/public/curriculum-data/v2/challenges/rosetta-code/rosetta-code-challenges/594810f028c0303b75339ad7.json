@@ -1,0 +1,84 @@
+{
+  "id": "594810f028c0303b75339ad7",
+  "title": "Algoritam za smanjenje Zhang-Suena",
+  "challengeType": 1,
+  "forumTopicId": 302347,
+  "dashedName": "zhang-suen-thinning-algorithm",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function thinImage(image) {\n\n}\n\nconst testImage1 = [\n  '                               ',\n  '#########       ########       ',\n  '###   ####     ####  ####      ',\n  '###    ###     ###    ###      ',\n  '###   ####     ###             ',\n  '#########      ###             ',\n  '### ####       ###    ###      ',\n  '###  ####  ### ####  #### ###  ',\n  '###   #### ###  ########  ###  ',\n  '                               '\n];",
+      "error": null,
+      "seed": "function thinImage(image) {\n\n}\n\nconst testImage1 = [\n  '                               ',\n  '#########       ########       ',\n  '###   ####     ####  ####      ',\n  '###    ###     ###    ###      ',\n  '###   ####     ###             ',\n  '#########      ###             ',\n  '### ####       ###    ###      ',\n  '###  ####  ### ####  #### ###  ',\n  '###   #### ###  ########  ###  ',\n  '                               '\n];"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Point(x, y) {\n  this.x = x;\n  this.y = y;\n}\n\nconst ZhangSuen = (function () {\n  function ZhangSuen() {\n  }\n\n  ZhangSuen.nbrs = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1]];\n\n  ZhangSuen.nbrGroups = [[[0, 2, 4], [2, 4, 6]], [[0, 2, 6], [0, 4, 6]]];\n\n  ZhangSuen.toWhite = [];\n\n  ZhangSuen.main = function (image) {\n    ZhangSuen.grid = new Array(image);\n    for (let r = 0; r < image.length; r++) {\n      ZhangSuen.grid[r] = image[r].split('');\n    }\n    ZhangSuen.thinImage();\n    return ZhangSuen.getResult();\n  };\n\n  ZhangSuen.thinImage = function () {\n    let firstStep = false;\n    let hasChanged;\n    do {\n      hasChanged = false;\n      firstStep = !firstStep;\n      for (let r = 1; r < ZhangSuen.grid.length - 1; r++) {\n        for (let c = 1; c < ZhangSuen.grid[0].length - 1; c++) {\n          if (ZhangSuen.grid[r][c] !== '#') {\n            continue;\n          }\n          const nn = ZhangSuen.numNeighbors(r, c);\n          if (nn < 2 || nn > 6) {\n            continue;\n          }\n          if (ZhangSuen.numTransitions(r, c) !== 1) {\n            continue;\n          }\n          if (!ZhangSuen.atLeastOneIsWhite(r, c, firstStep ? 0 : 1)) {\n            continue;\n          }\n          ZhangSuen.toWhite.push(new Point(c, r));\n          hasChanged = true;\n        }\n      }\n      for (let i = 0; i < ZhangSuen.toWhite.length; i++) {\n        const p = ZhangSuen.toWhite[i];\n        ZhangSuen.grid[p.y][p.x] = ' ';\n      }\n      ZhangSuen.toWhite = [];\n    } while ((firstStep || hasChanged));\n  };\n\n  ZhangSuen.numNeighbors = function (r, c) {\n    let count = 0;\n    for (let i = 0; i < ZhangSuen.nbrs.length - 1; i++) {\n      if (ZhangSuen.grid[r + ZhangSuen.nbrs[i][1]][c + ZhangSuen.nbrs[i][0]] === '#') {\n        count++;\n      }\n    }\n    return count;\n  };\n\n  ZhangSuen.numTransitions = function (r, c) {\n    let count = 0;\n    for (let i = 0; i < ZhangSuen.nbrs.length - 1; i++) {\n      if (ZhangSuen.grid[r + ZhangSuen.nbrs[i][1]][c + ZhangSuen.nbrs[i][0]] === ' ') {\n        if (ZhangSuen.grid[r + ZhangSuen.nbrs[i + 1][1]][c + ZhangSuen.nbrs[i + 1][0]] === '#') {\n          count++;\n        }\n      }\n    }\n    return count;\n  };\n\n  ZhangSuen.atLeastOneIsWhite = function (r, c, step) {\n    let count = 0;\n    const group = ZhangSuen.nbrGroups[step];\n    for (let i = 0; i < 2; i++) {\n      for (let j = 0; j < group[i].length; j++) {\n        const nbr = ZhangSuen.nbrs[group[i][j]];\n        if (ZhangSuen.grid[r + nbr[1]][c + nbr[0]] === ' ') {\n          count++;\n          break;\n        }\n      }\n    }\n    return count > 1;\n  };\n\n  ZhangSuen.getResult = function () {\n    const result = [];\n    for (let i = 0; i < ZhangSuen.grid.length; i++) {\n      const row = ZhangSuen.grid[i].join('');\n      result.push(row);\n    }\n    return result;\n  };\n  return ZhangSuen;\n}());\n\nfunction thinImage(image) {\n  return ZhangSuen.main(image);\n}",
+        "error": null,
+        "seed": "function Point(x, y) {\n  this.x = x;\n  this.y = y;\n}\n\nconst ZhangSuen = (function () {\n  function ZhangSuen() {\n  }\n\n  ZhangSuen.nbrs = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1]];\n\n  ZhangSuen.nbrGroups = [[[0, 2, 4], [2, 4, 6]], [[0, 2, 6], [0, 4, 6]]];\n\n  ZhangSuen.toWhite = [];\n\n  ZhangSuen.main = function (image) {\n    ZhangSuen.grid = new Array(image);\n    for (let r = 0; r < image.length; r++) {\n      ZhangSuen.grid[r] = image[r].split('');\n    }\n    ZhangSuen.thinImage();\n    return ZhangSuen.getResult();\n  };\n\n  ZhangSuen.thinImage = function () {\n    let firstStep = false;\n    let hasChanged;\n    do {\n      hasChanged = false;\n      firstStep = !firstStep;\n      for (let r = 1; r < ZhangSuen.grid.length - 1; r++) {\n        for (let c = 1; c < ZhangSuen.grid[0].length - 1; c++) {\n          if (ZhangSuen.grid[r][c] !== '#') {\n            continue;\n          }\n          const nn = ZhangSuen.numNeighbors(r, c);\n          if (nn < 2 || nn > 6) {\n            continue;\n          }\n          if (ZhangSuen.numTransitions(r, c) !== 1) {\n            continue;\n          }\n          if (!ZhangSuen.atLeastOneIsWhite(r, c, firstStep ? 0 : 1)) {\n            continue;\n          }\n          ZhangSuen.toWhite.push(new Point(c, r));\n          hasChanged = true;\n        }\n      }\n      for (let i = 0; i < ZhangSuen.toWhite.length; i++) {\n        const p = ZhangSuen.toWhite[i];\n        ZhangSuen.grid[p.y][p.x] = ' ';\n      }\n      ZhangSuen.toWhite = [];\n    } while ((firstStep || hasChanged));\n  };\n\n  ZhangSuen.numNeighbors = function (r, c) {\n    let count = 0;\n    for (let i = 0; i < ZhangSuen.nbrs.length - 1; i++) {\n      if (ZhangSuen.grid[r + ZhangSuen.nbrs[i][1]][c + ZhangSuen.nbrs[i][0]] === '#') {\n        count++;\n      }\n    }\n    return count;\n  };\n\n  ZhangSuen.numTransitions = function (r, c) {\n    let count = 0;\n    for (let i = 0; i < ZhangSuen.nbrs.length - 1; i++) {\n      if (ZhangSuen.grid[r + ZhangSuen.nbrs[i][1]][c + ZhangSuen.nbrs[i][0]] === ' ') {\n        if (ZhangSuen.grid[r + ZhangSuen.nbrs[i + 1][1]][c + ZhangSuen.nbrs[i + 1][0]] === '#') {\n          count++;\n        }\n      }\n    }\n    return count;\n  };\n\n  ZhangSuen.atLeastOneIsWhite = function (r, c, step) {\n    let count = 0;\n    const group = ZhangSuen.nbrGroups[step];\n    for (let i = 0; i < 2; i++) {\n      for (let j = 0; j < group[i].length; j++) {\n        const nbr = ZhangSuen.nbrs[group[i][j]];\n        if (ZhangSuen.grid[r + nbr[1]][c + nbr[0]] === ' ') {\n          count++;\n          break;\n        }\n      }\n    }\n    return count > 1;\n  };\n\n  ZhangSuen.getResult = function () {\n    const result = [];\n    for (let i = 0; i < ZhangSuen.grid.length; i++) {\n      const row = ZhangSuen.grid[i].join('');\n      result.push(row);\n    }\n    return result;\n  };\n  return ZhangSuen;\n}());\n\nfunction thinImage(image) {\n  return ZhangSuen.main(image);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const _testImage1 = [\n  '                               ',\n  '#########       ########       ',\n  '###   ####     ####  ####      ',\n  '###    ###     ###    ###      ',\n  '###   ####     ###             ',\n  '#########      ###             ',\n  '### ####       ###    ###      ',\n  '###  ####  ### ####  #### ###  ',\n  '###   #### ###  ########  ###  ',\n  '                               '\n];\nconst expected1 = [\n  '                               ',\n  '########         ######        ',\n  '#      #        ##             ',\n  '#       #       #              ',\n  '#      #        #              ',\n  '###### #        #              ',\n  '#     ##        #              ',\n  '#      #    #   ##    ##   #   ',\n  '#       #         ####         ',\n  '                               '\n];\nconst _testImage2 = [\n  '                                                          ',\n  ' #################                   #############        ',\n  ' ##################               ################        ',\n  ' ###################            ##################        ',\n  ' ########     #######          ###################        ',\n  '   ######     #######         #######       ######        ',\n  '   ######     #######        #######                      ',\n  '   #################         #######                      ',\n  '   ################          #######                      ',\n  '   #################         #######                      ',\n  '   ######     #######        #######                      ',\n  '   ######     #######        #######                      ',\n  '   ######     #######         #######       ######        ',\n  ' ########     #######          ###################        ',\n  ' ########     ####### ######    ################## ###### ',\n  ' ########     ####### ######      ################ ###### ',\n  ' ########     ####### ######         ############# ###### ',\n  '                                                          '\n];\nconst expected2 = [\n  '                                                          ',\n  '                                                          ',\n  '    # ##########                       #######            ',\n  '     ##        #                   ####       #           ',\n  '     #          #                 ##                      ',\n  '     #          #                #                        ',\n  '     #          #                #                        ',\n  '     #          #                #                        ',\n  '     ############               #                         ',\n  '     #          #               #                         ',\n  '     #          #                #                        ',\n  '     #          #                #                        ',\n  '     #          #                #                        ',\n  '     #                            ##                      ',\n  '     #                             ############           ',\n  '                       ###                          ###   ',\n  '                                                          ',\n  '                                                          '\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>thinImage</code> trebalo bi da bude funkcija.</p>",
+      "testString": "assert.equal(typeof thinImage, 'function');"
+    },
+    {
+      "text": "<p><code>thinImage</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(thinImage(_testImage1)));"
+    },
+    {
+      "text": "<p><code>thinImage</code> Trebalo bi da vrati red/liniju sekvence karaktera.</p>",
+      "testString": "assert.equal(typeof thinImage(_testImage1)[0], 'string');"
+    },
+    {
+      "text": "<p><code>thinImage(testImage1)</code> Trebalo bi da vrati smanjenu sliku kao u primeru.</p>",
+      "testString": "assert.deepEqual(thinImage(_testImage1), expected1);"
+    },
+    {
+      "text": "<p><code>thinImage(testImage2)</code> Trebalo bi da vrati smanjenu sliku.</p>",
+      "testString": "assert.deepEqual(thinImage(_testImage2), expected2);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ovo je algoritam koji se koristi za redukciju crno-belih slika, to jest, jedan bit po pikselu. Na primer, za ulaznu sliku:</p>\n<pre><code class=\"language-js\">const testImage1 = [\n '                               ',\n '#########       ########       ',\n '###   ####     ####  ####      ',\n '###    ###     ###    ###      ',\n '###   ####     ###             ',\n '#########      ###             ',\n '### ####       ###    ###      ',\n '###  ####  ### ####  #### ###  ',\n '###   #### ###  ########  ###  ',\n '                               '\n];\n</code></pre>\n<p>Dostavite smančenu sliku kao što sledi:</p>\n<pre><code class=\"language-js\">[ '                               ',\n  '########         ######        ',\n  '#      #        ##             ',\n  '#       #       #              ',\n  '#      #        #              ',\n  '###### #        #              ',\n  '#     ##        #              ',\n  '#      #    #   ##    ##   #   ',\n  '#       #         ####         ',\n  '                               ' ];\n</code></pre>\n<h2>Algoriti</h2>\n<p>Pretpostavimo da su pikseli crne boje jediničke, a pikseli bele boje nule, i da je ulazna slika pravougaoni niz N x M od jedinica i nula. Algoritam radi za sve crne piksele P1 koje imaju osam suseda. Ti susedi su raspoređeni redosledom kao što sledi:</p>\n<p>$$\\begin{array}{|c|c|c|}\n\\hline\nP9 &#x26; P2              &#x26; P3\\\\ \\hline\nP8 &#x26; \\boldsymbol{P1} &#x26; P4\\\\ \\hline\nP7 &#x26; P6              &#x26; P5\\\\ \\hline\n\\end{array}$$</p>\n<p>Nije očigledno da pikseli na granici slike ne mogu imati osam punih suseda.</p>\n<ul>\n<li>Izračunaj $A(P1)$ = broj prelaza sa bele na crnu boju, ($0 \\to 1$), u nizu P2, P3, P4, P5, P6, P7, P8, P9, P2. (Obrati pažnju na dodatni P2 na kraju – niz je cikličan.)</li>\n<li>Tafsiri $B(P1)$ = idadi ya majirani wa pikseli nyeusi wa P1. ($= \\sum(P2 \\ldots P9)$)</li>\n</ul>\n<p><strong>Hatua ya 1:</strong></p>\n<p>Svi pikseli se ispituju, a oni koji istovremeno ispunjavaju sve sledeće uslove označavaju se samo u ovom koraku.</p>\n<ol>\n<li>Pikseli ni nyeusi na ina majirani nane</li>\n<li>$2 \\le B(P1) \\le 6$</li>\n<li>$A(P1) = 1$</li>\n<li>Angalau moja kati ya $P2$, $P4$ na $P6$ ni nyeupe</li>\n<li>Angalau moja kati ya $P4$, $P6$ na $P8$ ni nyeupe</li>\n</ol>\n<p>Nakon prolaska kroz sliku i prikupljanja svih piksela koji ispunjavaju uslove iz prvog koraka, svi ti pikseli se menjaju u bele.</p>\n<p><strong>Korak 2:</strong></p>\n<p>Svi pikseli se ponovo testiraju, a oni koji ispunjavaju sve sledeće uslove identifikuju se samo u ovoj fazi.</p>\n<ol>\n<li>Pikseli su crne i imaju osam suseda</li>\n<li>$2 \\le B(P1) \\le 6$</li>\n<li>$A(P1) = 1$</li>\n<li>Najmanje jedan od P2, P4 i P8 je beli</li>\n<li>Najmanje jedan od P2, P6 i P8 je beli</li>\n</ol>\n<p>Nakon obrade slike i prikupljanja svih piksela koji zadovoljavaju sve uslove koraka 2, svi pikseli koji zadovoljavaju ove uslove vraćaju se u belu boju.</p>\n<p><strong>Ponavljaj:</strong></p>\n<p>Ako je bilo koji piksel promenjen u ovom ciklusu faze 1 ili faze 2, onda se sve faze ponavljaju dok nijedan piksel slike nije promenjen.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite proceduru za implementaciju redukcije Zhang-Suena na <code>image</code>, dati niz sekvenci karaktera, gde svaki niz karaktera predstavlja jedan red slike. U nizu karaktera, <code>#</code> predstavlja crnu pikselu, a prazan prostor predstavlja belu pikselu. Funkcija treba da vrati smanjenu sliku, koristeći istu reprezentaciju.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 158,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

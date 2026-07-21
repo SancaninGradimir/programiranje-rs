@@ -1,0 +1,77 @@
+{
+  "id": "587d7b86367417b2b2512b3b",
+  "title": "Pronađi greške tipa „off by one“ kada koristiš šablon",
+  "challengeType": 1,
+  "forumTopicId": 301189,
+  "dashedName": "catch-off-by-one-errors-when-using-indexing",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function countToFive() {\r\n  let firstFive = \"12345\";\r\n  let len = firstFive.length;\r\n  // Only change code below this line\r\n  for (let i = 1; i <= len; i++) {\r\n  // Only change code above this line\r\n    console.log(firstFive[i]);\r\n  }\r\n}\r\n\r\ncountToFive();",
+      "error": null,
+      "seed": "function countToFive() {\r\n  let firstFive = \"12345\";\r\n  let len = firstFive.length;\r\n  // Only change code below this line\r\n  for (let i = 1; i <= len; i++) {\r\n  // Only change code above this line\r\n    console.log(firstFive[i]);\r\n  }\r\n}\r\n\r\ncountToFive();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function countToFive() {\r\n let firstFive = \"12345\";\r\n let len = firstFive.length;\r\n // Only change code below this line\r\n for (let i = 0; i < len; i++) {\r\n // Only change code above this line\r\n   console.log(firstFive[i]);\r\n }\r\n}\r\n\r\ncountToFive();",
+        "error": null,
+        "seed": "function countToFive() {\r\n let firstFive = \"12345\";\r\n let len = firstFive.length;\r\n // Only change code below this line\r\n for (let i = 0; i < len; i++) {\r\n // Only change code above this line\r\n   console.log(firstFive[i]);\r\n }\r\n}\r\n\r\ncountToFive();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaš kod treba da postavi početno stanje ciklusa kako bi počeo sa prvom iteracijom.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/i\\s*?=\\s*?0\\s*?;/g).length == 1);"
+    },
+    {
+      "text": "<p>Vaš kod treba da koriguje početno stanje ciklusa kako bi model ciklusa počeo od 0.</p>",
+      "testString": "assert(!__helpers.removeJSComments(code).match(/i\\s?=\\s*?1\\s*?;/g));"
+    },
+    {
+      "text": "<p>Vaš kod treba da postavi konačno stanje ciklusa kako bi se pravilno završio/zaustavio.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/i\\s*<\\s*len\\s*;|i\\s*<=\\s*len\\s*-\\s*1\\s*;/g).length == 1);"
+    },
+    {
+      "text": "<p>Vaš kod bi trebalo da koriguje konačno stanje ciklusa tako da se završi jedan pre dužine.</p>",
+      "testString": "assert(!__helpers.removeJSComments(code).match(/i\\s*?<=\\s*?len;/g));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><dfn>Greške off by one</dfn> (ponekad se naziva OBOE) nastaju kada pokušavate da pristupite specifičnom indeksu nizu karaktera ili listi podataka (za sečenje ili dobijanje dela), ili kada gledate indeks tih elemenata. Indeks JavaScript počinje od nule, ne od jedinstva, što znači da je poslednji indeks uvek jedan manji od dužine elementa. Ako pokušate da pristupite indeksu koji odgovara dužini, program može vratiti grešku referenciranja \"index out of range\" ili ispisati <code>undefined</code>.</p>\n<p>Kada koristite sekvencijalne metode karaktera ili niz podataka koji uzimaju standarde modela kao argumente, korisno je pročitati dokumentaciju i razumeti da li uključuje element u tom modelu (inclusive) ili ne. Evo primera grešaka off by one:</p>\n<pre><code class=\"language-js\">let alphabet = \"abcdefghijklmnopqrstuvwxyz\";\r\nlet len = alphabet.length;\r\nfor (let i = 0; i &#x3C;= len; i++) {\r\n  console.log(alphabet[i]);\r\n}\r\nfor (let j = 1; j &#x3C; len; j++) {\r\n  console.log(alphabet[j]);\r\n}\r\nfor (let k = 0; k &#x3C; len; k++) {\r\n  console.log(alphabet[k]);\r\n}\n</code></pre>\n<p>Prvi primer ovde ponavlja se jednom više nego što je potrebno, a drugi primer ponavlja se malo manje (ako propustite prvi primer, 0). Treći primer je tačan.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Ispravite dve greške u prikazivanju u funkciju ispod, tako da se svi brojevi od 1 do 5 ispišu na konzolu.</p>\n</section>",
+  "translationPending": false,
+  "block": "debugging",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "5900f3a51000cf542c50feb8",
+  "title": "Vežba 57: Nastavljajući kvadratni koren",
+  "challengeType": 1,
+  "forumTopicId": 302168,
+  "dashedName": "problem-57-square-root-convergents",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function squareRootConvergents(n) {\n\n  return true;\n}\n\nsquareRootConvergents(1000);",
+      "error": null,
+      "seed": "function squareRootConvergents(n) {\n\n  return true;\n}\n\nsquareRootConvergents(1000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function squareRootConvergents(n) {\n  function countDigits(number) {\n    let counter = 0;\n    while (number > 0) {\n      counter++;\n      number = number / 10n;\n    }\n    return counter;\n  }\n\n  // Use BigInt as integer won't handle all cases\n  let numerator = 3n;\n  let denominator = 2n;\n  let moreDigitsInNumerator = 0;\n\n  for (let i = 2; i <= n; i++) {\n    [numerator, denominator] = [\n      numerator + 2n * denominator,\n      denominator + numerator\n    ];\n\n    if (countDigits(numerator) > countDigits(denominator)) {\n      moreDigitsInNumerator++;\n    }\n  }\n  return moreDigitsInNumerator;\n}",
+        "error": null,
+        "seed": "function squareRootConvergents(n) {\n  function countDigits(number) {\n    let counter = 0;\n    while (number > 0) {\n      counter++;\n      number = number / 10n;\n    }\n    return counter;\n  }\n\n  // Use BigInt as integer won't handle all cases\n  let numerator = 3n;\n  let denominator = 2n;\n  let moreDigitsInNumerator = 0;\n\n  for (let i = 2; i <= n; i++) {\n    [numerator, denominator] = [\n      numerator + 2n * denominator,\n      denominator + numerator\n    ];\n\n    if (countDigits(numerator) > countDigits(denominator)) {\n      moreDigitsInNumerator++;\n    }\n  }\n  return moreDigitsInNumerator;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>squareRootConvergents(10)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof squareRootConvergents(10) === 'number');"
+    },
+    {
+      "text": "<p><code>squareRootConvergents(10)</code> trebalo bi da vrati 1.</p>",
+      "testString": "assert.strictEqual(squareRootConvergents(10), 1);"
+    },
+    {
+      "text": "<p><code>squareRootConvergents(100)</code> trebalo bi da vrati 15.</p>",
+      "testString": "assert.strictEqual(squareRootConvergents(100), 15);"
+    },
+    {
+      "text": "<p><code>squareRootConvergents(1000)</code> trebalo bi da vrati 153.</p>",
+      "testString": "assert.strictEqual(squareRootConvergents(1000), 153);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Moguće je pokazati da se kvadratni koren dva može predstaviti kao neprekidne, beskonačne decimalne zaokruženje.</p>\n<div style='text-align: center;'>$\\sqrt 2 =1+ \\frac 1 {2+ \\frac 1 {2 +\\frac 1 {2+ \\dots}}}$</div>\n<p>Proširenjem ovoga za prvih četiri ciklusa, dobijamo:</p>\n<p>$1 + \\frac 1 2 = \\frac 32 = 1.5$</p>\n<p>$1 + \\frac 1 {2 + \\frac 1 2} = \\frac 7 5 = 1.4$</p>\n<p>$1 + \\frac 1 {2 + \\frac 1 {2+\\frac 1 2}} = \\frac {17}{12} = 1.41666 \\dots$</p>\n<p>$1 + \\frac 1 {2 + \\frac 1 {2+\\frac 1 {2+\\frac 1 2}}} = \\frac {41}{29} = 1.41379 \\dots$</p>\n<p>Sledeće tri proširenja su $\\frac {99}{70}$, $\\frac {239}{169}$, i $\\frac {577}{408}$, ali osmo proširenje, $\\frac {1393}{985}$, je prvi primer gde je broj cifara u bazi veći od broja cifara u delitelju.</p>\n<p>U prvom proširenju za <code>n</code>, koliko delova ima bazu sa više cifara nego podeljenje?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 56,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "6639fdcc701833a54c364211",
+  "title": "Korak 17",
+  "challengeType": 20,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        14,
+        16
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        \n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n    \nlin_eq = LinearEquation(2, 3)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        \n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n    \nlin_eq = LinearEquation(2, 3)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš funkciju pod nazivom <code>coefficients</code> unutar svog puta <code>__init__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").has_variable(\"self.coefficients\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš generisanje rečnika kako bi sačuvao svoje standarde.</p>",
+      "testString": "({ test: () => runPython(`\nimport ast\nnode = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_variable(\"self.coefficients\")\nassert isinstance(node.tree.value, ast.DictComp)\n`) })"
+    },
+    {
+      "text": "<p>Vaše svojstvo <code>coefficients</code> treba da bude rečnik koji sadrži parove ključ-vrednost u strukturi na nivou klase. Imajte na umu da pratite isti redosled gde su sačuvani parametri unutar <code>args</code>.</p>",
+      "testString": "({ test: () => runPython(`\nactual1 = list(LinearEquation(1, 6).coefficients.items())\nexpected1 = list({1: 1, 0: 6}.items())\nactual2 = list(LinearEquation(-3.5, 0).coefficients.items())\nexpected2 = list({1: -3.5, 0: 0}.items())\nassert actual1 == expected1\nassert actual2 == expected2\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon validacije vrednosti, morate ih sačuvati u atributu primernog elementa. Koristite dictionary comprehension da kreirate rječnik čiji je ključ klasa vrednosti, a odgovarajuća vrijednost je ta vrednost, zatim postavite tu vrijednost u atribut nazvan <code>coefficients</code>.</p>\n<p>Na primer, predmet od <code>LinearEquation</code> objavljen od strane <code>2</code> i <code>4</code> mora imati sledeće svojstvo <code>coefficients</code>: <code>{1: 2, 0: 4}</code>, jer se <code>2</code> odnosi na prvi stepen/nivo <code>x</code> i <code>4</code> se odnosi na nulti stepen/nivo <code>x</code>.</p>\n<p>Kreirajte parove ključ-vrednost u vašem novom rječniku, prateći isti format kao što je u <code>args</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

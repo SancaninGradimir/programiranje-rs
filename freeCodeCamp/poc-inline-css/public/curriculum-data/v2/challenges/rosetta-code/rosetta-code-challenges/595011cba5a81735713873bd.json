@@ -1,0 +1,88 @@
+{
+  "id": "595011cba5a81735713873bd",
+  "title": "Najviša pozicija za svaku grupu",
+  "challengeType": 1,
+  "forumTopicId": 302339,
+  "dashedName": "top-rank-per-group",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function topRankPerGroup(n, data, groupName, rankName) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function topRankPerGroup(n, data, groupName, rankName) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const collectDept = function (arrOfObj, groupName) {\n  const collect = arrOfObj.reduce((rtnObj, obj) => {\n    if (rtnObj[obj[groupName]] === undefined) {\n      rtnObj[obj[groupName]] = [];\n    }\n    rtnObj[obj[groupName]].push(obj);\n    return rtnObj;\n  }, {} // initial value to reduce\n  );\n\n  return Object.keys(collect).sort().map(key => collect[key]);\n};\n\nconst sortRank = function (arrOfRankArrs, rankName) {\n  return arrOfRankArrs.map(item => item.sort((a, b) => {\n    if (a[rankName] > b[rankName]) { return -1; }\n    if (a[rankName] < b[rankName]) { return 1; }\n    return 0;\n  }));\n};\n\nfunction topRankPerGroup(n, data, groupName, rankName) {\n  if (n < 0) { return; }\n  return sortRank(collectDept(data, groupName),\n    rankName).map(list => list.slice(0, n));\n}",
+        "error": null,
+        "seed": "const collectDept = function (arrOfObj, groupName) {\n  const collect = arrOfObj.reduce((rtnObj, obj) => {\n    if (rtnObj[obj[groupName]] === undefined) {\n      rtnObj[obj[groupName]] = [];\n    }\n    rtnObj[obj[groupName]].push(obj);\n    return rtnObj;\n  }, {} // initial value to reduce\n  );\n\n  return Object.keys(collect).sort().map(key => collect[key]);\n};\n\nconst sortRank = function (arrOfRankArrs, rankName) {\n  return arrOfRankArrs.map(item => item.sort((a, b) => {\n    if (a[rankName] > b[rankName]) { return -1; }\n    if (a[rankName] < b[rankName]) { return 1; }\n    return 0;\n  }));\n};\n\nfunction topRankPerGroup(n, data, groupName, rankName) {\n  if (n < 0) { return; }\n  return sortRank(collectDept(data, groupName),\n    rankName).map(list => list.slice(0, n));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const testData1 = [\n  { name: 'Tyler Bennett', id: 'E10297', salary: 32000, dept: 'D101' },\n  { name: 'John Rappl', id: 'E21437', salary: 47000, dept: 'D050' },\n  { name: 'George Woltman', id: 'E00127', salary: 53500, dept: 'D101' },\n  { name: 'Adam Smith', id: 'E63535', salary: 18000, dept: 'D202' },\n  { name: 'Claire Buckman', id: 'E39876', salary: 27800, dept: 'D202' },\n  { name: 'David McClellan', id: 'E04242', salary: 41500, dept: 'D101' },\n  { name: 'Rich Holcomb', id: 'E01234', salary: 49500, dept: 'D202' },\n  { name: 'Nathan Adams', id: 'E41298', salary: 21900, dept: 'D050' },\n  { name: 'Richard Potter', id: 'E43128', salary: 15900, dept: 'D101' },\n  { name: 'David Motsinger', id: 'E27002', salary: 19250, dept: 'D202' },\n  { name: 'Tim Sampair', id: 'E03033', salary: 27000, dept: 'D101' },\n  { name: 'Kim Arlich', id: 'E10001', salary: 57000, dept: 'D190' },\n  { name: 'Timothy Grove', id: 'E16398', salary: 29900, dept: 'D190' }\n];\n\nconst testData2 = [\n  { name: 'Friday 13th', genre: 'horror', rating: 9.9 },\n  { name: \"Nightmare on Elm's Street\", genre: 'horror', rating: 5.7 },\n  { name: 'Titanic', genre: 'drama', rating: 7.3 },\n  { name: 'Maze Runner', genre: 'scifi', rating: 7.1 },\n  { name: 'Blade runner', genre: 'scifi', rating: 8.9 }\n];\n\nfunction getResults_() {\n  return {\n    res1: topRankPerGroup(10, testData1, 'dept', 'salary'),\n    res2: topRankPerGroup(1, testData2, 'genre', 'rating'),\n    res3: topRankPerGroup(2, testData2, 'genre', 'rating')\n  };\n}"
+  },
+  "tests": [
+    {
+      "text": "<p><code>topRankPerGroup</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof topRankPerGroup === 'function');"
+    },
+    {
+      "text": "<p><code>topRankPerGroup</code> treba da vrati <code>undefined</code> za negativne vrednosti <code>n</code>.</p>",
+      "testString": "assert(typeof topRankPerGroup(-1, []) === 'undefined');"
+    },
+    {
+      "text": "<p>Za <code>topRankPerGroup(10, testData1, 'dept', 'salary')</code>, prvi rezultat u prvoj grupi treba da bude <code>{ name: 'John Rappl', id: 'E21437', salary: 47000, dept: 'D050' }</code>.</p>",
+      "testString": "assert.deepEqual(getResults_().res1[0][0], { name: 'John Rappl', id: 'E21437', salary: 47000, dept: 'D050'});"
+    },
+    {
+      "text": "<p>Za <code>topRankPerGroup(10, testData1, 'dept', 'salary')</code>, posljednji rezultati u zadnjoj grupi bi trebali biti <code>{ name: 'Adam Smith', id: 'E63535', salary: 18000, dept: 'D202' }</code>.</p>",
+      "testString": "assert.deepEqual(getResults_().res1[3][3], { name: 'Adam Smith', id: 'E63535', salary: 18000, dept: 'D202' });"
+    },
+    {
+      "text": "<p><code>topRankPerGroup(1, ...)</code> Trebalo bi da vrati samo rezultat najvišeg ranga za svaku grupu.</p>",
+      "testString": "const { res2 } = getResults_();\nassert.equal(res2[2].length, 1);"
+    },
+    {
+      "text": "<p><code>topRankPerGroup(2, ...)</code> Trebalo bi da vrati dva rezultata lokacije za svaku grupu.</p>",
+      "testString": "const { res3 } = getResults_();\nassert.equal(res3[2][1].name, 'Maze Runner');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pronađi prvih <code>n</code> rangiranih zapisa u svakoj grupi, gde je <code>n</code> prosleđen kao argument. Naziv polja za rangiranje i naziv grupe takođe se prosleđuju kao argumenti.</p>\n<p>Ako postoje sljedeći podaci:</p>\n<pre><code class=\"language-js\">testData1 = [\n  { name: 'Tyler Bennett', id: 'E10297', salary: 32000, dept: 'D101' },\n  { name: 'John Rappl', id: 'E21437', salary: 47000, dept: 'D050' },\n  { name: 'George Woltman', id: 'E00127', salary: 53500, dept: 'D101' },\n  { name: 'Adam Smith', id: 'E63535', salary: 18000, dept: 'D202' },\n  { name: 'Claire Buckman', id: 'E39876', salary: 27800, dept: 'D202' },\n  { name: 'David McClellan', id: 'E04242', salary: 41500, dept: 'D101' },\n  { name: 'Rich Holcomb', id: 'E01234', salary: 49500, dept: 'D202' },\n  { name: 'Nathan Adams', id: 'E41298', salary: 21900, dept: 'D050' },\n  { name: 'Richard Potter', id: 'E43128', salary: 15900, dept: 'D101' },\n  { name: 'David Motsinger', id: 'E27002', salary: 19250, dept: 'D202' },\n  { name: 'Tim Sampair', id: 'E03033', salary: 27000, dept: 'D101' },\n  { name: 'Kim Arlich', id: 'E10001', salary: 57000, dept: 'D190' },\n  { name: 'Timothy Grove', id: 'E16398', salary: 29900, dept: 'D190' }\n];\n</code></pre>\n<p>Na primer, deset najbolje plaćenih zaposlenih u svakom odeljenju može se dobiti pozivom:</p>\n<pre><code class=\"language-js\">topRankPerGroup(10, testData1, 'dept', 'salary')\n</code></pre>\n<p>Ako postoje sledeći podaci:</p>\n<pre><code class=\"language-js\">testData2 = [\n  { name: 'Friday 13th', genre: 'horror', rating: 9.9 },\n  { name: \"Nightmare on Elm's Street\", genre: 'horror', rating: 5.7 },\n  { name: 'Titanic', genre: 'drama', rating: 7.3 },\n  { name: 'Maze Runner', genre: 'scifi', rating: 7.1 },\n  { name: 'Blade runner', genre: 'scifi', rating: 8.9 }\n];\n</code></pre>\n<p>Korisnik može da sortiraju filmove sa visokim rezultatima u svakoj kategoriji tako što će pozvati:</p>\n<pre><code class=\"language-js\">topRankPerGroup(1, testData2, 'genre', 'rating')\n</code></pre>\n<p>Funkcija treba da vrati niz koji sadrži po jedan niz za svaku grupu sa <code>n</code> najbolje rangiranih objekata.</p>\n<p>Na primer, ako su podaci:</p>\n<pre><code class=\"language-js\">[\n  { name: 'Claire Buckman', id: 'E39876', salary: 27800, dept: 'D101' },\n  { name: 'Rich Holcomb', id: 'E01234', salary: 49500, dept: 'D050' },\n  { name: 'David Motsinger', id: 'E27002', salary: 19250, dept: 'D050' },\n  { name: 'Tim Sampair', id: 'E03033', salary: 27000, dept: 'D101' },\n  { name: 'Kim Arlich', id: 'E10001', salary: 57000, dept: 'D050' },\n  { name: 'Timothy Grove', id: 'E16398', salary: 29900, dept: 'D101' }\n];\n</code></pre>\n<p>Dva najbolje plaćena zaposlenog u svakom odeljenju bila bi:</p>\n<pre><code class=\"language-js\">[ [ { name: 'Kim Arlich', id: 'E10001', salary: 57000, dept: 'D050' },\n    { name: 'Rich Holcomb', id: 'E01234', salary: 49500, dept: 'D050' } ],\n  [ { name: 'Timothy Grove', id: 'E16398', salary: 29900, dept: 'D101' },\n    { name: 'Claire Buckman', id: 'E39876', salary: 27800, dept: 'D101' } ] ]\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 150,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

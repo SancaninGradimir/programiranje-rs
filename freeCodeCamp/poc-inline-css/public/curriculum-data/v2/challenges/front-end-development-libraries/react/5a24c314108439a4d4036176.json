@@ -1,0 +1,95 @@
+{
+  "id": "5a24c314108439a4d4036176",
+  "title": "Koristi stanje da promeniš atribut",
+  "challengeType": 6,
+  "forumTopicId": 301421,
+  "dashedName": "use-state-to-toggle-an-element",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      visibility: false\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  // Change code below this line\n\n  // Change code above this line\n  render() {\n    if (this.state.visibility) {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n          <h1>Now you see me!</h1>\n        </div>\n      );\n    } else {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n        </div>\n      );\n    }\n  }\n}",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      visibility: false\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  // Change code below this line\n\n  // Change code above this line\n  render() {\n    if (this.state.visibility) {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n          <h1>Now you see me!</h1>\n        </div>\n      );\n    } else {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n        </div>\n      );\n    }\n  }\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      visibility: false\n    };\n    this.toggleVisibility = this.toggleVisibility.bind(this);\n  }\n  toggleVisibility() {\n    this.setState(state => ({\n      visibility: !state.visibility\n    }));\n  }\n  render() {\n    if (this.state.visibility) {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n          <h1>Now you see me!</h1>\n        </div>\n      );\n    } else {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n        </div>\n      );\n    }\n  }\n}",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      visibility: false\n    };\n    this.toggleVisibility = this.toggleVisibility.bind(this);\n  }\n  toggleVisibility() {\n    this.setState(state => ({\n      visibility: !state.visibility\n    }));\n  }\n  render() {\n    if (this.state.visibility) {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n          <h1>Now you see me!</h1>\n        </div>\n      );\n    } else {\n      return (\n        <div>\n          <button onClick={this.toggleVisibility}>Click Me</button>\n        </div>\n      );\n    }\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyComponent</code> bi trebalo da vrati funkciju iz <code>div</code> koja ima <code>button</code>.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(MyComponent)).find('div').find('button')\n    .length,\n  1\n);"
+    },
+    {
+      "text": "<p>Stanje komponente <code>MyComponent</code> treba da bude inicijalizovano svojstvom <code>visibility</code> postavljenim na <code>false</code>.</p>",
+      "testString": "assert.strictEqual(\n  Enzyme.mount(React.createElement(MyComponent)).state('visibility'),\n  false\n);"
+    },
+    {
+      "text": "<p>Klik na element dugmeta treba da promeni svojstvo <code>visibility</code> u stanju između <code>true</code> i <code>false</code> i prikaže element <code>h1</code> pod određenim uslovima.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ visibility: false });\n    return mockedComponent.state('visibility');\n  };\n  const second = () => {\n    mockedComponent.find('button').simulate('click');\n    return mockedComponent.state('visibility') && mockedComponent.find('h1').exists();\n  };\n  const third = () => {\n    mockedComponent.find('button').simulate('click');\n    return mockedComponent.state('visibility') && mockedComponent.find('h1').exists();\n  };\n  const firstValue = first();\n  const secondValue = second();\n  const thirdValue = third();\n  assert(!firstValue && secondValue && !thirdValue);\n})();"
+    },
+    {
+      "text": "<p>Anonimna funkcija mora biti prosleđena na <code>setState</code>.</p>",
+      "testString": "const paramRegex = '[a-zA-Z$_]\\\\w*(,[a-zA-Z$_]\\\\w*)?';\nassert(\n  new RegExp(\n    'this\\\\.setState\\\\((function\\\\(' +\n      paramRegex +\n      '\\\\){|([a-zA-Z$_]\\\\w*|\\\\(' +\n      paramRegex +\n      '\\\\))=>)'\n  ).test(__helpers.removeWhiteSpace(code))\n);"
+    },
+    {
+      "text": "<p><code>this</code> ne bi trebalo koristiti unutar <code>setState</code></p>",
+      "testString": "assert(!/this\\.setState\\([^}]*this/.test(code));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ponekad ćeš morati da znaš prethodno stanje kada ažuriraš <code>state</code>. Međutim, ažuriranja stanja mogu biti asinhrona — React može spojiti više poziva <code>setState()</code> u jedno ažuriranje. Zbog toga se ne treba oslanjati na trenutne vrednosti <code>this.state</code> ili <code>this.props</code> pri izračunavanju sledećeg stanja. Zato ne bi trebalo koristiti kod poput ovog:</p>\n<pre><code class=\"language-jsx\">this.setState({\n  counter: this.state.counter + this.props.increment\n});\n</code></pre>\n<p>Umesto toga, trebalo bi da prosledite funkciju <code>setState</code> koja vam omogućava pristup trenutnom stanju i prosleđenim parametrima. Korišćenje funkcije sa <code>setState</code> osigurava da radite sa najnovijim vrednostima stanja i prosleđenih parametara. To znači da primer koji je prethodio treba prepisati na sledeći način:</p>\n<pre><code class=\"language-jsx\">this.setState((state, props) => ({\n  counter: state.counter + props.increment\n}));\n</code></pre>\n<p>Takođe možete koristiti tip koji nema <code>props</code> ako vam je potrebno samo <code>state</code>:</p>\n<pre><code class=\"language-jsx\">this.setState(state => ({\n  counter: state.counter + 1\n}));\n</code></pre>\n<p>Zapamti da moraš da obuhvatiš literalan sadržaj stvari unutar običnih zagrada, inače JavaScript će to smatrati deo koda.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p><code>MyComponent</code> ima svojstvo <code>visibility</code> koje je inicijalizovano sa <code>false</code>. Metoda za prikaz vraća jedan pogled ako je vrednost <code>visibility</code> tačna, i drugačiji pogled ako je netačan.</p>\n<p>Trenutno ne postoji način da se ažurira svojstvo <code>visibility</code> u <code>state</code> komponente. Njegova vrednost treba naizmenično da se menja između <code>true</code> i <code>false</code>. Dugme ima <code>click</code> obrađivač koji poziva metodu klase <code>toggleVisibility()</code>. Prosledi funkciju metodi <code>setState</code> kako bi definisao ovu metodu tako da <code>visibility</code> bude suprotna od trenutne vrednosti kada se metoda pozove. Ako je <code>visibility</code> <code>false</code>, postavi je na <code>true</code>, i obrnuto.</p>\n<p>Konačno, kliknite na dugme da vidite prikaz te sekcije prema njenom <code>state</code>.</p>\n<p><strong>Napomena:</strong> Nemoj zaboraviti da zatvoriš glavnu frazu za <code>this</code> na taj način u <code>constructor</code>!</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 25,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

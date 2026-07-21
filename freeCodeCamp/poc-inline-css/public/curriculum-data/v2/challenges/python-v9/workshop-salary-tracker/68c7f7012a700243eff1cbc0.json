@@ -1,0 +1,58 @@
+{
+  "id": "68c7f7012a700243eff1cbc0",
+  "title": "Korak 16",
+  "challengeType": 20,
+  "dashedName": "step-16",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        7,
+        14
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n    def __init__(self, name, level):\n        if not (isinstance(name, str) and isinstance(level, str)):\n            raise TypeError(\"'name' and 'level' attribute must be of type 'str'.\")\n        \n        self._name = name\n        self._level = level\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @property\n    def level(self):\n        return self._level\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n    def __init__(self, name, level):\n        if not (isinstance(name, str) and isinstance(level, str)):\n            raise TypeError(\"'name' and 'level' attribute must be of type 'str'.\")\n        \n        self._name = name\n        self._level = level\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @property\n    def level(self):\n        return self._level\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Kada utvrdite da <code>level</code> nije u <code>Employee._base_salaries</code>, treba emitovati <code>ValueError</code> sa porukom <code>Invalid value '{level}' for 'level' attribute.</code>, gde bi <code>{level}</code> trebalo da bude zamenjen vrednošću argumenta od <code>level</code>.</p>",
+      "testString": "({ test: () => runPython(`\n  try:\n    Employee(\"Frank\", \"dreamer\")\n  except ValueError as e:\n    assert str(e) == \"Invalid value 'dreamer' for 'level' attribute.\"\n  else:\n    assert False, \"Expected to raise ValueError with invalid level\"\n`) })"
+    },
+    {
+      "text": "<p>Nije moguće izbaciti nijednu grešku kada <code>level</code> nalazi se u <code>Employee._base_salaries</code>.</p>",
+      "testString": "({ test: () => runPython(`\n  levels = [\n    \"trainee\",\n    \"junior\",\n    \"mid-level\",\n    \"senior\"\n  ]\n  for level in levels:\n    try:\n      Employee(\"Frank\", level)\n    except Exception:\n      assert False, f\"Expected not to raise ValueError with level '{level}'\"\n    \n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nivo koji se koristi za angažovanje zaposlenog treba da bude izabran između specifičnih nivoa. Koristićete <code>_base_salaries</code> da potvrdite nivo i postavite odgovarajuću platu za zaposlenog.</p>\n<p>Nakon vaše deklaracije za <code>if</code> koja postoji, kreiraj još jednu deklaraciju za <code>if</code> koja proverava da li <code>level</code> nije u <code>Employee._base_salaries</code>.</p>\n<p>U novoj deklaraciji od <code>if</code>, uklonite <code>ValueError</code> koji ima poruku <code>Invalid value '{level}' for 'level' attribute.</code>, gde se <code>{level}</code> treba zameniti vrednošću argumenta <code>level</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

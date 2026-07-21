@@ -1,0 +1,73 @@
+{
+  "id": "5900f39e1000cf542c50feb1",
+  "title": "Vežba 50: Zbir uzastopnih brojeva",
+  "challengeType": 1,
+  "forumTopicId": 302161,
+  "dashedName": "problem-50-consecutive-prime-sum",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function consecutivePrimeSum(limit) {\n\n  return true;\n}\n\nconsecutivePrimeSum(1000000);",
+      "error": null,
+      "seed": "function consecutivePrimeSum(limit) {\n\n  return true;\n}\n\nconsecutivePrimeSum(1000000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const primes = [2];\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        primes.push(prime);\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n    for (let i = sqrtUpper + 1; i < upper; i++) {\n      if (seive[i]) {\n        primes.push(2 * i + 3);\n      }\n    }\n\n    this._seive = seive;\n    this._primes = primes;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n\n  get primes() {\n    return this._primes;\n  }\n};\n\nfunction consecutivePrimeSum(limit) {\n  // Initialize seive\n  const primeSeive = new PrimeSeive(limit);\n\n  // Initialize for longest sum < 100\n  let bestPrime = 41;\n  let bestI = 0;\n  let bestJ = 5;\n\n  // Find longest sum < limit\n  let sumOfCurrRange = 41;\n  let i = 0, j = 5;\n  // -- Loop while current some starting at i is < limit\n  while (sumOfCurrRange < limit) {\n    let currSum = sumOfCurrRange;\n    // -- Loop while pushing j towards end of PRIMES list\n    //      keeping sum under limit\n    while (currSum < limit) {\n      if (primeSeive.isPrime(currSum)) {\n        bestPrime = sumOfCurrRange = currSum;\n        bestI = i;\n        bestJ = j;\n      }\n      // -- Increment inner loop\n      j++;\n      currSum += primeSeive.primes[j];\n    }\n    // -- Increment outer loop\n    i++;\n    j = i + (bestJ - bestI);\n    sumOfCurrRange -= primeSeive.primes[i - 1];\n    sumOfCurrRange += primeSeive.primes[j];\n  }\n  // Return\n  return bestPrime;\n}",
+        "error": null,
+        "seed": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const primes = [2];\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        primes.push(prime);\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n    for (let i = sqrtUpper + 1; i < upper; i++) {\n      if (seive[i]) {\n        primes.push(2 * i + 3);\n      }\n    }\n\n    this._seive = seive;\n    this._primes = primes;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n\n  get primes() {\n    return this._primes;\n  }\n};\n\nfunction consecutivePrimeSum(limit) {\n  // Initialize seive\n  const primeSeive = new PrimeSeive(limit);\n\n  // Initialize for longest sum < 100\n  let bestPrime = 41;\n  let bestI = 0;\n  let bestJ = 5;\n\n  // Find longest sum < limit\n  let sumOfCurrRange = 41;\n  let i = 0, j = 5;\n  // -- Loop while current some starting at i is < limit\n  while (sumOfCurrRange < limit) {\n    let currSum = sumOfCurrRange;\n    // -- Loop while pushing j towards end of PRIMES list\n    //      keeping sum under limit\n    while (currSum < limit) {\n      if (primeSeive.isPrime(currSum)) {\n        bestPrime = sumOfCurrRange = currSum;\n        bestI = i;\n        bestJ = j;\n      }\n      // -- Increment inner loop\n      j++;\n      currSum += primeSeive.primes[j];\n    }\n    // -- Increment outer loop\n    i++;\n    j = i + (bestJ - bestI);\n    sumOfCurrRange -= primeSeive.primes[i - 1];\n    sumOfCurrRange += primeSeive.primes[j];\n  }\n  // Return\n  return bestPrime;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>consecutivePrimeSum(1000)</code> trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof consecutivePrimeSum(1000) === 'number');"
+    },
+    {
+      "text": "<p><code>consecutivePrimeSum(1000)</code> treba da vrati 953.</p>",
+      "testString": "assert.strictEqual(consecutivePrimeSum(1000), 953);"
+    },
+    {
+      "text": "<p><code>consecutivePrimeSum(1000000)</code> trebalo bi da vrati 997651.</p>",
+      "testString": "assert.strictEqual(consecutivePrimeSum(1000000), 997651);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Broj 41, može se napisati kao zbir šest uzastopnih brojeva:</p>\n<div style='text-align: center;'>41 = 2 + 3 + 5 + 7 + 11 + 13</div>\n<p>Ovo je najveći zbir uzastopnih premijnih brojeva koji uključuje premijne brojeve manji od stotinu.</p>\n<p>Najduža suma uzastopnih prostih brojeva ispod hiljadu, koja uključuje proste brojeve, ima 21 član i jednaka je 953.</p>\n<p>Koji broj, ispod miliona, može se zapisati kao zbir mnogih uzastopnih brojeva?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 49,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

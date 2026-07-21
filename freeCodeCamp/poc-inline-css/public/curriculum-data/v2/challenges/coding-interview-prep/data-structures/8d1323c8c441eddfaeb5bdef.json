@@ -1,0 +1,97 @@
+{
+  "id": "8d1323c8c441eddfaeb5bdef",
+  "title": "Kreiraj klasu seta",
+  "challengeType": 1,
+  "forumTopicId": 301632,
+  "dashedName": "create-a-set-class",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "class Set {\r\n  constructor() {\r\n    // Dictionary will hold the items of our set\r\n    this.dictionary = {};\r\n    this.length = 0;\r\n  }\r\n\r\n  // This method will check for the presence of an element and return true or false\r\n  has(element) {\r\n    return this.dictionary[element] !== undefined;\r\n  }\r\n\r\n  // This method will return all the values in the set\r\n  values() {\r\n    return Object.values(this.dictionary);\r\n  }\r\n\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "class Set {\r\n  constructor() {\r\n    // Dictionary will hold the items of our set\r\n    this.dictionary = {};\r\n    this.length = 0;\r\n  }\r\n\r\n  // This method will check for the presence of an element and return true or false\r\n  has(element) {\r\n    return this.dictionary[element] !== undefined;\r\n  }\r\n\r\n  // This method will return all the values in the set\r\n  values() {\r\n    return Object.values(this.dictionary);\r\n  }\r\n\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class Set {\r\n  constructor() {\r\n    this.dictionary = {};\r\n    this.length = 0;\r\n  }\r\n\r\n  has(element) {\r\n    return this.dictionary[element] !== undefined;\r\n  }\r\n\r\n  values() {\r\n    return Object.values(this.dictionary);\r\n  }\r\n\r\n  add(element) {\r\n    if (!this.has(element)) {\r\n      this.dictionary[element] = element;\r\n      this.length++;\r\n      return true;\r\n    }\r\n\r\n    return false;\r\n  }\r\n\r\n  remove(element) {\r\n    if (this.has(element)) {\r\n      delete this.dictionary[element];\r\n      this.length--;\r\n      return true;\r\n    }\r\n\r\n    return false;\r\n  }\r\n\r\n  size() {\r\n    return this.length;\r\n  }\r\n}",
+        "error": null,
+        "seed": "class Set {\r\n  constructor() {\r\n    this.dictionary = {};\r\n    this.length = 0;\r\n  }\r\n\r\n  has(element) {\r\n    return this.dictionary[element] !== undefined;\r\n  }\r\n\r\n  values() {\r\n    return Object.values(this.dictionary);\r\n  }\r\n\r\n  add(element) {\r\n    if (!this.has(element)) {\r\n      this.dictionary[element] = element;\r\n      this.length++;\r\n      return true;\r\n    }\r\n\r\n    return false;\r\n  }\r\n\r\n  remove(element) {\r\n    if (this.has(element)) {\r\n      delete this.dictionary[element];\r\n      this.length--;\r\n      return true;\r\n    }\r\n\r\n    return false;\r\n  }\r\n\r\n  size() {\r\n    return this.length;\r\n  }\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša klasa za <code>Set</code> mora imati metodu za <code>add</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    return typeof test.add === 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoj put (ili: Tvoja ruta) <code>add</code> ne bi smega dodavati ponavljajuće vrednosti.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    test.add('a');\r\n    test.add('b');\r\n    test.add('a');\r\n    var vals = test.values();\r\n    return vals[0] === 'a' && vals[1] === 'b' && vals.length === 2;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja za <code>add</code> treba da restaurira <code>true</code> kada je vrednost uspešno dodata.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    var result = test.add('a');\r\n    return result != undefined && result === true;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoj put/način za <code>add</code> treba da ponovo učita <code>false</code> kada se ponavljajuća vrednost dodaje.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    test.add('a');\r\n    var result = test.add('a');\r\n    return result != undefined && result === false;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>Set</code> mora da ima metodu od <code>remove</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    return typeof test.remove === 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Tvoj put za <code>remove</code> treba da ukloni samo stvari koje su dostupne u setu.</p>",
+      "testString": "assert.deepEqual(\r\n  (function () {\r\n    var test = new Set();\r\n    test.add('a');\r\n    test.add('b');\r\n    test.remove('c');\r\n    return test.values();\r\n  })(),\r\n  ['a', 'b']\r\n);"
+    },
+    {
+      "text": "<p>Njia yako za <code>remove</code> treba da ukloni uklonjeni element iz skupa.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    test.add('a');\r\n    test.add('b');\r\n    test.remove('a');\r\n    var vals = test.values();\r\n    return vals[0] === 'b' && vals.length === 1;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>Set</code> mora imati metodu od <code>size</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    return typeof test.size === 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Metoda <code>size</code> treba da vrati broj elemenata u kolekciji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new Set();\r\n    test.add('a');\r\n    test.add('b');\r\n    test.remove('a');\r\n    return test.size() === 1;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovom vežbanju, kreiraćemo klasu objekata nazvanu <code>Set</code> koja imitira apstraktnu strukturu podataka nazvanu \"set\". Set je kao niz podataka, ali ne može sadržati ponovljive vrednosti. Uobičajena upotreba seta je samo proveravanje prisutnosti elementa. Možemo videti kako ES6 entitet <code>Set</code> funkcioniše u primeru ispod:</p>\n<pre><code class=\"language-js\">const set1 = new Set([1, 2, 3, 5, 5, 2, 0]);\r\nconsole.log(set1);\r\n// output: {1, 2, 3, 5, 0}\r\nconsole.log(set1.has(1));\r\n// output: true\r\nconsole.log(set1.has(6));\r\n// output: false\n</code></pre>\n<p>Prvo, kreiraćemo metodu <code>add</code> koja dodaje vrednost u naš skup uslovljen da ta vrednost već nije prisutna u skupu. Zatim ćemo kreirati metodu <code>remove</code> koja uklanja vrednost iz skupa ako ona već postoji. I na kraju, kreiraćemo metodu <code>size</code> koja vraća broj elemenata unutar skupa.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kreiraj metodu za <code>add</code> koja dodaje jedinstvenu vrednost u kolekciju setova i vraća <code>true</code> ako je vrednost uspešno dodata, a <code>false</code> inače.</p>\n<p>Napravite metodu <code>remove</code> koja prima vrednost i proverava da li postoji u setu. Ako postoji, ova metoda bi trebalo da ga ukloni iz kolekcije seta i vrati <code>true</code>. Inače, bi trebalo da vrati <code>false</code>. Napravite metodu <code>size</code> koja vraća veličinu kolekcije seta.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

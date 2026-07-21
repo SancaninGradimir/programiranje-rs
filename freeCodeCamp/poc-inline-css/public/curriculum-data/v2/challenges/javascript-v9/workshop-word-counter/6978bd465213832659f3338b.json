@@ -1,0 +1,62 @@
+{
+  "id": "6978bd465213832659f3338b",
+  "title": "Korak 9",
+  "challengeType": 1,
+  "dashedName": "step-9",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        11,
+        13
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function printCharacters(str) {\n  for (const char of str) {\n    console.log(char);\n  }\n}\nprintCharacters(\"hello\");\n\nfunction getMatchedWordCount(sentence, match) {\n  let count = 0;\n  \n  for (const word of sentence) {\n    \n  }\n\n  return count;\n}\n\nconsole.log(\n  getMatchedWordCount(\n    [\"I\", \"really\", \"really\", \"really\", \"like\", \"to\", \"code\"],\n    \"really\"\n  )\n);",
+      "error": null,
+      "seed": "function printCharacters(str) {\n  for (const char of str) {\n    console.log(char);\n  }\n}\nprintCharacters(\"hello\");\n\nfunction getMatchedWordCount(sentence, match) {\n  let count = 0;\n  \n  for (const word of sentence) {\n    \n  }\n\n  return count;\n}\n\nconsole.log(\n  getMatchedWordCount(\n    [\"I\", \"really\", \"really\", \"really\", \"like\", \"to\", \"code\"],\n    \"really\"\n  )\n);"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš samo jednu rečenicu <code>console.log</code> unutar petlje u svojoj funkciji <code>getMatchedWordCount</code>.</p>",
+      "testString": "const codeWithoutJSComments = __helpers.removeJSComments(code);\nconst normalizedCode = __helpers.removeWhiteSpace(codeWithoutJSComments);\nconst functionRegex = /(functiongetMatchedWordCount\\(sentence,match\\)\\{\\S*?returncount;\\})/;\nconst normalizedFunctionCode = normalizedCode.match(functionRegex)[1];\nconsole.log(normalizedFunctionCode);\n\nassert.match(normalizedFunctionCode, /for\\(constwordofsentence\\)\\{\\S*?console\\.log\\(\\S*?\\)\\S*?\\}/);\nassert.notMatch(normalizedFunctionCode, /for\\(constwordofsentence\\)\\{\\S*?(console\\.log\\(\\S*?\\))\\S*?(console\\.log\\(\\S*?\\))\\S*?\\}/);"
+    },
+    {
+      "text": "<p>Vaš niz od <code>console.log</code> unutar petlje u vašoj funkciji <code>getMatchedWordCount</code> mora koristiti izraz šablona literala sa sledećim identifikatorima: <code>${word}</code>, <code>${match}</code>, i <code>${count}</code>.</p>",
+      "testString": "const codeWithoutJSComments = __helpers.removeJSComments(code);\nconst normalizedCode = __helpers.removeWhiteSpace(codeWithoutJSComments);\nconst functionRegex = /(functiongetMatchedWordCount\\(sentence,match\\)\\{\\S*?returncount;\\})/;\nconst normalizedFunctionCode = normalizedCode.match(functionRegex)[1];\nconst consoleLogArguments = normalizedFunctionCode.match(/for\\(constwordofsentence\\)\\{\\S*?console\\.log\\((\\S*?)\\)\\S*?\\}/)[1]\nconst templateLiteral = consoleLogArguments.match(/(^\\`\\S*\\`$)/)[1];\n\nassert.include(templateLiteral, \"${word}\");\nassert.include(templateLiteral, \"${match}\");\nassert.include(templateLiteral, \"${count}\");"
+    },
+    {
+      "text": "<p>Kada funkcija <code>getMatchedWordCount</code> bude pozvana sa <code>(['foo'], 'bar')</code>, rečenica <code>console.log()</code> unutar funkcije bi trebalo da se pozove samo jednom pomoću stringa <code>Checking \"foo\" against \"bar\" | Running count: 0</code>. Umesto toga, korišćeno je sa svakim stringom u sledećoj listi razdvojene zarezima: <code>--fcc-actual--</code>.</p>",
+      "testString": "const consoleLogSpy = __helpers.spyOn(console, 'log');\ngetMatchedWordCount(['foo'], 'bar');\nassert.deepEqual(consoleLogSpy.calls, [['Checking \"foo\" against \"bar\" | Running count: 0']]);\nconsoleLogSpy.restore();"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, unutar petlje, napiš sledeći izraz template literala u konzolu: <code>Checking \"${word}\" against \"${match}\" | Running count: ${count}</code></p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-word-counter",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 66,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

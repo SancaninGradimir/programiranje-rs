@@ -1,0 +1,59 @@
+{
+  "id": "656479aa5f298441c190bf8f",
+  "title": "Korak 13",
+  "challengeType": 20,
+  "dashedName": "step-13",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        3,
+        12
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import secrets\nimport string\n\n# Define the possible characters for the password\nletters = string.ascii_letters\ndigits = string.digits\nsymbols = string.punctuation\n\n# Combine all characters\nall_characters = letters + digits + symbols\n",
+      "error": null,
+      "seed": "import secrets\nimport string\n\n# Define the possible characters for the password\nletters = string.ascii_letters\ndigits = string.digits\nsymbols = string.punctuation\n\n# Combine all characters\nall_characters = letters + digits + symbols\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objavite funkciju sa imenom <code>generate_password</code>.</p>",
+      "testString": "({\n  test: () => assert(runPython(`\n  _Node(_code).has_function('generate_password')\n  `))\n})"
+    },
+    {
+      "text": "<p>Izjava za import treba da ostane van funkcije.</p>",
+      "testString": "({\n  test: () => assert(runPython(`\n  imports_list = _Node(_code).find_imports()\n  any([imp.is_equivalent('import secrets') for imp in imports_list]) and any([imp.is_equivalent('import string') for imp in imports_list])\n  `))\n})"
+    },
+    {
+      "text": "<p>Četiri deklaracije za varijable treba da se prebace unutar funkcije.</p>",
+      "testString": "({\n  test: () => assert(runPython(`\n  func = _Node(_code).find_function('generate_password')\n  vars = ['letters', 'digits', 'symbols', 'all_characters']\n  func.find_variable('letters').is_equivalent('letters = string.ascii_letters') and \\\\\n  func.find_variable('digits').is_equivalent('digits = string.digits') and \\\\\n  func.find_variable('symbols').is_equivalent('symbols = string.punctuation') and \\\\\n  func.find_variable('all_characters').is_equivalent('all_characters = letters + digits + symbols') and \\\\\n  all(not _Node(_code).has_variable(var) for var in vars)\n  `))\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Deklariši funkciju <code>generate_password</code> i napiši sav svoj kod, osim linija <code>import</code>, unutar tela funkcije.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-regular-expressions-by-building-a-password-generator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

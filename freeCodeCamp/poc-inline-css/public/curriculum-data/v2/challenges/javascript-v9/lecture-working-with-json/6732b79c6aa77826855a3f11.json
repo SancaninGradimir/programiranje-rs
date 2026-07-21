@@ -1,0 +1,199 @@
+{
+  "id": "6732b79c6aa77826855a3f11",
+  "title": "Kako JSON.parse() i JSON.stringify() rade?",
+  "challengeType": 19,
+  "dashedName": "how-do-json-parse-and-json-stringify-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Postoje dva moćna načina u JavaScript za obradu podataka o JSON: <code>JSON.parse()</code> i <code>JSON.stringify()</code>. Ove metode se često koriste za konverziju između sekvence karaktera od JSON i objekata iz JavaScript.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>JSON.stringify()</code> koristi se za konverziju nečega iz JavaScript u niz znakova JSON. Ovo je važno kada želite da sačuvate ili prenesete podatke u format koji se lako deli ili prenosi između sistema.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kako možete koristiti metodu <code>JSON.stringify()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const user = {\n  name: \"John\",\n  age: 30,\n  isAdmin: true\n};\n\nconst jsonString = JSON.stringify(user);\nconsole.log(jsonString);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const user = {\n  name: \"John\",\n  age: 30,\n  isAdmin: true\n};\n\nconst jsonString = JSON.stringify(user);\nconsole.log(jsonString);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Putanja <code>JSON.stringify()</code> takođe prima opcionalni parametar nazvan 'replacer', koji može biti funkcija ili niz podataka. Evo primera za korišćenje niza podataka za opcionalni parametar 'replacer':</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const developerObj = {\n  firstName: \"Jessica\",\n  isAwesome: true,\n  isMusician: true,\n  country: \"USA\",\n};\n\n// result: {\"firstName\":\"Jessica\",\"country\":\"USA\"}\nconsole.log(JSON.stringify(developerObj, [\"firstName\", \"country\"]));",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const developerObj = {\n  firstName: \"Jessica\",\n  isAwesome: true,\n  isMusician: true,\n  country: \"USA\",\n};\n\n// result: {\"firstName\":\"Jessica\",\"country\":\"USA\"}\nconsole.log(JSON.stringify(developerObj, [\"firstName\", \"country\"]));\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, imamo <code>developerObj</code> sa četiri atributa. Kada koristimo metodu <code>JSON.stringify()</code>, možemo proslediti red podataka po drugom kriterijumu i specificirati koje atribute želimo da budu u nizu karaktera. Rezultat će biti objekat konvertovan u niz karaktera sa atributima <code>firstName</code> i <code>country</code> samo.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Još jedan opcioni parametar putem <code>JSON.stringify()</code> je spacer parametar. Ovo vam omogućava da kontrolišete razmak u izlazu sekvence karaktera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const developerObj = {\n  firstName: \"Jessica\",\n  isAwesome: true,\n  isMusician: true,\n  country: \"USA\",\n};\n\nconsole.log(JSON.stringify(developerObj, null, 2));\n\n/* result\n{\n  \"firstName\": \"Jessica\",\n  \"isAwesome\": true,\n  \"isMusician\": true,\n  \"country\": \"USA\"\n}\n*/",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const developerObj = {\n  firstName: \"Jessica\",\n  isAwesome: true,\n  isMusician: true,\n  country: \"USA\",\n};\n\nconsole.log(JSON.stringify(developerObj, null, 2));\n\n/* result\n{\n  \"firstName\": \"Jessica\",\n  \"isAwesome\": true,\n  \"isMusician\": true,\n  \"country\": \"USA\"\n}\n*/\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Često koristite ove opcione parametre putem <code>JSON.stringify()</code>, ali je i dalje dobro da ih znate.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Drugi način koji ćete često koristiti u svojim programima je način <code>JSON.parse()</code>. <code>JSON.parse()</code> menja niz karaktera od JSON i vraća ga u nešto od JavaScript. Ovo je važno kada dobijete podatke o JSON sa mrežnog servera ili iz <code>localStorage</code> i kada morate da obradite te podatke u vašem programu. Naučićete više o <code>localStorage</code> u sledećoj lekciji.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je primer kako da se radi sa metodom <code>JSON.parse()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const jsonString = '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}';\nconst userObject = JSON.parse(jsonString);\nconsole.log(userObject);\n\n// Result:\n// { name: 'John', age: 30, isAdmin: true }",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const jsonString = '{\"name\":\"John\",\"age\":30,\"isAdmin\":true}';\nconst userObject = JSON.parse(jsonString);\nconsole.log(userObject);\n\n// Result:\n// { name: 'John', age: 30, isAdmin: true }\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo vam omogućava da radite sa podacima u vašoj aplikaciji kao standardni element za JavaScript, i olakšava vam menjanje i korišćenje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U narednim modulima, nastavićemo da učimo više o tome kako raditi sa JSON i metodama za <code>JSON.parse()</code> i <code>JSON.stringify()</code>.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p><code>JSON.stringify()</code> Šta radi?</p>",
+      "answers": [
+        {
+          "answer": "<p>Promeni sekvencu znakova JSON u nešto od JavaScript.</p>",
+          "feedback": "<p>Razmislite o kojoj funkciji je uključena u kreiranje obrasca sekvence slova iz nekog objekta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Promeni JavaScript u niz slova JSON.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pošalji podatke na mrežni server.</p>",
+          "feedback": "<p>Razmislite o kojoj funkciji je odgovorno kreiranje strukture sekvence slova iz objekta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Konvertuje red podataka u niz znakova.</p>",
+          "feedback": "<p>Razmislite o funkciji koja je uključena u kreiranje sekvencijalnog obrasca karaktera iz nekog objekta.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p><code>JSON.parse()</code> Šta radiš?</p>",
+      "answers": [
+        {
+          "answer": "<p>Promeni JavaScript u niz slova JSON.</p>",
+          "feedback": "<p>Ovaj metod analizira niz karaktera i vraća korisnu vrednost JavaScript.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sačuvajte podatke u lokalnom skladištu.</p>",
+          "feedback": "<p>Ovaj put analizira niz znakova i vraća upotrebljiv objekat za JavaScript.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Promeni sekvencu znakova JSON u nešto od JavaScript.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prenesi podatke putem mreže.</p>",
+          "feedback": "<p>Ovaj put analizira niz karaktera i vraća upotrebljiv element za JavaScript.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Uzimajući u obzir niz znakova <code>JSON</code> u nastavku, kako biste ga promenili da se vrati na nešto kao <code>JavaScript</code> i dobili vrednost <code>\"age\"</code>?</p>\n<pre><code class=\"language-js\">const jsonString = '{\"name\":\"Alice\",\"age\":25}';\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>jsonString.name</code></p>",
+          "feedback": "<p>Koristi putanju koja analizira niz slova JSON u objekte, a zatim dobije atribut <code>\"age\"</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>JSON.stringify(jsonString).age</code></p>",
+          "feedback": "<p>Koristi putanju koja analizira sekvencu slova JSON u objekte, a zatim dobije atribut <code>\"age\"</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>JSON.parse(jsonString).age</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>jsonString[1]</code></p>",
+          "feedback": "<p>Koristi putanju koja analizira niz znakova JSON u objekte, a zatim dobije atribut <code>\"age\"</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-json",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 58,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-objects",
+  "certification": "javascript-v9"
+}

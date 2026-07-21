@@ -1,0 +1,79 @@
+{
+  "id": "66335223f3e2a31d62d84367",
+  "title": "Korak 13",
+  "challengeType": 20,
+  "dashedName": "step-13",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        75,
+        83
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.speed} m/s\r\nheight: {self.height} m\r\nangle: {self.angle}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    @property\r\n    def height(self):\r\n        return self.__height\r\n\r\n    @property\r\n    def angle(self):\r\n        return round(math.degrees(self.__angle))\r\n\r\n    @property\r\n    def speed(self):\r\n        return self.__speed\r\n\r\n    @height.setter\r\n    def height(self, n):\r\n        self.__height = n\r\n\r\n    @angle.setter\r\n    def angle(self, n):\r\n        self.__angle = math.radians(n)\r\n\r\n    @speed.setter\r\n    def speed(self, s):\r\n       self.__speed = s\r\n\r\n    def __repr__(self):\r\n        return f\"{self.__class__.__name__}({self.speed}, {self.height}, {self.angle})\"\r\n\r\n\r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\n\r\n\r",
+      "error": null,
+      "seed": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.speed} m/s\r\nheight: {self.height} m\r\nangle: {self.angle}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    @property\r\n    def height(self):\r\n        return self.__height\r\n\r\n    @property\r\n    def angle(self):\r\n        return round(math.degrees(self.__angle))\r\n\r\n    @property\r\n    def speed(self):\r\n        return self.__speed\r\n\r\n    @height.setter\r\n    def height(self, n):\r\n        self.__height = n\r\n\r\n    @angle.setter\r\n    def angle(self, n):\r\n        self.__angle = math.radians(n)\r\n\r\n    @speed.setter\r\n    def speed(self, s):\r\n       self.__speed = s\r\n\r\n    def __repr__(self):\r\n        return f\"{self.__class__.__name__}({self.speed}, {self.height}, {self.angle})\"\r\n\r\n\r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\n\r\n\r"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da kreiraš novu klasu za <code>Graph</code>.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `_Node(_code).has_class('Graph')`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš atribut <code>__slots__</code> unutar klase.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `_Node(_code).find_class('Graph').has_variable('__slots__')`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Kigezo cha <code>__slots__</code> mora imati vrednost od <code>('__coordinates')</code> ili <code>['__coordinates']</code>.</p>",
+      "testString": "({\r\n    test: () => (runPython(\r\n        `\r\n        slots = _Node(_code).find_class('Graph').find_variable('__slots__')\r\n\r\n        assert any(slots.is_equivalent(str) for str in ['__slots__ = (\"__coordinates\")', '__slots__ = [\"__coordinates\"]'])`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš putanju <code>__init__</code>.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `_Node(_code).find_class('Graph').has_function('__init__')`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Putanja <code>__init__</code> treba da inicijalizuje svojstvo <code>__coordinates</code> sa prosleđenom vrednošću.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `\r\n        l = [(3, 4), (4, 1), (3, 9)]\r\n        g = Graph(l)\r\n        g._Graph__coordinates == l\r\n        `\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da imate putanju <code>__repr__</code>.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `_Node(_code).find_class('Graph').has_function('__repr__')`\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Putanja za <code>__repr__</code> treba da vrati ispravnu sekvencu karaktera.</p>",
+      "testString": "({\r\n    test: () => assert(runPython(\r\n        `\r\n        ball = Projectile(10, 3, 45)\r\n        coords = ball.calculate_all_coordinates()\r\n        repr(Graph(coords)) == f'Graph({coords})'\r\n        `\r\n    ))\r\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da kreirate primer <code>Graph</code> prosleđujući parametar <code>coordinates</code> i postavljajući ga u parametar <code>graph</code>.</p>",
+      "testString": "({\r\n    test: () => {\r\n        runPython(`\r\n\r\n        assert _Node(_code).has_variable('graph'), \"variable graph is missing\"\r\n\r\n        assert _Node(_code).find_variable('graph').is_equivalent('graph = Graph(coordinates)'), \"assignment to graph is wrong\"\r\n        `)\r\n    }\r\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vratite se na kalkulator projektnog pravca, sada ćete kreirati novu klasu objekata koja prima niz koordinata i generiše dijagram pravca.</p>\n<p>Kreiraj novu klasu <code>Graph</code>, koja mora biti inicijalizovana sa privatnim atributom <code>__coordinates</code> gde se čuva lista koordinata. Deklariši klasni atribut <code>__slots__</code> i definiši specifične metode za <code>__init__</code> i <code>__repr__</code>.</p>\n<p>Takođe, kreiraj primer od <code>Graph</code> prosleđujući vrednost od <code>coordinates</code> i stavi tu vrednost u novi parametar za <code>graph</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-encapsulation-by-building-a-projectile-trajectory-calculator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 17,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

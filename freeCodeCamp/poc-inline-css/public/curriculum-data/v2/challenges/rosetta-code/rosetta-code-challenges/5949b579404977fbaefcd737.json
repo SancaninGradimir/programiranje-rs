@@ -1,0 +1,80 @@
+{
+  "id": "5949b579404977fbaefcd737",
+  "title": "Par za prijatelje",
+  "challengeType": 1,
+  "forumTopicId": 302225,
+  "dashedName": "amicable-pairs",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function amicablePairsUpTo(maxNum) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function amicablePairsUpTo(maxNum) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// amicablePairsUpTo :: Int -> [(Int, Int)]\nfunction amicablePairsUpTo(maxNum) {\n  return range(1, maxNum)\n    .map(x => properDivisors(x)\n      .reduce((a, b) => a + b, 0))\n    .reduce((a, m, i, lst) => {\n      const n = i + 1;\n\n      return (m > n) && lst[m - 1] === n ?\n        a.concat([\n          [n, m]\n        ]) : a;\n    }, []);\n}\n\n// properDivisors :: Int -> [Int]\nfunction properDivisors(n) {\n  if (n < 2) return [];\n\n  const rRoot = Math.sqrt(n);\n  const intRoot = Math.floor(rRoot);\n  const blnPerfectSquare = rRoot === intRoot;\n  const lows = range(1, intRoot)\n  .filter(x => (n % x) === 0);\n\n  return lows.concat(lows.slice(1)\n    .map(x => n / x)\n    .reverse()\n    .slice(blnPerfectSquare | 0));\n}\n\n// Int -> Int -> Maybe Int -> [Int]\nfunction range(m, n, step) {\n  const d = (step || 1) * (n >= m ? 1 : -1);\n\n  return Array.from({\n    length: Math.floor((n - m) / d) + 1\n  }, (_, i) => m + (i * d));\n}",
+        "error": null,
+        "seed": "// amicablePairsUpTo :: Int -> [(Int, Int)]\nfunction amicablePairsUpTo(maxNum) {\n  return range(1, maxNum)\n    .map(x => properDivisors(x)\n      .reduce((a, b) => a + b, 0))\n    .reduce((a, m, i, lst) => {\n      const n = i + 1;\n\n      return (m > n) && lst[m - 1] === n ?\n        a.concat([\n          [n, m]\n        ]) : a;\n    }, []);\n}\n\n// properDivisors :: Int -> [Int]\nfunction properDivisors(n) {\n  if (n < 2) return [];\n\n  const rRoot = Math.sqrt(n);\n  const intRoot = Math.floor(rRoot);\n  const blnPerfectSquare = rRoot === intRoot;\n  const lows = range(1, intRoot)\n  .filter(x => (n % x) === 0);\n\n  return lows.concat(lows.slice(1)\n    .map(x => n / x)\n    .reverse()\n    .slice(blnPerfectSquare | 0));\n}\n\n// Int -> Int -> Maybe Int -> [Int]\nfunction range(m, n, step) {\n  const d = (step || 1) * (n >= m ? 1 : -1);\n\n  return Array.from({\n    length: Math.floor((n - m) / d) + 1\n  }, (_, i) => m + (i * d));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const answer300 = [[220, 284]];\nconst answer3000 = [\n  [220, 284],\n  [1184, 1210],\n  [2620, 2924]\n];\nconst answer20000 = [\n  [220, 284],\n  [1184, 1210],\n  [2620, 2924],\n  [5020, 5564],\n  [6232, 6368],\n  [10744, 10856],\n  [12285, 14595],\n  [17296, 18416]\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>amicablePairsUpTo</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof amicablePairsUpTo === 'function');"
+    },
+    {
+      "text": "<p><code>amicablePairsUpTo(300)</code> inapaswa kurudisha <code>[[220,284]]</code>.</p>",
+      "testString": "assert.deepEqual(amicablePairsUpTo(300), answer300);"
+    },
+    {
+      "text": "<p><code>amicablePairsUpTo(3000)</code> inapaswa kurudisha <code>[[220,284],[1184,1210],[2620,2924]]</code>.</p>",
+      "testString": "assert.deepEqual(amicablePairsUpTo(3000), answer3000);"
+    },
+    {
+      "text": "<p><code>amicablePairsUpTo(20000)</code> inapaswa kurudisha <code>[[220,284],[1184,1210],[2620,2924],[5020,5564],[6232,6368],[10744,10856],[12285,14595],[17296,18416]]</code>.</p>",
+      "testString": "assert.deepEqual(amicablePairsUpTo(20000), answer20000);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dva cela broja $N$ i $M$ nazivaju se prijateljskim brojevima ako je $N \\neq M$ i zbir pravih delilaca broja $N$ ($\\mathrm{sum}(\\mathrm{propDivs}(N))$) jednak $M$, a zbir pravih delilaca broja $M$ jednak $N$.</p>\n<p><strong>Primer:</strong></p>\n<p><strong>1184</strong> i <strong>1210</strong> su par brojeva, a najveći zajednički delilac je:</p>\n<ul>\n  <li>1, 2, 4, 8, 16, 32, 37, 74, 148, 296, 592 na</li>\n  <li>1, 2, 5, 10, 11, 22, 55, 110, 121, 242, 605 kwa mtiririko.</li>\n</ul>\n<p>Zbir delilaca prvog broja, <strong>1184</strong>, iznosi <strong>1210</strong>, a zbir delilaca drugog broja, <strong>1210</strong>, iznosi <strong>1184</strong>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Hesabu na onyesha hapa jozi za kirafiki chini ya 20,000 (zipo nane).</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

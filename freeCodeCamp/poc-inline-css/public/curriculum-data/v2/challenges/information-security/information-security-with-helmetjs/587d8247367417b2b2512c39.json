@@ -1,0 +1,33 @@
+{
+  "id": "587d8247367417b2b2512c39",
+  "title": "Smanjite rizik od Cross-Site Scripting (XSS) napada korišćenjem helmet.xssFilter()",
+  "challengeType": 2,
+  "forumTopicId": 301583,
+  "dashedName": "mitigate-the-risk-of-cross-site-scripting-xss-attacks-with-helmet-xssfilter",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Centralni program helmet.xssFilter() treba biti pravilno postavljen</p>",
+      "testString": "const response = await fetch(code + '/_api/app-info');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.include(data.appStack, 'xXssProtection');\nassert.property(data.headers, 'x-xss-protection');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je napravljen na osnovu osnovnog projekta preuzetog iz <a href=\"https://github.com/freeCodeCamp/boilerplate-infosec/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>Cross-site scripting (XSS) je vrsta uobičajenog napada gde se zlonamerni kod injektuje u ranljive stranice, sa ciljem krađe osetljivih podataka kao što su kolačići sesije ili lozinke.</p>\n<p>Osnovno pravilo za smanjenje rizika od XSS napada je jednostavno: \"Nikada ne verujte korisničkom ulazu.\" Kao programer, uvek biste trebali sanitizovati sve spoljne ulaze. Ovo uključuje podatke iz formulara, URL iz parametara pretrage GET-a, pa čak i iz tela POST-a. Sanitizacija znači da trebate tražiti i zapisivati karaktere koji mogu biti opasni, kao što su &#x3C;, >.</p>\n<p>Savremeni pretraživači mogu pomoći u smanjenju rizika korišćenjem najboljih programskih praksi. Često se ovo može konfigurisati putem HTTP zaglavlja (HTTP headers).</p>\n<p>Kichwa cha HTTP cha X-XSS-Protection je osnovna zaštita. Pretraživači detektuju injektovane skripte koristeći heuristički filter. Ako je ovo zaglavlje omogućeno, pretraživač modifikuje kod skripte, čineći ga bezopasnim. Trenutno ima ograničenu podršku.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristi <code>helmet.xssFilter()</code> za čišćenje unosa koji se šalje na vaš server.</p>\n</section>",
+  "translationPending": false,
+  "block": "information-security-with-helmetjs",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "information-security",
+  "superOrder": 24,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "information-security"
+}

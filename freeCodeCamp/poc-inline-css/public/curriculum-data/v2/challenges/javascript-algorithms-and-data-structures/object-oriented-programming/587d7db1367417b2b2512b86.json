@@ -1,0 +1,77 @@
+{
+  "id": "587d7db1367417b2b2512b86",
+  "title": "Resetuj nasleđeno svojstvo konstruktora",
+  "challengeType": 1,
+  "forumTopicId": 301324,
+  "dashedName": "reset-an-inherited-constructor-property",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Animal() { }\nfunction Bird() { }\nfunction Dog() { }\n\nBird.prototype = Object.create(Animal.prototype);\nDog.prototype = Object.create(Animal.prototype);\n\n// Only change code below this line\n\n\n\nlet duck = new Bird();\nlet beagle = new Dog();",
+      "error": null,
+      "seed": "function Animal() { }\nfunction Bird() { }\nfunction Dog() { }\n\nBird.prototype = Object.create(Animal.prototype);\nDog.prototype = Object.create(Animal.prototype);\n\n// Only change code below this line\n\n\n\nlet duck = new Bird();\nlet beagle = new Dog();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Animal() { }\nfunction Bird() { }\nfunction Dog() { }\nBird.prototype = Object.create(Animal.prototype);\nDog.prototype = Object.create(Animal.prototype);\nDog.prototype.constructor = Dog;\nBird.prototype.constructor = Bird;\nlet duck = new Bird();\nlet beagle = new Dog();",
+        "error": null,
+        "seed": "function Animal() { }\nfunction Bird() { }\nfunction Dog() { }\nBird.prototype = Object.create(Animal.prototype);\nDog.prototype = Object.create(Animal.prototype);\nDog.prototype.constructor = Dog;\nBird.prototype.constructor = Bird;\nlet duck = new Bird();\nlet beagle = new Dog();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Bird.prototype</code> treba da bude instanca objekta <code>Animal</code>.</p>",
+      "testString": "assert(Animal.prototype.isPrototypeOf(Bird.prototype));"
+    },
+    {
+      "text": "<p><code>duck.constructor</code> treba da vrati <code>Bird</code>.</p>",
+      "testString": "assert(duck.constructor === Bird);"
+    },
+    {
+      "text": "<p><code>Dog.prototype</code> treba da bude instanca objekta <code>Animal</code>.</p>",
+      "testString": "assert(Animal.prototype.isPrototypeOf(Dog.prototype));"
+    },
+    {
+      "text": "<p><code>beagle.constructor</code> inapaswa kurudisha <code>Dog</code>.</p>",
+      "testString": "assert(beagle.constructor === Dog);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada objekat nasledi <code>prototype</code> od drugog objekta, on takođe nasleđuje svojstvo <code>constructor</code> njegovog nadtipa.</p>\n<p>Evo primera:</p>\n<pre><code class=\"language-js\">function Bird() { }\nBird.prototype = Object.create(Animal.prototype);\nlet duck = new Bird();\nduck.constructor\n</code></pre>\n<p>Međutim, <code>duck</code> i sve instance objekta <code>Bird</code> treba da pokazuju da su kreirane pomoću konstruktora <code>Bird</code>, a ne <code>Animal</code>. To možeš postići tako što ćeš ručno postaviti svojstvo <code>constructor</code> objekta <code>Bird</code> na sam konstruktor <code>Bird</code>:</p>\n<pre><code class=\"language-js\">Bird.prototype.constructor = Bird;\nduck.constructor\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Izmeni kod tako da <code>duck.constructor</code> i <code>beagle.constructor</code> vraćaju svoje odgovarajuće konstruktore.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "65f8709620b2ce1a62608f5a",
+  "title": "Korak 23",
+  "challengeType": 20,
+  "dashedName": "step-23",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        8,
+        11
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n    def __str__(self):\n        return f'{self.x, self.y}'\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(v1.norm())\nprint(v2.norm())\n",
+      "error": null,
+      "seed": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n    def __str__(self):\n        return f'{self.x, self.y}'\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(v1.norm())\nprint(v2.norm())\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da vratite ponavljajući izraz generatora na <code>vars(self)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__str__\").find_return().find_comp_iters()[0].is_equivalent(\"vars(self)\")`)) })"
+    },
+    {
+      "text": "<p>Treba da ponovite sintaksu generatora koji koristi <code>i</code> kao parametar za ponavljanje.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__str__\").find_return().find_comp_targets()[0].is_equivalent(\"i\")`)) })"
+    },
+    {
+      "text": "<p>Morate vratiti generativnu sintaksu koja poziva <code>getattr(self, i)</code> za svaki element <code>i</code> koji se nalazi u <code>vars(self)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__str__\").find_return().find_comp_expr().is_equivalent(\"getattr(self, i)\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako trebate dobiti određeni atribut putem transformacije počevši od unosa sekvence slova, funkcija koja se nalazi unutar <code>getattr()</code> je ono što vam treba. Uzima nešto kao svoj prvi argument, i sekvencu slova koja prikazuje ime atributa elementa kao svoj drugi argument.</p>\n<p>Počnite da modifikujete putanju <code>__str__</code> promenom niza karaktera koji vraća <code>__str__()</code> i generativnim izrazom koji se ponavlja kroz svojstva objekta i poziva <code>getattr()</code> za svako svojstvo <code>i</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,109 @@
+{
+  "id": "688c9c3313b264122a694a08",
+  "title": "Kako funkcioniše obrada grešaka?",
+  "challengeType": 19,
+  "dashedName": "how-does-exception-handling-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Šta deo <code>try</code> radi u Python?</p>",
+      "answers": [
+        {
+          "answer": "<p>Potpuno zanemaruje greške.</p>",
+          "feedback": "<p>Pogledajte sekciju o odredbama <code>try</code> i <code>except</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Deklarira kodni deo za testiranje grešaka.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izbriši sve greške.</p>",
+          "feedback": "<p>Pogledajte sekciju o člancima <code>try</code> i <code>except</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zaustavlja program odmah.</p>",
+          "feedback": "<p>Povežite se sa delom koji se odnosi na članove <code>try</code> i <code>except</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Sekcija za <code>finally</code>, kada se izvršava?</p>",
+      "answers": [
+        {
+          "answer": "<p>Trenutno nema grešaka</p>",
+          "feedback": "<p>Pogledajte deo o članu <code>finally</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>To je tek kada dođe do greške</p>",
+          "feedback": "<p>Pogledajte deo o <code>finally</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uvek, bez brige</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Samo ako je deo <code>else</code> izvršen</p>",
+          "feedback": "<p>Pogledajte deo o kifungu <code>finally</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koji se izraz koristi za hvatanje specifične greške?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>handle</code></p>",
+          "feedback": "<p>Pogledajte početak tutorijala o otklanjanju grešaka u Python.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>catch</code></p>",
+          "feedback": "<p>Pogledajte početak tutorijala o obradi grešaka u Python.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>try</code></p>",
+          "feedback": "<p>Pogledajte početak obuke o upravljanju greškama u Python.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>except</code></p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U Python, rukovanje greškama je važan deo pisanja robusnog i otpornog na greške softvera. Omogućava vam da predvidite, uhvatite i reagujete na greške strukturizovano.</p>\n<p>Obrada grešaka je proces hvatanja i upravljanja greškama koje nastaju tokom izvršavanja programa, kako bi se sprečilo da vaš kod naglo sruši.</p>\n<p>Python pruža funkcije za <code>try</code>, <code>except</code>, <code>else</code>, na <code>finally</code> za rukovanje greškama. Evo osnovnog primera:</p>\n<pre><code class=\"language-py\">try:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print(\"You can't divide by zero!\")\n</code></pre>\n<ul>\n<li>\n<p><code>try</code>: Kodni fragment koji predviđa moguću grešku.</p>\n</li>\n<li>\n<p><code>except</code>: Ovaj deo se izvršava ako se unutar try dogodi greška navedenog tipa.</p>\n</li>\n<li>\n<p>U ovom slučaju, deljenje sa nulom izaziva <code>ZeroDivisionError</code>, što je zatim uhvaćeno i obrađeno.</p>\n</li>\n</ul>\n<p>Ovde je primer koji takođe pokazuje kako koristiti sekcije za <code>else</code> i <code>finally</code>:</p>\n<pre><code class=\"language-py\">try:\n    x = 10 / 2\nexcept ZeroDivisionError:\n    print(\"You can't divide by zero!\")\nelse:\n    print('Division successful:', x)\nfinally:\n    print('This block always runs.')\n</code></pre>\n<ul>\n<li>\n<p><code>else</code>: Izvršiće se ako nije došlo do greške u sekciji try.</p>\n</li>\n<li>\n<p><code>finally</code>: Izvršava se bez obzira na to da li je došlo do greške ili ne. Važno je za zadatke čišćenja, kao što su zatvaranje fajlova ili oslobađanje resursa.</p>\n</li>\n</ul>\n<p>Takođe možete uhvatiti mnogo grešaka u različitim delovima od <code>except</code>:</p>\n<pre><code class=\"language-py\">try:\n    number = int('abc')\n    result = 10 / number\nexcept ValueError:\n    print('That was not a valid number.')\nexcept ZeroDivisionError:\n    print(\"Can't divide by zero.\")\n</code></pre>\n<p>Korišćenjem više <code>except</code> blokova možeš učiniti obradu grešaka preciznijom i korisnijom.</p>\n<p>Takođe možete koristiti objekat greške, koji se obično naziva drugim imenom koristeći reč <code>as</code>. Ovde koristimo <code>e</code> kao alternativno ime za objekat greške:</p>\n<pre><code class=\"language-py\">try:\n    x = 1 / 0\nexcept ZeroDivisionError as e:\n    print(f'Error occurred: {e}')\n</code></pre>\n<p>Upotrebom <code>e</code>, možete dobiti stvarnu poruku o grešci ili nešto za snimanje ili pronalaženje grešaka.</p>\n<p>Možete takođe uhvatiti više grešaka u jednom bloku <code>except</code> navodeći te greške kao tupu:</p>\n<pre><code class=\"language-py\">try:\n    number = int(input('Enter a number: '))\n    result = 10 / number\nexcept (ValueError, ZeroDivisionError) as e:\n    print(f'Error occurred: {e}')\n</code></pre>\n<p>Upravljanje greškama omogućava vašim programima da se oporave od grešaka na elegantan način. Korišćenjem <code>try</code>, <code>except</code>, <code>else</code> i <code>finally</code>, možete predvideti potencijalne probleme i izgraditi robusnije programe.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-error-handling",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 30,
+  "instructions": "",
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-error-handling",
+  "certification": "python-v9"
+}

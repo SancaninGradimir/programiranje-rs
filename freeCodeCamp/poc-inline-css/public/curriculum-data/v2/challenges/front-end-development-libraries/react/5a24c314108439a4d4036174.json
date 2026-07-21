@@ -1,0 +1,87 @@
+{
+  "id": "5a24c314108439a4d4036174",
+  "title": "Poveži 'ovo' sa putanjom klase",
+  "challengeType": 6,
+  "forumTopicId": 301379,
+  "dashedName": "bind-this-to-a-class-method",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      text: \"Hello\"\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  handleClick() {\n    this.setState({\n      text: \"You clicked!\"\n    });\n  }\n  render() {\n    return (\n      <div>\n        { /* Change code below this line */ }\n        <button>Click Me</button>\n        { /* Change code above this line */ }\n        <h1>{this.state.text}</h1>\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      text: \"Hello\"\n    };\n    // Change code below this line\n\n    // Change code above this line\n  }\n  handleClick() {\n    this.setState({\n      text: \"You clicked!\"\n    });\n  }\n  render() {\n    return (\n      <div>\n        { /* Change code below this line */ }\n        <button>Click Me</button>\n        { /* Change code above this line */ }\n        <h1>{this.state.text}</h1>\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      text: \"Hello\"\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState({\n      text: \"You clicked!\"\n    });\n  }\n  render() {\n    return (\n      <div>\n        <button onClick = {this.handleClick}>Click Me</button>\n        <h1>{this.state.text}</h1>\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      text: \"Hello\"\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    this.setState({\n      text: \"You clicked!\"\n    });\n  }\n  render() {\n    return (\n      <div>\n        <button onClick = {this.handleClick}>Click Me</button>\n        <h1>{this.state.text}</h1>\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyComponent</code> treba da ponovi element <code>div</code> koji okružuje dva elementa, dugme i element <code>h1</code>, u tom redosledu.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(MyComponent)).find('div').length === 1 &&\n    Enzyme.mount(React.createElement(MyComponent))\n      .find('div')\n      .childAt(0)\n      .type() === 'button' &&\n    Enzyme.mount(React.createElement(MyComponent))\n      .find('div')\n      .childAt(1)\n      .type() === 'h1'\n);"
+    },
+    {
+      "text": "<p>Stanje <code>MyComponent</code> treba da se inicijalizuje par ključ-vrednost <code>{ text: \"Hello\" }</code>.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(MyComponent)).state('text') === 'Hello'\n);"
+    },
+    {
+      "text": "<p>Klik na element <code>button</code> treba da pokrene putanju <code>handleClick</code> i postavi stanje za <code>text</code> na <code>You clicked!</code>.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ text: 'Hello' });\n    return waitForIt(() => mockedComponent.state('text'));\n  };\n  const second = () => {\n    mockedComponent.find('button').simulate('click');\n    return waitForIt(() => mockedComponent.state('text'));\n  };\n  const firstValue = await first();\n  const secondValue = await second();\n  assert(firstValue === 'Hello' && secondValue === 'You clicked!');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Osim postavljanja i ispravljanja <code>state</code>, možete definisati metode klase vašeg dela. Metoda klase obično zahteva korišćenje glavne ključne reči <code>this</code> kako bi pristupila parametrima u klasi (kao što su <code>state</code> i <code>props</code>) unutar opsega te metode. Postoje malo načina da omogućite vašim metodama klase pristup <code>this</code>.</p>\n<p>Jedan uobičajen način je da eksplicitno povežeš (<code>bind</code>) <code>this</code> u konstruktoru kako bi <code>this</code> bilo vezano za metode klase kada se komponenta inicijalizuje. Možda si primetio da je prethodni izazov koristio <code>this.handleClick = this.handleClick.bind(this)</code> za metodu <code>handleClick</code> u konstruktoru. Tada će se pri pozivu funkcije poput <code>this.setState()</code> unutar metode klase, <code>this</code> odnositi na instancu klase, a neće biti <code>undefined</code>.</p>\n<p><strong>Napomena:</strong> Glavno reči za <code>this</code> je jedna od najkonfuznijih stvari u JavaScript, ali ima važnu ulogu u React. Iako je njegovo ponašanje ovde potpuno normalno, ove lekcije nisu mesto za duboku verifikaciju <code>this</code>, pa molimo vas da se osvrnete na druge lekcije ako vam ovo objašnjenje zbunjuje!</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kodni editor ima sekciju sa <code>state</code> koja prati tekst. Ima i metodu koja vam omogućava da postavite tekst na <code>You clicked!</code>. Međutim, ta metoda ne radi jer koristi glavnu ključnu reč <code>this</code> koja je nedefinisana. Ispravite eksplicitnim povezivanjem <code>this</code> i metodom <code>handleClick()</code> u komponenti te sekcije.</p>\n<p>Nakon toga, dodajte handler za klik na element <code>button</code> u metodu prikaza. Trebalo bi da pokrene putanju <code>handleClick()</code> kada dugme primi događaj klikova. Imajte na umu da putanja koju prosleđujete handler-u za <code>onClick</code> zahteva kurzne zagrade jer treba da se interpretira direktno kao <code>JavaScript</code>.</p>\n<p>Kada završite korake iznad, trebalo bi da možete kliknuti na dugme i videti <code>You clicked!</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 24,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

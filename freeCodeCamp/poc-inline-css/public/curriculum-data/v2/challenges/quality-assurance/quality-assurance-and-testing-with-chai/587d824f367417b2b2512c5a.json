@@ -1,0 +1,49 @@
+{
+  "id": "587d824f367417b2b2512c5a",
+  "title": "Pokreni funkcionalne testove na API odgovoru koristeći Chai-HTTP III - PUT metodu",
+  "challengeType": 2,
+  "forumTopicId": 301590,
+  "dashedName": "run-functional-tests-on-an-api-response-using-chai-http-iii---put-method",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Sve pokušaje treba da prođe.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=2');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.state, 'passed');"
+    },
+    {
+      "text": "<p>Trebalo bi da pokušaš da je <code>res.status</code> 200.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=2');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[0].method, 'equal');\nassert.equal(data.assertions[0].args[0], 'res.status');\nassert.equal(data.assertions[0].args[1], '200');"
+    },
+    {
+      "text": "<p>Trebalo bi da probaš <code>res.type</code> da bude <code>'application/json'</code>.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=2');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[1].method, 'equal');\nassert.equal(data.assertions[1].args[0], 'res.type');\nassert.match(data.assertions[1].args[1], /('|\")application\\/json\\1/);"
+    },
+    {
+      "text": "<p>Trebalo bi da pokušate <code>res.body.name</code> da bude <code>'Cristoforo'</code>.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=2');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[2].method, 'equal');\nassert.equal(data.assertions[2].args[0], 'res.body.name');\nassert.match(data.assertions[2].args[1], /('|\")Cristoforo\\1/);"
+    },
+    {
+      "text": "<p>Trebalo bi da pokušaš da bude <code>res.body.surname</code> i <code>'Colombo'</code>.</p>",
+      "testString": "const response = await fetch(code + '/_api/get-tests?type=functional&n=2');\nif (!response.ok) {\n  throw Error(await response.text());\n}\nconst data = await response.json();\nassert.equal(data.assertions[3].method, 'equal');\nassert.equal(data.assertions[3].args[0], 'res.body.surname');\nassert.match(data.assertions[3].args[1], /('|\")Colombo\\1/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je baziran na početnom projektu uzet iz <a href=\"https://github.com/freeCodeCamp/boilerplate-mochachai/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>Kada pokušate da pošaljete zahtev <code>PUT</code>, često šaljete i podatke sa njim. Podaci koje unosite zajedno sa vašim zahtevom <code>PUT</code> nazivaju se telo zahteva.</p>\n<p>Da pošaljete zahtev za <code>PUT</code> i nešto sa JSON ka odredištu <code>'/travellers'</code>, možete koristiti dodatak <code>chai-http</code> i metode <code>put</code> i <code>send</code>:</p>\n<pre><code class=\"language-js\">chai\n  .request(server)\n  .keepOpen()\n  .put('/travellers')\n  .send({\n    \"surname\": [last name of a traveller of the past]\n  })\n  ...\n</code></pre>\n<p>I putanja podataka odgovara sa:</p>\n<pre><code class=\"language-json\">{\n  \"name\": [first name],\n  \"surname\": [last name],\n  \"dates\": [birth - death years]\n}\n</code></pre>\n<p>Pogledajte server kod za različite odgovore u segmentu <code>'/travellers'</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Unutar <code>tests/2_functional-tests.js</code>, promeni pokušaj za <code>'Send {surname: \"Colombo\"}'</code> (<code>// #3</code>) i koristi metode od <code>put</code> i <code>send</code> da testira sufiks/završetak <code>'/travellers'</code>.</p>\n<p>Pošalji sledeći objekat JSON zajedno sa vašim PUT zahtevom:</p>\n<pre><code class=\"language-json\">{\n  \"surname\": \"Colombo\"\n}\n</code></pre>\n<p>Pogledajte sljedeće unutar poziva za povratak <code>request.end</code>:</p>\n<ol>\n<li><code>status</code> treba da bude <code>200</code></li>\n<li><code>type</code> treba da bude <code>application/json</code></li>\n<li><code>body.name</code> treba da bude <code>Cristoforo</code></li>\n<li><code>body.surname</code> treba da bude <code>Colombo</code></li>\n</ol>\n<p>Prati podešavanje potvrde gore – računamo na to. Takođe, obavezno ukloni <code>assert.fail()</code> kada završiš.</p>\n</section>",
+  "translationPending": false,
+  "block": "quality-assurance-and-testing-with-chai",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 20,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

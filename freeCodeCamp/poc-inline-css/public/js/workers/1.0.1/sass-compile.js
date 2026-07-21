@@ -1,0 +1,2 @@
+(()=>{"use strict";const s=self;s.crypto||(s.crypto={getRandomValues:function(s){for(let t=0,e=s.length;t<e;t++)s[t]=Math.floor(256*Math.random());return s}}),s.importScripts("/js/workers/1.0.1/sass.sync.js"),s.onmessage=t=>{const e=t.data;s.Sass.compile(e,t=>{0===t.status?s.postMessage(t.text):s.postMessage({type:"error",data:{message:t.formatted}})})},s.postMessage({type:"contentLoaded"})})();
+//# sourceMappingURL=sass-compile.js.map

@@ -1,0 +1,55 @@
+{
+  "id": "64de7662244db513d7b673ec",
+  "title": "Korak 35",
+  "challengeType": 20,
+  "dashedName": "step-35",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        39
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "NUMBER_OF_DISKS = 3\nnumber_of_moves = 2**NUMBER_OF_DISKS - 1\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef make_allowed_move(rod1, rod2):    \n    forward = False\n    if not rods[rod2]:\n        forward = True\n    elif rods[rod1] and rods[rod1][-1] < rods[rod2][-1]:\n        forward = True              \n    if forward:\n        print(f'Moving disk {rods[rod1][-1]} from {rod1} to {rod2}')\n        rods[rod2].append(rods[rod1].pop())\n    else:\n        print(f'Moving disk {rods[rod2][-1]} from {rod2} to {rod1}')\n        rods[rod1].append(rods[rod2].pop())\n    \n    # display our progress\n    print(rods)\n\ndef move(n, source, auxiliary, target):\n    # display starting configuration\n    print(rods)\n    for i in range(number_of_moves):\n        remainder = (i + 1) % 3\n        if remainder == 1:\n            print(f'Move {i + 1} allowed between {source} and {target}')\n            make_allowed_move(source, target)\n        elif remainder == 2:\n            print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n            \n        elif remainder == 0:\n            print(f'Move {i + 1} allowed between {auxiliary} and {target}')\n            \n\n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')",
+      "error": null,
+      "seed": "NUMBER_OF_DISKS = 3\nnumber_of_moves = 2**NUMBER_OF_DISKS - 1\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef make_allowed_move(rod1, rod2):    \n    forward = False\n    if not rods[rod2]:\n        forward = True\n    elif rods[rod1] and rods[rod1][-1] < rods[rod2][-1]:\n        forward = True              \n    if forward:\n        print(f'Moving disk {rods[rod1][-1]} from {rod1} to {rod2}')\n        rods[rod2].append(rods[rod1].pop())\n    else:\n        print(f'Moving disk {rods[rod2][-1]} from {rod2} to {rod1}')\n        rods[rod1].append(rods[rod2].pop())\n    \n    # display our progress\n    print(rods)\n\ndef move(n, source, auxiliary, target):\n    # display starting configuration\n    print(rods)\n    for i in range(number_of_moves):\n        remainder = (i + 1) % 3\n        if remainder == 1:\n            print(f'Move {i + 1} allowed between {source} and {target}')\n            make_allowed_move(source, target)\n        elif remainder == 2:\n            print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n            \n        elif remainder == 0:\n            print(f'Move {i + 1} allowed between {auxiliary} and {target}')\n            \n\n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozoveš <code>make_allowed_move(source, auxiliary)</code> unutar prve sekcije od <code>elif</code>.</p>",
+      "testString": "({ test: () => {\n    assert.match(code, /make_allowed_move\\s*\\(\\s*source\\s*,\\s*auxiliary\\s*\\)(?=\\s+elif\\s+remainder\\s*==\\s*0\\s*:)/);\n}})"
+    },
+    {
+      "text": "<p>Treba da se izvrši poziv ka <code>make_allowed_move(auxiliary, target)</code> unutar drugog odeljka <code>elif</code>.</p>",
+      "testString": "assert.match(code, /make_allowed_move\\s*\\(\\s*auxiliary\\s*,\\s*target\\s*\\)(?=\\s+#\\s*initiate\\scall)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ponavljajte poziv funkcije <code>make_allowed_move()</code> unutar dve sekvence <code>elif</code> i prosledite odgovarajući argument.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-recursion-by-solving-the-tower-of-hanoi-puzzle",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 34,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

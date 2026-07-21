@@ -1,0 +1,121 @@
+{
+  "id": "a5de63ebea8dbee56860f4f2",
+  "title": "Povežite dva niza podataka",
+  "challengeType": 1,
+  "forumTopicId": 16008,
+  "dashedName": "diff-two-arrays",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function diffArray(arr1, arr2) {\r\n  const newArr = [];\r\n  return newArr;\r\n}\r\n\r\ndiffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);",
+      "error": null,
+      "seed": "function diffArray(arr1, arr2) {\r\n  const newArr = [];\r\n  return newArr;\r\n}\r\n\r\ndiffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function diffArray(arr1, arr2) {\r\n  if (arr1.length === 0) return arr2;\r\n  if (arr2.length === 0) return arr1;\r\n\r\n  const set1 = new Set(arr1);\r\n  const set2 = new Set(arr2);\r\n  \r\n  const newArr = [];\r\n\r\n  set1.forEach(element => {\r\n    if (!set2.has(element)) newArr.push(element);\r\n\r\n  });\r\n\r\n  set2.forEach(element => {\r\n    if (!set1.has(element)) newArr.push(element);\r\n\r\n  });\r\n\r\n  return newArr;\r\n  \r\n}\r\n",
+        "error": null,
+        "seed": "function diffArray(arr1, arr2) {\r\n  if (arr1.length === 0) return arr2;\r\n  if (arr2.length === 0) return arr1;\r\n\r\n  const set1 = new Set(arr1);\r\n  const set2 = new Set(arr2);\r\n  \r\n  const newArr = [];\r\n\r\n  set1.forEach(element => {\r\n    if (!set2.has(element)) newArr.push(element);\r\n\r\n  });\r\n\r\n  set2.forEach(element => {\r\n    if (!set1.has(element)) newArr.push(element);\r\n\r\n  });\r\n\r\n  return newArr;\r\n  \r\n}\r\n"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(typeof diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]) === 'object');"
+    },
+    {
+      "text": "<p><code>[\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> treba da vrati <code>[\"pink wool\"]</code>.</p>",
+      "testString": "assert.sameMembers(\r\n  diffArray(\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'],\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'dead shrub']\r\n  ),\r\n  ['pink wool']\r\n);"
+    },
+    {
+      "text": "<p><code>[\"diorite\", \"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> Trebalo bi da vrati red podataka sa jednim poljem.</p>",
+      "testString": "assert(\r\n  diffArray(\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'],\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'dead shrub']\r\n  ).length === 1\r\n);"
+    },
+    {
+      "text": "<p><code>[\"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> treba da vrati <code>[\"diorite\", \"pink wool\"]</code>.</p>",
+      "testString": "assert.sameMembers(\r\n  diffArray(\r\n    ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'],\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'dead shrub']\r\n  ),\r\n  ['diorite', 'pink wool']\r\n);"
+    },
+    {
+      "text": "<p><code>[\"andesite\", \"grass\", \"dirt\", \"pink wool\", \"dead shrub\"], [\"diorite\", \"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> Trebalo bi da vrati red podataka sa dva elementa.</p>",
+      "testString": "assert(\r\n  diffArray(\r\n    ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub'],\r\n    ['diorite', 'andesite', 'grass', 'dirt', 'dead shrub']\r\n  ).length === 2\r\n);"
+    },
+    {
+      "text": "<p><code>[\"andesite\", \"grass\", \"dirt\", \"dead shrub\"], [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> treba da vrati <code>[]</code>.</p>",
+      "testString": "assert.sameMembers(\r\n  diffArray(\r\n    ['andesite', 'grass', 'dirt', 'dead shrub'],\r\n    ['andesite', 'grass', 'dirt', 'dead shrub']\r\n  ),\r\n  []\r\n);"
+    },
+    {
+      "text": "<p><code>[\"andesite\", \"grass\", \"dirt\", \"dead shrub\"], [\"andesite\", \"grass\", \"dirt\", \"dead shrub\"]</code> trebalo bi da vrati prazan red.</p>",
+      "testString": "assert(\r\n  diffArray(\r\n    ['andesite', 'grass', 'dirt', 'dead shrub'],\r\n    ['andesite', 'grass', 'dirt', 'dead shrub']\r\n  ).length === 0\r\n);"
+    },
+    {
+      "text": "<p><code>[1, 2, 3, 5], [1, 2, 3, 4, 5]</code> trebalo bi da vrati <code>[4]</code>.</p>",
+      "testString": "assert.sameMembers(diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]), [4]);"
+    },
+    {
+      "text": "<p><code>[1, 2, 3, 5], [1, 2, 3, 4, 5]</code> Trebalo bi da vrati red podataka sa jednim poljem.</p>",
+      "testString": "assert(diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]).length === 1);"
+    },
+    {
+      "text": "<p><code>[1, \"calf\", 3, \"piglet\"], [1, \"calf\", 3, 4]</code> treba da vrati <code>[\"piglet\", 4]</code>.</p>",
+      "testString": "assert.sameMembers(diffArray([1, 'calf', 3, 'piglet'], [1, 'calf', 3, 4]), [\r\n  'piglet',\r\n  4\r\n]);"
+    },
+    {
+      "text": "<p><code>[1, \"calf\", 3, \"piglet\"], [1, \"calf\", 3, 4]</code> trebalo bi da vrati red podataka sa dve komponente.</p>",
+      "testString": "assert(diffArray([1, 'calf', 3, 'piglet'], [1, 'calf', 3, 4]).length === 2);"
+    },
+    {
+      "text": "<p><code>[], [\"snuffleupagus\", \"cookie monster\", \"elmo\"]</code> trebalo bi da vrati <code>[\"snuffleupagus\", \"cookie monster\", \"elmo\"]</code>.</p>",
+      "testString": "assert.sameMembers(diffArray([], ['snuffleupagus', 'cookie monster', 'elmo']), [\r\n  'snuffleupagus',\r\n  'cookie monster',\r\n  'elmo'\r\n]);"
+    },
+    {
+      "text": "<p><code>[], [\"snuffleupagus\", \"cookie monster\", \"elmo\"]</code> trebalo bi da vrati red podataka sa tri elementa.</p>",
+      "testString": "assert(diffArray([], ['snuffleupagus', 'cookie monster', 'elmo']).length === 3);"
+    },
+    {
+      "text": "<p><code>[1, \"calf\", 3, \"piglet\"], [7, \"filly\"]</code> treba da vrati <code>[1, \"calf\", 3, \"piglet\", 7, \"filly\"]</code>.</p>",
+      "testString": "assert.sameMembers(diffArray([1, 'calf', 3, 'piglet'], [7, 'filly']), [\r\n  1,\r\n  'calf',\r\n  3,\r\n  'piglet',\r\n  7,\r\n  'filly'\r\n]);"
+    },
+    {
+      "text": "<p><code>[1, \"calf\", 3, \"piglet\"], [7, \"filly\"]</code> Trebalo bi da vrati red podataka sa šest polja.</p>",
+      "testString": "assert(diffArray([1, 'calf', 3, 'piglet'], [7, 'filly']).length === 6);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Uporedite dve redne podatke i vratite novi red sa svim elementima koji se nalaze samo u jednom od ova dva reda, ali ne u oba. Drugim rečima, vratite razliku između ta dva reda.</p>\n<p><strong>Napomena:</strong> Možete vratiti taj red i njegove elemente u bilo kom redosledu.</p>\n</section>",
+  "translationPending": false,
+  "block": "intermediate-algorithm-scripting",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

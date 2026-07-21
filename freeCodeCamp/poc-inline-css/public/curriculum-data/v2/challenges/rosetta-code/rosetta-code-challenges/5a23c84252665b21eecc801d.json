@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc801d",
+  "title": "Razdvoj niz slova prema promenama slova",
+  "challengeType": 1,
+  "forumTopicId": 302322,
+  "dashedName": "split-a-character-string-based-on-change-of-character",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function split(str) {\n\n}",
+      "error": null,
+      "seed": "function split(str) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function split(str) {\n  const concat = xs =>\n    xs.length > 0\n      ? (() => {\n          const unit = typeof xs[0] === 'string' ? '' : [];\n          return unit.concat.apply(unit, xs);\n        })()\n      : [];\n\n  const group = xs => groupBy((a, b) => a === b, xs);\n\n  const groupBy = (f, xs) => {\n    const dct = xs.slice(1).reduce(\n      (a, x) => {\n        const h = a.active.length > 0 ? a.active[0] : undefined,\n          blnGroup = h !== undefined && f(h, x);\n        return {\n          active: blnGroup ? a.active.concat([x]) : [x],\n          sofar: blnGroup ? a.sofar : a.sofar.concat([a.active])\n        };\n      },\n      {\n        active: xs.length > 0 ? [xs[0]] : [],\n        sofar: []\n      }\n    );\n    return dct.sofar.concat(dct.active.length > 0 ? [dct.active] : []);\n  };\n\n  const map = (f, xs) => xs.map(f);\n\n  const stringChars = s => s.split('');\n\n  return map(concat, group(stringChars(str)));\n}",
+        "error": null,
+        "seed": "function split(str) {\n  const concat = xs =>\n    xs.length > 0\n      ? (() => {\n          const unit = typeof xs[0] === 'string' ? '' : [];\n          return unit.concat.apply(unit, xs);\n        })()\n      : [];\n\n  const group = xs => groupBy((a, b) => a === b, xs);\n\n  const groupBy = (f, xs) => {\n    const dct = xs.slice(1).reduce(\n      (a, x) => {\n        const h = a.active.length > 0 ? a.active[0] : undefined,\n          blnGroup = h !== undefined && f(h, x);\n        return {\n          active: blnGroup ? a.active.concat([x]) : [x],\n          sofar: blnGroup ? a.sofar : a.sofar.concat([a.active])\n        };\n      },\n      {\n        active: xs.length > 0 ? [xs[0]] : [],\n        sofar: []\n      }\n    );\n    return dct.sofar.concat(dct.active.length > 0 ? [dct.active] : []);\n  };\n\n  const map = (f, xs) => xs.map(f);\n\n  const stringChars = s => s.split('');\n\n  return map(concat, group(stringChars(str)));\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>split</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof split == 'function');"
+    },
+    {
+      "text": "<p><code>split(\"hello\")</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(split('hello')));"
+    },
+    {
+      "text": "<p><code>split(\"hello\")</code> trebalo bi da vrati <code>[\"h\", \"e\", \"ll\", \"o\"]</code>.</p>",
+      "testString": "assert.deepEqual(split('hello'), ['h', 'e', 'll', 'o']);"
+    },
+    {
+      "text": "<p><code>split(\"commission\")</code> inapaswa kurudisha <code>[\"c\", \"o\", \"mm\", \"i\", \"ss\", \"i\", \"o\", \"n\"]</code>.</p>",
+      "testString": "assert.deepEqual(split('commission'), [\n  'c',\n  'o',\n  'mm',\n  'i',\n  'ss',\n  'i',\n  'o',\n  'n'\n]);"
+    },
+    {
+      "text": "<p><code>split(\"ssss----====llloooo\")</code> inapaswa kurudisha <code>[\"ssss\", \"----\", \"====\", \"lll\", \"oooo\"]</code>.</p>",
+      "testString": "assert.deepEqual(split('ssss----====llloooo'), [\n  'ssss',\n  '----',\n  '====',\n  'lll',\n  'oooo'\n]);"
+    },
+    {
+      "text": "<p><code>split(\"sssmmmaaammmaaat\")</code> inapaswa kurudisha <code>[\"sss\", \"mmm\", \"aaa\", \"mmm\", \"aaa\", \"t\"]</code>.</p>",
+      "testString": "assert.deepEqual(split('sssmmmaaammmaaat'), [\n  'sss',\n  'mmm',\n  'aaa',\n  'mmm',\n  'aaa',\n  't'\n]);"
+    },
+    {
+      "text": "<p><code>split(\"gHHH5YY++///\\\\\")</code> trebalo bi da vrati <code>[\"g\", \"HHH\", \"5\", \"YY\", \"++\", \"///\", \"\\\\\"]</code>.</p>",
+      "testString": "assert.deepEqual(split('gHHH5YY++///\\\\'), [\n  'g',\n  'HHH',\n  '5',\n  'YY',\n  '++',\n  '///',\n  '\\\\'\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Podeli string u niz stringova razdvojenih zarezom (uz razmak), prema promenama karaktera (sleva nadesno). Razmaci treba da se tretiraju kao bilo koji drugi karakter (iako ih je teže prikazati). Isto važi i za zareze. Na primer, string:</p>\n<pre>\n\"gHHH5YY++///\\\\\"\n</pre>\n<p>Trebalo bi se podeliti kao:</p>\n<pre>\n[\"g\", \"HHH\", \"5\", \"YY\", \"++\", \"///\", \"\\\\\" ];\n</pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 132,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

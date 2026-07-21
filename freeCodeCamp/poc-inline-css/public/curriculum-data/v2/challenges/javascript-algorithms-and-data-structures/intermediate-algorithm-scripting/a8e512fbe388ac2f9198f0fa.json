@@ -1,0 +1,89 @@
+{
+  "id": "a8e512fbe388ac2f9198f0fa",
+  "title": "Zašto ti",
+  "challengeType": 1,
+  "forumTopicId": 16092,
+  "dashedName": "wherefore-art-thou",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function whatIsInAName(collection, source) {\r\n\r\n}\r\n\r\nwhatIsInAName([{ first: \"Romeo\", last: \"Montague\" }, { first: \"Mercutio\", last: null }, { first: \"Tybalt\", last: \"Capulet\" }], { last: \"Capulet\" });",
+      "error": null,
+      "seed": "function whatIsInAName(collection, source) {\r\n\r\n}\r\n\r\nwhatIsInAName([{ first: \"Romeo\", last: \"Montague\" }, { first: \"Mercutio\", last: null }, { first: \"Tybalt\", last: \"Capulet\" }], { last: \"Capulet\" });"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function whatIsInAName(collection, source) {\r\n  const arr = [];\r\n  const keys = Object.keys(source);\r\n  collection.forEach(function(e) {\r\n    if(keys.every(function(key) {return e[key] === source[key];})) {\r\n      arr.push(e);\r\n    }\r\n  });\r\n  return arr;\r\n}",
+        "error": null,
+        "seed": "function whatIsInAName(collection, source) {\r\n  const arr = [];\r\n  const keys = Object.keys(source);\r\n  collection.forEach(function(e) {\r\n    if(keys.every(function(key) {return e[key] === source[key];})) {\r\n      arr.push(e);\r\n    }\r\n  });\r\n  return arr;\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>whatIsInAName([{ first: \"Romeo\", last: \"Montague\" }, { first: \"Mercutio\", last: null }, { first: \"Tybalt\", last: \"Capulet\" }], { last: \"Capulet\" })</code> trebalo bi da vrati <code>[{ first: \"Tybalt\", last: \"Capulet\" }]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName(\r\n    [\r\n      { first: 'Romeo', last: 'Montague' },\r\n      { first: 'Mercutio', last: null },\r\n      { first: 'Tybalt', last: 'Capulet' }\r\n    ],\r\n    { last: 'Capulet' }\r\n  ),\r\n  [{ first: 'Tybalt', last: 'Capulet' }]\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{ \"apple\": 1 }, { \"apple\": 1 }, { \"apple\": 1, \"bat\": 2 }], { \"apple\": 1 })</code> treba da vrati <code>[{ \"apple\": 1 }, { \"apple\": 1 }, { \"apple\": 1, \"bat\": 2 }]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName([{ apple: 1 }, { apple: 1 }, { apple: 1, bat: 2 }], {\r\n    apple: 1\r\n  }),\r\n  [{ apple: 1 }, { apple: 1 }, { apple: 1, bat: 2 }]\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{ \"apple\": 1, \"bat\": 2 }, { \"bat\": 2 }, { \"apple\": 1, \"bat\": 2, \"cookie\": 2 }], { \"apple\": 1, \"bat\": 2 })</code> treba da vrati <code>[{ \"apple\": 1, \"bat\": 2 }, { \"apple\": 1, \"bat\": 2, \"cookie\": 2 }]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName(\r\n    [{ apple: 1, bat: 2 }, { bat: 2 }, { apple: 1, bat: 2, cookie: 2 }],\r\n    { apple: 1, bat: 2 }\r\n  ),\r\n  [\r\n    { apple: 1, bat: 2 },\r\n    { apple: 1, bat: 2, cookie: 2 }\r\n  ]\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{ \"apple\": 1, \"bat\": 2 }, { \"apple\": 1 }, { \"apple\": 1, \"bat\": 2, \"cookie\": 2 }], { \"apple\": 1, \"cookie\": 2 })</code> treba da vrati <code>[{ \"apple\": 1, \"bat\": 2, \"cookie\": 2 }]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName(\r\n    [{ apple: 1, bat: 2 }, { apple: 1 }, { apple: 1, bat: 2, cookie: 2 }],\r\n    { apple: 1, cookie: 2 }\r\n  ),\r\n  [{ apple: 1, bat: 2, cookie: 2 }]\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{ \"apple\": 1, \"bat\": 2 }, { \"apple\": 1 }, { \"apple\": 1, \"bat\": 2, \"cookie\": 2 }, { \"bat\":2 }], { \"apple\": 1, \"bat\": 2 })</code> treba da vrati <code>[{ \"apple\": 1, \"bat\": 2 }, { \"apple\": 1, \"bat\": 2, \"cookie\":2 }]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName(\r\n    [\r\n      { apple: 1, bat: 2 },\r\n      { apple: 1 },\r\n      { apple: 1, bat: 2, cookie: 2 },\r\n      { bat: 2 }\r\n    ],\r\n    { apple: 1, bat: 2 }\r\n  ),\r\n  [\r\n    { apple: 1, bat: 2 },\r\n    { apple: 1, bat: 2, cookie: 2 }\r\n  ]\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{\"a\": 1, \"b\": 2, \"c\": 3}], {\"a\": 1, \"b\": 9999, \"c\": 3})</code> treba da vrati <code>[]</code></p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName([{ a: 1, b: 2, c: 3 }], { a: 1, b: 9999, c: 3 }),\r\n  []\r\n);"
+    },
+    {
+      "text": "<p><code>whatIsInAName([{\"a\": 1, \"b\": 2, \"c\": 3, \"d\": 9999}], {\"a\": 1, \"b\": 9999, \"c\": 3})</code> trebalo bi da vrati <code>[]</code></p>",
+      "testString": "assert.deepEqual(\r\n  whatIsInAName([{ a: 1, b: 2, c: 3, d: 9999 }], { a: 1, b: 9999, c: 3 }),\r\n  []\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napravite funkciju koja pretražuje niz objekata (prvi niz) i vraća niz svih objekata koji imaju odgovarajuće imena i vrednosti (drugi niz). Svako ime i vrednost izvornog objekta mora da postoji u objektu iz kolekcije ako je uključen u vraćeni niz.</p>\n<p>Na primer, ako je prvi argument <code>[{ first: \"Romeo\", last: \"Montague\" }, { first: \"Mercutio\", last: null }, { first: \"Tybalt\", last: \"Capulet\" }]</code>, a drugi argument je <code>{ last: \"Capulet\" }</code>, onda moraš vratiti treći element iz niza (prvi argument), jer ima svoje ime i vrednost, koje su predate kao drugi argument.</p>\n</section>",
+  "translationPending": false,
+  "block": "intermediate-algorithm-scripting",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

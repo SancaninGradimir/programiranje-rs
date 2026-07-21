@@ -1,0 +1,199 @@
+{
+  "id": "6732b28eeadda1158cdbff7b",
+  "title": "Kako proveriti da li red podataka ima određenu vrednost?",
+  "challengeType": 19,
+  "dashedName": "how-can-you-check-if-an-array-contains-a-certain-value",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>U JavaScript, metoda <code>includes()</code> je jednostavan i efikasan način za proveru da li red podataka ima određenu vrednost. Ova metoda vraća vrednost tačno ili netačno: <code>true</code> ako red podataka sadrži pomenuti element, i <code>false</code> inače.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda <code>includes()</code> je važna posebno kada treba brzo da se proveri postojanje elemenata u redovima podataka bez znanja njihove stvarne pozicije. Počnimo sa primerom kako koristiti metodu <code>includes()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let fruits = [\"apple\", \"banana\", \"orange\", \"mango\"];\nconsole.log(fruits.includes(\"banana\")); // true\nconsole.log(fruits.includes(\"grape\"));  // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let fruits = [\"apple\", \"banana\", \"orange\", \"mango\"];\nconsole.log(fruits.includes(\"banana\")); // true\nconsole.log(fruits.includes(\"grape\"));  // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, imamo niz voća. Koristimo metodu <code>includes()</code> da proverimo da li <code>banana</code> postoji u nizu podataka. Vraća <code>true</code> jer <code>banana</code> zaista postoji. Zatim proveravamo <code>grape</code>, što vraća <code>false</code> jer nije u nizu podataka.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda za <code>includes()</code> je osetljiva na mala i velika slova prilikom obrade niza znakova. To znači da su <code>Banana</code> sa velikim slovom B i <code>banana</code> sa svim malim slovima smatrani različitim vrednostima. Evo primera koji to pokazuje:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let fruits = [\"apple\", \"banana\", \"orange\"];\nconsole.log(fruits.includes(\"banana\")); // true\nconsole.log(fruits.includes(\"Banana\")); // false",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let fruits = [\"apple\", \"banana\", \"orange\"];\nconsole.log(fruits.includes(\"banana\")); // true\nconsole.log(fruits.includes(\"Banana\")); // false\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, <code>banana</code> (sve u malim slovima) nalazi se u redu podataka, ali <code>Banana</code> (sa velikom početnom slovom) nije prisutno, pa drugi poziv od <code>includes()</code> vraća <code>false</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Funkcija <code>includes()</code> takođe može primiti drugi opcioni parametar koji opisuje početnu poziciju u nizu podataka od koje želite da počnete pretraživati. Ovo je korisno ako želite da proverite postojanje elementa u određenom delu niza podataka. Evo kako možete koristiti ovu funkciju:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let numbers = [10, 20, 30, 40, 50, 30, 60];\nconsole.log(numbers.includes(30, 3)); // true\nconsole.log(numbers.includes(30, 4)); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let numbers = [10, 20, 30, 40, 50, 30, 60];\nconsole.log(numbers.includes(30, 3)); // true\nconsole.log(numbers.includes(30, 4)); // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sa prvim pozivom od <code>console.log</code>, tražimo broj <code>30</code> počevši od modela <code>3</code>. U ovom slučaju, postoji broj <code>30</code> koji se pojavljuje nakon modela <code>3</code>, stoga putanja <code>includes()</code> vraća <code>true</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Isto važi za drugi poziv od <code>console.log</code>. Tražimo broj <code>30</code> počevši od modela <code>4</code>. Pošto se broj <code>30</code> pojavljuje nakon tog modela, onda će vratiti <code>true</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Važno je znati da <code>includes()</code> koristi striktno poređenje jednakosti (<code>===</code>), što znači da može razlikovati različite tipove. Na primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let mixedArray = [1, \"2\", 3, \"4\", 5];\nconsole.log(mixedArray.includes(2));  // false\nconsole.log(mixedArray.includes(\"2\")); // true",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let mixedArray = [1, \"2\", 3, \"4\", 5];\nconsole.log(mixedArray.includes(2));  // false\nconsole.log(mixedArray.includes(\"2\")); // true\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, broj <code>2</code> i niz slova <code>\"2\"</code> smatraju se različitim vrstama podataka. Stoga, prvi poziv <code>console.log</code> će vratiti <code>false</code>, dok drugi poziv <code>console.log</code> će vratiti <code>true</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda <code>includes()</code> je moćan alat za proveru postojanja elemenata u nizovima podataka. Lako je za korišćenje, efikasan je, i može vas spasiti od pisanja složenih petlji ili uslova za pretraživanje u nizovima podataka. Bilo da radite sa sekvencama slova, brojeva ili mešovitim tipovima podataka, <code>includes()</code> pruža jednostavan način da potvrdite da li vrednost postoji u vašem nizu podataka.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let arr = [1, 2, 3, 4, 5];\nconsole.log(arr.includes(3, 3));\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>true</code></p>",
+          "feedback": "<p>Drugi parametar <code>includes()</code> opisuje početnu poziciju za pretraživanje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>false</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Drugi argument metode <code>includes()</code> određuje početnu poziciju za pretragu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovo će nam otpasti kosu.</p>",
+          "feedback": "<p>Drugi parametar <code>includes()</code> opisuje početnu poziciju za pretraživanje.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let arr = [\"a\", \"b\", \"c\", \"d\", \"e\"];\nconsole.log(arr.includes(\"C\"));\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>true</code></p>",
+          "feedback": "<p>Zapamtite da <code>includes()</code> ima osetljivost na mala i velika slova prilikom obrade niza znakova.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>false</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Zapamtite da <code>includes()</code> ima osetljivost na mala i velika slova prilikom obrade niza karaktera.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovo će nam otpasti kosu.</p>",
+          "feedback": "<p>Zapamtite da <code>includes()</code> ima osetljivost na mala i velika slova prilikom obrade niza znakova.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let arr = [1, \"2\", 3, \"4\", 5];\nconsole.log(arr.includes(\"3\"));\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>true</code></p>",
+          "feedback": "<p>Putanja <code>includes()</code> koristi strogu jednakost (<code>===</code>) za poređenje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>false</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Putanja <code>includes()</code> koristi strogu jednakost (<code>===</code>) za poređenje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovo će nam otpasti kosu.</p>",
+          "feedback": "<p>Način <code>includes()</code> koristi strogu jednakost (<code>===</code>) za poređenje.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-common-array-methods",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 52,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-arrays",
+  "certification": "javascript-v9"
+}

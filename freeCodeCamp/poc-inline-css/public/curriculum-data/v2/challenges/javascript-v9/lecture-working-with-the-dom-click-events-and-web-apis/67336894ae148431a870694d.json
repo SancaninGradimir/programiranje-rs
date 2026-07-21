@@ -1,0 +1,252 @@
+{
+  "id": "67336894ae148431a870694d",
+  "title": "Šta je DOM, i kako se dobija pristup objektima?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-dom-and-how-do-you-access-elements",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Naučite se o DOM i zašto je veoma važno za razvoj mreže. DOM stoji za Document Object Model. To je programski interfejs koji nam omogućava da interagujemo sa dokumentima HTML.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Korišćenjem DOM-a možete dodavati, menjati ili brisati elemente na veb stranici. Možete čak napraviti svoju stranicu interaktivnom tako što ćete omogućiti elementima da slušaju i reaguju na događaje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U DOM-u, HTML dokument je predstavljen kao stablo čvorova. Svaki čvor atributa predstavlja HTML atribut iz HTML dokumenta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;!DOCTYPE html>\n&#x3C;html lang=\"en\">\n  &#x3C;head>\n    &#x3C;title>DOM Example&#x3C;/title>\n  &#x3C;/head>\n  &#x3C;body>\n    &#x3C;h1>What is the DOM?&#x3C;/h1>\n    &#x3C;h2>Let's learn about the DOM&#x3C;/h2>\n  &#x3C;/body>\n&#x3C;/html>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo dijagrama koji predstavlja osnovnu strukturu DOM-a našeg primera:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-md\">Document\n========\n\nHTML\n-----\n\n- Head\n  - Title\n- Body\n  - H1\n  - H2   \n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Naravno, ovo može biti mnogo detaljnije i složenije u zavisnosti od HTML strukture stranice.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>HTML dokument je korenski čvor u DOM stablu. Ima jedan čvor dete, element <code>html</code>. Ovo je korenski element HTML dokumenta, jer svi drugi čvorovi potiču od njega.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Element <code>html</code> ima dva deteta: <code>head</code> i <code>body</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Element <code>head</code> sadrži metapodatke o dokumentu. On pruža važne informacije o veb stranici.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Element <code>body</code> sadrži vidljivi sadržaj veb stranice.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovim elementima možete pristupiti koristeći JavaScript, raditi sa njima u svom kodu i čak ih dinamički menjati. To je snaga DOM-a i veb API-ja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste pristupili ovim elementima u JavaScript-u, možete koristiti metode <code>getElementById()</code> i <code>querySelector()</code>. Ove metode su veb API-ji jer pružaju standardni način interakcije sa DOM-om pomoću JavaScript-a.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za <code>getElementById()</code>, možete dobiti nešto što predstavlja karakteristiku HTML sa <code>id</code> navedenom. Zapamtite da <code>id</code> mora biti jedinstven u svakom dokumentu od HTML, stoga će ova metoda vratiti samo jedan objekat od <code>Element</code>. Ovde možete videti primer:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ova linija koda za JavaScript dobija atribut sa vrednošću <code>id</code> od <code>container</code> i postavlja taj objekat u varijablu JavaScript. Morate proslediti <code>id</code> unutar navodnika kao argument. Ako ovo ispišete na konzolu, videćete rezultat:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<div id=\"container\">\n  <h1>Hello, World!</h1>\n  <p>Welcome to learning about the DOM.</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;div id=\"container\">\n  &#x3C;h1>Hello, World!&#x3C;/h1>\n  &#x3C;p>Welcome to learning about the DOM.&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "const container = document.getElementById(\"container\");\nconsole.log(container); ",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const container = document.getElementById(\"container\");\nconsole.log(container); \n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>querySelector()</code> je širi od <code>getElementById()</code>. Za <code>querySelector()</code>, možete pronaći prvi element u dokumentu HTML koji odgovara izboru CSS usvojenom kao argument.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, pronaći ćete element koji odgovara selektoru <code>section</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<section>\n  <h2>Section Title</h2>\n  <p>This is a section of the webpage.</p>\n</section>\n<script src=\"index.js\"></script>  ",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;section>\n  &#x3C;h2>Section Title&#x3C;/h2>\n  &#x3C;p>This is a section of the webpage.&#x3C;/p>\n&#x3C;/section>\n&#x3C;script src=\"index.js\">&#x3C;/script>  \n</code></pre>"
+        },
+        {
+          "contents": "const sectionEl = document.querySelector(\"section\");\nconsole.log(sectionEl);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const sectionEl = document.querySelector(\"section\");\nconsole.log(sectionEl);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako želite da selektujete element po nazivu klase objekta koristeći <code>querySelector()</code>, morate postaviti tačku prefiks (<code>.</code>) pre imena klase. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"highlight\">\n  <p>This content is highlighted.</p>\n</div>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"highlight\">\n  &#x3C;p>This content is highlighted.&#x3C;/p>\n&#x3C;/div>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "body {\n  background-color: lightgray;\n}\n\n.highlight {\n  background-color: yellow;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">body {\n  background-color: lightgray;\n}\n\n.highlight {\n  background-color: yellow;\n}\n</code></pre>"
+        },
+        {
+          "contents": "const highlightEl = document.querySelector(\".highlight\");\nconsole.log(highlightEl);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const highlightEl = document.querySelector(\".highlight\");\nconsole.log(highlightEl);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pia pronađi druge načine za poređenje mnogo stvari, kao što su <code>getElementsByClassName()</code> i <code>querySelectorAll()</code>. Naučićete više o ovome u narednim lekcijama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste razumeli kako da koristite API za mrežu i efikasno kontrolišete DOM, možete kreirati moćne i interoperabilne mrežne aplikacije.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koje je značenje dokumenta Object Model (DOM)?</p>",
+      "answers": [
+        {
+          "answer": "<p>Programski jezik koji se koristi za razvoj mreže.</p>",
+          "feedback": "<p>Zamislite kako DOM predstavlja strukturu dokumenta HTML.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kolekcija stilova za CSS.</p>",
+          "feedback": "<p>Zamislite kako DOM predstavlja strukturu dokumenta HTML.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uwawakilishi wa mti wa hati ya HTML.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Način za kreiranje dinamičkih veb stranica.</p>",
+          "feedback": "<p>Razmislite o tome kako DOM predstavlja strukturu HTML dokumenta.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koji način od ovih se može koristiti da bi se dobio element koristeći njegov ID u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>getElementById()</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>getElementsByClassName()</code></p>",
+          "feedback": "<p>Razmislite kako da ciljate specifičnu komponentu koristeći njen jedinstveni identifikator.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>querySelectorAll()</code></p>",
+          "feedback": "<p>Razmislite kako da ciljate na specifičan element koristeći njegov jedinstveni identifikator.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>createElement()</code></p>",
+          "feedback": "<p>Razmislite kako da ciljate specifičnu komponentu koristeći njen jedinstveni identifikator.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja je glavna svrha putanje za <code>querySelector()</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kreiranje nove karakteristike u DOM.</p>",
+          "feedback": "<p>Razmislite kako <code>querySelector()</code> se koristi za ciljanje elementa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izaberite funkciju prema selektoru CSS.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izmena sadržaja postojećeg elementa.</p>",
+          "feedback": "<p>Razmislite o tome kako se <code>querySelector()</code> koristi za ciljanje elementa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uklonite element iz DOM.</p>",
+          "feedback": "<p>Zamislite kako <code>querySelector()</code> se koristi da cilja na element.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

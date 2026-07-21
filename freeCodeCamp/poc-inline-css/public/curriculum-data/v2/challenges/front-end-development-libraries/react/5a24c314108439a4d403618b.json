@@ -1,0 +1,99 @@
+{
+  "id": "5a24c314108439a4d403618b",
+  "title": "Pružiti jedinstvenu karakteristiku oznake za srodne elemente",
+  "challengeType": 6,
+  "forumTopicId": 301394,
+  "dashedName": "give-sibling-elements-a-unique-key-attribute",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "const frontEndFrameworks = [\n  'React',\n  'Angular',\n  'Ember',\n  'Knockout',\n  'Backbone',\n  'Vue'\n];\n\nfunction Frameworks() {\n  const renderFrameworks = null; // Change this line\n  return (\n    <div>\n      <h1>Popular Front-End JavaScript Frameworks</h1>\n      <ul>\n        {renderFrameworks}\n      </ul>\n    </div>\n  );\n};",
+      "error": null,
+      "seed": "const frontEndFrameworks = [\n  'React',\n  'Angular',\n  'Ember',\n  'Knockout',\n  'Backbone',\n  'Vue'\n];\n\nfunction Frameworks() {\n  const renderFrameworks = null; // Change this line\n  return (\n    <div>\n      <h1>Popular Front-End JavaScript Frameworks</h1>\n      <ul>\n        {renderFrameworks}\n      </ul>\n    </div>\n  );\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const frontEndFrameworks = [\n  'React',\n  'Angular',\n  'Ember',\n  'Knockout',\n  'Backbone',\n  'Vue'\n];\n\nfunction Frameworks() {\n  const renderFrameworks = frontEndFrameworks.map((fw, i) => <li key={i}>{fw}</li>);\n  return (\n    <div>\n      <h1>Popular Front-End JavaScript Frameworks</h1>\n      <ul>\n        {renderFrameworks}\n      </ul>\n    </div>\n  );\n};",
+        "error": null,
+        "seed": "const frontEndFrameworks = [\n  'React',\n  'Angular',\n  'Ember',\n  'Knockout',\n  'Backbone',\n  'Vue'\n];\n\nfunction Frameworks() {\n  const renderFrameworks = frontEndFrameworks.map((fw, i) => <li key={i}>{fw}</li>);\n  return (\n    <div>\n      <h1>Popular Front-End JavaScript Frameworks</h1>\n      <ul>\n        {renderFrameworks}\n      </ul>\n    </div>\n  );\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Sekcija od <code>Frameworks</code> mora da postoji kako bi se prikazala na stranici.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(Frameworks)).find('Frameworks').length === 1\n);"
+    },
+    {
+      "text": "<p><code>Frameworks</code> treba da prikaže element <code>h1</code>.</p>",
+      "testString": "assert(Enzyme.mount(React.createElement(Frameworks)).find('h1').length === 1);"
+    },
+    {
+      "text": "<p><code>Frameworks</code> trebalo bi da prikaže funkciju od <code>ul</code>.</p>",
+      "testString": "assert(Enzyme.mount(React.createElement(Frameworks)).find('ul').length === 1);"
+    },
+    {
+      "text": "<p>Element <code>ul</code> treba da sadrži 6 podređenih elemenata <code>li</code>.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(Frameworks)).find('ul').children().length ===\n    6 &&\n    Enzyme.mount(React.createElement(Frameworks))\n      .find('ul')\n      .childAt(0)\n      .name() === 'li' &&\n    Enzyme.mount(React.createElement(Frameworks)).find('li').length === 6\n);"
+    },
+    {
+      "text": "<p>Svaki element liste mora imati jedinstveno svojstvo <code>key</code>.</p>",
+      "testString": "assert(\n  (() => {\n    const ul = Enzyme.mount(React.createElement(Frameworks)).find('ul');\n    const keys = new Set([\n      ul.childAt(0).key(),\n      ul.childAt(1).key(),\n      ul.childAt(2).key(),\n      ul.childAt(3).key(),\n      ul.childAt(4).key(),\n      ul.childAt(5).key()\n    ]);\n    return keys.size === 6;\n  })()\n);"
+    },
+    {
+      "text": "<p>Svaki element liste mora imati tekst iz <code>frontEndFrameworks</code>.</p>",
+      "testString": "assert(\n  (() => {\n    const li = Enzyme.mount(React.createElement(Frameworks))\n      .find('ul')\n      .children();\n    return [...Array(5)].every((_, i) =>\n      frontEndFrameworks.includes(li.at(i).text())\n    );\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prethodni izazov pokazao je kako se metoda <code>map</code> koristi za dinamičko prikazivanje više elemenata na osnovu korisničkog unosa. Međutim, nedostajao je jedan važan deo. Kada kreiraš niz elemenata, svaki mora imati jedinstveno svojstvo <code>key</code>. React koristi ove ključeve da prati koji su elementi dodati, izmenjeni ili uklonjeni. To čini ponovno renderovanje efikasnijim kada se lista promeni.</p>\n<p><strong>Napomena:</strong> Ključevi bi trebalo da budu jedinstveni samo među srodnim elementima, ne moraju biti globalno jedinstveni u vašoj aplikaciji.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Uređivač koda sadrži niz front-end okvira i funkcionalnu komponentu bez stanja pod nazivom <code>Frameworks()</code>. Komponenta <code>Frameworks()</code> treba da mapira niz u neuređenu listu, kao u prethodnom izazovu. Dovrši poziv metode <code>map</code> tako da vrati element <code>li</code> za svaki okvir iz niza <code>frontEndFrameworks</code>. Ovog puta obavezno svakom elementu <code>li</code> dodeli jedinstveno svojstvo <code>key</code>. Elementi <code>li</code> takođe treba da sadrže tekst iz niza <code>frontEndFrameworks</code>.</p>\n<p>Obično želite da ključevi postanu nešto što jedinstveno identifikuje prikazani element. Kao poslednje sredstvo, može se koristiti model reda, ali obično biste trebali pokušati da koristite jedinstveni identifikator.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 44,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

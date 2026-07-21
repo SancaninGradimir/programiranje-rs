@@ -1,0 +1,70 @@
+{
+  "id": "68ca758f8160b11757f877ae",
+  "title": "Korak 32",
+  "challengeType": 20,
+  "dashedName": "step-32",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        42,
+        44
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        if hasattr(self, '_level') and new_level == self.level:\n            raise ValueError(f\"'{self.level}' is already the selected level.\")\n        \n        self._level = new_level\n    \n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        if hasattr(self, '_level') and new_level == self.level:\n            raise ValueError(f\"'{self.level}' is already the selected level.\")\n        \n        self._level = new_level\n    \n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš četvrti deo <code>if</code> unutar tvog <code>level</code> setača (setter).</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[3]`)) })"
+    },
+    {
+      "text": "<p>Vaše korišćenje od <code>if</code> trebalo bi da koristi <code>hasattr(self, '_level')</code> da proveri da li <code>_level</code> postoji pre poređenja.</p>",
+      "testString": "({ test: () => assert(runPython(`\"hasattr(self, '_level')\" in str(_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[3].find_conditions()[0])`)) })"
+    },
+    {
+      "text": "<p>Vaša vrednost za <code>if</code> treba da uporedi <code>Employee._base_salaries[new_level]</code> sa <code>Employee._base_salaries[self.level]</code> ili proveriti da li je novi nivo manji osnovne plate.</p>",
+      "testString": "({ test: () => assert(runPython(`\ncond = _Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[3].find_conditions()[0]\ncond.is_equivalent(\"hasattr(self, '_level') and Employee._base_salaries[new_level] < Employee._base_salaries[self.level]\") or cond.is_equivalent(\"hasattr(self, '_level') and Employee._base_salaries[self.level] > Employee._base_salaries[new_level]\")\n`)) })"
+    },
+    {
+      "text": "<p>Kada <code>new_level</code> je niže od <code>self.level</code>, treba da podigneš <code>ValueError</code> i poruku <code>Cannot change to lower level.</code></p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'junior')\n  try:\n    emp.level = \"trainee\"\n  except ValueError as e:\n    assert str(e) == \"Cannot change to lower level.\"\n  else:\n      assert False, \"Expected to raise ValueError with invalid new_level\"\n`) })"
+    },
+    {
+      "text": "<p>Ne možete uzrokovati grešku kada <code>new_level</code> je veće od <code>self.level</code>.</p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'junior')\n  try:\n    emp.level = \"senior\"\n  except Exception:\n    assert False, \"Expected not to raise exception with valid new_level\"\n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Na kraju, kreiraj četvrti izraz <code>if</code> koji povećava <code>ValueError</code> za <code>Cannot change to lower level.</code> kada je osnovna plata nove stope niža od osnovne plate trenutne stope.</p>\n<p>Koristi <code>hasattr(self, '_level')</code> da izbegneš <code>AttributeError</code> tokom inicijalizacije.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 31,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

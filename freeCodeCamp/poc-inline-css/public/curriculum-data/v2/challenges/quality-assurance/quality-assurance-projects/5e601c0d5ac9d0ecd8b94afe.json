@@ -1,0 +1,73 @@
+{
+  "id": "5e601c0d5ac9d0ecd8b94afe",
+  "title": "Prevodilac američkog i britanskog engleskog",
+  "challengeType": 4,
+  "forumTopicId": 462358,
+  "dashedName": "american-british-translator",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Unapaswa kutoa mradi wako mwenyewe, si URL ya mfano.</p>",
+      "testString": "  assert(\n    !/.*\\/american-british-translator\\.freecodecamp\\.rocks/.test(\n      code\n    )\n  );"
+    },
+    {
+      "text": "<p>Unaweza <code>POST</code> kwa <code>/api/translate</code> ukiwa na mwili unaojumuisha <code>text</code> na maandishi ya kutafsiri na <code>locale</code> ikiwa ni <code>american-to-british</code> au <code>british-to-american</code>. Kitu kilichorejeshwa kinapaswa kujumuisha <code>text</code> na <code>translation</code> zilizo wasilishwa pamoja na maandishi yaliyotafsiriwa.</p>",
+      "testString": "  try {\n    const text = 'Mangoes are my favorite fruit.';\n    const locale = 'american-to-british';\n    const output = {\n      text: 'Mangoes are my favorite fruit.',\n      translation:\n        'Mangoes are my <span class=\"highlight\">favourite</span> fruit.'\n    };\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'text');\n    assert.property(parsed, 'translation');\n    assert.deepEqual(parsed, output);\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Njia ya <code>/api/translate</code> inapaswa kushughulikia jinsi wakati unavyoandikwa katika Kiingereza cha Marekani na Uingereza. Kwa mfano, saa kumi na thelathini inaandikwa kama \"10.30\" katika Kiingereza cha Uingereza na \"10:30\" katika Kiingereza cha Marekani. Kipengele cha <code>span</code> kinapaswa kufunika mfuatano mzima wa wakati, yaani <code>&#x3C;span class=\"highlight\">10:30&#x3C;/span></code>.</p>",
+      "testString": "  try {\n    const text = 'Lunch is at 12:15 today.';\n    const locale = 'american-to-british';\n    const output = {\n      text: text,\n      translation: 'Lunch is at <span class=\"highlight\">12.15</span> today.'\n    };\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'text');\n    assert.property(parsed, 'translation');\n    assert.deepEqual(parsed, output);\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Metoda <code>/api/translate</code> takođe treba da obrađuje kako se titule/honorifikovi skraćuju u američkom i britanskom engleskom jeziku. Na primer, Doktor Wright se skraćuje u \"Dr Wright\" u britanskom engleskom i \"Dr. Wright\" u američkom engleskom. Pogledajte <code>/components/american-to-british-titles.js</code> za različite titule koje vaš program treba da obrađuje.</p>",
+      "testString": "  try {\n    const text = 'Dr. Grosh will see you now.';\n    const locale = 'american-to-british';\n    const output = {\n      text: text,\n      translation: '<span class=\"highlight\">Dr</span> Grosh will see you now.'\n    };\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'text');\n    assert.property(parsed, 'translation');\n    assert.deepEqual(parsed, output);\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Zaokruži slova ili reči prevedene sa oznakama <code>&#x3C;span class=\"highlight\">...&#x3C;/span></code> ili koje su u zelenoj boji.</p>",
+      "testString": "  try {\n    const text = 'Mangoes are my favorite fruit.';\n    const locale = 'american-to-british';\n    const output = {\n      text: 'Mangoes are my favorite fruit.',\n      translation:\n        'Mangoes are my <span class=\"highlight\">favourite</span> fruit.'\n    };\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'text');\n    assert.property(parsed, 'translation');\n    assert.deepEqual(parsed, output);\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Ako nedostaje jedna ili više potrebnih komponenti, vratite <code>{ error: 'Required field(s) missing' }</code>.</p>",
+      "testString": "  try {\n    const locale = 'american-to-british';\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'error');\n    assert.equal(parsed.error, 'Required field(s) missing');\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Ako je <code>text</code> prazno, vrati <code>{ error: 'No text to translate' }</code></p>",
+      "testString": "  try {\n    const locale = 'american-to-british';\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text: '', locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'error');\n    assert.equal(parsed.error, 'No text to translate');\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Kama <code>locale</code> ne odgovara nijednom od navedenih dva područja, vratite <code>{ error: 'Invalid value for locale field' }</code>.</p>",
+      "testString": "  try {\n    const text = \"Ceci n'est pas une pipe\";\n    const locale = 'french-to-american';\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.property(parsed, 'error');\n    assert.equal(parsed.error, 'Invalid value for locale field');\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Ako <code>text</code> ne zahteva nikakav prevod, vrati <code>\"Everything looks good to me!\"</code> na vrednost <code>translation</code>.</p>",
+      "testString": "  try {\n    const locale = 'british-to-american';\n    const output = {\n      text: 'SaintPeter and nhcarrigan give their regards!',\n      translation: 'Everything looks good to me!'\n    };\n    let data = await fetch(code + '/api/translate', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ text: output.text, locale })\n    });\n    let parsed = await data.json();\n    assert.isObject(parsed);\n    assert.isObject(parsed);\n    assert.property(parsed, 'text');\n    assert.property(parsed, 'translation');\n    assert.deepEqual(parsed, output);\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Sva 24 testa jedinice su završena i prošla.</p>",
+      "testString": "  try {\n    const response = await fetch(code + '/_api/get-tests');\n    if (!response.ok) {\n      throw Error(await response.text());\n    }\n    const getTests = await response.json();\n    assert.isArray(getTests);\n    const unitTests = getTests.filter((test) => {\n      return !!test.context.match(/Unit Tests/gi);\n    });\n    assert.isAtLeast(unitTests.length, 24, 'At least 24 tests passed');\n    unitTests.forEach((test) => {\n      assert.equal(test.state, 'passed', 'Tests in Passed State');\n      assert.isAtLeast(\n        test.assertions.length,\n        1,\n        'At least one assertion per test'\n      );\n    });\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    },
+    {
+      "text": "<p>Svi šest testova performansi je završeno i uspešno prošlo.</p>",
+      "testString": "  try {\n    const response = await fetch(code + '/_api/get-tests');\n    if (!response.ok) {\n      throw Error(await response.text());\n    }\n    const getTests = await response.json();\n    assert.isArray(getTests);\n    const functTests = getTests.filter((test) => {\n      return !!test.context.match(/Functional Tests/gi);\n    });\n    assert.isAtLeast(functTests.length, 6, 'At least 6 tests passed');\n    functTests.forEach((test) => {\n      assert.equal(test.state, 'passed', 'Tests in Passed State');\n      assert.isAtLeast(\n        test.assertions.length,\n        1,\n        'At least one assertion per test'\n      );\n    });\n  } catch (err) {\n    throw new Error(err.responseText || err.message);\n  }"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Izgradite JavaScript full-stack aplikaciju koja funkcionalno odgovara ovom: <a href=\"https://american-british-translator.freecodecamp.rocks/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">https://american-british-translator.freecodecamp.rocks/</a>. Rad na ovom projektu će zahtevati da napišete svoj kod koristeći jednu od sledećih metoda:</p>\n<ul>\n<li>Kopiraj <a href=\"https://github.com/freeCodeCamp/boilerplate-project-american-british-english-translator/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ovaj repozitorijum od GitHub</a> i završi svoj projekat interno.</li>\n<li>Koristi omiljeni alat za izradu sajtova da završiš projekat. Proveri da si uključio sve fajlove iz našeg repozitorijuma GitHub.</li>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<ul>\n<li>Mantiki yote inaweza kuwekwa ndani ya <code>/components/translator.js</code></li>\n<li>Kamilisha njia ya <code>/api/translate</code> katika <code>/routes/api.js</code></li>\n<li>Unda majaribio yote ya kitengo/utendaji katika <code>tests/1_unit-tests.js</code> na <code>tests/2_functional-tests.js</code></li>\n<li>Tazama mafaili ya JavaScript katika <code>/components</code> kwa herufi na maneno tofauti ambayo programu yako inapaswa kutafsiri</li>\n<li>Ili kuendesha majaribio moja kwa moja, weka <code>NODE_ENV</code> kuwa <code>test</code> bila nukuu katika faili la <code>.env</code></li>\n<li>Ili kuendesha majaribio kwenye konsoli, tumia amri <code>npm run test</code>.</li>\n</ul>\n<p>Napišite sledeće eksperimente u <code>tests/1_unit-tests.js</code>:</p>\n<ul>\n<li>Tafsiri <code>Mangoes are my favorite fruit.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>I ate yogurt for breakfast.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>We had a party at my friend's condo.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>Can you toss this in the trashcan for me?</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>The parking lot was full.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>Like a high tech Rube Goldberg machine.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>To play hooky means to skip class or work.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>No Mr. Bond, I expect you to die.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>Dr. Grosh will see you now.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>Lunch is at 12:15 today.</code> kuwa Kiingereza cha Uingereza</li>\n<li>Tafsiri <code>We watched the footie match for a while.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>Paracetamol takes up to an hour to work.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>First, caramelise the onions.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>I spent the bank holiday at the funfair.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>I had a bicky then went to the chippy.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>I've just got bits and bobs in my bum bag.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>The car boot sale at Boxted Airfield was called off.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>Have you met Mrs Kalyani?</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>Prof Joyner of King's College, London.</code> kuwa Kiingereza cha Marekani</li>\n<li>Tafsiri <code>Tea time is usually around 4 or 4.30.</code> kuwa Kiingereza cha Marekani</li>\n<li>Angazia tafsiri katika <code>Mangoes are my favorite fruit.</code></li>\n<li>Angazia tafsiri katika <code>I ate yogurt for breakfast.</code></li>\n<li>Angazia tafsiri katika <code>We watched the footie match for a while.</code></li>\n<li>Angazia tafsiri katika <code>Paracetamol takes up to an hour to work.</code></li>\n</ul>\n<p>Andika majaribio yafuatayo katika <code>tests/2_functional-tests.js</code>:</p>\n<ul>\n<li>Prevod, tekstualno polje i oblast: ombi la POST kwa <code>/api/translate</code></li>\n<li>Prevod, tekstualno polje i neispravna lokacija: ombi la POST kwa <code>/api/translate</code></li>\n<li>Prevod i nedostajuće tekstualno polje: ombi la POST kwa <code>/api/translate</code></li>\n<li>Prevod i nedostajuće polje lokacije: ombi la POST kwa <code>/api/translate</code></li>\n<li>Prevod i prazan tekst: ombi la POST kwa <code>/api/translate</code></li>\n<li>Prevod i tekst koji ne zahteva prevod: ombi la POST kwa <code>/api/translate</code></li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "quality-assurance-projects",
+  "blockLayout": "project-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

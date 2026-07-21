@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc8014",
+  "title": "Utulivu wa kupanga",
+  "challengeType": 1,
+  "forumTopicId": 302308,
+  "dashedName": "sort-stability",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function stableSort(arr) {\n\n}",
+      "error": null,
+      "seed": "function stableSort(arr) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function stableSort(arr) {\n  arr.sort(function(a, b) {\n    return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0;\n  });\n  return arr;\n}",
+        "error": null,
+        "seed": "function stableSort(arr) {\n  arr.sort(function(a, b) {\n    return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0;\n  });\n  return arr;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>stableSort</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof stableSort == 'function');"
+    },
+    {
+      "text": "<p><code>stableSort([[\"UK\", \"London\"], [\"US\", \"New York\"], [\"US\", \"Birmingham\"], [\"UK\", \"Birmingham\"]])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(\n  Array.isArray(\n    stableSort([\n      ['UK', 'London'],\n      ['US', 'New York'],\n      ['US', 'Birmingham'],\n      ['UK', 'Birmingham']\n    ])\n  )\n);"
+    },
+    {
+      "text": "<p><code>stableSort([[\"UK\", \"London\"], [\"US\", \"New York\"], [\"US\", \"Birmingham\"], [\"UK\", \"Birmingham\"]])</code> inapaswa kurudisha <code>[[\"US\", \"Birmingham\"], [\"UK\", \"Birmingham\"], [\"UK\", \"London\"], [\"US\", \"New York\"]]</code>.</p>",
+      "testString": "assert.deepEqual(\n  stableSort([\n    ['UK', 'London'],\n    ['US', 'New York'],\n    ['US', 'Birmingham'],\n    ['UK', 'Birmingham']\n  ]),\n  [\n    ['US', 'Birmingham'],\n    ['UK', 'Birmingham'],\n    ['UK', 'London'],\n    ['US', 'New York']\n  ]\n);"
+    },
+    {
+      "text": "<p><code>stableSort([[2, 2], [1, 2], [1, 4], [1, 5]])</code> treba da vrati <code>[[2, 2], [1, 2], [1, 4], [1, 5]]</code>.</p>",
+      "testString": "assert.deepEqual(\n  stableSort([\n    [2, 2],\n    [1, 2],\n    [1, 4],\n    [1, 5]\n  ]),\n  [\n    [2, 2],\n    [1, 2],\n    [1, 4],\n    [1, 5]\n  ]\n);"
+    },
+    {
+      "text": "<p><code>stableSort([[11, 55], [12, 45], [11, 45], [32, 45]])</code> inapaswa kurudisha <code>[[12, 45], [11, 45], [32, 45], [11, 55]]</code>.</p>",
+      "testString": "assert.deepEqual(\n  stableSort([\n    [11, 55],\n    [12, 45],\n    [11, 45],\n    [32, 45]\n  ]),\n  [\n    [12, 45],\n    [11, 45],\n    [32, 45],\n    [11, 55]\n  ]\n);"
+    },
+    {
+      "text": "<p><code>stableSort([[10, 22], [1, 2], [1, 4], [1, 5], [10, 9]])</code> inapaswa kurudisha <code>[[1, 2], [1, 4], [1, 5], [10, 9], [10, 22]]</code>.</p>",
+      "testString": "assert.deepEqual(\n  stableSort([\n    [10, 22],\n    [1, 2],\n    [1, 4],\n    [1, 5],\n    [10, 9]\n  ]),\n  [\n    [1, 2],\n    [1, 4],\n    [1, 5],\n    [10, 9],\n    [10, 22]\n  ]\n);"
+    },
+    {
+      "text": "<p><code>stableSort([[55, 54], [12, 22], [31, 43], [31, 54], [10, 49]])</code> treba da vrati <code>[[12, 22], [31, 43], [10, 49], [55, 54], [31, 54]]</code>.</p>",
+      "testString": "assert.deepEqual(\n  stableSort([\n    [55, 54],\n    [12, 22],\n    [31, 43],\n    [31, 54],\n    [10, 49]\n  ]),\n  [\n    [12, 22],\n    [31, 43],\n    [10, 49],\n    [55, 54],\n    [31, 54]\n  ]\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada sortiraš zapise u tabeli po određenoj koloni ili polju, stabilno sortiranje (stable sort) uvek čuva redosled zapisa koji imaju isti ključ.</p>\n<p>Na primer, u ovoj tabeli sa državama i gradovima, stabilno sortiranje po drugoj koloni, gradu, će zadržati Birmingham iz Amerike iznad Birminghama iz Engleske. (Iako nasumično sortiranje <em>može</em>, u ovom slučaju, postavljanje Birminghama iz Amerike iznad Birminghama iz Engleske, stabilan algoritam sortiranja to garantuje).</p>\n<pre>UK  London\nUS  New York\nUS  Birmingham\nUK  Birmingham\n</pre>\n<p>Isto tako, stabilno sortiranje samo po prvoj koloni daće \"UK London\" kao prvi element i \"US Birmingham\" kao poslednji (zato što će redosled elemenata sa istom prvom rečju – \"UK\" ili \"US\" – ostati nepromenjen).</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja prima niz podataka sa dve dimenzije kao parametar. Svaki element ima dva sastava, kao što je prikazano u gornjem primeru. Funkcija treba da sortira niz podataka kako je prethodno opisano i vrati sortirani niz.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 118,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

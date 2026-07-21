@@ -1,0 +1,99 @@
+{
+  "id": "66f686b8ebdb982fa8e14330",
+  "title": "Napravi program za konverziju datuma",
+  "challengeType": 26,
+  "dashedName": "lab-date-conversion",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const currentDate = new Date();\r\nconst currentDateFormat = `Current Date and Time: ${currentDate}`; \r\nconsole.log(currentDateFormat);\r\n\r\nfunction formatDateMMDDYYYY(date) {\r\n  const month = date.getMonth() + 1;\r\n  const day = date.getDate();\r\n  const year = date.getFullYear();\r\n  return `Formatted Date (MM/DD/YYYY): ${month}/${day}/${year}`;\r\n}\r\n\r\nfunction formatDateLong(date) {\r\n  const longDateFormat =  date.toLocaleDateString('en-US', {\r\n    year: 'numeric',\r\n    month: 'long',\r\n    day: 'numeric'\r\n  });\r\n  return `Formatted Date (Month Day, Year): ${longDateFormat}`;\r\n}\r\n\r\n// usage\r\nconsole.log(formatDateMMDDYYYY(currentDate));\r\nconsole.log(formatDateLong(currentDate));\r\n",
+        "error": null,
+        "seed": "const currentDate = new Date();\r\nconst currentDateFormat = `Current Date and Time: ${currentDate}`; \r\nconsole.log(currentDateFormat);\r\n\r\nfunction formatDateMMDDYYYY(date) {\r\n  const month = date.getMonth() + 1;\r\n  const day = date.getDate();\r\n  const year = date.getFullYear();\r\n  return `Formatted Date (MM/DD/YYYY): ${month}/${day}/${year}`;\r\n}\r\n\r\nfunction formatDateLong(date) {\r\n  const longDateFormat =  date.toLocaleDateString('en-US', {\r\n    year: 'numeric',\r\n    month: 'long',\r\n    day: 'numeric'\r\n  });\r\n  return `Formatted Date (Month Day, Year): ${longDateFormat}`;\r\n}\r\n\r\n// usage\r\nconsole.log(formatDateMMDDYYYY(currentDate));\r\nconsole.log(formatDateLong(currentDate));\r\n"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš parametar nazvan <code>currentDate</code> koji drži trenutni datum i vreme koristeći <code>Date</code>.</p>",
+      "testString": "// excluded timestamps\r\nconst expectedDate = new Date();\r\nconst expectedDateOnly = new Date(expectedDate.getFullYear(), expectedDate.getMonth(), expectedDate.getDate());\r\n\r\nconst currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());\r\n\r\nassert.equal(currentDateOnly.toString(), expectedDateOnly.toString());"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš parametar nazvan <code>currentDateFormat</code> koji drži trenutni datum u formatu <code>Current Date and Time: &#x3C;ddd> &#x3C;MMM> &#x3C;dd> &#x3C;yyyy> &#x3C;HH>:&#x3C;mm>:&#x3C;ss> &#x3C;TIMEZONE></code>.</p>",
+      "testString": "const expectedDateString = `Current Date and Time: `;\r\nassert.include(currentDateFormat, expectedDateString);\r\n\r\nconst currentTimestamp = new Date(currentDateFormat.replace(expectedDateString, '')).getTime();\r\nconst expectedTimestamp = new Date().getTime();\r\nassert.approximately(currentTimestamp, expectedTimestamp, 2000);"
+    },
+    {
+      "text": "<p>Trebalo bi da napišete vrednost <code>currentDateFormat</code> u konzoli.</p>",
+      "testString": "assert.match(code, /console\\.log\\(\\s*currentDateFormat\\s*\\)/);"
+    },
+    {
+      "text": "<p>Trebalo bi da imate funkciju <code>formatDateMMDDYYYY</code></p>",
+      "testString": "assert.isFunction(formatDateMMDDYYYY);"
+    },
+    {
+      "text": "<p>Funkcija <code>formatDateMMDDYYYY</code> treba da primi jedan parametar.</p>",
+      "testString": "assert.lengthOf(formatDateMMDDYYYY, 1);"
+    },
+    {
+      "text": "<p>Kada element datuma sadrži <code>Fri Sep 27 2024 16:16:11 GMT+0500 (Pakistan Standard Time)</code>, funkcija <code>formatDateMMDDYYYY</code> treba da vrati <code>Formatted Date (MM/DD/YYYY): 9/27/2024</code>.</p>",
+      "testString": "let dateString = \"Fri Sep 27 2024 16:21:18 GMT+0500 (Pakistan Standard Time)\";\r\nlet dateObject = new Date(dateString);\r\n\r\nassert.equal(formatDateMMDDYYYY(dateObject).toString(), \"Formatted Date (MM/DD/YYYY): 9/27/2024\");\r\n\r\n// prevent hardcoding\r\n\r\ndateString = \"Fri Sep 28 2024 18:31:18 GMT+0500 (Pakistan Standard Time)\";\r\ndateObject = new Date(dateString);\r\n\r\nassert.strictEqual(formatDateMMDDYYYY(dateObject).toString(), \"Formatted Date (MM/DD/YYYY): 9/28/2024\");"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš funkciju <code>formatDateLong</code></p>",
+      "testString": "assert.isFunction(formatDateLong);"
+    },
+    {
+      "text": "<p>Funkcija <code>formatDateLong</code> mora da primi jedan parametar.</p>",
+      "testString": "assert.lengthOf(formatDateLong, 1);"
+    },
+    {
+      "text": "<p>Kada datumski objekat sadrži <code>Fri Sep 27 2024 16:16:11 GMT+0500 (Pakistan Standard Time)</code>, funkcija <code>formatDateLong</code> treba da vrati <code>Formatted Date (Month Day, Year): September 27, 2024</code>.</p>",
+      "testString": "let testDate = new Date('Fri Sep 27 2024 16:21:18 GMT+0500 (Pakistan Standard Time)');\r\nlet result = formatDateLong(testDate);\r\n\r\nassert.strictEqual(result,'Formatted Date (Month Day, Year): September 27, 2024', `Test failed: ${result}`); \r\n\r\n// prevent hardcoding\r\n\r\ntestDate = new Date('Fri Sep 28 2024 18:31:18 GMT+0500 (Pakistan Standard Time)');\r\nresult = formatDateLong(testDate);\r\nassert.strictEqual(result, 'Formatted Date (Month Day, Year): September 28, 2024'); "
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovom laboratoriju, ćete napisati kod programa za konverziju datuma koji pretvara zadani datum u različite formate. Na primer, današnji datum <code>Fri Sep 27 2024 16:04:43 GMT+0500 (Pakistan Standard Time)</code> će biti formatiran na sledeće dva načina:</p>\n<ul>\n<li><code>(MM/DD/YYYY): 9/27/2024</code>.</li>\n<li><code>(Month Day, Year): September 27, 2024</code>.</li>\n</ul>\n<p><strong>Cilj:</strong> Popunite korisničke priče navedene ispod i prođite sve testove da biste završili laboratoriju.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Trebalo bi da kreirate parametar nazvan <code>currentDate</code> i postavite mu vrednost na trenutni datum i vreme koristeći objekat od <code>Date</code>.</li>\n<li>Trebalo bi da kreirate parametar nazvan <code>currentDateFormat</code> i postavite mu vrednost na niz znakova <code>Current Date and Time: [current date]</code>. Izmenite <code>[current date]</code> sa rezultatom parametra <code>currentDate</code>.</li>\n<li>Trebalo bi da ispišete vrednost <code>currentDateFormat</code> u konzolu.</li>\n<li>Trebalo bi da kreirate funkciju nazvanu <code>formatDateMMDDYYYY</code> koja prima datumski objekat kao argument. Možete se na ovaj parametar pozvati bilo kojim imenom koje želite.</li>\n<li>Vaša funkcija <code>formatDateMMDDYYYY</code> treba da konvertuje trenutni datum u format <code>month/day/year</code> i vrati niz znakova <code>Formatted Date (MM/DD/YYYY): [month]/[day]/[year]</code>.</li>\n<li>Trebalo bi da kreirate funkciju nazvanu <code>formatDateLong</code> koja prima datumski objekat kao argument.</li>\n<li>Vaša funkcija <code>formatDateLong</code> treba da konvertuje trenutni datum u format <code>Month Day, Year</code> i vrati niz znakova <code>Formatted Date (Month Day, Year): [formatted date]</code>.</li>\n</ol>\n<p><strong>Napomena:</strong> Da bi mere bile tačne, uverite se da koristite <code>en-US</code> kao jezično područje prilikom zakazivanja datuma.</p>\n</section>",
+  "translationPending": false,
+  "block": "lab-date-conversion",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 157,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-dates",
+  "certification": "javascript-v9"
+}

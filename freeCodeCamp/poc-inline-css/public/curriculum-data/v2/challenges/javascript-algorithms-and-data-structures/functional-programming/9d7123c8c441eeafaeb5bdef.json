@@ -1,0 +1,77 @@
+{
+  "id": "9d7123c8c441eeafaeb5bdef",
+  "title": "Ukloni elemente iz niza podataka koristeći `slice` umesto `splice`",
+  "challengeType": 1,
+  "forumTopicId": 301236,
+  "dashedName": "remove-elements-from-an-array-using-slice-instead-of-splice",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function nonMutatingSplice(cities) {\r\n\r\n  return cities.splice(3);\r\n}",
+      "error": null,
+      "seed": "function nonMutatingSplice(cities) {\r\n\r\n  return cities.splice(3);\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function nonMutatingSplice(cities) {\r\n  return cities.slice(0,3);\r\n}",
+        "error": null,
+        "seed": "function nonMutatingSplice(cities) {\r\n  return cities.slice(0,3);\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoj kod bi trebalo da koristi metod <code>slice</code>.</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/\\.slice/g));"
+    },
+    {
+      "text": "<p>Vaš kod ne bi trebalo da koristi metodu <code>splice</code>.</p>",
+      "testString": "assert(!__helpers.removeJSComments(code).match(/\\.?[\\s\\S]*?splice/g));"
+    },
+    {
+      "text": "<p>Ne smete da menjate početni red koji je poslat funkciji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    const _inputCities = [\"Chicago\", \"Delhi\", \"Islamabad\", \"London\", \"Berlin\"];\r\n    nonMutatingSplice(_inputCities);\r\n    return (\r\n      JSON.stringify(_inputCities) ===\r\n      JSON.stringify([\"Chicago\", \"Delhi\", \"Islamabad\", \"London\", \"Berlin\"])\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>nonMutatingSplice([\"Chicago\", \"Delhi\", \"Islamabad\", \"London\", \"Berlin\"])</code> treba da vrati <code>[\"Chicago\", \"Delhi\", \"Islamabad\"]</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  nonMutatingSplice([\"Chicago\", \"Delhi\", \"Islamabad\", \"London\", \"Berlin\"]),\r\n  [\"Chicago\", \"Delhi\", \"Islamabad\"]\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada sistem koristi nizove podataka, to je kada želite da obrišete elemente i sačuvate ono što ostaje u nizu. JavaScript pruža metod <code>splice</code> za to, koji prima argumente kao početnu poziciju brisanja elemenata, a zatim broj elemenata za brisanje. Ako drugi argument nije navedeno, podrazumevano je brisanje elemenata do kraja. Međutim, metoda <code>splice</code> menja originalni niz podataka koji se poziva. Evo primera:</p>\n<pre><code class=\"language-js\">const cities = [\"Chicago\", \"Delhi\", \"Islamabad\", \"London\", \"Berlin\"];\r\ncities.splice(3, 1);\n</code></pre>\n<p>Ovde <code>splice</code> vraća sekvencu slova <code>London</code> i briše je iz liste gradova. <code>cities</code> će imati vrednost <code>[\"Chicago\", \"Delhi\", \"Islamabad\", \"Berlin\"]</code>.</p>\n<p>Kao što smo videli u prethodnom izazovu, metoda <code>slice</code> ne modifikuje originalni niz, već vraća novi niz koji se može sačuvati u varijablu. Zapamtite da metoda <code>slice</code> prima dva argumenta za početne i krajnje indekse izvlačenog dela (kraj je ekskluzivan), i vraća te elemente u novi niz. Korišćenje metode <code>slice</code> umesto <code>splice</code> pomaže u izbegavanju bilo kakvih sporednih efekata modifikovanja originalnog niza.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Ponovo napišite funkciju <code>nonMutatingSplice</code> koristeći <code>slice</code> umesto <code>splice</code>. Trebalo bi da se ograniči red podataka <code>cities</code> koji je vraćen na dužinu od 3, i da se vrati samo novi red sa prvih tri elementa.</p>\n<p>Nemojte menjati početni red/niz koji je prosleđen funkciji.</p>\n</section>",
+  "translationPending": false,
+  "block": "functional-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 7,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

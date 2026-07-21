@@ -1,0 +1,49 @@
+{
+  "id": "5895f700f9fc0f352b528e63",
+  "title": "Podesi template engine",
+  "challengeType": 2,
+  "forumTopicId": 301564,
+  "dashedName": "set-up-a-template-engine",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Pug treba da bude zavisnost.</p>",
+      "testString": "  const url = new URL(\"/_api/package.json\", code);\n  const res = await fetch(url);\n  const packJson = await res.json();\n  assert.property(\n    packJson.dependencies,\n    'pug',\n    'Your project should list \"pug\" as a dependency'\n  );"
+    },
+    {
+      "text": "<p>Engine za prikaze treba da bude Pug.</p>",
+      "testString": "  const url = new URL(\"/_api/app\", code);\n  const res = await fetch(url);\n  const app = await res.json();\n  assert.equal(app?.settings?.['view engine'], \"pug\");"
+    },
+    {
+      "text": "<p>Treba da postaviš <code>views</code> svojstvo aplikacije na <code>./views/pug</code>.</p>",
+      "testString": "  const url = new URL(\"/_api/app\", code);\n  const res = await fetch(url);\n  const app = await res.json();\n  assert.equal(app?.settings?.views, \"./views/pug\");"
+    },
+    {
+      "text": "<p>Koristi ispravan ExpressJS metod da prikažeš template stranicu iz odgovora.</p>",
+      "testString": "  const url = new URL(\"/\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n      assert.match(\n        data,\n        /FCC Advanced Node and Express/gi,\n        'You successfully rendered the Pug template!'\n      );"
+    },
+    {
+      "text": "<p>Pug treba da radi.</p>",
+      "testString": "  const url = new URL(\"/\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n      assert.match(\n        data,\n        /pug-success-message/gi,\n        'Your projects home page should now be rendered by pug with the projects .pug file unaltered'\n      );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Rad na ovim izazovima će uključivati pisanje tvog koda koristeći jedan od sledećih načina:</p>\n<ul>\n<li>Kloniraj <a href=\"https://github.com/freeCodeCamp/boilerplate-advancednode/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ovaj GitHub repo</a> i završi ove izazove lokalno.</li>\n<li>Koristi online editor koji želiš da završiš projekat. Uveri se da si uključio sve fajlove iz našeg GitHub repozitorijuma.</li>\n</ul>\n<p>Template engine ti omogućava da koristiš statičke template fajlove (poput onih napisanih u <em>Pug</em>-u) u tvojoj aplikaciji. Tokom izvršavanja, template engine zamenjuje varijable u template fajlu sa stvarnim vrednostima koje tvoj server može dostaviti. Zatim konvertuje template u statički HTML fajl koji se šalje klijentu. Ovaj pristup olakšava dizajniranje HTML stranice i omogućava prikazivanje varijabli na stranici bez potrebe za API pozivom sa klijenta.</p>\n<p><code>pug@~3.0.0</code> je već instaliran, i naveden je kao zavisnost u tvom <code>package.json</code> fajlu.</p>\n<p>Express treba da zna koji template engine koristiš. Koristi <code>set</code> metod da postaviš <code>pug</code> kao vrednost <code>view engine</code> svojstva:</p>\n<pre><code class=\"language-javascript\">app.set('view engine', 'pug');\n</code></pre>\n<p>Zatim, dodaj još jedan <code>set</code> poziv koji postavlja <code>views</code> svojstvo tvoje <code>app</code> da pokazuje na <code>./views/pug</code> direktorijum. Ovo govori Expressu da prikaže sve prikaze iz tog direktorijuma.</p>\n<p>Konačno, koristi <code>res.render()</code> u ruti tvoje početne stranice, prosleđujući <code>index</code> kao prvi argument. Ovo će prikazati Pug template.</p>\n<p>Ako je sve prošlo kako je planirano, početna stranica tvoje aplikacije više neće biti prazna. Umesto toga, prikazaće poruku koja pokazuje da si uspešno prikazao Pug template!</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#set-up-a-template-engine-1\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat koji je stigao do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

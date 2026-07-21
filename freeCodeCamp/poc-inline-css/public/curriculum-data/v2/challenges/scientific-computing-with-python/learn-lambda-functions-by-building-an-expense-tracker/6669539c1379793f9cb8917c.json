@@ -1,0 +1,67 @@
+{
+  "id": "6669539c1379793f9cb8917c",
+  "title": "Korak 5",
+  "challengeType": 20,
+  "dashedName": "step-5",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        8
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "my_list = [1, 2]\n\nmy_list.append(3)\nprint(my_list)\n\nprint(my_list[0])\n",
+      "error": null,
+      "seed": "my_list = [1, 2]\n\nmy_list.append(3)\nprint(my_list)\n\nprint(my_list[0])\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Nemojte menjati redosled liste.</p>",
+      "testString": "({\n    test: () => runPython(`\n        assert _Node(_code).find_variable('my_list').is_equivalent(\"my_list = [1, 2]\")\n    `)\n})"
+    },
+    {
+      "text": "<p>Prvi element <code>my_list</code> treba da bude 0.</p>",
+      "testString": "({\n    test: () => runPython(`\n        assert my_list[0] == 0\n    `)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da promeniš prvi deo koristeći <code>my_list[0] = 0</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).has_stmt(\"my_list[0] = 0\")\n    `)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da odštampate listu.</p>",
+      "testString": "({\n    test: () => runPython(`\n        calls = _Node(_code).find_calls('print')\n        assert any(call.is_equivalent(\"print(my_list)\") for call in calls)\n    `)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da odštampate listu nakon što promenite prvi element.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).is_ordered(\"my_list[0] = 0\", \"print(my_list)\")\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Lista za Python je dinamička, što znači da se vrednost stavki u listi može menjati. Možete promeniti vrednost elementa koristeći notaciju uglastih zagrada.</p>\n<pre><code class=\"language-py\">example_list = [4, 5, 6, 7]\nexample_list[1] = 'oh'\n</code></pre>\n<p>Ovo čini <code>example_list</code> da ima vrednost od <code>[4, 'oh', 6, 7]</code>.</p>\n<p>Promeni prvo polje od <code>my_list</code> u <code>0</code>, zatim objavi listu da provjeriš vrijednost.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-lambda-functions-by-building-an-expense-tracker",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 2,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

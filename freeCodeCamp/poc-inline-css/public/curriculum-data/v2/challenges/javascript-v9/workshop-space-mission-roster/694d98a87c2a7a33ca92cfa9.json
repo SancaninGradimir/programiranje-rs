@@ -1,0 +1,58 @@
+{
+  "id": "694d98a87c2a7a33ca92cfa9",
+  "title": "Korak 13",
+  "challengeType": 1,
+  "dashedName": "step-13",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        51,
+        53
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n}",
+      "error": null,
+      "seed": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba koristiti kolo <code>for</code> da se iterira kroz red podataka <code>updatedCrew</code> i zapis <code>name</code> za svaku instancu.</p>",
+      "testString": "const cleaned = __helpers.removeWhiteSpace(__helpers.removeJSComments(swapCrewMembers.toString())); \nconst loopAndLogRegex = /(?:for\\([^)]*updatedCrew[^)]*\\)[\\s\\S]*?console\\.log\\(|_createForOfIteratorHelper\\(updatedCrew\\)[\\s\\S]*?console\\.log\\()/;\nassert.match( cleaned, loopAndLogRegex, 'A for(...) loop over updatedCrew is required and console.log() must be inside the loop' );\n\nfunction captureConsoleLogs(fn) {\n  const originalLog = console.log;\n  const logs = [];\n\n  console.log = function (...args) {\n    logs.push(args.join(\" \"));\n  };\n\n  try {\n    fn();\n  } finally {\n    console.log = originalLog;\n  }\n\n  return logs;\n}\n\nconst sample = [\n  { name: \"A\" },\n  { name: \"B\" },\n  { name: \"C\" }\n];\n\nconst logs = captureConsoleLogs(() =>\n  swapCrewMembers(sample, 0, 2)\n);\n\nconst expectedOrder = [\"C\", \"B\", \"A\"];\n\nassert.strictEqual(\n  logs.length,\n  expectedOrder.length,\n  \"You must log each astronaut's name exactly once\"\n);\n\nassert.deepEqual(\n  logs,\n  expectedOrder,\n  \"console.log must log each astronaut's .name in order\"\n);"
+    },
+    {
+      "text": "<p>Treba da vratite red podataka za <code>updatedCrew</code> nakon snimanja njegovih imena.</p>",
+      "testString": "const sample = [\n  { name: \"A\" },\n  { name: \"B\" },\n  { name: \"C\" }\n];\nconst result = swapCrewMembers(sample, 0, 2);\nassert.isArray(result);\nassert.deepEqual(result.map(a => a.name), [\"C\", \"B\", \"A\"]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Koristite rutinu <code>for</code> da snimite <code>name</code> svakog svetla u red podataka <code>updatedCrew</code>. Nakon rutine, vratite red podataka <code>updatedCrew</code> kako biste završili svoju funkciju od <code>swapCrewMembers</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-space-mission-roster",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

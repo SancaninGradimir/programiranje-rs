@@ -1,0 +1,81 @@
+{
+  "id": "587d825b367417b2b2512c8c",
+  "title": "Izvrši sortiranje po najnižoj vrednosti",
+  "challengeType": 1,
+  "forumTopicId": 301643,
+  "dashedName": "implement-heap-sort-with-a-min-heap",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function isSorted(a){\r\n  for(let i = 0; i < a.length - 1; i++)\r\n    if(a[i] > a[i + 1])\r\n      return false;\r\n  return true;\r\n}\r\n// Generate a randomly filled array\r\nfunction createRandomArray(size = 5){\r\n  let a = new Array(size);\r\n  for(let i = 0; i < size; i++)\r\n    a[i] = Math.floor(Math.random() * 100);\r\n  \r\n  return a;\r\n}\r\nconst array = createRandomArray(25);\r\n\r\nvar MinHeap = function() {\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};",
+      "error": null,
+      "seed": "function isSorted(a){\r\n  for(let i = 0; i < a.length - 1; i++)\r\n    if(a[i] > a[i + 1])\r\n      return false;\r\n  return true;\r\n}\r\n// Generate a randomly filled array\r\nfunction createRandomArray(size = 5){\r\n  let a = new Array(size);\r\n  for(let i = 0; i < size; i++)\r\n    a[i] = Math.floor(Math.random() * 100);\r\n  \r\n  return a;\r\n}\r\nconst array = createRandomArray(25);\r\n\r\nvar MinHeap = function() {\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// solution required",
+        "error": null,
+        "seed": "// solution required"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Struktura podataka <code>MinHeap</code> mora postojati.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MinHeap !== 'undefined') {\r\n      test = new MinHeap();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>MinHeap</code> treba imati metod nazvanu <code>insert</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MinHeap !== 'undefined') {\r\n      test = new MinHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.insert == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>MinHeap</code> treba da ima putanju nazvanu <code>remove</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MinHeap !== 'undefined') {\r\n      test = new MinHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.remove == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>MinHeap</code> treba da ima metodu nazvanu <code>sort</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MinHeap !== 'undefined') {\r\n      test = new MinHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.sort == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Njia <code>sort</code> treba da vrati red sa svim dodanim elementima u najnižem steku po redosledu.</p>",
+      "testString": "assert(\r\n  (() => {\r\n    if (typeof MinHeap === 'undefined') {\r\n      return false;\r\n    }\r\n\r\n    const heap = new MinHeap();\r\n    const arr = createRandomArray(25);\r\n\r\n    for (let i of arr) {\r\n      heap.insert(i);\r\n    }\r\n\r\n    const result = heap.sort();\r\n    arr.sort((a, b) => a - b);\r\n\r\n    for (let i = 0; i < arr.length; i++) {\r\n      if (arr[i] !== result[i]) {\r\n        return false;\r\n      }\r\n    }\r\n    return true;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, kada možemo dodavati i uklanjati elemente, istražimo neke programe u kojima se mogu koristiti rondi (heapovi). Heapovi se široko koriste za implementaciju cola sa prioritetom jer uvijek čuvaju element s najvećom ili najmanjom vrijednošću na prvoj poziciji. Pored toga, koriste se za implementaciju algoritma sortiranja koji se naziva heap sort. Pokazaće nam kako to učiniti ovdje. Heap sort koristi minimum heap (minimalni rondo), što je suprotno od maximum heap-a (maksimalnog ronda). Minimalni rondo uvijek čuva element s najmanjom vrijednošću na poziciji korijena.</p>\n<p>Heap sort radi uzimanjem neorganizovanog niza podataka, dodavanjem svakog elementa u minimalni heap (min-heap), a zatim uklanjanjem svakog elementa iz tog heapa i postavljanjem ga u novi niz. Struktura minimalnog heapa osigurava da će novi niz imati elemente poređane od najmanjeg do najvećeg. Ovo je jedan od efikasnih algoritama sortiranja, sa prosečnom i najgorom performansom od O(nlog(n)).</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Implementiraj heap sort koristeći min-heap. Molimo vas da ovde promenite svoj max-heap kod. Kreirajte objekat <code>MinHeap</code> sa metodama <code>insert</code>, <code>remove</code> i <code>sort</code>. Metoda <code>sort</code> treba da vrati niz svih elemenata iz min-heap-a, sortirovanih od najmanjeg do najvećeg.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 40,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "58965611f9fc0f352b528e6c",
+  "title": "Odjava korisnika",
+  "challengeType": 2,
+  "forumTopicId": 301560,
+  "dashedName": "logging-a-user-out",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>req.logout()</code> treba da bude pozvan u tvojoj <code>/logout</code> ruti.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /req.logout/gi,\n    'You should be calling req.logout() in your /logout route'\n  );"
+    },
+    {
+      "text": "<p><code>/logout</code> treba da preusmeri na početnu stranicu.</p>",
+      "testString": "  const url = new URL(\"/logout\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /Home page/gi,\n    'When a user logs out they should be redirected to the homepage'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kreiranje logike za odjavu je jednostavno. Ruta treba samo da ukloni autentifikaciju korisnika, i preusmeri na početnu stranicu umesto da prikazuje bilo koji prikaz.</p>\n<p>U passport-u, uklanjanje autentifikacije korisnika je jednostavno kao pozivanje <code>req.logout()</code> pre preusmeravanja. Dodaj <code>/logout</code> rutu da uradi to:</p>\n<pre><code class=\"language-js\">app.route('/logout')\n  .get((req, res) => {\n    req.logout();\n    res.redirect('/');\n  });\n</code></pre>\n<p>Možda si primetio da nisi rukovao izgubljenim stranicama (404). Uobičajeni način rukovanja ovim u Node-u je korišćenjem sledećeg middleware-a. Nastavi i dodaj ovo nakon svih tvojih ruta:</p>\n<pre><code class=\"language-js\">app.use((req, res, next) => {\n  res.status(404)\n    .type('text')\n    .send('Not Found');\n});\n</code></pre>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#logging-a-user-out-10\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat koji je stigao do ovog koraka</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

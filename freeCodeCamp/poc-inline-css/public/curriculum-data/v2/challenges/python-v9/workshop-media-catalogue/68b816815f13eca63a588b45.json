@@ -1,0 +1,54 @@
+{
+  "id": "68b816815f13eca63a588b45",
+  "title": "Korak 24",
+  "challengeType": 20,
+  "dashedName": "step-24",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        3
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    \n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n\n        if seasons < 1:\n            raise ValueError('Seasons must be 1 or greater')\n        if total_episodes < 1:\n            raise ValueError('Total episodes must be 1 or greater')\n        \n        self.seasons = seasons\n        self.total_episodes = total_episodes\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.seasons} seasons, {self.total_episodes} episodes, {self.duration} min avg, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n\n    series1 = TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 182)\n    catalogue.add(series1)\n    series2 = TVSeries('Breaking Bad', 2008, 'Vince Gilligan', 47, 5, 62)\n    catalogue.add(series2)\n\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    \n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n\n        if seasons < 1:\n            raise ValueError('Seasons must be 1 or greater')\n        if total_episodes < 1:\n            raise ValueError('Total episodes must be 1 or greater')\n        \n        self.seasons = seasons\n        self.total_episodes = total_episodes\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.seasons} seasons, {self.total_episodes} episodes, {self.duration} min avg, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n\n    series1 = TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 182)\n    catalogue.add(series1)\n    series2 = TVSeries('Breaking Bad', 2008, 'Vince Gilligan', 47, 5, 62)\n    catalogue.add(series2)\n\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should add the docstring <code>Parent class representing a movie.</code> to your <code>Movie</code> class.</p>",
+      "testString": "({\n    test: () => runPython(`\n    _movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    assert _movie1.__doc__ == 'Parent class representing a movie.'\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Docstring je niz koji se postavlja kao prva izjava u klasi ili funkciji, i koristi se za pružanje dokumentacije za tu klasu ili funkciju. Docstringovi su obično zatvoreni trostrukim dvostrukim navodnicima:</p>\n<pre><code class=\"language-py\">def add(x, y):\n    \"\"\"A function that returns the sum of two numbers.\"\"\"\n    return x + y\n</code></pre>\n<p>Popunite svoju <code>Movie</code> klasom dodavanjem sledećeg docstringa: <code>Parent class representing a movie.</code></p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 23,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

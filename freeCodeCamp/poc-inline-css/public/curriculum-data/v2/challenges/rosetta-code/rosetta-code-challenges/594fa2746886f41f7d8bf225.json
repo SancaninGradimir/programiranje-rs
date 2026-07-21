@@ -1,0 +1,88 @@
+{
+  "id": "594fa2746886f41f7d8bf225",
+  "title": "Topološko uređenje",
+  "challengeType": 1,
+  "forumTopicId": 302340,
+  "dashedName": "topological-sort",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function topologicalSort(libs) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function topologicalSort(libs) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function topologicalSort(libs) {\n  // A map of the input data, with the keys as the packages, and the values as\n  // and array of packages on which it depends.\n  const D = libs\n    .split('\\n')\n    .map(e => e.split(' ').filter(ep => ep !== ''))\n    .reduce((p, c) =>\n      p.set(c[0], c.filter((e, i) => (i > 0 && e !== c[0] ? e : null))), new Map());\n  [].concat(...D.values()).forEach(e => {\n    D.set(e, D.get(e) || []);\n  });\n\n  // The above map rotated so that it represents a DAG of the form\n  // Map {\n  //    A => [ A, B, C],\n  //    B => [C],\n  //    C => []\n  // }\n  // where each key represents a node, and the array contains the edges.\n  const G = [...D.keys()].reduce((p, c) =>\n    p.set(\n      c,\n      [...D.keys()].filter(e => D.get(e).includes(c))),\n    new Map()\n  );\n\n  // An array of leaf nodes; nodes with 0 in degrees.\n  const Q = [...D.keys()].filter(e => D.get(e).length === 0);\n\n  // The result array.\n  const S = [];\n  while (Q.length) {\n    const u = Q.pop();\n    S.push(u);\n    G.get(u).forEach(v => {\n      D.set(v, D.get(v).filter(e => e !== u));\n      if (D.get(v).length === 0) {\n        Q.push(v);\n      }\n    });\n  }\n\n  return S;\n}",
+        "error": null,
+        "seed": "function topologicalSort(libs) {\n  // A map of the input data, with the keys as the packages, and the values as\n  // and array of packages on which it depends.\n  const D = libs\n    .split('\\n')\n    .map(e => e.split(' ').filter(ep => ep !== ''))\n    .reduce((p, c) =>\n      p.set(c[0], c.filter((e, i) => (i > 0 && e !== c[0] ? e : null))), new Map());\n  [].concat(...D.values()).forEach(e => {\n    D.set(e, D.get(e) || []);\n  });\n\n  // The above map rotated so that it represents a DAG of the form\n  // Map {\n  //    A => [ A, B, C],\n  //    B => [C],\n  //    C => []\n  // }\n  // where each key represents a node, and the array contains the edges.\n  const G = [...D.keys()].reduce((p, c) =>\n    p.set(\n      c,\n      [...D.keys()].filter(e => D.get(e).includes(c))),\n    new Map()\n  );\n\n  // An array of leaf nodes; nodes with 0 in degrees.\n  const Q = [...D.keys()].filter(e => D.get(e).length === 0);\n\n  // The result array.\n  const S = [];\n  while (Q.length) {\n    const u = Q.pop();\n    S.push(u);\n    G.get(u).forEach(v => {\n      D.set(v, D.get(v).filter(e => e !== u));\n      if (D.get(v).length === 0) {\n        Q.push(v);\n      }\n    });\n  }\n\n  return S;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const libsSimple =\n  `aaa bbb\n  bbb`;\n\nconst libsVHDL =\n  `des_system_lib   std synopsys std_cell_lib des_system_lib dw02 dw01 ramlib ieee\n  dw01             ieee dw01 dware gtech\n  dw02             ieee dw02 dware\n  dw03             std synopsys dware dw03 dw02 dw01 ieee gtech\n  dw04             dw04 ieee dw01 dware gtech\n  dw05             dw05 ieee dware\n  dw06             dw06 ieee dware\n  dw07             ieee dware\n  dware            ieee dware\n  gtech            ieee gtech\n  ramlib           std ieee\n  std_cell_lib     ieee std_cell_lib\n  synopsys`;\n\nconst libsCustom =\n  `a b c d\n  b c d\n  d c\n  c base\n  base`;\n\nconst libsUnorderable =\n  `TestLib Base MainLib\n  MainLib TestLib\n  Base`;"
+  },
+  "tests": [
+    {
+      "text": "<p><code>topologicalSort</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof topologicalSort === 'function');"
+    },
+    {
+      "text": "<p><code>topologicalSort(libsSimple)</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(topologicalSort(libsSimple)));"
+    },
+    {
+      "text": "<p><code>topologicalSort(libsSimple)</code> treba vratiti <code>['bbb', 'aaa']</code>.</p>",
+      "testString": "assert.deepEqual(topologicalSort(libsSimple), ['bbb', 'aaa']);"
+    },
+    {
+      "text": "<p><code>topologicalSort(libsVHDL)</code> trebalo bi da vrati <code>['ieee', 'std_cell_lib', 'gtech', 'dware', 'dw07', 'dw06', 'dw05', 'dw02', 'dw01', 'dw04', 'std', 'ramlib', 'synopsys', 'dw03', 'des_system_lib']</code>.</p>",
+      "testString": "assert.deepEqual(topologicalSort(libsVHDL), ['ieee', 'std_cell_lib', 'gtech', 'dware', 'dw07', 'dw06', 'dw05', 'dw02', 'dw01', 'dw04', 'std', 'ramlib', 'synopsys', 'dw03', 'des_system_lib']);"
+    },
+    {
+      "text": "<p><code>topologicalSort(libsCustom)</code> trebalo bi da vrati <code>['base', 'c', 'd', 'b', 'a']</code>.</p>",
+      "testString": "assert.deepEqual(topologicalSort(libsCustom), ['base', 'c', 'd', 'b', 'a']);"
+    },
+    {
+      "text": "<p><code>topologicalSort</code> Trebalo bi da ignoriše neorganizovanu zavisnost.</p>",
+      "testString": "assert.deepEqual(topologicalSort(libsUnorderable), ['Base']);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako vam je data mapa između stavki, a stavke koje zavise jedna od druge, topološko sortiranje postavlja stavke u redosled koji ne dozvoljava da nešto zavisi od nečega. Postoje dva poznata algoritma za topološko sortiranje: Kahnovo topološko sortiranje (1962) i pretraga dubine prvogodišta.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja će vratiti listu sa validnim redosledom za prikupljanje biblioteke iz njenog zavisnosti.</p>\n<ul>\n<li>Prihvatiti imena biblioteka kao jednu reč.</li>\n<li>Predmeti navedeni kao da zavise samo od nečega i koji nemaju sopstvenu zavisnost, ali čiji je način grupisacije definisan.</li>\n<li>Bilo koja samostalna zavisnost se ne uzima u obzir.</li>\n<li>Zavisnosti bez bilo kakve grupisacije se ne uzimaju u obzir.</li>\n</ul>\n<p>Koristi sledeće podatke kao primer:</p>\n<pre>\nBiblioteka          Zavisiosti Biblioteke\n=======          ====================\ndes_system_lib   std synopsys std_cell_lib des_system_lib dw02 dw01 ramlib ieee\ndw01             ieee dw01 dware gtech\ndw02             ieee dw02 dware\ndw03             std synopsys dware dw03 dw02 dw01 ieee gtech\ndw04             dw04 ieee dw01 dware gtech\ndw05             dw05 ieee dware\ndw06             dw06 ieee dware\ndw07             ieee dware\ndware            ieee dware\ngtech            ieee gtech\nramlib           std ieee\nstd_cell_lib     ieee std_cell_lib\nsynopsys\n</pre>\n<p>Kompilacija biblioteke u VHDL jeziku zahteva da biblioteka bude kompilovana nakon bilo koje zavisne biblioteke. Podaci iznad ne bi mogli da se obrade ako, na primer, <code>dw04</code> dodate u listu zavisnosti za <code>dw01</code>.</p>\n<p>Ulaz funkcije će biti sekvenca sa više redova, svaki red će imati ime biblioteke, praćeno njenom zavisnošću (ako postoji).</p>\n<p>Na primer:</p>\n<pre><code class=\"language-js\">const libsSimple =\n  `aaa bbb\n  bbb`;\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 149,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

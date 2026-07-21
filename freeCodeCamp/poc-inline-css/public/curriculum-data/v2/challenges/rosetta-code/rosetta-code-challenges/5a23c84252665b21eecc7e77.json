@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc7e77",
+  "title": "Uondoshaji wa Gaussian",
+  "challengeType": 1,
+  "forumTopicId": 302272,
+  "dashedName": "gaussian-elimination",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function gaussianElimination(A,b) {\n\n}",
+      "error": null,
+      "seed": "function gaussianElimination(A,b) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function gaussianElimination(A, b) {\n  // Lower Upper Decomposition\n  function ludcmp(A) {\n    // A is a matrix that we want to decompose into Lower and Upper matrices.\n    var d = true\n    var n = A.length\n    var idx = new Array(n) // Output vector with row permutations from partial pivoting\n    var vv = new Array(n) // Scaling information\n\n    for (var i=0; i<n; i++) {\n        var max = 0\n        for (var j=0; j<n; j++) {\n            var temp = Math.abs(A[i][j])\n            if (temp > max) max = temp\n        }\n        if (max == 0) return // Singular Matrix!\n        vv[i] = 1 / max // Scaling\n    }\n\n        var Acpy = new Array(n)\n        for (var i=0; i<n; i++) {\n            var Ai = A[i]\n            let Acpyi = new Array(Ai.length)\n            for (j=0; j<Ai.length; j+=1) Acpyi[j] = Ai[j]\n            Acpy[i] = Acpyi\n        }\n        A = Acpy\n\n    var tiny = 1e-20 // in case pivot element is zero\n    for (var i=0; ; i++) {\n        for (var j=0; j<i; j++) {\n            var sum = A[j][i]\n            for (var k=0; k<j; k++) sum -= A[j][k] * A[k][i];\n            A[j][i] = sum\n        }\n        var jmax = 0\n        var max = 0;\n        for (var j=i; j<n; j++) {\n            var sum = A[j][i]\n            for (var k=0; k<i; k++) sum -= A[j][k] * A[k][i];\n            A[j][i] = sum\n            var temp = vv[j] * Math.abs(sum)\n            if (temp >= max) {\n                max = temp\n                jmax = j\n            }\n        }\n        if (i <= jmax) {\n            for (var j=0; j<n; j++) {\n                var temp = A[jmax][j]\n                A[jmax][j] = A[i][j]\n                A[i][j] = temp\n            }\n            d = !d;\n            vv[jmax] = vv[i]\n        }\n        idx[i] = jmax;\n        if (i == n-1) break;\n        var temp = A[i][i]\n        if (temp == 0) A[i][i] = temp = tiny\n        temp = 1 / temp\n        for (var j=i+1; j<n; j++) A[j][i] *= temp\n    }\n    return {A:A, idx:idx, d:d}\n  }\n\n  // Lower Upper Back Substitution\n  function lubksb(lu, b) {\n    // solves the set of n linear equations A*x = b.\n    // lu is the object containing A, idx and d as determined by the routine ludcmp.\n    var A = lu.A\n    var idx = lu.idx\n    var n = idx.length\n\n        var bcpy = new Array(n)\n        for (var i=0; i<b.length; i+=1) bcpy[i] = b[i]\n        b = bcpy\n\n    for (var ii=-1, i=0; i<n; i++) {\n        var ix = idx[i]\n        var sum = b[ix]\n        b[ix] = b[i]\n        if (ii > -1)\n            for (var j=ii; j<i; j++) sum -= A[i][j] * b[j]\n        else if (sum)\n            ii = i\n        b[i] = sum\n    }\n    for (var i=n-1; i>=0; i--) {\n        var sum = b[i]\n        for (var j=i+1; j<n; j++) sum -= A[i][j] * b[j]\n        b[i] = sum / A[i][i]\n    }\n    return b // solution vector x\n  }\n\n    var lu = ludcmp(A)\n    if (lu === undefined) return // Singular Matrix!\n    return lubksb(lu, b)\n}",
+        "error": null,
+        "seed": "function gaussianElimination(A, b) {\n  // Lower Upper Decomposition\n  function ludcmp(A) {\n    // A is a matrix that we want to decompose into Lower and Upper matrices.\n    var d = true\n    var n = A.length\n    var idx = new Array(n) // Output vector with row permutations from partial pivoting\n    var vv = new Array(n) // Scaling information\n\n    for (var i=0; i<n; i++) {\n        var max = 0\n        for (var j=0; j<n; j++) {\n            var temp = Math.abs(A[i][j])\n            if (temp > max) max = temp\n        }\n        if (max == 0) return // Singular Matrix!\n        vv[i] = 1 / max // Scaling\n    }\n\n        var Acpy = new Array(n)\n        for (var i=0; i<n; i++) {\n            var Ai = A[i]\n            let Acpyi = new Array(Ai.length)\n            for (j=0; j<Ai.length; j+=1) Acpyi[j] = Ai[j]\n            Acpy[i] = Acpyi\n        }\n        A = Acpy\n\n    var tiny = 1e-20 // in case pivot element is zero\n    for (var i=0; ; i++) {\n        for (var j=0; j<i; j++) {\n            var sum = A[j][i]\n            for (var k=0; k<j; k++) sum -= A[j][k] * A[k][i];\n            A[j][i] = sum\n        }\n        var jmax = 0\n        var max = 0;\n        for (var j=i; j<n; j++) {\n            var sum = A[j][i]\n            for (var k=0; k<i; k++) sum -= A[j][k] * A[k][i];\n            A[j][i] = sum\n            var temp = vv[j] * Math.abs(sum)\n            if (temp >= max) {\n                max = temp\n                jmax = j\n            }\n        }\n        if (i <= jmax) {\n            for (var j=0; j<n; j++) {\n                var temp = A[jmax][j]\n                A[jmax][j] = A[i][j]\n                A[i][j] = temp\n            }\n            d = !d;\n            vv[jmax] = vv[i]\n        }\n        idx[i] = jmax;\n        if (i == n-1) break;\n        var temp = A[i][i]\n        if (temp == 0) A[i][i] = temp = tiny\n        temp = 1 / temp\n        for (var j=i+1; j<n; j++) A[j][i] *= temp\n    }\n    return {A:A, idx:idx, d:d}\n  }\n\n  // Lower Upper Back Substitution\n  function lubksb(lu, b) {\n    // solves the set of n linear equations A*x = b.\n    // lu is the object containing A, idx and d as determined by the routine ludcmp.\n    var A = lu.A\n    var idx = lu.idx\n    var n = idx.length\n\n        var bcpy = new Array(n)\n        for (var i=0; i<b.length; i+=1) bcpy[i] = b[i]\n        b = bcpy\n\n    for (var ii=-1, i=0; i<n; i++) {\n        var ix = idx[i]\n        var sum = b[ix]\n        b[ix] = b[i]\n        if (ii > -1)\n            for (var j=ii; j<i; j++) sum -= A[i][j] * b[j]\n        else if (sum)\n            ii = i\n        b[i] = sum\n    }\n    for (var i=n-1; i>=0; i--) {\n        var sum = b[i]\n        for (var j=i+1; j<n; j++) sum -= A[i][j] * b[j]\n        b[i] = sum / A[i][i]\n    }\n    return b // solution vector x\n  }\n\n    var lu = ludcmp(A)\n    if (lu === undefined) return // Singular Matrix!\n    return lubksb(lu, b)\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>gaussianElimination</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof gaussianElimination == 'function');"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[1,1],[1,-1]], [5,1])</code> treba da vrati niz.</p>",
+      "testString": "assert(\n  Array.isArray(\n    gaussianElimination(\n      [\n        [1, 1],\n        [1, -1]\n      ],\n      [5, 1]\n    )\n  )\n);"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[1,1],[1,-1]], [5,1])</code> inapaswa kurudisha <code>[ 3, 2 ]</code>.</p>",
+      "testString": "assert.deepEqual(\n  gaussianElimination(\n    [\n      [1, 1],\n      [1, -1]\n    ],\n    [5, 1]\n  ),\n  [3, 2]\n);"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[2,3],[2,1]] , [8,4])</code> inapaswa kurudisha <code>[ 1, 2 ]</code>.</p>",
+      "testString": "assert.deepEqual(\n  gaussianElimination(\n    [\n      [2, 3],\n      [2, 1]\n    ],\n    [8, 4]\n  ),\n  [1, 2]\n);"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[1,3],[5,-2]], [14,19])</code> inapaswa kurudisha <code>[ 5, 3 ]</code>.</p>",
+      "testString": "assert.deepEqual(\n  gaussianElimination(\n    [\n      [1, 3],\n      [5, -2]\n    ],\n    [14, 19]\n  ),\n  [5, 3]\n);"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[1,1],[5,-1]] , [10,14])</code> inapaswa kurudisha <code>[ 4, 6 ]</code>.</p>",
+      "testString": "assert.deepEqual(\n  gaussianElimination(\n    [\n      [1, 1],\n      [5, -1]\n    ],\n    [10, 14]\n  ),\n  [4, 6]\n);"
+    },
+    {
+      "text": "<p><code>gaussianElimination([[1,2,3],[4,5,6],[7,8,8]] , [6,15,23])</code> inapaswa kurudisha <code>[ 1, 1, 1 ]</code>.</p>",
+      "testString": "assert.deepEqual(\n  gaussianElimination(\n    [\n      [1, 2, 3],\n      [4, 5, 6],\n      [7, 8, 8]\n    ],\n    [6, 15, 23]\n  ),\n  [1, 1, 1]\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napiši funkciju koja rešava \\(Ax = b\\) korišćenjem Gausove eliminacije, a zatim povratne supstitucije.</p>\n<p>\\(A\\) ni matriki ya \\(n \\times n\\). Pia, \\(x\\) na \\(b\\) ni vekta za \\(n\\) kwa 1.</p>\n<p>Da biste poboljšali preciznost, koristite prepolovljavanje intervala i merenje.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 55,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

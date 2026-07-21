@@ -1,0 +1,33 @@
+{
+  "id": "587d7fb7367417b2b2512c0a",
+  "title": "Kreiranje mnogo zapisa koristeći model.create()",
+  "challengeType": 2,
+  "forumTopicId": 301537,
+  "dashedName": "create-many-records-with-model-create",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Istovremeno kreiranje više objekata baze podataka trebalo bi da uspe.</p>",
+      "testString": "  const response = await fetch(code + '/_api/create-many-people', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify([\n      { name: 'John', age: 24, favoriteFoods: ['pizza', 'salad'] },\n      { name: 'Mary', age: 21, favoriteFoods: ['onions', 'chicken'] }\n    ])\n  });\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.isArray(data, 'the response should be an array');\n  assert.equal(\n    data.length,\n    2,\n    'the response does not contain the expected number of items'\n  );\n  assert.equal(data[0].name, 'John', 'The first item is not correct');\n  assert.equal(\n    data[0].__v,\n    0,\n    'The first item should be not previously edited'\n  );\n  assert.equal(data[1].name, 'Mary', 'The second item is not correct');\n  assert.equal(\n    data[1].__v,\n    0,\n    'The second item should be not previously edited'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ponekad je potrebno kreirati mnogo instanci vaših modela, na primer prilikom inicijalizacije baze podataka sa početnim podacima. <code>Model.create()</code> prima niz objekata kao <code>[{name: 'John', ...}, {...}, ...]</code> kao prvi argument i sačuva sve u bazu podataka.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni funkciju <code>createManyPeople</code> ili kreiraj mnogo korisnika koristeći <code>Model.create()</code> i argumente <code>arrayOfPeople</code>.</p>\n<p><strong>Napomena:</strong> Možete ponovo koristiti model koji ste kreirali u prethodnoj vežbi.</p>\n</section>",
+  "translationPending": false,
+  "block": "mongodb-and-mongoose",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

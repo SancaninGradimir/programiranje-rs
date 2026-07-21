@@ -1,0 +1,37 @@
+{
+  "id": "589fc832f9fc0f352b528e79",
+  "title": "Pošalji i prikaži poruke chata",
+  "challengeType": 2,
+  "forumTopicId": 301562,
+  "dashedName": "send-and-display-chat-messages",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Server treba da sluša <code>'chat message'</code> i onda da ga emituje ispravno.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /socket.on.*('|\")chat message('|\")[^]*io.emit.*('|\")chat message('|\").*username.*message/s,\n    'Your server should listen to the socket for \"chat message\" then emit to all users \"chat message\" with name and message in the data object'\n  );"
+    },
+    {
+      "text": "<p>Klijent treba da rukuje i prikaže nove podatke iz <code>'chat message'</code> događaja ispravno.</p>",
+      "testString": "  const url = new URL(\"/public/client.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /socket.on.*('|\")chat message('|\")[^]*messages.*li/s,\n    'You should append a list item to #messages on your client within the \"chat message\" event listener to display the new message'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vreme je da počnete da dozvoljavate klijentima da šalju poruke chata na server da bi se prikazale svim klijentima! U tvom <code>client.js</code> fajlu, trebalo bi da već imaš deo koda koji rukuje kada se forma za poruku preda.</p>\n<pre><code class=\"language-js\">$('form').submit(function() {\n  /*logic*/\n});\n</code></pre>\n<p>Unutar koda za predaju forme, trebaš da emituješ događaj nakon što definišeš <code>messageToSend</code> ali pre nego što očistiš polje za tekst <code>#m</code>. Taj događaj treba da se zove <code>'chat message'</code> i podaci trebaju da budu samo <code>messageToSend</code>.</p>\n<pre><code class=\"language-js\">socket.emit('chat message', messageToSend);\n</code></pre>\n<p>Sada, na tvom serveru, trebaš da slušaš socket za događaj <code>'chat message'</code> sa podacima nazvanim <code>message</code>. Kada se događaj primi, treba da emituješ događaj <code>'chat message'</code> za sve sockete koristeći <code>io.emit</code>, šaljući objekat podataka sa <code>username</code> i <code>message</code>.</p>\n<p>U <code>client.js</code>, sada trebaš da slušaš događaj <code>'chat message'</code> i, kada se primi, dodaj element liste na <code>#messages</code> sa korisničkim imenom, tačkom, i porukom!</p>\n<p>U ovoj tački, chat treba da radi u potpunosti i šalje poruke svim klijentima!</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#send-and-display-chat-messages-11\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat urađen do sada</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "65ca075e3184180309f4c1d9",
+  "title": "Korak 39",
+  "challengeType": 20,
+  "dashedName": "step-39",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        40,
+        50
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        return str(self.key)\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\n    def _delete(self, node, key):\n        if node is None:\n            return node\n        if key < node.key:\n            node.left = self._delete(node.left, key)\n        elif key > node.key:\n            node.right = self._delete(node.right, key) \n        else:\n            pass   \n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\n# print('Search for 80:', bst.search(80))\n\n",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n    def __str__(self):\n        return str(self.key)\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        return self._search(self.root, key)\n\n    def _delete(self, node, key):\n        if node is None:\n            return node\n        if key < node.key:\n            node.left = self._delete(node.left, key)\n        elif key > node.key:\n            node.right = self._delete(node.right, key) \n        else:\n            pass   \n\nbst = BinarySearchTree()\n\nnodes = [50, 30, 20, 40, 70, 60, 80]\n\nfor node in nodes:\n    bst.insert(node)\n\n# print('Search for 80:', bst.search(80))\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da ukloniš glavnu reč <code>pass</code> iz bloka <code>else</code>.</p>",
+      "testString": "({\n  test: () => {\n    const pyClassStr = runPython(\n      `str(_Node(_code).find_class(\"BinarySearchTree\").find_function(\"_delete\"))`\n    );\n    assert.notInclude(pyClassStr, \"pass\");\n  },\n});"
+    },
+    {
+      "text": "<p>Trebalo bi da napišete izraz koji <code>if</code> proverava da li je <code>node.left</code> jednako <code>None</code>.</p>",
+      "testString": "assert.match(code, /if\\s+node\\.left\\s*is\\s*None/);"
+    },
+    {
+      "text": "<p>Treba da vratiš desni potomak trenutnog čvora.</p>",
+      "testString": "assert.match(code, /return\\s+node\\.right/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Unutar bloka od <code>else</code>, promenite <code>pass</code> na vrednost <code>if</code> ili proverite da li je levi potom trenutnog čvora <code>None</code>.</p>\n<p>Kada je <code>node.left</code> na <code>None</code>, nema levog deteta. Stoga, vrati desno dete iz novog bloka <code>if</code> kao zamenu.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 38,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

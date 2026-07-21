@@ -1,0 +1,87 @@
+{
+  "id": "62a3c2fccf186146b59c6e96",
+  "title": "Korak 36",
+  "challengeType": 0,
+  "dashedName": "step-36",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <link rel=\"stylesheet\" href=\"./styles.css\">\n    <title>RPG - Dragon Repeller</title>\n  </head>\n  <body>\n    <div id=\"game\">\n      <div id=\"stats\">\n        <span class=\"stat\">XP: <strong><span id=\"xpText\">0</span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"healthText\">100</span></strong></span>\n        <span class=\"stat\">Gold: <strong><span id=\"goldText\">50</span></strong></span>\n      </div>\n      <div id=\"controls\">\n        <button id=\"button1\">Go to store</button>\n        <button id=\"button2\">Go to cave</button>\n        <button id=\"button3\">Fight dragon</button>\n      </div>\n      <div id=\"monsterStats\">\n        <span class=\"stat\">Monster Name: <strong><span id=\"monsterName\"></span></strong></span>\n        <span class=\"stat\">Health: <strong><span id=\"monsterHealth\"></span></strong></span>\n      </div>\n      <div id=\"text\">\n        Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.\n      </div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}",
+      "error": null,
+      "seed": "body {\n  background-color: #0a0a23;\n}\n\n#text {\n  background-color: #0a0a23;\n  color: #ffffff;\n  padding: 10px;\n}\n\n#game {\n  max-width: 500px;\n  max-height: 400px;\n  background-color: #ffffff;\n  color: #ffffff;\n  margin: 30px auto 0px;\n  padding: 10px;\n}\n\n#controls,\n#stats {\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #0a0a23;\n}\n\n#monsterStats {\n  display: none;\n  border: 1px solid #0a0a23;\n  padding: 5px;\n  color: #ffffff;\n  background-color: #c70d0d;\n}\n\n.stat {\n  padding-right: 10px;\n}\n\nbutton {\n  cursor: pointer;\n  color: #0a0a23;\n  background-color: #feac32;\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border: 3px solid #feac32;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        19,
+        22
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\n\n// initialize buttons\n\nfunction goStore() {\n  console.log(\"Going to store.\");\n}\n\nfunction goCave() {\n  console.log(\"Going to cave.\");\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}",
+      "error": null,
+      "seed": "let xp = 0;\nlet health = 100;\nlet gold = 50;\nlet currentWeaponIndex = 0;\nlet fighting;\nlet monsterHealth;\nlet inventory = [\"stick\"];\n\nconst button1 = document.querySelector('#button1');\nconst button2 = document.querySelector(\"#button2\");\nconst button3 = document.querySelector(\"#button3\");\nconst text = document.querySelector(\"#text\");\nconst xpText = document.querySelector(\"#xpText\");\nconst healthText = document.querySelector(\"#healthText\");\nconst goldText = document.querySelector(\"#goldText\");\nconst monsterStats = document.querySelector(\"#monsterStats\");\nconst monsterName = document.querySelector(\"#monsterName\");\nconst monsterHealthText = document.querySelector(\"#monsterHealth\");\n\n// initialize buttons\n\nfunction goStore() {\n  console.log(\"Going to store.\");\n}\n\nfunction goCave() {\n  console.log(\"Going to cave.\");\n}\n\nfunction fightDragon() {\n  console.log(\"Fighting dragon.\");\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da koristiš tačkasto pisanje da bi dobio atribut <code>onclick</code> od <code>button1</code>.</p>",
+      "testString": "assert.match(code, /button1\\.onclick/);"
+    },
+    {
+      "text": "<p>Ne smete koristiti <code>let</code> ili <code>const</code>.</p>",
+      "testString": "assert.notMatch(code, /(let|const)\\s+button1\\.onclick/);"
+    },
+    {
+      "text": "<p>Treba da staviš referencu na funkciju <code>goStore</code> za <code>button1.onclick</code>. Proveri tu funkciju.</p>",
+      "testString": "assert.match(code, /button1\\.onclick\\s*=\\s*goStore\\s*;?\\s*$/m);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><code>button1</code> predstavlja vaš prvi element od <code>button</code>. Ovi elementi imaju posebnu osobinu nazvanu <code>onclick</code>, koju možete koristiti za određivanje šta se dešava kada neko klikne na to dugme.</p>\n<p>Možete dobiti atribute u JavaScript na nekoliko različitih načina. Prvi način je putem <dfn>dot notacije</dfn>. Ovde je primer korišćenja dot notacije za postavljanje atributa <code>onclick</code> dugmeta za referencu funkcije.</p>\n<pre><code class=\"language-js\">button.onclick = myFunction;\n</code></pre>\n<p>U ovom primeru, <code>button</code> je element dugmeta, i <code>myFunction</code> je referenca funkcije. Kada se klikne na dugme, <code>myFunction</code> će biti pozvan.</p>\n<p>Koristite u pisanju tačaka da dodelite atribut <code>onclick</code> vašem <code>button1</code> za referencu funkcije <code>goStore</code>. Zapamtite da je <code>button1</code> već deklarisan, pa ne morate koristiti <code>let</code> niti <code>const</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-basic-javascript-by-building-a-role-playing-game",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 2,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 35,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

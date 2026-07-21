@@ -1,0 +1,93 @@
+{
+  "id": "641da9aceb788e49a73ebcc9",
+  "title": "Korak 18",
+  "challengeType": 0,
+  "dashedName": "step-18",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>freeCodeCamp News Author Page</title>\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n  </head>\n  <body>\n    <h1 class=\"title\">freeCodeCamp News Author Page</h1>\n\n    <main>\n      <div id=\"author-container\"></div>\n      <button class=\"btn\" id=\"load-more-btn\">Load More Authors</button>\n    </main>\n\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}",
+      "error": null,
+      "seed": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  --main-bg-color: #1b1b32;\n  --light-grey: #f5f6f7;\n  --dark-purple: #5a01a7;\n  --golden-yellow: #feac32;\n}\n\nbody {\n  background-color: var(--main-bg-color);\n  text-align: center;\n}\n\n.title {\n  color: var(--light-grey);\n  margin: 20px 0;\n}\n\n#author-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n.user-card {\n  border-radius: 15px;\n  width: 300px;\n  height: 350px;\n  background-color: var(--light-grey);\n  margin: 20px;\n}\n\n.user-img {\n  width: 150px;\n  height: 150px;\n  object-fit: cover;\n}\n\n.purple-divider {\n  background-color: var(--dark-purple);\n  width: 100%;\n  height: 15px;\n}\n\n.author-name {\n  margin: 10px;\n}\n\n.bio {\n  margin: 20px;\n}\n\n.error-msg {\n  color: var(--light-grey);\n}\n\n.btn {\n  cursor: pointer;\n  width: 200px;\n  margin: 10px;\n  color: var(--main-bg-color);\n  font-size: 14px;\n  background-color: var(--golden-yellow);\n  background-image: linear-gradient(#fecc4c, #ffac33);\n  border-color: var(--golden-yellow);\n  border-width: 3px;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        37,
+        39
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const authorContainer = document.getElementById('author-container');\nconst loadMoreBtn = document.getElementById('load-more-btn');\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nfetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json')\n  .then((res) => res.json())\n  .then((data) => {\n    authorDataArr = data;\n    displayAuthors(authorDataArr.slice(startingIndex, endingIndex));  \n  })\n  .catch((err) => {\n    console.error(`There was an error: ${err}`);\n  });\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\" />\n      <p class=\"bio\">${bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author}'s author page</a>\n    </div>\n  `;\n  });\n};\n\n",
+      "error": null,
+      "seed": "const authorContainer = document.getElementById('author-container');\nconst loadMoreBtn = document.getElementById('load-more-btn');\n\nlet startingIndex = 0;\nlet endingIndex = 8;\nlet authorDataArr = [];\n\nfetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json')\n  .then((res) => res.json())\n  .then((data) => {\n    authorDataArr = data;\n    displayAuthors(authorDataArr.slice(startingIndex, endingIndex));  \n  })\n  .catch((err) => {\n    console.error(`There was an error: ${err}`);\n  });\n\nconst fetchMoreAuthors = () => {\n  startingIndex += 8;\n  endingIndex += 8;\n\n  displayAuthors(authorDataArr.slice(startingIndex, endingIndex));\n};\n\nconst displayAuthors = (authors) => {\n  authors.forEach(({ author, image, url, bio }, index) => {\n    authorContainer.innerHTML += `\n    <div id=\"${index}\" class=\"user-card\">\n      <h2 class=\"author-name\">${author}</h2>\n      <img class=\"user-img\" src=\"${image}\" alt=\"${author} avatar\" />\n      <p class=\"bio\">${bio}</p>\n      <a class=\"author-link\" href=\"${url}\" target=\"_blank\">${author}'s author page</a>\n    </div>\n  `;\n  });\n};\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "window.fetch = () => Promise.resolve({json: () => Promise.resolve([{ author: 'Whoever', image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==', url: \"http://not-a-real-url.nowhere/\", bio: 'words go here' }])});"
+  },
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozovete metod <code>addEventListener()</code> na vašu <code>loadMoreBtn</code> varijablu.</p>",
+      "testString": "assert.match(code, /loadMoreBtn\\.addEventListener\\(/)"
+    },
+    {
+      "text": "<p>Vaš slušalac događaja treba da prati for <code>\"click\"</code> događaj.</p>",
+      "testString": "assert.match(code, /loadMoreBtn\\.addEventListener\\(\\s*('|\"|`)click\\1/)"
+    },
+    {
+      "text": "<p>Vaš slušač događaja bi trebalo da primi <code>fetchMoreAuthors</code> as funkciju za izvršavanje.</p>",
+      "testString": "assert.match(code, /loadMoreBtn\\.addEventListener\\(\\s*('|\"|`)click\\1\\s*,\\s*fetchMoreAuthors\\s*\\)\\s*;?/)"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Zapamtite da ste u koraku 1 izabrali dugme <code>Load More Authors</code> i dodelili ga <code>loadMoreBtn</code>.</p>\n<p>Koristite <code>addEventListener</code> da dodate slušalicu događaja <code>\"click\"</code> na <code>loadMoreBtn</code>. Takođe, prosledite referencu na funkciju <code>fetchMoreAuthors</code> koja će se izvršiti svaki put kada se dugme klikne.</p>\n<p>Nakon toga, kada kliknete na dugme, trebalo bi da vidite još 8 autora.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-fcc-authors-page",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 225,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "asynchronous-javascript",
+  "certification": "javascript-v9"
+}

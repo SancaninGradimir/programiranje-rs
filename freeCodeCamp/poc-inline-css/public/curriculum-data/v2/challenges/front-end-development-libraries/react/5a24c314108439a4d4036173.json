@@ -1,0 +1,91 @@
+{
+  "id": "5a24c314108439a4d4036173",
+  "title": "Postavi stanje koristeći this.setState",
+  "challengeType": 6,
+  "forumTopicId": 301412,
+  "dashedName": "set-state-with-this-setstate",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'Initial State'\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    // Change code below this line\n\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <button onClick={this.handleClick}>Click Me</button>\n        <h1>{this.state.name}</h1>\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'Initial State'\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n    // Change code below this line\n\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <button onClick={this.handleClick}>Click Me</button>\n        <h1>{this.state.name}</h1>\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'Initial State'\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n     // Change code below this line\n    this.setState({\n      name: 'React Rocks!'\n    });\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <button onClick = {this.handleClick}>Click Me</button>\n        <h1>{this.state.name}</h1>\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'Initial State'\n    };\n    this.handleClick = this.handleClick.bind(this);\n  }\n  handleClick() {\n     // Change code below this line\n    this.setState({\n      name: 'React Rocks!'\n    });\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <button onClick = {this.handleClick}>Click Me</button>\n        <h1>{this.state.name}</h1>\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Stanje <code>MyComponent</code> treba da se inicijalizuje parom ključ-vrednost <code>{ name: Initial State }</code>.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(MyComponent)).state('name') ===\n    'Initial State'\n);"
+    },
+    {
+      "text": "<p><code>MyComponent</code> trebalo bi da prikaže naslov sekcije za <code>h1</code>.</p>",
+      "testString": "assert(Enzyme.mount(React.createElement(MyComponent)).find('h1').length === 1);"
+    },
+    {
+      "text": "<p>Sekcijsko zaglavlje za <code>h1</code> koje je prikazano treba da ima tekst koji potiče iz stanja sekcije.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ name: 'TestName' });\n    return waitForIt(() => mockedComponent.html());\n  };\n  const firstValue = await first();\n  assert(/<h1>TestName<\\/h1>/.test(firstValue));"
+    },
+    {
+      "text": "<p>Pozivanje metode <code>handleClick</code> na <code>MyComponent</code> treba da postavi atribut 'name' u stanje da bude jednak <code>React Rocks!</code>.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ name: 'Before' });\n    return waitForIt(() => mockedComponent.state('name'));\n  };\n  const second = () => {\n    mockedComponent.instance().handleClick();\n    return waitForIt(() => mockedComponent.state('name'));\n  };\n  const firstValue = await first();\n  const secondValue = await second();\n  assert(firstValue === 'Before' && secondValue === 'React Rocks!');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prethodni izazovi uključivali su deo <code>state</code> i kako da se inicijalizuje <code>state</code> u <code>constructor</code>. Postoji i način za menjanje/izmenu <code>state</code> dela. React pruža način za ažuriranje <code>state</code> dela nazvanog <code>setState</code>. Pozivate metodu <code>setState</code> unutar vaše klase delova kao što je sledeće: <code>this.setState()</code>, prosleđujući objekat sa parovima ključ-vrednost. Ključ su vaša svojstva stanja (state) a vrednosti su novi podaci stanja (state). Na primer, ako sačuvamo <code>username</code> u stanje (state) i želimo da ga promenimo, biće kao ovo:</p>\n<pre><code class=\"language-jsx\">this.setState({\n  username: 'Lewis'\n});\n</code></pre>\n<p>React očekuje se da ne menjate <code>state</code> direktno, već koristite <code>this.setState()</code> svaki put kada se stanje promeni. Takođe, treba da razumete da React može da spoji više ažuriranja stanja radi poboljšanja performansi. To znači da ažuriranja stanja putem metode <code>setState</code> mogu biti asinhrona. Postoji alternativa sintaksa za metodu <code>setState</code> koja nudi način da se izbegne ovaj problem. Ovo se ne koristi često, ali je dobro ga zapamtiti! Molimo vas proverite <a href=\"https://www.freecodecamp.org/news/what-is-state-in-react-explained-with-examples/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\"> članak o React</a> za više detalja.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoji element <code>button</code> u editoru koda koji ima rukovateljač za <code>onClick()</code>. Ovaj rukovateljač se inicijalizuje kada <code>button</code> primi događaj klika u pretraživaču, i izvršava metodu <code>handleClick</code> definisanu u <code>MyComponent</code>. Unutar metode <code>handleClick</code>, ažurirajte svojstvo <code>state</code> sekcije koristeći <code>this.setState()</code>. Postavite atribut <code>name</code> u <code>state</code> da bude jednak nizu karaktera <code>React Rocks!</code>.</p>\n<p>Kliknite na dugme i posmatrajte ažuriranja stanja koja se prikazuju. Ne brinite ako još niste potpuno razumeli kako trenutno funkcioniše kod za obradu klikova. Ovo će biti diskutovano u budućim izazovima.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 23,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

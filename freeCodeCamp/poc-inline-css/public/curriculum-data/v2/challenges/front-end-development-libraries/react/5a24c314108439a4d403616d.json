@@ -1,0 +1,90 @@
+{
+  "id": "5a24c314108439a4d403616d",
+  "title": "Koristi PropTypes da definišeš propse koje očekuješ",
+  "challengeType": 6,
+  "forumTopicId": 301419,
+  "dashedName": "use-proptypes-to-define-the-props-you-expect",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "const Items = (props) => {\n  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>\n};\n\n// Change code below this line\n\n// Change code above this line\n\nItems.defaultProps = {\n  quantity: 0\n};\n\nclass ShoppingCart extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <Items />\n  }\n};",
+      "error": null,
+      "seed": "const Items = (props) => {\n  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>\n};\n\n// Change code below this line\n\n// Change code above this line\n\nItems.defaultProps = {\n  quantity: 0\n};\n\nclass ShoppingCart extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <Items />\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const Items = (props) => {\n  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>\n};\n\n// Change code below this line\nItems.propTypes = {\n  quantity: PropTypes.number.isRequired\n};\n// Change code above this line\n\nItems.defaultProps = {\n  quantity: 0\n};\n\nclass ShoppingCart extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <Items />\n  }\n};",
+        "error": null,
+        "seed": "const Items = (props) => {\n  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>\n};\n\n// Change code below this line\nItems.propTypes = {\n  quantity: PropTypes.number.isRequired\n};\n// Change code above this line\n\nItems.defaultProps = {\n  quantity: 0\n};\n\nclass ShoppingCart extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <Items />\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "var PropTypes = {\n  number: { isRequired: true }\n};"
+  },
+  "tests": [
+    {
+      "text": "<p>Deo <code>ShoppingCart</code> bi trebalo da prikaže.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));\n    return mockedComponent.find('ShoppingCart').length === 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Deo <code>Items</code> treba da prikaže.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(ShoppingCart));\n    return mockedComponent.find('Items').length === 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Sekcija <code>Items</code> trebalo bi da uključuje proveru za <code>propTypes</code> koja zahteva vrednost za <code>quantity</code> i osigurava da je njena vrednost broj.</p>",
+      "testString": "const noWhiteSpace = __helpers.removeWhiteSpace(code);\nassert(noWhiteSpace.includes('quantity:PropTypes.number.isRequired') && noWhiteSpace.includes('Items.propTypes='));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>React pruža funkcije za proveru tipova pomoći kako bi se osiguralo da komponente primaju parametre odgovarajućeg tipa. Na primer, vaš program poziva API da dobije podatke koje očekujete u nizu podataka, koji se zatim prosleđuje komponenti kao argument. Možete postaviti <code>propTypes</code> u svoju komponentu da zahteva podatke tipa <code>array</code>. Ovo će nam prikazati upozorenje pomoći kada podaci nisu odgovarajućeg tipa.</p>\n<p>Smatra se dobrom praksom da definišeš <code>propTypes</code> kada unapred znaš tip prop-a. Svojstvo <code>propTypes</code> možeš definisati na isti način kao i <code>defaultProps</code>. Time proveravaš da li određeni props postoji i da li je odgovarajućeg tipa. Evo primera gde se zahteva prop <code>handleClick</code> tipa <code>function</code>:</p>\n<pre><code class=\"language-js\">MyComponent.propTypes = { handleClick: PropTypes.func.isRequired }\n</code></pre>\n<p>U gornjem primeru, deo <code>PropTypes.func</code> proverava da je <code>handleClick</code> funkcija. Dodavanje <code>isRequired</code> govori React da je <code>handleClick</code> potrebno svojstvo za taj deo. Videćete upozorenje ako kriterijum nije dostavljen. Takođe proverite da <code>func</code> predstavlja <code>function</code>. Među sedam osnovnih tipova od JavaScript, <code>function</code> i <code>boolean</code> (napisano kao <code>bool</code>) su jedini koji koriste neobično pravopisivanje. Pored osnovnih tipova, dostupni su i drugi tipovi. Na primer, možete proveriti da je kriterijum svojstvo od React. Molimo vas pogledajte u <a href=\"https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">dokument</a> za sve opcije.</p>\n<p><strong>Napomena:</strong> Od React v15.5.0, <code>PropTypes</code> se razlikuje od React, kao što sledi: <code>import PropTypes from 'prop-types';</code></p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Definišite <code>propTypes</code> za deo <code>Items</code>, zahtevajući <code>quantity</code> kao parametar i potvrđujući da je tip <code>number</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

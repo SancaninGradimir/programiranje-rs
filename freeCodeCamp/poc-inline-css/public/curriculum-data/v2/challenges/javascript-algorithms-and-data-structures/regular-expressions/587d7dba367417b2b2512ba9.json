@@ -1,0 +1,97 @@
+{
+  "id": "587d7dba367417b2b2512ba9",
+  "title": "Prikaz pozitivnih i negativnih vrednosti napred",
+  "challengeType": 1,
+  "forumTopicId": 301360,
+  "dashedName": "positive-and-negative-lookahead",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let sampleWord = \"astronaut\";\nlet pwRegex = /change/; // Change this line\nlet result = pwRegex.test(sampleWord);",
+      "error": null,
+      "seed": "let sampleWord = \"astronaut\";\nlet pwRegex = /change/; // Change this line\nlet result = pwRegex.test(sampleWord);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "let pwRegex =  /(?=\\w{6})(?=\\w*\\d{2})/;",
+        "error": null,
+        "seed": "let pwRegex =  /(?=\\w{6})(?=\\w*\\d{2})/;"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Regularni izraz treba da koristi dva pozitivna lookahead izraza.</p>",
+      "testString": "assert(pwRegex.source.match(/\\(\\?=.*?\\)\\(\\?=.*?\\)/) !== null);"
+    },
+    {
+      "text": "<p>Vaš uobičajeni izraz ne bi smedio odgovarati sekvenci <code>astronaut</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(!pwRegex.test('astronaut'));"
+    },
+    {
+      "text": "<p>Tvoj uobičajeni nalog ne bi trebalo da odgovara sekvenci <code>banan1</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(!pwRegex.test('banan1'));"
+    },
+    {
+      "text": "<p>Vaš uobičajeni format treba da odgovara sekvenci <code>bana12</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(pwRegex.test('bana12'));"
+    },
+    {
+      "text": "<p>Vaš uobičajeni format bi trebalo da odgovara sekvenci <code>abc123</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(pwRegex.test('abc123'));"
+    },
+    {
+      "text": "<p>Tvoj uobičajeni pristup ne bi trebalo da odgovara sekvenci <code>12345</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(!pwRegex.test('12345'));"
+    },
+    {
+      "text": "<p>Vaš uobičajeni format bi trebalo da odgovara sekvenci <code>8pass99</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(pwRegex.test('8pass99'));"
+    },
+    {
+      "text": "<p>Tvoj uobičajeni pristup ne bi trebalo da odgovara nizu <code>1a2bcde</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(!pwRegex.test('1a2bcde'));"
+    },
+    {
+      "text": "<p>Vaš uobičajeni format mora odgovarati sekvenci <code>astr1on11aut</code></p>",
+      "testString": "pwRegex.lastIndex = 0;\nassert(pwRegex.test('astr1on11aut'));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><dfn>Lookaheads</dfn> su obrasci koji kažu JavaScript da pogleda napred u vašoj sekvenci znakova kako bi proverili više obrazaca unapred. Ovo može biti korisno kada želite da pretražujete više obrazaca u jednoj sekvenciji.</p>\n<p>Postoje dve vrste prednjeg vezivanja: <dfn>prednje pozitivno vezivanje</dfn> i <dfn>prednje negativno vezivanje</dfn>.</p>\n<p>Provera unapred će proveriti da li postoji element u pretražnom sistemu, ali neće mu direktno odgovarati. Provera unapred se koristi kao <code>(?=...)</code> gde je <code>...</code> deo koji je potreban, ali ne odgovara.</p>\n<p>S druge strane, negativni predgled proverava da bi se uverila da određena karakteristika u sistemu pretrage ne postoji. Negativni predgled koristi se kao <code>(?!...)</code> gde je <code>...</code> sistem koji traži odsustvo. Drugi deo sistema vraća se ako deo negativnog predgleda ne postoji.</p>\n<p>Lookaheads je malo teško za razumevanje, ali nekoliko primera će pomoći.</p>\n<pre><code class=\"language-js\">let quit = \"qu\";\nlet noquit = \"qt\";\nlet quRegex= /q(?=u)/;\nlet qRegex = /q(?!u)/;\nquit.match(quRegex);\nnoquit.match(qRegex);\n</code></pre>\n<p>Oboje iz <code>match</code> će vratiti <code>[\"q\"]</code>.</p>\n<p>Praktične primene izvan lookahead-ova su pregledavanje dva ili više sistema u istoj sekvenci. Evo jednostavnog alata za proveru lozinke (na nekom jednostavnom načinu) koji traži između 3 i 6 slova i najmanje jednu cifru:</p>\n<pre><code class=\"language-js\">let password = \"abc123\";\nlet checkPass = /(?=\\w{3,6})(?=\\D*\\d)/;\ncheckPass.test(password);\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristi lookahead izraze u <code>pwRegex</code> da pronađeš lozinke duže od 5 znakova koje sadrže dve uzastopne cifre.</p>\n</section>",
+  "translationPending": false,
+  "block": "regular-expressions",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

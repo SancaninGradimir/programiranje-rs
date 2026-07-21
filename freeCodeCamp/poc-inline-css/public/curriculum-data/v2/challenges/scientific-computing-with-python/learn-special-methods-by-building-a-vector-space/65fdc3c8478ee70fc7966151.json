@@ -1,0 +1,55 @@
+{
+  "id": "65fdc3c8478ee70fc7966151",
+  "title": "Korak 65",
+  "challengeType": 20,
+  "dashedName": "step-65",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        44,
+        47
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    def __lt__(self, other):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    def __lt__(self, other):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da napravite izraz za <code>if</code> koji proverava da li <code>self</code> i <code>other</code> nisu u istoj klasi objekata.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"R2Vector\").find_function(\"__lt__\").find_ifs()[0].find_conditions()[0]\nconditions = [\"type(self) != type(other)\", \"type(other) != type(self)\", \"self.__class__ != other.__class__\", \"other.__class__ != self.__class__\"]\nany(node.is_equivalent(condition) for condition in conditions)\n`)) })"
+    },
+    {
+      "text": "<p>Treba ti da vratiš <code>NotImplemented</code> iz tela/sadržaja <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__lt__\").find_ifs()[0].find_bodies()[0].has_return(\"NotImplemented\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Na isti način koji ste ranije koristili sa <code>__eq__</code>, kreiraj izjavu <code>if</code> koja proverava da li <code>self</code> i <code>other</code> nisu u istoj klasi objekata i vrati <code>NotImplemented</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 64,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

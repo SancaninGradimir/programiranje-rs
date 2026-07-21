@@ -1,0 +1,109 @@
+{
+  "id": "67d1ebb595f4f619c0e35d1a",
+  "title": "Kako ažurirati objekte u state-u?",
+  "challengeType": 19,
+  "dashedName": "how-do-you-update-objects-in-state",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>React kako koristi stanje u sekciji?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ako je nepromenljivo, omogućavajući direktne promene.</p>",
+          "feedback": "<p>Razmislite kako React osigurava da promene stanja ostanu predvidive.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ako je nepromenljivo, što znači da ne bi trebalo da se menja direktno.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kao međunarodni standard dostupan svuda.</p>",
+          "feedback": "<p>Razmislite kako React osigurava da promene stanja ostanu predvidive.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kao privremeni parametar koji se resetuje svaki put nakon ponovnog prikazivanja.</p>",
+          "feedback": "<p>Zamislite kako React osigurava da promene stanja ostanu predvidive.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kako treba da popraviš nešto sačuvano u React stanju?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristi funkciju za kreiranje nečega novog.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Promeni nešto direktno u stanju.</p>",
+          "feedback": "<p>React koristi state kao nepromenljivo, pa izbegavajte direktne promene.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi <code>Object.assign()</code> da postaviš funkciju.</p>",
+          "feedback": "<p>React koristi stanje kao nepromenljivo, stoga izbegavajte direktne promene.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi putanju <code>push()</code> za dodeljivanje atributa objektu.</p>",
+          "feedback": "<p>React koristi stanje kao nepromenljivo, pa izbegavajte direktne promene.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja je funkcija za dodelu u ovom kodu?</p>\n<pre><code class=\"language-js\">const [user, setUser] = useState({\n   name: 'John Doe',\n   age: 31,\n   city: 'LA',\n });\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>user</code></p>",
+          "feedback": "<p>Funkcija za postavljanje/ažuriranje parametra <code>state</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>useState</code></p>",
+          "feedback": "<p>Funkcija za ažuriranje parametra <code>state</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>age</code></p>",
+          "feedback": "<p>Funkcija za postavljanje parametra <code>state</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>setUser</code></p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Ažuriranje objekata u React state-u može biti izazovno ako ste navikli da direktno menjate vrednosti svojstava komponente.</p>\n<p>React koristi stanje kao nepromenljivo, što znači da ga ne bi trebalo mijenjati direktno.</p>\n<p>Pogledajmo šta se dešava kada pokušate direktno da promenite objekte u React state-u, a zatim ćemo analizirati ispravan način za to.</p>\n<p>Pretpostavimo da imate nešto u stanju vaše komponente što predstavlja profil korisnika, i želite da korisnik ispravi svoj uzrast:</p>\n<pre><code class=\"language-jsx\">import { useState } from \"react\";\n\nfunction Profile() {\n  const [user, setUser] = useState({\n    name: \"John Doe\",\n    age: 31,\n    city: \"LA\",\n  });\n\n  // Change user age directly\n  const handleAgeChange = (e) => {\n    user.age = e.target.value;\n    console.log(user);\n  };\n\n  return (\n    &#x3C;div>\n      &#x3C;h1>User Profile&#x3C;/h1>\n      &#x3C;p>Name: {user.name}&#x3C;/p>\n      &#x3C;p>Age: {user.age}&#x3C;/p>\n      &#x3C;p>City: {user.city}&#x3C;/p>\n\n      &#x3C;h2>Update User Age &#x3C;/h2>\n      &#x3C;input type=\"number\" value={user.age} onChange={handleAgeChange} />\n    &#x3C;/div>\n  );\n}\n\nexport default Profile;\n</code></pre>\n<p>Ovaj kod neće raditi jer direktno menja svojstvo <code>user.age</code>.</p>\n<p>Iako će <code>console.log(user)</code> prikazati novu vrednost na konzoli, React neće ponovo prikazivati taj deo radi prikazivanja promena na korisničkom interfejsu jer niste koristili funkciju za postavljanje (setter), <code>setUser</code>.</p>\n<p>Da biste direktno ažurirali objekat u state-u, potrebno je da koristite funkciju za postavljanje kako biste napravili novi objekat sa ažuriranim vrednostima. Na primer:</p>\n<pre><code class=\"language-js\">const handleAgeChange = (e) => {\n  setUser({\n    age: e.target.value,\n  });\n};\n</code></pre>\n<p>To funkcioniše. Ali ako sada pogledate stranicu, starost korisnika je ažurirana, ali vrednosti imena i grada nestaju.</p>\n<p>Ovo je zato što novi objekat koji ste prosledili funkciji za postavljanje je imao samo par ključ/vrednost za <code>age</code>.</p>\n<p>Da biste to sprečili, prvo možete napraviti kopiju postojećeg objekta, a zatim izmeniti samo svojstvo koje želite da promenite, u ovom slučaju <code>age</code>.</p>\n<p>Da biste to uradili, možete proslediti specifičnu funkciju nazvanu funkcija za ažuriranje vašoj funkciji podešavanja, <code>setUser</code>. Funkcija za ažuriranje prima čekajući state kao argument, ovde, ona se zove <code>prevUser</code>, i treba da vrati sledeći state:</p>\n<pre><code class=\"language-js\">const handleAgeChange = (e) => {\n  setUser((prevUser) => {\n    const updatedUser = { ...prevUser, age: e.target.value };\n    console.log('Previous State:', prevUser);\n    console.log('Updated State:', updatedUser);\n    return updatedUser;\n  });\n};\n</code></pre>\n<p>Kao što vidite, kreiramo novi objekat korisnika nazvan <code>updatedUser</code> koristeći spread sintaksu za kopiranje čekajućeg objekta korisnika, <code>...prevUser</code>. Zatim ažuriramo godine na osnovu unosa forme i vraćamo <code>updatedUser</code> u funkciji kao sledeći status.</p>\n<p>Sada vaš projekat radi kako je očekivano, a ažuriranja unosa starosti ne menjaju korisničko ime niti naziv grada. Takođe možete videti početna i ažurirana stanja u konzoli.</p>\n<p>Ovo je najbolji način da se nešto ispravi u stanju, posebno kada ažurira sve atribute/svojstva.</p>\n<p>Da biste ispravili preostale osobine za <code>name</code> i <code>city</code>, možete napisati kao funkcije diferenciranja i povezati ih sa njihovim ulaznim delovima:</p>\n<pre><code class=\"language-js\">const handleNameChange = (e) => {\n  setUser((prevUser) => ({\n    ...prevUser,\n    name: e.target.value,\n  }));\n};\n\nconst handleCityChange = (e) => {\n  setUser((prevUser) => ({\n    ...prevUser,\n    city: e.target.value,\n  }));\n};\n</code></pre>\n<p>Ili ih možete spojiti u jednu funkciju za podešavanje na ovaj način:</p>\n<pre><code class=\"language-js\">const handleChange = (e) => {\n  const { name, value } = e.target;\n  setUser((prevUser) => ({\n    ...prevUser,\n    [name]: value,\n  }));\n};\n</code></pre>\n<p>Da bi ovo funkcionisalo, svaki deo unosa mora imati atribut <code>name</code>.</p>\n<p>Evo kompletnog koda sada:</p>\n<pre><code class=\"language-jsx\">import { useState } from \"react\";\n\nfunction Profile() {\n  const [user, setUser] = useState({ name: \"John Doe\", age: 31, city: \"LA\" });\n\n  const handleChange = (e) => {\n    const { name, value } = e.target;\n\n    setUser((prevUser) => ({...prevUser, [name]: value}));\n  };\n\n  return (\n    &#x3C;div>\n      &#x3C;h1>User Profile&#x3C;/h1>\n      &#x3C;p>Name: {user.name}&#x3C;/p>\n      &#x3C;p>Age: {user.age}&#x3C;/p>\n      &#x3C;p>City: {user.city}&#x3C;/p>\n\n      &#x3C;h2>Update User Age &#x3C;/h2>\n      &#x3C;input type=\"number\" name=\"age\" value={user.age} onChange={handleChange} />\n\n      &#x3C;h2>Update User Name &#x3C;/h2>\n      &#x3C;input type=\"text\" name=\"name\" value={user.name} onChange={handleChange} />\n\n      &#x3C;h2>Update User City &#x3C;/h2>\n      &#x3C;input type=\"text\" name=\"city\" value={user.city} onChange={handleChange} />\n    &#x3C;/div>\n  );\n}\n\nexport default Profile;\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-state-and-responding-to-events-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

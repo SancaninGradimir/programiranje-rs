@@ -1,0 +1,85 @@
+{
+  "id": "5900f3ae1000cf542c50fec1",
+  "title": "Zoezi la 66: Mlinganyo wa Diophantine",
+  "challengeType": 1,
+  "forumTopicId": 302178,
+  "dashedName": "problem-66-diophantine-equation",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function diophantineEquation(n) {\n\n  return true;\n}\n\ndiophantineEquation(7);",
+      "error": null,
+      "seed": "function diophantineEquation(n) {\n\n  return true;\n}\n\ndiophantineEquation(7);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function diophantineEquation(n) {\n  // Based on https://www.mathblog.dk/project-euler-66-diophantine-equation/\n  function isSolution(D, numerator, denominator) {\n    return numerator * numerator - BigInt(D) * denominator * denominator === 1n;\n  }\n\n  let result = 0;\n  let biggestX = 0;\n\n  for (let D = 2; D <= n; D++) {\n    let boundary = Math.floor(Math.sqrt(D));\n    if (boundary ** 2 === D) {\n      continue;\n    }\n\n    let m = 0n;\n    let d = 1n;\n    let a = BigInt(boundary);\n\n    let [numerator, prevNumerator] = [a, 1n];\n\n    let [denominator, prevDenominator] = [1n, 0n];\n\n    while (!isSolution(D, numerator, denominator)) {\n      m = d * a - m;\n      d = (BigInt(D) - m * m) / d;\n      a = (BigInt(boundary) + m) / d;\n\n      [numerator, prevNumerator] = [a * numerator + prevNumerator, numerator];\n      [denominator, prevDenominator] = [\n        a * denominator + prevDenominator,\n        denominator\n      ];\n    }\n\n    if (numerator > biggestX) {\n      biggestX = numerator;\n      result = D;\n    }\n  }\n  return result;\n}",
+        "error": null,
+        "seed": "function diophantineEquation(n) {\n  // Based on https://www.mathblog.dk/project-euler-66-diophantine-equation/\n  function isSolution(D, numerator, denominator) {\n    return numerator * numerator - BigInt(D) * denominator * denominator === 1n;\n  }\n\n  let result = 0;\n  let biggestX = 0;\n\n  for (let D = 2; D <= n; D++) {\n    let boundary = Math.floor(Math.sqrt(D));\n    if (boundary ** 2 === D) {\n      continue;\n    }\n\n    let m = 0n;\n    let d = 1n;\n    let a = BigInt(boundary);\n\n    let [numerator, prevNumerator] = [a, 1n];\n\n    let [denominator, prevDenominator] = [1n, 0n];\n\n    while (!isSolution(D, numerator, denominator)) {\n      m = d * a - m;\n      d = (BigInt(D) - m * m) / d;\n      a = (BigInt(boundary) + m) / d;\n\n      [numerator, prevNumerator] = [a * numerator + prevNumerator, numerator];\n      [denominator, prevDenominator] = [\n        a * denominator + prevDenominator,\n        denominator\n      ];\n    }\n\n    if (numerator > biggestX) {\n      biggestX = numerator;\n      result = D;\n    }\n  }\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>diophantineEquation(7)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof diophantineEquation(7) === 'number');"
+    },
+    {
+      "text": "<p><code>diophantineEquation(7)</code> treba da vrati <code>5</code>.</p>",
+      "testString": "assert.strictEqual(diophantineEquation(7), 5);"
+    },
+    {
+      "text": "<p><code>diophantineEquation(100)</code> treba da vrati <code>61</code>.</p>",
+      "testString": "assert.strictEqual(diophantineEquation(100), 61);"
+    },
+    {
+      "text": "<p><code>diophantineEquation(409)</code> treba da vrati <code>409</code>.</p>",
+      "testString": "assert.strictEqual(diophantineEquation(409), 409);"
+    },
+    {
+      "text": "<p><code>diophantineEquation(500)</code> trebalo bi da vrati <code>421</code>.</p>",
+      "testString": "assert.strictEqual(diophantineEquation(500), 421);"
+    },
+    {
+      "text": "<p><code>diophantineEquation(1000)</code> treba da vrati <code>661</code>.</p>",
+      "testString": "assert.strictEqual(diophantineEquation(1000), 661);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Razmotrite Diofantovu jednačinu drugog stepena tipa:</p>\n<div style='text-align: center;'>x<sup>2</sup> – Dy<sup>2</sup> = 1</div>\n<p>Na primer, kada je D = 13, najmanje rešenje za x je 649<sup>2</sup> − 13×180<sup>2</sup> = 1.</p>\n<p>Pretpostavlja se da nema rešenja u pozitivnim celim brojevima kada je D kvadrat.</p>\n<p>Dobijanjem najmanjeg rešenja za x kada je D = {2, 3, 5, 6, 7}, dobijamo sledeće:</p>\n<div style='margin-left: 2em;'>\n  3<sup>2</sup> – 2×2<sup>2</sup> = 1<br>\n  2<sup>2</sup> – 3×1<sup>2</sup> = 1<br>\n  <strong><span style='color: red;'>9</span></strong><sup>2</sup> – 5×4<sup>2</sup> = 1<br>\n  5<sup>2</sup> – 6×2<sup>2</sup> = 1<br>\n  8<sup>2</sup> – 7×3<sup>2</sup> = 1<br>\n</div>\n<p>Dakle, posmatrajući najmanje rešenje za <code>x</code> kada je D ≤ 7, najveća vrednost <code>x</code> dobija se za D = 5.</p>\n<p>Pronađi vrednost D ≤ <code>n</code> za koju najmanje rešenje za <code>x</code> daje najveću vrednost <code>x</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 65,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

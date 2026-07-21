@@ -1,0 +1,70 @@
+{
+  "id": "587d78a9367417b2b2512ae8",
+  "title": "Nauci kako Bezier krive funkcionisu",
+  "challengeType": 0,
+  "videoUrl": "https://scrimba.com/c/c9bDrs8",
+  "forumTopicId": 301058,
+  "dashedName": "learn-how-bezier-curves-work",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style>\n\n  .balls{\n    border-radius: 50%;\n    background: linear-gradient(\n      35deg,\n      #ccffff,\n      #ffcccc\n    );\n    position: fixed;\n    width: 50px;\n    height: 50px;\n    margin-top: 50px;\n    animation-name: bounce;\n    animation-duration: 2s;\n    animation-iteration-count: infinite;\n  }\n  #ball1 {\n    left: 27%;\n    animation-timing-function: linear;\n  }\n  #ball2 {\n    left: 56%;\n    animation-timing-function: ease-out;\n  }\n\n  @keyframes bounce {\n    0% {\n      top: 0px;\n    }\n    100% {\n      top: 249px;\n    }\n  }\n\n</style>\n\n<div class=\"balls\" id=\"ball1\"></div>\n<div class=\"balls\" id=\"ball2\"></div>",
+      "error": null,
+      "seed": "<style>\n\n  .balls{\n    border-radius: 50%;\n    background: linear-gradient(\n      35deg,\n      #ccffff,\n      #ffcccc\n    );\n    position: fixed;\n    width: 50px;\n    height: 50px;\n    margin-top: 50px;\n    animation-name: bounce;\n    animation-duration: 2s;\n    animation-iteration-count: infinite;\n  }\n  #ball1 {\n    left: 27%;\n    animation-timing-function: linear;\n  }\n  #ball2 {\n    left: 56%;\n    animation-timing-function: ease-out;\n  }\n\n  @keyframes bounce {\n    0% {\n      top: 0px;\n    }\n    100% {\n      top: 249px;\n    }\n  }\n\n</style>\n\n<div class=\"balls\" id=\"ball1\"></div>\n<div class=\"balls\" id=\"ball2\"></div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style>\n\n  .balls{\n    border-radius: 50%;\n    background: linear-gradient(\n      35deg,\n      #ccffff,\n      #ffcccc\n    );\n    position: fixed;\n    width: 50px;\n    height: 50px;\n    margin-top: 50px;\n    animation-name: bounce;\n    animation-duration: 2s;\n    animation-iteration-count: infinite;\n  }\n  #ball1 {\n    left: 27%;\n    animation-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);\n  }\n  #ball2 {\n    left: 56%;\n    animation-timing-function: ease-out;\n  }\n\n  @keyframes bounce {\n    0% {\n      top: 0px;\n    }\n    100% {\n      top: 249px;\n    }\n  }\n</style>\n<div class=\"balls\" id=\"ball1\"></div>\n<div class=\"balls\" id=\"ball2\"></div>",
+        "error": null,
+        "seed": "<style>\n\n  .balls{\n    border-radius: 50%;\n    background: linear-gradient(\n      35deg,\n      #ccffff,\n      #ffcccc\n    );\n    position: fixed;\n    width: 50px;\n    height: 50px;\n    margin-top: 50px;\n    animation-name: bounce;\n    animation-duration: 2s;\n    animation-iteration-count: infinite;\n  }\n  #ball1 {\n    left: 27%;\n    animation-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);\n  }\n  #ball2 {\n    left: 56%;\n    animation-timing-function: ease-out;\n  }\n\n  @keyframes bounce {\n    0% {\n      top: 0px;\n    }\n    100% {\n      top: 249px;\n    }\n  }\n</style>\n<div class=\"balls\" id=\"ball1\"></div>\n<div class=\"balls\" id=\"ball2\"></div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>animation-timing-function</code> vrednost za element sa id <code>ball1</code> treba da bude linearni ekvivalent <code>cubic-bezier</code> funkcije.</p>",
+      "testString": "const ballOne = document.querySelector('#ball1');\nconst ballOneStyle = window.getComputedStyle(ballOne); \nassert.equal(\n  ballOneStyle?.animationTimingFunction,\n    'cubic-bezier(0.25, 0.25, 0.75, 0.75)'\n);"
+    },
+    {
+      "text": "<p><code>animation-timing-function</code> vrednost za element sa id <code>ball2</code> ne treba da se menja.</p>",
+      "testString": "const ballTwoElement = document.querySelector('#ball2');\nconst ballTwoStyle = window.getComputedStyle(ballTwoElement); \nconst ball2Animation = __helpers.removeWhiteSpace(ballTwoStyle?.animationTimingFunction);\nassert.isTrue(\n  ball2Animation == 'ease-out' || ball2Animation == 'cubic-bezier(0,0,0.58,1)'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Poslednji izazov je predstavio <code>animation-timing-function</code> svojstvo i nekoliko kljucnih reci koje menjaju brzinu animacije tokom trajanja. CSS nudi i druge opcije osim kljucnih reci koje daju finiju kontrolu nad tim kako se animacija izvodi, kroz upotrebu Bezier krivih.</p>\n<p>U CSS animacijama, Bezier krive se koriste zajedno sa <code>cubic-bezier</code> funkcijom. Oblik krive predstavlja kako ce se animacija odvijati. Kriva se nalazi u koordinatnom sistemu 1x1. X osa tog sistema predstavlja vreme animacije, a Y osa predstavlja promenu u animaciji.</p>\n<p><code>cubic-bezier</code> funkcija ima cetiri glavne tacke u ovom 1x1 koordinatnom sistemu: <code>p0</code>, <code>p1</code>, <code>p2</code> i <code>p3</code>. <code>p0</code> i <code>p3</code> su fiksne tacke pocetka i kraja, uvek na koordinatama (0, 0) i (1, 1). Vi postavljate x i y vrednosti za preostale dve tacke, a njihov polozaj odredjuje oblik krive koji animacija prati. U CSS-u se to radi navodenjem x i y vrednosti <code>p1</code> i <code>p2</code> anchor tacaka ovako: <code>(x1, y1, x2, y2)</code>. Kada sve spojimo, evo primera Bezier krive u CSS kodu:</p>\n<pre><code class=\"language-css\">animation-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);\n</code></pre>\n<p>U primeru iznad, x i y vrednosti su iste za svaku tacku (x1 = 0.25 = y1 i x2 = 0.75 = y2), sto, ako se secate geometrije, daje pravu liniju od pocetka do tacke (1, 1). Ova animacija je linearna promena elementa kroz vreme i ekvivalentna je <code>linear</code> kljucnoj reci. Drugim recima, menja se konstantnom brzinom.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Za element sa id <code>ball1</code>, promenite <code>animation-timing-function</code> vrednost sa <code>linear</code> na njen ekvivalent u <code>cubic-bezier</code> funkciji. Koristite vrednosti tacaka date u prethodnom primeru.</p>\n</section>",
+  "translationPending": false,
+  "block": "applied-visual-design",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "responsive-web-design",
+  "superOrder": 27,
+  "challengeOrder": 49,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

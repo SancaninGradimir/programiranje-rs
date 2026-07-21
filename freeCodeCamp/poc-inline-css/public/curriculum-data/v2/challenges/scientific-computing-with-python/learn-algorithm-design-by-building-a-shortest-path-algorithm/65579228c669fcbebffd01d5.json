@@ -1,0 +1,51 @@
+{
+  "id": "65579228c669fcbebffd01d5",
+  "title": "Korak 52",
+  "challengeType": 20,
+  "dashedName": "step-52",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        18,
+        21
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node] and paths[node][-1] == node:\n                    paths[node] = paths[current]\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \nshortest_path(my_graph, 'A')\n",
+      "error": null,
+      "seed": "my_graph = {\n    'A': [('B', 3), ('D', 1)],\n    'B': [('A', 3), ('C', 4)],\n    'C': [('B', 4), ('D', 7)],\n    'D': [('A', 1), ('C', 7)]\n}\n\ndef shortest_path(graph, start):\n    unvisited = list(graph)\n    distances = {node: 0 if node == start else float('inf') for node in graph}\n    paths = {node: [] for node in graph}\n    paths[start].append(start)\n    \n    while unvisited:\n        current = min(unvisited, key=distances.get)\n        for node, distance in graph[current]:\n            if distance + distances[current] < distances[node]:\n                distances[node] = distance + distances[current]\n                if paths[node] and paths[node][-1] == node:\n                    paths[node] = paths[current]\n                else:\n                    paths[node].extend(paths[current])\n                paths[node].append(node)\n        unvisited.remove(current)\n    \n    print(f'Unvisited: {unvisited}\\nDistances: {distances}\\nPaths: {paths}')\n    \nshortest_path(my_graph, 'A')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da postaviš vrednost <code>paths[current][:]</code> na susednom čvoru (node).</p>",
+      "testString": "({ test: () => assert.match(code, /^(\\s*)if\\s+paths\\s*\\[\\s*node\\s*\\]\\s+and\\s+paths\\s*\\[\\s*node\\s*\\]\\s*\\[\\s*-\\s*1\\s*\\]\\s*==\\s*node\\s*:\\s*^\\1\\s{4}paths\\s*\\[\\s*node\\s*\\]\\s*=\\s*paths\\s*\\[\\s*current\\s*\\]\\s*\\[\\s*::?\\s*\\]/ms) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Druga greška je manja. Kada se pronađe najkraći put do susjednog čvora, <code>paths[current]</code> dobija vrijednost puta do susjednog čvora, <code>paths[node]</code>.</p>\n<p>Ovo znači da oba kriterijuma ukazuju na istu listu. Pošto je lista dinamička, kada dodate susedni čvor na njen put, <code>paths[node]</code> i <code>paths[current]</code> se menjaju jer je to ista lista. Ovo uzrokuje netačne puteve (rute), iako je rastojanje tačno.</p>\n<p>Možete popraviti tu grešku postavljanjem kopije <code>paths[current]</code> u putanju susjednog čvora. Stoga možete koristiti sintaksu za sečenje (slice):</p>\n<pre><code class=\"language-py\">my_list[:]\n</code></pre>\n<p>Gde je <code>my_list</code> lista koju želiš da kopiraš. Promijeni raspored <code>paths[node] = paths[current]</code> koji se nalazi unutar tvog bloka <code>if</code> uklanjanjem <code>paths[current]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-algorithm-design-by-building-a-shortest-path-algorithm",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 7,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 51,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

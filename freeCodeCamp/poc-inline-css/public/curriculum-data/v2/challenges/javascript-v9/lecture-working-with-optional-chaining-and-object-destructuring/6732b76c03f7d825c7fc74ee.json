@@ -1,0 +1,165 @@
+{
+  "id": "6732b76c03f7d825c7fc74ee",
+  "title": "Šta je operator za sekvencijalno spajanje i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-optional-chaining-operator-and-how-does-it-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Operater sekvencijalnog spajanja (<code>?.</code>) je važan alat u JavaScript koji vam omogućava siguran pristup svojstvima objekta ili pozivanje metode bez brige da li postoje ili ne. To je kao sigurnosna mreža za rad sa stvarima koje možda imaju nedostajuće delove.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.name); // \"Alice\"\nconsole.log(person.job); // undefined",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.name); // \"Alice\"\nconsole.log(person.job); // undefined\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, <code>person.name</code> postoji, pa beleži <code>Alice</code>. Ali <code>person.job</code> ne postoji, pa vraća <code>undefined</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Dakle, recimo da želimo da dobijemo kvalitet nečega što možda ne postoji:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.address.street); // This will throw an error!\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovaj primer će nam dati <code>Uncaught TypeError</code>. Pošto je <code>person.address</code> jednako <code>undefined</code>, ne možemo dobiti svojstvo <code>street</code>. Ovde postaje koristan operater sekvencijalne konkatenacije. Evo primera korišćenja operatera sekvencijalne konkatenacije:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const user = {\n  name: \"John\",\n  profile: {\n    email: \"john@example.com\",\n    address: {\n      street: \"123 Main St\",\n      city: \"Somewhere\"\n    }\n  }\n};\n\nconsole.log(user?.profile?.address?.street); // \"123 Main St\"\nconsole.log(user?.profile?.phone?.number);   // undefined",
+          "ext": "ts",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-ts\">const user = {\n  name: \"John\",\n  profile: {\n    email: \"john@example.com\",\n    address: {\n      street: \"123 Main St\",\n      city: \"Somewhere\"\n    }\n  }\n};\n\nconsole.log(user?.profile?.address?.street); // \"123 Main St\"\nconsole.log(user?.profile?.phone?.number);   // undefined\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Korišćenjem operatora sekvencijalnog spajanja, kažemo JavaScript da nastavi sa operacijom samo ako nešto (ili vrednost pre <code>?.</code>) postoji i nije <code>null</code> ili <code>undefined</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako je vrednost pre <code>?.</code> jednaka <code>null</code> ili <code>undefined</code>, JavaScript vraća <code>undefined</code> umesto da pokuša nastaviti sa operacijom i izbaci grešku.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zapamtite, operater za sekvencijalnog povezivanja su najvažniji kada ne znate da li postoji atribut ili metoda. Pomaže u sprečavanju grešaka i čini vaš kod robusnijim.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Operater serijske veze (<code>?.</code>) šta radi u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Postavlja se podrazumevana vrednost kada svojstvo nedostaje.</p>",
+          "feedback": "<p>Operater sekvencijalnog spajanja sprečava greške samo kada je vrednost <code>null</code> ili <code>undefined</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Onemogućava da se vrednosti za <code>undefined</code> pojave u stavkama.</p>",
+          "feedback": "<p>Operator za sekvencijalno povezivanje sprečava greške samo kada je vrednost <code>null</code> ili <code>undefined</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sigurno dobija svojstva definisana unutar i vraća <code>undefined</code> umesto da baci grešku ako vrednost ne postoji.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Naterava JavaScript da proceni nedostajuće karakteristike čak i ako ne postoje.</p>",
+          "feedback": "<p>Operater sekvencijalnog spajanja sprečava greške samo kada je vrednost <code>null</code> ili <code>undefined</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">const person = {\n  name: \"Alice\",\n  age: 30\n};\n\nconsole.log(person.address.street);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Pristup nedostajućem atributu definisanom interno i bez sekvencijalnog povezivanja prekida izvršavanje koda.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>street</code></p>",
+          "feedback": "<p>Pojavljivanje nedostajućeg atributa definisanog unutar bez sekvencijalnog povezivanja zaustavlja izvršavanje koda.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>{}</code></p>",
+          "feedback": "<p>Dobijanje nedostajućeg atributa definisanog unutar bez serijalnog povezivanja zaustavlja izvršavanje koda.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>TypeError</code> izbačen zato što <code>person.address</code> nije definisano.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">const user = {\n  name: \"John\",\n  profile: {\n    email: \"john@example.com\",\n    \"home address\": {\n      street: \"123 Main St\",\n      city: \"Somewhere\"\n    }\n  }\n};\n\nconsole.log(user?.profile?.address?.street);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>\"123 Main St\"</code></p>",
+          "feedback": "<p>Razmislite da predstavlja vrednost koja nije definisana/dodeljena vrednost.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>null</code></p>",
+          "feedback": "<p>Razmislite da predstavlja vrednost kojoj nije dodeljena vrednost.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>TypeError</code> baceno.</p>",
+          "feedback": "<p>Zamisli da predstavlja vrednost koja nije dodeljena vrednosti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-optional-chaining-and-object-destructuring",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 59,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-objects",
+  "certification": "javascript-v9"
+}

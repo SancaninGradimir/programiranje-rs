@@ -1,0 +1,86 @@
+{
+  "id": "aa2e6f85cab2ab736c9a9b24",
+  "title": "Kućište kasnog registra / Kasni registarski sanduk",
+  "challengeType": 5,
+  "saveSubmissionToDB": true,
+  "forumTopicId": 16012,
+  "dashedName": "cash-register",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function checkCashRegister(price, cash, cid) {\r\n  let change;\r\n  return change;\r\n}\r\n\r\ncheckCashRegister(19.5, 20, [[\"PENNY\", 1.01], [\"NICKEL\", 2.05], [\"DIME\", 3.1], [\"QUARTER\", 4.25], [\"ONE\", 90], [\"FIVE\", 55], [\"TEN\", 20], [\"TWENTY\", 60], [\"ONE HUNDRED\", 100]]);",
+      "error": null,
+      "seed": "function checkCashRegister(price, cash, cid) {\r\n  let change;\r\n  return change;\r\n}\r\n\r\ncheckCashRegister(19.5, 20, [[\"PENNY\", 1.01], [\"NICKEL\", 2.05], [\"DIME\", 3.1], [\"QUARTER\", 4.25], [\"ONE\", 90], [\"FIVE\", 55], [\"TEN\", 20], [\"TWENTY\", 60], [\"ONE HUNDRED\", 100]]);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const denom = [\r\n  { name: \"ONE HUNDRED\", val: 100 },\r\n  { name: \"TWENTY\", val: 20 },\r\n  { name: \"TEN\", val: 10 },\r\n  { name: \"FIVE\", val: 5 },\r\n  { name: \"ONE\", val: 1 },\r\n  { name: \"QUARTER\", val: 0.25 },\r\n  { name: \"DIME\", val: 0.1 },\r\n  { name: \"NICKEL\", val: 0.05 },\r\n  { name: \"PENNY\", val: 0.01 },\r\n];\r\n\r\nfunction checkCashRegister(price, cash, cid) {\r\n  const output = { status: null, change: [] };\r\n  let change = cash - price;\r\n  const register = cid.reduce(\r\n    function (acc, curr) {\r\n      acc.total += curr[1];\r\n      acc[curr[0]] = curr[1];\r\n      return acc;\r\n    },\r\n    { total: 0 }\r\n  );\r\n  if (register.total === change) {\r\n    output.status = \"CLOSED\";\r\n    output.change = cid;\r\n    return output;\r\n  }\r\n  if (register.total < change) {\r\n    output.status = \"INSUFFICIENT_FUNDS\";\r\n    return output;\r\n  }\r\n  const change_arr = denom.reduce(function (acc, curr) {\r\n    let value = 0;\r\n    while (register[curr.name] > 0 && change >= curr.val) {\r\n      change -= curr.val;\r\n      register[curr.name] -= curr.val;\r\n      value += curr.val;\r\n      change = Math.round(change * 100) / 100;\r\n    }\r\n    if (value > 0) {\r\n      acc.push([curr.name, value]);\r\n    }\r\n    return acc;\r\n  }, []);\r\n  if (change_arr.length < 1 || change > 0) {\r\n    output.status = \"INSUFFICIENT_FUNDS\";\r\n    return output;\r\n  }\r\n  output.status = \"OPEN\";\r\n  output.change = change_arr;\r\n  return output;\r\n}",
+        "error": null,
+        "seed": "const denom = [\r\n  { name: \"ONE HUNDRED\", val: 100 },\r\n  { name: \"TWENTY\", val: 20 },\r\n  { name: \"TEN\", val: 10 },\r\n  { name: \"FIVE\", val: 5 },\r\n  { name: \"ONE\", val: 1 },\r\n  { name: \"QUARTER\", val: 0.25 },\r\n  { name: \"DIME\", val: 0.1 },\r\n  { name: \"NICKEL\", val: 0.05 },\r\n  { name: \"PENNY\", val: 0.01 },\r\n];\r\n\r\nfunction checkCashRegister(price, cash, cid) {\r\n  const output = { status: null, change: [] };\r\n  let change = cash - price;\r\n  const register = cid.reduce(\r\n    function (acc, curr) {\r\n      acc.total += curr[1];\r\n      acc[curr[0]] = curr[1];\r\n      return acc;\r\n    },\r\n    { total: 0 }\r\n  );\r\n  if (register.total === change) {\r\n    output.status = \"CLOSED\";\r\n    output.change = cid;\r\n    return output;\r\n  }\r\n  if (register.total < change) {\r\n    output.status = \"INSUFFICIENT_FUNDS\";\r\n    return output;\r\n  }\r\n  const change_arr = denom.reduce(function (acc, curr) {\r\n    let value = 0;\r\n    while (register[curr.name] > 0 && change >= curr.val) {\r\n      change -= curr.val;\r\n      register[curr.name] -= curr.val;\r\n      value += curr.val;\r\n      change = Math.round(change * 100) / 100;\r\n    }\r\n    if (value > 0) {\r\n      acc.push([curr.name, value]);\r\n    }\r\n    return acc;\r\n  }, []);\r\n  if (change_arr.length < 1 || change > 0) {\r\n    output.status = \"INSUFFICIENT_FUNDS\";\r\n    return output;\r\n  }\r\n  output.status = \"OPEN\";\r\n  output.change = change_arr;\r\n  return output;\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>checkCashRegister(19.5, 20, [[\"PENNY\", 1.01], [\"NICKEL\", 2.05], [\"DIME\", 3.1], [\"QUARTER\", 4.25], [\"ONE\", 90], [\"FIVE\", 55], [\"TEN\", 20], [\"TWENTY\", 60], [\"ONE HUNDRED\", 100]])</code> Trebalo bi da vrati nešto.</p>",
+      "testString": "assert.deepEqual(\r\n  Object.prototype.toString.call(\r\n    checkCashRegister(19.5, 20, [\r\n      ['PENNY', 1.01],\r\n      ['NICKEL', 2.05],\r\n      ['DIME', 3.1],\r\n      ['QUARTER', 4.25],\r\n      ['ONE', 90],\r\n      ['FIVE', 55],\r\n      ['TEN', 20],\r\n      ['TWENTY', 60],\r\n      ['ONE HUNDRED', 100]\r\n    ])\r\n  ),\r\n  '[object Object]'\r\n);"
+    },
+    {
+      "text": "<p><code>checkCashRegister(19.5, 20, [[\"PENNY\", 1.01], [\"NICKEL\", 2.05], [\"DIME\", 3.1], [\"QUARTER\", 4.25], [\"ONE\", 90], [\"FIVE\", 55], [\"TEN\", 20], [\"TWENTY\", 60], [\"ONE HUNDRED\", 100]])</code> treba vratiti <code>{status: \"OPEN\", change: [[\"QUARTER\", 0.5]]}</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  checkCashRegister(19.5, 20, [\r\n    ['PENNY', 1.01],\r\n    ['NICKEL', 2.05],\r\n    ['DIME', 3.1],\r\n    ['QUARTER', 4.25],\r\n    ['ONE', 90],\r\n    ['FIVE', 55],\r\n    ['TEN', 20],\r\n    ['TWENTY', 60],\r\n    ['ONE HUNDRED', 100]\r\n  ]),\r\n  { status: 'OPEN', change: [['QUARTER', 0.5]] }\r\n);"
+    },
+    {
+      "text": "<p><code>checkCashRegister(3.26, 100, [[\"PENNY\", 1.01], [\"NICKEL\", 2.05], [\"DIME\", 3.1], [\"QUARTER\", 4.25], [\"ONE\", 90], [\"FIVE\", 55], [\"TEN\", 20], [\"TWENTY\", 60], [\"ONE HUNDRED\", 100]])</code> trebalo bi vratiti <code>{status: \"OPEN\", change: [[\"TWENTY\", 60], [\"TEN\", 20], [\"FIVE\", 15], [\"ONE\", 1], [\"QUARTER\", 0.5], [\"DIME\", 0.2], [\"PENNY\", 0.04]]}</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  checkCashRegister(3.26, 100, [\r\n    ['PENNY', 1.01],\r\n    ['NICKEL', 2.05],\r\n    ['DIME', 3.1],\r\n    ['QUARTER', 4.25],\r\n    ['ONE', 90],\r\n    ['FIVE', 55],\r\n    ['TEN', 20],\r\n    ['TWENTY', 60],\r\n    ['ONE HUNDRED', 100]\r\n  ]),\r\n  {\r\n    status: 'OPEN',\r\n    change: [\r\n      ['TWENTY', 60],\r\n      ['TEN', 20],\r\n      ['FIVE', 15],\r\n      ['ONE', 1],\r\n      ['QUARTER', 0.5],\r\n      ['DIME', 0.2],\r\n      ['PENNY', 0.04]\r\n    ]\r\n  }\r\n);"
+    },
+    {
+      "text": "<p><code>checkCashRegister(19.5, 20, [[\"PENNY\", 0.01], [\"NICKEL\", 0], [\"DIME\", 0], [\"QUARTER\", 0], [\"ONE\", 0], [\"FIVE\", 0], [\"TEN\", 0], [\"TWENTY\", 0], [\"ONE HUNDRED\", 0]])</code> treba da vrati <code>{status: \"INSUFFICIENT_FUNDS\", change: []}</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  checkCashRegister(19.5, 20, [\r\n    ['PENNY', 0.01],\r\n    ['NICKEL', 0],\r\n    ['DIME', 0],\r\n    ['QUARTER', 0],\r\n    ['ONE', 0],\r\n    ['FIVE', 0],\r\n    ['TEN', 0],\r\n    ['TWENTY', 0],\r\n    ['ONE HUNDRED', 0]\r\n  ]),\r\n  { status: 'INSUFFICIENT_FUNDS', change: [] }\r\n);"
+    },
+    {
+      "text": "<p><code>checkCashRegister(19.5, 20, [[\"PENNY\", 0.01], [\"NICKEL\", 0], [\"DIME\", 0], [\"QUARTER\", 0], [\"ONE\", 1], [\"FIVE\", 0], [\"TEN\", 0], [\"TWENTY\", 0], [\"ONE HUNDRED\", 0]])</code> trebalo bi da vrati <code>{status: \"INSUFFICIENT_FUNDS\", change: []}</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  checkCashRegister(19.5, 20, [\r\n    ['PENNY', 0.01],\r\n    ['NICKEL', 0],\r\n    ['DIME', 0],\r\n    ['QUARTER', 0],\r\n    ['ONE', 1],\r\n    ['FIVE', 0],\r\n    ['TEN', 0],\r\n    ['TWENTY', 0],\r\n    ['ONE HUNDRED', 0]\r\n  ]),\r\n  { status: 'INSUFFICIENT_FUNDS', change: [] }\r\n);"
+    },
+    {
+      "text": "<p><code>checkCashRegister(19.5, 20, [[\"PENNY\", 0.5], [\"NICKEL\", 0], [\"DIME\", 0], [\"QUARTER\", 0], [\"ONE\", 0], [\"FIVE\", 0], [\"TEN\", 0], [\"TWENTY\", 0], [\"ONE HUNDRED\", 0]])</code> treba da vrati <code>{status: \"CLOSED\", change: [[\"PENNY\", 0.5], [\"NICKEL\", 0], [\"DIME\", 0], [\"QUARTER\", 0], [\"ONE\", 0], [\"FIVE\", 0], [\"TEN\", 0], [\"TWENTY\", 0], [\"ONE HUNDRED\", 0]]}</code>.</p>",
+      "testString": "assert.deepEqual(\r\n  checkCashRegister(19.5, 20, [\r\n    ['PENNY', 0.5],\r\n    ['NICKEL', 0],\r\n    ['DIME', 0],\r\n    ['QUARTER', 0],\r\n    ['ONE', 0],\r\n    ['FIVE', 0],\r\n    ['TEN', 0],\r\n    ['TWENTY', 0],\r\n    ['ONE HUNDRED', 0]\r\n  ]),\r\n  {\r\n    status: 'CLOSED',\r\n    change: [\r\n      ['PENNY', 0.5],\r\n      ['NICKEL', 0],\r\n      ['DIME', 0],\r\n      ['QUARTER', 0],\r\n      ['ONE', 0],\r\n      ['FIVE', 0],\r\n      ['TEN', 0],\r\n      ['TWENTY', 0],\r\n      ['ONE HUNDRED', 0]\r\n    ]\r\n  }\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kreiraj funkciju za kasu/registar novca <code>checkCashRegister()</code> koja prima cenu kupovine kao prvi argument (<code>price</code>), plaćanje kao drugi argument (<code>cash</code>) i dostupnu gotovinu u kasama (<code>cid</code>) kao treći argument.</p>\n<p><code>cid</code> To je red podataka sa dve kolone koji navodi dostupne valute.</p>\n<p>Funkcija <code>checkCashRegister()</code> mora uvek da vrati nešto sa ključem <code>status</code> i ključom <code>change</code>.</p>\n<p>Vratite <code>{status: \"INSUFFICIENT_FUNDS\", change: []}</code> ako je novac na računu manji od iznosa koji treba vratiti, ili ako ne možete vratiti ceo iznos.</p>\n<p>Vratite <code>{status: \"CLOSED\", change: [...]}</code> i novac koji je u sanduku kao vrednost ključa za <code>change</code> ako je jednak promenama koje treba da se vrate.</p>\n<p>Inače, vratite <code>{status: \"OPEN\", change: [...]}</code>, i razmenu koja treba da se vrati u novčići i bankovni papir, poređana od najveće do najmanje vrednosti, kao vrednost ključa za <code>change</code>.</p>\n<table><tbody><tr><th>Valutna jedinica</th><th>Iznos</th></tr><tr><td>Penji</td><td>$0.01 (PENNY)</td></tr><tr><td>Nikel</td><td>$0.05 (NICKEL)</td></tr><tr><td>Dime</td><td>$0.1 (DIME)</td></tr><tr><td>Kvarta</td><td>$0.25 (QUARTER)</td></tr><tr><td>Dolari</td><td>$1 (ONE)</td></tr><tr><td>Pet dolara</td><td>$5 (FIVE)</td></tr><tr><td>Deset dolara</td><td>$10 (TEN)</td></tr><tr><td>Dvadeset dolara</td><td>$20 (TWENTY)</td></tr><tr><td>Sto dolara</td><td>$100 (ONE HUNDRED)</td></tr></tbody></table>\n<p>Pogledajte ovde primer rednog popisa dostupnih novčanica u kutiji:</p>\n<pre><code class=\"language-js\">[\r\n  [\"PENNY\", 1.01],\r\n  [\"NICKEL\", 2.05],\r\n  [\"DIME\", 3.1],\r\n  [\"QUARTER\", 4.25],\r\n  [\"ONE\", 90],\r\n  [\"FIVE\", 55],\r\n  [\"TEN\", 20],\r\n  [\"TWENTY\", 60],\r\n  [\"ONE HUNDRED\", 100]\r\n]\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "javascript-algorithms-and-data-structures-projects",
+  "blockLayout": "project-list",
+  "hasEditableBoundaries": false,
+  "order": 9,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "589690e6f9fc0f352b528e6e",
+  "title": "Očisti projekat sa modulima",
+  "challengeType": 2,
+  "forumTopicId": 301549,
+  "dashedName": "clean-up-your-project-with-modules",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Moduli treba da postoje.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /require\\s*\\(('|\")\\.\\/routes(\\.js)?\\1\\)/gi,\n    'You should have required your new files'\n  );\n  assert.match(\n    data,\n    /client\\s*\\.db[^]*routes/gi,\n    'Your new modules should be called after your connection to the database'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Trenutno, sve što imaš je u tvom <code>server.js</code> fajlu. Ovo može dovesti do koda koji je težak za održavanje i proširivanje. Kreiraj 2 nova fajla: <code>routes.js</code> i <code>auth.js</code></p>\n<p>Oba treba da počnu sa sledećim kodom:</p>\n<pre><code class=\"language-js\">module.exports = function (app, myDataBase) {\n\n}\n</code></pre>\n<p>Sada, na vrhu tvog server fajla, uvezi ove fajlove ovako: <code>const routes = require('./routes.js');</code> Čim uspostaviš dobru konekciju sa bazom podataka, inicijalizuj svaki ovako: <code>routes(app, myDataBase)</code></p>\n<p>Konačno, uzmi sve rute sa tvog servera i nalepi ih u nove fajlove, zatim ih ukloni iz server fajla. Takođe uzmi <code>ensureAuthenticated</code> funkciju, jer je kreirana specifično za rute. Sada, moraćeš da dodaš ispravno zavisnosti koje se koriste, kao što je <code>const passport = require('passport');</code>, na samom vrhu, iznad linije za izvoz u tvom <code>routes.js</code> fajlu.</p>\n<p>Nastavi da ih dodaješ dok više nema grešaka, i tvoj server fajl nema više ruta (<strong>osim rute u catch delu</strong>)!</p>\n<p>Uradi isto u svom <code>auth.js</code> fajlu za sve stvari vezane za autentifikaciju kao što su serijalizacija i konfiguracija local strategije, zatim ih obriši iz server fajla. Uveri se da dodaš zavisnosti i pozoveš <code>auth(app, myDataBase)</code> u serveru na istom mestu.</p>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#clean-up-your-project-with-modules-2\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati primer završenog projekta</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

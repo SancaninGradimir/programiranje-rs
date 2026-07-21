@@ -1,0 +1,93 @@
+{
+  "id": "5ea28156e79528a9ab248f27",
+  "title": "Provera Luhna za brojeve kreditnih kartica",
+  "challengeType": 1,
+  "forumTopicId": 385284,
+  "dashedName": "luhn-test-of-credit-card-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function luhnTest(str) {\n\n}",
+      "error": null,
+      "seed": "function luhnTest(str) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function luhnTest(str) {\n  var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];\n  var counter = 0;\n  var incNum;\n  var odd = false;\n  var temp = String(str).replace(/[^\\d]/g, '');\n  if (temp.length == 0) return false;\n  for (var i = temp.length - 1; i >= 0; --i) {\n    incNum = parseInt(temp.charAt(i), 10);\n    counter += (odd = !odd) ? incNum : luhnArr[incNum];\n  }\n  return counter % 10 == 0;\n}",
+        "error": null,
+        "seed": "function luhnTest(str) {\n  var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];\n  var counter = 0;\n  var incNum;\n  var odd = false;\n  var temp = String(str).replace(/[^\\d]/g, '');\n  if (temp.length == 0) return false;\n  for (var i = temp.length - 1; i >= 0; --i) {\n    incNum = parseInt(temp.charAt(i), 10);\n    counter += (odd = !odd) ? incNum : luhnArr[incNum];\n  }\n  return counter % 10 == 0;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>luhnTest</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof luhnTest === 'function');"
+    },
+    {
+      "text": "<p><code>luhnTest(\"4111111111111111\")</code> Trebalo bi da vrati vrednost tačno ili netačno.</p>",
+      "testString": "assert(typeof luhnTest('4111111111111111') === 'boolean');"
+    },
+    {
+      "text": "<p><code>luhnTest(\"4111111111111111\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(luhnTest('4111111111111111'), true);"
+    },
+    {
+      "text": "<p><code>luhnTest(\"4111111111111112\")</code> trebalo bi da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(luhnTest('4111111111111112'), false);"
+    },
+    {
+      "text": "<p><code>luhnTest(\"49927398716\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.equal(luhnTest('49927398716'), true);"
+    },
+    {
+      "text": "<p><code>luhnTest(\"49927398717\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.equal(luhnTest('49927398717'), false);"
+    },
+    {
+      "text": "<p><code>luhnTest(\"1234567812345678\")</code> treba vratiti <code>false</code>.</p>",
+      "testString": "assert.equal(luhnTest('1234567812345678'), false);"
+    },
+    {
+      "text": "<p><code>luhnTest(\"1234567812345670\")</code> inapaswa kurudisha <code>true</code>.</p>",
+      "testString": "assert.equal(luhnTest('1234567812345670'), true);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Luhn algoritam ga koriste neke kompanije za kreditne kartice da bi razlikovale važeće brojeve kreditnih kartica od onih koji mogu biti nasumičan izbor cifara.</p>\n<p>Kompanije koje koriste brojeve kreditnih kartica koji su verifikovani Luhnovim testom, poseduju brojeve koji prolaze sledeći test:</p>\n<ol>\n  <li> Pretvorite sekvencu cifara u tu broj.</li>\n  <li> Uzmite prvu, treću, ... i svaku drugu cifru koja nije na težini u pretvorenim ciframa i saberi ih kako biste dobili delimični zbir s1</li>\n  <li> Uzimanjem druge, četvrte... i svake druge cifre na težini u pretvorenim ciframa:</li>\n    <ol>\n      <li> Udvojte svaku cifru i saberi cifre ako je rezultat veći od devetke kako biste dobili delimične zbirove za ponderisane cifre.</li>\n      <li> Saberi delimične zbirove ponderisanih cifara kako biste dobili s2.</li>\n    </ol>\n  <li> Ako s1 + s2 završava nulom, onda je originalni broj u formatu validnog broja kreditne kartice, kao što ga potvrđuje Luhnov test.</li>\n</ol>\n<p>Na primer, ako je testni broj 49927398716:</p>\n<pre><code class=\"language-md\">Reverse the digits:\n  61789372994\nSum the odd digits:\n  6 + 7 + 9 + 7 + 9 + 4 = 42 = s1\nThe even digits:\n    1, 8, 3, 2, 9\n  Two times each even digit:\n    2, 16, 6, 4, 18\n  Sum the digits of each multiplication:\n    2, 7, 6, 4, 9\n  Sum the last:\n    2 + 7 + 6 + 4 + 9 = 28 = s2\n\ns1 + s2 = 70 which ends in zero which means that 49927398716 passes the Luhn test.\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja validira broj po Lhunovom testu. Vrati true ako je validan broj. Inače, vrati false.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 102,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

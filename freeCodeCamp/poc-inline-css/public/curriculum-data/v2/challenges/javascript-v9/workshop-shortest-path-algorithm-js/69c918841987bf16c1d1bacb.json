@@ -1,0 +1,62 @@
+{
+  "id": "69c918841987bf16c1d1bacb",
+  "title": "Korak 20",
+  "challengeType": 1,
+  "dashedName": "step-20",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        42,
+        44
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n      if (distance !== INF && !visited[nodeNo]) {\n        const newDistance = distances[current] + distance;\n        if (newDistance < distances[nodeNo]) {\n          distances[nodeNo] = newDistance;\n          paths[nodeNo] = [...paths[current], nodeNo];\n        }\n      }\n    }\n  }\n\n}",
+      "error": null,
+      "seed": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      const distance = matrix[current][nodeNo];\n      if (distance !== INF && !visited[nodeNo]) {\n        const newDistance = distances[current] + distance;\n        if (newDistance < distances[nodeNo]) {\n          distances[nodeNo] = newDistance;\n          paths[nodeNo] = [...paths[current], nodeNo];\n        }\n      }\n    }\n  }\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da napraviš parametar <code>targets</code> nakon glavnog kruga.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /(const|let|var)\\s+targets\\s*=/\n);"
+    },
+    {
+      "text": "<p>Tvoj kriterijum za <code>targets</code> treba da koristi ternarni motor uslova koji proverava <code>targetNode !== null</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /targets\\s*=\\s*targetNode\\s*!==\\s*null\\s*\\?/\n);"
+    },
+    {
+      "text": "<p>Kada je polje dato, <code>targets</code> trebalo bi da bude <code>[targetNode]</code>, inače trebalo bi da bude <code>[...Array(n).keys()]</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /\\?\\s*\\[\\s*targetNode\\s*\\]\\s*:\\s*\\[\\s*\\.\\.\\.\\s*Array\\s*\\(\\s*n\\s*\\)\\s*\\.keys\\s*\\(\\s*\\)\\s*\\]/\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada se glavni ciklus završi, mora da utvrdi koji čvor ili čvorovi treba da prikažu njegove rezultate.</p>\n<p>Ako je dostupan specifičan <code>targetNode</code>, prikažite rezultate samo za taj čvor. Inače, prikažite rezultate za sve čvorove.</p>\n<p>U JavaScript, možete pronaći sve indikatore podatomog reda kao ponovljiv koristeći <code>[...Array(n).keys()]</code>.</p>\n<p>Nakon spoljne petlje od <code>for</code>, kreiraj varijablu nazvanu <code>targets</code>. Koristeći trostruki uslovni izraz, ako <code>targetNode</code> nije potpuno jednak <code>null</code>, postavi vrednost <code>[targetNode]</code>, inače postavi <code>[...Array(n).keys()]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm-js",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 206,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "graphs-and-trees",
+  "certification": "javascript-v9"
+}

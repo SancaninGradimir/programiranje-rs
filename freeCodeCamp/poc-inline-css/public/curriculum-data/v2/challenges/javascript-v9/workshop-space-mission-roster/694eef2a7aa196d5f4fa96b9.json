@@ -1,0 +1,58 @@
+{
+  "id": "694eef2a7aa196d5f4fa96b9",
+  "title": "Korak 20",
+  "challengeType": 1,
+  "dashedName": "step-20",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        79,
+        81
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n  return updatedCrew; \n}\n\nconst updatedSquad = swapCrewMembers(squad, 2, 5);\n\nfunction sortByPriorityDescending(crew) {\n  for (let i = 0; i < crew.length - 1; i++) {\n    for (let j = 0; j < crew.length - 1 - i; j++) {\n      if (crew[j].priority < crew[j + 1].priority) {\n        const temp = crew[j];\n        crew[j] = crew[j + 1];\n        crew[j + 1] = temp;\n      }\n    }\n  }\n}\n\nfunction getEVAReadyCrew(crew) {\n  const eligible = [];\n  for (const astronaut of crew) {\n    if (astronaut.isEVAEligible) eligible.push(astronaut);\n  }\n  sortByPriorityDescending(eligible); \n  \n  return eligible;\n}\n\n",
+      "error": null,
+      "seed": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n  return updatedCrew; \n}\n\nconst updatedSquad = swapCrewMembers(squad, 2, 5);\n\nfunction sortByPriorityDescending(crew) {\n  for (let i = 0; i < crew.length - 1; i++) {\n    for (let j = 0; j < crew.length - 1 - i; j++) {\n      if (crew[j].priority < crew[j + 1].priority) {\n        const temp = crew[j];\n        crew[j] = crew[j + 1];\n        crew[j + 1] = temp;\n      }\n    }\n  }\n}\n\nfunction getEVAReadyCrew(crew) {\n  const eligible = [];\n  for (const astronaut of crew) {\n    if (astronaut.isEVAEligible) eligible.push(astronaut);\n  }\n  sortByPriorityDescending(eligible); \n  \n  return eligible;\n}\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozoveš <code>getEVAReadyCrew()</code> sa <code>updatedSquad</code> i sačuvaš rezultate u novu varijablu nazvanu <code>EVAReadySquad</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(code),\n  /(let|const)\\s+EVAReadySquad/,\n  \"You must have at least one space between the declaration keyword (let/const) and 'EVAReadySquad'\"\n);\nconst cleaned = __helpers.removeWhiteSpace(__helpers.removeJSComments(code));\nassert.match(cleaned, /(let|const)EVAReadySquad=getEVAReadyCrew\\(updatedSquad\\)/);\nassert.isArray(EVAReadySquad);\nassert.strictEqual(EVAReadySquad.length, 6)\nconst EVANames = EVAReadySquad.map(a => a.name);\nassert.deepEqual(EVANames.slice(), [\"Elise\", \"Felix\", \"Irene\", \"Caroline\", \"Andy\", \"Hank\"]);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš krug <code>for</code> za prolazak kroz niz podataka <code>EVAReadySquad</code> i zapisivanje <code>name</code> svake zvezde na nebu.</p>",
+      "testString": "const cleaned = __helpers.removeJSComments(code).replace(/\\s+/g, \"\");\nassert.match(cleaned, /for\\([^)]*EVAReadySquad[^)]*\\)/, 'A for(...) loop over EVAReadySquad is required');\nassert.match(cleaned, /console\\.log[^;]*\\.name/, 'console.log should log the .name property');\nfunction captureConsoleFromCode(code) {\n  const logs = [];\n  const originalLog = console.log;\n  console.log = (...args) => logs.push(args.join(\" \"));\n  try {\n    const userScriptFn = new Function(code);\n    userScriptFn();\n  } finally {\n    console.log = originalLog;\n  }\n  return logs;\n}\nconst logs = captureConsoleFromCode(code);\nconst expectedNames = [\"Elise\", \"Felix\", \"Irene\", \"Caroline\", \"Andy\", \"Hank\"];\nassert.strictEqual(\n  logs.length,\n  expectedNames.length,\n  \"You must log each EVA-ready astronaut's name exactly once\"\n);\nassert.deepEqual(\n  logs,\n  expectedNames,\n  \"console.log must log the .name property of each EVA-ready astronaut in order\"\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pozovi za <code>getEVAReadyCrew()</code> koristeći vašu listu od <code>updatedSquad</code> i sačuvaj rezultate u novi parametar nazvan <code>EVAReadySquad</code>. Zatim, koristi petlju <code>for</code> da prođe kroz niz podataka <code>name</code> i napiši za svaku zvezdu na nebu <code>EVAReadySquad</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-space-mission-roster",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

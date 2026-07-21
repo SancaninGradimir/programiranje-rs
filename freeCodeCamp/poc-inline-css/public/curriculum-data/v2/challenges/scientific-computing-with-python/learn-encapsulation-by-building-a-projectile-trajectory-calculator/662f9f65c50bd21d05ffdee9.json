@@ -1,0 +1,59 @@
+{
+  "id": "662f9f65c50bd21d05ffdee9",
+  "title": "Korak 7",
+  "challengeType": 20,
+  "dashedName": "step-7",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        42,
+        48
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.__speed} m/s\r\nheight: {self.__height} m\r\nangle: {round(math.degrees(self.__angle))}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x**2 / (\r\n                2 * self.__speed**2 * math.cos(self.__angle)**2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n\r\n    \r\n        \r\n        \r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r",
+      "error": null,
+      "seed": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.__speed} m/s\r\nheight: {self.__height} m\r\nangle: {round(math.degrees(self.__angle))}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x**2 / (\r\n                2 * self.__speed**2 * math.cos(self.__angle)**2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n\r\n    \r\n        \r\n        \r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete putanju <code>calculate_all_coordinates</code> sa jednim argumentom, <code>self</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\nc = _Node(_code).find_class('Projectile')\r\nc.has_function('calculate_all_coordinates') and c.find_function('calculate_all_coordinates').has_args('self')\r\n`))})"
+    },
+    {
+      "text": "<p>Morate izvršiti poziv metode <code>calculate_all_coordinates</code> na <code>ball</code> i postavi rezultate u parametar nazvan <code>coordinates</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(`\r\n        assert _Node(_code).has_variable('coordinates'), \"coordinates variable is missing\"\r\n\r\n        assert _Node(_code).find_variable('coordinates').is_equivalent('coordinates = ball.calculate_all_coordinates()'), \"wrong value assigned to coordinates variable\"\r\n    `)\r\n})"
+    },
+    {
+      "text": "<p>Putanja za <code>calculate_all_coordinates</code> treba da vrati listu koja sadrži sve koordinate za <code>(x, y)</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\nimport math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\nball = Projectile(12, 13, 14)\r\nexpected = [(x, ball._Projectile__calculate_y_coordinate(x)) for x in range(math.ceil(ball._Projectile__calculate_displacement()))]\r\nactual = ball.calculate_all_coordinates()\r\nexpected == actual\r\n`))})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Implementiraj funkciju nazvanu <code>calculate_all_coordinates</code>, koja računa kumulativnu sumu za sve vrednosti \\(x\\) od <code>0</code> do navedene/specifikovane vrednosti (isključivo), a zatim je vrati kao listu tupola <code>(x, y)</code>.</p>\n<p>Nakon toga, pozovite metodu <code>calculate_all_coordinates</code> koristeći primer <code>ball</code> i sačuvajte rezultate u novi parametar nazvan <code>coordinates</code>.</p>\n<p>Možete koristiti <code>math.ceil()</code> za sortiranje brojeva do najmanjeg broja koji nadmašuje ili je jednak tom broju.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-encapsulation-by-building-a-projectile-trajectory-calculator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 17,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,100 @@
+{
+  "id": "587d7dbe367417b2b2512bb9",
+  "title": "Koristi @for za kreiranje petlje Sass-a",
+  "challengeType": 0,
+  "forumTopicId": 301462,
+  "dashedName": "use-for-to-create-a-sass-loop",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style type='text/scss'>\n\n\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>",
+      "error": null,
+      "seed": "<style type='text/scss'>\n\n\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style type='text/scss'>\n\n@for $i from 1 through 5 {\n  .text-#{$i} { font-size: 15px * $i; }\n}\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>",
+        "error": null,
+        "seed": "<style type='text/scss'>\n\n@for $i from 1 through 5 {\n  .text-#{$i} { font-size: 15px * $i; }\n}\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>"
+      }
+    ],
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style type='text/scss'>\n\n@for $i from 1 to 6 {\n  .text-#{$i} { font-size: 15px * $i; }\n}\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>",
+        "error": null,
+        "seed": "<style type='text/scss'>\n\n@for $i from 1 to 6 {\n  .text-#{$i} { font-size: 15px * $i; }\n}\n\n</style>\n\n<p class=\"text-1\">Hello</p>\n<p class=\"text-2\">Hello</p>\n<p class=\"text-3\">Hello</p>\n<p class=\"text-4\">Hello</p>\n<p class=\"text-5\">Hello</p>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Msimbo wako unapaswa kutumia amri ya <code>@for</code>.</p>",
+      "testString": "assert(code.match(/@for /g));"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>.text-1</code> treba da ima <code>font-size</code> od 15px.</p>",
+      "testString": "assert($('.text-1').css('font-size') == '15px');"
+    },
+    {
+      "text": "<p>Tvoja klasa za <code>.text-2</code> treba da ima <code>font-size</code> od 30px.</p>",
+      "testString": "assert($('.text-2').css('font-size') == '30px');"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>.text-3</code> treba da ima <code>font-size</code> od 45px.</p>",
+      "testString": "assert($('.text-3').css('font-size') == '45px');"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>.text-4</code> treba da ima <code>font-size</code> od 60px.</p>",
+      "testString": "assert($('.text-4').css('font-size') == '60px');"
+    },
+    {
+      "text": "<p>Darasa lako la <code>.text-5</code> treba da ima <code>font-size</code> od 75px.</p>",
+      "testString": "assert($('.text-5').css('font-size') == '75px');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Komanda za <code>@for</code> dodaje stilove u ciklus, veoma slično ciklusu od <code>for</code> u JavaScript.</p>\n<p><code>@for</code> koristi se na dva načina: \"do kraja\" ili \"od početka do kraja\". Glavna razlika je u tome što \"od početka <strong>do</strong> kraja\" <em>ne uključuje</em> poslednji broj kao deo brojanja, dok \"do kraja <strong>pored</strong>\" <em>uključuje</em> poslednji broj kao deo brojanja.</p>\n<p>Evo primera od početka do kraja:</p>\n<pre><code class=\"language-scss\">@for $i from 1 through 12 {\n  .col-#{$i} { width: 100%/12 * $i; }\n}\n</code></pre>\n<p>Deo <code>#{$i}</code> je sintaksa za spajanje varijable (<code>i</code>) sa tekstom kako bi se kreirao niz znakova. Kada se Sass fajl konvertuje u CSS, izgleda ovako:</p>\n<pre><code class=\"language-scss\">.col-1 {\n  width: 8.33333%;\n}\n\n.col-2 {\n  width: 16.66667%;\n}\n\n...\n\n.col-12 {\n  width: 100%;\n}\n</code></pre>\n<p>Ovo je moćan način za kreiranje mrežnog rasporeda. Sada imate dvanaest opcija širine redova dostupnih kao klase CSS.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši komandu <code>@for</code> koja uzima parametar <code>$j</code> koji ide od 1 <strong>do</strong> 6.</p>\n<p>Inapaswa kuunda madarasa 5 yanayoitwa <code>.text-1</code> hadi <code>.text-5</code>, ambapo kila moja ina <code>font-size</code> iliyowekwa kuwa 15px mara nambari ya kielezo.</p>\n</section>",
+  "translationPending": false,
+  "block": "sass",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

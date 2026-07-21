@@ -1,0 +1,59 @@
+{
+  "id": "65c63e6962159fa372ecdbec",
+  "title": "Korak 22",
+  "challengeType": 20,
+  "dashedName": "step-22",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        28,
+        35
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>_search</code> za ponavljanje korišćenjem <code>self._search()</code>.</p>",
+      "testString": "const after_split = code.split('return self._search(node.left, key)')[1];\nassert.match(after_split, /self\\._search/);"
+    },
+    {
+      "text": "<p>Morate proslediti dva argumenta za poziv metode <code>_search</code>: <code>node.right</code> i <code>key</code>.</p>",
+      "testString": "({ test: () => assert.match(code, /self\\._search\\(\\s*node\\.right\\s*,\\s*key\\s*\\)/) });"
+    },
+    {
+      "text": "<p>Treba da vratiš rezultat pozivanja metode <code>_search</code>.</p>",
+      "testString": "({\n  test: () => assert.match(code, /return\\s+self\\._search\\(\\s*node\\.right\\s*,\\s*key\\s*\\)/)\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako druga deklaracija za <code>if</code> nije <code>True</code>, to znači da je ciljni ključ veći ili jednak ključu trenutnog čvora.</p>\n<p>U binarnom stablu za pretragu, ako je ciljni ključ veći od ključa trenutnog čvora, pretraga se nastavlja u desnom podstablu.</p>\n<p>Nakon komada <code>if</code>, vratite rezultat poziva metode <code>_search</code> za desnog potomka trenutnog čvora i ključ kao argument.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

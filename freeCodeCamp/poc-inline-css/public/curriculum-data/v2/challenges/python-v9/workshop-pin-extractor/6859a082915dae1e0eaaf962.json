@@ -1,0 +1,82 @@
+{
+  "id": "6859a082915dae1e0eaaf962",
+  "title": "Korak 19",
+  "challengeType": 20,
+  "dashedName": "step-19",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        12,
+        24
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def pin_extractor(poems):\n    secret_codes = []\n    for poem in poems:\n        secret_code = ''\n        lines = poem.split('\\n')\n        for line_index, line in enumerate(lines):\n            words = line.split()\n            if len(words) > line_index:\n                secret_code += str(len(words[line_index]))\n            else:\n                secret_code += '0'\n        secret_codes.append(secret_code)\n        \n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\n# print(pin_extractor(poem))\n",
+      "error": null,
+      "seed": "def pin_extractor(poems):\n    secret_codes = []\n    for poem in poems:\n        secret_code = ''\n        lines = poem.split('\\n')\n        for line_index, line in enumerate(lines):\n            words = line.split()\n            if len(words) > line_index:\n                secret_code += str(len(words[line_index]))\n            else:\n                secret_code += '0'\n        secret_codes.append(secret_code)\n        \n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\n# print(pin_extractor(poem))\n"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "main.py"
+        ],
+        "name": "main",
+        "ext": "py",
+        "path": "main.py",
+        "fileKey": "mainpy",
+        "contents": "def pin_extractor(poems):\n    secret_codes = []\n    for poem in poems:\n        secret_code = ''\n        lines = poem.split('\\n')\n        for line_index, line in enumerate(lines):\n            words = line.split()\n            if len(words) > line_index:\n                secret_code += str(len(words[line_index]))\n            else:\n                secret_code += '0'\n        secret_codes.append(secret_code)\n    return secret_codes\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\nprint(pin_extractor([poem, poem2, poem3]))\n",
+        "error": null,
+        "seed": "def pin_extractor(poems):\n    secret_codes = []\n    for poem in poems:\n        secret_code = ''\n        lines = poem.split('\\n')\n        for line_index, line in enumerate(lines):\n            words = line.split()\n            if len(words) > line_index:\n                secret_code += str(len(words[line_index]))\n            else:\n                secret_code += '0'\n        secret_codes.append(secret_code)\n    return secret_codes\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\nprint(pin_extractor([poem, poem2, poem3]))\n"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>The function should return <code>secret_codes</code> at the end.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').has_return('secret_codes')\n    `)\n})"
+    },
+    {
+      "text": "<p>You should have the function call <code>print(pin_extractor([poem, poem2, poem3]))</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).has_call('print(pin_extractor([poem, poem2, poem3]))')\n    `)\n})"
+    },
+    {
+      "text": "<p><code>pin_extractor([poem, poem2, poem3])</code> should return <code>['5202', '3346', '50000']</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert pin_extractor([poem, poem2, poem3]) == ['5202', '3346', '50000']\n    `)\n})"
+    },
+    {
+      "text": "<p>The function should work correctly with other lists of poems.</p>",
+      "testString": "({\n    test: () => runPython(`\nplum = '''In dusky shade the plum tree grew,\nIts branches bent with evening dew.\nA single fruit, so ripe and round,\nFalls softly to the waiting ground.'''\napple = '''Red or green on branches high,\nLike lanterns hung against the sky.\nCrisp with autumn's golden breath,\nA bite that wakes the world from death.'''\ngrape = '''Clustered tight on winding vines,\nBathed in sun where silence shines.\nJewel-toned beads in twilight air,\nA whispered promise hanging there.'''\nassert pin_extractor([plum, apple, grape]) == ['2863', '3885', '9227']\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Konačno, vratite <code>secret_codes</code>, zatim dekomentujte poziv funkcije i ažurirajte argument da bude <code>[poem, poem2, poem3]</code>. Sada vaša funkcija radi sa više pesama odjednom i može da izvuče više pinova!</p>\n<p>Funkcija <code>pin_extractor</code> je završena.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-pin-extractor",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 20,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-loops-and-sequences",
+  "certification": "python-v9"
+}

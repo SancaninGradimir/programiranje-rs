@@ -1,0 +1,85 @@
+{
+  "id": "5900f3c51000cf542c50fed6",
+  "title": "Vežba 88: Brojevi za množenje-i-množenje",
+  "challengeType": 1,
+  "forumTopicId": 302203,
+  "dashedName": "problem-88-product-sum-numbers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function productSumNumbers(limit) {\n\n  return true;\n}\n\nproductSumNumbers(6);",
+      "error": null,
+      "seed": "function productSumNumbers(limit) {\n\n  return true;\n}\n\nproductSumNumbers(6);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function productSumNumbers(limit) {\n  function getProductSums(curProduct, curSum, factorsCount, start) {\n    const k = curProduct - curSum + factorsCount;\n    if (k <= limit) {\n      if (curProduct < minimalProductSums[k]) {\n        minimalProductSums[k] = curProduct;\n      }\n      for (let i = start; i < Math.floor((limit / curProduct) * 2) + 1; i++) {\n        getProductSums(curProduct * i, curSum + i, factorsCount + 1, i);\n      }\n    }\n  }\n\n  const minimalProductSums = new Array(limit + 1).fill(2 * limit);\n  getProductSums(1, 1, 1, 2);\n\n  const uniqueProductSums = [...new Set(minimalProductSums.slice(2))];\n\n  let sum = 0;\n  for (let i = 0; i < uniqueProductSums.length; i++) {\n    sum += uniqueProductSums[i];\n  }\n\n  return sum;\n}",
+        "error": null,
+        "seed": "function productSumNumbers(limit) {\n  function getProductSums(curProduct, curSum, factorsCount, start) {\n    const k = curProduct - curSum + factorsCount;\n    if (k <= limit) {\n      if (curProduct < minimalProductSums[k]) {\n        minimalProductSums[k] = curProduct;\n      }\n      for (let i = start; i < Math.floor((limit / curProduct) * 2) + 1; i++) {\n        getProductSums(curProduct * i, curSum + i, factorsCount + 1, i);\n      }\n    }\n  }\n\n  const minimalProductSums = new Array(limit + 1).fill(2 * limit);\n  getProductSums(1, 1, 1, 2);\n\n  const uniqueProductSums = [...new Set(minimalProductSums.slice(2))];\n\n  let sum = 0;\n  for (let i = 0; i < uniqueProductSums.length; i++) {\n    sum += uniqueProductSums[i];\n  }\n\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>productSumNumbers(6)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof productSumNumbers(6) === 'number');"
+    },
+    {
+      "text": "<p><code>productSumNumbers(6)</code> treba da vrati <code>30</code>.</p>",
+      "testString": "assert.strictEqual(productSumNumbers(6), 30);"
+    },
+    {
+      "text": "<p><code>productSumNumbers(12)</code> treba da vrati <code>61</code>.</p>",
+      "testString": "assert.strictEqual(productSumNumbers(12), 61);"
+    },
+    {
+      "text": "<p><code>productSumNumbers(300)</code> trebalo bi vratiti <code>12686</code>.</p>",
+      "testString": "assert.strictEqual(productSumNumbers(300), 12686);"
+    },
+    {
+      "text": "<p><code>productSumNumbers(6000)</code> treba da vrati <code>2125990</code>.</p>",
+      "testString": "assert.strictEqual(productSumNumbers(6000), 2125990);"
+    },
+    {
+      "text": "<p><code>productSumNumbers(12000)</code> treba da vrati <code>7587457</code>.</p>",
+      "testString": "assert.strictEqual(productSumNumbers(12000), 7587457);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prirodan broj, <code>N</code>, koji se može zapisati kao zbir i proizvod nekog skupa od najmanje dva prirodna broja, $\\{a_1, a_2, \\ldots , a_k\\}$ naziva se broj množenja i sabiranja: $N = a_1 + a_2 + \\cdots + a_k = a_1 × a_2 × \\cdots × a_k$.</p>\n<p>Na primer, 6 = 1 + 2 + 3 = 1 × 2 × 3.</p>\n<p>Za određeni skup veličina, <code>k</code>, nazivaćemo najmanji N sa ovom svojstvom minimalnog eksponencijalnog broja. Najmanji eksponencijalni brojevi za skupe veličina, <code>k</code> = 2, 3, 4, 5, i 6 su sledeći.</p>\n<div style='margin-left: 4em;'>\n  <var>k</var>=2: 4 = 2 × 2 = 2 + 2<br>\n  <var>k</var>=3: 6 = 1 × 2 × 3 = 1 + 2 + 3<br>\n  <var>k</var>=4: 8 = 1 × 1 × 2 × 4 = 1 + 1 + 2 + 4<br>\n  <var>k</var>=5: 8 = 1 × 1 × 2 × 2 × 2  = 1 + 1 + 2 + 2 + 2<br>\n  <var>k</var>=6: 12 = 1 × 1 × 1 × 1 × 2 × 6 = 1 + 1 + 1 + 1 + 2 + 6\n</div><br>\n<p>Stoga, za 2 ≤ <code>k</code> ≤ 6, ukupan je svih malih brojeva dobijenih množenjem 4 + 6 + 8 + 12 = 30; imajte na umu da <code>8</code> se računa samo jednom u ukupnom zbiru.</p>\n<p>Zapravo, ako je kompletan skup brojeva koje množimo sa 2 od 2 ≤ <code>k</code> ≤ 12 iznosi $\\{4, 6, 8, 12, 15, 16\\}$, ukupno je <code>61</code>.</p>\n<p>Koja je suma svih parnih brojeva za 2 ≤ <code>k</code> ≤ <code>limit</code>?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 87,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

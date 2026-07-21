@@ -1,0 +1,62 @@
+{
+  "id": "68c9cab4b1118da59eecfc56",
+  "title": "Korak 31",
+  "challengeType": 20,
+  "dashedName": "step-31",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        40,
+        42
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        \n        self._level = new_level\n    \n\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        \n        self._level = new_level\n    \n\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Mora da ima treće deklaracije za <code>if</code> unutar vašeg seta (setter) od <code>level</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[2]`)) })"
+    },
+    {
+      "text": "<p>Kada je <code>new_level</code> jednako <code>self.level</code>, treba da podigne <code>ValueError</code> i poruku <code>'{level}' is already the selected level.</code>, gde <code>{level}</code> treba da se promeni na trenutnu vrednost.</p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'trainee')\n  try:\n    emp.level = \"trainee\"\n  except ValueError as e:\n    assert str(e) == \"'trainee' is already the selected level.\"\n  else:\n      assert False, \"Expected to raise ValueError with invalid new_level\"\n`) })"
+    },
+    {
+      "text": "<p>Tvoja izjava za <code>if</code> bi trebalo da koristi <code>hasattr(self, '_level')</code> da proveri da li postoji <code>_level</code> pre poređenja.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[2].find_conditions()[0].is_equivalent(\"hasattr(self, '_level') and new_level == self.level\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon postojećeg deklarisanja od <code>if</code>, kreiraj drugi ili ukloni <code>ValueError</code> kada je <code>new_level</code> već izabrana vrednost.</p>\n<p>Imajte na umu da <code>_level</code> još nije prisutan tokom inicijalizacije, pa koristite <code>hasattr(self, '_level')</code> da proverite da li postoji pre poređenja. Ovo sprečava <code>AttributeError</code> kada se nešto kreira prvi put.</p>\n<p>U poruci, koristite <code>'{level}' is already the selected level.</code>, gde <code>{level}</code> treba zameniti sa trenutnim standardom.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

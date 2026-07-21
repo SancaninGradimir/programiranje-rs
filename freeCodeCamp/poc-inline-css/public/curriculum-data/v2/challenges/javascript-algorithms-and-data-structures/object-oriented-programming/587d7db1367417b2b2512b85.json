@@ -1,0 +1,65 @@
+{
+  "id": "587d7db1367417b2b2512b85",
+  "title": "Postavi model roditelja kao model deteta",
+  "challengeType": 1,
+  "forumTopicId": 301325,
+  "dashedName": "set-the-childs-prototype-to-an-instance-of-the-parent",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Dog() { }\n\n// Only change code below this line\n\n\nlet beagle = new Dog();",
+      "error": null,
+      "seed": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Dog() { }\n\n// Only change code below this line\n\n\nlet beagle = new Dog();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Dog() { }\nDog.prototype = Object.create(Animal.prototype);\n\nlet beagle = new Dog();\nbeagle.eat();",
+        "error": null,
+        "seed": "function Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Dog() { }\nDog.prototype = Object.create(Animal.prototype);\n\nlet beagle = new Dog();\nbeagle.eat();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Dog.prototype</code> bi trebalo da bude primer od <code>Animal</code>.</p>",
+      "testString": "assert(Animal.prototype.isPrototypeOf(Dog.prototype));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U prethodnom izazovu otkrio si prvi korak u nasleđivanju ponašanja od nadtipa (ili roditelja) <code>Animal</code>: kreiranje nove instance objekta <code>Animal</code>.</p>\n<p>Ovaj izazov se tiče sledećeg koraka: postavi <code>prototype</code> podtipa (ili deteta)—u ovom slučaju, <code>Bird</code>—da bude primer za <code>Animal</code>.</p>\n<pre><code class=\"language-js\">Bird.prototype = Object.create(Animal.prototype);\n</code></pre>\n<p>Zapamti da je <code>prototype</code> kao \"recept\" za kreiranje nečega. Na neki način, recept od <code>Bird</code> sada uključuje sve ključne sastojke iz <code>Animal</code>.</p>\n<pre><code class=\"language-js\">let duck = new Bird(\"Donald\");\nduck.eat();\n</code></pre>\n<p><code>duck</code> nasleđuje sva svojstva objekta <code>Animal</code>, uključujući metodu <code>eat</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promenite kod ili primere iz <code>Dog</code> nasleđeni iz <code>Animal</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "5900f43a1000cf542c50ff4d",
+  "title": "Lekcija 206: Skriveni Mraba",
+  "challengeType": 1,
+  "forumTopicId": 301847,
+  "dashedName": "problem-206-concealed-square",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function concealedSquare() {\n\n  return true;\n}\n\nconcealedSquare();",
+      "error": null,
+      "seed": "function concealedSquare() {\n\n  return true;\n}\n\nconcealedSquare();"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// Check if n**2 matches the pattern\nfunction squareMatches(n) {\n  // Need BigInt due to size of values\n  let nSquared = (BigInt(n) * BigInt(n)).toString();\n\n  // Check if digits match pattern\n  for (let i = 1; i <= 9; i++) {\n    if (nSquared[2 * (i - 1)] != i) return false;\n  }\n  return true;\n}\n\n// Find integer whose square matches the pattern\nfunction concealedSquare() {\n  // Set bounds based upon max and min candidates\n  const minSquareRoot = Math.floor(Math.sqrt(10203040506070809) / 10) * 10;\n  const maxSquareRoot = Math.ceil(Math.sqrt(19293949596979899) / 10) * 10;\n\n  for (let x = maxSquareRoot; x >= minSquareRoot; x -= 10) {\n    // Note: 3*3 = 9 and 7*7 = 49 are only trailing digits\n    //       that can produce 9 as trailing digit in square\n    if (squareMatches(x + 3)) return (x + 3)*10;\n    if (squareMatches(x + 7)) return (x + 7)*10;\n  }\n  return -1;\n}",
+        "error": null,
+        "seed": "// Check if n**2 matches the pattern\nfunction squareMatches(n) {\n  // Need BigInt due to size of values\n  let nSquared = (BigInt(n) * BigInt(n)).toString();\n\n  // Check if digits match pattern\n  for (let i = 1; i <= 9; i++) {\n    if (nSquared[2 * (i - 1)] != i) return false;\n  }\n  return true;\n}\n\n// Find integer whose square matches the pattern\nfunction concealedSquare() {\n  // Set bounds based upon max and min candidates\n  const minSquareRoot = Math.floor(Math.sqrt(10203040506070809) / 10) * 10;\n  const maxSquareRoot = Math.ceil(Math.sqrt(19293949596979899) / 10) * 10;\n\n  for (let x = maxSquareRoot; x >= minSquareRoot; x -= 10) {\n    // Note: 3*3 = 9 and 7*7 = 49 are only trailing digits\n    //       that can produce 9 as trailing digit in square\n    if (squareMatches(x + 3)) return (x + 3)*10;\n    if (squareMatches(x + 7)) return (x + 7)*10;\n  }\n  return -1;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>concealedSquare()</code> treba da vrati <code>1389019170</code>.</p>",
+      "testString": "assert.strictEqual(concealedSquare(), 1389019170);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pronađi jedinstven pozitivan ceo broj čiji kvadrat ima strukturu 1_2_3_4_5_6_7_8_9_0, gde je svaki \"_\" jedan broj.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-201-to-300",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

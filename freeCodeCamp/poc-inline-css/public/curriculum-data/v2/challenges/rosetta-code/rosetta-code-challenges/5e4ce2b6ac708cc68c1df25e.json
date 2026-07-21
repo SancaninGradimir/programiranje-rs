@@ -1,0 +1,89 @@
+{
+  "id": "5e4ce2b6ac708cc68c1df25e",
+  "title": "Zadnje slovo - prvo slovo",
+  "challengeType": 1,
+  "forumTopicId": 385256,
+  "dashedName": "last-letter-first-letter",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function findLongestChain(items) {\n\n}",
+      "error": null,
+      "seed": "function findLongestChain(items) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function findLongestChain(items) {\n  function Ref(index, first_char, last_char) {\n    this.index = index;\n    this.first_char = first_char;\n    this.last_char = last_char;\n  }\n\n  var items_len = items.length\n  var refs_len = items_len;\n  var refs = []\n\n  // enough space for all items\n  var longest_path_refs_len = 0;\n  var longest_path_refs = new Array(items_len);\n\n  function search(curr_len) {\n    if (curr_len > longest_path_refs_len) {\n      longest_path_refs_len = curr_len;\n\n      for (var i = 0; i < curr_len; i++) {\n        longest_path_refs[i] = refs[i];\n      }\n    }\n\n    // recursive search\n    var last_char = refs[curr_len - 1].last_char;\n    for (var i = curr_len; i < refs_len; i++)\n      if (refs[i].first_char == last_char) {\n        var aux = refs[curr_len];\n        refs[curr_len] = refs[i];\n        refs[i] = aux;\n        search(curr_len + 1);\n        refs[i] = refs[curr_len];\n        refs[curr_len] = aux;\n      }\n  }\n\n  for (var i = 0; i < items_len; i++) {\n    var itemsi_len = items[i].length;\n    refs.push(new Ref(i, items[i][0], items[i][itemsi_len - 1]));\n  }\n\n  // try each item as possible start\n  for (var i = 0; i < items_len; i++) {\n    var aux = refs[0];\n    refs[0] = refs[i];\n    refs[i] = aux;\n    search(1);\n    refs[i] = refs[0];\n    refs[0] = aux;\n  }\n\n  var longest_path_len = longest_path_refs_len;\n  var longest_path = new Array(longest_path_len);\n\n  for (var i = 0; i < longest_path_len; i++)\n    longest_path[i] = items[longest_path_refs[i].index];\n\n  return longest_path;\n}",
+        "error": null,
+        "seed": "function findLongestChain(items) {\n  function Ref(index, first_char, last_char) {\n    this.index = index;\n    this.first_char = first_char;\n    this.last_char = last_char;\n  }\n\n  var items_len = items.length\n  var refs_len = items_len;\n  var refs = []\n\n  // enough space for all items\n  var longest_path_refs_len = 0;\n  var longest_path_refs = new Array(items_len);\n\n  function search(curr_len) {\n    if (curr_len > longest_path_refs_len) {\n      longest_path_refs_len = curr_len;\n\n      for (var i = 0; i < curr_len; i++) {\n        longest_path_refs[i] = refs[i];\n      }\n    }\n\n    // recursive search\n    var last_char = refs[curr_len - 1].last_char;\n    for (var i = curr_len; i < refs_len; i++)\n      if (refs[i].first_char == last_char) {\n        var aux = refs[curr_len];\n        refs[curr_len] = refs[i];\n        refs[i] = aux;\n        search(curr_len + 1);\n        refs[i] = refs[curr_len];\n        refs[curr_len] = aux;\n      }\n  }\n\n  for (var i = 0; i < items_len; i++) {\n    var itemsi_len = items[i].length;\n    refs.push(new Ref(i, items[i][0], items[i][itemsi_len - 1]));\n  }\n\n  // try each item as possible start\n  for (var i = 0; i < items_len; i++) {\n    var aux = refs[0];\n    refs[0] = refs[i];\n    refs[i] = aux;\n    search(1);\n    refs[i] = refs[0];\n    refs[0] = aux;\n  }\n\n  var longest_path_len = longest_path_refs_len;\n  var longest_path = new Array(longest_path_len);\n\n  for (var i = 0; i < longest_path_len; i++)\n    longest_path[i] = items[longest_path_refs[i].index];\n\n  return longest_path;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>findLongestChain</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof findLongestChain == 'function');"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"certain\", \"each\", \"game\", \"involves\", \"starting\", \"with\", \"word\"])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(\n  Array.isArray(\n    findLongestChain([\n      'certain',\n      'each',\n      'game',\n      'involves',\n      'starting',\n      'with',\n      'word'\n    ])\n  )\n);"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"certain\", \"each\", \"game\", \"involves\", \"starting\", \"with\", \"word\"])</code> trebalo bi da vrati <code>[\"involves\", \"starting\", \"game\", \"each\"]</code>.</p>",
+      "testString": "assert.deepEqual(\n  findLongestChain([\n    'certain',\n    'each',\n    'game',\n    'involves',\n    'starting',\n    'with',\n    'word'\n  ]),\n  ['involves', 'starting', 'game', 'each']\n);"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"audino\", \"bagon\", \"kangaskhan\", \"banette\", \"bidoof\", \"braviary\", \"exeggcute\", \"yamask\"])</code> trebalo bi da vrati <code>[\"braviary\", \"yamask\", \"kangaskhan\"]</code></p>",
+      "testString": "assert.deepEqual(\n  findLongestChain([\n    'audino',\n    'bagon',\n    'kangaskhan',\n    'banette',\n    'bidoof',\n    'braviary',\n    'exeggcute',\n    'yamask'\n  ]),\n  ['braviary', 'yamask', 'kangaskhan']\n);"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"harp\", \"poliwrath\", \"poochyena\", \"porygon2\", \"porygonz\", \"archana\"])</code> trebalo bi da vrati <code>[\"poliwrath\", \"harp\", \"poochyena\", \"archana\"]</code>.</p>",
+      "testString": "assert.deepEqual(\n  findLongestChain([\n    'harp',\n    'poliwrath',\n    'poochyena',\n    'porygon2',\n    'porygonz',\n    'archana'\n  ]),\n  ['poliwrath', 'harp', 'poochyena', 'archana']\n);"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"scolipede\", \"elephant\", \"zeaking\", \"sealeo\", \"silcoon\", \"tigers\"])</code> treba da vrati <code>[\"scolipede\", \"elephant\", \"tigers\", \"sealeo\"]</code>.</p>",
+      "testString": "assert.deepEqual(\n  findLongestChain([\n    'scolipede',\n    'elephant',\n    'zeaking',\n    'sealeo',\n    'silcoon',\n    'tigers'\n  ]),\n  ['scolipede', 'elephant', 'tigers', 'sealeo']\n);"
+    },
+    {
+      "text": "<p><code>findLongestChain([\"loudred\", \"lumineon\", \"lunatone\", \"machamp\", \"magnezone\", \"nosepass\", \"petilil\", \"pidgeotto\", \"pikachu\"])</code> treba da vrati <code>[\"machamp\", \"petilil\", \"lumineon\", \"nosepass\"]</code>.</p>",
+      "testString": "assert.deepEqual(\n  findLongestChain([\n    'loudred',\n    'lumineon',\n    'lunatone',\n    'machamp',\n    'magnezone',\n    'nosepass',\n    'petilil',\n    'pidgeotto',\n    'pikachu'\n  ]),\n  ['machamp', 'petilil', 'lumineon', 'nosepass']\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Neki dečiji igri zahteva početi sa rečju iz određene kategorije. Svaki učesnik po redu kaže reč, ali ta reč mora da započne sa poslednjim slovom prethodne reči. Reč koja se jednom izgovori ne sme biti ponovljena. Ako protivnik ne može da navede reč u toj kategoriji, eliminiše se iz igre.</p>\n<p>Na primer, za kategoriju \"životinje\",</p>\n<pre>Dete 1: pas\nDete 2: zlatna riba\nDete 1: hipopotam\nDete 2: zmija\n...\n</pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite funkciju koja prima niz reči kao ulaz. Funkcija mora vratiti niz reči gde je prvo slovo svake reči jednako poslednjem slovu prethodne reči. Koristite samo reči koje su prisutne u ulaznom nizu podataka, i kada se reč koristi, ne sme se ponovo koristiti. Reči u vraćenom nizu podataka moraju biti odabrane i poređane sekvencijalno kako bi bila maksimalna dužina.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 85,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

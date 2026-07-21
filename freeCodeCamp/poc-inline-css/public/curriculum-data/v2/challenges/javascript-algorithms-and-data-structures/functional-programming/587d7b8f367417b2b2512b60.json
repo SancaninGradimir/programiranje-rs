@@ -1,0 +1,77 @@
+{
+  "id": "587d7b8f367417b2b2512b60",
+  "title": "Promenite globalnu parametru iz funkcija",
+  "challengeType": 1,
+  "forumTopicId": 301235,
+  "dashedName": "refactor-global-variables-out-of-functions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "// The global variable\r\nconst bookList = [\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"];\r\n\r\n// Change code below this line\r\nfunction add(bookName) {\r\n\r\n  bookList.push(bookName);\r\n  return bookList;\r\n  \r\n  // Change code above this line\r\n}\r\n\r\n// Change code below this line\r\nfunction remove(bookName) {\r\n  const book_index = bookList.indexOf(bookName);\r\n  if (book_index >= 0) {\r\n\r\n    bookList.splice(book_index, 1);\r\n    return bookList;\r\n\r\n    // Change code above this line\r\n    }\r\n}",
+      "error": null,
+      "seed": "// The global variable\r\nconst bookList = [\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"];\r\n\r\n// Change code below this line\r\nfunction add(bookName) {\r\n\r\n  bookList.push(bookName);\r\n  return bookList;\r\n  \r\n  // Change code above this line\r\n}\r\n\r\n// Change code below this line\r\nfunction remove(bookName) {\r\n  const book_index = bookList.indexOf(bookName);\r\n  if (book_index >= 0) {\r\n\r\n    bookList.splice(book_index, 1);\r\n    return bookList;\r\n\r\n    // Change code above this line\r\n    }\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// The global variable\r\nconst bookList = [\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"];\r\n\r\nfunction add(bookList, bookName) {\r\n  return [...bookList, bookName];\r\n}\r\n\r\nfunction remove(bookList, bookName) {\r\n  const bookListCopy = [...bookList];\r\n  const bookNameIndex = bookList.indexOf(bookName);\r\n  if (bookNameIndex >= 0) {\r\n    bookListCopy.splice(bookNameIndex, 1);\r\n  }\r\n  return bookListCopy;\r\n}",
+        "error": null,
+        "seed": "// The global variable\r\nconst bookList = [\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"];\r\n\r\nfunction add(bookList, bookName) {\r\n  return [...bookList, bookName];\r\n}\r\n\r\nfunction remove(bookList, bookName) {\r\n  const bookListCopy = [...bookList];\r\n  const bookNameIndex = bookList.indexOf(bookName);\r\n  if (bookNameIndex >= 0) {\r\n    bookListCopy.splice(bookNameIndex, 1);\r\n  }\r\n  return bookListCopy;\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>bookList</code> ne bi trebalo da se menja, a da istovremeno bude jednako <code>[\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"]</code>.</p>",
+      "testString": "add(bookList, \"Test\");\r\nremove(bookList, \"The Hound of the Baskervilles\");\r\nassert(\r\n  JSON.stringify(bookList) ===\r\n    JSON.stringify([\r\n      'The Hound of the Baskervilles',\r\n      'On The Electrodynamics of Moving Bodies',\r\n      'Philosophiæ Naturalis Principia Mathematica',\r\n      'Disquisitiones Arithmeticae'\r\n    ])\r\n);"
+    },
+    {
+      "text": "<p><code>add(bookList, \"A Brief History of Time\")</code> treba da se odnosi na <code>[\"The Hound of the Baskervilles\", \"On The Electrodynamics of Moving Bodies\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\", \"A Brief History of Time\"]</code>.</p>",
+      "testString": "assert(\r\n  JSON.stringify(add(bookList, \"A Brief History of Time\")) ===\r\n    JSON.stringify([\r\n      'The Hound of the Baskervilles',\r\n      'On The Electrodynamics of Moving Bodies',\r\n      'Philosophiæ Naturalis Principia Mathematica',\r\n      'Disquisitiones Arithmeticae',\r\n      'A Brief History of Time'\r\n    ])\r\n);"
+    },
+    {
+      "text": "<p><code>remove(bookList, \"On The Electrodynamics of Moving Bodies\")</code> treba da se odnosi na <code>[\"The Hound of the Baskervilles\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\"]</code>.</p>",
+      "testString": "assert(\r\n  JSON.stringify(remove(bookList, 'On The Electrodynamics of Moving Bodies')) ===\r\n    JSON.stringify([\r\n      'The Hound of the Baskervilles',\r\n      'Philosophiæ Naturalis Principia Mathematica',\r\n      'Disquisitiones Arithmeticae'\r\n    ])\r\n);"
+    },
+    {
+      "text": "<p><code>remove(add(bookList, \"A Brief History of Time\"), \"On The Electrodynamics of Moving Bodies\");</code> trebalo bi da bude jednako <code>[\"The Hound of the Baskervilles\", \"Philosophiæ Naturalis Principia Mathematica\", \"Disquisitiones Arithmeticae\", \"A Brief History of Time\"]</code>.</p>",
+      "testString": "assert(\r\n  JSON.stringify(remove(add(bookList, 'A Brief History of Time'), 'On The Electrodynamics of Moving Bodies')) ===\r\n    JSON.stringify([\r\n      'The Hound of the Baskervilles',\r\n      'Philosophiæ Naturalis Principia Mathematica',\r\n      'Disquisitiones Arithmeticae',\r\n      'A Brief History of Time'\r\n    ])\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada smo videli dva različita principa performativnog programiranja:</p>\n<ol>\n<li>\n<p>Ne menjajte parametar ili vrednost – kreirajte nove parametre i vrednosti i referencirajte ih ako je potrebno iz funkcije. Napomena: korišćenjem nečega kao <code>const newArr = arrVar</code>, gde je <code>arrVar</code> red podataka samo za kreiranje reference na postojeći parametar, a ne kopija. Stoga, promena vrednosti u <code>newArr</code> će promeniti vrednost u <code>arrVar</code>.</p>\n</li>\n<li>\n<p>Deklariši parametre funkcije – bilo kakva izračunavanja unutar funkcije zavise samo od argumenata prosleđenih funkciji, a ne od globalnih varijabli ili parametara.</p>\n</li>\n</ol>\n<p>Dodavanje jedinice po broju nije nešto posebno uzbudljivo, ali možemo koristiti ove principe kada radimo sa nizovima podataka ili nečim složenijim.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Prepišite kod tako da globalni niz podataka <code>bookList</code> ne bude modifikovan unutar bilo koje funkcije. Funkcija <code>add</code> treba da doda/dodaje <code>bookName</code> koji je dodan na kraj prosluđenog niza podataka i da vrati novi niz (listu). Funkcija <code>remove</code> treba da ukloni <code>bookName</code> koji je izvučen iz prosluđenog niza podataka.</p>\n<p><strong>Napomena:</strong> Sve funkcije moraju se odnositi na red podataka, a novi parametri moraju biti dodati pre parametra <code>bookName</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "functional-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 7,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

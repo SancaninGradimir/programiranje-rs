@@ -1,0 +1,73 @@
+{
+  "id": "5900f4341000cf542c50ff46",
+  "title": "Vežba 199: Zatvaranje kruga po krugu uzastopno",
+  "challengeType": 1,
+  "forumTopicId": 301837,
+  "dashedName": "problem-199-iterative-circle-packing",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function iterativeCirclePacking(n) {\n\n  return true;\n}\n\niterativeCirclePacking(10);",
+      "error": null,
+      "seed": "function iterativeCirclePacking(n) {\n\n  return true;\n}\n\niterativeCirclePacking(10);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function iterativeCirclePacking(n) {\n  let k1 = 1;\n  let k0 = k1 * (3 - 2 * Math.sqrt(3));\n  let a0 = 1 / (k0 * k0);\n  let a1 = 3 / (k1 * k1);\n  a1 += 3 * getArea(k0, k1, k1, n);\n  a1 += getArea(k1, k1, k1, n);\n  let final = ((a0 - a1) / a0).toFixed(8);\n\n  return parseFloat(final);\n  function getArea(k1, k2, k3, depth) {\n      if (depth == 0) return 0.0;\n      let k4 = k1 + k2 + k3 + 2 * Math.sqrt(k1 * k2 + k2 * k3 + k3 * k1);\n      let a = 1 / (k4 * k4);\n      a += getArea(k1, k2, k4, depth - 1);\n      a += getArea(k2, k3, k4, depth - 1);\n      a += getArea(k3, k1, k4, depth - 1);\n      return a;\n  }\n}",
+        "error": null,
+        "seed": "function iterativeCirclePacking(n) {\n  let k1 = 1;\n  let k0 = k1 * (3 - 2 * Math.sqrt(3));\n  let a0 = 1 / (k0 * k0);\n  let a1 = 3 / (k1 * k1);\n  a1 += 3 * getArea(k0, k1, k1, n);\n  a1 += getArea(k1, k1, k1, n);\n  let final = ((a0 - a1) / a0).toFixed(8);\n\n  return parseFloat(final);\n  function getArea(k1, k2, k3, depth) {\n      if (depth == 0) return 0.0;\n      let k4 = k1 + k2 + k3 + 2 * Math.sqrt(k1 * k2 + k2 * k3 + k3 * k1);\n      let a = 1 / (k4 * k4);\n      a += getArea(k1, k2, k4, depth - 1);\n      a += getArea(k2, k3, k4, depth - 1);\n      a += getArea(k3, k1, k4, depth - 1);\n      return a;\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>iterativeCirclePacking(10)</code> trebalo bi da vrati broj.</p>",
+      "testString": "assert.isNumber(iterativeCirclePacking(10));"
+    },
+    {
+      "text": "<p><code>iterativeCirclePacking(10)</code> treba da vrati <code>0.00396087</code>.</p>",
+      "testString": "assert.strictEqual(iterativeCirclePacking(10), 0.00396087);"
+    },
+    {
+      "text": "<p><code>iterativeCirclePacking(3)</code> treba da vrati <code>0.06790342</code>.</p>",
+      "testString": "assert.strictEqual(iterativeCirclePacking(3), 0.06790342);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Tri kruga jednakog radijusa postavljeni su unutar većeg kruga na način da svaki par krugova međusobno dodiruje, a unutrašnji krugovi se ne preklapaju. Postoje četiri nepokrivene \"prazmine\" koje će biti popunjene redom drugim dodirujućim krugovima.</p>\n<img alt=\"a diagram of non-overlapping circles\" src=\"https://cdn-media-1.freecodecamp.org/project-euler/199-circles-in-circles.gif\" style=\"background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Svaki ciklus, najveći mogući krug postavlja se u svaku prazninu, što stvara više praznina za sledeći ciklus. Nakon 3 ciklusa (kao što je prikazano na slici), postoji 108 praznina, a površina koja nije pokrivena krugovima iznosi 0.06790342, zaokruženo do osam decimalnih mesta.</p>\n<p>Koji deo površine nije pokriven krugovima nakon revolucija <code>n</code>? Navedite svoj odgovor zaokružujući ga na osam decimalnih mesta koristeći format x.xxxxxxxx .</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-101-to-200",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 98,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": true,
+  "certification": "project-euler"
+}

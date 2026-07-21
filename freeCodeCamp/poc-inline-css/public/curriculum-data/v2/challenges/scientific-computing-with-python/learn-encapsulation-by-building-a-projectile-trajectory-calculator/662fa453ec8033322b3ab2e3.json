@@ -1,0 +1,63 @@
+{
+  "id": "662fa453ec8033322b3ab2e3",
+  "title": "Korak 8",
+  "challengeType": 20,
+  "dashedName": "step-8",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        48,
+        50
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.__speed} m/s\r\nheight: {self.__height} m\r\nangle: {round(math.degrees(self.__angle))}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    \r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\n   ",
+      "error": null,
+      "seed": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n        \r\n    def __str__(self):\r\n        return f'''\r\nProjectile details:\r\nspeed: {self.__speed} m/s\r\nheight: {self.__height} m\r\nangle: {round(math.degrees(self.__angle))}°\r\ndisplacement: {round(self.__calculate_displacement(), 1)} m\r\n'''\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n    def __calculate_y_coordinate(self, x):\r\n        height_component = self.__height\r\n        angle_component = math.tan(self.__angle) * x\r\n        acceleration_component = GRAVITATIONAL_ACCELERATION * x ** 2 / (\r\n                2 * self.__speed ** 2 * math.cos(self.__angle) ** 2)\r\n        y_coordinate = height_component + angle_component - acceleration_component\r\n\r\n        return y_coordinate\r\n    \r\n    def calculate_all_coordinates(self):\r\n        return [\r\n            (x, self.__calculate_y_coordinate(x))\r\n            for x in range(math.ceil(self.__calculate_displacement()))\r\n        ]\r\n\r\n    \r\n\r\nball = Projectile(10, 3, 45)\r\nprint(ball)\r\ncoordinates = ball.calculate_all_coordinates()\r\n   "
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete putanju <code>speed</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\n_Node(_code).find_class('Projectile').has_function('speed')\r\n`))})"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>speed</code> mora imati jedan parametar, <code>self</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\n_Node(_code).find_class('Projectile').find_function('speed').has_args('self')\r\n`))})"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>speed</code> bi trebalo da ima dekorator <code>@property</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\n_Node(_code).find_class('Projectile').find_function('speed').has_decorators('property')\r\n`))})"
+    },
+    {
+      "text": "<p>Tvoja putanja za <code>speed</code> bi trebalo da vrati vrednost atributa <code>__speed</code>.</p>",
+      "testString": "({test: () => assert(runPython(`\r\na = Projectile(22, 23, 24)\r\na.speed == 22\r\n`))})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Došlo je vreme za razgovor o enkapsulaciji (encapsulation) i getterima (getters). Definisan si da tri svojstva instance (instance) budu privatna korišćenjem dve linije crte ispod na početku. Zapamti da su ova svojstva ugovorom definisana kao privata: iako im se još uvek može pristupiti izvan, dogovoreno je da to ne radićete.</p>\n<p>Prijemnici su ono što se može koristiti za dobijanje vrednosti izvana. Da bi se definisao prijemnik, definišete metod koji vraća vrednost zahtevane osobine i dodeljujete mu dekorator <code>@property</code>:</p>\n<pre><code class=\"language-py\">class Nest:\r\n    ...\r\n    @property\r\n    def number_of_eggs(self):\r\n        return self.__number_of_eggs\n</code></pre>\n<p>Dekoreta menja putanju u atribut, što znači da se putanja ne tretira kao obična putanja, već je korišćena kao atribut:</p>\n<pre><code class=\"language-py\">n = Nest()\r\nprint(n.number_of_eggs)\n</code></pre>\n<p>U navedenom primeru, lični atribut <code>__number of eggs</code> je dostupan putem svojstva <code>number_of_eggs</code> od <code>n</code>.</p>\n<p>Kreiraj prijemnika nazvanog <code>speed</code> i nateraj ga da vrati vrednost atributa <code>__speed</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-encapsulation-by-building-a-projectile-trajectory-calculator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 17,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

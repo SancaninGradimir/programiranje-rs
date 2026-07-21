@@ -1,0 +1,81 @@
+{
+  "id": "5900f3cc1000cf542c50fede",
+  "title": "Vežba 95: Lanac prijateljstva",
+  "challengeType": 1,
+  "forumTopicId": 302212,
+  "dashedName": "problem-95-amicable-chains",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function amicableChains(limit) {\n\n  return true;\n}\n\namicableChains(300);",
+      "error": null,
+      "seed": "function amicableChains(limit) {\n\n  return true;\n}\n\namicableChains(300);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function amicableChains(limit) {\n  function getSmallestMember(chain) {\n    let smallest = chain[0];\n    for (let i = 1; i < chain.length; i++) {\n      if (smallest > chain[i]) {\n        smallest = chain[i];\n      }\n    }\n    return smallest;\n  }\n\n  function getFactorsSums(limit) {\n    const factorsSums = new Array(limit + 1).fill(1);\n    for (let i = 2; i <= limit / 2; i++) {\n      for (let j = 2 * i; j <= limit; j += i) {\n        factorsSums[j] += i;\n      }\n    }\n    return factorsSums;\n  }\n\n  const factorsSums = getFactorsSums(limit);\n  const checkedNumbers = new Set();\n\n  let longestChain = 0;\n  let smallestMember = 0;\n  for (let i = 0; i <= limit; i++) {\n    const curChain = [];\n    let curNumber = i;\n    while (!checkedNumbers.has(curNumber) && factorsSums[curNumber] <= limit) {\n      curNumber = factorsSums[curNumber];\n\n      const chainStart = curChain.indexOf(curNumber);\n      if (chainStart === -1) {\n        curChain.push(curNumber);\n        continue;\n      }\n\n      const chainLength = curChain.length - chainStart;\n      if (chainLength > longestChain) {\n        longestChain = chainLength;\n        smallestMember = getSmallestMember(curChain.slice(chainStart));\n      }\n      break;\n    }\n\n    for (let j = 0; j < curChain.length; j++) {\n      checkedNumbers.add(curChain[j]);\n    }\n  }\n\n  return smallestMember;\n}",
+        "error": null,
+        "seed": "function amicableChains(limit) {\n  function getSmallestMember(chain) {\n    let smallest = chain[0];\n    for (let i = 1; i < chain.length; i++) {\n      if (smallest > chain[i]) {\n        smallest = chain[i];\n      }\n    }\n    return smallest;\n  }\n\n  function getFactorsSums(limit) {\n    const factorsSums = new Array(limit + 1).fill(1);\n    for (let i = 2; i <= limit / 2; i++) {\n      for (let j = 2 * i; j <= limit; j += i) {\n        factorsSums[j] += i;\n      }\n    }\n    return factorsSums;\n  }\n\n  const factorsSums = getFactorsSums(limit);\n  const checkedNumbers = new Set();\n\n  let longestChain = 0;\n  let smallestMember = 0;\n  for (let i = 0; i <= limit; i++) {\n    const curChain = [];\n    let curNumber = i;\n    while (!checkedNumbers.has(curNumber) && factorsSums[curNumber] <= limit) {\n      curNumber = factorsSums[curNumber];\n\n      const chainStart = curChain.indexOf(curNumber);\n      if (chainStart === -1) {\n        curChain.push(curNumber);\n        continue;\n      }\n\n      const chainLength = curChain.length - chainStart;\n      if (chainLength > longestChain) {\n        longestChain = chainLength;\n        smallestMember = getSmallestMember(curChain.slice(chainStart));\n      }\n      break;\n    }\n\n    for (let j = 0; j < curChain.length; j++) {\n      checkedNumbers.add(curChain[j]);\n    }\n  }\n\n  return smallestMember;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>amicableChains(300)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof amicableChains(300) === 'number');"
+    },
+    {
+      "text": "<p><code>amicableChains(300)</code> treba da vrati <code>220</code>.</p>",
+      "testString": "assert.strictEqual(amicableChains(300), 220);"
+    },
+    {
+      "text": "<p><code>amicableChains(15000)</code> inapaswa kurudisha <code>220</code>.</p>",
+      "testString": "assert.strictEqual(amicableChains(15000), 220);"
+    },
+    {
+      "text": "<p><code>amicableChains(100000)</code> treba da vrati <code>12496</code>.</p>",
+      "testString": "assert.strictEqual(amicableChains(100000), 12496);"
+    },
+    {
+      "text": "<p><code>amicableChains(1000000)</code> treba vratiti <code>14316</code>.</p>",
+      "testString": "assert.strictEqual(amicableChains(1000000), 14316);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pravi delioci broja su svi njegovi delioci osim samog broja. Na primer, pravi delioci broja 28 su 1, 2, 4, 7 i 14. Pošto je njihov zbir jednak 28, taj broj nazivamo savršenim brojem.</p>\n<p>Iznenada, zbir manjih delitelja 220 je 284 i zbir manjih delitelja 284 je 220, čime formiraju lanac od dve brojeve. Zbog toga, 220 i 284 nazivaju se amikalni par.</p>\n<p>Možda postoji mnogo duži lanac. Na primer, počevši od 12496, kreiraćemo lanac od pet brojeva:</p>\n<p>$$\n12496 → 14288 → 15472 → 14536 → 14264 \\,(→ 12496 → \\cdots)\n$$</p>\n<p>Pošto ova lanca vraća na svoju početnu tačku, zove se kružna lanka.</p>\n<p>Pronađi najmanjeg člana najduže prijateljske lance bez bilo kog elementa koji prelazi <code>limit</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 94,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

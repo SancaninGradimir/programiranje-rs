@@ -1,0 +1,83 @@
+{
+  "id": "646d386a685620b49db4be76",
+  "title": "Korak 57",
+  "challengeType": 0,
+  "dashedName": "step-57",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        22,
+        31
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\nconst median = nums => {\r\n  const sorted = nums.slice().sort((a, b) => a - b);\r\n  const length = sorted.length;\r\n  const middle = length / 2 - 1;\r\n  return isEven(length)\r\n    ? average([sorted[middle], sorted[middle + 1]])\r\n    : sorted[Math.ceil(middle)];\r\n}\r\n\r\nconst spreadsheetFunctions = {\r\n  sum,\r\n  average,\r\n  median\r\n}\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nconst evalFormula = (x, cells) => {\r\n  const idToText = id => cells.find(cell => cell.id === id).value;\r\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\r\n  const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));\r\n  const elemValue = num => character => idToText(character + num);\r\n  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));\r\n  const rangeExpanded = x.replace(rangeRegex, (match, char1, num1, char2, num2) => rangeFromString(num1, num2));\r\n}\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      input.onchange = update;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}\r\n\r\nconst update = event => {\r\n  const element = event.target;\r\n  const value = element.value.replace(/\\s/g, \"\");\r\n  if (!value.includes(element.id) && value.startsWith('=')) {\r\n\r\n  }\r\n}",
+      "error": null,
+      "seed": "const isEven = num => num % 2 === 0;\r\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\r\nconst average = nums => sum(nums) / nums.length;\r\n\r\nconst median = nums => {\r\n  const sorted = nums.slice().sort((a, b) => a - b);\r\n  const length = sorted.length;\r\n  const middle = length / 2 - 1;\r\n  return isEven(length)\r\n    ? average([sorted[middle], sorted[middle + 1]])\r\n    : sorted[Math.ceil(middle)];\r\n}\r\n\r\nconst spreadsheetFunctions = {\r\n  sum,\r\n  average,\r\n  median\r\n}\r\n\r\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nconst evalFormula = (x, cells) => {\r\n  const idToText = id => cells.find(cell => cell.id === id).value;\r\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\r\n  const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));\r\n  const elemValue = num => character => idToText(character + num);\r\n  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));\r\n  const rangeExpanded = x.replace(rangeRegex, (match, char1, num1, char2, num2) => rangeFromString(num1, num2));\r\n}\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n  range(1, 99).forEach(number => {\r\n    createLabel(number);\r\n    letters.forEach(letter => {\r\n      const input = document.createElement(\"input\");\r\n      input.type = \"text\";\r\n      input.id = letter + number;\r\n      input.ariaLabel = letter + number;\r\n      input.onchange = update;\r\n      container.appendChild(input);\r\n    })\r\n  })\r\n}\r\n\r\nconst update = event => {\r\n  const element = event.target;\r\n  const value = element.value.replace(/\\s/g, \"\");\r\n  if (!value.includes(element.id) && value.startsWith('=')) {\r\n\r\n  }\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da izvršite poziv metode <code>.map()</code> u vašem pozivu za <code>rangeFromString()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*range\\(\\s*parseInt\\(\\s*num1\\s*\\)\\s*,\\s*parseInt\\(\\s*num2\\s*\\)\\s*\\)\\s*;?\\s*const\\s+elemValue\\s*=\\s*(\\(\\s*num\\s*\\)|num)\\s*=>\\s*(\\(\\s*character\\s*\\)|character)\\s*=>\\s*idToText\\(\\s*character\\s*\\+\\s*num\\s*\\)\\s*;?\\s*const\\s+addCharacters\\s*=\\s*(\\(\\s*character1\\s*\\)|character1)\\s*=>\\s*(\\(\\s*character2\\s*\\)|character2)\\s*=>\\s*(\\(\\s*num\\s*\\)|num)\\s*=>\\s*charRange\\(\\s*character1\\s*,\\s*character2\\s*\\)\\.map\\(\\s*elemValue\\(\\s*num\\s*\\)\\s*\\)\\s*;?\\s*const\\s+rangeExpanded\\s*=\\s*x\\.replace\\(\\s*rangeRegex\\s*,\\s*\\(\\s*match\\s*,\\s*char1\\s*,\\s*num1\\s*,\\s*char2\\s*,\\s*num2\\s*\\)\\s*=>\\s*rangeFromString\\(\\s*num1\\s*,\\s*num2\\s*\\)\\.map\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da prosledite referencu <code>addCharacters</code> kao odgovor na vaš način <code>.map()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*range\\(\\s*parseInt\\(\\s*num1\\s*\\)\\s*,\\s*parseInt\\(\\s*num2\\s*\\)\\s*\\)\\s*;?\\s*const\\s+elemValue\\s*=\\s*(\\(\\s*num\\s*\\)|num)\\s*=>\\s*(\\(\\s*character\\s*\\)|character)\\s*=>\\s*idToText\\(\\s*character\\s*\\+\\s*num\\s*\\)\\s*;?\\s*const\\s+addCharacters\\s*=\\s*(\\(\\s*character1\\s*\\)|character1)\\s*=>\\s*(\\(\\s*character2\\s*\\)|character2)\\s*=>\\s*(\\(\\s*num\\s*\\)|num)\\s*=>\\s*charRange\\(\\s*character1\\s*,\\s*character2\\s*\\)\\.map\\(\\s*elemValue\\(\\s*num\\s*\\)\\s*\\)\\s*;?\\s*const\\s+rangeExpanded\\s*=\\s*x\\.replace\\(\\s*rangeRegex\\s*,\\s*\\(\\s*match\\s*,\\s*char1\\s*,\\s*num1\\s*,\\s*char2\\s*,\\s*num2\\s*\\)\\s*=>\\s*rangeFromString\\(\\s*num1\\s*,\\s*num2\\s*\\)\\.map\\(\\s*addCharacters\\s*\\)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pozovi putanju <code>.map()</code> u vašem pozivu <code>rangeFromString()</code>, koristeći referencu <code>addCharacters</code> kao funkciju odgovora.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 56,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

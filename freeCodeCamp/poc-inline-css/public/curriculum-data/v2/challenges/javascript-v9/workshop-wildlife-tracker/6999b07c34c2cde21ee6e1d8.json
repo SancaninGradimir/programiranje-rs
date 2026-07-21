@@ -1,0 +1,82 @@
+{
+  "id": "6999b07c34c2cde21ee6e1d8",
+  "title": "Korak 11",
+  "challengeType": 1,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        45,
+        47
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const tiger = {\n  species: \"Tiger\",\n  age: 5,\n  isEndangered: true\n};\n\nconst elephant = {\n  species: \"Elephant\",\n  age: 10,\n  isEndangered: true\n};\n\nconst getSpecies = (animal) => {\n  return animal.species;\n};\n\nconsole.log(getSpecies(tiger));\n\nconst getAge = (animal) => {\n  return animal.age;\n};\n\nconsole.log(getAge(tiger));\n\nconst addHabitat = (animal, habitat) => {\n  animal.habitat = habitat;\n  return animal;\n};\n\nconsole.log(addHabitat(tiger, \"Rainforest\"));\n\nconst updateAge = (animal, newAge) => {\n  animal.age = newAge;\n  return animal;\n};\n\nconsole.log(updateAge(elephant, 12));\n\nconst removeEndangeredStatus = (animal) => {\n  delete animal.isEndangered;\n  return animal;\n};\n\nconsole.log(removeEndangeredStatus(tiger));\n\n",
+      "error": null,
+      "seed": "const tiger = {\n  species: \"Tiger\",\n  age: 5,\n  isEndangered: true\n};\n\nconst elephant = {\n  species: \"Elephant\",\n  age: 10,\n  isEndangered: true\n};\n\nconst getSpecies = (animal) => {\n  return animal.species;\n};\n\nconsole.log(getSpecies(tiger));\n\nconst getAge = (animal) => {\n  return animal.age;\n};\n\nconsole.log(getAge(tiger));\n\nconst addHabitat = (animal, habitat) => {\n  animal.habitat = habitat;\n  return animal;\n};\n\nconsole.log(addHabitat(tiger, \"Rainforest\"));\n\nconst updateAge = (animal, newAge) => {\n  animal.age = newAge;\n  return animal;\n};\n\nconsole.log(updateAge(elephant, 12));\n\nconst removeEndangeredStatus = (animal) => {\n  delete animal.isEndangered;\n  return animal;\n};\n\nconsole.log(removeEndangeredStatus(tiger));\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da kreiraš funkciju koja se zove <code>hasHabitat</code>.</p>",
+      "testString": "assert.isFunction(hasHabitat);"
+    },
+    {
+      "text": "<p>Funkcija od <code>hasHabitat</code> treba da ima jedan parametar, <code>animal</code>.</p>",
+      "testString": "const regex = __helpers.functionRegex('hasHabitat', ['animal']);\nassert.match(__helpers.removeJSComments(code), regex);"
+    },
+    {
+      "text": "<p><code>hasHabitat</code> Trebalo bi koristiti način <code>hasOwnProperty</code> da proveri svojstvo <code>habitat</code>.</p>",
+      "testString": "assert.match(code, /animal\\.hasOwnProperty\\s*\\(\\s*[\"']habitat[\"']\\s*\\)/);"
+    },
+    {
+      "text": "<p>Treba da napišete <code>hasHabitat(tiger)</code> u konzoli.</p>",
+      "testString": "assert.match(code, /console\\s*\\.\\s*log\\s*\\(\\s*hasHabitat\\s*\\(\\s*tiger\\s*\\)\\s*\\)/);"
+    },
+    {
+      "text": "<p>Treba da napišete <code>hasHabitat(elephant)</code> u konzoli.</p>",
+      "testString": "assert.match(code, /console\\s*\\.\\s*log\\s*\\(\\s*hasHabitat\\s*\\(\\s*elephant\\s*\\)\\s*\\)/);"
+    },
+    {
+      "text": "<p>Pozvati <code>hasHabitat(tiger)</code> treba da vrati <code>true</code> nakon dodavanja staništa.</p>",
+      "testString": "addHabitat(tiger, \"Rainforest\");\nassert.strictEqual(hasHabitat(tiger), true);"
+    },
+    {
+      "text": "<p>Treba da vrati <code>hasHabitat(elephant)</code> <code>false</code> ako nema naselja.</p>",
+      "testString": "const elephant = {\n  species: \"Elephant\",\n  age: 10,\n  isEndangered: true\n};\n\nassert.strictEqual(hasHabitat(elephant), false);"
+    },
+    {
+      "text": "<p><code>hasHabitat</code> trebao bi koristiti parametre funkcije i raditi sa bilo čim.</p>",
+      "testString": "const lion = { species: \"Lion\", habitat: \"Savanna\" };\nassert.strictEqual(hasHabitat(lion), true);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Na ovom koraku, kreiraćete funkciju koja proverava da li objekat ima određena svojstva.</p>\n<p>Evo primera korišćenja <code>hasOwnProperty</code>:</p>\n<pre><code class=\"language-js\">const cat = {\n  species: \"Cat\",\n  color: \"White\"\n};\n\nconst dog = {\n  species: \"Dog\",\n  weight: 50\n};\n\nconst hasColor = (pet) => {\n  return pet.hasOwnProperty(\"color\"); // check if \"color\" property exists\n};\n\nconsole.log(hasColor(cat)); // true\nconsole.log(hasColor(dog)); // false\n</code></pre>\n<p>U ovom primeru, funkcija <code>hasColor</code> koristi <code>hasOwnProperty</code> da proveri da li svojstvo <code>color</code> postoji na objektu.</p>\n<p>Sada kreiraj funkciju nazvanu <code>hasHabitat</code>. Ta funkcija mora da prihvati jedan parametar koji se zove <code>animal</code>.</p>\n<p>Koristi putanju <code>hasOwnProperty</code> da vrati <code>true</code> ako objekat <code>animal</code> ima atribut nazvan <code>\"habitat\"</code> i <code>false</code> inače.</p>\n<p>Nakon kreiranja funkcije, koristite <code>console.log</code> da pozovete <code>hasHabitat(tiger)</code> i <code>hasHabitat(elephant)</code> kako biste videli oba rezultata u konzoli.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-wildlife-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 56,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-objects",
+  "certification": "javascript-v9"
+}

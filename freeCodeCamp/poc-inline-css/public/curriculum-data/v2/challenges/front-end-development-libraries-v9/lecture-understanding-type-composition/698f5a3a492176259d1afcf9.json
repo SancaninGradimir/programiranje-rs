@@ -1,0 +1,109 @@
+{
+  "id": "698f5a3a492176259d1afcf9",
+  "title": "Šta su interfejsi i šta rade?",
+  "challengeType": 19,
+  "dashedName": "what-are-interfaces-and-how-do-they-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koju funkciju TypeScript omogućava vam da kreirate novi tip kombinovanjem više postojećih tipova koristeći <code>&#x26;</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>interface</code></p>",
+          "feedback": "<p>Vrati se u sredinu lekcije gde su tipovi preseka bili diskutovani.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>type</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>class</code></p>",
+          "feedback": "<p>Vrati se na deo lekcije gde su razmotirani tipovi preseka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>enum</code></p>",
+          "feedback": "<p>Vrati se na sredinu lekcije gde su bile diskutovane vrste preseka.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Ime je jedna od sljedećih metoda za kreiranje <code>interface</code>?</p>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-ts\">type ID = number | string;\n\ninterface User {\n  id: ID;\n  name: string;\n}\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">type ID = number | string;\n\ninterface User == {\n  id: ID;\n  name: string;\n}\n</code></pre>",
+          "feedback": "<p>Vratite se na početak lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">type ID = number | string;\n\ninterface > User {\n  id: ID;\n  name: string;\n}\n</code></pre>",
+          "feedback": "<p>Vratite se na početak lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">type ID = number | string;\n\ninterface User >> {\n  id: ID;\n  name: string;\n}\n</code></pre>",
+          "feedback": "<p>Vratite se na početak lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Koja od sljedećih tvrdnji je tačna u vezi sa type aliases u TypeScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Može predstavljati uniju i interseciju.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Mogu samo da opišu oblike predmeta.</p>",
+          "feedback": "<p>Pogledajte kraj lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Treba koristiti extends da se izgradi na drugom tipu.</p>",
+          "feedback": "<p>Pogledajte kraj lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nije moguće postaviti na parametre.</p>",
+          "feedback": "<p>Pogledajte kraj lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U prethodnoj lekciji, naučili ste kako da radite sa aliasima tipova i videli ste primere kako se deklarišu tipovi podataka.</p>\n<p>Kao što znate, jedan način da se označi tip nečega je korišćenje glavnog termina <code>type</code>, kao što sledi:</p>\n<pre><code class=\"language-ts\">type ID = number | string;\n\ntype User = {\n  id: ID;\n  name: string;\n};\n</code></pre>\n<p>Drug način za navođenje vrste stvari je korišćenje deklaracije <code>interface</code>, kao što sledi:</p>\n<pre><code class=\"language-ts\">type ID = number | string;\n\ninterface User {\n  id: ID;\n  name: string;\n}\n</code></pre>\n<p><code>type</code> i <code>interface</code> su slični, ali glavna razlika je u tome što interfejsi koriste ključnu reč <code>extends</code> za proširivanje drugih interfejsa ili tipova, dok aliasi tipa <code>type</code> koriste tipove preseka (<code>&#x26;</code>) za njihovo spajanje.</p>\n<p>Istražite nekoliko primera:</p>\n<pre><code class=\"language-ts\">interface User {\n  id: number | string;\n  name: string;\n}\n\ninterface Admin extends User {\n  role: string;\n}\n\nconst adminUser: Admin = {\n  id: 101,\n  name: \"Alice\",\n  role: \"superadmin\"\n};\n</code></pre>\n<p>U ovom primeru, <code>User</code> počinje sa <code>id</code> na <code>name</code>. Interfejs za <code>Admin</code> dodaje <code>User</code>, što znači da uključuje <code>id</code> i <code>name</code> i dodaje novu osobinu nazvanu <code>role</code>.</p>\n<p>Ako želite dodati <code>type</code>, koristićete tip intersekcije (<code>&#x26;</code>) kao što sledi:</p>\n<pre><code class=\"language-ts\">type User = {\n  id: number | string;\n  name: string;\n};\n\ntype Admin = User &#x26; {\n  role: string;\n};\n\nconst adminUser: Admin = {\n  id: 101,\n  name: \"Alice\",\n  role: \"superadmin\"\n};\n</code></pre>\n<p><code>Admin</code> povezuje tip <code>User</code> i novi tip objekta koji uključuje <code>role</code>. Rezultat je oblik sličan primeru interfejsa, koji je objekat sa <code>id</code>, <code>name</code>, i <code>role</code>.</p>\n<p>Sve <code>type</code> na <code>interface</code> mogu opisati oblik objekta. Ako niste sigurni koji da koristite, zapamtite da <code>interface</code> je specifično dizajniran za oblike objekata, dok je <code>type</code> jednostavniji i može predstavljati tipove unija, primitives, i složenije kombinacije tipova.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-type-composition",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 44,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "typescript-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

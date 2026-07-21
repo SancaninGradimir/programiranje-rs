@@ -1,0 +1,85 @@
+{
+  "id": "5900f38c1000cf542c50fe9f",
+  "title": "Vežba 32: Proizvod sa svim ciframa",
+  "challengeType": 1,
+  "forumTopicId": 301976,
+  "dashedName": "problem-32-pandigital-products",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function pandigitalProducts(n) {\n\n  return true;\n}\n\npandigitalProducts(4);",
+      "error": null,
+      "seed": "function pandigitalProducts(n) {\n\n  return true;\n}\n\npandigitalProducts(4);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// Check for pandigital number\nfunction isPandigital(digitStr) {\n  return digitStr\n    .split('')\n    .sort()\n    .every((c, i) => c == i + 1);\n}\n\n// Concatenate 3 numbers\nfunction concatenate3Nums(a, b, c) {\n  return a.toString() + b.toString() + c.toString();\n}\n\n// Find sum of all pandigital products\nfunction pandigitalProducts(n) {\n  const products = [];\n  let sum = 0;\n  const max = Number(Array(n)\n    .fill(0)\n    .map((_, i) => (n - i).toString())\n    .join(''));\n  const outerLimit = Math.sqrt(max);\n\n  for (let factor1 = 2; factor1 < outerLimit; factor1++) {\n    const innerLimit = max / factor1;\n\n    for (let factor2 = factor1; factor2 < innerLimit; factor2++) {\n      const product = factor1 * factor2;\n      const concatenated = concatenate3Nums(factor1, factor2, product);\n\n      if (concatenated.length > n) {\n        break;\n      } else if (concatenated.length == n &&\n        isPandigital(concatenated) &&\n        !products.includes(product)\n      ) {\n        products.push(product);\n        sum += product;\n      }\n    }\n  }\n  return sum;\n}",
+        "error": null,
+        "seed": "// Check for pandigital number\nfunction isPandigital(digitStr) {\n  return digitStr\n    .split('')\n    .sort()\n    .every((c, i) => c == i + 1);\n}\n\n// Concatenate 3 numbers\nfunction concatenate3Nums(a, b, c) {\n  return a.toString() + b.toString() + c.toString();\n}\n\n// Find sum of all pandigital products\nfunction pandigitalProducts(n) {\n  const products = [];\n  let sum = 0;\n  const max = Number(Array(n)\n    .fill(0)\n    .map((_, i) => (n - i).toString())\n    .join(''));\n  const outerLimit = Math.sqrt(max);\n\n  for (let factor1 = 2; factor1 < outerLimit; factor1++) {\n    const innerLimit = max / factor1;\n\n    for (let factor2 = factor1; factor2 < innerLimit; factor2++) {\n      const product = factor1 * factor2;\n      const concatenated = concatenate3Nums(factor1, factor2, product);\n\n      if (concatenated.length > n) {\n        break;\n      } else if (concatenated.length == n &&\n        isPandigital(concatenated) &&\n        !products.includes(product)\n      ) {\n        products.push(product);\n        sum += product;\n      }\n    }\n  }\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>pandigitalProducts(4)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof pandigitalProducts(4) === 'number');"
+    },
+    {
+      "text": "<p><code>pandigitalProducts(4)</code> trebalo bi da vrati <code>12</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalProducts(4), 12);"
+    },
+    {
+      "text": "<p><code>pandigitalProducts(6)</code> treba vratiti <code>162</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalProducts(6), 162);"
+    },
+    {
+      "text": "<p><code>pandigitalProducts(7)</code> trebalo bi da vrati <code>0</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalProducts(7), 0);"
+    },
+    {
+      "text": "<p><code>pandigitalProducts(8)</code> bi trebalo da vrati <code>13458</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalProducts(8), 13458);"
+    },
+    {
+      "text": "<p><code>pandigitalProducts(9)</code> trebalo bi da vrati <code>45228</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalProducts(9), 45228);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kaže se da broj sa ciframa <code>n</code> je pandigitalan ako koristi sve cifre od 1 do <code>n</code> samo jednom; na primer, broj sa ciframa 5, 15234, je pandigitalan od 1 do 5.</p>\n<p>Proizvod 7254 je jedinstven, jer identifikator, 39 × 186 = 7254, koji uključuje proizvođača, distributera i proizvod, sadrži sve cifre od 1 do 9.</p>\n<p>Pronađi sve proizvode čiji identifikator proizvođača/dobavljača/proizvoda može biti napisan sa svim ciframa od 1 do <code>n</code>.</p>\n<p><strong>Napomena:</strong> Neki proizvodi mogu biti dostupni na više načina, pa obavezno osigurajte da ih uključite samo jednom u svoj ukupni iznos.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 31,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

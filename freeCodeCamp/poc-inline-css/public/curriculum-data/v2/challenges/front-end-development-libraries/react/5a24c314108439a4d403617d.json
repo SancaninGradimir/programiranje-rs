@@ -1,0 +1,87 @@
+{
+  "id": "5a24c314108439a4d403617d",
+  "title": "Koristi životni put componentDidMount",
+  "challengeType": 6,
+  "forumTopicId": 301422,
+  "dashedName": "use-the-lifecycle-method-componentdidmount",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeUsers: null\n    };\n  }\n  componentDidMount() {\n    setTimeout(() => {\n      this.setState({\n        activeUsers: 1273\n      });\n    }, 2500);\n  }\n  render() {\n    return (\n      <div>\n        {/* Change code below this line */}\n        <h1>Active Users: </h1>\n        {/* Change code above this line */}\n      </div>\n    );\n  }\n}",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeUsers: null\n    };\n  }\n  componentDidMount() {\n    setTimeout(() => {\n      this.setState({\n        activeUsers: 1273\n      });\n    }, 2500);\n  }\n  render() {\n    return (\n      <div>\n        {/* Change code below this line */}\n        <h1>Active Users: </h1>\n        {/* Change code above this line */}\n      </div>\n    );\n  }\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeUsers: null\n    };\n  }\n  componentDidMount() {\n    setTimeout(() => {\n      this.setState({\n        activeUsers: 1273\n      });\n    }, 2500);\n  }\n  render() {\n    return (\n      <div>\n        <h1>Active Users: {this.state.activeUsers}</h1>\n      </div>\n    );\n  }\n}",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeUsers: null\n    };\n  }\n  componentDidMount() {\n    setTimeout(() => {\n      this.setState({\n        activeUsers: 1273\n      });\n    }, 2500);\n  }\n  render() {\n    return (\n      <div>\n        <h1>Active Users: {this.state.activeUsers}</h1>\n      </div>\n    );\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyComponent</code> trebalo bi da prikaže element <code>div</code> koji okružuje oznaku <code>h1</code>.</p>",
+      "testString": "assert(\n  (() => {\n    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n    return (\n      mockedComponent.find('div').length === 1 &&\n      mockedComponent.find('h1').length === 1\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Stanje dela treba ažurirati korišćenjem akcije čekanja u <code>componentDidMount</code>.</p>",
+      "testString": "assert(\n  (() => {\n    const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n    return new RegExp('setTimeout(.|\\n)+setState(.|\\n)+activeUsers').test(\n      String(mockedComponent.instance().componentDidMount)\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Etiketa za <code>h1</code> treba da prikaže vrednost <code>activeUsers</code> iz stanja <code>MyComponent</code>.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ activeUsers: 1237 });\n    return mockedComponent.find('h1').text();\n  };\n  const second = () => {\n    mockedComponent.setState({ activeUsers: 1000 });\n    return mockedComponent.find('h1').text();\n  };\n  assert(new RegExp('1237').test(first()) && new RegExp('1000').test(second()));\n})();"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Mnogi web programeri, ponekad, moraju da pozovu krajnju tačku API kako bi dobili podatke. Ako radiš sa React, važno je znati gde da izvršiš ovu akciju.</p>\n<p>Optimalna metoda sa React je postavljanje poziva za API ili bilo kog poziva ka vašem serveru u živom putu <code>componentDidMount()</code>. Ovaj metod se naziva nakon što segment bude postavljen na DOM. Bilo koji poziv od <code>setState()</code> ovde će uzrokovati ponovno prikazivanje vašeg segmenta. Kada pozovete API u ovom putu, i postavite svoj status i podatke koje API vraća, to će uzrokovati automatsko ažuriranje kada primite te podatke.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoji poziv za API primer u <code>componentDidMount()</code>. Ažurira status nakon 2,5 sekunde simulirajući poziv na server radi dobijanja podataka. Ovaj primer traži ukupan broj trenutno aktivnih korisnika za sajt. U metodi prikaza, prikažite vrednost <code>activeUsers</code> u <code>h1</code> nakon teksta <code>Active Users:</code>. Pogledajte šta se dešava u prethodnom prikazu i slobodno promenite vreme čekanja da biste videli različite efekte.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 32,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

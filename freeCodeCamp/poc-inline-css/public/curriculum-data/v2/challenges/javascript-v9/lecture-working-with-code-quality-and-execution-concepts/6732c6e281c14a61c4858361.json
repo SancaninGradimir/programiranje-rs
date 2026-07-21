@@ -1,0 +1,195 @@
+{
+  "id": "6732c6e281c14a61c4858361",
+  "title": "Šta je instalacija, i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-are-closures-and-how-do-they-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Scope je jedan od najmoćnijih aspekata i često se pogrešno razume u JavaScript. U svojoj suštini, scope je funkcija koja ima pristup promenljivama u svom spoljašnjem gramatičkom opsegu, čak i nakon što vanjska funkcija vrati. Ovo može delovati komplikovano, ali je fundamentalni koncept koji omogućava mnogim naprednim sistemima programiranja u JavaScript.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste razumeli instalaciju, počnimo sa primerom:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function outerFunction(x) {\n    let y = 10;\n    function innerFunction(){\n        console.log(x + y);\n    }\n    return innerFunction;\n}\n\nlet closure = outerFunction(5);\nconsole.log(closure()); // 15",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function outerFunction(x) {\n    let y = 10;\n    function innerFunction(){\n        console.log(x + y);\n    }\n    return innerFunction;\n}\n\nlet closure = outerFunction(5);\nconsole.log(closure()); // 15\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, <code>outerFunction</code> prima parametar <code>x</code> i kreira interni parametar <code>y</code>. Zatim kreira funkciju <code>innerFunction</code> koja koristi <code>x</code> i <code>y</code>. Na kraju vraća <code>innerFunction</code>. Kada pozovemo <code>outerFunction(5)</code>, vraćamo <code>innerFunction</code> čiju vrednost dodeljujemo parametru <code>closure</code>. Kasnije kada pozovemo <code>closure()</code>, i dalje ima pristup <code>x</code> i <code>y</code> iz <code>outerFunction</code>, iako je <code>outerFunction</code> već završio izvršenje. Ovo je srž paketa.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Unutrašnja funkcija sačuvava referencu na svoje spoljašnje gramatičko okruženje, zadržavajući dostupnost parametara u tom okruženju čak i nakon što spoljašnja funkcija završi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Instalacija je veoma važna za kreiranje privatnih parametara i funkcija. Pogledajte ovaj primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function createCounter() {\n    let count = 0;\n    return function () {\n        count++;\n        return count;\n    };\n}\n\nlet counter = createCounter();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function createCounter() {\n    let count = 0;\n    return function () {\n        count++;\n        return count;\n    };\n}\n\nlet counter = createCounter();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, <code>createCounter</code> vraća funkciju koja dodaje i vraća parametar <code>count</code>. Parametar <code>count</code> nije dostupan direktno izvan <code>createCounter</code>, ali funkcija koja se vraća (naša implementacija) ima mu pristup. Svaki put kada pozovemo <code>counter()</code>, dodaje i vraća <code>count</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Paket takođe može da rukuje sa više parametara iz svog eksternog opsega. Na primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function multiply(x) {\n    return function (y) {\n        return x * y;\n    };\n}\n\nlet double = multiply(2);\nconsole.log(double(5)); // 10",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function multiply(x) {\n    return function (y) {\n        return x * y;\n    };\n}\n\nlet double = multiply(2);\nconsole.log(double(5)); // 10\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde unutrašnja funkcija hvata parametar <code>x</code> iz <code>multiply</code>. Kada kreiramo <code>double</code> pozivanjem <code>multiply(2)</code>, vraća funkciju koja povećava svoj argument za <code>2</code> svaki put.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Važno je znati o vezivanju da ono zadržava parametre po referenci, a ne po vrednosti. To znači da ako se vrednost vezanog parametra promeni, vezivanje će videti novu vrednost. Na primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function createIncrementer() {\n    let count = 0;\n    return function () {\n        count++;\n        console.log(count);\n    };\n}\n\nlet increment = createIncrementer();\nincrement(); // 1\nincrement(); // 2",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function createIncrementer() {\n    let count = 0;\n    return function () {\n        count++;\n        console.log(count);\n    };\n}\n\nlet increment = createIncrementer();\nincrement(); // 1\nincrement(); // 2\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svaki put kada pozovemo <code>increment</code> koji radi sa jednim parametrom <code>count</code>, nije kopija njegove prvobitne vrednosti. Formatiranje je moćan alat u JavaScript. Kada nastavite da radite sa JavaScript, otkrićete da razumevanje i efikasna upotreba formatiranja može značajno povećati vašu sposobnost pisanja čistog, efikasanog i moćnog koda.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">function outer(x) {\n    return function(y) {\n        return x + y;\n    };\n}\n\nlet add5 = outer(5);\nconsole.log(add5(3));\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>5</code></p>",
+          "feedback": "<p>Zamislite kako unutrašnja funkcija u spoljašnjem opsegu hvata parametar <code>x</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>3</code></p>",
+          "feedback": "<p>Razmislite kako lokalna funkcija u spoljašnjem zadržava parametar <code>x</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>8</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>undefined</code></p>",
+          "feedback": "<p>Zamislite kako unutrašnja funkcija u outer-u zadržava parametar <code>x</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta sledeći kod prikazuje?</p>\n<pre><code class=\"language-js\">function createGreeter(greeting) {\n    return function(name) {\n        console.log(greeting + \", \" + name);\n    };\n}\n\nlet sayHello = createGreeter(\"Hello\");\nsayHello(\"Alice\");\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p>Hoisting.</p>",
+          "feedback": "<p>Razmislite kako vraćena funkcija čuva dostupnost parametra <code>greeting</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Instalacija.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ponovi.</p>",
+          "feedback": "<p>Razmislite kako vraćena funkcija čuva dostupnost parametra <code>greeting</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nasleđe primera.</p>",
+          "feedback": "<p>Razmislite kako vraćena funkcija zadržava dostupnost parametra <code>greeting</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">function counter() {\n    let count = 0;\n    return function() {\n        count++;\n        return count;\n    };\n}\n\nlet increment = counter();\nconsole.log(increment());\nconsole.log(increment());\nconsole.log(increment());\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-js\">1\n1\n1\n</code></pre>",
+          "feedback": "<p>Razmislite kako lokalna funkcija unutar brojača zadržava pristup varijabli count tokom više poziva.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">1\n2\n3\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">0\n1\n2\n</code></pre>",
+          "feedback": "<p>Razmislite kako unutrašnja funkcija u brojaču sačuvava dostupnost varijable 'count' pri višestrukim pozivima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">undefined\nundefined\nundefined\n</code></pre>",
+          "feedback": "<p>Razmislite kako unutrašnja funkcija u brojaču čuva pristup varijabli 'count' tokom više poziva.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-code-quality-and-execution-concepts",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 84,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "review-javascript-fundamentals",
+  "certification": "javascript-v9"
+}

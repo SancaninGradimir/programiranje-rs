@@ -1,0 +1,97 @@
+{
+  "id": "56533eb9ac21ba0edf2244ca",
+  "title": "Koriscenje Objekata za Lookup",
+  "challengeType": 1,
+  "forumTopicId": 18373,
+  "dashedName": "using-objects-for-lookups",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "// Setup\nfunction phoneticLookup(val) {\n  let result = \"\";\n\n  // Only change code below this line\n  switch(val) {\n    case \"alpha\":\n      result = \"Adams\";\n      break;\n    case \"bravo\":\n      result = \"Boston\";\n      break;\n    case \"charlie\":\n      result = \"Chicago\";\n      break;\n    case \"delta\":\n      result = \"Denver\";\n      break;\n    case \"echo\":\n      result = \"Easy\";\n      break;\n    case \"foxtrot\":\n      result = \"Frank\";\n  }\n\n  // Only change code above this line\n  return result;\n}\n\nphoneticLookup(\"charlie\");",
+      "error": null,
+      "seed": "// Setup\nfunction phoneticLookup(val) {\n  let result = \"\";\n\n  // Only change code below this line\n  switch(val) {\n    case \"alpha\":\n      result = \"Adams\";\n      break;\n    case \"bravo\":\n      result = \"Boston\";\n      break;\n    case \"charlie\":\n      result = \"Chicago\";\n      break;\n    case \"delta\":\n      result = \"Denver\";\n      break;\n    case \"echo\":\n      result = \"Easy\";\n      break;\n    case \"foxtrot\":\n      result = \"Frank\";\n  }\n\n  // Only change code above this line\n  return result;\n}\n\nphoneticLookup(\"charlie\");"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function phoneticLookup(val) {\n  let result = \"\";\n\n  const lookup = {\n    alpha: \"Adams\",\n    bravo: \"Boston\",\n    charlie: \"Chicago\",\n    delta: \"Denver\",\n    echo: \"Easy\",\n    foxtrot: \"Frank\"\n  };\n\n  result = lookup[val];\n\n  return result;\n}",
+        "error": null,
+        "seed": "function phoneticLookup(val) {\n  let result = \"\";\n\n  const lookup = {\n    alpha: \"Adams\",\n    bravo: \"Boston\",\n    charlie: \"Chicago\",\n    delta: \"Denver\",\n    echo: \"Easy\",\n    foxtrot: \"Frank\"\n  };\n\n  result = lookup[val];\n\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>phoneticLookup(\"alpha\")</code> treba da bude jednak stringu <code>Adams</code></p>",
+      "testString": "assert(phoneticLookup('alpha') === 'Adams');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"bravo\")</code> treba da bude jednak stringu <code>Boston</code></p>",
+      "testString": "assert(phoneticLookup('bravo') === 'Boston');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"charlie\")</code> treba da bude jednak stringu <code>Chicago</code></p>",
+      "testString": "assert(phoneticLookup('charlie') === 'Chicago');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"delta\")</code> treba da bude jednak stringu <code>Denver</code></p>",
+      "testString": "assert(phoneticLookup('delta') === 'Denver');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"echo\")</code> treba da bude jednak stringu <code>Easy</code></p>",
+      "testString": "assert(phoneticLookup('echo') === 'Easy');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"foxtrot\")</code> treba da bude jednak stringu <code>Frank</code></p>",
+      "testString": "assert(phoneticLookup('foxtrot') === 'Frank');"
+    },
+    {
+      "text": "<p><code>phoneticLookup(\"\")</code> treba da bude jednak <code>undefined</code></p>",
+      "testString": "assert(typeof phoneticLookup('') === 'undefined');"
+    },
+    {
+      "text": "<p>Ne treba da menjate <code>return</code> naredbu</p>",
+      "testString": "assert(__helpers.removeJSComments(code).match(/return\\sresult;/));"
+    },
+    {
+      "text": "<p>Ne treba da koristite <code>case</code>, <code>switch</code> ili <code>if</code> naredbe</p>",
+      "testString": "assert(\n  !/case|switch|if/g.test(__helpers.removeJSComments(code).replace(/([/]{2}.*)|([/][*][^/*]*[*][/])/g, ''))\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Objekti se mogu posmatrati kao skladiste kljuc/vrednost, slicno recniku. Ako imate tabelarne podatke, mozete koristiti objekat za lookup umesto <code>switch</code> naredbe ili lanca <code>if/else</code>. Ovo je posebno korisno kada znate da je ulaz ogranicen na odredjeni skup vrednosti.</p>\n<p>Evo primera objekta za clanak:</p>\n<pre><code class=\"language-js\">const article = {\n  \"title\": \"How to create objects in JavaScript\",\n  \"link\": \"https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/\",\n  \"author\": \"Kaashan Hussain\",\n  \"language\": \"JavaScript\",\n  \"tags\": \"TECHNOLOGY\",\n  \"createdAt\": \"NOVEMBER 28, 2018\"\n};\n\nconst articleAuthor = article[\"author\"];\nconst articleLink = article[\"link\"];\n\nconst value = \"title\";\nconst valueLookup = article[value];\n</code></pre>\n<p><code>articleAuthor</code> je string <code>Kaashan Hussain</code>, <code>articleLink</code> je string <code>https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/</code>, a <code>valueLookup</code> je string <code>How to create objects in JavaScript</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Zamenite <code>switch</code> naredbu objektom pod nazivom <code>lookup</code>. Iskoristite ga za lookup vrednosti <code>val</code> i smestite odgovarajuci string u promenljivu <code>result</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-javascript",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 89,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

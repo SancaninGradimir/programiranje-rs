@@ -1,0 +1,109 @@
+{
+  "id": "69945fc2cd3160713372860e",
+  "title": "Šta su type aliases i kako funkcionišu?",
+  "challengeType": 19,
+  "dashedName": "what-are-type-aliases-and-how-do-they-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Ni nini type alias katika TypeScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>TypeScript ključna reč namenjena isključivo nizovima podataka.</p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Klasa specijalnih predmeta koja čuva mnogo vrednosti.</p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ime koje se dodeljuje vrsti, kao što je tip veze ili tip objekta.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcija koja konvertuje jedan tip u drugi direktno.</p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Kakav je tip <code>id</code> unutar tipa <code>User</code> ovde?</p>\n<pre><code class=\"language-ts\">type ID = number | string;\n\ntype User = {\n  id: ID;\n  name: string;\n};\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>number</code></p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>string</code></p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>number | string</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>null</code></p>",
+          "feedback": "<p>Ponovi od početka lekcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Zašto se PascalCase često koristi prilikom imenovanja tipova aliasa u TypeScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Zato što je potrebno sa TypeScript.</p>",
+          "feedback": "<p>Ponovite na kraju lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pomoći u razlikovanju tipova i kriterijuma te poboljšati čitljivost.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nateraziti kod da radi brže.</p>",
+          "feedback": "<p>Ponavljanje na kraju lekcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dozvoliti korišćenje tipa u redovima podataka.</p>",
+          "feedback": "<p>Ponavljanje na kraju časa.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U prethodnoj lekciji ste naučili kako da radite sa tipovima unija. Jedan uobičajen način za rad sa tipovima unija je korišćenje <em>type alias</em>-a.</p>\n<p>Type alias je ime tipa. Evo primera dodeljivanja imena tipu unije:</p>\n<pre><code class=\"language-ts\">type ID = number | string;\n</code></pre>\n<p>Često u svojim projektima, kreiraćeš type aliases i koristiti ih širom svoje aplikacije kao što je ovo:</p>\n<pre><code class=\"language-ts\">type ID = number | string;\n\ntype User = {\n  id: ID;\n  name: string;\n};\n\nfunction getUserId(user: User): ID {\n  return user.id;\n}\n</code></pre>\n<p>Ovaj primer koristi dva tipa nazvana <code>ID</code> i <code>User</code>. <code>ID</code> će biti tip kombinacije za <code>number</code> ili <code>string</code> kada <code>User</code> jeste tip objekta sa karakteristikama <code>id</code> i <code>name</code>. <code>id</code> spominje se za tip <code>ID</code> kada <code>name</code> ima tip <code>string</code>.</p>\n<p>Funkcija za <code>getUserId</code> ima jedan parametar nazvan <code>user</code>, a njegov tip je <code>User</code>. Tip povratne vrednosti funkcije za <code>getUserId</code> će biti <code>ID</code>.</p>\n<p>Type aliases su lep način za definisanje strukture nečega. Uobičajeno je kreirati tipove i koristiti ih u strukturalima podataka kao što je ovo:</p>\n<pre><code class=\"language-ts\">type User = {\n  id: number | string;\n  name: string;\n};\n\nconst users: User[] = [\n  { id: 101, name: \"Alice\" },\n  { id: \"A102\", name: \"Bob\" },\n  { id: 103, name: \"Charlie\" }\n];\n</code></pre>\n<p>U ovom primeru niz <code>users</code> sme da sadrži samo objekte tipa <code>User</code>. Ako zaboraviš neko svojstvo u jednom od objekata, TypeScript će prijaviti grešku poput ove:</p>\n<pre><code class=\"language-ts\">type User = {\n  id: number | string;\n  name: string;\n};\n\nconst users: User[] = [\n  // Property 'name' is missing in type '{ id: number; }' but required in type 'User'.\n  { id: 101 },\n  { id: \"A102\", name: \"Bob\" },\n  { id: 103, name: \"Charlie\" }\n];\n</code></pre>\n<p>Možda ste primetili korišćenje PascalCase-a prilikom definisanja imena tipova aliasa. To je zato što, po konvenciji, korišćenje PascalCase-a pomaže u razlikovanju tipova od parametara. Takođe pomaže čitljivosti. Kada vidite <code>User[]</code>, znaćete da je to niz elemenata tipa <code>User</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-type-composition",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 44,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "typescript-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

@@ -1,0 +1,66 @@
+{
+  "id": "68af277560e009597dd861e8",
+  "title": "Korak 8",
+  "challengeType": 20,
+  "dashedName": "step-8",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        20
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nmovie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nprint(movie1)",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\nmovie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nprint(movie1)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should not have <code>print(movie1)</code> in your code.</p>",
+      "testString": "({\n  test: () => runPython(`assert not _Node(_code).has_call(\"print(movie1)\")`)\n})"
+    },
+    {
+      "text": "<p>You should have a <code>try</code> block with <code>movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)</code> inside it.</p>",
+      "testString": "({\n    test: () => runPython(`assert _Node(_code).find_trys()[0].find_body().has_stmt(\"movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\")`)\n})"
+    },
+    {
+      "text": "<p>You should have an <code>except</code> clause that catches <code>ValueError as e</code>.</p>",
+      "testString": "({\n    test: () => runPython(`assert _Node(_code).find_trys()[0].has_except(\"ValueError\", \"e\")`)\n})"
+    },
+    {
+      "text": "<p>You should use an f-string to print <code>Validation Error:</code> followed by a space and the error message within the <code>except</code> block.</p>",
+      "testString": "({\n    test: () => runPython(`assert _Node(_code).find_trys()[0].find_except(\"ValueError\", \"e\").has_call(\"print(f'Validation Error: {e}')\")`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada obrišite vašu liniju <code>print(movie1)</code>. Zatim, stavite svoju dodelu <code>movie1</code> u blok <code>try</code> i kreirajte klauzulu <code>except</code> koja hvata <code>ValueError as e</code> i koristi f-string da ispiše <code>Validation Error:</code> praćen razmakom i porukom o grešci.</p>\n<p>Slobodno promenite argumente prosleđene za instanciranje <code>movie1</code> da biste videli različite poruke o grešci.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

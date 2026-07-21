@@ -1,0 +1,89 @@
+{
+  "id": "5900f38f1000cf542c50fea2",
+  "title": "Vežba 35: Osnovna konstanta kruga",
+  "challengeType": 1,
+  "forumTopicId": 302009,
+  "dashedName": "problem-35-circular-primes",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function circularPrimes(n) {\n\n  return n;\n}\n\ncircularPrimes(1000000);",
+      "error": null,
+      "seed": "function circularPrimes(n) {\n\n  return n;\n}\n\ncircularPrimes(1000000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function rotate(n) {\n  if (n.length == 1) return n;\n  return n.slice(1) + n[0];\n}\n\nfunction circularPrimes(n) {\n  // Nearest n < 10^k\n  const bound = 10 ** Math.ceil(Math.log10(n));\n  const primes = [0, 0, 2];\n  let count = 0;\n\n  // Making primes array\n  for (let i = 4; i <= bound; i += 2) {\n    primes.push(i - 1);\n    primes.push(0);\n  }\n\n  // Getting upperbound\n  const upperBound = Math.ceil(Math.sqrt(bound));\n\n  // Setting other non-prime numbers to 0\n  for (let i = 3; i < upperBound; i += 2) {\n    if (primes[i]) {\n      for (let j = i * i; j < bound; j += i) {\n        primes[j] = 0;\n      }\n    }\n  }\n\n  // Iterating through the array\n  for (let i = 2; i < n; i++) {\n    if (primes[i]) {\n      let curr = String(primes[i]);\n      let tmp = 1; // tmp variable to hold the no of rotations\n      for (let x = rotate(curr); x != curr; x = rotate(x)) {\n        if (x > n && primes[x]) {\n          continue;\n        }\n        else if (!primes[x]) {\n          // If the rotated value is 0 then it isn't a circular prime, break the loop\n          tmp = 0;\n          break;\n        }\n        tmp++;\n        primes[x] = 0;\n      }\n      count += tmp;\n    }\n  }\n  return count;\n}",
+        "error": null,
+        "seed": "function rotate(n) {\n  if (n.length == 1) return n;\n  return n.slice(1) + n[0];\n}\n\nfunction circularPrimes(n) {\n  // Nearest n < 10^k\n  const bound = 10 ** Math.ceil(Math.log10(n));\n  const primes = [0, 0, 2];\n  let count = 0;\n\n  // Making primes array\n  for (let i = 4; i <= bound; i += 2) {\n    primes.push(i - 1);\n    primes.push(0);\n  }\n\n  // Getting upperbound\n  const upperBound = Math.ceil(Math.sqrt(bound));\n\n  // Setting other non-prime numbers to 0\n  for (let i = 3; i < upperBound; i += 2) {\n    if (primes[i]) {\n      for (let j = i * i; j < bound; j += i) {\n        primes[j] = 0;\n      }\n    }\n  }\n\n  // Iterating through the array\n  for (let i = 2; i < n; i++) {\n    if (primes[i]) {\n      let curr = String(primes[i]);\n      let tmp = 1; // tmp variable to hold the no of rotations\n      for (let x = rotate(curr); x != curr; x = rotate(x)) {\n        if (x > n && primes[x]) {\n          continue;\n        }\n        else if (!primes[x]) {\n          // If the rotated value is 0 then it isn't a circular prime, break the loop\n          tmp = 0;\n          break;\n        }\n        tmp++;\n        primes[x] = 0;\n      }\n      count += tmp;\n    }\n  }\n  return count;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>circularPrimes(100)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof circularPrimes(100) === 'number');"
+    },
+    {
+      "text": "<p><code>circularPrimes(100)</code> trebalo bi da vrati 13.</p>",
+      "testString": "assert(circularPrimes(100) == 13);"
+    },
+    {
+      "text": "<p><code>circularPrimes(100000)</code> treba da vrati 43.</p>",
+      "testString": "assert(circularPrimes(100000) == 43);"
+    },
+    {
+      "text": "<p><code>circularPrimes(250000)</code> trebalo bi vratiti 45.</p>",
+      "testString": "assert(circularPrimes(250000) == 45);"
+    },
+    {
+      "text": "<p><code>circularPrimes(500000)</code> Trebalo bi da vrati 49.</p>",
+      "testString": "assert(circularPrimes(500000) == 49);"
+    },
+    {
+      "text": "<p><code>circularPrimes(750000)</code> inapaswa kurudisha 49.</p>",
+      "testString": "assert(circularPrimes(750000) == 49);"
+    },
+    {
+      "text": "<p><code>circularPrimes(1000000)</code> treba da vrati 55.</p>",
+      "testString": "assert(circularPrimes(1000000) == 55);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Broj 197 naziva se kružnim prostim brojem zato što su sve rotacije njegovih cifara — 197, 971 i 719 — takođe prosti brojevi.</p>\n<p>Postoji trinaest prostih brojeva ovakve vrste ispod 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79 i 97.</p>\n<p>Koliko osnovnih brojeva za krug ispod <code>n</code>, dok je 100 ≤ <code>n</code> ≤ 1000000?</p>\n<p><strong>Napomena:</strong></p>\n<p>Kružni prosti brojevi mogu biti veći od <code>n</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 34,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

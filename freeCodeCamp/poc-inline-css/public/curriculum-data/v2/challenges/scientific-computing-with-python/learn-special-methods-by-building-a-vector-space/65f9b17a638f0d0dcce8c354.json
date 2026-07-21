@@ -1,0 +1,55 @@
+{
+  "id": "65f9b17a638f0d0dcce8c354",
+  "title": "Korak 38",
+  "challengeType": 20,
+  "dashedName": "step-38",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        15,
+        17
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete putanju <code>__add__</code> unutar klase <code>R2Vector</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").has_function(\"__add__\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>__add__</code> mora imati dva parametra, <code>self</code> i <code>other</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").has_args(\"self, other\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste kreirali vektor prostor, potrebno je definisati kako vektori treba da se ponašaju u nekoliko slučajeva. Vektori mogu biti sabrani, stvarajući nove vektore.</p>\n<p>Poseban način <code>__add__</code> može se izvršiti anuliranjem onoga što se dešava podrazumevano kada se dva objekta dodaju zajedno koristeći parametar <code>+</code>.</p>\n<p>Trenutno, pokušaj dodavanja dve instance za <code>R2Vector</code> ili <code>R3Vector</code> izaziva grešku. Kreirajte praznu metodu za <code>__add__</code> unutar klase <code>R2Vector</code> i date joj dva parametra: <code>self</code>, i <code>other</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 37,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

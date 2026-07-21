@@ -1,0 +1,63 @@
+{
+  "id": "65c4f3aee69d11dcfdbcfc00",
+  "title": "Korak 18",
+  "challengeType": 20,
+  "dashedName": "step-18",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        14,
+        30
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        pass\n\n",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        pass\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da uklonite reč <code>pass</code> iz puta <code>insert</code>.</p>",
+      "testString": "({\n  test: () => {\n    assert.isFalse(\n      runPython(\n        `_Node(_code).find_class(\"BinarySearchTree\").find_function(\"insert\").has_pass()`\n      )\n    );\n  },\n});\n"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>_insert()</code> za ponavljanje korišćenjem <code>self._insert()</code></p>",
+      "testString": "({ test: () =>\n  {\n    const transformedCode = code.replace(/\\r/g, \"\");        \n    const ins = __helpers.python.getDef(\"\\n\"+transformedCode, \"insert\");\n    const {function_body} = ins;    \n    assert(function_body.match(/self\\._insert\\s*\\([^(]*\\)/));\n  }\n})"
+    },
+    {
+      "text": "<p>Morate proslediti <code>self.root</code> i <code>key</code> u vašem pozivu od <code>_insert()</code>.</p>",
+      "testString": "({ test: () =>\n  {\n    const transformedCode = code.replace(/\\r/g, \"\");        \n    const ins = __helpers.python.getDef(\"\\n\"+transformedCode, \"insert\");\n    const {function_body} = ins;    \n    assert(function_body.match(/self\\._insert\\s*\\(\\s*self\\.root\\s*,\\s*key\\s*\\)/));\n  }\n})"
+    },
+    {
+      "text": "<p>Treba da postavite vrednost return za vaš poziv <code>_insert()</code> za <code>self.root</code>.</p>",
+      "testString": "({ test: () =>\n  {\n    const transformedCode = code.replace(/\\r/g, \"\");        \n    const ins = __helpers.python.getDef(\"\\n\"+transformedCode, \"insert\");\n    const {function_body} = ins;    \n    assert(function_body.match(/^\\s{8}self\\.root\\s*=\\s*self\\._insert\\s*\\(\\s*self\\.root\\s*,\\s*key\\s*\\)/m));\n  }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, unutar metode <code>insert</code>, morate pozvati pomoćnu funkciju <code>_insert()</code> koju smo ranije implementirali.\nOvde, <code>_insert</code> je obavio <em>wrapping</em> izvršavanja logike unosa. Ovo je važno za ponovnu upotrebu i za skrivanje detalja implementacije od korisnika.</p>\n<p>Postavi <code>pass</code> na vrednost od <code>self._insert(self.root, key)</code> za <code>self.root</code>.</p>\n<p>Zapamtite da:</p>\n<ul>\n<li><code>self.root</code> prosleđuje čvor korena drveta kao prvi argument. Ovo je početak procesa unosa.</li>\n<li><code>key</code>: prosleđuje vrednost <code>key</code> koju želite da unesete kao drugi argument.</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

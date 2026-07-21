@@ -1,0 +1,74 @@
+{
+  "id": "68b7e1818bd294974b9099bf",
+  "title": "Korak 13",
+  "challengeType": 20,
+  "dashedName": "step-13",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        24,
+        30
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have a <code>for</code> loop in your <code>__str__</code> method.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"MediaCatalogue\").find_function(\"__str__\").find_for_loops()[0]`)\n})"
+    },
+    {
+      "text": "<p>Your <code>for</code> loop should use the <code>enumerate</code> function.</p>",
+      "testString": "({\n  test: () => runPython(`assert \"enumerate(\" in str(_Node(_code).find_class(\"MediaCatalogue\").find_function(\"__str__\").find_for_loops()[0].find_for_iter())`)\n})"
+    },
+    {
+      "text": "<p>Your <code>__str__</code> method should return <code>result</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).find_class(\"MediaCatalogue\").find_function(\"__str__\").has_return(\"result\")`)\n})"
+    },
+    {
+      "text": "<p>When <code>self.items</code> contains <code>Movie('Dances with Wolves', 1990, 'Kevin Costner', 224)</code> and <code>Movie('Annie Hall', 1977, 'Woody Allen', 93)</code>, your <code>__str__</code> method should return <code>Media Catalogue (2 items):\\n\\n1. Dances with Wolves (1990) - 224 min, Kevin Costner\\n2. Annie Hall (1977) - 93 min, Woody Allen\\n</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n    import io\n    import sys\n        \n    captured_output = io.StringIO()\n    sys.stdout = captured_output\n\n    _catalogue = MediaCatalogue()\n    _catalogue.add(Movie('Dances with Wolves', 1990, 'Kevin Costner', 224))\n    _catalogue.add(Movie('Annie Hall', 1977, 'Woody Allen', 93))\n    print(_catalogue)\n        \n    sys.stdout = sys.__stdout__\n    output = captured_output.getvalue()\n\n    _expected = \"\"\"Media Catalogue (2 items):\n\n    1. Dances with Wolves (1990) - 224 min, Kevin Costner\n    2. Annie Hall (1977) - 93 min, Woody Allen\n    \"\"\"\n    assert _expected in output\n  `)\n})"
+    },
+    {
+      "text": "<p>When <code>self.items</code> contains <code>Movie('Barry Lyndon', 1975, 'Stanley Kubrick', 184)</code> and <code>Movie('Fahrenheit 451', 1966, 'Francois Truffaut', 112)</code>, your <code>__str__</code> method should return <code>Media Catalogue (2 items):\\n\\n1. Barry Lyndon (1975) - 184 min, Stanley Kubrick\\n2. Fahrenheit 451 (1966) - 112 min, Francois Truffaut\\n</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n    import io\n    import sys\n        \n    captured_output = io.StringIO()\n    sys.stdout = captured_output\n\n    _catalogue = MediaCatalogue()\n    _catalogue.add(Movie('Barry Lyndon', 1975, 'Stanley Kubrick', 184))\n    _catalogue.add(Movie('Fahrenheit 451', 1966, 'Francois Truffaut', 112))\n    print(_catalogue)\n        \n    sys.stdout = sys.__stdout__\n    output = captured_output.getvalue()\n\n    _expected = \"\"\"Media Catalogue (2 items):\n\n    1. Barry Lyndon (1975) - 184 min, Stanley Kubrick\n    2. Fahrenheit 451 (1966) - 112 min, Francois Truffaut\n    \"\"\"\n    assert _expected in output\n  `)\n})"
+    },
+    {
+      "text": "<p>Your <code>__str__</code> method should return <code>Media Catalogue (empty)</code> when <code>self.items</code> is empty.</p>",
+      "testString": "({\n  test: () => runPython(`\n    import io\n    import sys\n        \n    captured_output = io.StringIO()\n    sys.stdout = captured_output\n        \n    print(MediaCatalogue())\n        \n    sys.stdout = sys.__stdout__\n    output = captured_output.getvalue()\n        \n    assert \"Media Catalogue (empty)\" in output\n  `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Odmah nakon deklarisanja varijable <code>result</code>, kreirajte petlju <code>for</code> koja koristi enumeraciju za iteriranje kroz stavke u katalogu i dodaje u <code>result</code> string sa sledećim formatom: <code>N. movie</code> gde je <code>N</code> numerički indeks koji počinje od <code>1</code>, a <code>movie</code> je string reprezentacija stavke.</p>\n<p>String završite znakom novog reda i vratite <code>result</code> nakon petlje.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

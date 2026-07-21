@@ -1,0 +1,66 @@
+{
+  "id": "694e1931f6509ae16aa1c36f",
+  "title": "Korak 18",
+  "challengeType": 1,
+  "dashedName": "step-18",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        57,
+        59
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n  return updatedCrew; \n}\n\nconst updatedSquad = swapCrewMembers(squad, 2, 5);\n\n\n\nfunction getEVAReadyCrew(crew) {\n  const eligible = [];\n  for (const astronaut of crew) {\n    if (astronaut.isEVAEligible) eligible.push(astronaut);\n  }\n  \n  return eligible;\n}",
+      "error": null,
+      "seed": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n  updatedCrew[fromIndex] = updatedCrew.splice(toIndex, 1, updatedCrew[fromIndex])[0];\n\n  return updatedCrew; \n}\n\nconst updatedSquad = swapCrewMembers(squad, 2, 5);\n\n\n\nfunction getEVAReadyCrew(crew) {\n  const eligible = [];\n  for (const astronaut of crew) {\n    if (astronaut.isEVAEligible) eligible.push(astronaut);\n  }\n  \n  return eligible;\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju nazvanu <code>sortByPriorityDescending</code> sa parametrom <code>crew</code>.</p>",
+      "testString": "assert.isFunction(sortByPriorityDescending);\nconst regex = __helpers.functionRegex('sortByPriorityDescending', ['crew']);\nconst cleaned = __helpers.removeJSComments(sortByPriorityDescending.toString());\nassert.match(cleaned, regex);"
+    },
+    {
+      "text": "<p>Tvoj kontroler za <code>sortByPriorityDescending</code> bi trebalo da koristi dve kola postavljene unutar <code>for</code> za izvršavanje konfiguracije.</p>",
+      "testString": "const loopMatches = sortByPriorityDescending.toString().match(/for\\s*\\(/g) || [];\nassert.isAtLeast(loopMatches.length, 2);"
+    },
+    {
+      "text": "<p>Tvoja funkcija za <code>sortByPriorityDescending</code> treba da sortira ulaz <code>crew</code> po <code>priority</code> u opadajućem redosledu.</p>",
+      "testString": "const crewSample = [\n  { name: \"A\", priority: 2 },\n  { name: \"B\", priority: 5 },\n  { name: \"C\", priority: 3 }\n];\nsortByPriorityDescending(crewSample);\nassert.deepEqual(crewSample.map(a => a.name), [\"B\", \"C\", \"A\"]);"
+    },
+    {
+      "text": "<p>Tvoja funkcija <code>sortByPriorityDescending</code> treba da direktno formatira red podataka unosa <code>crew</code> na svom mestu i ne vraća novi red.</p>",
+      "testString": "const crewSample2 = [\n  { name: \"X\", priority: 1 },\n  { name: \"Y\", priority: 2 }\n];\nconst result = sortByPriorityDescending(crewSample2);\nassert.strictEqual(result, undefined);\nassert.deepEqual(crewSample2.map(a => a.priority), [2, 1]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kontrolni centar vas je obavestio da lista astronauta kvalifikovanih za EVA takođe mora biti sortirana po prioritetu u opadajućem redosledu. Postoji nekoliko načina za sortiranje podataka - verovatno je najjednostavnije <code>bubble sort</code>.</p>\n<p><code>Bubble sort</code> radi tako što ponavlja iteraciju kroz listu, poredeći susjedne elemente i zamjenjujući njihove pozicije ako nisu u ispravnom redoslijedu. Nakon svakog ciklusa, element koji bi trebao biti prvi prema vašim kriterijima sortiranja približava se (ili \"širi se ka\") svojoj ispravnoj poziciji u nizu podataka. Evo kako možete sortirati <code>crew</code> po opadajućem prioritetu koristeći <code>bubble sort</code>:</p>\n<pre><code class=\"language-js\">// Outer loop: controls how many passes we make\nfor (let i = 0; i &#x3C; crew.length - 1; i++) {\n  // Inner loop: compares neighboring items\n  for (let j = 0; j &#x3C; crew.length - 1 - i; j++) {\n    // If current member has lower priority than next, swap\n    if (crew[j].priority &#x3C; crew[j + 1].priority) {\n      // Using a temp variable for the swap\n        const temp = crew[j];\n        crew[j] = crew[j + 1];\n        crew[j + 1] = temp;\n    }\n  }\n}\n</code></pre>\n<p>Napravi novu pomoćnu funkciju nazvanu <code>sortByPriorityDescending</code> koja prima parametar <code>crew</code>. Ova funkcija treba da direktno sortira niz ulaznih podataka <code>crew</code> po prioritetu u opadajućem redosledu, koristi dve petlje postavljene unutar <code>for</code> i nijednu rekurziju.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-space-mission-roster",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 17,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

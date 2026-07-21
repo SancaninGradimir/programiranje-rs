@@ -1,0 +1,103 @@
+{
+  "id": "5a24c314108439a4d403618a",
+  "title": "Koristi Array.map() za dinamičko prikazivanje elemenata",
+  "challengeType": 6,
+  "forumTopicId": 301417,
+  "dashedName": "use-array-map-to-dynamically-render-elements",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "const textAreaStyles = {\n  width: 235,\n  margin: 5\n};\n\nclass MyToDoList extends React.Component {\n  constructor(props) {\n    super(props);\n    // Change code below this line\n\n    // Change code above this line\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleSubmit() {\n    const itemsArray = this.state.userInput.split(',');\n    this.setState({\n      toDoList: itemsArray\n    });\n  }\n  handleChange(e) {\n    this.setState({\n      userInput: e.target.value\n    });\n  }\n  render() {\n    const items = null; // Change this line\n    return (\n      <div>\n        <textarea\n          onChange={this.handleChange}\n          value={this.state.userInput}\n          style={textAreaStyles}\n          placeholder='Separate Items With Commas'\n        />\n        <br />\n        <button onClick={this.handleSubmit}>Create List</button>\n        <h1>My \"To Do\" List:</h1>\n        <ul>{items}</ul>\n      </div>\n    );\n  }\n}",
+      "error": null,
+      "seed": "const textAreaStyles = {\n  width: 235,\n  margin: 5\n};\n\nclass MyToDoList extends React.Component {\n  constructor(props) {\n    super(props);\n    // Change code below this line\n\n    // Change code above this line\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleSubmit() {\n    const itemsArray = this.state.userInput.split(',');\n    this.setState({\n      toDoList: itemsArray\n    });\n  }\n  handleChange(e) {\n    this.setState({\n      userInput: e.target.value\n    });\n  }\n  render() {\n    const items = null; // Change this line\n    return (\n      <div>\n        <textarea\n          onChange={this.handleChange}\n          value={this.state.userInput}\n          style={textAreaStyles}\n          placeholder='Separate Items With Commas'\n        />\n        <br />\n        <button onClick={this.handleSubmit}>Create List</button>\n        <h1>My \"To Do\" List:</h1>\n        <ul>{items}</ul>\n      </div>\n    );\n  }\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const textAreaStyles = {\n  width: 235,\n  margin: 5\n};\n\nclass MyToDoList extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      toDoList: [],\n      userInput: ''\n    };\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleSubmit() {\n    const itemsArray = this.state.userInput.split(',');\n    this.setState({\n      toDoList: itemsArray\n    });\n  }\n  handleChange(e) {\n    this.setState({\n      userInput: e.target.value\n    });\n  }\n  render() {\n    const items = this.state.toDoList.map((item, i) => {\n      return <li key={i}>{item}</li>;\n    });\n    return (\n      <div>\n        <textarea\n          onChange={this.handleChange}\n          value={this.state.userInput}\n          style={textAreaStyles}\n          placeholder='Separate Items With Commas'\n        />\n        <br />\n        <button onClick={this.handleSubmit}>Create List</button>\n        <h1>My \"To Do\" List:</h1>\n        <ul>{items}</ul>\n      </div>\n    );\n  }\n}",
+        "error": null,
+        "seed": "const textAreaStyles = {\n  width: 235,\n  margin: 5\n};\n\nclass MyToDoList extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      toDoList: [],\n      userInput: ''\n    };\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.handleChange = this.handleChange.bind(this);\n  }\n  handleSubmit() {\n    const itemsArray = this.state.userInput.split(',');\n    this.setState({\n      toDoList: itemsArray\n    });\n  }\n  handleChange(e) {\n    this.setState({\n      userInput: e.target.value\n    });\n  }\n  render() {\n    const items = this.state.toDoList.map((item, i) => {\n      return <li key={i}>{item}</li>;\n    });\n    return (\n      <div>\n        <textarea\n          onChange={this.handleChange}\n          value={this.state.userInput}\n          style={textAreaStyles}\n          placeholder='Separate Items With Commas'\n        />\n        <br />\n        <button onClick={this.handleSubmit}>Create List</button>\n        <h1>My \"To Do\" List:</h1>\n        <ul>{items}</ul>\n      </div>\n    );\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Sekcija MyToDoList mora da postoji i da se prikaže na stranici.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    return mockedComponent.find('MyToDoList').length === 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Prvo dete komponente <code>MyToDoList</code> treba da bude element <code>textarea</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    return (\n      mockedComponent.find('MyToDoList').children().childAt(0).type() ===\n      'textarea'\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Drugo dete komponente <code>MyToDoList</code> treba da bude element <code>br</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    return (\n      mockedComponent.find('MyToDoList').children().childAt(1).type() === 'br'\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Treće dete komponente <code>MyToDoList</code> treba da bude element <code>button</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    return (\n      mockedComponent.find('MyToDoList').children().childAt(2).type() ===\n      'button'\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Stanje <code>MyToDoList</code> treba da se inicijalizuje sa <code>toDoList</code> kao prazan niz podataka.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    const initialState = mockedComponent.state();\n    return (\n      Array.isArray(initialState.toDoList) === true &&\n      initialState.toDoList.length === 0\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Stanje komponente <code>MyToDoList</code> treba da bude inicijalizovano tako da je <code>userInput</code> prazan tekstualni niz.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n    const initialState = mockedComponent.state();\n    return (\n      typeof initialState.userInput === 'string' &&\n      initialState.userInput.length === 0\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Kada se dugme <code>Create List</code> klikne, deo <code>MyToDoList</code> bi trebalo da prikaže dinamički neuređeni spisak koji sadrži stavku za svaki element liste predmeta razdvojene zarezima unetih u polje <code>textarea</code>.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyToDoList));\n  const simulateChange = (el, value) =>\n    el.simulate('change', { target: { value } });\n  const state_1 = () => {\n    return mockedComponent.find('ul').find('li');\n  };\n  const setInput = () => {\n    return simulateChange(\n      mockedComponent.find('textarea'),\n      'testA, testB, testC'\n    );\n  };\n  const click = () => {\n    return mockedComponent.find('button').simulate('click');\n  };\n  const state_2 = () => {\n    const nodes = mockedComponent.find('ul').find('li');\n    return { nodes, text: nodes.reduce((t, n) => t + n.text().trim(), '') };\n  };\n  const setInput_2 = () => {\n    return simulateChange(\n      mockedComponent.find('textarea'),\n      't1, t2, t3, t4, t5, t6'\n    );\n  };\n  const click_1 = () => {\n    return mockedComponent.find('button').simulate('click');\n  };\n  const state_3 = () => {\n    const nodes = mockedComponent.find('ul').find('li');\n    return { nodes, text: nodes.reduce((t, n) => t + n.text().trim(), '') };\n  };\n  const awaited_state_1 = state_1();\n  const awaited_setInput = setInput();\n  const awaited_click = click();\n  const awaited_state_2 = state_2();\n  const awaited_setInput_2 = setInput_2();\n  const awaited_click_1 = click_1();\n  const awaited_state_3 = state_3();\n  assert(\n    awaited_state_1.length === 0 &&\n      awaited_state_2.nodes.length === 3 &&\n      awaited_state_3.nodes.length === 6 &&\n      awaited_state_2.text === 'testAtestBtestC' &&\n      awaited_state_3.text === 't1t2t3t4t5t6'\n  );\n})();"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Uslovno prikazivanje je važno, ali možda će vam trebati da vaši komponenti prikažu nepoznat broj elemenata. Često u aplikacijama za promene, programer nema način da zna stanje aplikacije do vremena izvršavanja, jer mnoge zavise od interakcije korisnika sa tom aplikacijom. Programeri moraju da napišu svoj kod kako bi rešili to nepoznato stanje unapred. Korišćenje <code>Array.map()</code> u React pokazuje ovaj koncept.</p>\n<p>Na primer, praviš jednostavnu aplikaciju „Lista obaveza“. Kao programer, ne možeš unapred znati koliko će stavki korisnik imati na svojoj listi. Zato komponenta treba da bude spremna da dinamički prikaže odgovarajući broj stavki bez obzira na to šta korisnik unese.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Uređivač koda već sadrži najveći deo komponente <code>MyToDoList</code>. Deo koda će ti biti poznat ako si završio izazov sa kontrolisanim obrascem. Videćeš <code>textarea</code>, <code>button</code> i nekoliko metoda koje upravljaju njihovim stanjem, ali se još ništa ne prikazuje na stranici.</p>\n<p>U konstruktoru napravi objekat <code>this.state</code> i definiši dva svojstva: <code>userInput</code> treba da bude inicijalizovan kao prazan tekstualni niz, a <code>toDoList</code> kao prazan niz. Zatim u metodi <code>render()</code> zameni vrednost <code>null</code> promenljive <code>items</code> tako što ćeš primeniti <code>map</code> na niz <code>toDoList</code> iz stanja komponente i dinamički prikazati po jedan element <code>li</code> za svaku stavku. Probaj da uneseš tekst <code>eat, code, sleep, repeat</code> u <code>textarea</code>, klikni na dugme i vidi šta će se desiti.</p>\n<p><strong>Napomena:</strong> Verovatno znaš da svi elementi na istom nivou koji nastaju korišćenjem metode <code>map</code> moraju imati jedinstveno svojstvo <code>key</code>. Ne brini, to je tema sledećeg izazova.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 43,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

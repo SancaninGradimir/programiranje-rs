@@ -1,0 +1,74 @@
+{
+  "id": "6734f0ae9d1cf4dfd43a7805",
+  "title": "Korak 15",
+  "challengeType": 1,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        54,
+        56
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const ballerina = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Ballerina\"\n}\n\nconst prettyPolly = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Pretty Polly\"\n}\n\nconst willowVale = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Willow Vale\"\n}\n\nconst hidcote = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Hidcote\"\n}\n\nconst imperialGem = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Imperial Gem\"\n}\n\nconst royalCrown = {\n    commonName: \"French lavender\",\n    scientificName: \"Lavandula dentata\",\n    cultivar: \"Royal Crown\"\n}\n\nconst catalog = new Map();\ncatalog.set(ballerina, { small: 20, medium: 15, large: 12 });\ncatalog.set(prettyPolly, { small: 31, medium: 14, large: 24 });\ncatalog.set(willowVale, { small: 3, medium: 5, large: 0 });\ncatalog.set(hidcote, { small: 33, medium: 13, large: 18 });\ncatalog.set(imperialGem, { small: 19, medium: 35, large: 28 });\ncatalog.set(royalCrown, { small: 40, medium: 22, large: 9 });\n\nconst sellPlants = (plant, size, potsNo) => {\n    const name = `${plant.scientificName} '${plant.cultivar}'`\n    const pots = catalog.get(plant);\n    if (pots[size] - potsNo < 0) {\n        return `Not enough ${size} size pots for ${name}. Only ${pots[size]} left.`\n    }\n    pots[size] -= potsNo;\n    return `Catalog successfully updated.`\n}\n\n\n\nconsole.log(sellPlants(ballerina, \"small\", 10));\n\nconsole.log(catalog)",
+      "error": null,
+      "seed": "const ballerina = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Ballerina\"\n}\n\nconst prettyPolly = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Pretty Polly\"\n}\n\nconst willowVale = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Willow Vale\"\n}\n\nconst hidcote = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Hidcote\"\n}\n\nconst imperialGem = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Imperial Gem\"\n}\n\nconst royalCrown = {\n    commonName: \"French lavender\",\n    scientificName: \"Lavandula dentata\",\n    cultivar: \"Royal Crown\"\n}\n\nconst catalog = new Map();\ncatalog.set(ballerina, { small: 20, medium: 15, large: 12 });\ncatalog.set(prettyPolly, { small: 31, medium: 14, large: 24 });\ncatalog.set(willowVale, { small: 3, medium: 5, large: 0 });\ncatalog.set(hidcote, { small: 33, medium: 13, large: 18 });\ncatalog.set(imperialGem, { small: 19, medium: 35, large: 28 });\ncatalog.set(royalCrown, { small: 40, medium: 22, large: 9 });\n\nconst sellPlants = (plant, size, potsNo) => {\n    const name = `${plant.scientificName} '${plant.cultivar}'`\n    const pots = catalog.get(plant);\n    if (pots[size] - potsNo < 0) {\n        return `Not enough ${size} size pots for ${name}. Only ${pots[size]} left.`\n    }\n    pots[size] -= potsNo;\n    return `Catalog successfully updated.`\n}\n\n\n\nconsole.log(sellPlants(ballerina, \"small\", 10));\n\nconsole.log(catalog)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have a function named <code>removePlant</code>.</p>",
+      "testString": "assert.isFunction(removePlant);"
+    },
+    {
+      "text": "<p>Your <code>removePlant</code> function should take a single argument.</p>",
+      "testString": "assert.lengthOf(removePlant, 1);"
+    },
+    {
+      "text": "<p>Your <code>removePlant</code> function should call the <code>delete</code> method on <code>catalog</code>.</p>",
+      "testString": "let flag = false;\nconst temp = catalog.delete;\ntry {\n    catalog.delete = (p) => {flag = true}\n    removePlant(\"\");\n    assert.isTrue(flag);\n} finally {\n    catalog.delete = temp;\n}"
+    },
+    {
+      "text": "<p><code>removePlant(item)</code> should delete <code>item</code> from your catalog.</p>",
+      "testString": "const testArr = [];\nconst temp = catalog.delete;\ntry {\n    catalog.delete = (p) => {testArr.push(p)}\n    removePlant(\"test\");\n    assert.deepEqual(testArr, [\"test\"]);\n} finally {\n    catalog.delete = temp;\n}"
+    },
+    {
+      "text": "<p>Your <code>removePlant</code> function should return a boolean value indicating if the removal has been successful.</p>",
+      "testString": "try {\n    assert.isFalse(removePlant(\"test\"));\n    assert.isTrue(removePlant(royalCrown));\n} finally {\n    catalog.set(royalCrown, { small: 40, medium: 22, large: 9 })\n}"
+    },
+    {
+      "text": "<p>You should log <code>removePlant(\"ballerina\")</code> to the console.</p>",
+      "testString": "assert.match(__helpers.removeJSComments(code), /console\\s*\\.\\s*log\\s*\\(\\s*removePlant\\s*\\(\\s*(\"|')ballerina\\1\\s*\\)\\s*\\)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste uklonili element iz objekta mape, možete koristiti metod <code>delete</code>, koji uzima ključ kao argument i uklanja unos povezan sa tim ključem. Vraća boolean vrednost koja ukazuje da li je uklanjanje bilo uspešno.</p>\n<p>Kreirajte funkciju pod nazivom <code>removePlant</code> koja uzima objekat biljke kao svoj argument i uklanja ga iz kataloga. Neka vrati ili <code>true</code> ili <code>false</code> zavisno od toga da li je navedena biljka obrisana iz kataloga.</p>\n<p>Nakon toga, logujte rezultat pozivanja vaše nove funkcije sa stringom <code>\"ballerina\"</code> kao njenim argumentom.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-plant-nursery-catalog",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 166,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "maps-and-sets",
+  "certification": "javascript-v9"
+}

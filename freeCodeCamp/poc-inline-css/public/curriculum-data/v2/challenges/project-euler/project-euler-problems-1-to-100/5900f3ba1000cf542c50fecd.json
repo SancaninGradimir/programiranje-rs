@@ -1,0 +1,81 @@
+{
+  "id": "5900f3ba1000cf542c50fecd",
+  "title": "Vežba 78: Raspodela valute",
+  "challengeType": 1,
+  "forumTopicId": 302191,
+  "dashedName": "problem-78-coin-partitions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function coinPartitions(divisor) {\n\n  return true;\n}\n\ncoinPartitions(7);",
+      "error": null,
+      "seed": "function coinPartitions(divisor) {\n\n  return true;\n}\n\ncoinPartitions(7);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// compute pentagonal numbers per generating function\nconst pentagonalNumbers = Array(251)\n  .fill(0)\n  .flatMap((_, i) => i ? [i * (3 * i - 1) / 2, i * (3 * i - 1) / 2 + i] : []);\n\nfunction coinPartitions(divisor) {\n  // helper data\n  const signs = [1, 1, -1, -1];\n\n  // compute partition counts until we find a multiple of divisor\n  const partitions = Array(divisor + 1).fill(0);\n  partitions[0] = 1;\n  for (let i = 1; partitions[i - 1] > 0; i++) {\n    // compute next partition count\n    for (let j = 0; pentagonalNumbers[j] <= i; j++) {\n      partitions[i] += partitions[i - pentagonalNumbers[j]] * signs[j % 4];\n    }\n    \n    partitions[i] = partitions[i] % divisor;\n    if (partitions[i] < 0) partitions[i] += divisor; // positive mod\n    // return when found\n    if (partitions[i] === 0) return i;\n  }\n}",
+        "error": null,
+        "seed": "// compute pentagonal numbers per generating function\nconst pentagonalNumbers = Array(251)\n  .fill(0)\n  .flatMap((_, i) => i ? [i * (3 * i - 1) / 2, i * (3 * i - 1) / 2 + i] : []);\n\nfunction coinPartitions(divisor) {\n  // helper data\n  const signs = [1, 1, -1, -1];\n\n  // compute partition counts until we find a multiple of divisor\n  const partitions = Array(divisor + 1).fill(0);\n  partitions[0] = 1;\n  for (let i = 1; partitions[i - 1] > 0; i++) {\n    // compute next partition count\n    for (let j = 0; pentagonalNumbers[j] <= i; j++) {\n      partitions[i] += partitions[i - pentagonalNumbers[j]] * signs[j % 4];\n    }\n    \n    partitions[i] = partitions[i] % divisor;\n    if (partitions[i] < 0) partitions[i] += divisor; // positive mod\n    // return when found\n    if (partitions[i] === 0) return i;\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>coinPartitions(7)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof coinPartitions(7) === 'number');"
+    },
+    {
+      "text": "<p><code>coinPartitions(7)</code> trebalo bi da vrati <code>5</code>.</p>",
+      "testString": "assert.strictEqual(coinPartitions(7), 5);"
+    },
+    {
+      "text": "<p><code>coinPartitions(10000)</code> mora vratiti <code>599</code>.</p>",
+      "testString": "assert.strictEqual(coinPartitions(10000), 599);"
+    },
+    {
+      "text": "<p><code>coinPartitions(100000)</code> treba da vrati <code>11224</code>.</p>",
+      "testString": "assert.strictEqual(coinPartitions(100000), 11224);"
+    },
+    {
+      "text": "<p><code>coinPartitions(1000000)</code> treba da vrati <code>55374</code>.</p>",
+      "testString": "assert.strictEqual(coinPartitions(1000000), 55374);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Acha ${p}(n)$ izračunati broj različitih načina na koje se valuta <code>n</code> može podeliti u grupe. Na primer, pet valuta može se podeliti u grupe na sedam potpuno različitih načina, pa ${p}(5) = 7$.</p>\n<div style='text-align: center;'>\n<table>\n<thead>\n<tr>\n<th>Grupe valuta</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>OOOOO</td>\n</tr>\n<tr>\n<td>OOOO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O</td>\n</tr>\n<tr>\n<td>OOO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>OO</td>\n</tr>\n<tr>\n<td>OOO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O</td>\n</tr>\n<tr>\n<td>OO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>OO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O</td>\n</tr>\n<tr>\n<td>OO&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O</td>\n</tr>\n<tr>\n<td>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O&#x3C;0xC2>&#x3C;0xA0> &#x3C;0xC2>&#x3C;0xA0>O</td>\n</tr>\n</tbody>\n</table>\n</div><br>\n<p>Pronađi najmanju vrednost <code>n</code> koja je ${p}(n)$ deljiva sa <code>divisor</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 77,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

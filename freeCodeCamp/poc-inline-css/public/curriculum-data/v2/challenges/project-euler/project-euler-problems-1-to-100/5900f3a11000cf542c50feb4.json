@@ -1,0 +1,81 @@
+{
+  "id": "5900f3a11000cf542c50feb4",
+  "title": "Vežba 53: Izbor mešavine",
+  "challengeType": 1,
+  "forumTopicId": 302164,
+  "dashedName": "problem-53-combinatoric-selections",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function combinatoricSelections(limit) {\n\n  return 1;\n}\n\ncombinatoricSelections(1000000);",
+      "error": null,
+      "seed": "function combinatoricSelections(limit) {\n\n  return 1;\n}\n\ncombinatoricSelections(1000000);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function combinatoricSelections(limit) {\n    const factorial = n =>\n        Array.apply(null, { length: n })\n            .map((_, i) => i + 1)\n            .reduce((p, c) => p * c, 1);\n\n    let result = 0;\n    const nMax = 100;\n\n    for (let n = 1; n <= nMax; n++) {\n        for (let r = 0; r <= n; r++) {\n            if (factorial(n) / (factorial(r) * factorial(n - r)) >= limit)\n                result++;\n        }\n    }\n\n    return result;\n}",
+        "error": null,
+        "seed": "function combinatoricSelections(limit) {\n    const factorial = n =>\n        Array.apply(null, { length: n })\n            .map((_, i) => i + 1)\n            .reduce((p, c) => p * c, 1);\n\n    let result = 0;\n    const nMax = 100;\n\n    for (let n = 1; n <= nMax; n++) {\n        for (let r = 0; r <= n; r++) {\n            if (factorial(n) / (factorial(r) * factorial(n - r)) >= limit)\n                result++;\n        }\n    }\n\n    return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>combinatoricSelections(1000)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof combinatoricSelections(1000) === 'number');"
+    },
+    {
+      "text": "<p><code>combinatoricSelections(1000)</code> trebalo bi da vrati 4626.</p>",
+      "testString": "assert.strictEqual(combinatoricSelections(1000), 4626);"
+    },
+    {
+      "text": "<p><code>combinatoricSelections(10000)</code> treba da vrati 4431.</p>",
+      "testString": "assert.strictEqual(combinatoricSelections(10000), 4431);"
+    },
+    {
+      "text": "<p><code>combinatoricSelections(100000)</code> trebalo bi da vrati 4255.</p>",
+      "testString": "assert.strictEqual(combinatoricSelections(100000), 4255);"
+    },
+    {
+      "text": "<p><code>combinatoricSelections(1000000)</code> treba da vrati 4075.</p>",
+      "testString": "assert.strictEqual(combinatoricSelections(1000000), 4075);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Postoji samo deset načina da se izabere tri od pet, 12345:</p>\n<div style='text-align: center;'>123, 124, 125, 134, 135, 145, 234, 235, 245, i 345</div>\n<p>U kombinacijama, koristimo simbol, $\\displaystyle \\binom 5 3 = 10$</p>\n<p>Generalno, $\\displaystyle \\binom n r = \\dfrac{n!}{r!(n-r)!}$, gde je $r \\le n$, $n! = n \\times (n-1) \\times ... \\times 3 \\times 2 \\times 1$, i na $0! = 1$.</p>\n<p>Do $n = 23$, vrednost prelazi milion: $\\displaystyle \\binom {23} {10} = 1144066$.</p>\n<p>Koliko, ne mora da budu različite, vrednosti $\\displaystyle \\binom n r$ za $1 \\le n \\le 100$, koje su veće od miliona?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 52,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

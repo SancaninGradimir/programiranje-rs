@@ -1,0 +1,51 @@
+{
+  "id": "664ef4623946e65e18d59764",
+  "title": "Korak 35",
+  "challengeType": 20,
+  "dashedName": "step-35",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        36,
+        38
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\nimport re\n\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')\n            else:\n                terms.append(f\"{coefficient:+}x**{n}\")\n        equation_string = ' '.join(terms) + ' = 0'\n        return re.sub('1', '', equation_string.strip('+'))        \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\nclass QuadraticEquation(Equation):\n    degree = 2\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n   \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\nquadr_eq = QuadraticEquation(11, -1, 1)\nprint(quadr_eq)\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\nimport re\n\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')\n            else:\n                terms.append(f\"{coefficient:+}x**{n}\")\n        equation_string = ' '.join(terms) + ' = 0'\n        return re.sub('1', '', equation_string.strip('+'))        \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\nclass QuadraticEquation(Equation):\n    degree = 2\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n   \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\nquadr_eq = QuadraticEquation(11, -1, 1)\nprint(quadr_eq)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Morate promeniti obrazac koji se šalje kao prvi argument za poziv <code>re.sub()</code> koristeći negativni lookbehind.</p>",
+      "testString": "({ test: () => assert(runPython(`\nnode = _Node(_code).find_class(\"Equation\").find_function(\"__str__\")\nvalues = [\n  \"re.sub('(?<!\\\\d)1', '', equation_string.strip('+'))\",\n  \"re.sub(r'(?<!\\\\d)1', '', equation_string.strip('+'))\",\n  \"re.sub('(?<![0-9])1', '', equation_string.strip('+'))\"\n]\nany(node.has_return(value) for value in values)\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U strukturi regularnog izraza, <em>lookaround</em> je validacija koja odgovara određenom obrascu bez korišćenja karaktera u nizu karaktera. Jedna vrsta lookaround-a je lookbehind, koji može biti pozitivan ili negativan. Oni su predstavljeni sa <code>(?&#x3C;=...)</code> i <code>(?&#x3C;!...)</code>, po odelima.</p>\n<pre><code class=\"language-py\">spam = 'black back bat'\nre.sub('(?&#x3C;=l)a', 'o', spam) == 'block back bat' # True\nre.sub('(?&#x3C;!l)a', 'o', spam) == 'black bock bot' # True\n</code></pre>\n<p>U gornjem primeru, pattern <code>(?&#x3C;=l)a</code> ima pozitivan lookbehind, koji se koristi za upoređivanje karaktera <code>a</code> samo kada ga prethodi <code>l</code>. U poslednjem redu primera, pattern <code>(?&#x3C;!l)a</code> ima negativni lookbehind, koji se koristi za upoređivanje karaktera <code>a</code> samo ako ga ne prethodi <code>l</code>. Primećujte kako, u oba slučaja, karakter unutar lookbehenda nije korišćen.</p>\n<p>Izmeni svoj obrazac redovne izreke koristeći negativni lookbehind kako bi se karakter <code>1</code> promenio samo ako nije prethodean brojem.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 34,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

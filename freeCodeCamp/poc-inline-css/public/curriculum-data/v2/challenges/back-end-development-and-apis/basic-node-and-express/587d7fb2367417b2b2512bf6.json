@@ -1,0 +1,37 @@
+{
+  "id": "587d7fb2367417b2b2512bf6",
+  "title": "Dobijte query parametar od klijenta",
+  "challengeType": 2,
+  "forumTopicId": 301512,
+  "dashedName": "get-query-parameter-input-from-the-client",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Test 1 : Vaš API endpoint treba da odgovori sa <code>{ \"name\": \"Mick Jagger\" }</code> kada se <code>/name</code> pozove sa <code>?first=Mick&#x26;last=Jagger</code></p>",
+      "testString": "  const response = await fetch(code + '/name?first=Mick&last=Jagger');\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.equal(\n    data.name,\n    'Mick Jagger',\n    'Test 1: \"GET /name\" route does not behave as expected'\n  );"
+    },
+    {
+      "text": "<p>Test 2 : Vaš API endpoint treba da odgovori sa <code>{ \"name\": \"Keith Richards\" }</code> kada se <code>/name</code> pozove sa <code>?first=Keith&#x26;last=Richards</code></p>",
+      "testString": "  const response = await fetch(code + '/name?last=Richards&first=Keith');\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.equal(\n    data.name,\n    'Keith Richards',\n    'Test 2: \"GET /name\" route does not behave as expected'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Još jedan uobičajeni način za dobijanje ulaza od klijenta je stavljanje stringa podataka nakon rute, koristeći query string. Query string počinje sa znakom pitanja (?), i sadrži parove polje=vrednost. Svaki par je razdvojen znakom ampersand (&#x26;). Express može da parsira podatke iz query stringa, i popuni <code>req.query</code> objekat. Neki karakteri, kao što je znak procenta (%), ne mogu da postoje u URL-u i moraju biti kodirani u drugačijem formatu pre slanja. Ako koristite API iz JavaScript-a, možete koristiti posebne metode za enkodiranje/dekodiranje ovih karaktera.</p>\n<blockquote>route_path: '/library'<br>actual_request_URL: '/library?userId=546&#x26;bookId=6754' <br>req.query: {userId: '546', bookId: '6754'}</blockquote>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Izgradite API endpoint, postavljen na <code>GET /name</code>. Odgovorite sa JSON objektom, koristeći format <code>{ name: 'firstname lastname'}</code>. Parametri za ime i prezime treba da budu kodirani u query string, na primer <code>?first=firstname&#x26;last=lastname</code>.</p>\n<p><strong>Napomena:</strong> U sledećem zadatku ćete primiti podatke od POST zahteva, na istoj ruti <code>/name</code>. Ako želite, možete koristiti <code>app.route(path).get(handler).post(handler)</code>. Ova sintaksa vam omogućava da ulančate handlere za različite HTTP metode na istoj ruti. To može uštedeti mnogo pisanja, i učiniti kod čistijim.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

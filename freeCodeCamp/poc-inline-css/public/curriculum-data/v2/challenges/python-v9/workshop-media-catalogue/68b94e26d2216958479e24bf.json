@@ -1,0 +1,58 @@
+{
+  "id": "68b94e26d2216958479e24bf",
+  "title": "Korak 29",
+  "challengeType": 20,
+  "dashedName": "step-29",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        42,
+        46
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    \"\"\"Parent class representing a movie.\"\"\"\n    \n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    \"\"\"Child class representing an entire TV series.\"\"\"\n\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n\n        if seasons < 1:\n            raise ValueError('Seasons must be 1 or greater')\n        if total_episodes < 1:\n            raise ValueError('Total episodes must be 1 or greater')\n        \n        self.seasons = seasons\n        self.total_episodes = total_episodes\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.seasons} seasons, {self.total_episodes} episodes, {self.duration} min avg, {self.director}'\n\nclass MediaCatalogue:\n    \"\"\"A catalogue that can store different types of media items.\"\"\"\n\n    def __init__(self):\n        self.items = []\n    def add(self, media_item):\n        \n        self.items.append(media_item)\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n\n    series1 = TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 182)\n    catalogue.add(series1)\n    series2 = TVSeries('Breaking Bad', 2008, 'Vince Gilligan', 47, 5, 62)\n    catalogue.add(series2)\n\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    \"\"\"Parent class representing a movie.\"\"\"\n    \n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    \"\"\"Child class representing an entire TV series.\"\"\"\n\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n\n        if seasons < 1:\n            raise ValueError('Seasons must be 1 or greater')\n        if total_episodes < 1:\n            raise ValueError('Total episodes must be 1 or greater')\n        \n        self.seasons = seasons\n        self.total_episodes = total_episodes\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.seasons} seasons, {self.total_episodes} episodes, {self.duration} min avg, {self.director}'\n\nclass MediaCatalogue:\n    \"\"\"A catalogue that can store different types of media items.\"\"\"\n\n    def __init__(self):\n        self.items = []\n    def add(self, media_item):\n        \n        self.items.append(media_item)\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n\n    series1 = TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 182)\n    catalogue.add(series1)\n    series2 = TVSeries('Breaking Bad', 2008, 'Vince Gilligan', 47, 5, 62)\n    catalogue.add(series2)\n\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should raise a <code>TypeError</code> with the message <code>Only Movie or TVSeries instances can be added</code> when <code>media_item</code> is not an instance of <code>Movie</code> or its subclasses.</p>",
+      "testString": "({\n  test: () => runPython(`\n  _msg = 'Only Movie or TVSeries instances can be added'\n  _expected_error = f\"Expected to raise 'TypeError: {_msg}'\"\n  _c = MediaCatalogue()\n  try:    \n    _c.add(\"Not a movie\")\n  except TypeError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n\n  try:\n    _c.add({})\n  except TypeError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n  `)\n})"
+    },
+    {
+      "text": "<p>You should not raise a <code>TypeError</code> when <code>media_item</code> is a valid item.</p>",
+      "testString": "({\n    test: () => runPython(`\n    _c = MediaCatalogue()\n    try:\n      _c.add(Movie('The Matrix', 1999, 'The Wachowskis', 136))\n    except TypeError:\n      assert False, 'Expected not to raise a TypeError with valid media_item'\n\n    try:\n      _c.add(TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 182))\n    except TypeError:\n      assert False, 'Expected not to raise a TypeError with valid media_item'\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Bi bi bilo lepo validirati stavku prosleđenu metodi <code>add</code> pre nego što je dodate u katalog.</p>\n<p>Kreirajte izjavu <code>if</code> koja koristi <code>isinstance</code> da proveri da li je <code>media_item</code> instanca od <code>Movie</code> i da izbaci <code>TypeError</code> sa porukom <code>Only Movie or TVSeries instances can be added</code>.</p>\n<p>Napomena da <code>isinstance(obj, ClassName)</code> vraća <code>True</code> ako je <code>obj</code> instanca od <code>ClassName</code> ili <em>bilo koje od njegovih podklasa</em>, jer uzima u obzir celu hijerarhiju nasleđivanja.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "65f412c208c3791fee305acf",
+  "title": "Korak 17",
+  "challengeType": 20,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        21
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n        \n    def norm(self):\n        return (self.x**2 + self.y**2)**0.5\n        \n    def __str__(self):\n        return f'{self.x, self.y}'\n\nclass R3Vector(R2Vector):\n    def __init__(self, x, y, z):\n        super().__init__(x, y)\n        self.z = z\n\nv1 = R2Vector(2, 3)\nprint(v1.norm())\nprint(v1)\nv2 = R3Vector(2, 2, 3)",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n        \n    def norm(self):\n        return (self.x**2 + self.y**2)**0.5\n        \n    def __str__(self):\n        return f'{self.x, self.y}'\n\nclass R3Vector(R2Vector):\n    def __init__(self, x, y, z):\n        super().__init__(x, y)\n        self.z = z\n\nv1 = R2Vector(2, 3)\nprint(v1.norm())\nprint(v1)\nv2 = R3Vector(2, 2, 3)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da obavezujete argumente reči dodavanjem <code>*</code> kao drugi parametar u sve vaše metode za <code>__init__</code>.</p>",
+      "testString": "({ test: () => {\n  assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__init__\").has_args(\"self, *, x, y\")`));\n  assert(runPython(`_Node(_code).find_class(\"R3Vector\").find_function(\"__init__\").has_args(\"self, *, x, y, z\")`));\n} })"
+    },
+    {
+      "text": "<p>Trebalo bi da promeniš svoj poziv <code>super.__init__(x, y)</code> ili koristi argumente sa rečima.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R3Vector\").find_function(\"__init__\").find_body().is_equivalent(\"super().__init__(x=x, y=y)\\\\nself.z = z\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da promeniš raspon vrednosti od <code>v1</code> do <code>R2Vector(x=2, y=3)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_variable(\"v1\").is_equivalent(\"v1 = R2Vector(x=2, y=3)\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da promeniš raspodelu vrednosti od <code>v2</code> u <code>R3Vector(x=2, y=2, z=3)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_variable(\"v2\").is_equivalent(\"v2 = R3Vector(x=2, y=2, z=3)\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U Python, možete primorati korišćenje samo string argumenata dodavanjem <code>*</code> kao dodatnog argumenta u potpisu funkcije ili metode. Izmenite sve metode za <code>__init__</code> dodavanjem <code>*</code> kao drugog parametra (nakon <code>self</code>). Bilo koji parametar postavljen nakon toga zahteva korišćenje string argumenta u pozivu funkcije/metode.</p>\n<p>Ovo znači da takođe treba da promeniš poziv za <code>super().__init__(x, y)</code>. To učini dajući <code>x</code> vrednost <code>x</code>, i <code>y</code> vrednost <code>y</code>.</p>\n<p>Konačno, promenite inicijalizaciju <code>v1</code> i <code>v2</code> koristeći string argumente.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

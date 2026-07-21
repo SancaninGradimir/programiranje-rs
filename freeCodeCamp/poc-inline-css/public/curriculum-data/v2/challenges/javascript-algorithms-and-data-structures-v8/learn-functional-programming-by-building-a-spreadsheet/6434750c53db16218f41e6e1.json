@@ -1,0 +1,99 @@
+{
+  "id": "6434750c53db16218f41e6e1",
+  "title": "Korak 15",
+  "challengeType": 0,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        13,
+        15
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n\r\n}",
+      "error": null,
+      "seed": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n  const letters = charRange(\"A\", \"J\");\r\n  letters.forEach(createLabel);\r\n\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da pozoveš svoju funkciju <code>range()</code>.</p>",
+      "testString": "assert.lengthOf(code.match(/range\\(/g), 2);"
+    },
+    {
+      "text": "<p>Trebalo bi da prosledite <code>1</code> kao prvi argument u vašem pozivu <code>range()</code>.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1/);"
+    },
+    {
+      "text": "<p>Treba da proslediš <code>99</code> kao drugi argument u tvom pozivu <code>range()</code>.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)/);"
+    },
+    {
+      "text": "<p>Trebalo bi da povežete putanju <code>.forEach()</code> u vaš poziv <code>range()</code>.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)\\.forEach\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da prosledite funkciju povratnika na <code>.forEach()</code> koristeći sintaksu strelice.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)\\.forEach\\(\\s*(\\([^)]*\\)|[^\\s()]+)\\s*=>/);"
+    },
+    {
+      "text": "<p>Tvoja funkcija povratnog poziva mora imati <code>number</code> kao jedini parametar.</p>",
+      "testString": "assert.match(code, /range\\(\\s*1\\s*,\\s*99\\s*\\)\\.forEach\\(\\s*(\\(\\s*number\\s*\\)|number)\\s*=>/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Zapamtite da <code>range()</code> vraća red podataka, pa možete povezati putanje redova podataka direktno na poziv funkcije.</p>\n<p>Izvršite poziv <code>range()</code> sa <code>1</code> i <code>99</code> kao argumentima, i povežite rute <code>.forEach()</code>. Prođite kroz rutu <code>.forEach()</code> sa praznim handlerom koji prima <code>number</code> kao parametar.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

@@ -1,0 +1,226 @@
+{
+  "id": "673403ca2bb16658309e3632",
+  "title": "Kako ključna reč `this` funkcioniše",
+  "challengeType": 19,
+  "dashedName": "how-does-the-this-keyword-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Naučio si da su klase poput opštih mapa koje možeš koristiti za kreiranje stvari.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ove mape zahtevaju opšti način za referenciranje objekta koji je kreiran, pristupačan ili modifikovan unutar koda. Ovo je posebno slučaj kada se koristi ključna reč <code>this</code>. On se odnosi na kontekst u kojem mora biti izvršen kod. Ako se koristi unutar metode, vrednost <code>this</code> biće referenca na objekat povezan sa tom metodom. Na ovaj način, možete pristupiti svojstvima i metodama objekta unutar klase i ponovo koristiti tu metodu za različite stvari.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Na primer, ovde imamo klasu od <code>Dessert</code>. U ovom trenutku, definišemo svojstvo <code>hasPeanuts</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Dessert {\n  constructor(hasPeanuts) {\n    this.hasPeanuts = hasPeanuts;\n  }\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Proverite da koristimo ključnu reč <code>this</code> unutar komponente. Zapamtite da se komponenta instancira direktno kada se kreira novi objekat klase.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ključna reč <code>this</code> govori programu da <code>hasPeanuts</code> treba da bude svojstvo objekta koji se trenutno kreira.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Desni deo informacija o raspodeli vrednosti postavlja vrednost parametra <code>hasPeanuts</code> za svojstvo <code>hasPeanuts</code> novog objekta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">this.hasPeanuts = hasPeanuts;\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je u kontekstu komponente, ali takođe možete koristiti ključnu reč <code>this</code> unutar drugog puta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je naš kurs od <code>Dessert</code> sa malim promenama. Sada imamo dve karakteristike: <code>name</code> i <code>price</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">class Dessert {\n  constructor(name, price) {\n    this.name = name;\n    this.price = price;\n  }\n\n  showPrice() {\n    console.log(`The price of ${this.name} is $${this.price}.`);\n  }\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe imamo novi način za <code>showPrice</code>. Na ovom načinu, štampamo deskriptivnu poruku na konzoli koja sadrži ime i cenu desertnog artikla.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Obrati pažnju kako koristimo ključnu reč <code>this</code> da pristupimo svojstvima objekta unutar metode <code>showPrice</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Koja će biti vrednost ključne reči <code>this</code> u kontekstu ove metode? Ona će se odnositi na objekat nad kojim je metoda pozvana. U ovom slučaju kreiramo novu instancu klase <code>Dessert</code> sa imenom <code>\"Brownie\"</code> i cenom <code>$5.99</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const brownie = new Dessert(\"Brownie\", 5.99);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako pozovemo putanju <code>.showPrice()</code> na ovom objektu:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">brownie.showPrice();\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kompletan primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "class Dessert {\n  constructor(name, price) {\n    this.name = name;\n    this.price = price;\n  }\n\n  showPrice() {\n    console.log(`The price of ${this.name} is $${this.price}.`);\n  }\n}\n\nconst brownie = new Dessert(\"Brownie\", 5.99);\nbrownie.showPrice();\nconsole.log(brownie);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">class Dessert {\n  constructor(name, price) {\n    this.name = name;\n    this.price = price;\n  }\n\n  showPrice() {\n    console.log(`The price of ${this.name} is $${this.price}.`);\n  }\n}\n\nconst brownie = new Dessert(\"Brownie\", 5.99);\nbrownie.showPrice();\nconsole.log(brownie);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Imena na oznake trenutnog objekta (<code>brownie</code>) su izmenjena u sekvencu slova.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sve ovo je zahvaljujući ključnoj riječi <code>this</code>, koja vam daje opšti način za referenciranje nečega trenutnog unutar klase. Ovo vam omogućava da ponovo koristite tu metodu za različite stvari.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je u kontekstu načina stvari, ali ključna reč <code>this</code> takođe će imati vrednost u slobodnim funkcijama i streličnim funkcijama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Njegova vrednost unutar slobodne funkcije obično pominje globalnu stvar (u ne-strogoj situaciji) ili <code>undefined</code> (u strogoj situaciji).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Vrednost ključne reči <code>this</code> je nešto drugačija u streličitim funkcijama. Streličite funkcije nasleđuju vrednost <code>this</code> iz okruženja u kojem su definisane. One nisu vezane za svoj kontekst <code>this</code>. To znači da vrednost <code>this</code> zavisi od konteksta u kojem je streličita funkcija definisana, a ne od mesta ili načina njenog korišćenja. To čini streličite funkcije korisnim za pozivanje, vraćanje ili očuvanje konteksta.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Međutim, zbog toga, vrednost <code>this</code> ne upućuje na trenutni objekat u putanjama objekata, pa je ovo nešto što treba da uzmete u obzir kada koristite strelice funkcije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Isto pravilo važi i za streličaste funkcije definisane unutar drugih funkcija. One nasleđuju vrednost <code>this</code> iz svog roditeljskog opsega.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ključna reč <code>this</code> je moćan alat za pristup i upravljanje objektima. Razumevanje njenog rada je ključno za savladavanje objektno orijentisanog programiranja u JavaScript-u.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna svrha ključne reči <code>this</code> u JavaScript-u?</p>",
+      "answers": [
+        {
+          "answer": "<p>Objasniti nešto novo.</p>",
+          "feedback": "<p>Zamislite kako se <code>this</code> koristi unutar putanje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Dobijanje karakteristika i metoda za trenutni predmet.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kreiranje funkcija.</p>",
+          "feedback": "<p>Zamislite kako <code>this</code> se koristi unutar puta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pozivanje puta/putanje na druge stvari.</p>",
+          "feedback": "<p>Zamislite kako se <code>this</code> koristi unutar putanje.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja od sledećih tvrdnji je tačna o <code>this</code> u metodama JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>this</code> Uvek se odnosi na nešto iz sveta.</p>",
+          "feedback": "<p>Razmislite kako vrednost <code>this</code> može da se menja u zavisnosti od konteksta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>this</code> uvek je zatvoreno za nešto gde je funkcija definisana unutar njega.</p>",
+          "feedback": "<p>Razmislite kako vrednost <code>this</code> može da se promeni u zavisnosti od konteksta.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>this</code> Može da se odnosi na različite stvari u zavisnosti od konteksta upotrebe.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>this</code> Koristi se samo u aplikacionom programu.</p>",
+          "feedback": "<p>Razmislite kako vrednost <code>this</code> može da se promeni u zavisnosti od konteksta.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>U nekoj od sledećih situacija, mogli biste koristiti ključnu reč <code>this</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Vreme definisanja funkcija.</p>",
+          "feedback": "<p>Razmislite o uobičajenoj upotrebi <code>this</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada se pristupi atributima i metodama objekta.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vreme za pozivanje funkcija.</p>",
+          "feedback": "<p>Razmislite o uobičajenoj upotrebi <code>this</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vreme za stvaranje novih stvari.</p>",
+          "feedback": "<p>Razmislite o uobičajenoj upotrebi <code>this</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-how-to-work-with-classes-in-javascript",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 175,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "classes-and-the-this-keyword",
+  "certification": "javascript-v9"
+}

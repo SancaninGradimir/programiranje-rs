@@ -1,0 +1,111 @@
+{
+  "id": "6449876e7aae0d2f8257a497",
+  "title": "Korak 41",
+  "challengeType": 0,
+  "dashedName": "step-41",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n    <title>Functional Programming Spreadsheet</title>\n  </head>\n  <body>\n    <div id=\"container\">\n      <div></div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\n    <title>Functional Programming Spreadsheet</title>\n  </head>\n  <body>\n    <div id=\"container\">\n      <div></div>\n    </div>\n    <script src=\"./script.js\"></script>\n  </body>\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\n  display: grid;\n  grid-template-columns: 50px repeat(10, 200px);\n  grid-template-rows: repeat(11, 30px);\n}\n\n.label {\n  background-color: lightgray;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 30px;\n}",
+      "error": null,
+      "seed": "#container {\n  display: grid;\n  grid-template-columns: 50px repeat(10, 200px);\n  grid-template-rows: repeat(11, 30px);\n}\n\n.label {\n  background-color: lightgray;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 30px;\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        22,
+        28
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const isEven = num => num % 2 === 0;\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\nconst average = nums => sum(nums) / nums.length;\n\nconst median = nums => {\n  const sorted = nums.slice().sort((a, b) => a - b);\n  const length = sorted.length;\n  const middle = length / 2 - 1;\n  return isEven(length)\n    ? average([sorted[middle], sorted[middle + 1]])\n    : sorted[Math.ceil(middle)];\n}\n\nconst spreadsheetFunctions = {\n  sum,\n  average,\n  median\n}\n\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\n\nconst evalFormula = (x, cells) => {\n  const idToText = id => cells.find(cell => cell.id === id).value;\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\n\n}\n\nwindow.onload = () => {\n  const container = document.getElementById(\"container\");\n  const createLabel = (name) => {\n    const label = document.createElement(\"div\");\n    label.className = \"label\";\n    label.textContent = name;\n    container.appendChild(label);\n  }\n  const letters = charRange(\"A\", \"J\");\n  letters.forEach(createLabel);\n  range(1, 99).forEach(number => {\n    createLabel(number);\n    letters.forEach(letter => {\n      const input = document.createElement(\"input\");\n      input.type = \"text\";\n      input.id = letter + number;\n      input.ariaLabel = letter + number;\n      input.onchange = update;\n      container.appendChild(input);\n    })\n  })\n}\n\nconst update = event => {\n  const element = event.target;\n  const value = element.value.replace(/\\s/g, \"\");\n  if (!value.includes(element.id) && value.startsWith('=')) {\n\n  }\n}",
+      "error": null,
+      "seed": "const isEven = num => num % 2 === 0;\nconst sum = nums => nums.reduce((acc, el) => acc + el, 0);\nconst average = nums => sum(nums) / nums.length;\n\nconst median = nums => {\n  const sorted = nums.slice().sort((a, b) => a - b);\n  const length = sorted.length;\n  const middle = length / 2 - 1;\n  return isEven(length)\n    ? average([sorted[middle], sorted[middle + 1]])\n    : sorted[Math.ceil(middle)];\n}\n\nconst spreadsheetFunctions = {\n  sum,\n  average,\n  median\n}\n\nconst range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));\n\nconst evalFormula = (x, cells) => {\n  const idToText = id => cells.find(cell => cell.id === id).value;\n  const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;\n\n}\n\nwindow.onload = () => {\n  const container = document.getElementById(\"container\");\n  const createLabel = (name) => {\n    const label = document.createElement(\"div\");\n    label.className = \"label\";\n    label.textContent = name;\n    container.appendChild(label);\n  }\n  const letters = charRange(\"A\", \"J\");\n  letters.forEach(createLabel);\n  range(1, 99).forEach(number => {\n    createLabel(number);\n    letters.forEach(letter => {\n      const input = document.createElement(\"input\");\n      input.type = \"text\";\n      input.id = letter + number;\n      input.ariaLabel = letter + number;\n      input.onchange = update;\n      container.appendChild(input);\n    })\n  })\n}\n\nconst update = event => {\n  const element = event.target;\n  const value = element.value.replace(/\\s/g, \"\");\n  if (!value.includes(element.id) && value.startsWith('=')) {\n\n  }\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da deklarišeš promenljivu <code>rangeFromString</code> odmah nakon promenljive <code>rangeRegex</code>.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*(?:var|let|const)\\s+rangeFromString/);"
+    },
+    {
+      "text": "<p>Treba da koristiš <code>const</code> za objavljivanje različitog <code>rangeFromString</code> tvog.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString/);"
+    },
+    {
+      "text": "<p>Vaš <code>rangeFromString</code> treba da bude funkcija strelice.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(.*\\)\\s*=>/);"
+    },
+    {
+      "text": "<p>Funkcija <code>rangeFromString</code> treba da ima <code>num1</code> kao prvi parametar.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1/);"
+    },
+    {
+      "text": "<p>Funkcija <code>rangeFromString</code> koja mora imati <code>num2</code> kao drugi parametar.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>/);"
+    },
+    {
+      "text": "<p>Funkcija <code>rangeFromString</code> koja bi trebalo da koristi indirektan povrat.</p>",
+      "testString": "assert.notMatch(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*\\{/);"
+    },
+    {
+      "text": "<p>Funkcija <code>rangeFromString</code> mora da vrati rezultat poziva funkcije <code>range</code> svoje.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*range\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš <code>parseInt</code> za <code>num1</code> kao argument i prosledi rezultate na poziv <code>range</code>.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*range\\(\\s*parseInt\\(\\s*num1\\s*\\)/);"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš <code>parseInt</code> za <code>num2</code> kao argument i prosledi rezultate pozivu <code>range</code>.</p>",
+      "testString": "assert.match(code, /const\\s+evalFormula\\s*=\\s*\\(\\s*x\\s*,\\s*cells\\s*\\)\\s*=>\\s*{\\s*const\\s+idToText\\s*=\\s*(\\(\\s*id\\s*\\)|id)\\s*=>\\s*cells\\.find\\(\\s*(\\(\\s*cell\\s*\\)|cell)\\s*=>\\s*(?:cell\\.id\\s*===\\s*id|id\\s*===\\s*cell\\.id)\\s*\\)\\.value\\s*;?\\s*const\\s+rangeRegex\\s*=\\s*\\/\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\):\\(\\[A-J\\]\\)\\(\\[1-9\\]\\[0-9\\]\\?\\)\\/(gi|ig)\\s*;?\\s*const\\s+rangeFromString\\s*=\\s*\\(\\s*num1\\s*,\\s*num2\\s*\\)\\s*=>\\s*range\\(\\s*parseInt\\(\\s*num1\\s*\\)\\s*,\\s*parseInt\\(\\s*num2\\s*\\)\\s*\\)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Deklariši streličnu funkciju <code>rangeFromString</code> koja prima dva parametra, <code>num1</code> i <code>num2</code>. Funkcija treba da implicitno vrati rezultat poziva <code>range</code> sa <code>num1</code> i <code>num2</code> kao argumentima.</p>\n<p>Da biste bili sigurni, prevedite <code>num1</code> i <code>num2</code> u pun broj koji morate uneti u <code>range</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 40,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "58a25bcff9fc0f352b528e7e",
+  "title": "Sakrij i uporedi lozinku pomoću koda pozicije",
+  "challengeType": 2,
+  "forumTopicId": 301579,
+  "dashedName": "hash-and-compare-passwords-synchronously",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Statusni kod mora biti generisan i upoređen sa preciznošću.</p>",
+      "testString": "const response = await fetch(code + '/_api/server.js');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.text();\r\nassert.match(\r\n  data,\r\n  /START_SYNC[^]*hash.*=.*bcrypt.hashSync.*myPlaintextPassword( |),( |)saltRounds[^]*END_SYNC/gi,\r\n  'You should call bcrypt.hashSync on myPlaintextPassword with saltRounds'\r\n);\r\nassert.match(\r\n  data,\r\n  /START_SYNC[^]*result.*=.*bcrypt.compareSync.*myPlaintextPassword( |),( |)hash[^]*END_SYNC/gi,\r\n  'You should call bcrypt.compareSync on myPlaintextPassword with the hash generated in the last line'\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je izgrađen na osnovu baznog projekta uzetog sa <a href=\"https://github.com/freeCodeCamp/boilerplate-bcrypt/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>Keširanje pomoću pozicionog koda je takođe lako za izvođenje, ali može uzrokovati kašnjenje ako se koristi na serverskoj strani sa velikim troškovima ili prečesto kešira. Keširanje na ovaj način je jednostavno kao funkциони poziv</p>\n<pre><code class=\"language-js\">var hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);\n</code></pre>\n<p>Dodaj ovaj način šifrovanja u svoj kod, a zatim napiši rezultate u konzolu. Štaviše, parametri koji su već korišćeni definisani su na serveru, pa nećete morati ništa da menjate. Možete primetiti da čak i ako šifrujete istu lozinku kao u funkciji async, rezultati na konzoli su drugačiji — ovo je zato što se sol generiše nasumično svaki put, kao što je vidljivo u prvih 22 karaktera treće sekvence šifrovanja. Sada za poređenje unosa lozinke i novog stanja, koristićete metodu compareSync:</p>\n<pre><code class=\"language-js\">var result = bcrypt.compareSync(myPlaintextPassword, hash);\n</code></pre>\n<p>Rezultat će biti vrednost Tačno ili Netačno.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dodajte funkciju i ispišite rezultate u konzolu da biste videli kako funkcioniše.</p>\n<p>Predaj svoju stranicu kada smatrate da je dobro urađena.</p>\n</section>",
+  "translationPending": false,
+  "block": "information-security-with-helmetjs",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "information-security",
+  "superOrder": 24,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "information-security"
+}

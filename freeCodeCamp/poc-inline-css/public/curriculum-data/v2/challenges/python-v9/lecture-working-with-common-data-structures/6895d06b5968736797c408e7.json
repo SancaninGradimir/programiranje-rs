@@ -1,0 +1,109 @@
+{
+  "id": "6895d06b5968736797c408e7",
+  "title": "Kako funkcionišu mape, heš mape i skupovi?",
+  "challengeType": 19,
+  "dashedName": "how-do-maps-hash-maps-and-sets-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna razlika u vrsti podataka koji se čuvaju sa mapi (ili mapom) u poređenju sa setovima?</p>",
+      "answers": [
+        {
+          "answer": "<p>Hash mapovi čuvaju uređene kolekcije, dok setovi čuvaju neuređene kolekcije.</p>",
+          "feedback": "<p>Razmislite o tome kakvu vrstu podataka svaka struktura podataka je primarno dizajnirana da skladišti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Mapama hasha čuvaju jedinstvene parove ključ-vrednost, dok setovi čuvaju jedinstvene elemente.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Hash mapovi ne mogu da skladište duplikovane vrednosti, dok setovi mogu.</p>",
+          "feedback": "<p>Razmislite o tome kakvu vrstu podataka je svaka struktura podataka osmišljena da skladišti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Skupovi se koriste za numeričke podatke, dok su mape hash-a namenjene tekstualnim podacima.</p>",
+          "feedback": "<p>Razmislite o tome kakve vrste podataka svaka struktura podataka je primarno dizajnirana da skladišti.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja je glavna tehnika koja omogućava mapama sa hash-em i skupovima da postignu prosečne performanse od <code>O(1)</code> (konstantno vreme) za operacije kao što su umetanje i pretraživanje?</p>",
+      "answers": [
+        {
+          "answer": "<p>Čuvanjem svih elemenata u sortirano stanje, omogućava se brzo binarno pretraživanje.</p>",
+          "feedback": "<p>Zamisli specifičnu funkciju koja konvertuje element u model.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sačuvajte elemente u povezanu listu, omogućavajući brzo prebacivanje.</p>",
+          "feedback": "<p>Zamisli specijalnu funkciju koja konvertuje element u model.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristite funkciju haširanja da izračunate memorijsku adresu za elemente.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uvek sačuvava veoma mali broj elemenata, čime čini sve operacije brzim.</p>",
+          "feedback": "<p>Zamislite specifičnu funkciju koja konvertuje element u model.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>U kontekstu grafova i skupova, šta je „sukob grafa“?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kada se element uspešno pronađe nakon pretrage.</p>",
+          "feedback": "<p>Razmislite o rezultatima koji nastaju kada funkcija haširanja kombinuje različiti ulaz u isti rezultat.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada se element ubacuje na sam početak kolekcije.</p>",
+          "feedback": "<p>Razmislite o rezultatima koji nastaju kada hash funkcija kombinuje različite ulaze u isti rezultat.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada hash mapa nedostaje memorije i treba da promeni veličinu.</p>",
+          "feedback": "<p>Razmislite o rezultatima koji nastaju kada hash funkcija kombinuje različite ulaze u isti izlaz.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada dva različita ključa ili komponente kreiraju istu hash vrednost.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U ovoj lekciji, ćemo se fokusirati na mape, heš mape i setove. Ali pre toga, hajde da objasnimo Tipove šifrovanih podataka.</p>\n<p>Apstraktni tip podataka (ADT) predstavlja konceptualni opis tipa podataka, uključujući operacije koje se mogu izvršavati nad podacima i njihova svojstva.</p>\n<p>Tipovi podataka šeme su kao strukturalne mape koje određuju <strong>šta</strong> aktivnosti mogu da se obave, a ne <strong>kako</strong> se obavljaju. One razdvajaju interfejs od stvarnog izvršavanja tih radnji.</p>\n<p><strong>Ramani</strong> je ADT koja upravlja kolekcijama parova ključ-vrednost i njihovim operacijama na poseban i efikasan način.</p>\n<p>U mapi je svaka vrednost povezana sa jedinstvenim ključem.</p>\n<p>Jedna od glavnih osobina mape jeste da svaki ključ mora biti jedinstven. To omogućava direktan pristup podacima i olakšava njihovo pronalaženje.</p>\n<p>Samo ključevi moraju biti jedinstveni, vrednosti mogu biti ponovljene.</p>\n<p>Apstraktni tip podataka mapa definiše osnovne operacije, kao što su dodavanje parova ključ-vrednost, pronalaženje vrednosti po ključu, ažuriranje vrednosti, uklanjanje para ključ-vrednost i provera da li ključ postoji u mapi.</p>\n<p>On ne opisuje kako se ove operacije implementiraju, već samo navodi koje operacije tip podataka podržava.</p>\n<p><strong>Heš mapa</strong>, poznata i kao heš tabela, predstavlja konkretnu implementaciju apstraktnog tipa podataka mapa.</p>\n<p>Hash mape koriste metodu nazvanu \"hashing\" da obavljaju standardne operacije sa velikom efikasnošću.</p>\n<p>Hashing radi kreiranjem haš vrednosti za svaki element koristeći funkciju hashovanja.</p>\n<p>Hash vrednost se generiše na osnovu ključa para ključ-vrednost i koristi se za izračunavanje indeksa u primarnoj strukturi podataka, koja je stvarna struktura podataka gde se skladište parovi ključ-vrednost.</p>\n<p>Međutim, možda vas pita: Šta se dešava ako dve ključa proizvedu jedan primer?</p>\n<p>Dijagrami rešavaju ove kolizije pametnim strategijama.</p>\n<p>Jedan pristup je korišćenje metode ulančavanja, pri kojoj svaki indeks niza pokazuje na povezanu listu u kojoj se čuvaju svi elementi sa istim indeksom.</p>\n<p>Drugi metod je korišćenje \"otvorene adrese\", što uključuje traženje sledećeg dostupnog elementa u nizu prema prethodno definisanoj sekvenci pretrage.</p>\n<p>Prose: Prose. Prosječna vremenska složenost hash mapa je \"Konstantno vrijeme\" <code>O(1)</code> za ubacivanje, dohvaćanje i brisanje parova ključ-vrednost.</p>\n<p>Najveći problem sa težinom ovih aktivnosti je Vremenski linija <code>O(n)</code>, koji nastaje kada postoji mnogo kolizija podataka, pa se često mora primeniti strategija za rešavanje kolizija.</p>\n<p>Prosečna prostorna složenost umetanja u heš mapu je konstantna, <code>O(1)</code>, jer je potrebna konstantna količina memorije za čuvanje novog para. Međutim, u najgorem slučaju može biti linearna, <code>O(n)</code>, zbog promene veličine osnovnog niza. Uklanjanje elementa uglavnom ima prostornu složenost <code>O(1)</code>.</p>\n<p>Ovo pretvara hash tabelu u nešto što liči na linearnu strukturu podataka gde elementi treba da se preglede kako bi se pronašao ciljni ključ, <code>n</code>. Međutim, ovo je retko ako je tabela haširanja pravilno implementirana.</p>\n<p><strong>Kamusi</strong> za Python zinatekelezwa kama ramani za hashi nyuma ya pazia.</p>\n<p>Za kreiranje rečnika za Python, potrebno je samo napisati parove ključ-vrednost unutar vitičastih zagrada i razdvojiti ih zarezom. Svaki ključ mora biti odvojen od svoje vrednosti dvotačkom oznakom.</p>\n<pre><code class=\"language-python\">my_dictionary = {\n  'A': 1,\n  'B': 2, \n  'C': 3\n}\n</code></pre>\n<p>U ovom primeru <code>'A'</code> je ključ, a <code>1</code> je vrednost:</p>\n<pre><code class=\"language-python\">'A': 1\n</code></pre>\n<p>Osim toga, možeš da koristiš <code>dict()</code>:</p>\n<pre><code class=\"language-python\">my_dictionary = dict(A=1, B=2, C=3)\n</code></pre>\n<p>Vrednost možeš da dobiješ pomoću odgovarajućeg ključa:</p>\n<pre><code class=\"language-python\">my_dictionary['A']  # 1\n</code></pre>\n<p>Unaweza pia kusahihisha thamani inayohusiana na ufunguo:</p>\n<pre><code class=\"language-python\">my_dictionary['A'] = 4\n</code></pre>\n<p>Na unaweza kuondoa jozi ya ufunguo-thamani:</p>\n<pre><code class=\"language-python\">del my_dictionary['A']  \n</code></pre>\n<p>Takođe možeš da proveriš da li ključ postoji u rečniku:</p>\n<pre><code class=\"language-python\">'C' in my_dictionary\n</code></pre>\n<p>Možeš pozvati ove metode da dobiješ ključeve, vrednosti i stavke rečnika.</p>\n<pre><code class=\"language-python\">my_dictionary.keys()\nmy_dictionary.values()\nmy_dictionary.items()\n</code></pre>\n<p>Dobro. Sada znaš više o mapama i bazenskim mapama, hajde da pričamo o setovima.</p>\n<p><strong>Skup</strong> je kolekcija neuređenih jedinstvenih elemenata.</p>\n<p>Podelimo ovaj koncept na njegove glavne delove:</p>\n<ul>\n<li>\n<p>Setovi nemaju redosled. Elementi seta nisu sačuvani u određenom redosledu, pa ih ne možete dohvatiti koristeći indekse.</p>\n</li>\n<li>\n<p>Setovi sadrže samo jedinstvene elemente. Ako pokušate dodati istu vrednost dva puta, sačuvana će biti samo jedna kopija te vrednosti.</p>\n</li>\n</ul>\n<p>Liče na skupove u matematici i izvršavaju iste operacije skupova, kao što su unija, interseksiyon i razlika.</p>\n<p>Jedna od glavnih prednosti skupa je što osigurava da će elementi biti jedinstveni (bez duplikata). Zato se često koristi za uklanjanje duplikata iz lista i drugih struktura podataka.</p>\n<p>Takođe su za izmene. Mogu se menjati u zavisnosti od broja trenutno sačuvanih komponenti. Ovo ih čini veoma moćnim.</p>\n<p>Prosečna vremenska složenost za dodavanje, uklanjanje, dobijanje dužine seta i proveru da li je element u skupu je \"Konstantno vreme\" <code>O(1)</code>, što je veoma efikasno.</p>\n<p>Pošto su skupovi implementirani kao hash tabele, najgori vremenski složenost za dodavanje, brisanje i proveru članstva je \"Linearno Vreme\" <code>O(n)</code>. Ovo se može dogoditi kada postoji mnogo hash kolizija, pretvarajući hash tabelu u nešto što liči na linearnu strukturu podataka, gde je potrebna pretraga za pronalaženje ključa <code>n</code>.</p>\n<p>Što se tiče kompleksnosti prostora, u proseku, ubacivanje elementa ima konstantnu složenost <code>O(1)</code>, a novi jedinstveni element zahteva konstanta količinu memorije. Međutim, u najgorem slučaju, može doći do operacije redimensionisanja osnovnog niza, što može zahtevati linearnu kompleksnost prostora <code>O(n)</code>. Opšte kažu, brisanje elementa će zahtevati konstantnu kompleksnost prostora <code>O(1)</code>.</p>\n<p>Python ima ugrađenu strukturu podataka <code>set</code> koja se koristi za rad sa setovima u vašim programima.</p>\n<p>U pozadini, Python skupovi se implementiraju pomoću heš tabele u kojoj se čuvaju samo ključevi, bez pridruženih vrednosti.</p>\n<p>Skupovi mogu da sadrže samo nepromenljive tipove podataka zato što se njihove heš vrednosti ne menjaju. Nasuprot tome, heš vrednosti promenljivih objekata mogu se promeniti nakon izmene, zbog čega oni ne mogu biti deo skupa. Ako se heš vrednost objekta u skupu promeni, program više neće moći da ga pronađe.</p>\n<p>Da bi definisao skup u Python-u, dovoljno je da elemente staviš u vitičaste zagrade i razdvojiš ih zarezima:</p>\n<pre><code class=\"language-python\">numbers = {1, 2, 3, 4}\n</code></pre>\n<p>Prazan skup možeš da napraviš pozivom funkcije <code>set()</code>:</p>\n<pre><code class=\"language-python\">numbers = set()\n</code></pre>\n<p>Zapamti da prazne vitičaste zagrade kreiraju Python rečnik, a ne skup, zato za prazan skup moraš koristiti funkciju <code>set()</code>.</p>\n<p>Možete dodati element u skup putem <code>.add()</code>:</p>\n<pre><code class=\"language-python\">numbers.add(5)\n</code></pre>\n<p>Takođe možete ukloniti elemente iz skupa putem <code>.remove()</code>:</p>\n<pre><code class=\"language-python\">numbers.remove(5)\n</code></pre>\n<p>Ovo će nam dati <code>KeyError</code> ako karakteristika nije dostupna. Ali ako ne želite da izbacite grešku u tom slučaju, možete koristiti metodu <code>.discard()</code> umesto toga.</p>\n<p>Metoda <code>.pop()</code> vraća bilo koji element iz skupa, dok metoda <code>.clear()</code> uklanja sve elemente iz skupa.</p>\n<p>Možete pokušati da proverite da li je element u skupu koristeći operater <code>in</code>:</p>\n<pre><code class=\"language-python\">5 in numbers\n</code></pre>\n<p>Python takođe podržava operacije sa skupovima, uključujući uniju, razliku, simetričnu razliku i interseciju, koje možete izvršiti na sledeće načine:</p>\n<pre><code class=\"language-python\">set_a = {1, 2, 3, 4}\nset_b = {2, 3, 4, 5, 6}\n\nset_a.union(set_b)\nset_a.intersection(set_b)\nset_a.symmetric_difference(set_b)\nset_a.difference(set_b)\n</code></pre>\n<p>Ili korišćenjem njihove iste operete:</p>\n<pre><code class=\"language-python\">set_a | set_b\nset_a &#x26; set_b\nset_a ^ set_b\nset_a - set_b \n</code></pre>\n<p>Prosečna vremenska složenost za dodavanje, uklanjanje i proveru članstva je \"Konstantno vreme\" <code>O(1)</code>.</p>\n<p>Najveći nedostatak složenosti tokom ovih aktivnosti je „Vreme linije“ <code>O(n)</code> usled najgoreg scenarija kolizija mapa bazena.</p>\n<p>Takođe možete proveriti da li je skup podskup ili nadskup drugog:</p>\n<pre><code class=\"language-python\">set_a.issubset(set_b)\nset_a.issuperset(set_b)\n</code></pre>\n<p>Generalno, trebalo bi koristiti set kada vam je potrebno skladištiti kolekciju jedinstvenih elemenata i često proveravati prisustvo elementa.</p>\n<p>Karte, grafovi i skupovi su moćne strukture podataka kreirane za efikasnu organizaciju i pristup podacima. Svaki ima svoja jedinstvena svojstva i upotrebe. Kao programer, moraćeš da izabereš najbolje za svoj projekat.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-common-data-structures",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 52,
+  "instructions": "",
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 5,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-linear-data-structures",
+  "certification": "python-v9"
+}

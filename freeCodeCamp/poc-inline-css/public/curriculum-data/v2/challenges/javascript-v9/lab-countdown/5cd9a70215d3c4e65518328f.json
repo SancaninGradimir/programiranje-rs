@@ -1,0 +1,91 @@
+{
+  "id": "5cd9a70215d3c4e65518328f",
+  "title": "Napravi listu za brojanje unazad",
+  "challengeType": 26,
+  "dashedName": "build-a-countdown",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function countdown(n) {\r\n  if (n < 1) {\r\n    return [];\r\n  }\r\n\r\n  return [n, ...countdown(n - 1)];\r\n}",
+        "error": null,
+        "seed": "function countdown(n) {\r\n  if (n < 1) {\r\n    return [];\r\n  }\r\n\r\n  return [n, ...countdown(n - 1)];\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imate funkciju nazvanu <code>countdown</code>.</p>",
+      "testString": "assert.isFunction(countdown);"
+    },
+    {
+      "text": "<p><code>countdown(-1)</code> Trebalo bi da vrati prazan red podataka.</p>",
+      "testString": "assert.isEmpty(countdown(-1));"
+    },
+    {
+      "text": "<p><code>countdown(10)</code> treba vratiti <code>[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]</code></p>",
+      "testString": "assert.deepStrictEqual(countdown(10), [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);"
+    },
+    {
+      "text": "<p><code>countdown(5)</code> treba da vrati <code>[5, 4, 3, 2, 1]</code></p>",
+      "testString": "assert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);"
+    },
+    {
+      "text": "<p>Vaš kod ne bi trebalo da zavisi od bilo kakve vrste kola (<code>for</code>, <code>while</code>, <code>Array.from()</code>) ili visokonaponskih mostova kao što su <code>forEach</code>, <code>map</code>, <code>filter</code>, i <code>reduce</code>).</p>",
+      "testString": "assert(\r\n  !__helpers.removeJSComments(code).match(/for|while|forEach|map|filter|reduce|Array\\.from/g)\r\n);"
+    },
+    {
+      "text": "<p>Treba ti je koristiti ponavljanje da rešiš ovaj izazov.</p>",
+      "testString": "assert.isAtLeast(\r\n  __helpers.removeJSComments(countdown.toString()).match(/countdown\\s*\\(.+\\)/g)?.length,\r\n  2\r\n);"
+    },
+    {
+      "text": "<p>Međunarodni parametri ne bi smeli se koristiti za čuvanje redova podataka.</p>",
+      "testString": "countdown(1)\r\nassert.deepStrictEqual(countdown(5), [5, 4, 3, 2, 1]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovoj laboratoriji, ćeš koristiti funkciju <code>countdown</code> koja prima početni broj i kreira spisak za brojanje nazad.</p>\n<p>Kada se izvrši poziv <code>countdown(n)</code>, trebalo bi da vrati red podataka koji dolazi iz <code>n</code> i broji unazad do <code>1</code> dok ne stigne na <code>1</code>.</p>\n<p>Na primer:</p>\n<ul>\n<li><code>countdown(5)</code> treba da se vrati na <code>[5, 4, 3, 2, 1]</code></li>\n<li><code>countdown(1)</code> treba da se vrati na <code>[1]</code></li>\n</ul>\n<p>Ako je početni broj manji od <code>1</code>, nema šta da se broji unazad, pa vrati prazan red podataka:</p>\n<ul>\n<li><code>countdown(0)</code> treba vratiti <code>[]</code></li>\n<li><code>countdown(-3)</code> treba vratiti <code>[]</code></li>\n</ul>\n<p>Da biste završili ovu laboratorijsku vežbu, morate izgraditi rezultate koristeći rekurziju (recursion) i ne smete koristiti petlje (<code>for</code>, <code>while</code>), <code>Array.from()</code>, niti metode za iteriranje kroz niz podataka (<code>forEach</code>, <code>map</code>, <code>filter</code>, <code>reduce</code>). Svaki poziv bi trebalo da vrati svoj niz rezultata (nemojte koristiti globalne varijable za skladištenje liste brojanja).</p>\n<p><strong>Cilj:</strong> Popunite priče korisnika ispod i prođite sve testove da biste završili laboratoriju.</p>\n<p>Priče o korisniku:</p>\n<ol>\n<li>Trebalo bi kreirati funkciju koja se zove <code>countdown</code>.</li>\n<li>Funkcija <code>countdown</code> treba da primi jedan argument <code>n</code> (broj).</li>\n<li>Ako je <code>n</code> manje od <code>1</code>, <code>countdown</code> treba da vrati prazan niz podataka.</li>\n<li>Inače, <code>countdown</code> treba da vrati niz podataka sa punim brojevima od <code>n</code> do <code>1</code> u silaznom redosledu.</li>\n<li>Morate koristiti rekurziju (funkcija treba da pozove samu sebe) i ne smete koristiti nikakve petlje (<code>for</code>, <code>while</code>, <code>Array.from()</code>, ili metode višeg nivoa mosta kao što su <code>forEach</code>, <code>map</code>, <code>filter</code>, <code>reduce</code>).</li>\n<li>Svaki rekurzivni poziv treba da koristi vrednost manju od prethodnog poziva (npr. <code>n - 1</code>) kako bi funkcija stigla do svog baznog slučaja.</li>\n<li>Rešenje ne bi trebalo da koristi globalne varijable za skladištenje ili postavljanje rezultata niza podataka.</li>\n<li>Pozivanje <code>countdown</code> više puta sa različitim unosima treba da uvek vraća ispravan i nezavisan rezultat.</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-countdown",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 183,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "recursion",
+  "certification": "javascript-v9"
+}

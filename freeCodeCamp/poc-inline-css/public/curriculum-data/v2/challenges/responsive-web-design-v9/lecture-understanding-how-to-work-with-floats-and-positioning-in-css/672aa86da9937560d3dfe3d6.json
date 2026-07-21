@@ -1,0 +1,177 @@
+{
+  "id": "672aa86da9937560d3dfe3d6",
+  "title": "Upotreba `Floats` i kako funkcionišu",
+  "challengeType": 19,
+  "dashedName": "what-are-common-use-cases-for-using-floats",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Floats u CSS je tehnika prvobitno kreirana da bi omogućila tekstu da se zaokruži oko elementa, kao što su slike. Međutim, sa vremenom, programeri su otkrili nove načine korišćenja floats-a, koristeći ih kreativno u dizajnu rasporeda. Iako se moderne metode kao što su Flexbox i Grid sada koriste više, razumevanje floats-a je i dalje važno, posebno kada koristite stari kod ili vam je potrebno postići specifične efekte rasporeda.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada učinite da je element \"float\" (plutajući), uklanja se iz normalnog toka dokumenta i pomiče se levo ili desno unutar svog kontejnera. Sadržaj koji sledi će obaviti plutajući element, popunjavajući preostali prostor. Uobičajena upotreba je obavijanje teksta pored slike, gde se slika postavlja na jednu stranu, a tekst se oko nje obavija. Ova tehnika i dalje je široko korišćena, posebno u člancima i blogovima gde su slike potrebne pored teksta. Evo primjera koda:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"container\">\n  <img src=\"https://placehold.co/150x150\" alt=\"Placeholder Image\">\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"container\">\n  &#x3C;img src=\"https://placehold.co/150x150\" alt=\"Placeholder Image\">\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  border: 1px solid black;\n  padding: 10px;\n}\n\nimg {\n  float: left;\n  margin-right: 20px;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  border: 1px solid black;\n  padding: 10px;\n}\n\nimg {\n  float: left;\n  margin-right: 20px;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, kontejner ne obuhvata/omotava plutajuću sliku. Slika je van normalnog toka dokumenta, i kontejner se srušio na visinu od nule jer ne detektuje plutajući element unutar sebe.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Floats su takođe bili popularni za kreiranje višerednih rasporeda pre nego što su Flexbox i Grid postali standard. Postavljanjem elemenata jedan pored drugog, programeri su mogli da kreiraju redove sa jednakim poravnanjem. Međutim, kada koristite floats, važno je rešiti problem kolapsa roditeljskog elementa kada su elementi deteta floatovani. Rešenje metode clearfix primenjuje se na element sa klasom <code>container</code> da bi popravilo ovaj problem.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"container\">\n  <img src=\"https://placehold.co/150x150\" alt=\"Placeholder Image\">\n  <p> This is an example of text flowing around a floated image.</p>\n</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"container\">\n  &#x3C;img src=\"https://placehold.co/150x150\" alt=\"Placeholder Image\">\n  &#x3C;p> This is an example of text flowing around a floated image.&#x3C;/p>\n&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": ".container {\n  border: 1px solid black;\n}\n\n/* Clearfix CSS */\n.container::after {\n  content: \"\";  \n  display: block;\n  clear: both;\n}\n\nimg {\n  float: left;\n  margin-right: 20px;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.container {\n  border: 1px solid black;\n}\n\n/* Clearfix CSS */\n.container::after {\n  content: \"\";  \n  display: block;\n  clear: both;\n}\n\nimg {\n  float: left;\n  margin-right: 20px;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<ul>\n<li><code>::after</code> je zamenski element koji dodaje nevidljivi segment nakon sadržaja kontejnera.</li>\n<li><code>content: \"\"</code> osigurava da postoji zamenski element, ali ne prikazuje nikakav sadržaj.</li>\n<li><code>display: block</code> čini zamenski element blok nivo/elementom.</li>\n<li><code>clear: both</code> osigurava da zamenski element uklanja obe strane bilo kojeg float elementa koji je iznad njega.</li>\n</ul>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, dodali smo novi paragrafski element kako bismo jasnije demonstrirali kolaps kontejnera. Pošto je paragraf još uvek u normalnom toku dokumenta, kontejner se proširi dovoljno da ga obuhvati. Zatim koristimo tehniku 'clearfix' da ispravimo kolaps i osiguramo da granica kontejnera bude pravilno prikazana. Možete pokušati da uklonite pravilo 'clearfix' kako biste videli kako se kontejner ponovo kolapsira.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda clearfix osigurava da roditeljski element pravilno obuhvati svoje floatovane elemente. Clearfix prisiljava roditeljski kontejner da \"vidi\" floatovane elemente dodavanjem svojstva clear nakon floatovanog sadržaja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako float više nije uobičajen način za složene rasporede zbog modernih tehnika kao što su Flexbox i Grid, oni i dalje imaju važnu ulogu u određenim situacijama. Bilo da obavijaš tekst oko slike ili radiš na starijim projektima, razumevanje kako float funkcioniše i kako ga pravilno ukloniti važno je za održavanje dobro organizovanih i prilagodljivih rasporeda.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koja je uobičajena upotreba float svojstva u CSS-u?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kuweka kipengele katikati kwa wima.</p>",
+          "feedback": "<p>Razmislite kako su floats prvobitno korišćeni.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Okružiti tekst blizu slike.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kreiranje naslova stranice koji je postavljen na svoje mesto.</p>",
+          "feedback": "<p>Razmislite kako su se floats prvobitno koristili.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postaviti pozadinsku boju.</p>",
+          "feedback": "<p>Razmisli o tome kako su se floatovi prvobitno koristili.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koje svojstvo CSS se često koristi za uklanjanje float brojeva i održavanje redoslednosti?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>float</code></p>",
+          "feedback": "<p>Razmislite o svojstvu koje sprečava tekstu da se savija oko plutajućih elemenata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>margin</code></p>",
+          "feedback": "<p>Razmislite o svojstvu koje sprečava tekst od okruživanja oko elemenata sa plutanjem.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>clear</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>padding</code></p>",
+          "feedback": "<p>Razmislite o svojstvu koje sprečava tekstu da se savija oko plutajućih elemenata.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Da li korišćenje <code>float: left;</code> za element utiče na njegovu poziciju u rasporedu?</p>",
+      "answers": [
+        {
+          "answer": "<p>Element je postavljen u sredinu stranice.</p>",
+          "feedback": "<p>Zamislite šta se dešava kada je element floatovan ulevo.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Element se pomera ka desnoj strani svog kontejnera.</p>",
+          "feedback": "<p>Zamislite šta se dešava kada je element floatovan levo.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Element se uklanja iz normalnog protoka dokumenata i premešta ka levoj strani svog kontejnera.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Element nastavlja u normalnom toku dokumenta i poravnava se sa svojim kontejnerom.</p>",
+          "feedback": "<p>Zamisli šta se dešava kada element pluta ulevo.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-understanding-how-to-work-with-floats-and-positioning-in-css",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 122,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-positioning",
+  "certification": "responsive-web-design-v9"
+}

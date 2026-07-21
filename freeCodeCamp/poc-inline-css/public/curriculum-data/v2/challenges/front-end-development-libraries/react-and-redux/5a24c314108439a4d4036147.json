@@ -1,0 +1,93 @@
+{
+  "id": "5a24c314108439a4d4036147",
+  "title": "Unganisha Redux na React",
+  "challengeType": 6,
+  "forumTopicId": 301426,
+  "dashedName": "connect-redux-to-react",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "const addMessage = (message) => {\n  return {\n    type: 'ADD',\n    message: message\n  }\n};\n\nconst mapStateToProps = (state) => {\n  return {\n    messages: state\n  }\n};\n\nconst mapDispatchToProps = (dispatch) => {\n  return {\n    submitNewMessage: (message) => {\n      dispatch(addMessage(message));\n    }\n  }\n};\n\nclass Presentational extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h3>This is a Presentational Component</h3>\n  }\n};\n\nconst connect = ReactRedux.connect;\n// Change code below this line",
+      "error": null,
+      "seed": "const addMessage = (message) => {\n  return {\n    type: 'ADD',\n    message: message\n  }\n};\n\nconst mapStateToProps = (state) => {\n  return {\n    messages: state\n  }\n};\n\nconst mapDispatchToProps = (dispatch) => {\n  return {\n    submitNewMessage: (message) => {\n      dispatch(addMessage(message));\n    }\n  }\n};\n\nclass Presentational extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h3>This is a Presentational Component</h3>\n  }\n};\n\nconst connect = ReactRedux.connect;\n// Change code below this line"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "const addMessage = (message) => {\n  return {\n    type: 'ADD',\n    message: message\n  }\n};\n\nconst mapStateToProps = (state) => {\n  return {\n    messages: state\n  }\n};\n\nconst mapDispatchToProps = (dispatch) => {\n  return {\n    submitNewMessage: (message) => {\n      dispatch(addMessage(message));\n    }\n  }\n};\n\nclass Presentational extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h3>This is a Presentational Component</h3>\n  }\n};\n\nconst connect = ReactRedux.connect;\n// Change code below this line\n\nconst ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(Presentational);",
+        "error": null,
+        "seed": "const addMessage = (message) => {\n  return {\n    type: 'ADD',\n    message: message\n  }\n};\n\nconst mapStateToProps = (state) => {\n  return {\n    messages: state\n  }\n};\n\nconst mapDispatchToProps = (dispatch) => {\n  return {\n    submitNewMessage: (message) => {\n      dispatch(addMessage(message));\n    }\n  }\n};\n\nclass Presentational extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return <h3>This is a Presentational Component</h3>\n  }\n};\n\nconst connect = ReactRedux.connect;\n// Change code below this line\n\nconst ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(Presentational);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Ovaj deo <code>Presentational</code> treba da prikaže.</p>",
+      "testString": "assert(\n  (function () {\n    if (typeof ConnectedComponent === 'undefined') {\n      return false;\n    }\n    const store = Redux.createStore(\n      (state = '__INITIAL__STATE__', action) => state\n    );\n    class AppWrapper extends React.Component {\n      render() {\n        return React.createElement(\n          ReactRedux.Provider,\n          { store: store },\n          React.createElement(ConnectedComponent)\n        );\n      }\n    }\n    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));\n    return mockedComponent.find('Presentational').length === 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Komponenta <code>Presentational</code> treba da prima <code>messages</code> kroz <code>connect</code>.</p>",
+      "testString": "assert(\n  (function () {\n    if (typeof ConnectedComponent === 'undefined') {\n      return false;\n    }\n    const store = Redux.createStore(\n      (state = '__INITIAL__STATE__', action) => state\n    );\n    class AppWrapper extends React.Component {\n      render() {\n        return React.createElement(\n          ReactRedux.Provider,\n          { store: store },\n          React.createElement(ConnectedComponent)\n        );\n      }\n    }\n    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));\n    const props = mockedComponent.find('Presentational').props();\n    return props.messages === '__INITIAL__STATE__';\n  })()\n);"
+    },
+    {
+      "text": "<p>Sekcija <code>Presentational</code> treba da primi parametre <code>submitNewMessage</code> preko <code>connect</code>.</p>",
+      "testString": "assert(\n  (function () {\n    if (typeof ConnectedComponent === 'undefined') {\n      return false;\n    }\n    const store = Redux.createStore(\n      (state = '__INITIAL__STATE__', action) => state\n    );\n    class AppWrapper extends React.Component {\n      render() {\n        return React.createElement(\n          ReactRedux.Provider,\n          { store: store },\n          React.createElement(ConnectedComponent)\n        );\n      }\n    }\n    const mockedComponent = Enzyme.mount(React.createElement(AppWrapper));\n    const props = mockedComponent.find('Presentational').props();\n    return typeof props.submitNewMessage === 'function';\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ste napisali funkciju od <code>mapStateToProps()</code> i <code>mapDispatchToProps()</code>, možete koristiti ovo da spojite <code>state</code> sa <code>dispatch</code> na <code>props</code> jedne od vaših komponenti React. Metoda <code>connect</code> iz Redux-a React može obraditi ovaj zadatak. Ova metoda prima dva opcionalna argumenta, <code>mapStateToProps()</code> i <code>mapDispatchToProps()</code>. To je opciono jer možete imati komponentu koja samo zahteva pristup <code>state</code>, ali ne mora da dispatch-uje akcije, ili obrnuto.</p>\n<p>Da biste koristili ovu metodu, prosledite funkcije kao argumente, i odmah pozovite rezultat sa vašim delom. Ova sintaksa je malo jedinstvena i izgleda ovako:</p>\n<pre><code class=\"language-js\">connect(mapStateToProps, mapDispatchToProps)(MyComponent)\n</code></pre>\n<p><strong>Napomena:</strong> Ako želite da uklonite jedan od argumenata za putanju <code>connect</code>, koristite <code>null</code> umesto toga.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Editor koda sadrži funkcije <code>mapStateToProps()</code> i <code>mapDispatchToProps()</code> i novu React komponentu pod nazivom <code>Presentational</code>. Povežite ovu komponentu sa Redux-om pomoću <code>connect</code> iz globalnog objekta <code>ReactRedux</code>, a zatim odmah pozovite komponentu <code>Presentational</code>. Rezultat sačuvajte u novoj konstanti nazvanoj <code>ConnectedComponent</code>, koja predstavlja povezanu komponentu. To je sve, sada ste povezani sa Redux-om! Probajte da promenite jedan od argumenata za <code>connect</code> na <code>null</code> i pogledajte rezultate testova.</p>\n</section>",
+  "translationPending": false,
+  "block": "react-and-redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 5,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

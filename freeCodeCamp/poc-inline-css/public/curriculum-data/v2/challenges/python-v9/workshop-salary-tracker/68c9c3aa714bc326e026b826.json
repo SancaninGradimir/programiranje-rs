@@ -1,0 +1,62 @@
+{
+  "id": "68c9c3aa714bc326e026b826",
+  "title": "Korak 30",
+  "challengeType": 20,
+  "dashedName": "step-30",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        38,
+        40
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        \n        self._level = new_level\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        \n        self._level = new_level\n    @property\n    def salary(self):\n        return self._salary\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš vrednost <code>if</code> unutar svog setera <code>level</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_functions(\"level\")[1].find_ifs()[1]`)) })"
+    },
+    {
+      "text": "<p>Kada <code>new_level</code> nije ključ za <code>Employee._base_salaries</code>, treba da dohvati <code>ValueError</code> i poruku <code>Invalid value '{new_level}' for 'level' attribute.</code>, gde <code>{new_level}</code> treba da bude zamenjen argumentom poslatim setteru.</p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'trainee')\n  try:\n    emp.level = \"dreamer\"\n  except ValueError as e:\n    assert str(e) == \"Invalid value 'dreamer' for 'level' attribute.\"\n  else:\n      assert False, \"Expected to raise ValueError with invalid new_level\"\n`) })"
+    },
+    {
+      "text": "<p>Ne smiješ izostaviti nijedan deo dok je <code>new_level</code> ključ za <code>Employee._base_salaries</code></p>",
+      "testString": "({ test: () => runPython(`\n  emp = Employee('Frank', 'trainee')\n  for i in Employee._base_salaries:\n    try:\n      emp.level = i\n    except Exception:\n      assert False, \"Expected not to raise any exception with valid new_level\"    \n`) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Novi nivo ne može se postaviti bez proveravanja da li je validan nivo. Nakon revizije <code>isinstance</code>, stvori izraz <code>if</code> koji podiže <code>ValueError</code> kada <code>new_level</code> nije ključ za <code>Employee._base_salaries</code>.</p>\n<p>Za poruku o grešci, koristite <code>Invalid value '{new_level}' for 'level' attribute.</code>, gde <code>{new_level}</code> treba da se zameni argumentom poslatim seteru.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 29,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

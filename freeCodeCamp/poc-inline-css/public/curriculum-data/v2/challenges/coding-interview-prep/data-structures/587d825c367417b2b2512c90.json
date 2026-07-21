@@ -1,0 +1,77 @@
+{
+  "id": "587d825c367417b2b2512c90",
+  "title": "Pretraga širine prvo",
+  "challengeType": 1,
+  "forumTopicId": 301622,
+  "dashedName": "breadth-first-search",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function bfs(graph, root) {\n  var nodesLen = {};\n\n  return nodesLen;\n};\n\nvar exBFSGraph = [\n  [0, 1, 0, 0],\n  [1, 0, 1, 0],\n  [0, 1, 0, 1],\n  [0, 0, 1, 0]\n];\nconsole.log(bfs(exBFSGraph, 3));",
+      "error": null,
+      "seed": "function bfs(graph, root) {\n  var nodesLen = {};\n\n  return nodesLen;\n};\n\nvar exBFSGraph = [\n  [0, 1, 0, 0],\n  [1, 0, 1, 0],\n  [0, 1, 0, 1],\n  [0, 0, 1, 0]\n];\nconsole.log(bfs(exBFSGraph, 3));"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function bfs(graph, root) {\n  var nodesLen = {};\n  // Set all distances to infinity\n  for (var i = 0; i < graph.length; i++) {\n    nodesLen[i] = Infinity;\n  }\n  nodesLen[root] = 0; // ...except root node\n  var queue = [root]; // Keep track of nodes to visit\n  var current; // Current node traversing\n  // Keep on going until no more nodes to traverse\n  while (queue.length !== 0) {\n    current = queue.shift();\n    // Get adjacent nodes from current node\n    var curConnected = graph[current]; // Get layer of edges from current\n    var neighborIdx = []; // List of nodes with edges\n    var idx = curConnected.indexOf(1); // Get first edge connection\n    while (idx !== -1) {\n      neighborIdx.push(idx); // Add to list of neighbors\n      idx = curConnected.indexOf(1, idx + 1); // Keep on searching\n    }\n    // Loop through neighbors and get lengths\n    for (var j = 0; j < neighborIdx.length; j++) {\n      // Increment distance for nodes traversed\n      if (nodesLen[neighborIdx[j]] === Infinity) {\n        nodesLen[neighborIdx[j]] = nodesLen[current] + 1;\n        queue.push(neighborIdx[j]); // Add new neighbors to queue\n      }\n    }\n  }\n  return nodesLen;\n}",
+        "error": null,
+        "seed": "function bfs(graph, root) {\n  var nodesLen = {};\n  // Set all distances to infinity\n  for (var i = 0; i < graph.length; i++) {\n    nodesLen[i] = Infinity;\n  }\n  nodesLen[root] = 0; // ...except root node\n  var queue = [root]; // Keep track of nodes to visit\n  var current; // Current node traversing\n  // Keep on going until no more nodes to traverse\n  while (queue.length !== 0) {\n    current = queue.shift();\n    // Get adjacent nodes from current node\n    var curConnected = graph[current]; // Get layer of edges from current\n    var neighborIdx = []; // List of nodes with edges\n    var idx = curConnected.indexOf(1); // Get first edge connection\n    while (idx !== -1) {\n      neighborIdx.push(idx); // Add to list of neighbors\n      idx = curConnected.indexOf(1, idx + 1); // Keep on searching\n    }\n    // Loop through neighbors and get lengths\n    for (var j = 0; j < neighborIdx.length; j++) {\n      // Increment distance for nodes traversed\n      if (nodesLen[neighborIdx[j]] === Infinity) {\n        nodesLen[neighborIdx[j]] = nodesLen[current] + 1;\n        queue.push(neighborIdx[j]); // Add new neighbors to queue\n      }\n    }\n  }\n  return nodesLen;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Ulazni graf <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]</code> sa početnim čvorom <code>1</code> treba da vrati <code>{0: 1, 1: 0, 2: 1, 3: 2}</code>.</p>",
+      "testString": "var graph = [\n  [0, 1, 0, 0],\n  [1, 0, 1, 0],\n  [0, 1, 0, 1],\n  [0, 0, 1, 0]\n];\nvar results = bfs(graph, 1);\nassert.deepEqual(results, { 0: 1, 1: 0, 2: 1, 3: 2 });"
+    },
+    {
+      "text": "<p>Ulazni graf <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]</code> sa početnim čvorom <code>1</code> treba da vrati <code>{0: 1, 1: 0, 2: 1, 3: Infinity}</code>.</p>",
+      "testString": "var graph = [\n  [0, 1, 0, 0],\n  [1, 0, 1, 0],\n  [0, 1, 0, 0],\n  [0, 0, 0, 0]\n];\nvar results = bfs(graph, 1);\n assert.deepEqual(results, { 0: 1, 1: 0, 2: 1, 3: Infinity });"
+    },
+    {
+      "text": "<p>Ulazni graf <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]</code> sa početnim čvorom <code>0</code> treba da vrati <code>{0: 0, 1: 1, 2: 2, 3: 3}</code>.</p>",
+      "testString": "var graph = [\n  [0, 1, 0, 0],\n  [1, 0, 1, 0],\n  [0, 1, 0, 1],\n  [0, 0, 1, 0]\n];\nvar results = bfs(graph, 0);\n assert.deepEqual(results, { 0: 0, 1: 1, 2: 2, 3: 3 });"
+    },
+    {
+      "text": "<p>Ulazni graf <code>[[0, 1], [1, 0]]</code> sa početnim čvorom <code>0</code> treba da vrati <code>{0: 0, 1: 1}</code>.</p>",
+      "testString": "var graph = [\n  [0, 1],\n  [1, 0]\n];\nvar results = bfs(graph, 0);\nassert.deepEqual(results, { 0: 0, 1: 1 });"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dakle, učili smo različite načine kreiranja reprezentacija grafova. Zar ne? Originalno pitanje je: koja je udaljenost između bilo koje dve čvorove u grafu? Ovde ulaze algoritmi za <dfn>prolazak kroz graf </dfn>.</p>\n<p><dfn>Algoritmi prolaska</dfn> su algoritmi za prolazak ili posetu čvorova u grafu. Jedan od tipova algoritama prolaska je algoritam široko-prve pretrage.</p>\n<p>Ovaj algoritam počinje od jednog čvora i poseti sve njegove komšije koje su udaljene jednom ivicom. Zatim nastavlja da poseti komšije svakog od njih i tako dalje, sve dok se ne dosegnu svi čvorovi.</p>\n<p>Esencijalna struktura podataka koja pomaže u implementaciji algoritma pretraživanja po širini je red. Ovo je linearna struktura podataka gde možete dodavati elemente na jednu stranu i uklanjati elemente sa druge strane. To se takođe naziva strukturom podataka <dfn>FIFO</dfn> ili <dfn>First-In-First-Out</dfn>.</p>\n<p>Prikazaće kako algoritam funkcioniše:\n<img alt=\"animation showing the breadth first search algorithm\" src='https://cdn.freecodecamp.org/curriculum/coding-interview-prep/breadth-first-search.gif'></p>\n<p>Siva boja ukazuje čvor koji se dodaje u redovnik, a crna boja ukazuje čvor koji se uklanja iz redovnika. Pogledajte kako se svaki put kada čvor izađe iz redovnika (čvor postaje crn), svi njegovi susedi dodaju u redovnik (čvor postaje siv).</p>\n<p>Da biste izvršili ovaj algoritam, moraćete da unesete strukturu grafa i oznaku čvora sa kojeg želite početi.</p>\n<p>Prvo, biće vam potrebno razumevanje udaljenosti od, ili broja ivica od, početnog čvora. Želite da sve udaljenosti inicijalizujete velikim brojem, kao što je <code>Infinity</code>. Ovo sprečava probleme sa računanjem kada do čvora nije moguće stići iz početnog čvora. Zatim, želite da krenete od početnog čvora ka njegovim susjedima. Ovi susjedi su na udaljenosti jedne ivice i u ovom trenutku bi trebalo da dodate jednu jedinicu udaljenosti na udaljenost koju sačuvavate.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Definisati funkciju <code>bfs()</code> koja prima graf matrice susednosti (dvodimenzionalni niz podataka) i oznaku korenovog čvora kao parametre. Oznaka čvora će biti samo vrednost broja čvora između <code>0</code> i <code>n - 1</code>, gde je <code>n</code> ukupan broj čvorova u grafu.</p>\n<p>Vaša funkcija će vratiti parove ključ-vrednost za JavaScript koji sadrže čvorove i njihovu udaljenost od korena. Ako je čvor nedostupan, trebalo bi da ima udaljenost od <code>Infinity</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 44,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

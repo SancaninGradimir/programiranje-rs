@@ -1,0 +1,54 @@
+{
+  "id": "6853f70470f45d9c280af659",
+  "title": "Korak 43",
+  "challengeType": 20,
+  "dashedName": "step-43",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        14,
+        24
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.timestamp = datetime.datetime.now()\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        \n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')\n",
+      "error": null,
+      "seed": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.timestamp = datetime.datetime.now()\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        \n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da štampate zakazano koristeći <code>self.timestamp.strftime('%Y-%m-%d %H:%M')</code>. Dodajte <code>Received:</code> praćen razmakom pre njega.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Email\").find_function(\"display_full_email\").has_call('print(f\"Received: {self.timestamp.strftime(\\\\'%Y-%m-%d %H:%M\\\\')}\")')`))\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ćemo pokazati kada primite e-mail, prikazujući puni e-mail.</p>\n<p>Ispod naslova vesti, objavite vreme prijema koristeći <code>strftime</code> i formatirajte ga kao <code>'%Y-%m-%d %H:%M'</code>. Koristite sledeći format:</p>\n<pre><code class=\"language-py\">Received: date\n</code></pre>\n<p>Gde je <code>date</code> postavljeno kao <code>'%Y-%m-%d %H:%M'</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 42,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

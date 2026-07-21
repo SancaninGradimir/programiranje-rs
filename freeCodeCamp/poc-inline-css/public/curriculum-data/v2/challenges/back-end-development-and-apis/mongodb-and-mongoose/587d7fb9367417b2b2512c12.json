@@ -1,0 +1,33 @@
+{
+  "id": "587d7fb9367417b2b2512c12",
+  "title": "Povežite pomoćnika za pretragu da smanjite rezultate pretrage",
+  "challengeType": 2,
+  "forumTopicId": 301533,
+  "dashedName": "chain-search-query-helpers-to-narrow-search-results",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Povezivanje podrške pretrage argumenata bi trebalo da uspe</p>",
+      "testString": "  const response = await fetch(code + '/_api/query-tools', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify([\n      { name: 'Pablo', age: 26, favoriteFoods: ['burrito', 'hot-dog'] },\n      { name: 'Bob', age: 23, favoriteFoods: ['pizza', 'nachos'] },\n      { name: 'Ashley', age: 32, favoriteFoods: ['steak', 'burrito'] },\n      { name: 'Mario', age: 51, favoriteFoods: ['burrito', 'prosciutto'] }\n    ])\n  });\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.isArray(data, 'the response should be an Array');\n  assert.equal(\n    data.length,\n    2,\n    'the data array length is not what expected'\n  );\n  assert.notProperty(\n    data[0],\n    'age',\n    'The returned first item has too many properties'\n  );\n  assert.equal(\n    data[0].name,\n    'Ashley',\n    'The returned first item name is not what expected'\n  );\n  assert.notProperty(\n    data[1],\n    'age',\n    'The returned second item has too many properties'\n  );\n  assert.equal(\n    data[1].name,\n    'Mario',\n    'The returned second item name is not what expected'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako ne koristite poziv povratka kao poslednji argument za <code>Model.find()</code> (ili drugim metodama pretrage), argument pretrage neće biti izvršen. Možete sačuvati argument pretrage u parametar za kasnije korišćenje. Ovaj tip objekta omogućava vam da konstruišete argument pretrage koristeći sintaksu sekvencijalnog spajanja. Stvarana pretraga baze podataka dešava se kada spojite putanju <code>.exec()</code> na samom kraju. Uvek je potrebno proslediti poziv povratka na ovaj način na kraju. Postoji mnogo pomoći za argumente pretrage; ovde ćemo koristiti one koje se najčešće koriste.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni funkciju <code>queryChain</code> ili pretraži ljude koji vole hranu specificiranu kriterijumom nazvanim <code>foodToSearch</code>. Postavi ih u redosled <code>name</code>, smanji rezultate na dva zapisa i sakrij im uzrast. Poveži <code>.find()</code>, <code>.sort()</code>, <code>.limit()</code>, <code>.select()</code>, zatim <code>.exec()</code>. Izvrši poziv za povratnu funkciju (callback) <code>done(err, data)</code> ka <code>exec()</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "mongodb-and-mongoose",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

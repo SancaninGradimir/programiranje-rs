@@ -1,0 +1,77 @@
+{
+  "id": "587d7fac367417b2b2512bdd",
+  "title": "Tumia vipimo vinavyobadilika",
+  "challengeType": 6,
+  "forumTopicId": 301495,
+  "dashedName": "use-dynamic-scales",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n\n    // Padding between the SVG boundary and the plot\n    const padding = 30;\n\n    // Create an x and y scale\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    // Add your code below this line\n\n    const yScale = undefined;\n\n\n    // Add your code above this line\n\n    const output = yScale(411); // Returns 30\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>",
+      "error": null,
+      "seed": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n\n    // Padding between the SVG boundary and the plot\n    const padding = 30;\n\n    // Create an x and y scale\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    // Add your code below this line\n\n    const yScale = undefined;\n\n\n    // Add your code above this line\n\n    const output = yScale(411); // Returns 30\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n\n    const padding = 30;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const output = yScale(411);\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>",
+        "error": null,
+        "seed": "<body>\n  <script>\n    const dataset = [\n      [34, 78],\n      [109, 280],\n      [310, 120],\n      [79, 411],\n      [420, 220],\n      [233, 145],\n      [333, 96],\n      [222, 333],\n      [78, 320],\n      [21, 123]\n    ];\n\n    const w = 500;\n    const h = 500;\n\n    const padding = 30;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[0])])\n      .range([padding, w - padding]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([0, d3.max(dataset, d => d[1])])\n      .range([h - padding, padding]);\n\n    const output = yScale(411);\n    d3.select('body').append('h2').text(output);\n  </script>\n</body>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tekst u <code>h2</code> trebao bi da bude <code>30</code>.</p>",
+      "testString": "assert.strictEqual(output, 30);\nassert.strictEqual(document.querySelector('h2')?.textContent, '30');"
+    },
+    {
+      "text": "<p><code>domain()</code> funkcije <code>yScale</code> treba da bude jednak <code>[0, 411]</code>.</p>",
+      "testString": "assert.deepEqual(yScale.domain(), [0, 411]);"
+    },
+    {
+      "text": "<p><code>range()</code> funkcije <code>yScale</code> treba da bude jednak <code>[470, 30]</code>.</p>",
+      "testString": "assert.deepEqual(yScale.range(), [470, 30]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Putanje za D3 <code>min()</code> i <code>max()</code> su važne jer pomažu u postavljanju standarda.</p>\n<p>Ako imate kompleksan skup podataka, jedan prioritet je postaviti dimenziju tako da prikaz odgovara širini i visini SVG kontejnera. Želite da su svi podaci nacrtani unutar SVG-a kako bi bili vidljivi na veb stranici.</p>\n<p>Primer ispod postavlja meru x-osu podataka raspršenog grafikona. Funkcija <code>domain()</code> prenosi informacije o merama o sirovim vrednostima podataka za grafikona. Funkcija <code>range()</code> pruža informacije o stvarnoj poziciji na veb stranici za prikaz.</p>\n<p>Na primer, domenni opseg počinje od 0 do najveće vrednosti u skupu. Koristi metodu <code>max()</code> zajedno sa funkcijom povratne pozive koja zavisi od vrednosti x u redovima podataka. Opsegni opseg koristi širinu SVG-a (<code>w</code>), ali takođe uključuje unutrašnji prostor. Ovo ostavlja prostor između tačaka crtanja markera i ivica SVG-a.</p>\n<pre><code class=\"language-js\">const dataset = [\n  [34, 78],\n  [109, 280],\n  [310, 120],\n  [79, 411],\n  [420, 220],\n  [233, 145],\n  [333, 96],\n  [222, 333],\n  [78, 320],\n  [21, 123]\n];\nconst w = 500;\nconst h = 500;\n\nconst padding = 30;\nconst xScale = d3\n  .scaleLinear()\n  .domain([0, d3.max(dataset, d => d[0])])\n  .range([padding, w - padding]);\n</code></pre>\n<p>Unutrašnji prostor može izgledati teško na početku. Zamislite X osu kao horizontalnu liniju od 0 do 500 (vrednost širine SVG). Uključivanje unutrašnjeg prostora u putanju od <code>range()</code> prisiljava crtež da počne na 30 duž te linije (umesto 0), i da se završi na 470 (umesto 500).</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Koristi parametar <code>yScale</code> za kreiranje dimenzije Y ose koja varira linearno. Domenski opseg treba da počne od nule i do najveće vrednosti <code>y</code> u skupu. Opseg treba da koristi visinu SVG-a (<code>h</code>) i uključuje interni prostor.</p>\n<p><strong>Napomena:</strong> Zapamtite da postavite dijagram pravilno. Kada postavljate opseg za Y koordinate, najveća vrednost (dužina minus unutrašnji prostor) je prvi argument, a najmanja vrednost je drugi argument.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-visualization-with-d3",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "data-visualization",
+  "superOrder": 18,
+  "challengeOrder": 26,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "data-visualization"
+}

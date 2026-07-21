@@ -1,0 +1,73 @@
+{
+  "id": "587d7db0367417b2b2512b83",
+  "title": "Tumia urithi ili usijirudie mwenyewe",
+  "challengeType": 1,
+  "forumTopicId": 301334,
+  "dashedName": "use-inheritance-so-you-dont-repeat-yourself",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function Cat(name) {\n  this.name = name;\n}\n\nCat.prototype = {\n  constructor: Cat,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Bear(name) {\n  this.name = name;\n}\n\nBear.prototype = {\n  constructor: Bear,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n\n};",
+      "error": null,
+      "seed": "function Cat(name) {\n  this.name = name;\n}\n\nCat.prototype = {\n  constructor: Cat,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Bear(name) {\n  this.name = name;\n}\n\nBear.prototype = {\n  constructor: Bear,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};\n\nfunction Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function Cat(name) {\n  this.name = name;\n}\n\nCat.prototype = {\n  constructor: Cat\n};\n\nfunction Bear(name) {\n  this.name = name;\n}\n\nBear.prototype = {\n  constructor: Bear\n};\n\nfunction Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};",
+        "error": null,
+        "seed": "function Cat(name) {\n  this.name = name;\n}\n\nCat.prototype = {\n  constructor: Cat\n};\n\nfunction Bear(name) {\n  this.name = name;\n}\n\nBear.prototype = {\n  constructor: Bear\n};\n\nfunction Animal() { }\n\nAnimal.prototype = {\n  constructor: Animal,\n  eat: function() {\n    console.log(\"nom nom nom\");\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>Animal.prototype</code> treba da ima svojstvo <code>eat</code>.</p>",
+      "testString": "assert(Animal.prototype.hasOwnProperty('eat'));"
+    },
+    {
+      "text": "<p><code>Bear.prototype</code> ne bi trebalo da ima karakteristiku od <code>eat</code>.</p>",
+      "testString": "assert(!Bear.prototype.hasOwnProperty('eat'));"
+    },
+    {
+      "text": "<p><code>Cat.prototype</code> ne smije imati karakteristiku od <code>eat</code>.</p>",
+      "testString": "assert(!Cat.prototype.hasOwnProperty('eat'));"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U programiranju postoji princip poznat kao <dfn>Ne ponavljaj se (DRY)</dfn>. Problem sa ponavljanjem koda je što svaka promena zahteva izmenu na više mesta. To obično znači više posla za programere i veću mogućnost za greške.</p>\n<p>Pogledaj u sledećem primeru kako metodu <code>describe</code> dele i <code>Bird</code> i <code>Dog</code>:</p>\n<pre><code class=\"language-js\">Bird.prototype = {\n  constructor: Bird,\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};\n\nDog.prototype = {\n  constructor: Dog,\n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};\n</code></pre>\n<p>Putanja za <code>describe</code> se ponavlja na dva mesta. Kod se može izmeniti prateći princip DRY kreiranjem <code>supertype</code> (ili roditeljski) nazvanog <code>Animal</code>:</p>\n<pre><code class=\"language-js\">function Animal() { };\n\nAnimal.prototype = {\n  constructor: Animal, \n  describe: function() {\n    console.log(\"My name is \" + this.name);\n  }\n};\n</code></pre>\n<p>Pošto <code>Animal</code> uključuje metod <code>describe</code>, možete ga ukloniti iz <code>Bird</code> i <code>Dog</code>:</p>\n<pre><code class=\"language-js\">Bird.prototype = {\n  constructor: Bird\n};\n\nDog.prototype = {\n  constructor: Dog\n};\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Putanja za <code>eat</code> se ponavlja u <code>Cat</code> i <code>Bear</code>. Refaktoriši kod duhom DRY premeštanjem putanje <code>eat</code> na <code>Animal</code> <code>supertype</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

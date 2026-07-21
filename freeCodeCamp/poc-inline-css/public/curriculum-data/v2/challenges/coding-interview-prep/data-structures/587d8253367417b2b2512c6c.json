@@ -1,0 +1,69 @@
+{
+  "id": "587d8253367417b2b2512c6c",
+  "title": "Uspostite vezu između dva seta",
+  "challengeType": 1,
+  "forumTopicId": 301708,
+  "dashedName": "perform-a-union-on-two-sets",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "class Set {\n  constructor() {\n    // This will hold the set\n    this.dictionary = {};\n    this.length = 0;\n  }\n  // This method will check for the presence of an element and return true or false\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n  // This method will return all the values in the set\n  values() {\n    return Object.values(this.dictionary);\n  }\n  // This method will add an element to the set\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = element;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will remove an element from a set\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will return the size of the set\n  size() {\n    return this.length;\n  }\n  // Only change code below this line\n\n  // Only change code above this line\n}",
+      "error": null,
+      "seed": "class Set {\n  constructor() {\n    // This will hold the set\n    this.dictionary = {};\n    this.length = 0;\n  }\n  // This method will check for the presence of an element and return true or false\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n  // This method will return all the values in the set\n  values() {\n    return Object.values(this.dictionary);\n  }\n  // This method will add an element to the set\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = element;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will remove an element from a set\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will return the size of the set\n  size() {\n    return this.length;\n  }\n  // Only change code below this line\n\n  // Only change code above this line\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class Set {\n  constructor() {\n    this.dictionary = {};\n    this.length = 0;\n  }\n\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n\n  values() {\n    return Object.values(this.dictionary);\n  }\n\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = element;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n\n  size() {\n    return this.length;\n  }\n\n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n}",
+        "error": null,
+        "seed": "class Set {\n  constructor() {\n    this.dictionary = {};\n    this.length = 0;\n  }\n\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n\n  values() {\n    return Object.values(this.dictionary);\n  }\n\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = element;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n\n  size() {\n    return this.length;\n  }\n\n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Darasa lako za <code>Set</code> trebalo bi imati metodu <code>union</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = new Set();\n    return typeof test.union === 'function';\n  })()\n);"
+    },
+    {
+      "text": "<p>Kombinacija od <code>Set</code> sa vrednošću <code>[\"a\", \"b\", \"c\"]</code> i <code>Set</code> sa vrednošću <code>[\"c\", \"d\"]</code> bi trebalo da vrati <code>Set</code> sa novom vrednošću <code>[\"a\", \"b\", \"c\", \"d\"]</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var setA = new Set();\n    var setB = new Set();\n    setA.add('a');\n    setA.add('b');\n    setA.add('c');\n    setB.add('c');\n    setB.add('d');\n    var unionSetAB = setA.union(setB);\n    var final = unionSetAB.values();\n    return (\n      final.indexOf('a') !== -1 &&\n      final.indexOf('b') !== -1 &&\n      final.indexOf('c') !== -1 &&\n      final.indexOf('d') !== -1 &&\n      final.length === 4\n    );\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovoj vežbi napravićemo uniju dva skupa podataka. Kreiraćemo metodu u našoj strukturi podataka <code>Set</code> pod nazivom <code>union</code>. Ova metoda treba da prihvati drugi <code>Set</code> kao argument i vrati uniju ta dva skupa, uklanjajući sve duplikate.</p>\n<p>Na primer, ako <code>setA = ['a','b','c']</code> i <code>setB = ['a','b','d','e']</code>, onda je unija setA i setB: <code>setA.union(setB) = ['a', 'b', 'c', 'd', 'e']</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

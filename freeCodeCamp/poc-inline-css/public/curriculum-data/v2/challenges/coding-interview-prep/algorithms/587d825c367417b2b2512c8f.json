@@ -1,0 +1,77 @@
+{
+  "id": "587d825c367417b2b2512c8f",
+  "title": "Implementiraj merge sort",
+  "challengeType": 1,
+  "forumTopicId": 301614,
+  "dashedName": "implement-merge-sort",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function mergeSort(array) {\n  // Only change code below this line\n  return array;\n  // Only change code above this line\n}",
+      "error": null,
+      "seed": "function mergeSort(array) {\n  // Only change code below this line\n  return array;\n  // Only change code above this line\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function mergeSort(array) {\n  if (array.length === 1) {\n    return array;\n  } else {\n    const splitIndex = Math.floor(array.length / 2);\n    return merge(\n      mergeSort(array.slice(0, splitIndex)),\n      mergeSort(array.slice(splitIndex))\n    );\n  }\n\n  // Merge two sorted arrays\n  function merge(array1, array2) {\n    let merged = [];\n    while (array1.length && array2.length) {\n      if (array1[0] < array2[0]) {\n        merged.push(array1.shift());\n      } else if (array1[0] > array2[0]) {\n        merged.push(array2.shift());\n      } else {\n        merged.push(array1.shift(), array2.shift());\n      }\n    }\n\n    // After looping ends, one array is empty, and other array contains only\n    // values greater than all values in `merged`\n    return [...merged, ...array1, ...array2];\n  }\n}\n\nmergeSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]);",
+        "error": null,
+        "seed": "function mergeSort(array) {\n  if (array.length === 1) {\n    return array;\n  } else {\n    const splitIndex = Math.floor(array.length / 2);\n    return merge(\n      mergeSort(array.slice(0, splitIndex)),\n      mergeSort(array.slice(splitIndex))\n    );\n  }\n\n  // Merge two sorted arrays\n  function merge(array1, array2) {\n    let merged = [];\n    while (array1.length && array2.length) {\n      if (array1[0] < array2[0]) {\n        merged.push(array1.shift());\n      } else if (array1[0] > array2[0]) {\n        merged.push(array2.shift());\n      } else {\n        merged.push(array1.shift(), array2.shift());\n      }\n    }\n\n    // After looping ends, one array is empty, and other array contains only\n    // values greater than all values in `merged`\n    return [...merged, ...array1, ...array2];\n  }\n}\n\nmergeSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>mergeSort</code> treba da bude funkcija.</p>",
+      "testString": "assert.isFunction(mergeSort);"
+    },
+    {
+      "text": "<p><code>mergeSort</code> treba da vrati sortirani niz (od najmanjeg do najvećeg).</p>",
+      "testString": "function isSorted(a){\n  for(let i = 0; i < a.length - 1; i++)\n    if(a[i] > a[i + 1])\n      return false;\n  return true;\n}\nassert.isTrue(\n  isSorted(\n    mergeSort([\n      1,\n      4,\n      2,\n      8,\n      345,\n      123,\n      43,\n      32,\n      5643,\n      63,\n      123,\n      43,\n      2,\n      55,\n      1,\n      234,\n      92\n    ])\n  )\n);"
+    },
+    {
+      "text": "<p><code>mergeSort([1,4,2,8,345,123,43,32,5643,63,123,43,2,55,1,234,92])</code> treba da vrati niz koji nije promenjen osim redosleda.</p>",
+      "testString": "assert.sameMembers(\n  mergeSort([\n    1,\n    4,\n    2,\n    8,\n    345,\n    123,\n    43,\n    32,\n    5643,\n    63,\n    123,\n    43,\n    2,\n    55,\n    1,\n    234,\n    92\n  ]),\n  [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]\n);"
+    },
+    {
+      "text": "<p><code>mergeSort</code> ne sme da koristi metod koji je ugrađen u <code>.sort()</code>.</p>",
+      "testString": "function isBuiltInSortUsed(){\n  let sortUsed = false;\n  const temp = Array.prototype.sort;\n  Array.prototype.sort = () => sortUsed = true;\n  try {\n    mergeSort([0, 1]);\n  } finally {\n    Array.prototype.sort = temp;\n  }\n  return sortUsed;\n}\nassert.isFalse(isBuiltInSortUsed());"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Još jedan uobičajeni algoritam prosečnog slučaja za sortiranje je merge sort. Kao i quick sort, merge sort takođe koristi pristup podeli-pa-vladaj, odnosno rekurzivno sortiranje niza podataka. Koristi činjenicu da je lako sortirati dva niza podataka ako je svaki od njih već unapred sortiran. Ali počinjemo samo sa jednim nizom kao ulazom, pa kako dobijamo dva sortirana niza odatle? Pa, možemo podeliti originalni ulaz više puta dok ne stignemo do osnovnog slučaja - malog niza sa samo jednim elementom. Niz sa jednim elementom je po prirodi sortiran, tako da možemo početi da spajamo. Ovo spajanje će ukloniti rekurzivni poziv koji je podelio originalni niz, i na kraju će proizvesti konačan sortirani niz sa svim elementima. Koraci merge sorta, dakle, su:</p>\n<p><strong>1)</strong> Podeli niz ulaznih podataka više puta na pola dok ne ostane samo mali niz sa jednim elementom.</p>\n<p><strong>2)</strong> Spoji svaki mali sortirani niz zajedno da bi se proizveo konačni sortirani niz.</p>\n<p>Merge sort je dobar način sortiranja, sa vremenskom složenošću <em>O(nlog(n))</em>. Ovaj algoritam je popularan zato što je efikasan i lak za implementaciju.</p>\n<p>S druge strane, ovo će biti poslednji algoritam za sortiranje koji ćemo naučiti ovde. Međutim, kasnije u delu o strukturama podataka stabala ćemo opisati heap sort, drugi dobar način sortiranja koji zahteva binarno stablo u svom izvršavanju.</p>\n<p><strong>Uputstva:</strong> Napiši funkciju <code>mergeSort</code> koja prima niz celih brojeva kao ulaz i vraća niz tih brojeva sortiran od najmanjeg do najvećeg. Dobar način da se ovo implementira je pisanje jedne funkcije, na primer <code>merge</code>, koja se bavi spajanjem dva sortirana niza, i druge funkcije, na primer <code>mergeSort</code>, koja se bavi rekurzijom koja proizvodi male nizove sa jednim elementom koji se prosleđuju spajanju. Srećno!</p>\n</section>",
+  "translationPending": false,
+  "block": "algorithms",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

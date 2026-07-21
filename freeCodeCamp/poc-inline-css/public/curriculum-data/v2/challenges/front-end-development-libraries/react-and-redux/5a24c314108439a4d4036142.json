@@ -1,0 +1,109 @@
+{
+  "id": "5a24c314108439a4d4036142",
+  "title": "Stabilizujte situaciju prvo iznutra",
+  "challengeType": 6,
+  "forumTopicId": 301431,
+  "dashedName": "manage-state-locally-first",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class DisplayMessages extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      messages: []\n    }\n  }\n  // Add handleChange() and submitMessage() methods here\n\n  render() {\n    return (\n      <div>\n        <h2>Type in a new Message:</h2>\n        { /* Render an input, button, and ul below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class DisplayMessages extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      messages: []\n    }\n  }\n  // Add handleChange() and submitMessage() methods here\n\n  render() {\n    return (\n      <div>\n        <h2>Type in a new Message:</h2>\n        { /* Render an input, button, and ul below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class DisplayMessages extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      messages: []\n    }\n this.handleChange = this.handleChange.bind(this);\n   this.submitMessage = this.submitMessage.bind(this);\n }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  submitMessage() {\n    this.setState((state) => {\n      const currentMessage = state.input;\n      return {\n        input: '',\n        messages: state.messages.concat(currentMessage)\n      };  \n    });\n  }\n  render() {\n    return (\n      <div>\n        <h2>Type in a new Message:</h2>\n        <input\n          value={this.state.input}\n          onChange={this.handleChange}/><br/>\n        <button onClick={this.submitMessage}>Submit</button>\n        <ul>\n          {this.state.messages.map( (message, idx) => {\n              return (\n                 <li key={idx}>{message}</li>\n              )\n            })\n          }\n        </ul>\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "class DisplayMessages extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      messages: []\n    }\n this.handleChange = this.handleChange.bind(this);\n   this.submitMessage = this.submitMessage.bind(this);\n }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  submitMessage() {\n    this.setState((state) => {\n      const currentMessage = state.input;\n      return {\n        input: '',\n        messages: state.messages.concat(currentMessage)\n      };  \n    });\n  }\n  render() {\n    return (\n      <div>\n        <h2>Type in a new Message:</h2>\n        <input\n          value={this.state.input}\n          onChange={this.handleChange}/><br/>\n        <button onClick={this.submitMessage}>Submit</button>\n        <ul>\n          {this.state.messages.map( (message, idx) => {\n              return (\n                 <li key={idx}>{message}</li>\n              )\n            })\n          }\n        </ul>\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Komponenta <code>DisplayMessages</code> treba da se inicijalizuje sa stanjem <code>{ input: \"\", messages: [] }</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n    const initialState = mockedComponent.state();\n    return (\n      typeof initialState === 'object' &&\n      initialState.input === '' &&\n      initialState.messages.length === 0\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Sekcija za <code>DisplayMessages</code> treba da prikaže <code>div</code> koji uključuje element <code>h2</code>, element <code>button</code>, element <code>ul</code> i elemente <code>li</code> kao podelemente.</p>",
+      "testString": "  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n  const state = () => {\n    mockedComponent.setState({ messages: ['__TEST__MESSAGE'] });\n    return mockedComponent;\n  };\n  const updated = state();\n  assert(\n    updated.find('div').length === 1 &&\n      updated.find('h2').length === 1 &&\n      updated.find('button').length === 1 &&\n      updated.find('ul').length === 1 &&\n      updated.find('li').length > 0\n  );"
+    },
+    {
+      "text": "<p><code>.map</code> treba koristiti nad nizom <code>messages</code>.</p>",
+      "testString": "assert(code.match(/this\\.state\\.messages\\.map/g));"
+    },
+    {
+      "text": "<p><code>input</code> element treba da prikazuje vrednost <code>input</code> iz lokalnog stanja.</p>",
+      "testString": "  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n  const causeChange = (c, v) =>\n    c.find('input').simulate('change', { target: { value: v } });\n  const testValue = '__TEST__EVENT__INPUT';\n  const changed = () => {\n    causeChange(mockedComponent, testValue);\n    return mockedComponent;\n  };\n  const updated = changed();\n  assert(updated.find('input').props().value === testValue);"
+    },
+    {
+      "text": "<p>Poziv putem <code>handleChange</code> treba da ispravi vrednost <code>input</code> u trenutnom stanju za ulaz.</p>",
+      "testString": "  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n  const causeChange = (c, v) =>\n    c.find('input').simulate('change', { target: { value: v } });\n  const initialState = mockedComponent.state();\n  const testMessage = '__TEST__EVENT__MESSAGE__';\n  const changed = () => {\n    causeChange(mockedComponent, testMessage);\n    return mockedComponent;\n  };\n  const afterInput = changed();\n  assert(\n    initialState.input === '' &&\n      afterInput.state().input === '__TEST__EVENT__MESSAGE__'\n  );"
+    },
+    {
+      "text": "<p>Klik na dugme <code>Add message</code> treba da pozove metodu <code>submitMessage</code>, koja treba da doda trenutni <code>input</code> u niz <code>messages</code> u stanju.</p>",
+      "testString": "  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n  const causeChange = (c, v) =>\n    c.find('input').simulate('change', { target: { value: v } });\n  const initialState = mockedComponent.state();\n  const testMessage_1 = '__FIRST__MESSAGE__';\n  const firstChange = () => {\n    causeChange(mockedComponent, testMessage_1);\n    return mockedComponent;\n  };\n  const firstResult = firstChange();\n  const firstSubmit = () => {\n    mockedComponent.find('button').simulate('click');\n    return mockedComponent;\n  };\n  const afterSubmit_1 = firstSubmit();\n  const submitState_1 = afterSubmit_1.state();\n  const testMessage_2 = '__SECOND__MESSAGE__';\n  const secondChange = () => {\n    causeChange(mockedComponent, testMessage_2);\n    return mockedComponent;\n  };\n  const secondResult = secondChange();\n  const secondSubmit = () => {\n    mockedComponent.find('button').simulate('click');\n    return mockedComponent;\n  };\n  const afterSubmit_2 = secondSubmit();\n  const submitState_2 = afterSubmit_2.state();\n  assert(\n    initialState.messages.length === 0 &&\n      submitState_1.messages.length === 1 &&\n      submitState_2.messages.length === 2 &&\n      submitState_2.messages[1] === testMessage_2\n  );"
+    },
+    {
+      "text": "<p>Metoda <code>submitMessage</code> treba da obriše trenutni unos.</p>",
+      "testString": "  const mockedComponent = Enzyme.mount(React.createElement(DisplayMessages));\n  const causeChange = (c, v) =>\n    c.find('input').simulate('change', { target: { value: v } });\n  const initialState = mockedComponent.state();\n  const testMessage = '__FIRST__MESSAGE__';\n  const firstChange = () => {\n    causeChange(mockedComponent, testMessage);\n    return mockedComponent;\n  };\n  const firstResult = firstChange();\n  const firstState = firstResult.state();\n  const firstSubmit = () => {\n    mockedComponent.find('button').simulate('click');\n    return mockedComponent;\n  };\n  const afterSubmit = firstSubmit();\n  const submitState = afterSubmit.state();\n  assert(firstState.input === testMessage && submitState.input === '');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ovde ćete završiti kreiranje sekcije <code>DisplayMessages</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Prvo, u putanji <code>render()</code>, osigurati da deo prikaže element <code>input</code>, element <code>button</code> i element <code>ul</code>. Kada se element <code>input</code> promeni, treba da pokrene putanju <code>handleChange()</code>. Takođe, element <code>input</code> treba da prikaže vrednost <code>input</code> koja je u stanju tog dela. Element <code>button</code> treba da pokrene putanju <code>submitMessage()</code> kada se klikne.</p>\n<p>Drugo, napišite ove dve metode. Metoda <code>handleChange()</code> treba da ažurira <code>input</code> sa onim što korisnik unosi. Metoda <code>submitMessage()</code> treba da doda trenutnu poruku (sačuvanu u <code>input</code>) u niz <code>messages</code> u lokalnom stanju i da obriše vrednost <code>input</code>.</p>\n<p>Konačno, koristite <code>ul</code> za prolazak kroz red <code>messages</code> i prikazivanje na ekranu kao lista karakteristika za <code>li</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "react-and-redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 5,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

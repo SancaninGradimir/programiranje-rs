@@ -1,0 +1,90 @@
+{
+  "id": "587d7789367417b2b2512aa4",
+  "title": "Poboljšajte dostupnost audio sadržaja sa audio elementom",
+  "challengeType": 0,
+  "videoUrl": "https://scrimba.com/c/cVJVkcZ",
+  "forumTopicId": 301014,
+  "dashedName": "improve-accessibility-of-audio-content-with-the-audio-element",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<body>\n  <header>\n    <h1>Real Coding Ninjas</h1>\n  </header>\n  <main>\n    <p>A sound clip of Zersiax's screen reader in action.</p>\n\n\n\n  </main>\n</body>",
+      "error": null,
+      "seed": "<body>\n  <header>\n    <h1>Real Coding Ninjas</h1>\n  </header>\n  <main>\n    <p>A sound clip of Zersiax's screen reader in action.</p>\n\n\n\n  </main>\n</body>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<body>\n  <header>\n    <h1>Real Coding Ninjas</h1>\n  </header>\n  <main>\n    <p>A sound clip of Zersiax's screen reader in action.</p>\n    <audio controls>\n      <source src=\"https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3\" type=\"audio/mpeg\"/>\n    </audio>\n  </main>\n</body>",
+        "error": null,
+        "seed": "<body>\n  <header>\n    <h1>Real Coding Ninjas</h1>\n  </header>\n  <main>\n    <p>A sound clip of Zersiax's screen reader in action.</p>\n    <audio controls>\n      <source src=\"https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3\" type=\"audio/mpeg\"/>\n    </audio>\n  </main>\n</body>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaš kod treba da ima jedan <code>audio</code> element.</p>",
+      "testString": "assert.lengthOf(document.querySelectorAll('audio'),1);"
+    },
+    {
+      "text": "<p>Vaš <code>audio</code> element treba da ima zatvarajući tag.</p>",
+      "testString": "assert.match(code,/<audio.*>[\\s\\S]*<\\/audio>/g);\nassert.lengthOf(code.match(/<\\/audio>/g),1);"
+    },
+    {
+      "text": "<p><code>audio</code> tag trebao bi da ima <code>controls</code> atribut.</p>",
+      "testString": "assert.exists(document.querySelector('audio')?.getAttribute('controls'));"
+    },
+    {
+      "text": "<p>Vaš kod trebao bi da ima jedan <code>source</code> element.</p>",
+      "testString": "assert.lengthOf(document.querySelectorAll('source'), 1);"
+    },
+    {
+      "text": "<p>Vaš <code>source</code> element trebao bi biti unutar <code>audio</code> tagova.</p>",
+      "testString": "const audio = document.querySelector('audio');\nconst children = audio.querySelectorAll(`:scope ${'source'}`);\nassert.lengthOf(children,1);"
+    },
+    {
+      "text": "<p>Vrednost <code>src</code> atributa na <code>source</code> tagu trebala bi da se tačno poklapa sa linkom navedenim u uputstvima.</p>",
+      "testString": "assert.equal(\n  document.querySelector('source')?.getAttribute('src'),\n  'https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3'\n);"
+    },
+    {
+      "text": "<p>Vaš kod trebao bi da uključi <code>type</code> atribut na <code>source</code> tagu sa vrednošću audio/mpeg.</p>",
+      "testString": "assert.equal(document.querySelector('source')?.getAttribute('type'), 'audio/mpeg');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>HTML5 <code>audio</code> element ima semantičko značenje kada omotava audio ili sadržaj audio strima u vašim oznakama. Audio sadržaj takođe treba tekstualni ekvivalent kako bi bio dostupan osobama koje nisu gluvo ili imaju teškoće sa sluhom. To se može uraditi sa tekstom blizu na stranici ili linkove ka transkripciji.</p>\n<p><code>audio</code> tag podržava <code>controls</code> atribut. Ovo prikazuje osnovne kontrole preglednika za reprodukciju, pauzu itd., i podržava funkcionalnost tastature. To je boolean atribut, što znači da mu nije potrebna vrednost - samo njegove prisustvo na tagu aktivira tu postavku.</p>\n<p>Evde je primer:</p>\n<pre><code class=\"language-html\">&#x3C;audio id=\"meowClip\" controls>\n  &#x3C;source src=\"audio/meow.mp3\" type=\"audio/mpeg\">\n  &#x3C;source src=\"audio/meow.ogg\" type=\"audio/ogg\">\n&#x3C;/audio>\n</code></pre>\n<p><strong>Napomena:</strong> Medijski sadržaj obično ima i vizuelne i slušne komponente. Trebaju im uparene slike i tekstualne verzije kako bi se osobe sa vizuelnim i/ili slušnim invaliditetom mogle uključiti. Obično nije zadatak web programera da kreira opis slike ili tekstualnu verziju, ali mora biti svestan kako ih uključiti.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Vreme je za predah od Camper Cat-a i upoznavanje njegovog saputnika Zersiax-a (@zersiax), zagovornika pristupačnosti i korisnika čitača ekrana. Da bi čuo kako njegov čitač ekrana radi, dodaj element <code>audio</code> nakon elementa <code>p</code>. Uključi atribut <code>controls</code>. Zatim unutar elementa <code>audio</code> dodaj element <code>source</code> sa atributom <code>src</code> postavljenim na <code>https://cdn.freecodecamp.org/curriculum/applied-accessibility/screen-reader.mp3</code> i atributom <code>type</code> postavljenim na <code>\"audio/mpeg\"</code>.</p>\n<p><strong>Napomena:</strong> Audio klip može da se čini brz i teško razumljiv, ali to je uobičajena brzina za korisnike čitača ekrana.</p>\n</section>",
+  "translationPending": false,
+  "block": "applied-accessibility",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "responsive-web-design",
+  "superOrder": 27,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "responsive-web-design"
+}

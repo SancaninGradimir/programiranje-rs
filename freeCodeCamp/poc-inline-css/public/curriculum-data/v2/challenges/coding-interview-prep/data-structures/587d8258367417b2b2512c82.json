@@ -1,0 +1,100 @@
+{
+  "id": "587d8258367417b2b2512c82",
+  "title": "Izbriši čvor sa dve decice u binarnom stablu pretrage",
+  "challengeType": 1,
+  "forumTopicId": 301639,
+  "dashedName": "delete-a-node-with-two-children-in-a-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\n\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.remove = function(value) {\r\n    if (this.root === null) {\r\n      return null;\r\n    }\r\n    var target;\r\n    var parent = null;\r\n    // Find the target value and its parent\r\n    (function findValue(node = this.root) {\r\n      if (value == node.value) {\r\n        target = node;\r\n      } else if (value < node.value && node.left !== null) {\r\n        parent = node;\r\n        return findValue(node.left);\r\n      } else if (value < node.value && node.left === null) {\r\n        return null;\r\n      } else if (value > node.value && node.right !== null) {\r\n        parent = node;\r\n        return findValue(node.right);\r\n      } else {\r\n        return null;\r\n      }\r\n    }.bind(this)());\r\n    if (target === null) {\r\n      return null;\r\n    }\r\n    // Count the children of the target to delete\r\n    var children =\r\n      (target.left !== null ? 1 : 0) + (target.right !== null ? 1 : 0);\r\n    // Case 1: Target has no children\r\n    if (children === 0) {\r\n      if (target == this.root) {\r\n        this.root = null;\r\n      } else {\r\n        if (parent.left == target) {\r\n          parent.left = null;\r\n        } else {\r\n          parent.right = null;\r\n        }\r\n      }\r\n    }\r\n    // Case 2: Target has one child\r\n    else if (children == 1) {\r\n      var newChild = target.left !== null ? target.left : target.right;\r\n      if (parent === null) {\r\n        target.value = newChild.value;\r\n        target.left = null;\r\n        target.right = null;\r\n      } else if (newChild.value < parent.value) {\r\n        parent.left = newChild;\r\n      } else {\r\n        parent.right = newChild;\r\n      }\r\n      target = null;\r\n    }\r\n    // Case 3: Target has two children\r\n    // Only change code below this line\r\n  };\r\n}",
+      "error": null,
+      "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\n\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.remove = function(value) {\r\n    if (this.root === null) {\r\n      return null;\r\n    }\r\n    var target;\r\n    var parent = null;\r\n    // Find the target value and its parent\r\n    (function findValue(node = this.root) {\r\n      if (value == node.value) {\r\n        target = node;\r\n      } else if (value < node.value && node.left !== null) {\r\n        parent = node;\r\n        return findValue(node.left);\r\n      } else if (value < node.value && node.left === null) {\r\n        return null;\r\n      } else if (value > node.value && node.right !== null) {\r\n        parent = node;\r\n        return findValue(node.right);\r\n      } else {\r\n        return null;\r\n      }\r\n    }.bind(this)());\r\n    if (target === null) {\r\n      return null;\r\n    }\r\n    // Count the children of the target to delete\r\n    var children =\r\n      (target.left !== null ? 1 : 0) + (target.right !== null ? 1 : 0);\r\n    // Case 1: Target has no children\r\n    if (children === 0) {\r\n      if (target == this.root) {\r\n        this.root = null;\r\n      } else {\r\n        if (parent.left == target) {\r\n          parent.left = null;\r\n        } else {\r\n          parent.right = null;\r\n        }\r\n      }\r\n    }\r\n    // Case 2: Target has one child\r\n    else if (children == 1) {\r\n      var newChild = target.left !== null ? target.left : target.right;\r\n      if (parent === null) {\r\n        target.value = newChild.value;\r\n        target.left = null;\r\n        target.right = null;\r\n      } else if (newChild.value < parent.value) {\r\n        parent.left = newChild;\r\n      } else {\r\n        parent.right = newChild;\r\n      }\r\n      target = null;\r\n    }\r\n    // Case 3: Target has two children\r\n    // Only change code below this line\r\n  };\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "// solution required",
+        "error": null,
+        "seed": "// solution required"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype = Object.assign(\r\n  BinarySearchTree.prototype,\r\n  {\r\n    add: function(value) {\r\n      var node = this.root;\r\n      if (node == null) {\r\n        this.root = new Node(value);\r\n        return;\r\n      } else {\r\n        function searchTree(node) {\r\n          if (value < node.value) {\r\n            if (node.left == null) {\r\n              node.left = new Node(value);\r\n              return;\r\n            } else if (node.left != null) {\r\n              return searchTree(node.left);\r\n            }\r\n          } else if (value > node.value) {\r\n            if (node.right == null) {\r\n              node.right = new Node(value);\r\n              return;\r\n            } else if (node.right != null) {\r\n              return searchTree(node.right);\r\n            }\r\n          } else {\r\n            return null;\r\n          }\r\n        }\r\n        return searchTree(node);\r\n      }\r\n    },\r\n    inorder: function() {\r\n      if (this.root == null) {\r\n        return null;\r\n      } else {\r\n        var result = new Array();\r\n        function traverseInOrder(node) {\r\n          if (node.left != null) {\r\n            traverseInOrder(node.left);\r\n          }\r\n          result.push(node.value);\r\n          if (node.right != null) {\r\n            traverseInOrder(node.right);\r\n          }\r\n        }\r\n        traverseInOrder(this.root);\r\n        return result;\r\n      }\r\n    },\r\n    isBinarySearchTree() {\r\n      if (this.root == null) {\r\n        return null;\r\n      } else {\r\n        var check = true;\r\n        function checkTree(node) {\r\n          if (node.left != null) {\r\n            var left = node.left;\r\n            if (left.value > node.value) {\r\n              check = false;\r\n            } else {\r\n              checkTree(left);\r\n            }\r\n          }\r\n          if (node.right != null) {\r\n            var right = node.right;\r\n            if (right.value < node.value) {\r\n              check = false;\r\n            } else {\r\n              checkTree(right);\r\n            }\r\n          }\r\n        }\r\n        checkTree(this.root);\r\n        return check;\r\n      }\r\n    }\r\n  }\r\n);"
+  },
+  "tests": [
+    {
+      "text": "<p>Struktura podataka za <code>BinarySearchTree</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Binarno stabla za pretraživanje treba da ima putanju nazvanu <code>remove</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.remove == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Pokušaj brisanja elementa koji ne postoji treba da vrati <code>null</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.remove == 'function' ? test.remove(100) == null : false;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Ako čvor korena nema potomaka, brisanje bi trebalo da postavi koren na <code>null</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    test.add(500);\r\n    test.remove(500);\r\n    return typeof test.remove == 'function' ? test.inorder() == null : false;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>remove</code> bi trebalo da obriše listne čvorove sa stabla.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    test.add(5);\r\n    test.add(3);\r\n    test.add(7);\r\n    test.add(6);\r\n    test.add(10);\r\n    test.add(12);\r\n    test.remove(3);\r\n    test.remove(12);\r\n    test.remove(10);\r\n    return typeof test.remove == 'function'\r\n      ? test.inorder().join('') == '567'\r\n      : false;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>remove</code> treba da obriše čvorove sa jednim potomkom.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.remove !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(-1);\r\n    test.add(3);\r\n    test.add(7);\r\n    test.add(16);\r\n    test.remove(16);\r\n    test.remove(7);\r\n    test.remove(3);\r\n    return test.inorder().join('') == '-1';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Kada se ukloni koren iz drveća sa dva čvora, treba postaviti drugi čvor kao koren.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.remove !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(15);\r\n    test.add(27);\r\n    test.remove(15);\r\n    return test.inorder().join('') == '27';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>remove</code> treba da obriše čvor sa dve decice, dok održava strukturu binarnog stabla pretrage.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.remove !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(1);\r\n    test.add(4);\r\n    test.add(3);\r\n    test.add(7);\r\n    test.add(9);\r\n    test.add(11);\r\n    test.add(14);\r\n    test.add(15);\r\n    test.add(19);\r\n    test.add(50);\r\n    test.remove(9);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(11);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(14);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(19);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(3);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(50);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    test.remove(15);\r\n    if (!test.isBinarySearchTree()) {\r\n      return false;\r\n    }\r\n    return test.inorder().join('') == '147';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Koren treba da se obriše u drvetu sa tri čvora.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.remove !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(100);\r\n    test.add(50);\r\n    test.add(300);\r\n    test.remove(100);\r\n    return test.inorder().join('') == 50300;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Brisanje čvora koji ima dva potomka je najteži slučaj za implementaciju. Brisanje takvog čvora stvara dva manja stabla koja više nisu povezana sa originalnom strukturom stabla. Kako ih možemo ponovo povezati? Jedan način je pronalaženje najmanje vrednosti u desnom podstabaku ciljnog čvora i zamena tog ciljnog čvora ovom vrednošću. Izbor zamenika na ovaj način osigurava da je veći od svakog čvora u levom podstabaku, koji će mu biti novi roditelj, ali istovremeno manji od svakog čvora u desnom podstabaku, koji će takođe biti njegov novi roditelj. Kada se taj zamenik izabere, sam zamenički čvor mora biti uklonjen iz desnog podstabaka. Čak i ova operacija je teška jer može biti da je zamenik list ili on sam može biti roditeljski čvor desnog podstabaka. Ako je list, moramo obrisati referencu njegovog roditelja ka njemu. U suprotnom, mora biti desni potomak ciljnog čvora. U tom slučaju, moramo promeniti vrednost ciljnog čvora u vrednost zamenika i učiniti da ciljni čvor pokazuje na desnog potomka zamenika.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Završimo naš put za <code>remove</code> obrađivanjem trećeg slučaja. Ponovo smo izdali kod za prvih dva slučaja. Dodaj kod sada za obradu ciljnih čvorova sa dve decice. Da li ima nekih uglovnih slučajeva koje treba uzeti u obzir? Da li drvo ima samo tri čvora? Kada završiš, ovo će dovršiti našu operaciju brisanja za binarno stablo pretrage. Dobar posao, ovo je veoma težak izazov!</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 35,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

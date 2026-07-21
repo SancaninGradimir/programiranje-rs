@@ -1,0 +1,80 @@
+{
+  "id": "587d8257367417b2b2512c7c",
+  "title": "Proveri da li čvor postoji u binarnom stablu pretrage",
+  "challengeType": 1,
+  "forumTopicId": 301623,
+  "dashedName": "check-if-an-element-is-present-in-a-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}",
+      "error": null,
+      "seed": "var displayTree = tree => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.isPresent = function (value) {\r\n    var current = this.root\r\n    while (current) {\r\n      if (value === current.value) {\r\n        return true;\r\n      }\r\n      current = value < current.value ? current.left : current.right;\r\n    }\r\n    return false;\r\n  }\r\n}",
+        "error": null,
+        "seed": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\r\nfunction Node(value) {\r\n  this.value = value;\r\n  this.left = null;\r\n  this.right = null;\r\n}\r\nfunction BinarySearchTree() {\r\n  this.root = null;\r\n  this.isPresent = function (value) {\r\n    var current = this.root\r\n    while (current) {\r\n      if (value === current.value) {\r\n        return true;\r\n      }\r\n      current = value < current.value ? current.left : current.right;\r\n    }\r\n    return false;\r\n  }\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype = Object.assign(\r\n  BinarySearchTree.prototype,\r\n  {\r\n    add: function(value) {\r\n      var node = this.root;\r\n      if (node == null) {\r\n        this.root = new Node(value);\r\n        return;\r\n      } else {\r\n        function searchTree(node) {\r\n          if (value < node.value) {\r\n            if (node.left == null) {\r\n              node.left = new Node(value);\r\n              return;\r\n            } else if (node.left != null) {\r\n              return searchTree(node.left);\r\n            }\r\n          } else if (value > node.value) {\r\n            if (node.right == null) {\r\n              node.right = new Node(value);\r\n              return;\r\n            } else if (node.right != null) {\r\n              return searchTree(node.right);\r\n            }\r\n          } else {\r\n            return null;\r\n          }\r\n        }\r\n        return searchTree(node);\r\n      }\r\n    }\r\n  }\r\n);"
+  },
+  "tests": [
+    {
+      "text": "<p>Struktura podataka <code>BinarySearchTree</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Binarni stab za pretragu mora imati putanju nazvanu <code>isPresent</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.isPresent == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja <code>isPresent</code> mora tačno da proveri prisustvo ili neprisutnost dodatih elemenata na drvetu.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.isPresent !== 'function') {\r\n      return false;\r\n    }\r\n    test.add(4);\r\n    test.add(7);\r\n    test.add(411);\r\n    test.add(452);\r\n    return (\r\n      test.isPresent(452) &&\r\n      test.isPresent(411) &&\r\n      test.isPresent(7) &&\r\n      !test.isPresent(100)\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>isPresent</code> Trebalo bi da obradi slučaj gde je stablo prazno.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof BinarySearchTree !== 'undefined') {\r\n      test = new BinarySearchTree();\r\n    } else {\r\n      return false;\r\n    }\r\n    if (typeof test.isPresent !== 'function') {\r\n      return false;\r\n    }\r\n    return test.isPresent(5) == false;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada imamo opšte razumevanje binarnog stabla pretrage, hajde da pričamo o tome detaljnije. Binarna stablo pretrage pruža logaritamsko vreme za uobičajene operacije pretraživanja, dodavanja i brisanja u prosečnom slučaju, a linearno vreme u najgorem slučaju. Zašto je to tako? Svaka od ovih osnovnih operacija zahteva da pronađemo element u stablu (ili u slučaju dodavanja, da pronađemo gde bi trebalo da bude postavljen) i zbog strukture stabla na svakom roditeljskom čvoru, delimo levu ili desnu stranu, efikasno uklanjajući polovinu veličine preostalog stabla. To čini pretraživanje ekvivalentnim logaritmu broja čvorova u stablu, što stvara logaritamsko vreme za ove operacije u prosečnom slučaju. Dobro, ali šta je sa najgorem slučaju? Pa, zamislite da gradimo stablo iz sledećih vrednosti, dodajući ih od leve ka desnoj: <code>10</code>, <code>12</code>, <code>17</code>, <code>25</code>. Prateći naše pravilo binarnog stabla pretrage, dodali bismo <code>12</code> na desnu stranu <code>10</code>, <code>17</code> na desnu stranu ovog, i <code>25</code> na desnu stranu ovog. Sada naše stablo izgleda kao spajana lista, a prolazak kroz njega za pretraživanje <code>25</code> zahteva prolazak kroz sve elemente u linearnom redosledu. Stoga, linearno vreme u najgorem slučaju. Problem ovde je što stablo nije uravnoteženo. Detaljnije ćemo pogledati značenje toga u sledećim izazovima.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U ovom izazovu, kreiraćemo alat za naše drvo. Napišite funkciju <code>isPresent</code> koja uzima ceo broj kao ulaz i vraća boolean vrednost (tačno ili netačno) za postojanje ili nepostojanje te vrednosti u binarnom stablu pretrage.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

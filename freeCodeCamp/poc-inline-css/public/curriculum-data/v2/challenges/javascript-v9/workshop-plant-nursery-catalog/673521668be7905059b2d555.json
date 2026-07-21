@@ -1,0 +1,62 @@
+{
+  "id": "673521668be7905059b2d555",
+  "title": "Korak 22",
+  "challengeType": 1,
+  "dashedName": "step-22",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        58,
+        64
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const ballerina = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Ballerina\"\n}\n\nconst prettyPolly = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Pretty Polly\"\n}\n\nconst willowVale = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Willow Vale\"\n}\n\nconst hidcote = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Hidcote\"\n}\n\nconst imperialGem = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Imperial Gem\"\n}\n\nconst royalCrown = {\n    commonName: \"French lavender\",\n    scientificName: \"Lavandula dentata\",\n    cultivar: \"Royal Crown\"\n}\n\nconst catalog = new Map();\ncatalog.set(ballerina, { small: 20, medium: 15, large: 12 });\ncatalog.set(prettyPolly, { small: 31, medium: 14, large: 24 });\ncatalog.set(willowVale, { small: 3, medium: 5, large: 0 });\ncatalog.set(hidcote, { small: 33, medium: 13, large: 18 });\ncatalog.set(imperialGem, { small: 19, medium: 35, large: 28 });\ncatalog.set(royalCrown, { small: 40, medium: 22, large: 9 });\n\nconst sellPlants = (plant, size, potsNo) => {\n    if (!catalog.has(plant)) return \"Item not found.\";\n    const name = `${plant.scientificName} '${plant.cultivar}'`\n    const pots = catalog.get(plant);\n    if (pots[size] - potsNo < 0) {\n        return `Not enough ${size} size pots for ${name}. Only ${pots[size]} left.`\n    }\n    pots[size] -= potsNo;\n    return `Catalog successfully updated.`\n}\n\nconst removePlant = plant => catalog.delete(plant);\n\nconst displayCatalog = () => {\n    for (const entry of catalog.entries()) {\n        console.log(entry);\n    }\n}\ndisplayCatalog()",
+      "error": null,
+      "seed": "const ballerina = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Ballerina\"\n}\n\nconst prettyPolly = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Pretty Polly\"\n}\n\nconst willowVale = {\n    commonName: \"Spanish lavender\",\n    scientificName: \"Lavandula stoechas\",\n    cultivar: \"Willow Vale\"\n}\n\nconst hidcote = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Hidcote\"\n}\n\nconst imperialGem = {\n    commonName: \"English lavender\",\n    scientificName: \"Lavandula angustifolia\",\n    cultivar: \"Imperial Gem\"\n}\n\nconst royalCrown = {\n    commonName: \"French lavender\",\n    scientificName: \"Lavandula dentata\",\n    cultivar: \"Royal Crown\"\n}\n\nconst catalog = new Map();\ncatalog.set(ballerina, { small: 20, medium: 15, large: 12 });\ncatalog.set(prettyPolly, { small: 31, medium: 14, large: 24 });\ncatalog.set(willowVale, { small: 3, medium: 5, large: 0 });\ncatalog.set(hidcote, { small: 33, medium: 13, large: 18 });\ncatalog.set(imperialGem, { small: 19, medium: 35, large: 28 });\ncatalog.set(royalCrown, { small: 40, medium: 22, large: 9 });\n\nconst sellPlants = (plant, size, potsNo) => {\n    if (!catalog.has(plant)) return \"Item not found.\";\n    const name = `${plant.scientificName} '${plant.cultivar}'`\n    const pots = catalog.get(plant);\n    if (pots[size] - potsNo < 0) {\n        return `Not enough ${size} size pots for ${name}. Only ${pots[size]} left.`\n    }\n    pots[size] -= potsNo;\n    return `Catalog successfully updated.`\n}\n\nconst removePlant = plant => catalog.delete(plant);\n\nconst displayCatalog = () => {\n    for (const entry of catalog.entries()) {\n        console.log(entry);\n    }\n}\ndisplayCatalog()"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should log the result of calling <code>displayCatalog</code> to the console.</p>",
+      "testString": "assert.match(__helpers.removeJSComments(code), /console\\s*\\.\\s*log\\s*\\(\\s*displayCatalog\\s*\\(\\s*\\)\\s*\\)/)"
+    },
+    {
+      "text": "<p>Your <code>displayCatalog</code> function should use the <code>forEach</code> method on <code>catalog</code>.</p>",
+      "testString": "let flag = false;\nconst temp = catalog.forEach;\ntry {\n    catalog.forEach = obj => {flag = true};\n    displayCatalog();    \n    assert.isTrue(flag);    \n} finally {\n    catalog.forEach = temp;\n}"
+    },
+    {
+      "text": "<p><code>displayCatalog</code> treba da vrati <code>--fcc-expected--</code>, ali je vraćeno <code>--fcc-actual--</code>.</p>",
+      "testString": "const displayCatalogTest = () => {\n    let catalogString = \"\";\n    catalog.forEach((val, key) => {\n        catalogString += `${key.scientificName} '${key.cultivar}': ${val.small} S, ${val.medium} M, ${val.large} L\n`   })\n    return catalogString\n}\nassert.equal(displayCatalog(), displayCatalogTest())"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Konačno, možete koristiti metod <code>forEach</code> za pokretanje funkcije na svakoj pari ključ-vrednost u vašoj mapi.</p>\n<pre><code class=\"language-js\">myMap.forEach((value, key) => {console.log(key, value)});\n</code></pre>\n<p>Napomenite da povratna funkcija prosleđena <code>forEach</code> pristupa vrednosti preko svog prvog argumenta i ključu preko svog drugog argumenta za svaki unos.</p>\n<p>Izmenite svoju funkciju tako da vrati niz koji sadrži ceo vaš katalog i loguje rezultat u konzolu. Konstruišite svoj niz koristeći sledeću strukturu za svaki unos u <code>catalog</code>:</p>\n<pre><code class=\"language-md\">&#x3C;scientific-name> '&#x3C;cultivar>': &#x3C;small-pots> S, &#x3C;medium-pots> M, &#x3C;large-pots> L\n\n</code></pre>\n<p>Napomenite da reprezentacija svakog unosa treba da se završava znakom novog reda.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-plant-nursery-catalog",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 166,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "maps-and-sets",
+  "certification": "javascript-v9"
+}

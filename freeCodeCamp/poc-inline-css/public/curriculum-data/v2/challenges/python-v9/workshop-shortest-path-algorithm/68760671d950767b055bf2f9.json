@@ -1,0 +1,58 @@
+{
+  "id": "68760671d950767b055bf2f9",
+  "title": "Korak 11",
+  "challengeType": 20,
+  "dashedName": "step-11",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        17,
+        22
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):  \n        min_distance = INF  \n        current = -1\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):  \n        min_distance = INF  \n        current = -1\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da ima drugi ciklus za <code>for</code> unutar funkcije <code>shortest_path</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(`\nfunc = _Node(_code).find_function(\"shortest_path\")\nouter_loop = func.find_for_loops()[0]\nlen(outer_loop.find_bodies()[0].find_for_loops()) >= 1\n      `)\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Tvoj ciklus za <code>for</code> treba da prođe preko <code>range(n)</code> sa <code>node_no</code> kao parametrom ponavljanja.</p>",
+      "testString": "({\n    test: () => {\n        runPython(`\nfunc = _Node(_code).find_function(\"shortest_path\")\nouter_loop = func.find_for_loops()[0]\ninner_loop = outer_loop.find_bodies()[0].find_for_loops()[0]\nassert inner_loop.find_for_vars().is_equivalent(\"node_no\")\nassert inner_loop.find_for_iter().is_equivalent(\"range(n)\")\n      `);\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada je potrebno da prođeš kroz svaki čvor kako bi pronašao najbliži poznati čvor koji još uvek nije posetjen.</p>\n<p>Da biste to uradili, dodajte sekciju <code>for</code> unutar glavne sekcije.</p>\n<p>Krug mora proći kroz svaki <code>node_no</code> u <code>range(n)</code>, gde je <code>n</code> broj čvorova na dijagramu. Dodaj <code>pass</code> kao privremeno telo kruga.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

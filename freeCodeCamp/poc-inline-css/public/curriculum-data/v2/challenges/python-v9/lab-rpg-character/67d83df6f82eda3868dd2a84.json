@@ -1,0 +1,139 @@
+{
+  "id": "67d83df6f82eda3868dd2a84",
+  "title": "Kreiraj lika za RPG",
+  "challengeType": 27,
+  "dashedName": "build-an-rpg-character",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "full_dot = '●'\r\nempty_dot = '○'\r\n\r\n",
+      "error": null,
+      "seed": "full_dot = '●'\r\nempty_dot = '○'\r\n\r\n"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "main.py"
+        ],
+        "name": "main",
+        "ext": "py",
+        "path": "main.py",
+        "fileKey": "mainpy",
+        "contents": "full_dot = '●'\r\nempty_dot = '○'\r\n\r\ndef create_character(character_name, strength, intelligence, charisma):\r\n    if type(character_name) != str:\r\n        return 'The character name should be a string'\r\n    if len(character_name) == 0:\r\n        return 'The character should have a name'\r\n    if len(character_name) > 10:\r\n        return 'The character name is too long'\r\n    if ' ' in character_name:\r\n        return 'The character name should not contain spaces'\r\n\r\n    if type(strength) != int or type(intelligence) != int or type(charisma) != int:\r\n       return 'All stats should be integers'\r\n    if strength < 1 or intelligence < 1 or charisma < 1:\r\n        return 'All stats should be no less than 1'\r\n    if strength > 4 or intelligence > 4 or charisma > 4:\r\n        return 'All stats should be no more than 4'\r\n    if strength + intelligence + charisma != 7:\r\n        return 'The character should start with 7 points'\r\n\r\n    character_sheet = f'{character_name}\\n'\r\n    character_sheet += f'STR {full_dot * strength}{empty_dot * (10 - strength)}\\n'\r\n    character_sheet += f'INT {full_dot * intelligence}{empty_dot * (10 - intelligence)}\\n'\r\n    character_sheet += f'CHA {full_dot * charisma}{empty_dot * (10 - charisma)}'\r\n    return character_sheet",
+        "error": null,
+        "seed": "full_dot = '●'\r\nempty_dot = '○'\r\n\r\ndef create_character(character_name, strength, intelligence, charisma):\r\n    if type(character_name) != str:\r\n        return 'The character name should be a string'\r\n    if len(character_name) == 0:\r\n        return 'The character should have a name'\r\n    if len(character_name) > 10:\r\n        return 'The character name is too long'\r\n    if ' ' in character_name:\r\n        return 'The character name should not contain spaces'\r\n\r\n    if type(strength) != int or type(intelligence) != int or type(charisma) != int:\r\n       return 'All stats should be integers'\r\n    if strength < 1 or intelligence < 1 or charisma < 1:\r\n        return 'All stats should be no less than 1'\r\n    if strength > 4 or intelligence > 4 or charisma > 4:\r\n        return 'All stats should be no more than 4'\r\n    if strength + intelligence + charisma != 7:\r\n        return 'The character should start with 7 points'\r\n\r\n    character_sheet = f'{character_name}\\n'\r\n    character_sheet += f'STR {full_dot * strength}{empty_dot * (10 - strength)}\\n'\r\n    character_sheet += f'INT {full_dot * intelligence}{empty_dot * (10 - intelligence)}\\n'\r\n    character_sheet += f'CHA {full_dot * charisma}{empty_dot * (10 - charisma)}'\r\n    return character_sheet"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju koja se zove <code>create_character</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n`\r\nassert _Node(_code).has_function('create_character')\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada je <code>create_character</code> pozvano sa prvim argumentom koji nije niz slova, trebalo bi da vrati <code>The character name should be a string</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nwrong_types = [3, 5, {'a': 3}, 3.1, [1, 2], (1, 2), {1, 2}]\r\nfor wrong_type in wrong_types:\r\n    assert create_character(wrong_type, 1, 2, 4) == 'The character name should be a string'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je naznačeno prvim argumentom koji je niz slova, ne bi trebalo da vrati <code>The character name should be a string</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `assert create_character('ren', 1, 2, 4) != 'The character name should be a string'`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je pozvano sa prvim argumentom koji je prazan niz znakova, trebalo bi da vrati <code>The character should have a name</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('', 4, 2, 1) == 'The character should have a name'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada se <code>create_character</code> pozove sa prvim argumentom koji nije prazan niz znakova, ne bi trebalo da vrati <code>The character should have a name</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 2, 1) != 'The character should have a name'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Wada <code>create_character</code> bude pozvan prvim argumentom koji ima više od 10 karaktera, treba da vrati <code>The character name is too long</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nfor length in range(11, 27):\r\n    assert create_character('abcdefghijklmnopqrstuvwxyz'[:length], 4, 2, 1) == 'The character name is too long'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Funkcija <code>create_character</code> ne bi trebalo da kaže da je karakter predugačak kada nije duži od 10 karaktera.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nfor length in range(0, 11):\r\n  assert create_character('aaabbcccdd'[:length], 4, 2, 1) != 'The character name is too long'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je navedeno prvim argumentom koji ima prostor, trebalo bi da vrati <code>The character name should not contain spaces</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('cha cha', 4, 1, 2) == 'The character name should not contain spaces'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> bude pozvan prvim argumentom koji nema mesta, ne bi trebalo da vrati <code>The character name should not contain spaces</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('chacha', 4, 2, 1) != 'The character name should not contain spaces'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je pozvan sa drugim, trećim ili četvrtim argumentom koji nije pun broj, treba da vrati <code>All stats should be integers</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nwrong_types = ['3', '5', {'a': 3}, 3.1, [1, 2], (1, 2), {1, 2}, 'str', 'friend']\r\nfor wrong_type in wrong_types:\r\n    assert create_character('friend', wrong_type, 2, 1) == 'All stats should be integers'\r\n    assert create_character('friend', 2, wrong_type, 1) == 'All stats should be integers'\r\n    assert create_character('friend', 2, 1, wrong_type) == 'All stats should be integers'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada je <code>create_character</code> nazvan drugim, trećim i četvrtim argumentom koji su svi potpuni brojevi, ne bi trebalo da vrati <code>All stats should be integers</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('friend', 4, 2, 1) != 'All stats should be integers'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je upućen drugim, trećim ili četvrtim stavkom koji spadaju pod <code>1</code>, treba da vrati <code>All stats should be no less than 1</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nexpected = 'All stats should be no less than 1'\r\n\r\nassert create_character('ren', 0, 4, 3) == expected\r\nassert create_character('ren', 4, 0, 3) == expected\r\nassert create_character('ren', 4, 3, 0) == expected\r\nassert create_character('ren', -1, 4, 4) == expected\r\nassert create_character('ren', 4, -1, 4) == expected\r\nassert create_character('ren', 4, 4, -1) == expected\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je pozvan sa drugim, trećim i četvrtim argumentom, koji nisu pod <code>1</code>, ne bi trebalo da vrati <code>All stats should be no less than 1</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 2, 1) != 'All stats should be no less than 1'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> je pozvan sa drugim, trećim ili četvrtim argumentom koji je veći od <code>4</code>, treba da vrati <code>All stats should be no more than 4</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 1, 5, 1) == 'All stats should be no more than 4'\r\nassert create_character('ren', 5, 1, 1) == 'All stats should be no more than 4'\r\nassert create_character('ren', 1, 1, 5) == 'All stats should be no more than 4'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada je <code>create_character</code> navedeno drugim, trećim i četvrtim argumentom koji nisu veći od <code>4</code>, ne bi trebalo da vrati <code>All stats should be no more than 4</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 2, 1) != 'All stats should be no more than 4'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> bude pozvan putem drugog, trećeg ili četvrtog argumenta koji ne uključuju <code>7</code>, bi trebalo da vrati <code>The character should start with 7 points</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 4, 4) == 'The character should start with 7 points'\r\nassert create_character('ren', 1, 1, 1) == 'The character should start with 7 points'\r\nassert create_character('ren', 1, 2, 3) == 'The character should start with 7 points'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> se pozove sa drugim, trećim i četvrtim argumentima koji kombinuju <code>7</code>, ne bi trebalo da vrati <code>The character should start with 7 points</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 2, 1) != 'The character should start with 7 points'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p><code>create_character('ren', 4, 2, 1)</code> treba da vrati <code>ren\\nSTR ●●●●○○○○○○\\nINT ●●○○○○○○○○\\nCHA ●○○○○○○○○○</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('ren', 4, 2, 1) == f'ren\\\\nSTR ●●●●○○○○○○\\\\nINT ●●○○○○○○○○\\\\nCHA ●○○○○○○○○○'\r\n`\r\n    )\r\n})"
+    },
+    {
+      "text": "<p>Kada <code>create_character</code> dobije važeću vrednost, trebalo bi da vrati statistiku lika kako je potrebno.</p>",
+      "testString": "({\r\n    test: () => runPython(\r\n        `\r\nassert create_character('Bob', 1, 2, 4) == f'Bob\\\\nSTR ●○○○○○○○○○\\\\nINT ●●○○○○○○○○\\\\nCHA ●●●●○○○○○○'\r\nassert create_character('aaabbbcccd', 4, 2, 1) == f'aaabbbcccd\\\\nSTR ●●●●○○○○○○\\\\nINT ●●○○○○○○○○\\\\nCHA ●○○○○○○○○○'\r\n`\r\n    )\r\n})\r\n"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovoj laboratoriji ćeš naučiti osnove Python za izradu male aplikacije koja kreira lika za RPG avanturu.</p>\n<p><strong>Cilj:</strong> Popunite priče korisnika ispod i prođite sve testove kako biste završili laboratoriju.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Trebalo bi da postoji funkcija koja se zove <code>create_character</code>.</li>\n<li>Funkcija treba da primi, po redosledu, ime lika praćeno sa tri statistike: snaga, inteligencija i šarm.</li>\n<li>Ime lika mora biti validirano:\n<ul>\n<li>Ako ime lika nije niz slova, funkcija treba da vrati <code>The character name should be a string</code>.</li>\n<li>Ako ime lika je prazan niz slova, funkcija treba da vrati <code>The character should have a name</code>.</li>\n<li>Ako ime lika ima više od 10 slova, funkcija treba da vrati <code>The character name is too long</code>.</li>\n<li>Ako ime lika sadrži razmak, funkcija treba da vrati <code>The character name should not contain spaces</code>.</li>\n</ul>\n</li>\n<li>Statistike takođe moraju biti validirane:\n<ul>\n<li>Ako je jedna ili više statistika ceo broj, funkcija treba da vrati <code>All stats should be integers</code>.</li>\n<li>Ako je jedna ili više statistika manja od 1, funkcija treba da vrati <code>All stats should be no less than 1</code>.</li>\n<li>Ako je jedna ili više statistika veća od 4, funkcija treba da vrati <code>All stats should be no more than 4</code>.</li>\n<li>Ako ukupan zbir svih statistika nije jednak 7, funkcija treba da vrati <code>The character should start with 7 points</code>.</li>\n</ul>\n</li>\n<li>Ako sve vrednosti prođu validaciju, funkcija treba da vrati niz slova sa četiri reda:\n<ul>\n<li>prvi red treba da sadrži ime lika</li>\n<li>redovi 2-4 moraju početi sa skraćenici statistike, <code>STR</code>, <code>INT</code> ili <code>CHA</code> (u ovom redosledu), zatim razmak, a zatim tačka sa decimalom (<code>●</code>) u skladu sa vrednošću statistike, i prazna tačka (<code>○</code>) za 10. Primer: ako je vrednost snage 3, mora da sledi tačka 3 sa decimalom praćena tačkom 7 za celo broj. Tačke su uklonjene u editoru.</li>\n</ul>\n</li>\n</ol>\n<p>Ovo je sekvenca slova koja mora biti vraćena na <code>create_character('ren', 4, 2, 1)</code>:</p>\n<pre><code class=\"language-md\">ren\r\nSTR ●●●●○○○○○○\r\nINT ●●○○○○○○○○\r\nCHA ●○○○○○○○○○\n</code></pre>\n<p>NAPOMENA: iako su <code>str</code> i <code>int</code> uobičajene statističke skraćenice, zapamtite da su ključne reči sačuvane u Python i ne bi trebalo koristiti ih kao imena parametara.</p>\n</section>",
+  "translationPending": false,
+  "block": "lab-rpg-character",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 13,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-basics",
+  "certification": "python-v9"
+}

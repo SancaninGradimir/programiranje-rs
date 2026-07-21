@@ -1,0 +1,51 @@
+{
+  "id": "65fd97f3c1b4c4839bdeb8d2",
+  "title": "Korak 60",
+  "challengeType": 20,
+  "dashedName": "step-60",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        36,
+        40
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Funkcija za <code>__eq__</code> treba da vrati <code>True</code> ako je svako svojstvo elementa trenutnog modela jednako istom svojstvu od <code>other</code>, i inače vraća <code>False</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=2, y=3)\nv3 = R2Vector(x=0.5, y=1.25)\nv4 = R3Vector(x=2, y=3, z=1.5)\nv5 = R3Vector(x=2, y=3, z=1.5)\nv6 = R3Vector(x=0.5, y=1.25, z=1.5)\nv1 == v2 and not v1 == v3 and v4 == v5 and not v5 == v6\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste uporedili dva vektora, morate osigurati da je svaka komponenta prvog vektora jednaka odgovarajućoj komponenti drugog vektora.</p>\n<p>Nakon izjave <code>if</code> koja je kreirana u prethodnom koraku, vrati <code>True</code> ako je svako svojstvo trenutnog model elementa jednako istom svojstvu <code>other</code>, inače vrati <code>False</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 59,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

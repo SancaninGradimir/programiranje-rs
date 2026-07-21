@@ -1,0 +1,101 @@
+{
+  "id": "a7bf700cd123b9a54eef01d5",
+  "title": "Bez ponavljanja molim",
+  "challengeType": 1,
+  "forumTopicId": 16037,
+  "dashedName": "no-repeats-please",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function permAlone(str) {\n  return str;\n}\n\npermAlone('aab');",
+      "error": null,
+      "seed": "function permAlone(str) {\n  return str;\n}\n\npermAlone('aab');"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function permAlone(str) {\n  return permuter(str).filter(function(perm) {\n    return !perm.match(/(.)\\1/g);\n  }).length;\n}\n\nfunction permuter(str) {\n  // http://staff.roguecc.edu/JMiller/JavaScript/permute.html\n  //permArr: Global array which holds the list of permutations\n  //usedChars: Global utility array which holds a list of \"currently-in-use\" characters\n  var permArr = [], usedChars = [];\n  function permute(input) {\n    //convert input into a char array (one element for each character)\n    var i, ch, chars = input.split(\"\");\n    for (i = 0; i < chars.length; i++) {\n      //get and remove character at index \"i\" from char array\n      ch = chars.splice(i, 1);\n      //add removed character to the end of used characters\n      usedChars.push(ch);\n      //when there are no more characters left in char array to add, add used chars to list of permutations\n      if (chars.length === 0) permArr[permArr.length] = usedChars.join(\"\");\n      //send characters (minus the removed one from above) from char array to be permuted\n      permute(chars.join(\"\"));\n      //add removed character back into char array in original position\n      chars.splice(i, 0, ch);\n      //remove the last character used off the end of used characters array\n      usedChars.pop();\n    }\n  }\n  permute(str);\n  return permArr;\n}\n\npermAlone('aab');",
+        "error": null,
+        "seed": "function permAlone(str) {\n  return permuter(str).filter(function(perm) {\n    return !perm.match(/(.)\\1/g);\n  }).length;\n}\n\nfunction permuter(str) {\n  // http://staff.roguecc.edu/JMiller/JavaScript/permute.html\n  //permArr: Global array which holds the list of permutations\n  //usedChars: Global utility array which holds a list of \"currently-in-use\" characters\n  var permArr = [], usedChars = [];\n  function permute(input) {\n    //convert input into a char array (one element for each character)\n    var i, ch, chars = input.split(\"\");\n    for (i = 0; i < chars.length; i++) {\n      //get and remove character at index \"i\" from char array\n      ch = chars.splice(i, 1);\n      //add removed character to the end of used characters\n      usedChars.push(ch);\n      //when there are no more characters left in char array to add, add used chars to list of permutations\n      if (chars.length === 0) permArr[permArr.length] = usedChars.join(\"\");\n      //send characters (minus the removed one from above) from char array to be permuted\n      permute(chars.join(\"\"));\n      //add removed character back into char array in original position\n      chars.splice(i, 0, ch);\n      //remove the last character used off the end of used characters array\n      usedChars.pop();\n    }\n  }\n  permute(str);\n  return permArr;\n}\n\npermAlone('aab');"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>permAlone(\"aab\")</code> treba da vrati broj.</p>",
+      "testString": "assert.isNumber(permAlone('aab'));"
+    },
+    {
+      "text": "<p><code>permAlone(\"aab\")</code> treba da vrati 2.</p>",
+      "testString": "assert.strictEqual(permAlone('aab'), 2);"
+    },
+    {
+      "text": "<p><code>permAlone(\"aaa\")</code> treba da vrati 0.</p>",
+      "testString": "assert.strictEqual(permAlone('aaa'), 0);"
+    },
+    {
+      "text": "<p><code>permAlone(\"aabb\")</code> treba da vrati 8.</p>",
+      "testString": "assert.strictEqual(permAlone('aabb'), 8);"
+    },
+    {
+      "text": "<p><code>permAlone(\"abcdefa\")</code> treba da vrati 3600.</p>",
+      "testString": "assert.strictEqual(permAlone('abcdefa'), 3600);"
+    },
+    {
+      "text": "<p><code>permAlone(\"abfdefa\")</code> treba da vrati 2640.</p>",
+      "testString": "assert.strictEqual(permAlone('abfdefa'), 2640);"
+    },
+    {
+      "text": "<p><code>permAlone(\"zzzzzzzz\")</code> treba da vrati 0.</p>",
+      "testString": "assert.strictEqual(permAlone('zzzzzzzz'), 0);"
+    },
+    {
+      "text": "<p><code>permAlone(\"a\")</code> treba da vrati 1.</p>",
+      "testString": "assert.strictEqual(permAlone('a'), 1);"
+    },
+    {
+      "text": "<p><code>permAlone(\"aaab\")</code> treba da vrati 0.</p>",
+      "testString": "assert.strictEqual(permAlone('aaab'), 0);"
+    },
+    {
+      "text": "<p><code>permAlone(\"aaabb\")</code> treba da vrati 12.</p>",
+      "testString": "assert.strictEqual(permAlone('aaabb'), 12);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vratite broj svih permutacija datog niza karaktera koje nemaju ponavljajuće se karaktere uzastopno. Pretpostavite da su svi karakteri u datom nizu jedinstveni.</p>\n<p>Na primer, <code>aab</code> treba da vrati 2 zato što ima 6 permutacija ukupno (<code>aab</code>, <code>aab</code>, <code>aba</code>, <code>aba</code>, <code>baa</code>, <code>baa</code>), ali samo 2 od njih (<code>aba</code> i <code>aba</code>) nemaju isti karakter (u ovom slučaju <code>a</code>) koji se ponavlja uzastopno.</p>\n</section>",
+  "translationPending": false,
+  "block": "algorithms",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

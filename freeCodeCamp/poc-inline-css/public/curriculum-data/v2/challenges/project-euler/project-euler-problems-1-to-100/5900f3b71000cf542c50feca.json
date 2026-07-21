@@ -1,0 +1,81 @@
+{
+  "id": "5900f3b71000cf542c50feca",
+  "title": "Izazov 75: Figurom za desni ugao sa samo jednim savršenim brojem",
+  "challengeType": 1,
+  "forumTopicId": 302188,
+  "dashedName": "problem-75-singular-integer-right-triangles",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function singularIntRightTriangles(n) {\n\n  return true;\n}\n\nsingularIntRightTriangles(48);",
+      "error": null,
+      "seed": "function singularIntRightTriangles(n) {\n\n  return true;\n}\n\nsingularIntRightTriangles(48);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function singularIntRightTriangles(limit) {\n  function euclidFormula(m, n) {\n    return [m ** 2 - n ** 2, 2 * m * n, m ** 2 + n ** 2];\n  }\n\n  function gcd(numberA, numberB) {\n    if (numberB === 0) {\n      return numberA;\n    }\n    return gcd(numberB, numberA % numberB);\n  }\n\n  function notBothOdd(numberA, numberB) {\n    return (numberA + numberB) % 2 === 1;\n  }\n\n  function areCoprime(numberA, numberB) {\n    return gcd(numberA, numberB) === 1;\n  }\n\n  const trianglesWithPerimeter = new Array(limit + 1).fill(0);\n  const mLimit = Math.sqrt(limit / 2);\n\n  for (let m = 2; m < mLimit; m++) {\n    for (let n = 1; n < m; n++) {\n      if (notBothOdd(m, n) && areCoprime(m, n)) {\n        const [sideA, sideB, sideC] = euclidFormula(m, n);\n        const perimeter = sideA + sideB + sideC;\n        let curPerimeter = perimeter;\n        while (curPerimeter <= limit) {\n          trianglesWithPerimeter[curPerimeter]++;\n          curPerimeter += perimeter;\n        }\n      }\n    }\n  }\n  return trianglesWithPerimeter.filter(trianglesCount => trianglesCount === 1)\n    .length;\n}",
+        "error": null,
+        "seed": "function singularIntRightTriangles(limit) {\n  function euclidFormula(m, n) {\n    return [m ** 2 - n ** 2, 2 * m * n, m ** 2 + n ** 2];\n  }\n\n  function gcd(numberA, numberB) {\n    if (numberB === 0) {\n      return numberA;\n    }\n    return gcd(numberB, numberA % numberB);\n  }\n\n  function notBothOdd(numberA, numberB) {\n    return (numberA + numberB) % 2 === 1;\n  }\n\n  function areCoprime(numberA, numberB) {\n    return gcd(numberA, numberB) === 1;\n  }\n\n  const trianglesWithPerimeter = new Array(limit + 1).fill(0);\n  const mLimit = Math.sqrt(limit / 2);\n\n  for (let m = 2; m < mLimit; m++) {\n    for (let n = 1; n < m; n++) {\n      if (notBothOdd(m, n) && areCoprime(m, n)) {\n        const [sideA, sideB, sideC] = euclidFormula(m, n);\n        const perimeter = sideA + sideB + sideC;\n        let curPerimeter = perimeter;\n        while (curPerimeter <= limit) {\n          trianglesWithPerimeter[curPerimeter]++;\n          curPerimeter += perimeter;\n        }\n      }\n    }\n  }\n  return trianglesWithPerimeter.filter(trianglesCount => trianglesCount === 1)\n    .length;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>singularIntRightTriangles(48)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof singularIntRightTriangles(48) === 'number');"
+    },
+    {
+      "text": "<p><code>singularIntRightTriangles(48)</code> trebao bi da vrati <code>6</code>.</p>",
+      "testString": "assert.strictEqual(singularIntRightTriangles(48), 6);"
+    },
+    {
+      "text": "<p><code>singularIntRightTriangles(700000)</code> treba da vrati <code>75783</code>.</p>",
+      "testString": "assert.strictEqual(singularIntRightTriangles(700000), 75783);"
+    },
+    {
+      "text": "<p><code>singularIntRightTriangles(1000000)</code> treba da vrati <code>107876</code>.</p>",
+      "testString": "assert.strictEqual(singularIntRightTriangles(1000000), 107876);"
+    },
+    {
+      "text": "<p><code>singularIntRightTriangles(1500000)</code> treba da vrati <code>161667</code>.</p>",
+      "testString": "assert.strictEqual(singularIntRightTriangles(1500000), 161667);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dokazano je da je 12 cm minimalna dužina žice koja se može saviti u pravougaoni trougao sa stranicama koje su cijeli brojevi samo na jedan način, ali postoji mnogo više primjera.</p>\n<div style='margin-left: 4em;'>\n  <strong>12 cm:</strong> (3,4,5)<br>\n  <strong>24 cm:</strong> (6,8,10)<br>\n  <strong>30 cm:</strong> (5,12,13)<br>\n  <strong>36 cm:</strong> (9,12,15)<br>\n  <strong>40 cm:</strong> (8,15,17)<br>\n  <strong>48 cm:</strong> (12,16,20)<br><br>\n</div>\n<p>S druge strane, neke dužine žice, kao što je 20 cm, ne mogu se saviti da formiraju pravougaono trougao sa celobrojnim stranama, dok druga dužina omogućava pronalaženje više od jednog rešenja; na primer, korišćenjem 120 cm moguće je formirati tri različita pravougaono trougla sa celobrojnim stranama.</p>\n<div style='margin-left: 4em;'>\n  <strong>120 cm:</strong> (30,40,50), (20,48,52), (24,45,51)<br><br>\n</div>\n<p>Ako je L dužina žice, za koliko vrednosti L ≤ <code>n</code> može se formirati samo jedan pravougli trougao sa celobrojnim stranama?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 74,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

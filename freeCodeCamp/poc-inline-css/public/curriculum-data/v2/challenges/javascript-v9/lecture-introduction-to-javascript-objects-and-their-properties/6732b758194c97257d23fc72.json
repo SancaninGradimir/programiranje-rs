@@ -1,0 +1,188 @@
+{
+  "id": "6732b758194c97257d23fc72",
+  "title": "Šta je konstruktor Object(), i kada bi trebalo da se koristi?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-object-constructor-and-when-should-you-use-it",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>U JavaScript, komponenta je posebna vrsta funkcije koja se koristi za kreiranje i inicijalizovanje stvari. Naziva se korišćenjem glavne reči <code>new</code> i može inicijalizovati parametre i metode na novokreiranom objektu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom tutorijalu, ćemo pogledati kako da radimo sa komponentom <code>Object()</code>. Komponenta <code>Object()</code> kreira novi prazan objekat. Evo primera:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">new Object()\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada izvršite poziv <code>new Object()</code>, vraćate nešto novo koje se može koristiti za skladištenje vrednosti.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Komponenta <code>Object()</code> može se koristiti sa ili bez glavne riječi <code>new</code>. Kada se pozove kao funkcija bez <code>new</code>, radi drugačije u zavisnosti od tipa proslijeđene vrijednosti. Evo primjera korištenja komponente <code>Object()</code> bez glavne riječi <code>new</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const num = 42;\nconst numObj = Object(num); // Creates an object wrapper for the number\n\nconsole.log(numObj);\nconsole.log(typeof numObj); // \"object\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const num = 42;\nconst numObj = Object(num); // Creates an object wrapper for the number\n\nconsole.log(numObj);\nconsole.log(typeof numObj); // \"object\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kao što možete videti u drugom <code>console.log</code> primeru, <code>numObj</code> je objekat. Ovo se dešava zato što smo koristili konstruktor <code>Object()</code> da pretvorimo brojčani unos u objekat.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Šta se dešava ako pokušamo da prosledimo <code>null</code> ili <code>undefined</code> konstruktoru <code>Object()</code>?</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const newObj = new Object(undefined);\nconsole.log(newObj); // {}",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const newObj = new Object(undefined);\nconsole.log(newObj); // {}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Konkretno, rezultat će biti prazan objekat. Druga upotreba konstruktora <code>Object()</code> je kada radite sa vrednošću nepoznatog tipa i morate biti sigurni da je objekat. Pogledajmo sledeći primer:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function toObject(value) {\n  if (value === null || value === undefined) {\n    return {};\n  }\n\n  if (typeof value === \"object\") {\n    return value;\n  }\n\n  return Object(value);\n}\n\nconsole.log(toObject(null));\n\nconsole.log(toObject(true));\n\nconsole.log(toObject([1, 2, 3]));",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function toObject(value) {\n  if (value === null || value === undefined) {\n    return {};\n  }\n\n  if (typeof value === \"object\") {\n    return value;\n  }\n\n  return Object(value);\n}\n\nconsole.log(toObject(null));\n\nconsole.log(toObject(true));\n\nconsole.log(toObject([1, 2, 3]));\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru imamo funkciju nazvanu <code>toObject</code>. Drugi uslov proverava da li je vrednost tipa objekat i vraća vrednost ako je uslov <code>true</code>. Ovaj uslov proverava objekte zajedno sa nizovima, jer su nizovi posebna vrsta objekata.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako nijedan od uslova nije tačan, funkcija će vratiti <code>Object(value)</code>, koji konvertuje ulaz u objekat. Ovo radi sa vrednostima kao što su brojevi, nizovi znakova i vrednosti tačno ili netačno.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U većini slučajeva nećete koristiti konstruktor <code>Object()</code> za kreiranje novih objekata, jer ćete umesto toga koristiti sintaksu objektnog literala (na primer, <code>const objectLiteral = { name: \"Beau\" }</code>). Ipak, korisno je razumeti osnove rada sa konstruktorom Object.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let obj = Object(42);\nconsole.log(typeof obj);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>\"number\"</code></p>",
+          "feedback": "<p>Zapamtite da komponenta <code>Object()</code> stvara poklopac objekta sa osnovnim vrednostima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>\"object\"</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>42</code></p>",
+          "feedback": "<p>Zapamtite da komponenta <code>Object()</code> stvara poklopac objekta sa osnovnim vrednostima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovo će nam dati grešku.</p>",
+          "feedback": "<p>Zapamtite da komponenta <code>Object()</code> stvara poklopac objekta sa osnovnim vrednostima.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta je razlika između <code>new Object()</code> i <code>{}</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>new Object()</code> stvara prazno nešto, dok <code>{}</code> to ne čini.</p>",
+          "feedback": "<p>Razmislite o performansama i uobičajenoj upotrebi oba načina za kreiranje stvari.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>{}</code> kreira nešto prazno, dok <code>new Object()</code> to ne radi.</p>",
+          "feedback": "<p>Razmislite o funkcionalnosti i uobičajenim upotreba oba načina pri kreiranju objekata.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nema razlike, svi stvaraju ništa.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>new Object()</code> je brže od <code>{}</code>.</p>",
+          "feedback": "<p>Razmislite o performansama i uobičajenoj upotrebi oba načina pri kreiranju stvari.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Da li možete da koristite komponentu <code>Object()</code> umesto sintakse fraze o stvarima gde?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ako vam je potreban bolji performans.</p>",
+          "feedback": "<p>Razmislite o posebnoj sposobnosti komponente <code>Object()</code> koju smo diskutovali u lekciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ako želite da kreirate omotač objekta sa osnovnom vrednošću.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Prilikom rada sa podacima JSON.</p>",
+          "feedback": "<p>Razmislite o specifičnoj sposobnosti komponente <code>Object()</code> koju smo diskutovali na lekciji.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Razviti stavke koje su raspoređene unutra.</p>",
+          "feedback": "<p>Razmislite o posebnoj sposobnosti komponente <code>Object()</code> koju smo diskutovali u lekciji.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-introduction-to-javascript-objects-and-their-properties",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 55,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-objects",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,55 @@
+{
+  "id": "6639f947d3a1818c9322c64a",
+  "title": "Korak 16",
+  "challengeType": 20,
+  "dashedName": "step-16",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        4,
+        12
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da kreirate deklaraciju <code>if</code> koja proverava da li je prvi uslov koji je prošao za uspostavljanje jednačine jednak nuli.</p>",
+      "testString": "({ test: () => assert(runPython(`\ncond = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[2].find_conditions()[0]\ncond.is_equivalent(\"args[0] == 0\") or cond.is_equivalent(\"0 == args[0]\") or cond.is_equivalent(\"not args[0]\")\n`)) })"
+    },
+    {
+      "text": "<p>Treba da pružite <code>ValueError</code> unutar nove deklaracije od <code>if</code> i koristite priloženi niz karaktera da vratite specifičnu poruku o grešci.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[2].find_bodies()[0].has_stmt(\"raise ValueError('Highest degree coefficient must be different from zero')\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Poslednji korak validacije nivoa je proveriti da li apsolutni maksimum nije jednak nuli. Zapamtite da apsolutni maksimum treba da se prosledi kao prvi argument prilikom inicijalizacije nečega.</p>\n<p>Dodajte izjavu <code>if</code>, a uklonite <code>ValueError</code> koristeći sledeću sekvencu slova da biste dobili posebnu poruku: <code>'Highest degree coefficient must be different from zero'</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

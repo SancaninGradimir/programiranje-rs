@@ -1,0 +1,59 @@
+{
+  "id": "65c63fd9b387f0a6c5bf6a72",
+  "title": "Korak 24",
+  "challengeType": 20,
+  "dashedName": "step-24",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        28,
+        38
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        pass",
+      "error": null,
+      "seed": "\nclass TreeNode:\n\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\n\n\nclass BinarySearchTree:\n\n    def __init__(self):\n        self.root = None\n\n    def _insert(self, node, key):\n        if node is None:\n            return TreeNode(key)\n\n        if key < node.key:\n            node.left = self._insert(node.left, key)\n        elif key > node.key:\n\n            node.right = self._insert(node.right, key)\n        return node\n\n    def insert(self, key):\n        self.root = self._insert(self.root, key)\n        \n    def _search(self, node, key):\n        if node is None or node.key == key:\n            return node\n        if key < node.key:\n            return self._search(node.left, key)\n        return self._search(node.right, key)\n    \n    def search(self, key):\n        pass"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da uklonite reč <code>pass</code> iz puta <code>search</code>.</p>",
+      "testString": "({\n  test: () => {\n    assert.isFalse(\n      runPython(\n        `_Node(_code).find_class(\"BinarySearchTree\").find_function(\"search\").has_pass()`\n      )\n    );\n  },\n});\n"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>_search</code> unutar putanje <code>search</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n  str(_Node(_code).find_class(\"BinarySearchTree\").find_function(\"search\").find_calls(\"_search\")[0]).startswith(\"self._search(\")\n`)) });"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš putanju <code>_search</code> kada prosleđuješ <code>self.root</code> i <code>key</code> kao argumente.</p>",
+      "testString": "({ test: () => assert(runPython(`\n  _Node(_code).find_class(\"BinarySearchTree\").find_function(\"search\").find_calls(\"_search\")[0].is_equivalent(\"self._search(self.root, key)\")\n`)) });"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Unutar rute <code>search</code>, izbriši <code>pass</code> i pozovi pomoću asistenta <code>_search</code> sa sledećim parametrima.</p>\n<ul>\n<li><code>self.root</code>: Ovo je koren binarnog stabla pretrage. Pretraga počinje od korena.</li>\n<li><code>key</code>: Ovo je vrednost koju korisnik želi da pronađe u binarnom stablu pretrage.</li>\n</ul>\n<p>Unutar, <code>search</code> predaje stvarni logiku pretrage putem asistenta <code>_search</code> koja izvodi rekurzivnu pretragu unutar binarnog stabla pretrage.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-tree-traversal-by-building-a-binary-search-tree",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 12,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 23,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

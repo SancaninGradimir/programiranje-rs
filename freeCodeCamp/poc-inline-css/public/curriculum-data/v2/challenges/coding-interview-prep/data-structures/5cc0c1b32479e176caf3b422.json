@@ -1,0 +1,72 @@
+{
+  "id": "5cc0c1b32479e176caf3b422",
+  "title": "Proveri da li je drvo binarno drvo pretrage",
+  "challengeType": 1,
+  "forumTopicId": 301624,
+  "dashedName": "check-if-tree-is-binary-search-tree",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n}\nfunction isBinarySearchTree(tree) {\n  // Only change code below this line\n  \n  // Only change code above this line\n}",
+      "error": null,
+      "seed": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n}\nfunction isBinarySearchTree(tree) {\n  // Only change code below this line\n  \n  // Only change code above this line\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n}\nfunction isBinarySearchTree(tree) {\n  if (tree.root == null) {\n    return null;\n  } else {\n    let isBST = true;\n    function checkTree(node) {\n      if (node.left != null) {\n        const left = node.left;\n        if (left.value >= node.value) {\n          isBST = false;\n        } else {\n          checkTree(left);\n        }\n      }\n      if (node.right != null) {\n        const right = node.right;\n        if (right.value < node.value) {\n          isBST = false;\n        } else {\n          checkTree(right);\n        }\n      }\n    }\n    checkTree(tree.root);\n    return isBST;\n  }\n};",
+        "error": null,
+        "seed": "var displayTree = (tree) => console.log(JSON.stringify(tree, null, 2));\nfunction Node(value) {\n  this.value = value;\n  this.left = null;\n  this.right = null;\n}\nfunction BinarySearchTree() {\n  this.root = null;\n}\nfunction isBinarySearchTree(tree) {\n  if (tree.root == null) {\n    return null;\n  } else {\n    let isBST = true;\n    function checkTree(node) {\n      if (node.left != null) {\n        const left = node.left;\n        if (left.value >= node.value) {\n          isBST = false;\n        } else {\n          checkTree(left);\n        }\n      }\n      if (node.right != null) {\n        const right = node.right;\n        if (right.value < node.value) {\n          isBST = false;\n        } else {\n          checkTree(right);\n        }\n      }\n    }\n    checkTree(tree.root);\n    return isBST;\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "BinarySearchTree.prototype.push = function(val) {\n  var root = this.root;\n\n  if (!root) {\n    this.root = new Node(val);\n    return;\n  }\n\n  var currentNode = root;\n  var newNode = new Node(val);\n\n  while (currentNode) {\n    if (val < currentNode.value) {\n      if (!currentNode.left) {\n        currentNode.left = newNode;\n        break;\n      } else {\n        currentNode = currentNode.left;\n      }\n    } else {\n      if (!currentNode.right) {\n        currentNode.right = newNode;\n        break;\n      } else {\n        currentNode = currentNode.right;\n      }\n    }\n  }\n};"
+  },
+  "tests": [
+    {
+      "text": "<p>Tvoje binarno stablo pretrage treba da vrati <code>true</code> kada se proveri funkcijom <code>isBinarySearchTree()</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    test.push(1);\n    test.push(5);\n    test.push(3);\n    test.push(2);\n    test.push(4);\n    return isBinarySearchTree(test) == true;\n  })()\n);"
+    },
+    {
+      "text": "<p><code>isBinarySearchTree()</code> trebalo bi da vrati lažno kada se proveri stabljuka koje nije binarno stabljuka za pretragu.</p>",
+      "testString": "assert(\n  (function () {\n    var test = false;\n    if (typeof BinarySearchTree !== 'undefined') {\n      test = new BinarySearchTree();\n    } else {\n      return false;\n    }\n    test.push(1);\n    test.root.left = new Node(1);\n    return isBinarySearchTree(test) == false;\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pošto već znate šta je binarni stab za pretraživanje, ovaj izazov će razjasniti kako možete utvrditi da li je stab binarni stab za pretraživanje ili ne.</p>\n<p>Glavna razlika binarnog stabla pretrage je što su čvorovi organizovani po usklađenom redosledu. Čvor ima maksimalno dva ćeraka (desni i/ili levi) u zavisnosti od toga da li je vrednost ćerakovog čvora veća ili jednaka (desna) ili manja od (leva) čvora roditelja.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U ovom izazovu, kreiraćeš pomoćnu funkciju za svoj stabao. Napiši metodu JavaScript <code>isBinarySearchTree</code> koja prima stabao kao ulaz i vraća vrednost tačno ili netačno da li je stabao binarno stabalo pretrage ili ne. Koristi rekurziju (recursion) kada je to moguće.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 29,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

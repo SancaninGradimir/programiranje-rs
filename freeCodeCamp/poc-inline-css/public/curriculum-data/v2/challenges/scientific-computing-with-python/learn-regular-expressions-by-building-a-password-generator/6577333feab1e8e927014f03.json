@@ -1,0 +1,51 @@
+{
+  "id": "6577333feab1e8e927014f03",
+  "title": "Korak 63",
+  "challengeType": 20,
+  "dashedName": "step-63",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        36
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length, nums, special_chars, uppercase, lowercase):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n       \n        constraints = [\n            (nums, r'\\d'),\n            (lowercase, r'[a-z]'),\n            (uppercase, r'[A-Z]'),            \n            (special_chars, fr'[{symbols}]')            \n        ]\n\n        # Check constraints\n        count = 0\n        if all(\n            [\n                constraint <= len(re.findall(pattern, password))\n                for constraint, pattern in constraints\n            ]\n        ):\n            break\n    \n    return password\n\n# new_password = generate_password(8)\n# print(new_password)",
+      "error": null,
+      "seed": "import re\nimport secrets\nimport string\n\n\ndef generate_password(length, nums, special_chars, uppercase, lowercase):\n    # Define the possible characters for the password\n    letters = string.ascii_letters\n    digits = string.digits\n    symbols = string.punctuation\n\n    # Combine all characters\n    all_characters = letters + digits + symbols\n\n    while True:\n        password = ''\n        # Generate password\n        for _ in range(length):\n            password += secrets.choice(all_characters)\n       \n        constraints = [\n            (nums, r'\\d'),\n            (lowercase, r'[a-z]'),\n            (uppercase, r'[A-Z]'),            \n            (special_chars, fr'[{symbols}]')            \n        ]\n\n        # Check constraints\n        count = 0\n        if all(\n            [\n                constraint <= len(re.findall(pattern, password))\n                for constraint, pattern in constraints\n            ]\n        ):\n            break\n    \n    return password\n\n# new_password = generate_password(8)\n# print(new_password)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da promeniš svoju <em>list comprehension</em> u string izraz uklanjanjem kvadratnih zagrada.</p>",
+      "testString": "({ test: () => assert.match(code, /^(\\s*)if\\s+all\\s*\\(\\s*constraint\\s*<=\\s*len\\s*\\(\\s*re\\.findall\\s*\\(\\s*pattern\\s*,\\s*password\\s*\\)\\s*\\)\\s*for\\s+constraint\\s*,\\s*pattern\\s+in\\s+constraints\\s*\\)\\s*:\\s*^\\1\\s{4}break/m) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Imati <code>all([expression for i in iterable])</code> znači da se kreira nova lista evaluiranjem <code>expression</code> za svaki <code>i</code> u <code>iterable</code>. Nakon što funkcija <code>all()</code> izvrši kreiranu listu, ta lista se automatski briše jer više nije potrebna.</p>\n<p>Memorija se može uštedeti korišćenjem generatora izraza. Generator izraz prati sintaksu liste komprehensije, ali koristi obične zagrade umesto uglastih zagrada.</p>\n<p>Pretvori svoju <em>list comprehension</em>-u u literalni izraz uklanjanjem uglastih zagrada.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-regular-expressions-by-building-a-password-generator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 62,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

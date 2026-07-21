@@ -1,0 +1,77 @@
+{
+  "id": "587d825a367417b2b2512c8a",
+  "title": "Unesite element u najviši sloj",
+  "challengeType": 1,
+  "forumTopicId": 301703,
+  "dashedName": "insert-an-element-into-a-max-heap",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var MaxHeap = function() {\r\n  // Only change code below this line\r\n    \r\n  // Only change code above this line\r\n};",
+      "error": null,
+      "seed": "var MaxHeap = function() {\r\n  // Only change code below this line\r\n    \r\n  // Only change code above this line\r\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var MaxHeap = function() {\r\n    // Only change code below this line\r\n    this.heap = [];\r\n    this.parent = index => {\r\n      return Math.floor((index - 1) / 2);\r\n    }\r\n    this.insert = element => {\r\n      this.heap.push(element);\r\n      this.heapifyUp(this.heap.length - 1);\r\n    }\r\n    this.heapifyUp = index => {\r\n      let currentIndex = index,\r\n      parentIndex = this.parent(currentIndex);\r\n      while (currentIndex > 0 && this.heap[currentIndex] > this.heap[parentIndex]) {\r\n        this.swap(currentIndex, parentIndex);\r\n        currentIndex = parentIndex;\r\n        parentIndex = this.parent(parentIndex);\r\n      }\r\n    }\r\n    this.swap = (index1, index2) => {\r\n      [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];\r\n    }\r\n    this.print = () => {\r\n      return this.heap;\r\n    }\r\n    // Only change code above this line\r\n};",
+        "error": null,
+        "seed": "var MaxHeap = function() {\r\n    // Only change code below this line\r\n    this.heap = [];\r\n    this.parent = index => {\r\n      return Math.floor((index - 1) / 2);\r\n    }\r\n    this.insert = element => {\r\n      this.heap.push(element);\r\n      this.heapifyUp(this.heap.length - 1);\r\n    }\r\n    this.heapifyUp = index => {\r\n      let currentIndex = index,\r\n      parentIndex = this.parent(currentIndex);\r\n      while (currentIndex > 0 && this.heap[currentIndex] > this.heap[parentIndex]) {\r\n        this.swap(currentIndex, parentIndex);\r\n        currentIndex = parentIndex;\r\n        parentIndex = this.parent(parentIndex);\r\n      }\r\n    }\r\n    this.swap = (index1, index2) => {\r\n      [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];\r\n    }\r\n    this.print = () => {\r\n      return this.heap;\r\n    }\r\n    // Only change code above this line\r\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Struktura podataka za <code>MaxHeap</code> treba da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MaxHeap !== 'undefined') {\r\n      test = new MaxHeap();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>MaxHeap</code> treba imati metod nazvan <code>insert</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MaxHeap !== 'undefined') {\r\n      test = new MaxHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.insert == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>MaxHeap</code> treba da ima putanju nazvanu <code>print</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MaxHeap !== 'undefined') {\r\n      test = new MaxHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    return typeof test.print == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja <code>insert</code> treba da doda funkcionalnosti prema svojstvu najvišeg steka.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof MaxHeap !== 'undefined') {\r\n      test = new MaxHeap();\r\n    } else {\r\n      return false;\r\n    }\r\n    test.insert(50);\r\n    test.insert(100);\r\n    test.insert(700);\r\n    test.insert(32);\r\n    test.insert(51);\r\n    test.insert(800);\r\n    const result = test.print();\r\n    const solution = JSON.stringify([null,800,51,700,32,50,100]);\r\n    const solutionWithoutNull = JSON.stringify([800,51,700,32,50,100]);\r\n\r\n    return (result.length == 6) ? (JSON.stringify(result) == solutionWithoutNull) : (JSON.stringify(result) == solution);\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ćemo nastaviti sa drugom strukturom podataka baziranom na drvetu, binarnim kupom. Binarni kup je binarno drvo sa rasporedom elemenata koji zadovoljava svojstvo kupa. Svojstvo kupa opisuje odnos između roditeljskog čvora i njegovih detiljih čvorova. Možete imati maksimalni kup, gde su svi roditeljski čvorovi veći ili jednaki svojim detiljim čvorovima, ili minimalni kup, gde je obrnuto tačno. Binarni kupovi su takođe i potpuno binarna drva. To znači da su svi nivoi drveta potpuno popunjeni, a ako je poslednji nivo delimično popunjen, on se popunjava od leve ka desnoj strani.</p>\n<p>Iako se binarni stablići mogu implementirati kao strukture stabla sa čvorovima koji drže reference levo i desno, sortiranje elemenata prema svojstvu stablaca omogućava nam predstavljanje stabla korišćenjem niza podataka. Odnos roditelj-dete je ono što nam je cilj, i jednostavnim izračunavanjem možemo izračunati decu bilo kog roditelja i roditelja bilo kog čvorice deteta.</p>\n<p>Na primer, zamislite ovu reprezentaciju niza podataka najnižeg binarnog paketa:</p>\n<pre><code class=\"language-js\">[ 6, 22, 30, 37, 63, 48, 42, 76 ]\n</code></pre>\n<p>Korenski čvor je prvi element, <code>6</code>. Njegovi deca su <code>22</code> i <code>30</code>. Ako pogledamo odnos između indeksa niza podataka ovih vrednosti, za primer <code>i</code>, deca su <code>2 * i + 1</code> i <code>2 * i + 2</code>. Slično tome, element na primeru <code>0</code> je roditelj ovih dvaju dečaka koji se nalaze na indeksima <code>1</code> i <code>2</code>. Generalno, možemo dobiti roditelja bilo kog čvora za bilo koji primer koristeći sledeće: <code>Math.floor((i - 1) / 2)</code>. Ovi sistemi će biti tačni bez obzira na veličinu binarnog staba. Na kraju, možemo napraviti malu korekciju kako bismo ovaj proračun olakšali preskočenjem prvog elementa u nizu podataka. To stvara sledeći odnos za bilo koji element na primeru <code>i</code>:</p>\n<p>Primer predstavljanja niza podataka:</p>\n<pre><code class=\"language-js\">[ null, 6, 22, 30, 37, 63, 48, 42, 76 ]\n</code></pre>\n<p>Levo dete elementa: <code>i * 2</code></p>\n<p>Desni potomak elementa: <code>i * 2 + 1</code></p>\n<p>Roditeljski element: <code>Math.floor(i / 2)</code></p>\n<p>Čim se razumevanje ove formule postigne, korišćenje reprezentacije niza podataka je veoma važno jer lokacije čvorova se mogu brzo odrediti korišćenjem ovog računanja i smanjuje se potrošnja memorije jer nije potrebno skladištiti reference na čvorove potomaka.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Uputstva: Ovde ćemo kreirati maksimalni heap. Počnite kreiranjem metode <code>insert</code> koja dodaje elemente u naš heap. Prilikom ubacivanja, važno je uvek održavati svojstvo heapa. Za maksimalni heap, to znači da element korena mora imati najveću vrednost u drvetu i da sve roditeljske čvorove moraju biti veći od svojih potomaka. Za implementaciju heapa korišćenjem niza podataka, ovo se obično dešava u tri koraka:</p>\n<ol>\r\n  <li>Dodajte novi element na kraj niza podataka.</li>\r\n  <li>Ako je element veći od svog roditelja, zamijenite njihove pozicije.</li>\r\n  <li>Nastavite sa zamjenama dok novi element nije manji od svog roditelja ili dosegnete korijen stabla.</li>\r\n</ol>\n<p>Na kraju, dodaj metod za <code>print</code> koja vraća niz svih stavki dodanih u stak.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 38,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

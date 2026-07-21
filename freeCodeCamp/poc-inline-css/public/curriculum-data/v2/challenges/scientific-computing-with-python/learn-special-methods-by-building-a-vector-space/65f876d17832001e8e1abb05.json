@@ -1,0 +1,63 @@
+{
+  "id": "65f876d17832001e8e1abb05",
+  "title": "Korak 28",
+  "challengeType": 20,
+  "dashedName": "step-28",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        11,
+        14
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n    def __repr__(self):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "\nclass R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n    def __repr__(self):\n        pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš parametar <code>arg_list</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__repr__\").has_variable(\"arg_list\")`)) })"
+    },
+    {
+      "text": "<p>Morate postaviti vrednost ponavljajuće liste sekvence na <code>vars(self).items()</code> za <code>arg_list</code>.</p>",
+      "testString": "({ test: () => runPython(`\nimport ast\nvar = _Node(_code).find_class(\"R2Vector\").find_function(\"__repr__\").find_variable(\"arg_list\")\nassert isinstance(var.tree.value, ast.ListComp), \"Expected arg_list to be a list comprehension\"\nassert (actual := var.find_comp_iters()[0].is_equivalent(\"vars(self).items()\")), f\"Expected vars(self).items(), got {actual}\"\n`) })"
+    },
+    {
+      "text": "<p>Sekvenca liste sa vrednošću <code>arg_list</code> treba da koristi <code>key</code> i <code>val</code> za iteraciju preko <code>vars(self).items()</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_Node(_code).find_class(\"R2Vector\").find_function(\"__repr__\").find_variable(\"arg_list\").find_comp_targets()[0].is_equivalent(\"key, val\")\n`)) })"
+    },
+    {
+      "text": "<p>Sekvenca popisa sa dodeljenom vrednošću <code>arg_list</code> treba da izračuna sekvencu karaktera <code>f'{key}={val}'</code> za svaki par ključ-vrednost u <code>vars(self).items()</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__repr__\").find_variable(\"arg_list\").find_comp_expr().is_equivalent(\"f'{key}={val}'\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Deklariši parametar <code>arg_list</code>. Dodeli mu vrednost inkrementalnog niza/sekvence liste preko <code>key</code> i <code>val</code> za svaki par ključ-vrednost u <code>vars(self).items()</code>, i broji f-string <code>f'{key}={val}'</code> svaku iteraciju.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

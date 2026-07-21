@@ -1,0 +1,67 @@
+{
+  "id": "660fcf3e1b9bb056b2edb567",
+  "title": "Korak 5",
+  "challengeType": 20,
+  "dashedName": "step-5",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        25,
+        27
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n\r\n        ",
+      "error": null,
+      "seed": "import math\r\n\r\nGRAVITATIONAL_ACCELERATION = 9.81\r\nPROJECTILE = \"∙\"\r\nx_axis_tick = \"T\"\r\ny_axis_tick = \"⊣\"\r\n\r\nclass Projectile:\r\n    __slots__ = ('__speed', '__height', '__angle')\r\n\r\n    def __init__(self, speed, height, angle):\r\n        self.__speed = speed\r\n        self.__height = height\r\n        self.__angle = math.radians(angle)\r\n\r\n\r\n    def __calculate_displacement(self):\r\n        horizontal_component = self.__speed * math.cos(self.__angle)\r\n        vertical_component = self.__speed * math.sin(self.__angle)\r\n        squared_component = vertical_component**2\r\n        gh_component = 2 * GRAVITATIONAL_ACCELERATION * self.__height\r\n        sqrt_component = math.sqrt(squared_component + gh_component)\r\n        \r\n        return horizontal_component * (vertical_component + sqrt_component) / GRAVITATIONAL_ACCELERATION\r\n        \r\n\r\n        "
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš kriterijum za <code>ball</code>.</p>",
+      "testString": "({test: () => assert(runPython(`_Node(_code).has_variable('ball')`))})"
+    },
+    {
+      "text": "<p>Parametar za <code>ball</code> mora imati vrednost <code>Projectile(10, 3, 45)</code>.</p>",
+      "testString": "({test: () => assert(runPython(`_Node(_code).find_variable('ball').is_equivalent('ball = Projectile(10, 3, 45)')`))})"
+    },
+    {
+      "text": "<p>Representacija sekvence znakova za <code>Projectile(45, 45, 45)</code> treba da bude tačna.</p>",
+      "testString": "({test: () => assert(runPython(\r\n`\r\nball = Projectile(45, 45, 45)\r\nstr(ball) == \"\"\"\r\nProjectile details:\r\nspeed: 45 m/s\r\nheight: 45 m\r\nangle: 45°\r\ndisplacement: 244.4 m\r\n\"\"\"`\r\n))})"
+    },
+    {
+      "text": "<p>Predstavljanje sekvence slova takođe mora biti tačno za druge primere.</p>",
+      "testString": "({test: () => assert(runPython(`p = Projectile(10, 10, 10)\r\nstr(\r\n    p\r\n) == \"\"\"\r\nProjectile details:\r\nspeed: 10 m/s\r\nheight: 10 m\r\nangle: 10°\r\ndisplacement: 15.9 m\r\n\"\"\"`))})"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš poziv za <code>print(ball)</code>.</p>",
+      "testString": "({\r\n    test: () => runPython(`\r\n    calls = _Node(_code).find_calls('print')\r\n    assert any(c.is_equivalent('print(ball)') for c in calls)\r\n    `)\r\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Trenutno ste spremni da kreirate reprezentaciju sekvence karaktera.\r\nPočnite kreiranjem instance klase <code>Projectile</code>. Unutar definicije klase, kreirajte parametar <code>ball</code> i postavite mu vrednost za poziv <code>Projectile</code> koristeći <code>10, 3, 45</code> kao argument.</p>\n<p>Definišite metodu <code>__str__</code> unutar klase, kako bi vaš primer pružio ispravnu reprezentaciju niza karaktera, i da ga učinite tako da vrati niz sa sledećom strukturom:</p>\n<pre><code class=\"language-py\">\r\nProjectile details:\r\nspeed: 10 m/s\r\nheight: 3 m\r\nangle: 45°\r\ndisplacement: 12.6 m\r\n\n</code></pre>\n<p>Trebalo bi da počinje i završi sa karakterom novog reda, ugao mora biti napisan kao ceo broj u stepenima, a pomeraj treba da se ispiše sa jeddecimalnu tačku.</p>\n<p>Pronaći ćete da je važno konvertovati uglove iz radijana u stepene. <code>math.degrees</code></p>\n<p>Kada budete spremni, možete <code>print(ball)</code> da testirate svoju funkciju.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-encapsulation-by-building-a-projectile-trajectory-calculator",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 17,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

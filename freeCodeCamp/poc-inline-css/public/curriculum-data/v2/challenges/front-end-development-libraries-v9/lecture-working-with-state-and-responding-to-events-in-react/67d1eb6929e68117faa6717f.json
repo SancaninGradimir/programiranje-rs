@@ -1,0 +1,109 @@
+{
+  "id": "67d1eb6929e68117faa6717f",
+  "title": "Šta je rendering u Reactu, i kako se komponente prikazuju na ekranu?",
+  "challengeType": 19,
+  "dashedName": "what-is-rendering-in-react-and-how-are-components-displayed-on-the-screen",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koje su tri koraka procesa renderovanja u React?</p>",
+      "answers": [
+        {
+          "answer": "<p>Zapoчни, napuni/upakuj, i završi.</p>",
+          "feedback": "<p>Proveri početak lekcije da bi dobio odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Inicijalizujte, ažurirajte i kompletirajte.</p>",
+          "feedback": "<p>Proveri početak lekcije da bi dobio odgovor.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Trigger, render, na commit.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Počni, nastavi i završi.</p>",
+          "feedback": "<p>Proveri početak lekcije da bi dobio odgovor.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja tehnologija React koristi za poboljšanje koraka rendera efikasnim računanjem promena?</p>",
+      "answers": [
+        {
+          "answer": "<p>Senka DOM</p>",
+          "feedback": "<p>Zamislite laganu verziju od DOM koja pomaže React da poboljša ažuriranje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Radnici servisa</p>",
+          "feedback": "<p>Zamislite laganu verziju DOM koja pomaže React da poboljša ažuriranje.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Virtuelni DOM</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Komponente veb-a</p>",
+          "feedback": "<p>Razmislite o laganoj verziji DOM koja pomaže React da poboljša ažuriranje.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta se dešava tokom koraka commita u procesu renderovanja React?</p>",
+      "answers": [
+        {
+          "answer": "<p>React priprema promene u virtualnom DOM.</p>",
+          "feedback": "<p>Zamislite poslednji korak gde su promene vidljive na ekranu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>React konvertuje promene iz virtuelnog DOM do stvarnog DOM.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>React odabira delove koji treba ponovo prikazati.</p>",
+          "feedback": "<p>Zamislite poslednji korak gde se promene pojavljuju na ekranu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>React Proveri samo greške u sekciji.</p>",
+          "feedback": "<p>Zamisli zadnji korak gde se promene pojavljuju na ekranu.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U React, rendering je proces gde se delovi prikazuju u korisničkom interfejsu (UI), obično je pregledač.</p>\n<p>React uzima sav vaš kod od JavaScript, JSX, na CSS, određuje kako bi trebalo da izgleda, a zatim ga prikazuje u korisničkom interfejsu.</p>\n<p>Proces renderovanja ima tri koraka: trigger, render i commit. Hajde da ih analiziramo detaljnije.</p>\n<p>Trigger akcija se dešava kada React detektuje da se nešto promenilo i da je korisnički interfejs možda potreban za ažuriranje. Ove promene često proizlaze iz ažuriranja stanja ili prosleđuju parametre.</p>\n<p>Na primer, prepoznavanje da je vreme za večeru može dovesti do toga da uđete na kuhinju i započnete kuvanje.</p>\n<p>U primeru od <code>Counter</code> ispod, klikatanje na dugme za povećanje ili smanjenje uzrokuje React da prikaže novu vrednost od <code>count</code>:</p>\n<pre><code class=\"language-jsx\">import { useState } from \"react\";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    &#x3C;div>\n      &#x3C;h1>{count}&#x3C;/h1>\n      &#x3C;button onClick={() => setCount(count - 1)}>Decrement&#x3C;/button>\n      &#x3C;button onClick={() => setCount(count + 1)}>Increment&#x3C;/button>\n    &#x3C;/div>\n  );\n}\n\nexport default Counter;\n</code></pre>\n<p>Kada se okidač pokrene, React ulazi u fazu renderovanja. Ovde React ponovo izračunava vaše komponente i odlučuje šta treba prikazati.</p>\n<p>Da bi ovo uradili, React koristi laganu kopiju DOM \"originala\". Ovo se zove virtuelni DOM. Korišćenjem virtuelnog DOM, React može brzo proveriti šta treba da se promeni u sekciji.</p>\n<p>Zamislite ovu fazu kao trenutak kada ste u kuhinji, prikupili sastojke i počinjete da kuvate večeru.</p>\n<p>Za komponentu <code>Counter</code>, faza renderovanja je trenutak kada React ponovo poziva funkciju sa novom vrednošću <code>count</code>. React ponovo izračunava kako deo <code>&#x3C;h1>{count}&#x3C;/h1></code> treba da izgleda na osnovu ažurirane vrednosti <code>count</code>, ali nećete videti promene na ekranu sve do sledeće faze — commit.</p>\n<p>Faza commit-a je trenutak kada React preuzima pripremljene promene iz virtualnog DOM-a i postavlja ih u pravi DOM. Drugim rečima, ovo je faza kada vidite konačan rezultat na ekranu.</p>\n<p>Da bi ovo uradio, React upoređuje virtuelni DOM sa stvarnim DOM, detektuje samo delove koji zahtevaju ažuriranje, i primenjuje te promene na stvarni DOM radi ažuriranja korisničkog interfejsa.</p>\n<p>Možete zamisliti ovaj korak kao kada stavljate kuvanu hranu na sto, čineći ga da izgleda kao što to radi React kada postavlja ažuriranje na pravi DOM.</p>\n<p>U vezi sa dijelom <code>Counter</code>, korak commita je kada se nova vrijednost <code>count</code> postavlja u polje <code>h1</code>, i možete vidjeti promjene na stranici.</p>\n<p>Ovaj treći proces je veoma brz jer React smanjuje direktno izvršavanje DOM tako što prvo izračunava promene u virtuelnom DOM, a zatim ažurira samo delove koji moraju da se menjaju u stvarnom DOM.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-state-and-responding-to-events-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 8,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

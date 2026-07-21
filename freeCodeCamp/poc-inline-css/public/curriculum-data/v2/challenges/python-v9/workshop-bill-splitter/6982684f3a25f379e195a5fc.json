@@ -1,0 +1,58 @@
+{
+  "id": "6982684f3a25f379e195a5fc",
+  "title": "Korak 4",
+  "challengeType": 20,
+  "dashedName": "step-4",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        9,
+        11
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\n",
+      "error": null,
+      "seed": "running_total = 0\n\nnum_of_friends = 4\n\nappetizers = 37.89\nmain_courses = 57.34\ndesserts = 39.39\ndrinks = 64.21\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da ažuriraš <code>running_total</code> koristeći kupon <code>+=</code> jednom da poveća sve četiri troška kursa.</p>",
+      "testString": "({\n       test: () => runPython(`\nimport itertools  \nperms = itertools.permutations(['+ appetizers', '+ main_courses', '+ desserts', '+ drinks'])  \nvalues = (' '.join(perm).lstrip('+') for perm in perms)  \nsolutions = (f'running_total += {v}' for v in values)  \nassert any(_Node(_code).has_stmt(s) for s in solutions)`)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da odštampate niz karaktera <code>Total bill so far:</code> praćen razmakom i vrednošću <code>running_total</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\nimport io, contextlib, re\n\nbuffer = io.StringIO()\nwith contextlib.redirect_stdout(buffer):\n    exec(_code)\n\nmatch = re.search(r\"Total bill so far: ([0-9]+(?:\\\\.[0-9]+)?)\", buffer.getvalue())\n\nassert match\nassert abs(float(match.group(1)) - (37.89 + 57.34 + 39.39 + 64.21)) < 1e-6\n`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, nakon snimanja troškova za svaki, možete izračunati ukupno.</p>\n<p>Imajte na umu da operater <code>+=</code> dodaje vrednost postojećem parametru i poboljšava ga odmah. Primer:</p>\n<pre><code class=\"language-py\">total = 10\ntotal += 2 + 2 + 1\nprint(total)  # total is now 15\n</code></pre>\n<p>Koristite operater <code>+=</code> jednom da dodate <code>appetizers</code>, <code>main_courses</code>, <code>desserts</code>, na <code>drinks</code> u <code>running_total</code>.</p>\n<p>Na kraju, koristite <code>print()</code> da prikažete sekvencu slova <code>Total bill so far:</code> praćenu razmakom i vrednošću <code>running_total</code>.</p>\n<p><strong>Napomena:</strong> Možda ćete videti rezultate sa više decimalnih mesta nego što ste očekivali. Kao što ste naučili u prethodnoj lekciji, ovo se dešava jer su brojevi sačuvani u binarnom sistemu, a mnoge decimalne vrednosti se ne mogu tačno predstaviti u ovom sistemu, što uzrokuje zaokružene greške.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-bill-splitter",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 6,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-basics",
+  "certification": "python-v9"
+}

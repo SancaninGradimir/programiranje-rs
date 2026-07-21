@@ -1,0 +1,62 @@
+{
+  "id": "69babfc35c3c58d0993d404d",
+  "title": "Korak 9",
+  "challengeType": 1,
+  "dashedName": "step-9",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        31
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n\n}",
+      "error": null,
+      "seed": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da return objekat sa svojstvima <code>processed</code> i <code>overflow</code>. Direktno return objekat bez dodeljivanja varijabli.</p>",
+      "testString": "const cleaned = __helpers.removeWhiteSpace(__helpers.removeJSComments(processGateFlow.toString()));\nconst viableSolutions = [\n  \"return{processed:processed,overflow:currentTickQueue}}\",\n  \"return{processed:processed,overflow:currentTickQueue,}}\",\n  \"return{overflow:currentTickQueue,processed:processed,}}\",\n  \"return{overflow:currentTickQueue,processed:processed}}\",\n  \"return{processed:processed,overflow:currentTickQueue};}\",\n  \"return{processed:processed,overflow:currentTickQueue,};}\",\n  \"return{overflow:currentTickQueue,processed:processed,};}\",\n  \"return{overflow:currentTickQueue,processed:processed};}\",\n];\nconst endsCorrectly = viableSolutions.some(sol => cleaned.endsWith(sol));\nassert(\n  endsCorrectly,\n  \"Your processGateFlow function must return the object with processed and overflow properties.\"\n);\n\nconst northGate = morningGates[0];\nconst result = processGateFlow(northGate, 0);\nassert(\n  typeof result === 'object' && result !== null && !Array.isArray(result),\n  'Your function should return an object'\n);\nassert.hasAllKeys(\n  result,\n  ['processed', 'overflow'],\n  'Your returned object should have properties `processed` and `overflow`'\n);"
+    },
+    {
+      "text": "<p>Svojstvo vašeg vraćenog objekta <code>processed</code> bi trebalo da ima vrednost <code>processed</code>.</p>",
+      "testString": "const northGate = morningGates[0];\nconst result = processGateFlow(northGate, 0);\nassert.strictEqual(\n  result.processed,\n  3,\n  'For the North gate at tick 0 with capacity 5 and queue 3, processed should be 3'\n);\nconst westGate = morningGates[3];\nconst resultWest = processGateFlow(westGate, 0);\nassert.strictEqual(\n  resultWest.processed,\n  2,\n  'For the West gate at tick 0 with capacity 2 and queue 4, processed should be 2'\n);"
+    },
+    {
+      "text": "<p>Svojstvo vašeg vraćenog objekta <code>overflow</code> treba da ima vrednost <code>currentTickQueue</code>.</p>",
+      "testString": "const northGate = morningGates[0];\nconst result = processGateFlow(northGate, 0);\nassert.strictEqual(\n  result.overflow,\n  0,\n  'For the North gate at tick 0 with capacity 5 and queue 3, overflow should be 0'\n);\nconst westGate = morningGates[3];\nconst resultWest = processGateFlow(westGate, 0);\nassert.strictEqual(\n  resultWest.overflow,\n  2,\n  'For the West gate at tick 0 with capacity 2 and queue 4, overflow should be 2'\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Da biste dovršili svoju funkciju <code>processGateFlow</code>, vratite objekat koji sadrži dve osobine:</p>\n<ul>\n<li><code>processed</code>: Broj učesnika koje je kapija mogla obraditi tokom ovog tik-a.</li>\n<li><code>overflow</code>: Broj učesnika ostalih u redu nakon obrade (što je <code>currentTickQueue</code> nakon petlje).</li>\n</ul>\n<p>Trebalo bi da direktno vratite objekat na ovaj način:</p>\n<pre><code class=\"language-js\">return {\n  firstKey: firstValue,\n  secondKey: secondValue\n}\n</code></pre>\n</section>",
+  "translationPending": false,
+  "block": "workshop-festival-crowd-flow-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 76,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

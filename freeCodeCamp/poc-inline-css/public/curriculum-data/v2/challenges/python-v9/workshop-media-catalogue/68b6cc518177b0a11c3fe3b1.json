@@ -1,0 +1,62 @@
+{
+  "id": "68b6cc518177b0a11c3fe3b1",
+  "title": "Korak 14",
+  "challengeType": 20,
+  "dashedName": "step-14",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        34,
+        40
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should assign an instance of <code>MediaCatalogue</code> to a variable named <code>catalogue</code> before your <code>try</code> block.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).has_stmt(\"catalogue = MediaCatalogue()\")`)\n})"
+    },
+    {
+      "text": "<p>You should have <code>catalogue.add(movie1)</code> in your <code>try</code> block.</p>",
+      "testString": "({\n    test: () => runPython(`assert _Node(_code).find_trys()[0].find_body().has_stmt(\"catalogue.add(movie1)\")`)\n})"
+    },
+    {
+      "text": "<p>You should print <code>catalogue</code> at the end of your <code>try</code> block.</p>",
+      "testString": "({\n    test: () => runPython(`assert _Node(_code).find_trys()[0].find_body().is_ordered(\"catalogue.add(movie1)\", \"print(catalogue)\")`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pre bloka <code>try</code>, kreirajte instancu od <code>MediaCatalogue</code> i dodelite je promenljivoj pod imenom <code>catalogue</code>.</p>\n<p>Zatim, koristite metodu <code>add</code> za dodavanje <code>movie1</code> u katalog. Na kraju ispišite <code>catalogue</code> na konzolu.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

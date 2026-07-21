@@ -1,0 +1,69 @@
+{
+  "id": "5900f3ec1000cf542c50feff",
+  "title": "Vežba 128: Razlike heksagonalnih pločica",
+  "challengeType": 1,
+  "forumTopicId": 301755,
+  "dashedName": "problem-128-hexagonal-tile-differences",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function hexagonalTile(tileIndex) {\n\n  return true;\n}\n\nhexagonalTile(10);",
+      "error": null,
+      "seed": "function hexagonalTile(tileIndex) {\n\n  return true;\n}\n\nhexagonalTile(10);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction hexagonalTile(tileIndex) {\n  const primeSeive = new PrimeSeive(tileIndex * 420);\n  let count = 1;\n  let n = 1;\n  let number = 0;\n\n  while (count < tileIndex) {\n    if (primeSeive.isPrime(6*n - 1) &&\n        primeSeive.isPrime(6*n + 1) &&\n        primeSeive.isPrime(12*n + 5)) {\n      number = 3*n*n - 3*n + 2;\n      count++;\n      if (count >= tileIndex) break;\n    }\n    if (primeSeive.isPrime(6*n + 5) &&\n        primeSeive.isPrime(6*n - 1) &&\n        primeSeive.isPrime(12*n - 7) && n != 1) {\n      number = 3*n*n + 3*n + 1;\n      count++;\n    }\n    n++;\n  }\n  return number;\n}",
+        "error": null,
+        "seed": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction hexagonalTile(tileIndex) {\n  const primeSeive = new PrimeSeive(tileIndex * 420);\n  let count = 1;\n  let n = 1;\n  let number = 0;\n\n  while (count < tileIndex) {\n    if (primeSeive.isPrime(6*n - 1) &&\n        primeSeive.isPrime(6*n + 1) &&\n        primeSeive.isPrime(12*n + 5)) {\n      number = 3*n*n - 3*n + 2;\n      count++;\n      if (count >= tileIndex) break;\n    }\n    if (primeSeive.isPrime(6*n + 5) &&\n        primeSeive.isPrime(6*n - 1) &&\n        primeSeive.isPrime(12*n - 7) && n != 1) {\n      number = 3*n*n + 3*n + 1;\n      count++;\n    }\n    n++;\n  }\n  return number;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>hexagonalTile(10)</code> treba vratiti <code>271</code>.</p>",
+      "testString": "assert.strictEqual(hexagonalTile(10), 271);"
+    },
+    {
+      "text": "<p><code>hexagonalTile(2000)</code> treba da vrati <code>14516824220</code>.</p>",
+      "testString": "assert.strictEqual(hexagonalTile(2000), 14516824220);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Šestokutna pločica sa brojem 1 je okružena prstenom od šest šestokutnih pločica, počevši od pozicije sata \"12\" i brojeći pločice od 2 do 7 u smeru suprotnom kazaljci na satu.</p>\n<p>Novi prstenovi se dodaju na isti način, a sledeći prstenovi se broje od 8 do 19, od 20 do 37, od 38 do 61, i tako dalje. Ilustracija ispod prikazuje prvih tri prstena.</p>\n<img alt=\"three first rings of arranged hexagonal tiles with numbers 1 to 37, and with highlighted tiles 8 and 17\" src=\"https://cdn.freecodecamp.org/curriculum/project-euler/hexagonal-tile-differences.png\" style=\"background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Kada pronađemo razliku između pločice $n$ i svakog od njenih šest suseda, definišemo $PD(n)$ kao broj tih razlika koji su premijni brojevi.</p>\n<p>Na primer, ako radimo u smeru kazaljke naoklono oko ploče 8, razlike su 12, 29, 11, 6, 1 i 13. Dakle $PD(8) = 3$.</p>\n<p>Slično tome, razlike koje okružuju pločicu 17 su 1, 17, 16, 1, 11 i 10, stoga je $PD(17) = 2$.</p>\n<p>Može se pokazati da najveća vrednost za $PD(n)$ je $3$.</p>\n<p>Ako se sve ćelije koje $PD(n) = 3$ poređaju u rastućem redosledu da formiraju niz, 10. ćelija će biti 271.</p>\n<p>Pronađi pločicu 2000 u ovoj seriji.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-101-to-200",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 27,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": true,
+  "certification": "project-euler"
+}

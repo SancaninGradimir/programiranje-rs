@@ -1,0 +1,77 @@
+{
+  "id": "5900f3a61000cf542c50feb9",
+  "title": "Vežba 58: osnovni brojevi za krug",
+  "challengeType": 1,
+  "forumTopicId": 302169,
+  "dashedName": "problem-58-spiral-primes",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function spiralPrimes(percent) {\n\n  return true;\n}\n\nspiralPrimes(50);",
+      "error": null,
+      "seed": "function spiralPrimes(percent) {\n\n  return true;\n}\n\nspiralPrimes(50);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function spiralPrimes(percent) {\n  function isPrime(n) {\n    if (n <= 3) {\n      return n > 1;\n    } else if (n % 2 === 0 || n % 3 === 0) {\n      return false;\n    }\n\n    for (let i = 5; i * i <= n; i += 6) {\n      if (n % i === 0 || n % (i + 2) === 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  let totalCount = 1;\n  let primesCount = 0;\n  let curNumber = 1;\n  let curSideLength = 1;\n  let ratio = 1;\n  const wantedRatio = percent / 100;\n\n  while (ratio >= wantedRatio) {\n    curSideLength += 2;\n    for (let i = 0; i < 4; i++) {\n      curNumber += curSideLength - 1;\n      totalCount++;\n      if (i !== 3 && isPrime(curNumber)) {\n        primesCount++;\n      }\n    }\n    ratio = primesCount / totalCount;\n  }\n  return curSideLength;\n}",
+        "error": null,
+        "seed": "function spiralPrimes(percent) {\n  function isPrime(n) {\n    if (n <= 3) {\n      return n > 1;\n    } else if (n % 2 === 0 || n % 3 === 0) {\n      return false;\n    }\n\n    for (let i = 5; i * i <= n; i += 6) {\n      if (n % i === 0 || n % (i + 2) === 0) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  let totalCount = 1;\n  let primesCount = 0;\n  let curNumber = 1;\n  let curSideLength = 1;\n  let ratio = 1;\n  const wantedRatio = percent / 100;\n\n  while (ratio >= wantedRatio) {\n    curSideLength += 2;\n    for (let i = 0; i < 4; i++) {\n      curNumber += curSideLength - 1;\n      totalCount++;\n      if (i !== 3 && isPrime(curNumber)) {\n        primesCount++;\n      }\n    }\n    ratio = primesCount / totalCount;\n  }\n  return curSideLength;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>spiralPrimes(50)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof spiralPrimes(50) === 'number');"
+    },
+    {
+      "text": "<p><code>spiralPrimes(50)</code> treba da vrati <code>11</code>.</p>",
+      "testString": "assert.strictEqual(spiralPrimes(50), 11);"
+    },
+    {
+      "text": "<p><code>spiralPrimes(15)</code> trebalo bi da vrati <code>981</code>.</p>",
+      "testString": "assert.strictEqual(spiralPrimes(15), 981);"
+    },
+    {
+      "text": "<p><code>spiralPrimes(10)</code> trebalo bi da vrati <code>26241</code>.</p>",
+      "testString": "assert.strictEqual(spiralPrimes(10), 26241);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Počevši od 1 i praćenjem okvira u suprotnom smeru kazaljke na satu, kao što je prikazano, formiran je kvadratni okvir sa dužinom stranice od 7.</p>\n<div style='text-align: center;'>\n  <strong><span style='color: red;'>37</span></strong> 36 35 34 33 32 <strong><span style='color: red;'>31</span></strong><br>\n  38 <strong><span style='color: red;'>17</span></strong> 16 15 14 <strong><span style='color: red;'>13</span></strong> 30<br>\n  39 18 <0xC2><0xA0><strong><span style='color: red;'>5</span></strong> <0xC2><0xA0>4 <0xC2><0xA0><strong><span style='color: red;'>3</span></strong> 12 29<br>\n  40 19 <0xC2><0xA0>6 <0xC2><0xA0>1 <0xC2><0xA0>2 11 28<br>\n  41 20 <0xC2><0xA0><strong><span style='color: red;'>7</span></strong> <0xC2><0xA0>8 <0xC2><0xA0>9 10 27<br>\n  42 21 22 23 24 25 26<br>\n  <strong><span style='color: red;'>43</span></strong> 44 45 46 47 48 49<br>\n</div>\n<p>Fascinirajuće je primetiti da kvadrati bez dvostraničnih brojeva su na donjem desnom dijagonali, ali najzanimljivije je što osam od trnaest brojeva koji se nalaze na obe dijagonale su premijni brojevi; to jest, odnos 8/13 ≈ 62%.</p>\n<p>Ako se oko ovog kruga gore doda potpuno novi sloj, stvoriće se kvadratni prsten sa dužinom stranice od 9. Ako ovaj proces nastavi, koja je dužina stranice kvadratnog prstena gde procenat premijnih brojeva na obe dijagonale padne ispod <code>percent</code> prvi put?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 57,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

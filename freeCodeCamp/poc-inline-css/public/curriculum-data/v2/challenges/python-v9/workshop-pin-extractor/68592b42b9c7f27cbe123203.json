@@ -1,0 +1,66 @@
+{
+  "id": "68592b42b9c7f27cbe123203",
+  "title": "Korak 15",
+  "challengeType": 20,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        7,
+        9
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        if len(words) > line_index:\n            secret_code += str(len(words[line_index]))\n        \n    return secret_code\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\nprint(pin_extractor(poem))\n",
+      "error": null,
+      "seed": "def pin_extractor(poem):\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        if len(words) > line_index:\n            secret_code += str(len(words[line_index]))\n        \n    return secret_code\n\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\nprint(pin_extractor(poem))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should have an <code>else</code> clause.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].find_ifs()[0].find_conditions()[1] == _Node()\n    `)\n})"
+    },
+    {
+      "text": "<p>The <code>else</code> clause should contain <code>secret_code += '0'</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0].find_if('len(words) > line_index').is_equivalent('if len(words) > line_index:\\\\n  secret_code += str(len(words[line_index]))\\\\nelse:\\\\n  secret_code += \\\\'0\\\\'')\n    `)\n})"
+    },
+    {
+      "text": "<p><code>pin_extractor(poem)</code> should return <code>5202</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert pin_extractor(poem) == '5202'\n    `)\n})"
+    },
+    {
+      "text": "<p><code>secret_code('There\\nonce\\nwas\\na\\ndragon')</code> should return <code>50000</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert pin_extractor('There\\\\nonce\\\\nwas\\\\na\\\\ndragon') == '50000'\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Treći red pesme nedostaje treća reč, pa je pin kraći nego što se očekuje.</p>\n<p>Dodajte klauzulu <code>else</code> koja konkatenuje <code>'0'</code> sa <code>secret_code</code> kada nema dovoljno reči, tako da se svi redovi pesme koriste za pronalaženje cifara.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-pin-extractor",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 20,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-loops-and-sequences",
+  "certification": "python-v9"
+}

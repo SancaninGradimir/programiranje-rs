@@ -1,0 +1,84 @@
+{
+  "id": "5a24c314108439a4d4036154",
+  "title": "Povežite više reduktora",
+  "challengeType": 6,
+  "forumTopicId": 301436,
+  "dashedName": "combine-multiple-reducers",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst LOGIN = 'LOGIN';\nconst LOGOUT = 'LOGOUT';\n\nconst authReducer = (state = {authenticated: false}, action) => {\n  switch(action.type) {\n    case LOGIN:\n      return {\n        authenticated: true\n      }\n    case LOGOUT:\n      return {\n        authenticated: false\n      }\n    default:\n      return state;\n  }\n};\n\nconst rootReducer = // Define the root reducer here\n\nconst store = Redux.createStore(rootReducer);",
+      "error": null,
+      "seed": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst LOGIN = 'LOGIN';\nconst LOGOUT = 'LOGOUT';\n\nconst authReducer = (state = {authenticated: false}, action) => {\n  switch(action.type) {\n    case LOGIN:\n      return {\n        authenticated: true\n      }\n    case LOGOUT:\n      return {\n        authenticated: false\n      }\n    default:\n      return state;\n  }\n};\n\nconst rootReducer = // Define the root reducer here\n\nconst store = Redux.createStore(rootReducer);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst LOGIN = 'LOGIN';\nconst LOGOUT = 'LOGOUT';\n\nconst authReducer = (state = {authenticated: false}, action) => {\n  switch(action.type) {\n    case LOGIN:\n      return {\n        authenticated: true\n      }\n    case LOGOUT:\n      return {\n        authenticated: false\n      }\n    default:\n      return state;\n  }\n};\n\nconst rootReducer = Redux.combineReducers({\n  count: counterReducer,\n  auth: authReducer\n});\n\nconst store = Redux.createStore(rootReducer);",
+        "error": null,
+        "seed": "const INCREMENT = 'INCREMENT';\nconst DECREMENT = 'DECREMENT';\n\nconst counterReducer = (state = 0, action) => {\n  switch(action.type) {\n    case INCREMENT:\n      return state + 1;\n    case DECREMENT:\n      return state - 1;\n    default:\n      return state;\n  }\n};\n\nconst LOGIN = 'LOGIN';\nconst LOGOUT = 'LOGOUT';\n\nconst authReducer = (state = {authenticated: false}, action) => {\n  switch(action.type) {\n    case LOGIN:\n      return {\n        authenticated: true\n      }\n    case LOGOUT:\n      return {\n        authenticated: false\n      }\n    default:\n      return state;\n  }\n};\n\nconst rootReducer = Redux.combineReducers({\n  count: counterReducer,\n  auth: authReducer\n});\n\nconst store = Redux.createStore(rootReducer);"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>counterReducer</code> bi trebalo da se poveća i smanji <code>state</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState().count;\n    store.dispatch({ type: INCREMENT });\n    store.dispatch({ type: INCREMENT });\n    const firstState = store.getState().count;\n    store.dispatch({ type: DECREMENT });\n    const secondState = store.getState().count;\n    return firstState === initialState + 2 && secondState === firstState - 1;\n  })()\n);"
+    },
+    {
+      "text": "<p><code>authReducer</code> inapaswa kubadilisha <code>state</code> ya <code>authenticated</code> kati ya <code>true</code> na <code>false</code>.</p>",
+      "testString": "assert(\n  (function () {\n    store.dispatch({ type: LOGIN });\n    const loggedIn = store.getState().auth.authenticated;\n    store.dispatch({ type: LOGOUT });\n    const loggedOut = store.getState().auth.authenticated;\n    return loggedIn === true && loggedOut === false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Skladište za <code>state</code> bi trebalo da ima dva ključa: <code>count</code>, koji čuva broj, i <code>auth</code>, koji čuva objekat. Objekat za <code>auth</code> bi trebalo da ima svojstvo <code>authenticated</code>, koje čuva vrednost istina ili laž.</p>",
+      "testString": "assert(\n  (function () {\n    const state = store.getState();\n    return (\n      typeof state.auth === 'object' &&\n      typeof state.auth.authenticated === 'boolean' &&\n      typeof state.count === 'number'\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p><code>rootReducer</code> trebalo bi da bude funkcija koja povezuje <code>counterReducer</code> i <code>authReducer</code>.</p>",
+      "testString": "assert(\n    (function () {\n      const noWhiteSpace = __helpers.removeWhiteSpace(code);\n      return (\n        typeof rootReducer === 'function' &&\n        noWhiteSpace.includes('Redux.combineReducers')\n      );\n    })()\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kada počinje stanje vaše aplikacije da postaje sve složenije, može biti privlačno razbiti to stanje na mnogo delova. Umesto toga, zapamtite prvi princip Reduxa: celokupno stanje aplikacije se čuva u jednom objektu stanja u <em>store</em>-u (skladištu). Zbog toga nudi strukturu reducersa kao rešenje za složeno stanje. Vi definišete više reducersa koji obrađuju različite delove stanja vaše aplikacije, a zatim ih spajate zajedno u jedan glavni reducer. Taj glavni reducer se potom prosleđuje Redux putanji <code>createStore()</code>.</p>\n<p>Da bismo vam omogućili da kombinujete više reduktora zajedno, Redux pruža metodu <code>combineReducers()</code>. Ova metoda prihvata objekat gde definišete ključeve koji će se mapirati na odgovarajuće reducer funkcije. Ime koje date ključu će Redux koristiti kao ime dela stanja.</p>\n<p>Obično je dobra praksa da kreirate reducer za svaki deo stanja aplikacije kada je to logički odvojen ili specifičan. Na primer, u aplikaciji za beleške sa autentifikacijom, jedan reducer može da upravlja autentifikacijom dok drugi upravlja tekstom i detaljima koje korisnik unosi. Za takvu aplikaciju, možemo napisati poziv <code>combineReducers()</code> kao što sledi:</p>\n<pre><code class=\"language-js\">const rootReducer = Redux.combineReducers({\n  auth: authenticationReducer,\n  notes: notesReducer\n});\n</code></pre>\n<p>Sasa, funguo <code>notes</code> itakuwa na hali yote inayohusiana na maelezo yetu na inayoshughulikiwa na <code>notesReducer</code>. Hivi ndivyo reducers nyingi zinavyoweza kuunganishwa kusimamia hali tata ya programu. Katika mfano huu, hali iliyohifadhiwa katika hifadhi ya Redux itakuwa kitu kimoja chenye sifa za <code>auth</code> na <code>notes</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoje funkcije za <code>counterReducer()</code> i <code>authReducer()</code> koje su dostupne u editoru koda, zajedno sa Redux skladištem. Završite pisanje funkcije <code>rootReducer()</code> koristeći metod <code>Redux.combineReducers()</code>. Postavite <code>counterReducer</code> u funkciju nazvanu <code>count</code>, i <code>authReducer</code> u funkciju nazvanu <code>auth</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

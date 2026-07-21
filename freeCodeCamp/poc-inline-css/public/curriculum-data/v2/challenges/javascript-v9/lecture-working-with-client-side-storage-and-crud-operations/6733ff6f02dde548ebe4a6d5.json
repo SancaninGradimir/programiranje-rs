@@ -1,0 +1,109 @@
+{
+  "id": "6733ff6f02dde548ebe4a6d5",
+  "title": "Šta su kolačići i kako funkcionišu?",
+  "challengeType": 19,
+  "dashedName": "what-are-cookies-and-how-do-they-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja je glavna svrha kolačića u veb aplikacijama?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kuhifadhi kiasi kikubwa cha data kwa kudumu.</p>",
+          "feedback": "<p>Zamislite kako kolačići pomažu web aplikacijama da pamte specifične podatke korisnika između sesija.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Skladištenje podataka koji pomažu u održavanju stanja i pamćenju korisničkih informacija između aplikacija.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Menja baze podataka servera.</p>",
+          "feedback": "<p>Zamislite kako kolačići pomažu web aplikacijama da zapamte specifične podatke korisnika između sesija.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Poboljšajte performanse JavaScript u pretraživaču.</p>",
+          "feedback": "<p>Zamislite kako kolačići pomažu web aplikacijama da zapamte specifične podatke korisnika između sesija.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja karakteristika od ovih osigurava da se exploit šalje samo preko HTTPS?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>Secure</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>HttpOnly</code></p>",
+          "feedback": "<p>Ova funkcija sprečava da kolačići budu poslati putem nesigurne veze HTTP.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>SameSite</code></p>",
+          "feedback": "<p>Ova funkcija štiti kolačiće od slanja putem nebezbedne veze HTTP.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>Expires</code></p>",
+          "feedback": "<p>Ova funkcija štiti kolačiće od slanja preko nesigurne veze HTTP.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Da li možete obrisati element koristeći JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Postavljanjem njegove vrednosti na <code>null</code>.</p>",
+          "feedback": "<p>Razmislite kako postavljanje datuma isteka utiče na trajanje kolačića.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Postavljanjem datuma isteka na raniji datum.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristeći metodu <code>document.cookie.remove()</code>.</p>",
+          "feedback": "<p>Razmislite kako postavljanje datuma isteka utiče na trajanje kolačića.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Za ponovno učitavanje stranice.</p>",
+          "feedback": "<p>Razmislite kako postavljanje datuma isteka utiče na trajanje kolačića.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Vidakuzi, poznati i kao HTTP kolačići ili kolačići pregledača, mali su delovi podataka koje server šalje korisnikovom veb pregledaču. Ovi kolačići se čuvaju na korisnikovom uređaju i ponovo se šalju serveru uz svaki naredni zahtev.</p>\n<p>Kolačići su važni jer omogućavaju veb aplikacijama da sačuvaju stanje i zapamte informacije o korisniku, što je posebno značajno zato što je HTTP protokol bez stanja (stateless).</p>\n<p>Kolačići mogu da čuvaju različite vrste informacija, kao što su korisnička podešavanja, podaci o sesiji ili podaci za praćenje.</p>\n<p>Kolačići se uvek čuvaju kao parovi ime-vrednost (name-value). To znači da svaki kolačić ima ime (ključ) i odgovarajuću vrednost.</p>\n<p>Na primer, kolačić može da čuva identifikator korisničke sesije ovako: sessionId=abc123. Ključ je sessionId, a vrednost je abc123. Svaki put kada pregledač komunicira sa serverom, šalje ove kolačiće u obliku parova ime-vrednost.</p>\n<p>Kada korisnik poseti veb sajt, server može da pošalje jedan ili više kolačića korisnikovom pregledaču tako što će uključiti zaglavlje Set-Cookie u HTTP odgovoru. Zaglavlje je par ključ-vrednost koji pruža dodatne informacije o HTTP zahtevu ili odgovoru. Više o HTTP zahtevima i odgovorima naučićete u narednim lekcijama.</p>\n<p>Kada se kolačići postave, pregledač ih čuva i automatski ih uključuje u zaglavlje Cookie pri svakom narednom zahtevu upućenom istom domenu. To omogućava serveru da pristupi sačuvanim kolačićima i koristi ih za stvari kao što su održavanje korisničkih sesija ili pamćenje korisničkih podešavanja.</p>\n<p>Evo primera kako se kolačić postavlja u HTTP odgovoru:</p>\n<pre><code class=\"language-http\">Set-Cookie: sessionId=abc123; Expires=Wed, 21 Oct 2021 07:28:00 GMT; Secure; HttpOnly\n</code></pre>\n<p>Pregledač će sačuvati kolačić, a u svim narednim zahtevima ka istom serveru uključivaće taj kolačić u zaglavlje <code>Cookie</code>:</p>\n<pre><code class=\"language-http\">Cookie: sessionId=abc123\n</code></pre>\n<p>Server može da pročita kolačić i iskoristi sačuvani identifikator sesije za pronalaženje informacija o korisniku, na primer da utvrdi da li je prijavljen na svoj nalog.</p>\n<p>Evo pregleda različitih vrsta kolačića.</p>\n<ul>\n<li>\n<p>Sesijski kolačići važe samo tokom sesije korisnika na veb stranici. Kada korisnik zatvori pretraživač ili karticu, sesijski kolačić se briše. Ova kolačići se obično koriste za funkcije kao što je održavanje prijave korisnika tokom njegovog poseta.</p>\n</li>\n<li>\n<p>Trajni kolačići imaju datum isteka i ostanu na uređaju korisnika sve do tog datuma. Trajni kolačići se često koriste za pamćenje preferencija korisnika ili podataka za prijavu na nalog između sesija.</p>\n</li>\n<li>\n<p>Sigurni vijci se šalju samo putem HTTPS, osiguravajući da ih napadač ne ukrade tokom transporta.</p>\n</li>\n<li>\n<p>HttpOnly kolačićima nije moguće pristupiti niti ih menjati pomoću JavaScript-a koji se izvršava u pregledaču, zbog čega su bolje zaštićeni od Cross-Site Scripting (XSS) napada. XSS napadi nastaju kada napadač ubaci zlonamernu skriptu u veb stranicu koju pregledaju drugi korisnici. Te skripte se mogu izvršiti u kontekstu pregledača žrtve i ukrasti kolačiće, podatke o sesiji ili izvršiti druge zlonamerne radnje bez znanja ili pristanka korisnika. Postavljanjem kolačića kao HttpOnly sprečava se pristup njima putem JavaScript-a, čime se značajno smanjuje rizik od ovakvih napada.</p>\n</li>\n</ul>\n<p>Možete kreirati kolačiće putem odgovora servera koristeći zaglavlje <code>Set-Cookie</code> ili preko <code>JavaScript</code> koristeći <code>document.cookie</code>.</p>\n<p>Evo primera postavljanja kolačića pomoću JavaScript-a:</p>\n<pre><code class=\"language-js\">document.cookie = \"username=JohnDoe; expires=Fri, 31 Dec 2021 23:59:59 GMT; path=/\";\n</code></pre>\n<p>Ova naredba postavlja kolačić sa imenom <code>username</code> i vrednošću <code>\"JohnDoe\"</code> koji ističe krajem 2021. godine. Postojeći kolačić možete izmeniti tako što ćete ga ponovo postaviti sa novom vrednošću.</p>\n<p>Da biste obrisali kolačić, postavite njegov datum isteka na neki raniji datum:</p>\n<pre><code class=\"language-js\">document.cookie = \"username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/\";\n</code></pre>\n<p>Ovo će obrisati kolačić <code>username</code> iz pregledača.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-client-side-storage-and-crud-operations",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 170,
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 3,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "localstorage-and-crud-operations",
+  "certification": "javascript-v9"
+}

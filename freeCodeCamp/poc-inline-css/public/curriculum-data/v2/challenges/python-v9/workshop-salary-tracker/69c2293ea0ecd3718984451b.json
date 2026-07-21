@@ -1,0 +1,54 @@
+{
+  "id": "69c2293ea0ecd3718984451b",
+  "title": "Korak 37",
+  "challengeType": 20,
+  "dashedName": "step-37",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        11,
+        13
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        if hasattr(self, '_level') and new_level == self.level:\n            raise ValueError(f\"'{self.level}' is already the selected level.\")\n        if hasattr(self, '_level') and Employee._base_salaries[new_level] < Employee._base_salaries[self.level]:\n            raise ValueError(\"Cannot change to lower level.\")\n        print(f\"'{self.name}' promoted to '{new_level}'.\")\n        self._salary = Employee._base_salaries[new_level]\n        self._level = new_level\n\n    @property\n    def salary(self):\n        return self._salary\n\n    @salary.setter\n    def salary(self, new_salary):\n        self._salary = new_salary\n        print(f'Salary updated to ${self.salary}.')\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')\n\ncharlie_brown.level = 'junior'\n",
+      "error": null,
+      "seed": "class Employee:\n    _base_salaries = {\n        'trainee': 1000,\n        'junior': 2000,\n        'mid-level': 3000,\n        'senior': 4000,\n    }\n\n    def __init__(self, name, level):\n        self.name = name\n        self.level = level\n        self._salary = Employee._base_salaries[level]\n\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @name.setter\n    def name(self, new_name):\n        if not isinstance(new_name, str):\n            raise TypeError(\"'name' must be a string.\")\n        self._name = new_name\n        print(f\"'name' updated to '{self.name}'.\")\n\n    @property\n    def level(self):\n        return self._level\n\n    @level.setter\n    def level(self, new_level):\n        if not isinstance(new_level, str):\n            raise TypeError(\"'level' must be a string.\")\n        if new_level not in Employee._base_salaries:\n            raise ValueError(f\"Invalid value '{new_level}' for 'level' attribute.\")\n        if hasattr(self, '_level') and new_level == self.level:\n            raise ValueError(f\"'{self.level}' is already the selected level.\")\n        if hasattr(self, '_level') and Employee._base_salaries[new_level] < Employee._base_salaries[self.level]:\n            raise ValueError(\"Cannot change to lower level.\")\n        print(f\"'{self.name}' promoted to '{new_level}'.\")\n        self._salary = Employee._base_salaries[new_level]\n        self._level = new_level\n\n    @property\n    def salary(self):\n        return self._salary\n\n    @salary.setter\n    def salary(self, new_salary):\n        self._salary = new_salary\n        print(f'Salary updated to ${self.salary}.')\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)\nprint(f'Base salary: ${charlie_brown.salary}')\n\ncharlie_brown.level = 'junior'\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Tvoja putanja <code>__init__</code> treba da koristi <code>self.salary = Employee._base_salaries[level]</code> umesto <code>self._salary = Employee._base_salaries[level]</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_function(\"__init__\").has_stmt(\"self.salary = Employee._base_salaries[level]\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada nakon kreiranja <code>salary</code> setter, ispravite <code>__init__</code> ili koristite umesto direktnog postavljanja vrednosti za <code>self._salary</code>. Promenite <code>self._salary = Employee._base_salaries[level]</code> u <code>self.salary = Employee._base_salaries[level]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 36,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

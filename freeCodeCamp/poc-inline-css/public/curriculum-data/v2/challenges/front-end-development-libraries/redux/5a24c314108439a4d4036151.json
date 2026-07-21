@@ -1,0 +1,92 @@
+{
+  "id": "5a24c314108439a4d4036151",
+  "title": "Koristi informaciju za preusmeravanje da obrađuje više akcija",
+  "challengeType": 6,
+  "forumTopicId": 301449,
+  "dashedName": "use-a-switch-statement-to-handle-multiple-actions",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const defaultState = {\n  authenticated: false\n};\n\nconst authReducer = (state = defaultState, action) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(authReducer);\n\nconst loginUser = () => {\n  return {\n    type: 'LOGIN'\n  }\n};\n\nconst logoutUser = () => {\n  return {\n    type: 'LOGOUT'\n  }\n};",
+      "error": null,
+      "seed": "const defaultState = {\n  authenticated: false\n};\n\nconst authReducer = (state = defaultState, action) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(authReducer);\n\nconst loginUser = () => {\n  return {\n    type: 'LOGIN'\n  }\n};\n\nconst logoutUser = () => {\n  return {\n    type: 'LOGOUT'\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const defaultState = {\n  authenticated: false\n};\n\nconst authReducer = (state = defaultState, action) => {\n\n  switch (action.type) {\n\n    case 'LOGIN':\n      return {\n        authenticated: true\n      }\n\n    case 'LOGOUT':\n      return {\n        authenticated: false\n      }\n\n    default:\n      return state;\n\n  }\n\n};\n\nconst store = Redux.createStore(authReducer);\n\nconst loginUser = () => {\n  return {\n    type: 'LOGIN'\n  }\n};\n\nconst logoutUser = () => {\n  return {\n    type: 'LOGOUT'\n  }\n};",
+        "error": null,
+        "seed": "const defaultState = {\n  authenticated: false\n};\n\nconst authReducer = (state = defaultState, action) => {\n\n  switch (action.type) {\n\n    case 'LOGIN':\n      return {\n        authenticated: true\n      }\n\n    case 'LOGOUT':\n      return {\n        authenticated: false\n      }\n\n    default:\n      return state;\n\n  }\n\n};\n\nconst store = Redux.createStore(authReducer);\n\nconst loginUser = () => {\n  return {\n    type: 'LOGIN'\n  }\n};\n\nconst logoutUser = () => {\n  return {\n    type: 'LOGOUT'\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Pozivanje funkcije <code>loginUser</code> treba da vrati objekat sa svojstvom tipa ako ima niz znakova <code>LOGIN</code>.</p>",
+      "testString": "assert(loginUser().type === 'LOGIN');"
+    },
+    {
+      "text": "<p>Kupiga wito kitendakazi <code>logoutUser</code> kunapaswa kurudisha kitu chenye sifa ya type ikiwa na mfuatano wa herufi <code>LOGOUT</code>.</p>",
+      "testString": "assert(logoutUser().type === 'LOGOUT');"
+    },
+    {
+      "text": "<p>Skladište mora biti inicijalizovano sa objektom koji ima atribut <code>authenticated</code> sa vrednošću <code>false</code>.</p>",
+      "testString": "assert(store.getState().authenticated === false);"
+    },
+    {
+      "text": "<p>Pošiljanje <code>loginUser</code> mora ažurirati atribut <code>authenticated</code> u stanju pohrane na <code>true</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    store.dispatch(loginUser());\n    const afterLogin = store.getState();\n    return (\n      initialState.authenticated === false && afterLogin.authenticated === true\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Kutuma <code>logoutUser</code> kunapaswa kusasisha sifa <code>authenticated</code> katika hali ya hifadhi kuwa <code>false</code>.</p>",
+      "testString": "assert(\n  (function () {\n    store.dispatch(loginUser());\n    const loggedIn = store.getState();\n    store.dispatch(logoutUser());\n    const afterLogout = store.getState();\n    return (\n      loggedIn.authenticated === true && afterLogout.authenticated === false\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>authReducer</code> trebalo bi da obrađuje različite vrste operacija za ažuriranje informacija <code>switch</code>.</p>",
+      "testString": "assert(\n    code.toString().includes('switch') &&\n      code.toString().includes('case') &&\n      code.toString().includes('default')\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Možete objasniti Redux skladište kako da rukuje više tipova akcija. Recimo da upravljate autentifikacijom korisnika u vašem Redux skladištu. Želite da imate predstavljanje stanja kada se korisnici prijave i kada se korisnici odjave. Predstavljate ovo jednim objektom stanja sa svojstvima <code>authenticated</code>. Takođe vam trebaju <em>action creators</em> koji kreiraju akcije koje odgovaraju prilogovanju i odjavljivanju korisnika, zajedno sa samim action objekatima.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Mhariri wa msimbo una hifadhi, vitendo, na watengeneza vitendo vimeandaliwa kwa ajili yako. Jaza kitendakazi cha <code>reducer</code> kushughulikia vitendo vingi vya uthibitisho wa utambulisho. Tumia taarifa ya kubadilisha ya JavaScript <code>switch</code> katika <code>reducer</code> kujibu matukio tofauti ya vitendo. Hii ni mtindo wa kawaida katika kuandika reducers za Redux. Taarifa ya kubadilisha inapaswa kubadilisha juu ya <code>action.type</code> na kurudisha hali inayofaa ya uthibitisho wa utambulisho.</p>\n<p><strong>Kumbuka:</strong> Kwa sasa, usijali kuhusu kutokubadilika kwa hali, kwa sababu ni ndogo na rahisi katika mfano huu. Kwa kila kitendo, unaweza kurudisha kitu kipya — kwa mfano, <code>{authenticated: true}</code>. Pia, usisahau kuandika kesi ya <code>default</code> katika taarifa yako ya kubadilisha ambayo inarudisha <code>state</code> ya sasa. Hii ni muhimu kwa sababu mara programu yako itakapokuwa na reducers nyingi, zote zinaendeshwa kila wakati kitendo kinapotumwa, hata wakati kitendo hakihusiani na reducer hiyo. Katika hali kama hiyo, unataka kuhakikisha unarudisha hali ya sasa <code>state</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

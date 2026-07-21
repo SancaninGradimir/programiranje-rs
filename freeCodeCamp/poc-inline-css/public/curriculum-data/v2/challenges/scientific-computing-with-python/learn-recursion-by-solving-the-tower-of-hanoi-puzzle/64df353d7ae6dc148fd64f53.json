@@ -1,0 +1,51 @@
+{
+  "id": "64df353d7ae6dc148fd64f53",
+  "title": "Korak 42",
+  "challengeType": 20,
+  "dashedName": "step-42",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        24,
+        47
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "NUMBER_OF_DISKS = 4\nnumber_of_moves = 2 ** NUMBER_OF_DISKS - 1\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef make_allowed_move(rod1, rod2):    \n    forward = False\n    if not rods[rod2]:\n        forward = True\n    elif rods[rod1] and rods[rod1][-1] < rods[rod2][-1]:\n        forward = True              \n    if forward:\n        print(f'Moving disk {rods[rod1][-1]} from {rod1} to {rod2}')\n        rods[rod2].append(rods[rod1].pop())\n    else:\n        print(f'Moving disk {rods[rod2][-1]} from {rod2} to {rod1}')\n        rods[rod1].append(rods[rod2].pop())\n    \n    # display our progress\n    print(rods, '\\n')\n\ndef move(n, source, auxiliary, target):\n    # display starting configuration\n    print(rods, '\\n')\n    for i in range(number_of_moves):\n        remainder = (i + 1) % 3\n        if remainder == 1:\n            if n % 2 != 0:\n                print(f'Move {i + 1} allowed between {source} and {target}')\n                make_allowed_move(source, target)\n            else:\n                print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n                make_allowed_move(source, auxiliary)\n        elif remainder == 2:\n            if n % 2 != 0:\n                print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n                make_allowed_move(source, auxiliary)\n            else:\n                print(f'Move {i + 1} allowed between {source} and {target}')\n                make_allowed_move(source, target)\n        elif remainder == 0:\n            print(f'Move {i + 1} allowed between {auxiliary} and {target}')\n            make_allowed_move(auxiliary, target)           \n\n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')",
+      "error": null,
+      "seed": "NUMBER_OF_DISKS = 4\nnumber_of_moves = 2 ** NUMBER_OF_DISKS - 1\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef make_allowed_move(rod1, rod2):    \n    forward = False\n    if not rods[rod2]:\n        forward = True\n    elif rods[rod1] and rods[rod1][-1] < rods[rod2][-1]:\n        forward = True              \n    if forward:\n        print(f'Moving disk {rods[rod1][-1]} from {rod1} to {rod2}')\n        rods[rod2].append(rods[rod1].pop())\n    else:\n        print(f'Moving disk {rods[rod2][-1]} from {rod2} to {rod1}')\n        rods[rod1].append(rods[rod2].pop())\n    \n    # display our progress\n    print(rods, '\\n')\n\ndef move(n, source, auxiliary, target):\n    # display starting configuration\n    print(rods, '\\n')\n    for i in range(number_of_moves):\n        remainder = (i + 1) % 3\n        if remainder == 1:\n            if n % 2 != 0:\n                print(f'Move {i + 1} allowed between {source} and {target}')\n                make_allowed_move(source, target)\n            else:\n                print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n                make_allowed_move(source, auxiliary)\n        elif remainder == 2:\n            if n % 2 != 0:\n                print(f'Move {i + 1} allowed between {source} and {auxiliary}')\n                make_allowed_move(source, auxiliary)\n            else:\n                print(f'Move {i + 1} allowed between {source} and {target}')\n                make_allowed_move(source, target)\n        elif remainder == 0:\n            print(f'Move {i + 1} allowed between {auxiliary} and {target}')\n            make_allowed_move(auxiliary, target)           \n\n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da obrišeš celo telo funkcije za <code>move</code>, osim prvog komentara i poziva za <code>print</code>.</p>",
+      "testString": "({ test: () => assert.match(code, /print\\(\\s*rods\\s*,\\s*('|\")\\\\n\\1\\s*\\)\\s+(?=#\\sinitiate)/) })\n"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ovo je sve za rekurzivno rešenje. Od sada ćeš izgraditi funkciju koja koristi sam princip rekurzije. Rekurzija je kada funkcija poziva samu sebe. U ovom slučaju, koristićeš rekurziju za brojanje manjih instanci istog problema.</p>\n<p>Obriši celo telo funkcije <code>move</code> osim komentara i prvog poziva <code>print</code>. Ostavite deklaraciju funkcije kako jeste.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-recursion-by-solving-the-tower-of-hanoi-puzzle",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 41,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

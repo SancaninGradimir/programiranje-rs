@@ -1,0 +1,89 @@
+{
+  "id": "5a23c84252665b21eecc800c",
+  "title": "Algoritmi za sortiranje permutacionog niza podataka",
+  "challengeType": 1,
+  "forumTopicId": 302316,
+  "dashedName": "sorting-algorithmspermutation-sort",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function permutationSort(arr) {\n\n}",
+      "error": null,
+      "seed": "function permutationSort(arr) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function permutationSort(arr) {\n  function pSort(a) {\n    var list = [];\n    permute(a, a.length, list);\n    for (var i = 0; i < list.length; i++) {\n      var x = list[i];\n      if (isSorted(x)) return x;\n    }\n    return a;\n  }\n\n  function permute(a, n, list) {\n    if (n === 1) {\n      var b = a.slice();\n      list.push(b);\n      return;\n    }\n    for (var i = 0; i < n; i++) {\n      swap(a, i, n - 1);\n      permute(a, n - 1, list);\n      swap(a, i, n - 1);\n    }\n  }\n\n  function isSorted(a){\n    for(let i = 0; i < a.length - 1; i++)\n      if(a[i] > a[i + 1])\n        return false;\n    return true;\n  }\n\n  function swap(arr, i, j) {\n    var temp = arr[i];\n    arr[i] = arr[j];\n    arr[j] = temp;\n  }\n  return pSort(arr);\n}",
+        "error": null,
+        "seed": "function permutationSort(arr) {\n  function pSort(a) {\n    var list = [];\n    permute(a, a.length, list);\n    for (var i = 0; i < list.length; i++) {\n      var x = list[i];\n      if (isSorted(x)) return x;\n    }\n    return a;\n  }\n\n  function permute(a, n, list) {\n    if (n === 1) {\n      var b = a.slice();\n      list.push(b);\n      return;\n    }\n    for (var i = 0; i < n; i++) {\n      swap(a, i, n - 1);\n      permute(a, n - 1, list);\n      swap(a, i, n - 1);\n    }\n  }\n\n  function isSorted(a){\n    for(let i = 0; i < a.length - 1; i++)\n      if(a[i] > a[i + 1])\n        return false;\n    return true;\n  }\n\n  function swap(arr, i, j) {\n    var temp = arr[i];\n    arr[i] = arr[j];\n    arr[j] = temp;\n  }\n  return pSort(arr);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>permutationSort</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof permutationSort == 'function');"
+    },
+    {
+      "text": "<p><code>permutationSort([25, 32, 12, 7, 20])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(permutationSort([25, 32, 12, 7, 20])));"
+    },
+    {
+      "text": "<p><code>permutationSort([25, 32, 12, 7, 20])</code> treba vratiti <code>[7, 12, 20, 25, 32]</code>.</p>",
+      "testString": "assert.deepEqual(permutationSort([25, 32, 12, 7, 20]), [7, 12, 20, 25, 32]);"
+    },
+    {
+      "text": "<p><code>permutationSort([38, 45, 35, 8, 13])</code> trebalo bi da vrati <code>[8, 13, 35, 38, 45]</code>.</p>",
+      "testString": "assert.deepEqual(permutationSort([38, 45, 35, 8, 13]), [8, 13, 35, 38, 45]);"
+    },
+    {
+      "text": "<p><code>permutationSort([43, 36, 20, 34, 24])</code> trebalo bi da vrati <code>[20, 24, 34, 36, 43]</code>.</p>",
+      "testString": "assert.deepEqual(permutationSort([43, 36, 20, 34, 24]), [20, 24, 34, 36, 43]);"
+    },
+    {
+      "text": "<p><code>permutationSort([12, 33, 26, 18, 1, 16, 38])</code> bi trebalo da vrati <code>[1, 12, 16, 18, 26, 33, 38]</code>.</p>",
+      "testString": "assert.deepEqual(permutationSort([12, 33, 26, 18, 1, 16, 38]), [\n  1,\n  12,\n  16,\n  18,\n  26,\n  33,\n  38\n]);"
+    },
+    {
+      "text": "<p><code>permutationSort([3, 39, 48, 16, 1, 4, 29])</code> treba da vrati <code>[1, 3, 4, 16, 29, 39, 48]</code>.</p>",
+      "testString": "assert.deepEqual(permutationSort([3, 39, 48, 16, 1, 4, 29]), [\n  1,\n  3,\n  4,\n  16,\n  29,\n  39,\n  48\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napišite funkciju koja implementira niz podataka permutacije, koji nastavlja generišući sve moguće permutacije ulaznog niza podataka dok ne pronađe sortirani. Funkcija treba da vrati sortirani niz podataka.</p>\n<p>Lažni kod:</p>\n<pre><b>kada nije</b> InOrder(list) <b>radi</b>\n  nextPermutation(list)\n<b>sastav</b>\n</pre>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 126,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

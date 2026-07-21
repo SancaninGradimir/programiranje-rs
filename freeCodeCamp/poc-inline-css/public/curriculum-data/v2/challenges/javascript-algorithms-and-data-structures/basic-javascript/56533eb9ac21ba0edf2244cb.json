@@ -1,0 +1,97 @@
+{
+  "id": "56533eb9ac21ba0edf2244cb",
+  "title": "Manipulisanje Slozenim Objektima",
+  "challengeType": 1,
+  "forumTopicId": 18208,
+  "dashedName": "manipulating-complex-objects",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const myMusic = [\n  {\n    \"artist\": \"Billy Joel\",\n    \"title\": \"Piano Man\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CD\",\n      \"8T\",\n      \"LP\"\n    ],\n    \"gold\": true\n  }\n];",
+      "error": null,
+      "seed": "const myMusic = [\n  {\n    \"artist\": \"Billy Joel\",\n    \"title\": \"Piano Man\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CD\",\n      \"8T\",\n      \"LP\"\n    ],\n    \"gold\": true\n  }\n];"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const myMusic = [\n  {\n    \"artist\": \"Billy Joel\",\n    \"title\": \"Piano Man\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CS\",\n      \"8T\",\n      \"LP\" ],\n    \"gold\": true\n  },\n  {\n    \"artist\": \"ABBA\",\n    \"title\": \"Ring Ring\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CS\",\n      \"8T\",\n      \"LP\",\n    \"CD\",\n  ]\n  }\n];",
+        "error": null,
+        "seed": "const myMusic = [\n  {\n    \"artist\": \"Billy Joel\",\n    \"title\": \"Piano Man\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CS\",\n      \"8T\",\n      \"LP\" ],\n    \"gold\": true\n  },\n  {\n    \"artist\": \"ABBA\",\n    \"title\": \"Ring Ring\",\n    \"release_year\": 1973,\n    \"formats\": [\n      \"CS\",\n      \"8T\",\n      \"LP\",\n    \"CD\",\n  ]\n  }\n];"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>myMusic</code> treba da bude niz</p>",
+      "testString": "assert(Array.isArray(myMusic));"
+    },
+    {
+      "text": "<p><code>myMusic</code> treba da ima najmanje dva elementa</p>",
+      "testString": "assert(myMusic.length > 1);"
+    },
+    {
+      "text": "<p>Elementi niza <code>myMusic</code> treba da budu objekti</p>",
+      "testString": "myMusic.forEach(object => {assert.typeOf(object, 'object')})"
+    },
+    {
+      "text": "<p>Vas objekat u <code>myMusic</code> treba da ima najmanje cetiri svojstva</p>",
+      "testString": "myMusic.forEach(object => {assert(Object.keys(object).length > 3); });"
+    },
+    {
+      "text": "<p>Vas objekat u <code>myMusic</code> treba da ima svojstvo <code>artist</code> koje je string</p>",
+      "testString": "myMusic.forEach(object => {\n  assert.containsAllKeys(object, ['artist']);\n  assert.typeOf(object.artist, 'string')\n})"
+    },
+    {
+      "text": "<p>Vas objekat u <code>myMusic</code> treba da ima svojstvo <code>title</code> koje je string</p>",
+      "testString": "myMusic.forEach(object => {\n  assert.containsAllKeys(object, ['title']);\n  assert.typeOf(object.title, 'string')\n})"
+    },
+    {
+      "text": "<p>Vas objekat u <code>myMusic</code> treba da ima svojstvo <code>release_year</code> koje je broj</p>",
+      "testString": "myMusic.forEach(object => {\n  assert.containsAllKeys(object, ['release_year']);\n  assert.typeOf(object.release_year, 'number')\n})"
+    },
+    {
+      "text": "<p>Vas objekat u <code>myMusic</code> treba da ima svojstvo <code>formats</code> koje je niz</p>",
+      "testString": "myMusic.forEach(object => {\n  assert.containsAllKeys(object, ['formats']);\n  assert.typeOf(object.formats, 'array')\n})"
+    },
+    {
+      "text": "<p><code>formats</code> treba da bude niz stringova sa najmanje dva elementa</p>",
+      "testString": "myMusic.forEach(object => {\n  object.formats.forEach(format => {\n    assert.typeOf(format, 'string')\n  });\n  assert.isAtLeast(object.formats.length, 2)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ponekad je potrebno cuvati podatke u fleksibilnoj <dfn>strukturi podataka</dfn>. JavaScript objekat je jedan nacin da se to uradi. Omogucava kombinaciju <dfn>stringova</dfn>, <dfn>brojeva</dfn>, <dfn>boolean</dfn> vrednosti, <dfn>nizova</dfn>, <dfn>funkcija</dfn> i <dfn>objekata</dfn>.</p>\n<p>Evo primera slozene strukture podataka:</p>\n<pre><code class=\"language-js\">const ourMusic = [\n  {\n    \"artist\": \"Daft Punk\",\n    \"title\": \"Homework\",\n    \"release_year\": 1997,\n    \"formats\": [ \n      \"CD\", \n      \"Cassette\", \n      \"LP\"\n    ],\n    \"gold\": true\n  }\n];\n</code></pre>\n<p>Ovo je niz koji sadrzi jedan objekat. Taj objekat ima razlicite delove <dfn>metapodataka</dfn> o albumu. Sadrzi i ugnjezdeni niz <code>formats</code>. Ako zelite da dodate jos zapisa albuma, uradite to dodavanjem zapisa u niz najviseg nivoa. Objekti cuvaju podatke u svojstvima po obrascu kljuc-vrednost. U primeru iznad, <code>\"artist\": \"Daft Punk\"</code> je svojstvo sa kljucem <code>artist</code> i vrednoscu <code>Daft Punk</code>.</p>\n<p><strong>Napomena:</strong> Potrebno je da stavite zarez posle svakog objekta u nizu, osim posle poslednjeg.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dodajte novi album u niz <code>myMusic</code>. Dodajte string svojstva <code>artist</code> i <code>title</code>, broj <code>release_year</code> i niz stringova <code>formats</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-javascript",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 91,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

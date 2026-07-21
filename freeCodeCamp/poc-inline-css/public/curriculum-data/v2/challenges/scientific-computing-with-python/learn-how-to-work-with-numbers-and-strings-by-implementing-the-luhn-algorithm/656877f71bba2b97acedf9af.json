@@ -1,0 +1,55 @@
+{
+  "id": "656877f71bba2b97acedf9af",
+  "title": "Korak 3",
+  "challengeType": 20,
+  "dashedName": "step-3",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        4
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def main():\n    card_number = '4111-1111-4555-1142'\n    ",
+      "error": null,
+      "seed": "def main():\n    card_number = '4111-1111-4555-1142'\n    "
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da kreiraš parametar <code>card_translation</code> unutar <code>main</code>.</p>",
+      "testString": "({\n    test: () => {\n        const transformedCode = code.replace(/\\r/g, \"\");\n        const main = __helpers.python.getDef(\"\\n\" + transformedCode, \"main\");\n        const { function_body } = main;\n\n        assert.match(function_body, / +card_translation\\s*=/);\n    }\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da postaviš vrednost <code>card_translation</code> na <code>str.maketrans({'-': '', ' ': ''})</code>.</p>",
+      "testString": "({\n    test: () => {\n        const transformedCode = code.replace(/\\r/g, \"\");\n        const main = __helpers.python.getDef(\"\\n\" + transformedCode, \"main\");\n        const { function_body } = main;\n\n        const allowedMatches = [\n            / +card_translation\\s*=\\s*str\\.maketrans\\(\\s*\\{\\s*('|\")-\\1\\s*:\\s*('|\")\\2\\s*,\\s*('|\") \\3\\s*:\\s*('|\")\\4\\s*\\}\\s*\\)/,\n            / +card_translation\\s*=\\s*str\\.maketrans\\(\\s*\\{\\s*('|\") \\1\\s*:\\s*('|\")\\2\\s*,\\s*('|\")-\\3\\s*:\\s*('|\")\\4\\s*\\}\\s*\\)/,\n        ];\n        const anyMatch = allowedMatches.some((match) => match.test(function_body));\n        assert.isTrue(anyMatch);\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Python dolazi sa klasama ugrađenih objekata koji nam mogu pomoći u obradi sekvenci karaktera. Jedan od njih je klasa <code>str</code>. Ima metodu nazvanu <code>maketrans</code> koja nam može pomoći da kreiramo tabelu prevoda. Ova tabela se može koristiti za zamenu karaktera u sekvenci karaktera:</p>\n<pre><code class=\"language-python\">str.maketrans({'t': 'c', 'l': 'b'})\n</code></pre>\n<p>Ovde iznad, kada se spomene u nizu karaktera, će promeniti sve karaktere za <code>t</code> u <code>c</code> i sve karaktere za <code>l</code> u <code>b</code>.</p>\n<p>Kreiraj parametar nazvan <code>card_translation</code> i postavi mu vrednost u tabelu za translaciju da promeni sve karaktere od <code>-</code> na <code> </code> u prazan niz.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-how-to-work-with-numbers-and-strings-by-implementing-the-luhn-algorithm",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

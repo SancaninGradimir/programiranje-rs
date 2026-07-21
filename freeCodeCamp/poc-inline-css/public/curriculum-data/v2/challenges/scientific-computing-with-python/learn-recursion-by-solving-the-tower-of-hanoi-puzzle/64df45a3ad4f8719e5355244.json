@@ -1,0 +1,51 @@
+{
+  "id": "64df45a3ad4f8719e5355244",
+  "title": "Korak 46",
+  "challengeType": 20,
+  "dashedName": "step-46",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        7,
+        16
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "NUMBER_OF_DISKS = 4\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef move(n, source, auxiliary, target):\n    if n > 0:\n        # move n - 1 disks from source to auxiliary, so they are out of the way\n        move(n - 1, source, auxiliary, target)\n        \n        # display starting configuration\n        print(rods, '\\n')\n              \n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')",
+      "error": null,
+      "seed": "NUMBER_OF_DISKS = 4\nrods = {\n    'A': list(range(NUMBER_OF_DISKS, 0, -1)),\n    'B': [],\n    'C': []\n}\n\ndef move(n, source, auxiliary, target):\n    if n > 0:\n        # move n - 1 disks from source to auxiliary, so they are out of the way\n        move(n - 1, source, auxiliary, target)\n        \n        # display starting configuration\n        print(rods, '\\n')\n              \n# initiate call from source A to target C with auxiliary B\nmove(NUMBER_OF_DISKS, 'A', 'B', 'C')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da uklonite poslednji element iz liste <code>rods[source]</code> i dodate ga u listu <code>rods[target]</code> pre poziva <code>print</code>.</p>",
+      "testString": "({ test: () => assert.isTrue(runPython(`\n_log = []\ndef capture_print(*args):\n    _log.append(repr(args))\n\nold_print = print\nprint = capture_print\n\nold_rods = rods\nrods2 = {\n    'A': list(range(5, 0, -1)),\n    'B': [],\n    'C': []\n}\nrods = rods2\n\nmove(5, 'A', 'B', 'C')\nrods = old_rods\nprint = old_print\n\n_expected_prints = [\nr\"({'A': [5, 4, 3, 2], 'B': [], 'C': [1]}, '\\\\n')\",\nr\"({'A': [5, 4, 3], 'B': [], 'C': [1, 2]}, '\\\\n')\",\nr\"({'A': [5, 4], 'B': [], 'C': [1, 2, 3]}, '\\\\n')\",\nr\"({'A': [5], 'B': [], 'C': [1, 2, 3, 4]}, '\\\\n')\",\nr\"({'A': [], 'B': [], 'C': [1, 2, 3, 4, 5]}, '\\\\n')\",\n]\n\nfor args in _log:\n    if not _expected_prints:\n        break\n    if args == _expected_prints[0]:\n        _expected_prints.pop(0)\n\nnot rods2['A'] and rods2['C'] == list(range(1, 6)) and not _expected_prints\n`))})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Koraci za premeštanje diskova <code>n - 1</code> mogu se dalje podeliti sve dok se ne prikaže samo jedan disk. Ovo će biti prvi korak koji nastaje. Nakon što se desi prvi korak, naredni koraci se kreiraju i uklanjaju rekurzivnim pozivom. Zapamtite da se u svakom rekurzivnom koraku menja uloga koju igra šapica između izvora, odredišta i pomoći.</p>\n<p>Trenutno, svaki rekurzivni poziv štampa rečnik <code>rods</code> bez izmene bilo koje liste. Pre poziva <code>print()</code>, uklonite poslednji element iz liste <code>rods[source]</code> i dodajte ga u listu <code>rods[target]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-recursion-by-solving-the-tower-of-hanoi-puzzle",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 8,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 45,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "587d7fb1367417b2b2512bf4",
+  "title": "Povežite middleware da kreirate time server",
+  "challengeType": 2,
+  "forumTopicId": 301510,
+  "dashedName": "chain-middleware-to-create-a-time-server",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Ruta /now treba da ima montiran middleware</p>",
+      "testString": "  const response = await fetch(code + '/_api/chain-middleware-time');\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.equal(\n    data.stackLength,\n    2,\n    '\"/now\" route has no mounted middleware'\n  );"
+    },
+    {
+      "text": "<p>Komanda <code>/now</code> treba da vrati trenutno vreme.</p>",
+      "testString": "  const response = await fetch(code + '/_api/chain-middleware-time');\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  var now = new Date();\n  assert.isAtMost(\n    Math.abs(new Date(data.time) - now),\n    20000,\n    'the returned time is not between +- 20 secs from now'\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Middleware može biti montirana na specifičnoj ruti koristeći <code>app.METHOD(path, middlewareFunction)</code>. Middleware takođe može biti ulančana u nizu unutar definicije rute.</p>\n<p>Tazama mfano ufuatao:</p>\n<pre><code class=\"language-js\">app.get('/user', function(req, res, next) {\n  req.user = getTheUserSync();  // Hypothetical synchronous operation\n  next();\n}, function(req, res) {\n  res.send(req.user);\n});\n</code></pre>\n<p>Ovaj pristup je važan za deljenje server operacija u male, modularne delove. To donosi bolju organizaciju programa, i mogućnost ponovnog korišćenja koda na različitim mestima. Ovaj pristup se takođe može koristiti za validaciju podataka. Svaki deo niza middleware može da zaustavi izvršenje trenutnog lanca i prebaci kontrolu na specifično napravljene funkcije za rukovanje greškama. Ili možete prebaciti kontrolu na sledeću odgovarajuću rutu, za rukovanje specifičnim događajima. Videćemo kako u deo za naprednu Express upotrebu.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U ruti <code>app.get('/now', ...)</code> povežite middleware funkciju sa finalnim handlerom. U middleware funkciji treba da dodate trenutno vreme u objekat zahteva pod ključem <code>req.time</code>. Možete koristiti <code>new Date().toString()</code>. U handleru, odgovorite sa JSON objektom, koristeći format <code>{time: req.time}</code>.</p>\n<p><strong>Napomena:</strong> Test neće proći ako ne kreirate lanac middleware. Ako postavite funkciju na drugo mesto, test će pasti, čak iako je rezultat tačan.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

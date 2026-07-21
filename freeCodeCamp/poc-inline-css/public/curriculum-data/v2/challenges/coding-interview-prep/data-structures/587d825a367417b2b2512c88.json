@@ -1,0 +1,81 @@
+{
+  "id": "587d825a367417b2b2512c88",
+  "title": "Prebacivanje dvostruko povezane liste",
+  "challengeType": 1,
+  "forumTopicId": 301714,
+  "dashedName": "reverse-a-doubly-linked-list",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var Node = function(data, prev) {\r\n  this.data = data;\r\n  this.prev = prev;\r\n  this.next = null;\r\n};\r\nvar DoublyLinkedList = function() {\r\n  this.head = null;\r\n  this.tail = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};",
+      "error": null,
+      "seed": "var Node = function(data, prev) {\r\n  this.data = data;\r\n  this.prev = prev;\r\n  this.next = null;\r\n};\r\nvar DoublyLinkedList = function() {\r\n  this.head = null;\r\n  this.tail = null;\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "  var Node = function(data, prev) {\r\n    this.data = data;\r\n    this.prev = prev;\r\n    this.next = null;\r\n  };\r\n  var DoublyLinkedList = function() {\r\n    this.head = null;\r\n    this.tail = null;\r\n\r\n    this.reverse = function() {\r\n      if (!this.head || !this.head.next) {\r\n        return this.head\r\n      }\r\n\r\n      let tail;\r\n      let temp;\r\n      let current = this.head;\r\n      while(current !== null) {\r\n        if(!tail) tail = current;\r\n        temp = current.prev;\r\n        current.prev = current.next;\r\n        current.next = temp;\r\n        current = current.prev;\r\n      }\r\n\r\n      this.head = temp.prev;\r\n      this.tail = tail\r\n    }\r\n  };",
+        "error": null,
+        "seed": "  var Node = function(data, prev) {\r\n    this.data = data;\r\n    this.prev = prev;\r\n    this.next = null;\r\n  };\r\n  var DoublyLinkedList = function() {\r\n    this.head = null;\r\n    this.tail = null;\r\n\r\n    this.reverse = function() {\r\n      if (!this.head || !this.head.next) {\r\n        return this.head\r\n      }\r\n\r\n      let tail;\r\n      let temp;\r\n      let current = this.head;\r\n      while(current !== null) {\r\n        if(!tail) tail = current;\r\n        temp = current.prev;\r\n        current.prev = current.next;\r\n        current.next = temp;\r\n        current = current.prev;\r\n      }\r\n\r\n      this.head = temp.prev;\r\n      this.tail = tail\r\n    }\r\n  };"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Struktura podataka <code>DoublyLinkedList</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof DoublyLinkedList !== 'undefined') {\r\n      test = new DoublyLinkedList();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>DoublyLinkedList</code> trebalo bi da ima metodu nazvanu <code>reverse</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof DoublyLinkedList !== 'undefined') {\r\n      test = new DoublyLinkedList();\r\n    }\r\n    if (test.reverse == undefined) {\r\n      return false;\r\n    }\r\n    return typeof test.reverse == 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Konvertovanje prazne liste bi trebalo da vrati <code>null</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof DoublyLinkedList !== 'undefined') {\r\n      test = new DoublyLinkedList();\r\n    }\r\n    return test.reverse() == null;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja <code>reverse</code> bi trebalo da konvertuje listu.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof DoublyLinkedList !== 'undefined') {\r\n      test = new DoublyLinkedList();\r\n    }\r\n    var n1 = new Node(58, null);\r\n    var n2 = new Node(61, n1);\r\n    var n3 = new Node(32, n2);\r\n    var n4 = new Node(95, n3);\r\n    var n5 = new Node(41, n4);\r\n    n1.next = n2;\r\n    n2.next = n3;\r\n    n3.next = n4;\r\n    n4.next = n5;\r\n    test.head = n1;\r\n    test.tail = n5;\r\n    test.reverse();\r\n\r\n    var result = [];\r\n    var current = test.head;\r\n    while (current) {\r\n      result.push(current.data);\r\n      current = current.next;\r\n    }\r\n\r\n    return result.join('') == '4195326158';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Reference(i) za <code>next</code> i <code>previous</code> moraju biti adekvatno održavane kada se lista ažurira.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof DoublyLinkedList !== 'undefined') {\r\n      test = new DoublyLinkedList();\r\n    }\r\n    var n1 = new Node(11, null);\r\n    var n2 = new Node(22, n1);\r\n    var n3 = new Node(33, n2);\r\n    var n4 = new Node(44, n3);\r\n    var n5 = new Node(55, n4);\r\n    n1.next = n2;\r\n    n2.next = n3;\r\n    n3.next = n4;\r\n    n4.next = n5;\r\n    test.head = n1;\r\n    test.tail = n5;\r\n    test.reverse();\r\n\r\n    var result = [];\r\n    var current = test.tail;\r\n    while (current) {\r\n      result.push(current.data);\r\n      current = current.prev;\r\n    }\r\n\r\n    return result.join('') == '1122334455';\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Implementirajmo još jednu metodu za našu dvostruko povezanu listu, nazvanu <code>reverse</code>, koja će obrnuti tu listu na mestu. Kada se ova metoda izvrši, glava bi trebalo da ukazuje na prvobitni rep, a rep bi trebalo da ukazuje na prvobitnu glavu. Sada, kada prolazimo kroz listu od glave do repa, trebalo bi da naiđemo na čvorove u obrnutom redosledu u poređenju sa prvobitnom listom. Pokušaj obrnivanja prazne liste bi trebalo da vrati null.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 25,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

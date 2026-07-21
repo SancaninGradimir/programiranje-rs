@@ -1,0 +1,51 @@
+{
+  "id": "65f9b9710cca621244d3bde1",
+  "title": "Korak 40",
+  "challengeType": 20,
+  "dashedName": "step-40",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        15,
+        19
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    def __add__(self, other):\n        if type(self) != type(other):\n            pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    def __add__(self, other):\n        if type(self) != type(other):\n            pass\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da vratiš <code>NotImplemented</code> iznutra tela <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__add__\").find_ifs()[0].find_bodies()[0].has_return(\"NotImplemented\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U Python, <code>NotImplemented</code> je specifična vrednost koja se koristi da pokaže da operacija nije izvršena za određeni slučaj.</p>\n<p><code>NotImplemented</code> ne baca grešku odmah. Umesto toga, ukazuje na zahtev drugog operanda kako da izvrši tu operaciju. Ako zahtev ne može biti zadovoljen, <code>TypeError</code> se vraća na podrazumevanu vrednost.</p>\n<p>Zato što želiš da možeš dodati samo dva vektora ako dolaze iz klase jednog objekta, vrati <code>NotImplemented</code> iz deklaracije <code>if</code> koju si napravio u prethodnom koraku.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 39,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

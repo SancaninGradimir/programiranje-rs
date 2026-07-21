@@ -1,0 +1,91 @@
+{
+  "id": "5a24c314108439a4d4036172",
+  "title": "Prikaži stanje u korisničkom interfejsu na drugi način",
+  "challengeType": 6,
+  "forumTopicId": 301408,
+  "dashedName": "render-state-in-the-user-interface-another-way",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'freeCodeCamp'\n    }\n  }\n  render() {\n    // Change code below this line\n\n    // Change code above this line\n    return (\n      <div>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'freeCodeCamp'\n    }\n  }\n  render() {\n    // Change code below this line\n\n    // Change code above this line\n    return (\n      <div>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'freeCodeCamp'\n    }\n  }\n  render() {\n    // Change code below this line\n    const name = this.state.name;\n    // Change code above this line\n    return (\n      <div>\n        { /* Change code below this line */ }\n        <h1>{name}</h1>\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};",
+        "error": null,
+        "seed": "class MyComponent extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: 'freeCodeCamp'\n    }\n  }\n  render() {\n    // Change code below this line\n    const name = this.state.name;\n    // Change code above this line\n    return (\n      <div>\n        { /* Change code below this line */ }\n        <h1>{name}</h1>\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyComponent</code> treba imati <code>name</code> sa vrednošću <code>freeCodeCamp</code> sačuvanu u svom stanju.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(MyComponent)).state('name') ===\n    'freeCodeCamp'\n);"
+    },
+    {
+      "text": "<p><code>MyComponent</code> treba da prikaže naslov sekcije za <code>h1</code>, okružen jednim <code>div</code>.</p>",
+      "testString": "assert(\n  /<div><h1>.*<\\/h1><\\/div>/.test(\n    Enzyme.mount(React.createElement(MyComponent)).html()\n  )\n);"
+    },
+    {
+      "text": "<p>Etiketa za <code>h1</code> koja je nacrtana mora da uključuje referencu na <code>{name}</code>.</p>",
+      "testString": "assert(/<h1>\\n*\\s*\\{\\s*name\\s*\\}\\s*\\n*<\\/h1>/.test(code));"
+    },
+    {
+      "text": "<p>Zaglavlje dela <code>h1</code> koje je prikazano treba da ima tekst koji se prikazuje iz stanja dela.</p>",
+      "testString": "  const waitForIt = (fn) =>\n    new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250));\n  const mockedComponent = Enzyme.mount(React.createElement(MyComponent));\n  const first = () => {\n    mockedComponent.setState({ name: 'TestName' });\n    return waitForIt(() => mockedComponent.html());\n  };\n  const firstValue = await first();\n  assert(firstValue === '<div><h1>TestName</h1></div>');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Postoji još jedan način pristupa <code>state</code> u komponenti. U metodi <code>render()</code>, pre naredbe <code>return</code>, možeš direktno pisati JavaScript. Na primer, možeš definisati funkcije, dohvatiti podatke iz <code>state</code> ili <code>props</code>, izvršiti proračune i slično. Zatim možeš koristiti bilo koju od tih vrednosti unutar izraza <code>return</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U toku rendera <code>MyComponent</code>, definišite <code>const</code> nazvano <code>name</code> i postavite ga jednak vrednosti imena u <code>state</code> sekcije. Budući da možete direktno napisati JavaScript u ovu kod sekciju, ne morate obuhvatati ovu referencu uglastim zagradama.</p>\n<p>Zatim u izrazu <code>return</code> prikaži ovu vrednost u elementu <code>h1</code> koristeći promenljivu <code>name</code>. Zapamti da moraš koristiti JSX sintaksu (vitičaste zagrade za JavaScript) u izrazu <code>return</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

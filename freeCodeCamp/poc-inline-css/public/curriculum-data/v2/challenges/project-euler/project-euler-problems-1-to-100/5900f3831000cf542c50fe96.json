@@ -1,0 +1,81 @@
+{
+  "id": "5900f3831000cf542c50fe96",
+  "title": "Zoezi la 23: Jumla zisizo za wingi",
+  "challengeType": 1,
+  "forumTopicId": 301873,
+  "dashedName": "problem-23-non-abundant-sums",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function sumOfNonAbundantNumbers(n) {\n\n  return n;\n}\n\nsumOfNonAbundantNumbers(28123);",
+      "error": null,
+      "seed": "function sumOfNonAbundantNumbers(n) {\n\n  return n;\n}\n\nsumOfNonAbundantNumbers(28123);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function abundantCheck(number) {\n  let sum = 1;\n\n  for (let i = 2; i <= Math.sqrt(number); i += 1) {\n    if(number % i === 0) {\n      sum += i + +(i !== Math.sqrt(number) && number / i);\n    }\n  }\n  return sum > number;\n}\n\nfunction sumOfNonAbundantNumbers(n) {\n  let sum = 0;\n  const memo = {};\n  let abundantList = [];\n\n  // Function checkSum checks if num can be represented as a sum of numbers in the stack (array)\n  const checkSum = (num, stack, memo) => {\n    for (let i = 0; i < stack.length; i += 1) {\n      if ((num - stack[i]) in memo) return true;\n    }\n    return false;\n  };\n\n  for (let i = 1; i <= n; i += 1) {\n    if (abundantCheck(i)) {\n      abundantList.push(i);\n      memo[i] = 1;\n    }\n    if (checkSum(i, abundantList, memo)) continue;\n    sum += i;\n  }\n  return sum;\n}",
+        "error": null,
+        "seed": "function abundantCheck(number) {\n  let sum = 1;\n\n  for (let i = 2; i <= Math.sqrt(number); i += 1) {\n    if(number % i === 0) {\n      sum += i + +(i !== Math.sqrt(number) && number / i);\n    }\n  }\n  return sum > number;\n}\n\nfunction sumOfNonAbundantNumbers(n) {\n  let sum = 0;\n  const memo = {};\n  let abundantList = [];\n\n  // Function checkSum checks if num can be represented as a sum of numbers in the stack (array)\n  const checkSum = (num, stack, memo) => {\n    for (let i = 0; i < stack.length; i += 1) {\n      if ((num - stack[i]) in memo) return true;\n    }\n    return false;\n  };\n\n  for (let i = 1; i <= n; i += 1) {\n    if (abundantCheck(i)) {\n      abundantList.push(i);\n      memo[i] = 1;\n    }\n    if (checkSum(i, abundantList, memo)) continue;\n    sum += i;\n  }\n  return sum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>sumOfNonAbundantNumbers(10000)</code> treba da vrati broj.</p>",
+      "testString": "assert.isNumber(sumOfNonAbundantNumbers(10000));"
+    },
+    {
+      "text": "<p><code>sumOfNonAbundantNumbers(10000)</code> inapaswa kurudisha 3731004.</p>",
+      "testString": "assert.strictEqual(sumOfNonAbundantNumbers(10000), 3731004);"
+    },
+    {
+      "text": "<p><code>sumOfNonAbundantNumbers(15000)</code> inapaswa kurudisha 4039939.</p>",
+      "testString": "assert.strictEqual(sumOfNonAbundantNumbers(15000), 4039939);"
+    },
+    {
+      "text": "<p><code>sumOfNonAbundantNumbers(20000)</code> inapaswa kurudisha 4159710.</p>",
+      "testString": "assert.strictEqual(sumOfNonAbundantNumbers(20000), 4159710);"
+    },
+    {
+      "text": "<p><code>sumOfNonAbundantNumbers(28123)</code> inapaswa kurudisha 4179871.</p>",
+      "testString": "assert.strictEqual(sumOfNonAbundantNumbers(28123), 4179871);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Savršen broj je broj čiji je zbir njegovih pravih delilaca jednak samom broju. Na primer, zbir pravih delilaca broja 28 je 1 + 2 + 4 + 7 + 14 = 28, pa je 28 savršen broj.</p>\n<p>Broj <code>n</code> naziva se deficijentnim ako je zbir njegovih pravih delilaca manji od <code>n</code>, a abundantnim ako je taj zbir veći od <code>n</code>.</p>\n<p>Pošto je 12 najmanji abundantni broj, 1 + 2 + 3 + 4 + 6 = 16, najmanji broj koji se može zapisati kao zbir dva abundantna broja je 24. Matematičkom analizom dokazano je da se svi celi brojevi veći od 28123 mogu zapisati kao zbir dva abundantna broja. Međutim, ova gornja granica ne može se dodatno smanjiti analizom, iako je poznato da je najveći broj koji se ne može zapisati kao zbir dva abundantna broja manji od te granice.</p>\n<p>Pronađi zbir svih pozitivnih celih brojeva ≤ <code>n</code> koji se ne mogu zapisati kao zbir dva abundantna broja.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 22,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

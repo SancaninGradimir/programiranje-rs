@@ -1,0 +1,77 @@
+{
+  "id": "5a23c84252665b21eecc8024",
+  "title": "Funkcija zagonetke imena država",
+  "challengeType": 1,
+  "forumTopicId": 302323,
+  "dashedName": "state-name-puzzle",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function solve(input) {\n\n}",
+      "error": null,
+      "seed": "function solve(input) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function solve(input) {\n  var orig = {};\n  input.forEach(function(e) {\n    orig[__helpers.removeWhiteSpace(e).toLowerCase()] = e;\n  });\n\n  input = Object.keys(orig);\n  var map = {};\n  for (var i = 0; i < input.length - 1; i++) {\n    var pair0 = input[i];\n    for (var j = i + 1; j < input.length; j++) {\n      var pair = [pair0, input[j]];\n      var s = pair0 + pair[1];\n      var key = s.split('').sort();\n\n      var val = map[key] ? map[key] : [];\n      val.push(pair);\n      map[key] = val;\n    }\n  }\n\n  var result = [];\n  Object.keys(map).forEach(key => {\n    for (var i = 0; i < map[key].length - 1; i++) {\n      var a = map[key][i];\n      for (var j = i + 1; j < map[key].length; j++) {\n        var b = map[key][j];\n\n        if (new Set([a[0], b[0], a[1], b[1]]).size < 4) continue;\n        var from = [orig[a[0]], orig[a[1]]].sort();\n        var to = [orig[b[0]], orig[b[1]]].sort();\n        result.push({\n          from,\n          to\n        });\n      }\n    }\n  });\n\n  return result;\n}",
+        "error": null,
+        "seed": "function solve(input) {\n  var orig = {};\n  input.forEach(function(e) {\n    orig[__helpers.removeWhiteSpace(e).toLowerCase()] = e;\n  });\n\n  input = Object.keys(orig);\n  var map = {};\n  for (var i = 0; i < input.length - 1; i++) {\n    var pair0 = input[i];\n    for (var j = i + 1; j < input.length; j++) {\n      var pair = [pair0, input[j]];\n      var s = pair0 + pair[1];\n      var key = s.split('').sort();\n\n      var val = map[key] ? map[key] : [];\n      val.push(pair);\n      map[key] = val;\n    }\n  }\n\n  var result = [];\n  Object.keys(map).forEach(key => {\n    for (var i = 0; i < map[key].length - 1; i++) {\n      var a = map[key][i];\n      for (var j = i + 1; j < map[key].length; j++) {\n        var b = map[key][j];\n\n        if (new Set([a[0], b[0], a[1], b[1]]).size < 4) continue;\n        var from = [orig[a[0]], orig[a[1]]].sort();\n        var to = [orig[b[0]], orig[b[1]]].sort();\n        result.push({\n          from,\n          to\n        });\n      }\n    }\n  });\n\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>solve</code> trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof solve == 'function');"
+    },
+    {
+      "text": "<p><code>solve([\"New Mexico\", \"New York\", \"North Carolina \", \"North Dakota\", \"Ohio\", \"Oklahoma\", \"Oregon\", \"Pennsylvania\", \"Rhode Island\", \"South Carolina\", \"South Dakota\"])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(\n  Array.isArray(\n    solve([\n      'New Mexico',\n      'New York',\n      'North Carolina ',\n      'North Dakota',\n      'Ohio',\n      'Oklahoma',\n      'Oregon',\n      'Pennsylvania',\n      'Rhode Island',\n      'South Carolina',\n      'South Dakota'\n    ])\n  )\n);"
+    },
+    {
+      "text": "<p><code>solve([\"New Mexico\", \"New York\", \"North Carolina \", \"North Dakota\", \"Ohio\", \"Oklahoma\", \"Oregon\", \"Pennsylvania\", \"Rhode Island\", \"South Carolina\", \"South Dakota\"])</code> treba da vrati <code>[{ from: [\"North Carolina \", \"South Dakota\"], to: [\"North Dakota\", \"South Carolina\"] }]</code>.</p>",
+      "testString": "assert.deepEqual(\n  solve([\n    'New Mexico',\n    'New York',\n    'North Carolina ',\n    'North Dakota',\n    'Ohio',\n    'Oklahoma',\n    'Oregon',\n    'Pennsylvania',\n    'Rhode Island',\n    'South Carolina',\n    'South Dakota'\n  ]),\n  [\n    {\n      from: ['North Carolina ', 'South Dakota'],\n      to: ['North Dakota', 'South Carolina']\n    }\n  ]\n);"
+    },
+    {
+      "text": "<p><code>solve([\"New York\", \"New Kory\", \"Wen Kory\", \"York New\", \"Kory New\", \"New Kory\"])</code> trebalo bi da vrati <code>[{ from: [\"New Kory\", \"New York\"], to: [\"Wen Kory\", \"York New\"] }, { from: [\"New Kory\", \"New York\"], to: [\"Kory New\", \"Wen Kory\"] }, { from: [\"New Kory\", \"New York\"], to: [\"Kory New\", \"York New\"] }, { from: [\"New York\", \"Wen Kory\"], to: [\"New Kory\", \"York New\"] }, { from: [\"New York\", \"Wen Kory\"], to: [\"Kory New\", \"New Kory\"] }, { from: [\"New York\", \"Wen Kory\"], to: [\"Kory New\", \"York New\"] }, { from: [\"New York\", \"York New\"], to: [\"New Kory\", \"Wen Kory\"] }, { from: [\"New York\", \"York New\"], to: [\"Kory New\", \"New Kory\"] }, { from: [\"New York\", \"York New\"], to: [\"Kory New\", \"Wen Kory\"] }, { from: [\"Kory New\", \"New York\"], to: [\"New Kory\", \"Wen Kory\"] }, { from: [\"Kory New\", \"New York\"], to: [\"New Kory\", \"York New\"] }, { from: [\"Kory New\", \"New York\"], to: [\"Wen Kory\", \"York New\"] }, { from: [\"New Kory\", \"Wen Kory\"], to: [\"Kory New\", \"York New\"] }, { from: [\"New Kory\", \"York New\"], to: [\"Kory New\", \"Wen Kory\"] }, { from: [\"Kory New\", \"New Kory\"], to: [\"Wen Kory\", \"York New\"] }]</code>.</p>",
+      "testString": "assert.deepEqual(\n  solve([\n    'New York',\n    'New Kory',\n    'Wen Kory',\n    'York New',\n    'Kory New',\n    'New Kory'\n  ]),\n  [\n    { from: ['New Kory', 'New York'], to: ['Wen Kory', 'York New'] },\n    { from: ['New Kory', 'New York'], to: ['Kory New', 'Wen Kory'] },\n    { from: ['New Kory', 'New York'], to: ['Kory New', 'York New'] },\n    { from: ['New York', 'Wen Kory'], to: ['New Kory', 'York New'] },\n    { from: ['New York', 'Wen Kory'], to: ['Kory New', 'New Kory'] },\n    { from: ['New York', 'Wen Kory'], to: ['Kory New', 'York New'] },\n    { from: ['New York', 'York New'], to: ['New Kory', 'Wen Kory'] },\n    { from: ['New York', 'York New'], to: ['Kory New', 'New Kory'] },\n    { from: ['New York', 'York New'], to: ['Kory New', 'Wen Kory'] },\n    { from: ['Kory New', 'New York'], to: ['New Kory', 'Wen Kory'] },\n    { from: ['Kory New', 'New York'], to: ['New Kory', 'York New'] },\n    { from: ['Kory New', 'New York'], to: ['Wen Kory', 'York New'] },\n    { from: ['New Kory', 'Wen Kory'], to: ['Kory New', 'York New'] },\n    { from: ['New Kory', 'York New'], to: ['Kory New', 'Wen Kory'] },\n    { from: ['Kory New', 'New Kory'], to: ['Wen Kory', 'York New'] }\n  ]\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><strong>Naziv države</strong> je <em>rečičana zagonetka</em> gde uzimaš slova iz imena dve američke države i preuređuje ih kako bi stvorio imena dve različite američke države.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napiši funkciju koja rešava zadatak koristeći niz stvarnih naziva saveznih država SAD, kao i niz izmišljenih naziva država.</p>\n<p>Funkcija mora da vrati niz podataka. Svaki element mora biti objekat u ovoj strukturi: <code>{\"from\":[],\"to\":[]}</code>. Niz podataka za <code>from</code> mora imati početna imena, a niz podataka za <code>to</code> mora imati izvedena imena.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 133,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

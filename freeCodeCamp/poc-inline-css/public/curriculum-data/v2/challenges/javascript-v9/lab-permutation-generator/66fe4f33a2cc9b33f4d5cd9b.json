@@ -1,0 +1,95 @@
+{
+  "id": "66fe4f33a2cc9b33f4d5cd9b",
+  "title": "Izgradnja generatora permutacija",
+  "challengeType": 26,
+  "dashedName": "build-a-permutation-generator",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const permuteString = (str, prefix = \"\", result = []) => {\r\n  if (str.length === 0) {\r\n    result.push(prefix);\r\n    return result;\r\n  }\r\n\r\n  // Sort the string initially to group duplicates\r\n  const sortedStr = str.split(\"\").sort().join(\"\");\r\n\r\n  for (let i = 0; i < sortedStr.length; i++) {\r\n    if (i > 0 && sortedStr[i] === sortedStr[i - 1]) {\r\n      // Skip duplicate characters\r\n      continue;\r\n    }\r\n\r\n    const rem = sortedStr.slice(0, i) + sortedStr.slice(i + 1);\r\n    permuteString(rem, prefix + sortedStr[i], result);\r\n  }\r\n\r\n  return result;\r\n};",
+        "error": null,
+        "seed": "const permuteString = (str, prefix = \"\", result = []) => {\r\n  if (str.length === 0) {\r\n    result.push(prefix);\r\n    return result;\r\n  }\r\n\r\n  // Sort the string initially to group duplicates\r\n  const sortedStr = str.split(\"\").sort().join(\"\");\r\n\r\n  for (let i = 0; i < sortedStr.length; i++) {\r\n    if (i > 0 && sortedStr[i] === sortedStr[i - 1]) {\r\n      // Skip duplicate characters\r\n      continue;\r\n    }\r\n\r\n    const rem = sortedStr.slice(0, i) + sortedStr.slice(i + 1);\r\n    permuteString(rem, prefix + sortedStr[i], result);\r\n  }\r\n\r\n  return result;\r\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju <code>permuteString</code>.</p>",
+      "testString": "assert.isFunction(permuteString);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš rekurziju u svojoj funkciji <code>permuteString</code>.</p>",
+      "testString": "assert.match(permuteString.toString(), /permuteString\\s*\\(/);"
+    },
+    {
+      "text": "<p><code>permuteString(\"far\")</code> treba da vrati <code>[ \"far\", \"fra\", \"afr\", \"arf\", \"rfa\", \"raf\" ]</code>.</p>",
+      "testString": "assert.sameMembers(permuteString(\"far\"), [ \"far\", \"fra\", \"afr\", \"arf\", \"rfa\", \"raf\" ]);"
+    },
+    {
+      "text": "<p><code>permuteString(\"fcc\")</code> trebalo bi da vrati <code>[ \"fcc\", \"cfc\", \"ccf\" ]</code>.</p>",
+      "testString": "assert.sameMembers(permuteString(\"fcc\"), [ \"fcc\", \"cfc\", \"ccf\" ]);"
+    },
+    {
+      "text": "<p><code>permuteString(\"p\")</code> treba da vrati <code>[ \"p\" ]</code>.</p>",
+      "testString": "assert.deepStrictEqual(permuteString(\"p\"), [\"p\"]);"
+    },
+    {
+      "text": "<p><code>permuteString(\"\")</code> treba da vrati <code>[\"\"]</code>.</p>",
+      "testString": "let emptyArr= permuteString(\"\");\r\n\r\n// 1 because the empty string is being pushed and is a permutation of itself\r\nassert.lengthOf(emptyArr, 1);\r\n"
+    },
+    {
+      "text": "<p><code>permuteString(\"walk\")</code> trebalo bi da vrati <code>[\"walk\", \"wakl\", \"wlak\", \"wlka\", \"wkla\", \"wkal\", \"awlk\", \"awkl\", \"alwk\", \"alkw\", \"aklw\", \"akwl\", \"lawk\", \"lakw\", \"lwak\", \"lwka\", \"lkaw\", \"lkwa\", \"kawl\", \"kalw\", \"kwal\", \"kwla\", \"klaw\", \"klwa\"]</code>.</p>",
+      "testString": "assert.sameMembers(permuteString(\"walk\"), [\"walk\", \"wakl\", \"wlak\", \"wlka\", \"wkla\", \"wkal\", \"awlk\", \"awkl\", \"alwk\", \"alkw\", \"aklw\", \"akwl\", \"lawk\", \"lakw\", \"lwak\", \"lwka\", \"lkaw\", \"lkwa\", \"kawl\", \"kalw\", \"kwal\", \"kwla\", \"klaw\", \"klwa\"]);"
+    },
+    {
+      "text": "<p><code>permuteString</code> Trebalo bi da vrati tačne rezultate.</p>",
+      "testString": "// tests to prevent hard coding\r\nassert.sameMembers(permuteString(\"road\"), [ \"road\",\r\n  \"roda\",\r\n  \"raod\",\r\n  \"rado\",\r\n  \"rdoa\",\r\n  \"rdao\",\r\n  \"orad\",\r\n  \"orda\",\r\n  \"oard\",\r\n  \"oadr\",\r\n  \"odra\",\r\n  \"odar\",\r\n  \"arod\",\r\n  \"ardo\",\r\n  \"aord\",\r\n  \"aodr\",\r\n  \"adro\",\r\n  \"ador\",\r\n  \"droa\",\r\n  \"drao\",\r\n  \"dora\",\r\n  \"doar\",\r\n  \"daro\",\r\n  \"daor\" ]);\r\n\r\nassert.sameMembers(permuteString(\"fog\"), [ \"fog\",\r\n  \"fgo\",\r\n  \"ofg\",\r\n  \"ogf\",\r\n  \"gfo\",\r\n  \"gof\" ]);\r\n\r\nassert.sameMembers(permuteString(\"bird\"), [ \"bird\",\r\n  \"bidr\",\r\n  \"brid\",\r\n  \"brdi\",\r\n  \"bdir\",\r\n  \"bdri\",\r\n  \"ibrd\",\r\n  \"ibdr\",\r\n  \"irbd\",\r\n  \"irdb\",\r\n  \"idbr\",\r\n  \"idrb\",\r\n  \"rbid\",\r\n  \"rbdi\",\r\n  \"ribd\",\r\n  \"ridb\",\r\n  \"rdbi\",\r\n  \"rdib\",\r\n  \"dbir\",\r\n  \"dbri\",\r\n  \"dibr\",\r\n  \"dirb\",\r\n  \"drbi\",\r\n  \"drib\" ]);\r\n"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovom laboratoriju, kreiraćeš generator permutacija koji uzima sekvencu slova i vraća sve moguće permutacije slova u toj sekvenci. Na primer, moguće permutacije sekvence slova <code>cat</code> su <code>cat</code>, <code>cta</code>, <code>act</code>, <code>atc</code>, <code>tac</code>, i <code>tca</code>.</p>\n<p>Rekurzivna metoda za kreiranje permutacija sekvence slova radi tako što čuva početni deo sekvence (prefiks) i kreira permutacije preostalog dela.</p>\n<p>Na primer, uzmimo reč <code>machine</code>. Prvi ciklus kreiranja permutacija biće postavljanje <code>m</code> kao prefiksa sekvence, a zatim kreiranje permutacija preostalog dela sekvence, <code>achine</code>.</p>\n<p>Za preostali deo sekvence, permutacije nastavljaju na isti način. Dodaje se slovo na prefiks, možda <code>c</code>, pa prefiks postaje <code>mc</code>. Zatim se svaka permutacija <code>ahine</code> spaja sa prefiksom.</p>\n<p>Ovo se nastavlja sve dok prefiks ne sadrži sva slova, a preostali deo sekvence bude prazan, što znači da je formirana jedna permutacija.</p>\n<p><strong>Cilj:</strong> Popunite korisničke priče ispod i prođite sve testove kako biste završili ovaj laboratorijski rad.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Treba da kreiraš funkciju nazvanu <code>permuteString</code>.</li>\n<li>Funkcija <code>permuteString</code> treba da primi jedan parametar, niz karaktera, a zatim dva parametra sa podrazumevanim vrednostima: vrednost prefiksa i prazan niz podataka za skladištenje i vraćanje rezultata. Vrednost prefiksa bi trebalo da bude niz karaktera koji se koristi za prikupljanje karaktera radi formiranja permutacije. Funkcija će biti pozvana samo sa jednim argumentom, kao što je <code>permuteString(\"cat\")</code>.</li>\n<li>Unutar funkcije, treba da proveriš da li je dužina poslanog niza <code>0</code>. Ako jeste, dodaj trenutni prefiks na rezultate i vrati rezultate.</li>\n<li>Iteriraj kroz svaki karakter u ulaznom nizu i za svaku iteraciju, ukloni trenutni karakter iz niza i pozovi funkciju <code>permuteString</code> rekursivno sa ažuriranim argumentima kako bi se izgradile preostale permutacije.</li>\n<li>Treba da vratiš niz podataka sa konačnim rezultatima.</li>\n<li>Treba da osiguraš da su permutacije jedinstvene uklanjanjem duplikata.</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-permutation-generator",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 186,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "recursion",
+  "certification": "javascript-v9"
+}

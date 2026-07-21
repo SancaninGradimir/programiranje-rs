@@ -1,0 +1,55 @@
+{
+  "id": "66019977710caa516276c0a8",
+  "title": "Korak 71",
+  "challengeType": 20,
+  "dashedName": "step-71",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        60,
+        65
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n\n    def __lt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() < other.norm()\n\n    def __gt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() > other.norm()\n\n    def __le__(self, other):\n        return not self > other\n\n    def __ge__(self, other):\n        return not self < other\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n\n    def __lt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() < other.norm()\n\n    def __gt__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return self.norm() > other.norm()\n\n    def __le__(self, other):\n        return not self > other\n\n    def __ge__(self, other):\n        return not self < other\nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da definišete metodu <code>cross</code> unutar klase <code>R3Vector</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R3Vector\").has_function(\"cross\")`)) })"
+    },
+    {
+      "text": "<p>Tvoj put/putanja <code>cross</code> mora imati dva parametra, <code>self</code> i <code>other</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R3Vector\").find_function(\"cross\").has_args(\"self, other\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><em>Križbeni proizvod</em>, ili <em>vektorski proizvod</em>, definisan je između vektora u tri dimenzije i stvara tređi vektor koji je ortogonalan sa oba.</p>\n<p>Klasa <code>R3Vector</code> nasleđuje od <code>R2Vector</code>, što znači da ima pristup svim metodama i svojstvima definisanim u <code>R2Vector</code>. Klasa naslednik može da implementira dodatne funkcionalnosti. Već ste videli kako da prepišete implementaciju metode. Sada, umestićete novi način za klasu naslednik <code>R3Vector</code> umesto toga.</p>\n<p>Unutar klase <code>R3Vector</code>, definiši metodu <code>cross</code> i sa dva parametra: <code>self</code>, i <code>other</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 70,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

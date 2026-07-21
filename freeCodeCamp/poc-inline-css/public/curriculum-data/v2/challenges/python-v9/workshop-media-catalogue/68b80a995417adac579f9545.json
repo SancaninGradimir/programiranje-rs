@@ -1,0 +1,66 @@
+{
+  "id": "68b80a995417adac579f9545",
+  "title": "Korak 19",
+  "challengeType": 20,
+  "dashedName": "step-19",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        26
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n        \n\n        self.seasons = seasons\n        self.total_episodes = total_episodes\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')",
+      "error": null,
+      "seed": "class Movie:\n    def __init__(self, title, year, director, duration):\n        if not title.strip():\n            raise ValueError('Title cannot be empty')\n        if year < 1895:\n            raise ValueError('Year must be 1895 or later')\n        if not director.strip():\n            raise ValueError('Director cannot be empty')\n        if duration <= 0:\n            raise ValueError('Duration must be positive')\n        self.title = title\n        self.year = year\n        self.director = director\n        self.duration = duration\n\n    def __str__(self):\n        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'\n\nclass TVSeries(Movie):\n    def __init__(self, title, year, director, duration, seasons, total_episodes):\n        super().__init__(title, year, director, duration)\n        \n\n        self.seasons = seasons\n        self.total_episodes = total_episodes\nclass MediaCatalogue:\n    def __init__(self):\n        self.items = []\n\n    def add(self, media_item):\n        self.items.append(media_item)\n\n    def __str__(self):\n        if not self.items:\n            return 'Media Catalogue (empty)'\n\n        result = f'Media Catalogue ({len(self.items)} items):\\n\\n'\n        \n        for i, movie in enumerate(self.items, 1):\n            result += f'{i}. {movie}\\n'\n        return result\n\ncatalogue = MediaCatalogue()\n\ntry:\n    movie1 = Movie('The Matrix', 1999, 'The Wachowskis', 136)\n    catalogue.add(movie1)\n    movie2 = Movie('Inception', 2010, 'Christopher Nolan', 148)\n    catalogue.add(movie2)\n    print(catalogue)\nexcept ValueError as e:\n    print(f'Validation Error: {e}')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>You should raise a <code>ValueError</code> with the message <code>Seasons must be 1 or greater</code> when <code>seasons</code> is less than <code>1</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n  _msg = 'Seasons must be 1 or greater'\n  _expected_error = f\"Expected to raise 'ValueError: {_msg}'\"\n  try:\n    TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 0, 182)\n  except ValueError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n\n  try:\n    TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, -1, 182)\n  except ValueError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n  `)\n})"
+    },
+    {
+      "text": "<p>You should not raise a <code>ValueError</code> when <code>seasons</code> is a valid number.</p>",
+      "testString": "({\n    test: () => runPython(`\n    try:\n      TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 1, 182)\n    except ValueError:\n      assert False, 'Expected not to raise a ValueError with valid seasons'\n    `)\n})"
+    },
+    {
+      "text": "<p>You should raise a <code>ValueError</code> with the message <code>Total episodes must be 1 or greater</code> when <code>total_episodes</code> is less than <code>1</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n  _msg = 'Total episodes must be 1 or greater'\n  _expected_error = f\"Expected to raise 'ValueError: {_msg}'\"\n  try:\n    TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 0)\n  except ValueError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n\n  try:\n    TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, -1)\n  except ValueError as e:\n    assert str(e) == _msg\n  else:\n    assert False, _expected_error\n  `)\n})"
+    },
+    {
+      "text": "<p>You should not raise a <code>ValueError</code> when <code>total_episodes</code> is a valid number.</p>",
+      "testString": "({\n    test: () => runPython(`\n    try:\n      TVSeries('Scrubs', 2001, 'Bill Lawrence', 24, 9, 1)\n    except ValueError:\n      assert False, 'Expected not to raise a ValueError with valid total_episodes'\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, dopunite svoju metodu <code>__init__</code> validiranjem <code>seasons</code> i <code>total_episodes</code>. Kreirajte izjavu <code>if</code> koja proverava da li je <code>seasons</code> manje od <code>1</code> i izvlači <code>ValueError</code> sa porukom <code>Seasons must be 1 or greater</code>.</p>\n<p>Zatim, uradite isto za validaciju <code>total_episodes</code>. Ovog puta koristite poruku <code>Total episodes must be 1 or greater</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-media-catalogue",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 45,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

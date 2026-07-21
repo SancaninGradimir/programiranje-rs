@@ -1,0 +1,55 @@
+{
+  "id": "65fd9e2c56ff19862dfb8cbb",
+  "title": "Korak 64",
+  "challengeType": 20,
+  "dashedName": "step-64",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        44,
+        46
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n\n    def __add__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) + getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __sub__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        kwargs = {i: getattr(self, i) - getattr(other, i) for i in vars(self)}\n        return self.__class__(**kwargs)\n\n    def __mul__(self, other):\n        if type(other) in (int, float):\n            kwargs = {i: getattr(self, i) * other for i in vars(self)}\n            return self.__class__(**kwargs)        \n        elif type(self) == type(other):\n            args = [getattr(self, i) * getattr(other, i) for i in vars(self)]\n            return sum(args)            \n        return NotImplemented\n\n    def __eq__(self, other):\n        if type(self) != type(other):\n            return NotImplemented\n        return all(getattr(self, i) == getattr(other, i) for i in vars(self))\n        \n    def __ne__(self, other):\n        return not self == other\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R2Vector(x=0.5, y=1.25)\nprint(f'v1 = {v1}')\nprint(f'v2 = {v2}')\nv3 = v1 + v2\nprint(f'v1 + v2 = {v3}')\nv4 = v1 - v2\nprint(f'v1 - v2 = {v4}')\nv5 = v1 * v2\nprint(f'v1 * v2 = {v5}')\nprint(v1 != R2Vector(x=2, y=3))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da definišete metod za <code>__lt__</code> unutar klase objekata <code>R2Vector</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").has_function(\"__lt__\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>__lt__</code> mora imati dva parametra, <code>self</code> i <code>other</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__lt__\").has_args(\"self, other\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Putanja za <code>__lt__</code> naziva se u kontekstu kada se koristi parametar <code>&#x3C;</code> za poređenje nečega sa nečim drugim.</p>\n<p>Dodaj prazan put za <code>__lt__</code> i sa dva parametra: <code>self</code>, <code>other</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 63,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,173 @@
+{
+  "id": "673284e7244c0c1a649121b9",
+  "title": "Šta je opseg u programiranju, i kako funkcionišu globalni, lokalni i blok opsezi?",
+  "challengeType": 19,
+  "dashedName": "what-is-scope-in-programming-and-how-does-global-local-and-block-scope-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Opseg u programiranju se odnosi na vidljivost i dostupnost varijabli u različitim delovima vašeg koda. To je određivanje mesta gde varijable mogu biti pristupljene ili modifikovane. U JavaScript, razumevanje opsega je ključno za pisanje čistog, efikasnog i bezgrešnog koda. Postoje tri glavna tipa opsega: globalni opseg, lokalni opseg i blok opseg.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Globalni opseg je potpuno eksterni opseg u programu JavaScript. Parametri deklarisani u globalnom opsegu mogu se pristupiti bilo kom delu vašeg koda, uključujući unutar funkcija i zagrada. Ovi parametri se često nazivaju globalni parametri. Iako su globalni parametri laki za korišćenje, trebalo bi ih koristiti umereno jer mogu uzrokovati kolizije imena i učiniti vaš kod teškim za održavanje. Evo primera globalnog parametra:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let globalVar = \"I'm a global variable\";\n\nfunction printGlobalVar() {\n    console.log(globalVar);\n}\n\nprintGlobalVar(); // \"I'm a global variable\"",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let globalVar = \"I'm a global variable\";\n\nfunction printGlobalVar() {\n    console.log(globalVar);\n}\n\nprintGlobalVar(); // \"I'm a global variable\"\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, <code>globalVar</code> je deklarisano u globalnom opsegu i može se pristupiti unutar funkcije <code>printGlobalVar</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Opseg (Scope), s druge strane, odnosi se na parametre koji su dostupni samo unutar funkcije. Evo primera lokalnog opsega:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "function greet() {\n    let message = \"Hello, local scope!\";\n    console.log(message);\n}\n\ngreet(); // \"Hello, local scope!\"\n// console.log(message); // This will throw an error",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">function greet() {\n    let message = \"Hello, local scope!\";\n    console.log(message);\n}\n\ngreet(); // \"Hello, local scope!\"\n// console.log(message); // This will throw an error\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom kodu, <code>message</code> je lokalni parametar unutar funkcije <code>greet</code>. Može se koristiti unutar funkcije, ali pokušaj pristupa izvan funkcije će dovesti do greške.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Opseg bloka je koncept uveden ključnim rečima <code>let</code> i <code>const</code> u ES6. Blok je bilo koji deo koda unutar vitičastih zagrada, <code>{}</code>, kao što su u deklaracijama <code>if</code>, petljama <code>for</code> ili petljama <code>while</code>. Koncept petlji će biti objašnjen u sledećoj lekciji.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Parametri deklarisani za <code>let</code> ili <code>const</code> unutar bloka dostupni su samo unutar tog bloka. Evo primera opsega bloka:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">if (true) {\n    let blockVar = \"I'm in a block\";\n    console.log(blockVar); // \"I'm in a block\"\n}\nconsole.log(blockVar); // This will throw an error\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, <code>blockVar</code> je dostupan samo unutar bloka <code>if</code>. Pokušaj pristupa izvan bloka će dovesti do greške. Razumevanje ovih različitih vrsta opsega (scope) je važno za upravljanje dostupnošću promenljivih i izbegavanje neočekivanih efekata u vašem kodu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Globalne varijable bi trebalo koristiti sa oprezom jer mogu uzrokovati kolizije imena i učiniti vaš kod teškim za održavanje. Lokalne varijable pomažu da se različiti delovi vašeg koda odvoje, što je posebno važno u velikim aplikacijama. Opseg bloka korišćenjem <code>let</code> i <code>const</code> pruža bolju kontrolu nad dostupnošću varijabli, pomažući u sprečavanju grešaka i čineći vaš kod predvidljivijim. Savladavanje ovih osnovnih koncepata globalnog, lokalnog i blok opsega pružiće čvrst temelj za razumevanje naprednijih tema.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">let x = 10;\n\nfunction printX() {\n    let x = 20;\n    console.log(x);\n}\n\nprintX();\nconsole.log(x);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p><code>20</code>, <code>20</code></p>",
+          "feedback": "<p>Razmislite kako lokalni opseg funkcioniše unutar funkcija i kako interakcioniše sa varijablama u globalnom opsegu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>20</code>, <code>10</code></p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>10</code>, <code>10</code></p>",
+          "feedback": "<p>Razmislite kako lokalni opseg funkcioniše unutar funkcija i kako interaguje sa varijablama u globalnom opsegu.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>10</code>, <code>20</code></p>",
+          "feedback": "<p>Razmislite kako lokalni opseg funkcioniše unutar funkcija i kako sarađuje sa parametrima u globalnom opsegu.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta će biti rezultat pokušaja pristupa <code>blockVar</code> izvan njegovog bloka u sledećem kodu?</p>\n<pre><code class=\"language-js\">if (true) {\n    let blockVar = \"Hello\";\n}\nconsole.log(blockVar);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p>Će štampati <code>\"Hello\"</code>.</p>",
+          "feedback": "<p>Zapamti kako radi opseg bloka i parametre deklarisane korišćenjem <code>let</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ispisuje <code>undefined</code>.</p>",
+          "feedback": "<p>Zapamti kako radi opseg bloka sa deklarisanim parametrima koristeći <code>let</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>To će dati <code>ReferenceError</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ja ću štampati <code>null</code>.</p>",
+          "feedback": "<p>Zapamti kako funkcioniše opseg bloka i parametri deklarisani pomoću <code>let</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koji od ovih tačno opisuje opseg parametra deklarisanog za <code>let</code> na najvišem nivou skripte (izvan bilo koje funkcije ili bloka)?</p>",
+      "answers": [
+        {
+          "answer": "<p>Opseg funkcionalnosti.</p>",
+          "feedback": "<p>Zamislite mesto gde je deklarisan parametar na višoj razini skripte.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Opseg bloka.</p>",
+          "feedback": "<p>Zamislite mesto gde je parametar deklarisan na višoj razini skripte dostupan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Međunarodni opseg.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Unutrašnji opseg.</p>",
+          "feedback": "<p>Zamislite mesto gde je deklarisan parametar na višoj razini skripte.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-functions",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 36,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-functions",
+  "certification": "javascript-v9"
+}

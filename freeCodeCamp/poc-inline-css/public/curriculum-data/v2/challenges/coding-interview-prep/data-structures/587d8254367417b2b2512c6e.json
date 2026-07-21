@@ -1,0 +1,69 @@
+{
+  "id": "587d8254367417b2b2512c6e",
+  "title": "Izračunajte razliku između dva skupa podataka",
+  "challengeType": 1,
+  "forumTopicId": 301706,
+  "dashedName": "perform-a-difference-on-two-sets-of-data",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "class Set {\n  constructor() {\n    // This will hold the set\n    this.dictionary = {};\n    this.length = 0;\n  }\n  // This method will check for the presence of an element and return true or false\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n  // This method will return all the values in the set\n  values() {\n    return Object.keys(this.dictionary);\n  }\n  // This method will add an element to the set\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = true;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will remove an element from a set\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will return the size of the set\n  size() {\n    return this.length;\n  }\n  // This is our union method \n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n  // This is our intersection method\n  intersection(set) {\n    const newSet = new Set();\n\n    let largeSet;\n    let smallSet;\n    if (this.dictionary.length > set.length) {\n      largeSet = this;\n      smallSet = set;\n    } else {\n      largeSet = set;\n      smallSet = this;\n    }\n\n    smallSet.values().forEach(value => {\n      if (largeSet.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n  // Only change code below this line\n  \n  // Only change code above this line\n}",
+      "error": null,
+      "seed": "class Set {\n  constructor() {\n    // This will hold the set\n    this.dictionary = {};\n    this.length = 0;\n  }\n  // This method will check for the presence of an element and return true or false\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n  // This method will return all the values in the set\n  values() {\n    return Object.keys(this.dictionary);\n  }\n  // This method will add an element to the set\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = true;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will remove an element from a set\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n  // This method will return the size of the set\n  size() {\n    return this.length;\n  }\n  // This is our union method \n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n  // This is our intersection method\n  intersection(set) {\n    const newSet = new Set();\n\n    let largeSet;\n    let smallSet;\n    if (this.dictionary.length > set.length) {\n      largeSet = this;\n      smallSet = set;\n    } else {\n      largeSet = set;\n      smallSet = this;\n    }\n\n    smallSet.values().forEach(value => {\n      if (largeSet.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n  // Only change code below this line\n  \n  // Only change code above this line\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class Set {\n  constructor() {\n    this.dictionary = {};\n    this.length = 0;\n  }\n\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n\n  values() {\n    return Object.keys(this.dictionary);\n  }\n\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = true;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n\n  size() {\n    return this.length;\n  }\n\n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n\n  intersection(set) {\n    const newSet = new Set();\n\n    let largeSet;\n    let smallSet;\n    if (this.dictionary.length > set.length) {\n      largeSet = this;\n      smallSet = set;\n    } else {\n      largeSet = set;\n      smallSet = this;\n    }\n\n    smallSet.values().forEach(value => {\n      if (largeSet.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n\n  difference(set) {\n    const newSet = new Set();\n\n    this.values().forEach(value => {\n      if (!set.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n}",
+        "error": null,
+        "seed": "class Set {\n  constructor() {\n    this.dictionary = {};\n    this.length = 0;\n  }\n\n  has(element) {\n    return this.dictionary[element] !== undefined;\n  }\n\n  values() {\n    return Object.keys(this.dictionary);\n  }\n\n  add(element) {\n    if (!this.has(element)) {\n      this.dictionary[element] = true;\n      this.length++;\n      return true;\n    }\n\n    return false;\n  }\n\n  remove(element) {\n    if (this.has(element)) {\n      delete this.dictionary[element];\n      this.length--;\n      return true;\n    }\n\n    return false;\n  }\n\n  size() {\n    return this.length;\n  }\n\n  union(set) {\n    const newSet = new Set();\n    this.values().forEach(value => {\n      newSet.add(value);\n    })\n    set.values().forEach(value => {\n      newSet.add(value);\n    })\n\n    return newSet;\n  }\n\n  intersection(set) {\n    const newSet = new Set();\n\n    let largeSet;\n    let smallSet;\n    if (this.dictionary.length > set.length) {\n      largeSet = this;\n      smallSet = set;\n    } else {\n      largeSet = set;\n      smallSet = this;\n    }\n\n    smallSet.values().forEach(value => {\n      if (largeSet.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n\n  difference(set) {\n    const newSet = new Set();\n\n    this.values().forEach(value => {\n      if (!set.dictionary[value]) {\n        newSet.add(value);\n      }\n    })\n\n    return newSet;\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša klasa za <code>Set</code> mora imati metodu <code>difference</code>.</p>",
+      "testString": "assert(\n  (function () {\n    var test = new Set();\n    return typeof test.difference === 'function';\n  })()\n);"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>difference</code> bi trebalo da vrati ispravnu kolekciju.</p>",
+      "testString": "var setA = new Set();\nvar setB = new Set();\nsetA.add('a');\nsetA.add('b');\nsetA.add('c');\nsetB.add('c');\nsetB.add('d');\nvar differenceSetAB = setA.difference(setB);\n\nassert.equal(differenceSetAB.size(), 2)\nassert.deepEqual(differenceSetAB.values(), ['a', 'b'])"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovoj vežbi napravićemo razliku između dva skupa podataka. Kreiraćemo metodu u našoj strukturi podataka <code>Set</code> pod nazivom <code>difference</code>. Razlika skupova treba da uporedi dva skupa i vrati elemente koji postoje u prvom skupu, a ne postoje u drugom. Ova metoda treba da prihvati drugi <code>Set</code> kao argument i vrati razliku ta dva skupa.</p>\n<p>Na primer, ako su <code>setA = ['a','b','c']</code> i <code>setB = ['a','b','d','e']</code>, onda razlika između seta A i seta B je: <code>setA.difference(setB) = ['c']</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

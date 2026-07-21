@@ -1,0 +1,62 @@
+{
+  "id": "68be6a4447e61c4395ef2359",
+  "title": "Korak 36",
+  "challengeType": 20,
+  "dashedName": "step-36",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        56,
+        58
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n",
+      "error": null,
+      "seed": "class Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da definišete metod nazvan <code>delete_email</code> u klasi <code>Inbox</code> koji prima <code>self</code> i <code>index</code> kao parametre.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").has_args(\"self,index\")`))\n    }\n})\n"
+    },
+    {
+      "text": "<p>Treba vam prvo da proverite da li je poštanska kutija prazna koristeći <code>if not self.emails:</code>.</p>",
+      "testString": "({\n    test: () => \n    {\n        assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_ifs()[0].find_conditions()[0].is_equivalent(\"not self.emails\")`))\n    }\n})\n"
+    },
+    {
+      "text": "<p>Ako je poštanska kutija prazna, treba da odštampate poruku sa <code>Inbox is empty.\\n</code> i koristeći <code>return</code> iz tog načina.</p>",
+      "testString": "({\n    test: () => \n    {\n    assert(runPython(`_Node(_code).find_class(\"Inbox\").find_function(\"delete_email\").find_ifs()[0].find_body().is_equivalent(\"print('Inbox is empty.\\\\\\\\n')\\\\nreturn\")`))\n}\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Vaš sandučić za poštu takođe zahteva način za brisanje e-pošte.</p>\n<p>Neno kuu la Python <code>del</code> može se koristiti za brisanje stavki iz liste korišćenjem njihovog obrasca.</p>\n<p>Dodajte putanju nazvanu <code>delete_email</code> u vašoj klasi za <code>Inbox</code>. Kao što je <code>read_email</code>, treba da:</p>\n<ul>\n<li>Uzeti parametar <code>index</code>, proveriti da li je poštansko sanduče prazno, i poslati poruku <code>Inbox is empty.\\n</code> ako jeste. Koristiti <code>return</code> iz tog puta.</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 35,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

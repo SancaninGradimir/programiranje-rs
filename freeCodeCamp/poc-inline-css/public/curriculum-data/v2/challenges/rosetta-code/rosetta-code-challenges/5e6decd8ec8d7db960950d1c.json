@@ -1,0 +1,88 @@
+{
+  "id": "5e6decd8ec8d7db960950d1c",
+  "title": "Raspodela LU",
+  "challengeType": 1,
+  "forumTopicId": 385280,
+  "dashedName": "lu-decomposition",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function luDecomposition(A) {\n\n}",
+      "error": null,
+      "seed": "function luDecomposition(A) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function luDecomposition(A) {\n\n    function dotProduct(a, b) {\n        var sum = 0;\n        for (var i = 0; i < a.length; i++)\n            sum += a[i] * b[i]\n        return sum;\n    }\n\n    function matrixMul(A, B) {\n        var result = new Array(A.length);\n        for (var i = 0; i < A.length; i++)\n            result[i] = new Array(B[0].length)\n        var aux = new Array(B.length);\n\n        for (var j = 0; j < B[0].length; j++) {\n\n            for (var k = 0; k < B.length; k++)\n                aux[k] = B[k][j];\n\n            for (var i = 0; i < A.length; i++)\n                result[i][j] = dotProduct(A[i], aux);\n        }\n        return result;\n    }\n\n    function pivotize(m) {\n        var n = m.length;\n        var id = new Array(n);\n        for (var i = 0; i < n; i++) {\n            id[i] = new Array(n);\n            id[i].fill(0)\n            id[i][i] = 1;\n        }\n\n        for (var i = 0; i < n; i++) {\n            var maxm = m[i][i];\n            var row = i;\n            for (var j = i; j < n; j++)\n                if (m[j][i] > maxm) {\n                    maxm = m[j][i];\n                    row = j;\n                }\n\n            if (i != row) {\n                var tmp = id[i];\n                id[i] = id[row];\n                id[row] = tmp;\n            }\n        }\n        return id;\n    }\n\n    var n = A.length;\n    var L = new Array(n);\n    for (var i = 0; i < n; i++) { L[i] = new Array(n); L[i].fill(0) }\n    var U = new Array(n);\n    for (var i = 0; i < n; i++) { U[i] = new Array(n); U[i].fill(0) }\n    var P = pivotize(A);\n    var A2 = matrixMul(P, A);\n\n    for (var j = 0; j < n; j++) {\n        L[j][j] = 1;\n        for (var i = 0; i < j + 1; i++) {\n            var s1 = 0;\n            for (var k = 0; k < i; k++)\n                s1 += U[k][j] * L[i][k];\n            U[i][j] = A2[i][j] - s1;\n        }\n        for (var i = j; i < n; i++) {\n            var s2 = 0;\n            for (var k = 0; k < j; k++)\n                s2 += U[k][j] * L[i][k];\n            L[i][j] = (A2[i][j] - s2) / U[j][j];\n        }\n    }\n    return [L, U, P];\n}",
+        "error": null,
+        "seed": "function luDecomposition(A) {\n\n    function dotProduct(a, b) {\n        var sum = 0;\n        for (var i = 0; i < a.length; i++)\n            sum += a[i] * b[i]\n        return sum;\n    }\n\n    function matrixMul(A, B) {\n        var result = new Array(A.length);\n        for (var i = 0; i < A.length; i++)\n            result[i] = new Array(B[0].length)\n        var aux = new Array(B.length);\n\n        for (var j = 0; j < B[0].length; j++) {\n\n            for (var k = 0; k < B.length; k++)\n                aux[k] = B[k][j];\n\n            for (var i = 0; i < A.length; i++)\n                result[i][j] = dotProduct(A[i], aux);\n        }\n        return result;\n    }\n\n    function pivotize(m) {\n        var n = m.length;\n        var id = new Array(n);\n        for (var i = 0; i < n; i++) {\n            id[i] = new Array(n);\n            id[i].fill(0)\n            id[i][i] = 1;\n        }\n\n        for (var i = 0; i < n; i++) {\n            var maxm = m[i][i];\n            var row = i;\n            for (var j = i; j < n; j++)\n                if (m[j][i] > maxm) {\n                    maxm = m[j][i];\n                    row = j;\n                }\n\n            if (i != row) {\n                var tmp = id[i];\n                id[i] = id[row];\n                id[row] = tmp;\n            }\n        }\n        return id;\n    }\n\n    var n = A.length;\n    var L = new Array(n);\n    for (var i = 0; i < n; i++) { L[i] = new Array(n); L[i].fill(0) }\n    var U = new Array(n);\n    for (var i = 0; i < n; i++) { U[i] = new Array(n); U[i].fill(0) }\n    var P = pivotize(A);\n    var A2 = matrixMul(P, A);\n\n    for (var j = 0; j < n; j++) {\n        L[j][j] = 1;\n        for (var i = 0; i < j + 1; i++) {\n            var s1 = 0;\n            for (var k = 0; k < i; k++)\n                s1 += U[k][j] * L[i][k];\n            U[i][j] = A2[i][j] - s1;\n        }\n        for (var i = j; i < n; i++) {\n            var s2 = 0;\n            for (var k = 0; k < j; k++)\n                s2 += U[k][j] * L[i][k];\n            L[i][j] = (A2[i][j] - s2) / U[j][j];\n        }\n    }\n    return [L, U, P];\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const matrix1 = [\n  [1, 3, 5],\n  [2, 4, 7],\n  [1, 1, 0]\n];\nconst expected1 = [\n  [\n    [1, 0, 0],\n    [0.5, 1, 0],\n    [0.5, -1, 1]\n  ],\n  [\n    [2, 4, 7],\n    [0, 1, 1.5],\n    [0, 0, -2]\n  ],\n  [\n    [0, 1, 0],\n    [1, 0, 0],\n    [0, 0, 1]\n  ]\n];\n\nconst matrix2 = [\n  [11, 9, 24, 2],\n  [1, 5, 2, 6],\n  [3, 17, 18, 1],\n  [2, 5, 7, 1]\n];\nconst expected2 = [\n  [\n    [1, 0, 0, 0],\n    [0.2727272727272727, 1, 0, 0],\n    [0.09090909090909091, 0.2875, 1, 0],\n    [0.18181818181818182, 0.23124999999999996, 0.0035971223021580693, 1]\n  ],\n  [\n    [11, 9, 24, 2],\n    [0, 14.545454545454547, 11.454545454545455, 0.4545454545454546],\n    [0, 0, -3.4749999999999996, 5.6875],\n    [0, 0, 0, 0.510791366906476]\n  ],\n  [\n    [1, 0, 0, 0],\n    [0, 0, 1, 0],\n    [0, 1, 0, 0],\n    [0, 0, 0, 1]\n  ]\n];\n\nconst matrix3 = [\n  [1, 1, 1],\n  [4, 3, -1],\n  [3, 5, 3]\n];\nconst expected3 = [\n  [\n    [1, 0, 0],\n    [0.75, 1, 0],\n    [0.25, 0.09090909090909091, 1]\n  ],\n  [\n    [4, 3, -1],\n    [0, 2.75, 3.75],\n    [0, 0, 0.9090909090909091]\n  ],\n  [\n    [0, 1, 0],\n    [0, 0, 1],\n    [1, 0, 0]\n  ]\n];\n\nconst matrix4 = [\n  [1, -2, 3],\n  [2, -5, 12],\n  [0, 2, -10]\n];\nconst expected4 = [\n  [\n    [1, 0, 0],\n    [0, 1, 0],\n    [0.5, 0.25, 1]\n  ],\n  [\n    [2, -5, 12],\n    [0, 2, -10],\n    [0, 0, -0.5]\n  ],\n  [\n    [0, 1, 0],\n    [0, 0, 1],\n    [1, 0, 0]\n  ]\n];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>luDecomposition</code> Trebalo bi da bude funkcija.</p>",
+      "testString": "assert(typeof luDecomposition == 'function');"
+    },
+    {
+      "text": "<p><code>luDecomposition([[1, 3, 5], [2, 4, 7], [1, 1, 0]])</code> Trebalo bi da vrati red podataka.</p>",
+      "testString": "assert(Array.isArray(luDecomposition(matrix1)));"
+    },
+    {
+      "text": "<p><code>luDecomposition([[1, 3, 5], [2, 4, 7], [1, 1, 0]])</code> treba da vrati <code>[[[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]], [[2, 4, 7], [0, 1, 1.5], [0, 0, -2]], [[0, 1, 0], [1, 0, 0], [0, 0, 1]]]</code>.</p>",
+      "testString": "assert.deepEqual(luDecomposition(matrix1), expected1);"
+    },
+    {
+      "text": "<p><code>luDecomposition([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]])</code> treba da vrati <code>[[[1, 0, 0, 0], [0.2727272727272727, 1, 0, 0], [0.09090909090909091, 0.2875, 1, 0], [0.18181818181818182, 0.23124999999999996, 0.0035971223021580693, 1]], [[11, 9, 24, 2], [0, 14.545454545454547, 11.454545454545455, 0.4545454545454546], [0, 0, -3.4749999999999996, 5.6875], [0, 0, 0, 0.510791366906476]], [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]]</code>.</p>",
+      "testString": "assert.deepEqual(luDecomposition(matrix2), expected2);"
+    },
+    {
+      "text": "<p><code>luDecomposition([[1, 1, 1], [4, 3, -1], [3, 5, 3]])</code> mora vratiti <code>[[[1, 0, 0], [0.75, 1, 0], [0.25, 0.09090909090909091, 1]], [[4, 3, -1], [0, 2.75, 3.75], [0, 0, 0.9090909090909091]], [[0, 1, 0], [0, 0, 1], [1, 0, 0]]]</code>.</p>",
+      "testString": "assert.deepEqual(luDecomposition(matrix3), expected3);"
+    },
+    {
+      "text": "<p><code>luDecomposition([[1, -2, 3], [2, -5, 12], [0, 2, -10]])</code> bi trebalo da vrati <code>[[[1, 0, 0], [0, 1, 0], [0.5, 0.25, 1]], [[2, -5, 12], [0, 2, -10], [0, 0, -0.5]], [[0, 1, 0], [0, 0, 1], [1, 0, 0]]]</code>.</p>",
+      "testString": "assert.deepEqual(luDecomposition(matrix4), expected4);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Svaka kvadratna matrica $A$ može se rastaviti na proizvod donje trougaone matrice $L$ i gornje trougaone matrice $U$. Ovo je poznato kao LU dekompozicija.</p>\n<p>$A = LU$</p>\n<p>Hii ni aina iliyobadilishwa ya ufutaji wa Gaussian.</p>\n<p>Dok Cholesky dekompozicija radi samo za simetrične pozitivno definitne matrice, opštija LU dekompozicija može se primeniti na bilo koju kvadratnu matricu.</p>\n<p>Postoje nekoliko algoritama za izračunavanje $L$ i $U$.</p>\n<p>Ili kupata <em>algoriti ya Crout</em> kwa mfano wa 3x3, tunapaswa kutatua mfumo ufuatao:</p>\n<p>\\begin{align}A = \\begin{pmatrix} a_{11} &#x26; a_{12} &#x26; a_{13}\\\\ a_{21} &#x26; a_{22} &#x26; a_{23}\\\\ a_{31} &#x26; a_{32} &#x26; a_{33}\\\\ \\end{pmatrix}= \\begin{pmatrix} l_{11} &#x26; 0 &#x26; 0 \\\\ l_{21} &#x26; l_{22} &#x26; 0 \\\\ l_{31} &#x26; l_{32} &#x26; l_{33}\\\\ \\end{pmatrix} \\begin{pmatrix} u_{11} &#x26; u_{12} &#x26; u_{13} \\\\ 0 &#x26; u_{22} &#x26; u_{23} \\\\ 0 &#x26; 0 &#x26; u_{33} \\end{pmatrix} = LU\\end{align}</p>\n<p>Tada treba rešiti sistem od 9 jednačina sa 12 nepoznatih. Da bi sistem imao jedinstveno rešenje, elementi na glavnoj dijagonali matrice $L$ obično se postavljaju na 1.</p>\n<p>$l_{11}=1$</p>\n<p>$l_{22}=1$</p>\n<p>$l_{33}=1$</p>\n<p>Dakle, dobijamo rešiv sistem sa 9 nepoznatih i 9 jednačina.</p>\n<p>\\begin{align}A = \\begin{pmatrix} a_{11} &#x26; a_{12} &#x26; a_{13}\\\\ a_{21} &#x26; a_{22} &#x26; a_{23}\\\\ a_{31} &#x26; a_{32} &#x26; a_{33}\\\\ \\end{pmatrix} = \\begin{pmatrix} 1 &#x26; 0 &#x26; 0 \\\\ l_{21} &#x26; 1 &#x26; 0 \\\\ l_{31} &#x26; l_{32} &#x26; 1\\\\ \\end{pmatrix} \\begin{pmatrix} u_{11} &#x26; u_{12} &#x26; u_{13} \\\\ 0 &#x26; u_{22} &#x26; u_{23} \\\\ 0 &#x26; 0 &#x26; u_{33} \\end{pmatrix} = \\begin{pmatrix} u_{11} &#x26; u_{12} &#x26; u_{13} \\\\ u_{11}l_{21} &#x26; u_{12}l_{21}+u_{22} &#x26; u_{13}l_{21}+u_{23} \\\\ u_{11}l_{31} &#x26; u_{12}l_{31}+u_{22}l_{32} &#x26; u_{13}l_{31} + u_{23}l_{32}+u_{33} \\end{pmatrix} = LU\\end{align}</p>\n<p>Kutatua kwa ajili ya $l$ na $u$ vingine, tunapata mlinganyo ufuatao:</p>\n<p>$u_{11}=a_{11}$</p>\n<p>$u_{12}=a_{12}$</p>\n<p>$u_{13}=a_{13}$</p>\n<p>$u_{22}=a_{22} - u_{12}l_{21}$</p>\n<p>$u_{23}=a_{23} - u_{13}l_{21}$</p>\n<p>$u_{33}=a_{33} - (u_{13}l_{31} + u_{23}l_{32})$</p>\n<p>na kwa $l$:</p>\n<p>$l_{21}=\\frac{1}{u_{11}} a_{21}$</p>\n<p>$l_{31}=\\frac{1}{u_{11}} a_{31}$</p>\n<p>$l_{32}=\\frac{1}{u_{22}} (a_{32} - u_{12}l_{31})$</p>\n<p>Primećujemo da postoji matematički obrazac, koji se može prikazati sledećim formulama, počevši od $U$</p>\n<p>$u_{ij} = a_{ij} - \\sum_{k=1}^{i-1} u_{kj}l_{ik}$</p>\n<p>zatim za $L$</p>\n<p>$l_{ij} = \\frac{1}{u_{jj}} (a_{ij} - \\sum_{k=1}^{j-1} u_{kj}l_{ik})$</p>\n<p>Vidimo u drugoj formuli da za dobijanje $l_{ij}$ ispod dijagonale, moramo podeliti sa dijagonaličnim elementom (pivot) $u_{jj}$, pa naiđemo na probleme kada je $u_{jj}$ 0 ili vrlo malo, što uzrokuje nestabilnost računanja.</p>\n<p>Rešenje ovog problema je <em>kupivot</em> $A$, što znači ponovno poređavanje redova $A$, pre $LU$ faktorisacije, tako da se najveći element svakog reda postavi na dijagonalu $A$. Ponovno poređavanje redova znači množenje $A$ sa matriksom permutacije $P$:</p>\n<p>$PA \\Rightarrow A'$</p>\n<p>Primer:</p>\n<p>\\begin{align} \\begin{pmatrix} 0 &#x26; 1 \\\\ 1 &#x26; 0 \\end{pmatrix} \\begin{pmatrix} 1 &#x26; 4 \\\\ 2 &#x26; 3 \\end{pmatrix} \\Rightarrow \\begin{pmatrix} 2 &#x26; 3 \\\\ 1 &#x26; 4 \\end{pmatrix} \\end{align}</p>\n<p>Algoritam dodeljivanja se zatim primenjuje na reorganizovanu matricu kako bi</p>\n<p>$PA = LU$</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Zadatak je da se implementira procedura koja uzima kvadratnu matricu $A$ dimenzija $n \\times n$ i vraća donju trougačnu matricu $L$, gornju trougačnu matricu $U$ i permutacionu matricu $P$, tako da se zadovolji jednačina navedena gore. Vrednost koja se vraća mora biti u formatu <code>[L, U, P]</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 99,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

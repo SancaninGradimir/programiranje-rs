@@ -1,0 +1,89 @@
+{
+  "id": "587d7faf367417b2b2512be9",
+  "title": "Pošalji podatke putem JavaScript XMLHttpRequest-a",
+  "challengeType": 6,
+  "forumTopicId": 301504,
+  "dashedName": "post-data-with-the-javascript-xmlhttprequest-method",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<script>\r\n  document.addEventListener('DOMContentLoaded', function () {\r\n    document.getElementById('sendMessage').onclick = function () {\r\n      const userName = document.getElementById('name').value;\r\n      const url = 'https://jsonplaceholder.typicode.com/posts';\r\n      // Add your code below this line\r\n\r\n      // Add your code above this line\r\n    };\r\n  });\r\n</script>\r\n\r\n<style>\r\n  body {\r\n    text-align: center;\r\n    font-family: 'Helvetica', sans-serif;\r\n  }\r\n  h1 {\r\n    font-size: 2em;\r\n    font-weight: bold;\r\n  }\r\n  .box {\r\n    border-radius: 5px;\r\n    background-color: #eee;\r\n    padding: 20px 5px;\r\n  }\r\n  button {\r\n    color: white;\r\n    background-color: #4791d0;\r\n    border-radius: 5px;\r\n    border: 1px solid #4791d0;\r\n    padding: 5px 10px 8px 10px;\r\n  }\r\n  button:hover {\r\n    background-color: #0f5897;\r\n    border: 1px solid #0f5897;\r\n  }\r\n</style>\r\n\r\n<h1>Cat Friends</h1>\r\n<p class=\"message box\">Reply from Server will be here</p>\r\n<p>\r\n  <label for=\"name\"\r\n    >Your name:\r\n    <input type=\"text\" id=\"name\" />\r\n  </label>\r\n  <button id=\"sendMessage\">Send Message</button>\r\n</p>",
+      "error": null,
+      "seed": "<script>\r\n  document.addEventListener('DOMContentLoaded', function () {\r\n    document.getElementById('sendMessage').onclick = function () {\r\n      const userName = document.getElementById('name').value;\r\n      const url = 'https://jsonplaceholder.typicode.com/posts';\r\n      // Add your code below this line\r\n\r\n      // Add your code above this line\r\n    };\r\n  });\r\n</script>\r\n\r\n<style>\r\n  body {\r\n    text-align: center;\r\n    font-family: 'Helvetica', sans-serif;\r\n  }\r\n  h1 {\r\n    font-size: 2em;\r\n    font-weight: bold;\r\n  }\r\n  .box {\r\n    border-radius: 5px;\r\n    background-color: #eee;\r\n    padding: 20px 5px;\r\n  }\r\n  button {\r\n    color: white;\r\n    background-color: #4791d0;\r\n    border-radius: 5px;\r\n    border: 1px solid #4791d0;\r\n    padding: 5px 10px 8px 10px;\r\n  }\r\n  button:hover {\r\n    background-color: #0f5897;\r\n    border: 1px solid #0f5897;\r\n  }\r\n</style>\r\n\r\n<h1>Cat Friends</h1>\r\n<p class=\"message box\">Reply from Server will be here</p>\r\n<p>\r\n  <label for=\"name\"\r\n    >Your name:\r\n    <input type=\"text\" id=\"name\" />\r\n  </label>\r\n  <button id=\"sendMessage\">Send Message</button>\r\n</p>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<script>\r\n  document.addEventListener('DOMContentLoaded', function () {\r\n    document.getElementById('sendMessage').onclick = function () {\r\n      const userName = document.getElementById('name').value;\r\n      const url = 'https://jsonplaceholder.typicode.com/posts';\r\n      // Add your code below this line\r\n      const xhr = new XMLHttpRequest();\r\n      xhr.open('POST', url, true);\r\n      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');\r\n      xhr.onreadystatechange = function () {\r\n        if (xhr.readyState === 4 && xhr.status === 201) {\r\n          const serverResponse = JSON.parse(xhr.response);\r\n          document.getElementsByClassName('message')[0].textContent =\r\n            serverResponse.userName + serverResponse.suffix;\r\n        }\r\n      };\r\n      const body = JSON.stringify({\r\n        userName: userName,\r\n        suffix: ' loves cats!'\r\n      });\r\n      xhr.send(body);\r\n      // Add your code above this line\r\n    };\r\n  });\r\n</script>\r\n\r\n<style>\r\n  body {\r\n    text-align: center;\r\n    font-family: 'Helvetica', sans-serif;\r\n  }\r\n  h1 {\r\n    font-size: 2em;\r\n    font-weight: bold;\r\n  }\r\n  .box {\r\n    border-radius: 5px;\r\n    background-color: #eee;\r\n    padding: 20px 5px;\r\n  }\r\n  button {\r\n    color: white;\r\n    background-color: #4791d0;\r\n    border-radius: 5px;\r\n    border: 1px solid #4791d0;\r\n    padding: 5px 10px 8px 10px;\r\n  }\r\n  button:hover {\r\n    background-color: #0f5897;\r\n    border: 1px solid #0f5897;\r\n  }\r\n</style>\r\n\r\n<h1>Cat Friends</h1>\r\n<p class=\"message\">Reply from Server will be here</p>\r\n<p>\r\n  <label for=\"name\"\r\n    >Your name:\r\n    <input type=\"text\" id=\"name\" />\r\n  </label>\r\n  <button id=\"sendMessage\">Send Message</button>\r\n</p>",
+        "error": null,
+        "seed": "<script>\r\n  document.addEventListener('DOMContentLoaded', function () {\r\n    document.getElementById('sendMessage').onclick = function () {\r\n      const userName = document.getElementById('name').value;\r\n      const url = 'https://jsonplaceholder.typicode.com/posts';\r\n      // Add your code below this line\r\n      const xhr = new XMLHttpRequest();\r\n      xhr.open('POST', url, true);\r\n      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');\r\n      xhr.onreadystatechange = function () {\r\n        if (xhr.readyState === 4 && xhr.status === 201) {\r\n          const serverResponse = JSON.parse(xhr.response);\r\n          document.getElementsByClassName('message')[0].textContent =\r\n            serverResponse.userName + serverResponse.suffix;\r\n        }\r\n      };\r\n      const body = JSON.stringify({\r\n        userName: userName,\r\n        suffix: ' loves cats!'\r\n      });\r\n      xhr.send(body);\r\n      // Add your code above this line\r\n    };\r\n  });\r\n</script>\r\n\r\n<style>\r\n  body {\r\n    text-align: center;\r\n    font-family: 'Helvetica', sans-serif;\r\n  }\r\n  h1 {\r\n    font-size: 2em;\r\n    font-weight: bold;\r\n  }\r\n  .box {\r\n    border-radius: 5px;\r\n    background-color: #eee;\r\n    padding: 20px 5px;\r\n  }\r\n  button {\r\n    color: white;\r\n    background-color: #4791d0;\r\n    border-radius: 5px;\r\n    border: 1px solid #4791d0;\r\n    padding: 5px 10px 8px 10px;\r\n  }\r\n  button:hover {\r\n    background-color: #0f5897;\r\n    border: 1px solid #0f5897;\r\n  }\r\n</style>\r\n\r\n<h1>Cat Friends</h1>\r\n<p class=\"message\">Reply from Server will be here</p>\r\n<p>\r\n  <label for=\"name\"\r\n    >Your name:\r\n    <input type=\"text\" id=\"name\" />\r\n  </label>\r\n  <button id=\"sendMessage\">Send Message</button>\r\n</p>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaš kod treba da kreira <code>XMLHttpRequest</code> novi.</p>",
+      "testString": "assert.match(code, /new\\s*XMLHttpRequest\\(\\s*\\)/g);"
+    },
+    {
+      "text": "<p>Vaš kod bi trebalo da koristi metodu <code>open</code> za iniciranje zahteva <code>POST</code> na serveru.</p>",
+      "testString": "assert.match(code, /\\.open\\(\\s*('|\")POST\\1\\s*,\\s*url\\s*,\\s*true\\s*\\)/g);"
+    },
+    {
+      "text": "<p>Tvoj kod bi trebalo da koristi metodu <code>setRequestHeader</code>.</p>",
+      "testString": "assert.match(\r\n  code,\r\n  /\\.setRequestHeader\\(\\s*('|\")Content-Type\\1\\s*,\\s*('|\")application\\/json;\\s*charset=UTF-8\\2\\s*\\)/g\r\n);"
+    },
+    {
+      "text": "<p>Vaš kod bi trebalo da ima hendlera događaja za <code>onreadystatechange</code>, postavljenog u metodu.</p>",
+      "testString": "assert.match(code, /\\.onreadystatechange\\s*=/g);"
+    },
+    {
+      "text": "<p>Tvoj kod bi trebalo da dohvati element sa klasom <code>message</code> i promeni njegovu <code>textContent</code> u <code>userName loves cats</code>.</p>",
+      "testString": "assert.match(\r\n  code,\r\n  /document\\.getElementsByClassName\\(\\s*('|\")message\\1\\s*\\)\\[0\\]\\.textContent\\s*=\\s*.+?\\.userName\\s*\\+\\s*.+?\\.suffix/g\r\n);"
+    },
+    {
+      "text": "<p>Vaš kod bi trebalo da koristi <code>send</code>.</p>",
+      "testString": "assert.match(code, /\\.send\\(\\s*body\\s*\\)/g);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U prethodnim primerima, primili ste podatke sa eksternog resursa. Takođe možete poslati podatke na eksternom resursu, pod uslovom da taj resurs podržava AJAX zahteve i znate URL.</p>\n<p>Putanja za JavaScript na <code>XMLHttpRequest</code> takođe se koristi za slanje podataka na server. Evo primera:</p>\n<pre><code class=\"language-js\">const xhr = new XMLHttpRequest();\r\nxhr.open('POST', url, true);\r\nxhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');\r\nxhr.onreadystatechange = function () {\r\n  if (xhr.readyState === 4 &#x26;&#x26; xhr.status === 201) {\r\n    const serverResponse = JSON.parse(xhr.response);\r\n    document.getElementsByClassName('message')[0].textContent =\r\n      serverResponse.userName + serverResponse.suffix;\r\n  }\r\n};\r\nconst body = JSON.stringify({ userName: userName, suffix: ' loves cats!' });\r\nxhr.send(body);\n</code></pre>\n<p>Vi ste već videli neke od ovih metoda. Ovde metoda <code>open</code> inicijalizuje zahtev kao <code>POST</code> za dostupan eksterni resurs URL, i prosleđuje <code>true</code> kao treći parametar - što ukazuje da se ta operacija izvršava asinhrono.</p>\n<p>Metoda <code>setRequestHeader</code> postavlja vrednost zaglavlja zahteva za HTTP, koje sadrži informacije o pošiljaocu i zahtevu. Mora se pozvati nakon metode <code>open</code>, ali pre metode <code>send</code>. Dva parametra su ime zaglavlja i vrednost za postavljanje kao telo tog zaglavlja.</p>\n<p>Sledeći, handler događaja za <code>onreadystatechange</code> obrađuje promene statusa zahteva. <code>readyState</code> od <code>4</code> znači da je operacija završena, a <code>status</code> od <code>201</code> znači da je zahtev uspešan. Stoga, HTML dokumenta se može ažurirati.</p>\n<p>Konačno, putanja <code>send</code> šalje zahtev sa vrednošću <code>body</code>. <code>body</code> uključuje <code>userName</code> i funkciju <code>suffix</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Ispravite kod da napravite zahtev za <code>POST</code> koristeći krajnju tačku (endpoint) API. Zatim unesite svoje ime u polje za unos i kliknite na <code>Send Message</code>. Vaša AJAX funkcija bi trebalo da promeni <code>Reply from Server will be here.</code> sa podacima sa servera. Formatirajte odgovor da prikažete vaše ime uz tekst od <code> loves cats</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "json-apis-and-ajax",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "data-visualization",
+  "superOrder": 18,
+  "challengeOrder": 9,
+  "isLastChallengeInBlock": true,
+  "required": [
+    {
+      "link": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "data-visualization"
+}

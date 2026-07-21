@@ -1,0 +1,62 @@
+{
+  "id": "68e79d91daf8fb4808f93c47",
+  "title": "Korak 15",
+  "challengeType": 20,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        29,
+        33
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n    \n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Product:\n    def __init__(self, name: str, price: float) -> None:\n        self.name = name\n        self.price = price\n\n    def __str__(self) -> str:\n        return f'{self.name} - ${self.price}'\n\nclass DiscountStrategy(ABC):\n    @abstractmethod\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        pass\n\n    @abstractmethod\n    def apply_discount(self, product: Product) -> float:\n        pass\n\nclass PercentageDiscount(DiscountStrategy):\n    def __init__(self, percent: int) -> None:\n        self.percent = percent\n\n    def is_applicable(self, product: Product, user_tier: str) -> bool:\n        return self.percent <= 70\n    \n    def apply_discount(self, product: Product) -> float:\n        return product.price * (1 - self.percent / 100)\n\nproduct = Product('Wireless Mouse', 50.0)\nprint(product)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da kreirate parametar nazvan <code>discount</code> sa primerom <code>PercentageDiscount</code>.</p>",
+      "testString": "({\n  test: () => runPython(`\n    assert _Node(_code).has_variable(\"discount\")\n    assert isinstance(discount, PercentageDiscount)\n  `)\n})"
+    },
+    {
+      "text": "<p>Vaš primer za <code>PercentageDiscount</code> mora biti inicijalizovan sa procentom <code>10</code>.</p>",
+      "testString": "({\n  test: () => runPython(`assert discount.percent == 10`)\n})"
+    },
+    {
+      "text": "<p>Trebalo bi da pozoveš <code>discount.apply_discount(product)</code> za štampanje rezultata.</p>",
+      "testString": "({\n  test: () => runPython(`assert _Node(_code).has_call(\"print(discount.apply_discount(product))\")`)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon izvršavanja metode <code>apply_discount</code>, pokušajte sa svojom strategijom popusta. Kreirajte primer <code>PercentageDiscount</code> sa procentom <code>10</code> i postavite njegovu vrednost u parametar nazvan <code>discount</code>. Zatim primenite popust koristeći <code>discount.apply_discount(product)</code> i ispišite rezultate da biste videli kako radi popust.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-discount-calculator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 47,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

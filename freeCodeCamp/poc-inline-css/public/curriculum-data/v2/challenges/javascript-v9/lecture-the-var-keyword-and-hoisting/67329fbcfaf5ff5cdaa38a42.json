@@ -1,0 +1,165 @@
+{
+  "id": "67329fbcfaf5ff5cdaa38a42",
+  "title": "Šta je značenje ključne reči var, i zašto se više ne preporučuje da se koristi?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-var-keyword-and-why-is-it-no-longer-suggested-to-use-it",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Ključna reč <code>var</code> unutar <code>JavaScript</code> je jedan od ranih načina deklarisanja parametara. Bila je deo jezika otkako je uvedena i godinama ostala je glavni način za kreiranje parametara. Međutim, kako je <code>JavaScript</code> raslo i programeri stekli više iskustva sa tim jezikom, određene nedostatke korišćenja <code>var</code> primetili su, što je dovelo do uvođenja <code>let</code> i <code>const</code> 2015.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada deklarišete parametar za <code>var</code>, on ima opseg funkcije ili globalni opseg. To znači da ako deklarišete parametar unutar funkcije koristeći <code>var</code>, on je dostupan samo unutar te funkcije. Međutim, ako ga deklarišete izvan bilo koje funkcije, on postaje globalni parametar dostupan u celom vašem kodu. Ovo ponašanje može izazvati nepredvidive rezultate i učiniti vaš kod teškim za razumevanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Tatizo sa <code>var</code> je što vam omogućava da deklarišete isti parametar više puta bez generisanja greške. Ovo može uzrokovati slučajno brisanje i otežati proces pronalaženja grešaka (debugging).</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "var num = 5;\nconsole.log(num); // 5\n\n// This is allowed and doesn't throw an error\nvar num = 10;\nconsole.log(num); // 10",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">var num = 5;\nconsole.log(num); // 5\n\n// This is allowed and doesn't throw an error\nvar num = 10;\nconsole.log(num); // 10\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Najveći problem sa <code>var</code> je nedostatak blok opsega. Varijable deklarisane za <code>var</code> unutar bloka, kao što je deklaracija <code>if</code> ili petlja <code>for</code>, i dalje su dostupne izvan tog bloka.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "if (true) {\n  var num = 5;\n}\nconsole.log(num); // 5",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">if (true) {\n  var num = 5;\n}\nconsole.log(num); // 5\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo ponašanje može uzrokovati slučajno curenje parametara i učiniti da je vaš kod podložan greškama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zbog ovih problema, moderni razvoj JavaScript se udaljio od <code>var</code> i preferira <code>let</code> i <code>const</code>. Ove ključne reči pružaju blok opseg koji je u skladu sa načinom na koji opseg radi u mnogim programskim jezicima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe ne dozvoljava ponovno objavljivanje unutar istog opsega, kako bi pomoglo da se spreči slučajno brisanje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako <code>var</code> je i dalje deo JavaScript i funkcioniše u svim pregledačima, generalno se savetuje korišćenje <code>let</code> i <code>const</code> u modernom razvoju JavaScript. Pruža jasna pravila opsega, pomaže u sprečavanju uobičajenih grešaka i čini ponašanje vašeg koda pouzdanijim.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Koji je opseg parametra definisan za <code>var</code> izvan bilo koje funkcije?</p>",
+      "answers": [
+        {
+          "answer": "<p>Opseg bloka.</p>",
+          "feedback": "<p>Zamislite gde parametar <code>var</code> deklarisan van funkcije može biti dostupan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Opseg funkcionalnosti.</p>",
+          "feedback": "<p>Razmislite gde parametr <code>var</code> deklarisan van funkcije može biti dostupan.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Međunarodni opseg.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Opseg modula.</p>",
+          "feedback": "<p>Razmislite gde parametar <code>var</code> deklarisan van funkcije može biti dostupan.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koji će biti rezultat sledećeg koda?</p>\n<pre><code class=\"language-js\">var x = 10;\n\nif (true) {\n  var x = 20;\n  console.log(x);\n}\n\nconsole.log(x);\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-js\">10\n10\n</code></pre>",
+          "feedback": "<p>Zapamtite da je <code>var</code> funkcionalsk ili globalni opseg i dozvoljava ponovno objavljivanje unutar istog opsega.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">20\n20\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">10\n20\n</code></pre>",
+          "feedback": "<p>Zapamtite da je <code>var</code> funkcionalan ili globalni opseg i dozvoljava ponovno objavljivanje unutar istog opsega.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">20\n10\n</code></pre>",
+          "feedback": "<p>Zapamtite da je <code>var</code> funkcionalno ili globalno opsež, i dozvoljava ponovno objavljivanje unutar istog opsega.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koja od sledećih nije razlog za izbegavanje korišćenja <code>var</code> u modernom JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>var</code> Omogućava deklarisanje parametara u istom opsegu.</p>",
+          "feedback": "<p>Razmisli šta je istina o ponašanju ili pomoći <code>var</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>var</code> Nije podržano u modernim pregledačima.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Parametri za <code>var</code> imaju funkcionalni opseg, a ne blok opseg.</p>",
+          "feedback": "<p>Zamisli koji je izjava tačna o karakteru ili pomoći za <code>var</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Parametri <code>var</code> se podižu (hoisted).</p>",
+          "feedback": "<p>Koja je izjava koju zaista nosiš o ponašanju ili pomoći <code>var</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-the-var-keyword-and-hoisting",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 91,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "review-javascript-fundamentals",
+  "certification": "javascript-v9"
+}

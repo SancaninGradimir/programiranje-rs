@@ -1,0 +1,55 @@
+{
+  "id": "664e4e1b6c35a99cbba49e84",
+  "title": "Vežba 31",
+  "challengeType": 20,
+  "dashedName": "step-31",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        67,
+        71
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\nclass QuadraticEquation(Equation):\n    degree = 2\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n   \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\n",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n  \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n\n    def __str__(self):\n        terms = []\n        for n, coefficient in self.coefficients.items():\n            if not coefficient:\n                continue\n            if n == 0:\n                terms.append(f'{coefficient:+}')\n            elif n == 1:\n                terms.append(f'{coefficient:+}x')                \n        equation_string = ' '.join(terms) + ' = 0'\n        return equation_string.strip('+')        \n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        a, b = self.coefficients.values()\n        x = -b / a\n        return x\n\n    def analyze(self):\n        slope, intercept = self.coefficients.values()\n        return {'slope': slope, 'intercept': intercept}\n\nclass QuadraticEquation(Equation):\n    degree = 2\n\n    def __init__(self, *args):\n        super().__init__(*args)\n        a, b, c = self.coefficients.values()\n        self.delta = b**2 - 4 * a * c\n   \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da deklarišete parametar nazvan <code>quadr_eq</code> i postavite primer vrednost <code>QuadraticEquation</code> dajući mu <code>11</code>, <code>-1</code>, i <code>1</code> kao argument.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_stmt(\"quadr_eq = QuadraticEquation(11, -1, 1)\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da ispišete svoj parametar <code>quadr_eq</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_call(\"print(quadr_eq)\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, napravi primer klase <code>QuadraticEquation</code> ili predstavlja jednačinu \\( 11x^2 - x + 1 = 0 \\).</p>\n<p>Postavite vrednost novog primera u parametar <code>quadr_eq</code>, zatim objavite svoj novi parametar. Zapamtite da trenutno drugi nivo reč ne postoji u predstavljanju sekvence karaktera te jednačine.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 30,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "5900f39f1000cf542c50feb2",
+  "title": "Vežba 51: Alternativa osnovnom broju",
+  "challengeType": 1,
+  "forumTopicId": 302162,
+  "dashedName": "problem-51-prime-digit-replacements",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function primeDigitReplacements(n) {\n\n  return true;\n}\n\nprimeDigitReplacements(6);",
+      "error": null,
+      "seed": "function primeDigitReplacements(n) {\n\n  return true;\n}\n\nprimeDigitReplacements(6);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction primeDigitReplacements(n) {\n  const primeSeive = new PrimeSeive(n * n * n * 2000);\n\n  function isNFamily(number, n) {\n    const prime = number.toString();\n    const lastDigit = prime[prime.length - 1];\n    return doesReplacingMakeFamily(prime, '0', n) ||\n      doesReplacingMakeFamily(prime, '2', n) ||\n      (lastDigit !== '1' && doesReplacingMakeFamily(prime, '1', n));\n  }\n\n  function doesReplacingMakeFamily(prime, digitToReplace, family) {\n    let miss = 0;\n    const base = parseInt(\n      prime\n        .split('')\n        .map(digit => digit == digitToReplace ? '0' : digit)\n        .join('')\n    );\n    const replacements = parseInt(\n      prime\n        .split('')\n        .map(digit => digit === digitToReplace ? '1' : '0')\n        .join('')\n    );\n    const start = prime[0] === digitToReplace ? 1 : 0;\n    for (let i = start; i < 10; i++) {\n      const nextNumber = base + i * replacements;\n      if (!isPartOfFamily(nextNumber, prime)) miss++;\n      if (10 - start - miss < family) break;\n    }\n    return 10 - start - miss === family;\n  }\n\n  function isPartOfFamily(number, prime) {\n    return (\n      primeSeive.isPrime(number) && number.toString().length === prime.length\n    );\n  }\n\n  for (let number = 1; number < 125000; number++) {\n    if (primeSeive.isPrime(number) && isNFamily(number, n)) {\n      return number;\n    }\n  }\n  return -1;\n}",
+        "error": null,
+        "seed": "class PrimeSeive {\n  constructor(num) {\n    const seive = Array(Math.floor((num - 1) / 2)).fill(true);\n    const upper = Math.floor((num - 1) / 2);\n    const sqrtUpper = Math.floor((Math.sqrt(num) - 1) / 2);\n\n    for (let i = 0; i <= sqrtUpper; i++) {\n      if (seive[i]) {\n        // Mark value in seive array\n        const prime = 2 * i + 3;\n        // Mark all multiples of this number as false (not prime)\n        const primeSquaredIndex = 2 * i ** 2 + 6 * i + 3;\n        for (let j = primeSquaredIndex; j < upper; j += prime) {\n          seive[j] = false;\n        }\n      }\n    }\n\n    this._seive = seive;\n  }\n\n  isPrime(num) {\n    return num === 2\n      ? true\n      : num % 2 === 0\n        ? false\n        : this.isOddPrime(num);\n  }\n\n  isOddPrime(num) {\n    return this._seive[(num - 3) / 2];\n  }\n};\n\nfunction primeDigitReplacements(n) {\n  const primeSeive = new PrimeSeive(n * n * n * 2000);\n\n  function isNFamily(number, n) {\n    const prime = number.toString();\n    const lastDigit = prime[prime.length - 1];\n    return doesReplacingMakeFamily(prime, '0', n) ||\n      doesReplacingMakeFamily(prime, '2', n) ||\n      (lastDigit !== '1' && doesReplacingMakeFamily(prime, '1', n));\n  }\n\n  function doesReplacingMakeFamily(prime, digitToReplace, family) {\n    let miss = 0;\n    const base = parseInt(\n      prime\n        .split('')\n        .map(digit => digit == digitToReplace ? '0' : digit)\n        .join('')\n    );\n    const replacements = parseInt(\n      prime\n        .split('')\n        .map(digit => digit === digitToReplace ? '1' : '0')\n        .join('')\n    );\n    const start = prime[0] === digitToReplace ? 1 : 0;\n    for (let i = start; i < 10; i++) {\n      const nextNumber = base + i * replacements;\n      if (!isPartOfFamily(nextNumber, prime)) miss++;\n      if (10 - start - miss < family) break;\n    }\n    return 10 - start - miss === family;\n  }\n\n  function isPartOfFamily(number, prime) {\n    return (\n      primeSeive.isPrime(number) && number.toString().length === prime.length\n    );\n  }\n\n  for (let number = 1; number < 125000; number++) {\n    if (primeSeive.isPrime(number) && isNFamily(number, n)) {\n      return number;\n    }\n  }\n  return -1;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>primeDigitReplacements(6)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert(typeof primeDigitReplacements(6) === 'number');"
+    },
+    {
+      "text": "<p><code>primeDigitReplacements(6)</code> treba da vrati <code>13</code>.</p>",
+      "testString": "assert.strictEqual(primeDigitReplacements(6), 13);"
+    },
+    {
+      "text": "<p><code>primeDigitReplacements(7)</code> treba da vrati <code>56003</code>.</p>",
+      "testString": "assert.strictEqual(primeDigitReplacements(7), 56003);"
+    },
+    {
+      "text": "<p><code>primeDigitReplacements(8)</code> trebalo bi da vrati <code>121313</code>.</p>",
+      "testString": "assert.strictEqual(primeDigitReplacements(8), 121313);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Promenom prve cifre broja 2 * 3, blijkt da šest od devet mogućih vrednosti: 13, 23, 43, 53, 73 i 83, su sve premij prime brojevi.</p>\n<p>Promenom trećeg i četvrtog cifre broja 56**3 u istu brojku, ovaj petocifreni broj je prvi primer sa sedam osnovnih brojeva od deset generisanih, stvarajući porodicu: 56003, 56113, 56333, 56443, 56663, 56773, i 56993. Stoga, 56003, kao prvi član ove porodice, je najmanji osnovni broj sa ovom karakteristikom.</p>\n<p>Pronađi najmanji osnovni broj koji, menjanjem dela broja (ne moraju biti susedne cifre) na isti broj, je deo porodice osnovnih brojeva <code>n</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 50,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

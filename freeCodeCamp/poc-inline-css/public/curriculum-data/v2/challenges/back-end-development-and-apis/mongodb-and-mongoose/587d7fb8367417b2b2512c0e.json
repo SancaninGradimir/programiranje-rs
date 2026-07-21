@@ -1,0 +1,33 @@
+{
+  "id": "587d7fb8367417b2b2512c0e",
+  "title": "Izvršite standardno ažuriranje pokretanjem Traži, Izmeni, zatim Sačuvaj'",
+  "challengeType": 2,
+  "forumTopicId": 301541,
+  "dashedName": "perform-classic-updates-by-running-find-edit-then-save",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Traži-uredi-ažuriraj element, treba da uspe</p>",
+      "testString": "  const response = await fetch(code + '/_api/find-edit-save', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify({\n      name: 'Poldo',\n      age: 40,\n      favoriteFoods: ['spaghetti']\n    })\n  });\n  if (!response.ok) {\n    throw new Error(await response.text());\n  }\n  const data = await response.json();\n  assert.equal(data.name, 'Poldo', 'item.name is not what is expected');\n  assert.equal(data.age, 40, 'item.age is not what expected');\n  assert.deepEqual(\n    data.favoriteFoods,\n    ['spaghetti', 'hamburger'],\n    'item.favoriteFoods is not what expected'\n  );\n  assert.equal(data.__v, 1, 'The item should be previously edited');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ranije, ovo je ono što ste trebali da uradite ako želite da izmenite dokument i da ga koristite na neki način (primer, ponovno slanje u server odgovor). Mongoose ima poseban način za ažuriranje: <code>Model.update()</code>. On je povezan sa niske razine Mongo drajverom. Može da izmeni više dokumenata koji zadovoljavaju određene kriterijume, ali više ne koristi ažurirani dokument, već samo poruku 'stanje'. Štaviše, čini validaciju modela komplikovanom jer direktno poziva Mongo drajver.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Promeni funkciju <code>findEditThenSave</code> ili pretražiti osobu po <code>_id</code> (koristi bilo koju od gore navedenih metoda) koristeći parametar <code>personId</code> kao ključ pretrage. Dodaj <code>\"hamburger\"</code> na listu <code>favoriteFoods</code> te osobe (možeš koristiti <code>Array.push()</code>). Zatim - unutar poziva za pretragu - ažurirani <code>save()` `Person</code>.</p>\n<p><strong>Napomena:</strong> Ovo može biti teško, ako u vašem Šemi (Schema), deklarisali ste <code>favoriteFoods</code> kao polje podataka, bez definisanja tipa (tj. <code>[String]</code>). U tom slučaju, <code>favoriteFoods</code> se koristi kao tip Mixed, i morate ručno označiti koristeći <code>document.markModified('edited-field')</code>. Pogledajte naš članak o Mongoose-u na <a href=\"https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">...</a>.</p>\n</section>",
+  "translationPending": false,
+  "block": "mongodb-and-mongoose",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 7,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

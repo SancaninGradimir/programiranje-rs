@@ -1,0 +1,77 @@
+{
+  "id": "5900f3bb1000cf542c50fece",
+  "title": "Izazov 79: Dodeljivanje tajnog koda",
+  "challengeType": 1,
+  "forumTopicId": 302192,
+  "dashedName": "problem-79-passcode-derivation",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function passcodeDerivation(arr) {\n\n  return true;\n}\n\n// Only change code above this line\n\nconst keylog1 = [\n  319,680,180,690,129,620,762,689,762,318,368,710,720,710,629,168,160,689,716,731,736,729,316,729,729,710,769,290,719,680,318,389,162,289,162,718,729,319,790,680,890,362,319,760,316,729,380,319,728,716,\n];\n\npasscodeDerivation(keylog1);",
+      "error": null,
+      "seed": "function passcodeDerivation(arr) {\n\n  return true;\n}\n\n// Only change code above this line\n\nconst keylog1 = [\n  319,680,180,690,129,620,762,689,762,318,368,710,720,710,629,168,160,689,716,731,736,729,316,729,729,710,769,290,719,680,318,389,162,289,162,718,729,319,790,680,890,362,319,760,316,729,380,319,728,716,\n];\n\npasscodeDerivation(keylog1);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function passcodeDerivation(arr) {\n  const numbersInPasscode = [];\n  const relativePositions = new Array(10)\n    .fill()\n    .map(() => new Array(10).fill(0));\n\n  for (let i = 0; i < arr.length; i++) {\n    const curAttempt = arr[i]\n      .toString()\n      .split('')\n      .map(key => parseInt(key, 10));\n    for (let j = 0; j < curAttempt.length; j++) {\n      if (numbersInPasscode.indexOf(curAttempt[j]) === -1) {\n        numbersInPasscode.push(curAttempt[j]);\n      }\n      for (let k = j + 1; k < curAttempt.length; k++) {\n        relativePositions[curAttempt[j]][curAttempt[k]] += 1;\n      }\n    }\n  }\n\n  const ranks = {};\n  for (let i = 0; i < numbersInPasscode.length; i++) {\n    const curNumber = numbersInPasscode[i];\n    ranks[curNumber] = relativePositions[curNumber].filter(\n      count => count > 0\n    ).length;\n  }\n\n  const passcode = numbersInPasscode\n    .sort((i, j) => ranks[i] - ranks[j])\n    .reverse()\n    .join('');\n\n  return parseInt(passcode, 10);\n}",
+        "error": null,
+        "seed": "function passcodeDerivation(arr) {\n  const numbersInPasscode = [];\n  const relativePositions = new Array(10)\n    .fill()\n    .map(() => new Array(10).fill(0));\n\n  for (let i = 0; i < arr.length; i++) {\n    const curAttempt = arr[i]\n      .toString()\n      .split('')\n      .map(key => parseInt(key, 10));\n    for (let j = 0; j < curAttempt.length; j++) {\n      if (numbersInPasscode.indexOf(curAttempt[j]) === -1) {\n        numbersInPasscode.push(curAttempt[j]);\n      }\n      for (let k = j + 1; k < curAttempt.length; k++) {\n        relativePositions[curAttempt[j]][curAttempt[k]] += 1;\n      }\n    }\n  }\n\n  const ranks = {};\n  for (let i = 0; i < numbersInPasscode.length; i++) {\n    const curNumber = numbersInPasscode[i];\n    ranks[curNumber] = relativePositions[curNumber].filter(\n      count => count > 0\n    ).length;\n  }\n\n  const passcode = numbersInPasscode\n    .sort((i, j) => ranks[i] - ranks[j])\n    .reverse()\n    .join('');\n\n  return parseInt(passcode, 10);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>passcodeDerivation(keylog1)</code> treba da vrati broj.</p>",
+      "testString": "const _keylog1 = [\n  127,327,178,528,537,538,532,328,127,178,537,127,317,328,512,278,328,327,178,327,578,317,527,178,128,328,517,312,531,128,128,317,527,312,328,532,512,518,317,127,537,528,537,527,327,278,532,128,318,517\n];\nassert.isNumber(passcodeDerivation(_keylog1));"
+    },
+    {
+      "text": "<p><code>passcodeDerivation(keylog1)</code> treba da vrati <code>531278</code>.</p>",
+      "testString": "const _keylog1 = [\n  127,327,178,528,537,538,532,328,127,178,537,127,317,328,512,278,328,327,178,327,578,317,527,178,128,328,517,312,531,128,128,317,527,312,328,532,512,518,317,127,537,528,537,527,327,278,532,128,318,517\n];\nassert.strictEqual(passcodeDerivation(_keylog1), 531278);"
+    },
+    {
+      "text": "<p><code>passcodeDerivation(keylog2)</code> inapaswa kurudisha <code>1230567</code>.</p>",
+      "testString": "const _keylog2 = [\n  305,367,256,123,357,120,125,307,236,256,356,267,357,256,356,136,257,107,126,567,567,105,120,237,367,120,367,135,207,167,367,367,307,125,120,130,367,230,106,356,126,106,130,123,307,127,306,167,136,126\n];\nassert.strictEqual(passcodeDerivation(_keylog2), 1230567);"
+    },
+    {
+      "text": "<p><code>passcodeDerivation(keylog3)</code> treba vratiti <code>73162890</code>.</p>",
+      "testString": "const _keylog3 = [\n  319,680,180,690,129,620,762,689,762,318,368,710,720,710,629,168,160,689,716,731,736,729,316,729,729,710,769,290,719,680,318,389,162,289,162,718,729,319,790,680,890,362,319,760,316,729,380,319,728,716,\n];\nassert.strictEqual(passcodeDerivation(_keylog3), 73162890);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sigurnosni metod koji se često koristi za online banke je traženje od korisnika tri nasumična slova iz tajnog koda. Na primer, ako je tajni kod bio <code>531278</code>, mogu tražiti slova 2, 3 i 5; očekivani odgovor će biti: <code>317</code>.</p>\n<p>Safu za data, <code>keylog1</code>, <code>keylog2</code>, na <code>keylog3</code>, zina jaribio hamsini la kuingia kwa mafanikio.</p>\n<p>Pošto se ova tri znaka uvek traže istim redosledom, analiziraj niz kako bi odredio najkraći mogući tajni kod nepoznate dužine.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 78,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

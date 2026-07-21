@@ -1,0 +1,209 @@
+{
+  "id": "672c35a79fa53e00de9f2a49",
+  "title": "Koji je najbolji način za sakrivanje sadržaja da ne bude nedostupan?",
+  "challengeType": 19,
+  "dashedName": "what-are-best-practices-for-hiding-content-so-it-doesnt-become-inaccessible",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Skrivanje sadržaja na web stranici je uobičajena tehnika u razvoju web aplikacija, ali je važno to učiniti na način koji ne otežava pristupačnost. Različite metode skrivanja mogu različito uticati na način na koji asistivne tehnologije interpretiraju i prikazuju sadržaj korisnicima. Ispitajmo najbolje prakse za skrivanje sadržaja uz osiguravanje da ostane pristupačan. Jedan uobičajen način skrivanja sadržaja je korišćenje <code>display: none</code>. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<p class=\"hidden\">Hidden text</p>\n<p>Visible text</p>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;p class=\"hidden\">Hidden text&#x3C;/p>\n&#x3C;p>Visible text&#x3C;/p>\n</code></pre>"
+        },
+        {
+          "contents": ".hidden {\n  display: none;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.hidden {\n  display: none;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Iako ovo vizuelno skriva sadržaj, uklanja ga i iz stabla pristupačnosti. Stabak pristupačnosti je struktura koju koriste tehnologije asistivne, kao što su čitači ekrana, da bi interpretirale i interagirale sa sadržajem na veb stranici. On predstavlja sadržaj i njegovo deskriptivno značenje na način koji tehnologije asistivne mogu razumeti i prikazati korisniku.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Korišćenje <code>display: none</code> znači da čitači ekrana i druge asistivne tehnologije ne mogu pristupiti ovom sadržaju jer nije uključen u stabalicu pristupačnosti. Stoga je važno koristiti ovu metodu samo kada želite potpuno ukloniti sadržaj iz vizuelnog i pristupačnog predstavljanja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Drugi način za skrivanje sadržaja je korišćenje <code>visibility: hidden</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<p class=\"hidden\">Hidden text</p>\n<p>Visible text</p>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;p class=\"hidden\">Hidden text&#x3C;/p>\n&#x3C;p>Visible text&#x3C;/p>\n</code></pre>"
+        },
+        {
+          "contents": ".hidden {\n  visibility: hidden;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.hidden {\n  visibility: hidden;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>visibility: hidden</code> skriva sadržaj vizuelno, ali ga ostavlja u toku dokumenta, što znači da i dalje zauzima prostor na stranici. Kao <code>display: none</code>, <code>visibility: hidden</code> takođe uklanja sadržaj iz stabla pristupačnosti. To znači da asistivne tehnologije, kao što su čitači ekrana, neće moći pristupiti skrivenom sadržaju. Koristite <code>visibility: hidden</code> samo kada želite da sakrijete sadržaj od svih, uključujući osobe koje koriste asistivne tehnologije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za sadržaj koji treba da bude skriven vizuelno, ali ostaje dostupan čitačima ekrana, možete koristiti tehniku poznatu kao \"visually hidden\" ili \"screen reader only\". Evo primera korišćenja klase CSS od <code>.sr-only</code>, što je uobičajena tehnika za vizuelno skrivanje sadržaja uz zadržavanje dostupnosti čitačima ekrana:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<p class=\"sr-only\">Hidden text</p>\n<p>Visible text</p>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;p class=\"sr-only\">Hidden text&#x3C;/p>\n&#x3C;p>Visible text&#x3C;/p>\n</code></pre>"
+        },
+        {
+          "contents": ".sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, koristimo atribute kao <code>position</code>, <code>clip</code>, i <code>white-space</code>, o kojima ćete naučiti u budućim lekcijama. Trenutno, samo znajte da ova pravila za CSS skrivaju sadržaj vizuelno, ali ostaju dostupni čitačima ekrana. To je važno za pružanje dodatnog konteksta korisnicima čitača ekrana bez uticaja na vizuelni raspored.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da biste promenili izgled sadržaja, razmislite o korišćenju atributa <code>hidden</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<p hidden>This content is hidden</p>\n<p>This content is visible</p>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;p hidden>This content is hidden&#x3C;/p>\n&#x3C;p>This content is visible&#x3C;/p>\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Funkcija <code>hidden</code> je podržana od strane mnogih savremenih pregledača i skriva sadržaj vizuelno, kao i iz stabla pristupačnosti. Može se lako promeniti korišćenjem JavaScript. Na kraju, budite pažljivi kada je radi o skrivanju važnog sadržaja. Ako je informacija važna za razumevanje ili korišćenje sajta, ona mora biti vidljiva i dostupna svim korisnicima. Skrivajte sadržaj samo kada to zaista poboljšava korisničko iskustvo. Prateći ove najbolje prakse, možete osigurati da vaš sadržaj ostane dostupan svim korisnicima, bez obzira na način na koji saobraćaju sa vašim sajtom.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Kakav je glavni problem pristupa kada se koriste stilski deklaracije za <code>display: none</code> i <code>visibility: hidden</code>, ili funkcija <code>hidden</code> za skrivanje sadržaja?</p>",
+      "answers": [
+        {
+          "answer": "<p>Ove metode omogućavaju pristup skrivenom sadržaju samo asistivnom tehnologijom, kao što su čitači ekrana.</p>",
+          "feedback": "<p>Razmislite o problemu pristupa koji dele svi ti putevi.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sadržaj se skriva sve dok korisnik ne pređe mišem preko tog sadržaja.</p>",
+          "feedback": "<p>Razmislite o problemu pristupa koji dele sve ove staze.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ovi metodi uklanjaju sadržaj iz stabla pristupačnosti i onemogućavaju asistivnim tehnologijama, kao što su čitači ekrana, pristup skrivenom sadržaju.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ove metode ne rade sa nekim pregledačima.</p>",
+          "feedback": "<p>Razmislite o problemu pristupa koji dele svi ti načini.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Koja je glavna svrha metode CSS za „visually hidden“ ili „screen reader only“?</p>",
+      "answers": [
+        {
+          "answer": "<p>Skriti sadržaj za sve korisnike.</p>",
+          "feedback": "<p>Razmislite o potrebama korisnika koji zavise od čitača ekrana.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Da se sadržaj prikazuje samo na mobilnim uređajima.</p>",
+          "feedback": "<p>Razmislite o potrebama korisnika koji zavise od čitača ekrana.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sakrivanje sadržaja za vizuelni prikaz, ali zadržavanje pristupa čitačima ekrana.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Napravite izmene slike za sadržaj.</p>",
+          "feedback": "<p>Razmislite o potrebama korisnika koji se oslanjaju na čitače ekrana.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Kada bi trebalo da sakrijete sadržaj na web stranici?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kada je skriveni sadržaj nije važan kao drugi sadržaj na stranici.</p>",
+          "feedback": "<p>Razmislite kako skrivanje sadržaja utiče na pristupačnost i ukupno korisničko iskustvo.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada je sadržaj koji sakrivate netačan.</p>",
+          "feedback": "<p>Razmislite kako skrivanje sadržaja utiče na pristupačnost i korisničko iskustvo uopšteno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vreme je da zaista poboljšate korisničko iskustvo.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uvek kada se tako osećaš.</p>",
+          "feedback": "<p>Razmislite kako skrivanje sadržaja utiče na pristupačnost i ukupno korisničko iskustvo.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-best-practices-for-accessibility-and-css",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 117,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-and-accessibility",
+  "certification": "responsive-web-design-v9"
+}

@@ -1,0 +1,73 @@
+{
+  "id": "587d7db2367417b2b2512b8c",
+  "title": "Koristi IIFE za kreiranje modula",
+  "challengeType": 1,
+  "forumTopicId": 301332,
+  "dashedName": "use-an-iife-to-create-a-module",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let isCuteMixin = function(obj) {\n  obj.isCute = function() {\n    return true;\n  };\n};\nlet singMixin = function(obj) {\n  obj.sing = function() {\n    console.log(\"Singing to an awesome tune\");\n  };\n};",
+      "error": null,
+      "seed": "let isCuteMixin = function(obj) {\n  obj.isCute = function() {\n    return true;\n  };\n};\nlet singMixin = function(obj) {\n  obj.sing = function() {\n    console.log(\"Singing to an awesome tune\");\n  };\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const funModule = (function () {\n  return {\n    isCuteMixin: obj => {\n      obj.isCute = () => true;\n    },\n    singMixin: obj => {\n      obj.sing = () => console.log(\"Singing to an awesome tune\");\n    }\n  };\n})();",
+        "error": null,
+        "seed": "const funModule = (function () {\n  return {\n    isCuteMixin: obj => {\n      obj.isCute = () => true;\n    },\n    singMixin: obj => {\n      obj.sing = () => console.log(\"Singing to an awesome tune\");\n    }\n  };\n})();"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>funModule</code> Trebalo bi da bude definisano i vrati nešto.</p>",
+      "testString": "assert(typeof funModule === 'object');"
+    },
+    {
+      "text": "<p><code>funModule.isCuteMixin</code> Treba da ima funkcionalni pristup.</p>",
+      "testString": "assert(typeof funModule.isCuteMixin === 'function');"
+    },
+    {
+      "text": "<p><code>funModule.singMixin</code> trebalo bi da ima funkcionalni pristup.</p>",
+      "testString": "assert(typeof funModule.singMixin === 'function');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Izraz funkcije koji se odmah izvršava (IIFE) često se koristi za grupisovanje povezanih funkcionalnosti u jednom objektu ili <dfn>moduli</dfn>. Na primer, prvobitni problem identifikovao je dve mixin komponente:</p>\n<pre><code class=\"language-js\">function glideMixin(obj) {\n  obj.glide = function() {\n    console.log(\"Gliding on the water\");\n  };\n}\nfunction flyMixin(obj) {\n  obj.fly = function() {\n    console.log(\"Flying, wooosh!\");\n  };\n}\n</code></pre>\n<p>Možemo spojiti ove mixine u modul kao što sledi:</p>\n<pre><code class=\"language-js\">let motionModule = (function () {\n  return {\n    glideMixin: function(obj) {\n      obj.glide = function() {\n        console.log(\"Gliding on the water\");\n      };\n    },\n    flyMixin: function(obj) {\n      obj.fly = function() {\n        console.log(\"Flying, wooosh!\");\n      };\n    }\n  }\n})();\n</code></pre>\n<p>Zapamtite da imate izraz funkcije koji se zove odmah pozvana izjava funkcije (IIFE) koji vraća objekat <code>motionModule</code>. Ovaj vraćeni objekat ima sve karakteristike miksina kao svojstva tog objekta. Prednost modularne strukture je što sve karakteristike pokreta mogu biti pakovane u jedan objekat koji se zatim može koristiti od strane drugih delova vašeg koda. Evo primera kako ga koristiti:</p>\n<pre><code class=\"language-js\">motionModule.glideMixin(duck);\nduck.glide();\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Kreiraj modul nazvan <code>funModule</code> koji pokriva dva mixina <code>isCuteMixin</code> i <code>singMixin</code>. <code>funModule</code> trebalo bi da vrati nešto.</p>\n</section>",
+  "translationPending": false,
+  "block": "object-oriented-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 6,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 25,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

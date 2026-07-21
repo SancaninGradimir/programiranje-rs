@@ -1,0 +1,67 @@
+{
+  "id": "663b83a28943e6aa6275a514",
+  "title": "Korak 19",
+  "challengeType": 20,
+  "dashedName": "step-19",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        21,
+        23
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'Equation' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        if any(not isinstance(arg, (int, float)) for arg in args):\n            raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n        if args[0] == 0:\n            raise ValueError(\"Highest degree coefficient must be different from zero\")\n        self.coefficients = {(len(args) - n - 1): arg for n, arg in enumerate(args)}\n\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n\n\nlin_eq = LinearEquation(2, 3)\nprint(lin_eq)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da objaviš putanju <code>__str__</code> unutar klase <code>Equation</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").has_function(\"__str__\")`)) })"
+    },
+    {
+      "text": "<p>Tvoj put <code>__str__</code> treba da uzme jedan parametar, <code>self</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").has_args(\"self\")`)) })"
+    },
+    {
+      "text": "<p>Morate deklarisati parametar <code>terms</code> i postaviti vrednost prazne liste unutar putanje <code>__str__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").has_stmt(\"terms = []\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da objaviš parametar <code>equation_string</code> i postaviš mu vrednost rezultata spajanja elemenata koji se nalaze unutar <code>terms</code> za poziciju unutar puta <code>__str__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").has_stmt(\"equation_string = ' '.join(terms)\")`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da vratiš <code>equation_string</code> putem svog <code>__str__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__str__\").has_return(\"equation_string\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dok si unutar klase <code>Equation</code>, deklariraj metodu <code>__str__</code> da pruži tačnu reprezentaciju sekvence karaktera za objekte jednačina koje ćeš kreirati.</p>\n<p>Trenutno, unutar puta <code>__str__</code>, deklariš parametar <code>terms</code> i postavi mu vrednost prazne liste. Koristićeš ovaj parametar za skladištenje svakog člana (koeficijent moći puta) tvog jednačine.</p>\n<p>Zatim, deklariraj parametar <code>equation_string</code>, postavi mu vrednost na rezultat spajanja elemenata iz liste <code>terms</code> koristeći razmak. Na kraju, vrati <code>equation_string</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 18,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

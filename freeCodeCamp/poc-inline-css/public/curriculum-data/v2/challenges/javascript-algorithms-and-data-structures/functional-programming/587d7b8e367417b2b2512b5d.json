@@ -1,0 +1,65 @@
+{
+  "id": "587d7b8e367417b2b2512b5d",
+  "title": "Razumite rizike korišćenja komandnog koda",
+  "challengeType": 1,
+  "forumTopicId": 301241,
+  "dashedName": "understand-the-hazards-of-using-imperative-code",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "// tabs is an array of titles of each site open within the window\r\nconst Window = function(tabs) {\r\n  this.tabs = tabs; // We keep a record of the array inside the object\r\n};\r\n\r\n// When you join two windows into one window\r\nWindow.prototype.join = function(otherWindow) {\r\n  this.tabs = this.tabs.concat(otherWindow.tabs);\r\n  return this;\r\n};\r\n\r\n// When you open a new tab at the end\r\nWindow.prototype.tabOpen = function(tab) {\r\n  this.tabs.push('new tab'); // Let's open a new tab for now\r\n  return this;\r\n};\r\n\r\n// When you close a tab\r\nWindow.prototype.tabClose = function(index) {\r\n\r\n  // Only change code below this line\r\n\r\n  const tabsBeforeIndex = this.tabs.splice(0, index); // Get the tabs before the tab\r\n  const tabsAfterIndex = this.tabs.splice(index + 1); // Get the tabs after the tab\r\n\r\n  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex); // Join them together\r\n\r\n  // Only change code above this line\r\n\r\n  return this;\r\n };\r\n\r\n// Let's create three browser windows\r\nconst workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']); // Your mailbox, drive, and other work sites\r\nconst socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']); // Social sites\r\nconst videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']); // Entertainment sites\r\n\r\n// Now perform the tab opening, closing, and other operations\r\nconst finalTabs = socialWindow\r\n  .tabOpen() // Open a new tab for cat memes\r\n  .join(videoWindow.tabClose(2)) // Close third tab in video window, and join\r\n  .join(workWindow.tabClose(1).tabOpen());\r\nconsole.log(finalTabs.tabs);",
+      "error": null,
+      "seed": "// tabs is an array of titles of each site open within the window\r\nconst Window = function(tabs) {\r\n  this.tabs = tabs; // We keep a record of the array inside the object\r\n};\r\n\r\n// When you join two windows into one window\r\nWindow.prototype.join = function(otherWindow) {\r\n  this.tabs = this.tabs.concat(otherWindow.tabs);\r\n  return this;\r\n};\r\n\r\n// When you open a new tab at the end\r\nWindow.prototype.tabOpen = function(tab) {\r\n  this.tabs.push('new tab'); // Let's open a new tab for now\r\n  return this;\r\n};\r\n\r\n// When you close a tab\r\nWindow.prototype.tabClose = function(index) {\r\n\r\n  // Only change code below this line\r\n\r\n  const tabsBeforeIndex = this.tabs.splice(0, index); // Get the tabs before the tab\r\n  const tabsAfterIndex = this.tabs.splice(index + 1); // Get the tabs after the tab\r\n\r\n  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex); // Join them together\r\n\r\n  // Only change code above this line\r\n\r\n  return this;\r\n };\r\n\r\n// Let's create three browser windows\r\nconst workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']); // Your mailbox, drive, and other work sites\r\nconst socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']); // Social sites\r\nconst videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']); // Entertainment sites\r\n\r\n// Now perform the tab opening, closing, and other operations\r\nconst finalTabs = socialWindow\r\n  .tabOpen() // Open a new tab for cat memes\r\n  .join(videoWindow.tabClose(2)) // Close third tab in video window, and join\r\n  .join(workWindow.tabClose(1).tabOpen());\r\nconsole.log(finalTabs.tabs);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const Window = function(tabs) {\r\n  this.tabs = tabs;\r\n};\r\n\r\nWindow.prototype.join = function(otherWindow) {\r\n  this.tabs = this.tabs.concat(otherWindow.tabs);\r\n  return this;\r\n};\r\n\r\nWindow.prototype.tabOpen = function(tab) {\r\n  this.tabs.push('new tab');\r\n  return this;\r\n};\r\n\r\nWindow.prototype.tabClose = function(index) {\r\n  const tabsBeforeIndex = this.tabs.slice(0, index);\r\n  const tabsAfterIndex = this.tabs.slice(index + 1);\r\n\r\n  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex);\r\n  return this;\r\n };\r\n\r\nconst workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']);\r\nconst socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']);\r\nconst videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']);\r\n\r\nconst finalTabs = socialWindow\r\n  .tabOpen()\r\n  .join(videoWindow.tabClose(2))\r\n  .join(workWindow.tabClose(1).tabOpen());",
+        "error": null,
+        "seed": "const Window = function(tabs) {\r\n  this.tabs = tabs;\r\n};\r\n\r\nWindow.prototype.join = function(otherWindow) {\r\n  this.tabs = this.tabs.concat(otherWindow.tabs);\r\n  return this;\r\n};\r\n\r\nWindow.prototype.tabOpen = function(tab) {\r\n  this.tabs.push('new tab');\r\n  return this;\r\n};\r\n\r\nWindow.prototype.tabClose = function(index) {\r\n  const tabsBeforeIndex = this.tabs.slice(0, index);\r\n  const tabsAfterIndex = this.tabs.slice(index + 1);\r\n\r\n  this.tabs = tabsBeforeIndex.concat(tabsAfterIndex);\r\n  return this;\r\n };\r\n\r\nconst workWindow = new Window(['GMail', 'Inbox', 'Work mail', 'Docs', 'freeCodeCamp']);\r\nconst socialWindow = new Window(['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium']);\r\nconst videoWindow = new Window(['Netflix', 'YouTube', 'Vimeo', 'Vine']);\r\n\r\nconst finalTabs = socialWindow\r\n  .tabOpen()\r\n  .join(videoWindow.tabClose(2))\r\n  .join(workWindow.tabClose(1).tabOpen());"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>finalTabs.tabs</code> treba biti <code>['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium', 'new tab', 'Netflix', 'YouTube', 'Vine', 'GMail', 'Work mail', 'Docs', 'freeCodeCamp', 'new tab']</code></p>",
+      "testString": "assert.deepEqual(finalTabs.tabs, [\r\n  'FB',\r\n  'Gitter',\r\n  'Reddit',\r\n  'Twitter',\r\n  'Medium',\r\n  'new tab',\r\n  'Netflix',\r\n  'YouTube',\r\n  'Vine',\r\n  'GMail',\r\n  'Work mail',\r\n  'Docs',\r\n  'freeCodeCamp',\r\n  'new tab'\r\n]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Funkcionalnost je dobra karakteristika. Čini vaš kod lakšim za održavanje i štiti vas od sitnih grešaka. Ali pre nego što dođemo tamo, hajde da pregledamo stil komandi u programu kako bismo pokazali gde možete naići na probleme.</p>\n<p>Engleski (i na mnogim drugim jezicima), imperativ se koristi za davanje naredbi. Slično tome, imperativni način u programiranju je onaj koji računaru daje set instrukcija za izvršavanje zadatka.</p>\n<p>Često ovi izvještaji mijenjaju stanje programa, kao što je ispravljanje globalnih parametara. Uobijedan primjer je pisanje petlje <code>for</code> koja daje potpune uputstva za iteriranje preko indeksa niza podataka.</p>\n<p>Naspravno toga, proceduralni program je vrsta deklarativnog programa. Kažete računaru šta želite da uradi pozivanjem funkcije ili procedure.</p>\n<p>JavaScript pruža mnogo već deklarisanih metoda koje obrađuju uobičajene zadatke, tako da ne morate da pišete kako računar treba da ih izvrši. Na primer, umesto korišćenja petlje <code>for</code> opisane gore, možete pozvati metodu <code>map</code> koja obrađuje ponavljajuće detalje preko niza podataka. Ovo pomaže u izbegavanju logičkih grešaka, kao što je \"Off By One Greška\", diskutovana u sekciji za rešavanje problema.</p>\n<p>Zamislite situaciju: imate više tabova u vašem pretraživaču i želite da pratite otvorene kartice. Pokušaćemo da kreiramo ovaj primer koristeći jednostavan kod objekta/klase.</p>\n<p>Prozor se sastoji od kartica, i obično imate više otvorenih prozora. Naslovi svake stranice otvorene u svakom prozoru čuvaju se u nizu podataka. Nakon rada u pretraživaču (otvaranje nove kartice, povezivanje prozora i zatvaranje kartica), želite da prikažete otvorene kartice. Zatvorene kartice se uklanjaju iz niza podataka, a nove kartice (lako) dodaju se na kraj tog niza.</p>\n<p>Kodni editor prikazuje izvršavanje ove funkcije koristeći funkcije <code>tabOpen()</code>, <code>tabClose()</code>, i <code>join()</code>. Red podataka <code>tabs</code> je deo elementa prozora koji čuva imena otvorenih stranica.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Proverite kod u editoru. Koristite metod koji ima nuspojave u aplikaciji, što uzrokuje neispravno ponašanje. Poslednji spisak otvorenih kartica, sačuvan u <code>finalTabs.tabs</code>, trebalo bi da bude <code>['FB', 'Gitter', 'Reddit', 'Twitter', 'Medium', 'new tab', 'Netflix', 'YouTube', 'Vine', 'GMail', 'Work mail', 'Docs', 'freeCodeCamp', 'new tab']</code>, ali je spisak koji pruža kod malo drugačiji.</p>\n<p>Promenite <code>Window.prototype.tabClose</code> ili uklonite pogrešni tab.</p>\n</section>",
+  "translationPending": false,
+  "block": "functional-programming",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 7,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

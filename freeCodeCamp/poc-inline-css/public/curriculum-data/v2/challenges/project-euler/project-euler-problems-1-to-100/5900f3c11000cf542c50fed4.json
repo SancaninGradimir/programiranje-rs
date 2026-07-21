@@ -1,0 +1,85 @@
+{
+  "id": "5900f3c11000cf542c50fed4",
+  "title": "Izazov 85: Računanje pravougaonika",
+  "challengeType": 1,
+  "forumTopicId": 302199,
+  "dashedName": "problem-85-counting-rectangles",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function countingRectangles(n) {\n\n  return true;\n}\n\ncountingRectangles(18);",
+      "error": null,
+      "seed": "function countingRectangles(n) {\n\n  return true;\n}\n\ncountingRectangles(18);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function countingRectangles(n) {\n  function numberOfRectangles(h, w) {\n    return (h * (h + 1) * w * (w + 1)) / 4;\n  }\n\n  function rectangleArea(h, w) {\n    return h * w;\n  }\n\n  let rectanglesCount = 1;\n  let maxSide = 1;\n  while (rectanglesCount < n) {\n    maxSide++;\n    rectanglesCount = numberOfRectangles(maxSide, 1);\n  }\n\n  let bestDiff = Math.abs(rectanglesCount - n);\n  let bestSize = [maxSide, 1];\n\n  let curHeight = maxSide - 1;\n  let curWidth = 1;\n\n  for (curWidth; curWidth < curHeight; curWidth++) {\n    for (curHeight; curHeight > curWidth; curHeight--) {\n      rectanglesCount = numberOfRectangles(curHeight, curWidth);\n      const curDiff = Math.abs(rectanglesCount - n);\n      if (curDiff < bestDiff) {\n        bestDiff = curDiff;\n        bestSize = [curHeight, curWidth];\n      }\n\n      if (rectanglesCount < n) {\n        break;\n      }\n    }\n  }\n  return rectangleArea(...bestSize);\n}",
+        "error": null,
+        "seed": "function countingRectangles(n) {\n  function numberOfRectangles(h, w) {\n    return (h * (h + 1) * w * (w + 1)) / 4;\n  }\n\n  function rectangleArea(h, w) {\n    return h * w;\n  }\n\n  let rectanglesCount = 1;\n  let maxSide = 1;\n  while (rectanglesCount < n) {\n    maxSide++;\n    rectanglesCount = numberOfRectangles(maxSide, 1);\n  }\n\n  let bestDiff = Math.abs(rectanglesCount - n);\n  let bestSize = [maxSide, 1];\n\n  let curHeight = maxSide - 1;\n  let curWidth = 1;\n\n  for (curWidth; curWidth < curHeight; curWidth++) {\n    for (curHeight; curHeight > curWidth; curHeight--) {\n      rectanglesCount = numberOfRectangles(curHeight, curWidth);\n      const curDiff = Math.abs(rectanglesCount - n);\n      if (curDiff < bestDiff) {\n        bestDiff = curDiff;\n        bestSize = [curHeight, curWidth];\n      }\n\n      if (rectanglesCount < n) {\n        break;\n      }\n    }\n  }\n  return rectangleArea(...bestSize);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>countingRectangles(18)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof countingRectangles(18) === 'number');"
+    },
+    {
+      "text": "<p><code>countingRectangles(18)</code> inapaswa kurudisha <code>6</code>.</p>",
+      "testString": "assert.strictEqual(countingRectangles(18), 6);"
+    },
+    {
+      "text": "<p><code>countingRectangles(250)</code> inapaswa kurudisha <code>22</code>.</p>",
+      "testString": "assert.strictEqual(countingRectangles(250), 22);"
+    },
+    {
+      "text": "<p><code>countingRectangles(50000)</code> inapaswa kurudisha <code>364</code>.</p>",
+      "testString": "assert.strictEqual(countingRectangles(50000), 364);"
+    },
+    {
+      "text": "<p><code>countingRectangles(1000000)</code> treba da vrati <code>1632</code>.</p>",
+      "testString": "assert.strictEqual(countingRectangles(1000000), 1632);"
+    },
+    {
+      "text": "<p><code>countingRectangles(2000000)</code> inapaswa kurudisha <code>2772</code>.</p>",
+      "testString": "assert.strictEqual(countingRectangles(2000000), 2772);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Pažljivim računanjem, izgleda da pravougaonična mreža dimenzija 3 na 2 ima osamnaest pravougaonika:</p>\n<img alt=\"dijagram različitih pravougaonika unutar pravougaone mreže dimenzija 3 × 2\" src=\"https://cdn-media-1.freecodecamp.org/project-euler/counting-rectangles.png\" style=\"background-color: white; padding: 10px; display: block; margin-right: auto; margin-left: auto; margin-bottom: 1.2rem;\">\n<p>Iako možda ne postoji pravougaona mreža koja sadrži tačno <code>n</code> pravougaonika, pronađi površinu mreže čije je rešenje najbliže toj vrednosti.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 84,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

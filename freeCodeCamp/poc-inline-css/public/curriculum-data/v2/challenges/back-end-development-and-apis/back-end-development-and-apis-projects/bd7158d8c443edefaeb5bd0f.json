@@ -1,0 +1,45 @@
+{
+  "id": "bd7158d8c443edefaeb5bd0f",
+  "title": "Mikroservis meta-podataka fajla",
+  "challengeType": 4,
+  "forumTopicId": 301506,
+  "dashedName": "file-metadata-microservice",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebate da dostavite sopstveni projekat, ne URL sa primera.</p>",
+      "testString": "  assert(\n    !/.*\\/file-metadata-microservice\\.freecodecamp\\.rocks/.test(\n      code\n    )\n  );"
+    },
+    {
+      "text": "<p>Možete poslati formular koji uključuje otpremanje fajlova.</p>",
+      "testString": "  const site = await fetch(code);\n  const data = await site.text();\n  const doc = new DOMParser().parseFromString(data, 'text/html');\n  assert(doc.querySelector('input[type=\"file\"]'));"
+    },
+    {
+      "text": "<p>Polje za unos fajla u formularu ima atribut <code>name</code> postavljen na <code>upfile</code>.</p>",
+      "testString": "  const site = await fetch(code);\n  const data = await site.text();\n  const doc = new DOMParser().parseFromString(data, 'text/html');\n  assert(doc.querySelector('input[name=\"upfile\"]'));"
+    },
+    {
+      "text": "<p>Kada pošaljete fajl, dobijate meta-podatke fajla <code>name</code>, <code>type</code> i <code>size</code> u bajtovima u JSON odgovoru.</p>",
+      "testString": "  const formData = new FormData();\n  const fileData = await fetch(\n    'https://cdn.freecodecamp.org/weather-icons/01d.png'\n  );\n  const file = await fileData.blob();\n  formData.append('upfile', file, 'icon');\n  const data = await fetch(code + '/api/fileanalyse', {\n    method: 'POST',\n    body: formData\n  });\n  const parsed = await data.json();\n  assert.property(parsed, 'size');\n  assert.equal(parsed.name, 'icon');\n  assert.equal(parsed.type, 'image/png');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napravite kompletnu JavaScript aplikaciju koja funkcionalno odgovara ovoj: <a href=\"https://file-metadata-microservice.freecodecamp.rocks\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">https://file-metadata-microservice.freecodecamp.rocks</a>. Rad na ovom projektu će zahtevati pisanje vašeg koda koristeći jedan od sledećih načina:</p>\n<ul>\n<li>Kopirajte <a href=\"https://github.com/freeCodeCamp/boilerplate-project-filemetadata/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">ovaj GitHub repozitorijum</a> i završite svoj projekat lokalno.</li>\n<li>Koristite svoj omiljeni web okvir da biste završili projekat. Obavezno uključite sve fajlove iz našeg GitHub repozitorijuma.</li>\n</ul>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p><strong>NAPOMENA:</strong> Možete koristiti <code>multer</code> npm paket za obradu otpremanja fajlova.</p>\n</section>",
+  "translationPending": false,
+  "block": "back-end-development-and-apis-projects",
+  "blockLayout": "project-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "back-end-development-and-apis",
+  "superOrder": 20,
+  "challengeOrder": 4,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "back-end-development-and-apis"
+}

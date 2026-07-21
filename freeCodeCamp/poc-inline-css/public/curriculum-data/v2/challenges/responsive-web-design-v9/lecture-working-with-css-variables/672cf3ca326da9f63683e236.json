@@ -1,0 +1,284 @@
+{
+  "id": "672cf3ca326da9f63683e236",
+  "title": "Šta je pravilo za @property, i kako radi sa alternativama?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-at-property-rule",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Kanuni <code>@property</code> je moćno svojstvo CSS koje omogućava programerima da objavljuju standardne atribute i imaju veću kontrolu nad njihovim ponašanjem, uključujući način na koji se menjaju i njihove početne vrednosti.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovaj pravilnik nudi način povećanja performansi standardnih svojstava CSS i pruža veću fleksibilnost u njegovoj upotrebi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Osnovna sintaksa pravila <code>@property</code> je sledeća:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-css\">@property --property-name {\n  syntax: '&#x3C;type>';\n  inherits: true | false;\n  initial-value: &#x3C;value>;\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>--property-name</code> je ime običnog atributa koji deklarišete. Kao svi obični atributi, mora početi sa dvostrukim dvotačkom.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>syntax</code> deklarira tip atributa, koji može biti stvari kao što su <code>&#x3C;color></code>, <code>&#x3C;length></code>, <code>&#x3C;number></code>, <code>&#x3C;percentage></code>, ili složeniji tipovi.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>inherits</code> objašnjava kako svojstvo treba da nasledi svoju vrednost od roditeljskog elementa.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>initial-value</code> postavlja podrazumevanu vrednost svojstva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovdje je praktičan primjer korištenja pravila <code>@property</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<button class=\"button\">Click Me</button>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;button class=\"button\">Click Me&#x3C;/button>\n</code></pre>"
+        },
+        {
+          "contents": "@property --main-color {\n  syntax: '<color>';\n  inherits: false;\n  initial-value: #3498db;\n}\n\n.button {\n  background-color: var(--main-color);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">@property --main-color {\n  syntax: '&#x3C;color>';\n  inherits: false;\n  initial-value: #3498db;\n}\n\n.button {\n  background-color: var(--main-color);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom primeru, deklarišemo standardno svojstvo <code>--main-color</code> kao vrednost za <code>color</code>, postavljajući ga da nije nasleđeno, i dajući mu početnu vrednost od <code>#3498db</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Glavna prednost pravila <code>@property</code> je što omogućava animaciju standardnih svojstava, nešto što nije bilo moguće ranije:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"gradient-box\"></div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"gradient-box\">&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": "@property --gradient-angle {\n  syntax: '<angle>';\n  inherits: false;\n  initial-value: 0deg;\n}\n\n.gradient-box {\n  width: 100px;\n  height: 100px;\n  background: linear-gradient(var(--gradient-angle), red, blue);\n  transition: --gradient-angle 0.5s;\n}\n\n.gradient-box:hover {\n  --gradient-angle: 90deg;\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">@property --gradient-angle {\n  syntax: '&#x3C;angle>';\n  inherits: false;\n  initial-value: 0deg;\n}\n\n.gradient-box {\n  width: 100px;\n  height: 100px;\n  background: linear-gradient(var(--gradient-angle), red, blue);\n  transition: --gradient-angle 0.5s;\n}\n\n.gradient-box:hover {\n  --gradient-angle: 90deg;\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Gornji kod kreira gradijent boje koji se postepeno menja kada se klikne na element, nešto što nije bilo moguće sa standardnim svojstvima.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sada, hajde da diskutujemo kako pravilo <code>@property</code> radi sa alternativama.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Alternativni način je važan u CSS kako bi se osiguralo da stilovi pravilno funkcionišu u pregledačima koji ne podržavaju određene funkcije. Za <code>@property</code>, fallback radi na dva nivoa: po sopstvenom pravilu i korišćenjem zajedničkog svojstva.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Za pretraživače koji ne podržavaju kanon <code>@property</code>, možete pružiti alternativu deklarisanjem standardnog atributa na uobičajen način:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n</code></pre>"
+        },
+        {
+          "contents": ":root {\n  --main-color: #3498db;\n}\n\n@property --main-color {\n  syntax: '<color>';\n  inherits: false;\n  initial-value: #3498db;\n}\n\nbody {\n  background-color: var(--main-color);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">:root {\n  --main-color: #3498db;\n}\n\n@property --main-color {\n  syntax: '&#x3C;color>';\n  inherits: false;\n  initial-value: #3498db;\n}\n\nbody {\n  background-color: var(--main-color);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, pretraživači koji podržavaju <code>@property</code> će koristiti najstrože objavljenu verziju, dok će drugi se vratiti na standardnu deklaraciju uobičajene karakteristike.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada koristite standardnu osobinu, možete pružiti alternativnu vrednost koristeći akciju za <code>var()</code>, kao što radite sa uobičajenim atributima:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<button class=\"button\">Click Me</button>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;button class=\"button\">Click Me&#x3C;/button>\n</code></pre>"
+        },
+        {
+          "contents": ".button {\n  background-color: var(--main-color, #3498db);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">.button {\n  background-color: var(--main-color, #3498db);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo osigurava da čak i ako atribut <code>--main-color</code> nije deklarisan ili je nevažeći, dugme će i dalje biti vidljivo sa pozadinskom bojom.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kanuni za <code>@property</code> takođe dozvoljavaju složenije alternative. Na primer, možete ga koristiti za pružanje bezbednih alternativa za vrste:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\">\n<div class=\"box\">Colored box</div>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\">\n&#x3C;div class=\"box\">Colored box&#x3C;/div>\n</code></pre>"
+        },
+        {
+          "contents": "@property --padding {\n  syntax: '<length>';\n  inherits: false;\n  initial-value: 10px;\n}\n\n.box {\n  width: 100px;\n  height: 100px;\n  background-color: darkred;\n  color: white;\n  padding: var(--padding);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">@property --padding {\n  syntax: '&#x3C;length>';\n  inherits: false;\n  initial-value: 10px;\n}\n\n.box {\n  width: 100px;\n  height: 100px;\n  background-color: darkred;\n  color: white;\n  padding: var(--padding);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U ovom slučaju, ako neko pokuša da postavi <code>--padding</code> sa nevažešćom vrednošću, kao što je boja, pretraživač će se vratiti na podrazumevanu vrednost od <code>10px</code> i održati tipsku bezbednost.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kanuni ya CSS <code>@property</code> se smatra široko dostupnim u svim glavnim motorima savremenih pregledača (kao što su Chrome, Edge, Opera, Firefox i Safari) od početka 2024. godine. Ako želite da podržite starije pregledače, morate pružiti CSS alternativu kako je opisano gore.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zaključno, standard <code>@property</code> predstavlja veliki napredak u načinu na koji radimo sa standardnim svojstvima u CSS. Pruža veću kontrolu i omogućava nove mogućnosti, kao što je animacija standardnih svojstava. Međutim, važno je koristiti ga promišljeno i uvek pružiti odgovarajuće alternative kako bi se osigurao dobar korisnički doživljaj u svim pretraživačima. Kao i kod bilo koje moderne web tehnologije, ključ je poboljšanje iskustva za pretraživače koji ga podržavaju, uz osiguravanje osnovne funkcionalnosti za one koji ne podržavaju.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Šta je glavna svrha pravila <code>@property</code> u CSS?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kreiraj nove funkcije za CSS.</p>",
+          "feedback": "<p>Razmislite kako <code>@property</code> se odnosi na uobičajena svojstva za CSS.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objavljivanje i kontrolisanje ponašanja standardnih karakteristika.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Menja standardne atribute CSS.</p>",
+          "feedback": "<p>Razmislite kako <code>@property</code> se odnosi na uobičajene karakteristike za CSS.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Napraviti animaciju.</p>",
+          "feedback": "<p>Razmislite kako <code>@property</code> se odnosi na uobičajena svojstva CSS.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koji od sljedećih nije validna karakteristika u pravilima za <code>@property</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p><code>syntax</code></p>",
+          "feedback": "<p>Razmisli o osnovnoj strukturi deklaracije pravila <code>@property</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>inherits</code></p>",
+          "feedback": "<p>Razmotri osnovnu strukturu deklaracije pravila <code>@property</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>initial-value</code></p>",
+          "feedback": "<p>Razmislite o osnovnoj strukturi deklaracije pravila za <code>@property</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p><code>animation</code></p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Možete li pružiti alternativu za pretraživače koji ne podržavaju kanoniku/standard od <code>@property</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Koristi polyfill.</p>",
+          "feedback": "<p>Zamisli kako deklariraš standardno svojstvo bez <code>@property</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Objavi uobičajenu funkciju na uobičaj način.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Koristi pravilo <code>@supports</code>.</p>",
+          "feedback": "<p>Zamislite kako objavite standardnu karakteristiku bez <code>@property</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Nemoguće je dati alternativni put.</p>",
+          "feedback": "<p>Razmislite kako deklarišete običan atribut bez <code>@property</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-css-variables",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 137,
+  "description": "",
+  "instructions": "",
+  "superBlock": "responsive-web-design-v9",
+  "superOrder": 0,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "css",
+  "module": "css-variables",
+  "certification": "responsive-web-design-v9"
+}

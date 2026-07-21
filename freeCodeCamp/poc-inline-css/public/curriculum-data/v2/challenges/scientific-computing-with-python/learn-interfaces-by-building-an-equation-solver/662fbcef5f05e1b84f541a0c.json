@@ -1,0 +1,59 @@
+{
+  "id": "662fbcef5f05e1b84f541a0c",
+  "title": "Korak 13",
+  "challengeType": 20,
+  "dashedName": "step-13",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        4,
+        32
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    def __init__(self, *args):\n        pass        \n    \n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation()",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\nclass Equation(ABC):\n    degree: int\n    def __init__(self, *args):\n        pass        \n    \n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation()"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da napraviš deklaraciju <code>if</code> koja proverava da li je broj korišćenih kriterijuma za uspostavljanje jednačine različit od <code>degree + 1</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\ncond = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[0].find_conditions()[0]\ncond.is_equivalent(\"(self.degree + 1) != len(args)\") or cond.is_equivalent(\"len(args) != (self.degree + 1)\")\n`)) })"
+    },
+    {
+      "text": "<p>Unutar nove <code>if</code> naredbe treba da podigneš <code>TypeError</code> i koristiš dati tekst kao prilagođenu poruku o grešci.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[0].find_bodies()[0].has_stmt('raise TypeError(f\"\\\\'{self.__class__.__name__}\\\\' object takes {self.degree + 1} positional arguments but {len(args)} were given\")')\n`)) })"
+    },
+    {
+      "text": "<p>Trebalo bi da prođete kroz <code>2</code> i <code>3</code> da biste aktivirali <code>lin_eq</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).has_stmt(\"lin_eq = LinearEquation(2, 3)\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Svaki element jednačine će biti inicijalizovan prosleđivanjem više argumenata, kao što su parametri jednačine, počevši od opsega n za \\( x \\) do opsega nule, uključujući mogući opseg sa vrednošću <code>0</code>.</p>\n<p>Na primer, <code>LinearEquation(4, 5)</code> će predstavljati jednačinu \\( 4x + 5 = 0 \\), gde <code>4</code> je nivo prvog stepena (veće ovde) i <code>5</code> je nivo nule.</p>\n<p>Morate proveriti da je prosleđen tačan broj argumenata za inicijalizovanje objekta jednačine.</p>\n<p>Unutar metode <code>__init__</code>, kreiraj deklaraciju <code>if</code> da proveri da li dužina <code>args</code> je različita od broja standarda koje jednačina treba da ima (<code>degree + 1</code>). Ako jeste, ukloni <code>TypeError</code> i koristi sledeći niz znakova za izdavanje specifične poruke: <code>f\"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given\"</code>.</p>\n<p>Zatim, ispravite grešku prosljeđivanjem <code>2</code> i <code>3</code> inicijalizovanjem <code>lin_eq</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 12,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

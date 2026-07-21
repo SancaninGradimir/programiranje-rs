@@ -1,0 +1,37 @@
+{
+  "id": "587d8248367417b2b2512c3c",
+  "title": "Tražite da pretraživači koriste vaš sajt samo putem HTTPS-a kwa helmet.hsts()",
+  "challengeType": 2,
+  "forumTopicId": 301573,
+  "dashedName": "ask-browsers-to-access-your-site-via-https-only-with-helmet-hsts",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>centralni program helmet.hsts() mora biti pravilno podešen</p>",
+      "testString": "const response = await fetch(code + '/_api/app-info');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.json();\r\nassert.include(data.appStack, 'hsts');\r\nassert.property(data.headers, 'strict-transport-security');"
+    },
+    {
+      "text": "<p>maxAge treba biti jednak 7776000 s (dana 90)</p>",
+      "testString": "const response = await fetch(code + '/_api/app-info');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.json();\r\nassert.match(\r\n  data.headers['strict-transport-security'],\r\n  /^max-age=7776000;?/\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kao podsetnik, ovaj projekat je baziran na osnovnom projektu preuzetom iz <a href=\"https://github.com/freeCodeCamp/boilerplate-infosec/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>HTTP Strict Transport Security (HSTS) je protokolarna sigurnosna politika koja pomaže u zaštiti veb stranica od napada degradacije protokola i krađe kolačića (cookie hijacking). Ako je vaša veb stranica dostupna putem HTTPS, možete tražiti da korisnički pregledači izbegnu korišćenje nesigurnog HTTP. Postavljanjem zaglavlja Strict-Transport-Security, govorite pregledačima da koriste HTTPS za dolazne zahteve tokom definisanog vremenskog perioda. Ovo će važiti za sve naredne zahteve nakon prvobitnog zahteva.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Konfigurišite <code>helmet.hsts()</code> koristeći HTTPS za narednih 90 dana. Proverite element konfiguracije <code>{maxAge: timeInSeconds, force: true}</code>. Možete kreirati parametar <code>ninetyDaysInSeconds = 90*24*60*60;</code> koristeći za <code>timeInSeconds</code>.</p>\n<p>Napomena: Konfigurisanje HTTPS na specifičnoj veb stranici zahteva kupovinu domena, i sertifikat za SSL/TLS.</p>\n</section>",
+  "translationPending": false,
+  "block": "information-security-with-helmetjs",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "information-security",
+  "superOrder": 24,
+  "challengeOrder": 6,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "information-security"
+}

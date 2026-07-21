@@ -1,0 +1,67 @@
+{
+  "id": "667e623208053643ca9d3c6e",
+  "title": "Korak 15",
+  "challengeType": 20,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        11,
+        15
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "from abc import ABC, abstractmethod\n\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        for arg in args:\n            if not isinstance(arg, (int, float)):\n                raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)",
+      "error": null,
+      "seed": "from abc import ABC, abstractmethod\n\n\nclass Equation(ABC):\n    degree: int\n    \n    def __init__(self, *args):\n        if (self.degree + 1) != len(args):\n            raise TypeError(\n                f\"'{self.__class__.__name__}' object takes {self.degree + 1} positional arguments but {len(args)} were given\"\n            )\n        for arg in args:\n            if not isinstance(arg, (int, float)):\n                raise TypeError(\"Coefficients must be of type 'int' or 'float'\")\n    def __init_subclass__(cls):\n        if not hasattr(cls, \"degree\"):\n            raise AttributeError(\n                f\"Cannot create '{cls.__name__}' class: missing required attribute 'degree'\"\n            )\n    \n    @abstractmethod\n    def solve(self):\n        pass\n        \n    @abstractmethod\n    def analyze(self):\n        pass\n        \nclass LinearEquation(Equation):\n    degree = 1\n    \n    def solve(self):\n        pass\n    \n    def analyze(self):\n        pass\n    \nlin_eq = LinearEquation(2, 3)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Uslov za vašu novu deklaraciju za <code>if</code> mora biti poziv na <code>any()</code>.</p>",
+      "testString": "({ test: () => runPython(`\ncond = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[1].find_conditions()[0]\ncalls = _Node(str(cond)).find_calls(\"any\")\nassert len(calls) == 1\n`) })"
+    },
+    {
+      "text": "<p>Treba da prosledite pridevni izraz kao argument za vaš poziv od <code>any()</code>.</p>",
+      "testString": "({ test: () => runPython(`\nimport ast\nargument = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[1].find_conditions()[0].find_call_args()[0]\nassert isinstance(argument.tree, ast.GeneratorExp)\n`) })"
+    },
+    {
+      "text": "<p>Izjava generatora koja se prenosi za <code>any()</code> treba da ponovi preko <code>args</code>.</p>",
+      "testString": "({ test: () => runPython(`\nimport ast\nargument = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[1].find_conditions()[0].find_call_args()[0]\niters = argument.find_comp_iters()\nassert len(iters) == 1\nassert iters[0].is_equivalent(\"args\")\n`) })"
+    },
+    {
+      "text": "<p>Izjava za <code>if</code> mora proveriti da li bilo koji argument u <code>args</code> nije primer od <code>int</code> ili <code>float</code>.</p>",
+      "testString": "({ test: () => runPython(`\nimport ast\nargument = _Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[1].find_conditions()[0].find_call_args()[0]\ntarget = argument.find_comp_targets()[0]\nexpr = argument.find_comp_expr()\nsolutions = [\n  f\"not isinstance({target}, (int, float))\",\n  f\"not isinstance({target}, (float, int))\",\n  f\"not isinstance({target}, float) and not isinstance({target}, int)\",\n  f\"not isinstance({target}, int) and not isinstance({target}, float)\",\n]\nassert any(expr.is_equivalent(sol) for sol in solutions)\n`) })"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš niz karaktera <code>TypeError</code> unutar svog novog izraza <code>if</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Equation\").find_function(\"__init__\").find_ifs()[1].find_bodies()[0].has_stmt(\"raise TypeError(\\\\\"Coefficients must be of type 'int' or 'float'\\\\\")\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada, promeni rutinu <code>for</code> i deklaraciju <code>if</code> koju si dodao u prethodnom koraku, i deklaraciju <code>if</code> koja koristi funkciju unutar <code>any()</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-interfaces-by-building-an-equation-solver",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 15,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "5900f3ce1000cf542c50fee0",
+  "title": "Zadatak 97: Veliki prosti broj koji nije Mersenov",
+  "challengeType": 1,
+  "forumTopicId": 302214,
+  "dashedName": "problem-97-large-non-mersenne-prime",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function largeNonMersennePrime(multiplier, power) {\n\n  return true;\n}\n\nlargeNonMersennePrime(19, 6833086);",
+      "error": null,
+      "seed": "function largeNonMersennePrime(multiplier, power) {\n\n  return true;\n}\n\nlargeNonMersennePrime(19, 6833086);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function largeNonMersennePrime(multiplier, power) {\n  function modStepsResults(number, other, mod, startValue, step) {\n    let result = startValue;\n    for (let i = 0; i < other; i++) {\n      result = step(number, result) % mod;\n    }\n    return result;\n  }\n\n  const numOfDigits = 10;\n  const mod = 10 ** numOfDigits;\n  const digitsAfterPower = modStepsResults(2, power, mod, 1, (a, b) => a * b);\n  const digitsAfterMultiply = modStepsResults(\n    digitsAfterPower,\n    multiplier,\n    mod,\n    0,\n    (a, b) => a + b\n  );\n  const lastDigits = (digitsAfterMultiply + 1) % mod;\n\n  return lastDigits.toString().padStart(10, '0');\n}",
+        "error": null,
+        "seed": "function largeNonMersennePrime(multiplier, power) {\n  function modStepsResults(number, other, mod, startValue, step) {\n    let result = startValue;\n    for (let i = 0; i < other; i++) {\n      result = step(number, result) % mod;\n    }\n    return result;\n  }\n\n  const numOfDigits = 10;\n  const mod = 10 ** numOfDigits;\n  const digitsAfterPower = modStepsResults(2, power, mod, 1, (a, b) => a * b);\n  const digitsAfterMultiply = modStepsResults(\n    digitsAfterPower,\n    multiplier,\n    mod,\n    0,\n    (a, b) => a + b\n  );\n  const lastDigits = (digitsAfterMultiply + 1) % mod;\n\n  return lastDigits.toString().padStart(10, '0');\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>largeNonMersennePrime(19, 6833086)</code> Trebalo bi da vrati sekvencu slova.</p>",
+      "testString": "assert(typeof largeNonMersennePrime(19, 6833086) === 'string');"
+    },
+    {
+      "text": "<p><code>largeNonMersennePrime(19, 6833086)</code> treba da vrati sekvencu karaktera <code>3637590017</code>.</p>",
+      "testString": "assert.strictEqual(largeNonMersennePrime(19, 6833086), '3637590017');"
+    },
+    {
+      "text": "<p><code>largeNonMersennePrime(27, 7046834)</code> treba da vrati niz znakova <code>0130771969</code>.</p>",
+      "testString": "assert.strictEqual(largeNonMersennePrime(27, 7046834), '0130771969');"
+    },
+    {
+      "text": "<p><code>largeNonMersennePrime(6679881, 6679881)</code> treba da vrati sekvencu slova <code>4455386113</code>.</p>",
+      "testString": "assert.strictEqual(largeNonMersennePrime(6679881, 6679881), '4455386113');"
+    },
+    {
+      "text": "<p><code>largeNonMersennePrime(28433, 7830457)</code> treba da vrati niz znakova <code>8739992577</code>.</p>",
+      "testString": "assert.strictEqual(largeNonMersennePrime(28433, 7830457), '8739992577');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prvi poznati premijski broj koji prelazi milion cifara otkriven je 1999. godine, i to je Mersenov premijski broj tipa $2^{6972593} − 1$; ima 2.098.960 cifara tačno. Kasnije su otkrili druge Mersenove premijske brojeve, tipa $2^p − 1$, sa više cifara.</p>\n<p>Međutim, u godini 2004. otkriven je veliki ne-Mersenov premični broj sa 2.357.207 cifara: $28433 × 2^{7830457} + 1$.</p>\n<p>Pronađi poslednjih deset cifara tog ne-Mersenovog broja u strukturi $multiplier × 2^{power} + 1$.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 96,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

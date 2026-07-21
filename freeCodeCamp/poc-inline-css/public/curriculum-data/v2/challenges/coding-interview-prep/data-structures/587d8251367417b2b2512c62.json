@@ -1,0 +1,77 @@
+{
+  "id": "587d8251367417b2b2512c62",
+  "title": "Kreiraj klasu za povezanu listu",
+  "challengeType": 1,
+  "forumTopicId": 301628,
+  "dashedName": "create-a-linked-list-class",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.add = function(element){\r\n    // Only change code below this line\r\n\r\n    // Only change code above this line\r\n  };\r\n}",
+      "error": null,
+      "seed": "function LinkedList() {\r\n  var length = 0;\r\n  var head = null;\r\n\r\n  var Node = function(element){\r\n    this.element = element;\r\n    this.next = null;\r\n  };\r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.add = function(element){\r\n    // Only change code below this line\r\n\r\n    // Only change code above this line\r\n  };\r\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function LinkedList() { \r\n  var length = 0; \r\n  var head = null; \r\n\r\n  var Node = function(element){\r\n    this.element = element; \r\n    this.next = null; \r\n  }; \r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.add = function(element){\r\n    // Only change code below this line\r\n    if (head == null) {\r\n      head = new Node(element);\r\n    } \r\n    else {\r\n      let currentNode = head;\r\n      while (currentNode.next != null) {\r\n        // currentNode.next will be last node of linked list after loop\r\n        currentNode = currentNode.next;\r\n      }\r\n      currentNode.next = new Node(element);\r\n    }\r\n    length++;\r\n    // Only change code above this line\r\n  };\r\n}",
+        "error": null,
+        "seed": "function LinkedList() { \r\n  var length = 0; \r\n  var head = null; \r\n\r\n  var Node = function(element){\r\n    this.element = element; \r\n    this.next = null; \r\n  }; \r\n\r\n  this.head = function(){\r\n    return head;\r\n  };\r\n\r\n  this.size = function(){\r\n    return length;\r\n  };\r\n\r\n  this.add = function(element){\r\n    // Only change code below this line\r\n    if (head == null) {\r\n      head = new Node(element);\r\n    } \r\n    else {\r\n      let currentNode = head;\r\n      while (currentNode.next != null) {\r\n        // currentNode.next will be last node of linked list after loop\r\n        currentNode = currentNode.next;\r\n      }\r\n      currentNode.next = new Node(element);\r\n    }\r\n    length++;\r\n    // Only change code above this line\r\n  };\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Klasa za <code>LinkedList</code> mora da ima metod za <code>add</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    return typeof test.add === 'function';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Vaša klasa za <code>LinkedList</code> treba da postavi <code>head</code> za prvi dodati čvor.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    return test.head().element === 'cat';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>node</code> koji prethodi u vašoj klasi od <code>LinkedList</code> mora imati referencu na najnovije kreiran čvor.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    test.add('fish');\r\n    return test.head().next.element === 'dog' && test.head().next.next.element === 'fish';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p><code>size</code> za vašu klasu od <code>LinkedList</code> mora biti jednako broju čvorova u spojenoj listi.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = new LinkedList();\r\n    test.add('cat');\r\n    test.add('dog');\r\n    return test.size() === 2;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Početićemo kreiranjem klase za <code>linked list</code>. Svaka povezana lista treba da počinje sa nekoliko osnovnih svojstava: <code>head</code> (prvi element u vašoj listi) i <code>length</code> (broj elemenata u vašoj listi). Ponekad ćete videti implementaciju povezanih lista koja uključuje <code>tail</code> za poslednji element liste, ali za sada ćemo se držati samo ovih dve. Svaki put kada dodamo element u povezanu listu, naše svojstvo <code>length</code> treba da se poveća za jedan.</p>\n<p>Biće nam potreban način za dodavanje stavki u našu povezanu listu, pa je prvi metod koji želimo da kreiramo je <code>add</code>.</p>\n<p>Ako je naša lista prazna, dodavanje elementa u povezanu listu je lako: rotiramo taj element u klasu <code>Node</code> i postavljamo taj čvor kao <code>head</code> naše povezane liste.</p>\n<p>Međutim, šta ako naša lista već ima jednog ili više članova? Kako dodajemo element u listu? Zapamtite da svaki čvor u spojenoj listi ima atribut <code>next</code>. Da biste dodali čvor u listu, pronađite poslednji čvor u listi i usmerite atribut <code>next</code> tog poslednjeg čvora ka našem novom čvoru. (Napomena: znate da ste dostigli kraj spojenoj liste kada je atribut <code>next</code> čvora <code>null</code>.)</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napisati metodu za dodavanje koja postavlja prvi čvor koji dodaješ u spojenoj listi kao <code>head</code>; nakon toga, svaki put kada dodaš čvor, svaki čvor bi trebalo da ima referencu na svojstvo <code>next</code> prethodnog čvora.</p>\n<p>Kumbuka</p>\n<p><code>length</code> Indeks vaše liste treba da se poveća za jedan svaki put kada se dodaje element u spojenoj listi.</p>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

@@ -1,0 +1,109 @@
+{
+  "id": "67e2a4cab99d4e8bc795e99d",
+  "title": "Šta je značenje useActionState hook-a, i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-the-useactionstate-hook-and-how-does-it-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Šta znači kuka (hook) <code>useActionState</code> u React?</p>",
+      "answers": [
+        {
+          "answer": "<p>Upravlja stanjem na osnovu rezultata akcija, uključujući podnošenje formulara, klikove na dugmad i druga ažuriranja koja proizlaze iz događaja.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ažurira samo stanje kada se formular pošalje i ne pomaže drugim vrstama akcija, kao što su klikovi na dugmad ili rukovaoci posebnih događaja.</p>",
+          "feedback": "<p>Radi sa radom i akcijama, ne samo sa formularima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Upravlja globalnim stanjem u mnogim delovima, čineći ga alternativom biblioteka za upravljanje stanjem kao što su Redux ili Zustand.</p>",
+          "feedback": "<p>Radi sa radnjama i akcijama, ne samo sa formama.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zamenjuje <code>hook</code> <code>useState</code> potpuno pružajući ugrađeni način upravljanja lokalnim i globalnim stanjima bez dodatnih zavisnosti.</p>",
+          "feedback": "<p>Radi sa radnjama i akcijama, ne samo sa formama.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Zašto ne možete da koristite hook <code>useActionState</code> unutar server komponente?</p>",
+      "answers": [
+        {
+          "answer": "<p>Zato što komponente servera ne podržavaju upravljanje stanjem, pa <code>useActionState</code> ne funkcioniše.</p>",
+          "feedback": "<p>Hooks funkcionišu samo u određenom tipu lokacije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zato što <code>useActionState</code> zahteva konekciju baze podataka, koja je dostupna samo na klijentskoj strani.</p>",
+          "feedback": "<p>Hooks rade samo u specifičnom tipu delova/sekcija.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zato što <code>useActionState</code> je hook za React, a hookovi se mogu koristiti samo unutar klijentskih delova.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Zato što <code>useActionState</code> zavisi od API pretraživača koje nisu dostupne na serveru.</p>",
+          "feedback": "<p>Hooks rade samo u posebnoj vrsti područja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Je li React inicijalizovao server komponente na server akcijama?</p>",
+      "answers": [
+        {
+          "answer": "<p>React 17</p>",
+          "feedback": "<p>Ova verzija je namenjena za poboljšanje prikaza server-side.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>React 18</p>",
+          "feedback": "<p>Ova verzija je namijenjena za poboljšanje prikaza serverne strane.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>React 19</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>React 16</p>",
+          "feedback": "<p>Ova verzija je namijenjena za poboljšanju prikazivanje server strane.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>React 19 uključuje dve nove komponente, poznate kao server components i server actions.</p>\n<p>Od te verzije, komponente servera su bile podrazumevane u okvirima kao što je Next.js, koji to direktno podržavaju.</p>\n<p>Server actions s druge strane, je funkcija koja se izvršava na serveru, omogućavajući upravljanje formularima direktno na serveru bez potrebe za endpoint-om API.</p>\n<p>Primer server akcije je sledeći:</p>\n<pre><code class=\"language-js\">\"use server\";\n\nasync function submitForm(formData) {\n  const name = formData.get(\"name\");\n  return { message: `Hello, ${name}!` };\n}\n</code></pre>\n<p>Ova server akcija čita polje <code>name</code> iz forme i vraća string za to ime.</p>\n<p>Da bi se pojednostavilo upravljanje stanjem za server akcije i uklonila potreba za JavaScript na strani klijenta sa jednostavnim formularom, tim React je implementirao hook <code>useActionState</code> u verziji 19.</p>\n<p>Pažljivo pogledajmo ovaj hook i da vidimo kako radi.</p>\n<p>Dokumentacija za React opisuje hook <code>useActionState</code> kao hook koji omogućava \"validiranje stanja na osnovu rezultata akcije forme.\"</p>\n<p>Ali ovo ne znači da možeš koristiti hook <code>useActionState</code> samo za forme. Takođe ga možeš koristiti za upravljanje klikovima na dugmad i drugim događajima, pod uslovom da imaš definisanu akciju.</p>\n<p>Zapamti, jer je <code>useActionState</code> hook, ne možeš ga koristiti unutar server komponente.</p>\n<p>Ovo je osnovna sintaksa za hook <code>useActionState</code>:</p>\n<pre><code class=\"language-js\">const [state, action, isPending] = useActionState(actionFunction, initialState, permalink);\n</code></pre>\n<ul>\n<li>\n<p><code>state</code> je trenutno stanje koje vraća akcija.</p>\n</li>\n<li>\n<p><code>action</code> je funkcija koja pokreće akciju na serveru.</p>\n</li>\n<li>\n<p><code>isPending</code> je booleanska vrednost koja pokazuje da li je akcija u toku ili ne.</p>\n</li>\n<li>\n<p>Parametar <code>actionFunction</code> je sam server action.</p>\n</li>\n<li>\n<p><code>initialState</code> je parametar koji predstavlja početno stanje pre nego što akcija počne.</p>\n</li>\n<li>\n<p><code>permalink</code> je opcionalna sekvenca slova koja prikazuje URL jedinstveni ID stranice koju forma menja.</p>\n</li>\n</ul>\n<p>Kada koristite hook za <code>useActionState</code>, osigurajte da imate definisanu akciju pre toga. Uzmićemo akciju iz prethodnog primera za ovo, sa malim izmenama:</p>\n<pre><code class=\"language-js\">\"use server\";\n\nexport async function submitForm(_, formData) {\n  const name = formData.get(\"name\");\n\n  const hour = new Date().getHours();\n  let greeting;\n\n  if (hour &#x3C; 12) {\n    greeting = \"Good morning\";\n  } else if (hour &#x3C; 18) {\n    greeting = \"Good afternoon\";\n  } else {\n    greeting = \"Good evening\";\n  }\n\n  return { message: `${greeting}, ${name}` };\n}\n</code></pre>\n<p>U vašem delu, morate uključiti hook za <code>useActionState</code> i pozvati viši nivo tela sekcije (pre deklaracije return) kao druge hookove. Takođe, morate uključiti akciju:</p>\n<pre><code class=\"language-jsx\">\"use client\";\n\n// Import the useActionState hook\nimport { useActionState } from \"react\";\n\n// Import the submitForm action\nimport { submitForm } from \"./actions/submitForm\";\n\nconst Greeter = () => {\n\n // Initialize the hook\n const [state, submit, isPending] = useActionState(submitForm, {\n   message: \"\",\n });\n\n  return (\n    &#x3C;div className=\"flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6\">\n      {/* Rest of component */}\n    &#x3C;/div>\n  );\n};\n\nexport default Greeter;\n</code></pre>\n<p>Evo kompletnog koda sa malom dekoracijom/formatiranjem:</p>\n<pre><code class=\"language-jsx\">\"use client\";\n\nimport { useActionState } from \"react\";\nimport { submitForm } from \"./actions/submitForm\";\n\nconst Greeter = () => {\n  const [state, submit, isPending] = useActionState(submitForm, {\n    message: \"\",\n  });\n\n  return (\n    &#x3C;div className=\"flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6\">\n      &#x3C;form\n        action={submit}\n        className=\"bg-white p-6 rounded-2xl shadow-md w-full max-w-md\"\n      >\n        &#x3C;h2 className=\"text-2xl text-center font-semibold text-gray-700 mb-4\">\n          Greet Someone\n        &#x3C;/h2>\n\n        &#x3C;input\n          type=\"text\"\n          name=\"name\"\n          placeholder=\"Enter your name\"\n          required\n          className=\"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400\"\n        />\n\n        &#x3C;button\n          type=\"submit\"\n          disabled={isPending}\n          className=\"w-full mt-4 p-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 disabled:bg-gray-400 transition-all\"\n        >\n          {isPending ? \"Greeting...\" : \"Greet\"}\n        &#x3C;/button>\n\n        {state.message &#x26;&#x26; (\n          &#x3C;p className=\"mt-4 text-green-600 text-center font-medium\">\n            {state.message}\n          &#x3C;/p>\n        )}\n      &#x3C;/form>\n    &#x3C;/div>\n  );\n};\n\nexport default Greeter;\n</code></pre>\n<p>U pregledaču ćeš videti da se dugme obrasca menja iz <code>Greet</code> u <code>Greeting...</code> dok je akcija <code>isPending</code>, a pozdrav će prikazivati <code>Good morning, {name}</code>, <code>Good afternoon, {name}</code> ili <code>Good evening, {name}</code>, u zavisnosti od doba dana kada je obrazac poslat.</p>\n<p>Zapamti da smo rekli da možeš takođe koristiti hook <code>useActionState</code> van forme?</p>\n<p>U ovom primeru, uzimaćemo pet korisnika sa JSONPlaceholder-a klikom na dugme:</p>\n<pre><code class=\"language-js\">\"use server\";\n\nexport async function getUsers() {\n  const res = await fetch(\n    \"https://jsonplaceholder.typicode.com/users?_start=0&#x26;_limit=5/\"\n  );\n  return await res.json();\n}\n</code></pre>\n<p>Ovo je stilizovani UI:</p>\n<pre><code class=\"language-jsx\">\"use client\";\n\nimport { useActionState } from \"react\";\nimport { getUsers } from \"./actions/getUsers\";\n\nexport default function FetchUsers() {\n  const [users, fetchAction, isPending] = useActionState(getUsers, []);\n\n  return (\n    &#x3C;div className=\"p-6 max-w-lg mx-auto\">\n      &#x3C;button\n        onClick={fetchAction}\n        disabled={isPending}\n        className=\"px-4 py-2 cursor-pointer bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 font-bold\"\n      >\n        {isPending ? \"Fetching Users...\" : \"Fetch Users\"}\n      &#x3C;/button>\n\n      &#x3C;ul className=\"mt-4 space-y-2\">\n        {users.map((user) => (\n          &#x3C;li key={user.id} className=\"p-3 bg-gray-100 rounded-lg\">\n            &#x3C;p className=\"font-semibold\">{user.name}&#x3C;/p>\n            &#x3C;p className=\"text-sm text-gray-600\">{user.email}&#x3C;/p>\n          &#x3C;/li>\n        ))}\n      &#x3C;/ul>\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>U pretraživaču ćete videti da tekst dugmeta nije promenjen u <code>Fetching Users...</code> nakon klika.</p>\n<p>Ovo se dešava zato što React koristi prijem podataka i prikazuje ga kao viši prioritet u odnosu na stanje <code>isPending</code>, što blokira <code>isPending</code> i uzrokuje grešku.</p>\n<p>Da biste rešili ovaj problem, morate pokriti akciju unutar <code>startTransition</code>:</p>\n<pre><code class=\"language-jsx\">\"use client\";\n\n// import startTransition from React\nimport { useActionState, startTransition } from \"react\";\nimport { getUsers } from \"./actions/getUsers\";\n\nexport default function FetchUsers() {\n  const [users, fetchAction, isPending] = useActionState(getUsers, []);\n\n  return (\n    &#x3C;div className=\"p-6 max-w-lg mx-auto\">\n      &#x3C;button\n        {/* wrap fetchAction in startTransition */}\n        onClick={() => startTransition(() => fetchAction())}\n        disabled={isPending}\n        className=\"px-4 py-2 bg-green-500 font-bold cursor-pointer text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400\"\n      >\n        {isPending ? 'Fetching Users...' : 'Fetch Users'}\n      &#x3C;/button>\n\n      &#x3C;ul className=\"mt-4 space-y-2\">\n        {users.map((user) => (\n          &#x3C;li key={user.id} className=\"p-3 bg-gray-100 rounded-lg\">\n            &#x3C;p className=\"font-semibold\">{user.name}&#x3C;/p>\n            &#x3C;p className=\"text-sm text-gray-600\">{user.email}&#x3C;/p>\n          &#x3C;/li>\n        ))}\n      &#x3C;/ul>\n    &#x3C;/div>\n  );\n}\n</code></pre>\n<p>Ako se pitate šta je <code>startTransition</code>, to je funkcija koja govori React da je ažuriranje stanja niog prioriteta i da može biti prekinuto. Ovo omogućava UI-u da ostane funkcionalan prilikom obrade asinhronih ažuriranja kao što su server akcije.</p>\n<p>Tako koristiš hook za <code>useActionState</code>, unutar i van forme.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-forms-in-react",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 16,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 1,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "react-state-hooks-and-routing",
+  "certification": "front-end-development-libraries-v9"
+}

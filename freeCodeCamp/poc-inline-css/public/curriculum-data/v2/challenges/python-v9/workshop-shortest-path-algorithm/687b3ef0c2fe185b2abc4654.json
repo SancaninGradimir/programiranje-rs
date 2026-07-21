@@ -1,0 +1,66 @@
+{
+  "id": "687b3ef0c2fe185b2abc4654",
+  "title": "Korak 20",
+  "challengeType": 20,
+  "dashedName": "step-20",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        37,
+        39
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no  \n\n        if current == -1:  \n            break  \n        visited[current] = True  \n\n        for node_no in range(n):  \n            distance = matrix[current][node_no]  \n            if distance != INF and not visited[node_no]:  \n                new_distance = distances[current] + distance  \n                if new_distance < distances[node_no]:  \n                    distances[node_no] = new_distance  \n                    paths[node_no] = paths[current] + [node_no]\n\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no  \n\n        if current == -1:  \n            break  \n        visited[current] = True  \n\n        for node_no in range(n):  \n            distance = matrix[current][node_no]  \n            if distance != INF and not visited[node_no]:  \n                new_distance = distances[current] + distance  \n                if new_distance < distances[node_no]:  \n                    distances[node_no] = new_distance  \n                    paths[node_no] = paths[current] + [node_no]\n\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da napraviš parametar koji se zove <code>targets</code>.</p>",
+      "testString": "({\n    test: () => {\n      assert(\n        runPython(\n          `_Node(_code).find_function(\"shortest_path\").has_variable(\"targets\")`\n        )\n      );\n    }\n});"
+    },
+    {
+      "text": "<p>Vaš parametar za <code>targets</code> mora imati matematički izraz.</p>",
+      "testString": "({\n    test: () => {\n      runPython(`\n        import ast\n        val =_Node(_code).find_function(\"shortest_path\").find_variable(\"targets\").tree.value\n        assert isinstance(val, ast.IfExp)\n      `);\n    }\n});"
+    },
+    {
+      "text": "<p>Matematički izraz treba da proveri kao <code>target_node is not None</code>.</p>",
+      "testString": "({\n    test: () => {\n        runPython(`\n        compare = _Node(_Node(_code).find_function(\"shortest_path\").find_variable(\"targets\").tree.value.test)\n        assert compare.is_equivalent(\"target_node is not None\")\n        `);\n    }\n});"
+    },
+    {
+      "text": "<p>Trebalo bi da postavite vrednost <code>[target_node]</code> kada se cilj dobije sa <code>range(n)</code> inače.</p>",
+      "testString": "({\n  test: () => {\n      runPython(`\n      import ast\n      val = _Node(_code).find_function(\"shortest_path\").find_variable(\"targets\").tree.value\n      assert _Node(val.body).is_equivalent(\"[target_node]\")\n      assert _Node(val.orelse).is_equivalent(\"range(n)\")\n    `);\n  }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Nakon što algoritam završi izvršavanje, moraš odlučiti koji čvor treba da prikaže njegove rezultate.</p>\n<p>Ako je dostavljen specifičan <code>target_node</code>, prikazuje samo rastojanje i putanju do tog čvora. Inače, prikazuje rezultate za sve čvorove.</p>\n<p>Nakon što se spoljašnja petlja <code>for _ in range(n):</code> završi, kreiraj varijablu nazvanu <code>targets</code>. Postavi mu vrednost pomoću matematičkog izraza <code>[target_node]</code> ako <code>target_node</code> nije <code>None</code>, inače postavi vrednost <code>range(n)</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

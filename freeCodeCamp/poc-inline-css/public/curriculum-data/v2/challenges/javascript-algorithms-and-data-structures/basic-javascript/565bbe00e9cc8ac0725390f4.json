@@ -1,0 +1,93 @@
+{
+  "id": "565bbe00e9cc8ac0725390f4",
+  "title": "Brojanje Karata",
+  "challengeType": 1,
+  "forumTopicId": 16809,
+  "dashedName": "counting-cards",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let count = 0;\n\nfunction cc(card) {\n  // Only change code below this line\n\n\n  return \"Change Me\";\n  // Only change code above this line\n}\n\ncc(2); cc(3); cc(7); cc('K'); cc('A');",
+      "error": null,
+      "seed": "let count = 0;\n\nfunction cc(card) {\n  // Only change code below this line\n\n\n  return \"Change Me\";\n  // Only change code above this line\n}\n\ncc(2); cc(3); cc(7); cc('K'); cc('A');"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "let count = 0;\nfunction cc(card) {\n  switch(card) {\n    case 2:\n    case 3:\n    case 4:\n    case 5:\n    case 6:\n      count++;\n      break;\n    case 10:\n    case 'J':\n    case 'Q':\n    case 'K':\n    case 'A':\n      count--;\n  }\n  if(count > 0) {\n    return count + \" Bet\";\n  } else {\n    return count + \" Hold\";\n  }\n}",
+        "error": null,
+        "seed": "let count = 0;\nfunction cc(card) {\n  switch(card) {\n    case 2:\n    case 3:\n    case 4:\n    case 5:\n    case 6:\n      count++;\n      break;\n    case 10:\n    case 'J':\n    case 'Q':\n    case 'K':\n    case 'A':\n      count--;\n  }\n  if(count > 0) {\n    return count + \" Bet\";\n  } else {\n    return count + \" Hold\";\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vasa funkcija treba da vrati vrednost brojaca i tekst (<code>Bet</code> ili <code>Hold</code>) sa jednim razmakom izmedju.</p>",
+      "testString": "assert(//\n  (function () {\n    count = 0;\n    let out = cc(10);\n    const hasSpace = /-?\\d+ (Bet|Hold)/.test('' + out);\n    return hasSpace;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 2, 3, 4, 5, 6 treba da vrati string <code>5 Bet</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(2);\n    cc(3);\n    cc(4);\n    cc(5);\n    var out = cc(6);\n    if (out === '5 Bet') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 7, 8, 9 treba da vrati string <code>0 Hold</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(7);\n    cc(8);\n    var out = cc(9);\n    if (out === '0 Hold') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 10, J, Q, K, A treba da vrati string <code>-5 Hold</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(10);\n    cc('J');\n    cc('Q');\n    cc('K');\n    var out = cc('A');\n    if (out === '-5 Hold') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 3, 7, Q, 8, A treba da vrati string <code>-1 Hold</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(3);\n    cc(7);\n    cc('Q');\n    cc(8);\n    var out = cc('A');\n    if (out === '-1 Hold') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 2, J, 9, 2, 7 treba da vrati string <code>1 Bet</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(2);\n    cc('J');\n    cc(9);\n    cc(2);\n    var out = cc(7);\n    if (out === '1 Bet') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 2, 2, 10 treba da vrati string <code>1 Bet</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(2);\n    cc(2);\n    var out = cc(10);\n    if (out === '1 Bet') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    },
+    {
+      "text": "<p>Niz karata 3, 2, A, 10, K treba da vrati string <code>-1 Hold</code></p>",
+      "testString": "assert(\n  (function () {\n    count = 0;\n    cc(3);\n    cc(2);\n    cc('A');\n    cc(10);\n    var out = cc('K');\n    if (out === '-1 Hold') {\n      return true;\n    }\n    return false;\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U kazino igri Blackjack, igrac moze proceniti da li ima prednost u sledecoj ruci protiv kuce tako sto prati odnos visokih i niskih karata preostalih u spilu. Ovo se zove brojanje karata.</p>\n<p>Ako je u spilu ostalo vise visokih karata, to ide u korist igracu. Svakom kartonu je dodeljena vrednost prema tabeli ispod. Kada je brojac pozitivan, igrac treba da ulozi vise. Kada je brojac nula ili negativan, igrac treba da ulozi manje.</p>\n<table><thead><tr><th>Mabadiliko ya hesabu</th><th>Kadi</th></tr></thead><tbody><tr><td>+1</td><td>2, 3, 4, 5, 6</td></tr><tr><td>0</td><td>7, 8, 9</td></tr><tr><td>-1</td><td>10, 'J', 'Q', 'K', 'A'</td></tr></tbody></table>\n<p>Napisacete funkciju za brojanje karata. Prima parametar <code>card</code> koji moze biti broj ili string i uvecava ili umanjuje promenljivu <code>count</code> u zavisnosti od vrednosti karte (vidi tabelu). Funkcija treba da vrati string koji prikazuje trenutno stanje brojaca i rec <code>Bet</code> ako je brojac pozitivan, ili <code>Hold</code> ako je nula ili negativan. Trenutni brojac i odluka igraca (<code>Bet</code> ili <code>Hold</code>) moraju biti odvojeni jednim razmakom.</p>\n<p><strong>Primer izlaza:</strong> <code>-3 Hold</code> ili <code>5 Bet</code></p>\n<p><strong>Savet</strong>\nNemojte resetovati <code>count</code> na 0 kada je karta 7, 8 ili 9.\nNe vracajte niz.\nNe ukljucujte navodnike (jednostruke ili dvostruke) u izlaz.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-javascript",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 81,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

@@ -1,0 +1,73 @@
+{
+  "id": "5900f3931000cf542c50fea5",
+  "title": "Vežba 38: Broj sa svim ciframa",
+  "challengeType": 1,
+  "forumTopicId": 302042,
+  "dashedName": "problem-38-pandigital-multiples",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function pandigitalMultiples(k) {\n\n  return true;\n}\n\npandigitalMultiples(8);",
+      "error": null,
+      "seed": "function pandigitalMultiples(k) {\n\n  return true;\n}\n\npandigitalMultiples(8);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function pandigitalMultiples(k) {\n  function getKDigitConcatenatedProduct(num, k) {\n    // returns false if concatenated product is not k digits\n    let concatenatedProduct = num.toString();\n    for (let i = 2; concatenatedProduct.length < k; i++) {\n      concatenatedProduct += num * i;\n    }\n    return concatenatedProduct.length === k ? concatenatedProduct : false;\n  }\n\n  function is1toKPandigital(num, k) {\n    const numStr = num.toString();\n\n    // check if length is not k\n    if (numStr.length !== k) {\n      return false;\n    }\n\n    // check if pandigital\n    for (let i = k; i > 0; i--) {\n      if (numStr.indexOf(i.toString()) === -1) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  let largestNum = 0;\n  for (let i = 10 ** Math.floor(k / 2) + 1; i >= 1; i--) {\n    const concatenatedProduct = getKDigitConcatenatedProduct(i, k);\n    if (is1toKPandigital(concatenatedProduct, k)) {\n      const number = parseInt(concatenatedProduct, 10);\n      if (number > largestNum) {\n        largestNum = number;\n      }\n    }\n  }\n  return largestNum;\n}",
+        "error": null,
+        "seed": "function pandigitalMultiples(k) {\n  function getKDigitConcatenatedProduct(num, k) {\n    // returns false if concatenated product is not k digits\n    let concatenatedProduct = num.toString();\n    for (let i = 2; concatenatedProduct.length < k; i++) {\n      concatenatedProduct += num * i;\n    }\n    return concatenatedProduct.length === k ? concatenatedProduct : false;\n  }\n\n  function is1toKPandigital(num, k) {\n    const numStr = num.toString();\n\n    // check if length is not k\n    if (numStr.length !== k) {\n      return false;\n    }\n\n    // check if pandigital\n    for (let i = k; i > 0; i--) {\n      if (numStr.indexOf(i.toString()) === -1) {\n        return false;\n      }\n    }\n    return true;\n  }\n\n  let largestNum = 0;\n  for (let i = 10 ** Math.floor(k / 2) + 1; i >= 1; i--) {\n    const concatenatedProduct = getKDigitConcatenatedProduct(i, k);\n    if (is1toKPandigital(concatenatedProduct, k)) {\n      const number = parseInt(concatenatedProduct, 10);\n      if (number > largestNum) {\n        largestNum = number;\n      }\n    }\n  }\n  return largestNum;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>pandigitalMultiples(8)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof pandigitalMultiples(8) === 'number');"
+    },
+    {
+      "text": "<p><code>pandigitalMultiples(8)</code> treba da vrati <code>78156234</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalMultiples(8), 78156234);"
+    },
+    {
+      "text": "<p><code>pandigitalMultiples(9)</code> treba da vrati <code>932718654</code>.</p>",
+      "testString": "assert.strictEqual(pandigitalMultiples(9), 932718654);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Uzmi broj 192 i podeli ga sa svakim od 1, 2, i 3:</p>\n<p>$$\\begin{align}\n192 × 1 = 192\\\\\n192 × 2 = 384\\\\\n192 × 3 = 576\\\\\n\\end{align}$$</p>\n<p>Kombinovanjem svakog proizvoda dobijamo broj koji sadrži sve cifre od 1 do 9, a to je 192384576. Zovećemo 192384576 za kombinovani proizvod 192 i (1, 2, 3).</p>\n<p>Takvu situaciju je moguće postići počevši od 9 i množeći sa 1, 2, 3, 4 i 5, dajući broj svih cifara, 918273645, koji je kombinovani proizvod 9 i (1, 2, 3, 4, 5).</p>\n<p>Najveći broj koji sadrži sve cifre od 1 do <code>k</code> i ima cifre <code>k</code>, može se formirati kao proizvod celog broja i (1, 2, ..., <code>n</code>) gde je <code>n</code> > 1?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 37,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

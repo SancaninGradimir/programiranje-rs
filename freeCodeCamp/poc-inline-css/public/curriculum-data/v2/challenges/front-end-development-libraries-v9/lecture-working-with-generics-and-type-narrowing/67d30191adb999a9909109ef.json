@@ -1,0 +1,109 @@
+{
+  "id": "67d30191adb999a9909109ef",
+  "title": "Generics šta su, i kako rade?",
+  "challengeType": 19,
+  "dashedName": "what-are-generics-and-how-do-they-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja je ispravna sintaksa za definisanje generičkog tipa u funkciji?</p>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-ts\">function&#x3C;T>\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">&#x3C;T>function\n</code></pre>",
+          "feedback": "<p>Generički tip je definisan korišćenjem uglastih zagrada pre liste parametara funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">(T)function\n</code></pre>",
+          "feedback": "<p>Tip generika se definiše korišćenjem uglastih zagradi pre liste parametara funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-ts\">function(T)\n</code></pre>",
+          "feedback": "<p>Generički tip je definisan korišćenjem uglastih zagrada pre liste parametara funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    },
+    {
+      "text": "<p>Šta predstavlja <code>T[]</code> u sledećem primeru?</p>\n<pre><code class=\"language-ts\">const getRandomValue = &#x3C;T>(array: T[]): T => { ... }\n</code></pre>",
+      "answers": [
+        {
+          "answer": "<p>Red bilo koje vrste.</p>",
+          "feedback": "<p>Kvadratičke koordinate nakon <code>T</code> prikazuju red tog tipa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Reda generičkog tipa <code>T</code>.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Tupel tipa <code>T</code>.</p>",
+          "feedback": "<p>Zagrade nakon <code>T</code> pokazuju red tog tipa.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Jedan element tipa <code>T</code>.</p>",
+          "feedback": "<p>Uglovi pravougaonika nakon <code>T</code> prikazuju red tog tipa.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kako možete specificirati tip argumenta prilikom pozivanja <code>document.querySelector()</code>?</p>",
+      "answers": [
+        {
+          "answer": "<pre><code class=\"language-js\">document.querySelector(\"#email\", HTMLInputElement)\n</code></pre>",
+          "feedback": "<p>Argument tipa se prenosi korišćenjem uglastih zagrada između imena funkcije i njenih parametara.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">document.querySelector(\"#email\"): HTMLInputElement\n</code></pre>",
+          "feedback": "<p>Argument tipa se prenosi koristeći uglaste zagrade između imena funkcije i njenih parametara.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">document.querySelector&#x3C;HTMLInputElement>(\"#email\")\n</code></pre>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<pre><code class=\"language-js\">document.querySelector(\"#email\" as HTMLInputElement)\n</code></pre>",
+          "feedback": "<p>Argument se prosleđuje korišćenjem zagradi između imena funkcije i njenih parametara.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>Videla si zaista generički tip u prošloj lekciji: <code>Array&#x3C;string></code>. Ali obično koristiš generičke tipove u funkcijama. Zapravo, mogu se smatrati kao poseban parametar koji daje funkciji da bi kontrolisao ponašanje definisanja tipa te funkcije.</p>\n<p>Vraćamo se na naš početni primer funkcije za dobijanje slučajne vrednosti iz niza podataka:</p>\n<pre><code class=\"language-js\">const getRandomValue = (array: string[]): string => {\n  return array[Math.floor(Math.random() * array.length)];\n}\n</code></pre>\n<p>Naša funkcija prima niz znakova i vraća niz znakova. Ali šta ako bismo hteli da prosledimo niz brojeva i vratimo brojeve?</p>\n<p>Možete koristiti tip veze:</p>\n<pre><code class=\"language-js\">const getRandomValue = (array: (string|number)[]): (string|number) => {\n  return array[Math.floor(Math.random() * array.length)];\n}\nconst val = getRandomValue([1, 2, 4])\n</code></pre>\n<p>Međutim, na ovaj način, iako smo prošli samo red brojeva, TypeScript pokazuje da razlika <code>val</code> može biti broj ILI niz slova.</p>\n<p>Umesto toga, možete definisati generički tip za funkciju:</p>\n<pre><code class=\"language-js\">const getRandomValue = &#x3C;T>(array: T[]): T => {\n  return array[Math.floor(Math.random() * array.length)];\n}\nconst val = getRandomValue([1, 2, 4])\n</code></pre>\n<p>Postoji nekoliko važnih delova u našem novom primeru. Prvo, sintaksa <code>&#x3C;T></code> govori TypeScript da definiše tip generičkog <code>T</code> za funkciju. <code>T</code> je uobičajeno ime za generičke tipove, ali ga možete nazvati bilo kojim imenom koje želite (unutar ugovora o parametrima JavaScript).</p>\n<p>Zatim, kažemo TypeScript da je nizski parametar niz vrednosti koje odgovaraju generičkom tipu, a vraćena vrednost je pojedinačni element tog istog tipa. Ovo omogućava TypeScript da pravilno utvrdi da je <code>val</code> broj, jer niz koji smo prosledili sadrži samo brojeve.</p>\n<p>Ali šta je sa elementima koje ne kontrolišete? Istražimo put <code>document.querySelector()</code>:</p>\n<pre><code class=\"language-js\">const email = document.querySelector(\"#email\");\nconsole.log(email.value);\n</code></pre>\n<p>Zato što izvršavamo pretraga po selektoru ID-a, TypeScript ne zna kakav je tip elementa koji tražimo. Zna da je <code>Element</code> nekog tipa, ali naš pokušaj dobijanja svojstva za <code>value</code> će vratiti grešku jer interfejs elementa višeg nivoa nema to svojstvo.</p>\n<p>Srećom, možemo usvojiti vrstu predloga po operativnom/proceduralnom pozivu:</p>\n<pre><code class=\"language-js\">const email = document.querySelector&#x3C;HTMLInputElement>(\"#email\");\nconsole.log(email.value);\n</code></pre>\n<p>Pogledajte kako ponovo koristimo sintaksu uglastih zagrada (<code>&#x3C;HTMLInputElement></code>), ali ovog puta u pozivu funkcije. Ovo govori TypeScript da će element koji očekujemo dobiti biti element od <code>input</code>, i više ne dobijamo grešku atributa vrednosti jer elementi unosa imaju taj atribut. Naravno, <code>querySelector</code> može vratiti <code>null</code> ako element nije pronađen, a TypeScript će nam ovde dati grešku kolektora jer nećemo tretirati taj slučaj.</p>\n<p>Ali ćeš naučiti o tome na sledećoj lekciji.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-working-with-generics-and-type-narrowing",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 47,
+  "instructions": "",
+  "superBlock": "front-end-development-libraries-v9",
+  "superOrder": 2,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "front-end-development-libraries",
+  "module": "typescript-fundamentals",
+  "certification": "front-end-development-libraries-v9"
+}

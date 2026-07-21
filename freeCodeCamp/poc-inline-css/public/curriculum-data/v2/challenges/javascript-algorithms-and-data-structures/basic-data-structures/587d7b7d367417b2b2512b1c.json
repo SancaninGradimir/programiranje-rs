@@ -1,0 +1,89 @@
+{
+  "id": "587d7b7d367417b2b2512b1c",
+  "title": "Proveri da li Objekat Ima Svojstvo",
+  "challengeType": 1,
+  "forumTopicId": 301155,
+  "dashedName": "check-if-an-object-has-a-property",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "let users = {\n  Alan: {\n    age: 27,\n    online: true\n  },\n  Jeff: {\n    age: 32,\n    online: true\n  },\n  Sarah: {\n    age: 48,\n    online: true\n  },\n  Ryan: {\n    age: 19,\n    online: true\n  }\n};\n\nfunction isEveryoneHere(userObj) {\n  // Only change code below this line\n  \n  // Only change code above this line\n}\n\nconsole.log(isEveryoneHere(users));",
+      "error": null,
+      "seed": "let users = {\n  Alan: {\n    age: 27,\n    online: true\n  },\n  Jeff: {\n    age: 32,\n    online: true\n  },\n  Sarah: {\n    age: 48,\n    online: true\n  },\n  Ryan: {\n    age: 19,\n    online: true\n  }\n};\n\nfunction isEveryoneHere(userObj) {\n  // Only change code below this line\n  \n  // Only change code above this line\n}\n\nconsole.log(isEveryoneHere(users));"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "let users = {\n  Alan: {\n    age: 27,\n    online: true\n  },\n  Jeff: {\n    age: 32,\n    online: true\n  },\n  Sarah: {\n    age: 48,\n    online: true\n  },\n  Ryan: {\n    age: 19,\n    online: true\n  }\n};\n\nfunction isEveryoneHere(userObj) {\n  return [\n    'Alan',\n    'Jeff',\n    'Sarah',\n    'Ryan'\n  ].every(user => userObj.hasOwnProperty(user));\n}\n\nconsole.log(isEveryoneHere(users));",
+        "error": null,
+        "seed": "let users = {\n  Alan: {\n    age: 27,\n    online: true\n  },\n  Jeff: {\n    age: 32,\n    online: true\n  },\n  Sarah: {\n    age: 48,\n    online: true\n  },\n  Ryan: {\n    age: 19,\n    online: true\n  }\n};\n\nfunction isEveryoneHere(userObj) {\n  return [\n    'Alan',\n    'Jeff',\n    'Sarah',\n    'Ryan'\n  ].every(user => userObj.hasOwnProperty(user));\n}\n\nconsole.log(isEveryoneHere(users));"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Objekat <code>users</code> ne treba direktno da se koristi unutar funkcije</p>",
+      "testString": "\nassert(__helpers.removeJSComments(code).match(/users/gm).length <= 2)\n"
+    },
+    {
+      "text": "<p>Objekat <code>users</code> treba da ima samo kljuceve <code>Alan</code>, <code>Jeff</code>, <code>Sarah</code> i <code>Ryan</code></p>",
+      "testString": "assert(\n  'Alan' in users &&\n    'Jeff' in users &&\n    'Sarah' in users &&\n    'Ryan' in users &&\n    Object.keys(users).length === 4\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>isEveryoneHere</code> treba da vrati <code>true</code> ako su <code>Alan</code>, <code>Jeff</code>, <code>Sarah</code> i <code>Ryan</code> svojstva u prosledjenom objektu.</p>",
+      "testString": "assert(isEveryoneHere(users) === true);"
+    },
+    {
+      "text": "<p>Funkcija <code>isEveryoneHere</code> treba da vrati <code>false</code> ako <code>Alan</code> nije svojstvo prosledjenog objekta.</p>",
+      "testString": "assert(\n  (function () {\n    delete users.Alan;\n    return isEveryoneHere(users);\n  })() === false\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>isEveryoneHere</code> treba da vrati <code>false</code> ako <code>Jeff</code> nije svojstvo prosledjenog objekta.</p>",
+      "testString": "assert(\n  (function () {\n    delete users.Jeff;\n    return isEveryoneHere(users);\n  })() === false\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>isEveryoneHere</code> treba da vrati <code>false</code> ako <code>Sarah</code> nije svojstvo prosledjenog objekta.</p>",
+      "testString": "assert(\n  (function () {\n    delete users.Sarah;\n    return isEveryoneHere(users);\n  })() === false\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>isEveryoneHere</code> treba da vrati <code>false</code> ako <code>Ryan</code> nije svojstvo prosledjenog objekta.</p>",
+      "testString": "assert(\n  (function () {\n    delete users.Ryan;\n    return isEveryoneHere(users);\n  })() === false\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada mozemo dodavati, menjati i uklanjati kljuceve iz objekata. Ali sta ako zelimo samo da proverimo da li objekat ima odredjeno svojstvo? JavaScript nam daje dva razlicita nacina za to. Jedan koristi metod <code>hasOwnProperty()</code>, a drugi kljucnu rec <code>in</code>. Ako imamo objekat <code>users</code> koji ima svojstvo <code>Alan</code>, njegovo prisustvo mozemo proveriti na jedan od sledecih nacina:</p>\n<pre><code class=\"language-js\">users.hasOwnProperty('Alan');\n'Alan' in users;\n</code></pre>\n<p>Oba izraza ce vratiti <code>true</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dovrsite funkciju tako da vraca <code>true</code> ako prosledjeni objekat ima sva cetiri imena, <code>Alan</code>, <code>Jeff</code>, <code>Sarah</code> i <code>Ryan</code>, a u suprotnom <code>false</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "basic-data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures",
+  "superOrder": 28,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures"
+}

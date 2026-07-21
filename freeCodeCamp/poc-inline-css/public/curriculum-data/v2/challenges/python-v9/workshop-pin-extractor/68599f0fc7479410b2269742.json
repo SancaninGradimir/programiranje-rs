@@ -1,0 +1,66 @@
+{
+  "id": "68599f0fc7479410b2269742",
+  "title": "Korak 17",
+  "challengeType": 20,
+  "dashedName": "step-17",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        0,
+        12
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def pin_extractor(poem):\n\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        if len(words) > line_index:\n            secret_code += str(len(words[line_index]))\n        else:\n            secret_code += '0'\n    return secret_code\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\n# print(pin_extractor(poem))\n",
+      "error": null,
+      "seed": "def pin_extractor(poem):\n\n    secret_code = ''\n    lines = poem.split('\\n')\n    for line_index, line in enumerate(lines):\n        words = line.split()\n        if len(words) > line_index:\n            secret_code += str(len(words[line_index]))\n        else:\n            secret_code += '0'\n    return secret_code\npoem = \"\"\"Stars and the moon\nshine in the sky\nwhite and\nuntil the end of the night\"\"\"\n\npoem2 = 'The grass is green\\nhere and there\\nhoping for rain\\nbefore it turns yellow'\npoem3 = 'There\\nonce\\nwas\\na\\ndragon'\n\n# print(pin_extractor(poem))\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>The <code>pin_extractor</code> function should have a parameter named <code>poems</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').has_args('poems')\n    `)\n})"
+    },
+    {
+      "text": "<p>You should have a <code>for</code> loop that loops over <code>poems</code>.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_for_iter().is_equivalent('poems')\n    `)\n})"
+    },
+    {
+      "text": "<p>The loop should have <code>poem</code> as loop variable.</p>",
+      "testString": "({\n    test: () => runPython(`\n    assert _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_for_vars().is_equivalent('poem')\n    `)\n})"
+    },
+    {
+      "text": "<p>You should move the existing body of the function into the new <code>for</code> loop.</p>",
+      "testString": "({\n    test: () => runPython(`\n    loop_body = _Node(_code).find_function('pin_extractor').find_for_loops()[0].find_bodies()[0]\n    assert loop_body.find_variable('secret_code').is_equivalent('secret_code = \"\"'), \"secret_code definition not found\"\n    assert loop_body.find_variable('lines').is_equivalent(\"lines = poem.split('\\\\\\\\n')\"), \"lines definition not found\"\n    assert loop_body.has_return('secret_code'), \"return statement not found\"\n    inner_loop = loop_body.find_for_loops()[0]\n    assert inner_loop.find_for_vars().is_equivalent('line_index, line'), \"variable of loop not found\"\n    assert inner_loop.find_for_iter().is_equivalent('enumerate(lines)'), \"iter of loop not found\"\n    inner_loop_body = inner_loop.find_bodies()[0]\n    assert inner_loop_body.find_variable('words').is_equivalent(\"words = line.split()\"), \"words variable not found\"\n    if_clause = inner_loop_body.find_ifs()[0]\n    if_conditions = if_clause.find_conditions()\n    assert if_conditions[0].is_equivalent('len(words) > line_index'), \"if condition not found\"\n    assert if_conditions[1] == _Node(), \"else not found\"\n    if_bodies = if_clause.find_bodies()\n    assert if_bodies[0].find_aug_variable('secret_code').is_equivalent(\"secret_code += str(len(words[line_index]))\"), \"secret_code inside if clause not found\"\n    assert if_bodies[1].find_aug_variable('secret_code').is_equivalent(\"secret_code += '0'\"), \"secret_code in else clause not found\"\n    `)\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ažuriraj argument funkcije da bude <code>poems</code>, zatim kreiraj petlju <code>for</code> oko celog trenutnog sadržaja funkcije koja iterira preko <code>poems</code> i koristi <code>poem</code> kao varijablu petlje.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-pin-extractor",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 20,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 16,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-loops-and-sequences",
+  "certification": "python-v9"
+}

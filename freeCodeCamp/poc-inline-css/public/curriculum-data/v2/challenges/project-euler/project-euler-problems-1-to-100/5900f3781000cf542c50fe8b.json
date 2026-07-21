@@ -1,0 +1,85 @@
+{
+  "id": "5900f3781000cf542c50fe8b",
+  "title": "Vežba 12: Broj koji se veoma lako deli sa tri",
+  "challengeType": 1,
+  "forumTopicId": 301746,
+  "dashedName": "problem-12-highly-divisible-triangular-number",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function divisibleTriangleNumber(n) {\n\n  return true;\n}\n\ndivisibleTriangleNumber(500);",
+      "error": null,
+      "seed": "function divisibleTriangleNumber(n) {\n\n  return true;\n}\n\ndivisibleTriangleNumber(500);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function divisibleTriangleNumber(n) {\n  if (n === 1) return 3;\n  let counter = 1;\n  let triangleNumber = counter++;\n\n\n while (noOfFactors(triangleNumber) < n) {\n   triangleNumber += counter++;\n }\nreturn triangleNumber;\n}\n\nfunction noOfFactors(num) {\n  const primeFactors = getPrimeFactors(num);\n  let prod = 1;\n  for(let p in primeFactors) {\n    prod *= (primeFactors[p] + 1)\n  }\n  return prod;\n}\n\nfunction getPrimeFactors(num) {\n  let n = num;\n  let primes = {};\n\n  let p = 2;\n  let sqrt = Math.sqrt(num);\n\n  function checkAndUpdate(inc) {\n    if (n % p === 0) {\n      const curr = primes[p];\n      if (curr) {\n        primes[p]++\n      } else {\n        primes[p] = 1;\n      }\n      n /= p;\n    } else {\n      p += inc;\n    }\n  }\n\n  while(p === 2 && p <= n) {\n    checkAndUpdate(1);\n  }\n\n  while (p <= n && p <= sqrt) {\n    checkAndUpdate(2);\n  }\n  if(Object.keys(primes).length === 0) {\n    primes[num] = 1;\n  } else if(n !== 1) {\n    primes[n] = 1;\n  }\n  return primes;\n}",
+        "error": null,
+        "seed": "function divisibleTriangleNumber(n) {\n  if (n === 1) return 3;\n  let counter = 1;\n  let triangleNumber = counter++;\n\n\n while (noOfFactors(triangleNumber) < n) {\n   triangleNumber += counter++;\n }\nreturn triangleNumber;\n}\n\nfunction noOfFactors(num) {\n  const primeFactors = getPrimeFactors(num);\n  let prod = 1;\n  for(let p in primeFactors) {\n    prod *= (primeFactors[p] + 1)\n  }\n  return prod;\n}\n\nfunction getPrimeFactors(num) {\n  let n = num;\n  let primes = {};\n\n  let p = 2;\n  let sqrt = Math.sqrt(num);\n\n  function checkAndUpdate(inc) {\n    if (n % p === 0) {\n      const curr = primes[p];\n      if (curr) {\n        primes[p]++\n      } else {\n        primes[p] = 1;\n      }\n      n /= p;\n    } else {\n      p += inc;\n    }\n  }\n\n  while(p === 2 && p <= n) {\n    checkAndUpdate(1);\n  }\n\n  while (p <= n && p <= sqrt) {\n    checkAndUpdate(2);\n  }\n  if(Object.keys(primes).length === 0) {\n    primes[num] = 1;\n  } else if(n !== 1) {\n    primes[n] = 1;\n  }\n  return primes;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>divisibleTriangleNumber(5)</code> Trebalo bi da vrati broj.</p>",
+      "testString": "assert.isNumber(divisibleTriangleNumber(5));"
+    },
+    {
+      "text": "<p><code>divisibleTriangleNumber(5)</code> treba vratiti 28.</p>",
+      "testString": "assert.strictEqual(divisibleTriangleNumber(5), 28);"
+    },
+    {
+      "text": "<p><code>divisibleTriangleNumber(23)</code> treba da vrati 630.</p>",
+      "testString": "assert.strictEqual(divisibleTriangleNumber(23), 630);"
+    },
+    {
+      "text": "<p><code>divisibleTriangleNumber(167)</code> treba vratiti 1385280.</p>",
+      "testString": "assert.strictEqual(divisibleTriangleNumber(167), 1385280);"
+    },
+    {
+      "text": "<p><code>divisibleTriangleNumber(374)</code> trebalo bi da vrati 17907120.</p>",
+      "testString": "assert.strictEqual(divisibleTriangleNumber(374), 17907120);"
+    },
+    {
+      "text": "<p><code>divisibleTriangleNumber(500)</code> trebalo bi da vrati 76576500.</p>",
+      "testString": "assert.strictEqual(divisibleTriangleNumber(500), 76576500);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Niz trougličnih brojeva stvara se sabiranjem prirodnih brojeva. Stoga, trouglični broj za broj 7 biće 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28. Prvih deset elemenata će biti:</p>\n<div style='text-align: center;'>1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...</div>\n<p>Ispisujemo vrednosti prvih sedam trokutačnih brojeva:</p>\n<div style='padding-left: 4em;'><b>1:</b> 1</div>\n<div style='padding-left: 4em;'><b>3:</b> 1, 3</div>\n<div style='padding-left: 4em;'><b>6:</b> 1, 2, 3, 6</div>\n<div style='padding-left: 4em;'><b>10:</b> 1, 2, 5, 10</div>\n<div style='padding-left: 4em;'><b>15:</b> 1, 3, 5, 15</div>\n<div style='padding-left: 4em;'><b>21:</b> 1, 3, 7, 21</div>\n<div style='padding-left: 4em;'><b>28:</b> 1, 2, 4, 7, 14, 28</div>\n<p>Možemo videti da je 28 prvi trokutasti broj koji ima više od pet delitelja.</p>\n<p>Koja je vrednost prvog trougličitog broja koji je veći od <code>n</code>?</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

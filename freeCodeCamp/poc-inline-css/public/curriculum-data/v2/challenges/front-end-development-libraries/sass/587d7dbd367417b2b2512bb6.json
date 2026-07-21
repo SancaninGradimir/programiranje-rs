@@ -1,0 +1,89 @@
+{
+  "id": "587d7dbd367417b2b2512bb6",
+  "title": "Kreiranje CSS-a koji se može ponovno koristiti korišćenjem mixina",
+  "challengeType": 0,
+  "forumTopicId": 301455,
+  "dashedName": "create-reusable-css-with-mixins",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<style type='text/scss'>\n#square {\n  width: 50px;\n  height: 50px;\n  background-color: red;\n}\n\n#rect-a {\n  width: 100px;\n  height: 50px;\n  background-color: blue;\n}\n\n#rect-b {\n  width: 50px;\n  height: 100px;\n  background-color: orange;\n}\n</style>\n\n<div id=\"square\"></div>\n<div id=\"rect-a\"></div>\n<div id=\"rect-b\"></div>",
+      "error": null,
+      "seed": "<style type='text/scss'>\n#square {\n  width: 50px;\n  height: 50px;\n  background-color: red;\n}\n\n#rect-a {\n  width: 100px;\n  height: 50px;\n  background-color: blue;\n}\n\n#rect-b {\n  width: 50px;\n  height: 100px;\n  background-color: orange;\n}\n</style>\n\n<div id=\"square\"></div>\n<div id=\"rect-a\"></div>\n<div id=\"rect-b\"></div>"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.html"
+        ],
+        "name": "index",
+        "ext": "html",
+        "path": "index.html",
+        "fileKey": "indexhtml",
+        "contents": "<style type='text/scss'>\n@mixin shape($w, $h, $bg-color) {\n  width: $w;\n  height: $h;\n  background-color: $bg-color;\n}\n\n#square {\n  @include shape(50px, 50px, red);\n}\n\n#rect-a {\n  @include shape(100px, 50px, blue);\n}\n\n#rect-b {\n  @include shape(50px, 100px, orange);\n}\n</style>\n\n<div id=\"square\"></div>\n<div id=\"rect-a\"></div>\n<div id=\"rect-b\"></div>",
+        "error": null,
+        "seed": "<style type='text/scss'>\n@mixin shape($w, $h, $bg-color) {\n  width: $w;\n  height: $h;\n  background-color: $bg-color;\n}\n\n#square {\n  @include shape(50px, 50px, red);\n}\n\n#rect-a {\n  @include shape(100px, 50px, blue);\n}\n\n#rect-b {\n  @include shape(50px, 100px, orange);\n}\n</style>\n\n<div id=\"square\"></div>\n<div id=\"rect-a\"></div>\n<div id=\"rect-b\"></div>"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Unapaswa kutangaza mixin inayoitwa <code>shape</code> yenye vigezo 3: <code>$w</code>, <code>$h</code>, na <code>$bg-color</code>.</p>",
+      "testString": "assert.match(code, /@mixin\\s+shape\\s*\\(\\s*\\$w,\\s*\\$h,\\s*\\$bg-color\\s*\\)\\s*{/gi);"
+    },
+    {
+      "text": "<p>Mixin yako inapaswa kujumuisha sifa ya <code>width</code> inayotumia kigezo <code>$w</code>.</p>",
+      "testString": "assert.match(__helpers.removeWhiteSpace(code), /width:\\$w;/gi);"
+    },
+    {
+      "text": "<p>Mixin yako inapaswa kujumuisha sifa ya <code>height</code> inayotumia kigezo <code>$h</code>.</p>",
+      "testString": "assert.match(__helpers.removeWhiteSpace(code), /height:\\$h;/gi);"
+    },
+    {
+      "text": "<p>Vaš Mixin treba da uključuje svojstvo <code>background-color</code> koje koristi parametar <code>$bg-color</code>.</p>",
+      "testString": "assert.match(__helpers.removeWhiteSpace(code), /background-color:\\$bg\\-color;/gi);"
+    },
+    {
+      "text": "<p>Treba da promeniš stilove unutar selektora <code>#square</code> za poziv miksina <code>shape</code> koristeći glavni selektor <code>@include</code>. Postavi širinu i visinu <code>50px</code>, i boju pozadine <code>red</code>.</p>",
+      "testString": "assert.match(code, /#square\\s*{\\s*@include\\s+shape\\s*\\(\\s*50px\\s*,\\s*50px\\s*,\\s*red\\s*\\)\\s*;\\s*}/gi);"
+    },
+    {
+      "text": "<p>Treba da promeniš stilove unutar selektora <code>#rect-a</code> za poziv miksina <code>shape</code> koristeći glavnu ključnu reč <code>@include</code>. Postavi širinu <code>100px</code>, visinu <code>50px</code>, i boju pozadine <code>blue</code>.</p>",
+      "testString": "assert.match(code, /#rect-a\\s*{\\s*@include\\s+shape\\s*\\(\\s*100px\\s*,\\s*50px\\s*,\\s*blue\\s*\\)\\s*;\\s*}/gi);"
+    },
+    {
+      "text": "<p>Trebalo bi da promenite stilove unutar selektora <code>#rect-b</code> za poziv miksina <code>shape</code> koristeći glavnu klasu <code>@include</code>. Postavite širinu <code>50px</code>, visinu <code>100px</code> i boju pozadine <code>orange</code>.</p>",
+      "testString": "assert.match(code, /#rect-b\\s*{\\s*@include\\s+shape\\s*\\(\\s*50px\\s*,\\s*100px\\s*,\\s*orange\\s*\\)\\s*;\\s*}/gi);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U Sass-u, <dfn>mixin</dfn> je grupa deklaracija CSS koje se mogu ponovo koristiti u celom stilskom listu. Definicija počinje sa sintaksom <code>@mixin</code> za at, praćena običnim imenom. Koristi se mixin koristeći sintaksu <code>@include</code> za at.</p>\n<pre><code class=\"language-scss\">@mixin reset-list {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\nnav ul {\n  @include reset-list;\n}\n</code></pre>\n<p>Kreira:</p>\n<pre><code class=\"language-css\">nav ul {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n</code></pre>\n<p>Mixin-i takođe mogu da uzmu argumente, što omogućava prilagođavanje njihovog ponašanja. Ti argumenti su potrebni prilikom korišćenja mixina.</p>\n<pre><code class=\"language-scss\">@mixin prose($font-size, $spacing) {\n  font-size: $font-size;\n  margin: 0;\n  margin-block-end: $spacing;\n}\n\np {\n  @include prose(1.25rem, 1rem);\n}\n\nh2 {\n  @include prose(2.4rem, 1.5rem);\n}\n</code></pre>\n<p>Možete tvrditi da su opcione tako što im date podrazumevane vrednosti za parametre.</p>\n<pre><code class=\"language-scss\">@mixin text-color($color: black) {\n  color: $color;\n}\n\np {\n  @include text-color(); /* color: black */\n}\n\nnav a {\n  @include text-color(orange);\n}\n</code></pre>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite mixin pod nazivom <code>shape</code> sa sledećim 3 parametra: <code>$w</code>, <code>$h</code>, i <code>$bg-color</code>.</p>\n<p>Koristi mixin od <code>shape</code> da elementu <code>#square</code> širinu i visinu od <code>50px</code>, sa bojom pozadine <code>red</code>. Za element <code>#rect-a</code> dodaj širinu od <code>100px</code>, visinu od <code>50px</code>, i pozadinsku boju <code>blue</code>. Na kraju, za element <code>#rect-b</code> dodaj širinu od <code>50px</code>, visinu od <code>100px</code>, i pozadinsku boju <code>orange</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "sass",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 2,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "HTML-CSS",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "68516d0c0cb162c7578616ad",
+  "title": "Korak 37",
+  "challengeType": 20,
+  "dashedName": "step-37",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        45,
+        48
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import re\n\nmedical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }\n]\n\ndef find_invalid_records(\n    patient_id, age, gender, diagnosis, medications, last_visit_id\n):\n    constraints = {\n        'patient_id': isinstance(patient_id, str) and re.fullmatch('p\\d+', patient_id, re.IGNORECASE),\n        'age': isinstance(age, int) and age >= 18,\n        'gender': isinstance(gender, str) and gender.lower() in ('male', 'female'),\n        'diagnosis': isinstance(diagnosis, str) or diagnosis is None,\n        'medications': isinstance(medications, list) and all([isinstance(i, str) for i in medications])\n        \n    }\n    return constraints\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n    key_set = set(\n        ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']\n    )\n\n    for index, dictionary in enumerate(data):\n        if not isinstance(dictionary, dict):\n            print(f'Invalid format: expected a dictionary at position {index}.')\n            is_invalid = True\n\n        if set(dictionary.keys()) != key_set:\n            print(\n                f'Invalid format: {dictionary} at position {index} has missing and/or invalid keys.'\n            )\n            is_invalid = True\n\n    if is_invalid:\n        return False\n    print('Valid format.')\n    return True\n\nvalidate(medical_records)\nprint(find_invalid_records(**medical_records[0]))",
+      "error": null,
+      "seed": "import re\n\nmedical_records = [\n    {\n        'patient_id': 'P1001',\n        'age': 34,\n        'gender': 'Female',\n        'diagnosis': 'Hypertension',\n        'medications': ['Lisinopril'],\n        'last_visit_id': 'V2301',\n    },\n    {\n        'patient_id': 'p1002',\n        'age': 47,\n        'gender': 'male',\n        'diagnosis': 'Type 2 Diabetes',\n        'medications': ['Metformin', 'Insulin'],\n        'last_visit_id': 'v2302',\n    },\n    {\n        'patient_id': 'P1003',\n        'age': 29,\n        'gender': 'female',\n        'diagnosis': 'Asthma',\n        'medications': ['Albuterol'],\n        'last_visit_id': 'v2303',\n    },\n    {\n        'patient_id': 'p1004',\n        'age': 56,\n        'gender': 'Male',\n        'diagnosis': 'Chronic Back Pain',\n        'medications': ['Ibuprofen', 'Physical Therapy'],\n        'last_visit_id': 'V2304',\n    }\n]\n\ndef find_invalid_records(\n    patient_id, age, gender, diagnosis, medications, last_visit_id\n):\n    constraints = {\n        'patient_id': isinstance(patient_id, str) and re.fullmatch('p\\d+', patient_id, re.IGNORECASE),\n        'age': isinstance(age, int) and age >= 18,\n        'gender': isinstance(gender, str) and gender.lower() in ('male', 'female'),\n        'diagnosis': isinstance(diagnosis, str) or diagnosis is None,\n        'medications': isinstance(medications, list) and all([isinstance(i, str) for i in medications])\n        \n    }\n    return constraints\n\ndef validate(data):\n    is_sequence = isinstance(data, (list, tuple))\n\n    if not is_sequence:\n        print('Invalid format: expected a list or tuple.')\n        return False\n        \n    is_invalid = False\n    key_set = set(\n        ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']\n    )\n\n    for index, dictionary in enumerate(data):\n        if not isinstance(dictionary, dict):\n            print(f'Invalid format: expected a dictionary at position {index}.')\n            is_invalid = True\n\n        if set(dictionary.keys()) != key_set:\n            print(\n                f'Invalid format: {dictionary} at position {index} has missing and/or invalid keys.'\n            )\n            is_invalid = True\n\n    if is_invalid:\n        return False\n    print('Valid format.')\n    return True\n\nvalidate(medical_records)\nprint(find_invalid_records(**medical_records[0]))"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Your <code>constraints</code> dictionary should have a key <code>last_visit_id</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_ast_keys = _Node(_code).find_function(\"find_invalid_records\").find_variable(\"constraints\").tree.value.keys\n_keys = [k.value for k in _ast_keys]\n'last_visit_id' in _keys\n`)) })"
+    },
+    {
+      "text": "<p>The <code>last_visit_id</code> key of your <code>constraints</code> dictionary should have the value of <code>isinstance(last_visit_id, str)</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`\n_target = _Node(_code).find_function(\"find_invalid_records\").find_variable(\"constraints\").tree.value\n_keys = [k.value for k in _target.keys]\n_index = _keys.index('last_visit_id')\n_val = _target.values[_index]\n_Node(_val).is_equivalent(\"isinstance(last_visit_id, str)\")\n`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dodajte poslednji ključ <code>last_visit_id</code> u rečnik <code>constraints</code>. Za njegovu vrednost, koristite <code>isinstance</code> da proverite da li je <code>last_visit_id</code> string.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-medical-data-validator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 26,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 36,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-dictionaries-and-sets",
+  "certification": "python-v9"
+}

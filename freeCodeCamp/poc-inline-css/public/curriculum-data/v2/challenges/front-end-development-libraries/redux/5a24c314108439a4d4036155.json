@@ -1,0 +1,76 @@
+{
+  "id": "5a24c314108439a4d4036155",
+  "title": "Pošalji podatke o akciji u skladište",
+  "challengeType": 6,
+  "forumTopicId": 301448,
+  "dashedName": "send-action-data-to-the-store",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const ADD_NOTE = 'ADD_NOTE';\n\nconst notesReducer = (state = 'Initial State', action) => {\n  switch(action.type) {\n    // Change code below this line\n\n    // Change code above this line\n    default:\n      return state;\n  }\n};\n\nconst addNoteText = (note) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(notesReducer);\n\nconsole.log(store.getState());\nstore.dispatch(addNoteText('Hello!'));\nconsole.log(store.getState());",
+      "error": null,
+      "seed": "const ADD_NOTE = 'ADD_NOTE';\n\nconst notesReducer = (state = 'Initial State', action) => {\n  switch(action.type) {\n    // Change code below this line\n\n    // Change code above this line\n    default:\n      return state;\n  }\n};\n\nconst addNoteText = (note) => {\n  // Change code below this line\n\n  // Change code above this line\n};\n\nconst store = Redux.createStore(notesReducer);\n\nconsole.log(store.getState());\nstore.dispatch(addNoteText('Hello!'));\nconsole.log(store.getState());"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const ADD_NOTE = 'ADD_NOTE';\n\nconst notesReducer = (state = 'Initial State', action) => {\n  switch(action.type) {\n    // Change code below this line\n    case ADD_NOTE:\n      return action.text;\n    // Change code above this line\n    default:\n      return state;\n  }\n};\n\nconst addNoteText = (note) => {\n  // Change code below this line\n  return {\n    type: ADD_NOTE,\n    text: note\n  }\n  // Change code above this line\n};\n\nconst store = Redux.createStore(notesReducer);\n\nconsole.log(store.getState());\nstore.dispatch(addNoteText('Hello Redux!'));\nconsole.log(store.getState());",
+        "error": null,
+        "seed": "const ADD_NOTE = 'ADD_NOTE';\n\nconst notesReducer = (state = 'Initial State', action) => {\n  switch(action.type) {\n    // Change code below this line\n    case ADD_NOTE:\n      return action.text;\n    // Change code above this line\n    default:\n      return state;\n  }\n};\n\nconst addNoteText = (note) => {\n  // Change code below this line\n  return {\n    type: ADD_NOTE,\n    text: note\n  }\n  // Change code above this line\n};\n\nconst store = Redux.createStore(notesReducer);\n\nconsole.log(store.getState());\nstore.dispatch(addNoteText('Hello Redux!'));\nconsole.log(store.getState());"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Funkcija za kreiranje/izvršavanje <code>addNoteText</code> treba da vrati objekt sa ključevima <code>type</code> i <code>text</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const addNoteFn = addNoteText('__TEST__NOTE');\n    return addNoteFn.type === ADD_NOTE && addNoteFn.text === '__TEST__NOTE';\n  })()\n);"
+    },
+    {
+      "text": "<p>Slanje akcije tipa <code>ADD_NOTE</code> kreatoru akcije <code>addNoteText</code> mora ažurirati <code>state</code> u niz znakova prosleđen kreatoru akcije.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    store.dispatch(addNoteText('__TEST__NOTE'));\n    const newState = store.getState();\n    return initialState !== newState && newState === '__TEST__NOTE';\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ste naučili kako da šaljete akcije u Redux store, ali do sada ove akcije nisu uključivale nikakve informacije osim <code>type</code>. Takođe možete poslati specifične podatke zajedno sa svojim akcijama. Zapravo, ovo je vrlo uobičajena stvar jer akcije obično nastaju usled interakcije korisnika i dolaze sa određenim podacima. Redux store često mora da zna za ove podatke.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Postoji osnovni konstruktor za <code>notesReducer()</code> i <code>addNoteText()</code> definisan u editoru koda. Dopunite telo funkcije/metode za <code>addNoteText()</code> da bi vratila objekat <code>action</code>. Objekat mora da sadrži svojstvo <code>type</code> sa vrednošću <code>ADD_NOTE</code>, kao i svojstvo <code>text</code> postavljeno za podatke <code>note</code> koji se prosleđuju konstruktoru. Kada pozovete konstruktor, prosleđujete specifične informacije o napomeni koje možete dobiti za taj objekat.</p>\n<p>Sledeći korak je da završiš pisanje deklaracije za <code>switch</code> u <code>notesReducer()</code>. Moraš dodati slučaj koji obrađuje akcije/operacije za <code>addNoteText()</code>. Ovaj slučaj treba da se inicijalizuje svaki put kada postoji akcija tipa <code>ADD_NOTE</code> i mora vratiti atribut/svojstvo <code>text</code> na <code>action</code> koji dolazi kao novi <code>state</code>.</p>\n<p>Akcija se šalje ispod koda. Kada završite, pokrenite kod i pogledajte konzolu. Ovo je potrebno za slanje specifičnih podataka o akciji u skladište i korišćenje prilikom ažuriranja <code>state</code> skladišta.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

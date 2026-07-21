@@ -1,0 +1,239 @@
+{
+  "id": "6733694805a85d34ced08a9b",
+  "title": "Kako rade `setTimeout` i `setInterval` funkcije",
+  "challengeType": 19,
+  "dashedName": "how-do-the-settimeout-and-setinterval-methods-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada gradiš svoje programe, često ćeš želeti da nešto se dogodi nakon kratkog kašnjenja ili ponovi u redovnim intervalima. Tu su metode <code>setTimeout()</code> i <code>setInterval()</code> korisne. Oba metoda primaju dva parametra: funkciju i kašnjenje.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Istražite svaki način detaljnije kako biste počeli da ih koristite u svojim projekatima na mreži.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>setTimeout()</code> Omogućava vam da odložite akciju na određeno vrijeme. Evo osnovne sintakse za metodu <code>setTimeout()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">setTimeout(functionToRun, delay);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>functionToRun</code> je kod koji želi da se izvrši nakon definisanog kašnjenja, i <code>delay</code> je vreme (u milisekundama) čekanja pre pokretanja funkcije. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "setTimeout(function () {\n console.log(\"This runs after 3 seconds\");\n}, 3000);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">setTimeout(function () {\n console.log(\"This runs after 3 seconds\");\n}, 3000);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe možete koristiti funkciju sa strelicom za poziv povratka, kao što je ovo:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "setTimeout(() => {\n console.log(\"This runs after 3 seconds\"); \n}, 3000);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">setTimeout(() => {\n console.log(\"This runs after 3 seconds\"); \n}, 3000);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>setInterval()</code> nastavlja da ponavlja funkciju u zadatom intervalu. To je kao da imate zvono koje zvoni svakih nekoliko sekundi. <code>setInterval()</code> je savršeno kada želite da nešto radi periodično, kao što je osvežavanje podataka ili kreiranje neprekidne animacije.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kao <code>setTimeout()</code>, koristi funkciju sa kašnjenjem:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">setInterval(functionToRun, delay);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p><code>functionToRun</code> je kod koji želi da se izvršava periodično, dok <code>delay</code> je vremenski interval u milisekundama između svakog izvršavanja te funkcije. Evo primera:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "setInterval(() => {\n console.log(\"This runs every 2 seconds\");\n}, 2000);\n\n// Result:\n// This runs every 2 seconds\n// This runs every 2 seconds\n// This runs every 2 seconds\n// ...",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">setInterval(() => {\n console.log(\"This runs every 2 seconds\");\n}, 2000);\n\n// Result:\n// This runs every 2 seconds\n// This runs every 2 seconds\n// This runs every 2 seconds\n// ...\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pošto <code>setInterval()</code> nastavlja sa izvršavanjem funkcije koja je pokrenuta za određeni period, možda želite da ga zaustavite. Da biste to učinili, morate koristiti metodu <code>clearInterval()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da bi se izvršio taj zadatak, <code>clearInterval()</code> uzima identifikator <code>setInterval()</code> koji želite da zaustavite. Ovo može biti parametar koji ste postavili za taj period. Jedan način za zaustavljanje perioda je unutar <code>setTimeout()</code>, jer će to zaustaviti period nakon određenog vremena:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "const intervalID = setInterval(() => {\n console.log(\"This will stop after 5 seconds\");\n}, 1000);\n\nsetTimeout(() => {\n clearInterval(intervalID);\n}, 5000);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const intervalID = setInterval(() => {\n console.log(\"This will stop after 5 seconds\");\n}, 1000);\n\nsetTimeout(() => {\n clearInterval(intervalID);\n}, 5000);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe možete sprečiti timeout putem <code>clearTimeout()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "let timeoutID = setTimeout(() => {\n console.log(\"This will not run\");\n}, 5000);\n\nclearTimeout(timeoutID);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let timeoutID = setTimeout(() => {\n console.log(\"This will not run\");\n}, 5000);\n\nclearTimeout(timeoutID);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Sa ovim kodom, <code>setTimeout()</code> se nikada neće izvršiti. Zato je bolji način da se ovo uradi preko DOM-a, dodavanjem osluškivača događaja klika na dugme kako bi se sprečio timeout.</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<h1>Cancel Timeout Example</h1>\n<button id=\"cancelButton\">Cancel Timeout</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;h1>Cancel Timeout Example&#x3C;/h1>\n&#x3C;button id=\"cancelButton\">Cancel Timeout&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "let timeoutID = setTimeout(() => {\n  console.log(\"This will run if not canceled\");\n}, 5000);\n\ndocument\n.querySelector(\"#cancelButton\")\n.addEventListener(\"click\", () => {\n  clearTimeout(timeoutID);\n  console.log(\"Timeout canceled!\");\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">let timeoutID = setTimeout(() => {\n  console.log(\"This will run if not canceled\");\n}, 5000);\n\ndocument\n.querySelector(\"#cancelButton\")\n.addEventListener(\"click\", () => {\n  clearTimeout(timeoutID);\n  console.log(\"Timeout canceled!\");\n});\n</code></pre>"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Putanje za <code>setTimeout()</code> na <code>setInterval()</code> koje parametre uzimaju?</p>",
+      "answers": [
+        {
+          "answer": "<p>Parametar i broj.</p>",
+          "feedback": "<p>Razmislite šta treba da se implementira i koliko vremena je potrebno čekati.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcionalnost i kašnjenje.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Niz znakova i vrednosti tačno ili netačno.</p>",
+          "feedback": "<p>Razmislite o tome šta treba da se implementira i koliko je potrebno sačekati.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Ciklus i stanje.</p>",
+          "feedback": "<p>Razmisli šta treba da se izvrši i koliko dugo čekati.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta put <code>setInterval()</code> radi u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Izvršava se funkcija jednom nakon kašnjenja.</p>",
+          "feedback": "<p>Razmislite o funkciji koja se izvršava u regularnim intervalima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izvršava funkciju periodično u zadatim intervalima, kao zvono koje zvoni svakih nekoliko sekundi.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcija je onemogućena za pokretanje.</p>",
+          "feedback": "<p>Zamisli funkciju koja se pokreće redovno u regularnim intervalima.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kašnjenje funkcije za određeno vreme.</p>",
+          "feedback": "<p>Razmislite o funkciji koja se izvršava periodično.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Šta put <code>setTimeout()</code> radi u JavaScript?</p>",
+      "answers": [
+        {
+          "answer": "<p>Odlaže operaciju na definisano vreme, nakon čega izvršava funkciju.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Izvršava funkciju odmah nakon pozivanja.</p>",
+          "feedback": "<p>Razmislite o situaciji kada želite da JavaScript sačeka pre pokretanja funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Funkcija se ponavlja u redovnim intervalima.</p>",
+          "feedback": "<p>Zamisli kada želiš da JavaScript sačeka pre pokretanja funkcije.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Onemogućava funkciju da se izvrši/pokrene nakon kašnjenja.</p>",
+          "feedback": "<p>Zapamti kada JavaScript čeka pre izvršavanja funkcije.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 1
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

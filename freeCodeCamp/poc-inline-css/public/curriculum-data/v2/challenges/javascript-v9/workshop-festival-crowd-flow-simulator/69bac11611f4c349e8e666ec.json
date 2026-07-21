@@ -1,0 +1,54 @@
+{
+  "id": "69bac11611f4c349e8e666ec",
+  "title": "Korak 22",
+  "challengeType": 1,
+  "dashedName": "step-22",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        62,
+        64
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n\n}",
+      "error": null,
+      "seed": "const morningGates = [\n  { id: \"North\", capacity: 5, queue: [3, 6, 2, 4] },\n  { id: \"East\", capacity: 3, queue: [2, 4, 3, 5] },\n  { id: \"South\", capacity: 4, queue: [1, 2, 3, 1] },\n  { id: \"West\", capacity: 2, queue: [4, 1, 2, 3] },\n];\n\nconst nightGates = [\n  { id: \"North\", capacity: 4, queue: [6, 2, 5, 1] },\n  { id: \"East\", capacity: 2, queue: [3, 3, 4, 2] },\n  { id: \"South\", capacity: 5, queue: [2, 1, 2, 3] },\n  { id: \"West\", capacity: 3, queue: [5, 2, 1, 4] },\n];\n\nfunction initializeThroughput(gates) {\n  const summary = {};\n  for (const gate of gates) {\n    summary[gate.id] = 0;\n  };\n  return summary;\n}\n\nfunction processGateFlow(gate, tickIndex) {\n  let currentTickQueue = gate.queue[tickIndex];\n  let processed = 0;\n  while (currentTickQueue > 0 && processed < gate.capacity) {\n    currentTickQueue--;\n    processed++;\n  }\n  return {\n    processed: processed,\n    overflow: currentTickQueue\n  };\n}\n\nfunction rerouteOverflow(gates, currentGate, tickIndex, overflowAmount) {\n  const currentIndex = gates.indexOf(currentGate);\n  const nextGateIndex = (currentIndex + 1) % gates.length;\n  gates[nextGateIndex].queue[tickIndex] += overflowAmount;\n  console.log(\n    overflowAmount + \" attendees rerouted to \" +\n    gates[nextGateIndex].id\n  );\n}\n\nfunction handleGateAtTick(gates, gate, tickIndex, throughputSummary) {\n  console.log(\"\\nProcessing \" + gate.id + \"...\");\n  console.log(\n    gate.queue[tickIndex] + \" attendees arriving.\"\n  );\n  const result = processGateFlow(gate, tickIndex);\n  throughputSummary[gate.id] += result.processed;\n  if (result.overflow > 0) {\n    console.log(\n      \"Overflow of \" + result.overflow +\n      \" attendees. Rerouting...\"\n    );\n    rerouteOverflow(gates, gate, tickIndex, result.overflow);\n  }\n}\n\nfunction printSummary(summary) {\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Vaša <code>printSummary</code> funkcija bi trebalo da prvo loguje sledeću poruku na console, <code>\"\\nThroughput Summary\"</code>.</p>",
+      "testString": "const testSummary = { North: 5, East: 3, South: 4, West: 2 };\n\nconst spy = __helpers.spyOn(console, \"log\");\ntry {\n  printSummary(testSummary);\n  const expectedCall = [\"\\nThroughput Summary\"];\n  assert.deepEqual(\n    spy.calls[0],\n    expectedCall,\n    \"printSummary should log the throughput summary header\"\n  );\n} catch (err) {\n  assert.fail(err);\n} finally {\n  spy.restore();\n}"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Prvo, logujte sledeću poruku u konzolu <code>\"\\nThroughput Summary\"</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-festival-crowd-flow-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 76,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 21,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

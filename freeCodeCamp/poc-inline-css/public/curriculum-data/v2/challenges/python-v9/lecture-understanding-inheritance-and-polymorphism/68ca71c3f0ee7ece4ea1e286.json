@@ -1,0 +1,109 @@
+{
+  "id": "68ca71c3f0ee7ece4ea1e286",
+  "title": "Šta je Name Mangling i kako funkcioniše?",
+  "challengeType": 19,
+  "dashedName": "what-is-name-mangling-and-how-does-it-work",
+  "solutions": [],
+  "questions": [
+    {
+      "text": "<p>Koja je razlika između jednog podvučnika i dva podvučnika?</p>",
+      "answers": [
+        {
+          "answer": "<p>Jedan underscores i dva underscores tretira se isto kao Python.</p>",
+          "feedback": "<p>Obratite pažnju kako Python obrađuje svojstva prethodnog elementa i <code>_</code> naspram <code>__</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Pojedinačni <em>underscore</em> čini svojstvo elementa potpuno privatnim, dok dvostruki <em>underscore</em> čini da su uporedivi.</p>",
+          "feedback": "<p>Primećujte kako Python obrađuje svojstva prethodnog elementa i <code>_</code> naspram <code>__</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Jedan underscore onemogućava direktan pristup, dok dva underscores omogućavaju direktan pristup.</p>",
+          "feedback": "<p>Napravite pažnju kako Python obrađuje svojstva prethodnih elemenata i <code>_</code> naspram <code>__</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Moj underscore je samo konvencija, dok dva underscores uzrokuju name mangling.</p>",
+          "feedback": null,
+          "audioId": null
+        }
+      ],
+      "solution": 4
+    },
+    {
+      "text": "<p>Šta je name mangling?</p>",
+      "answers": [
+        {
+          "answer": "<p>Proces gde Python menja sve atribute u putanju za lakši pristup.</p>",
+          "feedback": "<p>Zamislite kako Python tajno menja imena svojstava sa dve poddonje crte.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proces gde Python briše svojstva koja imaju jedan podvučnik ili ih sakriva.</p>",
+          "feedback": "<p>Razmislite kako Python menja imena atributa sa dvostrukim donjom crtom u tajnosti.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proces kojim Python menja <code>__attribute</code> u <code>_ClassName__attribute</code> ili sprečava slučajnu intervenciju u nasleđene klase.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Proces kojim Python štiti privatne podatke enkripcijom kako bi se onemogućio pristup izvan klase.</p>",
+          "feedback": "<p>Zamislite kako Python tajno menja imena atributa sa dve poddonje crte.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    },
+    {
+      "text": "<p>Šta se dešava kada ne dodate dvostruki prefiks podznak u klase roditeljske i detske?</p>",
+      "answers": [
+        {
+          "answer": "<p>Oba razreda nastavljaju da imaju svoje različite kopije atributa bez međusobnog uticaja.</p>",
+          "feedback": "<p>Razmislite da <code>print(c.__dict__)</code> pokazuje kada obje klase koriste isto ime atributa bez <code>__</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Klasa deteta određuje svojstvo klase roditelja u potpunosti, i podaci roditelja se gube.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Atributi roditeljske klase su samo za čitanje i ne mogu se menjati od strane detske klase.</p>",
+          "feedback": "<p>Zamislite šta <code>print(c.__dict__)</code> pokazuje kada dve klase koriste isto ime svojstva bez <code>__</code>.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Python Vraća grešku zato što svojstva moraju imati prefiks od dve donje crte svaki put.</p>",
+          "feedback": "<p>Zamislite šta <code>print(c.__dict__)</code> pokazuje kada obje klase koriste isto ime svojstva bez <code>__</code>.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "description": "<section id=\"description\">\n<p>U početnom kursu, naučili ste o postavljanju prefiksa sa pojedinačnim i dvostrukim podznaknicima na svojstva elemenata.</p>\n<p>Da bih vam przypomenuo razliku između njih, jedan donji crtačić (<code>_</code>) je konvencija koja znači da je atribut namijenjen za interni rad unutar klase i ne bi trebalo direktno pristupiti mu izvan te klase. Dva donja crtačića (<code>__</code>), s druge strane, sprečavaju da se taj atribut pristupi direktno izvan klase.</p>\n<p>Ovde je primer koji pokazuje kako ove dve funkcionišu:</p>\n<pre><code class=\"language-py\">class Example:\n    def __init__(self):\n        self._internal = 'I can be accessed from outside the class, but should not'\n        self.__private = 'You cannot access me directly from outside the class'\n\nobj = Example()\n\nprint(obj._internal) # I can be accessed from outside the class, but should not\nprint(obj.__private)  # AttributeError: 'Example' object has no attribute '__private'\n</code></pre>\n<p>Postavljanje prefiksa od dva donjevu crte na svojstvo elementa uzrokuje proces name mangling-a za Python, gde Python tajno menja ime tog svojstva dodavanjem donjevu crte i imena klase kao prefiks, menjajući <code>__attribute</code> u <code>_ClassName__attribute</code>.</p>\n<p>Da biste videli ovo kako se dešava, kreirate primer klase objekata i koristite specifično svojstvo <code>__dict__</code> tog primera, koje je rečnik sa atributima tog objekta:</p>\n<pre><code class=\"language-py\">class Example:\n    def __init__(self, internal, private):\n        self._internal = internal\n        self.__private = private\n\nexample1 = Example(\n    'I can be accessed from outside the class, but should not',\n    'I cannot be accessed directly from outside the class'\n)\n\nprint(example1.__dict__)\n</code></pre>\n<p>Rezultat će biti:</p>\n<pre><code class=\"language-py\">{\n  '_internal': 'I can be accessed from outside the class, but should not',\n  '_Example__private': 'I cannot be accessed directly from outside the class'\n}\n</code></pre>\n<p>Kao što vidite, atribut <code>__private</code> je sačuvan kao <code>_Example__private</code>. To znači da još uvek možete pristupiti tom atributu izvan klase na ovaj način:</p>\n<pre><code class=\"language-py\">class Example:\n    def __init__(self, internal, private):\n        self._internal = internal\n        self.__private = private\n\nexample1 = Example(\n    'I can be accessed from outside the class, but should not',\n    'I cannot be accessed directly from outside the class'\n)\nexample2 = Example(\n    'I should not be accessed from outside the class',\n    'But I can be accessed from outside the class with name mangling'\n)\n\nprint(example1._Example__private) # I cannot be accessed directly from outside the class\nprint(example2._Example__private) # But I can be accessed from outside the class with name mangling\n</code></pre>\n<p>Zašto pa Python vrši name mangling?</p>\n<p>Glavna svrha name mangling-a je sprečavanje slučajne kolizije svojstava klase i metoda prilikom korišćenja nasleđivanja. Evo jasno razumljivog primera:</p>\n<pre><code class=\"language-py\">class Parent:\n    def __init__(self):\n        self.__data = 'Parent data'\n\nclass Child(Parent):\n    def __init__(self):\n        super().__init__()\n        self.__data = 'Child data'\n\nc = Child()\nprint(c.__dict__) # {'_Parent__data': 'Parent data', '_Child__data': 'Child data'}\n</code></pre>\n<p>Može se videti da klasa <code>Parent</code> i <code>Child</code>, koja nasleđuje od nje, svaka ima svoja svojstva za <code>_class__data</code>. To je moguće uz name mangling. Inače, <code>Child</code> bi slučajno proširio podatke Roditelja.</p>\n<p>Ovo bi se dogodilo ako Python ne dozvoljava name mangling, tj. ako ne koristi prefiks od dvostrukog donjeg crte na sve atribute obe klase:</p>\n<pre><code class=\"language-py\">class Parent:\n   def __init__(self):\n       self.data = 'Parent data'\n\nclass Child(Parent):\n   def __init__(self):\n       super().__init__()\n       self.data = 'Child data'\n\nc = Child()\nprint(c.__dict__)  # {'data': 'Child data'}\n</code></pre>\n<p>Dakle, koji treba da koristiš za postavljanje prefiksa svojstva između jedne poddonje linije (underscore) (<code>_</code>) i dve poddonje linije (underscore) (<code>__</code>)? Zavisi. Ako je svojstvo samo za interno korišćenje unutar klase, koristi jednu poddonju liniju (underscore).</p>\n<p>Ali ako radiš sa nasleđenom klasom, treba da koristiš dvostruke donje linije kako bi svojstvo od roditelja nije slučajno promenjeno.</p>\n</section>",
+  "translationPending": false,
+  "block": "lecture-understanding-inheritance-and-polymorphism",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 44,
+  "instructions": "",
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 2,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

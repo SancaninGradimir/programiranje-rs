@@ -1,0 +1,62 @@
+{
+  "id": "694d8ddd106340237efb0c80",
+  "title": "Korak 12",
+  "challengeType": 1,
+  "dashedName": "step-12",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        50,
+        52
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n\n}",
+      "error": null,
+      "seed": "const squad = [];\n\nconst firstAstronaut = {\n  id: 1,\n  name: \"Andy\",\n  role: \"Commander\",\n  isEVAEligible: true,\n  priority: 3\n};\n\nfunction addCrewMember(crew, astronaut) {\n  for (let i = 0; i < crew.length; i++) {\n    if (crew[i].id === astronaut.id) {\n      console.log(\"Duplicate ID: \" + astronaut.id);\n      return;\n    }\n  }\n  crew.push(astronaut);\n}\n\naddCrewMember(squad, firstAstronaut);\n\nconst remainingCrew = [\n  { id: 2, name: \"Bart\", role: \"Pilot\", isEVAEligible: false, priority: 8 },\n  { id: 3, name: \"Caroline\", role: \"Engineer\", isEVAEligible: true, priority: 4 },\n  { id: 4, name: \"Diego\", role: \"Scientist\", isEVAEligible: false, priority: 1 },\n  { id: 5, name: \"Elise\", role: \"Medic\", isEVAEligible: true, priority: 7 },\n  { id: 6, name: \"Felix\", role: \"Navigator\", isEVAEligible: true, priority: 6 },\n  { id: 7, name: \"Gertrude\", role: \"Communications\", isEVAEligible: false, priority: 4 },\n  { id: 8, name: \"Hank\", role: \"Mechanic\", isEVAEligible: true, priority: 2 },\n  { id: 9, name: \"Irene\", role: \"Specialist\", isEVAEligible: true, priority: 5 },\n  { id: 10, name: \"Joan\", role: \"Technician\", isEVAEligible: false, priority: 1 },\n];\n\nfor (let i = 0; i < remainingCrew.length; i++) {\n  addCrewMember(squad, remainingCrew[i]);\n}\n\nfunction swapCrewMembers(crew, fromIndex, toIndex) {\n  if (\n    fromIndex < 0 || \n    toIndex < 0 ||\n    fromIndex >= crew.length ||\n    toIndex >= crew.length\n  ) {\n    console.log(\"Invalid crew indices\");\n    return;\n  }\n\n  const updatedCrew = crew.slice();\n\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da napraviš promenu poziva metode <code>splice()</code>.</p>",
+      "testString": "assert.match(swapCrewMembers.toString(), /splice\\s*\\(/);"
+    },
+    {
+      "text": "<p>Treba ti da pozoveš <code>splice()</code> na liniji <code>updatedCrew</code> da napraviš izmenu. Trebalo bi da koristiš jednolini red.</p>",
+      "testString": "const cleaned = __helpers.removeWhiteSpace(__helpers.removeJSComments(swapCrewMembers.toString()));\nconst regex = /updatedCrew\\[(fromIndex|toIndex)\\]=updatedCrew\\.splice\\((fromIndex|toIndex),1,updatedCrew\\[\\1\\]\\)\\[0\\];?\\s*\\}$/;\nassert.match(cleaned, regex);"
+    },
+    {
+      "text": "<p>Tvoja funkcija <code>swapCrewMembers</code> ne bi trebalo da menja originalni red ulaznih podataka <code>crew</code>.</p>",
+      "testString": "const demo = [{ id: 1 }, { id: 2 }, { id: 3 }];\nswapCrewMembers(demo, 0, 2);\nassert.deepEqual(demo.map(a => a.id), [1, 2, 3]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Metoda <code>splice()</code> može modifikovati redove podataka dodavanjem ili uklanjanjem elemenata bilo gde, uključujući i sredinu. Pošto <code>splice()</code> vraća red podataka sa uklonjenim elementima, možete ga koristiti za modifikovanje dva elementa u redu podataka bez menjanja njegove prirode. Ovo se može uraditi jednim redom koristeći sledeću metodu:</p>\n<pre><code class=\"language-js\">// swap elements at i and j without mutating the original\nconst copy = array.slice();\ncopy[i] = copy.splice(j, 1, copy[i])[0];\n</code></pre>\n<p>Evo primera:</p>\n<pre><code class=\"language-js\">const originalArray = [12, 97, 68, 55];\nconst copyArray = originalArray.slice();\ncopyArray[1] = copyArray.splice(3, 1, copyArray[1])[0];\nconsole.log(copyArray); // [12, 55, 68, 97]\n</code></pre>\n<p>Metoda koja se koristi u trećem redu funkcioniše na sledeći način:</p>\n<ul>\n<li>\n<p><code>splice(3, 1, copyArray[1])</code> Ukloni element koji se nalazi u modelu <code>3</code> (<code>55</code>)</p>\n</li>\n<li>\n<p>Ubacuje element iz <code>copyArray[1]</code> (<code>97</code>) u šablon <code>3</code></p>\n</li>\n<li>\n<p><code>splice()</code> vraća <code>[55]</code>, red podataka sa uklonjenim elementom</p>\n</li>\n<li>\n<p><code>[0]</code> ukloniti <code>55</code> iz tog reda</p>\n</li>\n<li>\n<p>Ta vrednost (<code>55</code>) je ponovo dodeljena <code>copyArray[1]</code>, što dovršava izmenu</p>\n</li>\n</ul>\n<p>Koristi ovu metodu sa nizom <code>updatedCrew</code> da zameni lokacije novinara iz svemira na <code>fromIndex</code> i <code>toIndex</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-space-mission-roster",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "javascript-loops",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,80 @@
+{
+  "id": "596fd036dc1ab896c5db98b1",
+  "title": "Promeni sekunde u kombinovani vremenski format",
+  "challengeType": 1,
+  "forumTopicId": 302236,
+  "dashedName": "convert-seconds-to-compound-duration",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function convertSeconds(sec) {\n\n  return true;\n}",
+      "error": null,
+      "seed": "function convertSeconds(sec) {\n\n  return true;\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function convertSeconds(sec) {\n  const localNames = ['wk', 'd', 'hr', 'min', 'sec'];\n  // compoundDuration :: [String] -> Int -> String\n  const compoundDuration = (labels, intSeconds) =>\n    weekParts(intSeconds)\n    .map((v, i) => [v, labels[i]])\n    .reduce((a, x) =>\n      a.concat(x[0] ? [`${x[0]} ${x[1] || '?'}`] : []), []\n    )\n    .join(', ');\n\n    // weekParts :: Int -> [Int]\n  const weekParts = intSeconds => [0, 7, 24, 60, 60]\n    .reduceRight((a, x) => {\n      const r = a.rem;\n      const mod = x !== 0 ? r % x : r;\n\n      return {\n        rem: (r - mod) / (x || 1),\n        parts: [mod].concat(a.parts)\n      };\n    }, {\n      rem: intSeconds,\n      parts: []\n    })\n    .parts;\n\n  return compoundDuration(localNames, sec);\n}",
+        "error": null,
+        "seed": "function convertSeconds(sec) {\n  const localNames = ['wk', 'd', 'hr', 'min', 'sec'];\n  // compoundDuration :: [String] -> Int -> String\n  const compoundDuration = (labels, intSeconds) =>\n    weekParts(intSeconds)\n    .map((v, i) => [v, labels[i]])\n    .reduce((a, x) =>\n      a.concat(x[0] ? [`${x[0]} ${x[1] || '?'}`] : []), []\n    )\n    .join(', ');\n\n    // weekParts :: Int -> [Int]\n  const weekParts = intSeconds => [0, 7, 24, 60, 60]\n    .reduceRight((a, x) => {\n      const r = a.rem;\n      const mod = x !== 0 ? r % x : r;\n\n      return {\n        rem: (r - mod) / (x || 1),\n        parts: [mod].concat(a.parts)\n      };\n    }, {\n      rem: intSeconds,\n      parts: []\n    })\n    .parts;\n\n  return compoundDuration(localNames, sec);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeEach": "const testCases = [7259, 86400, 6000000];\nconst results = ['2 hr, 59 sec', '1 d', '9 wk, 6 d, 10 hr, 40 min'];"
+  },
+  "tests": [
+    {
+      "text": "<p><code>convertSeconds</code> treba da bude funkcija.</p>",
+      "testString": "assert(typeof convertSeconds === 'function');"
+    },
+    {
+      "text": "<p><code>convertSeconds(7259)</code> inapaswa kurudisha <code>2 hr, 59 sec</code>.</p>",
+      "testString": "assert.equal(convertSeconds(testCases[0]), results[0]);"
+    },
+    {
+      "text": "<p><code>convertSeconds(86400)</code> inapaswa kurudisha <code>1 d</code>.</p>",
+      "testString": "assert.equal(convertSeconds(testCases[1]), results[1]);"
+    },
+    {
+      "text": "<p><code>convertSeconds(6000000)</code> treba da vrati <code>9 wk, 6 d, 10 hr, 40 min</code>.</p>",
+      "testString": "assert.equal(convertSeconds(testCases[2]), results[2]);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Tekeleza kitendakazi ambacho:</p>\n<ul>\n<li>prihvata pozitivan ceo broj koji predstavlja trajanje u sekundama kao ulaz (na primer, <code>100</code>), i</li>\n<li>vraća nisku koja prikazuje isto trajanje izraženo u nedeljama, danima, satima, minutima i sekundama, kao što je opisano u nastavku (na primer, <code>1 min, 40 sec</code>).</li>\n</ul>\n<p>Pokaži da prolazi sledeće tri testa:</p>\n<div style='font-size:115%; font-weight: bold;'>Majaribio</div>\n<table>\n<thead>\n<tr>\n<th>Ulazni broj</th>\n<th>Izlazni broj</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>7259</td>\n<td><code>2 hr, 59 sec</code></td>\n</tr>\n<tr>\n<td>86400</td>\n<td><code>1 d</code></td>\n</tr>\n<tr>\n<td>6000000</td>\n<td><code>9 wk, 6 d, 10 hr, 40 min</code></td>\n</tr>\n</tbody>\n</table>\n<div style=\"font-size:115%; font-weight: bold;\">Maelezo</div>\n<ul>\n  <li>\nTreba koristiti sledećih pet jedinica:\n<table>\n<thead>\n<tr>\n<th>Kifungu</th>\n<th>Kiambatisho kinachotumika kwenye matokeo</th>\n<th>Ubadilishaji</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>wiki</td>\n<td><code>wk</code></td>\n<td>1 wiki = siku 7</td>\n</tr>\n<tr>\n<td>siku</td>\n<td><code>d</code></td>\n<td>1 siku = saa 24</td>\n</tr>\n<tr>\n<td>saa</td>\n<td><code>hr</code></td>\n<td>1 saa = dakika 60</td>\n</tr>\n<tr>\n<td>dakika</td>\n<td><code>min</code></td>\n<td>1 dakika = sekunde 60</td>\n</tr>\n<tr>\n<td>sekunde</td>\n<td><code>sec</code></td>\n<td>---</td>\n</tr>\n</tbody>\n</table>\n  </li>\n  <li>\nMeđutim, u rezultat uključi samo jedinice čija vrednost nije nula (na primer, vrati <code>1 d</code>, a ne <code>0 wk, 1 d, 0 hr, 0 min, 0 sec</code>).\n  </li>\n  <li>\nDaj prednost većim jedinicama u odnosu na manje kad god je to moguće (na primer, vrati <code>2 min, 10 sec</code>, a ne <code>1 min, 70 sec</code> ili <code>130 sec</code>).\n  </li>\n  <li>\nPrati format prikazan u testovima (vrednosti su poređane od najveće ka najmanjoj jedinici i razdvojene zarezom i razmakom; vrednost i jedinica svake količine razdvojene su razmakom).\n  </li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 19,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "5e44412c903586ffb414c94c",
+  "title": "Napravi projekat aritmetičkog formatiranja",
+  "challengeType": 23,
+  "saveSubmissionToDB": true,
+  "forumTopicId": 462359,
+  "dashedName": "build-an-arithmetic-formatter-project",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "def arithmetic_arranger(problems, show_answers=False):\r\n\r\n    return problems\r\n\r\nprint(f'\\n{arithmetic_arranger([\"32 + 698\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])}')",
+      "error": null,
+      "seed": "def arithmetic_arranger(problems, show_answers=False):\r\n\r\n    return problems\r\n\r\nprint(f'\\n{arithmetic_arranger([\"32 + 698\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])}')"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "main.py"
+        ],
+        "name": "main",
+        "ext": "py",
+        "path": "main.py",
+        "fileKey": "mainpy",
+        "contents": "def arithmetic_arranger(problems, result=False):\r\n\r\n\tlin1 = \"\"\r\n\tlin2 = \"\"\r\n\tlin3 = \"\"\r\n\tlin4 = \"\"\r\n\r\n\tif len(problems) > 5:\r\n\t\treturn 'Error: Too many problems.'\r\n\tfor problem in problems:\r\n\t\t[num1, sym, num2] = problem.split()\r\n\t\tsign = ['+', '-']\r\n\t\tif sym not in sign:\r\n\t\t\treturn (\"Error: Operator must be '+' or '-'.\")\r\n\t\tif len(num1) > 4 or len(num2) > 4:\r\n\t\t\treturn (\"Error: Numbers cannot be more than four digits.\")\r\n\t\tif not num1.isnumeric() or not num2.isnumeric():\r\n\t\t\treturn (\"Error: Numbers must only contain digits.\")\r\n\r\n\t\tlin1 += \"  \" + num1 + \"    \" if len(num1) >= len(\r\n\t\t    num2) else \" \" * (len(num2) + 2 - len(num1)) + num1 + \"    \"\r\n\t\tlin2 += sym + \" \" + num2 + \"    \" if len(num2) >= len(\r\n\t\t    num1) else sym + \" \" * (len(num1) - len(num2) + 1) + num2 + \"    \"\r\n\t\tnmax = (len(num1) + 2) if len(num1) >= len(num2) else (len(num2) + 2)\r\n\t\tlin3 += \"-\" * nmax + \"    \"\r\n\t\top = int(num1) + int(num2) if sym == \"+\" else int(num1) - int(num2)\r\n\t\tlin4 += (\" \" * (nmax - len(str(op)))) + str(op) + \"    \"\r\n\r\n\tarranged_problems = lin1.rstrip() + \"\\n\" + lin2.rstrip(\r\n\t) + \"\\n\" + lin3.rstrip()\r\n\tif result:\r\n\t\tarranged_problems += \"\\n\" + lin4.rstrip()\r\n\r\n\treturn arranged_problems",
+        "error": null,
+        "seed": "def arithmetic_arranger(problems, result=False):\r\n\r\n\tlin1 = \"\"\r\n\tlin2 = \"\"\r\n\tlin3 = \"\"\r\n\tlin4 = \"\"\r\n\r\n\tif len(problems) > 5:\r\n\t\treturn 'Error: Too many problems.'\r\n\tfor problem in problems:\r\n\t\t[num1, sym, num2] = problem.split()\r\n\t\tsign = ['+', '-']\r\n\t\tif sym not in sign:\r\n\t\t\treturn (\"Error: Operator must be '+' or '-'.\")\r\n\t\tif len(num1) > 4 or len(num2) > 4:\r\n\t\t\treturn (\"Error: Numbers cannot be more than four digits.\")\r\n\t\tif not num1.isnumeric() or not num2.isnumeric():\r\n\t\t\treturn (\"Error: Numbers must only contain digits.\")\r\n\r\n\t\tlin1 += \"  \" + num1 + \"    \" if len(num1) >= len(\r\n\t\t    num2) else \" \" * (len(num2) + 2 - len(num1)) + num1 + \"    \"\r\n\t\tlin2 += sym + \" \" + num2 + \"    \" if len(num2) >= len(\r\n\t\t    num1) else sym + \" \" * (len(num1) - len(num2) + 1) + num2 + \"    \"\r\n\t\tnmax = (len(num1) + 2) if len(num1) >= len(num2) else (len(num2) + 2)\r\n\t\tlin3 += \"-\" * nmax + \"    \"\r\n\t\top = int(num1) + int(num2) if sym == \"+\" else int(num1) - int(num2)\r\n\t\tlin4 += (\" \" * (nmax - len(str(op)))) + str(op) + \"    \"\r\n\r\n\tarranged_problems = lin1.rstrip() + \"\\n\" + lin2.rstrip(\r\n\t) + \"\\n\" + lin3.rstrip()\r\n\tif result:\r\n\t\tarranged_problems += \"\\n\" + lin4.rstrip()\r\n\r\n\treturn arranged_problems"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>arithmetic_arranger([\"3801 - 2\", \"123 + 49\"])</code> treba da vrati <code>  3801      123\\n-    2    +  49\\n------    -----</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"3801 - 2\", \"123 + 49\"]), '  3801      123\\\\n-    2    +  49\\\\n------    -----')`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"1 + 2\", \"1 - 9380\"])</code> treba da vrati <code>  1         1\\n+ 2    - 9380\\n---    ------</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"1 + 2\", \"1 - 9380\"]), '  1         1\\\\n+ 2    - 9380\\\\n---    ------')`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"3 + 855\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])</code> treba da vrati <code>    3      3801      45      123\\n+ 855    -    2    + 43    +  49\\n-----    ------    ----    -----</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"3 + 855\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"]), '    3      3801      45      123\\\\n+ 855    -    2    + 43    +  49\\\\n-----    ------    ----    -----')`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"11 + 4\", \"3801 - 2999\", \"1 + 2\", \"123 + 49\", \"1 - 9380\"])</code> treba da vrati <code>  11      3801      1      123         1\\n+  4    - 2999    + 2    +  49    - 9380\\n----    ------    ---    -----    ------</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"11 + 4\", \"3801 - 2999\", \"1 + 2\", \"123 + 49\", \"1 - 9380\"]), '  11      3801      1      123         1\\\\n+  4    - 2999    + 2    +  49    - 9380\\\\n----    ------    ---    -----    ------')`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"44 + 815\", \"909 - 2\", \"45 + 43\", \"123 + 49\", \"888 + 40\", \"653 + 87\"])</code> treba da vrati <code>'Error: Too many problems.'</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"44 + 815\", \"909 - 2\", \"45 + 43\", \"123 + 49\", \"888 + 40\", \"653 + 87\"]), 'Error: Too many problems.')`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"3 / 855\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])</code> treba da vrati <code>\"Error: Operator must be '+' or '-'.\"</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"3 / 855\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"]), \"Error: Operator must be '+' or '-'.\")`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"24 + 85215\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])</code> treba da vrati <code>'Error: Numbers cannot be more than four digits.'</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"24 + 85215\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"]), \"Error: Numbers cannot be more than four digits.\")`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"98 + 3g5\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])</code> treba da vrati <code>'Error: Numbers must only contain digits.'</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"98 + 3g5\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"]), \"Error: Numbers must only contain digits.\")`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"3 + 855\", \"988 + 40\"], True)</code> treba da vrati <code>    3      988\\n+ 855    +  40\\n-----    -----\\n  858     1028</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"3 + 855\", \"988 + 40\"], True), \"    3      988\\\\n+ 855    +  40\\\\n-----    -----\\\\n  858     1028\")`);\r\n  }\r\n})"
+    },
+    {
+      "text": "<p><code>arithmetic_arranger([\"32 - 698\", \"1 - 3801\", \"45 + 43\", \"123 + 49\", \"988 + 40\"], True)</code> treba da vrati <code>   32         1      45      123      988\\n- 698    - 3801    + 43    +  49    +  40\\n-----    ------    ----    -----    -----\\n -666     -3800      88      172     1028</code>.</p>",
+      "testString": "({\r\n  test: () => {\r\n    runPython(`\r\nfrom unittest import TestCase\r\n\r\nTestCase().assertEqual(arithmetic_arranger([\"32 - 698\", \"1 - 3801\", \"45 + 43\", \"123 + 49\", \"988 + 40\"], True), \"   32         1      45      123      988\\\\n- 698    - 3801    + 43    +  49    +  40\\\\n-----    ------    ----    -----    -----\\\\n -666     -3800      88      172     1028\")`);\r\n  }\r\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Učenici osnovne škole često uređuju zadatke za vertikalno računanje kako bi im bilo lakše da ih reše. Na primer, \"235 + 52\" postaje:</p>\n<pre><code class=\"language-py\">  235\r\n+  52\r\n-----\n</code></pre>\n<p>Funkcija <code>arithmetic_arranger</code> koja prima listu sekvenci karaktera koje su matematički problemi, i vraća probleme aranžovane vertikalno i horizontalno. Funkcija bi trebalo da primi opcionalni drugi argument. Kada je drugi argument postavljen na <code>True</code>, odgovori bi trebalo prikazati.</p>\n<h2>Primer</h2>\n<p>Poziv funkcije:</p>\n<pre><code class=\"language-py\">arithmetic_arranger([\"32 + 698\", \"3801 - 2\", \"45 + 43\", \"123 + 49\"])\n</code></pre>\n<p>Rezultat:</p>\n<pre><code class=\"language-py\">   32      3801      45      123\r\n+ 698    -    2    + 43    +  49\r\n-----    ------    ----    -----\n</code></pre>\n<p>Poziv funkcije:</p>\n<pre><code class=\"language-py\">arithmetic_arranger([\"32 + 8\", \"1 - 3801\", \"9999 + 9999\", \"523 - 49\"], True)\n</code></pre>\n<p>Rezultat:</p>\n<pre><code class=\"language-py\">  32         1      9999      523\r\n+  8    - 3801    + 9999    -  49\r\n----    ------    ------    -----\r\n  40     -3800     19998      474\n</code></pre>\n<h2>Pravila</h2>\n<p>Funkcija će vratiti ispravan string ako su dati problemi ispravno formatirani, inače će vratiti <strong>string</strong> koji opisuje smislenu grešku korisniku.</p>\n<ul>\n<li>Uslovi koji će vratiti grešku:\n<ul>\n<li>Ako su argumenti dati funkciji previše. Granica je <strong>pet argumenata</strong>, više toga će vratiti:\r\n<code>'Error: Too many problems.'</code></li>\n<li>Prihvatljivi operateri za funkciju su <strong>sabiranje</strong> i <strong>oduzimanje</strong>. Množenje i deljenje će vratiti grešku. Ostali operateri koji nisu pomenuti ovde neće zahtevati testiranje. Greška koja će biti vraćena je:\r\n<code>\"Error: Operator must be '+' or '-'.\"</code></li>\n<li>Svaki broj (operand) mora sadržati samo cifre. Inače, funkcija će vratiti:\r\n<code>'Error: Numbers must only contain digits.'</code></li>\n<li>Svaki operand (tj. broj na bilo kojoj strani operatera) sme da ima maksimalno četiri cifre širine. Inače, biće vraćena sekvenca greške:\r\n<code>'Error: Numbers cannot be more than four digits.'</code></li>\n</ul>\n</li>\n<li>Ako korisnik pruži argumente sa ispravnom strukturom, izvršena konverzija će pratiti sledeća pravila:\n<ul>\n<li>Mora postojati jedan razmak između operatera i dužeg od dva operanda; operater će biti na jednoj liniji, a drugi operand na drugoj, svi operandi će biti postavljeni u istom redosledu kao što su dati (prvi će biti iznad, a drugi ispod).</li>\n<li>Brojevi će biti poravnati po desnoj strani.</li>\n<li>Biće četiri razmaka između svakog argumenata.</li>\n<li>Biće linije crtica ispod svakog argumenata. Ove linije će se protezati na punoj dužini svakog argumenata pojedinačno. (Primer iznad pokazuje kako bi trebalo da izgleda.)</li>\n</ul>\n</li>\n</ul>\n<p>Napomena: Otvorite konzolu pregledača pomoću F12 da vidite rezultate testova detaljnije.</p>\n</section>",
+  "translationPending": false,
+  "block": "build-an-arithmetic-formatter-project",
+  "blockLayout": "legacy-link",
+  "hasEditableBoundaries": false,
+  "order": 5,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

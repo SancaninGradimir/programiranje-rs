@@ -1,0 +1,77 @@
+{
+  "id": "5900f3bc1000cf542c50fecf",
+  "title": "Vežba 80: Razvijanje kvadratnog korena za brojeve",
+  "challengeType": 1,
+  "forumTopicId": 302194,
+  "dashedName": "problem-80-square-root-digital-expansion",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function sqrtDigitalExpansion(n) {\n\n  return true;\n}\n\nsqrtDigitalExpansion(2);",
+      "error": null,
+      "seed": "function sqrtDigitalExpansion(n) {\n\n  return true;\n}\n\nsqrtDigitalExpansion(2);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function sqrtDigitalExpansion(n) {\n  function sumDigits(number) {\n    let sum = 0;\n    while (number > 0n) {\n      let digit = number % 10n;\n      sum += parseInt(digit, 10);\n      number = number / 10n;\n    }\n    return sum;\n  }\n\n  function power(numberA, numberB) {\n    let result = 1n;\n    for (let b = 0; b < numberB; b++) {\n      result = result * BigInt(numberA);\n    }\n    return result;\n  }\n\n  // Based on http://www.afjarvis.staff.shef.ac.uk/maths/jarvisspec02.pdf\n  function expandSquareRoot(number, numDigits) {\n    let a = 5n * BigInt(number);\n    let b = 5n;\n    const boundaryWithNeededDigits = power(10, numDigits + 1);\n\n    while (b < boundaryWithNeededDigits) {\n      if (a >= b) {\n        a = a - b;\n        b = b + 10n;\n      } else {\n        a = a * 100n;\n        b = (b / 10n) * 100n + 5n;\n      }\n    }\n    return b / 100n;\n  }\n\n  let result = 0;\n  let nextPerfectRoot = 1;\n  const requiredDigits = 100;\n  for (let i = 1; i <= n; i++) {\n    if (nextPerfectRoot ** 2 === i) {\n      nextPerfectRoot++;\n      continue;\n    }\n    result += sumDigits(expandSquareRoot(i, requiredDigits));\n  }\n\n  return result;\n}",
+        "error": null,
+        "seed": "function sqrtDigitalExpansion(n) {\n  function sumDigits(number) {\n    let sum = 0;\n    while (number > 0n) {\n      let digit = number % 10n;\n      sum += parseInt(digit, 10);\n      number = number / 10n;\n    }\n    return sum;\n  }\n\n  function power(numberA, numberB) {\n    let result = 1n;\n    for (let b = 0; b < numberB; b++) {\n      result = result * BigInt(numberA);\n    }\n    return result;\n  }\n\n  // Based on http://www.afjarvis.staff.shef.ac.uk/maths/jarvisspec02.pdf\n  function expandSquareRoot(number, numDigits) {\n    let a = 5n * BigInt(number);\n    let b = 5n;\n    const boundaryWithNeededDigits = power(10, numDigits + 1);\n\n    while (b < boundaryWithNeededDigits) {\n      if (a >= b) {\n        a = a - b;\n        b = b + 10n;\n      } else {\n        a = a * 100n;\n        b = (b / 10n) * 100n + 5n;\n      }\n    }\n    return b / 100n;\n  }\n\n  let result = 0;\n  let nextPerfectRoot = 1;\n  const requiredDigits = 100;\n  for (let i = 1; i <= n; i++) {\n    if (nextPerfectRoot ** 2 === i) {\n      nextPerfectRoot++;\n      continue;\n    }\n    result += sumDigits(expandSquareRoot(i, requiredDigits));\n  }\n\n  return result;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>sqrtDigitalExpansion(2)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof sqrtDigitalExpansion(2) === 'number');"
+    },
+    {
+      "text": "<p><code>sqrtDigitalExpansion(2)</code> treba da vrati <code>475</code>.</p>",
+      "testString": "assert.strictEqual(sqrtDigitalExpansion(2), 475);"
+    },
+    {
+      "text": "<p><code>sqrtDigitalExpansion(50)</code> treba da vrati <code>19543</code>.</p>",
+      "testString": "assert.strictEqual(sqrtDigitalExpansion(50), 19543);"
+    },
+    {
+      "text": "<p><code>sqrtDigitalExpansion(100)</code> trebao bi da vrati <code>40886</code>.</p>",
+      "testString": "assert.strictEqual(sqrtDigitalExpansion(100), 40886);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Dobro je poznato da ako kvadratni koren prirodnog broja nije ceo broj, onda je iracionalan broj. Decimalno razvijanje takvog kvadratnog korena je beskonačno i nema nikakav ponavljajući obrazac.</p>\n<p>Koren iz dva je <code>1.41421356237309504880...</code>, a zbir prvih sto decimalnih cifara je <code>475</code>.</p>\n<p>Za originalni broj <code>n</code>, izračunaj ukupan zbir prvih sto decimalnih cifara za sve iracionalne korene.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 79,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

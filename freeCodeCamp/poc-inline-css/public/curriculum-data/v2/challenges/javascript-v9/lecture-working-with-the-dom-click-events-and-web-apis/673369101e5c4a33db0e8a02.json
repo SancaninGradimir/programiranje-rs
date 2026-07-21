@@ -1,0 +1,286 @@
+{
+  "id": "673369101e5c4a33db0e8a02",
+  "title": "Kako radi `removeEventListener`?",
+  "challengeType": 19,
+  "dashedName": "how-does-the-removeeventlistener-method-work",
+  "solutions": [],
+  "nodules": [
+    {
+      "type": "paragraph",
+      "contents": "<p>U prethodnoj lekciji naučili ste kako da radite sa <code>\"click\"</code> i <code>\"input\"</code> događajima koristeći metod <code>addEventListener()</code>. U ovoj lekciji naučićete kako da uklonite osluškivače događaja pomoću metoda <code>removeEventListener()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Metoda <code>removeEventListener()</code> koristi se za uklanjanje osluškivača događaja koji je prethodno dodat elementu pomoću metode <code>addEventListener()</code>. Ovo je korisno kada želite da prestanete da pratite određeni događaj na elementu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovde je osnovna sintaksa putem <code>removeEventListener()</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">element.removeEventListener(\"event\", listener);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kao i metoda <code>addEventListener()</code>, metoda <code>removeEventListener()</code> prima dva argumenta: događaj koji želite da uklonite i funkciju osluškivača koja je prethodno dodata.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Takođe postoji treći opcioni predlog koji se može usvojiti putem <code>removeEventListener()</code>. Ovaj predlog može biti <code>options</code> ili <code>useCapture</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Argument <code>options</code> je objekat koji opisuje opcije osluškivača događaja, kao što su da li osluškivač treba da bude pasivan ili da se izvrši samo jednom (<code>once</code>).</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Argument <code>useCapture</code> je logička vrednost koja određuje da li događaj treba da bude uhvaćen tokom faze širenja događaja.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>U većini slučajeva, potrebno je proslediti samo argumente događaja i osluškivača metodi <code>removeEventListener()</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Pogledajmo primer da bismo bolje razumeli kako <code>removeEventListener()</code> funkcioniše:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo primera sa HTML-om:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\" />\n<h1>Event Listener examples</h1>\n<button id=\"btn\">Change background color</button>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\" />\n&#x3C;h1>Event Listener examples&#x3C;/h1>\n&#x3C;button id=\"btn\">Change background color&#x3C;/button>\n</code></pre>"
+        },
+        {
+          "contents": "button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ako želimo da promenimo boju pozadine između sive i plave, možemo koristiti obrađivač događaja za tu svrhu.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Prvo nam je potrebno da dobijemo pristup elementu <code>button</code> zajedno sa elementom <code>body</code>:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const bodyEl = document.querySelector(\"body\");\nconst btn = document.getElementById(\"btn\");\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim moramo kreirati funkciju koja se bavi menjanjem između sive i plave boje:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">let isBgColorGrey = true;\n\nfunction toggleBgColor() {\n  bodyEl.style.backgroundColor = isBgColorGrey ? \"blue\" : \"grey\";\n  isBgColorGrey = !isBgColorGrey;\n}\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Koristimo boolsku vrednost <code>isBgColorGrey</code> za praćenje trenutne pozadinske boje. Ako je pozadina siva, onda menjamo u plavu, i obrnuto.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Zatim nam je potrebno dodati slušalicu događaja na element <code>button</code> kako bismo pozvali funkciju <code>toggleBgColor</code> kada se dugme klikne:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">btn.addEventListener(\"click\", toggleBgColor);\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Ovo je kompletan primer do sada:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\" />\n<h1>Event Listener examples</h1>\n<button id=\"btn\">Change background color</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\" />\n&#x3C;h1>Event Listener examples&#x3C;/h1>\n&#x3C;button id=\"btn\">Change background color&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}\n\nbutton:hover {\n  background: linear-gradient(135deg, #66b3ff, #3399ff);\n  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);\n  transform: translateY(-2px);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}\n\nbutton:hover {\n  background: linear-gradient(135deg, #66b3ff, #3399ff);\n  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);\n  transform: translateY(-2px);\n}\n</code></pre>"
+        },
+        {
+          "contents": "const bodyEl = document.querySelector(\"body\");\nconst btn = document.getElementById(\"btn\");\n\nlet isBgColorGrey = true;\n\nfunction toggleBgColor() {\n  bodyEl.style.backgroundColor = isBgColorGrey ? \"blue\" : \"grey\";\n  isBgColorGrey = !isBgColorGrey;\n}\n\nbtn.addEventListener(\"click\", toggleBgColor);",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const bodyEl = document.querySelector(\"body\");\nconst btn = document.getElementById(\"btn\");\n\nlet isBgColorGrey = true;\n\nfunction toggleBgColor() {\n  bodyEl.style.backgroundColor = isBgColorGrey ? \"blue\" : \"grey\";\n  isBgColorGrey = !isBgColorGrey;\n}\n\nbtn.addEventListener(\"click\", toggleBgColor);\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Svaki put kada se dugme klikne, pozadina tela će menjati boju između sive i plave.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Možemo ažurirati HTML da uključimo element paragrafa koji će se koristiti za uklanjanje slušalice događaja kada se pređe mišem:</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\" />\n&#x3C;h1>Event Listener examples&#x3C;/h1>\n&#x3C;p id=\"para\">MouseOver this text to remove the event listener&#x3C;/p>\n&#x3C;button id=\"btn\">Change background color&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Da bismo uklonili obrađivač događaja kada se pokazivač miša pređe preko pasusa, možemo dodati obrađivač događaja elementu pasusa. Koristimo događaj <code>mouseover</code> i prosleđujemo funkciju koja uklanja obrađivač događaja sa elementa <code>button</code>.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<pre><code class=\"language-js\">const para = document.getElementById(\"para\");\nconst btn = document.getElementById(\"btn\");\n\npara.addEventListener(\"mouseover\", () => {\n  btn.removeEventListener(\"click\", toggleBgColor);\n});\n</code></pre>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Kada se preko pasusa pređe mišem, osluškivač događaja za klik dugmeta se uklanja i boja pozadine se više neće menjati kada se dugme klikne.</p>"
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Evo kompletnog primera sa metodom <code>removeEventListener()</code>:</p>"
+    },
+    {
+      "type": "interactiveEditor",
+      "files": [
+        {
+          "contents": "<link rel=\"stylesheet\" href=\"styles.css\" />\n<h1>Event Listener examples</h1>\n<p id=\"para\">MouseOver this text to remove the event listener</p>\n<button id=\"btn\">Change background color</button>\n<script src=\"index.js\"></script>",
+          "ext": "html",
+          "name": "index-1",
+          "contentsHtml": "<pre><code class=\"language-html\">&#x3C;link rel=\"stylesheet\" href=\"styles.css\" />\n&#x3C;h1>Event Listener examples&#x3C;/h1>\n&#x3C;p id=\"para\">MouseOver this text to remove the event listener&#x3C;/p>\n&#x3C;button id=\"btn\">Change background color&#x3C;/button>\n&#x3C;script src=\"index.js\">&#x3C;/script>\n</code></pre>"
+        },
+        {
+          "contents": "button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}\n\nbutton:hover {\n  background: linear-gradient(135deg, #66b3ff, #3399ff);\n  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);\n  transform: translateY(-2px);\n}",
+          "ext": "css",
+          "name": "styles-1",
+          "contentsHtml": "<pre><code class=\"language-css\">button {\n  background: linear-gradient(135deg, #4da3ff, #007bff);\n  color: white;\n  border: none;\n  padding: 12px 20px;\n  border-radius: 8px;\n  font-size: 16px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);\n}\n\nbutton:hover {\n  background: linear-gradient(135deg, #66b3ff, #3399ff);\n  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);\n  transform: translateY(-2px);\n}\n</code></pre>"
+        },
+        {
+          "contents": "const bodyEl = document.querySelector(\"body\");\nconst para = document.getElementById(\"para\");\nconst btn = document.getElementById(\"btn\");\n\nlet isBgColorGrey = true;\n\nfunction toggleBgColor() {\n  bodyEl.style.backgroundColor = isBgColorGrey ? \"blue\" : \"grey\";\n  isBgColorGrey = !isBgColorGrey;\n}\n\nbtn.addEventListener(\"click\", toggleBgColor);\n\npara.addEventListener(\"mouseover\", () => {\n  btn.removeEventListener(\"click\", toggleBgColor);\n});",
+          "ext": "js",
+          "name": "script-1",
+          "contentsHtml": "<pre><code class=\"language-js\">const bodyEl = document.querySelector(\"body\");\nconst para = document.getElementById(\"para\");\nconst btn = document.getElementById(\"btn\");\n\nlet isBgColorGrey = true;\n\nfunction toggleBgColor() {\n  bodyEl.style.backgroundColor = isBgColorGrey ? \"blue\" : \"grey\";\n  isBgColorGrey = !isBgColorGrey;\n}\n\nbtn.addEventListener(\"click\", toggleBgColor);\n\npara.addEventListener(\"mouseover\", () => {\n  btn.removeEventListener(\"click\", toggleBgColor);\n});\n</code></pre>"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "contents": "<p>Primeri iz stvarnog sveta kada se koristi metoda <code>removeEventListener()</code> uključuju uklanjanje osluškivača događaja kada se modalni prozor zatvori u veb aplikaciji ili kada se korisnik odjavi iz aplikacije.</p>"
+    }
+  ],
+  "questions": [
+    {
+      "text": "<p>Nini kusudi la njia ya <code>removeEventListener()</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Dodavanje novog osluškivača događaja elementu.</p>",
+          "feedback": "<p>Ovaj način je važan kada želite da prestanete sa slušanjem specifičnih događaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Uklanjanje prethodno postavljenog slušaoca događaja sa elementa.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Menja atribute slušaoca trenutnog događaja.</p>",
+          "feedback": "<p>Ovaj način je važan kada želite da prestanete sa slušanjem specifičnih događaja.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Sprečiti dodavanje bilo kojeg slušaoca događaja.</p>",
+          "feedback": "<p>Ovaj način je važan kada želite da prestanete sa slušanjem specifičnih događaja.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Koje argumente je potrebno koristiti putem <code>removeEventListener()</code>?</p>",
+      "answers": [
+        {
+          "answer": "<p>Samo vrsta događaja.</p>",
+          "feedback": "<p>Razmislite o tome šta je potrebno da identifikujete ili uklonite slušalicu događaja precizno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vrsta događaja i funkcija slušaoca.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Tip događaja, funkcija slušaoca, i opcije.</p>",
+          "feedback": "<p>Zamislite da morate da identifikujete ili uklonite event listener tačno.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Vrsta događaja i samo opcije.</p>",
+          "feedback": "<p>Razmislite o tome šta je potrebno da identifikujete ili uklonite slušalicu događaja precizno.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 2
+    },
+    {
+      "text": "<p>Kada biste želeli da koristite njia ya <code>removeEventListener()</code> u stvarnoj aplikaciji?</p>",
+      "answers": [
+        {
+          "answer": "<p>Kada korisnik ulazi u aplikaciju.</p>",
+          "feedback": "<p>Zamislite situaciju u kojoj želite da prestanete sa praćenjem događaja nakon određenog postupka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada korisnik interaguje sa dugmetom.</p>",
+          "feedback": "<p>Zamislite situaciju u kojoj želite prestati da slušate događaje nakon nekog postupka.</p>",
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada se modalni prozor zatvori ili kada korisnik napusti.</p>",
+          "feedback": null,
+          "audioId": null
+        },
+        {
+          "answer": "<p>Kada korisnik osveži stranicu.</p>",
+          "feedback": "<p>Zamislite situaciju u kojoj želite prestati sa praćenjem događaja nakon nekog dela.</p>",
+          "audioId": null
+        }
+      ],
+      "solution": 3
+    }
+  ],
+  "assignments": [],
+  "tests": [],
+  "translationPending": false,
+  "block": "lecture-working-with-the-dom-click-events-and-web-apis",
+  "blockLabel": "lecture",
+  "blockLayout": "challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 119,
+  "description": "",
+  "instructions": "",
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "dom-manipulation-and-events",
+  "certification": "javascript-v9"
+}

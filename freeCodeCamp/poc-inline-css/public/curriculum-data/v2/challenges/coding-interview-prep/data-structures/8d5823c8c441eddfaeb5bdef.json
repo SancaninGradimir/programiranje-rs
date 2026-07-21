@@ -1,0 +1,89 @@
+{
+  "id": "8d5823c8c441eddfaeb5bdef",
+  "title": "Kreiraj strukturu podataka mape",
+  "challengeType": 1,
+  "forumTopicId": 301629,
+  "dashedName": "create-a-map-data-structure",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "var Map = function() {\r\n  this.collection = {};\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};",
+      "error": null,
+      "seed": "var Map = function() {\r\n  this.collection = {};\r\n  // Only change code below this line\r\n  \r\n  // Only change code above this line\r\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "var Map = function() {\r\n    this.collection = {};\r\n    // Only change code below this line\r\n\r\n    this.add = function(key,value) {\r\n      this.collection[key] = value;\r\n    }\r\n\r\n    this.remove = function(key) {\r\n      delete this.collection[key];\r\n    }\r\n\r\n    this.get = function(key) {\r\n      return this.collection[key];\r\n    }\r\n\r\n    this.has = function(key) {\r\n      return this.collection.hasOwnProperty(key)\r\n    }\r\n\r\n    this.values = function() {\r\n      return Object.values(this.collection);\r\n    }\r\n\r\n    this.size = function() {\r\n      return Object.keys(this.collection).length;\r\n    }\r\n\r\n    this.clear = function() {\r\n      for(let item of Object.keys(this.collection)) {\r\n        delete this.collection[item];\r\n      }\r\n    }\r\n    // Only change code above this line\r\n};",
+        "error": null,
+        "seed": "var Map = function() {\r\n    this.collection = {};\r\n    // Only change code below this line\r\n\r\n    this.add = function(key,value) {\r\n      this.collection[key] = value;\r\n    }\r\n\r\n    this.remove = function(key) {\r\n      delete this.collection[key];\r\n    }\r\n\r\n    this.get = function(key) {\r\n      return this.collection[key];\r\n    }\r\n\r\n    this.has = function(key) {\r\n      return this.collection.hasOwnProperty(key)\r\n    }\r\n\r\n    this.values = function() {\r\n      return Object.values(this.collection);\r\n    }\r\n\r\n    this.size = function() {\r\n      return Object.keys(this.collection).length;\r\n    }\r\n\r\n    this.clear = function() {\r\n      for(let item of Object.keys(this.collection)) {\r\n        delete this.collection[item];\r\n      }\r\n    }\r\n    // Only change code above this line\r\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Struktura podataka za <code>Map</code> mora da postoji.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    return typeof test == 'object';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Element <code>Map</code> mora imati sledeće putanje: <code>add</code>, <code>remove</code>, <code>get</code>, <code>has</code>, <code>values</code>, <code>clear</code>, i <code>size</code>.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    return (\r\n      typeof test.add == 'function' &&\r\n      typeof test.remove == 'function' &&\r\n      typeof test.get == 'function' &&\r\n      typeof test.has == 'function' &&\r\n      typeof test.values == 'function' &&\r\n      typeof test.clear == 'function' &&\r\n      typeof test.size == 'function'\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Putanja za <code>add</code> treba da doda stvari na mapu.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    test.add(5, 6);\r\n    test.add(2, 3);\r\n    test.add(2, 5);\r\n    return test.size() == 2;\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Put za <code>has</code> treba da vrati <code>true</code> za stavke dodate sa <code>false</code> za nedodate stavke.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    test.add('test', 'value');\r\n    return test.has('test') && !test.has('false');\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Metoda <code>get</code> mora da primi parametre kao ulaz i mora vratiti povezane vrednosti.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    test.add('abc', 'def');\r\n    return test.get('abc') == 'def';\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Metoda <code>values</code> treba da vrati sve vrednosti sačuvane u mapu kao sekvencu karaktera u nizu podataka.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    test.add('a', 'b');\r\n    test.add('c', 'd');\r\n    test.add('e', 'f');\r\n    var vals = test.values();\r\n    return (\r\n      vals.indexOf('b') != -1 &&\r\n      vals.indexOf('d') != -1 &&\r\n      vals.indexOf('f') != -1\r\n    );\r\n  })()\r\n);"
+    },
+    {
+      "text": "<p>Funkcija <code>clear</code> treba da obriše mapu, i funkcija <code>size</code> treba da vrati broj objekata koji se nalaze na mapi.</p>",
+      "testString": "assert(\r\n  (function () {\r\n    var test = false;\r\n    if (typeof Map !== 'undefined') {\r\n      test = new Map();\r\n    }\r\n    test.add('b', 'b');\r\n    test.add('c', 'd');\r\n    test.remove('asdfas');\r\n    var init = test.size();\r\n    test.clear();\r\n    return init == 2 && test.size() == 0;\r\n  })()\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sledeći izazovi će se baviti mapama i haš tabelama. Mapa je struktura podataka koja čuva parove ključ-vrednost. U JavaScript, one su nam dostupne kao objekti. Mapa pruža brzi pristup sačuvanim elementima na osnovu vrednosti ključa i predstavlja veoma korisnu strukturu podataka.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Hajde da počnemo sa vežbanjem kreiranja naše sopstvene mape. Jer elementi JavaScript pružaju strukturu mape efikasniju od svega što možemo napisati ovde, ovo je namenjeno više kao vežba učenja. Međutim, elementi JavaScript nam daju samo neke operacije. Da li želimo da definišemo specifičnu operaciju? Koristite element <code>Map</code> dostavljen ovde kao omotač za <code>object</code> od JavaScript. Kreirajte sledeći putanju i operacije na objektu Mapa:</p>\n<ul>\r\n<li><code>add</code> prihvata par ključ-vrednost <code>ufunguo, </code> za dodavanje na mapu.</li>\r\n<li><code>remove</code> prihvata ključ i uklanja par <code>ufunguo, </code> vrednost koja mu odgovara</li>\r\n<li><code>get</code> prihvata <code>ufunguo</code> i vraća <code>vrednost</code> koja je sačuvana</li>\r\n<li><code>has</code> prihvata <code>ufunguo</code> i vraća <dfn>true</dfn> ako postoji taj ključ, ili null/prazno <dfn>false</dfn> ako ne postoji.</li>\r\n<li><code>values</code> vraća niz podataka svih vrednosti sadržanih u mapi</li>\r\n<li><code>size</code> vraća broj stavki sadržanih u mapi</li>\r\n<li><code>clear</code> briše celu mapu</li>\r\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "data-structures",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "questions": [],
+  "superBlock": "coding-interview-prep",
+  "superOrder": 12,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "coding-interview-prep"
+}

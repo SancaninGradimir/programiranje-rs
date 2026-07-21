@@ -1,0 +1,54 @@
+{
+  "id": "687774e17e0972345de2527a",
+  "title": "Korak 15",
+  "challengeType": 20,
+  "dashedName": "step-15",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        25,
+        29
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:  \n            break\n",
+      "error": null,
+      "seed": "INF = float('inf')\nadj_matrix = [\n    [0, 5, 3, INF, 11, INF],\n    [5, 0, 1, INF, INF, 2],\n    [3, 1, 0, 1, 5, INF],\n    [INF, INF, 1, 0, 9, 3],\n    [11, INF, 5, 9, 0, INF],\n    [INF, 2, INF, 3, INF, 0],\n]\n\ndef shortest_path(matrix, start_node, target_node=None):\n    n = len(matrix)\n    distances = [INF] * n\n    distances[start_node] = 0\n    paths = [[node_no] for node_no in range(n)]\n    visited = [False] * n\n\n    for _ in range(n):\n        min_distance = INF  \n        current = -1  \n        for node_no in range(n):  \n            if not visited[node_no] and distances[node_no] < min_distance:  \n                min_distance = distances[node_no]  \n                current = node_no\n\n        if current == -1:  \n            break\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da staviš <code>visited[current]</code> na mesto <code>True</code> nakon tvog poslednjeg izjave od <code>if</code>.</p>",
+      "testString": "({\n    test: () => {\n      runPython(`\n      block = _Node(_code).find_function(\"shortest_path\").find_for_loops()[0].find_bodies()[0]\n      if_stmt = \"\"\"if current == -1:\n        break\"\"\"\n      target_stmt = \"visited[current] = True\"\n      assert block.is_ordered(if_stmt, target_stmt)\n      `);\n    }\n});"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ako je validni čvor pronađen u ciklusu, potrebno ga je označiti kao posetić kako bi se ne razmatrao ponovo u budućim ciklusima.</p>\n<p>Nakon dodavanja <code>if</code> u prethodnom koraku, postavite <code>visited[current]</code> na <code>True</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 68,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 14,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-graphs-and-trees",
+  "certification": "python-v9"
+}

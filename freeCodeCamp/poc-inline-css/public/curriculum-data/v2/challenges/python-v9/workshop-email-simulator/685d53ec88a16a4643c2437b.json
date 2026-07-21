@@ -1,0 +1,54 @@
+{
+  "id": "685d53ec88a16a4643c2437b",
+  "title": "Korak 44",
+  "challengeType": 20,
+  "dashedName": "step-44",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        24,
+        28
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.timestamp = datetime.datetime.now()\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f\"Received: {self.timestamp.strftime('%Y-%m-%d %H:%M')}\")\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')",
+      "error": null,
+      "seed": "import datetime\n\nclass Email:\n    def __init__(self, sender, receiver, subject, body):\n        self.sender = sender\n        self.receiver = receiver\n        self.subject = subject\n        self.body = body\n        self.timestamp = datetime.datetime.now()\n        self.read = False\n\n    def mark_as_read(self):\n        self.read = True\n\n    def display_full_email(self):\n        self.mark_as_read()\n        print('\\n--- Email ---')\n        print(f'From: {self.sender.name}')\n        print(f'To: {self.receiver.name}')\n        print(f'Subject: {self.subject}')\n        print(f\"Received: {self.timestamp.strftime('%Y-%m-%d %H:%M')}\")\n        print(f'Body: {self.body}')\n        print('------------\\n')\n\n    def __str__(self):\n        status = 'Read' if self.read else 'Unread'\n        return f\"[{status}] From: {self.sender.name} | Subject: {self.subject}\"\n\nclass User:\n    def __init__(self, name):\n        self.name = name\n        self.inbox = Inbox()\n\n    def send_email(self, receiver, subject, body):\n        email = Email(sender=self, receiver=receiver, subject=subject, body=body)\n        receiver.inbox.receive_email(email)\n\nclass Inbox:\n    def __init__(self):\n        self.emails = []\n\n    def receive_email(self, email):\n        self.emails.append(email)\n\n    def list_emails(self):\n        if not self.emails:\n            print('Your inbox is empty.\\n')\n            return\n        print('\\nYour Emails:')\n        for i, email in enumerate(self.emails, start=1):\n            print(f'{i}. {email}')\n\n    def read_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        self.emails[actual_index].display_full_email()\n\n    def delete_email(self, index):\n        if not self.emails:\n            print('Inbox is empty.\\n')\n            return\n        actual_index = index - 1\n        if actual_index < 0 or actual_index >= len(self.emails):\n            print('Invalid email number.\\n')\n            return\n        del self.emails[actual_index]\n        print('Email deleted.\\n')"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da ispraviš putanju <code>__str__</code> ili uključi zakazani datum i vreme.</p>",
+      "testString": "({\n    test: () => {\n        assert(runPython(`_Node(_code).find_class(\"Email\").find_function(\"__str__\").has_stmt(\"return f\\\\\"[{status}] From: {self.sender.name} | Subject: {self.subject} | Time: {self.timestamp.strftime('%Y-%m-%d %H:%M')}\\\\\"\")`));\n    }\n})"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada ćemo takođe prikazivati datum i vreme u listi e-pošte. Ažurirajte putanju <code>__str__</code> u klasu <code>Email</code> kako biste uključili datum i vreme nakon zaglavlja članka.</p>\n<p>Izmenite informaciju za return ili uključite datum i vreme zakazano kao <code>'%Y-%m-%d %H:%M'</code> na kraju, razdvojeno sa <code>| Time:</code>.</p>\n<p>Potpuni dizajn treba da bude:</p>\n<pre><code class=\"language-py\">[status] From: sender | Subject: subject | Time: time \n</code></pre>\n<p>Gde je <code>status</code> status e-pošte, <code>sender</code> je ime pošiljaoca, <code>subject</code> je naslov e-maila, a <code>time</code> je u formatu <code>'%Y-%m-%d %H:%M'</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-email-simulator",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 37,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 43,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-classes-and-objects",
+  "certification": "python-v9"
+}

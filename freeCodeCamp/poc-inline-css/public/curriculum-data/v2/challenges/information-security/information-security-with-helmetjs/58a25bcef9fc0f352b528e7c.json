@@ -1,0 +1,37 @@
+{
+  "id": "58a25bcef9fc0f352b528e7c",
+  "title": "Razumite heš za BCrypt",
+  "challengeType": 2,
+  "forumTopicId": 301586,
+  "dashedName": "understand-bcrypt-hashes",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>BCrypt treba da bude zavisnost.</p>",
+      "testString": "const response = await fetch(code + '/_api/package.json');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.text();\r\nvar packJson = JSON.parse(data);\r\nassert.property(\r\n  packJson.dependencies,\r\n  'bcrypt',\r\n  'Your project should list \"bcrypt\" as a dependency'\r\n);"
+    },
+    {
+      "text": "<p>BCrypt treba da se zove pravilno.</p>",
+      "testString": "const response = await fetch(code + '/_api/server.js');\r\nif (!response.ok) {\r\n  throw Error(await response.text());\r\n}\r\nconst data = await response.text();\r\nassert.match(\r\n  data,\r\n  /bcrypt.*=.*require.*('|\")bcrypt('|\")/gi,\r\n  'You should correctly require and instantiate bcrypt as bcrypt.'\r\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Za sledeće izazove, radićete sa novim početnim projektom koji se razlikuje od prethodnog. Možete dobiti novi početni projekat kopiranjem iz <a href=\"https://github.com/freeCodeCamp/boilerplate-bcrypt/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">GitHub</a>.</p>\n<p>BCrypt hashevi su veoma sigurni. Hash je kao otisak prsta originalnih podataka – uvek je jedinstven. To se postiže unosom originalnih podataka u algoritmu i vraćanjem rezultata fiksne dužine. Da bi se ovaj proces učinio teškim i sigurnijim, možete takođe <em>dodati sol</em> (salt) vašem hashu. Dodavanje soli vašem hashu podrazumeva dodavanje slučajnih podataka originalnim podacima pre procesa kreiranja hasha, što čini krašanje tog hasha mnogo težim.</p>\n<p>BCrypt heševi uvek izgledaju kao <code>$2a$13$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm</code> koji imaju strukturu. Prvi mali deo podataka <code>$2a</code> opisuje koji je tip algoritma za heširanje korišćen. Sledeći deo <code>$13</code> opisuje <em>trošak</em>. Trošak se odnosi na količinu snage potrebnu za izračunavanje heša. Nalazi se na logaritamskom nivou $2^{\\text{trošak}}$ i određuje koliko puta podaci prolaze kroz algoritam heširanja. Na primer, sa troškom od 10 možete kreirati 10 heševa lozinke u sekundi na prosečnom računaru, ali sa troškom od 15 traje 3 sekunde za jedan heš... i još više, sa troškom od 31 trajalo bi nekoliko dana da se završi jedan heš. Trošak od 12 se trenutno smatra veoma sigurnim. Poslednji deo vašeg heša <code>$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm</code> izgleda kao dugačak niz brojeva, tačaka i slova, ali zapravo su to dva različita dela informacija. Prvih 22 slova je <em>sol</em> za običan tekst, a preostali deo je hešovana lozinka!</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Dodajte sav svoj kod sa ovim uputstvima u fajl <code>server.js</code>, između koda koji smo vam dali. Ne menjajte niti brišite kod koji smo za vas dodali.</p>\n<p>BCrypt je već dodato kao zavisnost, pa će biti prikazano/dostupno kao <code>bcrypt</code> na vašem serveru.</p>\n<p>Pošaljite svoju stranicu kada smatrate da je dobro.</p>\n</section>",
+  "translationPending": false,
+  "block": "information-security-with-helmetjs",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "questions": [],
+  "superBlock": "information-security",
+  "superOrder": 24,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "information-security"
+}

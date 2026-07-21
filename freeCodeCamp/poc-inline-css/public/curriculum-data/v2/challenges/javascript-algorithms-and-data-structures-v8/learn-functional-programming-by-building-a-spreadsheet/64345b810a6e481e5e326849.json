@@ -1,0 +1,103 @@
+{
+  "id": "64345b810a6e481e5e326849",
+  "title": "Korak 12",
+  "challengeType": 0,
+  "dashedName": "step-12",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.html"
+      ],
+      "name": "index",
+      "ext": "html",
+      "path": "index.html",
+      "fileKey": "indexhtml",
+      "contents": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>",
+      "error": null,
+      "seed": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"stylesheet\" href=\"./styles.css\" />\r\n    <title>Functional Programming Spreadsheet</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"container\">\r\n      <div></div>\r\n    </div>\r\n    <script src=\"./script.js\"></script>\r\n  </body>\r\n</html>"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "styles.css"
+      ],
+      "name": "styles",
+      "ext": "css",
+      "path": "styles.css",
+      "fileKey": "stylescss",
+      "contents": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}",
+      "error": null,
+      "seed": "#container {\r\n  display: grid;\r\n  grid-template-columns: 50px repeat(10, 200px);\r\n  grid-template-rows: repeat(11, 30px);\r\n}\r\n\r\n.label {\r\n  background-color: lightgray;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 30px;\r\n}"
+    },
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        1,
+        3
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n}",
+      "error": null,
+      "seed": "const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);\r\nconst charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0));\r\n\r\nwindow.onload = () => {\r\n  const container = document.getElementById(\"container\");\r\n  const createLabel = (name) => {\r\n    const label = document.createElement(\"div\");\r\n    label.className = \"label\";\r\n    label.textContent = name;\r\n    container.appendChild(label);\r\n  }\r\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da koristiš putanju <code>.map()</code>.</p>",
+      "testString": "assert.lengthOf(code.match(/\\.map\\(/g), 2);"
+    },
+    {
+      "text": "<p>Morate povezati putanju za <code>.map()</code> i vaš poziv od <code>range</code>.</p>",
+      "testString": "assert.match(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da koristiš streličnu sintaksu za funkciju <code>.map()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(\\s*(\\(.*\\)|[^\\s()]+)\\s*=>/);"
+    },
+    {
+      "text": "<p>Vaša callback funkcija za <code>.map()</code> treba da uzme parametar <code>code</code>.</p>",
+      "testString": "assert.match(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(\\s*(\\(\\s*code\\s*\\)|code)\\s*=>/);"
+    },
+    {
+      "text": "<p>Tvoja funkcija povratnog poziva za <code>.map()</code> bi trebalo da koristi vraćanje indirektne vrednosti.</p>",
+      "testString": "assert.notMatch(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(\\s*(\\(\\s*code\\s*\\)|code)\\s*=>\\s*\\{/);"
+    },
+    {
+      "text": "<p>Tvoja funkcija povratnog poziva za <code>.map()</code> trebalo bi da vrati rezultate poziva <code>String.fromCharCode()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(\\s*(\\(\\s*code\\s*\\)|code)\\s*=>\\s*String\\.fromCharCode\\(/);"
+    },
+    {
+      "text": "<p>Trebalo bi da prosledite parametar <code>code</code> za <code>String.fromCharCode()</code>.</p>",
+      "testString": "assert.match(code, /const\\s+charRange\\s*=\\s*\\(\\s*start\\s*,\\s*end\\s*\\)\\s*=>\\s*range\\(\\s*start\\.charCodeAt\\(\\s*0\\s*\\)\\s*,\\s*end\\.charCodeAt\\(\\s*0\\s*\\)\\s*\\)\\.map\\(\\s*(\\(\\s*code\\s*\\)|code)\\s*=>\\s*String\\.fromCharCode\\(\\s*code\\s*\\)/);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p><code>range()</code> Vraćaće red brojeva, koje morate ponovo prevesti u slova. Povežite putanju <code>.map()</code> sa vašom funkcijom/pozivom <code>range()</code>.</p>\n<p>Callback funkcija koja uzima <code>code</code> kao parametar i indirektno vraća vrednost <code>code</code> putem <code>String.fromCharCode()</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-functional-programming-by-building-a-spreadsheet",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 16,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-algorithms-and-data-structures-v8",
+  "superOrder": 16,
+  "challengeOrder": 11,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "javascript-algorithms-and-data-structures-v8"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "68c2d31a86d5672ca49d4521",
+  "title": "Korak 14",
+  "challengeType": 20,
+  "dashedName": "step-14",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        1,
+        6
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class Employee:\n    def __init__(self, name, level):\n        \n        self._name = name\n        self._level = level\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @property\n    def level(self):\n        return self._level\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)",
+      "error": null,
+      "seed": "class Employee:\n    def __init__(self, name, level):\n        \n        self._name = name\n        self._level = level\n    def __str__(self):\n        return f'{self.name}: {self.level}'\n\n    def __repr__(self):\n        return f\"Employee('{self.name}', '{self.level}')\"\n\n    @property\n    def name(self):\n        return self._name\n\n    @property\n    def level(self):\n        return self._level\n\ncharlie_brown = Employee('Charlie Brown', 'trainee')\nprint(charlie_brown)"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba ti je deklaracija <code>if</code> u putanji <code>__init__</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_function(\"__init__\").find_ifs()[0]`)) })"
+    },
+    {
+      "text": "<p>Vaša izjava o <code>if</code> bi trebalo da proveri da li je <code>name</code> ili <code>level</code> primer <code>str</code>.</p>",
+      "testString": "({ test: () => runPython(`\n  cond = _Node(_code).find_class(\"Employee\").find_function(\"__init__\").find_ifs()[0].find_conditions()[0]\n  conditions = [\n    \"not (isinstance(name, str) and isinstance(level, str))\",\n    \"not isinstance(name, str) or not isinstance(level, str)\",\n    \"not (isinstance(level, str) and isinstance(name, str))\",\n    \"not isinstance(level, str) or not isinstance(name, str)\",\n  ]\n  assert any(cond.is_equivalent(c) for c in conditions)\n`) })"
+    },
+    {
+      "text": "<p>Vaša izjava o <code>if</code> treba da proizvede <code>TypeError</code> sa porukom od <code>'name' and 'level' attribute must be of type 'str'.</code></p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"Employee\").find_function(\"__init__\").find_ifs()[0].find_bodies()[0].has_stmt('raise TypeError(\"\\\\'name\\\\' and \\\\'level\\\\' attribute must be of type \\\\'str\\\\'.\")')`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada je vreme da dodamo validaciju u metodu <code>__init__</code>. Na početku te metode, kreiraj deklaraciju <code>if</code> koja proverava da li je <code>name</code> ili <code>level</code> nije instanca od <code>str</code>.</p>\n<p>Unutar deklaracije <code>if</code>, ukloni <code>TypeError</code> sa porukom <code>'name' and 'level' attribute must be of type 'str'.</code></p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-salary-tracker",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 42,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "python-v9",
+  "superOrder": 3,
+  "challengeOrder": 13,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "python",
+  "module": "python-object-oriented-programming",
+  "certification": "python-v9"
+}

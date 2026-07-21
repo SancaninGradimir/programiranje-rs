@@ -1,0 +1,62 @@
+{
+  "id": "69c918841987bf16c1d1bac7",
+  "title": "Korak 16",
+  "challengeType": 1,
+  "dashedName": "step-16",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        30,
+        32
+      ],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n  }\n}",
+      "error": null,
+      "seed": "const INF = Infinity;\nconst adjMatrix = [\n  [0, 5, 3, INF, 11, INF],\n  [5, 0, 1, INF, INF, 2],\n  [3, 1, 0, 1, 5, INF],\n  [INF, INF, 1, 0, 9, 3],\n  [11, INF, 5, 9, 0, INF],\n  [INF, 2, INF, 3, INF, 0],\n];\n\nfunction shortestPath(matrix, startNode, targetNode = null) {\n  const n = matrix.length;\n  const distances = new Array(n).fill(INF);\n  distances[startNode] = 0;\n  const paths = Array.from({ length: n }, (_, i) => [i]);\n  const visited = new Array(n).fill(false);\n\n  for (let i = 0; i < n; i++) {\n    let minDistance = INF;\n    let current = -1;\n    for (let nodeNo = 0; nodeNo < n; nodeNo++) {\n      if (!visited[nodeNo] && distances[nodeNo] < minDistance) {\n        minDistance = distances[nodeNo];\n        current = nodeNo;\n      }\n    }\n    if (current === -1) {\n      break;\n    }\n    visited[current] = true;\n\n  }\n}"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da dodate susjedni krug <code>for</code> nakon objavljivanja trenutnog čvora kao posjećenog.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /visited\\s*\\[\\s*current\\s*\\]\\s*=\\s*true[\\s\\S]*?for\\s*\\(/\n);"
+    },
+    {
+      "text": "<p>Ciklus susjeda <code>for</code> bi trebalo da se ponovi od <code>0</code> do <code>n</code>.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /visited\\s*\\[\\s*current\\s*\\]\\s*=\\s*true[\\s\\S]*?for\\s*\\(\\s*(var|let)\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*n\\s*;\\s*\\w+\\+\\+\\s*\\)/\n);"
+    },
+    {
+      "text": "<p>Trebalo bi da imaš kriterijum <code>distance</code> sa vrednošću <code>matrix[current][nodeNo]</code> unutar ciklusa suseda.</p>",
+      "testString": "assert.match(\n  __helpers.removeJSComments(shortestPath.toString()),\n  /(const|let|var)\\s+distance\\s*=\\s*matrix\\s*\\[\\s*current\\s*\\]\\s*\\[\\s*\\w+\\s*\\]/\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada nakon što je trenutni čvor označen kao posetjen, moraš proveriti sve njegove susede da vidiš da li ih možeš dostići efikasnije preko tog čvora.</p>\n<p>Nakon <code>visited[current] = true</code>, dodaj susedski krug <code>for</code> koji prolazi kroz svaki <code>nodeNo</code> od <code>0</code> do <code>n</code>. Napomena, ovo je drugi interni krug na istom nivou kao prvi.</p>\n<p>U ovom ciklusu, deklariši parametar nazvan <code>distance</code> sa vrednošću <code>matrix[current][nodeNo]</code>. Ovo ti daje težinu ivice između trenutnog čvora i njegovog suseda.</p>\n</section>",
+  "translationPending": false,
+  "block": "workshop-shortest-path-algorithm-js",
+  "blockLabel": "workshop",
+  "blockLayout": "challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 206,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 15,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "graphs-and-trees",
+  "certification": "javascript-v9"
+}

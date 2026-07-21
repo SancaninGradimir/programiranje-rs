@@ -1,0 +1,99 @@
+{
+  "id": "5a24c314108439a4d4036179",
+  "title": "Unda fomu inayodhibitiwa",
+  "challengeType": 6,
+  "forumTopicId": 301384,
+  "dashedName": "create-a-controlled-form",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class MyForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      submit: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  handleSubmit(event) {\n    // Change code below this line\n\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <form onSubmit={this.handleSubmit}>\n          {/* Change code below this line */}\n\n          {/* Change code above this line */}\n          <button type='submit'>Submit!</button>\n        </form>\n        {/* Change code below this line */}\n\n        {/* Change code above this line */}\n      </div>\n    );\n  }\n}",
+      "error": null,
+      "seed": "class MyForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      submit: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  handleSubmit(event) {\n    // Change code below this line\n\n    // Change code above this line\n  }\n  render() {\n    return (\n      <div>\n        <form onSubmit={this.handleSubmit}>\n          {/* Change code below this line */}\n\n          {/* Change code above this line */}\n          <button type='submit'>Submit!</button>\n        </form>\n        {/* Change code below this line */}\n\n        {/* Change code above this line */}\n      </div>\n    );\n  }\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class MyForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      submit: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  handleSubmit(event) {\n    event.preventDefault();\n    this.setState(state => ({\n      submit: state.input\n    }));\n  }\n  render() {\n    return (\n      <div>\n        <form onSubmit={this.handleSubmit}>\n          <input value={this.state.input} onChange={this.handleChange} />\n          <button type='submit'>Submit!</button>\n        </form>\n        <h1>{this.state.submit}</h1>\n      </div>\n    );\n  }\n}",
+        "error": null,
+        "seed": "class MyForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      input: '',\n      submit: ''\n    };\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n  handleChange(event) {\n    this.setState({\n      input: event.target.value\n    });\n  }\n  handleSubmit(event) {\n    event.preventDefault();\n    this.setState(state => ({\n      submit: state.input\n    }));\n  }\n  render() {\n    return (\n      <div>\n        <form onSubmit={this.handleSubmit}>\n          <input value={this.state.input} onChange={this.handleChange} />\n          <button type='submit'>Submit!</button>\n        </form>\n        <h1>{this.state.submit}</h1>\n      </div>\n    );\n  }\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>MyForm</code> treba da vrati element <code>div</code> koji sadrži oznaku <code>form</code> i <code>h1</code>. Obrazac treba da sadrži <code>input</code> i <code>button</code>.</p>",
+      "testString": "assert(\n  (() => {\n    const mockedComponent = Enzyme.mount(React.createElement(MyForm));\n    return (\n      mockedComponent.find('div').children().find('form').length === 1 &&\n      mockedComponent.find('div').children().find('h1').length === 1 &&\n      mockedComponent.find('form').children().find('input').length === 1 &&\n      mockedComponent.find('form').children().find('button').length === 1\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Stanje komponente <code>MyForm</code> treba da bude inicijalizovano svojstvima <code>input</code> i <code>submit</code>, pri čemu oba treba da budu prazni tekstualni nizovi.</p>",
+      "testString": "assert(\n  Enzyme.mount(React.createElement(MyForm)).state('input') === '' &&\n    Enzyme.mount(React.createElement(MyForm)).state('submit') === ''\n);"
+    },
+    {
+      "text": "<p>Unos u element <code>input</code> treba da ažurira svojstvo <code>input</code> u stanju komponente.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyForm));\n  const _1 = () => {\n    mockedComponent.setState({ input: '' });\n    return mockedComponent.state('input');\n  };\n  const _2 = () => {\n    mockedComponent\n      .find('input')\n      .simulate('change', { target: { value: 'TestInput' } });\n    return {\n      state: mockedComponent.state('input'),\n      inputVal: mockedComponent.find('input').props().value\n    };\n  };\n  const before = _1();\n  const after = _2();\n  assert(\n    before === '' &&\n      after.state === 'TestInput' &&\n      after.inputVal === 'TestInput'\n  );\n})();"
+    },
+    {
+      "text": "<p>Slanje obrasca treba da pokrene <code>handleSubmit</code>, koji treba da postavi svojstvo <code>submit</code> u stanju na trenutnu vrednost unosa.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyForm));\n  const _1 = () => {\n    mockedComponent.setState({ input: '' });\n    mockedComponent.setState({ submit: '' });\n    mockedComponent\n      .find('input')\n      .simulate('change', { target: { value: 'SubmitInput' } });\n    return mockedComponent.state('submit');\n  };\n  const _2 = () => {\n    mockedComponent.find('form').simulate('submit');\n    return mockedComponent.state('submit');\n  };\n  const before = _1();\n  const after = _2();\n  assert(before === '' && after === 'SubmitInput');\n})();"
+    },
+    {
+      "text": "<p><code>handleSubmit</code> inapaswa kuita <code>event.preventDefault</code></p>",
+      "testString": "assert(\n  __helpers.isCalledWithNoArgs(\n    'event.preventDefault',\n    MyForm.prototype.handleSubmit.toString()\n  )\n);"
+    },
+    {
+      "text": "<p>Naslov <code>h1</code> treba da prikazuje vrednost polja <code>submit</code> iz stanja komponente.</p>",
+      "testString": "(() => {\n  const mockedComponent = Enzyme.mount(React.createElement(MyForm));\n  const _1 = () => {\n    mockedComponent.setState({ input: '' });\n    mockedComponent.setState({ submit: '' });\n    mockedComponent\n      .find('input')\n      .simulate('change', { target: { value: 'TestInput' } });\n    return mockedComponent.find('h1').text();\n  };\n  const _2 = () => {\n    mockedComponent.find('form').simulate('submit');\n    return mockedComponent.find('h1').text();\n  };\n  const before = _1();\n  const after = _2();\n  assert(before === '' && after === 'TestInput');\n})();"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Poslednji primer je pokazao da React može kontrolisati interni status za određene elemente kao što su <code>input</code> i <code>textarea</code>, što ih čini kontrolisanim delovima. Ovo je takođe povezano sa drugim elementima forme, uključujući standardni element za HTML <code>form</code>.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Komponenta <code>MyForm</code> je pripremljena sa praznim elementom <code>form</code> koji ima obrađivač za slanje obrasca. Taj obrađivač će biti pozvan kada se obrazac pošalje.</p>\n<p>Dodato je dugme za slanje obrasca. Možeš videti da ima <code>type</code> postavljen na <code>submit</code>, što znači da upravlja slanjem obrasca. Dodaj element <code>input</code> unutar obrasca i postavi njegova svojstva <code>value</code> i <code>onChange()</code> kao u prethodnom izazovu. Zatim dovrši metodu <code>handleSubmit</code> tako da postavi svojstvo <code>submit</code> u stanju komponente na trenutnu vrednost unosa iz lokalnog <code>state</code>.</p>\n<p><strong>Napomena:</strong> Takođe moraš pozvati <code>event.preventDefault()</code> u obrađivaču slanja obrasca kako bi sprečio podrazumevano ponašanje koje osvežava stranicu. Ovde je to već predviđeno kako bi se sprečilo ponovno učitavanje koje bi resetovalo izazov.</p>\n<p>Na kraju, napravi oznaku <code>h1</code> nakon elementa <code>form</code> koja prikazuje vrednost <code>submit</code> iz stanja komponente. Zatim možeš unositi tekst u obrazac i kliknuti na dugme (ili pritisnuti Enter) da vidiš svoj unos prikazan na stranici.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 28,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

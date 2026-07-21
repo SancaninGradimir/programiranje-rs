@@ -1,0 +1,103 @@
+{
+  "id": "a10d2431ad0c6a099a4b8b52",
+  "title": "Izgradite, proverite sve kvalitete koji imaju istinsku vrednost",
+  "challengeType": 26,
+  "dashedName": "build-an-all-true-property-validator",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function truthCheck(collection, pre) {\n  return pre;\n}\n\ntruthCheck([{name: \"Quincy\", role: \"Founder\", isBot: false}, {name: \"Naomi\", role: \"\", isBot: false}, {name: \"Camperbot\", role: \"Bot\", isBot: true}], \"isBot\");",
+      "error": null,
+      "seed": "function truthCheck(collection, pre) {\n  return pre;\n}\n\ntruthCheck([{name: \"Quincy\", role: \"Founder\", isBot: false}, {name: \"Naomi\", role: \"\", isBot: false}, {name: \"Camperbot\", role: \"Bot\", isBot: true}], \"isBot\");"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function truthCheck(collection, pre) {\n  return collection.every(function(e) { return e[pre]; });\n}",
+        "error": null,
+        "seed": "function truthCheck(collection, pre) {\n  return collection.every(function(e) { return e[pre]; });\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>truthCheck([{name: \"Quincy\", role: \"Founder\", isBot: false}, {name: \"Naomi\", role: \"\", isBot: false}, {name: \"Camperbot\", role: \"Bot\", isBot: true}], \"isBot\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Quincy\", role: \"Founder\", isBot: false },\n    { name: \"Naomi\", role: \"\", isBot: false },\n    { name: \"Camperbot\", role: \"Bot\", isBot: true }\n  ],\n  \"isBot\"), false);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Quincy\", role: \"Founder\", isBot: false}, {name: \"Naomi\", role: \"\", isBot: false}, {name: \"Camperbot\", role: \"Bot\", isBot: true}], \"name\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Quincy\", role: \"Founder\", isBot: false },\n    { name: \"Naomi\", role: \"\", isBot: false },\n    { name: \"Camperbot\", role: \"Bot\", isBot: true }\n  ],\n  \"name\"), true);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Quincy\", role: \"Founder\", isBot: false}, {name: \"Naomi\", role: \"\", isBot: false}, {name: \"Camperbot\", role: \"Bot\", isBot: true}], \"role\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Quincy\", role: \"Founder\", isBot: false },\n    { name: \"Naomi\", role: \"\", isBot: false },\n    { name: \"Camperbot\", role: \"Bot\", isBot: true }\n  ],\n  \"role\"), false);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Pikachu\", number: 25, caught: 3}, {name: \"Togepi\", number: 175, caught: 1}], \"number\")</code> trebalo bi da vrati <code>true</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Pikachu\", number: 25, caught: 3 },\n    { name: \"Togepi\", number: 175, caught: 1 },\n  ],\n  \"number\"), true);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Pikachu\", number: 25, caught: 3}, {name: \"Togepi\", number: 175, caught: 1}, {name: \"MissingNo\", number: NaN, caught: 0}], \"caught\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Pikachu\", number: 25, caught: 3 },\n    { name: \"Togepi\", number: 175, caught: 1 },\n    { name: \"MissingNo\", number: NaN, caught: 0 },\n  ],\n  \"caught\"), false);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Pikachu\", number: 25, caught: 3}, {name: \"Togepi\", number: 175, caught: 1}, {name: \"MissingNo\", number: NaN, caught: 0}], \"number\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Pikachu\", number: 25, caught: 3 },\n    { name: \"Togepi\", number: 175, caught: 1 },\n    { name: \"MissingNo\", number: NaN, caught: 0 },\n  ],\n  \"number\"), false);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"Quincy\", username: \"QuincyLarson\"}, {name: \"Naomi\", username: \"nhcarrigan\"}, {name: \"Camperbot\"}], \"username\")</code> treba da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"Quincy\", username: \"QuincyLarson\" },\n    { name: \"Naomi\", username: \"nhcarrigan\" },\n    { name: \"Camperbot\" }\n  ],\n  \"username\"), false);"
+    },
+    {
+      "text": "<p><code>truthCheck([{name: \"freeCodeCamp\", users: [{name: \"Quincy\"}, {name: \"Naomi\"}]}, {name: \"Code Radio\", users: [{name: \"Camperbot\"}]}, {name: \"\", users: []}], \"users\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { name: \"freeCodeCamp\", users: [{ name: \"Quincy\" }, { name: \"Naomi\" }] },\n    { name: \"Code Radio\", users: [{ name: \"Camperbot\" }] },\n    { name: \"\", users: [] },\n  ],\n  \"users\"), true);"
+    },
+    {
+      "text": "<p><code>truthCheck([{id: 1, data: {url: \"https://freecodecamp.org\", name: \"freeCodeCamp\"}}, {id: 2, data: {url: \"https://coderadio.freecodecamp.org/\", name: \"CodeRadio\"}}, {id: null, data: {}}], \"data\")</code> treba da vrati <code>true</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { id: 1, data: { url: \"https://freecodecamp.org\", name: \"freeCodeCamp\" } },\n    { id: 2, data: { url: \"https://coderadio.freecodecamp.org/\", name: \"CodeRadio\" } },\n    { id: null, data: {} },\n  ],\n  \"data\"), true);"
+    },
+    {
+      "text": "<p><code>truthCheck([{id: 1, data: {url: \"https://freecodecamp.org\", name: \"freeCodeCamp\"}}, {id: 2, data: {url: \"https://coderadio.freecodecamp.org/\", name: \"CodeRadio\"}}, {id: null, data: {}}], \"id\")</code> trebalo bi da vrati <code>false</code>.</p>",
+      "testString": "assert.strictEqual(truthCheck(\n  [\n    { id: 1, data: { url: \"https://freecodecamp.org\", name: \"freeCodeCamp\" } },\n    { id: 2, data: { url: \"https://coderadio.freecodecamp.org/\", name: \"CodeRadio\" } },\n    { id: null, data: {} },\n  ],\n  \"id\"), false);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>U ovoj laboratoriji ćete testirati specifično svojstvo svakog elementa u nizu podataka da biste videli da li svaki trenutak ima vrednost tačno ili ne.</p>\n<p>Na primer, može vas pitati da izmerite jednu osobinu objekata u redovima podataka, kao što sledi:</p>\n<pre><code class=\"language-js\">[{\n    name: \"Quincy\",\n    role: \"Founder\",\n    isBot: false\n}, {\n    name: \"Naomi\",\n    role: \"\",\n    isBot: false\n}, {\n    name: \"Camperbot\",\n    role: \"Bot\",\n    isBot: true\n}]\n</code></pre>\n<p>Ako vas pitaju da izmerite atribut <code>name</code>, u elementima ovog reda atribut <code>name</code> ima vrednosti <code>\"Quincy\"</code>, <code>\"Naomi\"</code> i <code>\"Camperbot\"</code>, stoga je uvek istinita vrednost.</p>\n<p>Ako se traži da se izmeri svojstvo <code>role</code>, vrednost je <code>\"Founder\"</code>, <code>\"\"</code>, i <code>\"Bot\"</code>, u ovom slučaju <code>\"\"</code> je lažna vrednost, stoga vrednost nije uvek tačna.</p>\n<p><strong>Cilj:</strong> Popunite korisničke priče ispod i prođite sve testove kako biste završili ovaj laboratorijski rad.</p>\n<p>Priče o korisniku:</p>\n<ol>\n<li>Trebalo bi da postoji funkcija nazvana <code>truthCheck</code>.</li>\n<li>Funkcija <code>truthCheck</code> prima dva argumenta: niz objekata i string koji predstavlja ime svojstva dostupnog u tim objektima.</li>\n<li>Funkcija treba da proveri da li svojstvo čije ime odgovara drugom argumentu ima istinitost u svim elementima niza, i da vrati <code>true</code> ako je prisutno, i <code>false</code> inače.</li>\n</ol>\n</section>",
+  "translationPending": false,
+  "block": "lab-all-true-property-validator",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 116,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "higher-order-functions-and-callbacks",
+  "certification": "javascript-v9"
+}

@@ -1,0 +1,80 @@
+{
+  "id": "59e0a8df964e4540d5abe599",
+  "title": "Tekeleza Brain****",
+  "challengeType": 1,
+  "forumTopicId": 302261,
+  "dashedName": "execute-brain",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function brain(prog) {\n\n}",
+      "error": null,
+      "seed": "function brain(prog) {\n\n}"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function brain(prog){\n  var output=\"\";\n    var code; // formatted code\n  var ip = 0; // current instruction within code\n  var nest = 0; // current bracket nesting (for Out button)\n  var ahead = []; // locations of matching brackets\n\n  var data = [0]; // data array (mod by +, -)\n  var dp = 0; // index into data (mod by <, >)\n\n  var inp = 0; // current input character (fetch with ,)\n  var quit = 0;\n    var commands = {\n    '>':function() { if (++dp >= data.length) data[dp]=0 },\n    '<':function() { if (--dp < 0) quit++ },\n    '+':function() { ++data[dp] },\n    '-':function() { --data[dp] },\n    '[':function() { if (!data[dp]) ip = ahead[ip]; else ++nest },\n    ']':function() { if ( data[dp]) ip = ahead[ip]; else --nest },\n    ',':function() {\n        var c = document.getElementById(\"input\").value.charCodeAt(inp++);\n        data[dp] = isNaN(c) ? 0 : c; // EOF: other options are -1 or no change\n    },\n    '.':function() {\n            output+=String.fromCharCode(data[dp]);\n            /*var s = document.getElementById(\"output\").innerHTML)\n             + String.fromCharCode(data[dp]);\n            s = s.replace(/\\n/g,\"<br>\").replace(/ /g,\"&amp;nbsp;\");\n            document.getElementById(\"output\").innerHTML = s;*/\n        },\n    };\n\n    let ar=prog.split('');\n    var st = [], back, error = -1;\n    for (ip=0; ip<ar.length; ip++) {\n        switch(ar[ip]) {\n        case '[':\n            st.push(ip);\n            break;\n        case ']':\n            if (st.length == 0) error = ip;\n            back = st.pop();\n            ahead[ip] = back;\n            ahead[back] = ip;\n            break;\n        }\n    }\n\n    for(ip=0;ip<ar.length;ip++){\n    if(commands.hasOwnProperty(ar[ip]))\n          commands[ar[ip]]();\n    }\n\n    return output;\n}",
+        "error": null,
+        "seed": "function brain(prog){\n  var output=\"\";\n    var code; // formatted code\n  var ip = 0; // current instruction within code\n  var nest = 0; // current bracket nesting (for Out button)\n  var ahead = []; // locations of matching brackets\n\n  var data = [0]; // data array (mod by +, -)\n  var dp = 0; // index into data (mod by <, >)\n\n  var inp = 0; // current input character (fetch with ,)\n  var quit = 0;\n    var commands = {\n    '>':function() { if (++dp >= data.length) data[dp]=0 },\n    '<':function() { if (--dp < 0) quit++ },\n    '+':function() { ++data[dp] },\n    '-':function() { --data[dp] },\n    '[':function() { if (!data[dp]) ip = ahead[ip]; else ++nest },\n    ']':function() { if ( data[dp]) ip = ahead[ip]; else --nest },\n    ',':function() {\n        var c = document.getElementById(\"input\").value.charCodeAt(inp++);\n        data[dp] = isNaN(c) ? 0 : c; // EOF: other options are -1 or no change\n    },\n    '.':function() {\n            output+=String.fromCharCode(data[dp]);\n            /*var s = document.getElementById(\"output\").innerHTML)\n             + String.fromCharCode(data[dp]);\n            s = s.replace(/\\n/g,\"<br>\").replace(/ /g,\"&amp;nbsp;\");\n            document.getElementById(\"output\").innerHTML = s;*/\n        },\n    };\n\n    let ar=prog.split('');\n    var st = [], back, error = -1;\n    for (ip=0; ip<ar.length; ip++) {\n        switch(ar[ip]) {\n        case '[':\n            st.push(ip);\n            break;\n        case ']':\n            if (st.length == 0) error = ip;\n            back = st.pop();\n            ahead[ip] = back;\n            ahead[back] = ip;\n            break;\n        }\n    }\n\n    for(ip=0;ip<ar.length;ip++){\n    if(commands.hasOwnProperty(ar[ip]))\n          commands[ar[ip]]();\n    }\n\n    return output;\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "globalThis.fib=`+\n\n++\n\n+++\n\n++++\n\n+>+>>\n\n>>++++\n\n+++++++\n\n++++++++\n\n+++++++++\n\n++++++++++\n\n++++++>++++\n\n++++++++++++\n\n+++++++++++++\n\n+++<<<<<<[>[>>\n\n>>>>+>+<<<<<<<-\n\n]>>>>>>>[<<<<<<<\n\n+>>>>>>>-]<[>++++\n\n++++++[-<-[>>+>+<<\n\n<-]>>>[<<<+>>>-]+<[\n\n>[-]<[-]]>[<<[>>>+<<\n\n<-]>>[-]]<<]>>>[>>+>+\n\n<<<-]>>>[<<<+>>>-]+<[>\n\n[-]<[-]]>[<<+>>[-]]<<<<\n\n<<<]>>>>>[++++++++++++++\n\n+++++++++++++++++++++++++\n\n+++++++++.[-]]++++++++++<[\n\n->-<]>+++++++++++++++++++++\n\n+++++++++++++++++++++++++++.\n\n[-]<<<<<<<<<<<<[>>>+>+<<<<-]>\n\n>>>[<<<<+>>>>-]<-[>>.>.<<<[-]]\n\n<<[>>+>+<<<-]>>>[<<<+>>>-]<<[<+\n\n>-]>[<+>-]<<<-]`;\nglobalThis.hello='++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.'"
+  },
+  "tests": [
+    {
+      "text": "<p><code>brain(globalThis.hello)</code> Trebalo bi da vrati sekvencu znakova</p>",
+      "testString": "assert(typeof brain(globalThis.hello) === 'string');"
+    },
+    {
+      "text": "<p><code>brain(\"++++++[>++++++++++&#x3C;-]>+++++.\")</code> Trebalo bi da vrati \"A\"</p>",
+      "testString": "assert.equal(brain('++++++[>++++++++++<-]>+++++.'), 'A');"
+    },
+    {
+      "text": "<p><code>brain(globalThis.hello)</code> trebalo bi da vrati <code>Hello World!\\n</code></p>",
+      "testString": "assert.equal(brain(globalThis.hello), 'Hello World!\\n');"
+    },
+    {
+      "text": "<p><code>brain(globalThis.fib)</code> treba da vrati <code>1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89</code></p>",
+      "testString": "assert.equal(brain(globalThis.fib), '1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Napisati funkciju koja implementira interpetator za Brain***.\\nTa funkcija će primiti sekvencu karaktera kao argument i mora vratiti sekvencu karaktera kao rezultat.\\nViše detalja je ispod:</p>\n<p>RCBF je skup <a href=\"https://rosettacode.org/wiki/Brainf***\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">prevodi i kolekcija Brainf***</a>napisani na raznim jezicima za Rosetta Kod.</p>\n<p>Niže su linkovi za sve verzije RCBF.</p>\n<p>Implementacija zahteva samo tačno izvršenje sledećih instrukcija:</p>\n<table>\n<thead>\n<tr>\n<th align=\"left\">Amri</th>\n<th align=\"left\">Maelezo</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td align=\"left\"><code>></code></td>\n<td align=\"left\">Premesti kursor desno</td>\n</tr>\n<tr>\n<td align=\"left\"><code>&#x3C;</code></td>\n<td align=\"left\">Premesti kursor levo</td>\n</tr>\n<tr>\n<td align=\"left\"><code>+</code></td>\n<td align=\"left\">Povećaj vrednost memorijske ćelije ispod kursora</td>\n</tr>\n<tr>\n<td align=\"left\"><code>-</code></td>\n<td align=\"left\">Smanji vrednost memorijske ćelije ispod kursora</td>\n</tr>\n<tr>\n<td align=\"left\"><code>.</code></td>\n<td align=\"left\">Izvuci karakter predstavljen ćelijom koja se nalazi ispod kursora</td>\n</tr>\n<tr>\n<td align=\"left\"><code>,</code></td>\n<td align=\"left\">Ubaci karakter i sačuvaj ga u ćeliju koja se nalazi ispod kursora</td>\n</tr>\n<tr>\n<td align=\"left\"><code>[</code></td>\n<td align=\"left\">Preskoci napred do odgovarajućeg <code>]</code> ako je ćelija ispod kursora 0</td>\n</tr>\n<tr>\n<td align=\"left\"><code>]</code></td>\n<td align=\"left\">Preskoci nazad do odgovarajućeg <code>[</code> ako ćelija ispod kursora nije 0</td>\n</tr>\n</tbody>\n</table>\n<p>Dozvoljena je ćelija bilo koje veličine, podrška za EOF (<em>E</em>nd-<em>O</em>-<em>F</em>ile) je opciona, kao što su ograničena ili neograničena memorija.</p>\n</section>",
+  "translationPending": false,
+  "block": "rosetta-code-challenges",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "rosetta-code",
+  "superOrder": 14,
+  "challengeOrder": 43,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Rosetta",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "rosetta-code"
+}

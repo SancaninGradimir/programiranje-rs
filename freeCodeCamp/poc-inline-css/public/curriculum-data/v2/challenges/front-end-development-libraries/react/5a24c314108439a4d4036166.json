@@ -1,0 +1,94 @@
+{
+  "id": "5a24c314108439a4d4036166",
+  "title": "Napravi komponente za React",
+  "challengeType": 6,
+  "forumTopicId": 301381,
+  "dashedName": "compose-react-components",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "index.jsx"
+      ],
+      "name": "index",
+      "ext": "jsx",
+      "path": "index.jsx",
+      "fileKey": "indexjsx",
+      "contents": "class Fruits extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h2>Fruits:</h2>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};\n\nclass TypesOfFood extends React.Component {\n  constructor(props) {\n     super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>Types of Food:</h1>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n        <Vegetables />\n      </div>\n    );\n  }\n};",
+      "error": null,
+      "seed": "class Fruits extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h2>Fruits:</h2>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n      </div>\n    );\n  }\n};\n\nclass TypesOfFood extends React.Component {\n  constructor(props) {\n     super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h1>Types of Food:</h1>\n        { /* Change code below this line */ }\n\n        { /* Change code above this line */ }\n        <Vegetables />\n      </div>\n    );\n  }\n};"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "index.jsx"
+        ],
+        "name": "index",
+        "ext": "jsx",
+        "path": "index.jsx",
+        "fileKey": "indexjsx",
+        "contents": "class Fruits extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h2>Fruits:</h2>\n        { /* Change code below this line */ }\n        <NonCitrus />\n        <Citrus />\n        { /* Change code above this line */ }\n      </div>\n    )\n  }\n}\n\nclass TypesOfFood extends React.Component {\n  constructor(props) {\n     super(props);\n  }\n    render() {\n      return (\n        <div>\n        <h1>Types of Food:</h1>\n          { /* Change code below this line */ }\n          <Fruits />\n          { /* Change code above this line */ }\n          <Vegetables />\n        </div>\n      );\n    }\n};",
+        "error": null,
+        "seed": "class Fruits extends React.Component {\n  constructor(props) {\n    super(props);\n  }\n  render() {\n    return (\n      <div>\n        <h2>Fruits:</h2>\n        { /* Change code below this line */ }\n        <NonCitrus />\n        <Citrus />\n        { /* Change code above this line */ }\n      </div>\n    )\n  }\n}\n\nclass TypesOfFood extends React.Component {\n  constructor(props) {\n     super(props);\n  }\n    render() {\n      return (\n        <div>\n        <h1>Types of Food:</h1>\n          { /* Change code below this line */ }\n          <Fruits />\n          { /* Change code above this line */ }\n          <Vegetables />\n        </div>\n      );\n    }\n};"
+      }
+    ]
+  ],
+  "assignments": [],
+  "hooks": {
+    "beforeAll": "globalThis.NonCitrus = function NonCitrus() {\n  return React.createElement('div', null);\n};\nglobalThis.Citrus = function Citrus() {\n  return React.createElement('div', null);\n};\nglobalThis.Vegetables = function Vegetables() {\n  return React.createElement('div', null);\n};"
+  },
+  "tests": [
+    {
+      "text": "<p>Dio od <code>TypesOfFood</code> treba da vrati jednu funkciju od <code>div</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));\n    return mockedComponent.children().type() === 'div';\n  })()\n);"
+    },
+    {
+      "text": "<p>Sekcija <code>TypesOfFood</code> treba da vrati sekciju <code>Fruits</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));\n    return mockedComponent.children().childAt(1).name() === 'Fruits';\n  })()\n);"
+    },
+    {
+      "text": "<p>Dio <code>Fruits</code> mora vratiti deo <code>NonCitrus</code> i deo <code>Citrus</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));\n    return (\n      mockedComponent.find('Fruits').children().find('NonCitrus').length ===\n        1 &&\n      mockedComponent.find('Fruits').children().find('Citrus').length === 1\n    );\n  })()\n);"
+    },
+    {
+      "text": "<p>Dio <code>TypesOfFood</code> treba da premesti dio <code>Vegetables</code> ispod dijela <code>Fruits</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const mockedComponent = Enzyme.mount(React.createElement(TypesOfFood));\n    return mockedComponent.children().childAt(2).name() === 'Vegetables';\n  })()\n);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kako izazovi nastavljaju da koriste sve složeniju kombinaciju delova React i JSX-a, postoji jedna važna stvar na koju treba obratiti pažnju. Prikazivanje delova objekta klase u stilu ES6 unutar drugog dela nije drugačije od prikazivanja jednostavnih delova koje ste koristili u nedavnim izazovima. Možete prikazivati JSX elemente, delove funkcije bez stanja (stateless function), i delove objekta klase ES6 unutar drugog dela.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>U uredniku koda, sekcija <code>TypesOfFood</code> već prikazuje sekciju nazvanu <code>Vegetables</code>. Takođe, postoji sekcija <code>Fruits</code> iz prethodnog izazova.</p>\n<p>Ugnjezdi dve sekcije unutar <code>Fruits</code> — prvo <code>NonCitrus</code>, pa <code>Citrus</code>. Ove dve sekcije su vam pripremljene iza kulisa. Zatim, ugnjezdi sekciju klase objekata <code>Fruits</code> unutar sekcije <code>TypesOfFood</code>, ispod elementa zaglavlja sekcije <code>h1</code> i iznad <code>Vegetables</code>. Rezultat bi trebalo da bude niz ugnježdene sekcije, koje koriste dva različita tipa sekcija.</p>\n</section>",
+  "translationPending": false,
+  "block": "react",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 3,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-test-utils.production.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom-server.browser.production.min.js"
+    }
+  ],
+  "template": "<body><div id='root'></div><div id='challenge-node'></div>${ source || '' }</body>",
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

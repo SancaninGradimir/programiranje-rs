@@ -1,0 +1,55 @@
+{
+  "id": "66682150151af29efec9727d",
+  "title": "Korak 33",
+  "challengeType": 20,
+  "dashedName": "step-33",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [
+        15,
+        17
+      ],
+      "history": [
+        "main.py"
+      ],
+      "name": "main",
+      "ext": "py",
+      "path": "main.py",
+      "fileKey": "mainpy",
+      "contents": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\n# print(f'v1 = {v1}', f'\\nrepr = {repr(v1)}')\n# print(f'v2 = {v2}', f'\\nrepr = {repr(v2)}')\n",
+      "error": null,
+      "seed": "class R2Vector:\n    def __init__(self, *, x, y):\n        self.x = x\n        self.y = y\n\n    def norm(self):\n        return sum(val**2 for val in vars(self).values())**0.5\n\n    def __str__(self):\n        return str(tuple(getattr(self, i) for i in vars(self)))\n\n    def __repr__(self):\n        arg_list = [f'{key}={val}' for key, val in vars(self).items()]\n        args = ', '.join(arg_list)\n        return f'{self.__class__.__name__}({args})'\n    \nclass R3Vector(R2Vector):\n    def __init__(self, *, x, y, z):\n        super().__init__(x=x, y=y)\n        self.z = z\n\nv1 = R2Vector(x=2, y=3)\nv2 = R3Vector(x=2, y=2, z=3)\n# print(f'v1 = {v1}', f'\\nrepr = {repr(v1)}')\n# print(f'v2 = {v2}', f'\\nrepr = {repr(v2)}')\n"
+    }
+  ],
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Definišite metodu pod nazivom <code>__getattribute__</code> koja ima dva parametra, <code>self</code> i <code>attr</code>, unutar klase <code>R2Vector</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__getattribute__\").has_args(\"self, attr\")`)) })"
+    },
+    {
+      "text": "<p>Tvoja putanja <code>__getattribute__</code> bi trebalo da vrati niz karaktera <code>'calling __getattribute__'</code>.</p>",
+      "testString": "({ test: () => assert(runPython(`_Node(_code).find_class(\"R2Vector\").find_function(\"__getattribute__\").has_return(\"'calling __getattribute__'\")`)) })"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Metoda za <code>__getattribute__</code> se poziva unutar opsega svaki put kada pokušate dohvatiti svojstvo model elementa. Ako svojstvo elementa nije pronađeno na nivou modela, ta metoda će pretraživati na nivou klase objekta, a na kraju u roditeljskim klasama.</p>\n<p>Unutar vaše klase objekata, definisać <code>__getattribute__</code> metod sa dva parametra, <code>self</code> i <code>attr</code>, i naterati ga da vrati niz karaktera <code>'calling __getattribute__'</code>. Uskoro ćete promeniti standardnu implementaciju kako biste videli kako funkcioniše pristup svojstvu elementa.</p>\n</section>",
+  "translationPending": false,
+  "block": "learn-special-methods-by-building-a-vector-space",
+  "blockLayout": "legacy-challenge-grid",
+  "hasEditableBoundaries": true,
+  "order": 14,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "scientific-computing-with-python",
+  "superOrder": 22,
+  "challengeOrder": 32,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Python",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "scientific-computing-with-python"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "58966a17f9fc0f352b528e6d",
+  "title": "Registracija novih korisnika",
+  "challengeType": 2,
+  "forumTopicId": 301561,
+  "dashedName": "registration-of-new-users",
+  "solutions": [],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Treba da imaš <code>/register</code> rutu i da prikažeš formu za registraciju na početnoj stranici.</p>",
+      "testString": "  const url = new URL(\"/_api/server.js\", code);\n  const res = await fetch(url);\n  const data = await res.text();\n  assert.match(\n    data,\n    /showRegistration:( |)true/gi,\n    'You should be passing the variable showRegistration as true to your render function for the homepage'\n  );\n  assert.match(\n    data,\n    /register[^]*post[^]*findOne[^]*username:( |)req.body.username/gi,\n    'You should have a route that accepts a POST request on /register that queries the db with findOne and the query being username: req.body.username'\n  );"
+    },
+    {
+      "text": "<p>Registracija treba da radi.</p>",
+      "testString": "  const url = code;\n  const user = `freeCodeCampTester${Date.now()}`;\n  const xhttp = new XMLHttpRequest();\n  xhttp.onreadystatechange = function () {\n    if (this.readyState == 4 && this.status == 200) {\n      test(this);\n    } else {\n      throw new Error(`${this.status} ${this.statusText}`);\n    }\n  };\n  xhttp.open('POST', url + '/register', true);\n  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');\n  xhttp.send(`username=${user}&password=${user}`);\n  function test(xhttpRes) {\n    const data = xhttpRes.responseText;\n    assert.match(\n      data,\n      /Profile/gi,\n      'Register should work, and redirect successfully to the profile.'\n    );\n  }"
+    },
+    {
+      "text": "<p>Prijava treba da radi.</p>",
+      "testString": "  const url = code;\n  const user = `freeCodeCampTester${Date.now()}`;\n  const xhttpReg = new XMLHttpRequest();\n  xhttpReg.onreadystatechange = function () {\n    if (this.readyState == 4 && this.status == 200) {\n      login();\n    } else {\n      throw new Error(`${this.status} ${this.statusText}`);\n    }\n  };\n  xhttpReg.open('POST', url + '/register', true);\n  xhttpReg.setRequestHeader(\n    'Content-type',\n    'application/x-www-form-urlencoded'\n  );\n  xhttpReg.send(`username=${user}&password=${user}`);\n  function login() {\n    const xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function () {\n      if (this.readyState == 4 && this.status == 200) {\n        test(this);\n      } else {\n        throw new Error(`${this.status} ${this.statusText}`);\n      }\n    };\n    xhttp.open('POST', url + '/login', true);\n    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');\n    xhttp.send(`username=${user}&password=${user}`);\n  }\n  function test(xhttpRes) {\n    const data = xhttpRes.responseText;\n    assert.match(\n      data,\n      /Profile/gi,\n      'Login should work if previous test was done successfully and redirect successfully to the profile.'\n    );\n    assert.match(\n      data,\n      new RegExp(user, 'g'),\n      'The profile should properly display the welcome to the user logged in'\n    );\n  }"
+    },
+    {
+      "text": "<p>Odjava treba da radi.</p>",
+      "testString": "  $.ajax({\n    url: code + '/logout',\n    type: 'GET',\n    xhrFields: { withCredentials: true }\n  }).then(\n    (data) => {\n      assert.match(data, /Home/gi, 'Logout should redirect to home');\n    },\n    (xhr) => {\n      throw new Error(xhr.statusText);\n    }\n  );"
+    },
+    {
+      "text": "<p>Profil ne treba više da radi nakon odjave.</p>",
+      "testString": "  $.ajax({\n    url: code + '/profile',\n    type: 'GET',\n    crossDomain: true,\n    xhrFields: { withCredentials: true }\n  }).then(\n    (data) => {\n      assert.match(\n        data,\n        /Home/gi,\n        'Profile should redirect to home when we are logged out now again'\n      );\n    },\n    (xhr) => {\n      throw new Error(xhr.statusText);\n    }\n  );"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Sada treba da dozvoliš novom korisniku na tvom sajtu da registruje nalog. U <code>res.render</code> za početnu stranicu dodaj novu varijablu u objekat koji se prosleđuje - <code>showRegistration: true</code>. Kada osvežiš svoju stranicu, trebalo bi da vidiš formu za registraciju koja je već kreirana u tvom <code>index.pug</code> fajlu. Ova forma je podešena da šalje <strong>POST</strong> na <code>/register</code>, pa napravi tu rutu i dodaj korisnički objekat u bazu podataka prateći sledeću logiku.</p>\n<p>Logika rute za registraciju treba da bude sledeća:</p>\n<ol>\n<li>Registruj novog korisnika</li>\n<li>Autentifikuj novog korisnika</li>\n<li>Preusmeri na <code>/profile</code></li>\n</ol>\n<p>Logika koraka 1 treba da bude sledeća:</p>\n<ol>\n<li>Napravi upit za pretragu u bazi podataka sa <code>findOne</code></li>\n<li>Ako postoji greška, pozovi <code>next</code> sa tom greškom</li>\n<li>Ako je korisnik vraćen, preusmeri nazad na početnu</li>\n<li>Ako korisnik nije pronađen i nema grešaka, onda uradi <code>insertOne</code> u bazu podataka sa korisničkim imenom i lozinkom. Sve dok nema grešaka, pozovi <code>next</code> za korak 2, da autentifikuje novog korisnika, što si već napisao logiku u svojoj <code>POST /login</code> ruti.</li>\n</ol>\n<pre><code class=\"language-js\">app.route('/register')\n  .post((req, res, next) => {\n    myDataBase.findOne({ username: req.body.username }, (err, user) => {\n      if (err) {\n        next(err);\n      } else if (user) {\n        res.redirect('/');\n      } else {\n        myDataBase.insertOne({\n          username: req.body.username,\n          password: req.body.password\n        },\n          (err, doc) => {\n            if (err) {\n              res.redirect('/');\n            } else {\n              // The inserted document is held within\n              // the ops property of the doc\n              next(null, doc.ops[0]);\n            }\n          }\n        )\n      }\n    })\n  },\n    passport.authenticate('local', { failureRedirect: '/' }),\n    (req, res, next) => {\n      res.redirect('/profile');\n    }\n  );\n</code></pre>\n<p>Pošalji svoju stranicu kada vidiš da si uradio dobro. Ako naiđeš na greške, možeš <a href=\"https://forum.freecodecamp.org/t/advanced-node-and-express/567135#registration-of-new-users-11\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">pogledati projekat koji je stigao do ovog koraka</a>.</p>\n<p><strong>NAPOMENA:</strong> Odavde, problemi mogu nastati u vezi sa korišćenjem <em>picture-in-picture</em> pretraživača. Ako koristiš online IDE koji pruža pregled aplikacije unutar editora, preporučuje se da otvoriš taj pregled u novom tabu.</p>\n</section>",
+  "translationPending": false,
+  "block": "advanced-node-and-express",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 1,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "quality-assurance",
+  "superOrder": 21,
+  "challengeOrder": 10,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "quality-assurance"
+}

@@ -1,0 +1,85 @@
+{
+  "id": "5900f3ad1000cf542c50fec0",
+  "title": "Zoezi la 65: Mfululizo wa karibu wa e",
+  "challengeType": 1,
+  "forumTopicId": 302177,
+  "dashedName": "problem-65-convergents-of-e",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "function convergentsOfE(n) {\n\n  return true;\n}\n\nconvergentsOfE(10);",
+      "error": null,
+      "seed": "function convergentsOfE(n) {\n\n  return true;\n}\n\nconvergentsOfE(10);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "function convergentsOfE(n) {\n  function sumDigits(num) {\n    let sum = 0n;\n    while (num > 0) {\n      sum += num % 10n;\n      num = num / 10n;\n    }\n    return parseInt(sum);\n  }\n\n  // BigInt is needed for high convergents\n  let convergents = [\n    [2n, 1n],\n    [3n, 1n]\n  ];\n  const multipliers = [1n, 1n, 2n];\n  for (let i = 2; i < n; i++) {\n    const [secondLastConvergent, lastConvergent] = convergents;\n    const [secondLastNumerator, secondLastDenominator] = secondLastConvergent;\n    const [lastNumerator, lastDenominator] = lastConvergent;\n    const curMultiplier = multipliers[i % 3];\n\n    const numerator = secondLastNumerator + curMultiplier * lastNumerator;\n    const denominator = secondLastDenominator + curMultiplier * lastDenominator;\n\n    convergents = [lastConvergent, [numerator, denominator]]\n    if (i % 3 === 2) {\n      multipliers[2] += 2n;\n    }\n  }\n  return sumDigits(convergents[1][0]);\n}",
+        "error": null,
+        "seed": "function convergentsOfE(n) {\n  function sumDigits(num) {\n    let sum = 0n;\n    while (num > 0) {\n      sum += num % 10n;\n      num = num / 10n;\n    }\n    return parseInt(sum);\n  }\n\n  // BigInt is needed for high convergents\n  let convergents = [\n    [2n, 1n],\n    [3n, 1n]\n  ];\n  const multipliers = [1n, 1n, 2n];\n  for (let i = 2; i < n; i++) {\n    const [secondLastConvergent, lastConvergent] = convergents;\n    const [secondLastNumerator, secondLastDenominator] = secondLastConvergent;\n    const [lastNumerator, lastDenominator] = lastConvergent;\n    const curMultiplier = multipliers[i % 3];\n\n    const numerator = secondLastNumerator + curMultiplier * lastNumerator;\n    const denominator = secondLastDenominator + curMultiplier * lastDenominator;\n\n    convergents = [lastConvergent, [numerator, denominator]]\n    if (i % 3 === 2) {\n      multipliers[2] += 2n;\n    }\n  }\n  return sumDigits(convergents[1][0]);\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p><code>convergentsOfE(10)</code> treba da vrati broj.</p>",
+      "testString": "assert(typeof convergentsOfE(10) === 'number');"
+    },
+    {
+      "text": "<p><code>convergentsOfE(10)</code> inapaswa kurudisha <code>17</code>.</p>",
+      "testString": "assert.strictEqual(convergentsOfE(10), 17);"
+    },
+    {
+      "text": "<p><code>convergentsOfE(30)</code> trebalo bi da vrati <code>53</code>.</p>",
+      "testString": "assert.strictEqual(convergentsOfE(30), 53);"
+    },
+    {
+      "text": "<p><code>convergentsOfE(50)</code> trebalo bi da vrati <code>91</code>.</p>",
+      "testString": "assert.strictEqual(convergentsOfE(50), 91);"
+    },
+    {
+      "text": "<p><code>convergentsOfE(70)</code> treba vratiti <code>169</code>.</p>",
+      "testString": "assert.strictEqual(convergentsOfE(70), 169);"
+    },
+    {
+      "text": "<p><code>convergentsOfE(100)</code> trebalo bi da vrati <code>272</code>.</p>",
+      "testString": "assert.strictEqual(convergentsOfE(100), 272);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Kvadratni koren broja 2 može se zapisati kao beskonačan verižni razlomak.</p>\n<p>$\\sqrt{2} = 1 + \\dfrac{1}{2 + \\dfrac{1}{2 + \\dfrac{1}{2 + \\dfrac{1}{2 + ...}}}}</p>\n<p>Beskonačan verižni razlomak može se zapisati kao $\\sqrt{2} = [1; (2)]$, što znači da se 2 <em>beskonačno ponavlja</em>. Na sličan način, $\\sqrt{23} = [4; (1, 3, 1, 8)]$. Ispostavlja se da niz vrednosti u verižnom razlomku kvadratnog korena daje odlične aproksimacije iracionalnih brojeva. Razmotrimo konvergente za $\\sqrt{2}$.</p>\n<p>$1 + \\dfrac{1}{2} = \\dfrac{3}{2}\\\\ 1 + \\dfrac{1}{2 + \\dfrac{1}{2}} = \\dfrac{7}{5}\\\\ 1 + \\dfrac{1}{2 + \\dfrac{1}{2 + \\dfrac{1}{2}}} = \\dfrac{17}{12}\\\\ 1 + \\dfrac{1}{2 + \\dfrac{1}{2 + \\dfrac{1}{2 + \\dfrac{1}{2}}}} = \\dfrac{41}{29}$</p>\n<p>Dakle, serija prvih deset članova $\\sqrt{2}$ je:</p>\n<p>$1, \\dfrac{3}{2}, \\dfrac{7}{5}, \\dfrac{17}{12}, \\dfrac{41}{29}, \\dfrac{99}{70}, \\dfrac{239}{169}, \\dfrac{577}{408}, \\dfrac{1393}{985}, \\dfrac{3363}{2378}, ...$</p>\n<p>Još zanimljiviji je matematički broj $e = [2; 1, 2, 1, 1, 4, 1, 1, 6, 1, ... , 1, 2k, 1, ...]$. Prvih deset članova niza konvergenti broja <code>e</code> su:</p>\n<p>$2, 3, \\dfrac{8}{3}, \\dfrac{11}{4}, \\dfrac{19}{7}, \\dfrac{87}{32}, \\dfrac{106}{39}, \\dfrac{193}{71}, \\dfrac{1264}{465}, \\dfrac{1457}{536}, ...$</p>\n<p>Zbir cifara brojioca 10<sup>tog</sup> konvergenta iznosi $1 + 4 + 5 + 7 = 17$.</p>\n<p>Izračunaj sumu cifara u numeričkoj sekvenci od <code>n</code><sup>th</sup>, bliskom nizu dela sekvence od <code>e</code>.</p>\n</section>",
+  "translationPending": false,
+  "block": "project-euler-problems-1-to-100",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 0,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "project-euler",
+  "superOrder": 13,
+  "challengeOrder": 64,
+  "isLastChallengeInBlock": false,
+  "required": [],
+  "helpCategory": "Euler",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": true,
+  "disableLoopProtectPreview": false,
+  "certification": "project-euler"
+}

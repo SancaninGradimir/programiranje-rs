@@ -1,0 +1,88 @@
+{
+  "id": "5a24c314108439a4d4036153",
+  "title": "Registrujte listener za repozitorijum",
+  "challengeType": 6,
+  "forumTopicId": 301446,
+  "dashedName": "register-a-store-listener",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "const ADD = 'ADD';\n\nconst reducer = (state = 0, action) => {\n  switch(action.type) {\n    case ADD:\n      return state + 1;\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(reducer);\n\n// Global count variable:\nlet count = 0;\n\n// Change code below this line\n\n// Change code above this line\n\nstore.dispatch({type: ADD});\nconsole.log(count);\nstore.dispatch({type: ADD});\nconsole.log(count);\nstore.dispatch({type: ADD});\nconsole.log(count);",
+      "error": null,
+      "seed": "const ADD = 'ADD';\n\nconst reducer = (state = 0, action) => {\n  switch(action.type) {\n    case ADD:\n      return state + 1;\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(reducer);\n\n// Global count variable:\nlet count = 0;\n\n// Change code below this line\n\n// Change code above this line\n\nstore.dispatch({type: ADD});\nconsole.log(count);\nstore.dispatch({type: ADD});\nconsole.log(count);\nstore.dispatch({type: ADD});\nconsole.log(count);"
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const ADD = 'ADD';\n\nconst reducer = (state = 0, action) => {\n  switch(action.type) {\n    case ADD:\n      return state + 1;\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(reducer);\n let count = 0;\n// Change code below this line\n\nstore.subscribe( () =>\n {\n count++;\n }\n);\n\n// Change code above this line\n\nstore.dispatch({type: ADD});\nstore.dispatch({type: ADD});\nstore.dispatch({type: ADD});",
+        "error": null,
+        "seed": "const ADD = 'ADD';\n\nconst reducer = (state = 0, action) => {\n  switch(action.type) {\n    case ADD:\n      return state + 1;\n    default:\n      return state;\n  }\n};\n\nconst store = Redux.createStore(reducer);\n let count = 0;\n// Change code below this line\n\nstore.subscribe( () =>\n {\n count++;\n }\n);\n\n// Change code above this line\n\nstore.dispatch({type: ADD});\nstore.dispatch({type: ADD});\nstore.dispatch({type: ADD});"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Kutuma kitendo cha <code>ADD</code> kwenye hifadhi kunapaswa kuongeza hali kwa <code>1</code>.</p>",
+      "testString": "assert(\n  (function () {\n    const initialState = store.getState();\n    store.dispatch({ type: 'ADD' });\n    const newState = store.getState();\n    return newState === initialState + 1;\n  })()\n);"
+    },
+    {
+      "text": "<p>Kufaa kuwe na kitendakazi cha msikilizaji kilichojiandikisha kwenye hifadhi kwa kutumia <code>store.subscribe</code>.</p>",
+      "testString": "assert.match(code, /store\\s*\\.\\s*subscribe\\(/gm);"
+    },
+    {
+      "text": "<p><code>store.subscribe</code> inapaswa kupokea kitendakazi.</p>",
+      "testString": "assert.match(code, /(\\s*function\\s*)|(\\s*\\(\\s*\\)\\s*=>)/gm);"
+    },
+    {
+      "text": "<p>Funkcija koja je prosleđena za <code>store.subscribe</code> ne bi trebalo da se poziva.</p>",
+      "testString": "assert.notMatch(code, /store\\.subscribe\\(.+\\(\\)\\)/);"
+    },
+    {
+      "text": "<p>Wito wa kurudisha kwa <code>store.subscribe</code> pia unapaswa kuongeza kigezo cha kimataifa <code>count</code> wakati hifadhi inaposasishwa.</p>",
+      "testString": "assert.strictEqual(store.getState(), count);"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Drugi način na koji možete pristupiti objektu Redux <code>store</code> je <code>store.subscribe()</code>. Ovo vam omogućava da se pretplatite na magacine, koji se pozivaju svaki put kada je akcija poslata protiv magacina. Jednostavna upotreba ovog načina je pretplata funkcije na vaš magacin koja snima poruku svaki put kada se akcija primi i magacin ažurira.</p>\n</section>",
+  "instructions": "<section id=\"instructions\">\n<p>Napišite trigger funkciju koja povećava vrednost globalnog parametra <code>count</code> svaki put kada baza podataka primi akciju, i prođite ovu funkciju kroz rutu <code>store.subscribe()</code>. Videćete da <code>store.dispatch()</code> je pozvana tri puta zaredom, svaki put kada direktno prolazi objekat akcije. Pogledajte izlaz konzole između slanja akcija da biste videli kako se ažuriranja dešavaju.</p>\n</section>",
+  "translationPending": false,
+  "block": "redux",
+  "blockLayout": "legacy-challenge-list",
+  "hasEditableBoundaries": false,
+  "order": 4,
+  "questions": [],
+  "superBlock": "front-end-development-libraries",
+  "superOrder": 17,
+  "challengeOrder": 8,
+  "isLastChallengeInBlock": false,
+  "required": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/redux-thunk.min.js"
+    }
+  ],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": false,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "certification": "front-end-development-libraries"
+}

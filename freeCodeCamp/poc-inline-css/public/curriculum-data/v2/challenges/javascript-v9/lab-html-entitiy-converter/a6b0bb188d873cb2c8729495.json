@@ -1,0 +1,95 @@
+{
+  "id": "a6b0bb188d873cb2c8729495",
+  "title": "Konverzija specijalnih znakova u HTML entitete",
+  "challengeType": 26,
+  "dashedName": "implement-an-html-entity-converter",
+  "challengeFiles": [
+    {
+      "id": "",
+      "editableRegionBoundaries": [],
+      "history": [
+        "script.js"
+      ],
+      "name": "script",
+      "ext": "js",
+      "path": "script.js",
+      "fileKey": "scriptjs",
+      "contents": "",
+      "error": null,
+      "seed": ""
+    }
+  ],
+  "solutions": [
+    [
+      {
+        "id": "",
+        "history": [
+          "script.js"
+        ],
+        "name": "script",
+        "ext": "js",
+        "path": "script.js",
+        "fileKey": "scriptjs",
+        "contents": "const map = {\r\n  '&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  \"'\": '&apos;'\r\n};\r\n\r\nfunction convertHTML(str) {\r\n  return str.replace(/[&<>\"']/g, function(char) {\r\n    return map[char];\r\n  });\r\n}",
+        "error": null,
+        "seed": "const map = {\r\n  '&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  \"'\": '&apos;'\r\n};\r\n\r\nfunction convertHTML(str) {\r\n  return str.replace(/[&<>\"']/g, function(char) {\r\n    return map[char];\r\n  });\r\n}"
+      }
+    ]
+  ],
+  "assignments": [],
+  "tests": [
+    {
+      "text": "<p>Trebalo bi da imaš funkciju <code>convertHTML</code>.</p>",
+      "testString": "assert.isFunction(convertHTML);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Dolce &#x26; Gabbana\")</code> trebalo bi vratiti sekvencu karaktera <code>Dolce &#x26;amp; Gabbana</code>.</p>",
+      "testString": "assert.match(convertHTML('Dolce & Gabbana'), /Dolce &amp; Gabbana/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Hamburgers &#x3C; Pizza &#x3C; Tacos\")</code> treba da vrati sekvencu karaktera <code>Hamburgers &#x26;lt; Pizza &#x26;lt; Tacos</code>.</p>",
+      "testString": "assert.match(\r\n  convertHTML('Hamburgers < Pizza < Tacos'),\r\n  /Hamburgers &lt; Pizza &lt; Tacos/\r\n);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Sixty > twelve\")</code> treba da vrati sekvencu karaktera <code>Sixty &#x26;gt; twelve</code>.</p>",
+      "testString": "assert.match(convertHTML('Sixty > twelve'), /Sixty &gt; twelve/);"
+    },
+    {
+      "text": "<p><code>convertHTML('Stuff in \"quotation marks\"')</code> treba da vrati sekvencu karaktera <code>Stuff in &#x26;quot;quotation marks&#x26;quot;</code>.</p>",
+      "testString": "assert.match(\r\n  convertHTML('Stuff in \"quotation marks\"'),\r\n  /Stuff in &quot;quotation marks&quot;/\r\n);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"Schindler's List\")</code> bi trebalo da vrati sekvencu slova <code>Schindler&#x26;apos;s List</code>.</p>",
+      "testString": "assert.match(convertHTML(\"Schindler's List\"), /Schindler&apos;s List/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"&#x3C;>\")</code> trebalo bi da vrati sekvencu karaktera <code>&#x26;lt;&#x26;gt;</code>.</p>",
+      "testString": "assert.match(convertHTML('<>'), /&lt;&gt;/);"
+    },
+    {
+      "text": "<p><code>convertHTML(\"abc\")</code> trebalo bi vratiti niz znakova <code>abc</code>.</p>",
+      "testString": "assert.strictEqual(convertHTML('abc'), 'abc');"
+    }
+  ],
+  "description": "<section id=\"description\">\n<p>Ovaj radionik se bavi konvertovanjem specijalnih znakova u nizu karaktera u njihove odgovarajuće entitete HTML.</p>\n<p><strong>Cilj</strong>: Popunite priče korisnika ispod i prođite sve testove kako biste završili ovaj rad.</p>\n<p><strong>Priče korisnika:</strong></p>\n<ol>\n<li>Trebalo bi da ima funkciju <code>convertHTML</code> koja prima niz karaktera kao argument.</li>\n<li>Funkcija <code>convertHTML</code> treba da vrati novi niz karaktera tako što će zamijeniti specifične karaktere u argumentnom nizu sa njihovim odgovarajućim entitetima HTML.</li>\n</ol>\n<ul>\n<li><code>&#x26;</code> mora biti zamenjeno sa <code>&#x26;amp;</code>.\n<ul>\n<li><code>&#x3C;</code> mora biti zamenjeno sa <code>&#x26;lt;</code>.</li>\n<li><code>></code> mora biti zamenjeno sa <code>&#x26;gt;</code>.</li>\n<li><code>\"</code> mora biti zamenjeno sa <code>&#x26;quot;</code>.</li>\n<li><code>'</code> mora biti zamenjeno sa <code>&#x26;apos;</code>.</li>\n</ul>\n</li>\n</ul>\n</section>",
+  "translationPending": false,
+  "block": "lab-html-entitiy-converter",
+  "blockLabel": "lab",
+  "blockLayout": "link",
+  "hasEditableBoundaries": false,
+  "order": 101,
+  "instructions": "",
+  "questions": [],
+  "superBlock": "javascript-v9",
+  "superOrder": 1,
+  "challengeOrder": 0,
+  "isLastChallengeInBlock": true,
+  "required": [],
+  "helpCategory": "JavaScript",
+  "usesMultifileEditor": true,
+  "disableLoopProtectTests": false,
+  "disableLoopProtectPreview": false,
+  "chapter": "javascript",
+  "module": "review-javascript-fundamentals",
+  "certification": "javascript-v9"
+}
