@@ -326,18 +326,7 @@ exports.createPagesStatefully = async function ({ graphql, actions }) {
     ({ node }) => node
   );
 
-  const idToNextPathCurrentCurriculum =
-    createIdToNextPathMap(allChallengeNodes);
-  const idToPrevPathCurrentCurriculum =
-    createIdToPrevPathMap(allChallengeNodes);
-
-  const nodeToPage = createChallengePages(actions.createPage, {
-    idToNextPathCurrentCurriculum,
-    idToPrevPathCurrentCurriculum
-  });
-
-  // Create challenge pages.
-  allChallengeNodes.forEach(nodeToPage);
+  // Challenge pages are served via a single client-only route under /learn.
 };
 
 exports.createPages = function ({ actions }) {
@@ -352,17 +341,9 @@ exports.createPages = function ({ actions }) {
     ['challenge.superOrder', 'challenge.order', 'challenge.challengeOrder']
   );
 
-  const idToNextPathCurrentCurriculum = createIdToNextPathMap(sortedNodes);
-  const idToPrevPathCurrentCurriculum = createIdToPrevPathMap(sortedNodes);
-
-  for (const node of newNodes) {
-    const nodeToPage = createChallengePages(actions.createPage, {
-      idToNextPathCurrentCurriculum,
-      idToPrevPathCurrentCurriculum
-    });
-
-    nodeToPage(node, 0, sortedNodes);
-  }
+  void actions;
+  void sortedNodes;
+  void newNodes;
 
   // It's important NOT to clear the createdNodes, since Gatsby deletes any
   // pages that are not recreated each time createPages is called.
