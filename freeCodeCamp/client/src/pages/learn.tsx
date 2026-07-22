@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -9,7 +9,10 @@ import { Container, Col, Row, Spacer } from '@freecodecamp/ui';
 import Intro from '../components/Intro';
 import Map from '../components/Map';
 import LearnLayout from '../components/layouts/learn';
-import ShowChallenge from '../client-only-routes/show-challenge';
+import {
+  ShowChallengeView,
+  type ChallengeRouteData
+} from '../client-only-routes/show-challenge';
 import {
   isSignedInSelector,
   userSelector,
@@ -65,6 +68,110 @@ function LearnPage({
   location,
   user
 }: LearnPageProps) {
+  const { name, completedChallengeCount, isDonating } = user ?? EMPTY_USER;
+
+  const { t } = useTranslation();
+  useClaimableCertsNotification();
+
+  const pathname = location?.pathname ?? '';
+  const challengePathPrefix = '/learn/';
+  const isLearnLandingPath = pathname === '/learn' || pathname === '/learn/';
+
+  if (pathname.startsWith(challengePathPrefix) && !isLearnLandingPath) {
+    return <DeepLearnRoute pathname={pathname} />;
+  }
+
+  return (
+    <LearnLanding
+      complete={complete}
+      completedChallengeCount={completedChallengeCount}
+      isDonating={isDonating}
+      isSignedIn={isSignedIn}
+      name={name}
+      pending={pending}
+    />
+  );
+}
+
+LearnPage.displayName = 'LearnPage';
+
+function DeepLearnRoute({ pathname }: { pathname: string }): JSX.Element {
+  const [data, setData] = useState<ChallengeRouteData | null>(null);
+  const [hasFailed, setHasFailed] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const loadChallengeIndex = async () => {
+      setHasFailed(false);
+
+      const superBlock = pathname.replace(/^\/learn\/+/, '').split('/')[0];
+      const response = await fetch(
+        `/page-data/learn/${superBlock}/page-data.json`
+      );
+
+      if (!response.ok) {
+        if (!isCancelled) {
+          setHasFailed(true);
+          setData(null);
+        }
+        return;
+      }
+
+      const pageData = (await response.json()) as {
+        result?: { data?: ChallengeRouteData };
+      };
+
+      if (!isCancelled) {
+        setData(pageData.result?.data ?? null);
+      }
+    };
+
+    void loadChallengeIndex().catch(() => {
+      if (!isCancelled) {
+        setHasFailed(true);
+        setData(null);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [pathname]);
+
+  if (hasFailed) {
+    return <Intro complete={false} completedChallengeCount={0} isDonating={false} isSignedIn={false} name='' pending={false} slug='' onLearnDonationAlertClick={() => {}} />;
+  }
+
+  if (!data) {
+    return <div />;
+  }
+
+  return (
+    <ShowChallengeView
+      params={{
+        '*': pathname.slice('/learn/'.length)
+      }}
+      data={data}
+    />
+  );
+}
+
+function LearnLanding({
+  isSignedIn,
+  complete,
+  completedChallengeCount,
+  isDonating,
+  name,
+  pending
+}: {
+  isSignedIn: boolean;
+  complete: boolean;
+  completedChallengeCount: number;
+  isDonating: boolean;
+  name: string;
+  pending: boolean;
+}): JSX.Element {
   const { challengeNode } = useStaticQuery<{
     challengeNode: {
       challenge: {
@@ -89,25 +196,6 @@ function LearnPage({
     }
   `);
 
-  const { name, completedChallengeCount, isDonating } = user ?? EMPTY_USER;
-
-  const { t } = useTranslation();
-  useClaimableCertsNotification();
-
-  const pathname = location?.pathname ?? '';
-  const challengePathPrefix = '/learn/';
-  const isLearnLandingPath = pathname === '/learn' || pathname === '/learn/';
-
-  if (pathname.startsWith(challengePathPrefix) && !isLearnLandingPath) {
-    return (
-      <ShowChallenge
-        params={{
-          '*': pathname.slice(challengePathPrefix.length)
-        }}
-      />
-    );
-  }
-
   const slug = challengeNode?.challenge?.fields?.slug || '';
 
   const onLearnDonationAlertClick = () => {
@@ -116,6 +204,7 @@ function LearnPage({
       action: `Learn Donation Alert Click`
     });
   };
+
   return (
     <LearnLayout>
       <Helmet title={t('metaTags:title')} />
@@ -140,7 +229,5 @@ function LearnPage({
     </LearnLayout>
   );
 }
-
-LearnPage.displayName = 'LearnPage';
 
 export default connect(mapStateToProps)(LearnPage);

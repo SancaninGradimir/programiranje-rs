@@ -5,7 +5,8 @@ import { submitTypes } from '@freecodecamp/shared/config/challenge-types';
 import { type ChallengeNode } from '../../src/redux/prop-types';
 import {
   SuperBlocks,
-  chapterBasedSuperBlocks
+  chapterBasedSuperBlocks,
+  generateSuperBlockList
 } from '@freecodecamp/shared/config/curriculum';
 import { availableLangs, Languages } from '@freecodecamp/shared/config/i18n';
 import type { Chapter } from '@freecodecamp/shared/config/chapters';
@@ -319,17 +320,9 @@ export function orderedSuperBlockInfo(
   };
 }
 
-export const superBlockDashedNames = (() => {
-  const info = orderedSuperBlockInfo();
-  return Object.keys(info).reduce((acc, superBlockStage) => {
-    const dashedNames = info[superBlockStage].map(
-      superBlock => superBlock.dashedName
-    );
-    acc.push(...dashedNames);
-
-    return acc;
-  }, [] as SuperBlocks[]);
-})();
+export const superBlockDashedNames = generateSuperBlockList({
+  showUpcomingChanges: false
+});
 
 export function buildExtCurriculumDataV2(
   curriculum: Curriculum<CurriculumProps>

@@ -31,6 +31,7 @@ type ChallengeRouteProps = {
 type ChallengeRouteNode = {
   id: string;
   challenge: {
+    id?: string;
     block: string;
     certification: ChallengeNode['challenge']['certification'];
     challengeType: number;
@@ -51,7 +52,7 @@ type ChallengeRouteNode = {
   };
 };
 
-type ChallengeRouteData = {
+export type ChallengeRouteData = {
   allChallengeNode: {
     nodes: ChallengeRouteNode[];
   };
@@ -90,12 +91,16 @@ const challengeTemplates = {
 
 function normalizeLearnSlug(path = ''): string {
   const trimmed = path.replace(/^\/+|\/+$/g, '');
-  return trimmed ? `/learn/${trimmed}/` : '/learn/';
+  return trimmed ? `/learn/${trimmed}` : '/learn';
+}
+
+function getChallengeFileId(node: ChallengeRouteNode): string {
+  return node.challenge.id ?? node.id;
 }
 
 function getChallengeDataPath(node: ChallengeRouteNode): string {
   return withPrefix(
-    `/curriculum-data/v2/challenges/${node.challenge.superBlock}/${node.challenge.block}/${node.id}.json`
+    `/curriculum-data/v2/challenges/${node.challenge.superBlock}/${node.challenge.block}/${getChallengeFileId(node)}.json`
   );
 }
 
@@ -157,6 +162,7 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
         nodes {
           id
           challenge {
+            id
             block
             certification
             challengeType
@@ -179,6 +185,18 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
       }
     }
   `);
+
+  return <ShowChallengeView params={params} data={data} />;
+}
+
+type ShowChallengeViewProps = ChallengeRouteProps & {
+  data: ChallengeRouteData;
+};
+
+export function ShowChallengeView({
+  params,
+  data
+}: ShowChallengeViewProps): JSX.Element {
 
   const routeIndex = useMemo(
     () => createRouteIndex(data.allChallengeNode.nodes),
@@ -271,7 +289,7 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
     disableLoopProtectPreview: currentNode.challenge.disableLoopProtectPreview,
     disableLoopProtectTests: currentNode.challenge.disableLoopProtectTests,
     helpCategory: currentNode.challenge.helpCategory,
-    id: currentNode.id,
+    id: currentChallenge.id ?? currentNode.id,
     isFirstStep: routeIndex.firstStepById.get(currentNode.id) ?? false,
     isLastChallengeInBlock: currentNode.challenge.isLastChallengeInBlock,
     module: currentNode.challenge.module,
@@ -297,6 +315,10 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
         challengeNode: {
           challenge: {
             ...currentChallenge,
+            assignments: currentChallenge.assignments ?? [],
+            nodules: currentChallenge.nodules ?? [],
+            questions: currentChallenge.questions ?? [],
+            tests: currentChallenge.tests ?? [],
             fields: currentNode.challenge.fields,
             helpCategory: currentNode.challenge.helpCategory,
             saveSubmissionToDB: currentNode.challenge.saveSubmissionToDB,
@@ -310,6 +332,7 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
 }
 
 ShowChallenge.displayName = 'ShowChallenge';
+ShowChallengeView.displayName = 'ShowChallengeView';
 
 export { normalizeLearnSlug, mergeSolutionFiles, createRouteIndex };
 
