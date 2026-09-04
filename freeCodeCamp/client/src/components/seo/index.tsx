@@ -26,8 +26,6 @@ interface Item {
   provider: {
     '@type': 'Organization';
     name: string;
-    sameAs: string;
-    nonprofitStatus: string;
   };
 }
 
@@ -91,9 +89,7 @@ const SEO = ({ title, children }: SEOProps) => {
         description: introText.at(0),
         provider: {
           '@type': 'Organization',
-          name: 'freeCodeCamp',
-          sameAs: 'https://freecodecamp.org',
-          nonprofitStatus: 'Nonprofit501c3'
+          name: 'Obrazovna platforma'
         }
       }
     });

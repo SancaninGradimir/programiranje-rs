@@ -17,7 +17,9 @@ const config: GatsbyConfig = {
   },
   trailingSlash: 'ignore',
   siteMetadata: {
-    title: 'freeCodeCamp',
+    // Neutral platform title — the old 'freeCodeCamp' default is intentionally
+    // replaced; the SEO component overrides this per page via metaTags:title.
+    title: 'Obrazovna platforma',
     siteUrl: homeLocation
   },
   pathPrefix: pathPrefix,

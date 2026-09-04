@@ -9,7 +9,9 @@ import FreeCodeCampLogo from '../../../assets/icons/freecodecamp-logo';
 import MenuButton from './menu-button';
 import NavLinks from './nav-links';
 import AuthOrProfile from './auth-or-profile';
-import LanguageList from './language-list';
+// Note: LanguageList (language switcher) is intentionally not rendered anymore
+// (project plan — single language for now). The component is kept intact in
+// ./language-list for future use and can be re-imported here when needed.
 
 import './universal-nav.css';
 
@@ -49,8 +51,12 @@ const UniversalNav = ({
     query: `(min-width: ${SEARCH_EXPOSED_WIDTH}px)`
   });
 
+  // The search UI is hidden on the landing page (homepage) for now, until the
+  // platform has its own searchable books, courses and tutorials. The full
+  // search functionality is kept intact and can be restored by passing
+  // hidden={false} to SearchBarOptimized.
   const search = isLanding(pathname) ? (
-    <SearchBarOptimized innerRef={searchBarRef} />
+    <SearchBarOptimized hidden={true} innerRef={searchBarRef} />
   ) : (
     <SearchBar innerRef={searchBarRef} />
   );
@@ -79,7 +85,10 @@ const UniversalNav = ({
           </div>
         ) : (
           <>
-            <LanguageList />
+            {/* LanguageList (language switcher) is intentionally not rendered for
+                now — the platform currently has only one language. The component
+                and the whole i18n infrastructure are kept intact for future use
+                (English, Croatian, Bosnian, Macedonian, Slovenian, ...). */}
             <MenuButton
               displayMenu={displayMenu}
               hideMenu={hideMenu}

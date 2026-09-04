@@ -4,29 +4,24 @@ import React from 'react';
 import { isMathJaxAllowed, mathJaxSrc } from '../src/utils/math-jax';
 
 export function getheadTagComponents(): JSX.Element[] {
-  const socialImage =
-    'https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png';
+  // NOTE: The social preview image (og:image / twitter:image:src) previously
+  // pointed to freeCodeCamp's CDN. It was removed until we create our own
+  // brand image — re-add those tags when a brand asset becomes available.
 
   const headTags = [
-    <meta content='freeCodeCamp.org' key='og:title' name='og:title' />,
+    <meta
+      content={i18next.t('metaTags:title')}
+      key='og:title'
+      name='og:title'
+    />,
     <meta
       content={i18next.t('metaTags:social-description')}
       key='og:description'
       name='og:description'
     />,
-    <meta content={socialImage} key='og:image' property='og:image' />,
+    <meta content='summary' key='twitter:card' name='twitter:card' />,
     <meta
-      content='summary_large_image'
-      key='twitter:card'
-      name='twitter:card'
-    />,
-    <meta
-      content={socialImage}
-      key='twitter:image:src'
-      name='twitter:image:src'
-    />,
-    <meta
-      content='freeCodeCamp.org'
+      content={i18next.t('metaTags:title')}
       key='twitter:title'
       name='twitter:title'
     />,
@@ -34,12 +29,10 @@ export function getheadTagComponents(): JSX.Element[] {
       content={i18next.t('metaTags:social-description')}
       key='twitter:description'
       name='twitter:description'
-    />,
-    <meta
-      content='$ilp.uphold.com/LJmbPn7WD4JB'
-      key='monetization'
-      name='monetization'
     />
+    // NOTE: The 'monetization' meta tag (freeCodeCamp's Web Monetization
+    // payment pointer) was removed along with the non-profit model. It can be
+    // re-added here if our platform ever adopts Web Monetization.
   ];
   return headTags;
 }

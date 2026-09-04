@@ -16,6 +16,12 @@ import BigCallToAction from './big-call-to-action';
 import TwoButtonCTA from './two-button-cta';
 import CampersImage from './campers-image';
 
+// The brand logos below (Apple, Google, Microsoft, Spotify, Amazon, ...) are
+// temporarily hidden from the homepage. They were giving a false impression that
+// our platform's users already work at those companies. The assets and the
+// rendering code are kept intact and can be re-enabled by setting this to true.
+const showBrandLogos = false;
+
 function LandingTop(): JSX.Element {
   const { t } = useTranslation();
   const showTwoButtonCTA = useFeature('landing-two-button-cta').on;
@@ -66,25 +72,27 @@ function LandingTop(): JSX.Element {
               <Trans>landing.graduates-work</Trans>
             </p>
             <Spacer size='s' />
-            <div
-              className='logo-row'
-              data-playwright-test-label='brand-logo-container'
-            >
-              <AppleLogo />
-              <GoogleLogo />
-              <MicrosoftLogo />
-              {showChineseLogos ? (
-                <>
-                  <TencentLogo />
-                  <AlibabaLogo />
-                </>
-              ) : (
-                <>
-                  <SpotifyLogo />
-                  <AmazonLogo />
-                </>
-              )}
-            </div>
+            {showBrandLogos && (
+              <div
+                className='logo-row'
+                data-playwright-test-label='brand-logo-container'
+              >
+                <AppleLogo />
+                <GoogleLogo />
+                <MicrosoftLogo />
+                {showChineseLogos ? (
+                  <>
+                    <TencentLogo />
+                    <AlibabaLogo />
+                  </>
+                ) : (
+                  <>
+                    <SpotifyLogo />
+                    <AmazonLogo />
+                  </>
+                )}
+              </div>
+            )}
             <Spacer size='m' />
           </Col>
         </Row>

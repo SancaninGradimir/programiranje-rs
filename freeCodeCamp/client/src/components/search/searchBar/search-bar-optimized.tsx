@@ -5,10 +5,12 @@ import InputReset from '../../../assets/icons/input-reset';
 import { searchPageUrl } from '../../../utils/algolia-locale-setup';
 
 const SearchBarOptimized = ({
+  hidden = false,
   innerRef
 }: {
+  hidden?: boolean;
   innerRef: React.RefObject<HTMLDivElement>;
-}): JSX.Element => {
+}): JSX.Element | null => {
   const { t } = useTranslation();
   // TODO: Refactor this fallback when all translation files are synced
   const searchPlaceholder = t('search-bar:placeholder').startsWith(
@@ -34,6 +36,10 @@ const SearchBarOptimized = ({
     setValue('');
     inputElementRef.current?.focus();
   };
+
+  // The landing-page search is temporarily hidden (the platform does not have
+  // its own searchable content yet). Setting hidden={false} restores it.
+  if (hidden) return null;
 
   return (
     <div className='fcc_searchBar' data-testid='fcc_searchBar' ref={innerRef}>

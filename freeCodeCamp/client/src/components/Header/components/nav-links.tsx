@@ -72,6 +72,13 @@ const DonateButton = ({
   );
 };
 
+const showCommunityNavLinks = false;
+// The community/external links (Forum, News, Radio, Contribute, Podcast) are
+// temporarily hidden from the menu. They point to freeCodeCamp's external
+// platforms and our platform does not have its own equivalents yet. The links,
+// translations and components are all kept intact below and can be re-enabled
+// by setting `showCommunityNavLinks` to true.
+
 function NavLinks({
   menuButtonRef,
   openSignoutModal,
@@ -181,72 +188,76 @@ function NavLinks({
           </li>
         </>
       )}
-      <li key='forum' className='nav-line'>
-        <Link
-          className='nav-link nav-link-flex'
-          external={true}
-          onKeyDown={handleMenuKeyDown}
-          sameTab={false}
-          to={t('links:nav.forum')}
-        >
-          <span>{t('buttons.forum')}</span>
-          <span className='sr-only'>, {t('aria.opens-new-window')}</span>
+      {showCommunityNavLinks && (
+        <>
+          <li key='forum' className='nav-line'>
+            <Link
+              className='nav-link nav-link-flex'
+              external={true}
+              onKeyDown={handleMenuKeyDown}
+              sameTab={false}
+              to={t('links:nav.forum')}
+            >
+              <span>{t('buttons.forum')}</span>
+              <span className='sr-only'>, {t('aria.opens-new-window')}</span>
 
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </Link>
-      </li>
-      <li key='news'>
-        <Link
-          className='nav-link nav-link-flex'
-          external={true}
-          onKeyDown={handleMenuKeyDown}
-          sameTab={false}
-          to={t('links:nav.news')}
-        >
-          <span>{t('buttons.news')}</span>
-          <span className='sr-only'>, {t('aria.opens-new-window')}</span>
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </Link>
-      </li>
-      <li key='radio'>
-        <Link
-          className='nav-link nav-link-flex'
-          external={true}
-          onKeyDown={handleMenuKeyDown}
-          sameTab={false}
-          to={radioLocation}
-        >
-          <span>{t('buttons.radio')}</span>
-          <span className='sr-only'>, {t('aria.opens-new-window')}</span>
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </Link>
-      </li>
-      <li key='contribute'>
-        <Link
-          className='nav-link nav-link-flex'
-          external={true}
-          onKeyDown={handleMenuKeyDown}
-          sameTab={false}
-          to={t('links:nav.contribute')}
-        >
-          <span>{t('buttons.contribute')}</span>
-          <span className='sr-only'>, {t('aria.opens-new-window')}</span>
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </Link>
-      </li>
-      <li key='podcast'>
-        <Link
-          className='nav-link nav-link-flex'
-          external={true}
-          onKeyDown={handleMenuKeyDown}
-          sameTab={false}
-          to={t('links:nav.podcast')}
-        >
-          <span>{t('buttons.podcast')}</span>
-          <span className='sr-only'>, {t('aria.opens-new-window')}</span>
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </Link>
-      </li>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </Link>
+          </li>
+          <li key='news'>
+            <Link
+              className='nav-link nav-link-flex'
+              external={true}
+              onKeyDown={handleMenuKeyDown}
+              sameTab={false}
+              to={t('links:nav.news')}
+            >
+              <span>{t('buttons.news')}</span>
+              <span className='sr-only'>, {t('aria.opens-new-window')}</span>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </Link>
+          </li>
+          <li key='radio'>
+            <Link
+              className='nav-link nav-link-flex'
+              external={true}
+              onKeyDown={handleMenuKeyDown}
+              sameTab={false}
+              to={radioLocation}
+            >
+              <span>{t('buttons.radio')}</span>
+              <span className='sr-only'>, {t('aria.opens-new-window')}</span>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </Link>
+          </li>
+          <li key='contribute'>
+            <Link
+              className='nav-link nav-link-flex'
+              external={true}
+              onKeyDown={handleMenuKeyDown}
+              sameTab={false}
+              to={t('links:nav.contribute')}
+            >
+              <span>{t('buttons.contribute')}</span>
+              <span className='sr-only'>, {t('aria.opens-new-window')}</span>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </Link>
+          </li>
+          <li key='podcast'>
+            <Link
+              className='nav-link nav-link-flex'
+              external={true}
+              onKeyDown={handleMenuKeyDown}
+              sameTab={false}
+              to={t('links:nav.podcast')}
+            >
+              <span>{t('buttons.podcast')}</span>
+              <span className='sr-only'>, {t('aria.opens-new-window')}</span>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+            </Link>
+          </li>
+        </>
+      )}
       <li className='nav-line' key='theme'>
         <button
           aria-pressed={theme === LocalStorageThemes.Dark}

@@ -4,7 +4,10 @@ import { useGrowthBook } from '@growthbook/growthbook-react';
 import SEO from '../components/seo';
 import { Loader } from '../components/helpers';
 import LandingTop from '../components/landing/components/landing-top';
-import Testimonials from '../components/landing/components/testimonials';
+// Testimonials (alumni stories) are intentionally not rendered on the homepage
+// for now — the platform does not have its own graduates yet. The component is
+// kept intact in ../components/landing/components/testimonials and can be
+// re-imported when we have real learner stories ("Iskustva naših polaznika").
 import Certifications from '../components/landing/components/certifications';
 import LandingCatalog from '../components/landing/components/landing-catalog';
 import Faq from '../components/landing/components/faq';
@@ -21,7 +24,8 @@ const Landing = () => (
   >
     <LandingTop />
     <Benefits />
-    <Testimonials />
+    {/* Testimonials section (alumni stories) is intentionally omitted from the
+        homepage for now — see note above the imports. */}
     <Certifications />
     <LandingCatalog />
     <Faq />

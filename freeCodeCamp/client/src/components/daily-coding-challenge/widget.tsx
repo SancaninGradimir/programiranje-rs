@@ -24,6 +24,9 @@ function DailyCodingChallengeWidget({
       <h2 className={forLanding ? 'big-heading' : ''}>
         {t('daily-coding-challenges.map-title')}
       </h2>
+      <p className='daily-coding-challenge-subtitle'>
+        {t('daily-coding-challenges.map-subtitle')}
+      </p>
       <div className='daily-coding-challenge-wrap'>
         <ButtonLink
           block

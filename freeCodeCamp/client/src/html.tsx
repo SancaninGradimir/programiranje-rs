@@ -27,7 +27,7 @@ export default function HTML({
       id='__fcc-html'
       {...(isRtlLanguage && rtlDirectionAttribute)}
       {...htmlAttributes}
-      lang='en'
+      lang='sr'
     >
       <head>
         <meta charSet='utf-8' />

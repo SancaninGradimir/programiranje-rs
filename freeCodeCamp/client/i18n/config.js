@@ -1,4 +1,6 @@
 /* global preval */
+/* i18n resources are loaded at build time (preval) — bump this marker to
+   force re-evaluation when locale JSON files change: v2 */
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
