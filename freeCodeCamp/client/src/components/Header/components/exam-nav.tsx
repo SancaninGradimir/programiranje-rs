@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FreeCodeCampLogo from '../../../assets/icons/freecodecamp-logo';
+import UčimoLogo from '../../../assets/icons/freecodecamp-logo';
 import MicrosoftLogo from '../../../assets/icons/microsoft-logo';
 
 import './exam-nav.css';
@@ -15,7 +15,7 @@ const ExamNav = (): JSX.Element => {
       id='exam-nav'
       data-playwright-test-label='header-exam-nav'
     >
-      <FreeCodeCampLogo aria-hidden='true' />
+      <UčimoLogo aria-hidden='true' />
       <MicrosoftLogo
         aria-hidden='true'
         data-playwright-test-label='header-exam-nav-microsoft-logo'

@@ -160,7 +160,7 @@ function MsTrophy(props: MsTrophyProps) {
     <Hotkeys containerRef={container}>
       <LearnLayout>
         <Helmet
-          title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
+          title={`${blockNameTitle} | ${t('learn.learn')} | Učimo`}
         />
         <Container>
           <Row>

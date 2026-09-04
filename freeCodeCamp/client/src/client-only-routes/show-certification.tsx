@@ -9,7 +9,7 @@ import { Container, Col, Row, Image, Button, Spacer } from '@freecodecamp/ui';
 
 import envData from '../../config/env.json';
 import { getLangCode } from '@freecodecamp/shared/config/i18n';
-import FreeCodeCampLogo from '../assets/icons/freecodecamp-logo';
+import UčimoLogo from '../assets/icons/freecodecamp-logo';
 import MicrosoftLogo from '../assets/icons/microsoft-logo';
 import { createFlashMessage } from '../components/Flash/redux';
 import { Loader } from '../components/helpers';
@@ -421,7 +421,7 @@ const ShowCertification = (props: ShowCertificationProps): JSX.Element => {
                     className='dual-logo fcc-logo'
                     data-playwright-test-label='cert-fcc-logo'
                   >
-                    <FreeCodeCampLogo aria-hidden='true' />
+                    <UčimoLogo aria-hidden='true' />
                   </div>
                   <div
                     className='dual-logo ms-logo'
@@ -435,7 +435,7 @@ const ShowCertification = (props: ShowCertificationProps): JSX.Element => {
                   className='logo'
                   data-playwright-test-label='cert-fcc-logo'
                 >
-                  <FreeCodeCampLogo aria-hidden='true' />
+                  <UčimoLogo aria-hidden='true' />
                 </div>
               )}
             </Col>

@@ -170,7 +170,7 @@ export function ShowSettings(props: ShowSettingsProps): JSX.Element {
   const editorLayout = (store.get('challenge-layout') as boolean) ?? false;
   return (
     <>
-      <Helmet title={`${t('buttons.settings')} | freeCodeCamp.org`} />
+      <Helmet title={`${t('buttons.settings')} | Učimo`} />
       <div className='settings-container' id='settings-container'>
         <SettingsSidebarNav userToken={userToken} />
         <main className='settings-main'>

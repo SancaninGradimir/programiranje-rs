@@ -24,7 +24,7 @@ function DailyCodingChallengeNotFound(): JSX.Element {
           xs={12}
           className='not-found-wrapper'
         >
-          <Helmet title={t('404.page-not-found') + ' | freeCodeCamp.org'} />
+          <Helmet title={t('404.page-not-found') + ' | Učimo'} />
           <img alt={t('404.not-found')} src={notFoundLogo} />
           <Spacer size='m' />
           <h1 id='content-start'>{t('daily-coding-challenges.not-found')}</h1>

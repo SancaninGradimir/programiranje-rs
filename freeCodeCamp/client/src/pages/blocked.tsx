@@ -5,7 +5,7 @@ import { Container, Col, Row, Spacer } from '@freecodecamp/ui';
 function BlockedPage(): JSX.Element {
   return (
     <>
-      <Helmet title={`Access Denied | freeCodeCamp.org`} />
+      <Helmet title={`Access Denied | Učimo`} />
       <Container className='text-center'>
         <Spacer size='l' />
         <Row>

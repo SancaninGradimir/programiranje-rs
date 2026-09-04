@@ -2,20 +2,22 @@ import Loadable from '@loadable/component';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
-import { isLanding } from '../../../utils/path-parsers';
 import { Link, SkeletonSprite } from '../../helpers';
 import { SEARCH_EXPOSED_WIDTH } from '../../../../config/misc';
-import FreeCodeCampLogo from '../../../assets/icons/freecodecamp-logo';
+import UčimoLogo from '../../../assets/icons/freecodecamp-logo';
 import MenuButton from './menu-button';
 import NavLinks from './nav-links';
 import AuthOrProfile from './auth-or-profile';
 // Note: LanguageList (language switcher) is intentionally not rendered anymore
 // (project plan — single language for now). The component is kept intact in
 // ./language-list for future use and can be re-imported here when needed.
+// Note: The full SearchBar is intentionally not rendered either (project plan —
+// the platform has no searchable books/courses yet). The component is kept
+// intact in ../../search/searchBar/search-bar.tsx and can be re-imported with:
+// const SearchBar = Loadable(() => import('../../search/searchBar/search-bar'));
 
 import './universal-nav.css';
 
-const SearchBar = Loadable(() => import('../../search/searchBar/search-bar'));
 const SearchBarOptimized = Loadable(
   () => import('../../search/searchBar/search-bar-optimized')
 );
@@ -42,8 +44,7 @@ const UniversalNav = ({
   menuButtonRef,
   searchBarRef,
   user,
-  fetchState,
-  pathname
+  fetchState
 }: UniversalNavProps): JSX.Element => {
   const { pending } = fetchState;
   const { t } = useTranslation();
@@ -51,15 +52,13 @@ const UniversalNav = ({
     query: `(min-width: ${SEARCH_EXPOSED_WIDTH}px)`
   });
 
-  // The search UI is hidden on the landing page (homepage) for now, until the
-  // platform has its own searchable books, courses and tutorials. The full
-  // search functionality is kept intact and can be restored by passing
-  // hidden={false} to SearchBarOptimized.
-  const search = isLanding(pathname) ? (
-    <SearchBarOptimized hidden={true} innerRef={searchBarRef} />
-  ) : (
-    <SearchBar innerRef={searchBarRef} />
-  );
+  // The search UI is temporarily hidden on ALL pages (not just the landing
+  // page) until the platform has its own searchable books, courses and
+  // tutorials. SearchBarOptimized returns null when hidden={true}, so nothing
+  // is rendered. The full search functionality is kept intact and can be
+  // restored by setting hidden={false} (or re-adding the full SearchBar —
+  // see the import note above).
+  const search = <SearchBarOptimized hidden={true} innerRef={searchBarRef} />;
   return (
     <nav
       aria-label={t('aria.primary-nav')}
@@ -76,7 +75,7 @@ const UniversalNav = ({
         to='/learn'
         data-playwright-test-label='header-universal-nav-logo'
       >
-        <FreeCodeCampLogo aria-label={t('aria.fcc-curriculum')} />
+        <UčimoLogo aria-label={t('aria.fcc-curriculum')} />
       </Link>
       <div className='universal-nav-right main-nav'>
         {pending ? (

@@ -108,8 +108,14 @@ function Map({ forLanding = false }: MapProps) {
           return (
             <Fragment key={stage}>
               {
-                /* Show the daily coding challenge before the "English" curriculum */
-                stage === SuperBlockStage.English && (
+                /* Show the daily coding challenge before the "English" curriculum.
+
+                   NOTE: The widget is intentionally hidden on the homepage
+                   (forLanding) for now — the "Današnji izazov" section will
+                   likely be re-enabled there later. It still renders on /learn
+                   and the DailyCodingChallengeWidget component itself is
+                   untouched, as is the /learn/daily-coding-challenge route. */
+                stage === SuperBlockStage.English && !forLanding && (
                   <>
                     <DailyCodingChallengeWidget forLanding={forLanding} />
                     <Spacer size='m' />

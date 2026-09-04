@@ -264,7 +264,7 @@ const ShowFillInTheBlank = ({
     >
       <LearnLayout>
         <Helmet
-          title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
+          title={`${blockNameTitle} | ${t('learn.learn')} | Učimo`}
         />
         <Container>
           <Row>

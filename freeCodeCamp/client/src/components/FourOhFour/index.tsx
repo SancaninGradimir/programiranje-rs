@@ -16,7 +16,7 @@ const FourOhFour = (_props: RouteComponentProps): JSX.Element => {
 
   return (
     <div className='notfound-page-wrapper'>
-      <Helmet title={t('404.page-not-found') + ' | freeCodeCamp.org'} />
+      <Helmet title={t('404.page-not-found') + ' | Učimo'} />
       <img
         alt={t('404.not-found')}
         src={notFoundLogo}

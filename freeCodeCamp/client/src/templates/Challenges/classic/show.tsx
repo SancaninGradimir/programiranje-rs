@@ -250,7 +250,7 @@ function ShowClassic({
   const blockNameTitle = `${t(
     `intro:${superBlock}.blocks.${block}.title`
   )}: ${title}`;
-  const windowTitle = `${blockNameTitle} | freeCodeCamp.org`;
+  const windowTitle = `${blockNameTitle} | Učimo`;
   const openConsole = isJavaScriptChallenge({ challengeType });
   const hasPreview = challengeHasPreview({ challengeType });
   const getLayoutState = () => {

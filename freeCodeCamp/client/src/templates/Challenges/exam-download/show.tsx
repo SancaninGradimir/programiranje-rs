@@ -335,7 +335,7 @@ function ShowExamDownload({
     <LearnLayout>
       <Helmet>
         <title>
-          {title ? `${title} | freeCodeCamp.org` : 'freeCodeCamp.org'}
+          {title ? `${title} | Učimo` : 'Učimo'}
         </title>
       </Helmet>
       <Container>

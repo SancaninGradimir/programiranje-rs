@@ -340,7 +340,7 @@ const ShowQuiz = ({
     >
       <LearnLayout>
         <Helmet
-          title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
+          title={`${blockNameTitle} | ${t('learn.learn')} | Učimo`}
         />
         <Container className='quiz-challenge-container'>
           <Row>

@@ -406,7 +406,7 @@ const ShowGeneric = ({
     >
       <LearnLayout>
         <Helmet
-          title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
+          title={`${blockNameTitle} | ${t('learn.learn')} | Učimo`}
         />
         <Container
           className={isReviewChallenge ? 'content-layout-fluid' : undefined}
