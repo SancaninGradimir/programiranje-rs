@@ -9,7 +9,7 @@ export async function onRequest(context: {
   const path = params.path?.join('/') ?? '';
 
   const targetUrl = new URL(
-    `http://92.5.132.116:3000/${path}`
+    `http://api.ucimo.net:3000/${path}`
   );
 
   targetUrl.search = new URL(request.url).search;
