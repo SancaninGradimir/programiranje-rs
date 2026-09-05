@@ -28,5 +28,23 @@ export async function onRequest(context: {
     redirect: 'manual'
   });
 
-  return fetch(proxyRequest);
+  const response = await fetch(proxyRequest);
+
+  const contentType = response.headers.get('content-type') || '';
+
+  if (contentType.includes('text/html')) {
+    const html = await response.text();
+
+    const rewrittenHtml = html.replace(
+      /\/documentation\//g,
+      '/api/documentation/'
+    );
+
+    return new Response(rewrittenHtml, {
+      status: response.status,
+      headers: response.headers
+    });
+  }
+
+  return response;
 }
