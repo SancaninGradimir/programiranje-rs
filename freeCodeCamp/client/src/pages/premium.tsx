@@ -5,7 +5,10 @@ import { createSelector } from 'reselect';
 import { Container, Row, Col, Spacer } from '@freecodecamp/ui';
 
 import BigCallToAction from '../components/landing/components/big-call-to-action';
-import { createPremiumCheckout } from '../utils/ajax';
+import {
+  createPremiumCheckout,
+  createPremiumCustomerPortal
+} from '../utils/ajax';
 import {
   isSignedInSelector,
   userSelector
@@ -28,9 +31,30 @@ const mapStateToProps = createSelector(
 
 function PremiumPage({ isSignedIn, user }: PremiumPageProps) {
   const [loading, setLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
   const [error, setError] = useState('');
 
   const hasSubscription = user?.subscriptionStatus === 'active';
+
+  async function handleCustomerPortal() {
+    setPortalLoading(true);
+    setError('');
+
+    try {
+      const { response, data } = await createPremiumCustomerPortal();
+
+      if (!response.ok || !data.customerPortalUrl) {
+        setError(data.error || 'Nije moguće otvoriti upravljanje pretplatom.');
+        return;
+      }
+
+      window.location.href = data.customerPortalUrl;
+    } catch {
+      setError('Došlo je do greške. Pokušajte ponovo.');
+    } finally {
+      setPortalLoading(false);
+    }
+  }
 
   async function handleCheckout() {
     setLoading(true);
@@ -86,6 +110,28 @@ function PremiumPage({ isSignedIn, user }: PremiumPageProps) {
                     <p className='text-center'>
                       Vaša Premium pretplata je aktivna.
                     </p>
+
+                    <Spacer size='m' />
+
+                    <div className='text-center'>
+                      <button
+                        className='btn btn-cta'
+                        type='button'
+                        onClick={() => void handleCustomerPortal()}
+                        disabled={portalLoading}
+                      >
+                        {portalLoading
+                          ? 'Otvaranje...'
+                          : 'Upravljaj pretplatom'}
+                      </button>
+                    </div>
+
+                    {error ? (
+                      <>
+                        <Spacer size='m' />
+                        <p className='text-center'>{error}</p>
+                      </>
+                    ) : null}
                   </>
                 ) : (
                   <>

@@ -74,6 +74,12 @@ export function createPremiumCheckout(): Promise<
   return post('/premium/create-checkout', {});
 }
 
+export function createPremiumCustomerPortal(): Promise<
+  ResponseWithData<{ customerPortalUrl?: string; error?: string }>
+> {
+  return post('/premium/customer-portal', {});
+}
+
 function put<T = void>(
   path: string,
   body: unknown

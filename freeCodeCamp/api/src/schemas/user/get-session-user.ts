@@ -128,6 +128,8 @@ export const getSessionUser = {
           sendQuincyEmail: Type.Union([Type.Null(), Type.Boolean()]), //           // Tri-state: null (likely new user), true (subscribed), false (unsubscribed)
           subscriptionStatus: Type.Union([Type.Null(), Type.String()]),
           subscriptionEndDate: Type.Union([Type.Null(), Type.String()]),
+          trialStartedAt: Type.Union([Type.Null(), Type.String()]),
+          trialEndsAt: Type.Union([Type.Null(), Type.String()]),
           socrates: Type.Optional(Type.Boolean()),
           theme: Type.String(),
           twitter: Type.Optional(Type.String()),

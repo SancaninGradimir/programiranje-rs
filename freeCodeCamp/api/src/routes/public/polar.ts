@@ -60,6 +60,33 @@ export const polarCheckoutRoute: FastifyPluginCallbackTypebox = (
   });
 
 
+  fastify.post('/premium/customer-portal', async (req, reply) => {
+    const { user } = await req.getAuthedUser();
+
+    if (!user) {
+      return reply.code(401).send({
+        error: 'You must be signed in to manage your subscription.'
+      });
+    }
+
+    try {
+      const customerSession = await polar.customerSessions.create({
+        externalCustomerId: user.id,
+        returnUrl: 'https://ucimo.net/premium/'
+      });
+
+      return reply.send({
+        customerPortalUrl: customerSession.customerPortalUrl
+      });
+    } catch (error) {
+      fastify.log.error(error, 'Failed to create Polar customer session');
+
+      return reply.code(500).send({
+        error: 'Failed to open customer portal'
+      });
+    }
+  });
+
   fastify.get('/premium/test', async (req, reply) => {
     const { user, message } = await req.getAuthedUser();
 
