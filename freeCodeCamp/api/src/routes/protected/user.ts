@@ -804,6 +804,7 @@ export const userGetRoutes: FastifyPluginCallbackTypebox = (
           trialStartedAt: true,
           trialEndsAt: true,
           subscriptionStatus: true,
+          subscriptionEndDate: true,
           theme: true,
           twitter: true,
           bluesky: true,
@@ -897,7 +898,9 @@ export const userGetRoutes: FastifyPluginCallbackTypebox = (
             socrates: socrates ?? true,
             trialStartedAt: user.trialStartedAt?.toISOString() ?? null,
             trialEndsAt: user.trialEndsAt?.toISOString() ?? null,
-            subscriptionStatus: user.subscriptionStatus
+            subscriptionStatus: user.subscriptionStatus,
+            subscriptionEndDate:
+              user.subscriptionEndDate?.toISOString() ?? null
           }
         },
         result: user.username

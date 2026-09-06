@@ -18,6 +18,7 @@ import Honesty from '../components/settings/honesty';
 import Privacy from '../components/settings/privacy';
 import UserToken from '../components/settings/user-token';
 import ExamToken from '../components/settings/exam-token';
+import Subscription from '../components/settings/subscription';
 import SettingsSidebarNav from '../components/settings/settings-sidebar-nav';
 import About from '../components/profile/components/about';
 import { hardGoTo as navigate } from '../redux/actions';
@@ -214,6 +215,15 @@ export function ShowSettings(props: ShowSettingsProps): JSX.Element {
               socrates={socrates}
             />
           </ScrollElement>
+          <Spacer size='l' />
+          <ScrollElement name='premium'>
+            <Subscription
+              subscriptionStatus={user.subscriptionStatus}
+              subscriptionEndDate={user.subscriptionEndDate}
+              trialEndsAt={user.trialEndsAt}
+            />
+          </ScrollElement>
+
           <Spacer size='l' />
           <ScrollElement name='privacy'>
             <Privacy />

@@ -453,6 +453,7 @@ export type User = {
   trialStartedAt: string | null;
   trialEndsAt: string | null;
   subscriptionStatus: string;
+  subscriptionEndDate: string | null;
   sound: boolean;
   theme: UserThemes;
   keyboardShortcuts: boolean;

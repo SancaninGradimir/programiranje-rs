@@ -62,6 +62,21 @@ function SettingsSidebarNav({
         </SidebarPanel.Item>
         <SidebarPanel.Item>
           <ScrollLink
+            to='premium'
+            href='#premium'
+            className='sidebar-nav-section-heading'
+            smooth={true}
+            offset={scrollOffset}
+            duration={300}
+            spy={true}
+            hashSpy={true}
+            activeClass='active'
+          >
+            Učimo Premium
+          </ScrollLink>
+        </SidebarPanel.Item>
+        <SidebarPanel.Item>
+          <ScrollLink
             to='privacy'
             href='#privacy'
             className='sidebar-nav-section-heading'

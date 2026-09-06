@@ -57,6 +57,14 @@ const plugin: FastifyPluginCallback = (fastify, _options, done) => {
         return;
       }
 
+      // Allow access until the end of a previously paid subscription period.
+      if (
+        user.subscriptionEndDate &&
+        user.subscriptionEndDate > now
+      ) {
+        return;
+      }
+
       fastify.log.info(
         { userId: user.id },
         'Premium route accessed without an active subscription'

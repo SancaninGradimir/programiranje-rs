@@ -144,7 +144,8 @@ export const polarWebhookRoute: FastifyPluginCallbackTypebox = (
       data: {
         polarCustomerId: subscription.customerId,
         polarSubscriptionId: subscription.id,
-        subscriptionStatus: subscription.status
+        subscriptionStatus: subscription.status,
+        subscriptionEndDate: subscription.currentPeriodEnd
       }
     });
 
