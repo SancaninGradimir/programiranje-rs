@@ -63,6 +63,17 @@ export function post<T = void>(
   return request('POST', path, body);
 }
 
+export interface PremiumCheckoutResponse {
+  checkoutUrl?: string;
+  error?: string;
+}
+
+export function createPremiumCheckout(): Promise<
+  ResponseWithData<PremiumCheckoutResponse>
+> {
+  return post('/premium/create-checkout', {});
+}
+
 function put<T = void>(
   path: string,
   body: unknown

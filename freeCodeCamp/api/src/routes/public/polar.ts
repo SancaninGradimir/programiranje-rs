@@ -6,7 +6,7 @@ import {
   POLAR_SUCCESS_URL
 } from '../../utils/env.js';
 
-const POLAR_PRODUCT_ID = '83adabd7-6cbb-49b8-a0de-b0b224254704';
+const POLAR_PRODUCT_ID = '6d8ad6cb-e6ce-46d7-bd51-7e7dff5eeae3';
 
 /**
  * Plugin for creating Polar checkout sessions.
@@ -17,7 +17,8 @@ export const polarCheckoutRoute: FastifyPluginCallbackTypebox = (
   done
 ) => {
   const polar = new Polar({
-    accessToken: POLAR_ACCESS_TOKEN
+    accessToken: POLAR_ACCESS_TOKEN,
+    server: 'sandbox'
   });
 
   fastify.post('/premium/create-checkout', async (req, reply) => {

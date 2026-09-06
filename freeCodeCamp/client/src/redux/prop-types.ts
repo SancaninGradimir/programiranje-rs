@@ -450,6 +450,9 @@ export type User = {
   progressTimestamps: Array<unknown>;
   savedChallenges: SavedChallenges;
   sendQuincyEmail: boolean | null;
+  trialStartedAt: string | null;
+  trialEndsAt: string | null;
+  subscriptionStatus: string;
   sound: boolean;
   theme: UserThemes;
   keyboardShortcuts: boolean;
