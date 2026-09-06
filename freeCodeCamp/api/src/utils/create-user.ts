@@ -61,6 +61,12 @@ export const createResetProperties = () => ({
 export function createUserInput(email: string) {
   const username = 'fcc-' + crypto.randomUUID();
   const externalId = crypto.randomUUID();
+
+  // New users receive a 7-day free trial.
+  const trialStartedAt = new Date();
+  const trialEndsAt = new Date(
+    trialStartedAt.getTime() + 7 * 24 * 60 * 60 * 1000
+  );
   // This explicitly includes all array fields. This is not strictly necessary -
   // Prisma will return an empty array even if the property is missing, but it's
   // probably best to add them to the document, at least until we normalise the
@@ -76,6 +82,9 @@ export function createUserInput(email: string) {
     isBanned: false,
     isCheater: false,
     isDonating: false,
+    trialStartedAt,
+    trialEndsAt,
+    subscriptionStatus: 'trialing',
     isHonest: false,
     keyboardShortcuts: false,
     location: '',

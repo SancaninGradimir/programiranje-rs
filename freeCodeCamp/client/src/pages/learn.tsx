@@ -172,6 +172,7 @@ function LearnLanding({
   name: string;
   pending: boolean;
 }): JSX.Element {
+  const { t } = useTranslation();
   const { challengeNode } = useStaticQuery<{
     challengeNode: {
       challenge: {

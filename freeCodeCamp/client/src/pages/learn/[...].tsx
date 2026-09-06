@@ -2,13 +2,10 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 
-import { ShowChallengeView } from '../../client-only-routes/show-challenge';
-
-type ChallengeRouteData = {
-  allChallengeNode: {
-    nodes: Array<unknown>;
-  };
-};
+import {
+  ShowChallengeView,
+  type ChallengeRouteData
+} from '../../client-only-routes/show-challenge';
 
 interface Props {
   params: {
@@ -17,8 +14,13 @@ interface Props {
   data: ChallengeRouteData;
 }
 
-function LearnChallengeRoute(props: Props): JSX.Element {
-  return <ShowChallengeView {...props} />;
+function LearnChallengeRoute({ params, data }: Props): JSX.Element {
+  return (
+    <ShowChallengeView
+      params={params}
+      data={data}
+    />
+  );
 }
 
 LearnChallengeRoute.displayName = 'LearnChallengeRoute';

@@ -9,6 +9,10 @@ import { getRedirectParams } from '../utils/redirection.js';
 declare module 'fastify' {
   interface FastifyInstance {
     send401IfNoUser: (req: FastifyRequest, reply: FastifyReply) => void;
+    send403IfNoPremium: (
+      req: FastifyRequest,
+      reply: FastifyReply
+    ) => Promise<void>;
     redirectIfNoUser: (req: FastifyRequest, reply: FastifyReply) => void;
     redirectIfSignedIn: (req: FastifyRequest, reply: FastifyReply) => void;
   }
@@ -30,6 +34,39 @@ const plugin: FastifyPluginCallback = (fastify, _options, done) => {
           message: req.accessDeniedMessage?.content
         });
       }
+    }
+  );
+
+  fastify.decorate(
+    'send403IfNoPremium',
+    async function (req: FastifyRequest, reply: FastifyReply) {
+      const user = req.user;
+
+      // Do nothing if authentication already rejected this request.
+      if (!user || reply.sent) return;
+
+      const now = new Date();
+
+      // Allow users with an active free trial.
+      if (user.trialEndsAt && user.trialEndsAt > now) {
+        return;
+      }
+
+      // Allow users with an active Polar subscription.
+      if (user.subscriptionStatus === 'active') {
+        return;
+      }
+
+      fastify.log.info(
+        { userId: user.id },
+        'Premium route accessed without an active subscription'
+      );
+
+      await reply.status(403).send({
+        type: 'subscription_required',
+        message: 'An active subscription is required to access this content.',
+        checkout: '/premium/create-checkout'
+      });
     }
   );
 

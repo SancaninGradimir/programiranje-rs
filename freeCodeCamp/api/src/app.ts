@@ -83,6 +83,7 @@ export const buildOptions: FastifyHttpOptions<
   FastifyBaseLogger
 > = {
   loggerInstance: getLogger(),
+  trustProxy: true,
   genReqId: () => randomBytes(8).toString('hex'),
   // disabled so we can customise the request/response logging
   disableRequestLogging: true,
@@ -185,7 +186,11 @@ export const build = async (
       fastify.addHook('onRequest', fastify.csrfProtection);
       fastify.addHook('onRequest', fastify.send401IfNoUser);
 
-      await fastify.register(protectedRoutes.challengeRoutes);
+      await fastify.register(async function (fastify) {
+        fastify.addHook('onRequest', fastify.send403IfNoPremium);
+
+        await fastify.register(protectedRoutes.challengeRoutes);
+      });
       await fastify.register(protectedRoutes.donateRoutes);
       await fastify.register(protectedRoutes.socratesRoutes);
       await fastify.register(protectedRoutes.protectedCertificateRoutes);
@@ -239,6 +244,8 @@ export const build = async (
   }
 
   void fastify.register(publicRoutes.chargeStripeRoute);
+  void fastify.register(publicRoutes.polarCheckoutRoute);
+  void fastify.register(publicRoutes.polarWebhookRoute);
   void fastify.register(publicRoutes.signoutRoute);
   void fastify.register(publicRoutes.emailSubscribtionRoutes);
   void fastify.register(publicRoutes.userPublicGetRoutes);

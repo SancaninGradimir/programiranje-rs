@@ -1,9 +1,13 @@
 import { withPrefix, useStaticQuery, graphql } from 'gatsby';
 import React, { useEffect, useMemo, useState } from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { viewTypes } from '@freecodecamp/shared/config/challenge-types';
 
 import FourOhFour from '../components/FourOhFour';
 import { Loader } from '../components/helpers';
+import Login from '../components/Header/components/login';
+import { isSignedInSelector } from '../redux/selectors';
 import type {
   ChallengeData,
   ChallengeNode,
@@ -186,16 +190,28 @@ export function ShowChallenge({ params }: ChallengeRouteProps): JSX.Element {
     }
   `);
 
-  return <ShowChallengeView params={params} data={data} />;
+  return <ConnectedShowChallengeView params={params} data={data} />;
 }
 
-type ShowChallengeViewProps = ChallengeRouteProps & {
+const mapStateToProps = createSelector(
+  isSignedInSelector,
+  isSignedIn => ({
+    isSignedIn
+  })
+);
+
+type ShowChallengeViewOwnProps = ChallengeRouteProps & {
   data: ChallengeRouteData;
 };
 
-export function ShowChallengeView({
+type ShowChallengeViewProps = ShowChallengeViewOwnProps & {
+  isSignedIn: boolean;
+};
+
+function ShowChallengeView({
   params,
-  data
+  data,
+  isSignedIn
 }: ShowChallengeViewProps): JSX.Element {
 
   const routeIndex = useMemo(
@@ -212,6 +228,10 @@ export function ShowChallengeView({
   const [hasFailed, setHasFailed] = useState(false);
 
   useEffect(() => {
+    if (!isSignedIn) {
+      return;
+    }
+
     if (!currentNode) {
       setCurrentChallenge(null);
       setProjectPreview(undefined);
@@ -267,7 +287,19 @@ export function ShowChallengeView({
     return () => {
       isCancelled = true;
     };
-  }, [currentNode, routeIndex.lastByBlock]);
+  }, [currentNode, routeIndex.lastByBlock, isSignedIn]);
+
+  if (!isSignedIn) {
+    return (
+      <main style={{ textAlign: 'center', padding: '4rem 1rem' }}>
+        <h1>Prijavi se da nastaviš učenje</h1>
+        <p>
+          Prijavi se i dobijaš 7 dana besplatnog pristupa svim kursevima.
+        </p>
+        <Login block={true}>Prijavi se</Login>
+      </main>
+    );
+  }
 
   if (!currentNode || hasFailed) {
     return <FourOhFour />;
@@ -334,6 +366,13 @@ export function ShowChallengeView({
 ShowChallenge.displayName = 'ShowChallenge';
 ShowChallengeView.displayName = 'ShowChallengeView';
 
+const ConnectedShowChallengeView = connect<
+  { isSignedIn: boolean },
+  unknown,
+  ShowChallengeViewOwnProps
+>(mapStateToProps)(ShowChallengeView);
+
 export { normalizeLearnSlug, mergeSolutionFiles, createRouteIndex };
+export { ConnectedShowChallengeView as ShowChallengeView };
 
 export default ShowChallenge;

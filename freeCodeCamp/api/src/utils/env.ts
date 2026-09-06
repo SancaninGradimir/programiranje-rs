@@ -61,6 +61,9 @@ assert.ok(process.env.AUTH0_DOMAIN);
 assert.ok(process.env.API_LOCATION);
 assert.ok(process.env.JWT_SECRET);
 assert.ok(process.env.STRIPE_SECRET_KEY);
+assert.ok(process.env.POLAR_ACCESS_TOKEN);
+assert.ok(process.env.POLAR_SUCCESS_URL);
+assert.ok(process.env.POLAR_WEBHOOK_SECRET);
 assert.ok(process.env.MONGOHQ_URL);
 assert.ok(process.env.COOKIE_SECRET);
 assert.ok(process.env.SOCRATES_API_KEY);
@@ -222,6 +225,9 @@ export const SES_SMTP_HOST =
 export const SHOW_UPCOMING_CHANGES =
   process.env.SHOW_UPCOMING_CHANGES === 'true';
 export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+export const POLAR_ACCESS_TOKEN = process.env.POLAR_ACCESS_TOKEN;
+export const POLAR_SUCCESS_URL = process.env.POLAR_SUCCESS_URL;
+export const POLAR_WEBHOOK_SECRET = process.env.POLAR_WEBHOOK_SECRET;
 export const GROWTHBOOK_FASTIFY_API_HOST =
   process.env.GROWTHBOOK_FASTIFY_API_HOST;
 export const GROWTHBOOK_FASTIFY_CLIENT_KEY =
