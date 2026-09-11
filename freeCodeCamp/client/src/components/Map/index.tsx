@@ -115,7 +115,7 @@ function Map({ forLanding = false }: MapProps) {
                    likely be re-enabled there later. It still renders on /learn
                    and the DailyCodingChallengeWidget component itself is
                    untouched, as is the /learn/daily-coding-challenge route. */
-                stage === SuperBlockStage.English && !forLanding && (
+                stage === SuperBlockStage.English && false && (
                   <>
                     <DailyCodingChallengeWidget forLanding={forLanding} />
                     <Spacer size='m' />

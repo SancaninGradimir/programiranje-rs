@@ -1,30 +1,26 @@
 import React from 'react';
+import logo from './ucimo-logo-black-transparent.png';
 
 function UčimoLogo(
   props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ): JSX.Element {
-  // Simple text-based logo — replace with a proper SVG brand logo
-  // when the final graphic design is ready.
   return (
     <svg
-      height={24}
-      version='1.1'
-      viewBox='0 0 100 24'
-      width={100}
+      height={40}
+      width={40}
+      viewBox='0 0 40 40'
       xmlns='http://www.w3.org/2000/svg'
-      xmlnsXlink='http://www.w3.org/1999/xlink'
       {...props}
     >
-      <text
-        fill='#ffffff'
-        fontFamily='system-ui, -apple-system, sans-serif'
-        fontSize='18'
-        fontWeight='700'
+      <image
+        href={logo}
         x='0'
-        y='18'
-      >
-        Učimo
-      </text>
+        y='0'
+        width='40'
+        height='40'
+        preserveAspectRatio='xMidYMid meet'
+        style={{ filter: 'invert(1)' }}
+      />
     </svg>
   );
 }
