@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Col, Spacer, Dropdown, MenuItem, Alert } from '@freecodecamp/ui';
 import { catalog } from '@freecodecamp/shared/config/catalog';
 import CatalogItem from '../components/catalog-item';
+import Roadmap from '../components/roadmap';
 
 import './catalog.css';
 
@@ -69,6 +70,7 @@ const CatalogPage = () => {
 
   return (
     <main>
+      <Roadmap />
       <Spacer size='l' />
       <h1 className='text-center'>{t('curriculum.catalog.title')}</h1>
       <Spacer size='l' />
