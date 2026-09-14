@@ -324,6 +324,11 @@ const ShowGeneric = ({
               videoIsLoaded={videoIsLoaded}
               videoLocaleIds={videoLocaleIds}
             />
+            <p>
+              <strong>Kako uključiti srpske titlove:</strong> U YouTube plejeru
+              kliknite na Podešavanja (⚙️), izaberite Titlovi/CC, zatim
+              Automatski prevod i srpski.
+            </p>
             <Spacer size='m' />
           </>
         )}
