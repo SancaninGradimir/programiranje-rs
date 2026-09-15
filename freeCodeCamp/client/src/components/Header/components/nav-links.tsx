@@ -164,6 +164,15 @@ function NavLinks({
           {t('buttons.catalog')}
         </Link>
       </li>
+      <li key='video-tutorials'>
+        <Link
+          className='nav-link'
+          onKeyDown={handleMenuKeyDown}
+          to='/video-tutorials'
+        >
+          {t('buttons.video-tutorials')}
+        </Link>
+      </li>
       {currentUserName && (
         <>
           <li key='profile'>
